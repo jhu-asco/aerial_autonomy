@@ -7,9 +7,9 @@
 using namespace std;
 
 //// \brief Definitions
-struct LSM {
-  template <class Event> void process_event(Event &evt) {
-    std::cout << "Event type : " << typeid(evt).name() << std::endl;
+struct LogicStateMachine {
+  template <class Event> void process_event(Event &event) {
+    std::cout << "Event type : " << typeid(event).name() << std::endl;
   }
 };
 ////
@@ -18,31 +18,31 @@ struct LSM {
 /// All the tests are defined here
 namespace basic_events{
 TEST(BasicEventManagerTest, InstantiateManager) {
-  ASSERT_NO_THROW(new BasicEventManager<LSM>());
+  ASSERT_NO_THROW(new BasicEventManager<LogicStateMachine>());
 }
 TEST(BasicEventManagerTest, PrintEventMap) {
-  BasicEventManager<LSM> evt_manager;
-  ASSERT_NO_THROW(evt_manager.printEventList());
+  BasicEventManager<LogicStateMachine> event_manager;
+  ASSERT_NO_THROW(event_manager.printEventList());
 }
 TEST(BasicEventManagerTest, TriggerEvents) {
-  BasicEventManager<LSM> evt_manager;
-  LSM lsm;
-  evt_manager.triggerEvent("Land", lsm);
-  evt_manager.triggerEvent("Takeoff", lsm);
-  evt_manager.triggerEvent("Abort", lsm);
+  BasicEventManager<LogicStateMachine> event_manager;
+  LogicStateMachine logic_state_machine;
+  event_manager.triggerEvent("Land", logic_state_machine);
+  event_manager.triggerEvent("Takeoff", logic_state_machine);
+  event_manager.triggerEvent("Abort", logic_state_machine);
 }
 }
 namespace visual_servoing_events{
 TEST(VisualServoingEventManagerTest, InstantiateManager) {
-  ASSERT_NO_THROW(new VisualServoingEventManager<LSM>());
+  ASSERT_NO_THROW(new VisualServoingEventManager<LogicStateMachine>());
 }
 TEST(VisualServoingEventManagerTest, TriggerEvents) {
-  VisualServoingEventManager<LSM> evt_manager;
-  LSM lsm;
-  evt_manager.triggerEvent("Land", lsm);
-  evt_manager.triggerEvent("Takeoff", lsm);
-  evt_manager.triggerEvent("Abort", lsm);
-  evt_manager.triggerEvent("FollowTrajectory", lsm);
+  VisualServoingEventManager<LogicStateMachine> event_manager;
+  LogicStateMachine logic_state_machine;
+  event_manager.triggerEvent("Land", logic_state_machine);
+  event_manager.triggerEvent("Takeoff", logic_state_machine);
+  event_manager.triggerEvent("Abort", logic_state_machine);
+  event_manager.triggerEvent("FollowTrajectory", logic_state_machine);
 }
 }
 ///

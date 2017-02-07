@@ -19,12 +19,12 @@ class RosEventTrigger(QObject):
     arm_signal = pyqtSignal(str, name='armStatus')
     state_machine_signal = pyqtSignal(str, name='stateMachineStatus')
 
-    '''
-    Class that loads an event file from a parameter
-    It provides method to triggerEvents using ros publisher
-    '''
-
     def __init__(self, event_file_name):
+        '''
+        Class that loads an event file from a parameter
+        It provides method to triggerEvents using ros publisher
+        This class separates the GUI part of plugin from ros interface
+        '''
         super(RosEventTrigger, self).__init__()
         # Create ros node
         if not event_file_name:
@@ -59,9 +59,15 @@ class RosEventTrigger(QObject):
         rospy.Subscriber("stat_machine_status", String, stateMachineCallback)
 
     def statusCallback(self, msg, signal):
+        """
+        Ros callback for status data from quad, arm, state machine
+        """
         signal.emit(str(msg.data))
 
     def triggerEvent(self, event_name):
+        """
+        Function to publish ros event based on event name
+        """
         if not rospy.is_shutdown():
             msg = String()
             msg.data = event_name

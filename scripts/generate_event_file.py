@@ -9,28 +9,44 @@ import os
 # %%
 
 
-def create_event(event_name, accumulate_evt_map, out_file):
+def create_event(event_name, accumulate_event_map, out_file):
+    """
+    Create a class with event_name and a function to trigger
+    the event. Also add the event name into a initializer list
+    for creating a map of event name to the function
+    Params:
+      event_name         - Name of the the event class to be created
+      accumulate_event_map - Variable to save initializer list into
+      out_file           - Write the event class to out_file
+    """
     print >>out_file, (
         "  struct {0} {{}};\n"
-        "  template<class LSM> \n"
-        "  void generate_{0}(LSM &lsm) {{\n"
+        "  template<class LogicStateMachine> \n"
+        "  void generate_{0}(LogicStateMachine &logic_state_machine) {{\n"
         "    {0} evt;\n"
-        "    lsm.process_event(evt);\n"
+        "    logic_state_machine.process_event(evt);\n"
         "  }}\n").format(event_name)
-    accumulate_evt_map.append(
-        '{{"{0}", generate_{0}<LSM>}}'.format(event_name))
+    accumulate_event_map.append(
+        '{{"{0}", generate_{0}<LogicStateMachine>}}'.format(event_name))
 
 
-def create_event_manager(event_manager_name, accumulate_evt_map, out_file):
+def create_event_manager(event_manager_name, accumulate_event_map, out_file):
+    """
+    Create event manager class. This class provides functions to trigger
+    an event by name, and print all the events managed by the class. The
+    event manager is enclosed by event_file_name namespace to distinguish
+    between different event files containing similar events and event managers
+    """
     print >>out_file, (
-        "  template<class LSM>\n"
+        "  template<class LogicStateMachine>\n"
         "  class {0} {{\n"
-        "    typedef std::function<void(LSM&)> EvtFcn;\n"
-        "    std::map<std::string, EvtFcn> evt_map = {{\n\t{1},\n"
+        "    typedef std::function<void(LogicStateMachine&)> EventFunction;\n"
+        "    std::map<std::string, EventFunction> evt_map = {{\n\t{1},\n"
         "    }};\n"
         "    public:\n"
-        "    void triggerEvent(std::string evt_name, LSM& lsm) {{\n"
-        "      evt_map[evt_name](lsm);\n"
+        "    void triggerEvent(std::string evt_name,"
+        " LogicStateMachine& logic_state_machine) {{\n"
+        "      evt_map[evt_name](logic_state_machine);\n"
         "      return;\n"
         "    }}\n"
         "    void printEventList() {{\n"
@@ -39,7 +55,7 @@ def create_event_manager(event_manager_name, accumulate_evt_map, out_file):
         "        std::cout<<s.first<<std::endl;\n"
         "      }}\n"
         "    }}\n"
-        "  }};").format(event_manager_name, ',\n\t'.join(accumulate_evt_map),)
+        "  }};").format(event_manager_name, ',\n\t'.join(accumulate_event_map),)
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
@@ -60,14 +76,15 @@ if __name__ == "__main__":
         "#include<iostream>\n"
         "#include <map>\n"
     )
+    # Enclose the events and event manager into namespace
     print >> out_file, "namespace %s {" % (evt_file_base,)
-    accumulate_evt_map = []
+    accumulate_event_map = []
     event_names_list = f.read().splitlines()
     event_manager_name = event_names_list[0][:-1]
     for event_name in event_names_list[1:]:
         event_name = event_name.strip()
-        create_event(event_name, accumulate_evt_map, out_file)
+        create_event(event_name, accumulate_event_map, out_file)
     print >>out_file, "\n//Event manager class"
-    create_event_manager(event_manager_name, accumulate_evt_map, out_file)
+    create_event_manager(event_manager_name, accumulate_event_map, out_file)
     print >>out_file, "}"
     out_file.close()

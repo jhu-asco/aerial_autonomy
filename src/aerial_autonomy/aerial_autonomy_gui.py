@@ -91,6 +91,9 @@ class EventTransmissionGUI(Plugin):
             self.event_trigger.arm_signal.connect(armStatusCallback)
 
     def _parse_args(self, argv):
+        """
+        Parse extra arguments when plugin is deployed in standalone mode
+        """
         parser = argparse.ArgumentParser(
             prog='aerial_autonomy', add_help=False)
         EventTransmissionGUI.add_arguments(parser)
@@ -98,6 +101,9 @@ class EventTransmissionGUI(Plugin):
 
     @staticmethod
     def add_arguments(parser):
+        """
+        Notify rqt_gui that this plugin can parse these extra arguments
+        """
         group = parser.add_argument_group(
             'Options for aerial autonomy gui plugin')
         group.add_argument("-e", "--event_file", type=str,
@@ -108,9 +114,16 @@ class EventTransmissionGUI(Plugin):
                            help="To add arm state textbox")
 
     def get_row_col(self, button_index, ncols):
+        """
+        Automatically find the row and col to add the button
+        to in a grid based on index of the button
+        """
         col_index = button_index % ncols
         row_index = int((button_index - col_index) / ncols)
         return(row_index, col_index)
 
     def updateStatus(self, status, text_box):
+        """
+        Generic placeholder function to update text box
+        """
         text_box.setText(status)

@@ -31,6 +31,15 @@ import sys
 from aerial_autonomy.aerial_autonomy_gui import EventTransmissionGUI
 from rqt_gui.main import Main
 
+"""
+Standalone script to run the plugin with rqt_gui. This allows for
+argument passing from commandline. To run the script
+        rosrun aerial_autonomy rqt_aerial_autonomy_gui
+To get arguments:
+        rosrun aerial_autonomy rqt_aerial_autonomy_gui -h
+
+"""
+
 plugin_name = 'aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI'
 main = Main()
 sys.exit(
