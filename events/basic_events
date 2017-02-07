@@ -1,4 +1,4 @@
 BasicEventManager:
-	Land
-	Takeoff
-	Abort
+  Land
+  Takeoff
+  Abort

@@ -19,7 +19,7 @@ find_package(Boost REQUIRED COMPONENTS system)
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
-# catkin_python_setup()
+catkin_python_setup()
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -121,9 +121,9 @@ catkin_package(
 ## The header file contains the structs to define events
 ## It also adds an event manager class templated on StateMachine
 ## to trigger events based on name:
-##	void triggerEvent(event_name, state_machine)
+##  void triggerEvent(event_name, state_machine)
 ## It also lets you print all the event names created:
-##	void printEventList()
+##  void printEventList()
 generate_event_targets(
 basic_events
 visual_servoing_events
@@ -216,3 +216,6 @@ add_dependencies(${PROJECT_NAME}-evnt-mngr-test ${${PROJECT_NAME}_EXPORTED_TARGE
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+install(FILES plugin.xml
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+        )
