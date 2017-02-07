@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<library path="src">
+  <class name="aerial_autonomy/aerial_autonomy_gui" type="aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      GUI to trigger events to state machine and receive status updates on quad, arm, and state machine
+    </description>
+    <qtgui>
+      <label>AerialAutonomyGUI</label>
+      <icon type="theme">utilities-system-monitor</icon>
+      <statustip>Plugin to trigger events to state machine</statustip>
+    </qtgui>
+  </class>
+</library>
