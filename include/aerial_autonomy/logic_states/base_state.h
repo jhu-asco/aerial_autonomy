@@ -1,5 +1,4 @@
-#ifndef BASE_STATE_H
-#define BASE_STATE_H
+#pragma once
 /**
  * Base state for all states in logic state machine
  *
@@ -46,4 +45,3 @@ public:
    */
   virtual ~BaseState() {}
 };
-#endif // BASE_STATE_H

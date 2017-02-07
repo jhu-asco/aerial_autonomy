@@ -3,14 +3,14 @@
 
 //// \brief Definitions
 ///  Define any necessary subclasses for tests here
-class SampleCtrlr : public Controller<int, int, int> {
+class SampleController : public Controller<int, int, int> {
   virtual void setGoal(int) { return; }
   virtual int run(int) { return 0; }
 };
 
-class SampleHrdwrCntrlr : ControllerHardwareConnector<int, int, int> {
+class SampleHardwareController : ControllerHardwareConnector<int, int, int> {
 public:
-  SampleHrdwrCntrlr(Controller<int, int, int> &ctrlr)
+  SampleHardwareController(Controller<int, int, int> &ctrlr)
       : ControllerHardwareConnector<int, int, int>(ctrlr) {}
   virtual void sendHardwareCommands(int) { return; }
 
@@ -22,8 +22,8 @@ public:
 /// \brief TEST
 /// All the tests are defined here
 TEST(BaseCtrlrHrdwrCnctrTests, EmptyConnector) {
-  SampleCtrlr ctrlr;
-  ASSERT_NO_THROW(new SampleHrdwrCntrlr(ctrlr));
+  SampleController ctrlr;
+  ASSERT_NO_THROW(new SampleHardwareController(ctrlr));
 }
 ///
 

@@ -1,13 +1,23 @@
-#ifndef BASE_CONTROL_HARDWARE_CONNECTOR_H
-#define BASE_CONTROL_HARDWARE_CONNECTOR_H
+#pragma once
 #include <aerial_autonomy/controllers/base_controller.h>
 
+/**
+* @brief Base for ControllerHardwareConnector class
+*/
 struct AbstractControllerHardwareConnector {
 public:
   virtual void run() = 0;
   virtual ~AbstractControllerHardwareConnector() {}
 };
 
+/**
+* @brief Performs a single step of extracting data, running controller
+* and sending data back to hardware
+*
+* @tparam SensorDataType  Type of data to take from hardware
+* @tparam GoalType        Type of goal for controller
+* @tparam ControlType     Type of control sent to hardware
+*/
 template <class SensorDataType, class GoalType, class ControlType>
 class ControllerHardwareConnector : public AbstractControllerHardwareConnector {
 public:
@@ -15,9 +25,23 @@ public:
       Controller<SensorDataType, GoalType, ControlType> &ctrlr)
       : AbstractControllerHardwareConnector(), ctrlr_(ctrlr) {}
 
+	/**
+	 * @brief  extract relevant data from hardware/estimators
+	 *
+	 * @return data structure needed for controller to perform step function
+	 */
   virtual SensorDataType extractSensorData() = 0;
+
+	/**
+	 * @brief  Send hardware commands for example quadrotor rpy
+	 *
+	 * @param controls Data structure the quadrotor is expecting
+	 */
   virtual void sendHardwareCommands(ControlType controls) = 0;
 
+	/**
+	 * @brief Extracts sensor data, run controller and send data back to hardware
+	 */
   virtual void run() {
     // Get latest sensor data
     // run the controller
@@ -26,13 +50,19 @@ public:
     ControlType control = ctrlr_.run(sensor_data);
     sendHardwareCommands(control);
   }
-  // Can be made into a macro
+	/**
+	 * @brief Set the goal for controller
+	 *
+	 * @param goal Goal for controller
+	 */
   void setGoal(GoalType goal) {
     // call the controller set goal function
     ctrlr_.setGoal(goal);
   }
 
 private:
+	/**
+	 * @brief  controller class used to perform step function
+	 */
   Controller<SensorDataType, GoalType, ControlType> &ctrlr_;
 };
-#endif // BASE_CONTROL_HARDWARE_CONNECTOR_H
