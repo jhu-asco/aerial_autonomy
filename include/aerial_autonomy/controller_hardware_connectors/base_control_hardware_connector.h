@@ -22,47 +22,47 @@ template <class SensorDataType, class GoalType, class ControlType>
 class ControllerHardwareConnector : public AbstractControllerHardwareConnector {
 public:
   ControllerHardwareConnector(
-      Controller<SensorDataType, GoalType, ControlType> &ctrlr)
-      : AbstractControllerHardwareConnector(), ctrlr_(ctrlr) {}
+      Controller<SensorDataType, GoalType, ControlType> &controller)
+      : AbstractControllerHardwareConnector(), controller_(controller) {}
 
-	/**
-	 * @brief  extract relevant data from hardware/estimators
-	 *
-	 * @return data structure needed for controller to perform step function
-	 */
+  /**
+   * @brief  extract relevant data from hardware/estimators
+   *
+   * @return data structure needed for controller to perform step function
+   */
   virtual SensorDataType extractSensorData() = 0;
 
-	/**
-	 * @brief  Send hardware commands for example quadrotor rpy
-	 *
-	 * @param controls Data structure the quadrotor is expecting
-	 */
+  /**
+   * @brief  Send hardware commands for example quadrotor rpy
+   *
+   * @param controls Data structure the quadrotor is expecting
+   */
   virtual void sendHardwareCommands(ControlType controls) = 0;
 
-	/**
-	 * @brief Extracts sensor data, run controller and send data back to hardware
-	 */
+  /**
+   * @brief Extracts sensor data, run controller and send data back to hardware
+   */
   virtual void run() {
     // Get latest sensor data
     // run the controller
     // send the data back to hardware manager
     SensorDataType sensor_data = extractSensorData();
-    ControlType control = ctrlr_.run(sensor_data);
+    ControlType control = controller_.run(sensor_data);
     sendHardwareCommands(control);
   }
-	/**
-	 * @brief Set the goal for controller
-	 *
-	 * @param goal Goal for controller
-	 */
+  /**
+   * @brief Set the goal for controller
+   *
+   * @param goal Goal for controller
+   */
   void setGoal(GoalType goal) {
     // call the controller set goal function
-    ctrlr_.setGoal(goal);
+    controller_.setGoal(goal);
   }
 
 private:
-	/**
-	 * @brief  controller class used to perform step function
-	 */
-  Controller<SensorDataType, GoalType, ControlType> &ctrlr_;
+  /**
+   * @brief  controller class used to perform step function
+   */
+  Controller<SensorDataType, GoalType, ControlType> &controller_;
 };

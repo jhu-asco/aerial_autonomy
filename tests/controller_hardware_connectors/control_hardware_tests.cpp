@@ -10,8 +10,8 @@ class SampleController : public Controller<int, int, int> {
 
 class SampleHardwareController : ControllerHardwareConnector<int, int, int> {
 public:
-  SampleHardwareController(Controller<int, int, int> &ctrlr)
-      : ControllerHardwareConnector<int, int, int>(ctrlr) {}
+  SampleHardwareController(Controller<int, int, int> &controller)
+      : ControllerHardwareConnector<int, int, int>(controller) {}
   virtual void sendHardwareCommands(int) { return; }
 
   virtual int extractSensorData() { return 0; }
@@ -21,9 +21,9 @@ public:
 
 /// \brief TEST
 /// All the tests are defined here
-TEST(BaseCtrlrHrdwrCnctrTests, EmptyConnector) {
-  SampleController ctrlr;
-  ASSERT_NO_THROW(new SampleHardwareController(ctrlr));
+TEST(BaseControllerHardwareTests, EmptyConnector) {
+  SampleController controller;
+  ASSERT_NO_THROW(new SampleHardwareController(controller));
 }
 ///
 
