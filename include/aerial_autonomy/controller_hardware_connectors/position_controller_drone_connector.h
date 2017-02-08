@@ -6,6 +6,12 @@
 
 #include <parsernode/parser.h>
 
+/**
+ * @class PositionControllerDroneConnector
+ * @brief Manages communication between a drone plugin and a position controller
+ * that outputs
+ * position commands.
+ */
 class PositionControllerDroneConnector : 
   public ControllerHardwareConnector<NoSensor, PositionYaw, PositionYaw> {
 public:
