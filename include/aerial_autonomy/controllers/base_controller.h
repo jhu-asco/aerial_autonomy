@@ -14,9 +14,14 @@ public:
    * internal locking as the run function can be called from a separate thread
    * @param goal The goal for control loop
    */
-  virtual void setGoal(GoalType goal) = 0;
+  virtual void setGoal(GoalType goal) {
+    goal_ = goal;
+  }
   /**
    * @brief Destructor
    */
   virtual ~Controller() {}
+
+protected:
+  GoalType goal_;
 };
