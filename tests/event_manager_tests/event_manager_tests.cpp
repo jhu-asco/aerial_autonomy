@@ -2,14 +2,15 @@
 #include <aerial_autonomy/visual_servoing_events.h>
 #include <gtest/gtest.h>
 #include <iostream>
-#include <typeinfo>
+#include <typeindex>
 
 using namespace std;
 
 //// \brief Definitions
 struct LogicStateMachine {
+  std::type_index type_index_event_ = typeid(NULL);
   template <class Event> void process_event(Event &event) {
-    std::cout << "Event type : " << typeid(event).name() << std::endl;
+    type_index_event_ = typeid(event);
   }
 };
 ////
@@ -22,14 +23,21 @@ TEST(BasicEventManagerTest, InstantiateManager) {
 }
 TEST(BasicEventManagerTest, PrintEventMap) {
   BasicEventManager<LogicStateMachine> event_manager;
-  ASSERT_NO_THROW(event_manager.printEventList());
+  std::set<std::string> event_set = event_manager.getEventSet();
+  std::set<std::string> expected_set { "Land", "Takeoff", "Abort"};
+  ASSERT_TRUE(event_set == expected_set);
+}
+TEST(BasicEventManagerTest, TriggerWrongEvent) {
+  BasicEventManager<LogicStateMachine> event_manager;
+  LogicStateMachine logic_state_machine;
+  ASSERT_THROW((event_manager.triggerEvent("FollowTrajectory",logic_state_machine)),
+               std::runtime_error);
 }
 TEST(BasicEventManagerTest, TriggerEvents) {
   BasicEventManager<LogicStateMachine> event_manager;
   LogicStateMachine logic_state_machine;
   event_manager.triggerEvent("Land", logic_state_machine);
-  event_manager.triggerEvent("Takeoff", logic_state_machine);
-  event_manager.triggerEvent("Abort", logic_state_machine);
+  ASSERT_EQ(logic_state_machine.type_index_event_, std::type_index(typeid(Land)));
 }
 }
 namespace visual_servoing_events{
@@ -39,10 +47,8 @@ TEST(VisualServoingEventManagerTest, InstantiateManager) {
 TEST(VisualServoingEventManagerTest, TriggerEvents) {
   VisualServoingEventManager<LogicStateMachine> event_manager;
   LogicStateMachine logic_state_machine;
-  event_manager.triggerEvent("Land", logic_state_machine);
-  event_manager.triggerEvent("Takeoff", logic_state_machine);
-  event_manager.triggerEvent("Abort", logic_state_machine);
   event_manager.triggerEvent("FollowTrajectory", logic_state_machine);
+  ASSERT_EQ(logic_state_machine.type_index_event_, std::type_index(typeid(FollowTrajectory)));
 }
 }
 ///
