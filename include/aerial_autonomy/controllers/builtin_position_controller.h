@@ -5,6 +5,7 @@
 #include "aerial_autonomy/types/no_sensor.h"
 
 class BuiltInPositionController : public Controller<NoSensor, PositionYaw, PositionYaw> {
+public:
   /**
    * @brief Run the control loop.  Simply returns the goal position.
    * @param sensor_data Data required for control loop. This 
