@@ -15,6 +15,8 @@
 function(generate_event_targets)
   # If directory to store event files does not exist, create directory
   set(EVENT_DIRECTORY "${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}/${PROJECT_NAME}")
+  set(EVENT_INCLUDE_DIRECTORY "${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}")
+  include_directories(${EVENT_INCLUDE_DIRECTORY})
   if (NOT (EXISTS ${EVENT_DIRECTORY}))
     execute_process(
         COMMAND ${CMAKE_COMMAND} -E make_directory ${EVENT_DIRECTORY}
