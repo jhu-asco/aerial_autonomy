@@ -9,6 +9,7 @@ set(CMAKE_CXX_FLAGS "-Werror -std=c++11 ${CMAKE_CXX_FLAGS}")
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
+  parsernode
 )
 
 ## System dependencies are found with CMake's conventions
@@ -102,7 +103,7 @@ find_package(Boost REQUIRED COMPONENTS system)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-#  LIBRARIES aerial_autonomy
+  LIBRARIES aerial_autonomy
 #  CATKIN_DEPENDS roscpp std_msgs
 #  DEPENDS system_lib
 )
@@ -121,9 +122,10 @@ include_directories(
 )
 
 ## Declare a C++ library
-# add_library(aerial_autonomy
-#   src/${PROJECT_NAME}/aerial_autonomy.cpp
-# )
+add_library(aerial_autonomy
+  src/controllers/builtin_position_controller.cpp
+  src/controller_hardware_connectors/position_controller_drone_connector.cpp
+)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -138,9 +140,9 @@ include_directories(
 # add_dependencies(aerial_autonomy_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(aerial_autonomy_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(aerial_autonomy
+  ${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##
