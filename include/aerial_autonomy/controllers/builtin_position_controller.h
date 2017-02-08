@@ -4,6 +4,9 @@
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/no_sensor.h"
 
+/**
+ * @brief A position controller that simply outputs the set goal position
+ */
 class BuiltInPositionController : public Controller<NoSensor, PositionYaw, PositionYaw> {
 public:
   /**
