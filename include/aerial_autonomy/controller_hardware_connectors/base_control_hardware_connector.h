@@ -26,20 +26,6 @@ public:
       : AbstractControllerHardwareConnector(), controller_(controller) {}
 
   /**
-   * @brief  extract relevant data from hardware/estimators
-   *
-   * @return data structure needed for controller to perform step function
-   */
-  virtual SensorDataType extractSensorData() = 0;
-
-  /**
-   * @brief  Send hardware commands for example quadrotor rpy
-   *
-   * @param controls Data structure the quadrotor is expecting
-   */
-  virtual void sendHardwareCommands(ControlType controls) = 0;
-
-  /**
    * @brief Extracts sensor data, run controller and send data back to hardware
    */
   virtual void run() {
@@ -59,6 +45,21 @@ public:
     // call the controller set goal function
     controller_.setGoal(goal);
   }
+
+protected:
+  /**
+   * @brief  extract relevant data from hardware/estimators
+   *
+   * @return data structure needed for controller to perform step function
+   */
+  virtual SensorDataType extractSensorData() = 0;
+
+  /**
+   * @brief  Send hardware commands for example quadrotor rpy
+   *
+   * @param controls Data structure the quadrotor is expecting
+   */
+  virtual void sendHardwareCommands(ControlType controls) = 0;
 
 private:
   /**
