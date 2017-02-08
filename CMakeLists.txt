@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
 )
 
+include(cmake/add_event_function.cmake)
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system)
 
@@ -18,7 +19,7 @@ find_package(Boost REQUIRED COMPONENTS system)
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
-# catkin_python_setup()
+catkin_python_setup()
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -107,6 +108,28 @@ catkin_package(
 #  DEPENDS system_lib
 )
 
+######################
+## Event Generation ##
+######################
+## Generates event header files
+## ADD ${${PROJECT_NAME}_EXPORTED_TARGETS} as a dependency to any
+## targets that use the event header files
+## This target is also common to messages, cfg files etc
+## Add ${EVENT_INCLUDE_DIR} to include_directories
+## To use the event header files in source code, include
+## them as #include <${PROJECT_NAME}/event_file_name.h>
+## The header file contains the structs to define events
+## It also adds an event manager class templated on StateMachine
+## to trigger events based on name:
+##  void triggerEvent(event_name, state_machine)
+## It also lets you print all the event names created:
+##  void printEventList()
+generate_event_targets(
+basic_events
+visual_servoing_events
+)
+
+
 ###########
 ## Build ##
 ###########
@@ -184,9 +207,15 @@ include_directories(
 ## Add gtest based cpp test target and link libraries
 catkin_add_gtest(${PROJECT_NAME}-logic-states-test tests/logic_states/base_state_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test tests/controller_hardware_connectors/control_hardware_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-evnt-mngr-test tests/event_manager_tests/event_manager_tests.cpp)
+add_dependencies(${PROJECT_NAME}-evnt-mngr-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_aerial_autonomy.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+install(FILES plugin.xml
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+        )

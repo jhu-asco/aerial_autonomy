@@ -1,0 +1,5 @@
+VisualServoingEventManager:
+  Land
+  Takeoff
+  Abort
+  FollowTrajectory
