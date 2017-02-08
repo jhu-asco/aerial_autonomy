@@ -10,6 +10,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
   parsernode
+  class_loader
+  pluginlib
 )
 
 ## System dependencies are found with CMake's conventions
@@ -187,6 +189,7 @@ target_link_libraries(aerial_autonomy
 catkin_add_gtest(${PROJECT_NAME}-logic-states-test tests/logic_states/base_state_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test tests/controller_hardware_connectors/control_hardware_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/position_controller_drone_connector_tests.cpp)
+target_link_libraries(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test aerial_autonomy)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
