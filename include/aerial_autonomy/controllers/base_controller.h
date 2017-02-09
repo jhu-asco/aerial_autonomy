@@ -14,10 +14,10 @@ public:
   virtual ControlType run(SensorDataType sensor_data) {
     GoalType goal;
     {
-      boost::mutex::scoped_lock lock(goal_mutex);
+      boost::mutex::scoped_lock lock(goal_mutex_);
       goal = goal_;
     }
-    return runImpl(sensor_data, goal);
+    return runImplementation(sensor_data, goal);
   }
   /**
    * @brief set the goal condition for the controller. Should use
@@ -25,7 +25,7 @@ public:
    * @param goal The goal for control loop
    */
   virtual void setGoal(GoalType goal) {
-    boost::mutex::scoped_lock lock(goal_mutex);
+    boost::mutex::scoped_lock lock(goal_mutex_);
     goal_ = goal;
   }
   /**
@@ -34,7 +34,7 @@ public:
    * @param goal The goal for control loop
    */
   virtual GoalType getGoal() {
-    boost::mutex::scoped_lock lock(goal_mutex);
+    boost::mutex::scoped_lock lock(goal_mutex_);
     return goal_;
   }
   /**
@@ -50,9 +50,10 @@ protected:
    * @param goal The set-point for the controller
    * @return Control values to send to hardware
    */
-  virtual ControlType runImpl(SensorDataType sensor_data, GoalType goal) = 0;
+  virtual ControlType runImplementation(SensorDataType sensor_data,
+                                        GoalType goal) = 0;
 
 private:
-  boost::mutex goal_mutex;
+  boost::mutex goal_mutex_;
   GoalType goal_;
 };

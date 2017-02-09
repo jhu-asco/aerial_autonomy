@@ -1,5 +1,6 @@
 #include "aerial_autonomy/controllers/builtin_position_controller.h"
 
-PositionYaw BuiltInPositionController::runImpl(EmptySensor, PositionYaw goal) {
+PositionYaw BuiltInPositionController::runImplementation(EmptySensor,
+                                                         PositionYaw goal) {
   return goal;
 }

@@ -1,6 +1,7 @@
-git diff --cached --name-only --diff-filter=ACMRT | grep "\.[cmh]$" | xargs -n1 clang-format -output-replacements-xml | grep "<replacement " >/dev/null
+git diff --cached --name-only --diff-filter=ACMRT | grep -E "\.([cmh]|cpp)$" | xargs -n1 clang-format -output-replacements-xml | grep "<replacement " >/dev/null
 if [ $? -ne 1 ]
 then 
     echo "Commit did not match clang-format"
+    echo "Run 'git clang-format' to automatically format staged files"
     exit 1;
 fi

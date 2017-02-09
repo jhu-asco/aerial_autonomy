@@ -5,7 +5,7 @@
 ///  Define any necessary subclasses for tests here
 class SampleController : public Controller<int, int, int> {
   virtual void setGoal(int) { return; }
-  virtual int runImpl(int, int) { return 0; }
+  virtual int runImplementation(int, int) { return 0; }
 };
 
 class SampleHardwareController : ControllerHardwareConnector<int, int, int> {
