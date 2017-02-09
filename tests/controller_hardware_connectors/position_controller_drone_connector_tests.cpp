@@ -53,8 +53,7 @@ private:
 
 /// \brief Test BuiltInPositionController
 TEST(PositionControllerDroneConnectorTests, Constructor) {
-  TestQuad tq;
-  parsernode::Parser &drone_hardware = tq;
+  TestQuad drone_hardware;
 
   BuiltInPositionController position_controller;
 
@@ -63,18 +62,20 @@ TEST(PositionControllerDroneConnectorTests, Constructor) {
 }
 
 TEST(PositionControllerDroneConnectorTests, SetGoal) {
-  TestQuad tq;
-  parsernode::Parser &drone_hardware = tq;
+  TestQuad drone_hardware;
 
   // Create controller and connector
   BuiltInPositionController position_controller;
-  auto pos_controller_connector =
-      new PositionControllerDroneConnector(drone_hardware, position_controller);
+  PositionControllerDroneConnector pos_controller_connector(drone_hardware, position_controller);
 
   // Test set goal
   PositionYaw goal(10, 10, 10, 0.1);
-  pos_controller_connector->setGoal(goal);
-  pos_controller_connector->run();
+  pos_controller_connector.setGoal(goal);
+  PositionYaw goal_get = pos_controller_connector.getGoal();
+  ASSERT_EQ(goal_get.x, goal.x);
+  ASSERT_EQ(goal_get.y, goal.y);
+  ASSERT_EQ(goal_get.z, goal.z);
+  pos_controller_connector.run();
 
   parsernode::common::quaddata sensor_data;
   drone_hardware.getquaddata(sensor_data);

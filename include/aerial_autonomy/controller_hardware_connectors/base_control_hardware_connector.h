@@ -42,8 +42,15 @@ public:
    * @param goal Goal for controller
    */
   void setGoal(GoalType goal) {
-    // call the controller set goal function
     controller_.setGoal(goal);
+  }
+  /**
+   * @brief Get the goal for controller
+   *
+   * @return Goal for controller
+   */
+  GoalType getGoal() {
+    return controller_.getGoal();
   }
 
 protected:

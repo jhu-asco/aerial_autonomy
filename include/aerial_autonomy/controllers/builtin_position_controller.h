@@ -11,11 +11,11 @@ class BuiltInPositionController : public Controller<NoSensor, PositionYaw, Posit
 public:
   /**
    * @brief Run the control loop.  Simply returns the goal position.
-   * @param sensor_data Data required for control loop. This 
-   * controller required no data.
+   * @param sensor_data Empty sensor data struct since no sensing is required.
+   * @param goal Position set-point
    * @return Position to send to hardware
    */
-  virtual PositionYaw run(NoSensor sensor_data);
+  virtual PositionYaw runImpl(NoSensor sensor_data, PositionYaw goal);
   /**
    * @brief Destructor
    */
