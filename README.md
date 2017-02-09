@@ -16,3 +16,4 @@ https://paper.dropbox.com/doc/QuadcopterGUI-Framework-Final-Version-ylwUlxLOOPpN
 
 ## Running Tests:
 To build and run tests use `catkin build aerial_autonomy --catkin-make-args run_tests`. Output of individual tests can be checked using `rosrun aerial_autonomy test_name`.
+To see all test outputs run `catkin run_tests --this`.

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "aerial_autonomy/controller_hardware_connectors/base_control_hardware_connector.h"
+#include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
 #include "aerial_autonomy/types/empty_sensor.h"
 #include "aerial_autonomy/types/position_yaw.h"
 
@@ -12,11 +12,15 @@
  * that outputs
  * position commands.
  */
-class PositionControllerDroneConnector : 
-  public ControllerHardwareConnector<EmptySensor, PositionYaw, PositionYaw> {
+class PositionControllerDroneConnector
+    : public ControllerHardwareConnector<EmptySensor, PositionYaw,
+                                         PositionYaw> {
 public:
-  PositionControllerDroneConnector(parsernode::Parser& drone_hardware, Controller<EmptySensor, PositionYaw, PositionYaw> &controller) :
-    ControllerHardwareConnector(controller), drone_hardware_(drone_hardware) {}
+  PositionControllerDroneConnector(
+      parsernode::Parser &drone_hardware,
+      Controller<EmptySensor, PositionYaw, PositionYaw> &controller)
+      : ControllerHardwareConnector(controller),
+        drone_hardware_(drone_hardware) {}
 
 protected:
   /**
@@ -34,5 +38,5 @@ protected:
   virtual void sendHardwareCommands(PositionYaw controls);
 
 private:
-  parsernode::Parser& drone_hardware_;
+  parsernode::Parser &drone_hardware_;
 };
