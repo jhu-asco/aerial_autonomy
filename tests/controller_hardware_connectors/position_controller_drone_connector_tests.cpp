@@ -30,7 +30,6 @@ public:
   }
   virtual bool cmdwaypoint(geometry_msgs::Vector3 &desired_pos,
                            double desired_yaw = 0) {
-    std::cout << "cmdwaypoiint" << std::endl;
     quad_data.localpos = desired_pos;
     quad_data.rpydata.z = desired_yaw;
     return true;
