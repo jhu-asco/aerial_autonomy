@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(aerial_autonomy)
 
-set(CMAKE_CXX_FLAGS "-Werror -std=c++11 ${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "-Werror -Wall -std=c++11 ${CMAKE_CXX_FLAGS}")
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -9,6 +9,9 @@ set(CMAKE_CXX_FLAGS "-Werror -std=c++11 ${CMAKE_CXX_FLAGS}")
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
+  parsernode
+  class_loader
+  pluginlib
 )
 
 include(cmake/add_event_function.cmake)
@@ -103,7 +106,7 @@ catkin_python_setup()
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-#  LIBRARIES aerial_autonomy
+  LIBRARIES aerial_autonomy
 #  CATKIN_DEPENDS roscpp std_msgs
 #  DEPENDS system_lib
 )
@@ -144,9 +147,10 @@ include_directories(
 )
 
 ## Declare a C++ library
-# add_library(aerial_autonomy
-#   src/${PROJECT_NAME}/aerial_autonomy.cpp
-# )
+add_library(aerial_autonomy
+  src/controllers/builtin_position_controller.cpp
+  src/controller_hardware_connectors/position_controller_drone_connector.cpp
+)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -161,9 +165,8 @@ include_directories(
 # add_dependencies(aerial_autonomy_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(aerial_autonomy_node
-#   ${catkin_LIBRARIES}
-# )
+#target_link_libraries(aerial_autonomy
+#)
 
 #############
 ## Install ##
@@ -209,10 +212,13 @@ catkin_add_gtest(${PROJECT_NAME}-logic-states-test tests/logic_states/base_state
 catkin_add_gtest(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test tests/controller_hardware_connectors/control_hardware_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-evnt-mngr-test tests/event_manager_tests/event_manager_tests.cpp)
 add_dependencies(${PROJECT_NAME}-evnt-mngr-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_aerial_autonomy.cpp)
-# if(TARGET ${PROJECT_NAME}-test)
-#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-# endif()
+catkin_add_gtest(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/position_controller_drone_connector_tests.cpp)
+if(TARGET ${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test)
+  target_link_libraries(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test)
+  target_link_libraries(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test ${Boost_LIBRARIES})
+endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
