@@ -2,12 +2,12 @@
 
 #include "aerial_autonomy/controllers/base_controller.h"
 #include "aerial_autonomy/types/position_yaw.h"
-#include "aerial_autonomy/types/no_sensor.h"
+#include "aerial_autonomy/types/empty_sensor.h"
 
 /**
  * @brief A position controller that simply outputs the set goal position
  */
-class BuiltInPositionController : public Controller<NoSensor, PositionYaw, PositionYaw> {
+class BuiltInPositionController : public Controller<EmptySensor, PositionYaw, PositionYaw> {
 public:
   /**
    * @brief Run the control loop.  Simply returns the goal position.
@@ -15,7 +15,7 @@ public:
    * @param goal Position set-point
    * @return Position to send to hardware
    */
-  virtual PositionYaw runImpl(NoSensor sensor_data, PositionYaw goal);
+  virtual PositionYaw runImpl(EmptySensor sensor_data, PositionYaw goal);
   /**
    * @brief Destructor
    */
