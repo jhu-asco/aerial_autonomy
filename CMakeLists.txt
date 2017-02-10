@@ -148,8 +148,10 @@ include_directories(
 
 ## Declare a C++ library
 add_library(aerial_autonomy
+  src/controllers/manual_rpyt_controller.cpp
   src/controller_hardware_connectors/position_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
+  src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
 )
 
 ## Add cmake target dependencies of the library
@@ -214,11 +216,15 @@ catkin_add_gtest(${PROJECT_NAME}-evnt-mngr-test tests/event_manager_tests/event_
 add_dependencies(${PROJECT_NAME}-evnt-mngr-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
 catkin_add_gtest(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/position_controller_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/builtin_velocity_controller_drone_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/manual_rpyt_controller_drone_connector_tests.cpp)
 if(TARGET ${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test)
+  target_link_libraries(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test ${Boost_LIBRARIES})

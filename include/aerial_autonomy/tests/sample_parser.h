@@ -3,6 +3,12 @@
 
 class SampleParser : public parsernode::Parser {
 public:
+  SampleParser() {}
+  void setRC(int16_t channels[4]) {
+    for (int i = 0; i < 4; i++) {
+      quad_data.servo_in[i] = channels[i];
+    }
+  }
   virtual bool takeoff() { return true; } // Take off the quadcopter
   virtual bool land() { return true; }    // Land the quadcopter
   virtual bool disarm() { return true; }  // Disarm the quadcopter
@@ -18,6 +24,9 @@ public:
   // based on whethere there is thrust bias or not.
   virtual bool cmdrpythrust(geometry_msgs::Quaternion &rpytmsg,
                             bool sendyaw = false) {
+    quad_data.rpydata.x = rpytmsg.x;
+    quad_data.rpydata.y = rpytmsg.y;
+    quad_data.rpydata.z = rpytmsg.z;
     return true;
   }
   virtual bool cmdvelguided(geometry_msgs::Vector3 &vel_cmd, double &yaw_ang) {
