@@ -148,8 +148,6 @@ include_directories(
 
 ## Declare a C++ library
 add_library(aerial_autonomy
-  src/controllers/builtin_position_controller.cpp
-  src/controllers/builtin_velocity_controller.cpp
   src/controller_hardware_connectors/position_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
 )

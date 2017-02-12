@@ -1,13 +1,14 @@
 #include <aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h>
-#include <aerial_autonomy/controllers/builtin_position_controller.h>
+#include <aerial_autonomy/controllers/builtin_controller.h>
 #include <aerial_autonomy/tests/sample_parser.h>
+#include <aerial_autonomy/types/position_yaw.h>
 #include <gtest/gtest.h>
 
 /// \brief Test BuiltInPositionController
 TEST(PositionControllerDroneConnectorTests, Constructor) {
   SampleParser drone_hardware;
 
-  BuiltInPositionController position_controller;
+  BuiltInController<PositionYaw> position_controller;
 
   ASSERT_NO_THROW(new PositionControllerDroneConnector(drone_hardware,
                                                        position_controller));
@@ -17,7 +18,7 @@ TEST(PositionControllerDroneConnectorTests, SetGoal) {
   SampleParser drone_hardware;
 
   // Create controller and connector
-  BuiltInPositionController position_controller;
+  BuiltInController<PositionYaw> position_controller;
   PositionControllerDroneConnector position_controller_connector(
       drone_hardware, position_controller);
 

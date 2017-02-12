@@ -1,13 +1,14 @@
 #include <aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h>
-#include <aerial_autonomy/controllers/builtin_velocity_controller.h>
+#include <aerial_autonomy/controllers/builtin_controller.h>
 #include <aerial_autonomy/tests/sample_parser.h>
+#include <aerial_autonomy/types/velocity_yaw.h>
 #include <gtest/gtest.h>
 
 /// \brief Test BuiltInVelocityController
 TEST(VelocityControllerDroneConnectorTests, Constructor) {
   SampleParser drone_hardware;
 
-  BuiltInVelocityController velocity_controller;
+  BuiltInController<VelocityYaw> velocity_controller;
 
   ASSERT_NO_THROW(new BuiltInVelocityControllerDroneConnector(
       drone_hardware, velocity_controller));
@@ -17,7 +18,7 @@ TEST(VelocityControllerDroneConnectorTests, SetGoal) {
   SampleParser drone_hardware;
 
   // Create controller and connector
-  BuiltInVelocityController velocity_controller;
+  BuiltInController<VelocityYaw> velocity_controller;
   BuiltInVelocityControllerDroneConnector velocity_controller_connector(
       drone_hardware, velocity_controller);
 
