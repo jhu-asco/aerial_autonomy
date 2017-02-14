@@ -1,4 +1,4 @@
-#include <aerial_autonomy/controller_hardware_connectors/base_control_hardware_connector.h>
+#include <aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h>
 #include <gtest/gtest.h>
 
 //// \brief Definitions
