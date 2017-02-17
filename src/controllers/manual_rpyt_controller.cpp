@@ -1,7 +1,5 @@
 #include "aerial_autonomy/controllers/manual_rpyt_controller.h"
 
-// TODO(matt): need current yaw as well as joystick commands, use JoysticksYaw
-// struct?
 RollPitchYawThrust
 ManualRPYTController::runImplementation(JoysticksYaw sensor_data,
                                         EmptyGoal goal) {
