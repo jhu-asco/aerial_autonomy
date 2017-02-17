@@ -18,16 +18,16 @@ public:
 
 protected:
   /**
-   * @brief  does not extract any data since nothing is needed
+   * @brief Extracts joystick commands and current yaw from hardware
    *
-   * @return empty data structure
+   * @return Joystick commands and current yaw
    */
   virtual JoysticksYaw extractSensorData();
 
   /**
-   * @brief  Send velocity commands to hardware
+   * @brief  Send RPYT commands to hardware
    *
-   * @param controls velocity command to send to quadrotor
+   * @param controls RPYT command to send to drone
    */
   virtual void sendHardwareCommands(RollPitchYawThrust controls);
 
