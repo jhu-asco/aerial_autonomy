@@ -12,6 +12,24 @@ from functools import partial
 from python_qt_binding.QtCore import QObject, pyqtSignal
 
 
+def parse_event_file(event_folder, event_file_name, event_name_list):
+    event_file_path = os.path.join(event_folder, event_file_name)
+    event_file = file(event_file_path, 'r')
+    # Parse event file to save event list
+    event_line_list = [event_name.strip()
+                       for event_name in event_file.read().splitlines()]
+    event_file.close()
+    for event_name in event_line_list[1:]:
+        event_name_split = event_name.split('/')
+        if len(event_name_split) == 2:
+            parse_event_file(
+                event_folder,
+                event_name_split[0],
+                event_name_list)
+        else:
+            event_name_list.append(event_name)
+
+
 class RosEventTrigger(QObject):
 
     # Define signals
@@ -19,7 +37,7 @@ class RosEventTrigger(QObject):
     arm_signal = pyqtSignal(str, name='armStatus')
     state_machine_signal = pyqtSignal(str, name='stateMachineStatus')
 
-    def __init__(self, event_file_name):
+    def __init__(self, event_file_path):
         '''
         Class that loads an event file from a parameter
         It provides method to triggerEvents using ros publisher
@@ -27,7 +45,7 @@ class RosEventTrigger(QObject):
         '''
         super(RosEventTrigger, self).__init__()
         # Create ros node
-        if not event_file_name:
+        if not event_file_path:
             # Get default event file name
             rospack = rospkg.RosPack()
             aerial_autonomy_path = rospack.get_path('aerial_autonomy')
@@ -35,17 +53,19 @@ class RosEventTrigger(QObject):
                                         'events/basic_events')
             if rospy.has_param("event_file"):
                 print "Found event file: ", rospy.get_param('event_file')
-            event_file_name = rospy.get_param('event_file', default_path)
-            print "Event file name: ", event_file_name
+            event_file_path = rospy.get_param('event_file', default_path)
+            print "Event file name: ", event_file_path
 
-        event_file = file(event_file_name, 'r')
+        event_file = file(event_file_path, 'r')
         # Parse event file to save event list and event manager name
         event_line_list = [event_name.strip()
                            for event_name in event_file.read().splitlines()]
         event_file.close()
         # Define event manager name etc
         self.event_manager_name = event_line_list[0][:-1]
-        self.event_names_list = event_line_list[1:]
+        self.event_names_list = []
+        event_folder, event_file_name = event_file_path.rsplit('/', 1)
+        parse_event_file(event_folder, event_file_name, self.event_names_list)
         self.event_pub = rospy.Publisher('event_trigger',
                                          String, queue_size=1)
         # Define partial callbacks
