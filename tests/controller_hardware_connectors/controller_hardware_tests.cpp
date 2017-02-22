@@ -11,7 +11,7 @@ class SampleController : public Controller<int, int, int> {
 class SampleHardwareController : ControllerHardwareConnector<int, int, int> {
 public:
   SampleHardwareController(Controller<int, int, int> &controller)
-      : ControllerHardwareConnector<int, int, int>(controller) {}
+      : ControllerHardwareConnector<int, int, int>(controller, HardwareType::Arm) {}
   virtual void sendHardwareCommands(int) { return; }
 
   virtual int extractSensorData() { return 0; }
