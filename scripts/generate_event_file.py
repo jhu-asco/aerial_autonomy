@@ -5,6 +5,7 @@
 
 import sys
 import os
+import re
 
 # %%
 
@@ -116,6 +117,18 @@ def check_event_manager(event_name):
     return False
 
 
+def check_event_name(event_name):
+    if '/' in event_name:
+      variable_pattern = re.compile('^[a-zA-Z_]\w*/[a-zA-Z_]\w*')
+      match_obj = variable_pattern.match(event_name)
+    else:
+      variable_pattern = re.compile('^[a-zA-Z_]\w*')
+      match_obj = variable_pattern.match(event_name)
+
+    if match_obj is None or match_obj.group() != event_name:
+      raise Exception("Variable name does not match c++ conventions: {0}".format(event_name))
+
+
 def create_sub_event_manager(event_name, accumulate_event_manager_classes,
                              accumulate_event_manager_names, out_file):
     event_manager_tuple = event_name.split('/')
@@ -160,6 +173,7 @@ if __name__ == "__main__":
     print >>out_file, ""
     for event_name in event_names_list[1:]:
         event_name = event_name.strip()
+        check_event_name(event_name)
         create_sub_event_manager(event_name, accumulate_event_manager_classes,
                                  accumulate_event_manager_names, out_file)
     print >>out_file, ""
