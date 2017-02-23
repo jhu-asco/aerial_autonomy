@@ -21,7 +21,7 @@ namespace basic_events{
 TEST(BasicEventManagerTest, InstantiateManager) {
   ASSERT_NO_THROW(new BasicEventManager<LogicStateMachine>());
 }
-TEST(BasicEventManagerTest, PrintEventMap) {
+TEST(BasicEventManagerTest, CheckEventSet) {
   BasicEventManager<LogicStateMachine> event_manager;
   std::set<std::string> event_set = event_manager.getEventSet();
   std::set<std::string> expected_set { "Land", "Takeoff", "Abort"};
@@ -30,8 +30,7 @@ TEST(BasicEventManagerTest, PrintEventMap) {
 TEST(BasicEventManagerTest, TriggerWrongEvent) {
   BasicEventManager<LogicStateMachine> event_manager;
   LogicStateMachine logic_state_machine;
-  ASSERT_THROW((event_manager.triggerEvent("FollowTrajectory",logic_state_machine)),
-               std::runtime_error);
+  ASSERT_FALSE(event_manager.triggerEvent("FollowTrajectory",logic_state_machine));
 }
 TEST(BasicEventManagerTest, TriggerEvents) {
   BasicEventManager<LogicStateMachine> event_manager;
@@ -49,6 +48,18 @@ TEST(VisualServoingEventManagerTest, TriggerEvents) {
   LogicStateMachine logic_state_machine;
   event_manager.triggerEvent("FollowTrajectory", logic_state_machine);
   ASSERT_EQ(logic_state_machine.type_index_event_, std::type_index(typeid(FollowTrajectory)));
+}
+TEST(VisualServoingEventManagerTest, TriggerBasicEvent) {
+  VisualServoingEventManager<LogicStateMachine> event_manager;
+  LogicStateMachine logic_state_machine;
+  event_manager.triggerEvent("Land", logic_state_machine);
+  ASSERT_EQ(logic_state_machine.type_index_event_, std::type_index(typeid(basic_events::Land)));
+}
+TEST(VisualServoingEventManagerTest, CheckEventSet) {
+  VisualServoingEventManager<LogicStateMachine> event_manager;
+  std::set<std::string> event_set = event_manager.getEventSet();
+  std::set<std::string> expected_set { "Land", "Takeoff", "Abort", "FollowTrajectory"};
+  ASSERT_TRUE(event_set == expected_set);
 }
 }
 ///

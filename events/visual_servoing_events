@@ -1,5 +1,3 @@
 VisualServoingEventManager:
-  Land
-  Takeoff
-  Abort
+  basic_events/BasicEventManager
   FollowTrajectory
