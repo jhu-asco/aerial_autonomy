@@ -49,7 +49,7 @@ struct PositionControlTransitionGuardFunctor_
 };
 
 template <class LogicStateMachineT>
-class PositionControlInternalActionFunctor_
+struct PositionControlInternalActionFunctor_
     : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
   virtual void run(const InternalTransitionEvent &, UAVSystem &robot_system,
                    LogicStateMachineT &logic_state_machine) {

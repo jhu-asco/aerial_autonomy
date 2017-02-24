@@ -5,4 +5,8 @@ struct Position {
   double x;
   double y;
   double z;
+  bool operator==(const Position &p) const {
+    return (x == p.x && y == p.y && z == p.z);
+  }
+  bool operator!=(const Position &p) const { return !(*this == p); }
 };

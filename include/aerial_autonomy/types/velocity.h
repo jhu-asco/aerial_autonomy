@@ -5,4 +5,8 @@ struct Velocity {
   double x;
   double y;
   double z;
+  bool operator==(const Velocity &v) const {
+    return (x == v.x && y == v.y && z == v.z);
+  }
+  bool operator!=(const Velocity &v) const { return !(*this == v); }
 };
