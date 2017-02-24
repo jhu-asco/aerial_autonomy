@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <aerial_autonomy/robot_systems/quadrotor_system.h>
+#include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/tests/sample_parser.h>
 
 /// \brief Test UAV System
