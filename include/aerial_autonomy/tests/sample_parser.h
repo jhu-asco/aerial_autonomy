@@ -9,13 +9,24 @@ public:
       quad_data.servo_in[i] = channels[i];
     }
   }
-  virtual bool takeoff() { return true; } // Take off the quadcopter
-  virtual bool land() { return true; }    // Land the quadcopter
-  virtual bool disarm() { return true; }  // Disarm the quadcopter
+  virtual bool takeoff() {
+    quad_data.quadstate = "takeoff";
+    return true;
+  } // Take off the quadcopter
+  virtual bool land() {
+    quad_data.quadstate = "land";
+    return true;
+  } // Land the quadcopter
+  virtual bool disarm() {
+    quad_data.quadstate = "disarm";
+    return true;
+  } // Disarm the quadcopter
   virtual bool flowControl(bool) {
+    quad_data.quadstate = "flowcontrol";
     return true;
   } // Enable or disable control of quadcopter
   virtual bool calibrateimubias() {
+    quad_data.quadstate = "calibrateimu";
     return true;
   } // Calibrate imu of the quadcopter based on sample data
 
