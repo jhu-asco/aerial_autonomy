@@ -7,4 +7,8 @@ struct PositionYaw : public Position {
   PositionYaw(double x, double y, double z, double yaw)
       : Position(x, y, z), yaw(yaw) {}
   double yaw;
+  bool operator==(const PositionYaw &p) const {
+    return (Position::operator==(p) && yaw == p.yaw);
+  }
+  bool operator!=(const PositionYaw &p) const { return !(*this == p); }
 };

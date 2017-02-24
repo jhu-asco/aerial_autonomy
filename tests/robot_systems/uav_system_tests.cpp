@@ -32,10 +32,7 @@ TEST(UAVSystemTests, SetGetGoal) {
   uav_system.setGoal<PositionControllerDroneConnector>(position_yaw);
   PositionYaw goal =
       uav_system.getGoal<PositionControllerDroneConnector, PositionYaw>();
-  ASSERT_EQ(goal.x, position_yaw.x);
-  ASSERT_EQ(goal.y, position_yaw.y);
-  ASSERT_EQ(goal.z, position_yaw.z);
-  ASSERT_EQ(goal.yaw, position_yaw.yaw);
+  ASSERT_EQ(goal, position_yaw);
 }
 
 TEST(UAVSystemTests, runActiveController) {
@@ -45,10 +42,9 @@ TEST(UAVSystemTests, runActiveController) {
   uav_system.setGoal<PositionControllerDroneConnector>(position_yaw);
   uav_system.runActiveController(HardwareType::UAV);
   parsernode::common::quaddata data = uav_system.getUAVData();
-  ASSERT_EQ(data.localpos.x, position_yaw.x);
-  ASSERT_EQ(data.localpos.y, position_yaw.y);
-  ASSERT_EQ(data.localpos.z, position_yaw.z);
-  ASSERT_EQ(data.rpydata.z, position_yaw.yaw);
+  PositionYaw data_position_yaw(data.localpos.x, data.localpos.y,
+                                data.localpos.z, data.rpydata.z);
+  ASSERT_EQ(data_position_yaw, position_yaw);
 }
 
 TEST(UAVSystemTests, runVelocityController) {
@@ -58,10 +54,9 @@ TEST(UAVSystemTests, runVelocityController) {
   uav_system.setGoal<BuiltInVelocityControllerDroneConnector>(velocity_yaw);
   uav_system.runActiveController(HardwareType::UAV);
   parsernode::common::quaddata data = uav_system.getUAVData();
-  ASSERT_EQ(data.linvel.x, velocity_yaw.x);
-  ASSERT_EQ(data.linvel.y, velocity_yaw.y);
-  ASSERT_EQ(data.linvel.z, velocity_yaw.z);
-  ASSERT_EQ(data.rpydata.z, velocity_yaw.yaw);
+  VelocityYaw data_velocity_yaw(data.linvel.x, data.linvel.y, data.linvel.z,
+                                data.rpydata.z);
+  ASSERT_EQ(data_velocity_yaw, velocity_yaw);
 }
 
 TEST(UAVSystemTests, runRPYTController) {
@@ -95,10 +90,9 @@ TEST(UAVSystemTests, abortController) {
   // Once aborted will not run position controller
   uav_system.runActiveController(HardwareType::UAV);
   parsernode::common::quaddata data = uav_system.getUAVData();
-  ASSERT_NE(data.localpos.x, position_yaw.x);
-  ASSERT_NE(data.localpos.y, position_yaw.y);
-  ASSERT_NE(data.localpos.z, position_yaw.z);
-  ASSERT_NE(data.rpydata.z, position_yaw.yaw);
+  PositionYaw data_position_yaw(data.localpos.x, data.localpos.y,
+                                data.localpos.z, data.rpydata.z);
+  ASSERT_NE(data_position_yaw, position_yaw);
 }
 
 ///
