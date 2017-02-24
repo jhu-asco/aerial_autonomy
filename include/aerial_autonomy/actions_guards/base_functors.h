@@ -3,7 +3,7 @@
 // Static asserts
 #include <type_traits>
 
-/** This class provides internal run function for different states.
+/** This class provides run function for transitions and internal actions.
  * Derived states have to implement the specific run function
  * behavior using this base class
  */
