@@ -30,7 +30,7 @@
 #include <aerial_autonomy/actions_guards/basic_states.h>
 
 // Robot System used
-#include <aerial_autonomy/robot_systems/quadrotor_system.h>
+#include <aerial_autonomy/robot_systems/uav_system.h>
 
 namespace msmf = boost::msm::front;
 using namespace basic_events;
@@ -53,19 +53,19 @@ class LogicStateMachineFrontEnd
   friend class GuardFunctor;
 
 protected:
-  QuadRotorSystem &robot_system_;
+  UAVSystem &robot_system_;
 
 public:
   template <class Event, class FSM> void on_entry(Event const &, FSM &) {
-    std::cout << "entering: Quadrotor system" << std::endl;
+    std::cout << "entering: UAV system" << std::endl;
   }
   template <class Event, class FSM> void on_exit(Event const &, FSM &) {
-    std::cout << "leaving: Quadrotor system" << std::endl;
+    std::cout << "leaving: UAV system" << std::endl;
   }
 
   // Constructor with arguments to store robot system
-  LogicStateMachineFrontEnd(QuadRotorSystem &quadrotor_system)
-      : robot_system_(quadrotor_system) {}
+  LogicStateMachineFrontEnd(UAVSystem &uav_system)
+      : robot_system_(uav_system) {}
 
   // States Used in the state machine:
   using TakingOff = TakingOff_<LogicStateMachine>;
