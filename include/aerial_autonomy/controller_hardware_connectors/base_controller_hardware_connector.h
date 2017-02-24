@@ -4,9 +4,9 @@
 /**
 * @brief Type of hardware used by controllerhardwareconnector
 */
-// TODO Rename Quadrotor to UAV
-enum class HardwareType{
-  Quadrotor, // Only quadrotor
+// TODO Rename Quadrotor to UAV (For files not in this commit)
+enum class HardwareType {
+  UAV, // Only aerial vehicle
   Arm, // Only arm
 };
 
@@ -73,9 +73,9 @@ protected:
   virtual SensorDataType extractSensorData() = 0;
 
   /**
-   * @brief  Send hardware commands for example quadrotor rpy
+   * @brief  Send hardware commands for example UAV rpy
    *
-   * @param controls Data structure the quadrotor is expecting
+   * @param controls Data structure the UAV is expecting
    */
   virtual void sendHardwareCommands(ControlType controls) = 0;
 

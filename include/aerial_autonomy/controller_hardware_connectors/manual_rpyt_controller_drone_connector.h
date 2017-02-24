@@ -13,7 +13,7 @@ public:
   ManualRPYTControllerDroneConnector(
       parsernode::Parser &drone_hardware,
       Controller<JoysticksYaw, EmptyGoal, RollPitchYawThrust> &controller)
-      : ControllerHardwareConnector(controller, HardwareType::Quadrotor),
+      : ControllerHardwareConnector(controller, HardwareType::UAV),
         drone_hardware_(drone_hardware) {}
 
 protected:

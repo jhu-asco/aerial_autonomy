@@ -19,7 +19,7 @@ public:
   PositionControllerDroneConnector(
       parsernode::Parser &drone_hardware,
       Controller<EmptySensor, PositionYaw, PositionYaw> &controller)
-      : ControllerHardwareConnector(controller, HardwareType::Quadrotor),
+      : ControllerHardwareConnector(controller, HardwareType::UAV),
         drone_hardware_(drone_hardware) {}
 
 protected:
@@ -33,7 +33,7 @@ protected:
   /**
    * @brief  Send position commands to hardware
    *
-   * @param controls position command to send to quadrotor
+   * @param controls position command to send to UAV
    */
   virtual void sendHardwareCommands(PositionYaw controls);
 
