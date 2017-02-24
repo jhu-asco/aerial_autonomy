@@ -16,7 +16,7 @@ template <class GenericObjectT> class TypeMap {
 
 public:
   // Set
-  template <class ObjectT> void addObject(ObjectT &object) {
+  template <class ObjectT> void setObject(ObjectT &object) {
     object_storage_map_[typeid(ObjectT)] = &object;
   }
   // Get

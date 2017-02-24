@@ -48,11 +48,11 @@ public:
         rpyt_controller_drone_connector_(drone_hardware,
                                          manual_rpyt_controller_) {
     // Add control hardware connector containers
-    controller_hardware_connector_container_.addObject(
+    controller_hardware_connector_container_.setObject(
         position_controller_drone_connector_);
-    controller_hardware_connector_container_.addObject(
+    controller_hardware_connector_container_.setObject(
         velocity_controller_drone_connector_);
-    controller_hardware_connector_container_.addObject(
+    controller_hardware_connector_container_.setObject(
         rpyt_controller_drone_connector_);
 
     // Initialize active controller map
