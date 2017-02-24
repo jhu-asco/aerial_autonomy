@@ -18,7 +18,7 @@ public:
   BuiltInVelocityControllerDroneConnector(
       parsernode::Parser &drone_hardware,
       Controller<EmptySensor, VelocityYaw, VelocityYaw> &controller)
-      : ControllerHardwareConnector(controller),
+      : ControllerHardwareConnector(controller, HardwareType::UAV),
         drone_hardware_(drone_hardware) {}
 
 protected:
@@ -32,7 +32,7 @@ protected:
   /**
    * @brief  Send velocity commands to hardware
    *
-   * @param controls velocity command to send to quadrotor
+   * @param controls velocity command to send to UAV
    */
   virtual void sendHardwareCommands(VelocityYaw controls);
 

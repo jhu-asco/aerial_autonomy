@@ -2,6 +2,15 @@
 #include <aerial_autonomy/controllers/base_controller.h>
 
 /**
+* @brief Type of hardware used by controllerhardwareconnector
+*/
+// TODO Rename Quadrotor to UAV (For files not in this commit)
+enum class HardwareType {
+  UAV, // Only aerial vehicle
+  Arm, // Only arm
+};
+
+/**
 * @brief Base for ControllerHardwareConnector class
 */
 struct AbstractControllerHardwareConnector {
@@ -9,6 +18,7 @@ public:
   virtual void run() = 0;
   virtual ~AbstractControllerHardwareConnector() {}
 };
+
 
 /**
 * @brief Performs a single step of extracting data, running controller
@@ -21,9 +31,10 @@ public:
 template <class SensorDataType, class GoalType, class ControlType>
 class ControllerHardwareConnector : public AbstractControllerHardwareConnector {
 public:
+
   ControllerHardwareConnector(
-      Controller<SensorDataType, GoalType, ControlType> &controller)
-      : AbstractControllerHardwareConnector(), controller_(controller) {}
+      Controller<SensorDataType, GoalType, ControlType> &controller, HardwareType hardware_type)
+      : AbstractControllerHardwareConnector(), hardware_type_(hardware_type), controller_(controller) {}
 
   /**
    * @brief Extracts sensor data, run controller and send data back to hardware
@@ -49,6 +60,10 @@ public:
    */
   GoalType getGoal() { return controller_.getGoal(); }
 
+  HardwareType getHardwareType() {
+    return hardware_type_;
+  }
+
 protected:
   /**
    * @brief  extract relevant data from hardware/estimators
@@ -58,11 +73,21 @@ protected:
   virtual SensorDataType extractSensorData() = 0;
 
   /**
-   * @brief  Send hardware commands for example quadrotor rpy
+   * @brief  Send hardware commands for example UAV rpy
    *
-   * @param controls Data structure the quadrotor is expecting
+   * @param controls Data structure the UAV is expecting
    */
   virtual void sendHardwareCommands(ControlType controls) = 0;
+
+protected:
+  /**
+  * @brief Type of hardware controlled by the controller
+  *
+  * Used to group controllers. Only one controller will be running
+  * per hardware.
+  *
+  */
+  HardwareType hardware_type_;
 
 private:
   /**
