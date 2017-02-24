@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <aerial_autonomy/types/type_map.h>
+#include <aerial_autonomy/common/type_map.h>
 
 //// \brief Definitions
 ///  Define any necessary subclasses for tests here
@@ -26,6 +26,8 @@ TEST(TypeMapTests, SaveAndRetrieveObject) {
   ASSERT_NO_THROW(type_map.getObject<SubClass2>());
   SubClass1 *object1 = type_map.getObject<SubClass1>();
   SubClass2 *object2 = type_map.getObject<SubClass2>();
+  object1->i = 1; // Should override both because its the same object;
+  object1->i = 2; // Should override both because its the same object;
   ASSERT_EQ(object1->i, subclass1.i);
   ASSERT_EQ(object2->i, subclass2.i);
 }
