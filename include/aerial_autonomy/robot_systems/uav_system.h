@@ -6,7 +6,7 @@
 // Specific ControllerConnectors
 #include <aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h>
 // Store type_map
-#include <aerial_autonomy/types/type_map.h>
+#include <aerial_autonomy/common/type_map.h>
 // Boost thread stuff
 #include <boost/thread/mutex.hpp>
 // Unique ptr
