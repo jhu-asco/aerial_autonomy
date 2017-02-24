@@ -24,6 +24,7 @@ struct LandInternalActionFunctor_
   void run(const InternalTransitionEvent &, UAVSystem &robot_system,
            LogicStateMachineT &logic_state_machine) {
     parsernode::common::quaddata data = robot_system.getUAVData();
+    std::cout << data.altitude << std::endl;
     // Can also use uav status here TODO (Gowtham)
     if (data.altitude < 0.1) {
       logic_state_machine.process_event(Completed());
