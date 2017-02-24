@@ -20,8 +20,8 @@ TEST(TypeMapTests, SaveAndRetrieveObject) {
   TypeMap<BaseClass> type_map;
   SubClass1 subclass1;
   SubClass2 subclass2;
-  type_map.addObject(subclass1);
-  type_map.addObject(subclass2);
+  type_map.setObject(subclass1);
+  type_map.setObject(subclass2);
   ASSERT_NO_THROW(type_map.getObject<SubClass1>());
   ASSERT_NO_THROW(type_map.getObject<SubClass2>());
   SubClass1 *object1 = type_map.getObject<SubClass1>();
@@ -30,6 +30,18 @@ TEST(TypeMapTests, SaveAndRetrieveObject) {
   object1->i = 2; // Should override both because its the same object;
   ASSERT_EQ(object1->i, subclass1.i);
   ASSERT_EQ(object2->i, subclass2.i);
+}
+
+TEST(TypeMapTests, OverrideObject) {
+  TypeMap<BaseClass> type_map;
+  SubClass1 instance1;
+  type_map.setObject(instance1);
+  SubClass1 instance2;
+  instance2.i = 10;
+  type_map.setObject(instance2);
+  SubClass1 *object1 = type_map.getObject<SubClass1>();
+  ASSERT_EQ(object1->i, instance2.i);
+  ASSERT_NE(object1->i, instance1.i);
 }
 ///
 
