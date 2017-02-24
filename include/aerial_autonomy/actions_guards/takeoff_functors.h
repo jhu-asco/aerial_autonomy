@@ -1,7 +1,7 @@
 #pragma once
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/logic_states/base_state.h>
-#include <aerial_autonomy/robot_systems/quadrotor_system.h>
+#include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/basic_events.h>
 #include <aerial_autonomy/types/completed_event.h>
 #include <parsernode/common.h>
@@ -10,27 +10,25 @@ using namespace basic_events;
 
 template <class LogicStateMachineT>
 struct TakeoffTransitionActionFunctor_
-    : ActionFunctor<Takeoff, QuadRotorSystem, LogicStateMachineT> {
-  void run(const Takeoff &, QuadRotorSystem &robot_system,
-           LogicStateMachineT &) {
+    : ActionFunctor<Takeoff, UAVSystem, LogicStateMachineT> {
+  void run(const Takeoff &, UAVSystem &robot_system, LogicStateMachineT &) {
     robot_system.takeOff();
   }
 };
 
 template <class LogicStateMachineT>
 struct TakeoffAbortActionFunctor_
-    : ActionFunctor<Abort, QuadRotorSystem, LogicStateMachineT> {
-  void run(const Abort &, QuadRotorSystem &robot_system, LogicStateMachineT &) {
+    : ActionFunctor<Abort, UAVSystem, LogicStateMachineT> {
+  void run(const Abort &, UAVSystem &robot_system, LogicStateMachineT &) {
     robot_system.land();
   }
 };
 
 template <class LogicStateMachineT>
 struct TakeoffTransitionGuardFunctor_
-    : GuardFunctor<Takeoff, QuadRotorSystem, LogicStateMachineT> {
-  bool guard(const Takeoff &, QuadRotorSystem &robot_system,
-             LogicStateMachineT &) {
-    parsernode::common::quaddata data = robot_system.getQuadData();
+    : GuardFunctor<Takeoff, UAVSystem, LogicStateMachineT> {
+  bool guard(const Takeoff &, UAVSystem &robot_system, LogicStateMachineT &) {
+    parsernode::common::quaddata data = robot_system.getUAVData();
     bool result = false;
     // Check for voltage
     // TODO Set a parameter for minimum battery percent
@@ -46,10 +44,10 @@ struct TakeoffTransitionGuardFunctor_
 
 template <class LogicStateMachineT>
 struct TakeoffInternalActionFunctor_
-    : InternalActionFunctor<QuadRotorSystem, LogicStateMachineT> {
-  void run(const InternalTransitionEvent &, QuadRotorSystem &robot_system,
+    : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
+  void run(const InternalTransitionEvent &, UAVSystem &robot_system,
            LogicStateMachineT &logic_state_machine) {
-    parsernode::common::quaddata data = robot_system.getQuadData();
+    parsernode::common::quaddata data = robot_system.getUAVData();
     // If battery too low abort and goto landed mode
     if (data.batterypercent < 40) {
       logic_state_machine.process_event(Land());
@@ -63,5 +61,5 @@ struct TakeoffInternalActionFunctor_
 };
 
 template <class LogicStateMachineT>
-using TakingOff_ = BaseState<QuadRotorSystem, LogicStateMachineT,
+using TakingOff_ = BaseState<UAVSystem, LogicStateMachineT,
                              TakeoffInternalActionFunctor_<LogicStateMachineT>>;

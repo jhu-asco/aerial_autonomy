@@ -1,7 +1,7 @@
 #pragma once
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/logic_states/base_state.h>
-#include <aerial_autonomy/robot_systems/quadrotor_system.h>
+#include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/basic_events.h>
 #include <aerial_autonomy/types/completed_event.h>
 #include <parsernode/common.h>
@@ -10,8 +10,8 @@ using namespace basic_events;
 
 template <class LogicStateMachineT>
 struct LandTransitionActionFunctor_
-    : ActionFunctor<Land, QuadRotorSystem, LogicStateMachineT> {
-  void run(const Land &, QuadRotorSystem &robot_system, LogicStateMachineT &) {
+    : ActionFunctor<Land, UAVSystem, LogicStateMachineT> {
+  void run(const Land &, UAVSystem &robot_system, LogicStateMachineT &) {
     robot_system.land();
   }
 };
@@ -20,11 +20,11 @@ struct LandTransitionActionFunctor_
 
 template <class LogicStateMachineT>
 struct LandInternalActionFunctor_
-    : InternalActionFunctor<QuadRotorSystem, LogicStateMachineT> {
-  void run(const InternalTransitionEvent &, QuadRotorSystem &robot_system,
+    : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
+  void run(const InternalTransitionEvent &, UAVSystem &robot_system,
            LogicStateMachineT &logic_state_machine) {
-    parsernode::common::quaddata data = robot_system.getQuadData();
-    // Can also use quad status here TODO (Gowtham)
+    parsernode::common::quaddata data = robot_system.getUAVData();
+    // Can also use uav status here TODO (Gowtham)
     if (data.altitude < 0.1) {
       logic_state_machine.process_event(Completed());
     }
@@ -32,5 +32,5 @@ struct LandInternalActionFunctor_
 };
 
 template <class LogicStateMachineT>
-using Landing_ = BaseState<QuadRotorSystem, LogicStateMachineT,
+using Landing_ = BaseState<UAVSystem, LogicStateMachineT,
                            LandInternalActionFunctor_<LogicStateMachineT>>;
