@@ -20,8 +20,8 @@ struct PositionControlTransitionActionFunctor_
 
 template <class LogicStateMachineT>
 struct PositionControlAbortActionFunctor_
-    : ActionFunctor<Abort, UAVSystem, LogicStateMachineT> {
-  void run(const Abort &, UAVSystem &robot_system, LogicStateMachineT &) {
+    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+  void run(UAVSystem &robot_system, LogicStateMachineT &) {
     robot_system.abortController(HardwareType::UAV);
   }
 };
@@ -50,8 +50,8 @@ struct PositionControlTransitionGuardFunctor_
 
 template <class LogicStateMachineT>
 struct PositionControlInternalActionFunctor_
-    : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
-  virtual void run(const InternalTransitionEvent &, UAVSystem &robot_system,
+    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+  virtual void run(UAVSystem &robot_system,
                    LogicStateMachineT &logic_state_machine) {
     // Get current goal
     PositionYaw goal =

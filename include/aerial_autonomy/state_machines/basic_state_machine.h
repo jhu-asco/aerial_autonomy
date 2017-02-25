@@ -52,6 +52,12 @@ class LogicStateMachineFrontEnd
   template <class EventT, class RobotSystemT, class LogicStateMachineT>
   friend class GuardFunctor;
 
+  template <class RobotSystemT1, class LogicStateMachineT>
+  friend class EventAgnosticActionFunctor;
+
+  template <class RobotSystemT1, class LogicStateMachineT>
+  friend class EventAgnosticGuardFunctor;
+
 protected:
   UAVSystem &robot_system_;
 
@@ -127,6 +133,6 @@ public:
 //
 static char const *const state_names[] = {"Landed", "TakingOff", "Hovering",
                                           "ReachingGoal", "Landing"};
-void pstate(LogicStateMachine const &p) {
-  std::cout << " -> " << state_names[p.current_state()[0]] << std::endl;
+const char *pstate(LogicStateMachine const &p) {
+  return state_names[p.current_state()[0]];
 }
