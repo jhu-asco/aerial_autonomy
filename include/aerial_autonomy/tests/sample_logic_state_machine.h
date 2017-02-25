@@ -9,6 +9,10 @@ template <class RobotSystemT> class SampleLogicStateMachine_ {
   friend class ActionFunctor;
   template <class EventT, class RobotSystemT1, class LogicStateMachineT>
   friend class GuardFunctor;
+  template <class RobotSystemT1, class LogicStateMachineT>
+  friend class EventAgnosticActionFunctor;
+  template <class RobotSystemT1, class LogicStateMachineT>
+  friend class EventAgnosticGuardFunctor;
   std::type_index type_index_event_ = typeid(NULL);
   RobotSystemT &robot_system_;
 

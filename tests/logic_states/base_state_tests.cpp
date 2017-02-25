@@ -6,9 +6,8 @@
 //// \brief Definitions
 ///  Define any necessary subclasses for tests here
 struct EmptyActionFunctor
-    : InternalActionFunctor<EmptyRobotSystem, SampleLogicStateMachine> {
-  virtual void run(InternalTransitionEvent const &, EmptyRobotSystem &,
-                   SampleLogicStateMachine &) {}
+    : EventAgnosticActionFunctor<EmptyRobotSystem, SampleLogicStateMachine> {
+  virtual void run(EmptyRobotSystem &, SampleLogicStateMachine &) {}
 };
 
 struct EmptyGuardFunctor
@@ -34,8 +33,7 @@ TEST(BaseStateTests, EmptytFctor) {
   EmptyRobotSystem robot_system;
   SampleLogicStateMachine logic_state_machine(robot_system);
   // Robotsystem, SampleLogicStateMachine, source, target
-  ASSERT_NO_THROW(empty_functor.run(InternalTransitionEvent(), robot_system,
-                                    logic_state_machine));
+  ASSERT_NO_THROW(empty_functor.run(robot_system, logic_state_machine));
   int empty_source_state, empty_target_state;
   ASSERT_NO_THROW(empty_functor(InternalTransitionEvent(), logic_state_machine,
                                 empty_source_state, empty_target_state));
