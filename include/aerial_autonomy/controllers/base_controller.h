@@ -29,9 +29,8 @@ public:
     goal_ = goal;
   }
   /**
-   * @brief set the goal condition for the controller. Should use
+   * @brief get the goal condition for the controller. Should use
    * internal locking as the run function can be called from a separate thread
-   * @param goal The goal for control loop
    */
   virtual GoalType getGoal() {
     boost::mutex::scoped_lock lock(goal_mutex_);
