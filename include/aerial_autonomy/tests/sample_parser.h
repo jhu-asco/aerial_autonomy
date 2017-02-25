@@ -59,8 +59,12 @@ public:
   virtual void initialize(ros::NodeHandle &nh_) {}
   virtual void getquaddata(parsernode::common::quaddata &d1) { d1 = quad_data; }
   virtual ~SampleParser() {}
-  virtual void
-  setaltitude(double altitude_){};         // Set the altitude value in the data
+  virtual void setBatteryPercent(double percent) {
+    quad_data.batterypercent = percent;
+  }
+  virtual void setaltitude(double altitude_) {
+    quad_data.altitude = altitude_;
+  };                                       // Set the altitude value in the data
   virtual void setlogdir(string logdir){}; // Set whether to log data or not
   virtual void controllog(bool logswitch) {}
 

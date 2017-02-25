@@ -1,7 +1,7 @@
 #pragma once
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/logic_states/base_state.h>
-#include <aerial_autonomy/robot_systems/quadrotor_system.h>
+#include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/basic_events.h>
 #include <aerial_autonomy/types/completed_event.h>
 #include <aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h>
@@ -11,8 +11,8 @@ using namespace basic_events;
 
 template <class LogicStateMachineT>
 struct PositionControlTransitionActionFunctor_
-    : ActionFunctor<PositionYaw, QuadRotorSystem, LogicStateMachineT> {
-  void run(const PositionYaw &goal, QuadRotorSystem &robot_system,
+    : ActionFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
+  void run(const PositionYaw &goal, UAVSystem &robot_system,
            LogicStateMachineT &) {
     robot_system.setGoal<PositionControllerDroneConnector, PositionYaw>(goal);
   }
@@ -20,18 +20,18 @@ struct PositionControlTransitionActionFunctor_
 
 template <class LogicStateMachineT>
 struct PositionControlAbortActionFunctor_
-    : ActionFunctor<Abort, QuadRotorSystem, LogicStateMachineT> {
-  void run(const Abort &, QuadRotorSystem &robot_system, LogicStateMachineT &) {
-    robot_system.abortController(HardwareType::Quadrotor);
+    : ActionFunctor<Abort, UAVSystem, LogicStateMachineT> {
+  void run(const Abort &, UAVSystem &robot_system, LogicStateMachineT &) {
+    robot_system.abortController(HardwareType::UAV);
   }
 };
 
 template <class LogicStateMachineT>
 struct PositionControlTransitionGuardFunctor_
-    : GuardFunctor<PositionYaw, QuadRotorSystem, LogicStateMachineT> {
-  bool guard(const PositionYaw &goal, QuadRotorSystem &robot_system,
+    : GuardFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
+  bool guard(const PositionYaw &goal, UAVSystem &robot_system,
              LogicStateMachineT &) {
-    parsernode::common::quaddata data = robot_system.getQuadData();
+    parsernode::common::quaddata data = robot_system.getUAVData();
     geometry_msgs::Vector3 current_position = data.localpos;
     // Check goal is close to position before sending goal (Can use a geofence
     // here)
@@ -49,16 +49,15 @@ struct PositionControlTransitionGuardFunctor_
 };
 
 template <class LogicStateMachineT>
-class PositionControlInternalActionFunctor_
-    : InternalActionFunctor<QuadRotorSystem, LogicStateMachineT> {
-  virtual void run(const InternalTransitionEvent &,
-                   QuadRotorSystem &robot_system,
+struct PositionControlInternalActionFunctor_
+    : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
+  virtual void run(const InternalTransitionEvent &, UAVSystem &robot_system,
                    LogicStateMachineT &logic_state_machine) {
     // Get current goal
     PositionYaw goal =
         robot_system.getGoal<PositionControllerDroneConnector, PositionYaw>();
     // Get current position, yaw
-    parsernode::common::quaddata data = robot_system.getQuadData();
+    parsernode::common::quaddata data = robot_system.getUAVData();
     geometry_msgs::Vector3 current_position = data.localpos;
     double yaw = data.rpydata.z;
     // Define tolerance and check if reached goal
@@ -77,5 +76,5 @@ class PositionControlInternalActionFunctor_
 
 template <class LogicStateMachineT>
 using ReachingGoal_ =
-    BaseState<QuadRotorSystem, LogicStateMachineT,
+    BaseState<UAVSystem, LogicStateMachineT,
               PositionControlInternalActionFunctor_<LogicStateMachineT>>;
