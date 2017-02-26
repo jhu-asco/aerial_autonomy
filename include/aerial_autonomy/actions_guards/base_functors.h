@@ -3,10 +3,17 @@
 // Static asserts
 #include <type_traits>
 
-/** This class provides run function for transitions and internal actions.
- * Derived states have to implement the specific run function
- * behavior using this base class
- */
+/**
+* @brief Action Functor for a given event, robot system, state machine
+*
+* This class provides run function for state transitions
+* Derived states have to implement the specific run function
+* behavior using this base class.
+*
+* @tparam EventT  Event triggering this action
+* @tparam RobotSystemT The robot system used in the action
+* @tparam LogicStateMachineT The logic state machine used to trigger events
+*/
 template <class EventT, class RobotSystemT, class LogicStateMachineT>
 struct ActionFunctor {
   /**
@@ -40,10 +47,19 @@ struct ActionFunctor {
 
   virtual ~ActionFunctor() {}
 };
-////// Change Guard functor to be similar to action functor
-/// Add the guard functor to be a friend to robot wrapper
-/// Put static assert to make sure logicstatemachine is supplying the same robot
-/// system
+
+/**
+* @brief Action Functor for a given event, robot system, state machine
+*
+* This class provides guard function for state transitions
+* Derived states have to implement the specific guard function
+* behavior using this base class.
+*
+* @tparam EventT  Event triggering this action
+* @tparam RobotSystemT The robot system used in the guard check
+* @tparam LogicStateMachineT The logic state machine used to retrieve robot
+* system
+*/
 template <class EventT, class RobotSystemT, class LogicStateMachineT>
 struct GuardFunctor {
   /**
@@ -80,6 +96,15 @@ struct GuardFunctor {
   virtual ~GuardFunctor() {}
 };
 
+/**
+* @brief Action functor that does not require the event triggering it
+*
+* This action functor performs the same action irrespective of the event
+* triggering it. For example takeoff, land actions
+*
+* @tparam RobotSystemT The robot system used in the action
+* @tparam LogicStateMachineT The logic state machine used to trigger events
+*/
 template <class RobotSystemT, class LogicStateMachineT>
 struct EventAgnosticActionFunctor {
   /**
@@ -114,6 +139,16 @@ struct EventAgnosticActionFunctor {
   virtual ~EventAgnosticActionFunctor() {}
 };
 
+/**
+* @brief Guard functor that does not require the event triggering it
+*
+* This action functor performs the same guard check irrespective of the
+* event triggering it.
+*
+* @tparam RobotSystemT The robot system used in the guard
+* @tparam LogicStateMachineT The logic state machine used to retrieve robot
+* system
+*/
 template <class RobotSystemT, class LogicStateMachineT>
 struct EventAgnosticGuardFunctor {
   /**
