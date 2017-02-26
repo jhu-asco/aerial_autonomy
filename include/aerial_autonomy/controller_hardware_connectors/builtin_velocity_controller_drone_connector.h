@@ -18,7 +18,7 @@ public:
   BuiltInVelocityControllerDroneConnector(
       parsernode::Parser &drone_hardware,
       Controller<EmptySensor, VelocityYaw, VelocityYaw> &controller)
-      : ControllerHardwareConnector(controller),
+      : ControllerHardwareConnector(controller, HardwareType::Quadrotor),
         drone_hardware_(drone_hardware) {}
 
 protected:

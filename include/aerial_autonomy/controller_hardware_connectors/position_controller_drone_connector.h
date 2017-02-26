@@ -19,7 +19,7 @@ public:
   PositionControllerDroneConnector(
       parsernode::Parser &drone_hardware,
       Controller<EmptySensor, PositionYaw, PositionYaw> &controller)
-      : ControllerHardwareConnector(controller),
+      : ControllerHardwareConnector(controller, HardwareType::Quadrotor),
         drone_hardware_(drone_hardware) {}
 
 protected:
