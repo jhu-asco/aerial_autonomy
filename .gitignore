@@ -1,3 +1,4 @@
 CMakeLists.txt.user
 *.pyc
 *.swp
+include/aerial_autonomy/logic_states/robot_system_wrapper.h
