@@ -64,6 +64,7 @@ public:
   }
   virtual void setaltitude(double altitude_) {
     quad_data.altitude = altitude_;
+    quad_data.localpos.z = altitude_;
   };                                       // Set the altitude value in the data
   virtual void setlogdir(string logdir){}; // Set whether to log data or not
   virtual void controllog(bool logswitch) {}

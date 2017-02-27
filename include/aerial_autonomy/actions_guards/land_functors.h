@@ -10,8 +10,8 @@ using namespace basic_events;
 
 template <class LogicStateMachineT>
 struct LandTransitionActionFunctor_
-    : ActionFunctor<Land, UAVSystem, LogicStateMachineT> {
-  void run(const Land &, UAVSystem &robot_system, LogicStateMachineT &) {
+    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+  void run(UAVSystem &robot_system, LogicStateMachineT &) {
     robot_system.land();
   }
 };
@@ -20,9 +20,8 @@ struct LandTransitionActionFunctor_
 
 template <class LogicStateMachineT>
 struct LandInternalActionFunctor_
-    : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
-  void run(const InternalTransitionEvent &, UAVSystem &robot_system,
-           LogicStateMachineT &logic_state_machine) {
+    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+  void run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     parsernode::common::quaddata data = robot_system.getUAVData();
     // Can also use uav status here TODO (Gowtham)
     if (data.altitude < 0.1) {
