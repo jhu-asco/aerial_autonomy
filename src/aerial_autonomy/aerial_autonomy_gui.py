@@ -11,7 +11,6 @@ from python_qt_binding.QtWidgets import (QLabel, QVBoxLayout,
                                          QTextEdit, QPushButton,
                                          QSlider)
 from python_qt_binding.QtCore import *
-#from PyQt4.QtGui import *
 from ros_event_trigger import RosEventTrigger
 from argparse import ArgumentParser
 from functools import partial
