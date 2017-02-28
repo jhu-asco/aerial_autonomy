@@ -8,6 +8,7 @@ import rospy
 import rospkg
 import os
 from std_msgs.msg import String
+from geometry_msgs.msg import PoseStamped
 from functools import partial
 from python_qt_binding.QtCore import QObject, pyqtSignal
 
@@ -36,6 +37,7 @@ class RosEventTrigger(QObject):
     quad_signal = pyqtSignal(str, name='quadStatus')
     arm_signal = pyqtSignal(str, name='armStatus')
     state_machine_signal = pyqtSignal(str, name='stateMachineStatus')
+    pose_command_signal = pyqtSignal(PoseStamped, name='poseCommand')
 
     def __init__(self, event_file_path):
         '''
@@ -68,21 +70,32 @@ class RosEventTrigger(QObject):
         parse_event_file(event_folder, event_file_name, self.event_names_list)
         self.event_pub = rospy.Publisher('event_trigger',
                                          String, queue_size=1)
+
+        self.pose_command_pub = rospy.Publisher('pose_command_combined',
+                                                PoseStamped, queue_size=1)
         # Define partial callbacks
         quadCallback = partial(self.statusCallback, signal=self.quad_signal)
         armCallback = partial(self.statusCallback, signal=self.arm_signal)
         stateMachineCallback = partial(self.statusCallback,
                                        signal=self.state_machine_signal)
+        poseCommandCallback = lambda pose_command : self.pose_command_signal.emit(pose_command)
         # Subscribers for quad arm and state machine updates
         rospy.Subscriber("quad_status", String, quadCallback)
         rospy.Subscriber("arm_status", String, armCallback)
         rospy.Subscriber("stat_machine_status", String, stateMachineCallback)
+
+        # Subscribe to position commands (from Rviz)
+        rospy.Subscriber("pose_command", PoseStamped, poseCommandCallback) 
 
     def statusCallback(self, msg, signal):
         """
         Ros callback for status data from quad, arm, state machine
         """
         signal.emit(str(msg.data))
+
+    def triggerPoseCommand(self, pose):
+        if not rospy.is_shutdown():
+            self.pose_command_pub.publish(pose) 
 
     def triggerEvent(self, event_name):
         """

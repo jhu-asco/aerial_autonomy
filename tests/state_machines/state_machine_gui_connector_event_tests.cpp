@@ -36,6 +36,6 @@ TEST_F(StateMachineGUIConnectorTests, TriggerEvent) {
 
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
-  ros::init(argc, argv, "state_machine_gui_connector_tests");
+  ros::init(argc, argv, "state_machine_gui_connector_event_tests");
   return RUN_ALL_TESTS();
 }

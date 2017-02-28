@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   class_loader
   pluginlib
   rostest
+  tf_conversions
 )
 
 include(cmake/add_event_function.cmake)
@@ -163,6 +164,7 @@ add_library(aerial_autonomy
 ## Declare a C++ executable
 # add_executable(aerial_autonomy_node src/aerial_autonomy_node.cpp)
 add_executable(event_publish_node src/tests/event_publish_node.cpp)
+add_executable(pose_publish_node src/tests/pose_publish_node.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -170,6 +172,7 @@ add_executable(event_publish_node src/tests/event_publish_node.cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
+target_link_libraries(pose_publish_node ${catkin_LIBRARIES})
 
 #############
 ## Install ##
@@ -222,8 +225,10 @@ catkin_add_gtest(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test tests/contro
 catkin_add_gtest(${PROJECT_NAME}-uav-system-test tests/robot_systems/uav_system_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-basic-functor-tests tests/actions_guards/basic_functor_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-basic-state-machine-test tests/state_machines/basic_state_machine_tests.cpp)
-add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-test tests/state_machines/state_machine_gui_connector_tests.test tests/state_machines/state_machine_gui_connector_tests.cpp)
-add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
+add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-event-test tests/state_machines/state_machine_gui_connector_event_tests.test tests/state_machines/state_machine_gui_connector_event_tests.cpp)
+add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-event-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
+add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-pose-test tests/state_machines/state_machine_gui_connector_pose_tests.test tests/state_machines/state_machine_gui_connector_pose_tests.cpp)
+add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-pose-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
 if(TARGET ${PROJECT_NAME}-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-basic-state-machine-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 endif()
@@ -251,8 +256,11 @@ endif()
 if(TARGET ${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test ${Boost_LIBRARIES})
 endif()
-if(TARGET ${PROJECT_NAME}-state-machine-gui-connector-test)
-  target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-test aerial_autonomy ${catkin_LIBRARIES})
+if(TARGET ${PROJECT_NAME}-state-machine-gui-connector-event-test)
+  target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-event-test aerial_autonomy ${catkin_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-state-machine-gui-connector-pose-test)
+  target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-pose-test aerial_autonomy ${catkin_LIBRARIES})
 endif()
 
 ## Add folders to be run by python nosetests

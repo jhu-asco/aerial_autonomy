@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="aerial_autonomy" type="pose_publish_node" name="pose_publish_node" output="screen" />
+  <test test-name="StateMachineGUIConnectorPose" pkg="aerial_autonomy" type="aerial_autonomy-state-machine-gui-connector-pose-test">
+  </test>
+</launch>

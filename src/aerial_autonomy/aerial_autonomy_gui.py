@@ -8,7 +8,10 @@ import argparse
 from qt_gui.plugin import Plugin
 from python_qt_binding.QtWidgets import (QLabel, QVBoxLayout,
                                          QGridLayout, QWidget,
-                                         QTextEdit, QPushButton)
+                                         QTextEdit, QPushButton,
+                                         QSlider)
+from python_qt_binding.QtCore import *
+#from PyQt4.QtGui import *
 from ros_event_trigger import RosEventTrigger
 from argparse import ArgumentParser
 from functools import partial
@@ -39,7 +42,7 @@ class EventTransmissionGUI(Plugin):
         self._container.setLayout(self._layout)
 
         # Create Textboxes and add to Layout
-        self._layout.addWidget(QLabel('State Machine state'))
+        self._layout.addWidget(QLabel('State Machine State'))
         self.state_machine_textbox = QTextEdit()
         self.state_machine_textbox.setReadOnly(True)
         self._layout.addWidget(self.state_machine_textbox)
@@ -54,6 +57,23 @@ class EventTransmissionGUI(Plugin):
             self.arm_textbox = QTextEdit()
             self.arm_textbox.setReadOnly(True)
             self._layout.addWidget(self.arm_textbox)
+
+        # Create height slider
+        self._layout.addWidget(QLabel('Pose Command Height (m)'))
+        self.slider_container = QWidget()
+        self.slider_layout = QGridLayout()
+        self.slider_container.setLayout(self.slider_layout)
+        self.height_slider = QSlider(Qt.Horizontal)
+        self.height_slider.setMinimum(1.)
+        self.height_slider.setMaximum(20)
+        self.height_slider.setValue(2)
+        self.height_slider.setTickPosition(QSlider.TicksBelow)
+        self.height_slider.setTickInterval(1)
+        self.slider_layout.addWidget(self.height_slider, 0, 0)
+        self.height_value = QLabel(str(self.height_slider.value()))
+        self.slider_layout.addWidget(self.height_value, 0, 1)
+        self.height_slider.valueChanged.connect(self.updateHeight)
+        self._layout.addWidget(self.slider_container)
 
         # Define and connect buttons
         self._layout.addWidget(QLabel('Event Triggers'))
@@ -84,6 +104,7 @@ class EventTransmissionGUI(Plugin):
         self.event_trigger.state_machine_signal.connect(
             stateMachineStatusCallback)
         self.event_trigger.quad_signal.connect(quadStatusCallback)
+        self.event_trigger.pose_command_signal.connect(self.poseCommandCallback)
         # Same for arm
         if args.use_arm:
             armStatusCallback = partial(
@@ -121,6 +142,17 @@ class EventTransmissionGUI(Plugin):
         col_index = button_index % ncols
         row_index = int((button_index - col_index) / ncols)
         return(row_index, col_index)
+
+    def poseCommandCallback(self, pose):
+        """
+        Combines pose message with height slider and publishes
+        full pose command
+        """
+        pose.pose.position.z = self.height_slider.value()
+        self.event_trigger.triggerPoseCommand(pose)
+
+    def updateHeight(self):
+        self.height_value.setText(str(self.height_slider.value()))
 
     def updateStatus(self, status, text_box):
         """
