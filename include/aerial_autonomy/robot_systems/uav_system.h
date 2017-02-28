@@ -13,7 +13,7 @@
 #include <memory>
 
 /**
- * Owns, initializes, and facilitates communication between different
+ * @brief Owns, initializes, and facilitates communication between different
  * hardware/software components.
  * Provides builtin position, velocity, and rpy controllers for controlling UAV
 */

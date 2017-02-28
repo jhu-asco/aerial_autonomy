@@ -63,6 +63,7 @@ class EventTransmissionGUI(Plugin):
         self.slider_layout = QGridLayout()
         self.slider_container.setLayout(self.slider_layout)
         self.height_slider = QSlider(Qt.Horizontal)
+        # TODO(matt): Load slider settings from param file
         self.height_slider.setMinimum(1.)
         self.height_slider.setMaximum(20)
         self.height_slider.setValue(2)
@@ -72,6 +73,7 @@ class EventTransmissionGUI(Plugin):
         self.height_value = QLabel(str(self.height_slider.value()))
         self.slider_layout.addWidget(self.height_value, 0, 1)
         self.height_slider.valueChanged.connect(self.updateHeight)
+        # TODO(matt): Reset slider value based on current quad height
         self._layout.addWidget(self.slider_container)
 
         # Define and connect buttons
