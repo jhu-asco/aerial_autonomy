@@ -164,7 +164,6 @@ add_library(aerial_autonomy
 ## Declare a C++ executable
 # add_executable(aerial_autonomy_node src/aerial_autonomy_node.cpp)
 add_executable(event_publish_node src/tests/event_publish_node.cpp)
-add_executable(pose_publish_node src/tests/pose_publish_node.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -172,7 +171,6 @@ add_executable(pose_publish_node src/tests/pose_publish_node.cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
-target_link_libraries(pose_publish_node ${catkin_LIBRARIES})
 
 #############
 ## Install ##
@@ -228,7 +226,7 @@ catkin_add_gtest(${PROJECT_NAME}-basic-state-machine-test tests/state_machines/b
 add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-event-test tests/state_machines/state_machine_gui_connector_event_tests.test tests/state_machines/state_machine_gui_connector_event_tests.cpp)
 add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-event-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
 add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-pose-test tests/state_machines/state_machine_gui_connector_pose_tests.test tests/state_machines/state_machine_gui_connector_pose_tests.cpp)
-add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-pose-test ${${PROJECT_NAME}_EXPORTED_TARGETS} pose_publish_node)
+add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-pose-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
 if(TARGET ${PROJECT_NAME}-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-basic-state-machine-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 endif()
