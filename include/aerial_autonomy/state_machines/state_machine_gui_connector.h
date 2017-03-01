@@ -24,8 +24,27 @@ public:
                      &StateMachineGUIConnector::poseCommandCallback, this);
   }
 
+  /**
+   * @brief Returns whether the GUI connector is connected to an event publisher
+   * @return Returns true if connected
+   */
+  bool isEventManagerConnected() {
+    std::cout << "check" << std::endl;
+    return event_manager_sub_.getNumPublishers() > 0;
+  }
+
+  /**
+   * @brief Returns whether the GUI connector is connected to an pose command
+   * publisher
+   * @return Returns true if connected
+   */
+  bool isPoseCommandConnected() {
+    return pose_command_sub_.getNumPublishers() > 0;
+  }
+
 private:
   void eventCallback(const std_msgs::StringConstPtr &event_data) {
+    std::cout << "got message" << std::endl;
     event_manager_.triggerEvent(event_data->data, logic_state_machine_);
   }
 

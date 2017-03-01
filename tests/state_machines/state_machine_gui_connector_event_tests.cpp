@@ -28,8 +28,11 @@ protected:
 TEST_F(StateMachineGUIConnectorTests, Constructor) {}
 
 TEST_F(StateMachineGUIConnectorTests, TriggerEvent) {
-  ros::Duration(0.5).sleep();
-  ros::spinOnce();
+  while (!state_machine_gui_connector.isEventManagerConnected()) {
+    ros::Duration(0.2)
+        .sleep(); // Rate must be slower than test node publish rate
+    ros::spinOnce();
+  }
   ASSERT_EQ(logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(Land)));
 }

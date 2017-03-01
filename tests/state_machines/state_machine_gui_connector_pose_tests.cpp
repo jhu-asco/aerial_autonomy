@@ -29,8 +29,11 @@ protected:
 TEST_F(StateMachineGUIConnectorTests, Constructor) {}
 
 TEST_F(StateMachineGUIConnectorTests, TriggerPose) {
-  ros::Duration(0.5).sleep();
-  ros::spinOnce();
+  while (!state_machine_gui_connector.isPoseCommandConnected()) {
+    ros::Duration(0.2)
+        .sleep(); // Rate must be slower than test node publish rate
+    ros::spinOnce();
+  }
   ASSERT_EQ(logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(PositionYaw)));
   PositionYaw pose(1, 2, 3, 0);
