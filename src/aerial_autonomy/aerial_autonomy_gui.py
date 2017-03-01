@@ -156,8 +156,7 @@ class EventTransmissionGUI(Plugin):
 
     def poseCommandCallback(self, pose):
         """
-        Combines pose message with height slider and saves
-        full pose command
+        Saves pose command and updates command display
         """
         self.pose_command = pose
         self.pose_x.setText(str(self.pose_command.pose.position.x))
@@ -165,7 +164,7 @@ class EventTransmissionGUI(Plugin):
 
     def poseCommandButtonCallback(self):
         """
-        Publishes stored pose command
+        Publishes stored pose command after setting height from slider
         """
         if self.pose_command:
             self.pose_command.pose.position.z = self.height_slider.value()
