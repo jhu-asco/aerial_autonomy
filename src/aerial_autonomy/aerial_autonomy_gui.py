@@ -59,9 +59,6 @@ class EventTransmissionGUI(Plugin):
 
         # Create height slider
         self._layout.addWidget(QLabel('Pose Command Height (m)'))
-        self.slider_container = QWidget()
-        self.slider_layout = QGridLayout()
-        self.slider_container.setLayout(self.slider_layout)
         self.height_slider = QSlider(Qt.Horizontal)
         # TODO(matt): Load slider settings from param file
         self.height_slider.setMinimum(1.)
@@ -69,12 +66,25 @@ class EventTransmissionGUI(Plugin):
         self.height_slider.setValue(2)
         self.height_slider.setTickPosition(QSlider.TicksBelow)
         self.height_slider.setTickInterval(1)
-        self.slider_layout.addWidget(self.height_slider, 0, 0)
-        self.height_value = QLabel(str(self.height_slider.value()))
-        self.slider_layout.addWidget(self.height_value, 0, 1)
-        self.height_slider.valueChanged.connect(self.updateHeight)
+        self._layout.addWidget(self.height_slider)
         # TODO(matt): Reset slider value based on current quad height
-        self._layout.addWidget(self.slider_container)
+        # Add button for triggering pose command
+        self.pose_command_container = QWidget()
+        self.pose_command_layout = QGridLayout()
+        self.pose_command_container.setLayout(self.pose_command_layout)
+        self.pose_x = QLabel('-')
+        self.pose_y = QLabel('-')
+        self.pose_z = QLabel(str(self.height_slider.value()))
+        self.height_slider.valueChanged.connect(self.updateHeight)
+        self.pose_command_layout.addWidget(self.pose_x, 0, 0)
+        self.pose_command_layout.addWidget(self.pose_y, 0, 1)
+        self.pose_command_layout.addWidget(self.pose_z, 0, 2)
+        self.send_pose_command_button = QPushButton("Send Pose Command")
+        self.send_pose_command_button.clicked.connect(self.poseCommandButtonCallback)
+        self.pose_command_layout.addWidget(self.send_pose_command_button, 0, 3)
+        self._layout.addWidget(self.pose_command_container)
+
+        self.pose_command = None
 
         # Define and connect buttons
         self._layout.addWidget(QLabel('Event Triggers'))
@@ -146,14 +156,32 @@ class EventTransmissionGUI(Plugin):
 
     def poseCommandCallback(self, pose):
         """
-        Combines pose message with height slider and publishes
+        Combines pose message with height slider and saves
         full pose command
         """
-        pose.pose.position.z = self.height_slider.value()
-        self.event_trigger.triggerPoseCommand(pose)
+        self.pose_command = pose
+        self.pose_x.setText(str(self.pose_command.pose.position.x))
+        self.pose_y.setText(str(self.pose_command.pose.position.y))
+
+    def poseCommandButtonCallback(self):
+        """
+        Publishes stored pose command
+        """
+        if self.pose_command:
+            self.pose_command.pose.position.z = self.height_slider.value()
+            self.event_trigger.triggerPoseCommand(self.pose_command)
+            # Reset pose command to avoid accidental triggering
+            self.pose_command = None
+            self.pose_x.setText('-')
+            self.pose_y.setText('-')
+        else:
+            print "No pose command to trigger"
 
     def updateHeight(self):
-        self.height_value.setText(str(self.height_slider.value()))
+        """
+        Updates height label based on slider value
+        """
+        self.pose_z.setText(str(self.height_slider.value()))
 
     def updateStatus(self, status, text_box):
         """
