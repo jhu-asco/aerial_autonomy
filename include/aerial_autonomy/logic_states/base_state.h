@@ -2,7 +2,7 @@
 /**
  * Base state for all states in logic state machine
  *
- * This class provides a wrapper for any action and guard function and robot
+ * This class provides a wrapper for any action function and robot
  * system
  * Entry and exit function can also be overwritten by subclassing this base
  * state.
@@ -13,33 +13,29 @@
 #include <boost/msm/front/state_machine_def.hpp>
 
 // Include Base state:
-#include <aerial_autonomy/logic_states/base_functors.h>
+#include <aerial_autonomy/actions_guards/base_functors.h>
 
 // Static asserts
 #include <type_traits>
 
 namespace msmf = boost::msm::front;
 
-template <class RobotSystemT, class LogicStateMachineT, class ActionFctr,
-          class GuardFctr = msmf::none>
-class BaseState : msmf::state<> {
-  // Perform static asserts to ensure the ActionFctr and GuardFctr are valid:
-  static_assert(
-      (std::is_base_of<BaseRunFunctor<RobotSystemT, LogicStateMachineT>, ActionFctr>::value ||
-       std::is_same<ActionFctr, msmf::none>::value),
-      "ActionFctr not a subclass of BaseRunFctr");
-  static_assert((std::is_base_of<BaseGuardFunctor<RobotSystemT, LogicStateMachineT>,
-                                 GuardFctr>::value ||
-                 std::is_same<GuardFctr, msmf::none>::value),
-                "ActionFctr not a subclass of BaseRunFctr");
+template <class RobotSystemT, class LogicStateMachineT, class ActionFctr>
+class BaseState : public msmf::state<> {
+  // Perform static asserts to ensure the ActionFctr is valid:
+  static_assert(std::is_base_of<EventAgnosticActionFunctor<RobotSystemT,
+                                                           LogicStateMachineT>,
+                                ActionFctr>::value,
+                "ActionFctr not a subclass of InternalActionFctr");
+
+public:
   /**
    * @brief The internal_transition_table to call run function in every state
    */
   struct internal_transition_table
       : boost::mpl::vector<
-            msmf::Internal<RobotSystemT, ActionFctr, GuardFctr>> {};
+            msmf::Internal<InternalTransitionEvent, ActionFctr, msmf::none>> {};
 
-public:
   /**
    * @brief Destructor
    */

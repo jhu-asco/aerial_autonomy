@@ -1,48 +1,51 @@
-#include <aerial_autonomy/logic_states/base_functors.h>
+#include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/logic_states/base_state.h>
+#include <aerial_autonomy/tests/sample_logic_state_machine.h>
 #include <gtest/gtest.h>
 
 //// \brief Definitions
 ///  Define any necessary subclasses for tests here
-struct RobotSystem {};
-struct LogicStateMachine {};
-
-struct EmptyRunFunctor : BaseRunFunctor<RobotSystem, LogicStateMachine> {
-  virtual void run(RobotSystem const &, LogicStateMachine &) {}
+struct EmptyActionFunctor
+    : EventAgnosticActionFunctor<EmptyRobotSystem, SampleLogicStateMachine> {
+  virtual void run(EmptyRobotSystem &, SampleLogicStateMachine &) {}
 };
 
-struct EmptyGuardFunctor : BaseGuardFunctor<RobotSystem, LogicStateMachine> {
-  virtual bool guard(RobotSystem const &, LogicStateMachine &) { return true; }
+struct EmptyGuardFunctor
+    : GuardFunctor<double, EmptyRobotSystem, SampleLogicStateMachine> {
+  virtual bool guard(double const &, EmptyRobotSystem &,
+                     SampleLogicStateMachine &) {
+    return true;
+  }
 };
 ////
 
 /// \brief TEST
 /// All the tests are defined here
 TEST(BaseStateTests, BaseStateCtor) {
-  typedef BaseState<RobotSystem, LogicStateMachine, EmptyRunFunctor>
+  typedef BaseState<EmptyRobotSystem, SampleLogicStateMachine,
+                    EmptyActionFunctor>
       BaseStateEmpty;
   ASSERT_NO_THROW(BaseStateEmpty());
-
-  typedef BaseState<RobotSystem, LogicStateMachine, EmptyRunFunctor,
-                    EmptyGuardFunctor>
-      BaseStateEmptyGuard;
-  ASSERT_NO_THROW(BaseStateEmptyGuard());
 }
 
 TEST(BaseStateTests, EmptytFctor) {
-  EmptyRunFunctor empty_functor;
-  RobotSystem robot_system;
-  LogicStateMachine logic_state_machine;
-  // Robotsystem, LogicStateMachine, source, target
+  EmptyActionFunctor empty_functor;
+  EmptyRobotSystem robot_system;
+  SampleLogicStateMachine logic_state_machine(robot_system);
+  // Robotsystem, SampleLogicStateMachine, source, target
   ASSERT_NO_THROW(empty_functor.run(robot_system, logic_state_machine));
+  int empty_source_state, empty_target_state;
+  ASSERT_NO_THROW(empty_functor(InternalTransitionEvent(), logic_state_machine,
+                                empty_source_state, empty_target_state));
 }
 
 TEST(BaseStateTests, EmptytGuardFctor) {
   EmptyGuardFunctor empty_functor;
-  RobotSystem robot_system;
-  LogicStateMachine logic_state_machine;
-  // Robotsystem, LogicStateMachine, source, target
-  ASSERT_TRUE(empty_functor.guard(robot_system, logic_state_machine));
+  EmptyRobotSystem robot_system;
+  SampleLogicStateMachine logic_state_machine(robot_system);
+  // Robotsystem, SampleLogicStateMachine, source, target
+  ASSERT_TRUE(
+      empty_functor.guard(double(0.0), robot_system, logic_state_machine));
 }
 ///
 

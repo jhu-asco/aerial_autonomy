@@ -9,13 +9,24 @@ public:
       quad_data.servo_in[i] = channels[i];
     }
   }
-  virtual bool takeoff() { return true; } // Take off the quadcopter
-  virtual bool land() { return true; }    // Land the quadcopter
-  virtual bool disarm() { return true; }  // Disarm the quadcopter
+  virtual bool takeoff() {
+    quad_data.quadstate = "takeoff";
+    return true;
+  } // Take off the quadcopter
+  virtual bool land() {
+    quad_data.quadstate = "land";
+    return true;
+  } // Land the quadcopter
+  virtual bool disarm() {
+    quad_data.quadstate = "disarm";
+    return true;
+  } // Disarm the quadcopter
   virtual bool flowControl(bool) {
+    quad_data.quadstate = "flowcontrol";
     return true;
   } // Enable or disable control of quadcopter
   virtual bool calibrateimubias() {
+    quad_data.quadstate = "calibrateimu";
     return true;
   } // Calibrate imu of the quadcopter based on sample data
 
@@ -48,8 +59,13 @@ public:
   virtual void initialize(ros::NodeHandle &nh_) {}
   virtual void getquaddata(parsernode::common::quaddata &d1) { d1 = quad_data; }
   virtual ~SampleParser() {}
-  virtual void
-  setaltitude(double altitude_){};         // Set the altitude value in the data
+  virtual void setBatteryPercent(double percent) {
+    quad_data.batterypercent = percent;
+  }
+  virtual void setaltitude(double altitude_) {
+    quad_data.altitude = altitude_;
+    quad_data.localpos.z = altitude_;
+  };                                       // Set the altitude value in the data
   virtual void setlogdir(string logdir){}; // Set whether to log data or not
   virtual void controllog(bool logswitch) {}
 

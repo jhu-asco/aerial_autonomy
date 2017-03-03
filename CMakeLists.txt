@@ -12,6 +12,8 @@ find_package(catkin REQUIRED COMPONENTS
   parsernode
   class_loader
   pluginlib
+  rostest
+  tf_conversions
 )
 
 include(cmake/add_event_function.cmake)
@@ -161,14 +163,14 @@ add_library(aerial_autonomy
 
 ## Declare a C++ executable
 # add_executable(aerial_autonomy_node src/aerial_autonomy_node.cpp)
+add_executable(event_publish_node src/tests/event_publish_node.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(aerial_autonomy_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-#target_link_libraries(aerial_autonomy
-#)
+target_link_libraries(event_publish_node ${catkin_LIBRARIES})
 
 #############
 ## Install ##
@@ -214,9 +216,20 @@ catkin_add_gtest(${PROJECT_NAME}-logic-states-test tests/logic_states/base_state
 catkin_add_gtest(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test tests/controller_hardware_connectors/controller_hardware_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-evnt-mngr-test tests/event_manager_tests/event_manager_tests.cpp)
 add_dependencies(${PROJECT_NAME}-evnt-mngr-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
+catkin_add_gtest(${PROJECT_NAME}-type-map-test tests/common/type_map_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/position_controller_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/builtin_velocity_controller_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/manual_rpyt_controller_drone_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-uav-system-test tests/robot_systems/uav_system_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-basic-functor-tests tests/actions_guards/basic_functor_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-basic-state-machine-test tests/state_machines/basic_state_machine_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-event-test tests/state_machines/state_machine_gui_connector_event_tests.test tests/state_machines/state_machine_gui_connector_event_tests.cpp)
+add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-event-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
+add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-pose-test tests/state_machines/state_machine_gui_connector_pose_tests.test tests/state_machines/state_machine_gui_connector_pose_tests.cpp)
+add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-pose-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
+if(TARGET ${PROJECT_NAME}-basic-state-machine-test)
+  target_link_libraries(${PROJECT_NAME}-basic-state-machine-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+endif()
 if(TARGET ${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 endif()
@@ -226,8 +239,26 @@ endif()
 if(TARGET ${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 endif()
+if(TARGET ${PROJECT_NAME}-logic-states-test)
+  target_link_libraries(${PROJECT_NAME}-logic-states-test ${Boost_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-evnt-mngr-test)
+  target_link_libraries(${PROJECT_NAME}-evnt-mngr-test ${Boost_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-uav-system-test)
+  target_link_libraries(${PROJECT_NAME}-uav-system-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-basic-functor-tests)
+  target_link_libraries(${PROJECT_NAME}-basic-functor-tests aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+endif()
 if(TARGET ${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test ${Boost_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-state-machine-gui-connector-event-test)
+  target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-event-test aerial_autonomy ${catkin_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-state-machine-gui-connector-pose-test)
+  target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-pose-test aerial_autonomy ${catkin_LIBRARIES})
 endif()
 
 ## Add folders to be run by python nosetests
