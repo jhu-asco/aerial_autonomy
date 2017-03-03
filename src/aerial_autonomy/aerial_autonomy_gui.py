@@ -72,9 +72,9 @@ class EventTransmissionGUI(Plugin):
         self.pose_command_container = QWidget()
         self.pose_command_layout = QGridLayout()
         self.pose_command_container.setLayout(self.pose_command_layout)
-        self.pose_x = QLabel('-')
-        self.pose_y = QLabel('-')
-        self.pose_z = QLabel(str(self.height_slider.value()))
+        self.pose_x = QLabel('x: -')
+        self.pose_y = QLabel('y: -')
+        self.pose_z = QLabel("z: {0:.2f}".format(self.height_slider.value()))
         self.height_slider.valueChanged.connect(self.updateHeight)
         self.pose_command_layout.addWidget(self.pose_x, 0, 0)
         self.pose_command_layout.addWidget(self.pose_y, 0, 1)
@@ -159,8 +159,8 @@ class EventTransmissionGUI(Plugin):
         Saves pose command and updates command display
         """
         self.pose_command = pose
-        self.pose_x.setText(str(self.pose_command.pose.position.x))
-        self.pose_y.setText(str(self.pose_command.pose.position.y))
+        self.pose_x.setText("x: {0:.2f}".format(self.pose_command.pose.position.x))
+        self.pose_y.setText("y: {0:.2f}".format(self.pose_command.pose.position.y))
 
     def poseCommandButtonCallback(self):
         """
@@ -171,8 +171,8 @@ class EventTransmissionGUI(Plugin):
             self.event_trigger.triggerPoseCommand(self.pose_command)
             # Reset pose command to avoid accidental triggering
             self.pose_command = None
-            self.pose_x.setText('-')
-            self.pose_y.setText('-')
+            self.pose_x.setText('x: -')
+            self.pose_y.setText('y: -')
         else:
             print "No pose command to trigger"
 
@@ -180,7 +180,7 @@ class EventTransmissionGUI(Plugin):
         """
         Updates height label based on slider value
         """
-        self.pose_z.setText(str(self.height_slider.value()))
+        self.pose_z.setText("z: {0:.2f}".format(self.height_slider.value()))
 
     def updateStatus(self, status, text_box):
         """
