@@ -15,7 +15,7 @@ protected:
     logic_state_machine->start();
   }
 
-  virtual void tearDown() {
+  virtual void TearDown() {
     logic_state_machine->stop();
     uav_system.reset();
     logic_state_machine.reset();
