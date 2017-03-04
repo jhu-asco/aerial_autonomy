@@ -5,6 +5,8 @@
 #include <aerial_autonomy/robot_systems/uav_system.h>
 #include <parsernode/common.h>
 
+using namespace basic_events;
+
 /**
 * @brief Internal action when hovering.
 *
