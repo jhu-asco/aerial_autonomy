@@ -1,8 +1,8 @@
 #pragma once
 #include <aerial_autonomy/actions_guards/base_functors.h>
+#include <aerial_autonomy/basic_events.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
-#include <aerial_autonomy/basic_events.h>
 #include <aerial_autonomy/types/completed_event.h>
 #include <parsernode/common.h>
 
@@ -69,7 +69,8 @@ struct TakeoffInternalActionFunctor_
   * @brief Function to check when takeoff is complete.
   * If battery is low while takeoff, trigger Land event
   *
-  *  \todo add a parameter for height when to transition from takeoff to hovering
+  *  \todo add a parameter for height when to transition from takeoff to
+  * hovering
   *
   * @param robot_system robot system to get sensor data
   * @param logic_state_machine logic state machine to trigger events

@@ -11,7 +11,8 @@ struct EmptyRobotSystem {};
 /**
 * @brief Example Logic state machine that stores triggered event
 *
-* @tparam RobotSystemT The robot system that is used by states to perform actions
+* @tparam RobotSystemT The robot system that is used by states to perform
+* actions
 */
 template <class RobotSystemT> class SampleLogicStateMachine_ {
   /**
