@@ -123,8 +123,6 @@ struct EventAgnosticActionFunctor {
 
   /**
      * @brief operator () Internally calls run function
-     * @param robot_system Provides sensor data and allows for controlling
-     * hardware
      * @param logic_state_machine Backend of logic State Machine. can send
      * events using this.
      */
@@ -170,8 +168,6 @@ struct EventAgnosticGuardFunctor {
 
   /**
      * @brief operator () Internally calls run function
-     * @param robot_system Provides sensor data and allows for controlling
-     * hardware
      * @param logic_state_machine Backend of logic State Machine. can send
      * events using this.
      */
