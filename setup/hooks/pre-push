@@ -26,3 +26,26 @@ then
     echo "Check code-coverage-info/index.html for detailed code generation stats"
     exit 1;
 fi
+
+# Generate test coverage
+./scripts/generate_test_coverage.bash
+error=$?
+if [ $error -ne 0 ]
+then
+  echo "Test coverage generation failed"
+  exit 1
+fi
+
+# Check test coverage
+threshold=95
+./setup/test_coverage.py --threshold $threshold ./test_coverage_info/test_coverage.info
+error=$?
+if [ $error -ne 0 ]
+then
+    echo "ERROR: Commit did not have enough Line test coverage"
+    echo "Testing threshold for code to pass is $threshold."
+    codecoverage=`expr $threshold - $error`
+    echo "The line testing code coverage is $codecoverage percentage"
+    echo "The code is short by $error percentage"
+    exit 1;
+fi
