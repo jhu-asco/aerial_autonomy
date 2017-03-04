@@ -2,5 +2,5 @@ CMakeLists.txt.user
 *.pyc
 *.swp
 doxy_errors.txt
-code_coverage_info/*
+documentation_coverage_info/*
 docs/
