@@ -1,0 +1,17 @@
+#!/bin/bash
+catkin run_tests aerial_autonomy
+TEST_COVERAGE_DIR=${CMAKE_CURRENT_SOURCE_DIR}/test_coverage_info
+lcov --capture --directory  ${CMAKE_CURRENT_BINARY_DIR} --base-directory ${CMAKE_CURRENT_SOURCE_DIR} --output-file $TEST_COVERAGE_DIR/test_coverage.info --no-external > /dev/null
+genhtml $TEST_COVERAGE_DIR/test_coverage.info --output-directory $TEST_COVERAGE_DIR > /dev/null
+threshold=95
+${CMAKE_CURRENT_SOURCE_DIR}/setup/test_coverage.py --threshold $threshold $TEST_COVERAGE_DIR/test_coverage.info
+error=$?
+if [ $error -ne 0 ]
+then
+    echo "Commit did not have enough Line test coverage"
+    echo "Testing threshold for code to pass is $threshold."
+    codecoverage=`expr $threshold - $error`
+    echo "The line testing code coverage is $codecoverage percentage"
+    echo "The code is short by $error percentage"
+    exit 1;
+fi
