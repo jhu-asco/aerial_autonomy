@@ -13,15 +13,14 @@
 */
 template <class LogicStateMachineT>
 struct HoveringInternalActionFunctor_
-    : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
+    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   /**
   * @brief Checks for enough battery voltage and land if battery critical
   *
   * @param robot_system robot system to get sensor data
   * @param logic_state_machine logic state machine to trigger events
   */
-  void run(const InternalTransitionEvent &, UAVSystem &robot_system,
-           LogicStateMachineT &logic_state_machine) {
+  void run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     parsernode::common::quaddata data = robot_system.getUAVData();
     // Transition to hovering state once reached high altitude
     // Can also use uav status here TODO (Gowtham)

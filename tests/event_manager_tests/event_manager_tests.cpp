@@ -17,7 +17,7 @@ TEST(BasicEventManagerTest, CheckEventSet) {
   BasicEventManager<SampleLogicStateMachine> event_manager;
   std::set<std::string> event_set = event_manager.getEventSet();
   std::set<std::string> expected_set { "Land", "Takeoff", "Abort"};
-  ASSERT_TRUE(event_set == expected_set);
+  ASSERT_EQ(event_set, expected_set);
 }
 TEST(BasicEventManagerTest, TriggerWrongEvent) {
   BasicEventManager<SampleLogicStateMachine> event_manager;

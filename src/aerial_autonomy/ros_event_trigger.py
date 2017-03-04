@@ -8,6 +8,7 @@ import rospy
 import rospkg
 import os
 from std_msgs.msg import String
+from geometry_msgs.msg import PoseStamped
 from functools import partial
 from python_qt_binding.QtCore import QObject, pyqtSignal
 
@@ -46,6 +47,8 @@ class RosEventTrigger(QObject):
     arm_signal = pyqtSignal(str, name='armStatus')
     ## Send state machine status as string
     state_machine_signal = pyqtSignal(str, name='stateMachineStatus')
+    ## Send pose command received from Rviz
+    pose_command_signal = pyqtSignal(PoseStamped, name='poseCommand')
 
     def __init__(self, event_file_path):
         '''
@@ -72,7 +75,7 @@ class RosEventTrigger(QObject):
                            for event_name in event_file.read().splitlines()]
         event_file.close()
         ## Define event manager name
-        self.event_manager_name = event_line_list[0][:-1] 
+        self.event_manager_name = event_line_list[0][:-1]
 
         ## Event names used to create buttons
         self.event_names_list = []
@@ -83,22 +86,35 @@ class RosEventTrigger(QObject):
         ## Ros publisher to trigger events based on name
         self.event_pub = rospy.Publisher('event_trigger',
                                          String, queue_size=1)
-
+        ## Ros publisher to trigger pose event
+        self.pose_command_pub = rospy.Publisher('pose_command_combined',
+                                                PoseStamped, queue_size=1)
         # Define partial callbacks
         quadCallback = partial(self.statusCallback, signal=self.quad_signal)
         armCallback = partial(self.statusCallback, signal=self.arm_signal)
         stateMachineCallback = partial(self.statusCallback,
                                        signal=self.state_machine_signal)
+        poseCommandCallback = lambda pose_command : self.pose_command_signal.emit(pose_command)
         # Subscribers for quad arm and state machine updates
         rospy.Subscriber("quad_status", String, quadCallback)
         rospy.Subscriber("arm_status", String, armCallback)
         rospy.Subscriber("stat_machine_status", String, stateMachineCallback)
+
+        # Subscribe to position commands (from Rviz)
+        rospy.Subscriber("pose_command", PoseStamped, poseCommandCallback) 
 
     def statusCallback(self, msg, signal):
         """
         Ros callback for status data from quad, arm, state machine
         """
         signal.emit(str(msg.data))
+
+    def triggerPoseCommand(self, pose):
+        """
+        Publish pose command event for state machine
+        """
+        if not rospy.is_shutdown():
+            self.pose_command_pub.publish(pose) 
 
     def triggerEvent(self, event_name):
         """

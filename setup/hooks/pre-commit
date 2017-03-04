@@ -9,14 +9,15 @@ then
 fi
 
 # Check Documentation coverage
-threshold=80
+threshold=99
 GIT_REPO_PATH=`git rev-parse --show-toplevel`
 cd $GIT_REPO_PATH
 doxygen $GIT_REPO_PATH/Doxyfile > /dev/null
 ./setup/doxy-coverage.py --excludedirs ./src/aerial_autonomy --threshold $threshold ./docs/xml > /dev/null
 error=$?
+echo $error
 if [ $error -ne 0 ]
-then 
+then
     echo "Commit did not have enough documentation"
     echo "Documentation threshold for code to pass is $threshold."
     codecoverage=`expr $threshold - $error`

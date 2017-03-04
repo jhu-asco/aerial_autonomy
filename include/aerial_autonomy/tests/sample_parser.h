@@ -67,9 +67,6 @@ public:
     quad_data.quadstate = "calibrateimu";
     return true;
   }
-
-  //  the msg format is
-  // 
   /**
   * @brief Command the euler angles of the quad and the thrust.
   *
@@ -166,13 +163,14 @@ public:
   */
   virtual void setaltitude(double altitude_) {
     quad_data.altitude = altitude_;
-  } 
+    quad_data.localpos.z = altitude_;
+  }
   /**
   * @brief Create log directory and create log files
   *
   * @param logdir the directory where to create log files
   */
-  virtual void setlogdir(string logdir){} 
+  virtual void setlogdir(string logdir) {}
   /**
   * @brief Toggle logging
   *

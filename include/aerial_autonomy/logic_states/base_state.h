@@ -23,10 +23,10 @@ namespace msmf = boost::msm::front;
 template <class RobotSystemT, class LogicStateMachineT, class ActionFctr>
 class BaseState : public msmf::state<> {
   // Perform static asserts to ensure the ActionFctr is valid:
-  static_assert(
-      std::is_base_of<InternalActionFunctor<RobotSystemT, LogicStateMachineT>,
-                      ActionFctr>::value,
-      "ActionFctr not a subclass of InternalActionFctr");
+  static_assert(std::is_base_of<EventAgnosticActionFunctor<RobotSystemT,
+                                                           LogicStateMachineT>,
+                                ActionFctr>::value,
+                "ActionFctr not a subclass of InternalActionFctr");
 
 public:
   /**

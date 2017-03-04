@@ -8,7 +8,9 @@ import argparse
 from qt_gui.plugin import Plugin
 from python_qt_binding.QtWidgets import (QLabel, QVBoxLayout,
                                          QGridLayout, QWidget,
-                                         QTextEdit, QPushButton)
+                                         QTextEdit, QPushButton,
+                                         QSlider)
+from python_qt_binding.QtCore import *
 from ros_event_trigger import RosEventTrigger
 from argparse import ArgumentParser
 from functools import partial
@@ -43,7 +45,7 @@ class EventTransmissionGUI(Plugin):
         self._container.setLayout(self._layout)
 
         # Create Textboxes and add to Layout
-        self._layout.addWidget(QLabel('State Machine state'))
+        self._layout.addWidget(QLabel('State Machine State'))
         ## Textbox to show logic state machine status
         self.state_machine_textbox = QTextEdit()
         self.state_machine_textbox.setReadOnly(True)
@@ -61,6 +63,42 @@ class EventTransmissionGUI(Plugin):
             self.arm_textbox = QTextEdit()
             self.arm_textbox.setReadOnly(True)
             self._layout.addWidget(self.arm_textbox)
+
+        # Create height slider
+        self._layout.addWidget(QLabel('Pose Command Height (m)'))
+        ## Height slider to adjust z coordinate for pose command
+        ## \todo Matt: Load slider settings from param file
+        self.height_slider = QSlider(Qt.Horizontal)
+        self.height_slider.setMinimum(1.)
+        self.height_slider.setMaximum(20)
+        self.height_slider.setValue(2)
+        self.height_slider.setTickPosition(QSlider.TicksBelow)
+        self.height_slider.setTickInterval(1)
+        self._layout.addWidget(self.height_slider)
+        # Add button for triggering pose command
+        ## Container for pose event related objects: slide etc
+        ## \todo Matt: Reset slider value based on current quad height
+        self.pose_command_container = QWidget()
+        ## Pose command layout
+        self.pose_command_layout = QGridLayout()
+        self.pose_command_container.setLayout(self.pose_command_layout)
+        ## x pose label to display position command from rviz to user
+        self.pose_x = QLabel('x: -')
+        ## y pose label to display position command from rviz to user
+        self.pose_y = QLabel('y: -')
+        ## z pose label to display position command from rviz to user
+        self.pose_z = QLabel("z: {0:.2f}".format(self.height_slider.value()))
+        self.height_slider.valueChanged.connect(self.updateHeight)
+        self.pose_command_layout.addWidget(self.pose_x, 0, 0)
+        self.pose_command_layout.addWidget(self.pose_y, 0, 1)
+        self.pose_command_layout.addWidget(self.pose_z, 0, 2)
+        ## Button to send the pose command to state machine as poseyaw event
+        self.send_pose_command_button = QPushButton("Send Pose Command")
+        self.send_pose_command_button.clicked.connect(self.poseCommandButtonCallback)
+        self.pose_command_layout.addWidget(self.send_pose_command_button, 0, 3)
+        self._layout.addWidget(self.pose_command_container)
+        ## Pose command container to store pose from Rviz and send to state machine
+        self.pose_command = None
 
         # Define and connect buttons
         self._layout.addWidget(QLabel('Event Triggers'))
@@ -94,6 +132,7 @@ class EventTransmissionGUI(Plugin):
         self.event_trigger.state_machine_signal.connect(
             stateMachineStatusCallback)
         self.event_trigger.quad_signal.connect(quadStatusCallback)
+        self.event_trigger.pose_command_signal.connect(self.poseCommandCallback)
         # Same for arm
         if args.use_arm:
             armStatusCallback = partial(
@@ -131,6 +170,34 @@ class EventTransmissionGUI(Plugin):
         col_index = button_index % ncols
         row_index = int((button_index - col_index) / ncols)
         return(row_index, col_index)
+
+    def poseCommandCallback(self, pose):
+        """
+        Saves pose command and updates command display
+        """
+        self.pose_command = pose
+        self.pose_x.setText("x: {0:.2f}".format(self.pose_command.pose.position.x))
+        self.pose_y.setText("y: {0:.2f}".format(self.pose_command.pose.position.y))
+
+    def poseCommandButtonCallback(self):
+        """
+        Publishes stored pose command after setting height from slider
+        """
+        if self.pose_command:
+            self.pose_command.pose.position.z = self.height_slider.value()
+            self.event_trigger.triggerPoseCommand(self.pose_command)
+            # Reset pose command to avoid accidental triggering
+            self.pose_command = None
+            self.pose_x.setText('x: -')
+            self.pose_y.setText('y: -')
+        else:
+            print "No pose command to trigger"
+
+    def updateHeight(self):
+        """
+        Updates height label based on slider value
+        """
+        self.pose_z.setText("z: {0:.2f}".format(self.height_slider.value()))
 
     def updateStatus(self, status, text_box):
         """

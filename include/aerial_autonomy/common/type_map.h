@@ -10,7 +10,6 @@
 * @tparam GenericObjectT Common base class for objects stored
 */
 template <class GenericObjectT> class TypeMap {
-  //
   /**
   * @brief Map to store the controller to hardware connectors
   * \todo Gowtham Maybe use shared/unique pointers
@@ -18,7 +17,6 @@ template <class GenericObjectT> class TypeMap {
   std::unordered_map<std::type_index, GenericObjectT *> object_storage_map_;
 
 public:
-  // Set
   /**
   * @brief Store the object with base class as GenericObjectT
   *

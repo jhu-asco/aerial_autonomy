@@ -15,8 +15,8 @@ using namespace basic_events;
 */
 template <class LogicStateMachineT>
 struct TakeoffTransitionActionFunctor_
-    : ActionFunctor<Takeoff, UAVSystem, LogicStateMachineT> {
-  void run(const Takeoff &, UAVSystem &robot_system, LogicStateMachineT &) {
+    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+  void run(UAVSystem &robot_system, LogicStateMachineT &) {
     robot_system.takeOff();
   }
 };
@@ -28,8 +28,8 @@ struct TakeoffTransitionActionFunctor_
 */
 template <class LogicStateMachineT>
 struct TakeoffAbortActionFunctor_
-    : ActionFunctor<Abort, UAVSystem, LogicStateMachineT> {
-  void run(const Abort &, UAVSystem &robot_system, LogicStateMachineT &) {
+    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+  void run(UAVSystem &robot_system, LogicStateMachineT &) {
     robot_system.land();
   }
 };
@@ -41,8 +41,8 @@ struct TakeoffAbortActionFunctor_
 */
 template <class LogicStateMachineT>
 struct TakeoffTransitionGuardFunctor_
-    : GuardFunctor<Takeoff, UAVSystem, LogicStateMachineT> {
-  bool guard(const Takeoff &, UAVSystem &robot_system, LogicStateMachineT &) {
+    : EventAgnosticGuardFunctor<UAVSystem, LogicStateMachineT> {
+  bool guard(UAVSystem &robot_system, LogicStateMachineT &) {
     parsernode::common::quaddata data = robot_system.getUAVData();
     bool result = false;
     // Check for voltage
@@ -64,7 +64,7 @@ struct TakeoffTransitionGuardFunctor_
 */
 template <class LogicStateMachineT>
 struct TakeoffInternalActionFunctor_
-    : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
+    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   /**
   * @brief Function to check when takeoff is complete.
   * If battery is low while takeoff, trigger Land event
@@ -74,8 +74,7 @@ struct TakeoffInternalActionFunctor_
   * @param robot_system robot system to get sensor data
   * @param logic_state_machine logic state machine to trigger events
   */
-  void run(const InternalTransitionEvent &, UAVSystem &robot_system,
-           LogicStateMachineT &logic_state_machine) {
+  void run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     parsernode::common::quaddata data = robot_system.getUAVData();
     // If battery too low abort and goto landed mode
     if (data.batterypercent < 40) {
