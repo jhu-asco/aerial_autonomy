@@ -71,7 +71,6 @@ struct TakeoffInternalActionFunctor_
   *
   *  \todo add a parameter for height when to transition from takeoff to hovering
   *
-  * @param internal event to trigger the function
   * @param robot_system robot system to get sensor data
   * @param logic_state_machine logic state machine to trigger events
   */

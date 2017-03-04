@@ -3,10 +3,15 @@
 // Static asserts
 #include <type_traits>
 
-/** This class provides run function for transitions and internal actions.
- * Derived states have to implement the specific run function
- * behavior using this base class
- */
+/**
+* @brief This class provides run function for transitions and internal actions.
+* Derived states have to implement the specific run function
+* behavior using this base class
+*
+* @tparam EventT Event triggering the action
+* @tparam RobotSystemT robot system used to get sensor data/perform actions
+* @tparam LogicStateMachineT logic state machine to trigger events
+*/
 template <class EventT, class RobotSystemT, class LogicStateMachineT>
 struct ActionFunctor {
   /**
@@ -16,16 +21,16 @@ struct ActionFunctor {
    * hardware
    * @param logic_state_machine Backend of logic State Machine. can send events
    * using this.
+   * @param event Event triggering the action
    */
   virtual void run(EventT const &event, RobotSystemT &robot_system,
                    LogicStateMachineT &logic_state_machine) = 0;
 
   /**
      * @brief operator () Internally calls run function
-     * @param robot_system Provides sensor data and allows for controlling
-     * hardware
      * @param logic_state_machine Backend of logic State Machine. can send
      * events using this.
+     * @param event Event triggering the action
      */
   template <class SourceState, class TargetState>
   void operator()(EventT const &event, LogicStateMachineT &logic_state_machine,
@@ -43,10 +48,16 @@ struct ActionFunctor {
   */
   virtual ~ActionFunctor() {}
 };
-////// Change Guard functor to be similar to action functor
-/// Add the guard functor to be a friend to robot wrapper
-/// Put static assert to make sure logicstatemachine is supplying the same robot
-/// system
+/**
+* @brief This class provides guard function for transitions and internal actions.
+* Derived states have to implement the specific guard function
+* behavior using this base class. The guard function checks for appropriate
+* conditions to ensure actions can be performed
+*
+* @tparam EventT Event triggering the action
+* @tparam RobotSystemT robot system used to get sensor data/perform actions
+* @tparam LogicStateMachineT logic state machine to trigger events
+*/
 template <class EventT, class RobotSystemT, class LogicStateMachineT>
 struct GuardFunctor {
   /**
@@ -56,15 +67,15 @@ struct GuardFunctor {
    * hardware
    * @param logic_state_machine Backend of logic State Machine. can send events
    * using this.
+   * @param event Event triggering the action
    */
   virtual bool guard(EventT const &event, RobotSystemT &robot_system,
                      LogicStateMachineT &logic_state_machine) = 0;
   /**
    * @brief operator () Internally calls guard function
-   * @param robot_system Provides sensor data and allows for controlling
-   * hardware
    * @param logic_state_machine Backend of logic State Machine. can send events
    * using this.
+   * @param event Event triggering the action
    * @return the result of checking guard for the state
    */
   template <class SourceState, class TargetState>

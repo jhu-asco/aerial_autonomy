@@ -17,7 +17,6 @@ struct HoveringInternalActionFunctor_
   /**
   * @brief Checks for enough battery voltage and land if battery critical
   *
-  * @param internal event to trigger the function
   * @param robot_system robot system to get sensor data
   * @param logic_state_machine logic state machine to trigger events
   */

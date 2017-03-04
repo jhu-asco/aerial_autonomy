@@ -15,7 +15,7 @@ public:
   * @brief set the rc channel information stored
   * in the UAV brain
   *
-  * @param channels[4] rc channel values (-10000, 10000)
+  * @param channels rc channel values (-10000, 10000)
   */
   void setRC(int16_t channels[4]) {
     for (int i = 0; i < 4; i++) {
@@ -51,8 +51,6 @@ public:
   }
   /**
   * @brief Toggle software control
-  *
-  * @param bool True to enable/False to disable
   *
   * @return True if successful
   */

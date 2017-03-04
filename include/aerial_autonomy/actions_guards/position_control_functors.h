@@ -76,7 +76,6 @@ struct PositionControlInternalActionFunctor_
   /**
   * @brief check if we reached goal and trigger hovering if we reached goal.
   *
-  * @param internal event to trigger the function
   * @param robot_system robot system to get sensor data
   * @param logic_state_machine logic state machine to trigger events
   */
