@@ -27,6 +27,17 @@ protected:
                                                EmptyGoal goal);
 
 private:
+  /**
+  * @brief Generic map function to map input range to output range
+  *
+  * @param input Input value to map
+  * @param input_min Min for input
+  * @param input_max Max for input
+  * @param output_min Min for output
+  * @param output_max Max for output
+  *
+  * @return Map the input based on input range to output in output range
+  */
   double map(double input, double input_min, double input_max,
              double output_min, double output_max);
 };

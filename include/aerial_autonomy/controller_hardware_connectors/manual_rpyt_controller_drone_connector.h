@@ -6,10 +6,22 @@
 
 #include <parsernode/parser.h>
 
+/**
+* @brief Maps Joystick goals to rpythrust commands to quadrotor
+*/
 class ManualRPYTControllerDroneConnector
     : public ControllerHardwareConnector<JoysticksYaw, EmptyGoal,
                                          RollPitchYawThrust> {
 public:
+  /**
+  * @brief Constructor
+  *
+  * Store drone hardware with hardware type as UAV.
+  * Uses parsernode::Parser::cmdrpythrust function.
+  *
+  * @param drone_hardware Drone hardware used to send commands
+  * @param controller RpyThrust controller
+  */
   ManualRPYTControllerDroneConnector(
       parsernode::Parser &drone_hardware,
       Controller<JoysticksYaw, EmptyGoal, RollPitchYawThrust> &controller)
@@ -32,5 +44,8 @@ protected:
   virtual void sendHardwareCommands(RollPitchYawThrust controls);
 
 private:
+  /**
+  * @brief Quad hardware to send commands
+  */
   parsernode::Parser &drone_hardware_;
 };

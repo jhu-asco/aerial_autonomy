@@ -38,6 +38,9 @@ struct ActionFunctor {
     run(event, logic_state_machine.robot_system_, logic_state_machine);
   }
 
+  /**
+  * @brief Virtual destructor to obtain polymorphism
+  */
   virtual ~ActionFunctor() {}
 };
 ////// Change Guard functor to be similar to action functor
@@ -75,8 +78,8 @@ struct GuardFunctor {
     return guard(event, logic_state_machine.robot_system_, logic_state_machine);
   }
   /**
-     * @brief Destructor
-     */
+   * @brief Destructor
+   */
   virtual ~GuardFunctor() {}
 };
 
@@ -86,6 +89,15 @@ struct GuardFunctor {
  */
 struct InternalTransitionEvent {};
 
+/**
+* @brief Internal action that implements the state transition logic
+*
+* The state transition logic triggers actions based on
+* sensor data obtained from robot system
+*
+* @tparam RobotSystemT  robot system type that is used in internal action
+* @tparam LogicStateMachineT Logic state machine backend type to trigger events
+*/
 template <class RobotSystemT, class LogicStateMachineT>
 using InternalActionFunctor =
     ActionFunctor<InternalTransitionEvent, RobotSystemT, LogicStateMachineT>;

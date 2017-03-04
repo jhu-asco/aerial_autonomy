@@ -5,11 +5,22 @@
 #include <aerial_autonomy/basic_events.h>
 #include <parsernode/common.h>
 
-using namespace basic_events;
 
+/**
+* @brief Internal action when hovering.
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 struct HoveringInternalActionFunctor_
     : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
+  /**
+  * @brief Checks for enough battery voltage and land if battery critical
+  *
+  * @param internal event to trigger the function
+  * @param robot_system robot system to get sensor data
+  * @param logic_state_machine logic state machine to trigger events
+  */
   void run(const InternalTransitionEvent &, UAVSystem &robot_system,
            LogicStateMachineT &logic_state_machine) {
     parsernode::common::quaddata data = robot_system.getUAVData();
@@ -21,6 +32,11 @@ struct HoveringInternalActionFunctor_
   }
 };
 
+/**
+* @brief Hovering state that uses internal action
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 using Hovering_ = BaseState<UAVSystem, LogicStateMachineT,
                             HoveringInternalActionFunctor_<LogicStateMachineT>>;

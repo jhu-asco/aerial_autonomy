@@ -20,25 +20,42 @@
 class UAVSystem {
 
 private:
-  // Hardware:
+  /**
+  * @brief Hardware
+  */
   parsernode::Parser &drone_hardware_;
   // Controllers
-  BuiltInController<PositionYaw> builtin_position_controller_;
-  BuiltInController<VelocityYaw> builtin_velocity_controller_;
-  ManualRPYTController manual_rpyt_controller_;
+  BuiltInController<PositionYaw> builtin_position_controller_;///< position controller
+  BuiltInController<VelocityYaw> builtin_velocity_controller_;///< velocity controller
+  ManualRPYTController manual_rpyt_controller_;///< rpyt controller using joystick
   // Controller connectors
-  PositionControllerDroneConnector position_controller_drone_connector_;
-  BuiltInVelocityControllerDroneConnector velocity_controller_drone_connector_;
-  ManualRPYTControllerDroneConnector rpyt_controller_drone_connector_;
-  // Container to store and retrieve controller-hardware-connectors
+  PositionControllerDroneConnector position_controller_drone_connector_;///< connector for position controller
+  BuiltInVelocityControllerDroneConnector velocity_controller_drone_connector_;///< connector for velocity controller
+  ManualRPYTControllerDroneConnector rpyt_controller_drone_connector_;///< connector for rpyt controller
+  /**
+  * @brief Container to store and retrieve controller-hardware-connectors
+  */
   TypeMap<AbstractControllerHardwareConnector>
       controller_hardware_connector_container_;
-  // Maps to store and swap active controller
+  /**
+  * @brief Map to store active controller based on hardware type
+  */
   std::map<HardwareType, AbstractControllerHardwareConnector *>
       active_controllers_;
+  /**
+  * @brief Map to lock and swap the active controller for a given
+  * hardware type
+  */
   std::map<HardwareType, std::unique_ptr<boost::mutex>> thread_mutexes_;
 
 public:
+  /**
+  * @brief Constructor
+  *
+  * UAVSystem requires a drone hardware. It instantiates the connectors, controllers 
+  *
+  * @param drone_hardware input hardware to send commands back
+  */
   UAVSystem(parsernode::Parser &drone_hardware)
       : drone_hardware_(drone_hardware),
         position_controller_drone_connector_(drone_hardware,
@@ -64,19 +81,35 @@ public:
     thread_mutexes_[HardwareType::UAV] =
         std::unique_ptr<boost::mutex>(new boost::mutex);
   }
-  // Get sensor data from UAV:
+  /**
+  * @brief Get sensor data from UAV
+  *
+  * @return Accumulated sensor data from UAV
+  */
   parsernode::common::quaddata getUAVData() {
     parsernode::common::quaddata data;
     drone_hardware_.getquaddata(data);
     return data;
   }
 
-  // Calls to set goals to controllers and send commands to
-  // hardwareAbstractControllerHardwareConnector
+  /**
+  * @brief Public API call to takeoff
+  */
   void takeOff() { drone_hardware_.takeoff(); }
 
+  /**
+  * @brief Public API call to land
+  */
   void land() { drone_hardware_.land(); }
 
+  /**
+  * @brief sets goal to the connector and swaps the active
+  * connector with the specified connector type.
+  *
+  * @tparam ControllerHardwareConnectorT type of connector to use
+  * @tparam GoalT Type of Goal to set to connector
+  * @param goal Goal to set to connector
+  */
   template <class ControllerHardwareConnectorT, class GoalT>
   void setGoal(GoalT goal) {
     ControllerHardwareConnectorT *controller_hardware_connector =
@@ -90,6 +123,14 @@ public:
       active_controllers_[hardware_type] = controller_hardware_connector;
     }
   }
+  /**
+  * @brief Get the goal from connector.
+  *
+  * @tparam ControllerHardwareConnectorT Type of connector to use
+  * @tparam GoalT Type of Goal to get
+  *
+  * @return goal of GoalT type
+  */
   template <class ControllerHardwareConnectorT, class GoalT> GoalT getGoal() {
     ControllerHardwareConnectorT *controller_hardware_connector =
         controller_hardware_connector_container_
@@ -97,11 +138,21 @@ public:
     return controller_hardware_connector->getGoal();
   }
 
+  /**
+  * @brief Remove active controller for given hardware type
+  *
+  * @param hardware_type Type of hardware for which active controller is switched off
+  */
   void abortController(HardwareType hardware_type) {
     boost::mutex::scoped_lock lock(*thread_mutexes_[hardware_type]);
     active_controllers_[hardware_type] = nullptr;
   }
 
+  /**
+  * @brief Run active controller stored for a given hardware type
+  *
+  * @param hardware_type Type of hardware for which active controller is run
+  */
   void runActiveController(HardwareType hardware_type) {
     // lock to ensure active_control fcn is not changed
     AbstractControllerHardwareConnector *active_controller =

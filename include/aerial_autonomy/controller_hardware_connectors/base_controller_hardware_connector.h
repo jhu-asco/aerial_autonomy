@@ -4,10 +4,9 @@
 /**
 * @brief Type of hardware used by controllerhardwareconnector
 */
-// TODO Rename Quadrotor to UAV (For files not in this commit)
 enum class HardwareType {
-  UAV, // Only aerial vehicle
-  Arm, // Only arm
+  UAV, ///< Only aerial vehicle
+  Arm, ///< Only arm
 };
 
 /**
@@ -15,7 +14,16 @@ enum class HardwareType {
 */
 struct AbstractControllerHardwareConnector {
 public:
+  /**
+  * @brief Abstract run function.
+  *
+  * The run function should run controller
+  * and send commands to hardware
+  */
   virtual void run() = 0;
+  /**
+  * @brief Destructor to get polymorphism
+  */
   virtual ~AbstractControllerHardwareConnector() {}
 };
 
@@ -31,7 +39,20 @@ public:
 template <class SensorDataType, class GoalType, class ControlType>
 class ControllerHardwareConnector : public AbstractControllerHardwareConnector {
 public:
-
+  /**
+  * @brief ControlHardwareConnector runs the controller and sends the commands
+  * to hardware
+  *
+  * The subclass controlhardwareconnectors should take the required hardware in
+  * the constructor
+  * and implement the run function to get the command from controller and send
+  * to hardware
+  *
+  * @param controller Controller to run during run function
+  * @param hardware_type Type of Hardware. Used to group the connectors and
+  * ensure only one connector is
+  * running per hardware type.
+  */
   ControllerHardwareConnector(
       Controller<SensorDataType, GoalType, ControlType> &controller, HardwareType hardware_type)
       : AbstractControllerHardwareConnector(), hardware_type_(hardware_type), controller_(controller) {}
@@ -60,6 +81,11 @@ public:
    */
   GoalType getGoal() { return controller_.getGoal(); }
 
+  /**
+  * @brief Return the type of hardware (HardwareType) used by the controller
+  *
+  * @return return the type of hardware used by the controller
+  */
   HardwareType getHardwareType() {
     return hardware_type_;
   }

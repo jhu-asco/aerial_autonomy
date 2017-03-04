@@ -2,6 +2,17 @@
 
 #include <boost/thread/mutex.hpp>
 
+/**
+* @brief Base Controller class
+*
+* subclass should implement the runImplementation function which
+* takes as input the sensor data and the desired goal and returns
+* a control value.
+*
+* @tparam SensorDataType The type of sensor the controller takes in
+* @tparam GoalType  The type of goal the controller takes in
+* @tparam ControlType The type of control the controller returns
+*/
 template <class SensorDataType, class GoalType, class ControlType>
 class Controller {
 public:
@@ -53,6 +64,12 @@ protected:
                                         GoalType goal) = 0;
 
 private:
+  /**
+  * @brief Synchronize set goal and running controller implementation.
+  */
   boost::mutex goal_mutex_;
+  /**
+  * @brief store goal internally for usage with Controller::runImplementation
+  */
   GoalType goal_;
 };

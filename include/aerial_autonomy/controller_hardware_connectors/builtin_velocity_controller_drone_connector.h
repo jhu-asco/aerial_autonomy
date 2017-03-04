@@ -15,6 +15,15 @@ class BuiltInVelocityControllerDroneConnector
     : public ControllerHardwareConnector<EmptySensor, VelocityYaw,
                                          VelocityYaw> {
 public:
+  /**
+  * @brief Constructor
+  *
+  * Store drone hardware with hardware type as UAV.
+  * Uses parsernode::Parser::cmdvelguided function.
+  *
+  * @param drone_hardware Drone hardware used to send commands
+  * @param controller Velocity controller that achieves a desired velocity, yaw
+  */
   BuiltInVelocityControllerDroneConnector(
       parsernode::Parser &drone_hardware,
       Controller<EmptySensor, VelocityYaw, VelocityYaw> &controller)
@@ -37,5 +46,8 @@ protected:
   virtual void sendHardwareCommands(VelocityYaw controls);
 
 private:
+  /**
+  * @brief Quad hardware to send commands
+  */
   parsernode::Parser &drone_hardware_;
 };

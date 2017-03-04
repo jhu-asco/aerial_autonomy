@@ -16,6 +16,15 @@ class PositionControllerDroneConnector
     : public ControllerHardwareConnector<EmptySensor, PositionYaw,
                                          PositionYaw> {
 public:
+  /**
+  * @brief Constructor
+  *
+  * Store drone hardware with hardware type as UAV.
+  * Uses parsernode::Parser::cmdwaypoint function.
+  *
+  * @param drone_hardware Drone hardware used to send commands
+  * @param controller Position controller that achieves a desired position, yaw
+  */
   PositionControllerDroneConnector(
       parsernode::Parser &drone_hardware,
       Controller<EmptySensor, PositionYaw, PositionYaw> &controller)
@@ -38,5 +47,8 @@ protected:
   virtual void sendHardwareCommands(PositionYaw controls);
 
 private:
+  /**
+  * @brief Quad hardware to send commands
+  */
   parsernode::Parser &drone_hardware_;
 };

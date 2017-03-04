@@ -8,6 +8,11 @@
 
 using namespace basic_events;
 
+/**
+* @brief action to take when starting takeoff
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 struct TakeoffTransitionActionFunctor_
     : ActionFunctor<Takeoff, UAVSystem, LogicStateMachineT> {
@@ -16,6 +21,11 @@ struct TakeoffTransitionActionFunctor_
   }
 };
 
+/**
+* @brief action to perform when aborting takeoff
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 struct TakeoffAbortActionFunctor_
     : ActionFunctor<Abort, UAVSystem, LogicStateMachineT> {
@@ -24,6 +34,11 @@ struct TakeoffAbortActionFunctor_
   }
 };
 
+/**
+* @brief Guard to avoid accidental takeoff
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 struct TakeoffTransitionGuardFunctor_
     : GuardFunctor<Takeoff, UAVSystem, LogicStateMachineT> {
@@ -42,9 +57,24 @@ struct TakeoffTransitionGuardFunctor_
   }
 };
 
+/**
+* @brief Check when takeoff is complete, and ensure enough battery voltage
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 struct TakeoffInternalActionFunctor_
     : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
+  /**
+  * @brief Function to check when takeoff is complete.
+  * If battery is low while takeoff, trigger Land event
+  *
+  *  \todo add a parameter for height when to transition from takeoff to hovering
+  *
+  * @param internal event to trigger the function
+  * @param robot_system robot system to get sensor data
+  * @param logic_state_machine logic state machine to trigger events
+  */
   void run(const InternalTransitionEvent &, UAVSystem &robot_system,
            LogicStateMachineT &logic_state_machine) {
     parsernode::common::quaddata data = robot_system.getUAVData();
@@ -60,6 +90,11 @@ struct TakeoffInternalActionFunctor_
   }
 };
 
+/**
+* @brief Taking off state that uses the internal action functor
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 using TakingOff_ = BaseState<UAVSystem, LogicStateMachineT,
                              TakeoffInternalActionFunctor_<LogicStateMachineT>>;

@@ -17,7 +17,9 @@ from functools import partial
 
 
 class EventTransmissionGUI(Plugin):
-
+    """
+    GUI to send events from User to logic state machine
+    """
     def __init__(self, context):
         """
         Create Qt GUI using the event file
@@ -29,36 +31,44 @@ class EventTransmissionGUI(Plugin):
         # Add argument(s) to the parser.
         args = self._parse_args(context.argv())
 
-        # Create Event trigger
+        ## Create Event trigger
         self.event_trigger = RosEventTrigger(args.event_file)
 
-        # Set Layout
+        ## Parent container to store buttons, textboxes
         self._container = QWidget()
+        # Set title of the parent container window
         self._container.setWindowTitle(self.event_trigger.event_manager_name)
+        ## layout for the parent container
         self._layout = QVBoxLayout()
         self._container.setLayout(self._layout)
 
         # Create Textboxes and add to Layout
         self._layout.addWidget(QLabel('State Machine state'))
+        ## Textbox to show logic state machine status
         self.state_machine_textbox = QTextEdit()
         self.state_machine_textbox.setReadOnly(True)
         self._layout.addWidget(self.state_machine_textbox)
 
         self._layout.addWidget(QLabel('Quad Status'))
+        ## Textbox to show UAV status
         self.quad_textbox = QTextEdit()
         self.quad_textbox.setReadOnly(True)
         self._layout.addWidget(self.quad_textbox)
 
         if args.use_arm:
             self._layout.addWidget(QLabel('Arm Status'))
+            ## Textbox to show Arm status
             self.arm_textbox = QTextEdit()
             self.arm_textbox.setReadOnly(True)
             self._layout.addWidget(self.arm_textbox)
 
         # Define and connect buttons
         self._layout.addWidget(QLabel('Event Triggers'))
+        ## Continer to store event triggering buttons
         self.button_container = QWidget()
+        ## List of push buttons to trigger events
         self.push_buttons = list()
+        ## Layout for the push buttons
         self.button_layout = QGridLayout()
         self.button_container.setLayout(self.button_layout)
         button_index = 0

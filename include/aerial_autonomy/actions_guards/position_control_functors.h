@@ -9,6 +9,11 @@
 
 using namespace basic_events;
 
+/**
+* @brief Transition action to perform when going into position control mode
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 struct PositionControlTransitionActionFunctor_
     : ActionFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
@@ -18,6 +23,11 @@ struct PositionControlTransitionActionFunctor_
   }
 };
 
+/**
+* @brief Transition action to perform when aborting position control
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 struct PositionControlAbortActionFunctor_
     : ActionFunctor<Abort, UAVSystem, LogicStateMachineT> {
@@ -26,6 +36,13 @@ struct PositionControlAbortActionFunctor_
   }
 };
 
+/**
+* @brief Guard function to check the goal is within tolerance before starting towards goal
+*
+* \todo Use a parameter for setting position tolerance
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 struct PositionControlTransitionGuardFunctor_
     : GuardFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
@@ -48,9 +65,21 @@ struct PositionControlTransitionGuardFunctor_
   }
 };
 
+/**
+* @brief Logic to check while reaching a position control goal
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 struct PositionControlInternalActionFunctor_
     : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
+  /**
+  * @brief check if we reached goal and trigger hovering if we reached goal.
+  *
+  * @param internal event to trigger the function
+  * @param robot_system robot system to get sensor data
+  * @param logic_state_machine logic state machine to trigger events
+  */
   virtual void run(const InternalTransitionEvent &, UAVSystem &robot_system,
                    LogicStateMachineT &logic_state_machine) {
     // Get current goal
@@ -74,6 +103,11 @@ struct PositionControlInternalActionFunctor_
   }
 };
 
+/**
+* @brief State that uses position control functor to reach a desired goal.
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 using ReachingGoal_ =
     BaseState<UAVSystem, LogicStateMachineT,
