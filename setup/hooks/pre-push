@@ -1,5 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 # Check Documentation coverage
+branch_name=`git rev-parse --abbrev-ref HEAD`
+if [[ $branch_name == develop* ]];
+then
+  echo "Development branch no push checks"
+  exit 0
+fi
 threshold=99
 GIT_REPO_PATH=`git rev-parse --show-toplevel`
 cd $GIT_REPO_PATH
