@@ -18,8 +18,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 include(cmake/add_event_function.cmake)
 ## System dependencies are found with CMake's conventions
-find_package(Boost REQUIRED COMPONENTS system)
-
+find_package(Boost REQUIRED COMPONENTS system thread chrono)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -150,11 +149,14 @@ include_directories(
 
 ## Declare a C++ library
 add_library(aerial_autonomy
+  src/common/async_timer.cpp
   src/controllers/manual_rpyt_controller.cpp
   src/controller_hardware_connectors/position_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
 )
+
+target_link_libraries(aerial_autonomy ${Boost_LIBRARIES})
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -227,6 +229,7 @@ add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-event-test tests/s
 add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-event-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
 add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-pose-test tests/state_machines/state_machine_gui_connector_pose_tests.test tests/state_machines/state_machine_gui_connector_pose_tests.cpp)
 add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-pose-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
+catkin_add_gtest(${PROJECT_NAME}-async-timer-test tests/common/async_timer_tests.cpp)
 if(TARGET ${PROJECT_NAME}-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-basic-state-machine-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 endif()
@@ -255,10 +258,13 @@ if(TARGET ${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test ${Boost_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-state-machine-gui-connector-event-test)
-  target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-event-test aerial_autonomy ${catkin_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-event-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-state-machine-gui-connector-pose-test)
-  target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-pose-test aerial_autonomy ${catkin_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-pose-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-async-timer-test)
+  target_link_libraries(${PROJECT_NAME}-async-timer-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 endif()
 
 ## Add folders to be run by python nosetests
