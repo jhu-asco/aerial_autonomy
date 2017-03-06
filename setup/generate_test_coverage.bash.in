@@ -1,0 +1,14 @@
+#!/bin/bash
+catkin run_tests aerial_autonomy
+error=$?
+if [ $error -ne 0 ]
+then
+  echo "Catkin BUILD Failed"
+  exit 1
+fi
+TEST_COVERAGE_DIR=${CMAKE_CURRENT_SOURCE_DIR}/test_coverage_info
+if [ ! -d "$TEST_COVERAGE_DIR" ]; then
+  mkdir $TEST_COVERAGE_DIR
+fi
+lcov --capture --directory  ${CMAKE_CURRENT_BINARY_DIR} --base-directory ${CMAKE_CURRENT_SOURCE_DIR} --output-file $TEST_COVERAGE_DIR/test_coverage.info --no-external > /dev/null
+genhtml $TEST_COVERAGE_DIR/test_coverage.info --output-directory $TEST_COVERAGE_DIR > /dev/null

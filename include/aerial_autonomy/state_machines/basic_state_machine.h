@@ -33,7 +33,7 @@
 #include <aerial_autonomy/robot_systems/uav_system.h>
 
 namespace msmf = boost::msm::front;
-using namespace basic_events;
+namespace be = basic_events;
 
 // Forward Declaration
 struct LogicStateMachineFrontEnd;
@@ -71,6 +71,7 @@ protected:
   UAVSystem &robot_system_;
 
 public:
+  std::type_index no_transition_event_index_ = typeid(NULL);
   /**
   * @brief Action to take on entering state machine
   *
@@ -171,18 +172,19 @@ public:
       : boost::mpl::vector<
             //        Start          Event         Next           Action Guard
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<Landed, Takeoff, TakingOff, TakeoffAction, TakeoffGuard>,
+            msmf::Row<Landed, be::Takeoff, TakingOff, TakeoffAction,
+                      TakeoffGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<TakingOff, Land, Landing, LandingAction, msmf::none>,
-            msmf::Row<TakingOff, Abort, Landing, TakeoffAbort, msmf::none>,
+            msmf::Row<TakingOff, be::Land, Landing, LandingAction, msmf::none>,
+            msmf::Row<TakingOff, be::Abort, Landing, TakeoffAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<Hovering, PositionYaw, ReachingGoal, ReachingGoalSet,
                       ReachingGoalGuard>,
-            msmf::Row<Hovering, Land, Landing, LandingAction, msmf::none>,
+            msmf::Row<Hovering, be::Land, Landing, LandingAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<ReachingGoal, Abort, Hovering, ReachingGoalAbort,
+            msmf::Row<ReachingGoal, be::Abort, Hovering, ReachingGoalAbort,
                       msmf::none>,
-            msmf::Row<ReachingGoal, Land, Landing, ReachingGoalLand,
+            msmf::Row<ReachingGoal, be::Land, Landing, ReachingGoalLand,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<Landing, Completed, Landed, msmf::none, msmf::none>,
@@ -190,7 +192,6 @@ public:
             msmf::Row<ReachingGoal, Completed, Hovering, msmf::none, msmf::none>
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             > {};
-  // Replaces the default no-transition response.
   /**
   * @brief Print event typeid if no action present for the corresponding event
   *
@@ -200,9 +201,8 @@ public:
   * @param state Current state when event is received
   */
   template <class FSM, class Event>
-  void no_transition(Event const &e, FSM &, int state) {
-    std::cout << "no transition from state " << state << " on event "
-              << typeid(e).name() << std::endl;
+  void no_transition(Event const &e, FSM &, int state_index) {
+    no_transition_event_index_ = typeid(e);
   }
 };
 

@@ -7,8 +7,6 @@
 #include <aerial_autonomy/types/completed_event.h>
 #include <parsernode/common.h>
 
-using namespace basic_events;
-
 /**
 * @brief Transition action to perform when going into position control mode
 *
