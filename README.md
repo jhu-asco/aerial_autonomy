@@ -20,6 +20,12 @@ To see all test outputs run `catkin run_tests --this`.
 
 ## Documentation Coverage
 Use coverxygen to generate documentation coverage for the doc: https://github.com/psycofdj/coverxygen
+
+Install coverxygen and lcov using:
+
+    sudo apt-get install lcov
+    sudo pip install coverxygen
+
 Use the script `scripts/generate_documentation_coverage.bash` to generate documentation into `documentation_coverage_info` folder.
 Check the html page in `documentation_coverage_info/index.html` to verify the documentation coverage of the code.
 

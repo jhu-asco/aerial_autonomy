@@ -1,5 +1,5 @@
 #pragma once
-// get type info for each controller hardware connector class
+// get type info for each storage object
 #include <typeindex>
 // store objects
 #include <unordered_map>
@@ -11,7 +11,7 @@
 */
 template <class GenericObjectT> class TypeMap {
   /**
-  * @brief Map to store the controller to hardware connectors
+  * @brief Map to store the objects using the type of object as key
   * \todo Gowtham Maybe use shared/unique pointers
   */
   std::unordered_map<std::type_index, GenericObjectT *> object_storage_map_;
