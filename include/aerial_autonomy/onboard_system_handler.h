@@ -136,15 +136,19 @@ private:
     uav_system_->runActiveController(HardwareType::UAV);
   }
 
-  ros::NodeHandle nh_;
-  std::unique_ptr<parsernode::Parser> uav_hardware_;
-  std::unique_ptr<UAVSystem> uav_system_;
-  std::unique_ptr<LogicStateMachineT> logic_state_machine_;
-  std::unique_ptr<EventManagerT> event_manager_;
+  ros::NodeHandle nh_; ///< ROS NodeHandle for processing events and commands
+  std::unique_ptr<parsernode::Parser> uav_hardware_; ///< Hardware instance
+  std::unique_ptr<UAVSystem> uav_system_;            ///< Contains controllers
+  std::unique_ptr<LogicStateMachineT>
+      logic_state_machine_; ///< State machine that gets run by the system
+  std::unique_ptr<EventManagerT>
+      event_manager_; ///< Event manager used by the state machine
   std::unique_ptr<StateMachineGUIConnector<EventManagerT, LogicStateMachineT>>
-      state_machine_gui_connector_;
-  std::unique_ptr<pluginlib::ClassLoader<parsernode::Parser>> parser_loader;
-  AsyncTimer logic_state_machine_timer_;
-  AsyncTimer uav_controller_timer_;
-  OnboardSystemHandlerConfig config_;
+      state_machine_gui_connector_; ///< Connects event manager to the state
+                                    /// machine
+  std::unique_ptr<pluginlib::ClassLoader<parsernode::Parser>>
+      parser_loader;                     ///< Used to load hardware plugin
+  AsyncTimer logic_state_machine_timer_; ///< Timer for running state machine
+  AsyncTimer uav_controller_timer_;      ///< Timer for running uav controller
+  OnboardSystemHandlerConfig config_;    ///< Configuration parameters
 };
