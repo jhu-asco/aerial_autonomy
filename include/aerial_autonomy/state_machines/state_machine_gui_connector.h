@@ -8,9 +8,6 @@
 #include <aerial_autonomy/types/position_yaw.h>
 
 /**
- * @brief
- */
-/**
 * @brief Connects a logic state machine to the GUI over a ROS interface
 *
 * @tparam EventManagerT event manager type used to trigger events to state

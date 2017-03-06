@@ -277,7 +277,7 @@ if(TARGET ${PROJECT_NAME}-async-timer-test)
   target_link_libraries(${PROJECT_NAME}-async-timer-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-onboard-system-handler-test)
-  target_link_libraries(${PROJECT_NAME}-onboard-system-handler-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES} proto)
+  target_link_libraries(${PROJECT_NAME}-onboard-system-handler-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
 endif()
 
 ## Add folders to be run by python nosetests
