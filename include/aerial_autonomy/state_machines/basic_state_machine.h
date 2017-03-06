@@ -33,7 +33,7 @@
 #include <aerial_autonomy/robot_systems/uav_system.h>
 
 namespace msmf = boost::msm::front;
-using namespace basic_events;
+namespace be = basic_events;
 
 // Forward Declaration
 struct LogicStateMachineFrontEnd;
@@ -172,18 +172,19 @@ public:
       : boost::mpl::vector<
             //        Start          Event         Next           Action Guard
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<Landed, Takeoff, TakingOff, TakeoffAction, TakeoffGuard>,
+            msmf::Row<Landed, be::Takeoff, TakingOff, TakeoffAction,
+                      TakeoffGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<TakingOff, Land, Landing, LandingAction, msmf::none>,
-            msmf::Row<TakingOff, Abort, Landing, TakeoffAbort, msmf::none>,
+            msmf::Row<TakingOff, be::Land, Landing, LandingAction, msmf::none>,
+            msmf::Row<TakingOff, be::Abort, Landing, TakeoffAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<Hovering, PositionYaw, ReachingGoal, ReachingGoalSet,
                       ReachingGoalGuard>,
-            msmf::Row<Hovering, Land, Landing, LandingAction, msmf::none>,
+            msmf::Row<Hovering, be::Land, Landing, LandingAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<ReachingGoal, Abort, Hovering, ReachingGoalAbort,
+            msmf::Row<ReachingGoal, be::Abort, Hovering, ReachingGoalAbort,
                       msmf::none>,
-            msmf::Row<ReachingGoal, Land, Landing, ReachingGoalLand,
+            msmf::Row<ReachingGoal, be::Land, Landing, ReachingGoalLand,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<Landing, Completed, Landed, msmf::none, msmf::none>,
