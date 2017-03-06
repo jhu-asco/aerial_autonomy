@@ -1,1 +1,4 @@
-message OnboardSystemHandlerConfig { required string uav_parser_type = 1; }
+message OnboardSystemHandlerConfig { 
+  required string uav_parser_type = 1; 
+  optional int32 uav_parser_load_timeout = 2 [default = 5]; 
+}

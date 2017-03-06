@@ -9,8 +9,10 @@ using namespace basic_events;
 
 TEST(OnboardSystemHandlerTests, Constructor) {
   ros::NodeHandle nh;
+  OnboardSystemHandlerConfig config;
+  config.set_uav_parser_type("");
   OnboardSystemHandler<LogicStateMachine, BasicEventManager<LogicStateMachine>>
-      onboard_system_handler(nh);
+      onboard_system_handler(nh, config);
 }
 
 // TODO use separate NodeHandle (in same test) to publish events.  Verify
