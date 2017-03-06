@@ -3,6 +3,5 @@ CMakeLists.txt.user
 *.swp
 doxy_errors.txt
 documentation_coverage_info/*
-test_coverage_info/*
 docs/
 scripts/generate_test_coverage.bash
