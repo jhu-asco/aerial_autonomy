@@ -28,6 +28,7 @@ then
 fi
 
 # Generate test coverage
+catkin build aerial_autonomy
 ./scripts/generate_test_coverage.bash
 error=$?
 if [ $error -ne 0 ]

@@ -71,6 +71,7 @@ protected:
   UAVSystem &robot_system_;
 
 public:
+  std::type_index no_transition_event_index_ = typeid(NULL);
   /**
   * @brief Action to take on entering state machine
   *
@@ -190,7 +191,6 @@ public:
             msmf::Row<ReachingGoal, Completed, Hovering, msmf::none, msmf::none>
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             > {};
-  // Replaces the default no-transition response.
   /**
   * @brief Print event typeid if no action present for the corresponding event
   *
@@ -200,9 +200,8 @@ public:
   * @param state Current state when event is received
   */
   template <class FSM, class Event>
-  void no_transition(Event const &e, FSM &, int state) {
-    std::cout << "no transition from state " << state << " on event "
-              << typeid(e).name() << std::endl;
+  void no_transition(Event const &e, FSM &, int state_index) {
+    no_transition_event_index_ = typeid(e);
   }
 };
 

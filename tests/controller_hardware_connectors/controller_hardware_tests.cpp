@@ -4,11 +4,11 @@
 //// \brief Definitions
 ///  Define any necessary subclasses for tests here
 class SampleController : public Controller<int, int, int> {
-  virtual void setGoal(int) { return; }
   virtual int runImplementation(int, int) { return 0; }
 };
 
-class SampleHardwareController : ControllerHardwareConnector<int, int, int> {
+class SampleHardwareController
+    : public ControllerHardwareConnector<int, int, int> {
 public:
   SampleHardwareController(Controller<int, int, int> &controller)
       : ControllerHardwareConnector<int, int, int>(controller,
@@ -25,6 +25,12 @@ public:
 TEST(BaseControllerHardwareTests, EmptyConnector) {
   SampleController controller;
   ASSERT_NO_THROW(new SampleHardwareController(controller));
+}
+
+TEST(BaseControllerHardwareTests, EmptyRunFunction) {
+  SampleController controller;
+  SampleHardwareController controller_connector(controller);
+  ASSERT_NO_THROW(controller_connector.run());
 }
 ///
 
