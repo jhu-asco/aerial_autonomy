@@ -13,6 +13,10 @@ TEST(OnboardSystemHandlerTests, Constructor) {
       onboard_system_handler(nh);
 }
 
+// TODO use separate NodeHandle (in same test) to publish events.  Verify
+// logic state machine checks are happening and control is happening by
+// introspecting parser and perhaps state machine
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   ros::init(argc, argv, "onboard_system_handler_tests");

@@ -20,12 +20,6 @@ class OnboardSystemHandler {
 public:
   OnboardSystemHandler(ros::NodeHandle &nh)
       : nh_(nh),
-        // uav_system_(*drone_hardware_),
-        // logic_state_machine_(uav_system_),
-        // state_machine_gui_connector_(
-        //    nh_,
-        //    event_manager_,
-        //    logic_state_machine_)
         logic_state_machine_timer_(
             std::bind(&OnboardSystemHandler::stateMachineThread, this),
             std::chrono::milliseconds(50)),
