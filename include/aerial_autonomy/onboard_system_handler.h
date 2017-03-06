@@ -4,6 +4,7 @@
 
 #include <parsernode/parser.h>
 
+#include "onboard_system_handler_config.pb.h"
 #include <aerial_autonomy/common/async_timer.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/state_machines/state_machine_gui_connector.h>

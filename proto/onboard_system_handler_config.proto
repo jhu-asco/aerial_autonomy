@@ -1,0 +1,1 @@
+message OnboardSystemHandlerConfig { required string uav_parser_type = 1; }

@@ -19,6 +19,7 @@ find_package(catkin REQUIRED COMPONENTS
 include(cmake/add_event_function.cmake)
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system)
+find_package(Protobuf REQUIRED) 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -133,6 +134,11 @@ basic_events
 visual_servoing_events
 )
 
+##############
+## Protobuf ##
+##############
+PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER proto/onboard_system_handler_config.proto)
+add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
 ###########
 ## Build ##
@@ -145,6 +151,8 @@ include_directories(
   include
   ${Boost_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
+  ${PROTOBUF_INCLUDE_DIR}
+  ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 ## Declare a C++ library
@@ -269,7 +277,7 @@ if(TARGET ${PROJECT_NAME}-async-timer-test)
   target_link_libraries(${PROJECT_NAME}-async-timer-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-onboard-system-handler-test)
-  target_link_libraries(${PROJECT_NAME}-onboard-system-handler-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-onboard-system-handler-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES} proto)
 endif()
 
 ## Add folders to be run by python nosetests

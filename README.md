@@ -11,6 +11,10 @@ To skip pre-commit hooks and force a commit, use `git commit -n`.
 ## Dependencies
 Install the latest ROS class\_loader package from https://github.com/ros/class_loader.git
 
+Additionally, run the following
+
+`sudo apt-get install protobuf-compiler`
+
 ## Design Docs
 https://paper.dropbox.com/doc/QuadcopterGUI-Framework-Final-Version-ylwUlxLOOPpNM91LsXJyI#:uid=019653862866586&h2=RobotSystem
 
