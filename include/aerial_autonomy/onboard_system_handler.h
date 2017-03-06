@@ -20,10 +20,9 @@ template <class LogicStateMachineT, class EventManagerT>
 class OnboardSystemHandler {
 public:
   OnboardSystemHandler(ros::NodeHandle &nh)
-      : nh_(nh),
-        logic_state_machine_timer_(
-            std::bind(&OnboardSystemHandler::stateMachineThread, this),
-            std::chrono::milliseconds(50)),
+      : nh_(nh), logic_state_machine_timer_(
+                     std::bind(&OnboardSystemHandler::stateMachineThread, this),
+                     std::chrono::milliseconds(50)),
         drone_controller_timer_(
             std::bind(&OnboardSystemHandler::droneControllerThread, this),
             std::chrono::milliseconds(50)) {
