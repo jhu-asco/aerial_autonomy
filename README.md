@@ -33,7 +33,7 @@ Documentation coverage is also added as a `pre-push` hook. This verifies that 99
 
 ## Test Coverage
 Using `lcov` to generate test coverage report for the project. The script `scripts/generate_test_coverage.bash` is used to run tests in the project and generate test coverage report
-into `test_coverage_info` folder. Check the html page `test_coverage_info/index.html` to check the line and function coverage. The bash script is generated
+into `test_coverage_info` folder. The script is generated using CMake. Run `catkin build aerial_autonomy` to create the script. Check the html page `test_coverage_info/index.html` to check the line and function coverage. The bash script is generated
 by running CMake using `catkin build aerial_autonomy`.
 
 The test generation is integrated into `pre-push` commit hook. This runs the above test coverage generation script and verifies that the coverage level is above 95% threshold. This can be skipped by either naming the branch as `develop[your_branch_name]` or using `git push --no-verify`.
