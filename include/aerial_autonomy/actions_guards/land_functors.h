@@ -7,11 +7,6 @@
 #include <parsernode/common.h>
 
 /**
-* @brief Namespace for event Land
-*/
-using namespace basic_events;
-
-/**
 * @brief Transition action when starting to land
 *
 * @tparam LogicStateMachineT Logic state machine used to process events

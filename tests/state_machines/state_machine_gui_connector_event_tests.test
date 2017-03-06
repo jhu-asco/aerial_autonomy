@@ -1,5 +1,4 @@
 <launch>
-  <param name="event_name" type="str" value="Land"/>
   <node pkg="aerial_autonomy" type="event_publish_node" name="event_publish_node" output="screen" />
   <test test-name="StateMachineGUIConnectorEvent" pkg="aerial_autonomy" type="aerial_autonomy-state-machine-gui-connector-event-test">
   </test>

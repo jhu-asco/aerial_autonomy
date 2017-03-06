@@ -5,6 +5,8 @@
 #include <aerial_autonomy/robot_systems/uav_system.h>
 #include <parsernode/common.h>
 
+namespace be = basic_events;
+
 /**
 * @brief Internal action when hovering.
 *
@@ -24,7 +26,7 @@ struct HoveringInternalActionFunctor_
     // Transition to hovering state once reached high altitude
     // Can also use uav status here TODO (Gowtham)
     if (data.batterypercent < 40) {
-      logic_state_machine.process_event(Land());
+      logic_state_machine.process_event(be::Land());
     }
   }
 };

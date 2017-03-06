@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(aerial_autonomy)
 
-set(CMAKE_CXX_FLAGS "-Werror -Wall -std=c++11 ${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "-Werror -Wall -std=c++11 --coverage ${CMAKE_CXX_FLAGS}")
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -285,3 +285,6 @@ endif()
 install(FILES plugin.xml
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
         )
+
+## Configure script to generate test coverage
+configure_file(setup/generate_test_coverage.bash.in ${CMAKE_CURRENT_SOURCE_DIR}/scripts/generate_test_coverage.bash)
