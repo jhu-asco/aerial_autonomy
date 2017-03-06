@@ -18,7 +18,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 include(cmake/add_event_function.cmake)
 ## System dependencies are found with CMake's conventions
-find_package(Boost REQUIRED COMPONENTS system thread chrono)
+find_package(Boost REQUIRED COMPONENTS system)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed

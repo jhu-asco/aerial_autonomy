@@ -10,19 +10,35 @@ public:
 };
 
 TEST_F(AsyncTimerTests, Constructor) {
-  AsyncTimer timer(boost::bind(&AsyncTimerTests::emptyFunction, this),
-                   boost::chrono::seconds(1));
+  AsyncTimer timer(std::bind(&AsyncTimerTests::emptyFunction, this),
+                   std::chrono::milliseconds(10));
 }
 
 TEST_F(AsyncTimerTests, Start) {
-  AsyncTimer timer(boost::bind(&AsyncTimerTests::counterFunction, this),
-                   boost::chrono::milliseconds(50));
+  AsyncTimer timer(std::bind(&AsyncTimerTests::counterFunction, this),
+                   std::chrono::milliseconds(50));
   ASSERT_EQ(0, this->x);
   timer.start();
-  boost::this_thread::sleep_for(boost::chrono::milliseconds(50));
+  std::this_thread::sleep_for(std::chrono::milliseconds(50));
   ASSERT_EQ(1, this->x);
-  boost::this_thread::sleep_for(boost::chrono::milliseconds(500));
+  std::this_thread::sleep_for(std::chrono::milliseconds(50));
   ASSERT_EQ(2, this->x);
+}
+
+TEST_F(AsyncTimerTests, DoubleStart) {
+  AsyncTimer timer(std::bind(&AsyncTimerTests::emptyFunction, this),
+                   std::chrono::milliseconds(10));
+  timer.start();
+  ASSERT_THROW(timer.start(), std::logic_error);
+}
+
+TEST_F(AsyncTimerTests, Timing) {
+  AsyncTimer timer(std::bind(&AsyncTimerTests::counterFunction, this),
+                   std::chrono::milliseconds(20));
+  ASSERT_EQ(0, this->x);
+  timer.start();
+  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+  ASSERT_GE(this->x, 50);
 }
 
 int main(int argc, char **argv) {

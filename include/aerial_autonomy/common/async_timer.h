@@ -1,18 +1,21 @@
 #pragma once
 
-#include <boost/function.hpp>
-#include <boost/thread/thread.hpp>
+#include <chrono>
+#include <functional>
+#include <thread>
 
 class AsyncTimer {
 public:
-  AsyncTimer(boost::function<void()> function,
-             boost::chrono::duration<double> timer_duration);
+  AsyncTimer(std::function<void()> function,
+             std::chrono::duration<double> timer_duration);
+  virtual ~AsyncTimer();
   void start();
 
 private:
   void functionTimer();
 
+  std::thread timer_thread_;
+  std::function<void()> function_;
+  std::chrono::duration<double> timer_duration_;
   bool running_;
-  boost::function<void()> function_;
-  boost::chrono::duration<double> timer_duration_;
 };
