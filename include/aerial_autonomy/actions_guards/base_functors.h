@@ -23,16 +23,16 @@ struct ActionFunctor {
    * hardware
    * @param logic_state_machine Backend of logic State Machine. can send events
    * using this.
+   * @param event Event triggering the action
    */
   virtual void run(EventT const &event, RobotSystemT &robot_system,
                    LogicStateMachineT &logic_state_machine) = 0;
 
   /**
      * @brief operator () Internally calls run function
-     * @param robot_system Provides sensor data and allows for controlling
-     * hardware
      * @param logic_state_machine Backend of logic State Machine. can send
      * events using this.
+     * @param event Event triggering the action
      */
   template <class SourceState, class TargetState>
   void operator()(EventT const &event, LogicStateMachineT &logic_state_machine,
@@ -45,6 +45,9 @@ struct ActionFunctor {
     run(event, logic_state_machine.robot_system_, logic_state_machine);
   }
 
+  /**
+  * @brief Virtual destructor to obtain polymorphism
+  */
   virtual ~ActionFunctor() {}
 };
 
@@ -69,15 +72,15 @@ struct GuardFunctor {
    * hardware
    * @param logic_state_machine Backend of logic State Machine. can send events
    * using this.
+   * @param event Event triggering the action
    */
   virtual bool guard(EventT const &event, RobotSystemT &robot_system,
                      LogicStateMachineT &logic_state_machine) = 0;
   /**
    * @brief operator () Internally calls guard function
-   * @param robot_system Provides sensor data and allows for controlling
-   * hardware
    * @param logic_state_machine Backend of logic State Machine. can send events
    * using this.
+   * @param event Event triggering the action
    * @return the result of checking guard for the state
    */
   template <class SourceState, class TargetState>
@@ -91,8 +94,8 @@ struct GuardFunctor {
     return guard(event, logic_state_machine.robot_system_, logic_state_machine);
   }
   /**
-     * @brief Destructor
-     */
+   * @brief Destructor
+   */
   virtual ~GuardFunctor() {}
 };
 
@@ -120,8 +123,6 @@ struct EventAgnosticActionFunctor {
 
   /**
      * @brief operator () Internally calls run function
-     * @param robot_system Provides sensor data and allows for controlling
-     * hardware
      * @param logic_state_machine Backend of logic State Machine. can send
      * events using this.
      */
@@ -136,6 +137,9 @@ struct EventAgnosticActionFunctor {
     run(logic_state_machine.robot_system_, logic_state_machine);
   }
 
+  /**
+  * @brief virtual destructor to get polymorphism
+  */
   virtual ~EventAgnosticActionFunctor() {}
 };
 
@@ -164,8 +168,6 @@ struct EventAgnosticGuardFunctor {
 
   /**
      * @brief operator () Internally calls run function
-     * @param robot_system Provides sensor data and allows for controlling
-     * hardware
      * @param logic_state_machine Backend of logic State Machine. can send
      * events using this.
      */
@@ -180,6 +182,9 @@ struct EventAgnosticGuardFunctor {
     return guard(logic_state_machine.robot_system_, logic_state_machine);
   }
 
+  /**
+  * @brief virtual destructor to get polymorphism
+  */
   virtual ~EventAgnosticGuardFunctor() {}
 };
 

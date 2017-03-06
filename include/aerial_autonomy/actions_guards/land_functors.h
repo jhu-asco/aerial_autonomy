@@ -6,8 +6,16 @@
 #include <aerial_autonomy/types/completed_event.h>
 #include <parsernode/common.h>
 
+/**
+* @brief Namespace for event Land
+*/
 using namespace basic_events;
 
+/**
+* @brief Transition action when starting to land
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 struct LandTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
@@ -16,11 +24,23 @@ struct LandTransitionActionFunctor_
   }
 };
 
-// TODO (Gowtham) How to abort Land??
 
+/**
+* @brief Internal action to figure out when landing is complete
+*
+* \todo (Gowtham) How to abort Land??
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 struct LandInternalActionFunctor_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+  /**
+  * @brief Internal function to check when landing is complete
+  *
+  * @param robot_system robot system to get sensor data
+  * @param logic_state_machine logic state machine to trigger events
+  */
   void run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     parsernode::common::quaddata data = robot_system.getUAVData();
     // Can also use uav status here TODO (Gowtham)
@@ -30,6 +50,11 @@ struct LandInternalActionFunctor_
   }
 };
 
+/**
+* @brief State that uses internal action for landing
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 using Landing_ = BaseState<UAVSystem, LogicStateMachineT,
                            LandInternalActionFunctor_<LogicStateMachineT>>;

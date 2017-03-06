@@ -19,7 +19,9 @@ from functools import partial
 
 
 class EventTransmissionGUI(Plugin):
-
+    """
+    GUI to send events from User to logic state machine
+    """
     def __init__(self, context):
         """
         Create Qt GUI using the event file
@@ -31,65 +33,80 @@ class EventTransmissionGUI(Plugin):
         # Add argument(s) to the parser.
         args = self._parse_args(context.argv())
 
-        # Create Event trigger
+        ## Create Event trigger
         self.event_trigger = RosEventTrigger(args.event_file)
 
-        # Set Layout
+        ## Parent container to store buttons, textboxes
         self._container = QWidget()
+        # Set title of the parent container window
         self._container.setWindowTitle(self.event_trigger.event_manager_name)
+        ## layout for the parent container
         self._layout = QVBoxLayout()
         self._container.setLayout(self._layout)
 
         # Create Textboxes and add to Layout
         self._layout.addWidget(QLabel('State Machine State'))
+        ## Textbox to show logic state machine status
         self.state_machine_textbox = QTextEdit()
         self.state_machine_textbox.setReadOnly(True)
         self._layout.addWidget(self.state_machine_textbox)
 
         self._layout.addWidget(QLabel('Quad Status'))
+        ## Textbox to show UAV status
         self.quad_textbox = QTextEdit()
         self.quad_textbox.setReadOnly(True)
         self._layout.addWidget(self.quad_textbox)
 
         if args.use_arm:
             self._layout.addWidget(QLabel('Arm Status'))
+            ## Textbox to show Arm status
             self.arm_textbox = QTextEdit()
             self.arm_textbox.setReadOnly(True)
             self._layout.addWidget(self.arm_textbox)
 
         # Create height slider
         self._layout.addWidget(QLabel('Pose Command Height (m)'))
+        ## Height slider to adjust z coordinate for pose command
+        ## \todo Matt: Load slider settings from param file
         self.height_slider = QSlider(Qt.Horizontal)
-        # TODO(matt): Load slider settings from param file
         self.height_slider.setMinimum(1.)
         self.height_slider.setMaximum(20)
         self.height_slider.setValue(2)
         self.height_slider.setTickPosition(QSlider.TicksBelow)
         self.height_slider.setTickInterval(1)
         self._layout.addWidget(self.height_slider)
-        # TODO(matt): Reset slider value based on current quad height
         # Add button for triggering pose command
+        ## Container for pose event related objects: slide etc
+        ## \todo Matt: Reset slider value based on current quad height
         self.pose_command_container = QWidget()
+        ## Pose command layout
         self.pose_command_layout = QGridLayout()
         self.pose_command_container.setLayout(self.pose_command_layout)
+        ## x pose label to display position command from rviz to user
         self.pose_x = QLabel('x: -')
+        ## y pose label to display position command from rviz to user
         self.pose_y = QLabel('y: -')
+        ## z pose label to display position command from rviz to user
         self.pose_z = QLabel("z: {0:.2f}".format(self.height_slider.value()))
         self.height_slider.valueChanged.connect(self.updateHeight)
         self.pose_command_layout.addWidget(self.pose_x, 0, 0)
         self.pose_command_layout.addWidget(self.pose_y, 0, 1)
         self.pose_command_layout.addWidget(self.pose_z, 0, 2)
+        ## Button to send the pose command to state machine as poseyaw event
         self.send_pose_command_button = QPushButton("Send Pose Command")
         self.send_pose_command_button.clicked.connect(self.poseCommandButtonCallback)
         self.pose_command_layout.addWidget(self.send_pose_command_button, 0, 3)
         self._layout.addWidget(self.pose_command_container)
-
+        ## Pose command container to store pose from Rviz and send to state machine
         self.pose_command = None
 
         # Define and connect buttons
         self._layout.addWidget(QLabel('Event Triggers'))
+        ## Continer to store event triggering buttons
         self.button_container = QWidget()
+        ## List of push buttons to trigger events
         self.push_buttons = list()
+        ## Layout for the push buttons
         self.button_layout = QGridLayout()
         self.button_container.setLayout(self.button_layout)
         button_index = 0

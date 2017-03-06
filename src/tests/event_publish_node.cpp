@@ -3,8 +3,18 @@
 #include <signal.h>
 #include <std_msgs/String.h>
 
+/**
+* @brief Event publisher to publish named event at regular intervals
+*
+* Used for testing the state machine gui connector
+*/
 class EventPublisher {
 public:
+  /**
+  * @brief Constructor to create timer for publishing named event
+  *
+  * @param nh Nodehandle to create publisher
+  */
   EventPublisher(ros::NodeHandle &nh) : nh_(nh) {
     if (!nh_.getParam("event_name", event)) {
       event = "Land";
@@ -21,6 +31,9 @@ public:
   }
 
 private:
+  /**
+  * @brief timer callback to publish named event
+  */
   void publishEvent(const ros::TimerEvent &) {
     if (event == "PositionYaw") {
       geometry_msgs::PoseStamped pose;
@@ -39,14 +52,26 @@ private:
     }
   }
 
-  std::string event;
-  ros::Timer event_timer_;
-  ros::Publisher event_pub_;
-  ros::NodeHandle &nh_;
+  std::string event;         ///< Event name
+  ros::Timer event_timer_;   ///< Timer to publish event
+  ros::Publisher event_pub_; ///< Publisher to publish event
+  ros::NodeHandle &nh_;      ///< NodeHandle reference to create publisher
 };
 
-void sigintHandler(int sig) { ros::shutdown(); }
+/**
+* @brief Custom sig int handler
+*
+*/
+void sigintHandler(int) { ros::shutdown(); }
 
+/**
+* @brief Main
+*
+* @param argc Number of arguments
+* @param argv System arguments
+*
+* @return If main is successful
+*/
 int main(int argc, char **argv) {
   ros::init(argc, argv, "event_publish_node",
             ros::init_options::NoSigintHandler);

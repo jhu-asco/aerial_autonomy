@@ -1,0 +1,28 @@
+#!/bin/bash
+# Check Documentation coverage
+branch_name=`git rev-parse --abbrev-ref HEAD`
+if [[ $branch_name == develop* ]];
+then
+  echo "Development branch no push checks"
+  exit 0
+fi
+threshold=99
+GIT_REPO_PATH=`git rev-parse --show-toplevel`
+cd $GIT_REPO_PATH
+doxygen $GIT_REPO_PATH/Doxyfile > /dev/null
+./setup/doxy-coverage.py --threshold $threshold ./docs/xml > /dev/null
+error=$?
+if [ $error -ne 0 ]
+then
+    echo "Commit did not have enough documentation"
+    echo "Documentation threshold for code to pass is $threshold."
+    codecoverage=`expr $threshold - $error`
+    echo "The documentation coverage is $codecoverage percentage"
+    echo "The code is short by $error percentage"
+    echo "Running documentation coverage html generation script"
+    python -m coverxygen --xml-dir ./docs/xml --src-dir . --output ./documentation_coverage_info/doc_coverage.info > /dev/null
+    genhtml --no-function-coverage --no-branch-coverage documentation_coverage_info/doc_coverage.info -o ./documentation_coverage_info > /dev/null
+    lcov --summary ./documentation_coverage_info/doc_coverage.info
+    echo "Check code-coverage-info/index.html for detailed code generation stats"
+    exit 1;
+fi

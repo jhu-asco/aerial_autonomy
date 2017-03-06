@@ -38,11 +38,17 @@ using namespace basic_events;
 // Forward Declaration
 struct LogicStateMachineFrontEnd;
 
-// Pick a back-end
+/**
+* @brief Backend for Logic State Machine.
+*
+* Used to forward arguments to constructor, and process events
+*/
 using LogicStateMachine =
     boost::msm::back::state_machine<LogicStateMachineFrontEnd>;
 
-// front-end: define the FSM structure
+/**
+* @brief front-end: define the FSM structure
+*/
 class LogicStateMachineFrontEnd
     : public msmf::state_machine_def<LogicStateMachineFrontEnd> {
   // Add friend classes that can use the robot system
@@ -59,44 +65,108 @@ class LogicStateMachineFrontEnd
   friend class EventAgnosticGuardFunctor;
 
 protected:
+  /**
+  * @brief robot system used by states to get sensor data and send commands
+  */
   UAVSystem &robot_system_;
 
 public:
+  /**
+  * @brief Action to take on entering state machine
+  *
+  * @tparam Event type of event causing state machine to enter
+  * @tparam FSM Backend finite state machine type to trigger events
+  */
   template <class Event, class FSM> void on_entry(Event const &, FSM &) {
     std::cout << "entering: UAV system" << std::endl;
   }
+  /**
+  * @brief Action to take on leaving state machine
+  *
+  * @tparam Event type of event causing state machine to enter
+  * @tparam FSM Backend finite state machine type to trigger events
+  */
   template <class Event, class FSM> void on_exit(Event const &, FSM &) {
     std::cout << "leaving: UAV system" << std::endl;
   }
 
-  // Constructor with arguments to store robot system
+  /**
+  * @brief Constructor with arguments to store robot system
+  *
+  * @param uav_system robot system that is stored internally
+  * and shared with events
+  */
   LogicStateMachineFrontEnd(UAVSystem &uav_system)
       : robot_system_(uav_system) {}
 
   // States Used in the state machine:
+  /**
+  * @brief Takingoff state
+  */
   using TakingOff = TakingOff_<LogicStateMachine>;
+  /**
+  * @brief Landing state
+  */
   using Landing = Landing_<LogicStateMachine>;
+  /**
+  * @brief Reaching goal state
+  */
   using ReachingGoal = ReachingGoal_<LogicStateMachine>;
+  /**
+  * @brief Hovering state
+  */
   using Hovering = Hovering_<LogicStateMachine>;
   // States without any internal actions:
+  /**
+  * @brief Landed state
+  */
   struct Landed : msmf::state<> {};
+  /**
+  * @brief Initial state for state machine
+  */
   using initial_state = Landed;
 
   // Transition Actions
+  /**
+  * @brief Action to take when taking off
+  */
   using TakeoffAction = TakeoffTransitionActionFunctor_<LogicStateMachine>;
+  /**
+  * @brief Guard to stop taking off under low voltage
+  */
   using TakeoffGuard = TakeoffTransitionGuardFunctor_<LogicStateMachine>;
+  /**
+  * @brief Abort action when taking off
+  */
   using TakeoffAbort = TakeoffAbortActionFunctor_<LogicStateMachine>;
+  /**
+  * @brief Action to take when landing
+  */
   using LandingAction = LandTransitionActionFunctor_<LogicStateMachine>;
+  /**
+  * @brief set goal action when transitioning
+  */
   using ReachingGoalSet =
       PositionControlTransitionActionFunctor_<LogicStateMachine>;
+  /**
+  * @brief Guard to avoid going to goal if goal is not correct
+  */
   using ReachingGoalGuard =
       PositionControlTransitionGuardFunctor_<LogicStateMachine>;
+  /**
+  * @brief Abort action when reaching goal
+  */
   using ReachingGoalAbort =
       PositionControlAbortActionFunctor_<LogicStateMachine>;
+  /**
+  * @brief Land action when reaching goal
+  */
   using ReachingGoalLand = msmf::ActionSequence_<
       boost::mpl::vector<ReachingGoalAbort, LandingAction>>;
 
-  // Transition table for State Machine
+  /**
+  * @brief Transition table for State Machine
+  */
   struct transition_table
       : boost::mpl::vector<
             //        Start          Event         Next           Action Guard
@@ -121,6 +191,14 @@ public:
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             > {};
   // Replaces the default no-transition response.
+  /**
+  * @brief Print event typeid if no action present for the corresponding event
+  *
+  * @tparam FSM Backend to trigger events etc
+  * @tparam Event Event type that triggered no transition
+  * @param e event instance
+  * @param state Current state when event is received
+  */
   template <class FSM, class Event>
   void no_transition(Event const &e, FSM &, int state) {
     std::cout << "no transition from state " << state << " on event "
@@ -128,11 +206,18 @@ public:
   }
 };
 
-//
-// Testing utilities.
-//
+/**
+* @brief state names to get name based on state id
+*/
 static char const *const state_names[] = {"Landed", "TakingOff", "Hovering",
                                           "ReachingGoal", "Landing"};
+/**
+* @brief Get current state name
+*
+* @param p Logic state machine backend to access current state
+*
+* @return state name
+*/
 const char *pstate(LogicStateMachine const &p) {
   return state_names[p.current_state()[0]];
 }

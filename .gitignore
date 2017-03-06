@@ -1,3 +1,6 @@
 CMakeLists.txt.user
 *.pyc
 *.swp
+doxy_errors.txt
+documentation_coverage_info/*
+docs/

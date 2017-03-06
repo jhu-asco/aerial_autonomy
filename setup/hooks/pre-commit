@@ -1,3 +1,5 @@
+#!/bin/sh
+# Check clang formatting
 git diff --cached --name-only --diff-filter=ACMRT | grep -E "\.([cmh]|cpp)$" | xargs -n1 clang-format -style=llvm -output-replacements-xml | grep "<replacement " >/dev/null
 if [ $? -ne 1 ]
 then 

@@ -14,6 +14,11 @@ from python_qt_binding.QtCore import QObject, pyqtSignal
 
 
 def parse_event_file(event_folder, event_file_name, event_name_list):
+    """
+    Parse an event file to store all the event names. If an event
+    file includes another event file, it recursively crawls through
+    all event files and saves event names
+    """
     event_file_path = os.path.join(event_folder, event_file_name)
     event_file = file(event_file_path, 'r')
     # Parse event file to save event list
@@ -32,11 +37,17 @@ def parse_event_file(event_folder, event_file_name, event_name_list):
 
 
 class RosEventTrigger(QObject):
-
-    # Define signals
+    """
+    Trigger events based on event name. Create event name list
+    based on event file
+    """
+    ## Send quad sensor/state data as string
     quad_signal = pyqtSignal(str, name='quadStatus')
+    ## Send arm state data as string
     arm_signal = pyqtSignal(str, name='armStatus')
+    ## Send state machine status as string
     state_machine_signal = pyqtSignal(str, name='stateMachineStatus')
+    ## Send pose command received from Rviz
     pose_command_signal = pyqtSignal(PoseStamped, name='poseCommand')
 
     def __init__(self, event_file_path):
@@ -63,14 +74,19 @@ class RosEventTrigger(QObject):
         event_line_list = [event_name.strip()
                            for event_name in event_file.read().splitlines()]
         event_file.close()
-        # Define event manager name etc
+        ## Define event manager name
         self.event_manager_name = event_line_list[0][:-1]
+
+        ## Event names used to create buttons
         self.event_names_list = []
+
         event_folder, event_file_name = event_file_path.rsplit('/', 1)
         parse_event_file(event_folder, event_file_name, self.event_names_list)
+
+        ## Ros publisher to trigger events based on name
         self.event_pub = rospy.Publisher('event_trigger',
                                          String, queue_size=1)
-
+        ## Ros publisher to trigger pose event
         self.pose_command_pub = rospy.Publisher('pose_command_combined',
                                                 PoseStamped, queue_size=1)
         # Define partial callbacks
@@ -94,6 +110,9 @@ class RosEventTrigger(QObject):
         signal.emit(str(msg.data))
 
     def triggerPoseCommand(self, pose):
+        """
+        Publish pose command event for state machine
+        """
         if not rospy.is_shutdown():
             self.pose_command_pub.publish(pose) 
 
