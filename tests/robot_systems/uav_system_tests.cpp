@@ -1,6 +1,6 @@
-#include <gtest/gtest.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/tests/sample_parser.h>
+#include <gtest/gtest.h>
 
 /// \brief Test UAV System
 TEST(UAVSystemTests, Constructor) {

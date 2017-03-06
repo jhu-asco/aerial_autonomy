@@ -1,5 +1,5 @@
-#include <gtest/gtest.h>
 #include <aerial_autonomy/common/type_map.h>
+#include <gtest/gtest.h>
 
 //// \brief Definitions
 ///  Define any necessary subclasses for tests here
