@@ -230,6 +230,8 @@ add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-event-test ${${PROJ
 add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-pose-test tests/state_machines/state_machine_gui_connector_pose_tests.test tests/state_machines/state_machine_gui_connector_pose_tests.cpp)
 add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-pose-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
 catkin_add_gtest(${PROJECT_NAME}-async-timer-test tests/common/async_timer_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-onboard-system-handler-test tests/onboard_system_handler_tests.test tests/onboard_system_handler_tests.cpp)
+add_dependencies(${PROJECT_NAME}-onboard-system-handler-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
 if(TARGET ${PROJECT_NAME}-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-basic-state-machine-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 endif()
@@ -265,6 +267,9 @@ if(TARGET ${PROJECT_NAME}-state-machine-gui-connector-pose-test)
 endif()
 if(TARGET ${PROJECT_NAME}-async-timer-test)
   target_link_libraries(${PROJECT_NAME}-async-timer-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-onboard-system-handler-test)
+  target_link_libraries(${PROJECT_NAME}-onboard-system-handler-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 endif()
 
 ## Add folders to be run by python nosetests

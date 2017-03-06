@@ -1,3 +1,5 @@
+#pragma once
+
 #include <parsernode/common.h>
 #include <parsernode/parser.h>
 

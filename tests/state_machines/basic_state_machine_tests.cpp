@@ -1,7 +1,6 @@
 #include <aerial_autonomy/state_machines/basic_state_machine.h>
 #include <aerial_autonomy/tests/sample_parser.h>
 #include <gtest/gtest.h>
-#include <ros/ros.h>
 
 class StateMachineTests : public ::testing::Test {
 protected:
