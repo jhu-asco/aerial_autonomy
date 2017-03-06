@@ -17,8 +17,8 @@ struct RollPitchYawThrust {
   */
   RollPitchYawThrust(double r, double p, double y, double t)
       : r(r), p(p), y(y), t(t) {}
-  double r;///< roll
-  double p;///< pitch
-  double y;///< yaw
-  double t;///< thrust
+  double r; ///< roll
+  double p; ///< pitch
+  double y; ///< yaw
+  double t; ///< thrust
 };

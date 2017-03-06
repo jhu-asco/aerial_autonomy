@@ -27,7 +27,6 @@ public:
   virtual ~AbstractControllerHardwareConnector() {}
 };
 
-
 /**
 * @brief Performs a single step of extracting data, running controller
 * and sending data back to hardware
@@ -54,8 +53,10 @@ public:
   * running per hardware type.
   */
   ControllerHardwareConnector(
-      Controller<SensorDataType, GoalType, ControlType> &controller, HardwareType hardware_type)
-      : AbstractControllerHardwareConnector(), hardware_type_(hardware_type), controller_(controller) {}
+      Controller<SensorDataType, GoalType, ControlType> &controller,
+      HardwareType hardware_type)
+      : AbstractControllerHardwareConnector(), hardware_type_(hardware_type),
+        controller_(controller) {}
 
   /**
    * @brief Extracts sensor data, run controller and send data back to hardware
@@ -86,9 +87,7 @@ public:
   *
   * @return return the type of hardware used by the controller
   */
-  HardwareType getHardwareType() {
-    return hardware_type_;
-  }
+  HardwareType getHardwareType() { return hardware_type_; }
 
 protected:
   /**

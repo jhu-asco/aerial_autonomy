@@ -30,14 +30,15 @@ struct PositionYaw : public Position {
   */
   PositionYaw(double x, double y, double z, double yaw)
       : Position(x, y, z), yaw(yaw) {}
-  double yaw;///< Orientation about body axis rad
+  double yaw; ///< Orientation about body axis rad
+
   /**
-  * @brief Compare two position and yaw entities
-  *
-  * @param p PositionYaw to compare against
-  *
-  * @return True if position and yaw are the same
-  */
+   * @brief Compare two position and yaw entities
+   *
+   * @param p PositionYaw to compare against
+   *
+   * @return True if position and yaw are the same
+   */
   bool operator==(const PositionYaw &p) const {
     return (Position::operator==(p) && yaw == p.yaw);
   }

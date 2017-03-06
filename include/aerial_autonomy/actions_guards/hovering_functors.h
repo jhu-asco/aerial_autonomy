@@ -1,10 +1,9 @@
 #pragma once
 #include <aerial_autonomy/actions_guards/base_functors.h>
+#include <aerial_autonomy/basic_events.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
-#include <aerial_autonomy/basic_events.h>
 #include <parsernode/common.h>
-
 
 /**
 * @brief Internal action when hovering.

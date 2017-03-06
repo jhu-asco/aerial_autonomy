@@ -16,16 +16,17 @@ struct Velocity {
   * @param z z component (m/s)
   */
   Velocity(double x, double y, double z) : x(x), y(y), z(z) {}
-  double x;///< x component in m/s
-  double y;///< y component in m/s
-  double z;///< z component in m/s
+  double x; ///< x component in m/s
+  double y; ///< y component in m/s
+  double z; ///< z component in m/s
+
   /**
-  * @brief Check if two velocity vectors are the same
-  *
-  * @param v The vector agains which the current vector is compared.
-  *
-  * @return True if vectors are equal
-  */
+   * @brief Check if two velocity vectors are the same
+   *
+   * @param v The vector agains which the current vector is compared.
+   *
+   * @return True if vectors are equal
+   */
   bool operator==(const Velocity &v) const {
     return (x == v.x && y == v.y && z == v.z);
   }

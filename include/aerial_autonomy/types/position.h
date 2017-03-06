@@ -16,16 +16,17 @@ struct Position {
   * @param z z component in m
   */
   Position(double x, double y, double z) : x(x), y(y), z(z) {}
-  double x;///< x component in m
-  double y;///< y component in m
-  double z;///< z component in m
+  double x; ///< x component in m
+  double y; ///< y component in m
+  double z; ///< z component in m
+
   /**
-  * @brief Compare two positions
-  *
-  * @param p Position to compare against
-  *
-  * @return True if two positions are same
-  */
+   * @brief Compare two positions
+   *
+   * @param p Position to compare against
+   *
+   * @return True if two positions are same
+   */
   bool operator==(const Position &p) const {
     return (x == p.x && y == p.y && z == p.z);
   }

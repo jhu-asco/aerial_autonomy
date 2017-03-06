@@ -4,7 +4,8 @@ EmptySensor PositionControllerDroneConnector::extractSensorData() {
   return EmptySensor();
 }
 
-void PositionControllerDroneConnector::sendHardwareCommands(PositionYaw controls) {
+void PositionControllerDroneConnector::sendHardwareCommands(
+    PositionYaw controls) {
   geometry_msgs::Vector3 position_command;
   position_command.x = controls.x;
   position_command.y = controls.y;

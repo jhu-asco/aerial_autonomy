@@ -1,6 +1,6 @@
 #pragma once
 /**
-* @brief Events that do not need sensor data such as builtin position/velocity controllers
+* @brief Events that do not need sensor data such as builtin position/velocity
+* controllers
 */
-struct EmptySensor {
-};
+struct EmptySensor {};

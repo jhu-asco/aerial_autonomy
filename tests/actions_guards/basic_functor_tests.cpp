@@ -1,7 +1,7 @@
-#include <gtest/gtest.h>
-#include <aerial_autonomy/tests/sample_parser.h>
-#include <aerial_autonomy/tests/sample_logic_state_machine.h>
 #include <aerial_autonomy/actions_guards/basic_states.h>
+#include <aerial_autonomy/tests/sample_logic_state_machine.h>
+#include <aerial_autonomy/tests/sample_parser.h>
+#include <gtest/gtest.h>
 #include <typeindex>
 // Land
 using LandTransitionActionFunctor =

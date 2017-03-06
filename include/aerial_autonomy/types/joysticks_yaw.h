@@ -21,5 +21,5 @@ struct JoysticksYaw : public Joysticks {
   JoysticksYaw(double channel1, double channel2, double channel3,
                double channel4, double yaw)
       : Joysticks(channel1, channel2, channel3, channel4), yaw(yaw) {}
-  double yaw;///< Yaw data stored internally
+  double yaw; ///< Yaw data stored internally
 };

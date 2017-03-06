@@ -71,7 +71,8 @@ public:
   * @brief Command the euler angles of the quad and the thrust.
   *
   * @param rpytmsg Msg format is (x,y,z,w) -> (roll, pitch, yaw, thrust).
-  * The thrust value will be adjusted based on whethere there is thrust bias or not.
+  * The thrust value will be adjusted based on whethere there is thrust bias or
+  * not.
   * @param sendyaw True to control the yaw/ False to ignore yaw command
   *
   * @return True if sending command is successful
@@ -133,7 +134,8 @@ public:
 
   // PluginLib initialization function
   /**
-  * @brief Initialize the Hardware with a ros node handle to setup communications
+  * @brief Initialize the Hardware with a ros node handle to setup
+  * communications
   *
   * @param nh_ Nodehandle to setup communications
   */

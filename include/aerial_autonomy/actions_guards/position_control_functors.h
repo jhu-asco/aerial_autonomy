@@ -1,10 +1,10 @@
 #pragma once
 #include <aerial_autonomy/actions_guards/base_functors.h>
+#include <aerial_autonomy/basic_events.h>
+#include <aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
-#include <aerial_autonomy/basic_events.h>
 #include <aerial_autonomy/types/completed_event.h>
-#include <aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h>
 #include <parsernode/common.h>
 
 using namespace basic_events;
@@ -37,7 +37,8 @@ struct PositionControlAbortActionFunctor_
 };
 
 /**
-* @brief Guard function to check the goal is within tolerance before starting towards goal
+* @brief Guard function to check the goal is within tolerance before starting
+* towards goal
 *
 * \todo Use a parameter for setting position tolerance
 *

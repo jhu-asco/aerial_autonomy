@@ -29,14 +29,15 @@ struct VelocityYaw : public Velocity {
   */
   VelocityYaw(double x, double y, double z, double yaw)
       : Velocity(x, y, z), yaw(yaw) {}
-  double yaw;///< Orientation around global z axis
+  double yaw; ///< Orientation around global z axis
+
   /**
-  * @brief Compare two velocityyaws
-  *
-  * @param v VelocityYaw to compare against
-  *
-  * @return True if same
-  */
+   * @brief Compare two velocityyaws
+   *
+   * @param v VelocityYaw to compare against
+   *
+   * @return True if same
+   */
   bool operator==(const VelocityYaw &v) const {
     return (Velocity::operator==(v) && yaw == v.yaw);
   }

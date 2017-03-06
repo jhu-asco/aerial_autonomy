@@ -25,16 +25,33 @@ private:
   */
   parsernode::Parser &drone_hardware_;
   // Controllers
-  BuiltInController<PositionYaw> builtin_position_controller_;///< position controller
-  BuiltInController<VelocityYaw> builtin_velocity_controller_;///< velocity controller
-  ManualRPYTController manual_rpyt_controller_;///< rpyt controller using joystick
-  // Controller connectors
-  PositionControllerDroneConnector position_controller_drone_connector_;///< connector for position controller
-  BuiltInVelocityControllerDroneConnector velocity_controller_drone_connector_;///< connector for velocity controller
-  ManualRPYTControllerDroneConnector rpyt_controller_drone_connector_;///< connector for rpyt controller
   /**
-  * @brief Container to store and retrieve controller-hardware-connectors
+  * @brief Position Controller
   */
+  BuiltInController<PositionYaw> builtin_position_controller_;
+  /**
+  * @brief  velocity controller
+  */
+  BuiltInController<VelocityYaw> builtin_velocity_controller_;
+  /**
+  * @brief rpyt controller using joystick controller connectors
+  */
+  ManualRPYTController manual_rpyt_controller_;
+  /**
+   * @brief connector for position controller
+   */
+  PositionControllerDroneConnector position_controller_drone_connector_;
+  /**
+  * @brief connector for velocity controller
+  */
+  BuiltInVelocityControllerDroneConnector velocity_controller_drone_connector_;
+  /**
+  * @brief connector for rpyt controller
+  */
+  ManualRPYTControllerDroneConnector rpyt_controller_drone_connector_;
+  /**
+   * @brief Container to store and retrieve controller-hardware-connectors
+   */
   TypeMap<AbstractControllerHardwareConnector>
       controller_hardware_connector_container_;
   /**
@@ -52,7 +69,8 @@ public:
   /**
   * @brief Constructor
   *
-  * UAVSystem requires a drone hardware. It instantiates the connectors, controllers 
+  * UAVSystem requires a drone hardware. It instantiates the connectors,
+  * controllers
   *
   * @param drone_hardware input hardware to send commands back
   */
@@ -141,7 +159,8 @@ public:
   /**
   * @brief Remove active controller for given hardware type
   *
-  * @param hardware_type Type of hardware for which active controller is switched off
+  * @param hardware_type Type of hardware for which active controller is
+  * switched off
   */
   void abortController(HardwareType hardware_type) {
     boost::mutex::scoped_lock lock(*thread_mutexes_[hardware_type]);
