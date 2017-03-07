@@ -1,6 +1,5 @@
 #include <aerial_autonomy/common/async_timer.h>
 
-#include <iostream>
 #include <stdexcept>
 
 AsyncTimer::AsyncTimer(std::function<void()> function,
