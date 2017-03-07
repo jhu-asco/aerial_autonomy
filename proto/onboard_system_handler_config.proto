@@ -1,4 +1,9 @@
-message OnboardSystemHandlerConfig { 
-  required string uav_parser_type = 1; 
-  optional int32 uav_parser_load_timeout = 2 [default = 5]; 
+import "uav_system_config.proto";
+
+message OnboardSystemHandlerConfig {
+  required UAVSystemConfig uav_system_config = 1;
+  required string uav_parser_type = 2;
+  optional int32 uav_parser_load_timeout = 3 [ default = 5 ];
+  optional int32 uav_controller_timer_duration = 4 [ default = 20 ]; // millis
+  optional int32 state_machine_timer_duration = 5 [ default = 20 ];  // millis
 }

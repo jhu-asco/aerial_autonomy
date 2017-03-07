@@ -1,7 +1,6 @@
 #include <aerial_autonomy/basic_events.h>
 #include <aerial_autonomy/onboard_system_handler.h>
 #include <aerial_autonomy/state_machines/basic_state_machine.h>
-#include <aerial_autonomy/tests/sample_parser.h>
 #include <gtest/gtest.h>
 #include <ros/ros.h>
 
@@ -12,10 +11,18 @@ using namespace basic_events;
 
 class OnboardSystemHandlerTests : public ::testing::Test {
 public:
-  OnboardSystemHandlerTests()
-      : nh_(), nh_send_(), sample_parser_(new SampleParser()),
-        onboard_system_handler_(nh_, sample_parser_) {
-    sample_parser_->setBatteryPercent(100);
+  OnboardSystemHandlerTests() : nh_(), nh_send_() {
+    // Configure system
+    OnboardSystemHandlerConfig onboard_system_config;
+    onboard_system_config.set_uav_parser_type(
+        "quad_simulator_parser/QuadSimParser");
+    onboard_system_config.mutable_uav_system_config()
+        ->set_minimum_takeoff_height(0.4);
+
+    onboard_system_handler_.reset(
+        new OnboardSystemHandler<LogicStateMachine,
+                                 BasicEventManager<LogicStateMachine>>(
+            nh_, onboard_system_config));
     event_pub_ = nh_send_.advertise<std_msgs::String>("event_manager", 1);
     pose_pub_ =
         nh_send_.advertise<geometry_msgs::PoseStamped>("goal_pose_command", 1);
@@ -45,12 +52,6 @@ public:
     ros::spinOnce();
   }
 
-  parsernode::common::quaddata getQuadData() {
-    parsernode::common::quaddata quad_data;
-    sample_parser_->getquaddata(quad_data);
-    return quad_data;
-  }
-
 private:
   ros::NodeHandle nh_;
   ros::NodeHandle nh_send_;
@@ -59,37 +60,42 @@ private:
   ros::Publisher pose_pub_;
 
 public:
-  SampleParser *sample_parser_;
-  OnboardSystemHandler<LogicStateMachine, BasicEventManager<LogicStateMachine>>
+  // SampleParser *sample_parser_;
+  std::unique_ptr<OnboardSystemHandler<LogicStateMachine,
+                                       BasicEventManager<LogicStateMachine>>>
       onboard_system_handler_;
 };
 
 TEST_F(OnboardSystemHandlerTests, Constructor) {}
 
 TEST_F(OnboardSystemHandlerTests, TestConnections) {
-  while (!onboard_system_handler_.isConnected()) {
+  while (!onboard_system_handler_->isConnected()) {
   }
   SUCCEED();
 }
 
 TEST_F(OnboardSystemHandlerTests, ProcessEvents) {
-  while (!onboard_system_handler_.isConnected()) {
+  while (!onboard_system_handler_->isConnected()) {
   }
   // Check takeoff works
   publishEvent("Takeoff");
-  ASSERT_EQ(getQuadData().quadstate, "takeoff");
+  ASSERT_TRUE(onboard_system_handler_->getUAVData().armed);
+  ASSERT_EQ(onboard_system_handler_->getUAVData().localpos.z, 0.5);
   // Check subsequent event works
   publishEvent("Land");
-  ASSERT_EQ(getQuadData().quadstate, "land");
+  ASSERT_FALSE(onboard_system_handler_->getUAVData().armed);
+  ASSERT_EQ(onboard_system_handler_->getUAVData().localpos.z, 0.0);
   // Check pose command works
   publishEvent("Takeoff");
-  ASSERT_EQ(getQuadData().quadstate, "takeoff");
-  sample_parser_->setaltitude(2.0);
+  ASSERT_TRUE(onboard_system_handler_->getUAVData().armed);
+  ASSERT_EQ(onboard_system_handler_->getUAVData().localpos.z, 0.5);
   PositionYaw pose_command(1, 2, 3, 0);
   publishPoseCommand(pose_command);
-  std::this_thread::sleep_for(std::chrono::milliseconds(30));
-  ASSERT_EQ(PositionYaw(getQuadData().localpos.x, getQuadData().localpos.y,
-                        getQuadData().localpos.z, getQuadData().rpydata.z),
+  std::this_thread::sleep_for(std::chrono::milliseconds(100));
+  parsernode::common::quaddata quad_data =
+      onboard_system_handler_->getUAVData();
+  ASSERT_EQ(PositionYaw(quad_data.localpos.x, quad_data.localpos.y,
+                        quad_data.localpos.z, quad_data.rpydata.z),
             pose_command);
 }
 

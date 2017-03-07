@@ -46,8 +46,8 @@ struct TakeoffTransitionGuardFunctor_
     parsernode::common::quaddata data = robot_system.getUAVData();
     bool result = false;
     // Check for voltage
-    // TODO Set a parameter for minimum battery percent
-    if (data.batterypercent > 40) {
+    if (data.batterypercent >
+        robot_system.getConfiguration().minimum_battery_percent()) {
       result = true;
     } else {
       std::cout << "Battery too low! " << data.batterypercent
@@ -78,12 +78,13 @@ struct TakeoffInternalActionFunctor_
   void run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     parsernode::common::quaddata data = robot_system.getUAVData();
     // If battery too low abort and goto landed mode
-    if (data.batterypercent < 40) {
+    if (data.batterypercent <
+        robot_system.getConfiguration().minimum_battery_percent()) {
       logic_state_machine.process_event(Land());
     }
     // Transition to hovering state once reached high altitude
-    // TODO add a parameter for transitioning from takeoff to hovering
-    if (data.altitude > 1.0) {
+    if (data.altitude >
+        robot_system.getConfiguration().minimum_takeoff_height()) {
       logic_state_machine.process_event(Completed());
     }
   }
