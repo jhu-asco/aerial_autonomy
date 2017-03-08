@@ -19,7 +19,7 @@ find_package(catkin REQUIRED COMPONENTS
 include(cmake/add_event_function.cmake)
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system)
-
+find_package(Protobuf REQUIRED) 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -134,6 +134,14 @@ basic_events
 visual_servoing_events
 )
 
+##############
+## Protobuf ##
+##############
+PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER 
+  proto/onboard_system_handler_config.proto 
+  proto/uav_system_config.proto
+)
+add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
 ###########
 ## Build ##
@@ -146,15 +154,19 @@ include_directories(
   include
   ${Boost_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
+  ${PROTOBUF_INCLUDE_DIR}
+  ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 ## Declare a C++ library
 add_library(aerial_autonomy
+  src/common/async_timer.cpp
   src/controllers/manual_rpyt_controller.cpp
   src/controller_hardware_connectors/position_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
 )
+
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -227,11 +239,14 @@ add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-event-test tests/s
 add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-event-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
 add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-pose-test tests/state_machines/state_machine_gui_connector_pose_tests.test tests/state_machines/state_machine_gui_connector_pose_tests.cpp)
 add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-pose-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
+catkin_add_gtest(${PROJECT_NAME}-async-timer-test tests/common/async_timer_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-onboard-system-handler-test tests/onboard_system_handler_tests.test tests/onboard_system_handler_tests.cpp)
+add_dependencies(${PROJECT_NAME}-onboard-system-handler-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
 if(TARGET ${PROJECT_NAME}-basic-state-machine-test)
-  target_link_libraries(${PROJECT_NAME}-basic-state-machine-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-basic-state-machine-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test)
-  target_link_libraries(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES} )
 endif()
 if(TARGET ${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
@@ -240,25 +255,31 @@ if(TARGET ${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-logic-states-test)
-  target_link_libraries(${PROJECT_NAME}-logic-states-test ${Boost_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-logic-states-test proto ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-evnt-mngr-test)
-  target_link_libraries(${PROJECT_NAME}-evnt-mngr-test ${Boost_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-evnt-mngr-test proto ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-uav-system-test)
-  target_link_libraries(${PROJECT_NAME}-uav-system-test aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-uav-system-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-basic-functor-tests)
-  target_link_libraries(${PROJECT_NAME}-basic-functor-tests aerial_autonomy ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-basic-functor-tests aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test ${Boost_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-state-machine-gui-connector-event-test)
-  target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-event-test aerial_autonomy ${catkin_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-event-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-state-machine-gui-connector-pose-test)
-  target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-pose-test aerial_autonomy ${catkin_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-pose-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-async-timer-test)
+  target_link_libraries(${PROJECT_NAME}-async-timer-test aerial_autonomy ${Boost_LIBRARIES} ${catkin_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-onboard-system-handler-test)
+  target_link_libraries(${PROJECT_NAME}-onboard-system-handler-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
 endif()
 
 ## Add folders to be run by python nosetests

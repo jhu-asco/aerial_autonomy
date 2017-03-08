@@ -11,4 +11,5 @@ if [ ! -d "$TEST_COVERAGE_DIR" ]; then
   mkdir $TEST_COVERAGE_DIR
 fi
 lcov --capture --directory  ${CMAKE_CURRENT_BINARY_DIR} --base-directory ${CMAKE_CURRENT_SOURCE_DIR} --output-file $TEST_COVERAGE_DIR/test_coverage.info --no-external > /dev/null
+lcov  -r $TEST_COVERAGE_DIR/test_coverage.info ${CMAKE_CURRENT_BINARY_DIR}/\*.pb.\* --output-file $TEST_COVERAGE_DIR/test_coverage.info > /dev/null
 genhtml $TEST_COVERAGE_DIR/test_coverage.info --output-directory $TEST_COVERAGE_DIR > /dev/null

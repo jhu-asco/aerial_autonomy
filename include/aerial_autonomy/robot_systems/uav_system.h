@@ -1,5 +1,6 @@
 #pragma once
 
+#include "uav_system_config.pb.h"
 #include <aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h>
 // Controllers
 #include <aerial_autonomy/controllers/basic_controllers.h>
@@ -65,7 +66,17 @@ private:
   */
   std::map<HardwareType, std::unique_ptr<boost::mutex>> thread_mutexes_;
 
+  /**
+   * @brief UAV configuration parameters
+   */
+  UAVSystemConfig config_;
+
 public:
+  /**
+   * @brief Constructor with default configuration
+   */
+  UAVSystem(parsernode::Parser &drone_hardware)
+      : UAVSystem(drone_hardware, UAVSystemConfig()) {}
   /**
   * @brief Constructor
   *
@@ -74,14 +85,15 @@ public:
   *
   * @param drone_hardware input hardware to send commands back
   */
-  UAVSystem(parsernode::Parser &drone_hardware)
+  UAVSystem(parsernode::Parser &drone_hardware, UAVSystemConfig config)
       : drone_hardware_(drone_hardware),
         position_controller_drone_connector_(drone_hardware,
                                              builtin_position_controller_),
         velocity_controller_drone_connector_(drone_hardware,
                                              builtin_velocity_controller_),
         rpyt_controller_drone_connector_(drone_hardware,
-                                         manual_rpyt_controller_) {
+                                         manual_rpyt_controller_),
+        config_(config) {
     // Add control hardware connector containers
     controller_hardware_connector_container_.setObject(
         position_controller_drone_connector_);
@@ -181,4 +193,10 @@ public:
       active_controller->run();
     }
   }
+
+  /**
+   * @brief Get system configuration
+   * @return Configuration
+   */
+  UAVSystemConfig getConfiguration() { return config_; }
 };

@@ -1,0 +1,4 @@
+<launch>
+  <test test-name="OnboardSystemHandler" pkg="aerial_autonomy" type="aerial_autonomy-onboard-system-handler-test">
+  </test>
+</launch>
