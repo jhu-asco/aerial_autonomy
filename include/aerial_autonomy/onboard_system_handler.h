@@ -40,13 +40,11 @@ public:
     // Instantiate members
     uav_system_.reset(
         new UAVSystem(*uav_hardware_, config_.uav_system_config()));
-    logic_state_machine_.reset(
-        new LogicStateMachineT(boost::ref(*uav_system_)));
+    logic_state_machine_.reset(new LogicStateMachineT(std::ref(*uav_system_)));
     event_manager_.reset(new EventManagerT());
     state_machine_gui_connector_.reset(
         new StateMachineGUIConnector<EventManagerT, LogicStateMachineT>(
-            nh_, boost::ref(*event_manager_),
-            boost::ref(*logic_state_machine_)));
+            nh_, std::ref(*event_manager_), std::ref(*logic_state_machine_)));
 
     // Get the party started
     logic_state_machine_->start();
