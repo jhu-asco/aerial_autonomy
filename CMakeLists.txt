@@ -167,7 +167,7 @@ add_library(aerial_autonomy
   src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
 )
 
-target_link_libraries(aerial_autonomy ${Boost_LIBRARIES})
+#target_link_libraries(aerial_autonomy ${Boost_LIBRARIES})
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -277,7 +277,7 @@ if(TARGET ${PROJECT_NAME}-state-machine-gui-connector-pose-test)
   target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-pose-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-async-timer-test)
-  target_link_libraries(${PROJECT_NAME}-async-timer-test ${Boost_LIBRARIES} aerial_autonomy ${catkin_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-async-timer-test aerial_autonomy ${Boost_LIBRARIES} ${catkin_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-onboard-system-handler-test)
   target_link_libraries(${PROJECT_NAME}-onboard-system-handler-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
