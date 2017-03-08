@@ -19,9 +19,9 @@ TEST_F(AsyncTimerTests, Start) {
                    std::chrono::milliseconds(50));
   ASSERT_EQ(0, this->x);
   timer.start();
-  std::this_thread::sleep_for(std::chrono::milliseconds(50));
+  std::this_thread::sleep_for(std::chrono::milliseconds(10));
   ASSERT_EQ(1, this->x);
-  std::this_thread::sleep_for(std::chrono::milliseconds(50));
+  std::this_thread::sleep_for(std::chrono::milliseconds(60));
   ASSERT_EQ(2, this->x);
 }
 

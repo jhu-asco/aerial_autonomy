@@ -1,5 +1,6 @@
 #pragma once
 
+#include <atomic>
 #include <chrono>
 #include <functional>
 #include <thread>
@@ -36,5 +37,5 @@ private:
   std::function<void()> function_; ///< The function called by the timer
   std::chrono::duration<double>
       timer_duration_; ///< The amount of time in between each function call
-  bool running_;       ///< True when the timer is running
+  std::atomic_bool running_; ///< True when the timer is running
 };

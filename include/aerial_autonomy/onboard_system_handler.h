@@ -32,12 +32,12 @@ public:
         uav_hardware_(
             parser_loader->createUnmanagedInstance(config_.uav_parser_type())),
         uav_system_(new UAVSystem(*uav_hardware_, config_.uav_system_config())),
-        logic_state_machine_(new LogicStateMachineT(boost::ref(*uav_system_))),
+        logic_state_machine_(new LogicStateMachineT(std::ref(*uav_system_))),
         event_manager_(new EventManagerT()),
         state_machine_gui_connector_(
             new StateMachineGUIConnector<EventManagerT, LogicStateMachineT>(
-                nh_, boost::ref(*event_manager_),
-                boost::ref(*logic_state_machine_))),
+                nh_, std::ref(*event_manager_),
+                std::ref(*logic_state_machine_))),
         logic_state_machine_timer_(
             std::bind(&LogicStateMachineT::template process_event<
                           InternalTransitionEvent>,
