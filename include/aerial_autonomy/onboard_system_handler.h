@@ -27,24 +27,31 @@ public:
    */
   OnboardSystemHandler(ros::NodeHandle &nh, OnboardSystemHandlerConfig &config)
       : nh_(nh), config_(config),
+        parser_loader(new pluginlib::ClassLoader<parsernode::Parser>(
+            "parsernode", "parsernode::Parser")),
+        uav_hardware_(
+            parser_loader->createUnmanagedInstance(config_.uav_parser_type())),
+        uav_system_(new UAVSystem(*uav_hardware_, config_.uav_system_config())),
+        logic_state_machine_(new LogicStateMachineT(std::ref(*uav_system_))),
+        event_manager_(new EventManagerT()),
+        state_machine_gui_connector_(
+            new StateMachineGUIConnector<EventManagerT, LogicStateMachineT>(
+                nh_, std::ref(*event_manager_),
+                std::ref(*logic_state_machine_))),
         logic_state_machine_timer_(
-            std::bind(&OnboardSystemHandler::stateMachineThread, this),
+            std::bind(&LogicStateMachineT::template process_event<
+                          InternalTransitionEvent>,
+                      std::ref(*logic_state_machine_),
+                      InternalTransitionEvent()),
             std::chrono::milliseconds(config_.state_machine_timer_duration())),
-        uav_controller_timer_(
-            std::bind(&OnboardSystemHandler::uavControllerThread, this),
-            std::chrono::milliseconds(
-                config_.uav_controller_timer_duration())) {
-    // Load configured uav parser
-    loadUAVPlugin(nh_, config_.uav_parser_type());
-
-    // Instantiate members
-    uav_system_.reset(
-        new UAVSystem(*uav_hardware_, config_.uav_system_config()));
-    logic_state_machine_.reset(new LogicStateMachineT(std::ref(*uav_system_)));
-    event_manager_.reset(new EventManagerT());
-    state_machine_gui_connector_.reset(
-        new StateMachineGUIConnector<EventManagerT, LogicStateMachineT>(
-            nh_, std::ref(*event_manager_), std::ref(*logic_state_machine_)));
+        uav_controller_timer_(std::bind(&UAVSystem::runActiveController,
+                                        std::ref(*uav_system_),
+                                        HardwareType::UAV),
+                              std::chrono::milliseconds(
+                                  config_.uav_controller_timer_duration())) {
+    // Initialize UAV plugin
+    // TODO Gowtham: Make parser plugin throw exception if it cannot initialize
+    uav_hardware_->initialize(nh);
 
     // Get the party started
     logic_state_machine_->start();
@@ -78,52 +85,10 @@ public:
   }
 
 private:
-  /**
-   * @brief Load the UAV plugin with the given name
-   * @param nh NodeHandle for the plugin to use for ROS communication
-   * @param plugin_name Name of plugin to load
-   */
-  bool loadUAVPlugin(ros::NodeHandle &nh, std::string plugin_name) {
-    // TODO(matt): Maybe move this functionality to its own class
-    if (!parser_loader)
-      parser_loader.reset(new pluginlib::ClassLoader<parsernode::Parser>(
-          "parsernode", "parsernode::Parser"));
-
-    try {
-      uav_hardware_.reset(parser_loader->createUnmanagedInstance(plugin_name));
-    } catch (pluginlib::PluginlibException &ex) {
-      std::cout << "The plugin failed to load: " << ex.what() << std::endl;
-      return false;
-    }
-    // Wait till parser is initialized:
-    uav_hardware_->initialize(nh);
-    auto load_time = std::chrono::steady_clock::now();
-    while (std::chrono::duration_cast<std::chrono::seconds>(
-               std::chrono::steady_clock::now() - load_time)
-               .count() < config_.uav_parser_load_timeout()) {
-      if (uav_hardware_->initialized)
-        break;
-      std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    }
-
-    return uav_hardware_->initialized;
-  }
-  /**
-   * @brief State machine processing loop
-   */
-  void stateMachineThread() {
-    logic_state_machine_->process_event(InternalTransitionEvent());
-  }
-
-  /**
-   * @brief UAV control loop
-   */
-  void uavControllerThread() {
-    uav_system_->runActiveController(HardwareType::UAV);
-  }
-
   ros::NodeHandle nh_; ///< ROS NodeHandle for processing events and commands
   OnboardSystemHandlerConfig config_; ///< Configuration parameters
+  std::unique_ptr<pluginlib::ClassLoader<parsernode::Parser>>
+      parser_loader; ///< Used to load hardware plugin
   std::unique_ptr<parsernode::Parser> uav_hardware_; ///< Hardware instance
   std::unique_ptr<UAVSystem> uav_system_;            ///< Contains controllers
   std::unique_ptr<LogicStateMachineT>
@@ -133,8 +98,6 @@ private:
   std::unique_ptr<StateMachineGUIConnector<EventManagerT, LogicStateMachineT>>
       state_machine_gui_connector_; ///< Connects event manager to the state
                                     /// machine
-  std::unique_ptr<pluginlib::ClassLoader<parsernode::Parser>>
-      parser_loader;                     ///< Used to load hardware plugin
   AsyncTimer logic_state_machine_timer_; ///< Timer for running state machine
   AsyncTimer uav_controller_timer_;      ///< Timer for running uav controller
 };
