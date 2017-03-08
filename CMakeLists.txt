@@ -167,7 +167,6 @@ add_library(aerial_autonomy
   src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
 )
 
-#target_link_libraries(aerial_autonomy ${Boost_LIBRARIES})
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
