@@ -85,6 +85,11 @@ TEST_F(OnboardSystemHandlerTests, ProcessEvents) {
   publishEvent("Land");
   ASSERT_FALSE(onboard_system_handler_->getUAVData().armed);
   ASSERT_EQ(onboard_system_handler_->getUAVData().localpos.z, 0.0);
+}
+
+TEST_F(OnboardSystemHandlerTests, ProcessPoseCommand) {
+  while (!onboard_system_handler_->isConnected()) {
+  }
   // Check pose command works
   publishEvent("Takeoff");
   ASSERT_TRUE(onboard_system_handler_->getUAVData().armed);
