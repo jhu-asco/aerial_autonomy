@@ -1,12 +1,17 @@
 #include <aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h>
 #include <aerial_autonomy/controllers/builtin_controller.h>
-#include <aerial_autonomy/tests/sample_parser.h>
 #include <aerial_autonomy/types/velocity_yaw.h>
 #include <gtest/gtest.h>
+#include <quad_simulator_parser/quad_simulator.h>
+
+/**
+* @brief Namespace for UAV Simulator Hardware
+*/
+using namespace quad_simulator;
 
 /// \brief Test BuiltInVelocityController
 TEST(VelocityControllerDroneConnectorTests, Constructor) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
 
   BuiltInController<VelocityYaw> velocity_controller;
 
@@ -15,7 +20,8 @@ TEST(VelocityControllerDroneConnectorTests, Constructor) {
 }
 
 TEST(VelocityControllerDroneConnectorTests, SetGoal) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
+  drone_hardware.takeoff();
 
   // Create controller and connector
   BuiltInController<VelocityYaw> velocity_controller;
@@ -37,7 +43,7 @@ TEST(VelocityControllerDroneConnectorTests, SetGoal) {
   ASSERT_EQ(sensor_data.linvel.x, goal.x);
   ASSERT_EQ(sensor_data.linvel.y, goal.y);
   ASSERT_EQ(sensor_data.linvel.z, goal.z);
-  ASSERT_EQ(sensor_data.rpydata.z, goal.yaw);
+  ASSERT_NEAR(sensor_data.rpydata.z, goal.yaw, 1e-8);
 }
 ///
 
