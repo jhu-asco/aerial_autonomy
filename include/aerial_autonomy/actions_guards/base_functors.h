@@ -34,15 +34,20 @@ struct ActionFunctor {
      * events using this.
      * @param event Event triggering the action
      */
-  template <class SourceState, class TargetState>
-  void operator()(EventT const &event, LogicStateMachineT &logic_state_machine,
-                  SourceState &, TargetState &) {
+  template <class FSM, class SourceState, class TargetState>
+  void operator()(EventT const &event, FSM &logic_state_machine, SourceState &,
+                  TargetState &) {
     static_assert(
         std::is_same<RobotSystemT &,
                      decltype(logic_state_machine.robot_system_)>::value,
         "Robot system in logic state machine is not the same as one used in "
         "action functor");
-    run(event, logic_state_machine.robot_system_, logic_state_machine);
+    static_assert(
+        std::is_base_of<FSM, LogicStateMachineT>::value,
+        "Template Logic state machine arg is not subclass of provided FSM");
+    LogicStateMachineT *logic_state_machine_cast =
+        static_cast<LogicStateMachineT *>(&logic_state_machine);
+    run(event, logic_state_machine.robot_system_, *logic_state_machine_cast);
   }
 
   /**
@@ -83,15 +88,21 @@ struct GuardFunctor {
    * @param event Event triggering the action
    * @return the result of checking guard for the state
    */
-  template <class SourceState, class TargetState>
-  bool operator()(EventT const &event, LogicStateMachineT &logic_state_machine,
-                  SourceState &, TargetState &) {
+  template <class FSM, class SourceState, class TargetState>
+  bool operator()(EventT const &event, FSM &logic_state_machine, SourceState &,
+                  TargetState &) {
     static_assert(
         std::is_same<RobotSystemT &,
                      decltype(logic_state_machine.robot_system_)>::value,
         "Robot system in logic state machine is not the same as one used in "
         "action functor");
-    return guard(event, logic_state_machine.robot_system_, logic_state_machine);
+    static_assert(
+        std::is_base_of<FSM, LogicStateMachineT>::value,
+        "Template Logic state machine arg is not subclass of provided FSM");
+    LogicStateMachineT *logic_state_machine_cast =
+        static_cast<LogicStateMachineT *>(&logic_state_machine);
+    return guard(event, logic_state_machine.robot_system_,
+                 *logic_state_machine_cast);
   }
   /**
    * @brief Destructor
@@ -126,15 +137,20 @@ struct EventAgnosticActionFunctor {
      * @param logic_state_machine Backend of logic State Machine. can send
      * events using this.
      */
-  template <class EventT, class SourceState, class TargetState>
-  void operator()(EventT const &, LogicStateMachineT &logic_state_machine,
-                  SourceState &, TargetState &) {
+  template <class EventT, class FSM, class SourceState, class TargetState>
+  void operator()(EventT const &, FSM &logic_state_machine, SourceState &,
+                  TargetState &) {
     static_assert(
         std::is_same<RobotSystemT &,
                      decltype(logic_state_machine.robot_system_)>::value,
         "Robot system in logic state machine is not the same as one used in "
         "action functor");
-    run(logic_state_machine.robot_system_, logic_state_machine);
+    static_assert(
+        std::is_base_of<FSM, LogicStateMachineT>::value,
+        "Template Logic state machine arg is not subclass of provided FSM");
+    LogicStateMachineT *logic_state_machine_cast =
+        static_cast<LogicStateMachineT *>(&logic_state_machine);
+    run(logic_state_machine.robot_system_, *logic_state_machine_cast);
   }
 
   /**
@@ -171,15 +187,20 @@ struct EventAgnosticGuardFunctor {
      * @param logic_state_machine Backend of logic State Machine. can send
      * events using this.
      */
-  template <class EventT, class SourceState, class TargetState>
-  bool operator()(EventT const &, LogicStateMachineT &logic_state_machine,
-                  SourceState &, TargetState &) {
+  template <class EventT, class FSM, class SourceState, class TargetState>
+  bool operator()(EventT const &, FSM &logic_state_machine, SourceState &,
+                  TargetState &) {
     static_assert(
         std::is_same<RobotSystemT &,
                      decltype(logic_state_machine.robot_system_)>::value,
         "Robot system in logic state machine is not the same as one used in "
         "action functor");
-    return guard(logic_state_machine.robot_system_, logic_state_machine);
+    static_assert(
+        std::is_base_of<FSM, LogicStateMachineT>::value,
+        "Template Logic state machine arg is not subclass of provided FSM");
+    LogicStateMachineT *logic_state_machine_cast =
+        static_cast<LogicStateMachineT *>(&logic_state_machine);
+    return guard(logic_state_machine.robot_system_, *logic_state_machine_cast);
   }
 
   /**

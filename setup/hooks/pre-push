@@ -6,7 +6,7 @@ then
   echo "Development branch no push checks"
   exit 0
 fi
-threshold=99
+threshold=95
 GIT_REPO_PATH=`git rev-parse --show-toplevel`
 cd $GIT_REPO_PATH
 doxygen $GIT_REPO_PATH/Doxyfile > /dev/null
