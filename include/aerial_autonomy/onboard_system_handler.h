@@ -59,6 +59,9 @@ public:
     uav_controller_timer_.start();
   }
 
+  /**
+  * @brief Delete copy constructor
+  */
   OnboardSystemHandler(const OnboardSystemHandler &) = delete;
 
   /**

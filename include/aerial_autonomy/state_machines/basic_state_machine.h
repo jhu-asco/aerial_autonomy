@@ -71,6 +71,9 @@ protected:
   UAVSystem &robot_system_;
 
 public:
+  /**
+  * @brief type index to store the event that did not trigger any transition
+  */
   std::type_index no_transition_event_index_ = typeid(NULL);
   /**
   * @brief Action to take on entering state machine
