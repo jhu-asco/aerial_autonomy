@@ -1,17 +1,24 @@
 #include <aerial_autonomy/state_machines/basic_state_machine.h>
-#include <aerial_autonomy/tests/sample_parser.h>
 #include <gtest/gtest.h>
 // Thread stuff
 #include <boost/optional/optional_io.hpp>
 #include <boost/thread/thread.hpp>
+// Quad Simulator
+#include <quad_simulator_parser/quad_simulator.h>
+
+/**
+* @brief Namespace for UAV Simulator Hardware
+*/
+using namespace quad_simulator;
 
 class StateMachineTests : public ::testing::Test {
 protected:
   std::unique_ptr<LogicStateMachine> logic_state_machine;
   std::unique_ptr<UAVSystem> uav_system;
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
 
   virtual void SetUp() {
+    drone_hardware.setTakeoffAltitude(2.0);
     uav_system.reset(new UAVSystem(drone_hardware));
     logic_state_machine.reset(new LogicStateMachine(boost::ref(*uav_system)));
     logic_state_machine->start();
@@ -26,7 +33,6 @@ protected:
   void GoToHoverFromLanded() {
     drone_hardware.setBatteryPercent(100);
     logic_state_machine->process_event(Takeoff());
-    drone_hardware.setaltitude(2.0);
     logic_state_machine->process_event(InternalTransitionEvent());
   }
 };
@@ -58,9 +64,9 @@ TEST_F(StateMachineTests, Takeoff) {
   logic_state_machine->process_event(Takeoff());
   // Takeoff in process
   ASSERT_STREQ(pstate(*logic_state_machine), "TakingOff");
-  ASSERT_STREQ(uav_system->getUAVData().quadstate.c_str(), "takeoff");
+  ASSERT_STREQ(uav_system->getUAVData().quadstate.c_str(),
+               "ARMED ENABLE_CONTROL ");
   // Complete takeoff
-  drone_hardware.setaltitude(2.0);
   logic_state_machine->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
 }
@@ -73,7 +79,6 @@ TEST_F(StateMachineTests, Land) {
   logic_state_machine->process_event(Land());
   ASSERT_STREQ(pstate(*logic_state_machine), "Landing");
   // Set altitude and check if landing is done
-  drone_hardware.setaltitude(0.0);
   logic_state_machine->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "Landed");
 }
@@ -174,8 +179,9 @@ TEST_F(MultiThreadStateMachineTests, TakeoffMultiThread) {
   t1.join();
   t2.join();
   // Takeoff in process by the end of the event processing
-  ASSERT_STREQ(pstate(*logic_state_machine), "TakingOff");
-  ASSERT_STREQ(uav_system->getUAVData().quadstate.c_str(), "takeoff");
+  ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
+  ASSERT_STREQ(uav_system->getUAVData().quadstate.c_str(),
+               "ARMED ENABLE_CONTROL ");
 }
 ///
 

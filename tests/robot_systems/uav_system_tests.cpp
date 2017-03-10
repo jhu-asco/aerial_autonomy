@@ -1,32 +1,40 @@
 #include <aerial_autonomy/robot_systems/uav_system.h>
-#include <aerial_autonomy/tests/sample_parser.h>
+//#include <aerial_autonomy/tests/sample_parser.h>
+#include <chrono>
 #include <gtest/gtest.h>
+#include <quad_simulator_parser/quad_simulator.h>
+#include <thread>
+
+/**
+* @brief Namespace for UAV Simulator Hardware
+*/
+using namespace quad_simulator;
 
 /// \brief Test UAV System
 TEST(UAVSystemTests, Constructor) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
 
   ASSERT_NO_THROW(new UAVSystem(drone_hardware));
 }
 
 TEST(UAVSystemTests, Takeoff) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
   UAVSystem uav_system(drone_hardware);
   uav_system.takeOff();
   parsernode::common::quaddata data = uav_system.getUAVData();
-  ASSERT_STREQ(data.quadstate.c_str(), "takeoff");
+  ASSERT_STREQ(data.quadstate.c_str(), "ARMED ENABLE_CONTROL ");
 }
 
 TEST(UAVSystemTests, Land) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
   UAVSystem uav_system(drone_hardware);
   uav_system.land();
   parsernode::common::quaddata data = uav_system.getUAVData();
-  ASSERT_STREQ(data.quadstate.c_str(), "land");
+  ASSERT_STREQ(data.quadstate.c_str(), "");
 }
 
 TEST(UAVSystemTests, SetGetGoal) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
   UAVSystem uav_system(drone_hardware);
   PositionYaw position_yaw(1, 1, 1, 1);
   uav_system.setGoal<PositionControllerDroneConnector>(position_yaw);
@@ -36,8 +44,9 @@ TEST(UAVSystemTests, SetGetGoal) {
 }
 
 TEST(UAVSystemTests, runActiveController) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
   UAVSystem uav_system(drone_hardware);
+  uav_system.takeOff();
   PositionYaw position_yaw(1, 1, 1, 1);
   uav_system.setGoal<PositionControllerDroneConnector>(position_yaw);
   uav_system.runActiveController(HardwareType::UAV);
@@ -48,8 +57,9 @@ TEST(UAVSystemTests, runActiveController) {
 }
 
 TEST(UAVSystemTests, runVelocityController) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
   UAVSystem uav_system(drone_hardware);
+  uav_system.takeOff();
   VelocityYaw velocity_yaw(1, 1, 1, 1);
   uav_system.setGoal<BuiltInVelocityControllerDroneConnector>(velocity_yaw);
   uav_system.runActiveController(HardwareType::UAV);
@@ -60,29 +70,29 @@ TEST(UAVSystemTests, runVelocityController) {
 }
 
 TEST(UAVSystemTests, runRPYTController) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
   UAVSystem uav_system(drone_hardware);
+  uav_system.takeOff();
   // set rc channels
   int16_t channels[4] = {100, 50, 25, 100};
   drone_hardware.setRC(channels);
+  drone_hardware.set_delay_send_time(0.02);
   // set goal
   uav_system.setGoal<ManualRPYTControllerDroneConnector>(EmptyGoal());
-  uav_system.runActiveController(HardwareType::UAV);
+  // Run 10 iterations
+  for (int i = 0; i < 100; ++i) {
+    uav_system.runActiveController(HardwareType::UAV);
+    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+  }
   parsernode::common::quaddata sensor_data = uav_system.getUAVData();
-  ASSERT_NEAR(sensor_data.rpydata.x, 0.00523599, 1e-8);
-  ASSERT_NEAR(sensor_data.rpydata.y, 0.00261799, 1e-8);
-  ASSERT_NEAR(sensor_data.rpydata.z, -0.00062831, 1e-8);
-
-  // Verify Yaw rate
-  uav_system.runActiveController(HardwareType::UAV);
-  sensor_data = uav_system.getUAVData();
-  ASSERT_NEAR(sensor_data.rpydata.x, 0.00523599, 1e-8);
-  ASSERT_NEAR(sensor_data.rpydata.y, 0.00261799, 1e-8);
-  ASSERT_NEAR(sensor_data.rpydata.z, -0.00125663, 1e-8);
+  ASSERT_NEAR(sensor_data.rpydata.x, 0.00523599, 1e-4);
+  ASSERT_NEAR(sensor_data.rpydata.y, 0.00261799, 1e-4);
+  // Verify Omegaz
+  ASSERT_NEAR(sensor_data.omega.z, -0.00314, 1e-3);
 }
 
 TEST(UAVSystemTests, abortController) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
   UAVSystem uav_system(drone_hardware);
   PositionYaw position_yaw(1, 1, 1, 1);
   uav_system.setGoal<PositionControllerDroneConnector>(position_yaw);

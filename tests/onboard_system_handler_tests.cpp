@@ -60,7 +60,6 @@ private:
   ros::Publisher pose_pub_;
 
 public:
-  // SampleParser *sample_parser_;
   std::unique_ptr<OnboardSystemHandler<LogicStateMachine,
                                        BasicEventManager<LogicStateMachine>>>
       onboard_system_handler_;
