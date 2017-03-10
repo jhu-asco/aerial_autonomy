@@ -189,7 +189,7 @@ add_library(aerial_autonomy
 # add_dependencies(aerial_autonomy ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-# add_executable(aerial_autonomy_node src/aerial_autonomy_node.cpp)
+add_executable(aerial_autonomy_node src/aerial_autonomy_node.cpp)
 add_executable(event_publish_node src/tests/event_publish_node.cpp)
 
 ## Add cmake target dependencies of the executable
@@ -197,6 +197,8 @@ add_executable(event_publish_node src/tests/event_publish_node.cpp)
 # add_dependencies(aerial_autonomy_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
+
+target_link_libraries(aerial_autonomy_node aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
 
 #############
