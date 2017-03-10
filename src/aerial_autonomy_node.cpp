@@ -8,8 +8,14 @@
 
 #include "onboard_system_handler_config.pb.h"
 
-using namespace google::protobuf;
+using namespace google::protobuf; ///< Protobuf namespace
 
+/**
+ * @brief Loads configutation file and starts system
+ * @param argc Number of arguments
+ * @param argv Arguments
+ * @return Exit status
+ */
 int main(int argc, char **argv) {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -43,4 +49,6 @@ int main(int argc, char **argv) {
       onboard_system_handler(nh, onboard_system_config);
 
   ros::spin();
+
+  return 0;
 }
