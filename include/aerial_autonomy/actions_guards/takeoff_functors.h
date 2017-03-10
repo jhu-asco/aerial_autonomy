@@ -83,7 +83,7 @@ struct TakeoffInternalActionFunctor_
       logic_state_machine.process_event(Land());
     }
     // Transition to hovering state once reached high altitude
-    if (data.altitude >
+    if (data.altitude >=
         robot_system.getConfiguration().minimum_takeoff_height()) {
       logic_state_machine.process_event(Completed());
     }

@@ -1,8 +1,14 @@
 #include <aerial_autonomy/actions_guards/basic_states.h>
 #include <aerial_autonomy/tests/sample_logic_state_machine.h>
-#include <aerial_autonomy/tests/sample_parser.h>
 #include <gtest/gtest.h>
+#include <quad_simulator_parser/quad_simulator.h>
 #include <typeindex>
+
+/**
+* @brief Namespace for UAV Simulator Hardware
+*/
+using namespace quad_simulator;
+
 // Land
 using LandTransitionActionFunctor =
     LandTransitionActionFunctor_<UAVLogicStateMachine>;
@@ -37,24 +43,25 @@ TEST(LandFunctorTests, Constructor) {
 }
 
 TEST(LandFunctorTests, CallOperatorFunction) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
   UAVSystem uav_system(drone_hardware);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   LandTransitionActionFunctor land_transition_action_functor;
   int dummy_start_state, dummy_target_state;
   land_transition_action_functor(Land(), sample_logic_state_machine,
                                  dummy_start_state, dummy_target_state);
-  ASSERT_STREQ(uav_system.getUAVData().quadstate.c_str(), "land");
+  ASSERT_STREQ(uav_system.getUAVData().quadstate.c_str(), "");
   // Internal Action
   LandInternalActionFunctor land_internal_action_functor;
-  drone_hardware.setaltitude(2.0);
+  // Taking off which sets altitude to 0.5
+  drone_hardware.takeoff();
   land_internal_action_functor(InternalTransitionEvent(),
                                sample_logic_state_machine, dummy_start_state,
                                dummy_target_state);
   ASSERT_NE(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(Completed)));
-  // After setting correct altitude
-  drone_hardware.setaltitude(0.0);
+  // After landing which sets altitude to 0.0
+  drone_hardware.land();
   land_internal_action_functor(InternalTransitionEvent(),
                                sample_logic_state_machine, dummy_start_state,
                                dummy_target_state);
@@ -69,7 +76,7 @@ TEST(HoveringFunctorTests, Constructor) {
 }
 
 TEST(HoveringFunctorTests, CallOperatorFunction) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
   UAVSystem uav_system(drone_hardware);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
@@ -100,29 +107,30 @@ TEST(TakeoffFunctorTests, Constructor) {
 }
 
 TEST(TakeoffFunctorTests, TransitionActionTest) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
   UAVSystem uav_system(drone_hardware);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   TakeoffTransitionActionFunctor takeoff_transition_action_functor;
   takeoff_transition_action_functor(Takeoff(), sample_logic_state_machine,
                                     dummy_start_state, dummy_target_state);
-  ASSERT_STREQ(uav_system.getUAVData().quadstate.c_str(), "takeoff");
+  ASSERT_STREQ(uav_system.getUAVData().quadstate.c_str(),
+               "ARMED ENABLE_CONTROL ");
 }
 
 TEST(TakeoffFunctorTests, AbortActionTest) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
   UAVSystem uav_system(drone_hardware);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   TakeoffAbortActionFunctor takeoff_abort_action_functor;
   takeoff_abort_action_functor(Abort(), sample_logic_state_machine,
                                dummy_start_state, dummy_target_state);
-  ASSERT_STREQ(uav_system.getUAVData().quadstate.c_str(), "land");
+  ASSERT_STREQ(uav_system.getUAVData().quadstate.c_str(), "");
 }
 
 TEST(TakeoffFunctorTests, TransitionGuardTest) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
   UAVSystem uav_system(drone_hardware);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
@@ -140,19 +148,18 @@ TEST(TakeoffFunctorTests, TransitionGuardTest) {
 }
 
 TEST(TakeoffFunctorTests, InternalActionTest) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
   UAVSystem uav_system(drone_hardware);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   TakeoffInternalActionFunctor takeoff_internal_action_functor;
-  drone_hardware.setaltitude(0.0);
   takeoff_internal_action_functor(InternalTransitionEvent(),
                                   sample_logic_state_machine, dummy_start_state,
                                   dummy_target_state);
   ASSERT_NE(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(Completed)));
   // After setting correct altitude
-  drone_hardware.setaltitude(2.0);
+  drone_hardware.takeoff();
   takeoff_internal_action_functor(InternalTransitionEvent(),
                                   sample_logic_state_machine, dummy_start_state,
                                   dummy_target_state);
@@ -170,7 +177,8 @@ TEST(PositionControlFunctorTests, Constructor) {
 }
 
 TEST(PositionControlFunctorTests, TransitionActionTest) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
+  drone_hardware.takeoff();
   UAVSystem uav_system(drone_hardware);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
@@ -190,7 +198,7 @@ TEST(PositionControlFunctorTests, TransitionActionTest) {
 }
 
 TEST(PositionControlFunctorTests, AbortActionTest) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
   UAVSystem uav_system(drone_hardware);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
@@ -208,7 +216,7 @@ TEST(PositionControlFunctorTests, AbortActionTest) {
 }
 
 TEST(PositionControlFunctorTests, TransitionGuardTest) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
   UAVSystem uav_system(drone_hardware);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
@@ -225,7 +233,8 @@ TEST(PositionControlFunctorTests, TransitionGuardTest) {
 }
 
 TEST(PositionControlFunctorTests, InternalActionTest) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
+  drone_hardware.takeoff();
   UAVSystem uav_system(drone_hardware);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;

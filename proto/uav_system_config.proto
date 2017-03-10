@@ -1,5 +1,5 @@
 message UAVSystemConfig {
   optional int32 minimum_battery_percent = 1 [ default = 40 ];
-  optional double minimum_takeoff_height = 2 [ default = 1.0 ];
+  optional double minimum_takeoff_height = 2 [ default = 0.5 ];
   optional double landing_height = 3 [ default = 0.1 ];
 }

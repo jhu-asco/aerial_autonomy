@@ -1,7 +1,14 @@
 #include <aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h>
 #include <aerial_autonomy/controllers/manual_rpyt_controller.h>
-#include <aerial_autonomy/tests/sample_parser.h>
+#include <chrono>
 #include <gtest/gtest.h>
+#include <quad_simulator_parser/quad_simulator.h>
+#include <thread>
+
+/**
+* @brief Namespace for UAV Simulator Hardware
+*/
+using namespace quad_simulator;
 
 /// \brief Test ManualRPYTController
 TEST(ManualRPYTControllerTests, TestMapInputOutOfBounds) {
@@ -29,7 +36,7 @@ TEST(ManualRPYTControllerTests, TestYawLessThanNegativePi) {
 
 /// \brief Test ManualRPYTControllerDroneConnectorTests
 TEST(ManualRPYTControllerDroneConnectorTests, Constructor) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
 
   ManualRPYTController manual_rpyt_controller;
 
@@ -38,7 +45,9 @@ TEST(ManualRPYTControllerDroneConnectorTests, Constructor) {
 }
 
 TEST(ManualRPYTControllerDroneConnectorTests, Run) {
-  SampleParser drone_hardware;
+  QuadSimulator drone_hardware;
+  drone_hardware.takeoff();
+  drone_hardware.set_delay_send_time(0.02);
 
   // Set stick commands
   int16_t channels[4] = {100, 50, 25, 100};
@@ -54,20 +63,55 @@ TEST(ManualRPYTControllerDroneConnectorTests, Run) {
 
   // Test run
   parsernode::common::quaddata sensor_data;
-  manual_rpyt_controller_connector.run();
+  for (int i = 0; i < 100; ++i) {
+    manual_rpyt_controller_connector.run();
+    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+  }
   drone_hardware.getquaddata(sensor_data);
-  ASSERT_NEAR(sensor_data.rpydata.x, 0.00523599, 1e-8);
-  ASSERT_NEAR(sensor_data.rpydata.y, 0.00261799, 1e-8);
-  ASSERT_NEAR(sensor_data.rpydata.z, -0.00062831, 1e-8);
+  ASSERT_NEAR(sensor_data.rpydata.x, 0.00523599, 1e-4);
+  ASSERT_NEAR(sensor_data.rpydata.y, 0.00261799, 1e-4);
+  // Verify Omegaz
+  ASSERT_NEAR(sensor_data.omega.z, -0.00314, 1e-3);
+}
 
-  manual_rpyt_controller_connector.run();
-  drone_hardware.getquaddata(sensor_data);
-  ASSERT_NEAR(sensor_data.rpydata.x, 0.00523599, 1e-8);
-  ASSERT_NEAR(sensor_data.rpydata.y, 0.00261799, 1e-8);
-  ASSERT_NEAR(sensor_data.rpydata.z, -0.00125663, 1e-8);
+TEST(ManualRPYTControllerDroneConnectorTests, RunConstantAcceleration) {
+  QuadSimulator drone_hardware;
+  drone_hardware.takeoff();
+  drone_hardware.set_delay_send_time(0.02);
 
-  // TODO(matt) : Need to test thrust.  Could test if we have a parser with
-  // dynamics
+  // Create controller and connector
+  ManualRPYTController manual_rpyt_controller;
+  ManualRPYTControllerDroneConnector manual_rpyt_controller_connector(
+      drone_hardware, manual_rpyt_controller);
+
+  // Test set goal
+  manual_rpyt_controller_connector.setGoal(EmptyGoal());
+
+  // Set stick commands
+  int16_t channels[4] = {0, 0, 2000, 0};
+  drone_hardware.setRC(channels);
+
+  parsernode::common::quaddata first_data, second_data, third_data;
+  // Test run
+  drone_hardware.getquaddata(first_data);
+  for (int i = 0; i < 50; ++i) {
+    manual_rpyt_controller_connector.run();
+    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+  }
+  drone_hardware.getquaddata(second_data);
+  ASSERT_NEAR(second_data.localpos.x, first_data.localpos.x, 1e-4);
+  ASSERT_NEAR(second_data.localpos.y, first_data.localpos.y, 1e-4);
+  // for 1 more second
+  for (int i = 0; i < 50; ++i) {
+    manual_rpyt_controller_connector.run();
+    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+  }
+  drone_hardware.getquaddata(third_data);
+  ASSERT_NEAR(third_data.localpos.x, first_data.localpos.x, 1e-4);
+  ASSERT_NEAR(third_data.localpos.y, first_data.localpos.y, 1e-4);
+  double zdiff_third = third_data.localpos.z - first_data.localpos.z;
+  double zdiff_second = second_data.localpos.z - first_data.localpos.z;
+  ASSERT_NEAR(zdiff_third, 4 * zdiff_second, 5e-2);
 }
 ///
 
