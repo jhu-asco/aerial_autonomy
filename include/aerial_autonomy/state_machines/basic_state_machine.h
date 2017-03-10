@@ -18,7 +18,7 @@
  */
 
 // back-end
-#include <boost/msm/back/state_machine.hpp>
+#include <aerial_autonomy/common/thread_safe_state_machine.h>
 
 // front-end
 #include <boost/msm/front/state_machine_def.hpp>
@@ -44,7 +44,7 @@ struct LogicStateMachineFrontEnd;
 * Used to forward arguments to constructor, and process events
 */
 using LogicStateMachine =
-    boost::msm::back::state_machine<LogicStateMachineFrontEnd>;
+    boost::msm::back::thread_safe_state_machine<LogicStateMachineFrontEnd>;
 
 /**
 * @brief front-end: define the FSM structure
@@ -71,6 +71,9 @@ protected:
   UAVSystem &robot_system_;
 
 public:
+  /**
+  * @brief type index to store the event that did not trigger any transition
+  */
   std::type_index no_transition_event_index_ = typeid(NULL);
   /**
   * @brief Action to take on entering state machine

@@ -6,6 +6,9 @@
 #include <aerial_autonomy/types/completed_event.h>
 #include <parsernode/common.h>
 
+/**
+* @brief namespace for basic events such as takeoff, land etc
+*/
 using namespace basic_events;
 
 /**
