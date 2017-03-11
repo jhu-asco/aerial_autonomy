@@ -22,6 +22,7 @@ int main(int argc, char **argv) {
   ros::init(argc, argv, "aerial_autonomy");
   ros::NodeHandle nh;
 
+  // TODO(matt): Use glog instead of cout
   std::string onboard_system_config_filename;
   if (!nh.getParam("onboard_system_config_filename",
                    onboard_system_config_filename)) {
