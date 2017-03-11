@@ -32,6 +32,8 @@
 // Robot System used
 #include <aerial_autonomy/robot_systems/uav_system.h>
 
+#include <glog/logging.h>
+
 namespace msmf = boost::msm::front;
 namespace be = basic_events;
 
@@ -82,7 +84,7 @@ public:
   * @tparam FSM Backend finite state machine type to trigger events
   */
   template <class Event, class FSM> void on_entry(Event const &, FSM &) {
-    std::cout << "entering: UAV system" << std::endl;
+    LOG(INFO) << "entering: UAV system";
   }
   /**
   * @brief Action to take on leaving state machine
@@ -91,7 +93,7 @@ public:
   * @tparam FSM Backend finite state machine type to trigger events
   */
   template <class Event, class FSM> void on_exit(Event const &, FSM &) {
-    std::cout << "leaving: UAV system" << std::endl;
+    LOG(INFO) << "leaving: UAV system";
   }
 
   /**

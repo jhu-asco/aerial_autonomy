@@ -4,6 +4,7 @@
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/types/completed_event.h>
+#include <glog/logging.h>
 #include <parsernode/common.h>
 
 /**
@@ -53,8 +54,8 @@ struct TakeoffTransitionGuardFunctor_
         robot_system.getConfiguration().minimum_battery_percent()) {
       result = true;
     } else {
-      std::cout << "Battery too low! " << data.batterypercent
-                << "% Cannot takeoff" << std::endl;
+      LOG(INFO) << "Battery too low! " << data.batterypercent
+                << "% Cannot takeoff";
     }
     return result;
   }
