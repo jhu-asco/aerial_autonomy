@@ -10,6 +10,8 @@ threshold=95
 GIT_REPO_PATH=`git rev-parse --show-toplevel`
 cd $GIT_REPO_PATH
 doxygen $GIT_REPO_PATH/Doxyfile > /dev/null
+# Create coverage folder if it does not exist
+[ -d documentation_coverage_info ] || mkdir documentation_coverage_info
 python -m coverxygen --xml-dir ./docs/xml --src-dir . --output ./documentation_coverage_info/doc_coverage.info > /dev/null
 ./setup/test_coverage.py --threshold $threshold ./documentation_coverage_info/doc_coverage.info
 error=$?
