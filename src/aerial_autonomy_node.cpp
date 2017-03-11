@@ -6,6 +6,8 @@
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 #include <google/protobuf/text_format.h>
 
+#include <glog/logging.h>
+
 #include "onboard_system_handler_config.pb.h"
 
 using namespace google::protobuf; ///< Protobuf namespace
@@ -22,27 +24,22 @@ int main(int argc, char **argv) {
   ros::init(argc, argv, "aerial_autonomy");
   ros::NodeHandle nh;
 
-  // TODO(matt): Use glog instead of cout
   std::string onboard_system_config_filename;
   if (!nh.getParam("onboard_system_config_filename",
                    onboard_system_config_filename)) {
-    std::cout << "ROS param \"onboard_system_config_filename\" not found"
-              << std::endl;
-    return -1;
+    LOG(FATAL) << "ROS param \"onboard_system_config_filename\" not found";
   }
 
   OnboardSystemHandlerConfig onboard_system_config;
   int fd = open(onboard_system_config_filename.c_str(), O_RDONLY);
   if (fd < 0) {
-    std::cout << "Failed to open config file: "
-              << onboard_system_config_filename << std::endl;
-    return -1;
+    LOG(FATAL) << "Failed to open config file: "
+               << onboard_system_config_filename;
   }
   io::FileInputStream fstream(fd);
   if (!TextFormat::Parse(&fstream, &onboard_system_config)) {
-    std::cout << "Failed to parse config file: "
-              << onboard_system_config_filename << std::endl;
-    return -1;
+    LOG(FATAL) << "Failed to parse config file: "
+               << onboard_system_config_filename;
   }
 
   OnboardSystemHandler<LogicStateMachine,

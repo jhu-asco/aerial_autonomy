@@ -22,6 +22,7 @@ include(cmake/add_event_function.cmake)
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system)
 find_package(Protobuf REQUIRED) 
+find_package(Glog REQUIRED)
 
 # Quad simulator parser dependencies
 find_package(GCOP REQUIRED systems)
@@ -34,7 +35,6 @@ set(QUAD_SIM_PARSER_LIBS ${QUAD_SIM_PARSER_LIBS} ${TINYXML_LIBRARIES})
 
 find_package(Eigen3 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
-
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -171,6 +171,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
   ${PROTOBUF_INCLUDE_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}
+  ${GLOG_INCLUDE_DIR}
 )
 
 ## Declare a C++ library
@@ -198,7 +199,7 @@ add_executable(event_publish_node src/tests/event_publish_node.cpp)
 
 ## Specify libraries to link a library or executable target against
 
-target_link_libraries(aerial_autonomy_node aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
+target_link_libraries(aerial_autonomy_node aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
 
 #############
@@ -261,10 +262,10 @@ add_rostest_gtest(${PROJECT_NAME}-onboard-system-handler-test tests/onboard_syst
 add_dependencies(${PROJECT_NAME}-onboard-system-handler-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
 catkin_add_gtest(${PROJECT_NAME}-thread-safe-state-machine-test tests/common/thread_safe_state_machine_tests.cpp)
 if(TARGET ${PROJECT_NAME}-basic-state-machine-test)
-  target_link_libraries(${PROJECT_NAME}-basic-state-machine-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-basic-state-machine-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test)
-  target_link_libraries(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test aerial_autonomy ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} )
+  target_link_libraries(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test aerial_autonomy ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test aerial_autonomy ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES})
@@ -273,25 +274,25 @@ if(TARGET ${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test aerial_autonomy ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-logic-states-test)
-  target_link_libraries(${PROJECT_NAME}-logic-states-test proto ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-logic-states-test proto ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-evnt-mngr-test)
-  target_link_libraries(${PROJECT_NAME}-evnt-mngr-test proto ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-evnt-mngr-test proto ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-uav-system-test)
-  target_link_libraries(${PROJECT_NAME}-uav-system-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-uav-system-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-basic-functor-tests)
-  target_link_libraries(${PROJECT_NAME}-basic-functor-tests aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-basic-functor-tests aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test ${Boost_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-state-machine-gui-connector-event-test)
-  target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-event-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-event-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-state-machine-gui-connector-pose-test)
-  target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-pose-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-pose-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-async-timer-test)
   target_link_libraries(${PROJECT_NAME}-async-timer-test aerial_autonomy ${Boost_LIBRARIES} ${catkin_LIBRARIES})
@@ -300,7 +301,7 @@ if(TARGET ${PROJECT_NAME}-thread-safe-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-thread-safe-state-machine-test ${Boost_LIBRARIES} ${catkin_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-onboard-system-handler-test)
-  target_link_libraries(${PROJECT_NAME}-onboard-system-handler-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-onboard-system-handler-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 
 ## Add folders to be run by python nosetests
