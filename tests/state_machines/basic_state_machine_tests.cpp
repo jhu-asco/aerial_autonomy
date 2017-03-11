@@ -59,6 +59,16 @@ TEST_F(StateMachineTests, LowBatteryTakeoff) {
   ASSERT_STREQ(pstate(*logic_state_machine), "Landed");
 }
 
+TEST_F(StateMachineTests, LowBatteryAfterTakeoff) {
+  drone_hardware.setBatteryPercent(100);
+  logic_state_machine->process_event(Takeoff());
+  ASSERT_STREQ(pstate(*logic_state_machine), "TakingOff");
+  drone_hardware.setBatteryPercent(10);
+  logic_state_machine->process_event(InternalTransitionEvent());
+  // Cannot takeoff
+  ASSERT_STREQ(pstate(*logic_state_machine), "Landing");
+}
+
 TEST_F(StateMachineTests, Takeoff) {
   drone_hardware.setBatteryPercent(100);
   logic_state_machine->process_event(Takeoff());
@@ -129,6 +139,27 @@ TEST_F(StateMachineTests, PositionControlLand) {
   ASSERT_STREQ(pstate(*logic_state_machine), "ReachingGoal");
   // Land while reaching the goal
   logic_state_machine->process_event(Land());
+  ASSERT_STREQ(pstate(*logic_state_machine), "Landing");
+  // It should also abort the controller:
+  uav_system->runActiveController(HardwareType::UAV);
+  parsernode::common::quaddata data = uav_system->getUAVData();
+  PositionYaw curr_pose_yaw(data.localpos.x, data.localpos.y, data.localpos.z,
+                            data.rpydata.z);
+  ASSERT_NE(curr_pose_yaw, goal);
+}
+
+TEST_F(StateMachineTests, PositionControlLowBattery) {
+  // First takeoff
+  GoToHoverFromLanded();
+  // Now we are hovering, Lets go to a goal
+  PositionYaw goal(0, 0, 5, 0);
+  logic_state_machine->process_event(goal);
+  ASSERT_STREQ(pstate(*logic_state_machine), "ReachingGoal");
+  // Low battery while reaching goal
+  drone_hardware.setBatteryPercent(10);
+  // Run Internal Transition
+  logic_state_machine->process_event(InternalTransitionEvent());
+  // Check if we are landing due to low battery
   ASSERT_STREQ(pstate(*logic_state_machine), "Landing");
   // It should also abort the controller:
   uav_system->runActiveController(HardwareType::UAV);

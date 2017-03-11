@@ -84,10 +84,9 @@ struct TakeoffInternalActionFunctor_
     if (data.batterypercent <
         robot_system.getConfiguration().minimum_battery_percent()) {
       logic_state_machine.process_event(Land());
-    }
-    // Transition to hovering state once reached high altitude
-    if (data.altitude >=
-        robot_system.getConfiguration().minimum_takeoff_height()) {
+    } else if (data.altitude >=
+               // Transition to hovering state once reached high altitude
+               robot_system.getConfiguration().minimum_takeoff_height()) {
       logic_state_machine.process_event(Completed());
     }
   }

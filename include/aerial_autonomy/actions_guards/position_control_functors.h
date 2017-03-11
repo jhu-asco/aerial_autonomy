@@ -7,6 +7,8 @@
 #include <aerial_autonomy/types/completed_event.h>
 #include <parsernode/common.h>
 
+namespace be = basic_events;
+
 /**
 * @brief Transition action to perform when going into position control mode
 *
@@ -91,10 +93,13 @@ struct PositionControlInternalActionFunctor_
     // TODO Use a parameter for setting position tolerance
     double tolerance_pos = 1.0; // m
     double tolerance_yaw = 0.1; // rad
-    if (std::abs(current_position.x - goal.x) < tolerance_pos &&
-        std::abs(current_position.y - goal.y) < tolerance_pos &&
-        std::abs(current_position.z - goal.z) < tolerance_pos &&
-        std::abs(yaw - goal.yaw) < tolerance_yaw) {
+    if (data.batterypercent <
+        robot_system.getConfiguration().minimum_battery_percent()) {
+      logic_state_machine.process_event(be::Land());
+    } else if (std::abs(current_position.x - goal.x) < tolerance_pos &&
+               std::abs(current_position.y - goal.y) < tolerance_pos &&
+               std::abs(current_position.z - goal.z) < tolerance_pos &&
+               std::abs(yaw - goal.yaw) < tolerance_yaw) {
       // Reached goal
       logic_state_machine.process_event(Completed());
     }
