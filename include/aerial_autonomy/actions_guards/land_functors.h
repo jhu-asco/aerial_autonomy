@@ -15,6 +15,7 @@ template <class LogicStateMachineT>
 struct LandTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system, LogicStateMachineT &) {
+    robot_system.abortController(HardwareType::UAV);
     robot_system.land();
   }
 };
