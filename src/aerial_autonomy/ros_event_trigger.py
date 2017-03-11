@@ -101,7 +101,7 @@ class RosEventTrigger(QObject):
         rospy.Subscriber("stat_machine_status", String, stateMachineCallback)
 
         # Subscribe to position commands (from Rviz)
-        rospy.Subscriber("pose_command", PoseStamped, poseCommandCallback) 
+        rospy.Subscriber("/move_base_simple/goal", PoseStamped, poseCommandCallback) 
 
     def statusCallback(self, msg, signal):
         """

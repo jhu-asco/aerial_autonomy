@@ -1,0 +1,9 @@
+uav_parser_type: "quad_simulator_parser/QuadSimParser"
+uav_controller_timer_duration: 20
+state_machine_timer_duration: 20
+
+uav_system_config {
+  minimum_battery_percent: 40
+  minimum_takeoff_height: 0.5
+  landing_height: 0.1
+}
