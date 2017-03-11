@@ -32,7 +32,11 @@
 // Robot System used
 #include <aerial_autonomy/robot_systems/uav_system.h>
 
+// Logging library
 #include <glog/logging.h>
+
+// Store state machine states
+#include <array>
 
 namespace msmf = boost::msm::front;
 namespace be = basic_events;
@@ -213,8 +217,8 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static char const *const state_names[] = {"Landed", "TakingOff", "Hovering",
-                                          "ReachingGoal", "Landing"};
+static constexpr std::array<const char *, 5> state_names = {
+    "Landed", "TakingOff", "Hovering", "ReachingGoal", "Landing"};
 /**
 * @brief Get current state name
 *
@@ -223,5 +227,5 @@ static char const *const state_names[] = {"Landed", "TakingOff", "Hovering",
 * @return state name
 */
 const char *pstate(LogicStateMachine const &p) {
-  return state_names[p.current_state()[0]];
+  return state_names.at(p.current_state()[0]);
 }
