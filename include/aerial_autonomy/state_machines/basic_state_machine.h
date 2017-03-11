@@ -167,8 +167,7 @@ public:
   /**
   * @brief Land action when reaching goal
   */
-  using ReachingGoalLand = msmf::ActionSequence_<
-      boost::mpl::vector<ReachingGoalAbort, LandingAction>>;
+  using ReachingGoalLand = LandingAction;
 
   /**
   * @brief Transition table for State Machine
