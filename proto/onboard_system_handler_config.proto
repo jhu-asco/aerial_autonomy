@@ -1,8 +1,23 @@
 import "uav_system_config.proto";
 
 message OnboardSystemHandlerConfig {
+  /**
+  * @brief robot system configuration
+  */
   required UAVSystemConfig uav_system_config = 1;
+  /**
+  * @brief Hardware parser plugin name
+  * These are provided by rqt_quadcopter_parsers package
+  */
   required string uav_parser_type = 2;
-  optional int32 uav_controller_timer_duration = 3 [ default = 20 ]; // millis
-  optional int32 state_machine_timer_duration = 4 [ default = 20 ];  // millis
+  /**
+  * @brief Timestep in milliseconds for timer which runs uav controller
+  * continously
+  */
+  optional int32 uav_controller_timer_duration = 3 [ default = 20 ];
+  /**
+   * @brief Timestep in milliseconds for timer which runs state machine internal
+   * transition continously
+   */
+  optional int32 state_machine_timer_duration = 4 [ default = 20 ];
 }

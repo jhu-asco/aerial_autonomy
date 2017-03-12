@@ -176,20 +176,30 @@ protected:
   boost::mutex signal_threads_mutex_;
   boost::condition_variable signal_condition_;
 
-  void await_start_condition() {
+  void awaitStartCondition() {
     boost::unique_lock<boost::mutex> lk(signal_threads_mutex_);
     signal_condition_.wait(lk);
   }
 
-  void signal_start_condition() {
+  void signalStartCondition() {
     boost::lock_guard<boost::mutex> lk(signal_threads_mutex_);
     signal_condition_.notify_all();
   }
 
-  template <class EventT> void synchronized_event_call() {
-    await_start_condition();
-    for (int count = 0; count < 1000; ++count) {
-      logic_state_machine->process_event(EventT());
+  void internalTransitionEventCall() {
+    awaitStartCondition();
+    for (int count = 0; count < 200; ++count) {
+      logic_state_machine->process_event(InternalTransitionEvent());
+    }
+  }
+
+  void takeoffEventCall() {
+    for (int count = 0; count < 200; ++count) {
+      logic_state_machine->process_event(Takeoff());
+    }
+    signalStartCondition();
+    for (int count = 0; count < 200; ++count) {
+      logic_state_machine->process_event(InternalTransitionEvent());
     }
   }
 };
@@ -197,19 +207,14 @@ protected:
 TEST_F(MultiThreadStateMachineTests, TakeoffMultiThread) {
   drone_hardware.setBatteryPercent(100);
   boost::thread t1(boost::bind(
-      &MultiThreadStateMachineTests::template synchronized_event_call<Takeoff>,
+      &MultiThreadStateMachineTests_TakeoffMultiThread_Test::takeoffEventCall,
       this));
-  boost::thread t2(boost::bind(
-      &MultiThreadStateMachineTests::template synchronized_event_call<
-          InternalTransitionEvent>,
-      this));
-  // Wait for the threads to start
-  boost::this_thread::sleep(boost::posix_time::milliseconds(500));
-  // Signal to start process events
-  signal_start_condition();
+  boost::thread t2(
+      boost::bind(&MultiThreadStateMachineTests_TakeoffMultiThread_Test::
+                      internalTransitionEventCall,
+                  this));
   t1.join();
   t2.join();
-  // Takeoff in process by the end of the event processing
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
   ASSERT_STREQ(uav_system->getUAVData().quadstate.c_str(),
                "ARMED ENABLE_CONTROL ");
