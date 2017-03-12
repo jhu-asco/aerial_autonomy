@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+  <param name="onboard_system_config_filename" value="$(find aerial_autonomy)/param/simulator_config.pbtxt" />
+  <node pkg="aerial_autonomy" type="aerial_autonomy_node" name="aerial_autonomy_node" output="screen">
+    <remap from="goal_pose_command" to="pose_command_combined" />
+    <remap from="event_manager" to="event_trigger" />
+  </node>
+</launch>
