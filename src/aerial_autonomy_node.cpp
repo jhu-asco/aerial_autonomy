@@ -10,7 +10,10 @@
 
 #include "onboard_system_handler_config.pb.h"
 
-using namespace google::protobuf; ///< Protobuf namespace
+/**
+* @brief Protobuf namespace
+*/
+using namespace google::protobuf;
 
 /**
  * @brief Loads configutation file and starts system

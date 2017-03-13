@@ -4,31 +4,44 @@
 ## Setup
 Run the setup script in setup/setup.sh to configure Git hooks.  
 
-## Style
-This repository uses clang-format for style checking.  Pre-commit hooks ensure that all staged files conform to the style conventions.
-To skip pre-commit hooks and force a commit, use `git commit -n`. 
+Install the following dependencies (lcov, doxypy, coverxygen, google-glog). On Ubuntu 14.04 run the following line in a terminal
 
-## Dependencies
+    sudo apt-get install lcov doxypy coverxygen libgoogle-glog-dev
+
 Install the latest ROS class\_loader package from https://github.com/ros/class_loader.git
 
 Additionally, run the following
 
-`sudo apt-get install protobuf-compiler`
+    sudo apt-get install protobuf-compiler
 
-## Design Docs
-https://paper.dropbox.com/doc/QuadcopterGUI-Framework-Final-Version-ylwUlxLOOPpNM91LsXJyI#:uid=019653862866586&h2=RobotSystem
+## Running executables
+The package provides a `aerial_autonomy_node` executable which loads a state machine and hardware and wait for event commands from rostopic. The `rqt_aerial_autonomy_gui` script
+provides a GUI to generate events for the state machine. The rqt plugin can be loaded along with `rqt_rviz` in `rqt_gui` framework.
+
+The `simulator.launch` file in the launch folder executes the state machine node using a simulated hardware. The GUI can be launched individually using rosrun. The steps to launch a simulated quadrotor with the state machine are
+
+    roslaunch aerial_autonomy simulator.launch
+    rosrun aerial_autonomy rqt_aerial_autonomy_gui  # In a separate tab
 
 ## Running Tests:
 To build and run tests use `catkin build aerial_autonomy --catkin-make-args run_tests`. Output of individual tests can be checked using `rosrun aerial_autonomy test_name`.
 To see all test outputs run `catkin run_tests --this`.
 
+## Logging
+GLOG is used to log messages from state machine. The messages are divided into different levels (INFO, WARNING, ERROR) etc. The information messages are divided into different verbosity levels 0,1,2 and so on. Th verbosity level can be adjusted using the environment variable `GLOG_v`. If the environment variable is set to 1 (`export GLOG_V=1`), then all the messages with verbosity 0 and 1 are streamed to stderr output.
+
+The log messages are also recorded into log files in `logs` folder. The symbolic links `aerial_autonomy_node.INFO` and `aerial_autonomy_node.WARNING` in the log folder point to the latest log files. The log directory can be changed using `GLOG_log_dir` environment variable. More information about the log files can be found int Google Log [documentation](http://rpg.ifi.uzh.ch/docs/glog.html).
+
+The `simulator` launch file introduced above allows for specifying the log level and log directory using roslaunch arguments `log_level` and `log_dir` respectively. For example
+
+    roslaunch aerial_autonomy simulator.launch log_level:=1  # Prints all the verbose log messages with priority 0 and 1.
+
+## Style
+This repository uses clang-format for style checking.  Pre-commit hooks ensure that all staged files conform to the style conventions.
+To skip pre-commit hooks and force a commit, use `git commit -n`. 
+
 ## Documentation Coverage
-Use coverxygen to generate documentation coverage for the doc: https://github.com/psycofdj/coverxygen
-
-Install coverxygen and lcov using:
-
-    sudo apt-get install lcov
-    sudo pip install coverxygen
+Using coverxygen to generate documentation coverage for the doc: https://github.com/psycofdj/coverxygen
 
 Use the script `scripts/generate_documentation_coverage.bash` to generate documentation into `documentation_coverage_info` folder.
 Check the html page in `documentation_coverage_info/index.html` to verify the documentation coverage of the code.
@@ -41,3 +54,8 @@ into `test_coverage_info` folder. The script is generated using CMake. Run `catk
 by running CMake using `catkin build aerial_autonomy`.
 
 The test generation is integrated into `pre-push` commit hook. This runs the above test coverage generation script and verifies that the coverage level is above 95% threshold. This can be skipped by either naming the branch as `develop[your_branch_name]` or using `git push --no-verify`.
+
+## Additional Resources
+- [Background](markdown_scripts/background.md)
+- [Creating a State Machine](markdown_scripts/creating_state_machine.md)
+- [Classes by group](markdown_scripts/class_groups.md)

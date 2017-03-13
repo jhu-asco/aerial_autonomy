@@ -50,7 +50,6 @@ public:
                               std::chrono::milliseconds(
                                   config_.uav_controller_timer_duration())) {
     // Initialize UAV plugin
-    // TODO Gowtham: Make parser plugin throw exception if it cannot initialize
     uav_hardware_->initialize(nh);
 
     // Get the party started

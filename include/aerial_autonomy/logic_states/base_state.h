@@ -1,6 +1,6 @@
 #pragma once
 /**
- * Base state for all states in logic state machine
+ * @brief Base state for all states in logic state machine
  *
  * This class provides a wrapper for any action function and robot
  * system

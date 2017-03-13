@@ -25,7 +25,7 @@ struct HoveringInternalActionFunctor_
   void run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     parsernode::common::quaddata data = robot_system.getUAVData();
     // Transition to hovering state once reached high altitude
-    // Can also use uav status here TODO (Gowtham)
+    /// \todo (Gowtham) Can also use uav status here
     if (data.batterypercent <
         robot_system.getConfiguration().minimum_battery_percent()) {
       LOG(WARNING) << "Battery too low! " << data.batterypercent << "%";
