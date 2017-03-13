@@ -20,6 +20,7 @@ using namespace google::protobuf; ///< Protobuf namespace
  */
 int main(int argc, char **argv) {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
+  google::InitGoogleLogging("aerial_autonomy_node");
 
   ros::init(argc, argv, "aerial_autonomy");
   ros::NodeHandle nh;

@@ -3,6 +3,7 @@
 #include <aerial_autonomy/basic_events.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
+#include <glog/logging.h>
 #include <parsernode/common.h>
 
 namespace be = basic_events;
@@ -27,6 +28,7 @@ struct HoveringInternalActionFunctor_
     // Can also use uav status here TODO (Gowtham)
     if (data.batterypercent <
         robot_system.getConfiguration().minimum_battery_percent()) {
+      LOG(WARNING) << "Battery too low! " << data.batterypercent << "%";
       logic_state_machine.process_event(be::Land());
     }
   }

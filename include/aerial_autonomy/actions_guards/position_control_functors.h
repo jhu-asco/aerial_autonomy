@@ -5,6 +5,7 @@
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/types/completed_event.h>
+#include <glog/logging.h>
 #include <parsernode/common.h>
 
 namespace be = basic_events;
@@ -32,6 +33,7 @@ template <class LogicStateMachineT>
 struct PositionControlAbortActionFunctor_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system, LogicStateMachineT &) {
+    LOG(WARNING) << "Aborting Position Controller";
     robot_system.abortController(HardwareType::UAV);
   }
 };
@@ -53,13 +55,13 @@ struct PositionControlTransitionGuardFunctor_
     geometry_msgs::Vector3 current_position = data.localpos;
     // Check goal is close to position before sending goal (Can use a geofence
     // here)
-    // Ensure the goal is within 100 meters of the current position
-    // TODO Use a parameter for setting position tolerance
-    double tolerance_pos = 100;
+    const double &tolerance_pos =
+        robot_system.getConfiguration().max_goal_distance();
     bool result = true;
     if (std::abs(current_position.x - goal.x) > tolerance_pos ||
         std::abs(current_position.y - goal.y) > tolerance_pos ||
         std::abs(current_position.z - goal.z) > tolerance_pos) {
+      LOG(WARNING) << "Goal not within the position tolerance";
       result = false;
     }
     return result;
@@ -90,17 +92,18 @@ struct PositionControlInternalActionFunctor_
     geometry_msgs::Vector3 current_position = data.localpos;
     double yaw = data.rpydata.z;
     // Define tolerance and check if reached goal
-    // TODO Use a parameter for setting position tolerance
-    double tolerance_pos = 1.0; // m
-    double tolerance_yaw = 0.1; // rad
-    if (data.batterypercent <
-        robot_system.getConfiguration().minimum_battery_percent()) {
+    const auto &robot_config = robot_system.getConfiguration();
+    const double &tolerance_pos = robot_config.goal_position_tolerance(); // m
+    const double &tolerance_yaw = robot_config.goal_yaw_tolerance();      // m
+    if (data.batterypercent < robot_config.minimum_battery_percent()) {
+      LOG(WARNING) << "Battery too low " << data.batterypercent
+                   << "\% Landing!";
       logic_state_machine.process_event(be::Land());
     } else if (std::abs(current_position.x - goal.x) < tolerance_pos &&
                std::abs(current_position.y - goal.y) < tolerance_pos &&
                std::abs(current_position.z - goal.z) < tolerance_pos &&
                std::abs(yaw - goal.yaw) < tolerance_yaw) {
-      // Reached goal
+      VLOG(1) << "Reached goal";
       logic_state_machine.process_event(Completed());
     }
   }

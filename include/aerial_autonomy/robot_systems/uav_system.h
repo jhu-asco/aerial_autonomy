@@ -103,6 +103,7 @@ public:
         rpyt_controller_drone_connector_);
 
     // Initialize active controller map
+    // TODO make enum class iterable to do this automatically
     active_controllers_[HardwareType::Arm] = nullptr;
     thread_mutexes_[HardwareType::Arm] =
         std::unique_ptr<boost::mutex>(new boost::mutex);

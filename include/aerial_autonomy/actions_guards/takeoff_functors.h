@@ -21,6 +21,7 @@ template <class LogicStateMachineT>
 struct TakeoffTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system, LogicStateMachineT &) {
+    VLOG(1) << "Takingoff!";
     robot_system.takeOff();
   }
 };
@@ -34,6 +35,7 @@ template <class LogicStateMachineT>
 struct TakeoffAbortActionFunctor_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system, LogicStateMachineT &) {
+    VLOG(1) << "Aborting Takeoff!";
     robot_system.land();
   }
 };
@@ -54,8 +56,8 @@ struct TakeoffTransitionGuardFunctor_
         robot_system.getConfiguration().minimum_battery_percent()) {
       result = true;
     } else {
-      LOG(INFO) << "Battery too low! " << data.batterypercent
-                << "% Cannot takeoff";
+      LOG(WARNING) << "Battery too low! " << data.batterypercent
+                   << "\% SoCannot takeoff";
     }
     return result;
   }
@@ -84,10 +86,13 @@ struct TakeoffInternalActionFunctor_
     // If battery too low abort and goto landed mode
     if (data.batterypercent <
         robot_system.getConfiguration().minimum_battery_percent()) {
+      LOG(WARNING) << "Battery too low! " << data.batterypercent
+                   << "\% Aborting takeoff";
       logic_state_machine.process_event(Land());
-    } else if (data.altitude >=
+    } else if (data.localpos.z >=
                // Transition to hovering state once reached high altitude
                robot_system.getConfiguration().minimum_takeoff_height()) {
+      VLOG(1) << "Completed Takeoff";
       logic_state_machine.process_event(Completed());
     }
   }
