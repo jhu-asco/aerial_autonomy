@@ -22,6 +22,7 @@
 - ActionFunctor
     - LandTransitionActionFunctor_
     - TakeoffTransitionActionFunctor_
+    - PositionControlTransitionActionFunctor_
 - EventAgnosticActionFunctor
     - LandInternalActionFunctor_
     - TakeoffInternalActionFunctor_
