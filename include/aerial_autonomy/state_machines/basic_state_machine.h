@@ -32,7 +32,11 @@
 // Robot System used
 #include <aerial_autonomy/robot_systems/uav_system.h>
 
+// Logging library
 #include <glog/logging.h>
+
+// Store state machine states
+#include <array>
 
 namespace msmf = boost::msm::front;
 namespace be = basic_events;
@@ -71,12 +75,19 @@ protected:
   * @brief robot system used by states to get sensor data and send commands
   */
   UAVSystem &robot_system_;
-
-public:
   /**
   * @brief type index to store the event that did not trigger any transition
   */
   std::type_index no_transition_event_index_ = typeid(NULL);
+
+public:
+  /**
+  * @brief Returns the index of the event that did not trigger any transition
+  * @return The no-transition event index
+  */
+  std::type_index get_no_transition_event_index() {
+    return no_transition_event_index_;
+  }
   /**
   * @brief Action to take on entering state machine
   *
@@ -220,8 +231,8 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static char const *const state_names[] = {"Landed", "TakingOff", "Hovering",
-                                          "ReachingGoal", "Landing"};
+static constexpr std::array<const char *, 5> state_names = {
+    "Landed", "TakingOff", "Hovering", "ReachingGoal", "Landing"};
 /**
 * @brief Get current state name
 *
@@ -230,5 +241,5 @@ static char const *const state_names[] = {"Landed", "TakingOff", "Hovering",
 * @return state name
 */
 const char *pstate(LogicStateMachine const &p) {
-  return state_names[p.current_state()[0]];
+  return state_names.at(p.current_state()[0]);
 }

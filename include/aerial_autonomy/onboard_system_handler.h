@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ros/ros.h>
+#include <std_msgs/String.h>
 
 #include <parsernode/parser.h>
 #include <pluginlib/class_loader.h>
@@ -10,6 +11,7 @@
 #include <aerial_autonomy/common/async_timer.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/state_machines/state_machine_gui_connector.h>
+#include <aerial_autonomy/system_status_publisher.h>
 
 /**
  * @brief Owns all of the autonomous system components and is responsible for
@@ -38,17 +40,23 @@ public:
             new StateMachineGUIConnector<EventManagerT, LogicStateMachineT>(
                 nh_, std::ref(*event_manager_),
                 std::ref(*logic_state_machine_))),
+        system_status_pub_(new SystemStatusPublisher<LogicStateMachineT>(
+            nh_, std::ref(*uav_system_), std::ref(*logic_state_machine_))),
         logic_state_machine_timer_(
             std::bind(&LogicStateMachineT::template process_event<
                           InternalTransitionEvent>,
                       std::ref(*logic_state_machine_),
                       InternalTransitionEvent()),
             std::chrono::milliseconds(config_.state_machine_timer_duration())),
-        uav_controller_timer_(std::bind(&UAVSystem::runActiveController,
-                                        std::ref(*uav_system_),
-                                        HardwareType::UAV),
-                              std::chrono::milliseconds(
-                                  config_.uav_controller_timer_duration())) {
+        uav_controller_timer_(
+            std::bind(&UAVSystem::runActiveController, std::ref(*uav_system_),
+                      HardwareType::UAV),
+            std::chrono::milliseconds(config_.uav_controller_timer_duration())),
+        status_timer_(
+            std::bind(
+                &SystemStatusPublisher<LogicStateMachineT>::publishSystemStatus,
+                std::ref(*system_status_pub_)),
+            std::chrono::milliseconds(config_.status_timer_duration())) {
     // Initialize UAV plugin
     // TODO Gowtham: Make parser plugin throw exception if it cannot initialize
     uav_hardware_->initialize(nh);
@@ -57,6 +65,7 @@ public:
     logic_state_machine_->start();
     logic_state_machine_timer_.start();
     uav_controller_timer_.start();
+    status_timer_.start();
   }
 
   /**
@@ -101,6 +110,9 @@ private:
   std::unique_ptr<StateMachineGUIConnector<EventManagerT, LogicStateMachineT>>
       state_machine_gui_connector_; ///< Connects event manager to the state
                                     /// machine
+  std::unique_ptr<SystemStatusPublisher<LogicStateMachineT>>
+      system_status_pub_;                ///< Publish quad status
   AsyncTimer logic_state_machine_timer_; ///< Timer for running state machine
   AsyncTimer uav_controller_timer_;      ///< Timer for running uav controller
+  AsyncTimer status_timer_; ///< Update uav status and state machine status
 };
