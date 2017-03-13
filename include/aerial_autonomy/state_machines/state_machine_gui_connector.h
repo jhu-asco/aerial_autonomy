@@ -62,7 +62,7 @@ private:
   * @param event_data name of event to trigger
   */
   void eventCallback(const std_msgs::StringConstPtr &event_data) {
-    VLOG(2) << "Triggering event: " << event_data;
+    VLOG(1) << "Triggering event: " << event_data;
     event_manager_.triggerEvent(event_data->data, logic_state_machine_);
   }
 
@@ -77,7 +77,7 @@ private:
     pose_command.y = pose.pose.position.y;
     pose_command.z = pose.pose.position.z;
     pose_command.yaw = tf::getYaw(pose.pose.orientation);
-    VLOG(2) << "Received Pose command: " << pose_command.x << "\t"
+    VLOG(1) << "Received Pose command: " << pose_command.x << "\t"
             << pose_command.y << "\t" << pose_command.z << "\t"
             << pose_command.yaw;
     logic_state_machine_.process_event(pose_command);

@@ -194,9 +194,7 @@ protected:
   }
 
   void takeoffEventCall() {
-    for (int count = 0; count < 200; ++count) {
-      logic_state_machine->process_event(Takeoff());
-    }
+    logic_state_machine->process_event(Takeoff());
     signalStartCondition();
     for (int count = 0; count < 200; ++count) {
       logic_state_machine->process_event(InternalTransitionEvent());

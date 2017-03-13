@@ -92,7 +92,6 @@ struct PositionControlInternalActionFunctor_
     geometry_msgs::Vector3 current_position = data.localpos;
     double yaw = data.rpydata.z;
     // Define tolerance and check if reached goal
-    // TODO Use a parameter for setting position tolerance
     const auto &robot_config = robot_system.getConfiguration();
     const double &tolerance_pos = robot_config.goal_position_tolerance(); // m
     const double &tolerance_yaw = robot_config.goal_yaw_tolerance();      // m
