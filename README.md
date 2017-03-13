@@ -13,7 +13,7 @@ Install the latest ROS class\_loader package from https://github.com/ros/class_l
 
 Additionally, run the following
 
-`sudo apt-get install protobuf-compiler`
+`sudo apt-get install protobuf-compiler libprotobuf-dev`
 
 ## Design Docs
 https://paper.dropbox.com/doc/QuadcopterGUI-Framework-Final-Version-ylwUlxLOOPpNM91LsXJyI#:uid=019653862866586&h2=RobotSystem
