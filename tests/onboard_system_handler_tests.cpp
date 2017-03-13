@@ -11,7 +11,7 @@ using namespace basic_events;
 
 class OnboardSystemHandlerTests : public ::testing::Test {
 public:
-  OnboardSystemHandlerTests() : nh_(), nh_send_() {
+  OnboardSystemHandlerTests() : nh_(), nh_send_(), nh_receive_status_() {
     // Configure system
     OnboardSystemHandlerConfig onboard_system_config;
     onboard_system_config.set_uav_parser_type(
@@ -26,6 +26,8 @@ public:
     event_pub_ = nh_send_.advertise<std_msgs::String>("event_manager", 1);
     pose_pub_ =
         nh_send_.advertise<geometry_msgs::PoseStamped>("goal_pose_command", 1);
+    status_subscriber_ = nh_receive_status_.subscribe(
+        "system_status", 1, &OnboardSystemHandlerTests::statusCallback, this);
     ros::spinOnce();
   }
 
@@ -52,17 +54,25 @@ public:
     ros::spinOnce();
   }
 
-private:
-  ros::NodeHandle nh_;
-  ros::NodeHandle nh_send_;
+  bool isStatusConnected() { return status_subscriber_.getNumPublishers() > 0; }
 
-  ros::Publisher event_pub_;
-  ros::Publisher pose_pub_;
+protected:
+  std::string status_;
+  void statusCallback(std_msgs::String status) { status_ = status.data; }
+
+private:
+  ros::NodeHandle nh_;      ///< NodeHandle used by onboard nodehandler
+  ros::NodeHandle nh_send_; ///< Send events
+  ros::NodeHandle nh_receive_status_; ///< Receive status
+
+  ros::Publisher event_pub_;          ///< Event publisher
+  ros::Publisher pose_pub_;           ///< Pose command publisher
+  ros::Subscriber status_subscriber_; ///< System status subscriber
 
 public:
   std::unique_ptr<OnboardSystemHandler<LogicStateMachine,
                                        BasicEventManager<LogicStateMachine>>>
-      onboard_system_handler_;
+      onboard_system_handler_; ///< system contains robot system, state machine
 };
 
 TEST_F(OnboardSystemHandlerTests, Constructor) {}
@@ -101,6 +111,16 @@ TEST_F(OnboardSystemHandlerTests, ProcessPoseCommand) {
   ASSERT_EQ(PositionYaw(quad_data.localpos.x, quad_data.localpos.y,
                         quad_data.localpos.z, quad_data.rpydata.z),
             pose_command);
+}
+
+TEST_F(OnboardSystemHandlerTests, ReceiveStatus) {
+  while (!isStatusConnected())
+    ;
+  for (int count = 0; count < 2; ++count) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    ros::spinOnce(); // To receive status data
+  }
+  ASSERT_FALSE(status_.empty());
 }
 
 int main(int argc, char **argv) {

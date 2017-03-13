@@ -10,6 +10,7 @@ Generate a GUI to trigger events for state machine
 @author: gowtham
 """
 import argparse
+import sip
 from qt_gui.plugin import Plugin
 from python_qt_binding.QtWidgets import (QLabel, QVBoxLayout,
                                          QGridLayout, QWidget,
@@ -51,23 +52,11 @@ class EventTransmissionGUI(Plugin):
 
         # Create Textboxes and add to Layout
         self._layout.addWidget(QLabel('State Machine State'))
-        ## Textbox to show logic state machine status
-        self.state_machine_textbox = QTextEdit()
-        self.state_machine_textbox.setReadOnly(True)
-        self._layout.addWidget(self.state_machine_textbox)
-
-        self._layout.addWidget(QLabel('Quad Status'))
-        ## Textbox to show UAV status
-        self.quad_textbox = QTextEdit()
-        self.quad_textbox.setReadOnly(True)
-        self._layout.addWidget(self.quad_textbox)
-
-        if args.use_arm:
-            self._layout.addWidget(QLabel('Arm Status'))
-            ## Textbox to show Arm status
-            self.arm_textbox = QTextEdit()
-            self.arm_textbox.setReadOnly(True)
-            self._layout.addWidget(self.arm_textbox)
+        ## Textbox to show sytem status
+        self.system_status_textbox = QTextEdit()
+        self.system_status_textbox.setReadOnly(True)
+        self._layout.addWidget(self.system_status_textbox)
+        self._layout.addWidget(QLabel('System Status'))
 
         # Create height slider
         self._layout.addWidget(QLabel('Pose Command Height (m)'))
@@ -129,20 +118,12 @@ class EventTransmissionGUI(Plugin):
 
         # Add textboxes to update hooks from eventTrigger class
         # Define Partial callbacks
-        stateMachineStatusCallback = partial(
-            self.updateStatus, text_box=self.state_machine_textbox)
-        quadStatusCallback = partial(
-            self.updateStatus, text_box=self.quad_textbox)
+        systemStatusCallback = partial(
+            self.updateStatus, text_box=self.system_status_textbox)
         # Connect Event Triggers
-        self.event_trigger.state_machine_signal.connect(
-            stateMachineStatusCallback)
-        self.event_trigger.quad_signal.connect(quadStatusCallback)
+        self.event_trigger.status_signal.connect(
+            systemStatusCallback)
         self.event_trigger.pose_command_signal.connect(self.poseCommandCallback)
-        # Same for arm
-        if args.use_arm:
-            armStatusCallback = partial(
-                self.updateStatus, text_box=self.arm_textbox)
-            self.event_trigger.arm_signal.connect(armStatusCallback)
 
     def _parse_args(self, argv):
         """
@@ -164,8 +145,6 @@ class EventTransmissionGUI(Plugin):
                            default='', help="Event file")
         group.add_argument("-c", "--grid_cols", type=int,
                            default=3, help="Number of columns in grid")
-        group.add_argument("--use_arm", action='store_true',
-                           help="To add arm state textbox")
 
     def get_row_col(self, button_index, ncols):
         """
@@ -208,4 +187,5 @@ class EventTransmissionGUI(Plugin):
         """
         Generic placeholder function to update text box
         """
-        text_box.setText(status)
+        if not sip.isdeleted(text_box):
+            text_box.setText(status)

@@ -42,11 +42,7 @@ class RosEventTrigger(QObject):
     based on event file
     """
     ## Send quad sensor/state data as string
-    quad_signal = pyqtSignal(str, name='quadStatus')
-    ## Send arm state data as string
-    arm_signal = pyqtSignal(str, name='armStatus')
-    ## Send state machine status as string
-    state_machine_signal = pyqtSignal(str, name='stateMachineStatus')
+    status_signal = pyqtSignal(str, name='systemStatus')
     ## Send pose command received from Rviz
     pose_command_signal = pyqtSignal(PoseStamped, name='poseCommand')
 
@@ -90,15 +86,10 @@ class RosEventTrigger(QObject):
         self.pose_command_pub = rospy.Publisher('pose_command_combined',
                                                 PoseStamped, queue_size=1)
         # Define partial callbacks
-        quadCallback = partial(self.statusCallback, signal=self.quad_signal)
-        armCallback = partial(self.statusCallback, signal=self.arm_signal)
-        stateMachineCallback = partial(self.statusCallback,
-                                       signal=self.state_machine_signal)
+        statusCallback = partial(self.statusCallback, signal=self.status_signal)
         poseCommandCallback = lambda pose_command : self.pose_command_signal.emit(pose_command)
         # Subscribers for quad arm and state machine updates
-        rospy.Subscriber("quad_status", String, quadCallback)
-        rospy.Subscriber("arm_status", String, armCallback)
-        rospy.Subscriber("stat_machine_status", String, stateMachineCallback)
+        rospy.Subscriber("system_status", String, statusCallback)
 
         # Subscribe to position commands (from Rviz)
         rospy.Subscriber("/move_base_simple/goal", PoseStamped, poseCommandCallback) 
