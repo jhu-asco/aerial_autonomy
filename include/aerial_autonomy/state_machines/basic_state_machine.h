@@ -75,12 +75,19 @@ protected:
   * @brief robot system used by states to get sensor data and send commands
   */
   UAVSystem &robot_system_;
-
-public:
   /**
   * @brief type index to store the event that did not trigger any transition
   */
   std::type_index no_transition_event_index_ = typeid(NULL);
+
+public:
+  /**
+  * @brief Returns the index of the event that did not trigger any transition
+  * @return The no-transition event index
+  */
+  std::type_index get_no_transition_event_index() {
+    return no_transition_event_index_;
+  }
   /**
   * @brief Action to take on entering state machine
   *

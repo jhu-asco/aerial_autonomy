@@ -11,6 +11,7 @@
 #include <aerial_autonomy/common/async_timer.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/state_machines/state_machine_gui_connector.h>
+#include <aerial_autonomy/system_status_publisher.h>
 
 /**
  * @brief Owns all of the autonomous system components and is responsible for
@@ -39,6 +40,8 @@ public:
             new StateMachineGUIConnector<EventManagerT, LogicStateMachineT>(
                 nh_, std::ref(*event_manager_),
                 std::ref(*logic_state_machine_))),
+        system_status_pub_(new SystemStatusPublisher<LogicStateMachineT>(
+            nh_, std::ref(*uav_system_), std::ref(*logic_state_machine_))),
         logic_state_machine_timer_(
             std::bind(&LogicStateMachineT::template process_event<
                           InternalTransitionEvent>,
@@ -49,9 +52,10 @@ public:
             std::bind(&UAVSystem::runActiveController, std::ref(*uav_system_),
                       HardwareType::UAV),
             std::chrono::milliseconds(config_.uav_controller_timer_duration())),
-        system_status_pub_(nh.advertise<std_msgs::String>("system_status", 1)),
         status_timer_(
-            std::bind(&OnboardSystemHandler::updateStatus, std::ref(*this)),
+            std::bind(
+                &SystemStatusPublisher<LogicStateMachineT>::publishSystemStatus,
+                std::ref(*system_status_pub_)),
             std::chrono::milliseconds(config_.status_timer_duration())) {
     // Initialize UAV plugin
     // TODO Gowtham: Make parser plugin throw exception if it cannot initialize
@@ -92,27 +96,6 @@ public:
     return quad_data;
   }
 
-protected:
-  /**
-  * @brief Publish system status and state machine status
-  * \todo Replace status text with html script. Need a html manager
-  * to automatically add table lines
-  */
-  void updateStatus() {
-    std::string uav_system_status = uav_system_->getSystemStatus();
-    std::string current_state_name = pstate(*logic_state_machine_);
-    std::string no_transition_event_name =
-        logic_state_machine_->no_transition_event_index_.name();
-    std_msgs::String status;
-    status.data = "UAV System Status:\n" + uav_system_status + "\n";
-    status.data += "\n\n========================\n\n";
-    status.data += "Logic State Machine Status: \n";
-    status.data += "Current state:\t" + current_state_name + "\n";
-    status.data +=
-        "Last event without transition:\t" + no_transition_event_name + "\n";
-    system_status_pub_.publish(status);
-  }
-
 private:
   ros::NodeHandle nh_; ///< ROS NodeHandle for processing events and commands
   OnboardSystemHandlerConfig config_; ///< Configuration parameters
@@ -127,8 +110,9 @@ private:
   std::unique_ptr<StateMachineGUIConnector<EventManagerT, LogicStateMachineT>>
       state_machine_gui_connector_; ///< Connects event manager to the state
                                     /// machine
+  std::unique_ptr<SystemStatusPublisher<LogicStateMachineT>>
+      system_status_pub_;                ///< Publish quad status
   AsyncTimer logic_state_machine_timer_; ///< Timer for running state machine
   AsyncTimer uav_controller_timer_;      ///< Timer for running uav controller
-  ros::Publisher system_status_pub_;     ///< Publish quad status
   AsyncTimer status_timer_; ///< Update uav status and state machine status
 };
