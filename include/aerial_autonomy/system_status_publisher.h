@@ -31,7 +31,7 @@ public:
     std::string uav_system_status = uav_system_.getSystemStatus();
     std::string current_state_name = pstate(logic_state_machine_);
     std::string no_transition_event_name =
-        logic_state_machine_.no_transition_event_index_.name();
+        logic_state_machine_.get_no_transition_event_index().name();
     std_msgs::String status;
     status.data = "UAV System Status:\n" + uav_system_status + "\n";
     status.data += "\n\n========================\n\n";

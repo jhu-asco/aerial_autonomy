@@ -45,7 +45,7 @@ TEST_F(StateMachineTests, InitialState) {
 TEST_F(StateMachineTests, NoTransitionEvent) {
   // We are in landed state, and we give Land command
   logic_state_machine->process_event(Land());
-  ASSERT_EQ(logic_state_machine->no_transition_event_index_,
+  ASSERT_EQ(logic_state_machine->get_no_transition_event_index(),
             std::type_index(typeid(Land)));
   // No Transition so we are still in landed state
   ASSERT_STREQ(pstate(*logic_state_machine), "Landed");
