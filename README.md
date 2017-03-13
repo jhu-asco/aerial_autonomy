@@ -4,16 +4,12 @@
 ## Setup
 Run the setup script in setup/setup.sh to configure Git hooks.  
 
-Install the following dependencies (lcov, doxypy, coverxygen, google-glog). On Ubuntu 14.04 run the following line in a terminal
+Install the following dependencies (lcov, protobuf, doxygen, doxypy, coverxygen, google-glog). On Ubuntu 14.04 run the following line in a terminal
 
-    sudo apt-get install lcov doxypy coverxygen libgoogle-glog-dev
+    sudo apt-get install lcov protobuf-compiler libprotobuf-dev doxygen doxypy libgoogle-glog-dev
+    sudo pip install coverxygen
 
 Install the latest ROS class\_loader package from https://github.com/ros/class_loader.git
-
-Additionally, run the following
-
-`sudo apt-get install protobuf-compiler libprotobuf-dev doxygen lcov`
-`sudo pip install coverxygen`
 
 ## Running executables
 The package provides a `aerial_autonomy_node` executable which loads a state machine and hardware and wait for event commands from rostopic. The `rqt_aerial_autonomy_gui` script
