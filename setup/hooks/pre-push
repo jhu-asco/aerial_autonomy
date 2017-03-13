@@ -32,7 +32,11 @@ then
 fi
 
 # Generate test coverage
-catkin build aerial_autonomy > /dev/null
+if [ ! -f ./scripts/generate_test_coverage.bash ]; then
+  echo "Test coverage script not found!"
+  echo "Generating Test script!"
+  catkin build aerial_autonomy > /dev/null
+fi
 echo "Generating test coverage report..."
 ./scripts/generate_test_coverage.bash
 error=$?

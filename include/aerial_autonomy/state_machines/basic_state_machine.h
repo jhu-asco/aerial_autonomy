@@ -84,7 +84,7 @@ public:
   * @tparam FSM Backend finite state machine type to trigger events
   */
   template <class Event, class FSM> void on_entry(Event const &, FSM &) {
-    LOG(INFO) << "entering: UAV system";
+    VLOG(1) << "entering: UAV system";
   }
   /**
   * @brief Action to take on leaving state machine
@@ -93,7 +93,7 @@ public:
   * @tparam FSM Backend finite state machine type to trigger events
   */
   template <class Event, class FSM> void on_exit(Event const &, FSM &) {
-    LOG(INFO) << "leaving: UAV system";
+    VLOG(1) << "leaving: UAV system";
   }
 
   /**
@@ -126,7 +126,12 @@ public:
   /**
   * @brief Landed state
   */
-  struct Landed : msmf::state<> {};
+  struct Landed : msmf::state<> {
+    struct internal_transition_table
+        : boost::mpl::vector<
+              msmf::Internal<InternalTransitionEvent, msmf::none, msmf::none>> {
+    };
+  };
   /**
   * @brief Initial state for state machine
   */
@@ -207,6 +212,8 @@ public:
   template <class FSM, class Event>
   void no_transition(Event const &e, FSM &, int state_index) {
     no_transition_event_index_ = typeid(e);
+    LOG(WARNING) << "Event " << no_transition_event_index_.name()
+                 << " triggered no transition";
   }
 };
 
