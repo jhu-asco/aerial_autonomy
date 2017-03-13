@@ -89,7 +89,7 @@ struct TakeoffInternalActionFunctor_
       LOG(WARNING) << "Battery too low! " << data.batterypercent
                    << "\% Aborting takeoff";
       logic_state_machine.process_event(Land());
-    } else if (data.altitude >=
+    } else if (data.localpos.z >=
                // Transition to hovering state once reached high altitude
                robot_system.getConfiguration().minimum_takeoff_height()) {
       VLOG(1) << "Completed Takeoff";

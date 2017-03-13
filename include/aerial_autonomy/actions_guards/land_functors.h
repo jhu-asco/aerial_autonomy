@@ -43,7 +43,7 @@ struct LandInternalActionFunctor_
   void run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     parsernode::common::quaddata data = robot_system.getUAVData();
     /// \todo (Gowtham) Can also use uav status here
-    if (data.altitude < robot_system.getConfiguration().landing_height()) {
+    if (data.localpos.z < robot_system.getConfiguration().landing_height()) {
       VLOG(1) << "Completed Landing";
       logic_state_machine.process_event(Completed());
     }

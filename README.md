@@ -12,7 +12,8 @@ Install the latest ROS class\_loader package from https://github.com/ros/class_l
 
 Additionally, run the following
 
-    sudo apt-get install protobuf-compiler
+`sudo apt-get install protobuf-compiler libprotobuf-dev doxygen lcov`
+`sudo pip install coverxygen`
 
 ## Running executables
 The package provides a `aerial_autonomy_node` executable which loads a state machine and hardware and wait for event commands from rostopic. The `rqt_aerial_autonomy_gui` script
