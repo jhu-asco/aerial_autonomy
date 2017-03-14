@@ -473,16 +473,16 @@
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>state</parametername>
+<parametername>state_index</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Current state when event is received </para></parameterdescription>
+<para>The index of the state where the no transition event is received </para></parameterdescription>
 </parameteritem>
 </parameterlist>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="227" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="227" bodyend="231"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="228" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="228" bodyend="232"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -518,7 +518,7 @@
         <link refid="classUAVSystem"/>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="59" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="58" bodyend="232"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="59" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="58" bodyend="233"/>
     <listofallmembers>
       <member refid="classLogicStateMachineFrontEnd_1a05673eb4ec343f36c1f3fb787ac26b94" prot="private" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>ActionFunctor</name></member>
       <member refid="classLogicStateMachineFrontEnd_1a86a665e36420c3cbc2b45864e023f98a" prot="private" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>EventAgnosticActionFunctor</name></member>

@@ -128,7 +128,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>Add picture of latest GUI with quad status etc</dd></dl>
 <p>The Triggers should be connected to the <code>StateMachine</code> using <code><a class="el" href="classStateMachineGUIConnector.html" title="Connects a logic state machine to the GUI over a ROS interface. ">StateMachineGUIConnector</a></code> class. The triggers are events without any information. There can also be commands with information using <code>Rviz</code> goalpose callbacks to send the drone to a specific location.</p>
 <h2>Event Generation</h2>
-<p>The events that trigger state machine transitions are created using event files in the <code>events</code> folder. The event header files are generated using CMakeLists similar to ros messages. The sysntax for the event files is as follows: </p>
+<p>The events that trigger state machine transitions are created using event files in the <code>events</code> folder. The event header files are generated using CMakeLists similar to ros messages. The syntax for the event files is as follows: </p>
 <pre class="fragment">EventManager:  # Event manager name
    event1 # Event name
    event2 # Event name
