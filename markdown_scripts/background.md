@@ -58,3 +58,7 @@ The triggers are events without any information. There can also be commands with
 The classes created in this project can be found [here](markdown_scripts/class_groups.md)
 
 @file Introduction to subcomponents of the package
+
+## Additional Resources
+- [Creating a State Machine](markdown_scripts/creating_state_machine.md)
+- [Classes by group](markdown_scripts/class_groups.md)

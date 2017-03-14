@@ -1,7 +1,7 @@
 # ASCO Aerial Autonomy
 
 ## Introduction
-The introduction to the project can be found [here](markdown_scripts/background.md).
+The doxygen documentation to the project can be found __TODO: Add Link here__.
 
 
 ## Setup
@@ -51,8 +51,3 @@ We use `lcov` to generate the test coverage report into the `test_coverage_info`
 by running CMake using `catkin build aerial_autonomy`.
 
 The test generation is integrated into the `pre-push` commit hook. This runs the above test coverage generation script and verifies that the coverage level is above 95% threshold. This can be skipped by either naming the branch as `develop[your_branch_name]` or using `git push --no-verify`.
-
-## Additional Resources
-- [Background](markdown_scripts/background.md)
-- [Creating a State Machine](markdown_scripts/creating_state_machine.md)
-- [Classes by group](markdown_scripts/class_groups.md)
