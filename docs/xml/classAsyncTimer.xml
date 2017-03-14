@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classAsyncTimer" kind="class" prot="public">
+    <compoundname>AsyncTimer</compoundname>
+    <includes refid="async__timer_8h" local="no">async_timer.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classAsyncTimer_1a8d77de69024ab1566202f25e7626ad19" prot="private" static="no" mutable="no">
+        <type>std::thread</type>
+        <definition>std::thread AsyncTimer::timer_thread_</definition>
+        <argsstring></argsstring>
+        <name>timer_thread_</name>
+        <briefdescription>
+<para>The thread used for the timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/async_timer.h" line="36" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/async_timer.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAsyncTimer_1a9c91b7a11f5106e25f1a2fc2fae7e495" prot="private" static="no" mutable="no">
+        <type>std::function&lt; void()&gt;</type>
+        <definition>std::function&lt;void()&gt; AsyncTimer::function_</definition>
+        <argsstring></argsstring>
+        <name>function_</name>
+        <briefdescription>
+<para>The function called by the timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/async_timer.h" line="37" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/async_timer.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAsyncTimer_1a68c891ce655bb16a31baeade3c5a8960" prot="private" static="no" mutable="no">
+        <type>std::chrono::duration&lt; double &gt;</type>
+        <definition>std::chrono::duration&lt;double&gt; AsyncTimer::timer_duration_</definition>
+        <argsstring></argsstring>
+        <name>timer_duration_</name>
+        <briefdescription>
+<para>The amount of time in between each function call. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/async_timer.h" line="39" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/async_timer.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classAsyncTimer_1aa545d349ccdfac95c143578933d08771" prot="private" static="no" mutable="no">
+        <type>std::atomic_bool</type>
+        <definition>std::atomic_bool AsyncTimer::running_</definition>
+        <argsstring></argsstring>
+        <name>running_</name>
+        <briefdescription>
+<para>True when the timer is running. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/async_timer.h" line="40" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/async_timer.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classAsyncTimer_1a8509db3cc448bd8f313435150baf434d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>AsyncTimer::AsyncTimer</definition>
+        <argsstring>(std::function&lt; void()&gt; function, std::chrono::duration&lt; double &gt; timer_duration)</argsstring>
+        <name>AsyncTimer</name>
+        <param>
+          <type>std::function&lt; void()&gt;</type>
+          <declname>function</declname>
+        </param>
+        <param>
+          <type>std::chrono::duration&lt; double &gt;</type>
+          <declname>timer_duration</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function to call </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>timer_duration</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The amount of time in between each function call </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/async_timer.h" line="18" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/common/async_timer.cpp" bodystart="5" bodyend="7"/>
+      </memberdef>
+      <memberdef kind="function" id="classAsyncTimer_1a92781264c62bcbad0b9ffd447d0cb3fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>AsyncTimer::~AsyncTimer</definition>
+        <argsstring>()</argsstring>
+        <name>~AsyncTimer</name>
+        <briefdescription>
+<para>Destructor cleans up running thread. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/async_timer.h" line="23" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/common/async_timer.cpp" bodystart="9" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classAsyncTimer_1ab058544794ccb0310eb5a803458de860" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AsyncTimer::start</definition>
+        <argsstring>()</argsstring>
+        <name>start</name>
+        <briefdescription>
+<para>Starts running the timer thread. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/async_timer.h" line="28" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/common/async_timer.cpp" bodystart="16" bodyend="23"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classAsyncTimer_1a7c2182e655322a6abb9c45471952bc0f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void AsyncTimer::functionTimer</definition>
+        <argsstring>()</argsstring>
+        <name>functionTimer</name>
+        <briefdescription>
+<para>The timer loop. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/async_timer.h" line="34" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/common/async_timer.cpp" bodystart="25" bodyend="31"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Calls given function on a timer in its own thread. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/async_timer.h" line="11" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/async_timer.h" bodystart="11" bodyend="41"/>
+    <listofallmembers>
+      <member refid="classAsyncTimer_1a8509db3cc448bd8f313435150baf434d" prot="public" virt="non-virtual"><scope>AsyncTimer</scope><name>AsyncTimer</name></member>
+      <member refid="classAsyncTimer_1a9c91b7a11f5106e25f1a2fc2fae7e495" prot="private" virt="non-virtual"><scope>AsyncTimer</scope><name>function_</name></member>
+      <member refid="classAsyncTimer_1a7c2182e655322a6abb9c45471952bc0f" prot="private" virt="non-virtual"><scope>AsyncTimer</scope><name>functionTimer</name></member>
+      <member refid="classAsyncTimer_1aa545d349ccdfac95c143578933d08771" prot="private" virt="non-virtual"><scope>AsyncTimer</scope><name>running_</name></member>
+      <member refid="classAsyncTimer_1ab058544794ccb0310eb5a803458de860" prot="public" virt="non-virtual"><scope>AsyncTimer</scope><name>start</name></member>
+      <member refid="classAsyncTimer_1a68c891ce655bb16a31baeade3c5a8960" prot="private" virt="non-virtual"><scope>AsyncTimer</scope><name>timer_duration_</name></member>
+      <member refid="classAsyncTimer_1a8d77de69024ab1566202f25e7626ad19" prot="private" virt="non-virtual"><scope>AsyncTimer</scope><name>timer_thread_</name></member>
+      <member refid="classAsyncTimer_1a92781264c62bcbad0b9ffd447d0cb3fd" prot="public" virt="virtual"><scope>AsyncTimer</scope><name>~AsyncTimer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

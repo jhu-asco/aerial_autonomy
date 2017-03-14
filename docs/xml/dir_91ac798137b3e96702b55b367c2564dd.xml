@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_91ac798137b3e96702b55b367c2564dd" kind="dir">
+    <compoundname>src/controller_hardware_connectors</compoundname>
+    <innerfile refid="builtin__velocity__controller__drone__connector_8cpp">builtin_velocity_controller_drone_connector.cpp</innerfile>
+    <innerfile refid="manual__rpyt__controller__drone__connector_8cpp">manual_rpyt_controller_drone_connector.cpp</innerfile>
+    <innerfile refid="position__controller__drone__connector_8cpp">position_controller_drone_connector.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/"/>
+  </compounddef>
+</doxygen>

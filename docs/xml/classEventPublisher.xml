@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classEventPublisher" kind="class" prot="public">
+    <compoundname>EventPublisher</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classEventPublisher_1a7c9b9cceae7c91cf0c5db0ace1d213d3" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string EventPublisher::event</definition>
+        <argsstring></argsstring>
+        <name>event</name>
+        <briefdescription>
+<para>Event name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="55" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEventPublisher_1aff37548f2b7bfed29e0e2528841d87ed" prot="private" static="no" mutable="no">
+        <type>ros::Timer</type>
+        <definition>ros::Timer EventPublisher::event_timer_</definition>
+        <argsstring></argsstring>
+        <name>event_timer_</name>
+        <briefdescription>
+<para>Timer to publish event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="56" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEventPublisher_1a9ed24cad13c5631e6a88e9a16860b908" prot="private" static="no" mutable="no">
+        <type>ros::Publisher</type>
+        <definition>ros::Publisher EventPublisher::event_pub_</definition>
+        <argsstring></argsstring>
+        <name>event_pub_</name>
+        <briefdescription>
+<para>Publisher to publish event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="57" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEventPublisher_1a25f16feb9ce5a4b1b87999f5737a3acf" prot="private" static="no" mutable="no">
+        <type>ros::NodeHandle &amp;</type>
+        <definition>ros::NodeHandle&amp; EventPublisher::nh_</definition>
+        <argsstring></argsstring>
+        <name>nh_</name>
+        <briefdescription>
+<para>NodeHandle reference to create publisher. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="58" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classEventPublisher_1ac4790ae4ff54bcc83048a2fbf02d8ed7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>EventPublisher::EventPublisher</definition>
+        <argsstring>(ros::NodeHandle &amp;nh)</argsstring>
+        <name>EventPublisher</name>
+        <param>
+          <type>ros::NodeHandle &amp;</type>
+          <declname>nh</declname>
+        </param>
+        <briefdescription>
+<para>Constructor to create timer for publishing named event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Nodehandle to create publisher </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="18" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="18" bodyend="31"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classEventPublisher_1a58bf0d8d45ae5c581a3e91c3470523d4" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void EventPublisher::publishEvent</definition>
+        <argsstring>(const ros::TimerEvent &amp;)</argsstring>
+        <name>publishEvent</name>
+        <param>
+          <type>const ros::TimerEvent &amp;</type>
+        </param>
+        <briefdescription>
+<para>timer callback to publish named event </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="37" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="37" bodyend="53"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Event publisher to publish named event at regular intervals. </para>    </briefdescription>
+    <detaileddescription>
+<para>Used for testing the state machine gui connector </para>    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="11" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="11" bodyend="59"/>
+    <listofallmembers>
+      <member refid="classEventPublisher_1a7c9b9cceae7c91cf0c5db0ace1d213d3" prot="private" virt="non-virtual"><scope>EventPublisher</scope><name>event</name></member>
+      <member refid="classEventPublisher_1a9ed24cad13c5631e6a88e9a16860b908" prot="private" virt="non-virtual"><scope>EventPublisher</scope><name>event_pub_</name></member>
+      <member refid="classEventPublisher_1aff37548f2b7bfed29e0e2528841d87ed" prot="private" virt="non-virtual"><scope>EventPublisher</scope><name>event_timer_</name></member>
+      <member refid="classEventPublisher_1ac4790ae4ff54bcc83048a2fbf02d8ed7" prot="public" virt="non-virtual"><scope>EventPublisher</scope><name>EventPublisher</name></member>
+      <member refid="classEventPublisher_1a25f16feb9ce5a4b1b87999f5737a3acf" prot="private" virt="non-virtual"><scope>EventPublisher</scope><name>nh_</name></member>
+      <member refid="classEventPublisher_1a58bf0d8d45ae5c581a3e91c3470523d4" prot="private" virt="non-virtual"><scope>EventPublisher</scope><name>publishEvent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

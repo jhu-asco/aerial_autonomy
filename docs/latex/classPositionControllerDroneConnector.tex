@@ -1,0 +1,117 @@
+\hypertarget{classPositionControllerDroneConnector}{\section{Position\-Controller\-Drone\-Connector Class Reference}
+\label{classPositionControllerDroneConnector}\index{Position\-Controller\-Drone\-Connector@{Position\-Controller\-Drone\-Connector}}
+}
+
+
+Manages communication between a drone plugin and a position controller that outputs position commands.  
+
+
+
+
+{\ttfamily \#include $<$position\-\_\-controller\-\_\-drone\-\_\-connector.\-h$>$}
+
+
+
+Inheritance diagram for Position\-Controller\-Drone\-Connector\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{classPositionControllerDroneConnector__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Position\-Controller\-Drone\-Connector\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{classPositionControllerDroneConnector__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classPositionControllerDroneConnector_a12664821f9f9316f6343b16f3dc9f84f}{Position\-Controller\-Drone\-Connector} (parsernode\-::\-Parser \&drone\-\_\-hardware, \hyperlink{classController}{Controller}$<$ \hyperlink{structEmptySensor}{Empty\-Sensor}, \hyperlink{structPositionYaw}{Position\-Yaw}, \hyperlink{structPositionYaw}{Position\-Yaw} $>$ \&controller)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{structEmptySensor}{Empty\-Sensor} \hyperlink{classPositionControllerDroneConnector_a21859ad4bcc85a907e2e23456869b3d6}{extract\-Sensor\-Data} ()
+\begin{DoxyCompactList}\small\item\em does not extract any data since nothing is needed \end{DoxyCompactList}\item 
+virtual void \hyperlink{classPositionControllerDroneConnector_a826092eadfbbf9442fa1869fea98070d}{send\-Hardware\-Commands} (\hyperlink{structPositionYaw}{Position\-Yaw} controls)
+\begin{DoxyCompactList}\small\item\em Send position commands to hardware. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Manages communication between a drone plugin and a position controller that outputs position commands. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classPositionControllerDroneConnector_a12664821f9f9316f6343b16f3dc9f84f}{\index{Position\-Controller\-Drone\-Connector@{Position\-Controller\-Drone\-Connector}!Position\-Controller\-Drone\-Connector@{Position\-Controller\-Drone\-Connector}}
+\index{Position\-Controller\-Drone\-Connector@{Position\-Controller\-Drone\-Connector}!PositionControllerDroneConnector@{Position\-Controller\-Drone\-Connector}}
+\subsubsection[{Position\-Controller\-Drone\-Connector}]{\setlength{\rightskip}{0pt plus 5cm}Position\-Controller\-Drone\-Connector\-::\-Position\-Controller\-Drone\-Connector (
+\begin{DoxyParamCaption}
+\item[{parsernode\-::\-Parser \&}]{drone\-\_\-hardware, }
+\item[{{\bf Controller}$<$ {\bf Empty\-Sensor}, {\bf Position\-Yaw}, {\bf Position\-Yaw} $>$ \&}]{controller}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classPositionControllerDroneConnector_a12664821f9f9316f6343b16f3dc9f84f}
+
+
+Constructor. 
+
+Store drone hardware with hardware type as U\-A\-V. Uses parsernode\-::\-Parser\-::cmdwaypoint function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em drone\-\_\-hardware} & Drone hardware used to send commands \\
+\hline
+{\em controller} & \hyperlink{structPosition}{Position} controller that achieves a desired position, yaw \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classPositionControllerDroneConnector_a21859ad4bcc85a907e2e23456869b3d6}{\index{Position\-Controller\-Drone\-Connector@{Position\-Controller\-Drone\-Connector}!extract\-Sensor\-Data@{extract\-Sensor\-Data}}
+\index{extract\-Sensor\-Data@{extract\-Sensor\-Data}!PositionControllerDroneConnector@{Position\-Controller\-Drone\-Connector}}
+\subsubsection[{extract\-Sensor\-Data}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Empty\-Sensor} Position\-Controller\-Drone\-Connector\-::extract\-Sensor\-Data (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{classPositionControllerDroneConnector_a21859ad4bcc85a907e2e23456869b3d6}
+
+
+does not extract any data since nothing is needed 
+
+\begin{DoxyReturn}{Returns}
+empty data structure 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classControllerHardwareConnector_af6952c0d8829b93557eb7d8887bebd63}{Controller\-Hardware\-Connector$<$ Empty\-Sensor, Position\-Yaw, Position\-Yaw $>$}.
+
+\hypertarget{classPositionControllerDroneConnector_a826092eadfbbf9442fa1869fea98070d}{\index{Position\-Controller\-Drone\-Connector@{Position\-Controller\-Drone\-Connector}!send\-Hardware\-Commands@{send\-Hardware\-Commands}}
+\index{send\-Hardware\-Commands@{send\-Hardware\-Commands}!PositionControllerDroneConnector@{Position\-Controller\-Drone\-Connector}}
+\subsubsection[{send\-Hardware\-Commands}]{\setlength{\rightskip}{0pt plus 5cm}void Position\-Controller\-Drone\-Connector\-::send\-Hardware\-Commands (
+\begin{DoxyParamCaption}
+\item[{{\bf Position\-Yaw}}]{controls}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{classPositionControllerDroneConnector_a826092eadfbbf9442fa1869fea98070d}
+
+
+Send position commands to hardware. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em controls} & position command to send to U\-A\-V \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classControllerHardwareConnector_a5fc86156d5c747aba36497732962d6d0}{Controller\-Hardware\-Connector$<$ Empty\-Sensor, Position\-Yaw, Position\-Yaw $>$}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/controller\-\_\-hardware\-\_\-connectors/\hyperlink{position__controller__drone__connector_8h}{position\-\_\-controller\-\_\-drone\-\_\-connector.\-h}\item 
+src/controller\-\_\-hardware\-\_\-connectors/\hyperlink{position__controller__drone__connector_8cpp}{position\-\_\-controller\-\_\-drone\-\_\-connector.\-cpp}\end{DoxyCompactItemize}

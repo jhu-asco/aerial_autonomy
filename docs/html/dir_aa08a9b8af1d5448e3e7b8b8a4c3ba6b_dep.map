@@ -1,0 +1,33 @@
+<map id="include/aerial_autonomy" name="include/aerial_autonomy">
+<area shape="rect" id="node2" href="dir_93d27638e58ab29a9245462ac4a60f23.html" title="actions_guards" alt="" coords="215,255,325,303"/>
+<area shape="rect" id="edge9-headlabel" href="dir_000001_000002.html" title="3" alt="" coords="271,228,279,243"/>
+<area shape="rect" id="node3" href="dir_dbb1c79ada1dfd68f9623b1c747f82ff.html" title="common" alt="" coords="376,447,448,495"/>
+<area shape="rect" id="edge8-headlabel" href="dir_000001_000003.html" title="3" alt="" coords="427,423,435,438"/>
+<area shape="rect" id="node8" href="dir_d8ab70ff61e6d0207b320809bd677f88.html" title="state_machines" alt="" coords="292,159,407,207"/>
+<area shape="rect" id="edge10-headlabel" href="dir_000001_000008.html" title="1" alt="" coords="354,133,362,148"/>
+<area shape="rect" id="node4" href="dir_9cda8c83b957c25fe782498293794ddb.html" title="controller_hardware_connectors" alt="" coords="91,447,297,495"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000002_000004.html" title="1" alt="" coords="200,421,208,436"/>
+<area shape="rect" id="node6" href="dir_cd22a1489c1d142b774176c85af6b0b9.html" title="logic_states" alt="" coords="225,351,316,399"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000002_000006.html" title="4" alt="" coords="266,325,274,339"/>
+<area shape="rect" id="node7" href="dir_90d3362616e9e98c240b7307f05ce702.html" title="robot_systems" alt="" coords="65,351,172,399"/>
+<area shape="rect" id="edge6-headlabel" href="dir_000002_000007.html" title="4" alt="" coords="172,341,180,355"/>
+<area shape="rect" id="node10" href="dir_aed677a2914777290161bb44a2b030e5.html" title="types" alt="" coords="192,639,264,687"/>
+<area shape="rect" id="edge7-headlabel" href="dir_000002_000010.html" title="3" alt="" coords="254,619,262,634"/>
+<area shape="rect" id="node5" href="dir_c60cdb5df3bce9a4e2c7dcb3b5f30e66.html" title="controllers" alt="" coords="120,543,201,591"/>
+<area shape="rect" id="edge11-headlabel" href="dir_000004_000005.html" title="1" alt="" coords="180,521,188,536"/>
+<area shape="rect" id="edge12-headlabel" href="dir_000004_000010.html" title="7" alt="" coords="229,612,237,627"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000005_000010.html" title="4" alt="" coords="204,612,212,626"/>
+<area shape="rect" id="edge17-headlabel" href="dir_000006_000002.html" title="1" alt="" coords="267,314,275,329"/>
+<area shape="rect" id="edge19-headlabel" href="dir_000007_000003.html" title="1" alt="" coords="357,437,365,452"/>
+<area shape="rect" id="edge20-headlabel" href="dir_000007_000004.html" title="2" alt="" coords="167,420,175,434"/>
+<area shape="rect" id="edge18-headlabel" href="dir_000007_000005.html" title="1" alt="" coords="109,517,117,532"/>
+<area shape="rect" id="edge14-headlabel" href="dir_000008_000002.html" title="1" alt="" coords="304,239,312,253"/>
+<area shape="rect" id="edge13-headlabel" href="dir_000008_000003.html" title="1" alt="" coords="412,420,420,435"/>
+<area shape="rect" id="edge15-headlabel" href="dir_000008_000007.html" title="1" alt="" coords="142,332,150,346"/>
+<area shape="rect" id="edge16-headlabel" href="dir_000008_000010.html" title="1" alt="" coords="265,623,273,638"/>
+<area shape="rect" id="node9" href="dir_1a93785269547db5d64d92b8e23e2cd7.html" title="tests" alt="" coords="60,255,132,303"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000009_000007.html" title="1" alt="" coords="113,324,121,338"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000009_000010.html" title="1" alt="" coords="175,625,183,640"/>
+<area shape="rect" id="clust2" href="dir_aa08a9b8af1d5448e3e7b8b8a4c3ba6b.html" alt="" coords="27,52,459,697"/>
+<area shape="rect" id="clust1" href="dir_2f8e754ab99ce0b8ad0265163734387c.html" title="include" alt="" coords="16,16,469,708"/>
+</map>

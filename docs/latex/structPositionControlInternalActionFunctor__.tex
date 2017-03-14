@@ -1,0 +1,78 @@
+\hypertarget{structPositionControlInternalActionFunctor__}{\section{Position\-Control\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$ Struct Template Reference}
+\label{structPositionControlInternalActionFunctor__}\index{Position\-Control\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$@{Position\-Control\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}}
+}
+
+
+Logic to check while reaching a position control goal.  
+
+
+
+
+{\ttfamily \#include $<$position\-\_\-control\-\_\-functors.\-h$>$}
+
+
+
+Inheritance diagram for Position\-Control\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{structPositionControlInternalActionFunctor____inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Position\-Control\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{structPositionControlInternalActionFunctor____coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{structPositionControlInternalActionFunctor___a81589e5ecfba853969942b9842ac1563}{run} (\hyperlink{classUAVSystem}{U\-A\-V\-System} \&robot\-\_\-system, Logic\-State\-Machine\-T \&logic\-\_\-state\-\_\-machine)
+\begin{DoxyCompactList}\small\item\em check if we reached goal and trigger hovering if we reached goal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Logic\-State\-Machine\-T$>$struct Position\-Control\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+
+Logic to check while reaching a position control goal. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Logic\-State\-Machine\-T} & Logic state machine used to process events \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{structPositionControlInternalActionFunctor___a81589e5ecfba853969942b9842ac1563}{\index{Position\-Control\-Internal\-Action\-Functor\-\_\-@{Position\-Control\-Internal\-Action\-Functor\-\_\-}!run@{run}}
+\index{run@{run}!PositionControlInternalActionFunctor_@{Position\-Control\-Internal\-Action\-Functor\-\_\-}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Logic\-State\-Machine\-T $>$ virtual void {\bf Position\-Control\-Internal\-Action\-Functor\-\_\-}$<$ Logic\-State\-Machine\-T $>$\-::run (
+\begin{DoxyParamCaption}
+\item[{{\bf U\-A\-V\-System} \&}]{robot\-\_\-system, }
+\item[{Logic\-State\-Machine\-T \&}]{logic\-\_\-state\-\_\-machine}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{structPositionControlInternalActionFunctor___a81589e5ecfba853969942b9842ac1563}
+
+
+check if we reached goal and trigger hovering if we reached goal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em robot\-\_\-system} & robot system to get sensor data \\
+\hline
+{\em logic\-\_\-state\-\_\-machine} & logic state machine to trigger events \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{structEventAgnosticActionFunctor_a53a48938d68370ff2ef262222565ffcf}{Event\-Agnostic\-Action\-Functor$<$ U\-A\-V\-System, Logic\-State\-Machine\-T $>$}.
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/actions\-\_\-guards/\hyperlink{position__control__functors_8h}{position\-\_\-control\-\_\-functors.\-h}\end{DoxyCompactItemize}

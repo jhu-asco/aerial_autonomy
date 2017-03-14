@@ -1,0 +1,431 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classUAVSystem" kind="class" prot="public">
+    <compoundname>UAVSystem</compoundname>
+    <includes refid="uav__system_8h" local="no">uav_system.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classUAVSystem_1ab47721beaeb776063b46f7c3c7721b7a" prot="private" static="no" mutable="no">
+        <type>parsernode::Parser &amp;</type>
+        <definition>parsernode::Parser&amp; UAVSystem::drone_hardware_</definition>
+        <argsstring></argsstring>
+        <name>drone_hardware_</name>
+        <briefdescription>
+<para>Hardware. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVSystem_1a496b85151250baabd22fbf2c9ce3ef0f" prot="private" static="no" mutable="no">
+        <type><ref refid="classBuiltInController" kindref="compound">BuiltInController</ref>&lt; <ref refid="structPositionYaw" kindref="compound">PositionYaw</ref> &gt;</type>
+        <definition>BuiltInController&lt;PositionYaw&gt; UAVSystem::builtin_position_controller_</definition>
+        <argsstring></argsstring>
+        <name>builtin_position_controller_</name>
+        <briefdescription>
+<para><ref refid="structPosition" kindref="compound">Position</ref> <ref refid="classController" kindref="compound">Controller</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="32" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVSystem_1afc89fdbd7810d2b2ccffcdfd01e76745" prot="private" static="no" mutable="no">
+        <type><ref refid="classBuiltInController" kindref="compound">BuiltInController</ref>&lt; <ref refid="structVelocityYaw" kindref="compound">VelocityYaw</ref> &gt;</type>
+        <definition>BuiltInController&lt;VelocityYaw&gt; UAVSystem::builtin_velocity_controller_</definition>
+        <argsstring></argsstring>
+        <name>builtin_velocity_controller_</name>
+        <briefdescription>
+<para>velocity controller </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="36" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVSystem_1abd95f4d3430d9c01b76d5d1e183241ff" prot="private" static="no" mutable="no">
+        <type><ref refid="classManualRPYTController" kindref="compound">ManualRPYTController</ref></type>
+        <definition>ManualRPYTController UAVSystem::manual_rpyt_controller_</definition>
+        <argsstring></argsstring>
+        <name>manual_rpyt_controller_</name>
+        <briefdescription>
+<para>rpyt controller using joystick controller connectors </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="40" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVSystem_1a56a103c8b9c6785d6859910a81b28d86" prot="private" static="no" mutable="no">
+        <type><ref refid="classPositionControllerDroneConnector" kindref="compound">PositionControllerDroneConnector</ref></type>
+        <definition>PositionControllerDroneConnector UAVSystem::position_controller_drone_connector_</definition>
+        <argsstring></argsstring>
+        <name>position_controller_drone_connector_</name>
+        <briefdescription>
+<para>connector for position controller </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="44" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVSystem_1ae34d2f617bd1bf3ad0ad77340765b3c1" prot="private" static="no" mutable="no">
+        <type><ref refid="classBuiltInVelocityControllerDroneConnector" kindref="compound">BuiltInVelocityControllerDroneConnector</ref></type>
+        <definition>BuiltInVelocityControllerDroneConnector UAVSystem::velocity_controller_drone_connector_</definition>
+        <argsstring></argsstring>
+        <name>velocity_controller_drone_connector_</name>
+        <briefdescription>
+<para>connector for velocity controller </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="48" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVSystem_1a1886a8c9adb0f7102a881079a27b19d9" prot="private" static="no" mutable="no">
+        <type><ref refid="classManualRPYTControllerDroneConnector" kindref="compound">ManualRPYTControllerDroneConnector</ref></type>
+        <definition>ManualRPYTControllerDroneConnector UAVSystem::rpyt_controller_drone_connector_</definition>
+        <argsstring></argsstring>
+        <name>rpyt_controller_drone_connector_</name>
+        <briefdescription>
+<para>connector for rpyt controller </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="52" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVSystem_1aaef48835d4bd228ec6001a602c9f7de7" prot="private" static="no" mutable="no">
+        <type><ref refid="classTypeMap" kindref="compound">TypeMap</ref>&lt; <ref refid="structAbstractControllerHardwareConnector" kindref="compound">AbstractControllerHardwareConnector</ref> &gt;</type>
+        <definition>TypeMap&lt;AbstractControllerHardwareConnector&gt; UAVSystem::controller_hardware_connector_container_</definition>
+        <argsstring></argsstring>
+        <name>controller_hardware_connector_container_</name>
+        <briefdescription>
+<para>Container to store and retrieve controller-hardware-connectors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="57" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVSystem_1aca1ff6cb6b1ce7563671d2ecb0eba435" prot="private" static="no" mutable="no">
+        <type>std::map&lt; <ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref>, <ref refid="structAbstractControllerHardwareConnector" kindref="compound">AbstractControllerHardwareConnector</ref> * &gt;</type>
+        <definition>std::map&lt;HardwareType, AbstractControllerHardwareConnector *&gt; UAVSystem::active_controllers_</definition>
+        <argsstring></argsstring>
+        <name>active_controllers_</name>
+        <briefdescription>
+<para>Map to store active controller based on hardware type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="62" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVSystem_1a6c06b7d120b5b950d70fbcf339f6c519" prot="private" static="no" mutable="no">
+        <type>std::map&lt; <ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref>, std::unique_ptr&lt; boost::mutex &gt; &gt;</type>
+        <definition>std::map&lt;HardwareType, std::unique_ptr&lt;boost::mutex&gt; &gt; UAVSystem::thread_mutexes_</definition>
+        <argsstring></argsstring>
+        <name>thread_mutexes_</name>
+        <briefdescription>
+<para>Map to lock and swap the active controller for a given hardware type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="67" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVSystem_1a9bdf636000ef7cd55612bc2c2f66d60b" prot="private" static="no" mutable="no">
+        <type>UAVSystemConfig</type>
+        <definition>UAVSystemConfig UAVSystem::config_</definition>
+        <argsstring></argsstring>
+        <name>config_</name>
+        <briefdescription>
+<para>UAV configuration parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="72" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classUAVSystem_1a99ac3986113a03546b8dc4bcc73d65b0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>UAVSystem::UAVSystem</definition>
+        <argsstring>(parsernode::Parser &amp;drone_hardware)</argsstring>
+        <name>UAVSystem</name>
+        <param>
+          <type>parsernode::Parser &amp;</type>
+          <declname>drone_hardware</declname>
+        </param>
+        <briefdescription>
+<para>Constructor with default configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="78" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="78" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVSystem_1a9218f794905e832cc356b5e4b659e1da" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>UAVSystem::UAVSystem</definition>
+        <argsstring>(parsernode::Parser &amp;drone_hardware, UAVSystemConfig config)</argsstring>
+        <name>UAVSystem</name>
+        <param>
+          <type>parsernode::Parser &amp;</type>
+          <declname>drone_hardware</declname>
+        </param>
+        <param>
+          <type>UAVSystemConfig</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+<para><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> requires a drone hardware. It instantiates the connectors, controllers</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>drone_hardware</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>input hardware to send commands back </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><xrefsect id="todo_1_todo000012"><xreftitle>Todo</xreftitle><xrefdescription><para>make enum class iterable to do this automatically </para></xrefdescription></xrefsect></para>        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="88" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="88" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVSystem_1a8a1cbcd8770841ee2a30365f4a75bf34" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>parsernode::common::quaddata</type>
+        <definition>parsernode::common::quaddata UAVSystem::getUAVData</definition>
+        <argsstring>()</argsstring>
+        <name>getUAVData</name>
+        <briefdescription>
+<para>Get sensor data from UAV. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Accumulated sensor data from UAV </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="120" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="120" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVSystem_1a7f010477b67bfeb5d6d32c0f10630b8e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void UAVSystem::takeOff</definition>
+        <argsstring>()</argsstring>
+        <name>takeOff</name>
+        <briefdescription>
+<para>Public API call to takeoff. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="129" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="129" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVSystem_1ae1bac31ca121a54cb1e3ed7fac322993" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void UAVSystem::land</definition>
+        <argsstring>()</argsstring>
+        <name>land</name>
+        <briefdescription>
+<para>Public API call to land. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="134" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="134" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVSystem_1a6aae5b94424be17ed6bafeaa4f64f416" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class ControllerHardwareConnectorT</type>
+          </param>
+          <param>
+            <type>class GoalT</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void UAVSystem::setGoal</definition>
+        <argsstring>(GoalT goal)</argsstring>
+        <name>setGoal</name>
+        <param>
+          <type>GoalT</type>
+          <declname>goal</declname>
+        </param>
+        <briefdescription>
+<para>sets goal to the connector and swaps the active connector with the specified connector type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>ControllerHardwareConnectorT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of connector to use </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GoalT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of Goal to set to connector </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>goal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Goal to set to connector </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="145" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="145" bodyend="156"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVSystem_1a5381ca45049c8c92e872a80a2974339b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class ControllerHardwareConnectorT</type>
+          </param>
+          <param>
+            <type>class GoalT</type>
+          </param>
+        </templateparamlist>
+        <type>GoalT</type>
+        <definition>GoalT UAVSystem::getGoal</definition>
+        <argsstring>()</argsstring>
+        <name>getGoal</name>
+        <briefdescription>
+<para>Get the goal from connector. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>ControllerHardwareConnectorT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of connector to use </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GoalT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of Goal to get</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>goal of GoalT type </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="165" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="165" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVSystem_1a90634eb2ac4c515c9065ce85cc21dc19" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void UAVSystem::abortController</definition>
+        <argsstring>(HardwareType hardware_type)</argsstring>
+        <name>abortController</name>
+        <param>
+          <type><ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref></type>
+          <declname>hardware_type</declname>
+        </param>
+        <briefdescription>
+<para>Remove active controller for given hardware type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>hardware_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of hardware for which active controller is switched off </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="178" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="178" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVSystem_1ad3d60a491f325261a1acebdadd7478a6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void UAVSystem::runActiveController</definition>
+        <argsstring>(HardwareType hardware_type)</argsstring>
+        <name>runActiveController</name>
+        <param>
+          <type><ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref></type>
+          <declname>hardware_type</declname>
+        </param>
+        <briefdescription>
+<para>Run active controller stored for a given hardware type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>hardware_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of hardware for which active controller is run </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="188" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="188" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVSystem_1ab0840278177ee64082ee05937d028421" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string UAVSystem::getSystemStatus</definition>
+        <argsstring>()</argsstring>
+        <name>getSystemStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="198" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="198" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVSystem_1a89d67e42aec09dd65a23f39462a8202e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>UAVSystemConfig</type>
+        <definition>UAVSystemConfig UAVSystem::getConfiguration</definition>
+        <argsstring>()</argsstring>
+        <name>getConfiguration</name>
+        <briefdescription>
+<para>Get system configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Configuration </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="233" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="233" bodyend="233"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Owns, initializes, and facilitates communication between different hardware/software components. Provides builtin position, velocity, and rpy controllers for controlling UAV. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="21" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="21" bodyend="234"/>
+    <listofallmembers>
+      <member refid="classUAVSystem_1a90634eb2ac4c515c9065ce85cc21dc19" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>abortController</name></member>
+      <member refid="classUAVSystem_1aca1ff6cb6b1ce7563671d2ecb0eba435" prot="private" virt="non-virtual"><scope>UAVSystem</scope><name>active_controllers_</name></member>
+      <member refid="classUAVSystem_1a496b85151250baabd22fbf2c9ce3ef0f" prot="private" virt="non-virtual"><scope>UAVSystem</scope><name>builtin_position_controller_</name></member>
+      <member refid="classUAVSystem_1afc89fdbd7810d2b2ccffcdfd01e76745" prot="private" virt="non-virtual"><scope>UAVSystem</scope><name>builtin_velocity_controller_</name></member>
+      <member refid="classUAVSystem_1a9bdf636000ef7cd55612bc2c2f66d60b" prot="private" virt="non-virtual"><scope>UAVSystem</scope><name>config_</name></member>
+      <member refid="classUAVSystem_1aaef48835d4bd228ec6001a602c9f7de7" prot="private" virt="non-virtual"><scope>UAVSystem</scope><name>controller_hardware_connector_container_</name></member>
+      <member refid="classUAVSystem_1ab47721beaeb776063b46f7c3c7721b7a" prot="private" virt="non-virtual"><scope>UAVSystem</scope><name>drone_hardware_</name></member>
+      <member refid="classUAVSystem_1a89d67e42aec09dd65a23f39462a8202e" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>getConfiguration</name></member>
+      <member refid="classUAVSystem_1a5381ca45049c8c92e872a80a2974339b" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>getGoal</name></member>
+      <member refid="classUAVSystem_1ab0840278177ee64082ee05937d028421" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>getSystemStatus</name></member>
+      <member refid="classUAVSystem_1a8a1cbcd8770841ee2a30365f4a75bf34" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>getUAVData</name></member>
+      <member refid="classUAVSystem_1ae1bac31ca121a54cb1e3ed7fac322993" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>land</name></member>
+      <member refid="classUAVSystem_1abd95f4d3430d9c01b76d5d1e183241ff" prot="private" virt="non-virtual"><scope>UAVSystem</scope><name>manual_rpyt_controller_</name></member>
+      <member refid="classUAVSystem_1a56a103c8b9c6785d6859910a81b28d86" prot="private" virt="non-virtual"><scope>UAVSystem</scope><name>position_controller_drone_connector_</name></member>
+      <member refid="classUAVSystem_1a1886a8c9adb0f7102a881079a27b19d9" prot="private" virt="non-virtual"><scope>UAVSystem</scope><name>rpyt_controller_drone_connector_</name></member>
+      <member refid="classUAVSystem_1ad3d60a491f325261a1acebdadd7478a6" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>runActiveController</name></member>
+      <member refid="classUAVSystem_1a6aae5b94424be17ed6bafeaa4f64f416" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>setGoal</name></member>
+      <member refid="classUAVSystem_1a7f010477b67bfeb5d6d32c0f10630b8e" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>takeOff</name></member>
+      <member refid="classUAVSystem_1a6c06b7d120b5b950d70fbcf339f6c519" prot="private" virt="non-virtual"><scope>UAVSystem</scope><name>thread_mutexes_</name></member>
+      <member refid="classUAVSystem_1a99ac3986113a03546b8dc4bcc73d65b0" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>UAVSystem</name></member>
+      <member refid="classUAVSystem_1a9218f794905e832cc356b5e4b659e1da" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>UAVSystem</name></member>
+      <member refid="classUAVSystem_1ae34d2f617bd1bf3ad0ad77340765b3c1" prot="private" virt="non-virtual"><scope>UAVSystem</scope><name>velocity_controller_drone_connector_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="joysticks_8h" kind="file">
+    <compoundname>joysticks.h</compoundname>
+    <includedby refid="joysticks__yaw_8h" local="yes">include/aerial_autonomy/types/joysticks_yaw.h</includedby>
+    <invincdepgraph>
+      <node id="1686">
+        <label>include/aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h</label>
+        <link refid="basic__controller__hardware__connectors_8h"/>
+        <childnode refid="1687" relation="include">
+        </childnode>
+      </node>
+      <node id="1692">
+        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
+        <link refid="land__functors_8h"/>
+        <childnode refid="1689" relation="include">
+        </childnode>
+      </node>
+      <node id="1691">
+        <label>src/aerial_autonomy_node.cpp</label>
+        <link refid="aerial__autonomy__node_8cpp"/>
+      </node>
+      <node id="1685">
+        <label>src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp</label>
+        <link refid="manual__rpyt__controller__drone__connector_8cpp"/>
+      </node>
+      <node id="1690">
+        <label>include/aerial_autonomy/state_machines/basic_state_machine.h</label>
+        <link refid="basic__state__machine_8h"/>
+        <childnode refid="1691" relation="include">
+        </childnode>
+      </node>
+      <node id="1682">
+        <label>include/aerial_autonomy/types/joysticks.h</label>
+        <link refid="joysticks.h"/>
+        <childnode refid="1683" relation="include">
+        </childnode>
+      </node>
+      <node id="1700">
+        <label>include/aerial_autonomy/controllers/basic_controllers.h</label>
+        <link refid="basic__controllers_8h"/>
+        <childnode refid="1687" relation="include">
+        </childnode>
+      </node>
+      <node id="1693">
+        <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
+        <link refid="position__control__functors_8h"/>
+        <childnode refid="1689" relation="include">
+        </childnode>
+      </node>
+      <node id="1695">
+        <label>include/aerial_autonomy/onboard_system_handler.h</label>
+        <link refid="onboard__system__handler_8h"/>
+        <childnode refid="1691" relation="include">
+        </childnode>
+      </node>
+      <node id="1696">
+        <label>include/aerial_autonomy/system_status_publisher.h</label>
+        <link refid="system__status__publisher_8h"/>
+        <childnode refid="1695" relation="include">
+        </childnode>
+      </node>
+      <node id="1689">
+        <label>include/aerial_autonomy/actions_guards/basic_states.h</label>
+        <link refid="basic__states_8h"/>
+        <childnode refid="1690" relation="include">
+        </childnode>
+      </node>
+      <node id="1688">
+        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
+        <link refid="hovering__functors_8h"/>
+        <childnode refid="1689" relation="include">
+        </childnode>
+      </node>
+      <node id="1699">
+        <label>src/controllers/manual_rpyt_controller.cpp</label>
+        <link refid="manual__rpyt__controller_8cpp"/>
+      </node>
+      <node id="1698">
+        <label>include/aerial_autonomy/controllers/manual_rpyt_controller.h</label>
+        <link refid="manual__rpyt__controller_8h"/>
+        <childnode refid="1699" relation="include">
+        </childnode>
+        <childnode refid="1700" relation="include">
+        </childnode>
+      </node>
+      <node id="1684">
+        <label>include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h</label>
+        <link refid="manual__rpyt__controller__drone__connector_8h"/>
+        <childnode refid="1685" relation="include">
+        </childnode>
+        <childnode refid="1686" relation="include">
+        </childnode>
+      </node>
+      <node id="1683">
+        <label>include/aerial_autonomy/types/joysticks_yaw.h</label>
+        <link refid="joysticks__yaw_8h"/>
+        <childnode refid="1684" relation="include">
+        </childnode>
+        <childnode refid="1698" relation="include">
+        </childnode>
+      </node>
+      <node id="1687">
+        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
+        <link refid="uav__system_8h"/>
+        <childnode refid="1688" relation="include">
+        </childnode>
+        <childnode refid="1692" relation="include">
+        </childnode>
+        <childnode refid="1693" relation="include">
+        </childnode>
+        <childnode refid="1694" relation="include">
+        </childnode>
+        <childnode refid="1695" relation="include">
+        </childnode>
+        <childnode refid="1690" relation="include">
+        </childnode>
+        <childnode refid="1696" relation="include">
+        </childnode>
+        <childnode refid="1697" relation="include">
+        </childnode>
+      </node>
+      <node id="1697">
+        <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
+        <link refid="sample__logic__state__machine_8h"/>
+      </node>
+      <node id="1694">
+        <label>include/aerial_autonomy/actions_guards/takeoff_functors.h</label>
+        <link refid="takeoff__functors_8h"/>
+        <childnode refid="1689" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structJoysticks" prot="public">Joysticks</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="5" refid="structJoysticks" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structJoysticks" kindref="compound">Joysticks</ref><sp/>{</highlight></codeline>
+<codeline lineno="9" refid="structJoysticks_1a4326d4f2c4764a77b9f5c2e41aeae802" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structJoysticks_1a4326d4f2c4764a77b9f5c2e41aeae802" kindref="member">Joysticks</ref>()<sp/>:<sp/><ref refid="structJoysticks_1a3dc64d66808dddbf053033465777c493" kindref="member">channel1</ref>(0),<sp/><ref refid="structJoysticks_1a14f4be76749f40ea8d75d579504ef932" kindref="member">channel2</ref>(0),<sp/><ref refid="structJoysticks_1a2640f7dbb2364b8d92c464077c38ec56" kindref="member">channel3</ref>(0),<sp/><ref refid="structJoysticks_1a154d66609cbfcb527d4dcf7473bf7af5" kindref="member">channel4</ref>(0)<sp/>{}</highlight></codeline>
+<codeline lineno="18" refid="structJoysticks_1abe8777545ab8bbaa2282fa09e12041d9" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structJoysticks_1abe8777545ab8bbaa2282fa09e12041d9" kindref="member">Joysticks</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structJoysticks_1a3dc64d66808dddbf053033465777c493" kindref="member">channel1</ref>,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structJoysticks_1a14f4be76749f40ea8d75d579504ef932" kindref="member">channel2</ref>,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structJoysticks_1a2640f7dbb2364b8d92c464077c38ec56" kindref="member">channel3</ref>,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structJoysticks_1a154d66609cbfcb527d4dcf7473bf7af5" kindref="member">channel4</ref>)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>channel1(channel1),<sp/>channel2(channel2),<sp/>channel3(channel3),</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>channel4(channel4)<sp/>{}</highlight></codeline>
+<codeline lineno="21" refid="structJoysticks_1a3dc64d66808dddbf053033465777c493" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structJoysticks_1a3dc64d66808dddbf053033465777c493" kindref="member">channel1</ref>;<sp/></highlight></codeline>
+<codeline lineno="22" refid="structJoysticks_1a14f4be76749f40ea8d75d579504ef932" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structJoysticks_1a14f4be76749f40ea8d75d579504ef932" kindref="member">channel2</ref>;<sp/></highlight></codeline>
+<codeline lineno="23" refid="structJoysticks_1a2640f7dbb2364b8d92c464077c38ec56" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structJoysticks_1a2640f7dbb2364b8d92c464077c38ec56" kindref="member">channel3</ref>;<sp/></highlight></codeline>
+<codeline lineno="24" refid="structJoysticks_1a154d66609cbfcb527d4dcf7473bf7af5" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structJoysticks_1a154d66609cbfcb527d4dcf7473bf7af5" kindref="member">channel4</ref>;<sp/></highlight></codeline>
+<codeline lineno="25"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/joysticks.h"/>
+  </compounddef>
+</doxygen>

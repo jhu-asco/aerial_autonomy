@@ -1,0 +1,78 @@
+\hypertarget{structPositionControlAbortActionFunctor__}{\section{Position\-Control\-Abort\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$ Struct Template Reference}
+\label{structPositionControlAbortActionFunctor__}\index{Position\-Control\-Abort\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$@{Position\-Control\-Abort\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}}
+}
+
+
+Transition action to perform when aborting position control.  
+
+
+
+
+{\ttfamily \#include $<$position\-\_\-control\-\_\-functors.\-h$>$}
+
+
+
+Inheritance diagram for Position\-Control\-Abort\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{structPositionControlAbortActionFunctor____inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Position\-Control\-Abort\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{structPositionControlAbortActionFunctor____coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{structPositionControlAbortActionFunctor___a04152d311e51abb5b330ee74b3c29702}{run} (\hyperlink{classUAVSystem}{U\-A\-V\-System} \&robot\-\_\-system, Logic\-State\-Machine\-T \&)
+\begin{DoxyCompactList}\small\item\em Override this run function for different sub classes. This function performs the logic checking for each state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Logic\-State\-Machine\-T$>$struct Position\-Control\-Abort\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+
+Transition action to perform when aborting position control. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Logic\-State\-Machine\-T} & Logic state machine used to process events \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{structPositionControlAbortActionFunctor___a04152d311e51abb5b330ee74b3c29702}{\index{Position\-Control\-Abort\-Action\-Functor\-\_\-@{Position\-Control\-Abort\-Action\-Functor\-\_\-}!run@{run}}
+\index{run@{run}!PositionControlAbortActionFunctor_@{Position\-Control\-Abort\-Action\-Functor\-\_\-}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Logic\-State\-Machine\-T $>$ void {\bf Position\-Control\-Abort\-Action\-Functor\-\_\-}$<$ Logic\-State\-Machine\-T $>$\-::run (
+\begin{DoxyParamCaption}
+\item[{{\bf U\-A\-V\-System} \&}]{robot\-\_\-system, }
+\item[{Logic\-State\-Machine\-T \&}]{logic\-\_\-state\-\_\-machine}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{structPositionControlAbortActionFunctor___a04152d311e51abb5b330ee74b3c29702}
+
+
+Override this run function for different sub classes. This function performs the logic checking for each state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em robot\-\_\-system} & Provides sensor data and allows for controlling hardware \\
+\hline
+{\em logic\-\_\-state\-\_\-machine} & Backend of logic State Machine. can send events using this. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{structEventAgnosticActionFunctor_a53a48938d68370ff2ef262222565ffcf}{Event\-Agnostic\-Action\-Functor$<$ U\-A\-V\-System, Logic\-State\-Machine\-T $>$}.
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/actions\-\_\-guards/\hyperlink{position__control__functors_8h}{position\-\_\-control\-\_\-functors.\-h}\end{DoxyCompactItemize}

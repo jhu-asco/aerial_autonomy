@@ -1,0 +1,77 @@
+\hypertarget{basic__state__machine_8h}{\section{include/aerial\-\_\-autonomy/state\-\_\-machines/basic\-\_\-state\-\_\-machine.h File Reference}
+\label{basic__state__machine_8h}\index{include/aerial\-\_\-autonomy/state\-\_\-machines/basic\-\_\-state\-\_\-machine.\-h@{include/aerial\-\_\-autonomy/state\-\_\-machines/basic\-\_\-state\-\_\-machine.\-h}}
+}
+{\ttfamily \#include $<$aerial\-\_\-autonomy/common/thread\-\_\-safe\-\_\-state\-\_\-machine.\-h$>$}\\*
+{\ttfamily \#include $<$boost/msm/front/state\-\_\-machine\-\_\-def.\-hpp$>$}\\*
+{\ttfamily \#include $<$boost/msm/front/functor\-\_\-row.\-hpp$>$}\\*
+{\ttfamily \#include $<$aerial\-\_\-autonomy/actions\-\_\-guards/basic\-\_\-states.\-h$>$}\\*
+{\ttfamily \#include $<$aerial\-\_\-autonomy/robot\-\_\-systems/uav\-\_\-system.\-h$>$}\\*
+{\ttfamily \#include $<$glog/logging.\-h$>$}\\*
+{\ttfamily \#include $<$array$>$}\\*
+Include dependency graph for basic\-\_\-state\-\_\-machine.\-h\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{basic__state__machine_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{basic__state__machine_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classLogicStateMachineFrontEnd}{Logic\-State\-Machine\-Front\-End}
+\begin{DoxyCompactList}\small\item\em front-\/end\-: define the F\-S\-M structure \end{DoxyCompactList}\item 
+struct \hyperlink{structLogicStateMachineFrontEnd_1_1Landed}{Logic\-State\-Machine\-Front\-End\-::\-Landed}
+\begin{DoxyCompactList}\small\item\em \hyperlink{structLogicStateMachineFrontEnd_1_1Landed}{Landed} state. \end{DoxyCompactList}\item 
+struct \hyperlink{structLogicStateMachineFrontEnd_1_1Landed_1_1internal__transition__table}{Logic\-State\-Machine\-Front\-End\-::\-Landed\-::internal\-\_\-transition\-\_\-table}
+\begin{DoxyCompactList}\small\item\em Internal event without any action. \end{DoxyCompactList}\item 
+struct \hyperlink{structLogicStateMachineFrontEnd_1_1transition__table}{Logic\-State\-Machine\-Front\-End\-::transition\-\_\-table}
+\begin{DoxyCompactList}\small\item\em Transition table for State Machine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{basic__state__machine_8h_ab0b6ef21baf57684550a2f05c771bd86}{Logic\-State\-Machine} = \hyperlink{classboost_1_1msm_1_1back_1_1thread__safe__state__machine}{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}$<$ \hyperlink{classLogicStateMachineFrontEnd}{Logic\-State\-Machine\-Front\-End} $>$
+\begin{DoxyCompactList}\small\item\em Backend for Logic State Machine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \hyperlink{basic__state__machine_8h_afcac32ee5e97ea2d2557a67769cfeaca}{pstate} (\hyperlink{basic__state__machine_8h_ab0b6ef21baf57684550a2f05c771bd86}{Logic\-State\-Machine} const \&p)
+\begin{DoxyCompactList}\small\item\em Get current state name. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\hypertarget{basic__state__machine_8h_ab0b6ef21baf57684550a2f05c771bd86}{\index{basic\-\_\-state\-\_\-machine.\-h@{basic\-\_\-state\-\_\-machine.\-h}!Logic\-State\-Machine@{Logic\-State\-Machine}}
+\index{Logic\-State\-Machine@{Logic\-State\-Machine}!basic_state_machine.h@{basic\-\_\-state\-\_\-machine.\-h}}
+\subsubsection[{Logic\-State\-Machine}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf Logic\-State\-Machine} =  {\bf boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}$<${\bf Logic\-State\-Machine\-Front\-End}$>$}}\label{basic__state__machine_8h_ab0b6ef21baf57684550a2f05c771bd86}
+
+
+Backend for Logic State Machine. 
+
+Used to forward arguments to constructor, and process events 
+
+\subsection{Function Documentation}
+\hypertarget{basic__state__machine_8h_afcac32ee5e97ea2d2557a67769cfeaca}{\index{basic\-\_\-state\-\_\-machine.\-h@{basic\-\_\-state\-\_\-machine.\-h}!pstate@{pstate}}
+\index{pstate@{pstate}!basic_state_machine.h@{basic\-\_\-state\-\_\-machine.\-h}}
+\subsubsection[{pstate}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ pstate (
+\begin{DoxyParamCaption}
+\item[{{\bf Logic\-State\-Machine} const \&}]{p}
+\end{DoxyParamCaption}
+)}}\label{basic__state__machine_8h_afcac32ee5e97ea2d2557a67769cfeaca}
+
+
+Get current state name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Logic state machine backend to access current state\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+state name 
+\end{DoxyReturn}

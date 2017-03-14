@@ -1,0 +1,270 @@
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI}{\section{aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I Class Reference}
+\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI}\index{aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I}}
+}
+
+
+G\-U\-I to send events from User to logic state machine.  
+
+
+
+
+Inheritance diagram for aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a6b65594c62caf4c8cedfbd9f12168dfb}{\-\_\-\-\_\-init\-\_\-\-\_\-}
+\begin{DoxyCompactList}\small\item\em Create Qt G\-U\-I using the event file. \end{DoxyCompactList}\item 
+def \hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a10f2fd3747b7f899efde6ff0c67d95b6}{get\-\_\-row\-\_\-col}
+\begin{DoxyCompactList}\small\item\em Automatically find the row and col to add the button to in a grid based on index of the button. \end{DoxyCompactList}\item 
+def \hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a9b9a66142bcd76a1be23682c7fdd424a}{pose\-Command\-Callback}
+\begin{DoxyCompactList}\small\item\em Saves pose command and updates command display. \end{DoxyCompactList}\item 
+def \hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_ae276f79545a8707c09bf07cf51132ef7}{pose\-Command\-Button\-Callback}
+\begin{DoxyCompactList}\small\item\em Publishes stored pose command after setting height from slider. \end{DoxyCompactList}\item 
+def \hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_aaa8ae13ff7e5ad9128ae565cecd49427}{update\-Height}
+\begin{DoxyCompactList}\small\item\em Updates height label based on slider value. \end{DoxyCompactList}\item 
+def \hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a21d7d7031e8de77b2e31e7edb5936a34}{update\-Status}
+\begin{DoxyCompactList}\small\item\em Generic placeholder function to update text box. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_adffec416c73f6f719e9592d0e2286c8f}{add\-\_\-arguments}
+\begin{DoxyCompactList}\small\item\em Notify rqt\-\_\-gui that this plugin can parse these extra arguments. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a28f1de5a0d232285414764f25e43a7eb}{event\-\_\-trigger}
+\begin{DoxyCompactList}\small\item\em Create Event trigger. \end{DoxyCompactList}\item 
+\hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a2e96f52dc90edde242b5387214a82858}{system\-\_\-status\-\_\-textbox}
+\begin{DoxyCompactList}\small\item\em Textbox to show sytem status. \end{DoxyCompactList}\item 
+\hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a6118098a267761831ef8d83cbf2a78bd}{height\-\_\-slider}
+\begin{DoxyCompactList}\small\item\em Height slider to adjust z coordinate for pose command. \end{DoxyCompactList}\item 
+\hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_af611df98da28aba90ce5fcbea285603a}{pose\-\_\-command\-\_\-container}
+\begin{DoxyCompactList}\small\item\em Container for pose event related objects\-: slide etc. \end{DoxyCompactList}\item 
+\hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a966d066bb1db4ea2517dc68335b3df98}{pose\-\_\-command\-\_\-layout}
+\begin{DoxyCompactList}\small\item\em Pose command layout. \end{DoxyCompactList}\item 
+\hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a750b19ad6b27411d6ff502aa4ba43ed8}{pose\-\_\-x}
+\begin{DoxyCompactList}\small\item\em x pose label to display position command from rviz to user \end{DoxyCompactList}\item 
+\hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a279bc7aaaf956e4fc14ad3e62bf7b4d2}{pose\-\_\-y}
+\begin{DoxyCompactList}\small\item\em y pose label to display position command from rviz to user \end{DoxyCompactList}\item 
+\hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_aead4d11a8fe43596a7077554542af0d2}{pose\-\_\-z}
+\begin{DoxyCompactList}\small\item\em z pose label to display position command from rviz to user \end{DoxyCompactList}\item 
+\hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_aa82ebdb0e64df86776b6cd9aacecb350}{send\-\_\-pose\-\_\-command\-\_\-button}
+\begin{DoxyCompactList}\small\item\em Button to send the pose command to state machine as poseyaw event. \end{DoxyCompactList}\item 
+\hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_acedbac17d93e4e743b8bef847720659f}{pose\-\_\-command}
+\begin{DoxyCompactList}\small\item\em Pose command container to store pose from Rviz and send to state machine. \end{DoxyCompactList}\item 
+\hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a21ccb12c6c1d93f2d70ccca1c741ec73}{button\-\_\-container}
+\begin{DoxyCompactList}\small\item\em Continer to store event triggering buttons. \end{DoxyCompactList}\item 
+\hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a9b589c667ce4f5719c5bb0ddbdb0fd42}{push\-\_\-buttons}
+\begin{DoxyCompactList}\small\item\em List of push buttons to trigger events. \end{DoxyCompactList}\item 
+\hyperlink{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a1a4f6c154f52187c5b6206cb327b1ebc}{button\-\_\-layout}
+\begin{DoxyCompactList}\small\item\em Layout for the push buttons. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+G\-U\-I to send events from User to logic state machine. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a6b65594c62caf4c8cedfbd9f12168dfb}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!\-\_\-\-\_\-init\-\_\-\-\_\-@{\-\_\-\-\_\-init\-\_\-\-\_\-}}
+\index{\-\_\-\-\_\-init\-\_\-\-\_\-@{\-\_\-\-\_\-init\-\_\-\-\_\-}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{\-\_\-\-\_\-init\-\_\-\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}def aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-\_\-\-\_\-init\-\_\-\-\_\- (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{context}
+\end{DoxyParamCaption}
+)}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a6b65594c62caf4c8cedfbd9f12168dfb}
+
+
+Create Qt G\-U\-I using the event file. 
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_adffec416c73f6f719e9592d0e2286c8f}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!add\-\_\-arguments@{add\-\_\-arguments}}
+\index{add\-\_\-arguments@{add\-\_\-arguments}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{add\-\_\-arguments}]{\setlength{\rightskip}{0pt plus 5cm}def aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-add\-\_\-arguments (
+\begin{DoxyParamCaption}
+\item[{}]{parser}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_adffec416c73f6f719e9592d0e2286c8f}
+
+
+Notify rqt\-\_\-gui that this plugin can parse these extra arguments. 
+
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a10f2fd3747b7f899efde6ff0c67d95b6}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!get\-\_\-row\-\_\-col@{get\-\_\-row\-\_\-col}}
+\index{get\-\_\-row\-\_\-col@{get\-\_\-row\-\_\-col}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{get\-\_\-row\-\_\-col}]{\setlength{\rightskip}{0pt plus 5cm}def aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-get\-\_\-row\-\_\-col (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{button\-\_\-index, }
+\item[{}]{ncols}
+\end{DoxyParamCaption}
+)}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a10f2fd3747b7f899efde6ff0c67d95b6}
+
+
+Automatically find the row and col to add the button to in a grid based on index of the button. 
+
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_ae276f79545a8707c09bf07cf51132ef7}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!pose\-Command\-Button\-Callback@{pose\-Command\-Button\-Callback}}
+\index{pose\-Command\-Button\-Callback@{pose\-Command\-Button\-Callback}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{pose\-Command\-Button\-Callback}]{\setlength{\rightskip}{0pt plus 5cm}def aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-pose\-Command\-Button\-Callback (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_ae276f79545a8707c09bf07cf51132ef7}
+
+
+Publishes stored pose command after setting height from slider. 
+
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a9b9a66142bcd76a1be23682c7fdd424a}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!pose\-Command\-Callback@{pose\-Command\-Callback}}
+\index{pose\-Command\-Callback@{pose\-Command\-Callback}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{pose\-Command\-Callback}]{\setlength{\rightskip}{0pt plus 5cm}def aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-pose\-Command\-Callback (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{pose}
+\end{DoxyParamCaption}
+)}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a9b9a66142bcd76a1be23682c7fdd424a}
+
+
+Saves pose command and updates command display. 
+
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_aaa8ae13ff7e5ad9128ae565cecd49427}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!update\-Height@{update\-Height}}
+\index{update\-Height@{update\-Height}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{update\-Height}]{\setlength{\rightskip}{0pt plus 5cm}def aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-update\-Height (
+\begin{DoxyParamCaption}
+\item[{}]{self}
+\end{DoxyParamCaption}
+)}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_aaa8ae13ff7e5ad9128ae565cecd49427}
+
+
+Updates height label based on slider value. 
+
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a21d7d7031e8de77b2e31e7edb5936a34}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!update\-Status@{update\-Status}}
+\index{update\-Status@{update\-Status}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{update\-Status}]{\setlength{\rightskip}{0pt plus 5cm}def aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-update\-Status (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{status, }
+\item[{}]{text\-\_\-box}
+\end{DoxyParamCaption}
+)}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a21d7d7031e8de77b2e31e7edb5936a34}
+
+
+Generic placeholder function to update text box. 
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a21ccb12c6c1d93f2d70ccca1c741ec73}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!button\-\_\-container@{button\-\_\-container}}
+\index{button\-\_\-container@{button\-\_\-container}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{button\-\_\-container}]{\setlength{\rightskip}{0pt plus 5cm}aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-button\-\_\-container}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a21ccb12c6c1d93f2d70ccca1c741ec73}
+
+
+Continer to store event triggering buttons. 
+
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a1a4f6c154f52187c5b6206cb327b1ebc}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!button\-\_\-layout@{button\-\_\-layout}}
+\index{button\-\_\-layout@{button\-\_\-layout}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{button\-\_\-layout}]{\setlength{\rightskip}{0pt plus 5cm}aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-button\-\_\-layout}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a1a4f6c154f52187c5b6206cb327b1ebc}
+
+
+Layout for the push buttons. 
+
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a28f1de5a0d232285414764f25e43a7eb}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!event\-\_\-trigger@{event\-\_\-trigger}}
+\index{event\-\_\-trigger@{event\-\_\-trigger}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{event\-\_\-trigger}]{\setlength{\rightskip}{0pt plus 5cm}aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-event\-\_\-trigger}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a28f1de5a0d232285414764f25e43a7eb}
+
+
+Create Event trigger. 
+
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a6118098a267761831ef8d83cbf2a78bd}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!height\-\_\-slider@{height\-\_\-slider}}
+\index{height\-\_\-slider@{height\-\_\-slider}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{height\-\_\-slider}]{\setlength{\rightskip}{0pt plus 5cm}aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-height\-\_\-slider}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a6118098a267761831ef8d83cbf2a78bd}
+
+
+Height slider to adjust z coordinate for pose command. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000001}{Todo}]Matt\-: Load slider settings from param file \end{DoxyRefDesc}
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_acedbac17d93e4e743b8bef847720659f}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!pose\-\_\-command@{pose\-\_\-command}}
+\index{pose\-\_\-command@{pose\-\_\-command}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{pose\-\_\-command}]{\setlength{\rightskip}{0pt plus 5cm}aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-pose\-\_\-command}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_acedbac17d93e4e743b8bef847720659f}
+
+
+Pose command container to store pose from Rviz and send to state machine. 
+
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_af611df98da28aba90ce5fcbea285603a}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!pose\-\_\-command\-\_\-container@{pose\-\_\-command\-\_\-container}}
+\index{pose\-\_\-command\-\_\-container@{pose\-\_\-command\-\_\-container}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{pose\-\_\-command\-\_\-container}]{\setlength{\rightskip}{0pt plus 5cm}aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-pose\-\_\-command\-\_\-container}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_af611df98da28aba90ce5fcbea285603a}
+
+
+Container for pose event related objects\-: slide etc. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000002}{Todo}]Matt\-: Reset slider value based on current quad height \end{DoxyRefDesc}
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a966d066bb1db4ea2517dc68335b3df98}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!pose\-\_\-command\-\_\-layout@{pose\-\_\-command\-\_\-layout}}
+\index{pose\-\_\-command\-\_\-layout@{pose\-\_\-command\-\_\-layout}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{pose\-\_\-command\-\_\-layout}]{\setlength{\rightskip}{0pt plus 5cm}aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-pose\-\_\-command\-\_\-layout}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a966d066bb1db4ea2517dc68335b3df98}
+
+
+Pose command layout. 
+
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a750b19ad6b27411d6ff502aa4ba43ed8}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!pose\-\_\-x@{pose\-\_\-x}}
+\index{pose\-\_\-x@{pose\-\_\-x}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{pose\-\_\-x}]{\setlength{\rightskip}{0pt plus 5cm}aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-pose\-\_\-x}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a750b19ad6b27411d6ff502aa4ba43ed8}
+
+
+x pose label to display position command from rviz to user 
+
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a279bc7aaaf956e4fc14ad3e62bf7b4d2}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!pose\-\_\-y@{pose\-\_\-y}}
+\index{pose\-\_\-y@{pose\-\_\-y}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{pose\-\_\-y}]{\setlength{\rightskip}{0pt plus 5cm}aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-pose\-\_\-y}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a279bc7aaaf956e4fc14ad3e62bf7b4d2}
+
+
+y pose label to display position command from rviz to user 
+
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_aead4d11a8fe43596a7077554542af0d2}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!pose\-\_\-z@{pose\-\_\-z}}
+\index{pose\-\_\-z@{pose\-\_\-z}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{pose\-\_\-z}]{\setlength{\rightskip}{0pt plus 5cm}aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-pose\-\_\-z}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_aead4d11a8fe43596a7077554542af0d2}
+
+
+z pose label to display position command from rviz to user 
+
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a9b589c667ce4f5719c5bb0ddbdb0fd42}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!push\-\_\-buttons@{push\-\_\-buttons}}
+\index{push\-\_\-buttons@{push\-\_\-buttons}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{push\-\_\-buttons}]{\setlength{\rightskip}{0pt plus 5cm}aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-push\-\_\-buttons}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a9b589c667ce4f5719c5bb0ddbdb0fd42}
+
+
+List of push buttons to trigger events. 
+
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_aa82ebdb0e64df86776b6cd9aacecb350}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!send\-\_\-pose\-\_\-command\-\_\-button@{send\-\_\-pose\-\_\-command\-\_\-button}}
+\index{send\-\_\-pose\-\_\-command\-\_\-button@{send\-\_\-pose\-\_\-command\-\_\-button}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{send\-\_\-pose\-\_\-command\-\_\-button}]{\setlength{\rightskip}{0pt plus 5cm}aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-send\-\_\-pose\-\_\-command\-\_\-button}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_aa82ebdb0e64df86776b6cd9aacecb350}
+
+
+Button to send the pose command to state machine as poseyaw event. 
+
+\hypertarget{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a2e96f52dc90edde242b5387214a82858}{\index{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}!system\-\_\-status\-\_\-textbox@{system\-\_\-status\-\_\-textbox}}
+\index{system\-\_\-status\-\_\-textbox@{system\-\_\-status\-\_\-textbox}!aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI@{aerial\-\_\-autonomy\-::aerial\-\_\-autonomy\-\_\-gui\-::\-Event\-Transmission\-G\-U\-I}}
+\subsubsection[{system\-\_\-status\-\_\-textbox}]{\setlength{\rightskip}{0pt plus 5cm}aerial\-\_\-autonomy.\-aerial\-\_\-autonomy\-\_\-gui.\-Event\-Transmission\-G\-U\-I.\-system\-\_\-status\-\_\-textbox}}\label{classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_a2e96f52dc90edde242b5387214a82858}
+
+
+Textbox to show sytem status. 
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/aerial\-\_\-autonomy/\hyperlink{aerial__autonomy__gui_8py}{aerial\-\_\-autonomy\-\_\-gui.\-py}\end{DoxyCompactItemize}

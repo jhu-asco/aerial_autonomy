@@ -1,0 +1,270 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classControllerHardwareConnector" kind="class" prot="public" abstract="yes">
+    <compoundname>ControllerHardwareConnector</compoundname>
+    <basecompoundref refid="structAbstractControllerHardwareConnector" prot="public" virt="non-virtual">AbstractControllerHardwareConnector</basecompoundref>
+    <includes refid="base__controller__hardware__connector_8h" local="no">base_controller_hardware_connector.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class</type>
+        <declname>SensorDataType</declname>
+        <defname>SensorDataType</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>GoalType</declname>
+        <defname>GoalType</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>ControlType</declname>
+        <defname>ControlType</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classControllerHardwareConnector_1a1e47c12f796c9cc2fcb5c2495ede2392" prot="protected" static="no" mutable="no">
+        <type><ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref></type>
+        <definition>HardwareType ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;::hardware_type_</definition>
+        <argsstring></argsstring>
+        <name>hardware_type_</name>
+        <briefdescription>
+<para>Type of hardware controlled by the controller. </para>        </briefdescription>
+        <detaileddescription>
+<para>Used to group controllers. Only one controller will be running per hardware. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="115" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classControllerHardwareConnector_1ab01af9456d2b32a04f63a2eecbc7b24e" prot="private" static="no" mutable="no">
+        <type><ref refid="classController" kindref="compound">Controller</ref>&lt; SensorDataType, GoalType, ControlType &gt; &amp;</type>
+        <definition>Controller&lt;SensorDataType, GoalType, ControlType&gt;&amp; ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;::controller_</definition>
+        <argsstring></argsstring>
+        <name>controller_</name>
+        <briefdescription>
+<para>controller class used to perform step function </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="121" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classControllerHardwareConnector_1a6c5d8e5a5ded026ccee3d51f2899ce3e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;::ControllerHardwareConnector</definition>
+        <argsstring>(Controller&lt; SensorDataType, GoalType, ControlType &gt; &amp;controller, HardwareType hardware_type)</argsstring>
+        <name>ControllerHardwareConnector</name>
+        <param>
+          <type><ref refid="classController" kindref="compound">Controller</ref>&lt; SensorDataType, GoalType, ControlType &gt; &amp;</type>
+          <declname>controller</declname>
+        </param>
+        <param>
+          <type><ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref></type>
+          <declname>hardware_type</declname>
+        </param>
+        <briefdescription>
+<para>ControlHardwareConnector runs the controller and sends the commands to hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para>The subclass controlhardwareconnectors should take the required hardware in the constructor and implement the run function to get the command from controller and send to hardware</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>controller</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classController" kindref="compound">Controller</ref> to run during run function </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>hardware_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of Hardware. Used to group the connectors and ensure only one connector is running per hardware type. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="55" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="55" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classControllerHardwareConnector_1afb46464434a3a5881ecc1091f58bbd61" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;::run</definition>
+        <argsstring>()</argsstring>
+        <name>run</name>
+        <reimplements refid="structAbstractControllerHardwareConnector_1a0fcf605e19daef2f9f99d4dc2a23feb4">run</reimplements>
+        <briefdescription>
+<para>Extracts sensor data, run controller and send data back to hardware. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="64" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="64" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classControllerHardwareConnector_1a14ce51377f80b67796fcb50ce8195efd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;::setGoal</definition>
+        <argsstring>(GoalType goal)</argsstring>
+        <name>setGoal</name>
+        <param>
+          <type>GoalType</type>
+          <declname>goal</declname>
+        </param>
+        <briefdescription>
+<para>Set the goal for controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>goal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Goal for controller </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="77" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="77" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="classControllerHardwareConnector_1a1ea002003e277fc82e04615343b927f5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>GoalType</type>
+        <definition>GoalType ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;::getGoal</definition>
+        <argsstring>()</argsstring>
+        <name>getGoal</name>
+        <briefdescription>
+<para>Get the goal for controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Goal for controller </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="83" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="83" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="classControllerHardwareConnector_1accd0c9bff560fa3c6d1e60d97644415e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref></type>
+        <definition>HardwareType ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;::getHardwareType</definition>
+        <argsstring>()</argsstring>
+        <name>getHardwareType</name>
+        <briefdescription>
+<para>Return the type of hardware (HardwareType) used by the controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>return the type of hardware used by the controller </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="90" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="90" bodyend="90"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classControllerHardwareConnector_1af6952c0d8829b93557eb7d8887bebd63" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>SensorDataType</type>
+        <definition>virtual SensorDataType ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;::extractSensorData</definition>
+        <argsstring>()=0</argsstring>
+        <name>extractSensorData</name>
+        <reimplementedby refid="classManualRPYTControllerDroneConnector_1a6c47447c98dd1528703355f9f60f1d50">extractSensorData</reimplementedby>
+        <reimplementedby refid="classBuiltInVelocityControllerDroneConnector_1af69ba169f039d9f8d59f675392af4cf0">extractSensorData</reimplementedby>
+        <reimplementedby refid="classPositionControllerDroneConnector_1a21859ad4bcc85a907e2e23456869b3d6">extractSensorData</reimplementedby>
+        <briefdescription>
+<para>extract relevant data from hardware/estimators </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>data structure needed for controller to perform step function </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="98" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classControllerHardwareConnector_1a5fc86156d5c747aba36497732962d6d0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;::sendHardwareCommands</definition>
+        <argsstring>(ControlType controls)=0</argsstring>
+        <name>sendHardwareCommands</name>
+        <reimplementedby refid="classManualRPYTControllerDroneConnector_1a34bde89c4b4f2d0de000b4ccbfc719c4">sendHardwareCommands</reimplementedby>
+        <reimplementedby refid="classBuiltInVelocityControllerDroneConnector_1a10a06a14a9a34afbe37c79e86ffd5787">sendHardwareCommands</reimplementedby>
+        <reimplementedby refid="classPositionControllerDroneConnector_1a826092eadfbbf9442fa1869fea98070d">sendHardwareCommands</reimplementedby>
+        <param>
+          <type>ControlType</type>
+          <declname>controls</declname>
+        </param>
+        <briefdescription>
+<para>Send hardware commands for example UAV rpy. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>controls</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data structure the UAV is expecting </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="105" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Performs a single step of extracting data, running controller and sending data back to hardware. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>SensorDataType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of data to take from hardware </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GoalType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of goal for controller </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ControlType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of control sent to hardware </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="214">
+        <label>ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;</label>
+        <link refid="classControllerHardwareConnector"/>
+        <childnode refid="215" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="215">
+        <label>AbstractControllerHardwareConnector</label>
+        <link refid="structAbstractControllerHardwareConnector"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="216">
+        <label>ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;</label>
+        <link refid="classControllerHardwareConnector"/>
+        <childnode refid="217" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="217">
+        <label>AbstractControllerHardwareConnector</label>
+        <link refid="structAbstractControllerHardwareConnector"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="39" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="39" bodyend="122"/>
+    <listofallmembers>
+      <member refid="classControllerHardwareConnector_1ab01af9456d2b32a04f63a2eecbc7b24e" prot="private" virt="non-virtual"><scope>ControllerHardwareConnector</scope><name>controller_</name></member>
+      <member refid="classControllerHardwareConnector_1a6c5d8e5a5ded026ccee3d51f2899ce3e" prot="public" virt="non-virtual"><scope>ControllerHardwareConnector</scope><name>ControllerHardwareConnector</name></member>
+      <member refid="classControllerHardwareConnector_1af6952c0d8829b93557eb7d8887bebd63" prot="protected" virt="pure-virtual"><scope>ControllerHardwareConnector</scope><name>extractSensorData</name></member>
+      <member refid="classControllerHardwareConnector_1a1ea002003e277fc82e04615343b927f5" prot="public" virt="non-virtual"><scope>ControllerHardwareConnector</scope><name>getGoal</name></member>
+      <member refid="classControllerHardwareConnector_1accd0c9bff560fa3c6d1e60d97644415e" prot="public" virt="non-virtual"><scope>ControllerHardwareConnector</scope><name>getHardwareType</name></member>
+      <member refid="classControllerHardwareConnector_1a1e47c12f796c9cc2fcb5c2495ede2392" prot="protected" virt="non-virtual"><scope>ControllerHardwareConnector</scope><name>hardware_type_</name></member>
+      <member refid="classControllerHardwareConnector_1afb46464434a3a5881ecc1091f58bbd61" prot="public" virt="virtual"><scope>ControllerHardwareConnector</scope><name>run</name></member>
+      <member refid="classControllerHardwareConnector_1a5fc86156d5c747aba36497732962d6d0" prot="protected" virt="pure-virtual"><scope>ControllerHardwareConnector</scope><name>sendHardwareCommands</name></member>
+      <member refid="classControllerHardwareConnector_1a14ce51377f80b67796fcb50ce8195efd" prot="public" virt="non-virtual"><scope>ControllerHardwareConnector</scope><name>setGoal</name></member>
+      <member refid="structAbstractControllerHardwareConnector_1a06f931d74faac604c3ef56cb5ba75399" prot="public" virt="virtual"><scope>ControllerHardwareConnector</scope><name>~AbstractControllerHardwareConnector</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

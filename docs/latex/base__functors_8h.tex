@@ -1,0 +1,31 @@
+\hypertarget{base__functors_8h}{\section{include/aerial\-\_\-autonomy/actions\-\_\-guards/base\-\_\-functors.h File Reference}
+\label{base__functors_8h}\index{include/aerial\-\_\-autonomy/actions\-\_\-guards/base\-\_\-functors.\-h@{include/aerial\-\_\-autonomy/actions\-\_\-guards/base\-\_\-functors.\-h}}
+}
+{\ttfamily \#include $<$type\-\_\-traits$>$}\\*
+Include dependency graph for base\-\_\-functors.\-h\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{base__functors_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{base__functors_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structActionFunctor}{Action\-Functor$<$ Event\-T, Robot\-System\-T, Logic\-State\-Machine\-T $>$}
+\begin{DoxyCompactList}\small\item\em Action Functor for a given event, robot system, state machine. \end{DoxyCompactList}\item 
+struct \hyperlink{structGuardFunctor}{Guard\-Functor$<$ Event\-T, Robot\-System\-T, Logic\-State\-Machine\-T $>$}
+\begin{DoxyCompactList}\small\item\em Action Functor for a given event, robot system, state machine. \end{DoxyCompactList}\item 
+struct \hyperlink{structEventAgnosticActionFunctor}{Event\-Agnostic\-Action\-Functor$<$ Robot\-System\-T, Logic\-State\-Machine\-T $>$}
+\begin{DoxyCompactList}\small\item\em Action functor that does not require the event triggering it. \end{DoxyCompactList}\item 
+struct \hyperlink{structEventAgnosticGuardFunctor}{Event\-Agnostic\-Guard\-Functor$<$ Robot\-System\-T, Logic\-State\-Machine\-T $>$}
+\begin{DoxyCompactList}\small\item\em Guard functor that does not require the event triggering it. \end{DoxyCompactList}\item 
+struct \hyperlink{structInternalTransitionEvent}{Internal\-Transition\-Event}
+\begin{DoxyCompactList}\small\item\em The \hyperlink{structInternalTransitionEvent}{Internal\-Transition\-Event} struct used to trigger action behaviors in states. \end{DoxyCompactList}\end{DoxyCompactItemize}

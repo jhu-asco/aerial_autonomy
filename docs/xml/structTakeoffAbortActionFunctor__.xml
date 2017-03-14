@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structTakeoffAbortActionFunctor__" kind="struct" prot="public">
+    <compoundname>TakeoffAbortActionFunctor_</compoundname>
+    <basecompoundref refid="structEventAgnosticActionFunctor" prot="public" virt="non-virtual">EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</basecompoundref>
+    <includes refid="takeoff__functors_8h" local="no">takeoff_functors.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structTakeoffAbortActionFunctor___1a8366919888a54d029b3856c3a433843d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void TakeoffAbortActionFunctor_&lt; LogicStateMachineT &gt;::run</definition>
+        <argsstring>(UAVSystem &amp;robot_system, LogicStateMachineT &amp;)</argsstring>
+        <name>run</name>
+        <reimplements refid="structEventAgnosticActionFunctor_1a53a48938d68370ff2ef262222565ffcf">run</reimplements>
+        <param>
+          <type><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <param>
+          <type>LogicStateMachineT &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <briefdescription>
+<para>Override this run function for different sub classes. This function performs the logic checking for each state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Provides sensor data and allows for controlling hardware </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend of logic State Machine. can send events using this. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" line="37" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" bodystart="37" bodyend="40"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>action to perform when aborting takeoff </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine used to process events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="332">
+        <label>EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
+        <link refid="structEventAgnosticActionFunctor"/>
+      </node>
+      <node id="331">
+        <label>TakeoffAbortActionFunctor_&lt; LogicStateMachineT &gt;</label>
+        <link refid="structTakeoffAbortActionFunctor__"/>
+        <childnode refid="332" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="334">
+        <label>EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
+        <link refid="structEventAgnosticActionFunctor"/>
+      </node>
+      <node id="333">
+        <label>TakeoffAbortActionFunctor_&lt; LogicStateMachineT &gt;</label>
+        <link refid="structTakeoffAbortActionFunctor__"/>
+        <childnode refid="334" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" line="36" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" bodystart="35" bodyend="41"/>
+    <listofallmembers>
+      <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>TakeoffAbortActionFunctor_</scope><name>operator()</name></member>
+      <member refid="structTakeoffAbortActionFunctor___1a8366919888a54d029b3856c3a433843d" prot="public" virt="virtual"><scope>TakeoffAbortActionFunctor_</scope><name>run</name></member>
+      <member refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" prot="public" virt="virtual"><scope>TakeoffAbortActionFunctor_</scope><name>~EventAgnosticActionFunctor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

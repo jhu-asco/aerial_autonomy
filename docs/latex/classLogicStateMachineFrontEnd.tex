@@ -1,0 +1,332 @@
+\hypertarget{classLogicStateMachineFrontEnd}{\section{Logic\-State\-Machine\-Front\-End Class Reference}
+\label{classLogicStateMachineFrontEnd}\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}}
+}
+
+
+front-\/end\-: define the F\-S\-M structure  
+
+
+
+
+{\ttfamily \#include $<$basic\-\_\-state\-\_\-machine.\-h$>$}
+
+
+
+Inheritance diagram for Logic\-State\-Machine\-Front\-End\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{classLogicStateMachineFrontEnd__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Logic\-State\-Machine\-Front\-End\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{classLogicStateMachineFrontEnd__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structLogicStateMachineFrontEnd_1_1Landed}{Landed}
+\begin{DoxyCompactList}\small\item\em \hyperlink{structLogicStateMachineFrontEnd_1_1Landed}{Landed} state. \end{DoxyCompactList}\item 
+struct \hyperlink{structLogicStateMachineFrontEnd_1_1transition__table}{transition\-\_\-table}
+\begin{DoxyCompactList}\small\item\em Transition table for State Machine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{classLogicStateMachineFrontEnd_a98f3148dbabd87749be3c63ea0ec2a00}{Taking\-Off} = \hyperlink{takeoff__functors_8h_ab6710f3cb12b7653eedcd3a2215d3228}{Taking\-Off\-\_\-}$<$ \hyperlink{basic__state__machine_8h_ab0b6ef21baf57684550a2f05c771bd86}{Logic\-State\-Machine} $>$
+\begin{DoxyCompactList}\small\item\em Takingoff state. \end{DoxyCompactList}\item 
+using \hyperlink{classLogicStateMachineFrontEnd_acac7938fd313e8808e486fa884ccf49b}{Landing} = \hyperlink{land__functors_8h_a84627965433a60de431758bddec005c3}{Landing\-\_\-}$<$ \hyperlink{basic__state__machine_8h_ab0b6ef21baf57684550a2f05c771bd86}{Logic\-State\-Machine} $>$
+\begin{DoxyCompactList}\small\item\em Landing state. \end{DoxyCompactList}\item 
+using \hyperlink{classLogicStateMachineFrontEnd_a8a5e85c9d100560fc79f9cbe1bbd5947}{Reaching\-Goal} = \hyperlink{position__control__functors_8h_af380346c24b534da18813f70217ea50f}{Reaching\-Goal\-\_\-}$<$ \hyperlink{basic__state__machine_8h_ab0b6ef21baf57684550a2f05c771bd86}{Logic\-State\-Machine} $>$
+\begin{DoxyCompactList}\small\item\em Reaching goal state. \end{DoxyCompactList}\item 
+using \hyperlink{classLogicStateMachineFrontEnd_a5877b5b19ba413c2b3bb02ee2459d5ec}{Hovering} = \hyperlink{hovering__functors_8h_a4252f403b3bcd2a850cf271512d9c6ff}{Hovering\-\_\-}$<$ \hyperlink{basic__state__machine_8h_ab0b6ef21baf57684550a2f05c771bd86}{Logic\-State\-Machine} $>$
+\begin{DoxyCompactList}\small\item\em Hovering state. \end{DoxyCompactList}\item 
+using \hyperlink{classLogicStateMachineFrontEnd_ae617089cdb6687edc5d27b7f8a546af2}{initial\-\_\-state} = \hyperlink{structLogicStateMachineFrontEnd_1_1Landed}{Landed}
+\begin{DoxyCompactList}\small\item\em Initial state for state machine. \end{DoxyCompactList}\item 
+using \hyperlink{classLogicStateMachineFrontEnd_af73bbbe19d413f3786c265fe91a94ffb}{Takeoff\-Action} = \hyperlink{structTakeoffTransitionActionFunctor__}{Takeoff\-Transition\-Action\-Functor\-\_\-}$<$ \hyperlink{basic__state__machine_8h_ab0b6ef21baf57684550a2f05c771bd86}{Logic\-State\-Machine} $>$
+\begin{DoxyCompactList}\small\item\em Action to take when taking off. \end{DoxyCompactList}\item 
+using \hyperlink{classLogicStateMachineFrontEnd_a4660e7e7dbd8bc3f7a379a076999187d}{Takeoff\-Guard} = \hyperlink{structTakeoffTransitionGuardFunctor__}{Takeoff\-Transition\-Guard\-Functor\-\_\-}$<$ \hyperlink{basic__state__machine_8h_ab0b6ef21baf57684550a2f05c771bd86}{Logic\-State\-Machine} $>$
+\begin{DoxyCompactList}\small\item\em Guard to stop taking off under low voltage. \end{DoxyCompactList}\item 
+using \hyperlink{classLogicStateMachineFrontEnd_a26036773cac59b48b9e545acc870a29b}{Takeoff\-Abort} = \hyperlink{structTakeoffAbortActionFunctor__}{Takeoff\-Abort\-Action\-Functor\-\_\-}$<$ \hyperlink{basic__state__machine_8h_ab0b6ef21baf57684550a2f05c771bd86}{Logic\-State\-Machine} $>$
+\begin{DoxyCompactList}\small\item\em Abort action when taking off. \end{DoxyCompactList}\item 
+using \hyperlink{classLogicStateMachineFrontEnd_ad1619c7d43a216eb9238004470389f2e}{Landing\-Action} = \hyperlink{structLandTransitionActionFunctor__}{Land\-Transition\-Action\-Functor\-\_\-}$<$ \hyperlink{basic__state__machine_8h_ab0b6ef21baf57684550a2f05c771bd86}{Logic\-State\-Machine} $>$
+\begin{DoxyCompactList}\small\item\em Action to take when landing. \end{DoxyCompactList}\item 
+using \hyperlink{classLogicStateMachineFrontEnd_a39babee29ba680422ea922504a465417}{Reaching\-Goal\-Set} = \hyperlink{structPositionControlTransitionActionFunctor__}{Position\-Control\-Transition\-Action\-Functor\-\_\-}$<$ \hyperlink{basic__state__machine_8h_ab0b6ef21baf57684550a2f05c771bd86}{Logic\-State\-Machine} $>$
+\begin{DoxyCompactList}\small\item\em set goal action when transitioning \end{DoxyCompactList}\item 
+using \hyperlink{classLogicStateMachineFrontEnd_a84fe5b03b104adc3c3406bb0b6ffa190}{Reaching\-Goal\-Guard} = \hyperlink{structPositionControlTransitionGuardFunctor__}{Position\-Control\-Transition\-Guard\-Functor\-\_\-}$<$ \hyperlink{basic__state__machine_8h_ab0b6ef21baf57684550a2f05c771bd86}{Logic\-State\-Machine} $>$
+\begin{DoxyCompactList}\small\item\em Guard to avoid going to goal if goal is not correct. \end{DoxyCompactList}\item 
+using \hyperlink{classLogicStateMachineFrontEnd_a6273a06430b7aa6088e25d9b78805f1a}{Reaching\-Goal\-Abort} = \hyperlink{structPositionControlAbortActionFunctor__}{Position\-Control\-Abort\-Action\-Functor\-\_\-}$<$ \hyperlink{basic__state__machine_8h_ab0b6ef21baf57684550a2f05c771bd86}{Logic\-State\-Machine} $>$
+\begin{DoxyCompactList}\small\item\em Abort action when reaching goal. \end{DoxyCompactList}\item 
+using \hyperlink{classLogicStateMachineFrontEnd_a3bec78d997dbc5ae5534c3b49c8127f5}{Reaching\-Goal\-Land} = \hyperlink{classLogicStateMachineFrontEnd_ad1619c7d43a216eb9238004470389f2e}{Landing\-Action}
+\begin{DoxyCompactList}\small\item\em Land action when reaching goal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\-::type\-\_\-index \hyperlink{classLogicStateMachineFrontEnd_af2ccbab79c14bc6570091b49a2e61fff}{get\-\_\-no\-\_\-transition\-\_\-event\-\_\-index} ()
+\begin{DoxyCompactList}\small\item\em Returns the index of the event that did not trigger any transition. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Event , class F\-S\-M $>$ }\\void \hyperlink{classLogicStateMachineFrontEnd_afea624ef452f4dd6f5380c96fd9555bb}{on\-\_\-entry} (Event const \&, F\-S\-M \&)
+\begin{DoxyCompactList}\small\item\em Action to take on entering state machine. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Event , class F\-S\-M $>$ }\\void \hyperlink{classLogicStateMachineFrontEnd_a86bc9dc7c6ab97285bb5c9ea06517da3}{on\-\_\-exit} (Event const \&, F\-S\-M \&)
+\begin{DoxyCompactList}\small\item\em Action to take on leaving state machine. \end{DoxyCompactList}\item 
+\hyperlink{classLogicStateMachineFrontEnd_a38a4d9fba9466fa36d012d297e8908ec}{Logic\-State\-Machine\-Front\-End} (\hyperlink{classUAVSystem}{U\-A\-V\-System} \&uav\-\_\-system)
+\begin{DoxyCompactList}\small\item\em Constructor with arguments to store robot system. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class F\-S\-M , class Event $>$ }\\void \hyperlink{classLogicStateMachineFrontEnd_aa75b2a1500d4bfe052c5421aeefbf7ab}{no\-\_\-transition} (Event const \&e, F\-S\-M \&, int state\-\_\-index)
+\begin{DoxyCompactList}\small\item\em Print event typeid if no action present for the corresponding event. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classUAVSystem}{U\-A\-V\-System} \& \hyperlink{classLogicStateMachineFrontEnd_a8431e5208e24b80105d639281361a252}{robot\-\_\-system\-\_\-}
+\begin{DoxyCompactList}\small\item\em robot system used by states to get sensor data and send commands \end{DoxyCompactList}\item 
+std\-::type\-\_\-index \hyperlink{classLogicStateMachineFrontEnd_a0f19247a261344e58dede909f598677f}{no\-\_\-transition\-\_\-event\-\_\-index\-\_\-} = typeid(N\-U\-L\-L)
+\begin{DoxyCompactList}\small\item\em type index to store the event that did not trigger any transition \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Event\-T , class Robot\-System\-T , class Logic\-State\-Machine\-T $>$ }\\class \hyperlink{classLogicStateMachineFrontEnd_a05673eb4ec343f36c1f3fb787ac26b94}{Action\-Functor}
+\item 
+{\footnotesize template$<$class Event\-T , class Robot\-System\-T , class Logic\-State\-Machine\-T $>$ }\\class \hyperlink{classLogicStateMachineFrontEnd_a9411581bb37b54467df520e3c73ceaf0}{Guard\-Functor}
+\item 
+{\footnotesize template$<$class Robot\-System\-T1 , class Logic\-State\-Machine\-T $>$ }\\class \hyperlink{classLogicStateMachineFrontEnd_a86a665e36420c3cbc2b45864e023f98a}{Event\-Agnostic\-Action\-Functor}
+\item 
+{\footnotesize template$<$class Robot\-System\-T1 , class Logic\-State\-Machine\-T $>$ }\\class \hyperlink{classLogicStateMachineFrontEnd_af372c36475bc4510af791f5cb66608ad}{Event\-Agnostic\-Guard\-Functor}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+front-\/end\-: define the F\-S\-M structure 
+
+\subsection{Member Typedef Documentation}
+\hypertarget{classLogicStateMachineFrontEnd_a5877b5b19ba413c2b3bb02ee2459d5ec}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!Hovering@{Hovering}}
+\index{Hovering@{Hovering}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{Hovering}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf Logic\-State\-Machine\-Front\-End\-::\-Hovering} =  {\bf Hovering\-\_\-}$<${\bf Logic\-State\-Machine}$>$}}\label{classLogicStateMachineFrontEnd_a5877b5b19ba413c2b3bb02ee2459d5ec}
+
+
+Hovering state. 
+
+\hypertarget{classLogicStateMachineFrontEnd_ae617089cdb6687edc5d27b7f8a546af2}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!initial\-\_\-state@{initial\-\_\-state}}
+\index{initial\-\_\-state@{initial\-\_\-state}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{initial\-\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf Logic\-State\-Machine\-Front\-End\-::initial\-\_\-state} =  {\bf Landed}}}\label{classLogicStateMachineFrontEnd_ae617089cdb6687edc5d27b7f8a546af2}
+
+
+Initial state for state machine. 
+
+\hypertarget{classLogicStateMachineFrontEnd_acac7938fd313e8808e486fa884ccf49b}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!Landing@{Landing}}
+\index{Landing@{Landing}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{Landing}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf Logic\-State\-Machine\-Front\-End\-::\-Landing} =  {\bf Landing\-\_\-}$<${\bf Logic\-State\-Machine}$>$}}\label{classLogicStateMachineFrontEnd_acac7938fd313e8808e486fa884ccf49b}
+
+
+Landing state. 
+
+\hypertarget{classLogicStateMachineFrontEnd_ad1619c7d43a216eb9238004470389f2e}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!Landing\-Action@{Landing\-Action}}
+\index{Landing\-Action@{Landing\-Action}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{Landing\-Action}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf Logic\-State\-Machine\-Front\-End\-::\-Landing\-Action} =  {\bf Land\-Transition\-Action\-Functor\-\_\-}$<${\bf Logic\-State\-Machine}$>$}}\label{classLogicStateMachineFrontEnd_ad1619c7d43a216eb9238004470389f2e}
+
+
+Action to take when landing. 
+
+\hypertarget{classLogicStateMachineFrontEnd_a8a5e85c9d100560fc79f9cbe1bbd5947}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!Reaching\-Goal@{Reaching\-Goal}}
+\index{Reaching\-Goal@{Reaching\-Goal}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{Reaching\-Goal}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf Logic\-State\-Machine\-Front\-End\-::\-Reaching\-Goal} =  {\bf Reaching\-Goal\-\_\-}$<${\bf Logic\-State\-Machine}$>$}}\label{classLogicStateMachineFrontEnd_a8a5e85c9d100560fc79f9cbe1bbd5947}
+
+
+Reaching goal state. 
+
+\hypertarget{classLogicStateMachineFrontEnd_a6273a06430b7aa6088e25d9b78805f1a}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!Reaching\-Goal\-Abort@{Reaching\-Goal\-Abort}}
+\index{Reaching\-Goal\-Abort@{Reaching\-Goal\-Abort}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{Reaching\-Goal\-Abort}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf Logic\-State\-Machine\-Front\-End\-::\-Reaching\-Goal\-Abort} =  {\bf Position\-Control\-Abort\-Action\-Functor\-\_\-}$<${\bf Logic\-State\-Machine}$>$}}\label{classLogicStateMachineFrontEnd_a6273a06430b7aa6088e25d9b78805f1a}
+
+
+Abort action when reaching goal. 
+
+\hypertarget{classLogicStateMachineFrontEnd_a84fe5b03b104adc3c3406bb0b6ffa190}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!Reaching\-Goal\-Guard@{Reaching\-Goal\-Guard}}
+\index{Reaching\-Goal\-Guard@{Reaching\-Goal\-Guard}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{Reaching\-Goal\-Guard}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf Logic\-State\-Machine\-Front\-End\-::\-Reaching\-Goal\-Guard} =  {\bf Position\-Control\-Transition\-Guard\-Functor\-\_\-}$<${\bf Logic\-State\-Machine}$>$}}\label{classLogicStateMachineFrontEnd_a84fe5b03b104adc3c3406bb0b6ffa190}
+
+
+Guard to avoid going to goal if goal is not correct. 
+
+\hypertarget{classLogicStateMachineFrontEnd_a3bec78d997dbc5ae5534c3b49c8127f5}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!Reaching\-Goal\-Land@{Reaching\-Goal\-Land}}
+\index{Reaching\-Goal\-Land@{Reaching\-Goal\-Land}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{Reaching\-Goal\-Land}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf Logic\-State\-Machine\-Front\-End\-::\-Reaching\-Goal\-Land} =  {\bf Landing\-Action}}}\label{classLogicStateMachineFrontEnd_a3bec78d997dbc5ae5534c3b49c8127f5}
+
+
+Land action when reaching goal. 
+
+\hypertarget{classLogicStateMachineFrontEnd_a39babee29ba680422ea922504a465417}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!Reaching\-Goal\-Set@{Reaching\-Goal\-Set}}
+\index{Reaching\-Goal\-Set@{Reaching\-Goal\-Set}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{Reaching\-Goal\-Set}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf Logic\-State\-Machine\-Front\-End\-::\-Reaching\-Goal\-Set} =  {\bf Position\-Control\-Transition\-Action\-Functor\-\_\-}$<${\bf Logic\-State\-Machine}$>$}}\label{classLogicStateMachineFrontEnd_a39babee29ba680422ea922504a465417}
+
+
+set goal action when transitioning 
+
+\hypertarget{classLogicStateMachineFrontEnd_a26036773cac59b48b9e545acc870a29b}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!Takeoff\-Abort@{Takeoff\-Abort}}
+\index{Takeoff\-Abort@{Takeoff\-Abort}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{Takeoff\-Abort}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf Logic\-State\-Machine\-Front\-End\-::\-Takeoff\-Abort} =  {\bf Takeoff\-Abort\-Action\-Functor\-\_\-}$<${\bf Logic\-State\-Machine}$>$}}\label{classLogicStateMachineFrontEnd_a26036773cac59b48b9e545acc870a29b}
+
+
+Abort action when taking off. 
+
+\hypertarget{classLogicStateMachineFrontEnd_af73bbbe19d413f3786c265fe91a94ffb}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!Takeoff\-Action@{Takeoff\-Action}}
+\index{Takeoff\-Action@{Takeoff\-Action}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{Takeoff\-Action}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf Logic\-State\-Machine\-Front\-End\-::\-Takeoff\-Action} =  {\bf Takeoff\-Transition\-Action\-Functor\-\_\-}$<${\bf Logic\-State\-Machine}$>$}}\label{classLogicStateMachineFrontEnd_af73bbbe19d413f3786c265fe91a94ffb}
+
+
+Action to take when taking off. 
+
+\hypertarget{classLogicStateMachineFrontEnd_a4660e7e7dbd8bc3f7a379a076999187d}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!Takeoff\-Guard@{Takeoff\-Guard}}
+\index{Takeoff\-Guard@{Takeoff\-Guard}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{Takeoff\-Guard}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf Logic\-State\-Machine\-Front\-End\-::\-Takeoff\-Guard} =  {\bf Takeoff\-Transition\-Guard\-Functor\-\_\-}$<${\bf Logic\-State\-Machine}$>$}}\label{classLogicStateMachineFrontEnd_a4660e7e7dbd8bc3f7a379a076999187d}
+
+
+Guard to stop taking off under low voltage. 
+
+\hypertarget{classLogicStateMachineFrontEnd_a98f3148dbabd87749be3c63ea0ec2a00}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!Taking\-Off@{Taking\-Off}}
+\index{Taking\-Off@{Taking\-Off}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{Taking\-Off}]{\setlength{\rightskip}{0pt plus 5cm}using {\bf Logic\-State\-Machine\-Front\-End\-::\-Taking\-Off} =  {\bf Taking\-Off\-\_\-}$<${\bf Logic\-State\-Machine}$>$}}\label{classLogicStateMachineFrontEnd_a98f3148dbabd87749be3c63ea0ec2a00}
+
+
+Takingoff state. 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classLogicStateMachineFrontEnd_a38a4d9fba9466fa36d012d297e8908ec}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}}
+\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{Logic\-State\-Machine\-Front\-End}]{\setlength{\rightskip}{0pt plus 5cm}Logic\-State\-Machine\-Front\-End\-::\-Logic\-State\-Machine\-Front\-End (
+\begin{DoxyParamCaption}
+\item[{{\bf U\-A\-V\-System} \&}]{uav\-\_\-system}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classLogicStateMachineFrontEnd_a38a4d9fba9466fa36d012d297e8908ec}
+
+
+Constructor with arguments to store robot system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em uav\-\_\-system} & robot system that is stored internally and shared with events \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classLogicStateMachineFrontEnd_af2ccbab79c14bc6570091b49a2e61fff}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!get\-\_\-no\-\_\-transition\-\_\-event\-\_\-index@{get\-\_\-no\-\_\-transition\-\_\-event\-\_\-index}}
+\index{get\-\_\-no\-\_\-transition\-\_\-event\-\_\-index@{get\-\_\-no\-\_\-transition\-\_\-event\-\_\-index}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{get\-\_\-no\-\_\-transition\-\_\-event\-\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}std\-::type\-\_\-index Logic\-State\-Machine\-Front\-End\-::get\-\_\-no\-\_\-transition\-\_\-event\-\_\-index (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classLogicStateMachineFrontEnd_af2ccbab79c14bc6570091b49a2e61fff}
+
+
+Returns the index of the event that did not trigger any transition. 
+
+\begin{DoxyReturn}{Returns}
+The no-\/transition event index 
+\end{DoxyReturn}
+\hypertarget{classLogicStateMachineFrontEnd_aa75b2a1500d4bfe052c5421aeefbf7ab}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!no\-\_\-transition@{no\-\_\-transition}}
+\index{no\-\_\-transition@{no\-\_\-transition}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{no\-\_\-transition}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class F\-S\-M , class Event $>$ void Logic\-State\-Machine\-Front\-End\-::no\-\_\-transition (
+\begin{DoxyParamCaption}
+\item[{Event const \&}]{e, }
+\item[{F\-S\-M \&}]{, }
+\item[{int}]{state\-\_\-index}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classLogicStateMachineFrontEnd_aa75b2a1500d4bfe052c5421aeefbf7ab}
+
+
+Print event typeid if no action present for the corresponding event. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em F\-S\-M} & Backend to trigger events etc \\
+\hline
+{\em Event} & Event type that triggered no transition \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em e} & event instance \\
+\hline
+{\em state} & Current state when event is received \\
+\hline
+\end{DoxyParams}
+\hypertarget{classLogicStateMachineFrontEnd_afea624ef452f4dd6f5380c96fd9555bb}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!on\-\_\-entry@{on\-\_\-entry}}
+\index{on\-\_\-entry@{on\-\_\-entry}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{on\-\_\-entry}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Event , class F\-S\-M $>$ void Logic\-State\-Machine\-Front\-End\-::on\-\_\-entry (
+\begin{DoxyParamCaption}
+\item[{Event const \&}]{, }
+\item[{F\-S\-M \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classLogicStateMachineFrontEnd_afea624ef452f4dd6f5380c96fd9555bb}
+
+
+Action to take on entering state machine. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Event} & type of event causing state machine to enter \\
+\hline
+{\em F\-S\-M} & Backend finite state machine type to trigger events \\
+\hline
+\end{DoxyTemplParams}
+\hypertarget{classLogicStateMachineFrontEnd_a86bc9dc7c6ab97285bb5c9ea06517da3}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!on\-\_\-exit@{on\-\_\-exit}}
+\index{on\-\_\-exit@{on\-\_\-exit}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{on\-\_\-exit}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Event , class F\-S\-M $>$ void Logic\-State\-Machine\-Front\-End\-::on\-\_\-exit (
+\begin{DoxyParamCaption}
+\item[{Event const \&}]{, }
+\item[{F\-S\-M \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classLogicStateMachineFrontEnd_a86bc9dc7c6ab97285bb5c9ea06517da3}
+
+
+Action to take on leaving state machine. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Event} & type of event causing state machine to enter \\
+\hline
+{\em F\-S\-M} & Backend finite state machine type to trigger events \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{classLogicStateMachineFrontEnd_a05673eb4ec343f36c1f3fb787ac26b94}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!Action\-Functor@{Action\-Functor}}
+\index{Action\-Functor@{Action\-Functor}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{Action\-Functor}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Event\-T , class Robot\-System\-T , class Logic\-State\-Machine\-T $>$ friend class {\bf Action\-Functor}\hspace{0.3cm}{\ttfamily [friend]}}}\label{classLogicStateMachineFrontEnd_a05673eb4ec343f36c1f3fb787ac26b94}
+\hypertarget{classLogicStateMachineFrontEnd_a86a665e36420c3cbc2b45864e023f98a}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!Event\-Agnostic\-Action\-Functor@{Event\-Agnostic\-Action\-Functor}}
+\index{Event\-Agnostic\-Action\-Functor@{Event\-Agnostic\-Action\-Functor}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{Event\-Agnostic\-Action\-Functor}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Robot\-System\-T1 , class Logic\-State\-Machine\-T $>$ friend class {\bf Event\-Agnostic\-Action\-Functor}\hspace{0.3cm}{\ttfamily [friend]}}}\label{classLogicStateMachineFrontEnd_a86a665e36420c3cbc2b45864e023f98a}
+\hypertarget{classLogicStateMachineFrontEnd_af372c36475bc4510af791f5cb66608ad}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!Event\-Agnostic\-Guard\-Functor@{Event\-Agnostic\-Guard\-Functor}}
+\index{Event\-Agnostic\-Guard\-Functor@{Event\-Agnostic\-Guard\-Functor}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{Event\-Agnostic\-Guard\-Functor}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Robot\-System\-T1 , class Logic\-State\-Machine\-T $>$ friend class {\bf Event\-Agnostic\-Guard\-Functor}\hspace{0.3cm}{\ttfamily [friend]}}}\label{classLogicStateMachineFrontEnd_af372c36475bc4510af791f5cb66608ad}
+\hypertarget{classLogicStateMachineFrontEnd_a9411581bb37b54467df520e3c73ceaf0}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!Guard\-Functor@{Guard\-Functor}}
+\index{Guard\-Functor@{Guard\-Functor}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{Guard\-Functor}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Event\-T , class Robot\-System\-T , class Logic\-State\-Machine\-T $>$ friend class {\bf Guard\-Functor}\hspace{0.3cm}{\ttfamily [friend]}}}\label{classLogicStateMachineFrontEnd_a9411581bb37b54467df520e3c73ceaf0}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classLogicStateMachineFrontEnd_a0f19247a261344e58dede909f598677f}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!no\-\_\-transition\-\_\-event\-\_\-index\-\_\-@{no\-\_\-transition\-\_\-event\-\_\-index\-\_\-}}
+\index{no\-\_\-transition\-\_\-event\-\_\-index\-\_\-@{no\-\_\-transition\-\_\-event\-\_\-index\-\_\-}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{no\-\_\-transition\-\_\-event\-\_\-index\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}std\-::type\-\_\-index Logic\-State\-Machine\-Front\-End\-::no\-\_\-transition\-\_\-event\-\_\-index\-\_\- = typeid(N\-U\-L\-L)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classLogicStateMachineFrontEnd_a0f19247a261344e58dede909f598677f}
+
+
+type index to store the event that did not trigger any transition 
+
+\hypertarget{classLogicStateMachineFrontEnd_a8431e5208e24b80105d639281361a252}{\index{Logic\-State\-Machine\-Front\-End@{Logic\-State\-Machine\-Front\-End}!robot\-\_\-system\-\_\-@{robot\-\_\-system\-\_\-}}
+\index{robot\-\_\-system\-\_\-@{robot\-\_\-system\-\_\-}!LogicStateMachineFrontEnd@{Logic\-State\-Machine\-Front\-End}}
+\subsubsection[{robot\-\_\-system\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U\-A\-V\-System}\& Logic\-State\-Machine\-Front\-End\-::robot\-\_\-system\-\_\-\hspace{0.3cm}{\ttfamily [protected]}}}\label{classLogicStateMachineFrontEnd_a8431e5208e24b80105d639281361a252}
+
+
+robot system used by states to get sensor data and send commands 
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/state\-\_\-machines/\hyperlink{basic__state__machine_8h}{basic\-\_\-state\-\_\-machine.\-h}\end{DoxyCompactItemize}

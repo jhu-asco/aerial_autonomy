@@ -1,0 +1,117 @@
+\hypertarget{classBuiltInVelocityControllerDroneConnector}{\section{Built\-In\-Velocity\-Controller\-Drone\-Connector Class Reference}
+\label{classBuiltInVelocityControllerDroneConnector}\index{Built\-In\-Velocity\-Controller\-Drone\-Connector@{Built\-In\-Velocity\-Controller\-Drone\-Connector}}
+}
+
+
+Manages communication between a drone plugin and a velocity controller that outputs velocity commands.  
+
+
+
+
+{\ttfamily \#include $<$builtin\-\_\-velocity\-\_\-controller\-\_\-drone\-\_\-connector.\-h$>$}
+
+
+
+Inheritance diagram for Built\-In\-Velocity\-Controller\-Drone\-Connector\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{classBuiltInVelocityControllerDroneConnector__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Built\-In\-Velocity\-Controller\-Drone\-Connector\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{classBuiltInVelocityControllerDroneConnector__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classBuiltInVelocityControllerDroneConnector_a2a9693047db6fcdadea21d54bfe10fc1}{Built\-In\-Velocity\-Controller\-Drone\-Connector} (parsernode\-::\-Parser \&drone\-\_\-hardware, \hyperlink{classController}{Controller}$<$ \hyperlink{structEmptySensor}{Empty\-Sensor}, \hyperlink{structVelocityYaw}{Velocity\-Yaw}, \hyperlink{structVelocityYaw}{Velocity\-Yaw} $>$ \&controller)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{structEmptySensor}{Empty\-Sensor} \hyperlink{classBuiltInVelocityControllerDroneConnector_af69ba169f039d9f8d59f675392af4cf0}{extract\-Sensor\-Data} ()
+\begin{DoxyCompactList}\small\item\em does not extract any data since nothing is needed \end{DoxyCompactList}\item 
+virtual void \hyperlink{classBuiltInVelocityControllerDroneConnector_a10a06a14a9a34afbe37c79e86ffd5787}{send\-Hardware\-Commands} (\hyperlink{structVelocityYaw}{Velocity\-Yaw} controls)
+\begin{DoxyCompactList}\small\item\em Send velocity commands to hardware. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Manages communication between a drone plugin and a velocity controller that outputs velocity commands. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classBuiltInVelocityControllerDroneConnector_a2a9693047db6fcdadea21d54bfe10fc1}{\index{Built\-In\-Velocity\-Controller\-Drone\-Connector@{Built\-In\-Velocity\-Controller\-Drone\-Connector}!Built\-In\-Velocity\-Controller\-Drone\-Connector@{Built\-In\-Velocity\-Controller\-Drone\-Connector}}
+\index{Built\-In\-Velocity\-Controller\-Drone\-Connector@{Built\-In\-Velocity\-Controller\-Drone\-Connector}!BuiltInVelocityControllerDroneConnector@{Built\-In\-Velocity\-Controller\-Drone\-Connector}}
+\subsubsection[{Built\-In\-Velocity\-Controller\-Drone\-Connector}]{\setlength{\rightskip}{0pt plus 5cm}Built\-In\-Velocity\-Controller\-Drone\-Connector\-::\-Built\-In\-Velocity\-Controller\-Drone\-Connector (
+\begin{DoxyParamCaption}
+\item[{parsernode\-::\-Parser \&}]{drone\-\_\-hardware, }
+\item[{{\bf Controller}$<$ {\bf Empty\-Sensor}, {\bf Velocity\-Yaw}, {\bf Velocity\-Yaw} $>$ \&}]{controller}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classBuiltInVelocityControllerDroneConnector_a2a9693047db6fcdadea21d54bfe10fc1}
+
+
+Constructor. 
+
+Store drone hardware with hardware type as U\-A\-V. Uses parsernode\-::\-Parser\-::cmdvelguided function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em drone\-\_\-hardware} & Drone hardware used to send commands \\
+\hline
+{\em controller} & \hyperlink{structVelocity}{Velocity} controller that achieves a desired velocity, yaw \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classBuiltInVelocityControllerDroneConnector_af69ba169f039d9f8d59f675392af4cf0}{\index{Built\-In\-Velocity\-Controller\-Drone\-Connector@{Built\-In\-Velocity\-Controller\-Drone\-Connector}!extract\-Sensor\-Data@{extract\-Sensor\-Data}}
+\index{extract\-Sensor\-Data@{extract\-Sensor\-Data}!BuiltInVelocityControllerDroneConnector@{Built\-In\-Velocity\-Controller\-Drone\-Connector}}
+\subsubsection[{extract\-Sensor\-Data}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Empty\-Sensor} Built\-In\-Velocity\-Controller\-Drone\-Connector\-::extract\-Sensor\-Data (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{classBuiltInVelocityControllerDroneConnector_af69ba169f039d9f8d59f675392af4cf0}
+
+
+does not extract any data since nothing is needed 
+
+\begin{DoxyReturn}{Returns}
+empty data structure 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classControllerHardwareConnector_af6952c0d8829b93557eb7d8887bebd63}{Controller\-Hardware\-Connector$<$ Empty\-Sensor, Velocity\-Yaw, Velocity\-Yaw $>$}.
+
+\hypertarget{classBuiltInVelocityControllerDroneConnector_a10a06a14a9a34afbe37c79e86ffd5787}{\index{Built\-In\-Velocity\-Controller\-Drone\-Connector@{Built\-In\-Velocity\-Controller\-Drone\-Connector}!send\-Hardware\-Commands@{send\-Hardware\-Commands}}
+\index{send\-Hardware\-Commands@{send\-Hardware\-Commands}!BuiltInVelocityControllerDroneConnector@{Built\-In\-Velocity\-Controller\-Drone\-Connector}}
+\subsubsection[{send\-Hardware\-Commands}]{\setlength{\rightskip}{0pt plus 5cm}void Built\-In\-Velocity\-Controller\-Drone\-Connector\-::send\-Hardware\-Commands (
+\begin{DoxyParamCaption}
+\item[{{\bf Velocity\-Yaw}}]{controls}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{classBuiltInVelocityControllerDroneConnector_a10a06a14a9a34afbe37c79e86ffd5787}
+
+
+Send velocity commands to hardware. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em controls} & velocity command to send to U\-A\-V \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classControllerHardwareConnector_a5fc86156d5c747aba36497732962d6d0}{Controller\-Hardware\-Connector$<$ Empty\-Sensor, Velocity\-Yaw, Velocity\-Yaw $>$}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/controller\-\_\-hardware\-\_\-connectors/\hyperlink{builtin__velocity__controller__drone__connector_8h}{builtin\-\_\-velocity\-\_\-controller\-\_\-drone\-\_\-connector.\-h}\item 
+src/controller\-\_\-hardware\-\_\-connectors/\hyperlink{builtin__velocity__controller__drone__connector_8cpp}{builtin\-\_\-velocity\-\_\-controller\-\_\-drone\-\_\-connector.\-cpp}\end{DoxyCompactItemize}

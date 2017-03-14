@@ -1,0 +1,8 @@
+<map id="src/controllers/manual_rpyt_controller.cpp" name="src/controllers/manual_rpyt_controller.cpp">
+<area shape="rect" id="node2" href="$manual__rpyt__controller_8h.html" title="aerial_autonomy/controllers\l/manual_rpyt_controller.h" alt="" coords="285,97,467,138"/>
+<area shape="rect" id="node3" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="5,187,187,229"/>
+<area shape="rect" id="node5" href="$empty__goal_8h.html" title="aerial_autonomy/types\l/empty_goal.h" alt="" coords="211,187,364,229"/>
+<area shape="rect" id="node6" href="$joysticks__yaw_8h.html" title="aerial_autonomy/types\l/joysticks_yaw.h" alt="" coords="389,187,541,229"/>
+<area shape="rect" id="node8" href="$roll__pitch__yaw__thrust_8h.html" title="aerial_autonomy/types\l/roll_pitch_yaw_thrust.h" alt="" coords="567,187,725,229"/>
+<area shape="rect" id="node7" href="$joysticks_8h.html" title="aerial_autonomy/types\l/joysticks.h" alt="" coords="389,278,541,319"/>
+</map>

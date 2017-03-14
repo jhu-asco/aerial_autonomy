@@ -1,0 +1,549 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.6">
+  <compound refid="structAbstractControllerHardwareConnector" kind="struct"><name>AbstractControllerHardwareConnector</name>
+    <member refid="structAbstractControllerHardwareConnector_1a0fcf605e19daef2f9f99d4dc2a23feb4" kind="function"><name>run</name></member>
+    <member refid="structAbstractControllerHardwareConnector_1a06f931d74faac604c3ef56cb5ba75399" kind="function"><name>~AbstractControllerHardwareConnector</name></member>
+  </compound>
+  <compound refid="structActionFunctor" kind="struct"><name>ActionFunctor</name>
+    <member refid="structActionFunctor_1a97250a2cc027dc3ca7d10a975d11a5c7" kind="function"><name>run</name></member>
+    <member refid="structActionFunctor_1adbf24aea135ecf5a0d470b290a5cab02" kind="function"><name>operator()</name></member>
+    <member refid="structActionFunctor_1aaaa4c1ce7204b370be55f2ef4a618258" kind="function"><name>~ActionFunctor</name></member>
+  </compound>
+  <compound refid="classAsyncTimer" kind="class"><name>AsyncTimer</name>
+    <member refid="classAsyncTimer_1a8d77de69024ab1566202f25e7626ad19" kind="variable"><name>timer_thread_</name></member>
+    <member refid="classAsyncTimer_1a9c91b7a11f5106e25f1a2fc2fae7e495" kind="variable"><name>function_</name></member>
+    <member refid="classAsyncTimer_1a68c891ce655bb16a31baeade3c5a8960" kind="variable"><name>timer_duration_</name></member>
+    <member refid="classAsyncTimer_1aa545d349ccdfac95c143578933d08771" kind="variable"><name>running_</name></member>
+    <member refid="classAsyncTimer_1a8509db3cc448bd8f313435150baf434d" kind="function"><name>AsyncTimer</name></member>
+    <member refid="classAsyncTimer_1a92781264c62bcbad0b9ffd447d0cb3fd" kind="function"><name>~AsyncTimer</name></member>
+    <member refid="classAsyncTimer_1ab058544794ccb0310eb5a803458de860" kind="function"><name>start</name></member>
+    <member refid="classAsyncTimer_1a7c2182e655322a6abb9c45471952bc0f" kind="function"><name>functionTimer</name></member>
+  </compound>
+  <compound refid="classBaseState" kind="class"><name>BaseState</name>
+    <member refid="classBaseState_1a3967d85ffd88b9235fcfd9732e745c13" kind="function"><name>~BaseState</name></member>
+  </compound>
+  <compound refid="classBuiltInController" kind="class"><name>BuiltInController</name>
+    <member refid="classBuiltInController_1aea6ab422dc24222fb168a7e9522ec7c9" kind="function"><name>~BuiltInController</name></member>
+    <member refid="classBuiltInController_1ab597ac5aa54f9865c0324fbcf5c0d7bd" kind="function"><name>runImplementation</name></member>
+  </compound>
+  <compound refid="classBuiltInVelocityControllerDroneConnector" kind="class"><name>BuiltInVelocityControllerDroneConnector</name>
+    <member refid="classBuiltInVelocityControllerDroneConnector_1a9454622a4a0388e5b88067dcd19209cc" kind="variable"><name>drone_hardware_</name></member>
+    <member refid="classBuiltInVelocityControllerDroneConnector_1a2a9693047db6fcdadea21d54bfe10fc1" kind="function"><name>BuiltInVelocityControllerDroneConnector</name></member>
+    <member refid="classBuiltInVelocityControllerDroneConnector_1af69ba169f039d9f8d59f675392af4cf0" kind="function"><name>extractSensorData</name></member>
+    <member refid="classBuiltInVelocityControllerDroneConnector_1a10a06a14a9a34afbe37c79e86ffd5787" kind="function"><name>sendHardwareCommands</name></member>
+  </compound>
+  <compound refid="structCompleted" kind="struct"><name>Completed</name>
+  </compound>
+  <compound refid="classController" kind="class"><name>Controller</name>
+    <member refid="classController_1a3900decb29d3f2731050de2b53c7e4de" kind="variable"><name>goal_mutex_</name></member>
+    <member refid="classController_1aa960f9ef4afad6fa6b1c402e3f533f58" kind="variable"><name>goal_</name></member>
+    <member refid="classController_1a5caae261ff8a9f299cb8d220fbaf204b" kind="function"><name>run</name></member>
+    <member refid="classController_1a172aae7e2475b72fb2eb469ccd198387" kind="function"><name>setGoal</name></member>
+    <member refid="classController_1a712cefd3af65956a9bd420641b175214" kind="function"><name>getGoal</name></member>
+    <member refid="classController_1a86c5dbf78d3d948228c7c629e885151c" kind="function"><name>~Controller</name></member>
+    <member refid="classController_1a9a5a0b6fbedeb476f3a7bfad5f16167e" kind="function"><name>runImplementation</name></member>
+  </compound>
+  <compound refid="classControllerHardwareConnector" kind="class"><name>ControllerHardwareConnector</name>
+    <member refid="classControllerHardwareConnector_1a1e47c12f796c9cc2fcb5c2495ede2392" kind="variable"><name>hardware_type_</name></member>
+    <member refid="classControllerHardwareConnector_1ab01af9456d2b32a04f63a2eecbc7b24e" kind="variable"><name>controller_</name></member>
+    <member refid="classControllerHardwareConnector_1a6c5d8e5a5ded026ccee3d51f2899ce3e" kind="function"><name>ControllerHardwareConnector</name></member>
+    <member refid="classControllerHardwareConnector_1afb46464434a3a5881ecc1091f58bbd61" kind="function"><name>run</name></member>
+    <member refid="classControllerHardwareConnector_1a14ce51377f80b67796fcb50ce8195efd" kind="function"><name>setGoal</name></member>
+    <member refid="classControllerHardwareConnector_1a1ea002003e277fc82e04615343b927f5" kind="function"><name>getGoal</name></member>
+    <member refid="classControllerHardwareConnector_1accd0c9bff560fa3c6d1e60d97644415e" kind="function"><name>getHardwareType</name></member>
+    <member refid="classControllerHardwareConnector_1af6952c0d8829b93557eb7d8887bebd63" kind="function"><name>extractSensorData</name></member>
+    <member refid="classControllerHardwareConnector_1a5fc86156d5c747aba36497732962d6d0" kind="function"><name>sendHardwareCommands</name></member>
+  </compound>
+  <compound refid="structEmptyGoal" kind="struct"><name>EmptyGoal</name>
+  </compound>
+  <compound refid="structEmptyRobotSystem" kind="struct"><name>EmptyRobotSystem</name>
+  </compound>
+  <compound refid="structEmptySensor" kind="struct"><name>EmptySensor</name>
+  </compound>
+  <compound refid="structEventAgnosticActionFunctor" kind="struct"><name>EventAgnosticActionFunctor</name>
+    <member refid="structEventAgnosticActionFunctor_1a53a48938d68370ff2ef262222565ffcf" kind="function"><name>run</name></member>
+    <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" kind="function"><name>operator()</name></member>
+    <member refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" kind="function"><name>~EventAgnosticActionFunctor</name></member>
+  </compound>
+  <compound refid="structEventAgnosticGuardFunctor" kind="struct"><name>EventAgnosticGuardFunctor</name>
+    <member refid="structEventAgnosticGuardFunctor_1ad97196f6a607d199d6dbd56156b8dd8c" kind="function"><name>guard</name></member>
+    <member refid="structEventAgnosticGuardFunctor_1a775411c4c4e0815298200f895af3c02b" kind="function"><name>operator()</name></member>
+    <member refid="structEventAgnosticGuardFunctor_1aa339ada7b22b27bc6d384445d109f4e6" kind="function"><name>~EventAgnosticGuardFunctor</name></member>
+  </compound>
+  <compound refid="classEventPublisher" kind="class"><name>EventPublisher</name>
+    <member refid="classEventPublisher_1a7c9b9cceae7c91cf0c5db0ace1d213d3" kind="variable"><name>event</name></member>
+    <member refid="classEventPublisher_1aff37548f2b7bfed29e0e2528841d87ed" kind="variable"><name>event_timer_</name></member>
+    <member refid="classEventPublisher_1a9ed24cad13c5631e6a88e9a16860b908" kind="variable"><name>event_pub_</name></member>
+    <member refid="classEventPublisher_1a25f16feb9ce5a4b1b87999f5737a3acf" kind="variable"><name>nh_</name></member>
+    <member refid="classEventPublisher_1ac4790ae4ff54bcc83048a2fbf02d8ed7" kind="function"><name>EventPublisher</name></member>
+    <member refid="classEventPublisher_1a58bf0d8d45ae5c581a3e91c3470523d4" kind="function"><name>publishEvent</name></member>
+  </compound>
+  <compound refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI" kind="class"><name>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</name>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a28f1de5a0d232285414764f25e43a7eb" kind="variable"><name>event_trigger</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a2e96f52dc90edde242b5387214a82858" kind="variable"><name>system_status_textbox</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a6118098a267761831ef8d83cbf2a78bd" kind="variable"><name>height_slider</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1af611df98da28aba90ce5fcbea285603a" kind="variable"><name>pose_command_container</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a966d066bb1db4ea2517dc68335b3df98" kind="variable"><name>pose_command_layout</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a750b19ad6b27411d6ff502aa4ba43ed8" kind="variable"><name>pose_x</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a279bc7aaaf956e4fc14ad3e62bf7b4d2" kind="variable"><name>pose_y</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1aead4d11a8fe43596a7077554542af0d2" kind="variable"><name>pose_z</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1aa82ebdb0e64df86776b6cd9aacecb350" kind="variable"><name>send_pose_command_button</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1acedbac17d93e4e743b8bef847720659f" kind="variable"><name>pose_command</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a21ccb12c6c1d93f2d70ccca1c741ec73" kind="variable"><name>button_container</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a9b589c667ce4f5719c5bb0ddbdb0fd42" kind="variable"><name>push_buttons</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a1a4f6c154f52187c5b6206cb327b1ebc" kind="variable"><name>button_layout</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1ac5a5e9449c705a2ab52ce1639bcd2d6e" kind="variable"><name>_container</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1af5c1a916ede5f9ee830d70cd6728f84a" kind="variable"><name>_layout</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a6b65594c62caf4c8cedfbd9f12168dfb" kind="function"><name>__init__</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a10f2fd3747b7f899efde6ff0c67d95b6" kind="function"><name>get_row_col</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a9b9a66142bcd76a1be23682c7fdd424a" kind="function"><name>poseCommandCallback</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1ae276f79545a8707c09bf07cf51132ef7" kind="function"><name>poseCommandButtonCallback</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1aaa8ae13ff7e5ad9128ae565cecd49427" kind="function"><name>updateHeight</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a21d7d7031e8de77b2e31e7edb5936a34" kind="function"><name>updateStatus</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1adb66143fcd7b606516fad3e298598623" kind="function"><name>_parse_args</name></member>
+    <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1adffec416c73f6f719e9592d0e2286c8f" kind="function"><name>add_arguments</name></member>
+  </compound>
+  <compound refid="structGuardFunctor" kind="struct"><name>GuardFunctor</name>
+    <member refid="structGuardFunctor_1a9f023aa88503d6127cc8280d7dc733b8" kind="function"><name>guard</name></member>
+    <member refid="structGuardFunctor_1a42b30d1737ceca71bfe47a9bb525ceda" kind="function"><name>operator()</name></member>
+    <member refid="structGuardFunctor_1a3876b6e5028dcdc35ac786322e8afca3" kind="function"><name>~GuardFunctor</name></member>
+  </compound>
+  <compound refid="structHoveringInternalActionFunctor__" kind="struct"><name>HoveringInternalActionFunctor_</name>
+    <member refid="structHoveringInternalActionFunctor___1a87bb8dd8ed71e54729967b9e258fb66e" kind="function"><name>run</name></member>
+  </compound>
+  <compound refid="structBaseState_1_1internal__transition__table" kind="struct"><name>BaseState::internal_transition_table</name>
+  </compound>
+  <compound refid="structLogicStateMachineFrontEnd_1_1Landed_1_1internal__transition__table" kind="struct"><name>LogicStateMachineFrontEnd::Landed::internal_transition_table</name>
+  </compound>
+  <compound refid="structInternalTransitionEvent" kind="struct"><name>InternalTransitionEvent</name>
+  </compound>
+  <compound refid="structJoysticks" kind="struct"><name>Joysticks</name>
+    <member refid="structJoysticks_1a3dc64d66808dddbf053033465777c493" kind="variable"><name>channel1</name></member>
+    <member refid="structJoysticks_1a14f4be76749f40ea8d75d579504ef932" kind="variable"><name>channel2</name></member>
+    <member refid="structJoysticks_1a2640f7dbb2364b8d92c464077c38ec56" kind="variable"><name>channel3</name></member>
+    <member refid="structJoysticks_1a154d66609cbfcb527d4dcf7473bf7af5" kind="variable"><name>channel4</name></member>
+    <member refid="structJoysticks_1a4326d4f2c4764a77b9f5c2e41aeae802" kind="function"><name>Joysticks</name></member>
+    <member refid="structJoysticks_1abe8777545ab8bbaa2282fa09e12041d9" kind="function"><name>Joysticks</name></member>
+  </compound>
+  <compound refid="structJoysticksYaw" kind="struct"><name>JoysticksYaw</name>
+    <member refid="structJoysticksYaw_1aed456b5f37609c1b68843ccf1e29019a" kind="variable"><name>yaw</name></member>
+    <member refid="structJoysticksYaw_1a1a5b1cf8d91d31c8aa7fb63acfc5833c" kind="function"><name>JoysticksYaw</name></member>
+    <member refid="structJoysticksYaw_1a01b433c411a2071821fded99f9f17a2b" kind="function"><name>JoysticksYaw</name></member>
+  </compound>
+  <compound refid="structLogicStateMachineFrontEnd_1_1Landed" kind="struct"><name>LogicStateMachineFrontEnd::Landed</name>
+  </compound>
+  <compound refid="structLandInternalActionFunctor__" kind="struct"><name>LandInternalActionFunctor_</name>
+    <member refid="structLandInternalActionFunctor___1a4557b02d6cfa6712b610337cb606f54b" kind="function"><name>run</name></member>
+  </compound>
+  <compound refid="structLandTransitionActionFunctor__" kind="struct"><name>LandTransitionActionFunctor_</name>
+    <member refid="structLandTransitionActionFunctor___1ae91b354f041edda283e306fa312e1213" kind="function"><name>run</name></member>
+  </compound>
+  <compound refid="classLogicStateMachineFrontEnd" kind="class"><name>LogicStateMachineFrontEnd</name>
+    <member refid="classLogicStateMachineFrontEnd_1a98f3148dbabd87749be3c63ea0ec2a00" kind="typedef"><name>TakingOff</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1acac7938fd313e8808e486fa884ccf49b" kind="typedef"><name>Landing</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1a8a5e85c9d100560fc79f9cbe1bbd5947" kind="typedef"><name>ReachingGoal</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1a5877b5b19ba413c2b3bb02ee2459d5ec" kind="typedef"><name>Hovering</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1ae617089cdb6687edc5d27b7f8a546af2" kind="typedef"><name>initial_state</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1af73bbbe19d413f3786c265fe91a94ffb" kind="typedef"><name>TakeoffAction</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1a4660e7e7dbd8bc3f7a379a076999187d" kind="typedef"><name>TakeoffGuard</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1a26036773cac59b48b9e545acc870a29b" kind="typedef"><name>TakeoffAbort</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1ad1619c7d43a216eb9238004470389f2e" kind="typedef"><name>LandingAction</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1a39babee29ba680422ea922504a465417" kind="typedef"><name>ReachingGoalSet</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1a84fe5b03b104adc3c3406bb0b6ffa190" kind="typedef"><name>ReachingGoalGuard</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1a6273a06430b7aa6088e25d9b78805f1a" kind="typedef"><name>ReachingGoalAbort</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1a3bec78d997dbc5ae5534c3b49c8127f5" kind="typedef"><name>ReachingGoalLand</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1a05673eb4ec343f36c1f3fb787ac26b94" kind="friend"><name>ActionFunctor</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1a9411581bb37b54467df520e3c73ceaf0" kind="friend"><name>GuardFunctor</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1a86a665e36420c3cbc2b45864e023f98a" kind="friend"><name>EventAgnosticActionFunctor</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1af372c36475bc4510af791f5cb66608ad" kind="friend"><name>EventAgnosticGuardFunctor</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1a8431e5208e24b80105d639281361a252" kind="variable"><name>robot_system_</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1a0f19247a261344e58dede909f598677f" kind="variable"><name>no_transition_event_index_</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1af2ccbab79c14bc6570091b49a2e61fff" kind="function"><name>get_no_transition_event_index</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1afea624ef452f4dd6f5380c96fd9555bb" kind="function"><name>on_entry</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1a86bc9dc7c6ab97285bb5c9ea06517da3" kind="function"><name>on_exit</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1a38a4d9fba9466fa36d012d297e8908ec" kind="function"><name>LogicStateMachineFrontEnd</name></member>
+    <member refid="classLogicStateMachineFrontEnd_1aa75b2a1500d4bfe052c5421aeefbf7ab" kind="function"><name>no_transition</name></member>
+  </compound>
+  <compound refid="classManualRPYTController" kind="class"><name>ManualRPYTController</name>
+    <member refid="classManualRPYTController_1ac85b5cc721914cb7d265a35b155037af" kind="function"><name>~ManualRPYTController</name></member>
+    <member refid="classManualRPYTController_1ae29c56af6d0bc913d357c7849201c8fb" kind="function"><name>runImplementation</name></member>
+    <member refid="classManualRPYTController_1a6c7f02df3c78f7ba63049c13aff65032" kind="function"><name>map</name></member>
+  </compound>
+  <compound refid="classManualRPYTControllerDroneConnector" kind="class"><name>ManualRPYTControllerDroneConnector</name>
+    <member refid="classManualRPYTControllerDroneConnector_1a84a01d9ad6b06c34513126089f89ccba" kind="variable"><name>drone_hardware_</name></member>
+    <member refid="classManualRPYTControllerDroneConnector_1a1e9d3f52b19ed5d89b00d6358f826f9b" kind="function"><name>ManualRPYTControllerDroneConnector</name></member>
+    <member refid="classManualRPYTControllerDroneConnector_1a6c47447c98dd1528703355f9f60f1d50" kind="function"><name>extractSensorData</name></member>
+    <member refid="classManualRPYTControllerDroneConnector_1a34bde89c4b4f2d0de000b4ccbfc719c4" kind="function"><name>sendHardwareCommands</name></member>
+  </compound>
+  <compound refid="classOnboardSystemHandler" kind="class"><name>OnboardSystemHandler</name>
+    <member refid="classOnboardSystemHandler_1afdb5595dbc8a7f6b20cdf688054c54cb" kind="variable"><name>nh_</name></member>
+    <member refid="classOnboardSystemHandler_1afdcac108a0ec9d6819dd466d9f6fb351" kind="variable"><name>config_</name></member>
+    <member refid="classOnboardSystemHandler_1adad64fd4ce2084f098acda5b49429421" kind="variable"><name>parser_loader</name></member>
+    <member refid="classOnboardSystemHandler_1a73a3c4d07639c00ce86588dc68de681f" kind="variable"><name>uav_hardware_</name></member>
+    <member refid="classOnboardSystemHandler_1a8d7e3ee9b42b14479aac3405eb0c21a9" kind="variable"><name>uav_system_</name></member>
+    <member refid="classOnboardSystemHandler_1a5e676302505de87500473d848f76c5bd" kind="variable"><name>logic_state_machine_</name></member>
+    <member refid="classOnboardSystemHandler_1a18f102d4c1bd58efaca001489cf9a183" kind="variable"><name>event_manager_</name></member>
+    <member refid="classOnboardSystemHandler_1a252480269a7ed7ec50c3efa822ff29bd" kind="variable"><name>state_machine_gui_connector_</name></member>
+    <member refid="classOnboardSystemHandler_1a141aad0e051602eae81fb82a2d8b14ec" kind="variable"><name>system_status_pub_</name></member>
+    <member refid="classOnboardSystemHandler_1a545f58466a9e1845589d338e9c9d24aa" kind="variable"><name>logic_state_machine_timer_</name></member>
+    <member refid="classOnboardSystemHandler_1ab559ece31d6c987345d7c6bd5ad438a7" kind="variable"><name>uav_controller_timer_</name></member>
+    <member refid="classOnboardSystemHandler_1a0e5a200d748864e44dd87fa6c8f2c74b" kind="variable"><name>status_timer_</name></member>
+    <member refid="classOnboardSystemHandler_1a50433d9368004a07ee1d410516f16d0f" kind="function"><name>OnboardSystemHandler</name></member>
+    <member refid="classOnboardSystemHandler_1a6ab804a5c415b7dcde04babd918738e2" kind="function"><name>OnboardSystemHandler</name></member>
+    <member refid="classOnboardSystemHandler_1afd53ef53f99eb8b8af8b15dd1b059eba" kind="function"><name>isConnected</name></member>
+    <member refid="classOnboardSystemHandler_1ad39e806fb8edd6281d10b8575345ad6d" kind="function"><name>getUAVData</name></member>
+  </compound>
+  <compound refid="structPosition" kind="struct"><name>Position</name>
+    <member refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kind="variable"><name>x</name></member>
+    <member refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kind="variable"><name>y</name></member>
+    <member refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kind="variable"><name>z</name></member>
+    <member refid="structPosition_1a369a577425f8ba02e8750d04b6a088db" kind="function"><name>Position</name></member>
+    <member refid="structPosition_1a039074b4b66e3b570ea2f4e14583b0e0" kind="function"><name>Position</name></member>
+    <member refid="structPosition_1abf82a72c9a5f64a4dfce9691bd3010ed" kind="function"><name>operator==</name></member>
+    <member refid="structPosition_1aac2ef88bfed1a5370bb4c2921046e9c0" kind="function"><name>operator!=</name></member>
+  </compound>
+  <compound refid="structPositionControlAbortActionFunctor__" kind="struct"><name>PositionControlAbortActionFunctor_</name>
+    <member refid="structPositionControlAbortActionFunctor___1a04152d311e51abb5b330ee74b3c29702" kind="function"><name>run</name></member>
+  </compound>
+  <compound refid="structPositionControlInternalActionFunctor__" kind="struct"><name>PositionControlInternalActionFunctor_</name>
+    <member refid="structPositionControlInternalActionFunctor___1a81589e5ecfba853969942b9842ac1563" kind="function"><name>run</name></member>
+  </compound>
+  <compound refid="classPositionControllerDroneConnector" kind="class"><name>PositionControllerDroneConnector</name>
+    <member refid="classPositionControllerDroneConnector_1a977de12cad1986c769b2641384b85aea" kind="variable"><name>drone_hardware_</name></member>
+    <member refid="classPositionControllerDroneConnector_1a12664821f9f9316f6343b16f3dc9f84f" kind="function"><name>PositionControllerDroneConnector</name></member>
+    <member refid="classPositionControllerDroneConnector_1a21859ad4bcc85a907e2e23456869b3d6" kind="function"><name>extractSensorData</name></member>
+    <member refid="classPositionControllerDroneConnector_1a826092eadfbbf9442fa1869fea98070d" kind="function"><name>sendHardwareCommands</name></member>
+  </compound>
+  <compound refid="structPositionControlTransitionActionFunctor__" kind="struct"><name>PositionControlTransitionActionFunctor_</name>
+    <member refid="structPositionControlTransitionActionFunctor___1a4970bb461809ffa30984e16902bb8aaa" kind="function"><name>run</name></member>
+  </compound>
+  <compound refid="structPositionControlTransitionGuardFunctor__" kind="struct"><name>PositionControlTransitionGuardFunctor_</name>
+    <member refid="structPositionControlTransitionGuardFunctor___1ad0334337a349f9964d0ba781e995dad6" kind="function"><name>guard</name></member>
+  </compound>
+  <compound refid="structPositionYaw" kind="struct"><name>PositionYaw</name>
+    <member refid="structPositionYaw_1a712a15ba9739cb5f4e31ea973074b8bf" kind="variable"><name>yaw</name></member>
+    <member refid="structPositionYaw_1a27f89c7703b62e5120c669822c98bcf1" kind="function"><name>PositionYaw</name></member>
+    <member refid="structPositionYaw_1a0a03ecfbad91c4c48a6aed44f4933a74" kind="function"><name>PositionYaw</name></member>
+    <member refid="structPositionYaw_1ae5642ce9e93710cf9cda7263511300f0" kind="function"><name>PositionYaw</name></member>
+    <member refid="structPositionYaw_1a74eb4415b12fe9c42e102e82d2bd52cb" kind="function"><name>operator==</name></member>
+    <member refid="structPositionYaw_1a9302e53f05d5d07d11dcdd1d0c23610b" kind="function"><name>operator!=</name></member>
+  </compound>
+  <compound refid="structRollPitchYawThrust" kind="struct"><name>RollPitchYawThrust</name>
+    <member refid="structRollPitchYawThrust_1a473205dda8a9c3cd39c7f20b9bf2573b" kind="variable"><name>r</name></member>
+    <member refid="structRollPitchYawThrust_1a5a48538eafec9fcfdfb5c3ff714a6044" kind="variable"><name>p</name></member>
+    <member refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" kind="variable"><name>y</name></member>
+    <member refid="structRollPitchYawThrust_1aa489ea694a9abb4b891e371d31e63ec4" kind="variable"><name>t</name></member>
+    <member refid="structRollPitchYawThrust_1ade35aec07cbe2f4639cbbe1b38e39c04" kind="function"><name>RollPitchYawThrust</name></member>
+    <member refid="structRollPitchYawThrust_1a910222ed6c81f1d4cf7b030fc3367e4e" kind="function"><name>RollPitchYawThrust</name></member>
+  </compound>
+  <compound refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger" kind="class"><name>aerial_autonomy::ros_event_trigger::RosEventTrigger</name>
+    <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1ad2e6e150ea166d252a7a40982875fe27" kind="variable"><name>status_signal</name></member>
+    <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1a9082897445ba520850cc7108aefe0d77" kind="variable"><name>pose_command_signal</name></member>
+    <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1ac1ff7e7fa3e8ac610473fa8c1e547279" kind="variable"><name>event_manager_name</name></member>
+    <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1ac24af24de20107643a194072bd64dbd8" kind="variable"><name>event_names_list</name></member>
+    <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1aa7e45c61e2f9407a82e1e03d83998e6e" kind="variable"><name>event_pub</name></member>
+    <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1adc9a3f404db853ef8e2b5b988bdaaacb" kind="variable"><name>pose_command_pub</name></member>
+    <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1a740d1aee68ed5c95110242f03ce79e5e" kind="function"><name>__init__</name></member>
+    <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1a62ba54708585892d5f227682954fc1c6" kind="function"><name>statusCallback</name></member>
+    <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1a7277f5df8fedc93bf3616535ea588ba8" kind="function"><name>triggerPoseCommand</name></member>
+    <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1aa7f5a5b057de80bf818642d851fabac3" kind="function"><name>triggerEvent</name></member>
+  </compound>
+  <compound refid="classSampleLogicStateMachine__" kind="class"><name>SampleLogicStateMachine_</name>
+    <member refid="classSampleLogicStateMachine___1a05673eb4ec343f36c1f3fb787ac26b94" kind="friend"><name>ActionFunctor</name></member>
+    <member refid="classSampleLogicStateMachine___1a9411581bb37b54467df520e3c73ceaf0" kind="friend"><name>GuardFunctor</name></member>
+    <member refid="classSampleLogicStateMachine___1a86a665e36420c3cbc2b45864e023f98a" kind="friend"><name>EventAgnosticActionFunctor</name></member>
+    <member refid="classSampleLogicStateMachine___1af372c36475bc4510af791f5cb66608ad" kind="friend"><name>EventAgnosticGuardFunctor</name></member>
+    <member refid="classSampleLogicStateMachine___1ad9d563e9bb505b603574111ef5aa1c01" kind="variable"><name>type_index_event_</name></member>
+    <member refid="classSampleLogicStateMachine___1a342b143058cca6f56daf44d89973a05f" kind="variable"><name>pose_event_</name></member>
+    <member refid="classSampleLogicStateMachine___1a9e76d7525a8b1bffd4596fdcad62d951" kind="variable"><name>robot_system_</name></member>
+    <member refid="classSampleLogicStateMachine___1a5450901d1fdbedd6368ea302322a5fb6" kind="function"><name>SampleLogicStateMachine_</name></member>
+    <member refid="classSampleLogicStateMachine___1af577b426ec630d48148ed6aab393b43e" kind="function"><name>process_event</name></member>
+    <member refid="classSampleLogicStateMachine___1a60ca43f8a484f1ab56669d0485479c47" kind="function"><name>process_event</name></member>
+    <member refid="classSampleLogicStateMachine___1a469a3cdffcce57a12c5b7890410b63e8" kind="function"><name>getProcessEventTypeId</name></member>
+    <member refid="classSampleLogicStateMachine___1a254ed914235117e9ffaa5ba8614335cb" kind="function"><name>getPoseEvent</name></member>
+  </compound>
+  <compound refid="classSampleParser" kind="class"><name>SampleParser</name>
+    <member refid="classSampleParser_1acbe747fdf67e6865b87c020757896022" kind="variable"><name>quad_data</name></member>
+    <member refid="classSampleParser_1a8cea9add13717649b00c4e916fe3b518" kind="function"><name>SampleParser</name></member>
+    <member refid="classSampleParser_1a50ed35fede29930ff853fe6ab175fad6" kind="function"><name>setRC</name></member>
+    <member refid="classSampleParser_1aaec0124f3a5a19e183438484f98db761" kind="function"><name>takeoff</name></member>
+    <member refid="classSampleParser_1a92ee9e3720b7c420714e2904f81a113a" kind="function"><name>land</name></member>
+    <member refid="classSampleParser_1ad057bfe380db45cda437f53cec2c267a" kind="function"><name>disarm</name></member>
+    <member refid="classSampleParser_1a265b674d9c0467ed919cff3f4df803b5" kind="function"><name>flowControl</name></member>
+    <member refid="classSampleParser_1abb19d034c771cbd02d1961d99ca35f98" kind="function"><name>calibrateimubias</name></member>
+    <member refid="classSampleParser_1a95c4ea3034bcd431660f5ee2acc13e3c" kind="function"><name>cmdrpythrust</name></member>
+    <member refid="classSampleParser_1a52ea7095057fa73ae1665a8dd6ccd0d0" kind="function"><name>cmdvelguided</name></member>
+    <member refid="classSampleParser_1a790a0041665973477028493cf51b8059" kind="function"><name>cmdwaypoint</name></member>
+    <member refid="classSampleParser_1a20f989659a8d7d65574d37460a1e9f47" kind="function"><name>grip</name></member>
+    <member refid="classSampleParser_1ab062fe44a82f5490e5c92e8512ede9a2" kind="function"><name>reset_attitude</name></member>
+    <member refid="classSampleParser_1a955965dff0214bbb8e720cab858f1078" kind="function"><name>setmode</name></member>
+    <member refid="classSampleParser_1acaf99fced8fc57433781e766dcb931cf" kind="function"><name>initialize</name></member>
+    <member refid="classSampleParser_1af1be68e602c959d8b1ab29d651ed379c" kind="function"><name>getquaddata</name></member>
+    <member refid="classSampleParser_1afc4af7450f685341c09e2c00af95ff73" kind="function"><name>~SampleParser</name></member>
+    <member refid="classSampleParser_1a293772680222eb4f7c49c26d42e69eaa" kind="function"><name>setBatteryPercent</name></member>
+    <member refid="classSampleParser_1a98153bd7644b1ca0eb12b442ec54034f" kind="function"><name>setaltitude</name></member>
+    <member refid="classSampleParser_1aaf4d068b2dabd1ca8da12f7109b288c4" kind="function"><name>setlogdir</name></member>
+    <member refid="classSampleParser_1a78923bbce68debb4d035a2d8b25f7d6d" kind="function"><name>controllog</name></member>
+  </compound>
+  <compound refid="classStateMachineGUIConnector" kind="class"><name>StateMachineGUIConnector</name>
+    <member refid="classStateMachineGUIConnector_1af6a2793484637b440b64be71c48ffe65" kind="variable"><name>pose_command_sub_</name></member>
+    <member refid="classStateMachineGUIConnector_1a2da60ef3619c60db752f2ee08fce2208" kind="variable"><name>event_manager_sub_</name></member>
+    <member refid="classStateMachineGUIConnector_1a03037ffd6e185032310b27c4c0f2976b" kind="variable"><name>event_manager_</name></member>
+    <member refid="classStateMachineGUIConnector_1af28f316696140fc8aea75169ea980563" kind="variable"><name>logic_state_machine_</name></member>
+    <member refid="classStateMachineGUIConnector_1a0b17b16e283a7fd8215e5bc5a96fe511" kind="function"><name>StateMachineGUIConnector</name></member>
+    <member refid="classStateMachineGUIConnector_1a41ccee1af3a8f99ca533694ebdf3085c" kind="function"><name>isEventManagerConnected</name></member>
+    <member refid="classStateMachineGUIConnector_1a4c321da086299de9c33583255c4666f3" kind="function"><name>isPoseCommandConnected</name></member>
+    <member refid="classStateMachineGUIConnector_1a1e609fe276ab507699acab1b71d959b3" kind="function"><name>eventCallback</name></member>
+    <member refid="classStateMachineGUIConnector_1abd1afe58d94b7ef6d6533d02050ef5bb" kind="function"><name>poseCommandCallback</name></member>
+  </compound>
+  <compound refid="classSystemStatusPublisher" kind="class"><name>SystemStatusPublisher</name>
+    <member refid="classSystemStatusPublisher_1a8a9b2c7348d5d05d43ce4a8161e09fde" kind="variable"><name>nh_</name></member>
+    <member refid="classSystemStatusPublisher_1ac0bc7260ba140260c09795f4cfa008de" kind="variable"><name>system_status_pub_</name></member>
+    <member refid="classSystemStatusPublisher_1ac5b7265bac3688fa047e5f89d95fa659" kind="variable"><name>uav_system_</name></member>
+    <member refid="classSystemStatusPublisher_1a54eae304176c7b423e1a795b91e33469" kind="variable"><name>logic_state_machine_</name></member>
+    <member refid="classSystemStatusPublisher_1ad02673651f93382972c5c5ea38b98e62" kind="function"><name>SystemStatusPublisher</name></member>
+    <member refid="classSystemStatusPublisher_1a66f73a2e489face69d6f9fc16abb15aa" kind="function"><name>publishSystemStatus</name></member>
+  </compound>
+  <compound refid="structTakeoffAbortActionFunctor__" kind="struct"><name>TakeoffAbortActionFunctor_</name>
+    <member refid="structTakeoffAbortActionFunctor___1a8366919888a54d029b3856c3a433843d" kind="function"><name>run</name></member>
+  </compound>
+  <compound refid="structTakeoffInternalActionFunctor__" kind="struct"><name>TakeoffInternalActionFunctor_</name>
+    <member refid="structTakeoffInternalActionFunctor___1a2118df6e326662cd0088344499e49696" kind="function"><name>run</name></member>
+  </compound>
+  <compound refid="structTakeoffTransitionActionFunctor__" kind="struct"><name>TakeoffTransitionActionFunctor_</name>
+    <member refid="structTakeoffTransitionActionFunctor___1aaf8ba8ac8cf0f07e2978da244b5efb2b" kind="function"><name>run</name></member>
+  </compound>
+  <compound refid="structTakeoffTransitionGuardFunctor__" kind="struct"><name>TakeoffTransitionGuardFunctor_</name>
+    <member refid="structTakeoffTransitionGuardFunctor___1abef370db0002076671a6f9c2adb9bbaa" kind="function"><name>guard</name></member>
+  </compound>
+  <compound refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine" kind="class"><name>boost::msm::back::thread_safe_state_machine</name>
+    <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1ae972fb5548b4412f2bf47bcca8637cdf" kind="variable"><name>process_event_mutex_</name></member>
+    <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a83a2deae1f2169f1234e430beb3b8a95" kind="friend"><name>boost::msm::back::state_machine</name></member>
+    <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a3306dad625847fa2192b045a7789ca5f" kind="friend"><name>boost::msm::back::thread_safe_state_machine</name></member>
+    <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a5b5a31229aed12a1f7036b8b46de0884" kind="function"><name>thread_safe_state_machine</name></member>
+    <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1ad8d554411680bddd9959406c42407c25" kind="function"><name>thread_safe_state_machine</name></member>
+    <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a9f38e619a54ce414c4ef737e8873928d" kind="function"><name>process_event</name></member>
+  </compound>
+  <compound refid="structLogicStateMachineFrontEnd_1_1transition__table" kind="struct"><name>LogicStateMachineFrontEnd::transition_table</name>
+  </compound>
+  <compound refid="classTypeMap" kind="class"><name>TypeMap</name>
+    <member refid="classTypeMap_1a63cc1d01ecc1f771cc36436621e1c32b" kind="variable"><name>object_storage_map_</name></member>
+    <member refid="classTypeMap_1a738b13adaac930d128c1a81b08628b9e" kind="function"><name>setObject</name></member>
+    <member refid="classTypeMap_1af45351278345a92d2d2fb13a977858aa" kind="function"><name>getObject</name></member>
+  </compound>
+  <compound refid="classUAVSystem" kind="class"><name>UAVSystem</name>
+    <member refid="classUAVSystem_1ab47721beaeb776063b46f7c3c7721b7a" kind="variable"><name>drone_hardware_</name></member>
+    <member refid="classUAVSystem_1a496b85151250baabd22fbf2c9ce3ef0f" kind="variable"><name>builtin_position_controller_</name></member>
+    <member refid="classUAVSystem_1afc89fdbd7810d2b2ccffcdfd01e76745" kind="variable"><name>builtin_velocity_controller_</name></member>
+    <member refid="classUAVSystem_1abd95f4d3430d9c01b76d5d1e183241ff" kind="variable"><name>manual_rpyt_controller_</name></member>
+    <member refid="classUAVSystem_1a56a103c8b9c6785d6859910a81b28d86" kind="variable"><name>position_controller_drone_connector_</name></member>
+    <member refid="classUAVSystem_1ae34d2f617bd1bf3ad0ad77340765b3c1" kind="variable"><name>velocity_controller_drone_connector_</name></member>
+    <member refid="classUAVSystem_1a1886a8c9adb0f7102a881079a27b19d9" kind="variable"><name>rpyt_controller_drone_connector_</name></member>
+    <member refid="classUAVSystem_1aaef48835d4bd228ec6001a602c9f7de7" kind="variable"><name>controller_hardware_connector_container_</name></member>
+    <member refid="classUAVSystem_1aca1ff6cb6b1ce7563671d2ecb0eba435" kind="variable"><name>active_controllers_</name></member>
+    <member refid="classUAVSystem_1a6c06b7d120b5b950d70fbcf339f6c519" kind="variable"><name>thread_mutexes_</name></member>
+    <member refid="classUAVSystem_1a9bdf636000ef7cd55612bc2c2f66d60b" kind="variable"><name>config_</name></member>
+    <member refid="classUAVSystem_1a99ac3986113a03546b8dc4bcc73d65b0" kind="function"><name>UAVSystem</name></member>
+    <member refid="classUAVSystem_1a9218f794905e832cc356b5e4b659e1da" kind="function"><name>UAVSystem</name></member>
+    <member refid="classUAVSystem_1a8a1cbcd8770841ee2a30365f4a75bf34" kind="function"><name>getUAVData</name></member>
+    <member refid="classUAVSystem_1a7f010477b67bfeb5d6d32c0f10630b8e" kind="function"><name>takeOff</name></member>
+    <member refid="classUAVSystem_1ae1bac31ca121a54cb1e3ed7fac322993" kind="function"><name>land</name></member>
+    <member refid="classUAVSystem_1a6aae5b94424be17ed6bafeaa4f64f416" kind="function"><name>setGoal</name></member>
+    <member refid="classUAVSystem_1a5381ca45049c8c92e872a80a2974339b" kind="function"><name>getGoal</name></member>
+    <member refid="classUAVSystem_1a90634eb2ac4c515c9065ce85cc21dc19" kind="function"><name>abortController</name></member>
+    <member refid="classUAVSystem_1ad3d60a491f325261a1acebdadd7478a6" kind="function"><name>runActiveController</name></member>
+    <member refid="classUAVSystem_1ab0840278177ee64082ee05937d028421" kind="function"><name>getSystemStatus</name></member>
+    <member refid="classUAVSystem_1a89d67e42aec09dd65a23f39462a8202e" kind="function"><name>getConfiguration</name></member>
+  </compound>
+  <compound refid="structVelocity" kind="struct"><name>Velocity</name>
+    <member refid="structVelocity_1a99a9f9580c8a025a2c7a18890993b56a" kind="variable"><name>x</name></member>
+    <member refid="structVelocity_1ae1282d20e14cc4be4aac24ab4e1e3e5c" kind="variable"><name>y</name></member>
+    <member refid="structVelocity_1aaebcd198674f7adcb61f9bb981dab465" kind="variable"><name>z</name></member>
+    <member refid="structVelocity_1a852088c8d4dbb7e1beb0d793a57e9d11" kind="function"><name>Velocity</name></member>
+    <member refid="structVelocity_1adb5f7fd7a3e1811b44c9b4020c31987c" kind="function"><name>Velocity</name></member>
+    <member refid="structVelocity_1a4d148dc8c7581af4a1a16116ec3d403a" kind="function"><name>operator==</name></member>
+    <member refid="structVelocity_1a8aaa79fd50b42d41e06033be8baf4c80" kind="function"><name>operator!=</name></member>
+  </compound>
+  <compound refid="structVelocityYaw" kind="struct"><name>VelocityYaw</name>
+    <member refid="structVelocityYaw_1a5bef45a2807a9814495080d2e5603ce4" kind="variable"><name>yaw</name></member>
+    <member refid="structVelocityYaw_1a1aa3de4b3e3d7510c233ebd54b2fe79d" kind="function"><name>VelocityYaw</name></member>
+    <member refid="structVelocityYaw_1a21a3493e39f5256972abe5f97315c80b" kind="function"><name>VelocityYaw</name></member>
+    <member refid="structVelocityYaw_1ab4ebb3f3782c9541dafb73c4e3e82196" kind="function"><name>VelocityYaw</name></member>
+    <member refid="structVelocityYaw_1ad546c6bf2a5483fdb21387e0df040acb" kind="function"><name>operator==</name></member>
+    <member refid="structVelocityYaw_1a239edcca362f6a0fababa7fb1767e7b6" kind="function"><name>operator!=</name></member>
+  </compound>
+  <compound refid="namespaceaerial__autonomy" kind="namespace"><name>aerial_autonomy</name>
+  </compound>
+  <compound refid="namespaceaerial__autonomy_1_1aerial__autonomy__gui" kind="namespace"><name>aerial_autonomy::aerial_autonomy_gui</name>
+  </compound>
+  <compound refid="namespaceaerial__autonomy_1_1ros__event__trigger" kind="namespace"><name>aerial_autonomy::ros_event_trigger</name>
+    <member refid="namespaceaerial__autonomy_1_1ros__event__trigger_1aba3ce776fb18b017fde0d8c6257a4b0a" kind="function"><name>parse_event_file</name></member>
+  </compound>
+  <compound refid="namespacebasic__events" kind="namespace"><name>basic_events</name>
+  </compound>
+  <compound refid="namespaceboost" kind="namespace"><name>boost</name>
+  </compound>
+  <compound refid="namespaceboost_1_1msm" kind="namespace"><name>boost::msm</name>
+  </compound>
+  <compound refid="namespaceboost_1_1msm_1_1back" kind="namespace"><name>boost::msm::back</name>
+  </compound>
+  <compound refid="namespacegoogle_1_1protobuf" kind="namespace"><name>google::protobuf</name>
+  </compound>
+  <compound refid="namespacepython__qt__binding_1_1QtCore" kind="namespace"><name>python_qt_binding::QtCore</name>
+  </compound>
+  <compound refid="base__functors_8h" kind="file"><name>base_functors.h</name>
+  </compound>
+  <compound refid="basic__states_8h" kind="file"><name>basic_states.h</name>
+  </compound>
+  <compound refid="hovering__functors_8h" kind="file"><name>hovering_functors.h</name>
+    <member refid="hovering__functors_8h_1a4252f403b3bcd2a850cf271512d9c6ff" kind="typedef"><name>Hovering_</name></member>
+  </compound>
+  <compound refid="land__functors_8h" kind="file"><name>land_functors.h</name>
+    <member refid="land__functors_8h_1a84627965433a60de431758bddec005c3" kind="typedef"><name>Landing_</name></member>
+  </compound>
+  <compound refid="position__control__functors_8h" kind="file"><name>position_control_functors.h</name>
+    <member refid="position__control__functors_8h_1af380346c24b534da18813f70217ea50f" kind="typedef"><name>ReachingGoal_</name></member>
+  </compound>
+  <compound refid="takeoff__functors_8h" kind="file"><name>takeoff_functors.h</name>
+    <member refid="takeoff__functors_8h_1ab6710f3cb12b7653eedcd3a2215d3228" kind="typedef"><name>TakingOff_</name></member>
+  </compound>
+  <compound refid="async__timer_8h" kind="file"><name>async_timer.h</name>
+  </compound>
+  <compound refid="thread__safe__state__machine_8h" kind="file"><name>thread_safe_state_machine.h</name>
+  </compound>
+  <compound refid="type__map_8h" kind="file"><name>type_map.h</name>
+  </compound>
+  <compound refid="base__controller__hardware__connector_8h" kind="file"><name>base_controller_hardware_connector.h</name>
+    <member refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kind="enum"><name>HardwareType</name></member>
+    <member refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7aa6902d76cea698982754404da77e5e08a" kind="enumvalue"><name>UAV</name></member>
+    <member refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7aa551c5c03a1a91f2cf90e0d9a9b6dd378" kind="enumvalue"><name>Arm</name></member>
+  </compound>
+  <compound refid="basic__controller__hardware__connectors_8h" kind="file"><name>basic_controller_hardware_connectors.h</name>
+  </compound>
+  <compound refid="builtin__velocity__controller__drone__connector_8h" kind="file"><name>builtin_velocity_controller_drone_connector.h</name>
+  </compound>
+  <compound refid="manual__rpyt__controller__drone__connector_8h" kind="file"><name>manual_rpyt_controller_drone_connector.h</name>
+  </compound>
+  <compound refid="position__controller__drone__connector_8h" kind="file"><name>position_controller_drone_connector.h</name>
+  </compound>
+  <compound refid="base__controller_8h" kind="file"><name>base_controller.h</name>
+  </compound>
+  <compound refid="basic__controllers_8h" kind="file"><name>basic_controllers.h</name>
+  </compound>
+  <compound refid="builtin__controller_8h" kind="file"><name>builtin_controller.h</name>
+  </compound>
+  <compound refid="manual__rpyt__controller_8h" kind="file"><name>manual_rpyt_controller.h</name>
+  </compound>
+  <compound refid="base__state_8h" kind="file"><name>base_state.h</name>
+  </compound>
+  <compound refid="onboard__system__handler_8h" kind="file"><name>onboard_system_handler.h</name>
+  </compound>
+  <compound refid="uav__system_8h" kind="file"><name>uav_system.h</name>
+  </compound>
+  <compound refid="basic__state__machine_8h" kind="file"><name>basic_state_machine.h</name>
+    <member refid="basic__state__machine_8h_1ab0b6ef21baf57684550a2f05c771bd86" kind="typedef"><name>LogicStateMachine</name></member>
+    <member refid="basic__state__machine_8h_1abbfdd59e79acc3bb81b8feea16ffb827" kind="variable"><name>state_names</name></member>
+    <member refid="basic__state__machine_8h_1afcac32ee5e97ea2d2557a67769cfeaca" kind="function"><name>pstate</name></member>
+  </compound>
+  <compound refid="state__machine__gui__connector_8h" kind="file"><name>state_machine_gui_connector.h</name>
+  </compound>
+  <compound refid="system__status__publisher_8h" kind="file"><name>system_status_publisher.h</name>
+  </compound>
+  <compound refid="sample__logic__state__machine_8h" kind="file"><name>sample_logic_state_machine.h</name>
+    <member refid="sample__logic__state__machine_8h_1ad69a3ec43d8cc7edd1b681dc19da522a" kind="typedef"><name>SampleLogicStateMachine</name></member>
+    <member refid="sample__logic__state__machine_8h_1a69ac54839ed99750a171a5a7023c8e18" kind="typedef"><name>UAVLogicStateMachine</name></member>
+  </compound>
+  <compound refid="sample__parser_8h" kind="file"><name>sample_parser.h</name>
+  </compound>
+  <compound refid="completed__event_8h" kind="file"><name>completed_event.h</name>
+  </compound>
+  <compound refid="empty__goal_8h" kind="file"><name>empty_goal.h</name>
+  </compound>
+  <compound refid="empty__sensor_8h" kind="file"><name>empty_sensor.h</name>
+  </compound>
+  <compound refid="joysticks_8h" kind="file"><name>joysticks.h</name>
+  </compound>
+  <compound refid="joysticks__yaw_8h" kind="file"><name>joysticks_yaw.h</name>
+  </compound>
+  <compound refid="position_8h" kind="file"><name>position.h</name>
+  </compound>
+  <compound refid="position__yaw_8h" kind="file"><name>position_yaw.h</name>
+  </compound>
+  <compound refid="roll__pitch__yaw__thrust_8h" kind="file"><name>roll_pitch_yaw_thrust.h</name>
+  </compound>
+  <compound refid="velocity_8h" kind="file"><name>velocity.h</name>
+  </compound>
+  <compound refid="velocity__yaw_8h" kind="file"><name>velocity_yaw.h</name>
+  </compound>
+  <compound refid="background_8md" kind="file"><name>background.md</name>
+  </compound>
+  <compound refid="class__groups_8md" kind="file"><name>class_groups.md</name>
+  </compound>
+  <compound refid="creating__state__machine_8md" kind="file"><name>creating_state_machine.md</name>
+  </compound>
+  <compound refid="____init_____8py" kind="file"><name>__init__.py</name>
+  </compound>
+  <compound refid="aerial__autonomy__gui_8py" kind="file"><name>aerial_autonomy_gui.py</name>
+  </compound>
+  <compound refid="ros__event__trigger_8py" kind="file"><name>ros_event_trigger.py</name>
+  </compound>
+  <compound refid="aerial__autonomy__node_8cpp" kind="file"><name>aerial_autonomy_node.cpp</name>
+    <member refid="aerial__autonomy__node_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="async__timer_8cpp" kind="file"><name>async_timer.cpp</name>
+  </compound>
+  <compound refid="builtin__velocity__controller__drone__connector_8cpp" kind="file"><name>builtin_velocity_controller_drone_connector.cpp</name>
+  </compound>
+  <compound refid="manual__rpyt__controller__drone__connector_8cpp" kind="file"><name>manual_rpyt_controller_drone_connector.cpp</name>
+  </compound>
+  <compound refid="position__controller__drone__connector_8cpp" kind="file"><name>position_controller_drone_connector.cpp</name>
+  </compound>
+  <compound refid="manual__rpyt__controller_8cpp" kind="file"><name>manual_rpyt_controller.cpp</name>
+  </compound>
+  <compound refid="event__publish__node_8cpp" kind="file"><name>event_publish_node.cpp</name>
+    <member refid="event__publish__node_8cpp_1a1992fa6885475be5d1546e3a61f6e495" kind="function"><name>sigintHandler</name></member>
+    <member refid="event__publish__node_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="md_markdown_scripts_class_groups" kind="page"><name>md_markdown_scripts_class_groups</name>
+  </compound>
+  <compound refid="md_markdown_scripts_creating_state_machine" kind="page"><name>md_markdown_scripts_creating_state_machine</name>
+  </compound>
+  <compound refid="todo" kind="page"><name>todo</name>
+  </compound>
+  <compound refid="dir_93d27638e58ab29a9245462ac4a60f23" kind="dir"><name>include/aerial_autonomy/actions_guards</name>
+  </compound>
+  <compound refid="dir_00a152b24bd55ac3bb1e1e4479c1997e" kind="dir"><name>src/aerial_autonomy</name>
+  </compound>
+  <compound refid="dir_aa08a9b8af1d5448e3e7b8b8a4c3ba6b" kind="dir"><name>include/aerial_autonomy</name>
+  </compound>
+  <compound refid="dir_8ecd37509ba98a063f23f24d5940d6f2" kind="dir"><name>src/common</name>
+  </compound>
+  <compound refid="dir_dbb1c79ada1dfd68f9623b1c747f82ff" kind="dir"><name>include/aerial_autonomy/common</name>
+  </compound>
+  <compound refid="dir_91ac798137b3e96702b55b367c2564dd" kind="dir"><name>src/controller_hardware_connectors</name>
+  </compound>
+  <compound refid="dir_9cda8c83b957c25fe782498293794ddb" kind="dir"><name>include/aerial_autonomy/controller_hardware_connectors</name>
+  </compound>
+  <compound refid="dir_19db5a8c0e38c93ea54aacd6e857dd45" kind="dir"><name>src/controllers</name>
+  </compound>
+  <compound refid="dir_c60cdb5df3bce9a4e2c7dcb3b5f30e66" kind="dir"><name>include/aerial_autonomy/controllers</name>
+  </compound>
+  <compound refid="dir_2f8e754ab99ce0b8ad0265163734387c" kind="dir"><name>include</name>
+  </compound>
+  <compound refid="dir_cd22a1489c1d142b774176c85af6b0b9" kind="dir"><name>include/aerial_autonomy/logic_states</name>
+  </compound>
+  <compound refid="dir_90d3362616e9e98c240b7307f05ce702" kind="dir"><name>include/aerial_autonomy/robot_systems</name>
+  </compound>
+  <compound refid="dir_d2b55a6b175e0275230d5abd8f9d8a8b" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="dir_d8ab70ff61e6d0207b320809bd677f88" kind="dir"><name>include/aerial_autonomy/state_machines</name>
+  </compound>
+  <compound refid="dir_39729513a4eea0c841aa121f5d628f40" kind="dir"><name>src/tests</name>
+  </compound>
+  <compound refid="dir_1a93785269547db5d64d92b8e23e2cd7" kind="dir"><name>include/aerial_autonomy/tests</name>
+  </compound>
+  <compound refid="dir_aed677a2914777290161bb44a2b030e5" kind="dir"><name>include/aerial_autonomy/types</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

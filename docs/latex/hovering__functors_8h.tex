@@ -1,0 +1,48 @@
+\hypertarget{hovering__functors_8h}{\section{include/aerial\-\_\-autonomy/actions\-\_\-guards/hovering\-\_\-functors.h File Reference}
+\label{hovering__functors_8h}\index{include/aerial\-\_\-autonomy/actions\-\_\-guards/hovering\-\_\-functors.\-h@{include/aerial\-\_\-autonomy/actions\-\_\-guards/hovering\-\_\-functors.\-h}}
+}
+{\ttfamily \#include $<$aerial\-\_\-autonomy/actions\-\_\-guards/base\-\_\-functors.\-h$>$}\\*
+{\ttfamily \#include $<$aerial\-\_\-autonomy/basic\-\_\-events.\-h$>$}\\*
+{\ttfamily \#include $<$aerial\-\_\-autonomy/logic\-\_\-states/base\-\_\-state.\-h$>$}\\*
+{\ttfamily \#include $<$aerial\-\_\-autonomy/robot\-\_\-systems/uav\-\_\-system.\-h$>$}\\*
+{\ttfamily \#include $<$glog/logging.\-h$>$}\\*
+{\ttfamily \#include $<$parsernode/common.\-h$>$}\\*
+Include dependency graph for hovering\-\_\-functors.\-h\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hovering__functors_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{hovering__functors_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structHoveringInternalActionFunctor__}{Hovering\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+\begin{DoxyCompactList}\small\item\em Internal action when hovering. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Logic\-State\-Machine\-T $>$ }\\using \hyperlink{hovering__functors_8h_a4252f403b3bcd2a850cf271512d9c6ff}{Hovering\-\_\-} = \hyperlink{classBaseState}{Base\-State}$<$ \hyperlink{classUAVSystem}{U\-A\-V\-System}, Logic\-State\-Machine\-T, \hyperlink{structHoveringInternalActionFunctor__}{Hovering\-Internal\-Action\-Functor\-\_\-}$<$ Logic\-State\-Machine\-T $>$$>$
+\begin{DoxyCompactList}\small\item\em Hovering state that uses internal action. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\hypertarget{hovering__functors_8h_a4252f403b3bcd2a850cf271512d9c6ff}{\index{hovering\-\_\-functors.\-h@{hovering\-\_\-functors.\-h}!Hovering\-\_\-@{Hovering\-\_\-}}
+\index{Hovering\-\_\-@{Hovering\-\_\-}!hovering_functors.h@{hovering\-\_\-functors.\-h}}
+\subsubsection[{Hovering\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Logic\-State\-Machine\-T $>$ using {\bf Hovering\-\_\-} =  {\bf Base\-State}$<${\bf U\-A\-V\-System}, Logic\-State\-Machine\-T, {\bf Hovering\-Internal\-Action\-Functor\-\_\-}$<$Logic\-State\-Machine\-T$>$$>$}}\label{hovering__functors_8h_a4252f403b3bcd2a850cf271512d9c6ff}
+
+
+Hovering state that uses internal action. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Logic\-State\-Machine\-T} & Logic state machine used to process events \\
+\hline
+\end{DoxyTemplParams}

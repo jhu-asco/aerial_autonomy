@@ -1,0 +1,84 @@
+\hypertarget{structLandInternalActionFunctor__}{\section{Land\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$ Struct Template Reference}
+\label{structLandInternalActionFunctor__}\index{Land\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$@{Land\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}}
+}
+
+
+Internal action to figure out when landing is complete.  
+
+
+
+
+{\ttfamily \#include $<$land\-\_\-functors.\-h$>$}
+
+
+
+Inheritance diagram for Land\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{structLandInternalActionFunctor____inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Land\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{structLandInternalActionFunctor____coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{structLandInternalActionFunctor___a4557b02d6cfa6712b610337cb606f54b}{run} (\hyperlink{classUAVSystem}{U\-A\-V\-System} \&robot\-\_\-system, Logic\-State\-Machine\-T \&logic\-\_\-state\-\_\-machine)
+\begin{DoxyCompactList}\small\item\em Internal function to check when landing is complete. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Logic\-State\-Machine\-T$>$struct Land\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+
+Internal action to figure out when landing is complete. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000006}{Todo}](Gowtham) How to abort Land??\end{DoxyRefDesc}
+
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Logic\-State\-Machine\-T} & Logic state machine used to process events \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{structLandInternalActionFunctor___a4557b02d6cfa6712b610337cb606f54b}{\index{Land\-Internal\-Action\-Functor\-\_\-@{Land\-Internal\-Action\-Functor\-\_\-}!run@{run}}
+\index{run@{run}!LandInternalActionFunctor_@{Land\-Internal\-Action\-Functor\-\_\-}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Logic\-State\-Machine\-T $>$ void {\bf Land\-Internal\-Action\-Functor\-\_\-}$<$ Logic\-State\-Machine\-T $>$\-::run (
+\begin{DoxyParamCaption}
+\item[{{\bf U\-A\-V\-System} \&}]{robot\-\_\-system, }
+\item[{Logic\-State\-Machine\-T \&}]{logic\-\_\-state\-\_\-machine}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{structLandInternalActionFunctor___a4557b02d6cfa6712b610337cb606f54b}
+
+
+Internal function to check when landing is complete. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em robot\-\_\-system} & robot system to get sensor data \\
+\hline
+{\em logic\-\_\-state\-\_\-machine} & logic state machine to trigger events \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000008}{Todo}](Gowtham) Can also use uav status here \end{DoxyRefDesc}
+
+
+Implements \hyperlink{structEventAgnosticActionFunctor_a53a48938d68370ff2ef262222565ffcf}{Event\-Agnostic\-Action\-Functor$<$ U\-A\-V\-System, Logic\-State\-Machine\-T $>$}.
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/actions\-\_\-guards/\hyperlink{land__functors_8h}{land\-\_\-functors.\-h}\end{DoxyCompactItemize}

@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structGuardFunctor" kind="struct" prot="public" abstract="yes">
+    <compoundname>GuardFunctor</compoundname>
+    <includes refid="base__functors_8h" local="no">base_functors.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class</type>
+        <declname>EventT</declname>
+        <defname>EventT</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>RobotSystemT</declname>
+        <defname>RobotSystemT</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>LogicStateMachineT</declname>
+        <defname>LogicStateMachineT</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structGuardFunctor_1a9f023aa88503d6127cc8280d7dc733b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool GuardFunctor&lt; EventT, RobotSystemT, LogicStateMachineT &gt;::guard</definition>
+        <argsstring>(EventT const &amp;event, RobotSystemT &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)=0</argsstring>
+        <name>guard</name>
+        <reimplementedby refid="structPositionControlTransitionGuardFunctor___1ad0334337a349f9964d0ba781e995dad6">guard</reimplementedby>
+        <param>
+          <type>EventT const &amp;</type>
+          <declname>event</declname>
+        </param>
+        <param>
+          <type>RobotSystemT &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <param>
+          <type>LogicStateMachineT &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <briefdescription>
+<para>Override this guard function for different sub classes. This function decides whether to call the run function for each state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Provides sensor data and allows for controlling hardware </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend of logic State Machine. can send events using this. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event triggering the action </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="82" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structGuardFunctor_1a42b30d1737ceca71bfe47a9bb525ceda" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class FSM</type>
+          </param>
+          <param>
+            <type>class SourceState</type>
+          </param>
+          <param>
+            <type>class TargetState</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool GuardFunctor&lt; EventT, RobotSystemT, LogicStateMachineT &gt;::operator()</definition>
+        <argsstring>(EventT const &amp;event, FSM &amp;logic_state_machine, SourceState &amp;, TargetState &amp;)</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>EventT const &amp;</type>
+          <declname>event</declname>
+        </param>
+        <param>
+          <type>FSM &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <param>
+          <type>SourceState &amp;</type>
+        </param>
+        <param>
+          <type>TargetState &amp;</type>
+        </param>
+        <briefdescription>
+<para>operator () Internally calls guard function </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend of logic State Machine. can send events using this. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event triggering the action </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the result of checking guard for the state </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="92" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="92" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="structGuardFunctor_1a3876b6e5028dcdc35ac786322e8afca3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual GuardFunctor&lt; EventT, RobotSystemT, LogicStateMachineT &gt;::~GuardFunctor</definition>
+        <argsstring>()</argsstring>
+        <name>~GuardFunctor</name>
+        <briefdescription>
+<para>Destructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="110" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="110" bodyend="110"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Action Functor for a given event, robot system, state machine. </para>    </briefdescription>
+    <detaileddescription>
+<para>This class provides guard function for state transitions Derived states have to implement the specific guard function behavior using this base class.</para><para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>EventT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event triggering this action </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RobotSystemT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The robot system used in the guard check </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The logic state machine used to retrieve robot system </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="72" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="72" bodyend="111"/>
+    <listofallmembers>
+      <member refid="structGuardFunctor_1a9f023aa88503d6127cc8280d7dc733b8" prot="public" virt="pure-virtual"><scope>GuardFunctor</scope><name>guard</name></member>
+      <member refid="structGuardFunctor_1a42b30d1737ceca71bfe47a9bb525ceda" prot="public" virt="non-virtual"><scope>GuardFunctor</scope><name>operator()</name></member>
+      <member refid="structGuardFunctor_1a3876b6e5028dcdc35ac786322e8afca3" prot="public" virt="virtual"><scope>GuardFunctor</scope><name>~GuardFunctor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

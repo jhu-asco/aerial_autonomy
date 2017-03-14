@@ -1,0 +1,101 @@
+\hypertarget{structEventAgnosticGuardFunctor}{\section{Event\-Agnostic\-Guard\-Functor$<$ Robot\-System\-T, Logic\-State\-Machine\-T $>$ Struct Template Reference}
+\label{structEventAgnosticGuardFunctor}\index{Event\-Agnostic\-Guard\-Functor$<$ Robot\-System\-T, Logic\-State\-Machine\-T $>$@{Event\-Agnostic\-Guard\-Functor$<$ Robot\-System\-T, Logic\-State\-Machine\-T $>$}}
+}
+
+
+Guard functor that does not require the event triggering it.  
+
+
+
+
+{\ttfamily \#include $<$base\-\_\-functors.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual bool \hyperlink{structEventAgnosticGuardFunctor_ad97196f6a607d199d6dbd56156b8dd8c}{guard} (Robot\-System\-T \&robot\-\_\-system, Logic\-State\-Machine\-T \&logic\-\_\-state\-\_\-machine)=0
+\begin{DoxyCompactList}\small\item\em Override this run function for different sub classes. This function performs the logic checking for each state. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Event\-T , class F\-S\-M , class Source\-State , class Target\-State $>$ }\\bool \hyperlink{structEventAgnosticGuardFunctor_a775411c4c4e0815298200f895af3c02b}{operator()} (Event\-T const \&, F\-S\-M \&logic\-\_\-state\-\_\-machine, Source\-State \&, Target\-State \&)
+\begin{DoxyCompactList}\small\item\em operator () Internally calls run function \end{DoxyCompactList}\item 
+virtual \hyperlink{structEventAgnosticGuardFunctor_aa339ada7b22b27bc6d384445d109f4e6}{$\sim$\-Event\-Agnostic\-Guard\-Functor} ()
+\begin{DoxyCompactList}\small\item\em virtual destructor to get polymorphism \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Robot\-System\-T, class Logic\-State\-Machine\-T$>$struct Event\-Agnostic\-Guard\-Functor$<$ Robot\-System\-T, Logic\-State\-Machine\-T $>$}
+
+Guard functor that does not require the event triggering it. 
+
+This action functor performs the same guard check irrespective of the event triggering it.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Robot\-System\-T} & The robot system used in the guard \\
+\hline
+{\em Logic\-State\-Machine\-T} & The logic state machine used to retrieve robot system \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{structEventAgnosticGuardFunctor_aa339ada7b22b27bc6d384445d109f4e6}{\index{Event\-Agnostic\-Guard\-Functor@{Event\-Agnostic\-Guard\-Functor}!$\sim$\-Event\-Agnostic\-Guard\-Functor@{$\sim$\-Event\-Agnostic\-Guard\-Functor}}
+\index{$\sim$\-Event\-Agnostic\-Guard\-Functor@{$\sim$\-Event\-Agnostic\-Guard\-Functor}!EventAgnosticGuardFunctor@{Event\-Agnostic\-Guard\-Functor}}
+\subsubsection[{$\sim$\-Event\-Agnostic\-Guard\-Functor}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Robot\-System\-T, class Logic\-State\-Machine\-T$>$ virtual {\bf Event\-Agnostic\-Guard\-Functor}$<$ Robot\-System\-T, Logic\-State\-Machine\-T $>$\-::$\sim${\bf Event\-Agnostic\-Guard\-Functor} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{structEventAgnosticGuardFunctor_aa339ada7b22b27bc6d384445d109f4e6}
+
+
+virtual destructor to get polymorphism 
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{structEventAgnosticGuardFunctor_ad97196f6a607d199d6dbd56156b8dd8c}{\index{Event\-Agnostic\-Guard\-Functor@{Event\-Agnostic\-Guard\-Functor}!guard@{guard}}
+\index{guard@{guard}!EventAgnosticGuardFunctor@{Event\-Agnostic\-Guard\-Functor}}
+\subsubsection[{guard}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Robot\-System\-T, class Logic\-State\-Machine\-T$>$ virtual bool {\bf Event\-Agnostic\-Guard\-Functor}$<$ Robot\-System\-T, Logic\-State\-Machine\-T $>$\-::guard (
+\begin{DoxyParamCaption}
+\item[{Robot\-System\-T \&}]{robot\-\_\-system, }
+\item[{Logic\-State\-Machine\-T \&}]{logic\-\_\-state\-\_\-machine}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{structEventAgnosticGuardFunctor_ad97196f6a607d199d6dbd56156b8dd8c}
+
+
+Override this run function for different sub classes. This function performs the logic checking for each state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em robot\-\_\-system} & Provides sensor data and allows for controlling hardware \\
+\hline
+{\em logic\-\_\-state\-\_\-machine} & Backend of logic State Machine. can send events using this. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{structTakeoffTransitionGuardFunctor___abef370db0002076671a6f9c2adb9bbaa}{Takeoff\-Transition\-Guard\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}.
+
+\hypertarget{structEventAgnosticGuardFunctor_a775411c4c4e0815298200f895af3c02b}{\index{Event\-Agnostic\-Guard\-Functor@{Event\-Agnostic\-Guard\-Functor}!operator()@{operator()}}
+\index{operator()@{operator()}!EventAgnosticGuardFunctor@{Event\-Agnostic\-Guard\-Functor}}
+\subsubsection[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Robot\-System\-T, class Logic\-State\-Machine\-T$>$ template$<$class Event\-T , class F\-S\-M , class Source\-State , class Target\-State $>$ bool {\bf Event\-Agnostic\-Guard\-Functor}$<$ Robot\-System\-T, Logic\-State\-Machine\-T $>$\-::operator() (
+\begin{DoxyParamCaption}
+\item[{Event\-T const \&}]{, }
+\item[{F\-S\-M \&}]{logic\-\_\-state\-\_\-machine, }
+\item[{Source\-State \&}]{, }
+\item[{Target\-State \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{structEventAgnosticGuardFunctor_a775411c4c4e0815298200f895af3c02b}
+
+
+operator () Internally calls run function 
+
+
+\begin{DoxyParams}{Parameters}
+{\em logic\-\_\-state\-\_\-machine} & Backend of logic State Machine. can send events using this. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/actions\-\_\-guards/\hyperlink{base__functors_8h}{base\-\_\-functors.\-h}\end{DoxyCompactItemize}

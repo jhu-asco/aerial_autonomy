@@ -1,0 +1,81 @@
+\hypertarget{structPositionControlTransitionActionFunctor__}{\section{Position\-Control\-Transition\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$ Struct Template Reference}
+\label{structPositionControlTransitionActionFunctor__}\index{Position\-Control\-Transition\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$@{Position\-Control\-Transition\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}}
+}
+
+
+Transition action to perform when going into position control mode.  
+
+
+
+
+{\ttfamily \#include $<$position\-\_\-control\-\_\-functors.\-h$>$}
+
+
+
+Inheritance diagram for Position\-Control\-Transition\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{structPositionControlTransitionActionFunctor____inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Position\-Control\-Transition\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{structPositionControlTransitionActionFunctor____coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{structPositionControlTransitionActionFunctor___a4970bb461809ffa30984e16902bb8aaa}{run} (const \hyperlink{structPositionYaw}{Position\-Yaw} \&goal, \hyperlink{classUAVSystem}{U\-A\-V\-System} \&robot\-\_\-system, Logic\-State\-Machine\-T \&)
+\begin{DoxyCompactList}\small\item\em Override this run function for different sub classes. This function performs the logic checking for each state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Logic\-State\-Machine\-T$>$struct Position\-Control\-Transition\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+
+Transition action to perform when going into position control mode. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Logic\-State\-Machine\-T} & Logic state machine used to process events \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{structPositionControlTransitionActionFunctor___a4970bb461809ffa30984e16902bb8aaa}{\index{Position\-Control\-Transition\-Action\-Functor\-\_\-@{Position\-Control\-Transition\-Action\-Functor\-\_\-}!run@{run}}
+\index{run@{run}!PositionControlTransitionActionFunctor_@{Position\-Control\-Transition\-Action\-Functor\-\_\-}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Logic\-State\-Machine\-T $>$ void {\bf Position\-Control\-Transition\-Action\-Functor\-\_\-}$<$ Logic\-State\-Machine\-T $>$\-::run (
+\begin{DoxyParamCaption}
+\item[{const {\bf Position\-Yaw} \&}]{event, }
+\item[{{\bf U\-A\-V\-System} \&}]{robot\-\_\-system, }
+\item[{Logic\-State\-Machine\-T \&}]{logic\-\_\-state\-\_\-machine}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{structPositionControlTransitionActionFunctor___a4970bb461809ffa30984e16902bb8aaa}
+
+
+Override this run function for different sub classes. This function performs the logic checking for each state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em robot\-\_\-system} & Provides sensor data and allows for controlling hardware \\
+\hline
+{\em logic\-\_\-state\-\_\-machine} & Backend of logic State Machine. can send events using this. \\
+\hline
+{\em event} & Event triggering the action \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{structActionFunctor_a97250a2cc027dc3ca7d10a975d11a5c7}{Action\-Functor$<$ Position\-Yaw, U\-A\-V\-System, Logic\-State\-Machine\-T $>$}.
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/actions\-\_\-guards/\hyperlink{position__control__functors_8h}{position\-\_\-control\-\_\-functors.\-h}\end{DoxyCompactItemize}

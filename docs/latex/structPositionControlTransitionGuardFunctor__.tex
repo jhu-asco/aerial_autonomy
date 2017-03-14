@@ -1,0 +1,85 @@
+\hypertarget{structPositionControlTransitionGuardFunctor__}{\section{Position\-Control\-Transition\-Guard\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$ Struct Template Reference}
+\label{structPositionControlTransitionGuardFunctor__}\index{Position\-Control\-Transition\-Guard\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$@{Position\-Control\-Transition\-Guard\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}}
+}
+
+
+Guard function to check the goal is within tolerance before starting towards goal.  
+
+
+
+
+{\ttfamily \#include $<$position\-\_\-control\-\_\-functors.\-h$>$}
+
+
+
+Inheritance diagram for Position\-Control\-Transition\-Guard\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{structPositionControlTransitionGuardFunctor____inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Position\-Control\-Transition\-Guard\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{structPositionControlTransitionGuardFunctor____coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{structPositionControlTransitionGuardFunctor___ad0334337a349f9964d0ba781e995dad6}{guard} (const \hyperlink{structPositionYaw}{Position\-Yaw} \&goal, \hyperlink{classUAVSystem}{U\-A\-V\-System} \&robot\-\_\-system, Logic\-State\-Machine\-T \&)
+\begin{DoxyCompactList}\small\item\em Override this guard function for different sub classes. This function decides whether to call the run function for each state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Logic\-State\-Machine\-T$>$struct Position\-Control\-Transition\-Guard\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+
+Guard function to check the goal is within tolerance before starting towards goal. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000009}{Todo}]Use a parameter for setting position tolerance\end{DoxyRefDesc}
+
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Logic\-State\-Machine\-T} & Logic state machine used to process events \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{structPositionControlTransitionGuardFunctor___ad0334337a349f9964d0ba781e995dad6}{\index{Position\-Control\-Transition\-Guard\-Functor\-\_\-@{Position\-Control\-Transition\-Guard\-Functor\-\_\-}!guard@{guard}}
+\index{guard@{guard}!PositionControlTransitionGuardFunctor_@{Position\-Control\-Transition\-Guard\-Functor\-\_\-}}
+\subsubsection[{guard}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Logic\-State\-Machine\-T $>$ bool {\bf Position\-Control\-Transition\-Guard\-Functor\-\_\-}$<$ Logic\-State\-Machine\-T $>$\-::guard (
+\begin{DoxyParamCaption}
+\item[{const {\bf Position\-Yaw} \&}]{event, }
+\item[{{\bf U\-A\-V\-System} \&}]{robot\-\_\-system, }
+\item[{Logic\-State\-Machine\-T \&}]{logic\-\_\-state\-\_\-machine}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{structPositionControlTransitionGuardFunctor___ad0334337a349f9964d0ba781e995dad6}
+
+
+Override this guard function for different sub classes. This function decides whether to call the run function for each state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em robot\-\_\-system} & Provides sensor data and allows for controlling hardware \\
+\hline
+{\em logic\-\_\-state\-\_\-machine} & Backend of logic State Machine. can send events using this. \\
+\hline
+{\em event} & Event triggering the action \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{structGuardFunctor_a9f023aa88503d6127cc8280d7dc733b8}{Guard\-Functor$<$ Position\-Yaw, U\-A\-V\-System, Logic\-State\-Machine\-T $>$}.
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/actions\-\_\-guards/\hyperlink{position__control__functors_8h}{position\-\_\-control\-\_\-functors.\-h}\end{DoxyCompactItemize}

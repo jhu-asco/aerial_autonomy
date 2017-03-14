@@ -1,0 +1,368 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI" kind="class" prot="public">
+    <compoundname>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Plugin</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a28f1de5a0d232285414764f25e43a7eb" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI::event_trigger</definition>
+        <argsstring></argsstring>
+        <name>event_trigger</name>
+        <briefdescription>
+<para>Create Event trigger. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="46" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a2e96f52dc90edde242b5387214a82858" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI::system_status_textbox</definition>
+        <argsstring></argsstring>
+        <name>system_status_textbox</name>
+        <briefdescription>
+<para>Textbox to show sytem status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="59" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a6118098a267761831ef8d83cbf2a78bd" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI::height_slider</definition>
+        <argsstring></argsstring>
+        <name>height_slider</name>
+        <briefdescription>
+<para>Height slider to adjust z coordinate for pose command. </para>        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="todo_1_todo000001"><xreftitle>Todo</xreftitle><xrefdescription><para>Matt: Load slider settings from param file </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="68" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1af611df98da28aba90ce5fcbea285603a" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI::pose_command_container</definition>
+        <argsstring></argsstring>
+        <name>pose_command_container</name>
+        <briefdescription>
+<para>Container for pose event related objects: slide etc. </para>        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="todo_1_todo000002"><xreftitle>Todo</xreftitle><xrefdescription><para>Matt: Reset slider value based on current quad height </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="78" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a966d066bb1db4ea2517dc68335b3df98" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI::pose_command_layout</definition>
+        <argsstring></argsstring>
+        <name>pose_command_layout</name>
+        <briefdescription>
+<para>Pose command layout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="80" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a750b19ad6b27411d6ff502aa4ba43ed8" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI::pose_x</definition>
+        <argsstring></argsstring>
+        <name>pose_x</name>
+        <briefdescription>
+<para>x pose label to display position command from rviz to user </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="83" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a279bc7aaaf956e4fc14ad3e62bf7b4d2" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI::pose_y</definition>
+        <argsstring></argsstring>
+        <name>pose_y</name>
+        <briefdescription>
+<para>y pose label to display position command from rviz to user </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="85" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1aead4d11a8fe43596a7077554542af0d2" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI::pose_z</definition>
+        <argsstring></argsstring>
+        <name>pose_z</name>
+        <briefdescription>
+<para>z pose label to display position command from rviz to user </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="87" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1aa82ebdb0e64df86776b6cd9aacecb350" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI::send_pose_command_button</definition>
+        <argsstring></argsstring>
+        <name>send_pose_command_button</name>
+        <briefdescription>
+<para>Button to send the pose command to state machine as poseyaw event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="93" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1acedbac17d93e4e743b8bef847720659f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI::pose_command</definition>
+        <argsstring></argsstring>
+        <name>pose_command</name>
+        <briefdescription>
+<para>Pose command container to store pose from Rviz and send to state machine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="98" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a21ccb12c6c1d93f2d70ccca1c741ec73" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI::button_container</definition>
+        <argsstring></argsstring>
+        <name>button_container</name>
+        <briefdescription>
+<para>Continer to store event triggering buttons. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="103" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a9b589c667ce4f5719c5bb0ddbdb0fd42" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI::push_buttons</definition>
+        <argsstring></argsstring>
+        <name>push_buttons</name>
+        <briefdescription>
+<para>List of push buttons to trigger events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="105" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a1a4f6c154f52187c5b6206cb327b1ebc" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI::button_layout</definition>
+        <argsstring></argsstring>
+        <name>button_layout</name>
+        <briefdescription>
+<para>Layout for the push buttons. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="107" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1ac5a5e9449c705a2ab52ce1639bcd2d6e" prot="private" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI::_container</definition>
+        <argsstring></argsstring>
+        <name>_container</name>
+        <briefdescription>
+<para>Parent container to store buttons, textboxes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="49" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1af5c1a916ede5f9ee830d70cd6728f84a" prot="private" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI::_layout</definition>
+        <argsstring></argsstring>
+        <name>_layout</name>
+        <briefdescription>
+<para>layout for the parent container </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="53" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a6b65594c62caf4c8cedfbd9f12168dfb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI.__init__</definition>
+        <argsstring></argsstring>
+        <name>__init__</name>
+        <briefdescription>
+<para>Create Qt GUI using the event file. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="37" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="37" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a10f2fd3747b7f899efde6ff0c67d95b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI.get_row_col</definition>
+        <argsstring></argsstring>
+        <name>get_row_col</name>
+        <briefdescription>
+<para>Automatically find the row and col to add the button to in a grid based on index of the button. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="159" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="159" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="function" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a9b9a66142bcd76a1be23682c7fdd424a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI.poseCommandCallback</definition>
+        <argsstring></argsstring>
+        <name>poseCommandCallback</name>
+        <briefdescription>
+<para>Saves pose command and updates command display. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="168" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="168" bodyend="172"/>
+      </memberdef>
+      <memberdef kind="function" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1ae276f79545a8707c09bf07cf51132ef7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI.poseCommandButtonCallback</definition>
+        <argsstring></argsstring>
+        <name>poseCommandButtonCallback</name>
+        <briefdescription>
+<para>Publishes stored pose command after setting height from slider. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="177" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="177" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1aaa8ae13ff7e5ad9128ae565cecd49427" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI.updateHeight</definition>
+        <argsstring></argsstring>
+        <name>updateHeight</name>
+        <briefdescription>
+<para>Updates height label based on slider value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="192" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="192" bodyend="194"/>
+      </memberdef>
+      <memberdef kind="function" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a21d7d7031e8de77b2e31e7edb5936a34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI.updateStatus</definition>
+        <argsstring></argsstring>
+        <name>updateStatus</name>
+        <briefdescription>
+<para>Generic placeholder function to update text box. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="199" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="199" bodyend="202"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1adb66143fcd7b606516fad3e298598623" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI._parse_args</definition>
+        <argsstring></argsstring>
+        <name>_parse_args</name>
+        <briefdescription>
+<para>Parse extra arguments when plugin is deployed in standalone mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="135" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="135" bodyend="140"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1adffec416c73f6f719e9592d0e2286c8f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI.add_arguments</definition>
+        <argsstring></argsstring>
+        <name>add_arguments</name>
+        <briefdescription>
+<para>Notify rqt_gui that this plugin can parse these extra arguments. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="146" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="146" bodyend="153"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>GUI to send events from User to logic state machine. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="230">
+        <label>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI</label>
+        <link refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI"/>
+        <childnode refid="231" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="231">
+        <label>Plugin</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="232">
+        <label>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI</label>
+        <link refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI"/>
+        <childnode refid="233" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="233">
+        <label>Plugin</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="32" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" bodystart="32" bodyend="202"/>
+    <listofallmembers>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a6b65594c62caf4c8cedfbd9f12168dfb" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>__init__</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1ac5a5e9449c705a2ab52ce1639bcd2d6e" prot="private" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>_container</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1af5c1a916ede5f9ee830d70cd6728f84a" prot="private" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>_layout</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1adb66143fcd7b606516fad3e298598623" prot="private" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>_parse_args</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1adffec416c73f6f719e9592d0e2286c8f" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>add_arguments</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a21ccb12c6c1d93f2d70ccca1c741ec73" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>button_container</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a1a4f6c154f52187c5b6206cb327b1ebc" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>button_layout</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a28f1de5a0d232285414764f25e43a7eb" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>event_trigger</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a10f2fd3747b7f899efde6ff0c67d95b6" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>get_row_col</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a6118098a267761831ef8d83cbf2a78bd" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>height_slider</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1acedbac17d93e4e743b8bef847720659f" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>pose_command</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1af611df98da28aba90ce5fcbea285603a" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>pose_command_container</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a966d066bb1db4ea2517dc68335b3df98" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>pose_command_layout</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a750b19ad6b27411d6ff502aa4ba43ed8" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>pose_x</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a279bc7aaaf956e4fc14ad3e62bf7b4d2" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>pose_y</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1aead4d11a8fe43596a7077554542af0d2" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>pose_z</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1ae276f79545a8707c09bf07cf51132ef7" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>poseCommandButtonCallback</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a9b9a66142bcd76a1be23682c7fdd424a" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>poseCommandCallback</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a9b589c667ce4f5719c5bb0ddbdb0fd42" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>push_buttons</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1aa82ebdb0e64df86776b6cd9aacecb350" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>send_pose_command_button</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a2e96f52dc90edde242b5387214a82858" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>system_status_textbox</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1aaa8ae13ff7e5ad9128ae565cecd49427" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>updateHeight</name></member>
+      <member refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a21d7d7031e8de77b2e31e7edb5936a34" prot="public" virt="non-virtual"><scope>aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</scope><name>updateStatus</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

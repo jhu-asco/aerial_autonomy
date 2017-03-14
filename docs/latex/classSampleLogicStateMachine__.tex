@@ -1,0 +1,207 @@
+\hypertarget{classSampleLogicStateMachine__}{\section{Sample\-Logic\-State\-Machine\-\_\-$<$ Robot\-System\-T $>$ Class Template Reference}
+\label{classSampleLogicStateMachine__}\index{Sample\-Logic\-State\-Machine\-\_\-$<$ Robot\-System\-T $>$@{Sample\-Logic\-State\-Machine\-\_\-$<$ Robot\-System\-T $>$}}
+}
+
+
+Example Logic state machine that stores triggered event.  
+
+
+
+
+{\ttfamily \#include $<$sample\-\_\-logic\-\_\-state\-\_\-machine.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classSampleLogicStateMachine___a5450901d1fdbedd6368ea302322a5fb6}{Sample\-Logic\-State\-Machine\-\_\-} (Robot\-System\-T \&robot\-\_\-system)
+\begin{DoxyCompactList}\small\item\em Constructor that takes robot system. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Event $>$ }\\void \hyperlink{classSampleLogicStateMachine___af577b426ec630d48148ed6aab393b43e}{process\-\_\-event} (const Event \&event)
+\begin{DoxyCompactList}\small\item\em Generic process event that stores the event type. \end{DoxyCompactList}\item 
+void \hyperlink{classSampleLogicStateMachine___a60ca43f8a484f1ab56669d0485479c47}{process\-\_\-event} (const \hyperlink{structPositionYaw}{Position\-Yaw} \&event)
+\begin{DoxyCompactList}\small\item\em process pose event message \end{DoxyCompactList}\item 
+std\-::type\-\_\-index \hyperlink{classSampleLogicStateMachine___a469a3cdffcce57a12c5b7890410b63e8}{get\-Process\-Event\-Type\-Id} ()
+\begin{DoxyCompactList}\small\item\em retrieve the event type\-\_\-index of last processed event \end{DoxyCompactList}\item 
+\hyperlink{structPositionYaw}{Position\-Yaw} \hyperlink{classSampleLogicStateMachine___a254ed914235117e9ffaa5ba8614335cb}{get\-Pose\-Event} ()
+\begin{DoxyCompactList}\small\item\em retrieve poseyaw event message \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Event\-T , class Robot\-System\-T1 , class Logic\-State\-Machine\-T $>$ }\\class \hyperlink{classSampleLogicStateMachine___a05673eb4ec343f36c1f3fb787ac26b94}{Action\-Functor}
+\begin{DoxyCompactList}\small\item\em Friend action class to guard robot system. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Event\-T , class Robot\-System\-T1 , class Logic\-State\-Machine\-T $>$ }\\class \hyperlink{classSampleLogicStateMachine___a9411581bb37b54467df520e3c73ceaf0}{Guard\-Functor}
+\begin{DoxyCompactList}\small\item\em Friend guard class to access robot system. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Robot\-System\-T1 , class Logic\-State\-Machine\-T $>$ }\\class \hyperlink{classSampleLogicStateMachine___a86a665e36420c3cbc2b45864e023f98a}{Event\-Agnostic\-Action\-Functor}
+\begin{DoxyCompactList}\small\item\em Frient Event agnostic action class. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Robot\-System\-T1 , class Logic\-State\-Machine\-T $>$ }\\class \hyperlink{classSampleLogicStateMachine___af372c36475bc4510af791f5cb66608ad}{Event\-Agnostic\-Guard\-Functor}
+\begin{DoxyCompactList}\small\item\em Frient Event agnostic guard class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Robot\-System\-T$>$class Sample\-Logic\-State\-Machine\-\_\-$<$ Robot\-System\-T $>$}
+
+Example Logic state machine that stores triggered event. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Robot\-System\-T} & The robot system that is used by states to perform actions \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classSampleLogicStateMachine___a5450901d1fdbedd6368ea302322a5fb6}{\index{Sample\-Logic\-State\-Machine\-\_\-@{Sample\-Logic\-State\-Machine\-\_\-}!Sample\-Logic\-State\-Machine\-\_\-@{Sample\-Logic\-State\-Machine\-\_\-}}
+\index{Sample\-Logic\-State\-Machine\-\_\-@{Sample\-Logic\-State\-Machine\-\_\-}!SampleLogicStateMachine_@{Sample\-Logic\-State\-Machine\-\_\-}}
+\subsubsection[{Sample\-Logic\-State\-Machine\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Robot\-System\-T $>$ {\bf Sample\-Logic\-State\-Machine\-\_\-}$<$ Robot\-System\-T $>$\-::{\bf Sample\-Logic\-State\-Machine\-\_\-} (
+\begin{DoxyParamCaption}
+\item[{Robot\-System\-T \&}]{robot\-\_\-system}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classSampleLogicStateMachine___a5450901d1fdbedd6368ea302322a5fb6}
+
+
+Constructor that takes robot system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em robot\-\_\-system} & provides actions to select controllers, get/set Goals. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classSampleLogicStateMachine___a254ed914235117e9ffaa5ba8614335cb}{\index{Sample\-Logic\-State\-Machine\-\_\-@{Sample\-Logic\-State\-Machine\-\_\-}!get\-Pose\-Event@{get\-Pose\-Event}}
+\index{get\-Pose\-Event@{get\-Pose\-Event}!SampleLogicStateMachine_@{Sample\-Logic\-State\-Machine\-\_\-}}
+\subsubsection[{get\-Pose\-Event}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Robot\-System\-T $>$ {\bf Position\-Yaw} {\bf Sample\-Logic\-State\-Machine\-\_\-}$<$ Robot\-System\-T $>$\-::get\-Pose\-Event (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classSampleLogicStateMachine___a254ed914235117e9ffaa5ba8614335cb}
+
+
+retrieve poseyaw event message 
+
+\begin{DoxyReturn}{Returns}
+poseyaw event message 
+\end{DoxyReturn}
+\hypertarget{classSampleLogicStateMachine___a469a3cdffcce57a12c5b7890410b63e8}{\index{Sample\-Logic\-State\-Machine\-\_\-@{Sample\-Logic\-State\-Machine\-\_\-}!get\-Process\-Event\-Type\-Id@{get\-Process\-Event\-Type\-Id}}
+\index{get\-Process\-Event\-Type\-Id@{get\-Process\-Event\-Type\-Id}!SampleLogicStateMachine_@{Sample\-Logic\-State\-Machine\-\_\-}}
+\subsubsection[{get\-Process\-Event\-Type\-Id}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Robot\-System\-T $>$ std\-::type\-\_\-index {\bf Sample\-Logic\-State\-Machine\-\_\-}$<$ Robot\-System\-T $>$\-::get\-Process\-Event\-Type\-Id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classSampleLogicStateMachine___a469a3cdffcce57a12c5b7890410b63e8}
+
+
+retrieve the event type\-\_\-index of last processed event 
+
+\begin{DoxyReturn}{Returns}
+type\-\_\-index of the last processed event 
+\end{DoxyReturn}
+\hypertarget{classSampleLogicStateMachine___af577b426ec630d48148ed6aab393b43e}{\index{Sample\-Logic\-State\-Machine\-\_\-@{Sample\-Logic\-State\-Machine\-\_\-}!process\-\_\-event@{process\-\_\-event}}
+\index{process\-\_\-event@{process\-\_\-event}!SampleLogicStateMachine_@{Sample\-Logic\-State\-Machine\-\_\-}}
+\subsubsection[{process\-\_\-event}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Robot\-System\-T $>$ template$<$class Event $>$ void {\bf Sample\-Logic\-State\-Machine\-\_\-}$<$ Robot\-System\-T $>$\-::process\-\_\-event (
+\begin{DoxyParamCaption}
+\item[{const Event \&}]{event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classSampleLogicStateMachine___af577b426ec630d48148ed6aab393b43e}
+
+
+Generic process event that stores the event type. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Event} & Event type \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Event instance sent in to process \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSampleLogicStateMachine___a60ca43f8a484f1ab56669d0485479c47}{\index{Sample\-Logic\-State\-Machine\-\_\-@{Sample\-Logic\-State\-Machine\-\_\-}!process\-\_\-event@{process\-\_\-event}}
+\index{process\-\_\-event@{process\-\_\-event}!SampleLogicStateMachine_@{Sample\-Logic\-State\-Machine\-\_\-}}
+\subsubsection[{process\-\_\-event}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Robot\-System\-T $>$ void {\bf Sample\-Logic\-State\-Machine\-\_\-}$<$ Robot\-System\-T $>$\-::process\-\_\-event (
+\begin{DoxyParamCaption}
+\item[{const {\bf Position\-Yaw} \&}]{event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classSampleLogicStateMachine___a60ca43f8a484f1ab56669d0485479c47}
+
+
+process pose event message 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & message that is stored \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{classSampleLogicStateMachine___a05673eb4ec343f36c1f3fb787ac26b94}{\index{Sample\-Logic\-State\-Machine\-\_\-@{Sample\-Logic\-State\-Machine\-\_\-}!Action\-Functor@{Action\-Functor}}
+\index{Action\-Functor@{Action\-Functor}!SampleLogicStateMachine_@{Sample\-Logic\-State\-Machine\-\_\-}}
+\subsubsection[{Action\-Functor}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Robot\-System\-T $>$ template$<$class Event\-T , class Robot\-System\-T1 , class Logic\-State\-Machine\-T $>$ friend class {\bf Action\-Functor}\hspace{0.3cm}{\ttfamily [friend]}}}\label{classSampleLogicStateMachine___a05673eb4ec343f36c1f3fb787ac26b94}
+
+
+Friend action class to guard robot system. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Event\-T} & Event triggering action functor \\
+\hline
+{\em Robot\-System\-T1} & Robot system used by action functor \\
+\hline
+{\em Logic\-State\-Machine\-T} & Logic state Machine backend used by Guard functor \\
+\hline
+\end{DoxyTemplParams}
+\hypertarget{classSampleLogicStateMachine___a86a665e36420c3cbc2b45864e023f98a}{\index{Sample\-Logic\-State\-Machine\-\_\-@{Sample\-Logic\-State\-Machine\-\_\-}!Event\-Agnostic\-Action\-Functor@{Event\-Agnostic\-Action\-Functor}}
+\index{Event\-Agnostic\-Action\-Functor@{Event\-Agnostic\-Action\-Functor}!SampleLogicStateMachine_@{Sample\-Logic\-State\-Machine\-\_\-}}
+\subsubsection[{Event\-Agnostic\-Action\-Functor}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Robot\-System\-T $>$ template$<$class Robot\-System\-T1 , class Logic\-State\-Machine\-T $>$ friend class {\bf Event\-Agnostic\-Action\-Functor}\hspace{0.3cm}{\ttfamily [friend]}}}\label{classSampleLogicStateMachine___a86a665e36420c3cbc2b45864e023f98a}
+
+
+Frient Event agnostic action class. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Event\-T} & Event triggering action functor \\
+\hline
+{\em Robot\-System\-T1} & Robot system used by action functor \\
+\hline
+{\em Logic\-State\-Machine\-T} & Logic state Machine backend used by Guard functor \\
+\hline
+\end{DoxyTemplParams}
+\hypertarget{classSampleLogicStateMachine___af372c36475bc4510af791f5cb66608ad}{\index{Sample\-Logic\-State\-Machine\-\_\-@{Sample\-Logic\-State\-Machine\-\_\-}!Event\-Agnostic\-Guard\-Functor@{Event\-Agnostic\-Guard\-Functor}}
+\index{Event\-Agnostic\-Guard\-Functor@{Event\-Agnostic\-Guard\-Functor}!SampleLogicStateMachine_@{Sample\-Logic\-State\-Machine\-\_\-}}
+\subsubsection[{Event\-Agnostic\-Guard\-Functor}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Robot\-System\-T $>$ template$<$class Robot\-System\-T1 , class Logic\-State\-Machine\-T $>$ friend class {\bf Event\-Agnostic\-Guard\-Functor}\hspace{0.3cm}{\ttfamily [friend]}}}\label{classSampleLogicStateMachine___af372c36475bc4510af791f5cb66608ad}
+
+
+Frient Event agnostic guard class. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Event\-T} & Event triggering action functor \\
+\hline
+{\em Robot\-System\-T1} & Robot system used by action functor \\
+\hline
+{\em Logic\-State\-Machine\-T} & Logic state Machine backend used by Guard functor \\
+\hline
+\end{DoxyTemplParams}
+\hypertarget{classSampleLogicStateMachine___a9411581bb37b54467df520e3c73ceaf0}{\index{Sample\-Logic\-State\-Machine\-\_\-@{Sample\-Logic\-State\-Machine\-\_\-}!Guard\-Functor@{Guard\-Functor}}
+\index{Guard\-Functor@{Guard\-Functor}!SampleLogicStateMachine_@{Sample\-Logic\-State\-Machine\-\_\-}}
+\subsubsection[{Guard\-Functor}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Robot\-System\-T $>$ template$<$class Event\-T , class Robot\-System\-T1 , class Logic\-State\-Machine\-T $>$ friend class {\bf Guard\-Functor}\hspace{0.3cm}{\ttfamily [friend]}}}\label{classSampleLogicStateMachine___a9411581bb37b54467df520e3c73ceaf0}
+
+
+Friend guard class to access robot system. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Event\-T} & Event triggering action functor \\
+\hline
+{\em Robot\-System\-T1} & Robot system used by action functor \\
+\hline
+{\em Logic\-State\-Machine\-T} & Logic state Machine backend used by Guard functor \\
+\hline
+\end{DoxyTemplParams}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/tests/\hyperlink{sample__logic__state__machine_8h}{sample\-\_\-logic\-\_\-state\-\_\-machine.\-h}\end{DoxyCompactItemize}

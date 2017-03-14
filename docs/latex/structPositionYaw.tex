@@ -1,0 +1,165 @@
+\hypertarget{structPositionYaw}{\section{Position\-Yaw Struct Reference}
+\label{structPositionYaw}\index{Position\-Yaw@{Position\-Yaw}}
+}
+
+
+Stores \hyperlink{structPosition}{Position}, yaw. \hyperlink{structPositionYaw}{Position\-Yaw} is used as the goal for U\-A\-V systems.  
+
+
+
+
+{\ttfamily \#include $<$position\-\_\-yaw.\-h$>$}
+
+
+
+Inheritance diagram for Position\-Yaw\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=150pt]{structPositionYaw__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Position\-Yaw\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=150pt]{structPositionYaw__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structPositionYaw_a27f89c7703b62e5120c669822c98bcf1}{Position\-Yaw} ()
+\begin{DoxyCompactList}\small\item\em Implicit constructor. \end{DoxyCompactList}\item 
+\hyperlink{structPositionYaw_a0a03ecfbad91c4c48a6aed44f4933a74}{Position\-Yaw} (\hyperlink{structPosition}{Position} p, double \hyperlink{structPositionYaw_a712a15ba9739cb5f4e31ea973074b8bf}{yaw})
+\begin{DoxyCompactList}\small\item\em Explicit constructor that takes in position, yaw. \end{DoxyCompactList}\item 
+\hyperlink{structPositionYaw_ae5642ce9e93710cf9cda7263511300f0}{Position\-Yaw} (double \hyperlink{structPosition_a9abbe738bad177de91fe4774099c1260}{x}, double \hyperlink{structPosition_a75f48c2a1d2c7131b8be1a0687ae72c8}{y}, double \hyperlink{structPosition_ab26043bc2f8f6094818c17dd44e43228}{z}, double \hyperlink{structPositionYaw_a712a15ba9739cb5f4e31ea973074b8bf}{yaw})
+\begin{DoxyCompactList}\small\item\em Explicit constructor with x,y,z, and yaw. \end{DoxyCompactList}\item 
+bool \hyperlink{structPositionYaw_a74eb4415b12fe9c42e102e82d2bd52cb}{operator==} (const \hyperlink{structPositionYaw}{Position\-Yaw} \&p) const 
+\begin{DoxyCompactList}\small\item\em Compare two position and yaw entities. \end{DoxyCompactList}\item 
+bool \hyperlink{structPositionYaw_a9302e53f05d5d07d11dcdd1d0c23610b}{operator!=} (const \hyperlink{structPositionYaw}{Position\-Yaw} \&p) const 
+\begin{DoxyCompactList}\small\item\em Compare two position and yaw entities. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{structPositionYaw_a712a15ba9739cb5f4e31ea973074b8bf}{yaw}
+\begin{DoxyCompactList}\small\item\em Orientation about body axis rad. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Stores \hyperlink{structPosition}{Position}, yaw. \hyperlink{structPositionYaw}{Position\-Yaw} is used as the goal for U\-A\-V systems. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{structPositionYaw_a27f89c7703b62e5120c669822c98bcf1}{\index{Position\-Yaw@{Position\-Yaw}!Position\-Yaw@{Position\-Yaw}}
+\index{Position\-Yaw@{Position\-Yaw}!PositionYaw@{Position\-Yaw}}
+\subsubsection[{Position\-Yaw}]{\setlength{\rightskip}{0pt plus 5cm}Position\-Yaw\-::\-Position\-Yaw (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{structPositionYaw_a27f89c7703b62e5120c669822c98bcf1}
+
+
+Implicit constructor. 
+
+Instantiate position and yaw to zero \hypertarget{structPositionYaw_a0a03ecfbad91c4c48a6aed44f4933a74}{\index{Position\-Yaw@{Position\-Yaw}!Position\-Yaw@{Position\-Yaw}}
+\index{Position\-Yaw@{Position\-Yaw}!PositionYaw@{Position\-Yaw}}
+\subsubsection[{Position\-Yaw}]{\setlength{\rightskip}{0pt plus 5cm}Position\-Yaw\-::\-Position\-Yaw (
+\begin{DoxyParamCaption}
+\item[{{\bf Position}}]{p, }
+\item[{double}]{yaw}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{structPositionYaw_a0a03ecfbad91c4c48a6aed44f4933a74}
+
+
+Explicit constructor that takes in position, yaw. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \hyperlink{structPosition}{Position} \\
+\hline
+{\em yaw} & orientation about body axis used as goal for quadrotor. \\
+\hline
+\end{DoxyParams}
+\hypertarget{structPositionYaw_ae5642ce9e93710cf9cda7263511300f0}{\index{Position\-Yaw@{Position\-Yaw}!Position\-Yaw@{Position\-Yaw}}
+\index{Position\-Yaw@{Position\-Yaw}!PositionYaw@{Position\-Yaw}}
+\subsubsection[{Position\-Yaw}]{\setlength{\rightskip}{0pt plus 5cm}Position\-Yaw\-::\-Position\-Yaw (
+\begin{DoxyParamCaption}
+\item[{double}]{x, }
+\item[{double}]{y, }
+\item[{double}]{z, }
+\item[{double}]{yaw}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{structPositionYaw_ae5642ce9e93710cf9cda7263511300f0}
+
+
+Explicit constructor with x,y,z, and yaw. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & x component (m) \\
+\hline
+{\em y} & y component (m) \\
+\hline
+{\em z} & z component (m) \\
+\hline
+{\em yaw} & yaw component (rad) \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{structPositionYaw_a9302e53f05d5d07d11dcdd1d0c23610b}{\index{Position\-Yaw@{Position\-Yaw}!operator!=@{operator!=}}
+\index{operator!=@{operator!=}!PositionYaw@{Position\-Yaw}}
+\subsubsection[{operator!=}]{\setlength{\rightskip}{0pt plus 5cm}bool Position\-Yaw\-::operator!= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Position\-Yaw} \&}]{p}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{structPositionYaw_a9302e53f05d5d07d11dcdd1d0c23610b}
+
+
+Compare two position and yaw entities. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \hyperlink{structPositionYaw}{Position\-Yaw} to compare against\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if position and yaw are not the same 
+\end{DoxyReturn}
+\hypertarget{structPositionYaw_a74eb4415b12fe9c42e102e82d2bd52cb}{\index{Position\-Yaw@{Position\-Yaw}!operator==@{operator==}}
+\index{operator==@{operator==}!PositionYaw@{Position\-Yaw}}
+\subsubsection[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool Position\-Yaw\-::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Position\-Yaw} \&}]{p}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{structPositionYaw_a74eb4415b12fe9c42e102e82d2bd52cb}
+
+
+Compare two position and yaw entities. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \hyperlink{structPositionYaw}{Position\-Yaw} to compare against\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if position and yaw are the same 
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{structPositionYaw_a712a15ba9739cb5f4e31ea973074b8bf}{\index{Position\-Yaw@{Position\-Yaw}!yaw@{yaw}}
+\index{yaw@{yaw}!PositionYaw@{Position\-Yaw}}
+\subsubsection[{yaw}]{\setlength{\rightskip}{0pt plus 5cm}double Position\-Yaw\-::yaw}}\label{structPositionYaw_a712a15ba9739cb5f4e31ea973074b8bf}
+
+
+Orientation about body axis rad. 
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/types/\hyperlink{position__yaw_8h}{position\-\_\-yaw.\-h}\end{DoxyCompactItemize}

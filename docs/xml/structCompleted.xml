@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structCompleted" kind="struct" prot="public">
+    <compoundname>Completed</compoundname>
+    <includes refid="completed__event_8h" local="no">completed_event.h</includes>
+    <briefdescription>
+<para><ref refid="structCompleted" kindref="compound">Completed</ref> Event for transition from for example Landing to Landed etc. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/completed_event.h" line="6" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/completed_event.h" bodystart="6" bodyend="6"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

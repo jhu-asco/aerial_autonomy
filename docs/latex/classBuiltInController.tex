@@ -1,0 +1,93 @@
+\hypertarget{classBuiltInController}{\section{Built\-In\-Controller$<$ Goal\-Type $>$ Class Template Reference}
+\label{classBuiltInController}\index{Built\-In\-Controller$<$ Goal\-Type $>$@{Built\-In\-Controller$<$ Goal\-Type $>$}}
+}
+
+
+A controller that simply outputs the set goal.  
+
+
+
+
+{\ttfamily \#include $<$builtin\-\_\-controller.\-h$>$}
+
+
+
+Inheritance diagram for Built\-In\-Controller$<$ Goal\-Type $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{classBuiltInController__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Built\-In\-Controller$<$ Goal\-Type $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{classBuiltInController__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{classBuiltInController_aea6ab422dc24222fb168a7e9522ec7c9}{$\sim$\-Built\-In\-Controller} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual Goal\-Type \hyperlink{classBuiltInController_ab597ac5aa54f9865c0324fbcf5c0d7bd}{run\-Implementation} (\hyperlink{structEmptySensor}{Empty\-Sensor} sensor\-\_\-data, Goal\-Type goal)
+\begin{DoxyCompactList}\small\item\em Run the control loop. Simply returns the goal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Goal\-Type$>$class Built\-In\-Controller$<$ Goal\-Type $>$}
+
+A controller that simply outputs the set goal. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classBuiltInController_aea6ab422dc24222fb168a7e9522ec7c9}{\index{Built\-In\-Controller@{Built\-In\-Controller}!$\sim$\-Built\-In\-Controller@{$\sim$\-Built\-In\-Controller}}
+\index{$\sim$\-Built\-In\-Controller@{$\sim$\-Built\-In\-Controller}!BuiltInController@{Built\-In\-Controller}}
+\subsubsection[{$\sim$\-Built\-In\-Controller}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Goal\-Type$>$ virtual {\bf Built\-In\-Controller}$<$ Goal\-Type $>$\-::$\sim${\bf Built\-In\-Controller} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classBuiltInController_aea6ab422dc24222fb168a7e9522ec7c9}
+
+
+Destructor. 
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classBuiltInController_ab597ac5aa54f9865c0324fbcf5c0d7bd}{\index{Built\-In\-Controller@{Built\-In\-Controller}!run\-Implementation@{run\-Implementation}}
+\index{run\-Implementation@{run\-Implementation}!BuiltInController@{Built\-In\-Controller}}
+\subsubsection[{run\-Implementation}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Goal\-Type$>$ virtual Goal\-Type {\bf Built\-In\-Controller}$<$ Goal\-Type $>$\-::run\-Implementation (
+\begin{DoxyParamCaption}
+\item[{{\bf Empty\-Sensor}}]{sensor\-\_\-data, }
+\item[{Goal\-Type}]{goal}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{classBuiltInController_ab597ac5aa54f9865c0324fbcf5c0d7bd}
+
+
+Run the control loop. Simply returns the goal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sensor\-\_\-data} & Empty sensor data struct since no sensing is required. \\
+\hline
+{\em goal} & Goal set-\/point \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Goal to send to hardware 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classController_a9a5a0b6fbedeb476f3a7bfad5f16167e}{Controller$<$ Empty\-Sensor, Goal\-Type, Goal\-Type $>$}.
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/controllers/\hyperlink{builtin__controller_8h}{builtin\-\_\-controller.\-h}\end{DoxyCompactItemize}

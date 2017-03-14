@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="namespaceaerial__autonomy_1_1aerial__autonomy__gui" kind="namespace">
+    <compoundname>aerial_autonomy::aerial_autonomy_gui</compoundname>
+    <innerclass refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI" prot="public">aerial_autonomy::aerial_autonomy_gui::EventTransmissionGUI</innerclass>
+    <briefdescription>
+<para>Generate a GUI to trigger events for state machine. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>: gowtham </para></simplesect>
+</para>    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

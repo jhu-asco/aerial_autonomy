@@ -1,0 +1,210 @@
+\hypertarget{classControllerHardwareConnector}{\section{Controller\-Hardware\-Connector$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$ Class Template Reference}
+\label{classControllerHardwareConnector}\index{Controller\-Hardware\-Connector$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$@{Controller\-Hardware\-Connector$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$}}
+}
+
+
+Performs a single step of extracting data, running controller and sending data back to hardware.  
+
+
+
+
+{\ttfamily \#include $<$base\-\_\-controller\-\_\-hardware\-\_\-connector.\-h$>$}
+
+
+
+Inheritance diagram for Controller\-Hardware\-Connector$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{classControllerHardwareConnector__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Controller\-Hardware\-Connector$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{classControllerHardwareConnector__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classControllerHardwareConnector_a6c5d8e5a5ded026ccee3d51f2899ce3e}{Controller\-Hardware\-Connector} (\hyperlink{classController}{Controller}$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$ \&controller, \hyperlink{base__controller__hardware__connector_8h_ae4dfd42394001deb6e8a0e60c81d6f7a}{Hardware\-Type} hardware\-\_\-type)
+\begin{DoxyCompactList}\small\item\em Control\-Hardware\-Connector runs the controller and sends the commands to hardware. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classControllerHardwareConnector_afb46464434a3a5881ecc1091f58bbd61}{run} ()
+\begin{DoxyCompactList}\small\item\em Extracts sensor data, run controller and send data back to hardware. \end{DoxyCompactList}\item 
+void \hyperlink{classControllerHardwareConnector_a14ce51377f80b67796fcb50ce8195efd}{set\-Goal} (Goal\-Type goal)
+\begin{DoxyCompactList}\small\item\em Set the goal for controller. \end{DoxyCompactList}\item 
+Goal\-Type \hyperlink{classControllerHardwareConnector_a1ea002003e277fc82e04615343b927f5}{get\-Goal} ()
+\begin{DoxyCompactList}\small\item\em Get the goal for controller. \end{DoxyCompactList}\item 
+\hyperlink{base__controller__hardware__connector_8h_ae4dfd42394001deb6e8a0e60c81d6f7a}{Hardware\-Type} \hyperlink{classControllerHardwareConnector_accd0c9bff560fa3c6d1e60d97644415e}{get\-Hardware\-Type} ()
+\begin{DoxyCompactList}\small\item\em Return the type of hardware (Hardware\-Type) used by the controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual Sensor\-Data\-Type \hyperlink{classControllerHardwareConnector_af6952c0d8829b93557eb7d8887bebd63}{extract\-Sensor\-Data} ()=0
+\begin{DoxyCompactList}\small\item\em extract relevant data from hardware/estimators \end{DoxyCompactList}\item 
+virtual void \hyperlink{classControllerHardwareConnector_a5fc86156d5c747aba36497732962d6d0}{send\-Hardware\-Commands} (Control\-Type controls)=0
+\begin{DoxyCompactList}\small\item\em Send hardware commands for example U\-A\-V rpy. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{base__controller__hardware__connector_8h_ae4dfd42394001deb6e8a0e60c81d6f7a}{Hardware\-Type} \hyperlink{classControllerHardwareConnector_a1e47c12f796c9cc2fcb5c2495ede2392}{hardware\-\_\-type\-\_\-}
+\begin{DoxyCompactList}\small\item\em Type of hardware controlled by the controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Sensor\-Data\-Type, class Goal\-Type, class Control\-Type$>$class Controller\-Hardware\-Connector$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$}
+
+Performs a single step of extracting data, running controller and sending data back to hardware. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Sensor\-Data\-Type} & Type of data to take from hardware \\
+\hline
+{\em Goal\-Type} & Type of goal for controller \\
+\hline
+{\em Control\-Type} & Type of control sent to hardware \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classControllerHardwareConnector_a6c5d8e5a5ded026ccee3d51f2899ce3e}{\index{Controller\-Hardware\-Connector@{Controller\-Hardware\-Connector}!Controller\-Hardware\-Connector@{Controller\-Hardware\-Connector}}
+\index{Controller\-Hardware\-Connector@{Controller\-Hardware\-Connector}!ControllerHardwareConnector@{Controller\-Hardware\-Connector}}
+\subsubsection[{Controller\-Hardware\-Connector}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Sensor\-Data\-Type, class Goal\-Type, class Control\-Type$>$ {\bf Controller\-Hardware\-Connector}$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$\-::{\bf Controller\-Hardware\-Connector} (
+\begin{DoxyParamCaption}
+\item[{{\bf Controller}$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$ \&}]{controller, }
+\item[{{\bf Hardware\-Type}}]{hardware\-\_\-type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classControllerHardwareConnector_a6c5d8e5a5ded026ccee3d51f2899ce3e}
+
+
+Control\-Hardware\-Connector runs the controller and sends the commands to hardware. 
+
+The subclass controlhardwareconnectors should take the required hardware in the constructor and implement the run function to get the command from controller and send to hardware
+
+
+\begin{DoxyParams}{Parameters}
+{\em controller} & \hyperlink{classController}{Controller} to run during run function \\
+\hline
+{\em hardware\-\_\-type} & Type of Hardware. Used to group the connectors and ensure only one connector is running per hardware type. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classControllerHardwareConnector_af6952c0d8829b93557eb7d8887bebd63}{\index{Controller\-Hardware\-Connector@{Controller\-Hardware\-Connector}!extract\-Sensor\-Data@{extract\-Sensor\-Data}}
+\index{extract\-Sensor\-Data@{extract\-Sensor\-Data}!ControllerHardwareConnector@{Controller\-Hardware\-Connector}}
+\subsubsection[{extract\-Sensor\-Data}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Sensor\-Data\-Type, class Goal\-Type, class Control\-Type$>$ virtual Sensor\-Data\-Type {\bf Controller\-Hardware\-Connector}$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$\-::extract\-Sensor\-Data (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}}\label{classControllerHardwareConnector_af6952c0d8829b93557eb7d8887bebd63}
+
+
+extract relevant data from hardware/estimators 
+
+\begin{DoxyReturn}{Returns}
+data structure needed for controller to perform step function 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classPositionControllerDroneConnector_a21859ad4bcc85a907e2e23456869b3d6}{Position\-Controller\-Drone\-Connector}, \hyperlink{classBuiltInVelocityControllerDroneConnector_af69ba169f039d9f8d59f675392af4cf0}{Built\-In\-Velocity\-Controller\-Drone\-Connector}, and \hyperlink{classManualRPYTControllerDroneConnector_a6c47447c98dd1528703355f9f60f1d50}{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector}.
+
+\hypertarget{classControllerHardwareConnector_a1ea002003e277fc82e04615343b927f5}{\index{Controller\-Hardware\-Connector@{Controller\-Hardware\-Connector}!get\-Goal@{get\-Goal}}
+\index{get\-Goal@{get\-Goal}!ControllerHardwareConnector@{Controller\-Hardware\-Connector}}
+\subsubsection[{get\-Goal}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Sensor\-Data\-Type, class Goal\-Type, class Control\-Type$>$ Goal\-Type {\bf Controller\-Hardware\-Connector}$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$\-::get\-Goal (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classControllerHardwareConnector_a1ea002003e277fc82e04615343b927f5}
+
+
+Get the goal for controller. 
+
+\begin{DoxyReturn}{Returns}
+Goal for controller 
+\end{DoxyReturn}
+\hypertarget{classControllerHardwareConnector_accd0c9bff560fa3c6d1e60d97644415e}{\index{Controller\-Hardware\-Connector@{Controller\-Hardware\-Connector}!get\-Hardware\-Type@{get\-Hardware\-Type}}
+\index{get\-Hardware\-Type@{get\-Hardware\-Type}!ControllerHardwareConnector@{Controller\-Hardware\-Connector}}
+\subsubsection[{get\-Hardware\-Type}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Sensor\-Data\-Type, class Goal\-Type, class Control\-Type$>$ {\bf Hardware\-Type} {\bf Controller\-Hardware\-Connector}$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$\-::get\-Hardware\-Type (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classControllerHardwareConnector_accd0c9bff560fa3c6d1e60d97644415e}
+
+
+Return the type of hardware (Hardware\-Type) used by the controller. 
+
+\begin{DoxyReturn}{Returns}
+return the type of hardware used by the controller 
+\end{DoxyReturn}
+\hypertarget{classControllerHardwareConnector_afb46464434a3a5881ecc1091f58bbd61}{\index{Controller\-Hardware\-Connector@{Controller\-Hardware\-Connector}!run@{run}}
+\index{run@{run}!ControllerHardwareConnector@{Controller\-Hardware\-Connector}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Sensor\-Data\-Type, class Goal\-Type, class Control\-Type$>$ virtual void {\bf Controller\-Hardware\-Connector}$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$\-::run (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classControllerHardwareConnector_afb46464434a3a5881ecc1091f58bbd61}
+
+
+Extracts sensor data, run controller and send data back to hardware. 
+
+
+
+Implements \hyperlink{structAbstractControllerHardwareConnector_a0fcf605e19daef2f9f99d4dc2a23feb4}{Abstract\-Controller\-Hardware\-Connector}.
+
+\hypertarget{classControllerHardwareConnector_a5fc86156d5c747aba36497732962d6d0}{\index{Controller\-Hardware\-Connector@{Controller\-Hardware\-Connector}!send\-Hardware\-Commands@{send\-Hardware\-Commands}}
+\index{send\-Hardware\-Commands@{send\-Hardware\-Commands}!ControllerHardwareConnector@{Controller\-Hardware\-Connector}}
+\subsubsection[{send\-Hardware\-Commands}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Sensor\-Data\-Type, class Goal\-Type, class Control\-Type$>$ virtual void {\bf Controller\-Hardware\-Connector}$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$\-::send\-Hardware\-Commands (
+\begin{DoxyParamCaption}
+\item[{Control\-Type}]{controls}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}}\label{classControllerHardwareConnector_a5fc86156d5c747aba36497732962d6d0}
+
+
+Send hardware commands for example U\-A\-V rpy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em controls} & Data structure the U\-A\-V is expecting \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{classPositionControllerDroneConnector_a826092eadfbbf9442fa1869fea98070d}{Position\-Controller\-Drone\-Connector}, \hyperlink{classBuiltInVelocityControllerDroneConnector_a10a06a14a9a34afbe37c79e86ffd5787}{Built\-In\-Velocity\-Controller\-Drone\-Connector}, and \hyperlink{classManualRPYTControllerDroneConnector_a34bde89c4b4f2d0de000b4ccbfc719c4}{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector}.
+
+\hypertarget{classControllerHardwareConnector_a14ce51377f80b67796fcb50ce8195efd}{\index{Controller\-Hardware\-Connector@{Controller\-Hardware\-Connector}!set\-Goal@{set\-Goal}}
+\index{set\-Goal@{set\-Goal}!ControllerHardwareConnector@{Controller\-Hardware\-Connector}}
+\subsubsection[{set\-Goal}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Sensor\-Data\-Type, class Goal\-Type, class Control\-Type$>$ void {\bf Controller\-Hardware\-Connector}$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$\-::set\-Goal (
+\begin{DoxyParamCaption}
+\item[{Goal\-Type}]{goal}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classControllerHardwareConnector_a14ce51377f80b67796fcb50ce8195efd}
+
+
+Set the goal for controller. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em goal} & Goal for controller \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classControllerHardwareConnector_a1e47c12f796c9cc2fcb5c2495ede2392}{\index{Controller\-Hardware\-Connector@{Controller\-Hardware\-Connector}!hardware\-\_\-type\-\_\-@{hardware\-\_\-type\-\_\-}}
+\index{hardware\-\_\-type\-\_\-@{hardware\-\_\-type\-\_\-}!ControllerHardwareConnector@{Controller\-Hardware\-Connector}}
+\subsubsection[{hardware\-\_\-type\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Sensor\-Data\-Type, class Goal\-Type, class Control\-Type$>$ {\bf Hardware\-Type} {\bf Controller\-Hardware\-Connector}$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$\-::hardware\-\_\-type\-\_\-\hspace{0.3cm}{\ttfamily [protected]}}}\label{classControllerHardwareConnector_a1e47c12f796c9cc2fcb5c2495ede2392}
+
+
+Type of hardware controlled by the controller. 
+
+Used to group controllers. Only one controller will be running per hardware. 
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/controller\-\_\-hardware\-\_\-connectors/\hyperlink{base__controller__hardware__connector_8h}{base\-\_\-controller\-\_\-hardware\-\_\-connector.\-h}\end{DoxyCompactItemize}

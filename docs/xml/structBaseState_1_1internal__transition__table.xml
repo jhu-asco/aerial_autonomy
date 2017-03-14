@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structBaseState_1_1internal__transition__table" kind="struct" prot="public">
+    <compoundname>BaseState::internal_transition_table</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">boost::mpl::vector&lt; msmf::Internal&lt; InternalTransitionEvent, ActionFctr, msmf::none &gt; &gt;</basecompoundref>
+    <includes refid="base__state_8h" local="no">base_state.h</includes>
+    <briefdescription>
+<para>The <ref refid="structBaseState_1_1internal__transition__table" kindref="compound">internal_transition_table</ref> to call run function in every state. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="240">
+        <label>BaseState&lt; RobotSystemT, LogicStateMachineT, ActionFctr &gt;::internal_transition_table</label>
+        <link refid="structBaseState_1_1internal__transition__table"/>
+        <childnode refid="241" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="241">
+        <label>boost::mpl::vector&lt; msmf::Internal&lt; InternalTransitionEvent, ActionFctr, msmf::none &gt; &gt;</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="242">
+        <label>BaseState&lt; RobotSystemT, LogicStateMachineT, ActionFctr &gt;::internal_transition_table</label>
+        <link refid="structBaseState_1_1internal__transition__table"/>
+        <childnode refid="243" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="243">
+        <label>boost::mpl::vector&lt; msmf::Internal&lt; InternalTransitionEvent, ActionFctr, msmf::none &gt; &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/logic_states/base_state.h" line="37" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/logic_states/base_state.h" bodystart="35" bodyend="37"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

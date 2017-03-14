@@ -1,0 +1,217 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classboost_1_1msm_1_1back_1_1thread__safe__state__machine" kind="class" prot="public">
+    <compoundname>boost::msm::back::thread_safe_state_machine</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">state_machine&lt; A0, A1, A2, A3, A4 &gt;</basecompoundref>
+    <includes refid="thread__safe__state__machine_8h" local="no">thread_safe_state_machine.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class A0</type>
+      </param>
+      <param>
+        <type>class A1</type>
+        <defval>parameter::void_</defval>
+      </param>
+      <param>
+        <type>class A2</type>
+        <defval>parameter::void_</defval>
+      </param>
+      <param>
+        <type>class A3</type>
+        <defval>parameter::void_</defval>
+      </param>
+      <param>
+        <type>class A4</type>
+        <defval>parameter::void_</defval>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1ae972fb5548b4412f2bf47bcca8637cdf" prot="private" static="no" mutable="no">
+        <type>boost::recursive_mutex</type>
+        <definition>boost::recursive_mutex boost::msm::back::thread_safe_state_machine&lt; A0, A1, A2, A3, A4 &gt;::process_event_mutex_</definition>
+        <argsstring></argsstring>
+        <name>process_event_mutex_</name>
+        <briefdescription>
+<para>Mutex to synchronize process event functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a83a2deae1f2169f1234e430beb3b8a95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class</type>
+          </param>
+          <param>
+            <type>class</type>
+          </param>
+          <param>
+            <type>class</type>
+          </param>
+          <param>
+            <type>class</type>
+          </param>
+          <param>
+            <type>class</type>
+          </param>
+        </templateparamlist>
+        <type>friend class</type>
+        <definition>friend class boost::msm::back::state_machine</definition>
+        <argsstring></argsstring>
+        <name>boost::msm::back::state_machine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="40" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a3306dad625847fa2192b045a7789ca5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class</type>
+          </param>
+          <param>
+            <type>class</type>
+          </param>
+          <param>
+            <type>class</type>
+          </param>
+          <param>
+            <type>class</type>
+          </param>
+          <param>
+            <type>class</type>
+          </param>
+        </templateparamlist>
+        <type>friend class</type>
+        <definition>friend class boost::msm::back::thread_safe_state_machine</definition>
+        <argsstring></argsstring>
+        <name>boost::msm::back::thread_safe_state_machine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="43" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a5b5a31229aed12a1f7036b8b46de0884" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>boost::msm::back::thread_safe_state_machine&lt; A0, A1, A2, A3, A4 &gt;::thread_safe_state_machine</definition>
+        <argsstring>()</argsstring>
+        <name>thread_safe_state_machine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="30" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1ad8d554411680bddd9959406c42407c25" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Expr</type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>boost::msm::back::thread_safe_state_machine&lt; A0, A1, A2, A3, A4 &gt;::thread_safe_state_machine</definition>
+        <argsstring>(Expr const &amp;expr)</argsstring>
+        <name>thread_safe_state_machine</name>
+        <param>
+          <type>Expr const &amp;</type>
+          <declname>expr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="34" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a9f38e619a54ce414c4ef737e8873928d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Event</type>
+          </param>
+        </templateparamlist>
+        <type>execute_return</type>
+        <definition>execute_return boost::msm::back::thread_safe_state_machine&lt; A0, A1, A2, A3, A4 &gt;::process_event</definition>
+        <argsstring>(Event const &amp;evt)</argsstring>
+        <name>process_event</name>
+        <param>
+          <type>Event const &amp;</type>
+          <declname>evt</declname>
+        </param>
+        <briefdescription>
+<para>The process event function that triggers transition actions in state machine The function is thread safe but does not execute the events in any particular order. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The event type that is received </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>evt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance of event type received by this function</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Enum specifying whether the event is handled, deferred etc. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="56" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="56" bodyend="59"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Thread safe state machine class that extends boost::msm::back::state_machine class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="348">
+        <label>state_machine&lt; A0, A1, A2, A3, A4 &gt;</label>
+      </node>
+      <node id="347">
+        <label>boost::msm::back::thread_safe_state_machine&lt; A0, A1, A2, A3, A4 &gt;</label>
+        <link refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine"/>
+        <childnode refid="348" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="350">
+        <label>state_machine&lt; A0, A1, A2, A3, A4 &gt;</label>
+      </node>
+      <node id="349">
+        <label>boost::msm::back::thread_safe_state_machine&lt; A0, A1, A2, A3, A4 &gt;</label>
+        <link refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine"/>
+        <childnode refid="350" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="24" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="24" bodyend="60"/>
+    <listofallmembers>
+      <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a83a2deae1f2169f1234e430beb3b8a95" prot="public" virt="non-virtual"><scope>boost::msm::back::thread_safe_state_machine</scope><name>boost::msm::back::state_machine</name></member>
+      <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a3306dad625847fa2192b045a7789ca5f" prot="public" virt="non-virtual"><scope>boost::msm::back::thread_safe_state_machine</scope><name>boost::msm::back::thread_safe_state_machine</name></member>
+      <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a9f38e619a54ce414c4ef737e8873928d" prot="public" virt="non-virtual"><scope>boost::msm::back::thread_safe_state_machine</scope><name>process_event</name></member>
+      <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1ae972fb5548b4412f2bf47bcca8637cdf" prot="private" virt="non-virtual"><scope>boost::msm::back::thread_safe_state_machine</scope><name>process_event_mutex_</name></member>
+      <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a5b5a31229aed12a1f7036b8b46de0884" prot="public" virt="non-virtual"><scope>boost::msm::back::thread_safe_state_machine</scope><name>thread_safe_state_machine</name></member>
+      <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1ad8d554411680bddd9959406c42407c25" prot="public" virt="non-virtual"><scope>boost::msm::back::thread_safe_state_machine</scope><name>thread_safe_state_machine</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

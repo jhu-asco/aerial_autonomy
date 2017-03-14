@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structLogicStateMachineFrontEnd_1_1transition__table" kind="struct" prot="public">
+    <compoundname>LogicStateMachineFrontEnd::transition_table</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">boost::mpl::vector&lt; msmf::Row&lt; Landed, be::Takeoff, TakingOff, TakeoffAction, TakeoffGuard &gt;, msmf::Row&lt; TakingOff, be::Land, Landing, LandingAction, msmf::none &gt;, msmf::Row&lt; TakingOff, be::Abort, Landing, TakeoffAbort, msmf::none &gt;, msmf::Row&lt; Hovering, PositionYaw, ReachingGoal, ReachingGoalSet, ReachingGoalGuard &gt;, msmf::Row&lt; Hovering, be::Land, Landing, LandingAction, msmf::none &gt;, msmf::Row&lt; ReachingGoal, be::Abort, Hovering, ReachingGoalAbort, msmf::none &gt;, msmf::Row&lt; ReachingGoal, be::Land, Landing, ReachingGoalLand, msmf::none &gt;, msmf::Row&lt; Landing, Completed, Landed, msmf::none, msmf::none &gt;, msmf::Row&lt; TakingOff, Completed, Hovering, msmf::none, msmf::none &gt;, msmf::Row&lt; ReachingGoal, Completed, Hovering, msmf::none, msmf::none &gt; &gt;</basecompoundref>
+    <includes refid="basic__state__machine_8h" local="no">basic_state_machine.h</includes>
+    <briefdescription>
+<para>Transition table for State Machine. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="351">
+        <label>LogicStateMachineFrontEnd::transition_table</label>
+        <link refid="structLogicStateMachineFrontEnd_1_1transition__table"/>
+        <childnode refid="352" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="352">
+        <label>boost::mpl::vector&lt; msmf::Row&lt; Landed, be::Takeoff, TakingOff, TakeoffAction, TakeoffGuard &gt;,msmf::Row&lt; TakingOff, be::Land, Landing, LandingAction, msmf::none &gt;, msmf::Row&lt; TakingOff, be::Abort, Landing, TakeoffAbort, msmf::none &gt;,msmf::Row&lt; Hovering, PositionYaw, ReachingGoal, ReachingGoalSet, ReachingGoalGuard &gt;, msmf::Row&lt; Hovering, be::Land, Landing, LandingAction, msmf::none &gt;,msmf::Row&lt; ReachingGoal, be::Abort, Hovering, ReachingGoalAbort, msmf::none &gt;, msmf::Row&lt; ReachingGoal, be::Land, Landing, ReachingGoalLand, msmf::none &gt;,msmf::Row&lt; Landing, Completed, Landed, msmf::none, msmf::none &gt;, msmf::Row&lt; TakingOff, Completed, Hovering, msmf::none, msmf::none &gt;, msmf::Row&lt; ReachingGoal, Completed, Hovering, msmf::none, msmf::none &gt; &gt;</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="353">
+        <label>LogicStateMachineFrontEnd::transition_table</label>
+        <link refid="structLogicStateMachineFrontEnd_1_1transition__table"/>
+        <childnode refid="354" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="354">
+        <label>boost::mpl::vector&lt; msmf::Row&lt; Landed, be::Takeoff, TakingOff, TakeoffAction, TakeoffGuard &gt;,msmf::Row&lt; TakingOff, be::Land, Landing, LandingAction, msmf::none &gt;, msmf::Row&lt; TakingOff, be::Abort, Landing, TakeoffAbort, msmf::none &gt;,msmf::Row&lt; Hovering, PositionYaw, ReachingGoal, ReachingGoalSet, ReachingGoalGuard &gt;, msmf::Row&lt; Hovering, be::Land, Landing, LandingAction, msmf::none &gt;,msmf::Row&lt; ReachingGoal, be::Abort, Hovering, ReachingGoalAbort, msmf::none &gt;, msmf::Row&lt; ReachingGoal, be::Land, Landing, ReachingGoalLand, msmf::none &gt;,msmf::Row&lt; Landing, Completed, Landed, msmf::none, msmf::none &gt;, msmf::Row&lt; TakingOff, Completed, Hovering, msmf::none, msmf::none &gt;, msmf::Row&lt; ReachingGoal, Completed, Hovering, msmf::none, msmf::none &gt; &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="217" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="194" bodyend="217"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

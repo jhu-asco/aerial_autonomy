@@ -1,0 +1,50 @@
+\hypertarget{land__functors_8h}{\section{include/aerial\-\_\-autonomy/actions\-\_\-guards/land\-\_\-functors.h File Reference}
+\label{land__functors_8h}\index{include/aerial\-\_\-autonomy/actions\-\_\-guards/land\-\_\-functors.\-h@{include/aerial\-\_\-autonomy/actions\-\_\-guards/land\-\_\-functors.\-h}}
+}
+{\ttfamily \#include $<$aerial\-\_\-autonomy/actions\-\_\-guards/base\-\_\-functors.\-h$>$}\\*
+{\ttfamily \#include $<$aerial\-\_\-autonomy/basic\-\_\-events.\-h$>$}\\*
+{\ttfamily \#include $<$aerial\-\_\-autonomy/logic\-\_\-states/base\-\_\-state.\-h$>$}\\*
+{\ttfamily \#include $<$aerial\-\_\-autonomy/robot\-\_\-systems/uav\-\_\-system.\-h$>$}\\*
+{\ttfamily \#include $<$aerial\-\_\-autonomy/types/completed\-\_\-event.\-h$>$}\\*
+{\ttfamily \#include $<$parsernode/common.\-h$>$}\\*
+Include dependency graph for land\-\_\-functors.\-h\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{land__functors_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{land__functors_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structLandTransitionActionFunctor__}{Land\-Transition\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+\begin{DoxyCompactList}\small\item\em Transition action when starting to land. \end{DoxyCompactList}\item 
+struct \hyperlink{structLandInternalActionFunctor__}{Land\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+\begin{DoxyCompactList}\small\item\em Internal action to figure out when landing is complete. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Logic\-State\-Machine\-T $>$ }\\using \hyperlink{land__functors_8h_a84627965433a60de431758bddec005c3}{Landing\-\_\-} = \hyperlink{classBaseState}{Base\-State}$<$ \hyperlink{classUAVSystem}{U\-A\-V\-System}, Logic\-State\-Machine\-T, \hyperlink{structLandInternalActionFunctor__}{Land\-Internal\-Action\-Functor\-\_\-}$<$ Logic\-State\-Machine\-T $>$$>$
+\begin{DoxyCompactList}\small\item\em State that uses internal action for landing. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\hypertarget{land__functors_8h_a84627965433a60de431758bddec005c3}{\index{land\-\_\-functors.\-h@{land\-\_\-functors.\-h}!Landing\-\_\-@{Landing\-\_\-}}
+\index{Landing\-\_\-@{Landing\-\_\-}!land_functors.h@{land\-\_\-functors.\-h}}
+\subsubsection[{Landing\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Logic\-State\-Machine\-T $>$ using {\bf Landing\-\_\-} =  {\bf Base\-State}$<${\bf U\-A\-V\-System}, Logic\-State\-Machine\-T, {\bf Land\-Internal\-Action\-Functor\-\_\-}$<$Logic\-State\-Machine\-T$>$$>$}}\label{land__functors_8h_a84627965433a60de431758bddec005c3}
+
+
+State that uses internal action for landing. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Logic\-State\-Machine\-T} & Logic state machine used to process events \\
+\hline
+\end{DoxyTemplParams}

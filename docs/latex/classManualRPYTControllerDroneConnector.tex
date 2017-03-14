@@ -1,0 +1,117 @@
+\hypertarget{classManualRPYTControllerDroneConnector}{\section{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector Class Reference}
+\label{classManualRPYTControllerDroneConnector}\index{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector@{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector}}
+}
+
+
+Maps Joystick goals to rpythrust commands to quadrotor.  
+
+
+
+
+{\ttfamily \#include $<$manual\-\_\-rpyt\-\_\-controller\-\_\-drone\-\_\-connector.\-h$>$}
+
+
+
+Inheritance diagram for Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{classManualRPYTControllerDroneConnector__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{classManualRPYTControllerDroneConnector__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classManualRPYTControllerDroneConnector_a1e9d3f52b19ed5d89b00d6358f826f9b}{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector} (parsernode\-::\-Parser \&drone\-\_\-hardware, \hyperlink{classController}{Controller}$<$ \hyperlink{structJoysticksYaw}{Joysticks\-Yaw}, \hyperlink{structEmptyGoal}{Empty\-Goal}, \hyperlink{structRollPitchYawThrust}{Roll\-Pitch\-Yaw\-Thrust} $>$ \&controller)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{structJoysticksYaw}{Joysticks\-Yaw} \hyperlink{classManualRPYTControllerDroneConnector_a6c47447c98dd1528703355f9f60f1d50}{extract\-Sensor\-Data} ()
+\begin{DoxyCompactList}\small\item\em Extracts joystick commands and current yaw from hardware. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classManualRPYTControllerDroneConnector_a34bde89c4b4f2d0de000b4ccbfc719c4}{send\-Hardware\-Commands} (\hyperlink{structRollPitchYawThrust}{Roll\-Pitch\-Yaw\-Thrust} controls)
+\begin{DoxyCompactList}\small\item\em Send R\-P\-Y\-T commands to hardware. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Maps Joystick goals to rpythrust commands to quadrotor. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classManualRPYTControllerDroneConnector_a1e9d3f52b19ed5d89b00d6358f826f9b}{\index{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector@{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector}!Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector@{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector}}
+\index{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector@{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector}!ManualRPYTControllerDroneConnector@{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector}}
+\subsubsection[{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector}]{\setlength{\rightskip}{0pt plus 5cm}Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector\-::\-Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector (
+\begin{DoxyParamCaption}
+\item[{parsernode\-::\-Parser \&}]{drone\-\_\-hardware, }
+\item[{{\bf Controller}$<$ {\bf Joysticks\-Yaw}, {\bf Empty\-Goal}, {\bf Roll\-Pitch\-Yaw\-Thrust} $>$ \&}]{controller}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classManualRPYTControllerDroneConnector_a1e9d3f52b19ed5d89b00d6358f826f9b}
+
+
+Constructor. 
+
+Store drone hardware with hardware type as U\-A\-V. Uses parsernode\-::\-Parser\-::cmdrpythrust function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em drone\-\_\-hardware} & Drone hardware used to send commands \\
+\hline
+{\em controller} & Rpy\-Thrust controller \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classManualRPYTControllerDroneConnector_a6c47447c98dd1528703355f9f60f1d50}{\index{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector@{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector}!extract\-Sensor\-Data@{extract\-Sensor\-Data}}
+\index{extract\-Sensor\-Data@{extract\-Sensor\-Data}!ManualRPYTControllerDroneConnector@{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector}}
+\subsubsection[{extract\-Sensor\-Data}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Joysticks\-Yaw} Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector\-::extract\-Sensor\-Data (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{classManualRPYTControllerDroneConnector_a6c47447c98dd1528703355f9f60f1d50}
+
+
+Extracts joystick commands and current yaw from hardware. 
+
+\begin{DoxyReturn}{Returns}
+Joystick commands and current yaw 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classControllerHardwareConnector_af6952c0d8829b93557eb7d8887bebd63}{Controller\-Hardware\-Connector$<$ Joysticks\-Yaw, Empty\-Goal, Roll\-Pitch\-Yaw\-Thrust $>$}.
+
+\hypertarget{classManualRPYTControllerDroneConnector_a34bde89c4b4f2d0de000b4ccbfc719c4}{\index{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector@{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector}!send\-Hardware\-Commands@{send\-Hardware\-Commands}}
+\index{send\-Hardware\-Commands@{send\-Hardware\-Commands}!ManualRPYTControllerDroneConnector@{Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector}}
+\subsubsection[{send\-Hardware\-Commands}]{\setlength{\rightskip}{0pt plus 5cm}void Manual\-R\-P\-Y\-T\-Controller\-Drone\-Connector\-::send\-Hardware\-Commands (
+\begin{DoxyParamCaption}
+\item[{{\bf Roll\-Pitch\-Yaw\-Thrust}}]{controls}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{classManualRPYTControllerDroneConnector_a34bde89c4b4f2d0de000b4ccbfc719c4}
+
+
+Send R\-P\-Y\-T commands to hardware. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em controls} & R\-P\-Y\-T command to send to drone \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classControllerHardwareConnector_a5fc86156d5c747aba36497732962d6d0}{Controller\-Hardware\-Connector$<$ Joysticks\-Yaw, Empty\-Goal, Roll\-Pitch\-Yaw\-Thrust $>$}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/controller\-\_\-hardware\-\_\-connectors/\hyperlink{manual__rpyt__controller__drone__connector_8h}{manual\-\_\-rpyt\-\_\-controller\-\_\-drone\-\_\-connector.\-h}\item 
+src/controller\-\_\-hardware\-\_\-connectors/\hyperlink{manual__rpyt__controller__drone__connector_8cpp}{manual\-\_\-rpyt\-\_\-controller\-\_\-drone\-\_\-connector.\-cpp}\end{DoxyCompactItemize}

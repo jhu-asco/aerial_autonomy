@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="empty__goal_8h" kind="file">
+    <compoundname>empty_goal.h</compoundname>
+    <includedby refid="manual__rpyt__controller__drone__connector_8h" local="yes">include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h</includedby>
+    <includedby refid="manual__rpyt__controller_8h" local="yes">include/aerial_autonomy/controllers/manual_rpyt_controller.h</includedby>
+    <invincdepgraph>
+      <node id="1646">
+        <label>include/aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h</label>
+        <link refid="basic__controller__hardware__connectors_8h"/>
+        <childnode refid="1647" relation="include">
+        </childnode>
+      </node>
+      <node id="1652">
+        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
+        <link refid="land__functors_8h"/>
+        <childnode refid="1649" relation="include">
+        </childnode>
+      </node>
+      <node id="1651">
+        <label>src/aerial_autonomy_node.cpp</label>
+        <link refid="aerial__autonomy__node_8cpp"/>
+      </node>
+      <node id="1645">
+        <label>src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp</label>
+        <link refid="manual__rpyt__controller__drone__connector_8cpp"/>
+      </node>
+      <node id="1650">
+        <label>include/aerial_autonomy/state_machines/basic_state_machine.h</label>
+        <link refid="basic__state__machine_8h"/>
+        <childnode refid="1651" relation="include">
+        </childnode>
+      </node>
+      <node id="1660">
+        <label>include/aerial_autonomy/controllers/basic_controllers.h</label>
+        <link refid="basic__controllers_8h"/>
+        <childnode refid="1647" relation="include">
+        </childnode>
+      </node>
+      <node id="1653">
+        <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
+        <link refid="position__control__functors_8h"/>
+        <childnode refid="1649" relation="include">
+        </childnode>
+      </node>
+      <node id="1655">
+        <label>include/aerial_autonomy/onboard_system_handler.h</label>
+        <link refid="onboard__system__handler_8h"/>
+        <childnode refid="1651" relation="include">
+        </childnode>
+      </node>
+      <node id="1656">
+        <label>include/aerial_autonomy/system_status_publisher.h</label>
+        <link refid="system__status__publisher_8h"/>
+        <childnode refid="1655" relation="include">
+        </childnode>
+      </node>
+      <node id="1643">
+        <label>include/aerial_autonomy/types/empty_goal.h</label>
+        <link refid="empty_goal.h"/>
+        <childnode refid="1644" relation="include">
+        </childnode>
+        <childnode refid="1658" relation="include">
+        </childnode>
+      </node>
+      <node id="1649">
+        <label>include/aerial_autonomy/actions_guards/basic_states.h</label>
+        <link refid="basic__states_8h"/>
+        <childnode refid="1650" relation="include">
+        </childnode>
+      </node>
+      <node id="1648">
+        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
+        <link refid="hovering__functors_8h"/>
+        <childnode refid="1649" relation="include">
+        </childnode>
+      </node>
+      <node id="1659">
+        <label>src/controllers/manual_rpyt_controller.cpp</label>
+        <link refid="manual__rpyt__controller_8cpp"/>
+      </node>
+      <node id="1658">
+        <label>include/aerial_autonomy/controllers/manual_rpyt_controller.h</label>
+        <link refid="manual__rpyt__controller_8h"/>
+        <childnode refid="1659" relation="include">
+        </childnode>
+        <childnode refid="1660" relation="include">
+        </childnode>
+      </node>
+      <node id="1644">
+        <label>include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h</label>
+        <link refid="manual__rpyt__controller__drone__connector_8h"/>
+        <childnode refid="1645" relation="include">
+        </childnode>
+        <childnode refid="1646" relation="include">
+        </childnode>
+      </node>
+      <node id="1647">
+        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
+        <link refid="uav__system_8h"/>
+        <childnode refid="1648" relation="include">
+        </childnode>
+        <childnode refid="1652" relation="include">
+        </childnode>
+        <childnode refid="1653" relation="include">
+        </childnode>
+        <childnode refid="1654" relation="include">
+        </childnode>
+        <childnode refid="1655" relation="include">
+        </childnode>
+        <childnode refid="1650" relation="include">
+        </childnode>
+        <childnode refid="1656" relation="include">
+        </childnode>
+        <childnode refid="1657" relation="include">
+        </childnode>
+      </node>
+      <node id="1657">
+        <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
+        <link refid="sample__logic__state__machine_8h"/>
+      </node>
+      <node id="1654">
+        <label>include/aerial_autonomy/actions_guards/takeoff_functors.h</label>
+        <link refid="takeoff__functors_8h"/>
+        <childnode refid="1649" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structEmptyGoal" prot="public">EmptyGoal</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="5" refid="structEmptyGoal" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structEmptyGoal" kindref="compound">EmptyGoal</ref><sp/>{};</highlight></codeline>
+    </programlisting>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/empty_goal.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structEventAgnosticActionFunctor" kind="struct" prot="public" abstract="yes">
+    <compoundname>EventAgnosticActionFunctor</compoundname>
+    <includes refid="base__functors_8h" local="no">base_functors.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class</type>
+        <declname>RobotSystemT</declname>
+        <defname>RobotSystemT</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>LogicStateMachineT</declname>
+        <defname>LogicStateMachineT</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structEventAgnosticActionFunctor_1a53a48938d68370ff2ef262222565ffcf" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void EventAgnosticActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;::run</definition>
+        <argsstring>(RobotSystemT &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)=0</argsstring>
+        <name>run</name>
+        <reimplementedby refid="structLandTransitionActionFunctor___1ae91b354f041edda283e306fa312e1213">run</reimplementedby>
+        <reimplementedby refid="structTakeoffTransitionActionFunctor___1aaf8ba8ac8cf0f07e2978da244b5efb2b">run</reimplementedby>
+        <reimplementedby refid="structHoveringInternalActionFunctor___1a87bb8dd8ed71e54729967b9e258fb66e">run</reimplementedby>
+        <reimplementedby refid="structPositionControlAbortActionFunctor___1a04152d311e51abb5b330ee74b3c29702">run</reimplementedby>
+        <reimplementedby refid="structTakeoffAbortActionFunctor___1a8366919888a54d029b3856c3a433843d">run</reimplementedby>
+        <reimplementedby refid="structLandInternalActionFunctor___1a4557b02d6cfa6712b610337cb606f54b">run</reimplementedby>
+        <reimplementedby refid="structTakeoffInternalActionFunctor___1a2118df6e326662cd0088344499e49696">run</reimplementedby>
+        <reimplementedby refid="structPositionControlInternalActionFunctor___1a81589e5ecfba853969942b9842ac1563">run</reimplementedby>
+        <param>
+          <type>RobotSystemT &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <param>
+          <type>LogicStateMachineT &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <briefdescription>
+<para>Override this run function for different sub classes. This function performs the logic checking for each state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Provides sensor data and allows for controlling hardware </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend of logic State Machine. can send events using this. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="132" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class EventT</type>
+          </param>
+          <param>
+            <type>class FSM</type>
+          </param>
+          <param>
+            <type>class SourceState</type>
+          </param>
+          <param>
+            <type>class TargetState</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void EventAgnosticActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;::operator()</definition>
+        <argsstring>(EventT const &amp;, FSM &amp;logic_state_machine, SourceState &amp;, TargetState &amp;)</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>EventT const &amp;</type>
+        </param>
+        <param>
+          <type>FSM &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <param>
+          <type>SourceState &amp;</type>
+        </param>
+        <param>
+          <type>TargetState &amp;</type>
+        </param>
+        <briefdescription>
+<para>operator () Internally calls run function </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend of logic State Machine. can send events using this. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="141" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="141" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual EventAgnosticActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;::~EventAgnosticActionFunctor</definition>
+        <argsstring>()</argsstring>
+        <name>~EventAgnosticActionFunctor</name>
+        <briefdescription>
+<para>virtual destructor to get polymorphism </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="159" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="159" bodyend="159"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Action functor that does not require the event triggering it. </para>    </briefdescription>
+    <detaileddescription>
+<para>This action functor performs the same action irrespective of the event triggering it. For example takeoff, land actions</para><para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>RobotSystemT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The robot system used in the action </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The logic state machine used to trigger events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="123" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="123" bodyend="160"/>
+    <listofallmembers>
+      <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>EventAgnosticActionFunctor</scope><name>operator()</name></member>
+      <member refid="structEventAgnosticActionFunctor_1a53a48938d68370ff2ef262222565ffcf" prot="public" virt="pure-virtual"><scope>EventAgnosticActionFunctor</scope><name>run</name></member>
+      <member refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" prot="public" virt="virtual"><scope>EventAgnosticActionFunctor</scope><name>~EventAgnosticActionFunctor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

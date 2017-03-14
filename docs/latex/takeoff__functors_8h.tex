@@ -1,0 +1,55 @@
+\hypertarget{takeoff__functors_8h}{\section{include/aerial\-\_\-autonomy/actions\-\_\-guards/takeoff\-\_\-functors.h File Reference}
+\label{takeoff__functors_8h}\index{include/aerial\-\_\-autonomy/actions\-\_\-guards/takeoff\-\_\-functors.\-h@{include/aerial\-\_\-autonomy/actions\-\_\-guards/takeoff\-\_\-functors.\-h}}
+}
+{\ttfamily \#include $<$aerial\-\_\-autonomy/actions\-\_\-guards/base\-\_\-functors.\-h$>$}\\*
+{\ttfamily \#include $<$aerial\-\_\-autonomy/basic\-\_\-events.\-h$>$}\\*
+{\ttfamily \#include $<$aerial\-\_\-autonomy/logic\-\_\-states/base\-\_\-state.\-h$>$}\\*
+{\ttfamily \#include $<$aerial\-\_\-autonomy/robot\-\_\-systems/uav\-\_\-system.\-h$>$}\\*
+{\ttfamily \#include $<$aerial\-\_\-autonomy/types/completed\-\_\-event.\-h$>$}\\*
+{\ttfamily \#include $<$glog/logging.\-h$>$}\\*
+{\ttfamily \#include $<$parsernode/common.\-h$>$}\\*
+Include dependency graph for takeoff\-\_\-functors.\-h\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{takeoff__functors_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{takeoff__functors_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structTakeoffTransitionActionFunctor__}{Takeoff\-Transition\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+\begin{DoxyCompactList}\small\item\em action to take when starting takeoff \end{DoxyCompactList}\item 
+struct \hyperlink{structTakeoffAbortActionFunctor__}{Takeoff\-Abort\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+\begin{DoxyCompactList}\small\item\em action to perform when aborting takeoff \end{DoxyCompactList}\item 
+struct \hyperlink{structTakeoffTransitionGuardFunctor__}{Takeoff\-Transition\-Guard\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+\begin{DoxyCompactList}\small\item\em Guard to avoid accidental takeoff. \end{DoxyCompactList}\item 
+struct \hyperlink{structTakeoffInternalActionFunctor__}{Takeoff\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+\begin{DoxyCompactList}\small\item\em Check when takeoff is complete, and ensure enough battery voltage. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Logic\-State\-Machine\-T $>$ }\\using \hyperlink{takeoff__functors_8h_ab6710f3cb12b7653eedcd3a2215d3228}{Taking\-Off\-\_\-} = \hyperlink{classBaseState}{Base\-State}$<$ \hyperlink{classUAVSystem}{U\-A\-V\-System}, Logic\-State\-Machine\-T, \hyperlink{structTakeoffInternalActionFunctor__}{Takeoff\-Internal\-Action\-Functor\-\_\-}$<$ Logic\-State\-Machine\-T $>$$>$
+\begin{DoxyCompactList}\small\item\em Taking off state that uses the internal action functor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\hypertarget{takeoff__functors_8h_ab6710f3cb12b7653eedcd3a2215d3228}{\index{takeoff\-\_\-functors.\-h@{takeoff\-\_\-functors.\-h}!Taking\-Off\-\_\-@{Taking\-Off\-\_\-}}
+\index{Taking\-Off\-\_\-@{Taking\-Off\-\_\-}!takeoff_functors.h@{takeoff\-\_\-functors.\-h}}
+\subsubsection[{Taking\-Off\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Logic\-State\-Machine\-T $>$ using {\bf Taking\-Off\-\_\-} =  {\bf Base\-State}$<${\bf U\-A\-V\-System}, Logic\-State\-Machine\-T, {\bf Takeoff\-Internal\-Action\-Functor\-\_\-}$<$Logic\-State\-Machine\-T$>$$>$}}\label{takeoff__functors_8h_ab6710f3cb12b7653eedcd3a2215d3228}
+
+
+Taking off state that uses the internal action functor. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Logic\-State\-Machine\-T} & Logic state machine used to process events \\
+\hline
+\end{DoxyTemplParams}

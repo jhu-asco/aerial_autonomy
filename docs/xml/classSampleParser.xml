@@ -1,0 +1,560 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classSampleParser" kind="class" prot="public">
+    <compoundname>SampleParser</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Parser</basecompoundref>
+    <includes refid="sample__parser_8h" local="no">sample_parser.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classSampleParser_1acbe747fdf67e6865b87c020757896022" prot="private" static="no" mutable="no">
+        <type>parsernode::common::quaddata</type>
+        <definition>parsernode::common::quaddata SampleParser::quad_data</definition>
+        <argsstring></argsstring>
+        <name>quad_data</name>
+        <briefdescription>
+<para>Sensor data and quad state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="189" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classSampleParser_1a8cea9add13717649b00c4e916fe3b518" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>SampleParser::SampleParser</definition>
+        <argsstring>()</argsstring>
+        <name>SampleParser</name>
+        <briefdescription>
+<para>Implict constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="15" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="15" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1a50ed35fede29930ff853fe6ab175fad6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SampleParser::setRC</definition>
+        <argsstring>(int16_t channels[4])</argsstring>
+        <name>setRC</name>
+        <param>
+          <type>int16_t</type>
+          <declname>channels</declname>
+          <array>[4]</array>
+        </param>
+        <briefdescription>
+<para>set the rc channel information stored in the UAV brain </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>channels</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>rc channel values (-10000, 10000) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="22" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="22" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1aaec0124f3a5a19e183438484f98db761" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool SampleParser::takeoff</definition>
+        <argsstring>()</argsstring>
+        <name>takeoff</name>
+        <briefdescription>
+<para>Takeoff. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>True if successful </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="32" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="32" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1a92ee9e3720b7c420714e2904f81a113a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool SampleParser::land</definition>
+        <argsstring>()</argsstring>
+        <name>land</name>
+        <briefdescription>
+<para>Land. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>True if landing successful </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="41" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="41" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1ad057bfe380db45cda437f53cec2c267a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool SampleParser::disarm</definition>
+        <argsstring>()</argsstring>
+        <name>disarm</name>
+        <briefdescription>
+<para>Turn off motor. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>True if disabling is successful </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="50" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="50" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1a265b674d9c0467ed919cff3f4df803b5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool SampleParser::flowControl</definition>
+        <argsstring>(bool)</argsstring>
+        <name>flowControl</name>
+        <param>
+          <type>bool</type>
+        </param>
+        <briefdescription>
+<para>Toggle software control. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>True if successful </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="59" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="59" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1abb19d034c771cbd02d1961d99ca35f98" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool SampleParser::calibrateimubias</definition>
+        <argsstring>()</argsstring>
+        <name>calibrateimubias</name>
+        <briefdescription>
+<para>Recalibrate IMU. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if calibration successful </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="68" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="68" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1a95c4ea3034bcd431660f5ee2acc13e3c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool SampleParser::cmdrpythrust</definition>
+        <argsstring>(geometry_msgs::Quaternion &amp;rpytmsg, bool sendyaw=false)</argsstring>
+        <name>cmdrpythrust</name>
+        <param>
+          <type>geometry_msgs::Quaternion &amp;</type>
+          <declname>rpytmsg</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>sendyaw</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Command the euler angles of the quad and the thrust. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rpytmsg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Msg format is (x,y,z,w) -&gt; (roll, pitch, yaw, thrust). The thrust value will be adjusted based on whethere there is thrust bias or not. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sendyaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>True to control the yaw/ False to ignore yaw command</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if sending command is successful </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="82" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="82" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1a52ea7095057fa73ae1665a8dd6ccd0d0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool SampleParser::cmdvelguided</definition>
+        <argsstring>(geometry_msgs::Vector3 &amp;vel_cmd, double &amp;yaw_ang)</argsstring>
+        <name>cmdvelguided</name>
+        <param>
+          <type>geometry_msgs::Vector3 &amp;</type>
+          <declname>vel_cmd</declname>
+        </param>
+        <param>
+          <type>double &amp;</type>
+          <declname>yaw_ang</declname>
+        </param>
+        <briefdescription>
+<para>Command velocity and yaw to UAV. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>vel_cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="structVelocity" kindref="compound">Velocity</ref> vector (m/s) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>yaw_ang</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Yaw angle (rad)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if sending command is successful </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="97" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="97" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1a790a0041665973477028493cf51b8059" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool SampleParser::cmdwaypoint</definition>
+        <argsstring>(geometry_msgs::Vector3 &amp;desired_pos, double desired_yaw=0)</argsstring>
+        <name>cmdwaypoint</name>
+        <param>
+          <type>geometry_msgs::Vector3 &amp;</type>
+          <declname>desired_pos</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>desired_yaw</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Command position yaw for UAV. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>desired_pos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Desired 3D position (m) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>desired_yaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Desired yaw angle (rad)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if sending command is successful </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="110" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="110" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1a20f989659a8d7d65574d37460a1e9f47" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void SampleParser::grip</definition>
+        <argsstring>(int state)</argsstring>
+        <name>grip</name>
+        <param>
+          <type>int</type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+<para>Toggle gripper. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>state</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0 to close, 1 to open </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="121" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="121" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1ab062fe44a82f5490e5c92e8512ede9a2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void SampleParser::reset_attitude</definition>
+        <argsstring>(double roll, double pitch, double yaw)</argsstring>
+        <name>reset_attitude</name>
+        <param>
+          <type>double</type>
+          <declname>roll</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>pitch</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>yaw</declname>
+        </param>
+        <briefdescription>
+<para>Set the attitude data to specified roll, pitch, yaw (rad) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>roll</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Roll angle (rad) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pitch</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pitch angle (rad) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>yaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Yaw angle (rad) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="129" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="129" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1a955965dff0214bbb8e720cab858f1078" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void SampleParser::setmode</definition>
+        <argsstring>(std::string mode)</argsstring>
+        <name>setmode</name>
+        <param>
+          <type>std::string</type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+<para>Set UAV controller mode such position controlling, rpyt etc. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>This version does not support any modes </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="135" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="135" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1acaf99fced8fc57433781e766dcb931cf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void SampleParser::initialize</definition>
+        <argsstring>(ros::NodeHandle &amp;nh_)</argsstring>
+        <name>initialize</name>
+        <param>
+          <type>ros::NodeHandle &amp;</type>
+          <declname>nh_</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the Hardware with a ros node handle to setup communications. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nh_</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Nodehandle to setup communications </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="144" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="144" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1af1be68e602c959d8b1ab29d651ed379c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void SampleParser::getquaddata</definition>
+        <argsstring>(parsernode::common::quaddata &amp;d1)</argsstring>
+        <name>getquaddata</name>
+        <param>
+          <type>parsernode::common::quaddata &amp;</type>
+          <declname>d1</declname>
+        </param>
+        <briefdescription>
+<para>Get the sensor data and UAV state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>d1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data struct in which data is filled </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="150" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="150" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1afc4af7450f685341c09e2c00af95ff73" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual SampleParser::~SampleParser</definition>
+        <argsstring>()</argsstring>
+        <name>~SampleParser</name>
+        <briefdescription>
+<para>Polymorphic destructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="154" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="154" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1a293772680222eb4f7c49c26d42e69eaa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void SampleParser::setBatteryPercent</definition>
+        <argsstring>(double percent)</argsstring>
+        <name>setBatteryPercent</name>
+        <param>
+          <type>double</type>
+          <declname>percent</declname>
+        </param>
+        <briefdescription>
+<para>Set the battery percent sensor data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>percent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="160" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="160" bodyend="162"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1a98153bd7644b1ca0eb12b442ec54034f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void SampleParser::setaltitude</definition>
+        <argsstring>(double altitude_)</argsstring>
+        <name>setaltitude</name>
+        <param>
+          <type>double</type>
+          <declname>altitude_</declname>
+        </param>
+        <briefdescription>
+<para>set the altitude or local z height data(m) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>altitude_</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Altitude(m) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="168" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="168" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1aaf4d068b2dabd1ca8da12f7109b288c4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void SampleParser::setlogdir</definition>
+        <argsstring>(string logdir)</argsstring>
+        <name>setlogdir</name>
+        <param>
+          <type>string</type>
+          <declname>logdir</declname>
+        </param>
+        <briefdescription>
+<para>Create log directory and create log files. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>logdir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the directory where to create log files </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="177" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="177" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="classSampleParser_1a78923bbce68debb4d035a2d8b25f7d6d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void SampleParser::controllog</definition>
+        <argsstring>(bool logswitch)</argsstring>
+        <name>controllog</name>
+        <param>
+          <type>bool</type>
+          <declname>logswitch</declname>
+        </param>
+        <briefdescription>
+<para>Toggle logging. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>logswitch</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>True to start logging/False to stop logging </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="183" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="183" bodyend="183"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>An example UAV hardware that emulates actual UAV hardware. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="324">
+        <label>parsernode::Parser</label>
+      </node>
+      <node id="323">
+        <label>SampleParser</label>
+        <link refid="classSampleParser"/>
+        <childnode refid="324" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="326">
+        <label>parsernode::Parser</label>
+      </node>
+      <node id="325">
+        <label>SampleParser</label>
+        <link refid="classSampleParser"/>
+        <childnode refid="326" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" line="10" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h" bodystart="10" bodyend="190"/>
+    <listofallmembers>
+      <member refid="classSampleParser_1abb19d034c771cbd02d1961d99ca35f98" prot="public" virt="virtual"><scope>SampleParser</scope><name>calibrateimubias</name></member>
+      <member refid="classSampleParser_1a95c4ea3034bcd431660f5ee2acc13e3c" prot="public" virt="virtual"><scope>SampleParser</scope><name>cmdrpythrust</name></member>
+      <member refid="classSampleParser_1a52ea7095057fa73ae1665a8dd6ccd0d0" prot="public" virt="virtual"><scope>SampleParser</scope><name>cmdvelguided</name></member>
+      <member refid="classSampleParser_1a790a0041665973477028493cf51b8059" prot="public" virt="virtual"><scope>SampleParser</scope><name>cmdwaypoint</name></member>
+      <member refid="classSampleParser_1a78923bbce68debb4d035a2d8b25f7d6d" prot="public" virt="virtual"><scope>SampleParser</scope><name>controllog</name></member>
+      <member refid="classSampleParser_1ad057bfe380db45cda437f53cec2c267a" prot="public" virt="virtual"><scope>SampleParser</scope><name>disarm</name></member>
+      <member refid="classSampleParser_1a265b674d9c0467ed919cff3f4df803b5" prot="public" virt="virtual"><scope>SampleParser</scope><name>flowControl</name></member>
+      <member refid="classSampleParser_1af1be68e602c959d8b1ab29d651ed379c" prot="public" virt="virtual"><scope>SampleParser</scope><name>getquaddata</name></member>
+      <member refid="classSampleParser_1a20f989659a8d7d65574d37460a1e9f47" prot="public" virt="virtual"><scope>SampleParser</scope><name>grip</name></member>
+      <member refid="classSampleParser_1acaf99fced8fc57433781e766dcb931cf" prot="public" virt="virtual"><scope>SampleParser</scope><name>initialize</name></member>
+      <member refid="classSampleParser_1a92ee9e3720b7c420714e2904f81a113a" prot="public" virt="virtual"><scope>SampleParser</scope><name>land</name></member>
+      <member refid="classSampleParser_1acbe747fdf67e6865b87c020757896022" prot="private" virt="non-virtual"><scope>SampleParser</scope><name>quad_data</name></member>
+      <member refid="classSampleParser_1ab062fe44a82f5490e5c92e8512ede9a2" prot="public" virt="virtual"><scope>SampleParser</scope><name>reset_attitude</name></member>
+      <member refid="classSampleParser_1a8cea9add13717649b00c4e916fe3b518" prot="public" virt="non-virtual"><scope>SampleParser</scope><name>SampleParser</name></member>
+      <member refid="classSampleParser_1a98153bd7644b1ca0eb12b442ec54034f" prot="public" virt="virtual"><scope>SampleParser</scope><name>setaltitude</name></member>
+      <member refid="classSampleParser_1a293772680222eb4f7c49c26d42e69eaa" prot="public" virt="virtual"><scope>SampleParser</scope><name>setBatteryPercent</name></member>
+      <member refid="classSampleParser_1aaf4d068b2dabd1ca8da12f7109b288c4" prot="public" virt="virtual"><scope>SampleParser</scope><name>setlogdir</name></member>
+      <member refid="classSampleParser_1a955965dff0214bbb8e720cab858f1078" prot="public" virt="virtual"><scope>SampleParser</scope><name>setmode</name></member>
+      <member refid="classSampleParser_1a50ed35fede29930ff853fe6ab175fad6" prot="public" virt="non-virtual"><scope>SampleParser</scope><name>setRC</name></member>
+      <member refid="classSampleParser_1aaec0124f3a5a19e183438484f98db761" prot="public" virt="virtual"><scope>SampleParser</scope><name>takeoff</name></member>
+      <member refid="classSampleParser_1afc4af7450f685341c09e2c00af95ff73" prot="public" virt="virtual"><scope>SampleParser</scope><name>~SampleParser</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

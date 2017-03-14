@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_d2b55a6b175e0275230d5abd8f9d8a8b" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_00a152b24bd55ac3bb1e1e4479c1997e">src/aerial_autonomy</innerdir>
+    <innerdir refid="dir_8ecd37509ba98a063f23f24d5940d6f2">src/common</innerdir>
+    <innerdir refid="dir_91ac798137b3e96702b55b367c2564dd">src/controller_hardware_connectors</innerdir>
+    <innerdir refid="dir_19db5a8c0e38c93ea54aacd6e857dd45">src/controllers</innerdir>
+    <innerdir refid="dir_39729513a4eea0c841aa121f5d628f40">src/tests</innerdir>
+    <innerfile refid="aerial__autonomy__node_8cpp">aerial_autonomy_node.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/"/>
+  </compounddef>
+</doxygen>

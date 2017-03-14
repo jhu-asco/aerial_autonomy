@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="namespaceaerial__autonomy" kind="namespace">
+    <compoundname>aerial_autonomy</compoundname>
+    <innernamespace refid="namespaceaerial__autonomy_1_1aerial__autonomy__gui">aerial_autonomy::aerial_autonomy_gui</innernamespace>
+    <innernamespace refid="namespaceaerial__autonomy_1_1ros__event__trigger">aerial_autonomy::ros_event_trigger</innernamespace>
+    <briefdescription>
+<para>GUI source code to provide user the ability to trigger events from GUI to state machine. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/__init__.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

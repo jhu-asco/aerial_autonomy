@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structRollPitchYawThrust" kind="struct" prot="public">
+    <compoundname>RollPitchYawThrust</compoundname>
+    <includes refid="roll__pitch__yaw__thrust_8h" local="no">roll_pitch_yaw_thrust.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structRollPitchYawThrust_1a473205dda8a9c3cd39c7f20b9bf2573b" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double RollPitchYawThrust::r</definition>
+        <argsstring></argsstring>
+        <name>r</name>
+        <briefdescription>
+<para>roll </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/roll_pitch_yaw_thrust.h" line="20" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/roll_pitch_yaw_thrust.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structRollPitchYawThrust_1a5a48538eafec9fcfdfb5c3ff714a6044" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double RollPitchYawThrust::p</definition>
+        <argsstring></argsstring>
+        <name>p</name>
+        <briefdescription>
+<para>pitch </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/roll_pitch_yaw_thrust.h" line="21" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/roll_pitch_yaw_thrust.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double RollPitchYawThrust::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+<para>yaw </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/roll_pitch_yaw_thrust.h" line="22" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/roll_pitch_yaw_thrust.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structRollPitchYawThrust_1aa489ea694a9abb4b891e371d31e63ec4" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double RollPitchYawThrust::t</definition>
+        <argsstring></argsstring>
+        <name>t</name>
+        <briefdescription>
+<para>thrust </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/roll_pitch_yaw_thrust.h" line="23" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/roll_pitch_yaw_thrust.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structRollPitchYawThrust_1ade35aec07cbe2f4639cbbe1b38e39c04" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>RollPitchYawThrust::RollPitchYawThrust</definition>
+        <argsstring>()</argsstring>
+        <name>RollPitchYawThrust</name>
+        <briefdescription>
+<para>Implicit instantiation to zero. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/roll_pitch_yaw_thrust.h" line="9" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/roll_pitch_yaw_thrust.h" bodystart="9" bodyend="9"/>
+      </memberdef>
+      <memberdef kind="function" id="structRollPitchYawThrust_1a910222ed6c81f1d4cf7b030fc3367e4e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>RollPitchYawThrust::RollPitchYawThrust</definition>
+        <argsstring>(double r, double p, double y, double t)</argsstring>
+        <name>RollPitchYawThrust</name>
+        <param>
+          <type>double</type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+<para>Explicit instantiation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>r</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>roll in rad </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pitch in rad </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>yaw in rad </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>t</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Thrust </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/roll_pitch_yaw_thrust.h" line="18" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/roll_pitch_yaw_thrust.h" bodystart="18" bodyend="19"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Roll, pitch, yaw, and thrust message. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/roll_pitch_yaw_thrust.h" line="5" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/roll_pitch_yaw_thrust.h" bodystart="5" bodyend="24"/>
+    <listofallmembers>
+      <member refid="structRollPitchYawThrust_1a5a48538eafec9fcfdfb5c3ff714a6044" prot="public" virt="non-virtual"><scope>RollPitchYawThrust</scope><name>p</name></member>
+      <member refid="structRollPitchYawThrust_1a473205dda8a9c3cd39c7f20b9bf2573b" prot="public" virt="non-virtual"><scope>RollPitchYawThrust</scope><name>r</name></member>
+      <member refid="structRollPitchYawThrust_1ade35aec07cbe2f4639cbbe1b38e39c04" prot="public" virt="non-virtual"><scope>RollPitchYawThrust</scope><name>RollPitchYawThrust</name></member>
+      <member refid="structRollPitchYawThrust_1a910222ed6c81f1d4cf7b030fc3367e4e" prot="public" virt="non-virtual"><scope>RollPitchYawThrust</scope><name>RollPitchYawThrust</name></member>
+      <member refid="structRollPitchYawThrust_1aa489ea694a9abb4b891e371d31e63ec4" prot="public" virt="non-virtual"><scope>RollPitchYawThrust</scope><name>t</name></member>
+      <member refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" prot="public" virt="non-virtual"><scope>RollPitchYawThrust</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

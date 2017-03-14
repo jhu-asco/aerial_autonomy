@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="sample__parser_8h" kind="file">
+    <compoundname>sample_parser.h</compoundname>
+    <includes local="no">parsernode/common.h</includes>
+    <includes local="no">parsernode/parser.h</includes>
+    <incdepgraph>
+      <node id="1630">
+        <label>include/aerial_autonomy/tests/sample_parser.h</label>
+        <link refid="sample_parser.h"/>
+        <childnode refid="1631" relation="include">
+        </childnode>
+        <childnode refid="1632" relation="include">
+        </childnode>
+      </node>
+      <node id="1631">
+        <label>parsernode/common.h</label>
+      </node>
+      <node id="1632">
+        <label>parsernode/parser.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="classSampleParser" prot="public">SampleParser</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;parsernode/common.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;parsernode/parser.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10" refid="classSampleParser" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classSampleParser" kindref="compound">SampleParser</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>parsernode::Parser<sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="15" refid="classSampleParser_1a8cea9add13717649b00c4e916fe3b518" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classSampleParser_1a8cea9add13717649b00c4e916fe3b518" kindref="member">SampleParser</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="22" refid="classSampleParser_1a50ed35fede29930ff853fe6ab175fad6" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1a50ed35fede29930ff853fe6ab175fad6" kindref="member">setRC</ref>(int16_t<sp/>channels[4])<sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>4;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>quad_data.servo_in[i]<sp/>=<sp/>channels[i];</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="32" refid="classSampleParser_1aaec0124f3a5a19e183438484f98db761" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1aaec0124f3a5a19e183438484f98db761" kindref="member">takeoff</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>quad_data.quadstate<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;takeoff&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="41" refid="classSampleParser_1a92ee9e3720b7c420714e2904f81a113a" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1a92ee9e3720b7c420714e2904f81a113a" kindref="member">land</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>quad_data.quadstate<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;land&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="50" refid="classSampleParser_1ad057bfe380db45cda437f53cec2c267a" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1ad057bfe380db45cda437f53cec2c267a" kindref="member">disarm</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>quad_data.quadstate<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;disarm&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="59" refid="classSampleParser_1a265b674d9c0467ed919cff3f4df803b5" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1a265b674d9c0467ed919cff3f4df803b5" kindref="member">flowControl</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>quad_data.quadstate<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;flowcontrol&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="68" refid="classSampleParser_1abb19d034c771cbd02d1961d99ca35f98" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1abb19d034c771cbd02d1961d99ca35f98" kindref="member">calibrateimubias</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>quad_data.quadstate<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;calibrateimu&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82" refid="classSampleParser_1a95c4ea3034bcd431660f5ee2acc13e3c" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1a95c4ea3034bcd431660f5ee2acc13e3c" kindref="member">cmdrpythrust</ref>(geometry_msgs::Quaternion<sp/>&amp;rpytmsg,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>sendyaw<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>quad_data.rpydata.x<sp/>=<sp/>rpytmsg.x;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>quad_data.rpydata.y<sp/>=<sp/>rpytmsg.y;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>quad_data.rpydata.z<sp/>=<sp/>rpytmsg.z;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97" refid="classSampleParser_1a52ea7095057fa73ae1665a8dd6ccd0d0" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1a52ea7095057fa73ae1665a8dd6ccd0d0" kindref="member">cmdvelguided</ref>(geometry_msgs::Vector3<sp/>&amp;vel_cmd,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;yaw_ang)<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>quad_data.linvel<sp/>=<sp/>vel_cmd;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>quad_data.rpydata.z<sp/>=<sp/>yaw_ang;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="110" refid="classSampleParser_1a790a0041665973477028493cf51b8059" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1a790a0041665973477028493cf51b8059" kindref="member">cmdwaypoint</ref>(geometry_msgs::Vector3<sp/>&amp;desired_pos,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>desired_yaw<sp/>=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>quad_data.localpos<sp/>=<sp/>desired_pos;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>quad_data.rpydata.z<sp/>=<sp/>desired_yaw;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="121" refid="classSampleParser_1a20f989659a8d7d65574d37460a1e9f47" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1a20f989659a8d7d65574d37460a1e9f47" kindref="member">grip</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>state)<sp/>{}</highlight></codeline>
+<codeline lineno="129" refid="classSampleParser_1ab062fe44a82f5490e5c92e8512ede9a2" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1ab062fe44a82f5490e5c92e8512ede9a2" kindref="member">reset_attitude</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>roll,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>pitch,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>yaw)<sp/>{}</highlight></codeline>
+<codeline lineno="135" refid="classSampleParser_1a955965dff0214bbb8e720cab858f1078" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1a955965dff0214bbb8e720cab858f1078" kindref="member">setmode</ref>(std::string<sp/>mode)<sp/>{}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>PluginLib<sp/>initialization<sp/>function</highlight></codeline>
+<codeline lineno="144" refid="classSampleParser_1acaf99fced8fc57433781e766dcb931cf" refkind="member"><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1acaf99fced8fc57433781e766dcb931cf" kindref="member">initialize</ref>(ros::NodeHandle<sp/>&amp;nh_)<sp/>{}</highlight></codeline>
+<codeline lineno="150" refid="classSampleParser_1af1be68e602c959d8b1ab29d651ed379c" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1af1be68e602c959d8b1ab29d651ed379c" kindref="member">getquaddata</ref>(parsernode::common::quaddata<sp/>&amp;d1)<sp/>{<sp/>d1<sp/>=<sp/>quad_data;<sp/>}</highlight></codeline>
+<codeline lineno="154" refid="classSampleParser_1afc4af7450f685341c09e2c00af95ff73" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1afc4af7450f685341c09e2c00af95ff73" kindref="member">~SampleParser</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="160" refid="classSampleParser_1a293772680222eb4f7c49c26d42e69eaa" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1a293772680222eb4f7c49c26d42e69eaa" kindref="member">setBatteryPercent</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>percent)<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/>quad_data.batterypercent<sp/>=<sp/>percent;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="168" refid="classSampleParser_1a98153bd7644b1ca0eb12b442ec54034f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1a98153bd7644b1ca0eb12b442ec54034f" kindref="member">setaltitude</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>altitude_)<sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/>quad_data.altitude<sp/>=<sp/>altitude_;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/>quad_data.localpos.z<sp/>=<sp/>altitude_;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="177" refid="classSampleParser_1aaf4d068b2dabd1ca8da12f7109b288c4" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1aaf4d068b2dabd1ca8da12f7109b288c4" kindref="member">setlogdir</ref>(</highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>logdir)<sp/>{}</highlight></codeline>
+<codeline lineno="183" refid="classSampleParser_1a78923bbce68debb4d035a2d8b25f7d6d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSampleParser_1a78923bbce68debb4d035a2d8b25f7d6d" kindref="member">controllog</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>logswitch)<sp/>{}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/>parsernode::common::quaddata<sp/>quad_data;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_parser.h"/>
+  </compounddef>
+</doxygen>

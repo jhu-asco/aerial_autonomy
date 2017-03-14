@@ -1,0 +1,4 @@
+<map id="BuiltInVelocityControllerDroneConnector" name="BuiltInVelocityControllerDroneConnector">
+<area shape="rect" id="node2" href="$classControllerHardwareConnector.html" title="ControllerHardwareConnector\l\&lt; EmptySensor, VelocityYaw,\l VelocityYaw \&gt;" alt="" coords="5,96,203,152"/>
+<area shape="rect" id="node3" href="$structAbstractControllerHardwareConnector.html" title="Base for ControllerHardwareConnector class. " alt="" coords="13,6,195,47"/>
+</map>

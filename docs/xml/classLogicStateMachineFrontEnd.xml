@@ -1,0 +1,549 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classLogicStateMachineFrontEnd" kind="class" prot="public">
+    <compoundname>LogicStateMachineFrontEnd</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">boost::msm::front::state_machine_def&lt; LogicStateMachineFrontEnd &gt;</basecompoundref>
+    <includes refid="basic__state__machine_8h" local="no">basic_state_machine.h</includes>
+    <innerclass refid="structLogicStateMachineFrontEnd_1_1Landed" prot="public">LogicStateMachineFrontEnd::Landed</innerclass>
+    <innerclass refid="structLogicStateMachineFrontEnd_1_1transition__table" prot="public">LogicStateMachineFrontEnd::transition_table</innerclass>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classLogicStateMachineFrontEnd_1a98f3148dbabd87749be3c63ea0ec2a00" prot="public" static="no">
+        <type><ref refid="takeoff__functors_8h_1ab6710f3cb12b7653eedcd3a2215d3228" kindref="member">TakingOff_</ref>&lt; <ref refid="basic__state__machine_8h_1ab0b6ef21baf57684550a2f05c771bd86" kindref="member">LogicStateMachine</ref> &gt;</type>
+        <definition>using LogicStateMachineFrontEnd::TakingOff =  TakingOff_&lt;LogicStateMachine&gt;</definition>
+        <argsstring></argsstring>
+        <name>TakingOff</name>
+        <briefdescription>
+<para>Takingoff state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="123" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classLogicStateMachineFrontEnd_1acac7938fd313e8808e486fa884ccf49b" prot="public" static="no">
+        <type><ref refid="land__functors_8h_1a84627965433a60de431758bddec005c3" kindref="member">Landing_</ref>&lt; <ref refid="basic__state__machine_8h_1ab0b6ef21baf57684550a2f05c771bd86" kindref="member">LogicStateMachine</ref> &gt;</type>
+        <definition>using LogicStateMachineFrontEnd::Landing =  Landing_&lt;LogicStateMachine&gt;</definition>
+        <argsstring></argsstring>
+        <name>Landing</name>
+        <briefdescription>
+<para>Landing state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="127" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classLogicStateMachineFrontEnd_1a8a5e85c9d100560fc79f9cbe1bbd5947" prot="public" static="no">
+        <type><ref refid="position__control__functors_8h_1af380346c24b534da18813f70217ea50f" kindref="member">ReachingGoal_</ref>&lt; <ref refid="basic__state__machine_8h_1ab0b6ef21baf57684550a2f05c771bd86" kindref="member">LogicStateMachine</ref> &gt;</type>
+        <definition>using LogicStateMachineFrontEnd::ReachingGoal =  ReachingGoal_&lt;LogicStateMachine&gt;</definition>
+        <argsstring></argsstring>
+        <name>ReachingGoal</name>
+        <briefdescription>
+<para>Reaching goal state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="131" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classLogicStateMachineFrontEnd_1a5877b5b19ba413c2b3bb02ee2459d5ec" prot="public" static="no">
+        <type><ref refid="hovering__functors_8h_1a4252f403b3bcd2a850cf271512d9c6ff" kindref="member">Hovering_</ref>&lt; <ref refid="basic__state__machine_8h_1ab0b6ef21baf57684550a2f05c771bd86" kindref="member">LogicStateMachine</ref> &gt;</type>
+        <definition>using LogicStateMachineFrontEnd::Hovering =  Hovering_&lt;LogicStateMachine&gt;</definition>
+        <argsstring></argsstring>
+        <name>Hovering</name>
+        <briefdescription>
+<para>Hovering state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="135" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classLogicStateMachineFrontEnd_1ae617089cdb6687edc5d27b7f8a546af2" prot="public" static="no">
+        <type><ref refid="structLogicStateMachineFrontEnd_1_1Landed" kindref="compound">Landed</ref></type>
+        <definition>using LogicStateMachineFrontEnd::initial_state =  Landed</definition>
+        <argsstring></argsstring>
+        <name>initial_state</name>
+        <briefdescription>
+<para>Initial state for state machine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="152" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classLogicStateMachineFrontEnd_1af73bbbe19d413f3786c265fe91a94ffb" prot="public" static="no">
+        <type><ref refid="structTakeoffTransitionActionFunctor__" kindref="compound">TakeoffTransitionActionFunctor_</ref>&lt; <ref refid="basic__state__machine_8h_1ab0b6ef21baf57684550a2f05c771bd86" kindref="member">LogicStateMachine</ref> &gt;</type>
+        <definition>using LogicStateMachineFrontEnd::TakeoffAction =  TakeoffTransitionActionFunctor_&lt;LogicStateMachine&gt;</definition>
+        <argsstring></argsstring>
+        <name>TakeoffAction</name>
+        <briefdescription>
+<para>Action to take when taking off. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="158" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classLogicStateMachineFrontEnd_1a4660e7e7dbd8bc3f7a379a076999187d" prot="public" static="no">
+        <type><ref refid="structTakeoffTransitionGuardFunctor__" kindref="compound">TakeoffTransitionGuardFunctor_</ref>&lt; <ref refid="basic__state__machine_8h_1ab0b6ef21baf57684550a2f05c771bd86" kindref="member">LogicStateMachine</ref> &gt;</type>
+        <definition>using LogicStateMachineFrontEnd::TakeoffGuard =  TakeoffTransitionGuardFunctor_&lt;LogicStateMachine&gt;</definition>
+        <argsstring></argsstring>
+        <name>TakeoffGuard</name>
+        <briefdescription>
+<para>Guard to stop taking off under low voltage. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="162" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classLogicStateMachineFrontEnd_1a26036773cac59b48b9e545acc870a29b" prot="public" static="no">
+        <type><ref refid="structTakeoffAbortActionFunctor__" kindref="compound">TakeoffAbortActionFunctor_</ref>&lt; <ref refid="basic__state__machine_8h_1ab0b6ef21baf57684550a2f05c771bd86" kindref="member">LogicStateMachine</ref> &gt;</type>
+        <definition>using LogicStateMachineFrontEnd::TakeoffAbort =  TakeoffAbortActionFunctor_&lt;LogicStateMachine&gt;</definition>
+        <argsstring></argsstring>
+        <name>TakeoffAbort</name>
+        <briefdescription>
+<para>Abort action when taking off. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="166" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classLogicStateMachineFrontEnd_1ad1619c7d43a216eb9238004470389f2e" prot="public" static="no">
+        <type><ref refid="structLandTransitionActionFunctor__" kindref="compound">LandTransitionActionFunctor_</ref>&lt; <ref refid="basic__state__machine_8h_1ab0b6ef21baf57684550a2f05c771bd86" kindref="member">LogicStateMachine</ref> &gt;</type>
+        <definition>using LogicStateMachineFrontEnd::LandingAction =  LandTransitionActionFunctor_&lt;LogicStateMachine&gt;</definition>
+        <argsstring></argsstring>
+        <name>LandingAction</name>
+        <briefdescription>
+<para>Action to take when landing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="170" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classLogicStateMachineFrontEnd_1a39babee29ba680422ea922504a465417" prot="public" static="no">
+        <type><ref refid="structPositionControlTransitionActionFunctor__" kindref="compound">PositionControlTransitionActionFunctor_</ref>&lt; <ref refid="basic__state__machine_8h_1ab0b6ef21baf57684550a2f05c771bd86" kindref="member">LogicStateMachine</ref> &gt;</type>
+        <definition>using LogicStateMachineFrontEnd::ReachingGoalSet =  PositionControlTransitionActionFunctor_&lt;LogicStateMachine&gt;</definition>
+        <argsstring></argsstring>
+        <name>ReachingGoalSet</name>
+        <briefdescription>
+<para>set goal action when transitioning </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="174" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classLogicStateMachineFrontEnd_1a84fe5b03b104adc3c3406bb0b6ffa190" prot="public" static="no">
+        <type><ref refid="structPositionControlTransitionGuardFunctor__" kindref="compound">PositionControlTransitionGuardFunctor_</ref>&lt; <ref refid="basic__state__machine_8h_1ab0b6ef21baf57684550a2f05c771bd86" kindref="member">LogicStateMachine</ref> &gt;</type>
+        <definition>using LogicStateMachineFrontEnd::ReachingGoalGuard =  PositionControlTransitionGuardFunctor_&lt;LogicStateMachine&gt;</definition>
+        <argsstring></argsstring>
+        <name>ReachingGoalGuard</name>
+        <briefdescription>
+<para>Guard to avoid going to goal if goal is not correct. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="179" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classLogicStateMachineFrontEnd_1a6273a06430b7aa6088e25d9b78805f1a" prot="public" static="no">
+        <type><ref refid="structPositionControlAbortActionFunctor__" kindref="compound">PositionControlAbortActionFunctor_</ref>&lt; <ref refid="basic__state__machine_8h_1ab0b6ef21baf57684550a2f05c771bd86" kindref="member">LogicStateMachine</ref> &gt;</type>
+        <definition>using LogicStateMachineFrontEnd::ReachingGoalAbort =  PositionControlAbortActionFunctor_&lt;LogicStateMachine&gt;</definition>
+        <argsstring></argsstring>
+        <name>ReachingGoalAbort</name>
+        <briefdescription>
+<para>Abort action when reaching goal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="184" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classLogicStateMachineFrontEnd_1a3bec78d997dbc5ae5534c3b49c8127f5" prot="public" static="no">
+        <type><ref refid="classLogicStateMachineFrontEnd_1ad1619c7d43a216eb9238004470389f2e" kindref="member">LandingAction</ref></type>
+        <definition>using LogicStateMachineFrontEnd::ReachingGoalLand =  LandingAction</definition>
+        <argsstring></argsstring>
+        <name>ReachingGoalLand</name>
+        <briefdescription>
+<para>Land action when reaching goal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="189" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classLogicStateMachineFrontEnd_1a05673eb4ec343f36c1f3fb787ac26b94" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class EventT</type>
+          </param>
+          <param>
+            <type>class RobotSystemT</type>
+          </param>
+          <param>
+            <type>class LogicStateMachineT</type>
+          </param>
+        </templateparamlist>
+        <type>friend class</type>
+        <definition>friend class ActionFunctor</definition>
+        <argsstring></argsstring>
+        <name>ActionFunctor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="62" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="classLogicStateMachineFrontEnd_1a9411581bb37b54467df520e3c73ceaf0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class EventT</type>
+          </param>
+          <param>
+            <type>class RobotSystemT</type>
+          </param>
+          <param>
+            <type>class LogicStateMachineT</type>
+          </param>
+        </templateparamlist>
+        <type>friend class</type>
+        <definition>friend class GuardFunctor</definition>
+        <argsstring></argsstring>
+        <name>GuardFunctor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="65" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="classLogicStateMachineFrontEnd_1a86a665e36420c3cbc2b45864e023f98a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class RobotSystemT1</type>
+          </param>
+          <param>
+            <type>class LogicStateMachineT</type>
+          </param>
+        </templateparamlist>
+        <type>friend class</type>
+        <definition>friend class EventAgnosticActionFunctor</definition>
+        <argsstring></argsstring>
+        <name>EventAgnosticActionFunctor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="68" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="classLogicStateMachineFrontEnd_1af372c36475bc4510af791f5cb66608ad" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class RobotSystemT1</type>
+          </param>
+          <param>
+            <type>class LogicStateMachineT</type>
+          </param>
+        </templateparamlist>
+        <type>friend class</type>
+        <definition>friend class EventAgnosticGuardFunctor</definition>
+        <argsstring></argsstring>
+        <name>EventAgnosticGuardFunctor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="71" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classLogicStateMachineFrontEnd_1a8431e5208e24b80105d639281361a252" prot="protected" static="no" mutable="no">
+        <type><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;</type>
+        <definition>UAVSystem&amp; LogicStateMachineFrontEnd::robot_system_</definition>
+        <argsstring></argsstring>
+        <name>robot_system_</name>
+        <briefdescription>
+<para>robot system used by states to get sensor data and send commands </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="77" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classLogicStateMachineFrontEnd_1a0f19247a261344e58dede909f598677f" prot="protected" static="no" mutable="no">
+        <type>std::type_index</type>
+        <definition>std::type_index LogicStateMachineFrontEnd::no_transition_event_index_</definition>
+        <argsstring></argsstring>
+        <name>no_transition_event_index_</name>
+        <initializer>= typeid(NULL)</initializer>
+        <briefdescription>
+<para>type index to store the event that did not trigger any transition </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="81" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classLogicStateMachineFrontEnd_1af2ccbab79c14bc6570091b49a2e61fff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::type_index</type>
+        <definition>std::type_index LogicStateMachineFrontEnd::get_no_transition_event_index</definition>
+        <argsstring>()</argsstring>
+        <name>get_no_transition_event_index</name>
+        <briefdescription>
+<para>Returns the index of the event that did not trigger any transition. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The no-transition event index </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="88" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="88" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="classLogicStateMachineFrontEnd_1afea624ef452f4dd6f5380c96fd9555bb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Event</type>
+          </param>
+          <param>
+            <type>class FSM</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void LogicStateMachineFrontEnd::on_entry</definition>
+        <argsstring>(Event const &amp;, FSM &amp;)</argsstring>
+        <name>on_entry</name>
+        <param>
+          <type>Event const &amp;</type>
+        </param>
+        <param>
+          <type>FSM &amp;</type>
+        </param>
+        <briefdescription>
+<para>Action to take on entering state machine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of event causing state machine to enter </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FSM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend finite state machine type to trigger events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="97" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="97" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="classLogicStateMachineFrontEnd_1a86bc9dc7c6ab97285bb5c9ea06517da3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Event</type>
+          </param>
+          <param>
+            <type>class FSM</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void LogicStateMachineFrontEnd::on_exit</definition>
+        <argsstring>(Event const &amp;, FSM &amp;)</argsstring>
+        <name>on_exit</name>
+        <param>
+          <type>Event const &amp;</type>
+        </param>
+        <param>
+          <type>FSM &amp;</type>
+        </param>
+        <briefdescription>
+<para>Action to take on leaving state machine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of event causing state machine to enter </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FSM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend finite state machine type to trigger events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="106" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="106" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="classLogicStateMachineFrontEnd_1a38a4d9fba9466fa36d012d297e8908ec" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>LogicStateMachineFrontEnd::LogicStateMachineFrontEnd</definition>
+        <argsstring>(UAVSystem &amp;uav_system)</argsstring>
+        <name>LogicStateMachineFrontEnd</name>
+        <param>
+          <type><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;</type>
+          <declname>uav_system</declname>
+        </param>
+        <briefdescription>
+<para>Constructor with arguments to store robot system. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>uav_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>robot system that is stored internally and shared with events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="116" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="116" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="classLogicStateMachineFrontEnd_1aa75b2a1500d4bfe052c5421aeefbf7ab" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class FSM</type>
+          </param>
+          <param>
+            <type>class Event</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void LogicStateMachineFrontEnd::no_transition</definition>
+        <argsstring>(Event const &amp;e, FSM &amp;, int state_index)</argsstring>
+        <name>no_transition</name>
+        <param>
+          <type>Event const &amp;</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>FSM &amp;</type>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>state_index</declname>
+        </param>
+        <briefdescription>
+<para>Print event typeid if no action present for the corresponding event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>FSM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend to trigger events etc </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event type that triggered no transition </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>e</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>event instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>state</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current state when event is received </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="227" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="227" bodyend="231"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>front-end: define the FSM structure </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="269">
+        <label>LogicStateMachineFrontEnd</label>
+        <link refid="classLogicStateMachineFrontEnd"/>
+        <childnode refid="270" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="270">
+        <label>msmf::state_machine_def&lt; LogicStateMachineFrontEnd &gt;</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="271">
+        <label>LogicStateMachineFrontEnd</label>
+        <link refid="classLogicStateMachineFrontEnd"/>
+        <childnode refid="272" relation="public-inheritance">
+        </childnode>
+        <childnode refid="273" relation="usage">
+          <edgelabel>robot_system_</edgelabel>
+        </childnode>
+      </node>
+      <node id="272">
+        <label>msmf::state_machine_def&lt; LogicStateMachineFrontEnd &gt;</label>
+      </node>
+      <node id="273">
+        <label>UAVSystem</label>
+        <link refid="classUAVSystem"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="59" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="58" bodyend="232"/>
+    <listofallmembers>
+      <member refid="classLogicStateMachineFrontEnd_1a05673eb4ec343f36c1f3fb787ac26b94" prot="private" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>ActionFunctor</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1a86a665e36420c3cbc2b45864e023f98a" prot="private" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>EventAgnosticActionFunctor</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1af372c36475bc4510af791f5cb66608ad" prot="private" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>EventAgnosticGuardFunctor</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1af2ccbab79c14bc6570091b49a2e61fff" prot="public" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>get_no_transition_event_index</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1a9411581bb37b54467df520e3c73ceaf0" prot="private" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>GuardFunctor</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1a5877b5b19ba413c2b3bb02ee2459d5ec" prot="public" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>Hovering</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1ae617089cdb6687edc5d27b7f8a546af2" prot="public" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>initial_state</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1acac7938fd313e8808e486fa884ccf49b" prot="public" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>Landing</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1ad1619c7d43a216eb9238004470389f2e" prot="public" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>LandingAction</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1a38a4d9fba9466fa36d012d297e8908ec" prot="public" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>LogicStateMachineFrontEnd</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1aa75b2a1500d4bfe052c5421aeefbf7ab" prot="public" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>no_transition</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1a0f19247a261344e58dede909f598677f" prot="protected" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>no_transition_event_index_</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1afea624ef452f4dd6f5380c96fd9555bb" prot="public" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>on_entry</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1a86bc9dc7c6ab97285bb5c9ea06517da3" prot="public" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>on_exit</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1a8a5e85c9d100560fc79f9cbe1bbd5947" prot="public" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>ReachingGoal</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1a6273a06430b7aa6088e25d9b78805f1a" prot="public" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>ReachingGoalAbort</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1a84fe5b03b104adc3c3406bb0b6ffa190" prot="public" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>ReachingGoalGuard</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1a3bec78d997dbc5ae5534c3b49c8127f5" prot="public" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>ReachingGoalLand</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1a39babee29ba680422ea922504a465417" prot="public" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>ReachingGoalSet</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1a8431e5208e24b80105d639281361a252" prot="protected" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>robot_system_</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1a26036773cac59b48b9e545acc870a29b" prot="public" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>TakeoffAbort</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1af73bbbe19d413f3786c265fe91a94ffb" prot="public" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>TakeoffAction</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1a4660e7e7dbd8bc3f7a379a076999187d" prot="public" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>TakeoffGuard</name></member>
+      <member refid="classLogicStateMachineFrontEnd_1a98f3148dbabd87749be3c63ea0ec2a00" prot="public" virt="non-virtual"><scope>LogicStateMachineFrontEnd</scope><name>TakingOff</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,78 @@
+\hypertarget{structTakeoffTransitionActionFunctor__}{\section{Takeoff\-Transition\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$ Struct Template Reference}
+\label{structTakeoffTransitionActionFunctor__}\index{Takeoff\-Transition\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$@{Takeoff\-Transition\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}}
+}
+
+
+action to take when starting takeoff  
+
+
+
+
+{\ttfamily \#include $<$takeoff\-\_\-functors.\-h$>$}
+
+
+
+Inheritance diagram for Takeoff\-Transition\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{structTakeoffTransitionActionFunctor____inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Takeoff\-Transition\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{structTakeoffTransitionActionFunctor____coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{structTakeoffTransitionActionFunctor___aaf8ba8ac8cf0f07e2978da244b5efb2b}{run} (\hyperlink{classUAVSystem}{U\-A\-V\-System} \&robot\-\_\-system, Logic\-State\-Machine\-T \&)
+\begin{DoxyCompactList}\small\item\em Override this run function for different sub classes. This function performs the logic checking for each state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Logic\-State\-Machine\-T$>$struct Takeoff\-Transition\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+
+action to take when starting takeoff 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Logic\-State\-Machine\-T} & Logic state machine used to process events \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{structTakeoffTransitionActionFunctor___aaf8ba8ac8cf0f07e2978da244b5efb2b}{\index{Takeoff\-Transition\-Action\-Functor\-\_\-@{Takeoff\-Transition\-Action\-Functor\-\_\-}!run@{run}}
+\index{run@{run}!TakeoffTransitionActionFunctor_@{Takeoff\-Transition\-Action\-Functor\-\_\-}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Logic\-State\-Machine\-T $>$ void {\bf Takeoff\-Transition\-Action\-Functor\-\_\-}$<$ Logic\-State\-Machine\-T $>$\-::run (
+\begin{DoxyParamCaption}
+\item[{{\bf U\-A\-V\-System} \&}]{robot\-\_\-system, }
+\item[{Logic\-State\-Machine\-T \&}]{logic\-\_\-state\-\_\-machine}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{structTakeoffTransitionActionFunctor___aaf8ba8ac8cf0f07e2978da244b5efb2b}
+
+
+Override this run function for different sub classes. This function performs the logic checking for each state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em robot\-\_\-system} & Provides sensor data and allows for controlling hardware \\
+\hline
+{\em logic\-\_\-state\-\_\-machine} & Backend of logic State Machine. can send events using this. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{structEventAgnosticActionFunctor_a53a48938d68370ff2ef262222565ffcf}{Event\-Agnostic\-Action\-Functor$<$ U\-A\-V\-System, Logic\-State\-Machine\-T $>$}.
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/actions\-\_\-guards/\hyperlink{takeoff__functors_8h}{takeoff\-\_\-functors.\-h}\end{DoxyCompactItemize}

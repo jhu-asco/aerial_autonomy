@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_aed677a2914777290161bb44a2b030e5" kind="dir">
+    <compoundname>include/aerial_autonomy/types</compoundname>
+    <innerfile refid="completed__event_8h">completed_event.h</innerfile>
+    <innerfile refid="empty__goal_8h">empty_goal.h</innerfile>
+    <innerfile refid="empty__sensor_8h">empty_sensor.h</innerfile>
+    <innerfile refid="joysticks_8h">joysticks.h</innerfile>
+    <innerfile refid="joysticks__yaw_8h">joysticks_yaw.h</innerfile>
+    <innerfile refid="position_8h">position.h</innerfile>
+    <innerfile refid="position__yaw_8h">position_yaw.h</innerfile>
+    <innerfile refid="roll__pitch__yaw__thrust_8h">roll_pitch_yaw_thrust.h</innerfile>
+    <innerfile refid="velocity_8h">velocity.h</innerfile>
+    <innerfile refid="velocity__yaw_8h">velocity_yaw.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/"/>
+  </compounddef>
+</doxygen>

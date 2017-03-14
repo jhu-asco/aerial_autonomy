@@ -1,0 +1,165 @@
+\hypertarget{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger}{\section{aerial\-\_\-autonomy.\-ros\-\_\-event\-\_\-trigger.\-Ros\-Event\-Trigger Class Reference}
+\label{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger}\index{aerial\-\_\-autonomy.\-ros\-\_\-event\-\_\-trigger.\-Ros\-Event\-Trigger@{aerial\-\_\-autonomy.\-ros\-\_\-event\-\_\-trigger.\-Ros\-Event\-Trigger}}
+}
+
+
+Trigger events based on event name.  
+
+
+
+
+Inheritance diagram for aerial\-\_\-autonomy.\-ros\-\_\-event\-\_\-trigger.\-Ros\-Event\-Trigger\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for aerial\-\_\-autonomy.\-ros\-\_\-event\-\_\-trigger.\-Ros\-Event\-Trigger\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_a740d1aee68ed5c95110242f03ce79e5e}{\-\_\-\-\_\-init\-\_\-\-\_\-}
+\begin{DoxyCompactList}\small\item\em Class that loads an event file from a parameter It provides method to trigger\-Events using ros publisher This class separates the G\-U\-I part of plugin from ros interface. \end{DoxyCompactList}\item 
+def \hyperlink{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_a62ba54708585892d5f227682954fc1c6}{status\-Callback}
+\begin{DoxyCompactList}\small\item\em Ros callback for status data from quad, arm, state machine. \end{DoxyCompactList}\item 
+def \hyperlink{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_a7277f5df8fedc93bf3616535ea588ba8}{trigger\-Pose\-Command}
+\begin{DoxyCompactList}\small\item\em Publish pose command event for state machine. \end{DoxyCompactList}\item 
+def \hyperlink{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_aa7f5a5b057de80bf818642d851fabac3}{trigger\-Event}
+\begin{DoxyCompactList}\small\item\em Function to publish ros event based on event name. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_ac1ff7e7fa3e8ac610473fa8c1e547279}{event\-\_\-manager\-\_\-name}
+\begin{DoxyCompactList}\small\item\em Define event manager name. \end{DoxyCompactList}\item 
+\hyperlink{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_ac24af24de20107643a194072bd64dbd8}{event\-\_\-names\-\_\-list}
+\begin{DoxyCompactList}\small\item\em Event names used to create buttons. \end{DoxyCompactList}\item 
+\hyperlink{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_aa7e45c61e2f9407a82e1e03d83998e6e}{event\-\_\-pub}
+\begin{DoxyCompactList}\small\item\em Ros publisher to trigger events based on name. \end{DoxyCompactList}\item 
+\hyperlink{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_adc9a3f404db853ef8e2b5b988bdaaacb}{pose\-\_\-command\-\_\-pub}
+\begin{DoxyCompactList}\small\item\em Ros publisher to trigger pose event. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+tuple \hyperlink{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_ad2e6e150ea166d252a7a40982875fe27}{status\-\_\-signal} = pyqt\-Signal(str, name='system\-Status')
+\begin{DoxyCompactList}\small\item\em Send quad sensor/state data as string. \end{DoxyCompactList}\item 
+tuple \hyperlink{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_a9082897445ba520850cc7108aefe0d77}{pose\-\_\-command\-\_\-signal} = pyqt\-Signal(Pose\-Stamped, name='pose\-Command')
+\begin{DoxyCompactList}\small\item\em Send pose command received from Rviz. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Trigger events based on event name. 
+
+Create event name list based on event file 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_a740d1aee68ed5c95110242f03ce79e5e}{\index{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}!\-\_\-\-\_\-init\-\_\-\-\_\-@{\-\_\-\-\_\-init\-\_\-\-\_\-}}
+\index{\-\_\-\-\_\-init\-\_\-\-\_\-@{\-\_\-\-\_\-init\-\_\-\-\_\-}!aerial_autonomy::ros_event_trigger::RosEventTrigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}}
+\subsubsection[{\-\_\-\-\_\-init\-\_\-\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}def aerial\-\_\-autonomy.\-ros\-\_\-event\-\_\-trigger.\-Ros\-Event\-Trigger.\-\_\-\-\_\-init\-\_\-\-\_\- (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{event\-\_\-file\-\_\-path}
+\end{DoxyParamCaption}
+)}}\label{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_a740d1aee68ed5c95110242f03ce79e5e}
+
+
+Class that loads an event file from a parameter It provides method to trigger\-Events using ros publisher This class separates the G\-U\-I part of plugin from ros interface. 
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_a62ba54708585892d5f227682954fc1c6}{\index{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}!status\-Callback@{status\-Callback}}
+\index{status\-Callback@{status\-Callback}!aerial_autonomy::ros_event_trigger::RosEventTrigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}}
+\subsubsection[{status\-Callback}]{\setlength{\rightskip}{0pt plus 5cm}def aerial\-\_\-autonomy.\-ros\-\_\-event\-\_\-trigger.\-Ros\-Event\-Trigger.\-status\-Callback (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{msg, }
+\item[{}]{signal}
+\end{DoxyParamCaption}
+)}}\label{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_a62ba54708585892d5f227682954fc1c6}
+
+
+Ros callback for status data from quad, arm, state machine. 
+
+\hypertarget{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_aa7f5a5b057de80bf818642d851fabac3}{\index{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}!trigger\-Event@{trigger\-Event}}
+\index{trigger\-Event@{trigger\-Event}!aerial_autonomy::ros_event_trigger::RosEventTrigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}}
+\subsubsection[{trigger\-Event}]{\setlength{\rightskip}{0pt plus 5cm}def aerial\-\_\-autonomy.\-ros\-\_\-event\-\_\-trigger.\-Ros\-Event\-Trigger.\-trigger\-Event (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{event\-\_\-name}
+\end{DoxyParamCaption}
+)}}\label{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_aa7f5a5b057de80bf818642d851fabac3}
+
+
+Function to publish ros event based on event name. 
+
+\hypertarget{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_a7277f5df8fedc93bf3616535ea588ba8}{\index{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}!trigger\-Pose\-Command@{trigger\-Pose\-Command}}
+\index{trigger\-Pose\-Command@{trigger\-Pose\-Command}!aerial_autonomy::ros_event_trigger::RosEventTrigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}}
+\subsubsection[{trigger\-Pose\-Command}]{\setlength{\rightskip}{0pt plus 5cm}def aerial\-\_\-autonomy.\-ros\-\_\-event\-\_\-trigger.\-Ros\-Event\-Trigger.\-trigger\-Pose\-Command (
+\begin{DoxyParamCaption}
+\item[{}]{self, }
+\item[{}]{pose}
+\end{DoxyParamCaption}
+)}}\label{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_a7277f5df8fedc93bf3616535ea588ba8}
+
+
+Publish pose command event for state machine. 
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_ac1ff7e7fa3e8ac610473fa8c1e547279}{\index{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}!event\-\_\-manager\-\_\-name@{event\-\_\-manager\-\_\-name}}
+\index{event\-\_\-manager\-\_\-name@{event\-\_\-manager\-\_\-name}!aerial_autonomy::ros_event_trigger::RosEventTrigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}}
+\subsubsection[{event\-\_\-manager\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}aerial\-\_\-autonomy.\-ros\-\_\-event\-\_\-trigger.\-Ros\-Event\-Trigger.\-event\-\_\-manager\-\_\-name}}\label{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_ac1ff7e7fa3e8ac610473fa8c1e547279}
+
+
+Define event manager name. 
+
+\hypertarget{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_ac24af24de20107643a194072bd64dbd8}{\index{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}!event\-\_\-names\-\_\-list@{event\-\_\-names\-\_\-list}}
+\index{event\-\_\-names\-\_\-list@{event\-\_\-names\-\_\-list}!aerial_autonomy::ros_event_trigger::RosEventTrigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}}
+\subsubsection[{event\-\_\-names\-\_\-list}]{\setlength{\rightskip}{0pt plus 5cm}aerial\-\_\-autonomy.\-ros\-\_\-event\-\_\-trigger.\-Ros\-Event\-Trigger.\-event\-\_\-names\-\_\-list}}\label{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_ac24af24de20107643a194072bd64dbd8}
+
+
+Event names used to create buttons. 
+
+\hypertarget{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_aa7e45c61e2f9407a82e1e03d83998e6e}{\index{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}!event\-\_\-pub@{event\-\_\-pub}}
+\index{event\-\_\-pub@{event\-\_\-pub}!aerial_autonomy::ros_event_trigger::RosEventTrigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}}
+\subsubsection[{event\-\_\-pub}]{\setlength{\rightskip}{0pt plus 5cm}aerial\-\_\-autonomy.\-ros\-\_\-event\-\_\-trigger.\-Ros\-Event\-Trigger.\-event\-\_\-pub}}\label{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_aa7e45c61e2f9407a82e1e03d83998e6e}
+
+
+Ros publisher to trigger events based on name. 
+
+\hypertarget{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_adc9a3f404db853ef8e2b5b988bdaaacb}{\index{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}!pose\-\_\-command\-\_\-pub@{pose\-\_\-command\-\_\-pub}}
+\index{pose\-\_\-command\-\_\-pub@{pose\-\_\-command\-\_\-pub}!aerial_autonomy::ros_event_trigger::RosEventTrigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}}
+\subsubsection[{pose\-\_\-command\-\_\-pub}]{\setlength{\rightskip}{0pt plus 5cm}aerial\-\_\-autonomy.\-ros\-\_\-event\-\_\-trigger.\-Ros\-Event\-Trigger.\-pose\-\_\-command\-\_\-pub}}\label{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_adc9a3f404db853ef8e2b5b988bdaaacb}
+
+
+Ros publisher to trigger pose event. 
+
+\hypertarget{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_a9082897445ba520850cc7108aefe0d77}{\index{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}!pose\-\_\-command\-\_\-signal@{pose\-\_\-command\-\_\-signal}}
+\index{pose\-\_\-command\-\_\-signal@{pose\-\_\-command\-\_\-signal}!aerial_autonomy::ros_event_trigger::RosEventTrigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}}
+\subsubsection[{pose\-\_\-command\-\_\-signal}]{\setlength{\rightskip}{0pt plus 5cm}tuple aerial\-\_\-autonomy.\-ros\-\_\-event\-\_\-trigger.\-Ros\-Event\-Trigger.\-pose\-\_\-command\-\_\-signal = pyqt\-Signal(Pose\-Stamped, name='pose\-Command')\hspace{0.3cm}{\ttfamily [static]}}}\label{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_a9082897445ba520850cc7108aefe0d77}
+
+
+Send pose command received from Rviz. 
+
+\hypertarget{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_ad2e6e150ea166d252a7a40982875fe27}{\index{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}!status\-\_\-signal@{status\-\_\-signal}}
+\index{status\-\_\-signal@{status\-\_\-signal}!aerial_autonomy::ros_event_trigger::RosEventTrigger@{aerial\-\_\-autonomy\-::ros\-\_\-event\-\_\-trigger\-::\-Ros\-Event\-Trigger}}
+\subsubsection[{status\-\_\-signal}]{\setlength{\rightskip}{0pt plus 5cm}tuple aerial\-\_\-autonomy.\-ros\-\_\-event\-\_\-trigger.\-Ros\-Event\-Trigger.\-status\-\_\-signal = pyqt\-Signal(str, name='system\-Status')\hspace{0.3cm}{\ttfamily [static]}}}\label{classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_ad2e6e150ea166d252a7a40982875fe27}
+
+
+Send quad sensor/state data as string. 
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+src/aerial\-\_\-autonomy/\hyperlink{ros__event__trigger_8py}{ros\-\_\-event\-\_\-trigger.\-py}\end{DoxyCompactItemize}

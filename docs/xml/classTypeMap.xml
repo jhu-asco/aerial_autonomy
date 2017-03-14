@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classTypeMap" kind="class" prot="public">
+    <compoundname>TypeMap</compoundname>
+    <includes refid="type__map_8h" local="no">type_map.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class</type>
+        <declname>GenericObjectT</declname>
+        <defname>GenericObjectT</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classTypeMap_1a63cc1d01ecc1f771cc36436621e1c32b" prot="private" static="no" mutable="no">
+        <type>std::unordered_map&lt; std::type_index, GenericObjectT * &gt;</type>
+        <definition>std::unordered_map&lt;std::type_index, GenericObjectT *&gt; TypeMap&lt; GenericObjectT &gt;::object_storage_map_</definition>
+        <argsstring></argsstring>
+        <name>object_storage_map_</name>
+        <briefdescription>
+<para>Map to store the objects using the type of object as key. </para>        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="todo_1_todo000011"><xreftitle>Todo</xreftitle><xrefdescription><para>Gowtham Maybe use shared/unique pointers </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="17" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classTypeMap_1a738b13adaac930d128c1a81b08628b9e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class ObjectT</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void TypeMap&lt; GenericObjectT &gt;::setObject</definition>
+        <argsstring>(ObjectT &amp;object)</argsstring>
+        <name>setObject</name>
+        <param>
+          <type>ObjectT &amp;</type>
+          <declname>object</declname>
+        </param>
+        <briefdescription>
+<para>Store the object with base class as GenericObjectT. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>ObjectT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The type of object being stored. ObjectT should be base class of GenericObjectT </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>object</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The address of an instance of ObjectT being stored </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="27" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classTypeMap_1af45351278345a92d2d2fb13a977858aa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class ObjectT</type>
+          </param>
+        </templateparamlist>
+        <type>ObjectT *</type>
+        <definition>ObjectT* TypeMap&lt; GenericObjectT &gt;::getObject</definition>
+        <argsstring>()</argsstring>
+        <name>getObject</name>
+        <briefdescription>
+<para>return the object stored </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>ObjectT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of object to be retrieved.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>pointer to the instance of the object. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="37" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="37" bodyend="39"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Store objects with a common base class. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>GenericObjectT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Common base class for objects stored </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="12" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="12" bodyend="40"/>
+    <listofallmembers>
+      <member refid="classTypeMap_1af45351278345a92d2d2fb13a977858aa" prot="public" virt="non-virtual"><scope>TypeMap</scope><name>getObject</name></member>
+      <member refid="classTypeMap_1a63cc1d01ecc1f771cc36436621e1c32b" prot="private" virt="non-virtual"><scope>TypeMap</scope><name>object_storage_map_</name></member>
+      <member refid="classTypeMap_1a738b13adaac930d128c1a81b08628b9e" prot="public" virt="non-virtual"><scope>TypeMap</scope><name>setObject</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

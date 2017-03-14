@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structTakeoffInternalActionFunctor__" kind="struct" prot="public">
+    <compoundname>TakeoffInternalActionFunctor_</compoundname>
+    <basecompoundref refid="structEventAgnosticActionFunctor" prot="public" virt="non-virtual">EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</basecompoundref>
+    <includes refid="takeoff__functors_8h" local="no">takeoff_functors.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structTakeoffInternalActionFunctor___1a2118df6e326662cd0088344499e49696" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void TakeoffInternalActionFunctor_&lt; LogicStateMachineT &gt;::run</definition>
+        <argsstring>(UAVSystem &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</argsstring>
+        <name>run</name>
+        <reimplements refid="structEventAgnosticActionFunctor_1a53a48938d68370ff2ef262222565ffcf">run</reimplements>
+        <param>
+          <type><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <param>
+          <type>LogicStateMachineT &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <briefdescription>
+<para>Function to check when takeoff is complete. If battery is low while takeoff, trigger Land event. </para>        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="todo_1_todo000010"><xreftitle>Todo</xreftitle><xrefdescription><para>add a parameter for height when to transition from takeoff to hovering</para></xrefdescription></xrefsect></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>robot system to get sensor data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>logic state machine to trigger events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" line="84" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" bodystart="84" bodyend="98"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Check when takeoff is complete, and ensure enough battery voltage. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine used to process events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="335">
+        <label>TakeoffInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
+        <link refid="structTakeoffInternalActionFunctor__"/>
+        <childnode refid="336" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="336">
+        <label>EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
+        <link refid="structEventAgnosticActionFunctor"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="337">
+        <label>TakeoffInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
+        <link refid="structTakeoffInternalActionFunctor__"/>
+        <childnode refid="338" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="338">
+        <label>EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
+        <link refid="structEventAgnosticActionFunctor"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" line="73" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" bodystart="72" bodyend="99"/>
+    <listofallmembers>
+      <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>TakeoffInternalActionFunctor_</scope><name>operator()</name></member>
+      <member refid="structTakeoffInternalActionFunctor___1a2118df6e326662cd0088344499e49696" prot="public" virt="virtual"><scope>TakeoffInternalActionFunctor_</scope><name>run</name></member>
+      <member refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" prot="public" virt="virtual"><scope>TakeoffInternalActionFunctor_</scope><name>~EventAgnosticActionFunctor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$structBaseState_1_1internal__transition__table.html" title="The internal_transition_table to call run function in every state. " alt="" coords="115,5,328,61"/>
+<area shape="rect" id="node3" href="$structLogicStateMachineFrontEnd_1_1Landed_1_1internal__transition__table.html" title="Internal event without any action. " alt="" coords="113,85,330,126"/>
+<area shape="rect" id="node4" href="$structLogicStateMachineFrontEnd_1_1transition__table.html" title="Transition table for State Machine. " alt="" coords="128,150,315,191"/>
+</map>

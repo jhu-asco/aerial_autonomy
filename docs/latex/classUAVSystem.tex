@@ -1,0 +1,216 @@
+\hypertarget{classUAVSystem}{\section{U\-A\-V\-System Class Reference}
+\label{classUAVSystem}\index{U\-A\-V\-System@{U\-A\-V\-System}}
+}
+
+
+Owns, initializes, and facilitates communication between different hardware/software components. Provides builtin position, velocity, and rpy controllers for controlling U\-A\-V.  
+
+
+
+
+{\ttfamily \#include $<$uav\-\_\-system.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classUAVSystem_a99ac3986113a03546b8dc4bcc73d65b0}{U\-A\-V\-System} (parsernode\-::\-Parser \&drone\-\_\-hardware)
+\begin{DoxyCompactList}\small\item\em Constructor with default configuration. \end{DoxyCompactList}\item 
+\hyperlink{classUAVSystem_a9218f794905e832cc356b5e4b659e1da}{U\-A\-V\-System} (parsernode\-::\-Parser \&drone\-\_\-hardware, U\-A\-V\-System\-Config config)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+parsernode\-::common\-::quaddata \hyperlink{classUAVSystem_a8a1cbcd8770841ee2a30365f4a75bf34}{get\-U\-A\-V\-Data} ()
+\begin{DoxyCompactList}\small\item\em Get sensor data from U\-A\-V. \end{DoxyCompactList}\item 
+void \hyperlink{classUAVSystem_a7f010477b67bfeb5d6d32c0f10630b8e}{take\-Off} ()
+\begin{DoxyCompactList}\small\item\em Public A\-P\-I call to takeoff. \end{DoxyCompactList}\item 
+void \hyperlink{classUAVSystem_ae1bac31ca121a54cb1e3ed7fac322993}{land} ()
+\begin{DoxyCompactList}\small\item\em Public A\-P\-I call to land. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Controller\-Hardware\-Connector\-T , class Goal\-T $>$ }\\void \hyperlink{classUAVSystem_a6aae5b94424be17ed6bafeaa4f64f416}{set\-Goal} (Goal\-T goal)
+\begin{DoxyCompactList}\small\item\em sets goal to the connector and swaps the active connector with the specified connector type. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Controller\-Hardware\-Connector\-T , class Goal\-T $>$ }\\Goal\-T \hyperlink{classUAVSystem_a5381ca45049c8c92e872a80a2974339b}{get\-Goal} ()
+\begin{DoxyCompactList}\small\item\em Get the goal from connector. \end{DoxyCompactList}\item 
+void \hyperlink{classUAVSystem_a90634eb2ac4c515c9065ce85cc21dc19}{abort\-Controller} (\hyperlink{base__controller__hardware__connector_8h_ae4dfd42394001deb6e8a0e60c81d6f7a}{Hardware\-Type} hardware\-\_\-type)
+\begin{DoxyCompactList}\small\item\em Remove active controller for given hardware type. \end{DoxyCompactList}\item 
+void \hyperlink{classUAVSystem_ad3d60a491f325261a1acebdadd7478a6}{run\-Active\-Controller} (\hyperlink{base__controller__hardware__connector_8h_ae4dfd42394001deb6e8a0e60c81d6f7a}{Hardware\-Type} hardware\-\_\-type)
+\begin{DoxyCompactList}\small\item\em Run active controller stored for a given hardware type. \end{DoxyCompactList}\item 
+std\-::string \hyperlink{classUAVSystem_ab0840278177ee64082ee05937d028421}{get\-System\-Status} ()
+\item 
+U\-A\-V\-System\-Config \hyperlink{classUAVSystem_a89d67e42aec09dd65a23f39462a8202e}{get\-Configuration} ()
+\begin{DoxyCompactList}\small\item\em Get system configuration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Owns, initializes, and facilitates communication between different hardware/software components. Provides builtin position, velocity, and rpy controllers for controlling U\-A\-V. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classUAVSystem_a99ac3986113a03546b8dc4bcc73d65b0}{\index{U\-A\-V\-System@{U\-A\-V\-System}!U\-A\-V\-System@{U\-A\-V\-System}}
+\index{U\-A\-V\-System@{U\-A\-V\-System}!UAVSystem@{U\-A\-V\-System}}
+\subsubsection[{U\-A\-V\-System}]{\setlength{\rightskip}{0pt plus 5cm}U\-A\-V\-System\-::\-U\-A\-V\-System (
+\begin{DoxyParamCaption}
+\item[{parsernode\-::\-Parser \&}]{drone\-\_\-hardware}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classUAVSystem_a99ac3986113a03546b8dc4bcc73d65b0}
+
+
+Constructor with default configuration. 
+
+\hypertarget{classUAVSystem_a9218f794905e832cc356b5e4b659e1da}{\index{U\-A\-V\-System@{U\-A\-V\-System}!U\-A\-V\-System@{U\-A\-V\-System}}
+\index{U\-A\-V\-System@{U\-A\-V\-System}!UAVSystem@{U\-A\-V\-System}}
+\subsubsection[{U\-A\-V\-System}]{\setlength{\rightskip}{0pt plus 5cm}U\-A\-V\-System\-::\-U\-A\-V\-System (
+\begin{DoxyParamCaption}
+\item[{parsernode\-::\-Parser \&}]{drone\-\_\-hardware, }
+\item[{U\-A\-V\-System\-Config}]{config}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classUAVSystem_a9218f794905e832cc356b5e4b659e1da}
+
+
+Constructor. 
+
+\hyperlink{classUAVSystem}{U\-A\-V\-System} requires a drone hardware. It instantiates the connectors, controllers
+
+
+\begin{DoxyParams}{Parameters}
+{\em drone\-\_\-hardware} & input hardware to send commands back \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000012}{Todo}]make enum class iterable to do this automatically \end{DoxyRefDesc}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classUAVSystem_a90634eb2ac4c515c9065ce85cc21dc19}{\index{U\-A\-V\-System@{U\-A\-V\-System}!abort\-Controller@{abort\-Controller}}
+\index{abort\-Controller@{abort\-Controller}!UAVSystem@{U\-A\-V\-System}}
+\subsubsection[{abort\-Controller}]{\setlength{\rightskip}{0pt plus 5cm}void U\-A\-V\-System\-::abort\-Controller (
+\begin{DoxyParamCaption}
+\item[{{\bf Hardware\-Type}}]{hardware\-\_\-type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classUAVSystem_a90634eb2ac4c515c9065ce85cc21dc19}
+
+
+Remove active controller for given hardware type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hardware\-\_\-type} & Type of hardware for which active controller is switched off \\
+\hline
+\end{DoxyParams}
+\hypertarget{classUAVSystem_a89d67e42aec09dd65a23f39462a8202e}{\index{U\-A\-V\-System@{U\-A\-V\-System}!get\-Configuration@{get\-Configuration}}
+\index{get\-Configuration@{get\-Configuration}!UAVSystem@{U\-A\-V\-System}}
+\subsubsection[{get\-Configuration}]{\setlength{\rightskip}{0pt plus 5cm}U\-A\-V\-System\-Config U\-A\-V\-System\-::get\-Configuration (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classUAVSystem_a89d67e42aec09dd65a23f39462a8202e}
+
+
+Get system configuration. 
+
+\begin{DoxyReturn}{Returns}
+Configuration 
+\end{DoxyReturn}
+\hypertarget{classUAVSystem_a5381ca45049c8c92e872a80a2974339b}{\index{U\-A\-V\-System@{U\-A\-V\-System}!get\-Goal@{get\-Goal}}
+\index{get\-Goal@{get\-Goal}!UAVSystem@{U\-A\-V\-System}}
+\subsubsection[{get\-Goal}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Controller\-Hardware\-Connector\-T , class Goal\-T $>$ Goal\-T U\-A\-V\-System\-::get\-Goal (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classUAVSystem_a5381ca45049c8c92e872a80a2974339b}
+
+
+Get the goal from connector. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Controller\-Hardware\-Connector\-T} & Type of connector to use \\
+\hline
+{\em Goal\-T} & Type of Goal to get\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+goal of Goal\-T type 
+\end{DoxyReturn}
+\hypertarget{classUAVSystem_ab0840278177ee64082ee05937d028421}{\index{U\-A\-V\-System@{U\-A\-V\-System}!get\-System\-Status@{get\-System\-Status}}
+\index{get\-System\-Status@{get\-System\-Status}!UAVSystem@{U\-A\-V\-System}}
+\subsubsection[{get\-System\-Status}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string U\-A\-V\-System\-::get\-System\-Status (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classUAVSystem_ab0840278177ee64082ee05937d028421}
+\hypertarget{classUAVSystem_a8a1cbcd8770841ee2a30365f4a75bf34}{\index{U\-A\-V\-System@{U\-A\-V\-System}!get\-U\-A\-V\-Data@{get\-U\-A\-V\-Data}}
+\index{get\-U\-A\-V\-Data@{get\-U\-A\-V\-Data}!UAVSystem@{U\-A\-V\-System}}
+\subsubsection[{get\-U\-A\-V\-Data}]{\setlength{\rightskip}{0pt plus 5cm}parsernode\-::common\-::quaddata U\-A\-V\-System\-::get\-U\-A\-V\-Data (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classUAVSystem_a8a1cbcd8770841ee2a30365f4a75bf34}
+
+
+Get sensor data from U\-A\-V. 
+
+\begin{DoxyReturn}{Returns}
+Accumulated sensor data from U\-A\-V 
+\end{DoxyReturn}
+\hypertarget{classUAVSystem_ae1bac31ca121a54cb1e3ed7fac322993}{\index{U\-A\-V\-System@{U\-A\-V\-System}!land@{land}}
+\index{land@{land}!UAVSystem@{U\-A\-V\-System}}
+\subsubsection[{land}]{\setlength{\rightskip}{0pt plus 5cm}void U\-A\-V\-System\-::land (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classUAVSystem_ae1bac31ca121a54cb1e3ed7fac322993}
+
+
+Public A\-P\-I call to land. 
+
+\hypertarget{classUAVSystem_ad3d60a491f325261a1acebdadd7478a6}{\index{U\-A\-V\-System@{U\-A\-V\-System}!run\-Active\-Controller@{run\-Active\-Controller}}
+\index{run\-Active\-Controller@{run\-Active\-Controller}!UAVSystem@{U\-A\-V\-System}}
+\subsubsection[{run\-Active\-Controller}]{\setlength{\rightskip}{0pt plus 5cm}void U\-A\-V\-System\-::run\-Active\-Controller (
+\begin{DoxyParamCaption}
+\item[{{\bf Hardware\-Type}}]{hardware\-\_\-type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classUAVSystem_ad3d60a491f325261a1acebdadd7478a6}
+
+
+Run active controller stored for a given hardware type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hardware\-\_\-type} & Type of hardware for which active controller is run \\
+\hline
+\end{DoxyParams}
+\hypertarget{classUAVSystem_a6aae5b94424be17ed6bafeaa4f64f416}{\index{U\-A\-V\-System@{U\-A\-V\-System}!set\-Goal@{set\-Goal}}
+\index{set\-Goal@{set\-Goal}!UAVSystem@{U\-A\-V\-System}}
+\subsubsection[{set\-Goal}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Controller\-Hardware\-Connector\-T , class Goal\-T $>$ void U\-A\-V\-System\-::set\-Goal (
+\begin{DoxyParamCaption}
+\item[{Goal\-T}]{goal}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classUAVSystem_a6aae5b94424be17ed6bafeaa4f64f416}
+
+
+sets goal to the connector and swaps the active connector with the specified connector type. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Controller\-Hardware\-Connector\-T} & type of connector to use \\
+\hline
+{\em Goal\-T} & Type of Goal to set to connector \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em goal} & Goal to set to connector \\
+\hline
+\end{DoxyParams}
+\hypertarget{classUAVSystem_a7f010477b67bfeb5d6d32c0f10630b8e}{\index{U\-A\-V\-System@{U\-A\-V\-System}!take\-Off@{take\-Off}}
+\index{take\-Off@{take\-Off}!UAVSystem@{U\-A\-V\-System}}
+\subsubsection[{take\-Off}]{\setlength{\rightskip}{0pt plus 5cm}void U\-A\-V\-System\-::take\-Off (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classUAVSystem_a7f010477b67bfeb5d6d32c0f10630b8e}
+
+
+Public A\-P\-I call to takeoff. 
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/robot\-\_\-systems/\hyperlink{uav__system_8h}{uav\-\_\-system.\-h}\end{DoxyCompactItemize}

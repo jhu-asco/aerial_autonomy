@@ -1,0 +1,80 @@
+\hypertarget{structHoveringInternalActionFunctor__}{\section{Hovering\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$ Struct Template Reference}
+\label{structHoveringInternalActionFunctor__}\index{Hovering\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$@{Hovering\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}}
+}
+
+
+Internal action when hovering.  
+
+
+
+
+{\ttfamily \#include $<$hovering\-\_\-functors.\-h$>$}
+
+
+
+Inheritance diagram for Hovering\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{structHoveringInternalActionFunctor____inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Hovering\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{structHoveringInternalActionFunctor____coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{structHoveringInternalActionFunctor___a87bb8dd8ed71e54729967b9e258fb66e}{run} (\hyperlink{classUAVSystem}{U\-A\-V\-System} \&robot\-\_\-system, Logic\-State\-Machine\-T \&logic\-\_\-state\-\_\-machine)
+\begin{DoxyCompactList}\small\item\em Checks for enough battery voltage and land if battery critical. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Logic\-State\-Machine\-T$>$struct Hovering\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+
+Internal action when hovering. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Logic\-State\-Machine\-T} & Logic state machine used to process events \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{structHoveringInternalActionFunctor___a87bb8dd8ed71e54729967b9e258fb66e}{\index{Hovering\-Internal\-Action\-Functor\-\_\-@{Hovering\-Internal\-Action\-Functor\-\_\-}!run@{run}}
+\index{run@{run}!HoveringInternalActionFunctor_@{Hovering\-Internal\-Action\-Functor\-\_\-}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Logic\-State\-Machine\-T $>$ void {\bf Hovering\-Internal\-Action\-Functor\-\_\-}$<$ Logic\-State\-Machine\-T $>$\-::run (
+\begin{DoxyParamCaption}
+\item[{{\bf U\-A\-V\-System} \&}]{robot\-\_\-system, }
+\item[{Logic\-State\-Machine\-T \&}]{logic\-\_\-state\-\_\-machine}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{structHoveringInternalActionFunctor___a87bb8dd8ed71e54729967b9e258fb66e}
+
+
+Checks for enough battery voltage and land if battery critical. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em robot\-\_\-system} & robot system to get sensor data \\
+\hline
+{\em logic\-\_\-state\-\_\-machine} & logic state machine to trigger events \\
+\hline
+\end{DoxyParams}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000005}{Todo}](Gowtham) Can also use uav status here \end{DoxyRefDesc}
+
+
+Implements \hyperlink{structEventAgnosticActionFunctor_a53a48938d68370ff2ef262222565ffcf}{Event\-Agnostic\-Action\-Functor$<$ U\-A\-V\-System, Logic\-State\-Machine\-T $>$}.
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/actions\-\_\-guards/\hyperlink{hovering__functors_8h}{hovering\-\_\-functors.\-h}\end{DoxyCompactItemize}

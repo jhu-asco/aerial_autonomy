@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structLogicStateMachineFrontEnd_1_1Landed_1_1internal__transition__table" kind="struct" prot="public">
+    <compoundname>LogicStateMachineFrontEnd::Landed::internal_transition_table</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">boost::mpl::vector&lt; msmf::Internal&lt; InternalTransitionEvent, msmf::none, msmf::none &gt; &gt;</basecompoundref>
+    <includes refid="basic__state__machine_8h" local="no">basic_state_machine.h</includes>
+    <briefdescription>
+<para>Internal event without any action. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="244">
+        <label>LogicStateMachineFrontEnd::Landed::internal_transition_table</label>
+        <link refid="structLogicStateMachineFrontEnd_1_1Landed_1_1internal__transition__table"/>
+        <childnode refid="245" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="245">
+        <label>boost::mpl::vector&lt; msmf::Internal&lt; InternalTransitionEvent, msmf::none, msmf::none &gt; &gt;</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="246">
+        <label>LogicStateMachineFrontEnd::Landed::internal_transition_table</label>
+        <link refid="structLogicStateMachineFrontEnd_1_1Landed_1_1internal__transition__table"/>
+        <childnode refid="247" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="247">
+        <label>boost::mpl::vector&lt; msmf::Internal&lt; InternalTransitionEvent, msmf::none, msmf::none &gt; &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="146" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="144" bodyend="147"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

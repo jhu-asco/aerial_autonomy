@@ -1,0 +1,98 @@
+\hypertarget{classManualRPYTController}{\section{Manual\-R\-P\-Y\-T\-Controller Class Reference}
+\label{classManualRPYTController}\index{Manual\-R\-P\-Y\-T\-Controller@{Manual\-R\-P\-Y\-T\-Controller}}
+}
+
+
+A controller that passes joystick commands to a drone's R\-P\-Y\-T controller.  
+
+
+
+
+{\ttfamily \#include $<$manual\-\_\-rpyt\-\_\-controller.\-h$>$}
+
+
+
+Inheritance diagram for Manual\-R\-P\-Y\-T\-Controller\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{classManualRPYTController__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Manual\-R\-P\-Y\-T\-Controller\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{classManualRPYTController__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{classManualRPYTController_ac85b5cc721914cb7d265a35b155037af}{$\sim$\-Manual\-R\-P\-Y\-T\-Controller} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{structRollPitchYawThrust}{Roll\-Pitch\-Yaw\-Thrust} \hyperlink{classManualRPYTController_ae29c56af6d0bc913d357c7849201c8fb}{run\-Implementation} (\hyperlink{structJoysticksYaw}{Joysticks\-Yaw} sensor\-\_\-data, \hyperlink{structEmptyGoal}{Empty\-Goal} goal)
+\begin{DoxyCompactList}\small\item\em Run the control loop. Converts Joystick commands to R\-P\-Y\-T. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A controller that passes joystick commands to a drone's R\-P\-Y\-T controller. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classManualRPYTController_ac85b5cc721914cb7d265a35b155037af}{\index{Manual\-R\-P\-Y\-T\-Controller@{Manual\-R\-P\-Y\-T\-Controller}!$\sim$\-Manual\-R\-P\-Y\-T\-Controller@{$\sim$\-Manual\-R\-P\-Y\-T\-Controller}}
+\index{$\sim$\-Manual\-R\-P\-Y\-T\-Controller@{$\sim$\-Manual\-R\-P\-Y\-T\-Controller}!ManualRPYTController@{Manual\-R\-P\-Y\-T\-Controller}}
+\subsubsection[{$\sim$\-Manual\-R\-P\-Y\-T\-Controller}]{\setlength{\rightskip}{0pt plus 5cm}virtual Manual\-R\-P\-Y\-T\-Controller\-::$\sim$\-Manual\-R\-P\-Y\-T\-Controller (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classManualRPYTController_ac85b5cc721914cb7d265a35b155037af}
+
+
+Destructor. 
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classManualRPYTController_ae29c56af6d0bc913d357c7849201c8fb}{\index{Manual\-R\-P\-Y\-T\-Controller@{Manual\-R\-P\-Y\-T\-Controller}!run\-Implementation@{run\-Implementation}}
+\index{run\-Implementation@{run\-Implementation}!ManualRPYTController@{Manual\-R\-P\-Y\-T\-Controller}}
+\subsubsection[{run\-Implementation}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Roll\-Pitch\-Yaw\-Thrust} Manual\-R\-P\-Y\-T\-Controller\-::run\-Implementation (
+\begin{DoxyParamCaption}
+\item[{{\bf Joysticks\-Yaw}}]{sensor\-\_\-data, }
+\item[{{\bf Empty\-Goal}}]{goal}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{classManualRPYTController_ae29c56af6d0bc913d357c7849201c8fb}
+
+
+Run the control loop. Converts Joystick commands to R\-P\-Y\-T. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sensor\-\_\-data} & Joystick commands to be converted into R\-P\-Y\-T. \\
+\hline
+{\em goal} & Goal is not used here \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+R\-P\-Y\-T to send to hardware 
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000003}{Todo}](matt)\-: need to pass R\-C mapping as parameter \end{DoxyRefDesc}
+
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000004}{Todo}](matt)\-: need to pass in frequency as a parameter \end{DoxyRefDesc}
+
+
+Implements \hyperlink{classController_a9a5a0b6fbedeb476f3a7bfad5f16167e}{Controller$<$ Joysticks\-Yaw, Empty\-Goal, Roll\-Pitch\-Yaw\-Thrust $>$}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/controllers/\hyperlink{manual__rpyt__controller_8h}{manual\-\_\-rpyt\-\_\-controller.\-h}\item 
+src/controllers/\hyperlink{manual__rpyt__controller_8cpp}{manual\-\_\-rpyt\-\_\-controller.\-cpp}\end{DoxyCompactItemize}

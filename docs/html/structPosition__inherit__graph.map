@@ -1,0 +1,3 @@
+<map id="Position" name="Position">
+<area shape="rect" id="node2" href="$structPositionYaw.html" title="Stores Position, yaw. PositionYaw is used as the goal for UAV systems. " alt="" coords="5,80,99,107"/>
+</map>

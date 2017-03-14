@@ -1,0 +1,56 @@
+\hypertarget{position__control__functors_8h}{\section{include/aerial\-\_\-autonomy/actions\-\_\-guards/position\-\_\-control\-\_\-functors.h File Reference}
+\label{position__control__functors_8h}\index{include/aerial\-\_\-autonomy/actions\-\_\-guards/position\-\_\-control\-\_\-functors.\-h@{include/aerial\-\_\-autonomy/actions\-\_\-guards/position\-\_\-control\-\_\-functors.\-h}}
+}
+{\ttfamily \#include $<$aerial\-\_\-autonomy/actions\-\_\-guards/base\-\_\-functors.\-h$>$}\\*
+{\ttfamily \#include $<$aerial\-\_\-autonomy/basic\-\_\-events.\-h$>$}\\*
+{\ttfamily \#include $<$aerial\-\_\-autonomy/controller\-\_\-hardware\-\_\-connectors/position\-\_\-controller\-\_\-drone\-\_\-connector.\-h$>$}\\*
+{\ttfamily \#include $<$aerial\-\_\-autonomy/logic\-\_\-states/base\-\_\-state.\-h$>$}\\*
+{\ttfamily \#include $<$aerial\-\_\-autonomy/robot\-\_\-systems/uav\-\_\-system.\-h$>$}\\*
+{\ttfamily \#include $<$aerial\-\_\-autonomy/types/completed\-\_\-event.\-h$>$}\\*
+{\ttfamily \#include $<$glog/logging.\-h$>$}\\*
+{\ttfamily \#include $<$parsernode/common.\-h$>$}\\*
+Include dependency graph for position\-\_\-control\-\_\-functors.\-h\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{position__control__functors_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{position__control__functors_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structPositionControlTransitionActionFunctor__}{Position\-Control\-Transition\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+\begin{DoxyCompactList}\small\item\em Transition action to perform when going into position control mode. \end{DoxyCompactList}\item 
+struct \hyperlink{structPositionControlAbortActionFunctor__}{Position\-Control\-Abort\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+\begin{DoxyCompactList}\small\item\em Transition action to perform when aborting position control. \end{DoxyCompactList}\item 
+struct \hyperlink{structPositionControlTransitionGuardFunctor__}{Position\-Control\-Transition\-Guard\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+\begin{DoxyCompactList}\small\item\em Guard function to check the goal is within tolerance before starting towards goal. \end{DoxyCompactList}\item 
+struct \hyperlink{structPositionControlInternalActionFunctor__}{Position\-Control\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+\begin{DoxyCompactList}\small\item\em Logic to check while reaching a position control goal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Logic\-State\-Machine\-T $>$ }\\using \hyperlink{position__control__functors_8h_af380346c24b534da18813f70217ea50f}{Reaching\-Goal\-\_\-} = \hyperlink{classBaseState}{Base\-State}$<$ \hyperlink{classUAVSystem}{U\-A\-V\-System}, Logic\-State\-Machine\-T, \hyperlink{structPositionControlInternalActionFunctor__}{Position\-Control\-Internal\-Action\-Functor\-\_\-}$<$ Logic\-State\-Machine\-T $>$$>$
+\begin{DoxyCompactList}\small\item\em State that uses position control functor to reach a desired goal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\hypertarget{position__control__functors_8h_af380346c24b534da18813f70217ea50f}{\index{position\-\_\-control\-\_\-functors.\-h@{position\-\_\-control\-\_\-functors.\-h}!Reaching\-Goal\-\_\-@{Reaching\-Goal\-\_\-}}
+\index{Reaching\-Goal\-\_\-@{Reaching\-Goal\-\_\-}!position_control_functors.h@{position\-\_\-control\-\_\-functors.\-h}}
+\subsubsection[{Reaching\-Goal\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Logic\-State\-Machine\-T $>$ using {\bf Reaching\-Goal\-\_\-} =  {\bf Base\-State}$<${\bf U\-A\-V\-System}, Logic\-State\-Machine\-T, {\bf Position\-Control\-Internal\-Action\-Functor\-\_\-}$<$Logic\-State\-Machine\-T$>$$>$}}\label{position__control__functors_8h_af380346c24b534da18813f70217ea50f}
+
+
+State that uses position control functor to reach a desired goal. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Logic\-State\-Machine\-T} & Logic state machine used to process events \\
+\hline
+\end{DoxyTemplParams}

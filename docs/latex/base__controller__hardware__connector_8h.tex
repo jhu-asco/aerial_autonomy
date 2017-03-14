@@ -1,0 +1,51 @@
+\hypertarget{base__controller__hardware__connector_8h}{\section{include/aerial\-\_\-autonomy/controller\-\_\-hardware\-\_\-connectors/base\-\_\-controller\-\_\-hardware\-\_\-connector.h File Reference}
+\label{base__controller__hardware__connector_8h}\index{include/aerial\-\_\-autonomy/controller\-\_\-hardware\-\_\-connectors/base\-\_\-controller\-\_\-hardware\-\_\-connector.\-h@{include/aerial\-\_\-autonomy/controller\-\_\-hardware\-\_\-connectors/base\-\_\-controller\-\_\-hardware\-\_\-connector.\-h}}
+}
+{\ttfamily \#include $<$aerial\-\_\-autonomy/controllers/base\-\_\-controller.\-h$>$}\\*
+Include dependency graph for base\-\_\-controller\-\_\-hardware\-\_\-connector.\-h\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{base__controller__hardware__connector_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{base__controller__hardware__connector_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structAbstractControllerHardwareConnector}{Abstract\-Controller\-Hardware\-Connector}
+\begin{DoxyCompactList}\small\item\em Base for \hyperlink{classControllerHardwareConnector}{Controller\-Hardware\-Connector} class. \end{DoxyCompactList}\item 
+class \hyperlink{classControllerHardwareConnector}{Controller\-Hardware\-Connector$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$}
+\begin{DoxyCompactList}\small\item\em Performs a single step of extracting data, running controller and sending data back to hardware. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{base__controller__hardware__connector_8h_ae4dfd42394001deb6e8a0e60c81d6f7a}{Hardware\-Type} \{ \hyperlink{base__controller__hardware__connector_8h_ae4dfd42394001deb6e8a0e60c81d6f7aa6902d76cea698982754404da77e5e08a}{Hardware\-Type\-::\-U\-A\-V}, 
+\hyperlink{base__controller__hardware__connector_8h_ae4dfd42394001deb6e8a0e60c81d6f7aa551c5c03a1a91f2cf90e0d9a9b6dd378}{Hardware\-Type\-::\-Arm}
+ \}
+\begin{DoxyCompactList}\small\item\em Type of hardware used by controllerhardwareconnector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{base__controller__hardware__connector_8h_ae4dfd42394001deb6e8a0e60c81d6f7a}{\index{base\-\_\-controller\-\_\-hardware\-\_\-connector.\-h@{base\-\_\-controller\-\_\-hardware\-\_\-connector.\-h}!Hardware\-Type@{Hardware\-Type}}
+\index{Hardware\-Type@{Hardware\-Type}!base_controller_hardware_connector.h@{base\-\_\-controller\-\_\-hardware\-\_\-connector.\-h}}
+\subsubsection[{Hardware\-Type}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Hardware\-Type}\hspace{0.3cm}{\ttfamily [strong]}}}\label{base__controller__hardware__connector_8h_ae4dfd42394001deb6e8a0e60c81d6f7a}
+
+
+Type of hardware used by controllerhardwareconnector. 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{U\-A\-V@{U\-A\-V}!base\-\_\-controller\-\_\-hardware\-\_\-connector.\-h@{base\-\_\-controller\-\_\-hardware\-\_\-connector.\-h}}\index{base\-\_\-controller\-\_\-hardware\-\_\-connector.\-h@{base\-\_\-controller\-\_\-hardware\-\_\-connector.\-h}!U\-A\-V@{U\-A\-V}}\item[{\em 
+\hypertarget{base__controller__hardware__connector_8h_ae4dfd42394001deb6e8a0e60c81d6f7aa6902d76cea698982754404da77e5e08a}{U\-A\-V}\label{base__controller__hardware__connector_8h_ae4dfd42394001deb6e8a0e60c81d6f7aa6902d76cea698982754404da77e5e08a}
+}]Only aerial vehicle. \index{Arm@{Arm}!base\-\_\-controller\-\_\-hardware\-\_\-connector.\-h@{base\-\_\-controller\-\_\-hardware\-\_\-connector.\-h}}\index{base\-\_\-controller\-\_\-hardware\-\_\-connector.\-h@{base\-\_\-controller\-\_\-hardware\-\_\-connector.\-h}!Arm@{Arm}}\item[{\em 
+\hypertarget{base__controller__hardware__connector_8h_ae4dfd42394001deb6e8a0e60c81d6f7aa551c5c03a1a91f2cf90e0d9a9b6dd378}{Arm}\label{base__controller__hardware__connector_8h_ae4dfd42394001deb6e8a0e60c81d6f7aa551c5c03a1a91f2cf90e0d9a9b6dd378}
+}]Only arm. \end{description}
+\end{Desc}

@@ -1,0 +1,79 @@
+\hypertarget{classTypeMap}{\section{Type\-Map$<$ Generic\-Object\-T $>$ Class Template Reference}
+\label{classTypeMap}\index{Type\-Map$<$ Generic\-Object\-T $>$@{Type\-Map$<$ Generic\-Object\-T $>$}}
+}
+
+
+Store objects with a common base class.  
+
+
+
+
+{\ttfamily \#include $<$type\-\_\-map.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Object\-T $>$ }\\void \hyperlink{classTypeMap_a738b13adaac930d128c1a81b08628b9e}{set\-Object} (Object\-T \&object)
+\begin{DoxyCompactList}\small\item\em Store the object with base class as Generic\-Object\-T. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class Object\-T $>$ }\\Object\-T $\ast$ \hyperlink{classTypeMap_af45351278345a92d2d2fb13a977858aa}{get\-Object} ()
+\begin{DoxyCompactList}\small\item\em return the object stored \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Generic\-Object\-T$>$class Type\-Map$<$ Generic\-Object\-T $>$}
+
+Store objects with a common base class. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Generic\-Object\-T} & Common base class for objects stored \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classTypeMap_af45351278345a92d2d2fb13a977858aa}{\index{Type\-Map@{Type\-Map}!get\-Object@{get\-Object}}
+\index{get\-Object@{get\-Object}!TypeMap@{Type\-Map}}
+\subsubsection[{get\-Object}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Generic\-Object\-T$>$ template$<$class Object\-T $>$ Object\-T$\ast$ {\bf Type\-Map}$<$ Generic\-Object\-T $>$\-::get\-Object (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classTypeMap_af45351278345a92d2d2fb13a977858aa}
+
+
+return the object stored 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Object\-T} & type of object to be retrieved.\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+pointer to the instance of the object. 
+\end{DoxyReturn}
+\hypertarget{classTypeMap_a738b13adaac930d128c1a81b08628b9e}{\index{Type\-Map@{Type\-Map}!set\-Object@{set\-Object}}
+\index{set\-Object@{set\-Object}!TypeMap@{Type\-Map}}
+\subsubsection[{set\-Object}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Generic\-Object\-T$>$ template$<$class Object\-T $>$ void {\bf Type\-Map}$<$ Generic\-Object\-T $>$\-::set\-Object (
+\begin{DoxyParamCaption}
+\item[{Object\-T \&}]{object}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classTypeMap_a738b13adaac930d128c1a81b08628b9e}
+
+
+Store the object with base class as Generic\-Object\-T. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Object\-T} & The type of object being stored. Object\-T should be base class of Generic\-Object\-T \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em object} & The address of an instance of Object\-T being stored \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/common/\hyperlink{type__map_8h}{type\-\_\-map.\-h}\end{DoxyCompactItemize}

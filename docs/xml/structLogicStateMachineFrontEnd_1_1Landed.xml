@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structLogicStateMachineFrontEnd_1_1Landed" kind="struct" prot="public">
+    <compoundname>LogicStateMachineFrontEnd::Landed</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">boost::msm::front::state&lt;&gt;</basecompoundref>
+    <includes refid="basic__state__machine_8h" local="no">basic_state_machine.h</includes>
+    <innerclass refid="structLogicStateMachineFrontEnd_1_1Landed_1_1internal__transition__table" prot="public">LogicStateMachineFrontEnd::Landed::internal_transition_table</innerclass>
+    <briefdescription>
+<para><ref refid="structLogicStateMachineFrontEnd_1_1Landed" kindref="compound">Landed</ref> state. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="258">
+        <label>msmf::state&lt;&gt;</label>
+      </node>
+      <node id="257">
+        <label>LogicStateMachineFrontEnd::Landed</label>
+        <link refid="structLogicStateMachineFrontEnd_1_1Landed"/>
+        <childnode refid="258" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="260">
+        <label>msmf::state&lt;&gt;</label>
+      </node>
+      <node id="259">
+        <label>LogicStateMachineFrontEnd::Landed</label>
+        <link refid="structLogicStateMachineFrontEnd_1_1Landed"/>
+        <childnode refid="260" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" line="140" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/basic_state_machine.h" bodystart="140" bodyend="148"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

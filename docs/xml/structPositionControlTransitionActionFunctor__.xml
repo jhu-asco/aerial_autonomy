@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structPositionControlTransitionActionFunctor__" kind="struct" prot="public">
+    <compoundname>PositionControlTransitionActionFunctor_</compoundname>
+    <basecompoundref refid="structActionFunctor" prot="public" virt="non-virtual">ActionFunctor&lt; PositionYaw, UAVSystem, LogicStateMachineT &gt;</basecompoundref>
+    <includes refid="position__control__functors_8h" local="no">position_control_functors.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structPositionControlTransitionActionFunctor___1a4970bb461809ffa30984e16902bb8aaa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void PositionControlTransitionActionFunctor_&lt; LogicStateMachineT &gt;::run</definition>
+        <argsstring>(const PositionYaw &amp;goal, UAVSystem &amp;robot_system, LogicStateMachineT &amp;)</argsstring>
+        <name>run</name>
+        <reimplements refid="structActionFunctor_1a97250a2cc027dc3ca7d10a975d11a5c7">run</reimplements>
+        <param>
+          <type>const <ref refid="structPositionYaw" kindref="compound">PositionYaw</ref> &amp;</type>
+          <declname>event</declname>
+        </param>
+        <param>
+          <type><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <param>
+          <type>LogicStateMachineT &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <briefdescription>
+<para>Override this run function for different sub classes. This function performs the logic checking for each state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Provides sensor data and allows for controlling hardware </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend of logic State Machine. can send events using this. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event triggering the action </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/position_control_functors.h" line="21" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/position_control_functors.h" bodystart="21" bodyend="24"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Transition action to perform when going into position control mode. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine used to process events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="303">
+        <label>PositionControlTransitionActionFunctor_&lt; LogicStateMachineT &gt;</label>
+        <link refid="structPositionControlTransitionActionFunctor__"/>
+        <childnode refid="304" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="304">
+        <label>ActionFunctor&lt; PositionYaw, UAVSystem, LogicStateMachineT &gt;</label>
+        <link refid="structActionFunctor"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="305">
+        <label>PositionControlTransitionActionFunctor_&lt; LogicStateMachineT &gt;</label>
+        <link refid="structPositionControlTransitionActionFunctor__"/>
+        <childnode refid="306" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="306">
+        <label>ActionFunctor&lt; PositionYaw, UAVSystem, LogicStateMachineT &gt;</label>
+        <link refid="structActionFunctor"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/position_control_functors.h" line="20" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/position_control_functors.h" bodystart="19" bodyend="25"/>
+    <listofallmembers>
+      <member refid="structActionFunctor_1adbf24aea135ecf5a0d470b290a5cab02" prot="public" virt="non-virtual"><scope>PositionControlTransitionActionFunctor_</scope><name>operator()</name></member>
+      <member refid="structPositionControlTransitionActionFunctor___1a4970bb461809ffa30984e16902bb8aaa" prot="public" virt="virtual"><scope>PositionControlTransitionActionFunctor_</scope><name>run</name></member>
+      <member refid="structActionFunctor_1aaaa4c1ce7204b370be55f2ef4a618258" prot="public" virt="virtual"><scope>PositionControlTransitionActionFunctor_</scope><name>~ActionFunctor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

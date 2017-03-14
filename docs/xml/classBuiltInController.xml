@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classBuiltInController" kind="class" prot="public">
+    <compoundname>BuiltInController</compoundname>
+    <basecompoundref refid="classController" prot="public" virt="non-virtual">Controller&lt; EmptySensor, GoalType, GoalType &gt;</basecompoundref>
+    <includes refid="builtin__controller_8h" local="no">builtin_controller.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class</type>
+        <declname>GoalType</declname>
+        <defname>GoalType</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classBuiltInController_1aea6ab422dc24222fb168a7e9522ec7c9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual BuiltInController&lt; GoalType &gt;::~BuiltInController</definition>
+        <argsstring>()</argsstring>
+        <name>~BuiltInController</name>
+        <briefdescription>
+<para>Destructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="14" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="14" bodyend="14"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classBuiltInController_1ab597ac5aa54f9865c0324fbcf5c0d7bd" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>GoalType</type>
+        <definition>virtual GoalType BuiltInController&lt; GoalType &gt;::runImplementation</definition>
+        <argsstring>(EmptySensor sensor_data, GoalType goal)</argsstring>
+        <name>runImplementation</name>
+        <reimplements refid="classController_1a9a5a0b6fbedeb476f3a7bfad5f16167e">runImplementation</reimplements>
+        <param>
+          <type><ref refid="structEmptySensor" kindref="compound">EmptySensor</ref></type>
+          <declname>sensor_data</declname>
+        </param>
+        <param>
+          <type>GoalType</type>
+          <declname>goal</declname>
+        </param>
+        <briefdescription>
+<para>Run the control loop. Simply returns the goal. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sensor_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Empty sensor data struct since no sensing is required. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>goal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Goal set-point </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Goal to send to hardware </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="23" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="23" bodyend="25"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A controller that simply outputs the set goal. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="201">
+        <label>Controller&lt; EmptySensor, GoalType, GoalType &gt;</label>
+        <link refid="classController"/>
+      </node>
+      <node id="200">
+        <label>BuiltInController&lt; GoalType &gt;</label>
+        <link refid="classBuiltInController"/>
+        <childnode refid="201" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="203">
+        <label>Controller&lt; EmptySensor, GoalType, GoalType &gt;</label>
+        <link refid="classController"/>
+      </node>
+      <node id="202">
+        <label>BuiltInController&lt; GoalType &gt;</label>
+        <link refid="classBuiltInController"/>
+        <childnode refid="203" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="9" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="9" bodyend="26"/>
+    <listofallmembers>
+      <member refid="classController_1a712cefd3af65956a9bd420641b175214" prot="public" virt="virtual"><scope>BuiltInController</scope><name>getGoal</name></member>
+      <member refid="classController_1a5caae261ff8a9f299cb8d220fbaf204b" prot="public" virt="virtual"><scope>BuiltInController</scope><name>run</name></member>
+      <member refid="classBuiltInController_1ab597ac5aa54f9865c0324fbcf5c0d7bd" prot="protected" virt="virtual"><scope>BuiltInController</scope><name>runImplementation</name></member>
+      <member refid="classController_1a172aae7e2475b72fb2eb469ccd198387" prot="public" virt="virtual"><scope>BuiltInController</scope><name>setGoal</name></member>
+      <member refid="classBuiltInController_1aea6ab422dc24222fb168a7e9522ec7c9" prot="public" virt="virtual"><scope>BuiltInController</scope><name>~BuiltInController</name></member>
+      <member refid="classController_1a86c5dbf78d3d948228c7c629e885151c" prot="public" virt="virtual"><scope>BuiltInController</scope><name>~Controller</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

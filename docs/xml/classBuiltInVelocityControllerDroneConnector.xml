@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classBuiltInVelocityControllerDroneConnector" kind="class" prot="public">
+    <compoundname>BuiltInVelocityControllerDroneConnector</compoundname>
+    <basecompoundref refid="classControllerHardwareConnector" prot="public" virt="non-virtual">ControllerHardwareConnector&lt; EmptySensor, VelocityYaw, VelocityYaw &gt;</basecompoundref>
+    <includes refid="builtin__velocity__controller__drone__connector_8h" local="no">builtin_velocity_controller_drone_connector.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classBuiltInVelocityControllerDroneConnector_1a9454622a4a0388e5b88067dcd19209cc" prot="private" static="no" mutable="no">
+        <type>parsernode::Parser &amp;</type>
+        <definition>parsernode::Parser&amp; BuiltInVelocityControllerDroneConnector::drone_hardware_</definition>
+        <argsstring></argsstring>
+        <name>drone_hardware_</name>
+        <briefdescription>
+<para>Quad hardware to send commands. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" line="52" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classBuiltInVelocityControllerDroneConnector_1a2a9693047db6fcdadea21d54bfe10fc1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>BuiltInVelocityControllerDroneConnector::BuiltInVelocityControllerDroneConnector</definition>
+        <argsstring>(parsernode::Parser &amp;drone_hardware, Controller&lt; EmptySensor, VelocityYaw, VelocityYaw &gt; &amp;controller)</argsstring>
+        <name>BuiltInVelocityControllerDroneConnector</name>
+        <param>
+          <type>parsernode::Parser &amp;</type>
+          <declname>drone_hardware</declname>
+        </param>
+        <param>
+          <type><ref refid="classController" kindref="compound">Controller</ref>&lt; <ref refid="structEmptySensor" kindref="compound">EmptySensor</ref>, <ref refid="structVelocityYaw" kindref="compound">VelocityYaw</ref>, <ref refid="structVelocityYaw" kindref="compound">VelocityYaw</ref> &gt; &amp;</type>
+          <declname>controller</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+<para>Store drone hardware with hardware type as UAV. Uses parsernode::Parser::cmdvelguided function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>drone_hardware</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Drone hardware used to send commands </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>controller</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="structVelocity" kindref="compound">Velocity</ref> controller that achieves a desired velocity, yaw </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" bodystart="27" bodyend="31"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classBuiltInVelocityControllerDroneConnector_1af69ba169f039d9f8d59f675392af4cf0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="structEmptySensor" kindref="compound">EmptySensor</ref></type>
+        <definition>EmptySensor BuiltInVelocityControllerDroneConnector::extractSensorData</definition>
+        <argsstring>()</argsstring>
+        <name>extractSensorData</name>
+        <reimplements refid="classControllerHardwareConnector_1af6952c0d8829b93557eb7d8887bebd63">extractSensorData</reimplements>
+        <briefdescription>
+<para>does not extract any data since nothing is needed </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>empty data structure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" line="39" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp" bodystart="3" bodyend="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classBuiltInVelocityControllerDroneConnector_1a10a06a14a9a34afbe37c79e86ffd5787" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void BuiltInVelocityControllerDroneConnector::sendHardwareCommands</definition>
+        <argsstring>(VelocityYaw controls)</argsstring>
+        <name>sendHardwareCommands</name>
+        <reimplements refid="classControllerHardwareConnector_1a5fc86156d5c747aba36497732962d6d0">sendHardwareCommands</reimplements>
+        <param>
+          <type><ref refid="structVelocityYaw" kindref="compound">VelocityYaw</ref></type>
+          <declname>controls</declname>
+        </param>
+        <briefdescription>
+<para>Send velocity commands to hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>controls</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>velocity command to send to UAV </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" line="46" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp" bodystart="7" bodyend="14"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Manages communication between a drone plugin and a velocity controller that outputs velocity commands. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="206">
+        <label>AbstractControllerHardwareConnector</label>
+        <link refid="structAbstractControllerHardwareConnector"/>
+      </node>
+      <node id="205">
+        <label>ControllerHardwareConnector&lt; EmptySensor, VelocityYaw, VelocityYaw &gt;</label>
+        <link refid="classControllerHardwareConnector"/>
+        <childnode refid="206" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="204">
+        <label>BuiltInVelocityControllerDroneConnector</label>
+        <link refid="classBuiltInVelocityControllerDroneConnector"/>
+        <childnode refid="205" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="209">
+        <label>AbstractControllerHardwareConnector</label>
+        <link refid="structAbstractControllerHardwareConnector"/>
+      </node>
+      <node id="208">
+        <label>ControllerHardwareConnector&lt; EmptySensor, VelocityYaw, VelocityYaw &gt;</label>
+        <link refid="classControllerHardwareConnector"/>
+        <childnode refid="209" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="207">
+        <label>BuiltInVelocityControllerDroneConnector</label>
+        <link refid="classBuiltInVelocityControllerDroneConnector"/>
+        <childnode refid="208" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" line="16" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" bodystart="14" bodyend="53"/>
+    <listofallmembers>
+      <member refid="classBuiltInVelocityControllerDroneConnector_1a2a9693047db6fcdadea21d54bfe10fc1" prot="public" virt="non-virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>BuiltInVelocityControllerDroneConnector</name></member>
+      <member refid="classControllerHardwareConnector_1a6c5d8e5a5ded026ccee3d51f2899ce3e" prot="public" virt="non-virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>ControllerHardwareConnector</name></member>
+      <member refid="classBuiltInVelocityControllerDroneConnector_1a9454622a4a0388e5b88067dcd19209cc" prot="private" virt="non-virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>drone_hardware_</name></member>
+      <member refid="classBuiltInVelocityControllerDroneConnector_1af69ba169f039d9f8d59f675392af4cf0" prot="protected" virt="virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>extractSensorData</name></member>
+      <member refid="classControllerHardwareConnector_1a1ea002003e277fc82e04615343b927f5" prot="public" virt="non-virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>getGoal</name></member>
+      <member refid="classControllerHardwareConnector_1accd0c9bff560fa3c6d1e60d97644415e" prot="public" virt="non-virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>getHardwareType</name></member>
+      <member refid="classControllerHardwareConnector_1a1e47c12f796c9cc2fcb5c2495ede2392" prot="protected" virt="non-virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>hardware_type_</name></member>
+      <member refid="classControllerHardwareConnector_1afb46464434a3a5881ecc1091f58bbd61" prot="public" virt="virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>run</name></member>
+      <member refid="classBuiltInVelocityControllerDroneConnector_1a10a06a14a9a34afbe37c79e86ffd5787" prot="protected" virt="virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>sendHardwareCommands</name></member>
+      <member refid="classControllerHardwareConnector_1a14ce51377f80b67796fcb50ce8195efd" prot="public" virt="non-virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>setGoal</name></member>
+      <member refid="structAbstractControllerHardwareConnector_1a06f931d74faac604c3ef56cb5ba75399" prot="public" virt="virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>~AbstractControllerHardwareConnector</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,150 @@
+\hypertarget{structVelocity}{\section{Velocity Struct Reference}
+\label{structVelocity}\index{Velocity@{Velocity}}
+}
+
+
+Store velocity vector.  
+
+
+
+
+{\ttfamily \#include $<$velocity.\-h$>$}
+
+
+
+Inheritance diagram for Velocity\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=150pt]{structVelocity__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structVelocity_a852088c8d4dbb7e1beb0d793a57e9d11}{Velocity} ()
+\begin{DoxyCompactList}\small\item\em Constructor with implicit instantiation of velocity vector to zero. \end{DoxyCompactList}\item 
+\hyperlink{structVelocity_adb5f7fd7a3e1811b44c9b4020c31987c}{Velocity} (double \hyperlink{structVelocity_a99a9f9580c8a025a2c7a18890993b56a}{x}, double \hyperlink{structVelocity_ae1282d20e14cc4be4aac24ab4e1e3e5c}{y}, double \hyperlink{structVelocity_aaebcd198674f7adcb61f9bb981dab465}{z})
+\begin{DoxyCompactList}\small\item\em Constructor with explicit instantiation. \end{DoxyCompactList}\item 
+bool \hyperlink{structVelocity_a4d148dc8c7581af4a1a16116ec3d403a}{operator==} (const \hyperlink{structVelocity}{Velocity} \&v) const 
+\begin{DoxyCompactList}\small\item\em Check if two velocity vectors are the same. \end{DoxyCompactList}\item 
+bool \hyperlink{structVelocity_a8aaa79fd50b42d41e06033be8baf4c80}{operator!=} (const \hyperlink{structVelocity}{Velocity} \&v) const 
+\begin{DoxyCompactList}\small\item\em Check if two vectors are not equal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{structVelocity_a99a9f9580c8a025a2c7a18890993b56a}{x}
+\begin{DoxyCompactList}\small\item\em x component in m/s \end{DoxyCompactList}\item 
+double \hyperlink{structVelocity_ae1282d20e14cc4be4aac24ab4e1e3e5c}{y}
+\begin{DoxyCompactList}\small\item\em y component in m/s \end{DoxyCompactList}\item 
+double \hyperlink{structVelocity_aaebcd198674f7adcb61f9bb981dab465}{z}
+\begin{DoxyCompactList}\small\item\em z component in m/s \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Store velocity vector. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{structVelocity_a852088c8d4dbb7e1beb0d793a57e9d11}{\index{Velocity@{Velocity}!Velocity@{Velocity}}
+\index{Velocity@{Velocity}!Velocity@{Velocity}}
+\subsubsection[{Velocity}]{\setlength{\rightskip}{0pt plus 5cm}Velocity\-::\-Velocity (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{structVelocity_a852088c8d4dbb7e1beb0d793a57e9d11}
+
+
+Constructor with implicit instantiation of velocity vector to zero. 
+
+\hypertarget{structVelocity_adb5f7fd7a3e1811b44c9b4020c31987c}{\index{Velocity@{Velocity}!Velocity@{Velocity}}
+\index{Velocity@{Velocity}!Velocity@{Velocity}}
+\subsubsection[{Velocity}]{\setlength{\rightskip}{0pt plus 5cm}Velocity\-::\-Velocity (
+\begin{DoxyParamCaption}
+\item[{double}]{x, }
+\item[{double}]{y, }
+\item[{double}]{z}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{structVelocity_adb5f7fd7a3e1811b44c9b4020c31987c}
+
+
+Constructor with explicit instantiation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & x component (m/s) \\
+\hline
+{\em y} & y component (m/s) \\
+\hline
+{\em z} & z component (m/s) \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{structVelocity_a8aaa79fd50b42d41e06033be8baf4c80}{\index{Velocity@{Velocity}!operator!=@{operator!=}}
+\index{operator!=@{operator!=}!Velocity@{Velocity}}
+\subsubsection[{operator!=}]{\setlength{\rightskip}{0pt plus 5cm}bool Velocity\-::operator!= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Velocity} \&}]{v}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{structVelocity_a8aaa79fd50b42d41e06033be8baf4c80}
+
+
+Check if two vectors are not equal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & The vector agains which the current vector is compared.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if two vectors are not equal 
+\end{DoxyReturn}
+\hypertarget{structVelocity_a4d148dc8c7581af4a1a16116ec3d403a}{\index{Velocity@{Velocity}!operator==@{operator==}}
+\index{operator==@{operator==}!Velocity@{Velocity}}
+\subsubsection[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool Velocity\-::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Velocity} \&}]{v}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{structVelocity_a4d148dc8c7581af4a1a16116ec3d403a}
+
+
+Check if two velocity vectors are the same. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & The vector agains which the current vector is compared.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if vectors are equal 
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{structVelocity_a99a9f9580c8a025a2c7a18890993b56a}{\index{Velocity@{Velocity}!x@{x}}
+\index{x@{x}!Velocity@{Velocity}}
+\subsubsection[{x}]{\setlength{\rightskip}{0pt plus 5cm}double Velocity\-::x}}\label{structVelocity_a99a9f9580c8a025a2c7a18890993b56a}
+
+
+x component in m/s 
+
+\hypertarget{structVelocity_ae1282d20e14cc4be4aac24ab4e1e3e5c}{\index{Velocity@{Velocity}!y@{y}}
+\index{y@{y}!Velocity@{Velocity}}
+\subsubsection[{y}]{\setlength{\rightskip}{0pt plus 5cm}double Velocity\-::y}}\label{structVelocity_ae1282d20e14cc4be4aac24ab4e1e3e5c}
+
+
+y component in m/s 
+
+\hypertarget{structVelocity_aaebcd198674f7adcb61f9bb981dab465}{\index{Velocity@{Velocity}!z@{z}}
+\index{z@{z}!Velocity@{Velocity}}
+\subsubsection[{z}]{\setlength{\rightskip}{0pt plus 5cm}double Velocity\-::z}}\label{structVelocity_aaebcd198674f7adcb61f9bb981dab465}
+
+
+z component in m/s 
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/types/\hyperlink{velocity_8h}{velocity.\-h}\end{DoxyCompactItemize}

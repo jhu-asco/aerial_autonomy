@@ -1,0 +1,229 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classStateMachineGUIConnector" kind="class" prot="public">
+    <compoundname>StateMachineGUIConnector</compoundname>
+    <includes refid="state__machine__gui__connector_8h" local="no">state_machine_gui_connector.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class EventManagerT</type>
+      </param>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classStateMachineGUIConnector_1af6a2793484637b440b64be71c48ffe65" prot="private" static="no" mutable="no">
+        <type>ros::Subscriber</type>
+        <definition>ros::Subscriber StateMachineGUIConnector&lt; EventManagerT, LogicStateMachineT &gt;::pose_command_sub_</definition>
+        <argsstring></argsstring>
+        <name>pose_command_sub_</name>
+        <briefdescription>
+<para>pose command subscriber </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="89" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classStateMachineGUIConnector_1a2da60ef3619c60db752f2ee08fce2208" prot="private" static="no" mutable="no">
+        <type>ros::Subscriber</type>
+        <definition>ros::Subscriber StateMachineGUIConnector&lt; EventManagerT, LogicStateMachineT &gt;::event_manager_sub_</definition>
+        <argsstring></argsstring>
+        <name>event_manager_sub_</name>
+        <briefdescription>
+<para>event command subscriber </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="93" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classStateMachineGUIConnector_1a03037ffd6e185032310b27c4c0f2976b" prot="private" static="no" mutable="no">
+        <type>EventManagerT &amp;</type>
+        <definition>EventManagerT&amp; StateMachineGUIConnector&lt; EventManagerT, LogicStateMachineT &gt;::event_manager_</definition>
+        <argsstring></argsstring>
+        <name>event_manager_</name>
+        <briefdescription>
+<para>Event manager to trigger event by name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="97" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classStateMachineGUIConnector_1af28f316696140fc8aea75169ea980563" prot="private" static="no" mutable="no">
+        <type>LogicStateMachineT &amp;</type>
+        <definition>LogicStateMachineT&amp; StateMachineGUIConnector&lt; EventManagerT, LogicStateMachineT &gt;::logic_state_machine_</definition>
+        <argsstring></argsstring>
+        <name>logic_state_machine_</name>
+        <briefdescription>
+<para>Logic state machine to trigger specific events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="101" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classStateMachineGUIConnector_1a0b17b16e283a7fd8215e5bc5a96fe511" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>StateMachineGUIConnector&lt; EventManagerT, LogicStateMachineT &gt;::StateMachineGUIConnector</definition>
+        <argsstring>(ros::NodeHandle &amp;nh, EventManagerT &amp;event_manager, LogicStateMachineT &amp;logic_state_machine)</argsstring>
+        <name>StateMachineGUIConnector</name>
+        <param>
+          <type>ros::NodeHandle &amp;</type>
+          <declname>nh</declname>
+        </param>
+        <param>
+          <type>EventManagerT &amp;</type>
+          <declname>event_manager</declname>
+        </param>
+        <param>
+          <type>LogicStateMachineT &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <briefdescription>
+<para>Constructor Creates subscriber to event callbacks to connect GUI to state machine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeHandle to create subscribers </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>event_manager</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event manager to trigger events based on name alone </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State machine to trigger events directly </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="30" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="30" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classStateMachineGUIConnector_1a41ccee1af3a8f99ca533694ebdf3085c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool StateMachineGUIConnector&lt; EventManagerT, LogicStateMachineT &gt;::isEventManagerConnected</definition>
+        <argsstring>()</argsstring>
+        <name>isEventManagerConnected</name>
+        <briefdescription>
+<para>Returns whether the GUI connector is connected to an event publisher. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Returns true if connected </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="45" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="45" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classStateMachineGUIConnector_1a4c321da086299de9c33583255c4666f3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool StateMachineGUIConnector&lt; EventManagerT, LogicStateMachineT &gt;::isPoseCommandConnected</definition>
+        <argsstring>()</argsstring>
+        <name>isPoseCommandConnected</name>
+        <briefdescription>
+<para>Returns whether the GUI connector is connected to an pose command publisher. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Returns true if connected </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="54" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="54" bodyend="56"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classStateMachineGUIConnector_1a1e609fe276ab507699acab1b71d959b3" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void StateMachineGUIConnector&lt; EventManagerT, LogicStateMachineT &gt;::eventCallback</definition>
+        <argsstring>(const std_msgs::StringConstPtr &amp;event_data)</argsstring>
+        <name>eventCallback</name>
+        <param>
+          <type>const std_msgs::StringConstPtr &amp;</type>
+          <declname>event_data</declname>
+        </param>
+        <briefdescription>
+<para>Callback to trigger events based on name. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>event_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of event to trigger </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="64" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="64" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classStateMachineGUIConnector_1abd1afe58d94b7ef6d6533d02050ef5bb" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void StateMachineGUIConnector&lt; EventManagerT, LogicStateMachineT &gt;::poseCommandCallback</definition>
+        <argsstring>(const geometry_msgs::PoseStamped &amp;pose)</argsstring>
+        <name>poseCommandCallback</name>
+        <param>
+          <type>const geometry_msgs::PoseStamped &amp;</type>
+          <declname>pose</declname>
+        </param>
+        <briefdescription>
+<para>Callback to trigger event for pose command. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pose</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>command to send to state machine </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="74" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="74" bodyend="84"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Connects a logic state machine to the GUI over a ROS interface. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>EventManagerT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>event manager type used to trigger events to state machine </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>logic state machine type used to trigger pose events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="20" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="20" bodyend="102"/>
+    <listofallmembers>
+      <member refid="classStateMachineGUIConnector_1a03037ffd6e185032310b27c4c0f2976b" prot="private" virt="non-virtual"><scope>StateMachineGUIConnector</scope><name>event_manager_</name></member>
+      <member refid="classStateMachineGUIConnector_1a2da60ef3619c60db752f2ee08fce2208" prot="private" virt="non-virtual"><scope>StateMachineGUIConnector</scope><name>event_manager_sub_</name></member>
+      <member refid="classStateMachineGUIConnector_1a1e609fe276ab507699acab1b71d959b3" prot="private" virt="non-virtual"><scope>StateMachineGUIConnector</scope><name>eventCallback</name></member>
+      <member refid="classStateMachineGUIConnector_1a41ccee1af3a8f99ca533694ebdf3085c" prot="public" virt="non-virtual"><scope>StateMachineGUIConnector</scope><name>isEventManagerConnected</name></member>
+      <member refid="classStateMachineGUIConnector_1a4c321da086299de9c33583255c4666f3" prot="public" virt="non-virtual"><scope>StateMachineGUIConnector</scope><name>isPoseCommandConnected</name></member>
+      <member refid="classStateMachineGUIConnector_1af28f316696140fc8aea75169ea980563" prot="private" virt="non-virtual"><scope>StateMachineGUIConnector</scope><name>logic_state_machine_</name></member>
+      <member refid="classStateMachineGUIConnector_1af6a2793484637b440b64be71c48ffe65" prot="private" virt="non-virtual"><scope>StateMachineGUIConnector</scope><name>pose_command_sub_</name></member>
+      <member refid="classStateMachineGUIConnector_1abd1afe58d94b7ef6d6533d02050ef5bb" prot="private" virt="non-virtual"><scope>StateMachineGUIConnector</scope><name>poseCommandCallback</name></member>
+      <member refid="classStateMachineGUIConnector_1a0b17b16e283a7fd8215e5bc5a96fe511" prot="public" virt="non-virtual"><scope>StateMachineGUIConnector</scope><name>StateMachineGUIConnector</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

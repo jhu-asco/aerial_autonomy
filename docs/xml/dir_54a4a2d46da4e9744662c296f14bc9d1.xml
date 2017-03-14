@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_54a4a2d46da4e9744662c296f14bc9d1" kind="dir">
+    <compoundname>/home/gowtham/indigo_workspace/src/aerial_autonomy</compoundname>
+    <innerdir refid="dir_2f8e754ab99ce0b8ad0265163734387c">/home/gowtham/indigo_workspace/src/aerial_autonomy/include</innerdir>
+    <innerdir refid="dir_d2b55a6b175e0275230d5abd8f9d8a8b">/home/gowtham/indigo_workspace/src/aerial_autonomy/src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/"/>
+  </compounddef>
+</doxygen>

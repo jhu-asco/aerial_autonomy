@@ -1,0 +1,140 @@
+\hypertarget{classController}{\section{Controller$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$ Class Template Reference}
+\label{classController}\index{Controller$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$@{Controller$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$}}
+}
+
+
+Base \hyperlink{classController}{Controller} class.  
+
+
+
+
+{\ttfamily \#include $<$base\-\_\-controller.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual Control\-Type \hyperlink{classController_a5caae261ff8a9f299cb8d220fbaf204b}{run} (Sensor\-Data\-Type sensor\-\_\-data)
+\begin{DoxyCompactList}\small\item\em Run the control loop and return control arguments. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classController_a172aae7e2475b72fb2eb469ccd198387}{set\-Goal} (Goal\-Type goal)
+\begin{DoxyCompactList}\small\item\em set the goal condition for the controller. Should use internal locking as the run function can be called from a separate thread \end{DoxyCompactList}\item 
+virtual Goal\-Type \hyperlink{classController_a712cefd3af65956a9bd420641b175214}{get\-Goal} ()
+\begin{DoxyCompactList}\small\item\em get the goal condition for the controller. Should use internal locking as the run function can be called from a separate thread \end{DoxyCompactList}\item 
+virtual \hyperlink{classController_a86c5dbf78d3d948228c7c629e885151c}{$\sim$\-Controller} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual Control\-Type \hyperlink{classController_a9a5a0b6fbedeb476f3a7bfad5f16167e}{run\-Implementation} (Sensor\-Data\-Type sensor\-\_\-data, Goal\-Type goal)=0
+\begin{DoxyCompactList}\small\item\em Run the control loop and return control arguments. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Sensor\-Data\-Type, class Goal\-Type, class Control\-Type$>$class Controller$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$}
+
+Base \hyperlink{classController}{Controller} class. 
+
+subclass should implement the run\-Implementation function which takes as input the sensor data and the desired goal and returns a control value.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Sensor\-Data\-Type} & The type of sensor the controller takes in \\
+\hline
+{\em Goal\-Type} & The type of goal the controller takes in \\
+\hline
+{\em Control\-Type} & The type of control the controller returns \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classController_a86c5dbf78d3d948228c7c629e885151c}{\index{Controller@{Controller}!$\sim$\-Controller@{$\sim$\-Controller}}
+\index{$\sim$\-Controller@{$\sim$\-Controller}!Controller@{Controller}}
+\subsubsection[{$\sim$\-Controller}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Sensor\-Data\-Type, class Goal\-Type, class Control\-Type$>$ virtual {\bf Controller}$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$\-::$\sim${\bf Controller} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classController_a86c5dbf78d3d948228c7c629e885151c}
+
+
+Destructor. 
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classController_a712cefd3af65956a9bd420641b175214}{\index{Controller@{Controller}!get\-Goal@{get\-Goal}}
+\index{get\-Goal@{get\-Goal}!Controller@{Controller}}
+\subsubsection[{get\-Goal}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Sensor\-Data\-Type, class Goal\-Type, class Control\-Type$>$ virtual Goal\-Type {\bf Controller}$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$\-::get\-Goal (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classController_a712cefd3af65956a9bd420641b175214}
+
+
+get the goal condition for the controller. Should use internal locking as the run function can be called from a separate thread 
+
+\hypertarget{classController_a5caae261ff8a9f299cb8d220fbaf204b}{\index{Controller@{Controller}!run@{run}}
+\index{run@{run}!Controller@{Controller}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Sensor\-Data\-Type, class Goal\-Type, class Control\-Type$>$ virtual Control\-Type {\bf Controller}$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$\-::run (
+\begin{DoxyParamCaption}
+\item[{Sensor\-Data\-Type}]{sensor\-\_\-data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classController_a5caae261ff8a9f299cb8d220fbaf204b}
+
+
+Run the control loop and return control arguments. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sensor\-\_\-data} & Data required for control loop. Can also be estimator data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Control values to send to hardware 
+\end{DoxyReturn}
+\hypertarget{classController_a9a5a0b6fbedeb476f3a7bfad5f16167e}{\index{Controller@{Controller}!run\-Implementation@{run\-Implementation}}
+\index{run\-Implementation@{run\-Implementation}!Controller@{Controller}}
+\subsubsection[{run\-Implementation}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Sensor\-Data\-Type, class Goal\-Type, class Control\-Type$>$ virtual Control\-Type {\bf Controller}$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$\-::run\-Implementation (
+\begin{DoxyParamCaption}
+\item[{Sensor\-Data\-Type}]{sensor\-\_\-data, }
+\item[{Goal\-Type}]{goal}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}}\label{classController_a9a5a0b6fbedeb476f3a7bfad5f16167e}
+
+
+Run the control loop and return control arguments. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sensor\-\_\-data} & Data required for control loop. Can also be estimator data \\
+\hline
+{\em goal} & The set-\/point for the controller \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Control values to send to hardware 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classManualRPYTController_ae29c56af6d0bc913d357c7849201c8fb}{Manual\-R\-P\-Y\-T\-Controller}, \hyperlink{classBuiltInController_ab597ac5aa54f9865c0324fbcf5c0d7bd}{Built\-In\-Controller$<$ Goal\-Type $>$}, \hyperlink{classBuiltInController_ab597ac5aa54f9865c0324fbcf5c0d7bd}{Built\-In\-Controller$<$ Position\-Yaw $>$}, and \hyperlink{classBuiltInController_ab597ac5aa54f9865c0324fbcf5c0d7bd}{Built\-In\-Controller$<$ Velocity\-Yaw $>$}.
+
+\hypertarget{classController_a172aae7e2475b72fb2eb469ccd198387}{\index{Controller@{Controller}!set\-Goal@{set\-Goal}}
+\index{set\-Goal@{set\-Goal}!Controller@{Controller}}
+\subsubsection[{set\-Goal}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Sensor\-Data\-Type, class Goal\-Type, class Control\-Type$>$ virtual void {\bf Controller}$<$ Sensor\-Data\-Type, Goal\-Type, Control\-Type $>$\-::set\-Goal (
+\begin{DoxyParamCaption}
+\item[{Goal\-Type}]{goal}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classController_a172aae7e2475b72fb2eb469ccd198387}
+
+
+set the goal condition for the controller. Should use internal locking as the run function can be called from a separate thread 
+
+
+\begin{DoxyParams}{Parameters}
+{\em goal} & The goal for control loop \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/controllers/\hyperlink{base__controller_8h}{base\-\_\-controller.\-h}\end{DoxyCompactItemize}

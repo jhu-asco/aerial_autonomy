@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="state__machine__gui__connector_8h" kind="file">
+    <compoundname>state_machine_gui_connector.h</compoundname>
+    <includes local="no">geometry_msgs/PoseStamped.h</includes>
+    <includes local="no">glog/logging.h</includes>
+    <includes local="no">ros/ros.h</includes>
+    <includes local="no">std_msgs/String.h</includes>
+    <includes local="no">tf_conversions/tf_eigen.h</includes>
+    <includes refid="position__yaw_8h" local="no">aerial_autonomy/types/position_yaw.h</includes>
+    <includedby refid="onboard__system__handler_8h" local="no">include/aerial_autonomy/onboard_system_handler.h</includedby>
+    <incdepgraph>
+      <node id="1565">
+        <label>aerial_autonomy/types/position_yaw.h</label>
+        <link refid="position__yaw_8h"/>
+        <childnode refid="1566" relation="include">
+        </childnode>
+      </node>
+      <node id="1561">
+        <label>glog/logging.h</label>
+      </node>
+      <node id="1564">
+        <label>tf_conversions/tf_eigen.h</label>
+      </node>
+      <node id="1559">
+        <label>include/aerial_autonomy/state_machines/state_machine_gui_connector.h</label>
+        <link refid="state_machine_gui_connector.h"/>
+        <childnode refid="1560" relation="include">
+        </childnode>
+        <childnode refid="1561" relation="include">
+        </childnode>
+        <childnode refid="1562" relation="include">
+        </childnode>
+        <childnode refid="1563" relation="include">
+        </childnode>
+        <childnode refid="1564" relation="include">
+        </childnode>
+        <childnode refid="1565" relation="include">
+        </childnode>
+      </node>
+      <node id="1560">
+        <label>geometry_msgs/PoseStamped.h</label>
+      </node>
+      <node id="1562">
+        <label>ros/ros.h</label>
+      </node>
+      <node id="1563">
+        <label>std_msgs/String.h</label>
+      </node>
+      <node id="1566">
+        <label>aerial_autonomy/types/position.h</label>
+        <link refid="position_8h"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1569">
+        <label>src/aerial_autonomy_node.cpp</label>
+        <link refid="aerial__autonomy__node_8cpp"/>
+      </node>
+      <node id="1568">
+        <label>include/aerial_autonomy/onboard_system_handler.h</label>
+        <link refid="onboard__system__handler_8h"/>
+        <childnode refid="1569" relation="include">
+        </childnode>
+      </node>
+      <node id="1567">
+        <label>include/aerial_autonomy/state_machines/state_machine_gui_connector.h</label>
+        <link refid="state_machine_gui_connector.h"/>
+        <childnode refid="1568" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classStateMachineGUIConnector" prot="public">StateMachineGUIConnector</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;geometry_msgs/PoseStamped.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;glog/logging.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ros/ros.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;std_msgs/String.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;tf_conversions/tf_eigen.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="position__yaw_8h" kindref="compound">aerial_autonomy/types/position_yaw.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>EventManagerT,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
+<codeline lineno="20" refid="classStateMachineGUIConnector" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classStateMachineGUIConnector" kindref="compound">StateMachineGUIConnector</ref><sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="30" refid="classStateMachineGUIConnector_1a0b17b16e283a7fd8215e5bc5a96fe511" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classStateMachineGUIConnector_1a0b17b16e283a7fd8215e5bc5a96fe511" kindref="member">StateMachineGUIConnector</ref>(ros::NodeHandle<sp/>&amp;nh,<sp/>EventManagerT<sp/>&amp;event_manager,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LogicStateMachineT<sp/>&amp;logic_state_machine)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>event_manager_(event_manager),</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logic_state_machine_(logic_state_machine)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>event_manager_sub_<sp/>=<sp/>nh.subscribe(</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;event_manager&quot;</highlight><highlight class="normal">,<sp/>1,<sp/>&amp;StateMachineGUIConnector::eventCallback,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>pose_command_sub_<sp/>=</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nh.subscribe(</highlight><highlight class="stringliteral">&quot;goal_pose_command&quot;</highlight><highlight class="normal">,<sp/>1,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;StateMachineGUIConnector::poseCommandCallback,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="classStateMachineGUIConnector_1a41ccee1af3a8f99ca533694ebdf3085c" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classStateMachineGUIConnector_1a41ccee1af3a8f99ca533694ebdf3085c" kindref="member">isEventManagerConnected</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>event_manager_sub_.getNumPublishers()<sp/>&gt;<sp/>0;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="classStateMachineGUIConnector_1a4c321da086299de9c33583255c4666f3" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classStateMachineGUIConnector_1a4c321da086299de9c33583255c4666f3" kindref="member">isPoseCommandConnected</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>pose_command_sub_.getNumPublishers()<sp/>&gt;<sp/>0;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>eventCallback(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std_msgs::StringConstPtr<sp/>&amp;event_data)<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>VLOG(1)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Triggering<sp/>event:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>event_data;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>event_manager_.triggerEvent(event_data-&gt;data,<sp/>logic_state_machine_);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>poseCommandCallback(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>geometry_msgs::PoseStamped<sp/>&amp;pose)<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>pose_command;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>pose_command.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref><sp/>=<sp/>pose.pose.position.x;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>pose_command.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref><sp/>=<sp/>pose.pose.position.y;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>pose_command.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref><sp/>=<sp/>pose.pose.position.z;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>pose_command.<ref refid="structPositionYaw_1a712a15ba9739cb5f4e31ea973074b8bf" kindref="member">yaw</ref><sp/>=<sp/>tf::getYaw(pose.pose.orientation);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>VLOG(1)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Received<sp/>Pose<sp/>command:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>pose_command.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\t&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>pose_command.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\t&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>pose_command.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref><sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\t&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>pose_command.<ref refid="structPositionYaw_1a712a15ba9739cb5f4e31ea973074b8bf" kindref="member">yaw</ref>;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>logic_state_machine_.process_event(pose_command);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>ros::Subscriber<sp/>pose_command_sub_;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/>ros::Subscriber<sp/>event_manager_sub_;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/>EventManagerT<sp/>&amp;event_manager_;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/>LogicStateMachineT<sp/>&amp;logic_state_machine_;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h"/>
+  </compounddef>
+</doxygen>

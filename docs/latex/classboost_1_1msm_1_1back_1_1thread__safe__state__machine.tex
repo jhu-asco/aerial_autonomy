@@ -1,0 +1,109 @@
+\hypertarget{classboost_1_1msm_1_1back_1_1thread__safe__state__machine}{\section{boost\-:\-:msm\-:\-:back\-:\-:thread\-\_\-safe\-\_\-state\-\_\-machine$<$ A0, A1, A2, A3, A4 $>$ Class Template Reference}
+\label{classboost_1_1msm_1_1back_1_1thread__safe__state__machine}\index{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine$<$ A0, A1, A2, A3, A4 $>$@{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine$<$ A0, A1, A2, A3, A4 $>$}}
+}
+
+
+Thread safe state machine class that extends boost\-::msm\-::back\-::state\-\_\-machine class.  
+
+
+
+
+{\ttfamily \#include $<$thread\-\_\-safe\-\_\-state\-\_\-machine.\-h$>$}
+
+
+
+Inheritance diagram for boost\-:\-:msm\-:\-:back\-:\-:thread\-\_\-safe\-\_\-state\-\_\-machine$<$ A0, A1, A2, A3, A4 $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{classboost_1_1msm_1_1back_1_1thread__safe__state__machine__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for boost\-:\-:msm\-:\-:back\-:\-:thread\-\_\-safe\-\_\-state\-\_\-machine$<$ A0, A1, A2, A3, A4 $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{classboost_1_1msm_1_1back_1_1thread__safe__state__machine__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classboost_1_1msm_1_1back_1_1thread__safe__state__machine_a5b5a31229aed12a1f7036b8b46de0884}{thread\-\_\-safe\-\_\-state\-\_\-machine} ()
+\item 
+{\footnotesize template$<$class Expr $>$ }\\\hyperlink{classboost_1_1msm_1_1back_1_1thread__safe__state__machine_ad8d554411680bddd9959406c42407c25}{thread\-\_\-safe\-\_\-state\-\_\-machine} (Expr const \&expr)
+\item 
+{\footnotesize template$<$class Event $>$ }\\execute\-\_\-return \hyperlink{classboost_1_1msm_1_1back_1_1thread__safe__state__machine_a9f38e619a54ce414c4ef737e8873928d}{process\-\_\-event} (Event const \&evt)
+\begin{DoxyCompactList}\small\item\em The process event function that triggers transition actions in state machine The function is thread safe but does not execute the events in any particular order. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class , class , class , class , class $>$ }\\class \hyperlink{classboost_1_1msm_1_1back_1_1thread__safe__state__machine_a83a2deae1f2169f1234e430beb3b8a95}{boost\-::msm\-::back\-::state\-\_\-machine}
+\item 
+{\footnotesize template$<$class , class , class , class , class $>$ }\\class \hyperlink{classboost_1_1msm_1_1back_1_1thread__safe__state__machine_a3306dad625847fa2192b045a7789ca5f}{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class A0, class A1 = parameter\-::void\-\_\-, class A2 = parameter\-::void\-\_\-, class A3 = parameter\-::void\-\_\-, class A4 = parameter\-::void\-\_\-$>$class boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine$<$ A0, A1, A2, A3, A4 $>$}
+
+Thread safe state machine class that extends boost\-::msm\-::back\-::state\-\_\-machine class. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classboost_1_1msm_1_1back_1_1thread__safe__state__machine_a5b5a31229aed12a1f7036b8b46de0884}{\index{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine@{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}!thread\-\_\-safe\-\_\-state\-\_\-machine@{thread\-\_\-safe\-\_\-state\-\_\-machine}}
+\index{thread\-\_\-safe\-\_\-state\-\_\-machine@{thread\-\_\-safe\-\_\-state\-\_\-machine}!boost::msm::back::thread_safe_state_machine@{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}}
+\subsubsection[{thread\-\_\-safe\-\_\-state\-\_\-machine}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class A0 , class A1  = parameter\-::void\-\_\-, class A2  = parameter\-::void\-\_\-, class A3  = parameter\-::void\-\_\-, class A4  = parameter\-::void\-\_\-$>$ {\bf boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}$<$ A0, A1, A2, A3, A4 $>$\-::{\bf thread\-\_\-safe\-\_\-state\-\_\-machine} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classboost_1_1msm_1_1back_1_1thread__safe__state__machine_a5b5a31229aed12a1f7036b8b46de0884}
+\hypertarget{classboost_1_1msm_1_1back_1_1thread__safe__state__machine_ad8d554411680bddd9959406c42407c25}{\index{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine@{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}!thread\-\_\-safe\-\_\-state\-\_\-machine@{thread\-\_\-safe\-\_\-state\-\_\-machine}}
+\index{thread\-\_\-safe\-\_\-state\-\_\-machine@{thread\-\_\-safe\-\_\-state\-\_\-machine}!boost::msm::back::thread_safe_state_machine@{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}}
+\subsubsection[{thread\-\_\-safe\-\_\-state\-\_\-machine}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class A0 , class A1  = parameter\-::void\-\_\-, class A2  = parameter\-::void\-\_\-, class A3  = parameter\-::void\-\_\-, class A4  = parameter\-::void\-\_\-$>$ template$<$class Expr $>$ {\bf boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}$<$ A0, A1, A2, A3, A4 $>$\-::{\bf thread\-\_\-safe\-\_\-state\-\_\-machine} (
+\begin{DoxyParamCaption}
+\item[{Expr const \&}]{expr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classboost_1_1msm_1_1back_1_1thread__safe__state__machine_ad8d554411680bddd9959406c42407c25}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classboost_1_1msm_1_1back_1_1thread__safe__state__machine_a9f38e619a54ce414c4ef737e8873928d}{\index{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine@{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}!process\-\_\-event@{process\-\_\-event}}
+\index{process\-\_\-event@{process\-\_\-event}!boost::msm::back::thread_safe_state_machine@{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}}
+\subsubsection[{process\-\_\-event}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class A0 , class A1  = parameter\-::void\-\_\-, class A2  = parameter\-::void\-\_\-, class A3  = parameter\-::void\-\_\-, class A4  = parameter\-::void\-\_\-$>$ template$<$class Event $>$ execute\-\_\-return {\bf boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}$<$ A0, A1, A2, A3, A4 $>$\-::process\-\_\-event (
+\begin{DoxyParamCaption}
+\item[{Event const \&}]{evt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classboost_1_1msm_1_1back_1_1thread__safe__state__machine_a9f38e619a54ce414c4ef737e8873928d}
+
+
+The process event function that triggers transition actions in state machine The function is thread safe but does not execute the events in any particular order. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Event} & The event type that is received \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em evt} & Instance of event type received by this function\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Enum specifying whether the event is handled, deferred etc. 
+\end{DoxyReturn}
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{classboost_1_1msm_1_1back_1_1thread__safe__state__machine_a83a2deae1f2169f1234e430beb3b8a95}{\index{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine@{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}!boost\-::msm\-::back\-::state\-\_\-machine@{boost\-::msm\-::back\-::state\-\_\-machine}}
+\index{boost\-::msm\-::back\-::state\-\_\-machine@{boost\-::msm\-::back\-::state\-\_\-machine}!boost::msm::back::thread_safe_state_machine@{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}}
+\subsubsection[{boost\-::msm\-::back\-::state\-\_\-machine}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class A0 , class A1  = parameter\-::void\-\_\-, class A2  = parameter\-::void\-\_\-, class A3  = parameter\-::void\-\_\-, class A4  = parameter\-::void\-\_\-$>$ template$<$class , class , class , class , class $>$ friend class boost\-::msm\-::back\-::state\-\_\-machine\hspace{0.3cm}{\ttfamily [friend]}}}\label{classboost_1_1msm_1_1back_1_1thread__safe__state__machine_a83a2deae1f2169f1234e430beb3b8a95}
+\hypertarget{classboost_1_1msm_1_1back_1_1thread__safe__state__machine_a3306dad625847fa2192b045a7789ca5f}{\index{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine@{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}!boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine@{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}}
+\index{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine@{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}!boost::msm::back::thread_safe_state_machine@{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}}
+\subsubsection[{boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class A0 , class A1  = parameter\-::void\-\_\-, class A2  = parameter\-::void\-\_\-, class A3  = parameter\-::void\-\_\-, class A4  = parameter\-::void\-\_\-$>$ template$<$class , class , class , class , class $>$ friend class {\bf boost\-::msm\-::back\-::thread\-\_\-safe\-\_\-state\-\_\-machine}\hspace{0.3cm}{\ttfamily [friend]}}}\label{classboost_1_1msm_1_1back_1_1thread__safe__state__machine_a3306dad625847fa2192b045a7789ca5f}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/common/\hyperlink{thread__safe__state__machine_8h}{thread\-\_\-safe\-\_\-state\-\_\-machine.\-h}\end{DoxyCompactItemize}

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="creating__state__machine_8md" kind="file">
+    <compoundname>creating_state_machine.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Creating<sp/>a<sp/>State<sp/>Machine</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="normal">To<sp/>create<sp/>a<sp/>state<sp/>machine,<sp/>we<sp/>need<sp/>to<sp/>implement<sp/>the<sp/>following<sp/>components:</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal">|<sp/>Component<sp/>|<sp/>Description<sp/>|</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">|-----------|-------------|</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">|<sp/>Robot<sp/><sp/>system<sp/>|<sp/>Provides<sp/>sensor<sp/>data<sp/>and<sp/>accepts<sp/>control<sp/>commands<sp/>|</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">|<sp/>Actions<sp/>|<sp/>Commands<sp/>to<sp/>execute<sp/>when<sp/>switching<sp/>between<sp/>states<sp/>|</highlight></codeline>
+<codeline lineno="8"><highlight class="normal">|<sp/>Guards<sp/>|<sp/>Check<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>the<sp/>transition<sp/>between<sp/>states<sp/>is<sp/>valid<sp/>or<sp/>not<sp/>|</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">|<sp/>Internal<sp/>actions<sp/>|<sp/>Process<sp/>robot<sp/>state<sp/>continuously<sp/>and<sp/>trigger<sp/>actions<sp/>accordingly<sp/>|</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">##<sp/>Creating<sp/>a<sp/>robot<sp/>system</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal">\todo<sp/>(Matt)<sp/>Fill<sp/>this<sp/>page</highlight></codeline>
+    </programlisting>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/markdown_scripts/creating_state_machine.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,25 @@
+<map id="include/aerial_autonomy/actions_guards/position_control_functors.h" name="include/aerial_autonomy/actions_guards/position_control_functors.h">
+<area shape="rect" id="node2" href="$base__functors_8h.html" title="aerial_autonomy/actions\l_guards/base_functors.h" alt="" coords="5,207,169,249"/>
+<area shape="rect" id="node5" href="$position__controller__drone__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/position\l_controller_drone_connector.h" alt="" coords="1625,312,1828,368"/>
+<area shape="rect" id="node13" href="$base__state_8h.html" title="aerial_autonomy/logic\l_states/base_state.h" alt="" coords="401,110,548,151"/>
+<area shape="rect" id="node16" href="$uav__system_8h.html" title="aerial_autonomy/robot\l_systems/uav_system.h" alt="" coords="1004,110,1168,151"/>
+<area shape="rect" id="node34" href="$completed__event_8h.html" title="aerial_autonomy/types\l/completed_event.h" alt="" coords="1498,110,1651,151"/>
+<area shape="rect" id="node6" href="$base__controller__hardware__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/base\l_controller_hardware_connector.h" alt="" coords="1259,424,1476,480"/>
+<area shape="rect" id="node9" href="$empty__sensor_8h.html" title="aerial_autonomy/types\l/empty_sensor.h" alt="" coords="2017,431,2169,473"/>
+<area shape="rect" id="node10" href="$position__yaw_8h.html" title="aerial_autonomy/types\l/position_yaw.h" alt="" coords="1839,431,1992,473"/>
+<area shape="rect" id="node7" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="1087,529,1268,570"/>
+<area shape="rect" id="node11" href="$position_8h.html" title="aerial_autonomy/types\l/position.h" alt="" coords="1839,529,1992,570"/>
+<area shape="rect" id="node18" href="$basic__controllers_8h.html" title="aerial_autonomy/controllers\l/basic_controllers.h" alt="" coords="1433,207,1615,249"/>
+<area shape="rect" id="node25" href="$basic__controller__hardware__connectors_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/basic\l_controller_hardware_connectors.h" alt="" coords="1185,200,1408,256"/>
+<area shape="rect" id="node30" href="$type__map_8h.html" title="aerial_autonomy/common\l/type_map.h" alt="" coords="940,207,1111,249"/>
+<area shape="rect" id="node19" href="$builtin__controller_8h.html" title="aerial_autonomy/controllers\l/builtin_controller.h" alt="" coords="2003,319,2184,361"/>
+<area shape="rect" id="node20" href="$manual__rpyt__controller_8h.html" title="aerial_autonomy/controllers\l/manual_rpyt_controller.h" alt="" coords="904,319,1085,361"/>
+<area shape="rect" id="node21" href="$empty__goal_8h.html" title="aerial_autonomy/types\l/empty_goal.h" alt="" coords="897,431,1049,473"/>
+<area shape="rect" id="node22" href="$joysticks__yaw_8h.html" title="aerial_autonomy/types\l/joysticks_yaw.h" alt="" coords="719,431,872,473"/>
+<area shape="rect" id="node24" href="$roll__pitch__yaw__thrust_8h.html" title="aerial_autonomy/types\l/roll_pitch_yaw_thrust.h" alt="" coords="1075,431,1233,473"/>
+<area shape="rect" id="node23" href="$joysticks_8h.html" title="aerial_autonomy/types\l/joysticks.h" alt="" coords="719,529,872,570"/>
+<area shape="rect" id="node26" href="$builtin__velocity__controller__drone__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/builtin\l_velocity_controller_drone\l_connector.h" alt="" coords="1410,305,1600,375"/>
+<area shape="rect" id="node29" href="$manual__rpyt__controller__drone__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/manual\l_rpyt_controller_drone_connector.h" alt="" coords="1110,312,1335,368"/>
+<area shape="rect" id="node27" href="$velocity__yaw_8h.html" title="aerial_autonomy/types\l/velocity_yaw.h" alt="" coords="1662,431,1815,473"/>
+<area shape="rect" id="node28" href="$velocity_8h.html" title="aerial_autonomy/types\l/velocity.h" alt="" coords="1662,529,1815,570"/>
+</map>

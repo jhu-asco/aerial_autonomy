@@ -1,0 +1,165 @@
+\hypertarget{structVelocityYaw}{\section{Velocity\-Yaw Struct Reference}
+\label{structVelocityYaw}\index{Velocity\-Yaw@{Velocity\-Yaw}}
+}
+
+
+Store velocity and yaw Used as goal for builtin velocity and yaw controller for U\-A\-V system.  
+
+
+
+
+{\ttfamily \#include $<$velocity\-\_\-yaw.\-h$>$}
+
+
+
+Inheritance diagram for Velocity\-Yaw\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=150pt]{structVelocityYaw__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Velocity\-Yaw\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=150pt]{structVelocityYaw__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structVelocityYaw_a1aa3de4b3e3d7510c233ebd54b2fe79d}{Velocity\-Yaw} ()
+\begin{DoxyCompactList}\small\item\em Implicit constructor Instantiates velocity and yaw to zero. \end{DoxyCompactList}\item 
+\hyperlink{structVelocityYaw_a21a3493e39f5256972abe5f97315c80b}{Velocity\-Yaw} (\hyperlink{structVelocity}{Velocity} v, double \hyperlink{structVelocityYaw_a5bef45a2807a9814495080d2e5603ce4}{yaw})
+\begin{DoxyCompactList}\small\item\em Explicit constructor. \end{DoxyCompactList}\item 
+\hyperlink{structVelocityYaw_ab4ebb3f3782c9541dafb73c4e3e82196}{Velocity\-Yaw} (double \hyperlink{structVelocity_a99a9f9580c8a025a2c7a18890993b56a}{x}, double \hyperlink{structVelocity_ae1282d20e14cc4be4aac24ab4e1e3e5c}{y}, double \hyperlink{structVelocity_aaebcd198674f7adcb61f9bb981dab465}{z}, double \hyperlink{structVelocityYaw_a5bef45a2807a9814495080d2e5603ce4}{yaw})
+\begin{DoxyCompactList}\small\item\em Explicit constructor. \end{DoxyCompactList}\item 
+bool \hyperlink{structVelocityYaw_ad546c6bf2a5483fdb21387e0df040acb}{operator==} (const \hyperlink{structVelocityYaw}{Velocity\-Yaw} \&v) const 
+\begin{DoxyCompactList}\small\item\em Compare two velocityyaws. \end{DoxyCompactList}\item 
+bool \hyperlink{structVelocityYaw_a239edcca362f6a0fababa7fb1767e7b6}{operator!=} (const \hyperlink{structVelocityYaw}{Velocity\-Yaw} \&v) const 
+\begin{DoxyCompactList}\small\item\em Compare two velocityyaws. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{structVelocityYaw_a5bef45a2807a9814495080d2e5603ce4}{yaw}
+\begin{DoxyCompactList}\small\item\em Orientation around global z axis. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Store velocity and yaw Used as goal for builtin velocity and yaw controller for U\-A\-V system. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{structVelocityYaw_a1aa3de4b3e3d7510c233ebd54b2fe79d}{\index{Velocity\-Yaw@{Velocity\-Yaw}!Velocity\-Yaw@{Velocity\-Yaw}}
+\index{Velocity\-Yaw@{Velocity\-Yaw}!VelocityYaw@{Velocity\-Yaw}}
+\subsubsection[{Velocity\-Yaw}]{\setlength{\rightskip}{0pt plus 5cm}Velocity\-Yaw\-::\-Velocity\-Yaw (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{structVelocityYaw_a1aa3de4b3e3d7510c233ebd54b2fe79d}
+
+
+Implicit constructor Instantiates velocity and yaw to zero. 
+
+\hypertarget{structVelocityYaw_a21a3493e39f5256972abe5f97315c80b}{\index{Velocity\-Yaw@{Velocity\-Yaw}!Velocity\-Yaw@{Velocity\-Yaw}}
+\index{Velocity\-Yaw@{Velocity\-Yaw}!VelocityYaw@{Velocity\-Yaw}}
+\subsubsection[{Velocity\-Yaw}]{\setlength{\rightskip}{0pt plus 5cm}Velocity\-Yaw\-::\-Velocity\-Yaw (
+\begin{DoxyParamCaption}
+\item[{{\bf Velocity}}]{v, }
+\item[{double}]{yaw}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{structVelocityYaw_a21a3493e39f5256972abe5f97315c80b}
+
+
+Explicit constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & \hyperlink{structVelocity}{Velocity} vector \\
+\hline
+{\em yaw} & Orientation around body axis (rad) \\
+\hline
+\end{DoxyParams}
+\hypertarget{structVelocityYaw_ab4ebb3f3782c9541dafb73c4e3e82196}{\index{Velocity\-Yaw@{Velocity\-Yaw}!Velocity\-Yaw@{Velocity\-Yaw}}
+\index{Velocity\-Yaw@{Velocity\-Yaw}!VelocityYaw@{Velocity\-Yaw}}
+\subsubsection[{Velocity\-Yaw}]{\setlength{\rightskip}{0pt plus 5cm}Velocity\-Yaw\-::\-Velocity\-Yaw (
+\begin{DoxyParamCaption}
+\item[{double}]{x, }
+\item[{double}]{y, }
+\item[{double}]{z, }
+\item[{double}]{yaw}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{structVelocityYaw_ab4ebb3f3782c9541dafb73c4e3e82196}
+
+
+Explicit constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & x component (m/s) \\
+\hline
+{\em y} & y component (m/s) \\
+\hline
+{\em z} & z component (m/s) \\
+\hline
+{\em yaw} & Orientation around global z axis (rad) \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{structVelocityYaw_a239edcca362f6a0fababa7fb1767e7b6}{\index{Velocity\-Yaw@{Velocity\-Yaw}!operator!=@{operator!=}}
+\index{operator!=@{operator!=}!VelocityYaw@{Velocity\-Yaw}}
+\subsubsection[{operator!=}]{\setlength{\rightskip}{0pt plus 5cm}bool Velocity\-Yaw\-::operator!= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Velocity\-Yaw} \&}]{v}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{structVelocityYaw_a239edcca362f6a0fababa7fb1767e7b6}
+
+
+Compare two velocityyaws. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & \hyperlink{structVelocityYaw}{Velocity\-Yaw} to compare against\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if not same 
+\end{DoxyReturn}
+\hypertarget{structVelocityYaw_ad546c6bf2a5483fdb21387e0df040acb}{\index{Velocity\-Yaw@{Velocity\-Yaw}!operator==@{operator==}}
+\index{operator==@{operator==}!VelocityYaw@{Velocity\-Yaw}}
+\subsubsection[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool Velocity\-Yaw\-::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Velocity\-Yaw} \&}]{v}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{structVelocityYaw_ad546c6bf2a5483fdb21387e0df040acb}
+
+
+Compare two velocityyaws. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & \hyperlink{structVelocityYaw}{Velocity\-Yaw} to compare against\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if same 
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{structVelocityYaw_a5bef45a2807a9814495080d2e5603ce4}{\index{Velocity\-Yaw@{Velocity\-Yaw}!yaw@{yaw}}
+\index{yaw@{yaw}!VelocityYaw@{Velocity\-Yaw}}
+\subsubsection[{yaw}]{\setlength{\rightskip}{0pt plus 5cm}double Velocity\-Yaw\-::yaw}}\label{structVelocityYaw_a5bef45a2807a9814495080d2e5603ce4}
+
+
+Orientation around global z axis. 
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/types/\hyperlink{velocity__yaw_8h}{velocity\-\_\-yaw.\-h}\end{DoxyCompactItemize}

@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structVelocity" kind="struct" prot="public">
+    <compoundname>Velocity</compoundname>
+    <derivedcompoundref refid="structVelocityYaw" prot="public" virt="non-virtual">VelocityYaw</derivedcompoundref>
+    <includes refid="velocity_8h" local="no">velocity.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structVelocity_1a99a9f9580c8a025a2c7a18890993b56a" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Velocity::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+<para>x component in m/s </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/velocity.h" line="19" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/velocity.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVelocity_1ae1282d20e14cc4be4aac24ab4e1e3e5c" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Velocity::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+<para>y component in m/s </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/velocity.h" line="20" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/velocity.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVelocity_1aaebcd198674f7adcb61f9bb981dab465" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Velocity::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <briefdescription>
+<para>z component in m/s </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/velocity.h" line="21" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/velocity.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structVelocity_1a852088c8d4dbb7e1beb0d793a57e9d11" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Velocity::Velocity</definition>
+        <argsstring>()</argsstring>
+        <name>Velocity</name>
+        <briefdescription>
+<para>Constructor with implicit instantiation of velocity vector to zero. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/velocity.h" line="10" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/velocity.h" bodystart="10" bodyend="10"/>
+      </memberdef>
+      <memberdef kind="function" id="structVelocity_1adb5f7fd7a3e1811b44c9b4020c31987c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Velocity::Velocity</definition>
+        <argsstring>(double x, double y, double z)</argsstring>
+        <name>Velocity</name>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>z</declname>
+        </param>
+        <briefdescription>
+<para>Constructor with explicit instantiation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>x component (m/s) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>y component (m/s) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>z</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>z component (m/s) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/velocity.h" line="18" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/velocity.h" bodystart="18" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="structVelocity_1a4d148dc8c7581af4a1a16116ec3d403a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Velocity::operator==</definition>
+        <argsstring>(const Velocity &amp;v) const </argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="structVelocity" kindref="compound">Velocity</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+<para>Check if two velocity vectors are the same. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The vector agains which the current vector is compared.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if vectors are equal </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/velocity.h" line="30" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/velocity.h" bodystart="30" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="structVelocity_1a8aaa79fd50b42d41e06033be8baf4c80" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Velocity::operator!=</definition>
+        <argsstring>(const Velocity &amp;v) const </argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="structVelocity" kindref="compound">Velocity</ref> &amp;</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+<para>Check if two vectors are not equal. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The vector agains which the current vector is compared.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if two vectors are not equal </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/velocity.h" line="40" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/velocity.h" bodystart="40" bodyend="40"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Store velocity vector. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="359">
+        <label>Velocity</label>
+        <link refid="structVelocity"/>
+      </node>
+      <node id="360">
+        <label>VelocityYaw</label>
+        <link refid="structVelocityYaw"/>
+        <childnode refid="359" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/velocity.h" line="5" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/velocity.h" bodystart="5" bodyend="41"/>
+    <listofallmembers>
+      <member refid="structVelocity_1a8aaa79fd50b42d41e06033be8baf4c80" prot="public" virt="non-virtual"><scope>Velocity</scope><name>operator!=</name></member>
+      <member refid="structVelocity_1a4d148dc8c7581af4a1a16116ec3d403a" prot="public" virt="non-virtual"><scope>Velocity</scope><name>operator==</name></member>
+      <member refid="structVelocity_1a852088c8d4dbb7e1beb0d793a57e9d11" prot="public" virt="non-virtual"><scope>Velocity</scope><name>Velocity</name></member>
+      <member refid="structVelocity_1adb5f7fd7a3e1811b44c9b4020c31987c" prot="public" virt="non-virtual"><scope>Velocity</scope><name>Velocity</name></member>
+      <member refid="structVelocity_1a99a9f9580c8a025a2c7a18890993b56a" prot="public" virt="non-virtual"><scope>Velocity</scope><name>x</name></member>
+      <member refid="structVelocity_1ae1282d20e14cc4be4aac24ab4e1e3e5c" prot="public" virt="non-virtual"><scope>Velocity</scope><name>y</name></member>
+      <member refid="structVelocity_1aaebcd198674f7adcb61f9bb981dab465" prot="public" virt="non-virtual"><scope>Velocity</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

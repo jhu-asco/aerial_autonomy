@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structEmptySensor" kind="struct" prot="public">
+    <compoundname>EmptySensor</compoundname>
+    <includes refid="empty__sensor_8h" local="no">empty_sensor.h</includes>
+    <briefdescription>
+<para>Events that do not need sensor data such as builtin position/velocity controllers. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/empty_sensor.h" line="6" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/empty_sensor.h" bodystart="6" bodyend="6"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

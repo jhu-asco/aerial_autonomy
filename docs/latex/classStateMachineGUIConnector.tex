@@ -1,0 +1,96 @@
+\hypertarget{classStateMachineGUIConnector}{\section{State\-Machine\-G\-U\-I\-Connector$<$ Event\-Manager\-T, Logic\-State\-Machine\-T $>$ Class Template Reference}
+\label{classStateMachineGUIConnector}\index{State\-Machine\-G\-U\-I\-Connector$<$ Event\-Manager\-T, Logic\-State\-Machine\-T $>$@{State\-Machine\-G\-U\-I\-Connector$<$ Event\-Manager\-T, Logic\-State\-Machine\-T $>$}}
+}
+
+
+Connects a logic state machine to the G\-U\-I over a R\-O\-S interface.  
+
+
+
+
+{\ttfamily \#include $<$state\-\_\-machine\-\_\-gui\-\_\-connector.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classStateMachineGUIConnector_a0b17b16e283a7fd8215e5bc5a96fe511}{State\-Machine\-G\-U\-I\-Connector} (ros\-::\-Node\-Handle \&nh, Event\-Manager\-T \&event\-\_\-manager, Logic\-State\-Machine\-T \&logic\-\_\-state\-\_\-machine)
+\begin{DoxyCompactList}\small\item\em Constructor Creates subscriber to event callbacks to connect G\-U\-I to state machine. \end{DoxyCompactList}\item 
+bool \hyperlink{classStateMachineGUIConnector_a41ccee1af3a8f99ca533694ebdf3085c}{is\-Event\-Manager\-Connected} ()
+\begin{DoxyCompactList}\small\item\em Returns whether the G\-U\-I connector is connected to an event publisher. \end{DoxyCompactList}\item 
+bool \hyperlink{classStateMachineGUIConnector_a4c321da086299de9c33583255c4666f3}{is\-Pose\-Command\-Connected} ()
+\begin{DoxyCompactList}\small\item\em Returns whether the G\-U\-I connector is connected to an pose command publisher. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Event\-Manager\-T, class Logic\-State\-Machine\-T$>$class State\-Machine\-G\-U\-I\-Connector$<$ Event\-Manager\-T, Logic\-State\-Machine\-T $>$}
+
+Connects a logic state machine to the G\-U\-I over a R\-O\-S interface. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Event\-Manager\-T} & event manager type used to trigger events to state machine \\
+\hline
+{\em Logic\-State\-Machine\-T} & logic state machine type used to trigger pose events \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classStateMachineGUIConnector_a0b17b16e283a7fd8215e5bc5a96fe511}{\index{State\-Machine\-G\-U\-I\-Connector@{State\-Machine\-G\-U\-I\-Connector}!State\-Machine\-G\-U\-I\-Connector@{State\-Machine\-G\-U\-I\-Connector}}
+\index{State\-Machine\-G\-U\-I\-Connector@{State\-Machine\-G\-U\-I\-Connector}!StateMachineGUIConnector@{State\-Machine\-G\-U\-I\-Connector}}
+\subsubsection[{State\-Machine\-G\-U\-I\-Connector}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Event\-Manager\-T , class Logic\-State\-Machine\-T $>$ {\bf State\-Machine\-G\-U\-I\-Connector}$<$ Event\-Manager\-T, Logic\-State\-Machine\-T $>$\-::{\bf State\-Machine\-G\-U\-I\-Connector} (
+\begin{DoxyParamCaption}
+\item[{ros\-::\-Node\-Handle \&}]{nh, }
+\item[{Event\-Manager\-T \&}]{event\-\_\-manager, }
+\item[{Logic\-State\-Machine\-T \&}]{logic\-\_\-state\-\_\-machine}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classStateMachineGUIConnector_a0b17b16e283a7fd8215e5bc5a96fe511}
+
+
+Constructor Creates subscriber to event callbacks to connect G\-U\-I to state machine. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nh} & Node\-Handle to create subscribers \\
+\hline
+{\em event\-\_\-manager} & Event manager to trigger events based on name alone \\
+\hline
+{\em logic\-\_\-state\-\_\-machine} & State machine to trigger events directly \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classStateMachineGUIConnector_a41ccee1af3a8f99ca533694ebdf3085c}{\index{State\-Machine\-G\-U\-I\-Connector@{State\-Machine\-G\-U\-I\-Connector}!is\-Event\-Manager\-Connected@{is\-Event\-Manager\-Connected}}
+\index{is\-Event\-Manager\-Connected@{is\-Event\-Manager\-Connected}!StateMachineGUIConnector@{State\-Machine\-G\-U\-I\-Connector}}
+\subsubsection[{is\-Event\-Manager\-Connected}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Event\-Manager\-T , class Logic\-State\-Machine\-T $>$ bool {\bf State\-Machine\-G\-U\-I\-Connector}$<$ Event\-Manager\-T, Logic\-State\-Machine\-T $>$\-::is\-Event\-Manager\-Connected (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classStateMachineGUIConnector_a41ccee1af3a8f99ca533694ebdf3085c}
+
+
+Returns whether the G\-U\-I connector is connected to an event publisher. 
+
+\begin{DoxyReturn}{Returns}
+Returns true if connected 
+\end{DoxyReturn}
+\hypertarget{classStateMachineGUIConnector_a4c321da086299de9c33583255c4666f3}{\index{State\-Machine\-G\-U\-I\-Connector@{State\-Machine\-G\-U\-I\-Connector}!is\-Pose\-Command\-Connected@{is\-Pose\-Command\-Connected}}
+\index{is\-Pose\-Command\-Connected@{is\-Pose\-Command\-Connected}!StateMachineGUIConnector@{State\-Machine\-G\-U\-I\-Connector}}
+\subsubsection[{is\-Pose\-Command\-Connected}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Event\-Manager\-T , class Logic\-State\-Machine\-T $>$ bool {\bf State\-Machine\-G\-U\-I\-Connector}$<$ Event\-Manager\-T, Logic\-State\-Machine\-T $>$\-::is\-Pose\-Command\-Connected (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classStateMachineGUIConnector_a4c321da086299de9c33583255c4666f3}
+
+
+Returns whether the G\-U\-I connector is connected to an pose command publisher. 
+
+\begin{DoxyReturn}{Returns}
+Returns true if connected 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/state\-\_\-machines/\hyperlink{state__machine__gui__connector_8h}{state\-\_\-machine\-\_\-gui\-\_\-connector.\-h}\end{DoxyCompactItemize}

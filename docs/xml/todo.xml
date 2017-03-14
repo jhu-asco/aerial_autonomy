@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="todo" kind="page">
+    <compoundname>todo</compoundname>
+    <title>Todo List</title>
+    <detaileddescription>
+<para><variablelist>
+<varlistentry><term><anchor id="todo_1_todo000001"/>Member <ref refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1a6118098a267761831ef8d83cbf2a78bd" kindref="member">aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI.height_slider</ref>  </term></varlistentry>
+<listitem><para>Matt: Load slider settings from param file  </para></listitem>
+<varlistentry><term><anchor id="todo_1_todo000002"/>Member <ref refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1af611df98da28aba90ce5fcbea285603a" kindref="member">aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI.pose_command_container</ref>  </term></varlistentry>
+<listitem><para>Matt: Reset slider value based on current quad height  </para></listitem>
+<varlistentry><term><anchor id="todo_1_todo000015"/>Page <ref refid="md_markdown_scripts_creating_state_machine" kindref="compound">Creating a State Machine</ref>  </term></varlistentry>
+<listitem><para>(Matt) Fill this page  </para></listitem>
+<varlistentry><term><anchor id="todo_1_todo000005"/>Member <ref refid="structHoveringInternalActionFunctor___1a87bb8dd8ed71e54729967b9e258fb66e" kindref="member">HoveringInternalActionFunctor_&lt; LogicStateMachineT &gt;::run</ref>  (<ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</term></varlistentry>
+<listitem><para>(Gowtham) Can also use uav status here  </para></listitem>
+<varlistentry><term><anchor id="todo_1_todo000006"/>Class <ref refid="structLandInternalActionFunctor__" kindref="compound">LandInternalActionFunctor_&lt; LogicStateMachineT &gt;</ref>  </term></varlistentry>
+<listitem><para>(Gowtham) How to abort Land?? </para></listitem>
+<varlistentry><term><anchor id="todo_1_todo000008"/>Member <ref refid="structLandInternalActionFunctor___1a4557b02d6cfa6712b610337cb606f54b" kindref="member">LandInternalActionFunctor_&lt; LogicStateMachineT &gt;::run</ref>  (<ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</term></varlistentry>
+<listitem><para>(Gowtham) Can also use uav status here  </para></listitem>
+<varlistentry><term><anchor id="todo_1_todo000007"/>Member <ref refid="structLandTransitionActionFunctor___1ae91b354f041edda283e306fa312e1213" kindref="member">LandTransitionActionFunctor_&lt; LogicStateMachineT &gt;::run</ref>  (<ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;robot_system, LogicStateMachineT &amp;)</term></varlistentry>
+<listitem><para>Have to abort all hardware controllers not just UAV.  </para></listitem>
+<varlistentry><term><anchor id="todo_1_todo000014"/>page <ref refid="index" kindref="compound">Main Page</ref>  </term></varlistentry>
+<listitem><para>Add picture of latest GUI with quad status etc </para></listitem>
+<varlistentry><term><anchor id="todo_1_todo000003"/>Member <ref refid="classManualRPYTController_1ae29c56af6d0bc913d357c7849201c8fb" kindref="member">ManualRPYTController::runImplementation</ref>  (<ref refid="structJoysticksYaw" kindref="compound">JoysticksYaw</ref> sensor_data, <ref refid="structEmptyGoal" kindref="compound">EmptyGoal</ref> goal)</term></varlistentry>
+<listitem><para>(matt): need to pass RC mapping as parameter </para><para>(matt): need to pass in frequency as a parameter  </para></listitem>
+<varlistentry><term><anchor id="todo_1_todo000009"/>Class <ref refid="structPositionControlTransitionGuardFunctor__" kindref="compound">PositionControlTransitionGuardFunctor_&lt; LogicStateMachineT &gt;</ref>  </term></varlistentry>
+<listitem><para>Use a parameter for setting position tolerance </para></listitem>
+<varlistentry><term><anchor id="todo_1_todo000013"/>Member <ref refid="classSystemStatusPublisher_1a66f73a2e489face69d6f9fc16abb15aa" kindref="member">SystemStatusPublisher&lt; LogicStateMachineT &gt;::publishSystemStatus</ref>  ()</term></varlistentry>
+<listitem><para>Replace status text with html script. Need a html manager to automatically add table lines  </para></listitem>
+<varlistentry><term><anchor id="todo_1_todo000010"/>Member <ref refid="structTakeoffInternalActionFunctor___1a2118df6e326662cd0088344499e49696" kindref="member">TakeoffInternalActionFunctor_&lt; LogicStateMachineT &gt;::run</ref>  (<ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</term></varlistentry>
+<listitem><para>add a parameter for height when to transition from takeoff to hovering </para></listitem>
+<varlistentry><term><anchor id="todo_1_todo000012"/>Member <ref refid="classUAVSystem_1a9218f794905e832cc356b5e4b659e1da" kindref="member">UAVSystem::UAVSystem</ref>  (parsernode::Parser &amp;drone_hardware, UAVSystemConfig config)</term></varlistentry>
+<listitem><para>make enum class iterable to do this automatically </para></listitem>
+</variablelist>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

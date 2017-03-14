@@ -1,0 +1,108 @@
+\hypertarget{structActionFunctor}{\section{Action\-Functor$<$ Event\-T, Robot\-System\-T, Logic\-State\-Machine\-T $>$ Struct Template Reference}
+\label{structActionFunctor}\index{Action\-Functor$<$ Event\-T, Robot\-System\-T, Logic\-State\-Machine\-T $>$@{Action\-Functor$<$ Event\-T, Robot\-System\-T, Logic\-State\-Machine\-T $>$}}
+}
+
+
+Action Functor for a given event, robot system, state machine.  
+
+
+
+
+{\ttfamily \#include $<$base\-\_\-functors.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{structActionFunctor_a97250a2cc027dc3ca7d10a975d11a5c7}{run} (Event\-T const \&event, Robot\-System\-T \&robot\-\_\-system, Logic\-State\-Machine\-T \&logic\-\_\-state\-\_\-machine)=0
+\begin{DoxyCompactList}\small\item\em Override this run function for different sub classes. This function performs the logic checking for each state. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class F\-S\-M , class Source\-State , class Target\-State $>$ }\\void \hyperlink{structActionFunctor_adbf24aea135ecf5a0d470b290a5cab02}{operator()} (Event\-T const \&event, F\-S\-M \&logic\-\_\-state\-\_\-machine, Source\-State \&, Target\-State \&)
+\begin{DoxyCompactList}\small\item\em operator () Internally calls run function \end{DoxyCompactList}\item 
+virtual \hyperlink{structActionFunctor_aaaa4c1ce7204b370be55f2ef4a618258}{$\sim$\-Action\-Functor} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor to obtain polymorphism. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Event\-T, class Robot\-System\-T, class Logic\-State\-Machine\-T$>$struct Action\-Functor$<$ Event\-T, Robot\-System\-T, Logic\-State\-Machine\-T $>$}
+
+Action Functor for a given event, robot system, state machine. 
+
+This class provides run function for state transitions Derived states have to implement the specific run function behavior using this base class.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Event\-T} & Event triggering this action \\
+\hline
+{\em Robot\-System\-T} & The robot system used in the action \\
+\hline
+{\em Logic\-State\-Machine\-T} & The logic state machine used to trigger events \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{structActionFunctor_aaaa4c1ce7204b370be55f2ef4a618258}{\index{Action\-Functor@{Action\-Functor}!$\sim$\-Action\-Functor@{$\sim$\-Action\-Functor}}
+\index{$\sim$\-Action\-Functor@{$\sim$\-Action\-Functor}!ActionFunctor@{Action\-Functor}}
+\subsubsection[{$\sim$\-Action\-Functor}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Event\-T, class Robot\-System\-T, class Logic\-State\-Machine\-T$>$ virtual {\bf Action\-Functor}$<$ Event\-T, Robot\-System\-T, Logic\-State\-Machine\-T $>$\-::$\sim${\bf Action\-Functor} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{structActionFunctor_aaaa4c1ce7204b370be55f2ef4a618258}
+
+
+Virtual destructor to obtain polymorphism. 
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{structActionFunctor_adbf24aea135ecf5a0d470b290a5cab02}{\index{Action\-Functor@{Action\-Functor}!operator()@{operator()}}
+\index{operator()@{operator()}!ActionFunctor@{Action\-Functor}}
+\subsubsection[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Event\-T, class Robot\-System\-T, class Logic\-State\-Machine\-T$>$ template$<$class F\-S\-M , class Source\-State , class Target\-State $>$ void {\bf Action\-Functor}$<$ Event\-T, Robot\-System\-T, Logic\-State\-Machine\-T $>$\-::operator() (
+\begin{DoxyParamCaption}
+\item[{Event\-T const \&}]{event, }
+\item[{F\-S\-M \&}]{logic\-\_\-state\-\_\-machine, }
+\item[{Source\-State \&}]{, }
+\item[{Target\-State \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{structActionFunctor_adbf24aea135ecf5a0d470b290a5cab02}
+
+
+operator () Internally calls run function 
+
+
+\begin{DoxyParams}{Parameters}
+{\em logic\-\_\-state\-\_\-machine} & Backend of logic State Machine. can send events using this. \\
+\hline
+{\em event} & Event triggering the action \\
+\hline
+\end{DoxyParams}
+\hypertarget{structActionFunctor_a97250a2cc027dc3ca7d10a975d11a5c7}{\index{Action\-Functor@{Action\-Functor}!run@{run}}
+\index{run@{run}!ActionFunctor@{Action\-Functor}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Event\-T, class Robot\-System\-T, class Logic\-State\-Machine\-T$>$ virtual void {\bf Action\-Functor}$<$ Event\-T, Robot\-System\-T, Logic\-State\-Machine\-T $>$\-::run (
+\begin{DoxyParamCaption}
+\item[{Event\-T const \&}]{event, }
+\item[{Robot\-System\-T \&}]{robot\-\_\-system, }
+\item[{Logic\-State\-Machine\-T \&}]{logic\-\_\-state\-\_\-machine}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{structActionFunctor_a97250a2cc027dc3ca7d10a975d11a5c7}
+
+
+Override this run function for different sub classes. This function performs the logic checking for each state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em robot\-\_\-system} & Provides sensor data and allows for controlling hardware \\
+\hline
+{\em logic\-\_\-state\-\_\-machine} & Backend of logic State Machine. can send events using this. \\
+\hline
+{\em event} & Event triggering the action \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{structPositionControlTransitionActionFunctor___a4970bb461809ffa30984e16902bb8aaa}{Position\-Control\-Transition\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}.
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/actions\-\_\-guards/\hyperlink{base__functors_8h}{base\-\_\-functors.\-h}\end{DoxyCompactItemize}

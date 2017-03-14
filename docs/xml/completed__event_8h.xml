@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="completed__event_8h" kind="file">
+    <compoundname>completed_event.h</compoundname>
+    <includedby refid="land__functors_8h" local="no">include/aerial_autonomy/actions_guards/land_functors.h</includedby>
+    <includedby refid="position__control__functors_8h" local="no">include/aerial_autonomy/actions_guards/position_control_functors.h</includedby>
+    <includedby refid="takeoff__functors_8h" local="no">include/aerial_autonomy/actions_guards/takeoff_functors.h</includedby>
+    <invincdepgraph>
+      <node id="1636">
+        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
+        <link refid="land__functors_8h"/>
+        <childnode refid="1637" relation="include">
+        </childnode>
+      </node>
+      <node id="1639">
+        <label>src/aerial_autonomy_node.cpp</label>
+        <link refid="aerial__autonomy__node_8cpp"/>
+      </node>
+      <node id="1638">
+        <label>include/aerial_autonomy/state_machines/basic_state_machine.h</label>
+        <link refid="basic__state__machine_8h"/>
+        <childnode refid="1639" relation="include">
+        </childnode>
+      </node>
+      <node id="1640">
+        <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
+        <link refid="position__control__functors_8h"/>
+        <childnode refid="1637" relation="include">
+        </childnode>
+      </node>
+      <node id="1635">
+        <label>include/aerial_autonomy/types/completed_event.h</label>
+        <link refid="completed_event.h"/>
+        <childnode refid="1636" relation="include">
+        </childnode>
+        <childnode refid="1640" relation="include">
+        </childnode>
+        <childnode refid="1641" relation="include">
+        </childnode>
+      </node>
+      <node id="1637">
+        <label>include/aerial_autonomy/actions_guards/basic_states.h</label>
+        <link refid="basic__states_8h"/>
+        <childnode refid="1638" relation="include">
+        </childnode>
+      </node>
+      <node id="1641">
+        <label>include/aerial_autonomy/actions_guards/takeoff_functors.h</label>
+        <link refid="takeoff__functors_8h"/>
+        <childnode refid="1637" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structCompleted" prot="public">Completed</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="6" refid="structCompleted" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structCompleted" kindref="compound">Completed</ref><sp/>{};</highlight></codeline>
+    </programlisting>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/completed_event.h"/>
+  </compounddef>
+</doxygen>

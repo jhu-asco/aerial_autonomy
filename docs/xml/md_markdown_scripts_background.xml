@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="md_markdown_scripts_background" kind="page">
+    <compoundname>md_markdown_scripts_background</compoundname>
+    <title>Aerial Autonomy Introduction</title>
+    <detaileddescription>
+<para><heading level="1">Background</heading>
+</para><para><heading level="2">Goal</heading>
+</para><para>Easily create autonomy applications by combining modular state behaviors into domain-specific state machines. Use generic interfaces for quadcopter and manipulator hardware which allow users to adapt existing hardware drivers to the framework.</para><para><heading level="1">Project</heading>
+</para><para>The goal of the project is to create a generic state machine interface for the quadrotor and arm to do different tasks such as “pick and place”, “screwing a lightbulb”, “AR manipulation”, etc. This requires different types of controllers, estimators and state logic based on the task at hand. The framework consists of the following main components:</para><para><orderedlist>
+<listitem><para>Robot System<orderedlist>
+<listitem><para>Controllers</para></listitem><listitem><para>Hardware Plugins</para></listitem><listitem><para>Estimators</para></listitem><listitem><para>ControllerHardwareInterfaces</para></listitem></orderedlist>
+</para></listitem><listitem><para><ref refid="classLogicStateMachineFrontEnd" kindref="compound">LogicStateMachineFrontEnd</ref></para></listitem><listitem><para><ref refid="classStateMachineGUIConnector" kindref="compound">StateMachineGUIConnector</ref></para></listitem><listitem><para>GUIFrontEnd</para></listitem><listitem><para><ref refid="classOnboardSystemHandler" kindref="compound">OnboardSystemHandler</ref></para></listitem></orderedlist>
+</para><para><heading level="1">Components</heading>
+</para><para><heading level="2">Robot System</heading>
+</para><para>The robot system owns privately the hardware, controllers, estimators and controller-hardware interfaces. For the public interface it provides methods to retrieve sensor/estimator data, and select and set controller goals for the robot.</para><para><table rows="5" cols="3"><row>
+<entry thead="yes"><para>Component </para></entry><entry thead="yes"><para>Description </para></entry><entry thead="yes"><para>Link  </para></entry></row>
+<row>
+<entry thead="no"><para>Hardware </para></entry><entry thead="no"><para>Send commands to hardware and retrieve raw sensor data </para></entry><entry thead="no"><para><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> </para></entry></row>
+<row>
+<entry thead="no"><para>Controllers </para></entry><entry thead="no"><para>Provide run function that returns the controls to send back to hardware based on sensor data </para></entry><entry thead="no"><para><ref refid="classBuiltInController" kindref="compound">BuiltInController</ref> </para></entry></row>
+<row>
+<entry thead="no"><para>Estimators </para></entry><entry thead="no"><para>Compute the robot state/parameters based on raw sensor data </para></entry><entry thead="no"><para>None </para></entry></row>
+<row>
+<entry thead="no"><para>Controller-Hardware Interfaces </para></entry><entry thead="no"><para>For a single controller, extracts sensor/estimator data from hardware, passes it to the controller run function, and sends the resulting control commands to hardware </para></entry><entry thead="no"><para><ref refid="classControllerHardwareConnector" kindref="compound">ControllerHardwareConnector</ref> </para></entry></row>
+</table>
+<heading level="2">Logic State Machine (<ref refid="classLogicStateMachineFrontEnd" kindref="compound">LogicStateMachineFrontEnd</ref>)</heading>
+</para><para>The Logic State Machine (LSM) contains the behavior necessary to achieve a desired task. Each state in a logic state machine contains a <computeroutput>run</computeroutput> function that executes state-specific behaviors and triggers appropriate state transitions. The LSM behavior is executed at a user-defined frequency</para><para><image type="html" name="Untitled%20Diagram.png?dl=1"></image>
+</para><para>The LSM also provides a sub state machine for checking the health of the hardware based on sensor data, and health reported by the hardware plugins. The state of this submachine is used to guard the transitions between different states. For example, if the quadrotor has a low battery warning, the quadrotor will not accept a goal command to fly to a goal far away. If the battery level is critical, the health sub machine may trigger a land event automatically.</para><para><heading level="2"><ref refid="classStateMachineGUIConnector" kindref="compound">StateMachineGUIConnector</ref></heading>
+</para><para>The <ref refid="classStateMachineGUIConnector" kindref="compound">StateMachineGUIConnector</ref> connects the GUI interface to the state machine. It provides a message based interface for triggering manual state transitions through the GUI. These actions can be very generic - such as buttons for “start mission” and “start tracking” - and can be specific such as “land”.</para><para><heading level="2">GUIFrontEnd (<ref refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI" kindref="compound">aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI</ref>)</heading>
+</para><para>The GUI contains a text box that updates the status of all the hardware plugins and the state machine. The status of the hardware plugins include the health information of the hardware and the state of the hardware in the world. The state machine status includes information about the current state and any events that are not accepted by the state machine. In addition, the GUI should be able to send manual triggers to the state machine that are generated by the user. Here is an example GUI FrontEnd:</para><para><xrefsect id="todo_1_todo000014"><xreftitle>Todo</xreftitle><xrefdescription><para>Add picture of latest GUI with quad status etc</para></xrefdescription></xrefsect></para><para>The Triggers should be connected to the <computeroutput>StateMachine</computeroutput> using <computeroutput><ref refid="classStateMachineGUIConnector" kindref="compound">StateMachineGUIConnector</ref></computeroutput> class. The triggers are events without any information. There can also be commands with information using <computeroutput>Rviz</computeroutput> goalpose callbacks to send the drone to a specific location.</para><para><heading level="2">Classes segregated into groups</heading>
+</para><para>The classes created in this project can be found <ref refid="md_markdown_scripts_class_groups" kindref="compound">here</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

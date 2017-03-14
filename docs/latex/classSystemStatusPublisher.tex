@@ -1,0 +1,77 @@
+\hypertarget{classSystemStatusPublisher}{\section{System\-Status\-Publisher$<$ Logic\-State\-Machine\-T $>$ Class Template Reference}
+\label{classSystemStatusPublisher}\index{System\-Status\-Publisher$<$ Logic\-State\-Machine\-T $>$@{System\-Status\-Publisher$<$ Logic\-State\-Machine\-T $>$}}
+}
+
+
+Responsible for publishing system status message.  
+
+
+
+
+{\ttfamily \#include $<$system\-\_\-status\-\_\-publisher.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classSystemStatusPublisher_ad02673651f93382972c5c5ea38b98e62}{System\-Status\-Publisher} (ros\-::\-Node\-Handle \&nh, \hyperlink{classUAVSystem}{U\-A\-V\-System} \&uav\-\_\-system, Logic\-State\-Machine\-T \&logic\-\_\-state\-\_\-machine)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+void \hyperlink{classSystemStatusPublisher_a66f73a2e489face69d6f9fc16abb15aa}{publish\-System\-Status} ()
+\begin{DoxyCompactList}\small\item\em Publish system status and state machine status. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Logic\-State\-Machine\-T$>$class System\-Status\-Publisher$<$ Logic\-State\-Machine\-T $>$}
+
+Responsible for publishing system status message. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Logic} & state machine type that we are getting status from \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classSystemStatusPublisher_ad02673651f93382972c5c5ea38b98e62}{\index{System\-Status\-Publisher@{System\-Status\-Publisher}!System\-Status\-Publisher@{System\-Status\-Publisher}}
+\index{System\-Status\-Publisher@{System\-Status\-Publisher}!SystemStatusPublisher@{System\-Status\-Publisher}}
+\subsubsection[{System\-Status\-Publisher}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Logic\-State\-Machine\-T $>$ {\bf System\-Status\-Publisher}$<$ Logic\-State\-Machine\-T $>$\-::{\bf System\-Status\-Publisher} (
+\begin{DoxyParamCaption}
+\item[{ros\-::\-Node\-Handle \&}]{nh, }
+\item[{{\bf U\-A\-V\-System} \&}]{uav\-\_\-system, }
+\item[{Logic\-State\-Machine\-T \&}]{logic\-\_\-state\-\_\-machine}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classSystemStatusPublisher_ad02673651f93382972c5c5ea38b98e62}
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nh} & Node\-Handle to use for publishing system status \\
+\hline
+{\em uav\-\_\-system} & \hyperlink{classUAVSystem}{U\-A\-V\-System} whose status will be published \\
+\hline
+{\em logic\-\_\-state\-\_\-machine} & State machine whose status will be published \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classSystemStatusPublisher_a66f73a2e489face69d6f9fc16abb15aa}{\index{System\-Status\-Publisher@{System\-Status\-Publisher}!publish\-System\-Status@{publish\-System\-Status}}
+\index{publish\-System\-Status@{publish\-System\-Status}!SystemStatusPublisher@{System\-Status\-Publisher}}
+\subsubsection[{publish\-System\-Status}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Logic\-State\-Machine\-T $>$ void {\bf System\-Status\-Publisher}$<$ Logic\-State\-Machine\-T $>$\-::publish\-System\-Status (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classSystemStatusPublisher_a66f73a2e489face69d6f9fc16abb15aa}
+
+
+Publish system status and state machine status. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000013}{Todo}]Replace status text with html script. Need a html manager to automatically add table lines \end{DoxyRefDesc}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/\hyperlink{system__status__publisher_8h}{system\-\_\-status\-\_\-publisher.\-h}\end{DoxyCompactItemize}

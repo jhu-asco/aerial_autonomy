@@ -1,0 +1,411 @@
+\hypertarget{classSampleParser}{\section{Sample\-Parser Class Reference}
+\label{classSampleParser}\index{Sample\-Parser@{Sample\-Parser}}
+}
+
+
+An example U\-A\-V hardware that emulates actual U\-A\-V hardware.  
+
+
+
+
+{\ttfamily \#include $<$sample\-\_\-parser.\-h$>$}
+
+
+
+Inheritance diagram for Sample\-Parser\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classSampleParser__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Sample\-Parser\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classSampleParser__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classSampleParser_a8cea9add13717649b00c4e916fe3b518}{Sample\-Parser} ()
+\begin{DoxyCompactList}\small\item\em Implict constructor. \end{DoxyCompactList}\item 
+void \hyperlink{classSampleParser_a50ed35fede29930ff853fe6ab175fad6}{set\-R\-C} (int16\-\_\-t channels\mbox{[}4\mbox{]})
+\begin{DoxyCompactList}\small\item\em set the rc channel information stored in the U\-A\-V brain \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classSampleParser_aaec0124f3a5a19e183438484f98db761}{takeoff} ()
+\begin{DoxyCompactList}\small\item\em Takeoff. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classSampleParser_a92ee9e3720b7c420714e2904f81a113a}{land} ()
+\begin{DoxyCompactList}\small\item\em Land. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classSampleParser_ad057bfe380db45cda437f53cec2c267a}{disarm} ()
+\begin{DoxyCompactList}\small\item\em Turn off motor. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classSampleParser_a265b674d9c0467ed919cff3f4df803b5}{flow\-Control} (bool)
+\begin{DoxyCompactList}\small\item\em Toggle software control. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classSampleParser_abb19d034c771cbd02d1961d99ca35f98}{calibrateimubias} ()
+\begin{DoxyCompactList}\small\item\em Recalibrate I\-M\-U. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classSampleParser_a95c4ea3034bcd431660f5ee2acc13e3c}{cmdrpythrust} (geometry\-\_\-msgs\-::\-Quaternion \&rpytmsg, bool sendyaw=false)
+\begin{DoxyCompactList}\small\item\em Command the euler angles of the quad and the thrust. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classSampleParser_a52ea7095057fa73ae1665a8dd6ccd0d0}{cmdvelguided} (geometry\-\_\-msgs\-::\-Vector3 \&vel\-\_\-cmd, double \&yaw\-\_\-ang)
+\begin{DoxyCompactList}\small\item\em Command velocity and yaw to U\-A\-V. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{classSampleParser_a790a0041665973477028493cf51b8059}{cmdwaypoint} (geometry\-\_\-msgs\-::\-Vector3 \&desired\-\_\-pos, double desired\-\_\-yaw=0)
+\begin{DoxyCompactList}\small\item\em Command position yaw for U\-A\-V. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classSampleParser_a20f989659a8d7d65574d37460a1e9f47}{grip} (int state)
+\begin{DoxyCompactList}\small\item\em Toggle gripper. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classSampleParser_ab062fe44a82f5490e5c92e8512ede9a2}{reset\-\_\-attitude} (double roll, double pitch, double yaw)
+\begin{DoxyCompactList}\small\item\em Set the attitude data to specified roll, pitch, yaw (rad) \end{DoxyCompactList}\item 
+virtual void \hyperlink{classSampleParser_a955965dff0214bbb8e720cab858f1078}{setmode} (std\-::string mode)
+\begin{DoxyCompactList}\small\item\em Set U\-A\-V controller mode such position controlling, rpyt etc. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classSampleParser_acaf99fced8fc57433781e766dcb931cf}{initialize} (ros\-::\-Node\-Handle \&nh\-\_\-)
+\begin{DoxyCompactList}\small\item\em Initialize the Hardware with a ros node handle to setup communications. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classSampleParser_af1be68e602c959d8b1ab29d651ed379c}{getquaddata} (parsernode\-::common\-::quaddata \&d1)
+\begin{DoxyCompactList}\small\item\em Get the sensor data and U\-A\-V state. \end{DoxyCompactList}\item 
+virtual \hyperlink{classSampleParser_afc4af7450f685341c09e2c00af95ff73}{$\sim$\-Sample\-Parser} ()
+\begin{DoxyCompactList}\small\item\em Polymorphic destructor. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classSampleParser_a293772680222eb4f7c49c26d42e69eaa}{set\-Battery\-Percent} (double percent)
+\begin{DoxyCompactList}\small\item\em Set the battery percent sensor data. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classSampleParser_a98153bd7644b1ca0eb12b442ec54034f}{setaltitude} (double altitude\-\_\-)
+\begin{DoxyCompactList}\small\item\em set the altitude or local z height data(m) \end{DoxyCompactList}\item 
+virtual void \hyperlink{classSampleParser_aaf4d068b2dabd1ca8da12f7109b288c4}{setlogdir} (string logdir)
+\begin{DoxyCompactList}\small\item\em Create log directory and create log files. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classSampleParser_a78923bbce68debb4d035a2d8b25f7d6d}{controllog} (bool logswitch)
+\begin{DoxyCompactList}\small\item\em Toggle logging. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+An example U\-A\-V hardware that emulates actual U\-A\-V hardware. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classSampleParser_a8cea9add13717649b00c4e916fe3b518}{\index{Sample\-Parser@{Sample\-Parser}!Sample\-Parser@{Sample\-Parser}}
+\index{Sample\-Parser@{Sample\-Parser}!SampleParser@{Sample\-Parser}}
+\subsubsection[{Sample\-Parser}]{\setlength{\rightskip}{0pt plus 5cm}Sample\-Parser\-::\-Sample\-Parser (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classSampleParser_a8cea9add13717649b00c4e916fe3b518}
+
+
+Implict constructor. 
+
+\hypertarget{classSampleParser_afc4af7450f685341c09e2c00af95ff73}{\index{Sample\-Parser@{Sample\-Parser}!$\sim$\-Sample\-Parser@{$\sim$\-Sample\-Parser}}
+\index{$\sim$\-Sample\-Parser@{$\sim$\-Sample\-Parser}!SampleParser@{Sample\-Parser}}
+\subsubsection[{$\sim$\-Sample\-Parser}]{\setlength{\rightskip}{0pt plus 5cm}virtual Sample\-Parser\-::$\sim$\-Sample\-Parser (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classSampleParser_afc4af7450f685341c09e2c00af95ff73}
+
+
+Polymorphic destructor. 
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classSampleParser_abb19d034c771cbd02d1961d99ca35f98}{\index{Sample\-Parser@{Sample\-Parser}!calibrateimubias@{calibrateimubias}}
+\index{calibrateimubias@{calibrateimubias}!SampleParser@{Sample\-Parser}}
+\subsubsection[{calibrateimubias}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Sample\-Parser\-::calibrateimubias (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classSampleParser_abb19d034c771cbd02d1961d99ca35f98}
+
+
+Recalibrate I\-M\-U. 
+
+\begin{DoxyReturn}{Returns}
+true if calibration successful 
+\end{DoxyReturn}
+\hypertarget{classSampleParser_a95c4ea3034bcd431660f5ee2acc13e3c}{\index{Sample\-Parser@{Sample\-Parser}!cmdrpythrust@{cmdrpythrust}}
+\index{cmdrpythrust@{cmdrpythrust}!SampleParser@{Sample\-Parser}}
+\subsubsection[{cmdrpythrust}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Sample\-Parser\-::cmdrpythrust (
+\begin{DoxyParamCaption}
+\item[{geometry\-\_\-msgs\-::\-Quaternion \&}]{rpytmsg, }
+\item[{bool}]{sendyaw = {\ttfamily false}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classSampleParser_a95c4ea3034bcd431660f5ee2acc13e3c}
+
+
+Command the euler angles of the quad and the thrust. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rpytmsg} & Msg format is (x,y,z,w) -\/$>$ (roll, pitch, yaw, thrust). The thrust value will be adjusted based on whethere there is thrust bias or not. \\
+\hline
+{\em sendyaw} & True to control the yaw/ False to ignore yaw command\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if sending command is successful 
+\end{DoxyReturn}
+\hypertarget{classSampleParser_a52ea7095057fa73ae1665a8dd6ccd0d0}{\index{Sample\-Parser@{Sample\-Parser}!cmdvelguided@{cmdvelguided}}
+\index{cmdvelguided@{cmdvelguided}!SampleParser@{Sample\-Parser}}
+\subsubsection[{cmdvelguided}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Sample\-Parser\-::cmdvelguided (
+\begin{DoxyParamCaption}
+\item[{geometry\-\_\-msgs\-::\-Vector3 \&}]{vel\-\_\-cmd, }
+\item[{double \&}]{yaw\-\_\-ang}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classSampleParser_a52ea7095057fa73ae1665a8dd6ccd0d0}
+
+
+Command velocity and yaw to U\-A\-V. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em vel\-\_\-cmd} & \hyperlink{structVelocity}{Velocity} vector (m/s) \\
+\hline
+{\em yaw\-\_\-ang} & Yaw angle (rad)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if sending command is successful 
+\end{DoxyReturn}
+\hypertarget{classSampleParser_a790a0041665973477028493cf51b8059}{\index{Sample\-Parser@{Sample\-Parser}!cmdwaypoint@{cmdwaypoint}}
+\index{cmdwaypoint@{cmdwaypoint}!SampleParser@{Sample\-Parser}}
+\subsubsection[{cmdwaypoint}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Sample\-Parser\-::cmdwaypoint (
+\begin{DoxyParamCaption}
+\item[{geometry\-\_\-msgs\-::\-Vector3 \&}]{desired\-\_\-pos, }
+\item[{double}]{desired\-\_\-yaw = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classSampleParser_a790a0041665973477028493cf51b8059}
+
+
+Command position yaw for U\-A\-V. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em desired\-\_\-pos} & Desired 3\-D position (m) \\
+\hline
+{\em desired\-\_\-yaw} & Desired yaw angle (rad)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if sending command is successful 
+\end{DoxyReturn}
+\hypertarget{classSampleParser_a78923bbce68debb4d035a2d8b25f7d6d}{\index{Sample\-Parser@{Sample\-Parser}!controllog@{controllog}}
+\index{controllog@{controllog}!SampleParser@{Sample\-Parser}}
+\subsubsection[{controllog}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Sample\-Parser\-::controllog (
+\begin{DoxyParamCaption}
+\item[{bool}]{logswitch}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classSampleParser_a78923bbce68debb4d035a2d8b25f7d6d}
+
+
+Toggle logging. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em logswitch} & True to start logging/\-False to stop logging \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSampleParser_ad057bfe380db45cda437f53cec2c267a}{\index{Sample\-Parser@{Sample\-Parser}!disarm@{disarm}}
+\index{disarm@{disarm}!SampleParser@{Sample\-Parser}}
+\subsubsection[{disarm}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Sample\-Parser\-::disarm (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classSampleParser_ad057bfe380db45cda437f53cec2c267a}
+
+
+Turn off motor. 
+
+\begin{DoxyReturn}{Returns}
+True if disabling is successful 
+\end{DoxyReturn}
+\hypertarget{classSampleParser_a265b674d9c0467ed919cff3f4df803b5}{\index{Sample\-Parser@{Sample\-Parser}!flow\-Control@{flow\-Control}}
+\index{flow\-Control@{flow\-Control}!SampleParser@{Sample\-Parser}}
+\subsubsection[{flow\-Control}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Sample\-Parser\-::flow\-Control (
+\begin{DoxyParamCaption}
+\item[{bool}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classSampleParser_a265b674d9c0467ed919cff3f4df803b5}
+
+
+Toggle software control. 
+
+\begin{DoxyReturn}{Returns}
+True if successful 
+\end{DoxyReturn}
+\hypertarget{classSampleParser_af1be68e602c959d8b1ab29d651ed379c}{\index{Sample\-Parser@{Sample\-Parser}!getquaddata@{getquaddata}}
+\index{getquaddata@{getquaddata}!SampleParser@{Sample\-Parser}}
+\subsubsection[{getquaddata}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Sample\-Parser\-::getquaddata (
+\begin{DoxyParamCaption}
+\item[{parsernode\-::common\-::quaddata \&}]{d1}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classSampleParser_af1be68e602c959d8b1ab29d651ed379c}
+
+
+Get the sensor data and U\-A\-V state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em d1} & Data struct in which data is filled \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSampleParser_a20f989659a8d7d65574d37460a1e9f47}{\index{Sample\-Parser@{Sample\-Parser}!grip@{grip}}
+\index{grip@{grip}!SampleParser@{Sample\-Parser}}
+\subsubsection[{grip}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Sample\-Parser\-::grip (
+\begin{DoxyParamCaption}
+\item[{int}]{state}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classSampleParser_a20f989659a8d7d65574d37460a1e9f47}
+
+
+Toggle gripper. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & 0 to close, 1 to open \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSampleParser_acaf99fced8fc57433781e766dcb931cf}{\index{Sample\-Parser@{Sample\-Parser}!initialize@{initialize}}
+\index{initialize@{initialize}!SampleParser@{Sample\-Parser}}
+\subsubsection[{initialize}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Sample\-Parser\-::initialize (
+\begin{DoxyParamCaption}
+\item[{ros\-::\-Node\-Handle \&}]{nh\-\_\-}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classSampleParser_acaf99fced8fc57433781e766dcb931cf}
+
+
+Initialize the Hardware with a ros node handle to setup communications. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nh\-\_\-} & Nodehandle to setup communications \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSampleParser_a92ee9e3720b7c420714e2904f81a113a}{\index{Sample\-Parser@{Sample\-Parser}!land@{land}}
+\index{land@{land}!SampleParser@{Sample\-Parser}}
+\subsubsection[{land}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Sample\-Parser\-::land (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classSampleParser_a92ee9e3720b7c420714e2904f81a113a}
+
+
+Land. 
+
+\begin{DoxyReturn}{Returns}
+True if landing successful 
+\end{DoxyReturn}
+\hypertarget{classSampleParser_ab062fe44a82f5490e5c92e8512ede9a2}{\index{Sample\-Parser@{Sample\-Parser}!reset\-\_\-attitude@{reset\-\_\-attitude}}
+\index{reset\-\_\-attitude@{reset\-\_\-attitude}!SampleParser@{Sample\-Parser}}
+\subsubsection[{reset\-\_\-attitude}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Sample\-Parser\-::reset\-\_\-attitude (
+\begin{DoxyParamCaption}
+\item[{double}]{roll, }
+\item[{double}]{pitch, }
+\item[{double}]{yaw}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classSampleParser_ab062fe44a82f5490e5c92e8512ede9a2}
+
+
+Set the attitude data to specified roll, pitch, yaw (rad) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em roll} & Roll angle (rad) \\
+\hline
+{\em pitch} & Pitch angle (rad) \\
+\hline
+{\em yaw} & Yaw angle (rad) \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSampleParser_a98153bd7644b1ca0eb12b442ec54034f}{\index{Sample\-Parser@{Sample\-Parser}!setaltitude@{setaltitude}}
+\index{setaltitude@{setaltitude}!SampleParser@{Sample\-Parser}}
+\subsubsection[{setaltitude}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Sample\-Parser\-::setaltitude (
+\begin{DoxyParamCaption}
+\item[{double}]{altitude\-\_\-}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classSampleParser_a98153bd7644b1ca0eb12b442ec54034f}
+
+
+set the altitude or local z height data(m) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em altitude\-\_\-} & Altitude(m) \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSampleParser_a293772680222eb4f7c49c26d42e69eaa}{\index{Sample\-Parser@{Sample\-Parser}!set\-Battery\-Percent@{set\-Battery\-Percent}}
+\index{set\-Battery\-Percent@{set\-Battery\-Percent}!SampleParser@{Sample\-Parser}}
+\subsubsection[{set\-Battery\-Percent}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Sample\-Parser\-::set\-Battery\-Percent (
+\begin{DoxyParamCaption}
+\item[{double}]{percent}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classSampleParser_a293772680222eb4f7c49c26d42e69eaa}
+
+
+Set the battery percent sensor data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em percent} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSampleParser_aaf4d068b2dabd1ca8da12f7109b288c4}{\index{Sample\-Parser@{Sample\-Parser}!setlogdir@{setlogdir}}
+\index{setlogdir@{setlogdir}!SampleParser@{Sample\-Parser}}
+\subsubsection[{setlogdir}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Sample\-Parser\-::setlogdir (
+\begin{DoxyParamCaption}
+\item[{string}]{logdir}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classSampleParser_aaf4d068b2dabd1ca8da12f7109b288c4}
+
+
+Create log directory and create log files. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em logdir} & the directory where to create log files \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSampleParser_a955965dff0214bbb8e720cab858f1078}{\index{Sample\-Parser@{Sample\-Parser}!setmode@{setmode}}
+\index{setmode@{setmode}!SampleParser@{Sample\-Parser}}
+\subsubsection[{setmode}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Sample\-Parser\-::setmode (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{mode}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classSampleParser_a955965dff0214bbb8e720cab858f1078}
+
+
+Set U\-A\-V controller mode such position controlling, rpyt etc. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & This version does not support any modes \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSampleParser_a50ed35fede29930ff853fe6ab175fad6}{\index{Sample\-Parser@{Sample\-Parser}!set\-R\-C@{set\-R\-C}}
+\index{set\-R\-C@{set\-R\-C}!SampleParser@{Sample\-Parser}}
+\subsubsection[{set\-R\-C}]{\setlength{\rightskip}{0pt plus 5cm}void Sample\-Parser\-::set\-R\-C (
+\begin{DoxyParamCaption}
+\item[{int16\-\_\-t}]{channels\mbox{[}4\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classSampleParser_a50ed35fede29930ff853fe6ab175fad6}
+
+
+set the rc channel information stored in the U\-A\-V brain 
+
+
+\begin{DoxyParams}{Parameters}
+{\em channels} & rc channel values (-\/10000, 10000) \\
+\hline
+\end{DoxyParams}
+\hypertarget{classSampleParser_aaec0124f3a5a19e183438484f98db761}{\index{Sample\-Parser@{Sample\-Parser}!takeoff@{takeoff}}
+\index{takeoff@{takeoff}!SampleParser@{Sample\-Parser}}
+\subsubsection[{takeoff}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Sample\-Parser\-::takeoff (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{classSampleParser_aaec0124f3a5a19e183438484f98db761}
+
+
+Takeoff. 
+
+\begin{DoxyReturn}{Returns}
+True if successful 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/tests/\hyperlink{sample__parser_8h}{sample\-\_\-parser.\-h}\end{DoxyCompactItemize}

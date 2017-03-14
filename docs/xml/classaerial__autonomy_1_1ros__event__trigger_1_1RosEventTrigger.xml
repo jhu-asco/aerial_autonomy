@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger" kind="class" prot="public">
+    <compoundname>aerial_autonomy::ros_event_trigger::RosEventTrigger</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">QObject</basecompoundref>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1ad2e6e150ea166d252a7a40982875fe27" prot="public" static="yes" mutable="no">
+        <type>tuple</type>
+        <definition>tuple aerial_autonomy.ros_event_trigger.RosEventTrigger::status_signal</definition>
+        <argsstring></argsstring>
+        <name>status_signal</name>
+        <initializer>= pyqtSignal(str, name=&apos;systemStatus&apos;)</initializer>
+        <briefdescription>
+<para>Send quad sensor/state data as string. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" line="48" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1a9082897445ba520850cc7108aefe0d77" prot="public" static="yes" mutable="no">
+        <type>tuple</type>
+        <definition>tuple aerial_autonomy.ros_event_trigger.RosEventTrigger::pose_command_signal</definition>
+        <argsstring></argsstring>
+        <name>pose_command_signal</name>
+        <initializer>= pyqtSignal(PoseStamped, name=&apos;poseCommand&apos;)</initializer>
+        <briefdescription>
+<para>Send pose command received from Rviz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" line="50" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1ac1ff7e7fa3e8ac610473fa8c1e547279" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.ros_event_trigger.RosEventTrigger::event_manager_name</definition>
+        <argsstring></argsstring>
+        <name>event_manager_name</name>
+        <briefdescription>
+<para>Define event manager name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" line="78" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1ac24af24de20107643a194072bd64dbd8" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.ros_event_trigger.RosEventTrigger::event_names_list</definition>
+        <argsstring></argsstring>
+        <name>event_names_list</name>
+        <briefdescription>
+<para>Event names used to create buttons. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" line="81" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1aa7e45c61e2f9407a82e1e03d83998e6e" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.ros_event_trigger.RosEventTrigger::event_pub</definition>
+        <argsstring></argsstring>
+        <name>event_pub</name>
+        <briefdescription>
+<para>Ros publisher to trigger events based on name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" line="87" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1adc9a3f404db853ef8e2b5b988bdaaacb" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>aerial_autonomy.ros_event_trigger.RosEventTrigger::pose_command_pub</definition>
+        <argsstring></argsstring>
+        <name>pose_command_pub</name>
+        <briefdescription>
+<para>Ros publisher to trigger pose event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" line="90" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1a740d1aee68ed5c95110242f03ce79e5e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def aerial_autonomy.ros_event_trigger.RosEventTrigger.__init__</definition>
+        <argsstring></argsstring>
+        <name>__init__</name>
+        <briefdescription>
+<para>Class that loads an event file from a parameter It provides method to triggerEvents using ros publisher This class separates the GUI part of plugin from ros interface. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" line="58" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" bodystart="58" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1a62ba54708585892d5f227682954fc1c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def aerial_autonomy.ros_event_trigger.RosEventTrigger.statusCallback</definition>
+        <argsstring></argsstring>
+        <name>statusCallback</name>
+        <briefdescription>
+<para>Ros callback for status data from quad, arm, state machine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" line="105" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" bodystart="105" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1a7277f5df8fedc93bf3616535ea588ba8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def aerial_autonomy.ros_event_trigger.RosEventTrigger.triggerPoseCommand</definition>
+        <argsstring></argsstring>
+        <name>triggerPoseCommand</name>
+        <briefdescription>
+<para>Publish pose command event for state machine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" line="112" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" bodystart="112" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1aa7f5a5b057de80bf818642d851fabac3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def aerial_autonomy.ros_event_trigger.RosEventTrigger.triggerEvent</definition>
+        <argsstring></argsstring>
+        <name>triggerEvent</name>
+        <briefdescription>
+<para>Function to publish ros event based on event name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" line="120" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" bodystart="120" bodyend="125"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Trigger events based on event name. </para>    </briefdescription>
+    <detaileddescription>
+<para>Create event name list based on event file </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="317">
+        <label>aerial_autonomy.ros_event_trigger.RosEventTrigger</label>
+        <link refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger"/>
+        <childnode refid="318" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="318">
+        <label>QObject</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="319">
+        <label>aerial_autonomy.ros_event_trigger.RosEventTrigger</label>
+        <link refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger"/>
+        <childnode refid="320" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="320">
+        <label>QObject</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" line="46" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" bodystart="46" bodyend="125"/>
+    <listofallmembers>
+      <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1a740d1aee68ed5c95110242f03ce79e5e" prot="public" virt="non-virtual"><scope>aerial_autonomy::ros_event_trigger::RosEventTrigger</scope><name>__init__</name></member>
+      <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1ac1ff7e7fa3e8ac610473fa8c1e547279" prot="public" virt="non-virtual"><scope>aerial_autonomy::ros_event_trigger::RosEventTrigger</scope><name>event_manager_name</name></member>
+      <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1ac24af24de20107643a194072bd64dbd8" prot="public" virt="non-virtual"><scope>aerial_autonomy::ros_event_trigger::RosEventTrigger</scope><name>event_names_list</name></member>
+      <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1aa7e45c61e2f9407a82e1e03d83998e6e" prot="public" virt="non-virtual"><scope>aerial_autonomy::ros_event_trigger::RosEventTrigger</scope><name>event_pub</name></member>
+      <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1adc9a3f404db853ef8e2b5b988bdaaacb" prot="public" virt="non-virtual"><scope>aerial_autonomy::ros_event_trigger::RosEventTrigger</scope><name>pose_command_pub</name></member>
+      <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1a9082897445ba520850cc7108aefe0d77" prot="public" virt="non-virtual"><scope>aerial_autonomy::ros_event_trigger::RosEventTrigger</scope><name>pose_command_signal</name></member>
+      <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1ad2e6e150ea166d252a7a40982875fe27" prot="public" virt="non-virtual"><scope>aerial_autonomy::ros_event_trigger::RosEventTrigger</scope><name>status_signal</name></member>
+      <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1a62ba54708585892d5f227682954fc1c6" prot="public" virt="non-virtual"><scope>aerial_autonomy::ros_event_trigger::RosEventTrigger</scope><name>statusCallback</name></member>
+      <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1aa7f5a5b057de80bf818642d851fabac3" prot="public" virt="non-virtual"><scope>aerial_autonomy::ros_event_trigger::RosEventTrigger</scope><name>triggerEvent</name></member>
+      <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1a7277f5df8fedc93bf3616535ea588ba8" prot="public" virt="non-virtual"><scope>aerial_autonomy::ros_event_trigger::RosEventTrigger</scope><name>triggerPoseCommand</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

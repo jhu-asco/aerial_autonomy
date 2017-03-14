@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classController" kind="class" prot="public" abstract="yes">
+    <compoundname>Controller</compoundname>
+    <includes refid="base__controller_8h" local="no">base_controller.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class</type>
+        <declname>SensorDataType</declname>
+        <defname>SensorDataType</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>GoalType</declname>
+        <defname>GoalType</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>ControlType</declname>
+        <defname>ControlType</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classController_1a3900decb29d3f2731050de2b53c7e4de" prot="private" static="no" mutable="no">
+        <type>boost::mutex</type>
+        <definition>boost::mutex Controller&lt; SensorDataType, GoalType, ControlType &gt;::goal_mutex_</definition>
+        <argsstring></argsstring>
+        <name>goal_mutex_</name>
+        <briefdescription>
+<para>Synchronize set goal and running controller implementation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="70" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classController_1aa960f9ef4afad6fa6b1c402e3f533f58" prot="private" static="no" mutable="no">
+        <type>GoalType</type>
+        <definition>GoalType Controller&lt; SensorDataType, GoalType, ControlType &gt;::goal_</definition>
+        <argsstring></argsstring>
+        <name>goal_</name>
+        <briefdescription>
+<para>store goal internally for usage with <ref refid="classController_1a9a5a0b6fbedeb476f3a7bfad5f16167e" kindref="member">Controller::runImplementation</ref> </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="74" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classController_1a5caae261ff8a9f299cb8d220fbaf204b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>ControlType</type>
+        <definition>virtual ControlType Controller&lt; SensorDataType, GoalType, ControlType &gt;::run</definition>
+        <argsstring>(SensorDataType sensor_data)</argsstring>
+        <name>run</name>
+        <param>
+          <type>SensorDataType</type>
+          <declname>sensor_data</declname>
+        </param>
+        <briefdescription>
+<para>Run the control loop and return control arguments. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sensor_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data required for control loop. Can also be estimator data </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Control values to send to hardware </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="25" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="25" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="classController_1a172aae7e2475b72fb2eb469ccd198387" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Controller&lt; SensorDataType, GoalType, ControlType &gt;::setGoal</definition>
+        <argsstring>(GoalType goal)</argsstring>
+        <name>setGoal</name>
+        <param>
+          <type>GoalType</type>
+          <declname>goal</declname>
+        </param>
+        <briefdescription>
+<para>set the goal condition for the controller. Should use internal locking as the run function can be called from a separate thread </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>goal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The goal for control loop </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="38" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="38" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classController_1a712cefd3af65956a9bd420641b175214" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>GoalType</type>
+        <definition>virtual GoalType Controller&lt; SensorDataType, GoalType, ControlType &gt;::getGoal</definition>
+        <argsstring>()</argsstring>
+        <name>getGoal</name>
+        <briefdescription>
+<para>get the goal condition for the controller. Should use internal locking as the run function can be called from a separate thread </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="46" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="46" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="classController_1a86c5dbf78d3d948228c7c629e885151c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual Controller&lt; SensorDataType, GoalType, ControlType &gt;::~Controller</definition>
+        <argsstring>()</argsstring>
+        <name>~Controller</name>
+        <briefdescription>
+<para>Destructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="53" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="53" bodyend="53"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classController_1a9a5a0b6fbedeb476f3a7bfad5f16167e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>ControlType</type>
+        <definition>virtual ControlType Controller&lt; SensorDataType, GoalType, ControlType &gt;::runImplementation</definition>
+        <argsstring>(SensorDataType sensor_data, GoalType goal)=0</argsstring>
+        <name>runImplementation</name>
+        <reimplementedby refid="classBuiltInController_1ab597ac5aa54f9865c0324fbcf5c0d7bd">runImplementation</reimplementedby>
+        <reimplementedby refid="classBuiltInController_1ab597ac5aa54f9865c0324fbcf5c0d7bd">runImplementation</reimplementedby>
+        <reimplementedby refid="classBuiltInController_1ab597ac5aa54f9865c0324fbcf5c0d7bd">runImplementation</reimplementedby>
+        <reimplementedby refid="classManualRPYTController_1ae29c56af6d0bc913d357c7849201c8fb">runImplementation</reimplementedby>
+        <param>
+          <type>SensorDataType</type>
+          <declname>sensor_data</declname>
+        </param>
+        <param>
+          <type>GoalType</type>
+          <declname>goal</declname>
+        </param>
+        <briefdescription>
+<para>Run the control loop and return control arguments. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sensor_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data required for control loop. Can also be estimator data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>goal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The set-point for the controller </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Control values to send to hardware </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="63" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Base <ref refid="classController" kindref="compound">Controller</ref> class. </para>    </briefdescription>
+    <detaileddescription>
+<para>subclass should implement the runImplementation function which takes as input the sensor data and the desired goal and returns a control value.</para><para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>SensorDataType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The type of sensor the controller takes in </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GoalType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The type of goal the controller takes in </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ControlType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The type of control the controller returns </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="17" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="17" bodyend="75"/>
+    <listofallmembers>
+      <member refid="classController_1a712cefd3af65956a9bd420641b175214" prot="public" virt="virtual"><scope>Controller</scope><name>getGoal</name></member>
+      <member refid="classController_1aa960f9ef4afad6fa6b1c402e3f533f58" prot="private" virt="non-virtual"><scope>Controller</scope><name>goal_</name></member>
+      <member refid="classController_1a3900decb29d3f2731050de2b53c7e4de" prot="private" virt="non-virtual"><scope>Controller</scope><name>goal_mutex_</name></member>
+      <member refid="classController_1a5caae261ff8a9f299cb8d220fbaf204b" prot="public" virt="virtual"><scope>Controller</scope><name>run</name></member>
+      <member refid="classController_1a9a5a0b6fbedeb476f3a7bfad5f16167e" prot="protected" virt="pure-virtual"><scope>Controller</scope><name>runImplementation</name></member>
+      <member refid="classController_1a172aae7e2475b72fb2eb469ccd198387" prot="public" virt="virtual"><scope>Controller</scope><name>setGoal</name></member>
+      <member refid="classController_1a86c5dbf78d3d948228c7c629e885151c" prot="public" virt="virtual"><scope>Controller</scope><name>~Controller</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

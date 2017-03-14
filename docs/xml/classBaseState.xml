@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classBaseState" kind="class" prot="public">
+    <compoundname>BaseState</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">boost::msm::front::state&lt;&gt;</basecompoundref>
+    <includes refid="base__state_8h" local="no">base_state.h</includes>
+    <innerclass refid="structBaseState_1_1internal__transition__table" prot="public">BaseState::internal_transition_table</innerclass>
+    <templateparamlist>
+      <param>
+        <type>class RobotSystemT</type>
+      </param>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+      <param>
+        <type>class ActionFctr</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classBaseState_1a3967d85ffd88b9235fcfd9732e745c13" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual BaseState&lt; RobotSystemT, LogicStateMachineT, ActionFctr &gt;::~BaseState</definition>
+        <argsstring>()</argsstring>
+        <name>~BaseState</name>
+        <briefdescription>
+<para>Destructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/logic_states/base_state.h" line="42" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/logic_states/base_state.h" bodystart="42" bodyend="42"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Base state for all states in logic state machine. </para>    </briefdescription>
+    <detaileddescription>
+<para>This class provides a wrapper for any action function and robot system Entry and exit function can also be overwritten by subclassing this base state. </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="196">
+        <label>BaseState&lt; RobotSystemT, LogicStateMachineT, ActionFctr &gt;</label>
+        <link refid="classBaseState"/>
+        <childnode refid="197" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="197">
+        <label>boost::msm::front::state&lt;&gt;</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="198">
+        <label>BaseState&lt; RobotSystemT, LogicStateMachineT, ActionFctr &gt;</label>
+        <link refid="classBaseState"/>
+        <childnode refid="199" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="199">
+        <label>boost::msm::front::state&lt;&gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/logic_states/base_state.h" line="24" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/logic_states/base_state.h" bodystart="24" bodyend="43"/>
+    <listofallmembers>
+      <member refid="classBaseState_1a3967d85ffd88b9235fcfd9732e745c13" prot="public" virt="virtual"><scope>BaseState</scope><name>~BaseState</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="roll__pitch__yaw__thrust_8h" kind="file">
+    <compoundname>roll_pitch_yaw_thrust.h</compoundname>
+    <includedby refid="manual__rpyt__controller__drone__connector_8h" local="yes">include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h</includedby>
+    <includedby refid="manual__rpyt__controller_8h" local="yes">include/aerial_autonomy/controllers/manual_rpyt_controller.h</includedby>
+    <invincdepgraph>
+      <node id="1761">
+        <label>include/aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h</label>
+        <link refid="basic__controller__hardware__connectors_8h"/>
+        <childnode refid="1762" relation="include">
+        </childnode>
+      </node>
+      <node id="1767">
+        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
+        <link refid="land__functors_8h"/>
+        <childnode refid="1764" relation="include">
+        </childnode>
+      </node>
+      <node id="1766">
+        <label>src/aerial_autonomy_node.cpp</label>
+        <link refid="aerial__autonomy__node_8cpp"/>
+      </node>
+      <node id="1760">
+        <label>src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp</label>
+        <link refid="manual__rpyt__controller__drone__connector_8cpp"/>
+      </node>
+      <node id="1765">
+        <label>include/aerial_autonomy/state_machines/basic_state_machine.h</label>
+        <link refid="basic__state__machine_8h"/>
+        <childnode refid="1766" relation="include">
+        </childnode>
+      </node>
+      <node id="1775">
+        <label>include/aerial_autonomy/controllers/basic_controllers.h</label>
+        <link refid="basic__controllers_8h"/>
+        <childnode refid="1762" relation="include">
+        </childnode>
+      </node>
+      <node id="1768">
+        <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
+        <link refid="position__control__functors_8h"/>
+        <childnode refid="1764" relation="include">
+        </childnode>
+      </node>
+      <node id="1770">
+        <label>include/aerial_autonomy/onboard_system_handler.h</label>
+        <link refid="onboard__system__handler_8h"/>
+        <childnode refid="1766" relation="include">
+        </childnode>
+      </node>
+      <node id="1771">
+        <label>include/aerial_autonomy/system_status_publisher.h</label>
+        <link refid="system__status__publisher_8h"/>
+        <childnode refid="1770" relation="include">
+        </childnode>
+      </node>
+      <node id="1764">
+        <label>include/aerial_autonomy/actions_guards/basic_states.h</label>
+        <link refid="basic__states_8h"/>
+        <childnode refid="1765" relation="include">
+        </childnode>
+      </node>
+      <node id="1763">
+        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
+        <link refid="hovering__functors_8h"/>
+        <childnode refid="1764" relation="include">
+        </childnode>
+      </node>
+      <node id="1774">
+        <label>src/controllers/manual_rpyt_controller.cpp</label>
+        <link refid="manual__rpyt__controller_8cpp"/>
+      </node>
+      <node id="1773">
+        <label>include/aerial_autonomy/controllers/manual_rpyt_controller.h</label>
+        <link refid="manual__rpyt__controller_8h"/>
+        <childnode refid="1774" relation="include">
+        </childnode>
+        <childnode refid="1775" relation="include">
+        </childnode>
+      </node>
+      <node id="1759">
+        <label>include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h</label>
+        <link refid="manual__rpyt__controller__drone__connector_8h"/>
+        <childnode refid="1760" relation="include">
+        </childnode>
+        <childnode refid="1761" relation="include">
+        </childnode>
+      </node>
+      <node id="1758">
+        <label>include/aerial_autonomy/types/roll_pitch_yaw_thrust.h</label>
+        <link refid="roll_pitch_yaw_thrust.h"/>
+        <childnode refid="1759" relation="include">
+        </childnode>
+        <childnode refid="1773" relation="include">
+        </childnode>
+      </node>
+      <node id="1762">
+        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
+        <link refid="uav__system_8h"/>
+        <childnode refid="1763" relation="include">
+        </childnode>
+        <childnode refid="1767" relation="include">
+        </childnode>
+        <childnode refid="1768" relation="include">
+        </childnode>
+        <childnode refid="1769" relation="include">
+        </childnode>
+        <childnode refid="1770" relation="include">
+        </childnode>
+        <childnode refid="1765" relation="include">
+        </childnode>
+        <childnode refid="1771" relation="include">
+        </childnode>
+        <childnode refid="1772" relation="include">
+        </childnode>
+      </node>
+      <node id="1772">
+        <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
+        <link refid="sample__logic__state__machine_8h"/>
+      </node>
+      <node id="1769">
+        <label>include/aerial_autonomy/actions_guards/takeoff_functors.h</label>
+        <link refid="takeoff__functors_8h"/>
+        <childnode refid="1764" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structRollPitchYawThrust" prot="public">RollPitchYawThrust</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="5" refid="structRollPitchYawThrust" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structRollPitchYawThrust" kindref="compound">RollPitchYawThrust</ref><sp/>{</highlight></codeline>
+<codeline lineno="9" refid="structRollPitchYawThrust_1ade35aec07cbe2f4639cbbe1b38e39c04" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structRollPitchYawThrust_1ade35aec07cbe2f4639cbbe1b38e39c04" kindref="member">RollPitchYawThrust</ref>()<sp/>:<sp/><ref refid="structRollPitchYawThrust_1a473205dda8a9c3cd39c7f20b9bf2573b" kindref="member">r</ref>(0),<sp/><ref refid="structRollPitchYawThrust_1a5a48538eafec9fcfdfb5c3ff714a6044" kindref="member">p</ref>(0),<sp/><ref refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" kindref="member">y</ref>(0),<sp/><ref refid="structRollPitchYawThrust_1aa489ea694a9abb4b891e371d31e63ec4" kindref="member">t</ref>(0)<sp/>{}</highlight></codeline>
+<codeline lineno="18" refid="structRollPitchYawThrust_1a910222ed6c81f1d4cf7b030fc3367e4e" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structRollPitchYawThrust_1a910222ed6c81f1d4cf7b030fc3367e4e" kindref="member">RollPitchYawThrust</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structRollPitchYawThrust_1a473205dda8a9c3cd39c7f20b9bf2573b" kindref="member">r</ref>,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structRollPitchYawThrust_1a5a48538eafec9fcfdfb5c3ff714a6044" kindref="member">p</ref>,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" kindref="member">y</ref>,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structRollPitchYawThrust_1aa489ea694a9abb4b891e371d31e63ec4" kindref="member">t</ref>)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>r(r),<sp/>p(p),<sp/>y(y),<sp/>t(t)<sp/>{}</highlight></codeline>
+<codeline lineno="20" refid="structRollPitchYawThrust_1a473205dda8a9c3cd39c7f20b9bf2573b" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structRollPitchYawThrust_1a473205dda8a9c3cd39c7f20b9bf2573b" kindref="member">r</ref>;<sp/></highlight></codeline>
+<codeline lineno="21" refid="structRollPitchYawThrust_1a5a48538eafec9fcfdfb5c3ff714a6044" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structRollPitchYawThrust_1a5a48538eafec9fcfdfb5c3ff714a6044" kindref="member">p</ref>;<sp/></highlight></codeline>
+<codeline lineno="22" refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" kindref="member">y</ref>;<sp/></highlight></codeline>
+<codeline lineno="23" refid="structRollPitchYawThrust_1aa489ea694a9abb4b891e371d31e63ec4" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structRollPitchYawThrust_1aa489ea694a9abb4b891e371d31e63ec4" kindref="member">t</ref>;<sp/></highlight></codeline>
+<codeline lineno="24"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/roll_pitch_yaw_thrust.h"/>
+  </compounddef>
+</doxygen>

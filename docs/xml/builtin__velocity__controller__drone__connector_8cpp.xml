@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="builtin__velocity__controller__drone__connector_8cpp" kind="file">
+    <compoundname>builtin_velocity_controller_drone_connector.cpp</compoundname>
+    <includes refid="builtin__velocity__controller__drone__connector_8h" local="yes">aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h</includes>
+    <incdepgraph>
+      <node id="1898">
+        <label>boost/thread/mutex.hpp</label>
+      </node>
+      <node id="1897">
+        <label>aerial_autonomy/controllers/base_controller.h</label>
+        <link refid="base__controller_8h"/>
+        <childnode refid="1898" relation="include">
+        </childnode>
+      </node>
+      <node id="1894">
+        <label>src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp</label>
+        <link refid="builtin_velocity_controller_drone_connector.cpp"/>
+        <childnode refid="1895" relation="include">
+        </childnode>
+      </node>
+      <node id="1900">
+        <label>aerial_autonomy/types/velocity_yaw.h</label>
+        <link refid="velocity__yaw_8h"/>
+        <childnode refid="1901" relation="include">
+        </childnode>
+      </node>
+      <node id="1899">
+        <label>aerial_autonomy/types/empty_sensor.h</label>
+        <link refid="empty__sensor_8h"/>
+      </node>
+      <node id="1895">
+        <label>aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h</label>
+        <link refid="builtin__velocity__controller__drone__connector_8h"/>
+        <childnode refid="1896" relation="include">
+        </childnode>
+        <childnode refid="1899" relation="include">
+        </childnode>
+        <childnode refid="1900" relation="include">
+        </childnode>
+        <childnode refid="1902" relation="include">
+        </childnode>
+      </node>
+      <node id="1901">
+        <label>aerial_autonomy/types/velocity.h</label>
+        <link refid="velocity_8h"/>
+      </node>
+      <node id="1896">
+        <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
+        <link refid="base__controller__hardware__connector_8h"/>
+        <childnode refid="1897" relation="include">
+        </childnode>
+      </node>
+      <node id="1902">
+        <label>parsernode/parser.h</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="builtin__velocity__controller__drone__connector_8h" kindref="compound">aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"><ref refid="structEmptySensor" kindref="compound">EmptySensor</ref><sp/><ref refid="classBuiltInVelocityControllerDroneConnector_1af69ba169f039d9f8d59f675392af4cf0" kindref="member">BuiltInVelocityControllerDroneConnector::extractSensorData</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structEmptySensor" kindref="compound">EmptySensor</ref>();</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classBuiltInVelocityControllerDroneConnector_1a10a06a14a9a34afbe37c79e86ffd5787" kindref="member">BuiltInVelocityControllerDroneConnector::sendHardwareCommands</ref>(</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structVelocityYaw" kindref="compound">VelocityYaw</ref><sp/>controls)<sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/>geometry_msgs::Vector3<sp/>velocity_command;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/>velocity_command.x<sp/>=<sp/>controls.<ref refid="structVelocity_1a99a9f9580c8a025a2c7a18890993b56a" kindref="member">x</ref>;</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/>velocity_command.y<sp/>=<sp/>controls.<ref refid="structVelocity_1ae1282d20e14cc4be4aac24ab4e1e3e5c" kindref="member">y</ref>;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/>velocity_command.z<sp/>=<sp/>controls.<ref refid="structVelocity_1aaebcd198674f7adcb61f9bb981dab465" kindref="member">z</ref>;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/>drone_hardware_.cmdvelguided(velocity_command,<sp/>controls.<ref refid="structVelocityYaw_1a5bef45a2807a9814495080d2e5603ce4" kindref="member">yaw</ref>);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp"/>
+  </compounddef>
+</doxygen>

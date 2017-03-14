@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classManualRPYTControllerDroneConnector" kind="class" prot="public">
+    <compoundname>ManualRPYTControllerDroneConnector</compoundname>
+    <basecompoundref refid="classControllerHardwareConnector" prot="public" virt="non-virtual">ControllerHardwareConnector&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</basecompoundref>
+    <includes refid="manual__rpyt__controller__drone__connector_8h" local="no">manual_rpyt_controller_drone_connector.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classManualRPYTControllerDroneConnector_1a84a01d9ad6b06c34513126089f89ccba" prot="private" static="no" mutable="no">
+        <type>parsernode::Parser &amp;</type>
+        <definition>parsernode::Parser&amp; ManualRPYTControllerDroneConnector::drone_hardware_</definition>
+        <argsstring></argsstring>
+        <name>drone_hardware_</name>
+        <briefdescription>
+<para>Quad hardware to send commands. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" line="50" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classManualRPYTControllerDroneConnector_1a1e9d3f52b19ed5d89b00d6358f826f9b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ManualRPYTControllerDroneConnector::ManualRPYTControllerDroneConnector</definition>
+        <argsstring>(parsernode::Parser &amp;drone_hardware, Controller&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt; &amp;controller)</argsstring>
+        <name>ManualRPYTControllerDroneConnector</name>
+        <param>
+          <type>parsernode::Parser &amp;</type>
+          <declname>drone_hardware</declname>
+        </param>
+        <param>
+          <type><ref refid="classController" kindref="compound">Controller</ref>&lt; <ref refid="structJoysticksYaw" kindref="compound">JoysticksYaw</ref>, <ref refid="structEmptyGoal" kindref="compound">EmptyGoal</ref>, <ref refid="structRollPitchYawThrust" kindref="compound">RollPitchYawThrust</ref> &gt; &amp;</type>
+          <declname>controller</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+<para>Store drone hardware with hardware type as UAV. Uses parsernode::Parser::cmdrpythrust function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>drone_hardware</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Drone hardware used to send commands </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>controller</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>RpyThrust controller </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" line="25" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" bodystart="25" bodyend="29"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classManualRPYTControllerDroneConnector_1a6c47447c98dd1528703355f9f60f1d50" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="structJoysticksYaw" kindref="compound">JoysticksYaw</ref></type>
+        <definition>JoysticksYaw ManualRPYTControllerDroneConnector::extractSensorData</definition>
+        <argsstring>()</argsstring>
+        <name>extractSensorData</name>
+        <reimplements refid="classControllerHardwareConnector_1af6952c0d8829b93557eb7d8887bebd63">extractSensorData</reimplements>
+        <briefdescription>
+<para>Extracts joystick commands and current yaw from hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Joystick commands and current yaw </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" line="37" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp" bodystart="3" bodyend="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classManualRPYTControllerDroneConnector_1a34bde89c4b4f2d0de000b4ccbfc719c4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ManualRPYTControllerDroneConnector::sendHardwareCommands</definition>
+        <argsstring>(RollPitchYawThrust controls)</argsstring>
+        <name>sendHardwareCommands</name>
+        <reimplements refid="classControllerHardwareConnector_1a5fc86156d5c747aba36497732962d6d0">sendHardwareCommands</reimplements>
+        <param>
+          <type><ref refid="structRollPitchYawThrust" kindref="compound">RollPitchYawThrust</ref></type>
+          <declname>controls</declname>
+        </param>
+        <briefdescription>
+<para>Send RPYT commands to hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>controls</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>RPYT command to send to drone </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" line="44" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp" bodystart="11" bodyend="19"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Maps Joystick goals to rpythrust commands to quadrotor. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="278">
+        <label>ManualRPYTControllerDroneConnector</label>
+        <link refid="classManualRPYTControllerDroneConnector"/>
+        <childnode refid="279" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="280">
+        <label>AbstractControllerHardwareConnector</label>
+        <link refid="structAbstractControllerHardwareConnector"/>
+      </node>
+      <node id="279">
+        <label>ControllerHardwareConnector&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</label>
+        <link refid="classControllerHardwareConnector"/>
+        <childnode refid="280" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="281">
+        <label>ManualRPYTControllerDroneConnector</label>
+        <link refid="classManualRPYTControllerDroneConnector"/>
+        <childnode refid="282" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="283">
+        <label>AbstractControllerHardwareConnector</label>
+        <link refid="structAbstractControllerHardwareConnector"/>
+      </node>
+      <node id="282">
+        <label>ControllerHardwareConnector&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</label>
+        <link refid="classControllerHardwareConnector"/>
+        <childnode refid="283" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" line="14" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" bodystart="12" bodyend="51"/>
+    <listofallmembers>
+      <member refid="classControllerHardwareConnector_1a6c5d8e5a5ded026ccee3d51f2899ce3e" prot="public" virt="non-virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>ControllerHardwareConnector</name></member>
+      <member refid="classManualRPYTControllerDroneConnector_1a84a01d9ad6b06c34513126089f89ccba" prot="private" virt="non-virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>drone_hardware_</name></member>
+      <member refid="classManualRPYTControllerDroneConnector_1a6c47447c98dd1528703355f9f60f1d50" prot="protected" virt="virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>extractSensorData</name></member>
+      <member refid="classControllerHardwareConnector_1a1ea002003e277fc82e04615343b927f5" prot="public" virt="non-virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>getGoal</name></member>
+      <member refid="classControllerHardwareConnector_1accd0c9bff560fa3c6d1e60d97644415e" prot="public" virt="non-virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>getHardwareType</name></member>
+      <member refid="classControllerHardwareConnector_1a1e47c12f796c9cc2fcb5c2495ede2392" prot="protected" virt="non-virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>hardware_type_</name></member>
+      <member refid="classManualRPYTControllerDroneConnector_1a1e9d3f52b19ed5d89b00d6358f826f9b" prot="public" virt="non-virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>ManualRPYTControllerDroneConnector</name></member>
+      <member refid="classControllerHardwareConnector_1afb46464434a3a5881ecc1091f58bbd61" prot="public" virt="virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>run</name></member>
+      <member refid="classManualRPYTControllerDroneConnector_1a34bde89c4b4f2d0de000b4ccbfc719c4" prot="protected" virt="virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>sendHardwareCommands</name></member>
+      <member refid="classControllerHardwareConnector_1a14ce51377f80b67796fcb50ce8195efd" prot="public" virt="non-virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>setGoal</name></member>
+      <member refid="structAbstractControllerHardwareConnector_1a06f931d74faac604c3ef56cb5ba75399" prot="public" virt="virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>~AbstractControllerHardwareConnector</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

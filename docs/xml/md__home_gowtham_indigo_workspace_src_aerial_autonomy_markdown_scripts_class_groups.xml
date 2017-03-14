@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="md__home_gowtham_indigo_workspace_src_aerial_autonomy_markdown_scripts_class_groups" kind="page">
+    <compoundname>md__home_gowtham_indigo_workspace_src_aerial_autonomy_markdown_scripts_class_groups</compoundname>
+    <title>Classes by Group</title>
+    <detaileddescription>
+<para><heading level="2">Controllers</heading>
+</para><para><itemizedlist>
+<listitem><para><ref refid="classBuiltInController" kindref="compound">BuiltInController</ref></para></listitem><listitem><para><ref refid="classManualRPYTController" kindref="compound">ManualRPYTController</ref></para></listitem></itemizedlist>
+</para><para><heading level="2">ControllerHardwareConnectors</heading>
+</para><para><itemizedlist>
+<listitem><para><ref refid="structAbstractControllerHardwareConnector" kindref="compound">AbstractControllerHardwareConnector</ref><itemizedlist>
+<listitem><para><ref refid="classControllerHardwareConnector" kindref="compound">ControllerHardwareConnector</ref><itemizedlist>
+<listitem><para><ref refid="classBuiltInVelocityControllerDroneConnector" kindref="compound">BuiltInVelocityControllerDroneConnector</ref></para></listitem><listitem><para><ref refid="classPositionControllerDroneConnector" kindref="compound">PositionControllerDroneConnector</ref></para></listitem><listitem><para><ref refid="classManualRPYTControllerDroneConnector" kindref="compound">ManualRPYTControllerDroneConnector</ref></para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para><para><heading level="2">States</heading>
+</para><para><itemizedlist>
+<listitem><para><ref refid="classBaseState" kindref="compound">BaseState</ref><itemizedlist>
+<listitem><para><ref refid="structLogicStateMachineFrontEnd_1_1Landed" kindref="compound">LogicStateMachineFrontEnd::Landed</ref></para></listitem><listitem><para><ref refid="takeoff__functors_8h_1ab6710f3cb12b7653eedcd3a2215d3228" kindref="member">TakingOff_</ref></para></listitem><listitem><para><ref refid="hovering__functors_8h_1a4252f403b3bcd2a850cf271512d9c6ff" kindref="member">Hovering_</ref></para></listitem><listitem><para><ref refid="position__control__functors_8h_1af380346c24b534da18813f70217ea50f" kindref="member">ReachingGoal_</ref></para></listitem><listitem><para><ref refid="land__functors_8h_1a84627965433a60de431758bddec005c3" kindref="member">Landing_</ref></para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para><para><heading level="2">Action Functors</heading>
+</para><para><itemizedlist>
+<listitem><para><ref refid="structActionFunctor" kindref="compound">ActionFunctor</ref><itemizedlist>
+<listitem><para><ref refid="structLandTransitionActionFunctor__" kindref="compound">LandTransitionActionFunctor_</ref></para></listitem><listitem><para><ref refid="structTakeoffTransitionActionFunctor__" kindref="compound">TakeoffTransitionActionFunctor_</ref></para></listitem><listitem><para><ref refid="structPositionControlTransitionActionFunctor__" kindref="compound">PositionControlTransitionActionFunctor_</ref></para></listitem></itemizedlist>
+</para></listitem><listitem><para><ref refid="structEventAgnosticActionFunctor" kindref="compound">EventAgnosticActionFunctor</ref><itemizedlist>
+<listitem><para><ref refid="structLandInternalActionFunctor__" kindref="compound">LandInternalActionFunctor_</ref></para></listitem><listitem><para><ref refid="structTakeoffInternalActionFunctor__" kindref="compound">TakeoffInternalActionFunctor_</ref></para></listitem><listitem><para><ref refid="structTakeoffAbortActionFunctor__" kindref="compound">TakeoffAbortActionFunctor_</ref></para></listitem><listitem><para><ref refid="structHoveringInternalActionFunctor__" kindref="compound">HoveringInternalActionFunctor_</ref></para></listitem><listitem><para><ref refid="structPositionControlAbortActionFunctor__" kindref="compound">PositionControlAbortActionFunctor_</ref></para></listitem><listitem><para><ref refid="structPositionControlInternalActionFunctor__" kindref="compound">PositionControlInternalActionFunctor_</ref></para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para><para><heading level="2">Guard Functors</heading>
+</para><para><itemizedlist>
+<listitem><para><ref refid="structGuardFunctor" kindref="compound">GuardFunctor</ref><itemizedlist>
+<listitem><para><ref refid="structTakeoffTransitionGuardFunctor__" kindref="compound">TakeoffTransitionGuardFunctor_</ref></para></listitem><listitem><para><ref refid="structPositionControlTransitionGuardFunctor__" kindref="compound">PositionControlTransitionGuardFunctor_</ref></para></listitem></itemizedlist>
+</para></listitem><listitem><para><ref refid="structEventAgnosticGuardFunctor" kindref="compound">EventAgnosticGuardFunctor</ref></para></listitem></itemizedlist>
+</para><para><heading level="2">State Machine Front End</heading>
+</para><para><itemizedlist>
+<listitem><para><ref refid="classLogicStateMachineFrontEnd" kindref="compound">LogicStateMachineFrontEnd</ref></para></listitem></itemizedlist>
+</para><para><heading level="2">State Machine Back End</heading>
+</para><para><itemizedlist>
+<listitem><para><ref refid="basic__state__machine_8h_1ab0b6ef21baf57684550a2f05c771bd86" kindref="member">LogicStateMachine</ref></para></listitem></itemizedlist>
+</para><para><heading level="2">Robot Systems</heading>
+</para><para><itemizedlist>
+<listitem><para><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> </para></listitem></itemizedlist>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

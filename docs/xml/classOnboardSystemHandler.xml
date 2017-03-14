@@ -1,0 +1,293 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classOnboardSystemHandler" kind="class" prot="public">
+    <compoundname>OnboardSystemHandler</compoundname>
+    <includes refid="onboard__system__handler_8h" local="no">onboard_system_handler.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+      <param>
+        <type>class EventManagerT</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classOnboardSystemHandler_1afdb5595dbc8a7f6b20cdf688054c54cb" prot="private" static="no" mutable="no">
+        <type>ros::NodeHandle</type>
+        <definition>ros::NodeHandle OnboardSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::nh_</definition>
+        <argsstring></argsstring>
+        <name>nh_</name>
+        <briefdescription>
+<para>ROS NodeHandle for processing events and commands. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" line="99" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOnboardSystemHandler_1afdcac108a0ec9d6819dd466d9f6fb351" prot="private" static="no" mutable="no">
+        <type>OnboardSystemHandlerConfig</type>
+        <definition>OnboardSystemHandlerConfig OnboardSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::config_</definition>
+        <argsstring></argsstring>
+        <name>config_</name>
+        <briefdescription>
+<para>Configuration parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" line="100" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOnboardSystemHandler_1adad64fd4ce2084f098acda5b49429421" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; pluginlib::ClassLoader&lt; parsernode::Parser &gt; &gt;</type>
+        <definition>std::unique_ptr&lt;pluginlib::ClassLoader&lt;parsernode::Parser&gt; &gt; OnboardSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::parser_loader</definition>
+        <argsstring></argsstring>
+        <name>parser_loader</name>
+        <briefdescription>
+<para>Used to load hardware plugin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" line="102" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOnboardSystemHandler_1a73a3c4d07639c00ce86588dc68de681f" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; parsernode::Parser &gt;</type>
+        <definition>std::unique_ptr&lt;parsernode::Parser&gt; OnboardSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::uav_hardware_</definition>
+        <argsstring></argsstring>
+        <name>uav_hardware_</name>
+        <briefdescription>
+<para>Hardware instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" line="103" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOnboardSystemHandler_1a8d7e3ee9b42b14479aac3405eb0c21a9" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;UAVSystem&gt; OnboardSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::uav_system_</definition>
+        <argsstring></argsstring>
+        <name>uav_system_</name>
+        <briefdescription>
+<para>Contains controllers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" line="104" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOnboardSystemHandler_1a5e676302505de87500473d848f76c5bd" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; LogicStateMachineT &gt;</type>
+        <definition>std::unique_ptr&lt;LogicStateMachineT&gt; OnboardSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::logic_state_machine_</definition>
+        <argsstring></argsstring>
+        <name>logic_state_machine_</name>
+        <briefdescription>
+<para>State machine that gets run by the system. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" line="106" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOnboardSystemHandler_1a18f102d4c1bd58efaca001489cf9a183" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; EventManagerT &gt;</type>
+        <definition>std::unique_ptr&lt;EventManagerT&gt; OnboardSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::event_manager_</definition>
+        <argsstring></argsstring>
+        <name>event_manager_</name>
+        <briefdescription>
+<para>Event manager used by the state machine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" line="108" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOnboardSystemHandler_1a252480269a7ed7ec50c3efa822ff29bd" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classStateMachineGUIConnector" kindref="compound">StateMachineGUIConnector</ref>&lt; EventManagerT, LogicStateMachineT &gt; &gt;</type>
+        <definition>std::unique_ptr&lt;StateMachineGUIConnector&lt;EventManagerT, LogicStateMachineT&gt; &gt; OnboardSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::state_machine_gui_connector_</definition>
+        <argsstring></argsstring>
+        <name>state_machine_gui_connector_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Connects event manager to the state machine </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" line="110" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOnboardSystemHandler_1a141aad0e051602eae81fb82a2d8b14ec" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classSystemStatusPublisher" kindref="compound">SystemStatusPublisher</ref>&lt; LogicStateMachineT &gt; &gt;</type>
+        <definition>std::unique_ptr&lt;SystemStatusPublisher&lt;LogicStateMachineT&gt; &gt; OnboardSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::system_status_pub_</definition>
+        <argsstring></argsstring>
+        <name>system_status_pub_</name>
+        <briefdescription>
+<para>Publish quad status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" line="113" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOnboardSystemHandler_1a545f58466a9e1845589d338e9c9d24aa" prot="private" static="no" mutable="no">
+        <type><ref refid="classAsyncTimer" kindref="compound">AsyncTimer</ref></type>
+        <definition>AsyncTimer OnboardSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::logic_state_machine_timer_</definition>
+        <argsstring></argsstring>
+        <name>logic_state_machine_timer_</name>
+        <briefdescription>
+<para>Timer for running state machine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" line="114" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOnboardSystemHandler_1ab559ece31d6c987345d7c6bd5ad438a7" prot="private" static="no" mutable="no">
+        <type><ref refid="classAsyncTimer" kindref="compound">AsyncTimer</ref></type>
+        <definition>AsyncTimer OnboardSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::uav_controller_timer_</definition>
+        <argsstring></argsstring>
+        <name>uav_controller_timer_</name>
+        <briefdescription>
+<para>Timer for running uav controller. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" line="115" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOnboardSystemHandler_1a0e5a200d748864e44dd87fa6c8f2c74b" prot="private" static="no" mutable="no">
+        <type><ref refid="classAsyncTimer" kindref="compound">AsyncTimer</ref></type>
+        <definition>AsyncTimer OnboardSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::status_timer_</definition>
+        <argsstring></argsstring>
+        <name>status_timer_</name>
+        <briefdescription>
+<para>Update uav status and state machine status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" line="116" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classOnboardSystemHandler_1a50433d9368004a07ee1d410516f16d0f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>OnboardSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::OnboardSystemHandler</definition>
+        <argsstring>(ros::NodeHandle &amp;nh, OnboardSystemHandlerConfig &amp;config)</argsstring>
+        <name>OnboardSystemHandler</name>
+        <param>
+          <type>ros::NodeHandle &amp;</type>
+          <declname>nh</declname>
+        </param>
+        <param>
+          <type>OnboardSystemHandlerConfig &amp;</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeHandle to use for event and command subscription </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Proto configuration parameters </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" line="30" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" bodystart="30" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classOnboardSystemHandler_1a6ab804a5c415b7dcde04babd918738e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>OnboardSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::OnboardSystemHandler</definition>
+        <argsstring>(const OnboardSystemHandler &amp;)=delete</argsstring>
+        <name>OnboardSystemHandler</name>
+        <param>
+          <type>const <ref refid="classOnboardSystemHandler" kindref="compound">OnboardSystemHandler</ref> &amp;</type>
+        </param>
+        <briefdescription>
+<para>Delete copy constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" line="73" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classOnboardSystemHandler_1afd53ef53f99eb8b8af8b15dd1b059eba" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OnboardSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::isConnected</definition>
+        <argsstring>()</argsstring>
+        <name>isConnected</name>
+        <briefdescription>
+<para>Checks if internal ROS topics are connected. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Returns true if connected and false otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" line="79" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" bodystart="79" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classOnboardSystemHandler_1ad39e806fb8edd6281d10b8575345ad6d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>parsernode::common::quaddata</type>
+        <definition>parsernode::common::quaddata OnboardSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::getUAVData</definition>
+        <argsstring>()</argsstring>
+        <name>getUAVData</name>
+        <briefdescription>
+<para>Get UAV state. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The UAV state </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" line="92" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" bodystart="92" bodyend="96"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Owns all of the autonomous system components and is responsible for thread management. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine to use </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EventManagerT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event manager to use </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" line="23" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/onboard_system_handler.h" bodystart="23" bodyend="117"/>
+    <listofallmembers>
+      <member refid="classOnboardSystemHandler_1afdcac108a0ec9d6819dd466d9f6fb351" prot="private" virt="non-virtual"><scope>OnboardSystemHandler</scope><name>config_</name></member>
+      <member refid="classOnboardSystemHandler_1a18f102d4c1bd58efaca001489cf9a183" prot="private" virt="non-virtual"><scope>OnboardSystemHandler</scope><name>event_manager_</name></member>
+      <member refid="classOnboardSystemHandler_1ad39e806fb8edd6281d10b8575345ad6d" prot="public" virt="non-virtual"><scope>OnboardSystemHandler</scope><name>getUAVData</name></member>
+      <member refid="classOnboardSystemHandler_1afd53ef53f99eb8b8af8b15dd1b059eba" prot="public" virt="non-virtual"><scope>OnboardSystemHandler</scope><name>isConnected</name></member>
+      <member refid="classOnboardSystemHandler_1a5e676302505de87500473d848f76c5bd" prot="private" virt="non-virtual"><scope>OnboardSystemHandler</scope><name>logic_state_machine_</name></member>
+      <member refid="classOnboardSystemHandler_1a545f58466a9e1845589d338e9c9d24aa" prot="private" virt="non-virtual"><scope>OnboardSystemHandler</scope><name>logic_state_machine_timer_</name></member>
+      <member refid="classOnboardSystemHandler_1afdb5595dbc8a7f6b20cdf688054c54cb" prot="private" virt="non-virtual"><scope>OnboardSystemHandler</scope><name>nh_</name></member>
+      <member refid="classOnboardSystemHandler_1a50433d9368004a07ee1d410516f16d0f" prot="public" virt="non-virtual"><scope>OnboardSystemHandler</scope><name>OnboardSystemHandler</name></member>
+      <member refid="classOnboardSystemHandler_1a6ab804a5c415b7dcde04babd918738e2" prot="public" virt="non-virtual"><scope>OnboardSystemHandler</scope><name>OnboardSystemHandler</name></member>
+      <member refid="classOnboardSystemHandler_1adad64fd4ce2084f098acda5b49429421" prot="private" virt="non-virtual"><scope>OnboardSystemHandler</scope><name>parser_loader</name></member>
+      <member refid="classOnboardSystemHandler_1a252480269a7ed7ec50c3efa822ff29bd" prot="private" virt="non-virtual"><scope>OnboardSystemHandler</scope><name>state_machine_gui_connector_</name></member>
+      <member refid="classOnboardSystemHandler_1a0e5a200d748864e44dd87fa6c8f2c74b" prot="private" virt="non-virtual"><scope>OnboardSystemHandler</scope><name>status_timer_</name></member>
+      <member refid="classOnboardSystemHandler_1a141aad0e051602eae81fb82a2d8b14ec" prot="private" virt="non-virtual"><scope>OnboardSystemHandler</scope><name>system_status_pub_</name></member>
+      <member refid="classOnboardSystemHandler_1ab559ece31d6c987345d7c6bd5ad438a7" prot="private" virt="non-virtual"><scope>OnboardSystemHandler</scope><name>uav_controller_timer_</name></member>
+      <member refid="classOnboardSystemHandler_1a73a3c4d07639c00ce86588dc68de681f" prot="private" virt="non-virtual"><scope>OnboardSystemHandler</scope><name>uav_hardware_</name></member>
+      <member refid="classOnboardSystemHandler_1a8d7e3ee9b42b14479aac3405eb0c21a9" prot="private" virt="non-virtual"><scope>OnboardSystemHandler</scope><name>uav_system_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

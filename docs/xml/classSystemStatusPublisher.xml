@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classSystemStatusPublisher" kind="class" prot="public">
+    <compoundname>SystemStatusPublisher</compoundname>
+    <includes refid="system__status__publisher_8h" local="no">system_status_publisher.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classSystemStatusPublisher_1a8a9b2c7348d5d05d43ce4a8161e09fde" prot="private" static="no" mutable="no">
+        <type>ros::NodeHandle &amp;</type>
+        <definition>ros::NodeHandle&amp; SystemStatusPublisher&lt; LogicStateMachineT &gt;::nh_</definition>
+        <argsstring></argsstring>
+        <name>nh_</name>
+        <briefdescription>
+<para>NodeHandle used for publishing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_status_publisher.h" line="46" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_status_publisher.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystemStatusPublisher_1ac0bc7260ba140260c09795f4cfa008de" prot="private" static="no" mutable="no">
+        <type>ros::Publisher</type>
+        <definition>ros::Publisher SystemStatusPublisher&lt; LogicStateMachineT &gt;::system_status_pub_</definition>
+        <argsstring></argsstring>
+        <name>system_status_pub_</name>
+        <briefdescription>
+<para>publishes status messages </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_status_publisher.h" line="47" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_status_publisher.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystemStatusPublisher_1ac5b7265bac3688fa047e5f89d95fa659" prot="private" static="no" mutable="no">
+        <type><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;</type>
+        <definition>UAVSystem&amp; SystemStatusPublisher&lt; LogicStateMachineT &gt;::uav_system_</definition>
+        <argsstring></argsstring>
+        <name>uav_system_</name>
+        <briefdescription>
+<para>system whose status we are publishing </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_status_publisher.h" line="48" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_status_publisher.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystemStatusPublisher_1a54eae304176c7b423e1a795b91e33469" prot="private" static="no" mutable="no">
+        <type>LogicStateMachineT &amp;</type>
+        <definition>LogicStateMachineT&amp; SystemStatusPublisher&lt; LogicStateMachineT &gt;::logic_state_machine_</definition>
+        <argsstring></argsstring>
+        <name>logic_state_machine_</name>
+        <briefdescription>
+<para>state machine whose status we are publishing </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_status_publisher.h" line="50" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_status_publisher.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classSystemStatusPublisher_1ad02673651f93382972c5c5ea38b98e62" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>SystemStatusPublisher&lt; LogicStateMachineT &gt;::SystemStatusPublisher</definition>
+        <argsstring>(ros::NodeHandle &amp;nh, UAVSystem &amp;uav_system, LogicStateMachineT &amp;logic_state_machine)</argsstring>
+        <name>SystemStatusPublisher</name>
+        <param>
+          <type>ros::NodeHandle &amp;</type>
+          <declname>nh</declname>
+        </param>
+        <param>
+          <type><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;</type>
+          <declname>uav_system</declname>
+        </param>
+        <param>
+          <type>LogicStateMachineT &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeHandle to use for publishing system status </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>uav_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> whose status will be published </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State machine whose status will be published </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_status_publisher.h" line="19" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_status_publisher.h" bodystart="19" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystemStatusPublisher_1a66f73a2e489face69d6f9fc16abb15aa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void SystemStatusPublisher&lt; LogicStateMachineT &gt;::publishSystemStatus</definition>
+        <argsstring>()</argsstring>
+        <name>publishSystemStatus</name>
+        <briefdescription>
+<para>Publish system status and state machine status. </para>        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="todo_1_todo000013"><xreftitle>Todo</xreftitle><xrefdescription><para>Replace status text with html script. Need a html manager to automatically add table lines </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_status_publisher.h" line="30" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_status_publisher.h" bodystart="30" bodyend="43"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Responsible for publishing system status message. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Logic</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>state machine type that we are getting status from </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_status_publisher.h" line="11" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_status_publisher.h" bodystart="11" bodyend="51"/>
+    <listofallmembers>
+      <member refid="classSystemStatusPublisher_1a54eae304176c7b423e1a795b91e33469" prot="private" virt="non-virtual"><scope>SystemStatusPublisher</scope><name>logic_state_machine_</name></member>
+      <member refid="classSystemStatusPublisher_1a8a9b2c7348d5d05d43ce4a8161e09fde" prot="private" virt="non-virtual"><scope>SystemStatusPublisher</scope><name>nh_</name></member>
+      <member refid="classSystemStatusPublisher_1a66f73a2e489face69d6f9fc16abb15aa" prot="public" virt="non-virtual"><scope>SystemStatusPublisher</scope><name>publishSystemStatus</name></member>
+      <member refid="classSystemStatusPublisher_1ac0bc7260ba140260c09795f4cfa008de" prot="private" virt="non-virtual"><scope>SystemStatusPublisher</scope><name>system_status_pub_</name></member>
+      <member refid="classSystemStatusPublisher_1ad02673651f93382972c5c5ea38b98e62" prot="public" virt="non-virtual"><scope>SystemStatusPublisher</scope><name>SystemStatusPublisher</name></member>
+      <member refid="classSystemStatusPublisher_1ac5b7265bac3688fa047e5f89d95fa659" prot="private" virt="non-virtual"><scope>SystemStatusPublisher</scope><name>uav_system_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

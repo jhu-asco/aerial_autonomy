@@ -1,0 +1,82 @@
+\hypertarget{structTakeoffInternalActionFunctor__}{\section{Takeoff\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$ Struct Template Reference}
+\label{structTakeoffInternalActionFunctor__}\index{Takeoff\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$@{Takeoff\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}}
+}
+
+
+Check when takeoff is complete, and ensure enough battery voltage.  
+
+
+
+
+{\ttfamily \#include $<$takeoff\-\_\-functors.\-h$>$}
+
+
+
+Inheritance diagram for Takeoff\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{structTakeoffInternalActionFunctor____inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Takeoff\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{structTakeoffInternalActionFunctor____coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{structTakeoffInternalActionFunctor___a2118df6e326662cd0088344499e49696}{run} (\hyperlink{classUAVSystem}{U\-A\-V\-System} \&robot\-\_\-system, Logic\-State\-Machine\-T \&logic\-\_\-state\-\_\-machine)
+\begin{DoxyCompactList}\small\item\em Function to check when takeoff is complete. If battery is low while takeoff, trigger Land event. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Logic\-State\-Machine\-T$>$struct Takeoff\-Internal\-Action\-Functor\-\_\-$<$ Logic\-State\-Machine\-T $>$}
+
+Check when takeoff is complete, and ensure enough battery voltage. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Logic\-State\-Machine\-T} & Logic state machine used to process events \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{structTakeoffInternalActionFunctor___a2118df6e326662cd0088344499e49696}{\index{Takeoff\-Internal\-Action\-Functor\-\_\-@{Takeoff\-Internal\-Action\-Functor\-\_\-}!run@{run}}
+\index{run@{run}!TakeoffInternalActionFunctor_@{Takeoff\-Internal\-Action\-Functor\-\_\-}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Logic\-State\-Machine\-T $>$ void {\bf Takeoff\-Internal\-Action\-Functor\-\_\-}$<$ Logic\-State\-Machine\-T $>$\-::run (
+\begin{DoxyParamCaption}
+\item[{{\bf U\-A\-V\-System} \&}]{robot\-\_\-system, }
+\item[{Logic\-State\-Machine\-T \&}]{logic\-\_\-state\-\_\-machine}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}}\label{structTakeoffInternalActionFunctor___a2118df6e326662cd0088344499e49696}
+
+
+Function to check when takeoff is complete. If battery is low while takeoff, trigger Land event. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000010}{Todo}]add a parameter for height when to transition from takeoff to hovering\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em robot\-\_\-system} & robot system to get sensor data \\
+\hline
+{\em logic\-\_\-state\-\_\-machine} & logic state machine to trigger events \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{structEventAgnosticActionFunctor_a53a48938d68370ff2ef262222565ffcf}{Event\-Agnostic\-Action\-Functor$<$ U\-A\-V\-System, Logic\-State\-Machine\-T $>$}.
+
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+include/aerial\-\_\-autonomy/actions\-\_\-guards/\hyperlink{takeoff__functors_8h}{takeoff\-\_\-functors.\-h}\end{DoxyCompactItemize}
