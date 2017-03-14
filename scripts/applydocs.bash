@@ -6,7 +6,7 @@ if ( ! git diff-index --quiet HEAD -- ); then
 else
   # Go to root of git
   cd `git rev-parse --show-toplevel`
-  doxygen
+  doxygen > /dev/null
   git config merge.renameLimit 999999
   echo "Adding docs to git"
   git add -f docs > /dev/null
