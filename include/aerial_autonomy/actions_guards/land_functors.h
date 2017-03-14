@@ -15,7 +15,7 @@ template <class LogicStateMachineT>
 struct LandTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system, LogicStateMachineT &) {
-    // TODO Have to abort all hardware controllers not just UAV.
+    /// \todo Have to abort all hardware controllers not just UAV.
     // Need to iterate through enum class HardwareType
     VLOG(1) << "Aborting UAV Controllers";
     robot_system.abortController(HardwareType::UAV);
@@ -42,7 +42,7 @@ struct LandInternalActionFunctor_
   */
   void run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     parsernode::common::quaddata data = robot_system.getUAVData();
-    // Can also use uav status here TODO (Gowtham)
+    /// \todo (Gowtham) Can also use uav status here
     if (data.localpos.z < robot_system.getConfiguration().landing_height()) {
       VLOG(1) << "Completed Landing";
       logic_state_machine.process_event(Completed());

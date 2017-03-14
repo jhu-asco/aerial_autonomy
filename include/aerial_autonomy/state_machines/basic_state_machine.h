@@ -138,6 +138,9 @@ public:
   * @brief Landed state
   */
   struct Landed : msmf::state<> {
+    /**
+    * @brief Internal event without any action
+    */
     struct internal_transition_table
         : boost::mpl::vector<
               msmf::Internal<InternalTransitionEvent, msmf::none, msmf::none>> {

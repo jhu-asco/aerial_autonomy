@@ -58,7 +58,6 @@ public:
                 std::ref(*system_status_pub_)),
             std::chrono::milliseconds(config_.status_timer_duration())) {
     // Initialize UAV plugin
-    // TODO Gowtham: Make parser plugin throw exception if it cannot initialize
     uav_hardware_->initialize(nh);
 
     // Get the party started

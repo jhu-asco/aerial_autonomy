@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 """
+@package aerial_autonomy GUI source code
+to provide user the ability to
+trigger events from GUI to state machine
+
+@package aerial_autonomy.aerial_autonomy_gui
 Generate a GUI to trigger events for state machine
 
 @author: gowtham

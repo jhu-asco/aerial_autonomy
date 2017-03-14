@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """
-Created on Tue Feb  7 01:21:27 2017
+@package aerial_autonomy.ros_event_trigger Ros connection between GUI and state machine
 
-@author: gowtham
+@author gowtham
 """
 import rospy
 import rospkg

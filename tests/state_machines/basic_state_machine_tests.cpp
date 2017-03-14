@@ -176,18 +176,7 @@ protected:
   boost::mutex signal_threads_mutex_;
   boost::condition_variable signal_condition_;
 
-  void awaitStartCondition() {
-    boost::unique_lock<boost::mutex> lk(signal_threads_mutex_);
-    signal_condition_.wait(lk);
-  }
-
-  void signalStartCondition() {
-    boost::lock_guard<boost::mutex> lk(signal_threads_mutex_);
-    signal_condition_.notify_all();
-  }
-
   void internalTransitionEventCall() {
-    awaitStartCondition();
     for (int count = 0; count < 200; ++count) {
       logic_state_machine->process_event(InternalTransitionEvent());
     }
@@ -195,7 +184,6 @@ protected:
 
   void takeoffEventCall() {
     logic_state_machine->process_event(Takeoff());
-    signalStartCondition();
     for (int count = 0; count < 200; ++count) {
       logic_state_machine->process_event(InternalTransitionEvent());
     }
