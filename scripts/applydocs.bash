@@ -19,20 +19,20 @@ else
   git pull
   echo "Applying docs to gh-pages"
   git stash pop > /dev/null 2> /dev/null
-  set -o pipefail
-  grep --exclude=\*.{bash,swp} -lr '<<<<<<< ' . | xargs git checkout --theirs
-  error=$?
-  if [ $error -ne 0 ]; then
-    echo "Failed to checkout applydocs"
-    echo "Reverting to original state"
-    git reset HEAD
-    git checkout .
-    git checkout $branch_name
-    exit 1
-  fi
-  git add -u . 
-  git config --unset merge.renameLimit
   if ( ! git diff-index --quiet HEAD -- ); then
+    set -o pipefail
+    grep --exclude=\*.{bash,swp} -lr '<<<<<<< ' . | xargs git checkout --theirs
+    error=$?
+    if [ $error -ne 0 ]; then
+      echo "Failed to checkout applydocs"
+      echo "Reverting to original state"
+      git reset HEAD
+      git checkout .
+      git checkout $branch_name
+      exit 1
+    fi
+    git add -u .
+    git config --unset merge.renameLimit
     echo "Commiting docs"
     git commit -m "Applying Docs from $branch_name on $( date )"
     echo "Pushing docs"
