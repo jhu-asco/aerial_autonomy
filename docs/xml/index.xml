@@ -481,6 +481,8 @@
   </compound>
   <compound refid="creating__state__machine_8md" kind="file"><name>creating_state_machine.md</name>
   </compound>
+  <compound refid="README_8md" kind="file"><name>README.md</name>
+  </compound>
   <compound refid="____init_____8py" kind="file"><name>__init__.py</name>
   </compound>
   <compound refid="aerial__autonomy__gui_8py" kind="file"><name>aerial_autonomy_gui.py</name>
@@ -507,6 +509,8 @@
   <compound refid="md_markdown_scripts_class_groups" kind="page"><name>md_markdown_scripts_class_groups</name>
   </compound>
   <compound refid="md_markdown_scripts_creating_state_machine" kind="page"><name>md_markdown_scripts_creating_state_machine</name>
+  </compound>
+  <compound refid="md_README" kind="page"><name>md_README</name>
   </compound>
   <compound refid="todo" kind="page"><name>todo</name>
   </compound>

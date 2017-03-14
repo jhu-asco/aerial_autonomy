@@ -10,11 +10,11 @@
 <codeline lineno="1"><highlight class="preprocessor">#<sp/>ASCO<sp/>Aerial<sp/>Autonomy</highlight></codeline>
 <codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">##<sp/>Introduction</highlight></codeline>
-<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal">The<sp/>introduction<sp/>to<sp/>the<sp/>project<sp/>can<sp/>be<sp/>found<sp/>[here](markdown_scripts/background.md).</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal">The<sp/>doxygen<sp/>documentation<sp/>to<sp/>the<sp/>project<sp/>can<sp/>be<sp/>found<sp/>[here](https:</highlight><highlight class="comment">//jhu-asco.github.io/aerial_autonomy/).</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal">##<sp/>Setup</highlight></codeline>
-<codeline lineno="8"><highlight class="normal">Run<sp/>the<sp/>setup<sp/>script<sp/>in<sp/>setup/setup.sh<sp/>to<sp/>configure<sp/>Git<sp/>hooks.<sp/><sp/></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">##<sp/>Setup</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal">Run<sp/>the<sp/>setup<sp/>script<sp/>in<sp/>setup/setup.sh<sp/>to<sp/>configure<sp/>Git<sp/>hooks.<sp/><sp/></highlight></codeline>
 <codeline lineno="9"><highlight class="normal"></highlight></codeline>
 <codeline lineno="10"><highlight class="normal">Install<sp/>the<sp/>following<sp/>dependencies<sp/>(lcov,<sp/>protobuf,<sp/>doxygen,<sp/>doxypy,<sp/>coverxygen,<sp/>google-glog,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">-loader).<sp/>On<sp/>Ubuntu<sp/>14.04<sp/>run<sp/>the<sp/>following<sp/>line<sp/>in<sp/>a<sp/>terminal</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight></codeline>
@@ -61,11 +61,9 @@
 <codeline lineno="52"><highlight class="normal"></highlight></codeline>
 <codeline lineno="53"><highlight class="normal">The<sp/>test<sp/>generation<sp/>is<sp/>integrated<sp/>into<sp/>the<sp/>`pre-push`<sp/>commit<sp/>hook.<sp/>This<sp/>runs<sp/>the<sp/>above<sp/>test<sp/>coverage<sp/>generation<sp/>script<sp/>and<sp/>verifies<sp/>that<sp/>the<sp/>coverage<sp/>level<sp/>is<sp/>above<sp/>95%<sp/>threshold.<sp/>This<sp/>can<sp/>be<sp/>skipped<sp/>by<sp/>either<sp/>naming<sp/>the<sp/>branch<sp/>as<sp/>`develop[your_branch_name]`<sp/>or<sp/>using<sp/>`git<sp/>push<sp/>--no-verify`.</highlight></codeline>
 <codeline lineno="54"><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal">##<sp/>Additional<sp/>Resources</highlight></codeline>
-<codeline lineno="56"><highlight class="normal">-<sp/>[Background](markdown_scripts/background.md)</highlight></codeline>
-<codeline lineno="57"><highlight class="normal">-<sp/>[Creating<sp/>a<sp/>State<sp/>Machine](markdown_scripts/creating_state_machine.md)</highlight></codeline>
-<codeline lineno="58"><highlight class="normal">-<sp/>[Classes<sp/>by<sp/>group](markdown_scripts/class_groups.md)</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">##<sp/>Uploading<sp/>documentation</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">The<sp/>documentation<sp/>is<sp/>uploaded<sp/>through<sp/>`gh-pages`<sp/>branch.<sp/>The<sp/>docs<sp/>are<sp/>created<sp/>in<sp/>master<sp/>and<sp/>passed<sp/>to<sp/>the<sp/>`gh-pages`<sp/>branch<sp/>using<sp/>`scripts/applydocs.bash`<sp/>script.<sp/>The<sp/>script<sp/>checks<sp/>that<sp/>there<sp/>are<sp/>not<sp/>uncommited<sp/>changes<sp/>before<sp/>uploading<sp/>documentation<sp/>to<sp/>avoid<sp/>issues<sp/>with<sp/>git.<sp/>The<sp/>script<sp/>also<sp/>requires<sp/>that<sp/>you<sp/>explicitly<sp/>link<sp/>gh-pages<sp/>branch<sp/>to<sp/>the<sp/>remote<sp/>using<sp/>`git<sp/>branch<sp/>--set-upstream-to=[GH_PAGES_REMOTE]`</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/markdown_scripts/README.md"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/README.md"/>
   </compounddef>
 </doxygen>

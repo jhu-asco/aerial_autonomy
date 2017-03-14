@@ -6,36 +6,36 @@
     <includes local="no">boost/thread/recursive_mutex.hpp</includes>
     <includedby refid="basic__state__machine_8h" local="no">include/aerial_autonomy/state_machines/basic_state_machine.h</includedby>
     <incdepgraph>
-      <node id="1194">
+      <node id="1196">
         <label>boost/thread/recursive_mutex.hpp</label>
       </node>
-      <node id="1193">
+      <node id="1195">
         <label>boost/msm/back/state_machine.hpp</label>
       </node>
-      <node id="1192">
+      <node id="1194">
         <label>include/aerial_autonomy/common/thread_safe_state_machine.h</label>
         <link refid="thread_safe_state_machine.h"/>
-        <childnode refid="1193" relation="include">
+        <childnode refid="1195" relation="include">
         </childnode>
-        <childnode refid="1194" relation="include">
+        <childnode refid="1196" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1197">
+      <node id="1199">
         <label>src/aerial_autonomy_node.cpp</label>
         <link refid="aerial__autonomy__node_8cpp"/>
       </node>
-      <node id="1196">
+      <node id="1198">
         <label>include/aerial_autonomy/state_machines/basic_state_machine.h</label>
         <link refid="basic__state__machine_8h"/>
-        <childnode refid="1197" relation="include">
+        <childnode refid="1199" relation="include">
         </childnode>
       </node>
-      <node id="1195">
+      <node id="1197">
         <label>include/aerial_autonomy/common/thread_safe_state_machine.h</label>
         <link refid="thread_safe_state_machine.h"/>
-        <childnode refid="1196" relation="include">
+        <childnode refid="1198" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

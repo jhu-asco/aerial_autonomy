@@ -4,48 +4,48 @@
     <compoundname>manual_rpyt_controller.cpp</compoundname>
     <includes refid="manual__rpyt__controller_8h" local="yes">aerial_autonomy/controllers/manual_rpyt_controller.h</includes>
     <incdepgraph>
-      <node id="1928">
+      <node id="1932">
         <label>boost/thread/mutex.hpp</label>
       </node>
-      <node id="1931">
+      <node id="1935">
         <label>aerial_autonomy/types/joysticks.h</label>
         <link refid="joysticks_8h"/>
       </node>
-      <node id="1927">
+      <node id="1931">
         <label>aerial_autonomy/controllers/base_controller.h</label>
         <link refid="base__controller_8h"/>
-        <childnode refid="1928" relation="include">
-        </childnode>
-      </node>
-      <node id="1929">
-        <label>aerial_autonomy/types/empty_goal.h</label>
-        <link refid="empty__goal_8h"/>
-      </node>
-      <node id="1925">
-        <label>src/controllers/manual_rpyt_controller.cpp</label>
-        <link refid="manual_rpyt_controller.cpp"/>
-        <childnode refid="1926" relation="include">
-        </childnode>
-      </node>
-      <node id="1926">
-        <label>aerial_autonomy/controllers/manual_rpyt_controller.h</label>
-        <link refid="manual__rpyt__controller_8h"/>
-        <childnode refid="1927" relation="include">
-        </childnode>
-        <childnode refid="1929" relation="include">
-        </childnode>
-        <childnode refid="1930" relation="include">
-        </childnode>
         <childnode refid="1932" relation="include">
         </childnode>
       </node>
-      <node id="1930">
-        <label>aerial_autonomy/types/joysticks_yaw.h</label>
-        <link refid="joysticks__yaw_8h"/>
-        <childnode refid="1931" relation="include">
+      <node id="1933">
+        <label>aerial_autonomy/types/empty_goal.h</label>
+        <link refid="empty__goal_8h"/>
+      </node>
+      <node id="1929">
+        <label>src/controllers/manual_rpyt_controller.cpp</label>
+        <link refid="manual_rpyt_controller.cpp"/>
+        <childnode refid="1930" relation="include">
         </childnode>
       </node>
-      <node id="1932">
+      <node id="1930">
+        <label>aerial_autonomy/controllers/manual_rpyt_controller.h</label>
+        <link refid="manual__rpyt__controller_8h"/>
+        <childnode refid="1931" relation="include">
+        </childnode>
+        <childnode refid="1933" relation="include">
+        </childnode>
+        <childnode refid="1934" relation="include">
+        </childnode>
+        <childnode refid="1936" relation="include">
+        </childnode>
+      </node>
+      <node id="1934">
+        <label>aerial_autonomy/types/joysticks_yaw.h</label>
+        <link refid="joysticks__yaw_8h"/>
+        <childnode refid="1935" relation="include">
+        </childnode>
+      </node>
+      <node id="1936">
         <label>aerial_autonomy/types/roll_pitch_yaw_thrust.h</label>
         <link refid="roll__pitch__yaw__thrust_8h"/>
       </node>
