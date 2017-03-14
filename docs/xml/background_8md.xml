@@ -72,14 +72,14 @@
 <codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>event1<sp/>#<sp/>Event<sp/>name</highlight></codeline>
 <codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>event2<sp/>#<sp/>Event<sp/>name</highlight></codeline>
 <codeline lineno="65"><highlight class="normal"></highlight></codeline>
-<codeline lineno="66"><highlight class="normal">The<sp/>event<sp/>files<sp/>can<sp/>also<sp/>include<sp/>other<sp/>event<sp/>file<sp/>as<sp/>shown<sp/>in<sp/>`visual_servoing_events`<sp/>file.<sp/>The<sp/>event<sp/>manager<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">provides<sp/>a<sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal"><sp/>to<sp/>trigger<sp/>events<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>the<sp/>state<sp/>machine<sp/>by<sp/>name.<sp/>The<sp/>GUI<sp/>takes<sp/>in<sp/>an<sp/>event<sp/>file<sp/>and<sp/>automatically<sp/>creates<sp/>buttons<sp/>corresponding<sp/>to<sp/>events.<sp/>The<sp/>user<sp/>can<sp/>then<sp/>trigger<sp/>the<sp/>events<sp/>by<sp/>pressing<sp/>buttons<sp/>in<sp/>GUI</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">The<sp/>event<sp/>files<sp/>can<sp/>also<sp/>include<sp/>other<sp/>event<sp/>file<sp/>as<sp/>shown<sp/>in<sp/>[visual_servoing_events](events/visual_servoing_events)<sp/>file.<sp/>The<sp/>event<sp/>manager<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>provides<sp/>a<sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal"><sp/>to<sp/>trigger<sp/>events<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>the<sp/>state<sp/>machine<sp/>by<sp/>name.<sp/>The<sp/>GUI<sp/>takes<sp/>in<sp/>an<sp/>event<sp/>file<sp/>and<sp/>automatically<sp/>creates<sp/>buttons<sp/>corresponding<sp/>to<sp/>events.<sp/>The<sp/>user<sp/>can<sp/>then<sp/>trigger<sp/>the<sp/>events<sp/>by<sp/>pressing<sp/>buttons<sp/>in<sp/>GUI</highlight></codeline>
 <codeline lineno="67"><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">##<sp/>Classes<sp/>segregated<sp/>into<sp/>groups</highlight></codeline>
-<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal">##<sp/>Classes<sp/>segregated<sp/>into<sp/>groups</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
 <codeline lineno="70"><highlight class="normal">The<sp/>classes<sp/>created<sp/>in<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>project<sp/>can<sp/>be<sp/>found<sp/>[here](markdown_scripts/class_groups.md)</highlight></codeline>
 <codeline lineno="71"><highlight class="normal"></highlight></codeline>
-<codeline lineno="72"><highlight class="normal">##<sp/>Additional<sp/>Resources</highlight></codeline>
-<codeline lineno="73"><highlight class="normal">-<sp/>[Creating<sp/>a<sp/>State<sp/>Machine](markdown_scripts/creating_state_machine.md)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">##<sp/>Additional<sp/>Resources</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal">-<sp/>[Creating<sp/>a<sp/>State<sp/>Machine](markdown_scripts/creating_state_machine.md)</highlight></codeline>
 <codeline lineno="74"><highlight class="normal">-<sp/>[Classes<sp/>by<sp/>group](markdown_scripts/class_groups.md)</highlight></codeline>
 <codeline lineno="75"><highlight class="normal">-<sp/>[Setup<sp/>and<sp/>README](README.md)</highlight></codeline>
     </programlisting>
