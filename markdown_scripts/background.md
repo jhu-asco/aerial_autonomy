@@ -57,7 +57,7 @@ The Triggers should be connected to the `StateMachine` using `StateMachineGUICon
 The triggers are events without any information. There can also be commands with information using `Rviz`  goalpose callbacks to send the drone to a specific location.
 
 ##  Event Generation
-The events that trigger state machine transitions are created using event files in the `events` folder. The event header files are generated using CMakeLists similar to ros messages. The sysntax for the event files is as follows:
+The events that trigger state machine transitions are created using event files in the `events` folder. The event header files are generated using CMakeLists similar to ros messages. The syntax for the event files is as follows:
 
     EventManager:  # Event manager name
        event1 # Event name

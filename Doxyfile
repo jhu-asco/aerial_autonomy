@@ -731,7 +731,7 @@ WARN_FORMAT            = "$file:$line: $text"
 # messages should be written. If left blank the output is written to standard
 # error (stderr).
 
-WARN_LOGFILE           = "doxy_errors.txt"
+WARN_LOGFILE           = "doxygen_files/doxy_errors.txt"
 
 #---------------------------------------------------------------------------
 # Configuration options related to the input files
@@ -1045,7 +1045,7 @@ HTML_HEADER            =
 # that doxygen normally uses.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_FOOTER            =custom_footer.html
+HTML_FOOTER            = "doxygen_files/custom_footer.html"
 
 # The HTML_STYLESHEET tag can be used to specify a user-defined cascading style
 # sheet that is used by each HTML page. It can be used to fine-tune the look of
@@ -1068,7 +1068,7 @@ HTML_STYLESHEET        =
 # see the documentation.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_EXTRA_STYLESHEET  = "code.css"
+HTML_EXTRA_STYLESHEET  = "doxygen_files/code.css"
 
 # The HTML_EXTRA_FILES tag can be used to specify one or more extra images or
 # other source files which should be copied to the HTML output directory. Note

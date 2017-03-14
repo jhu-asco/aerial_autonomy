@@ -84,6 +84,8 @@ public:
   * controllers
   *
   * @param drone_hardware input hardware to send commands back
+  * @param config The system configuration specifying the parameters such as
+  * takeoff height, etc.
   */
   UAVSystem(parsernode::Parser &drone_hardware, UAVSystemConfig config)
       : drone_hardware_(drone_hardware),
