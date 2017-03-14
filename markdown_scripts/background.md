@@ -56,6 +56,15 @@ The GUI contains a text box that updates the status of all the hardware plugins 
 The Triggers should be connected to the `StateMachine` using `StateMachineGUIConnector` class.
 The triggers are events without any information. There can also be commands with information using `Rviz`  goalpose callbacks to send the drone to a specific location.
 
+##  Event Generation
+The events that trigger state machine transitions are created using event files in the `events` folder. The event header files are generated using CMakeLists similar to ros messages. The sysntax for the event files is as follows:
+
+    EventManager:  # Event manager name
+       event1 # Event name
+       event2 # Event name
+
+The event files can also include other event file as shown in `visual_servoing_events` file. The event manager class provides a function to trigger events for the state machine by name. The GUI takes in an event file and automatically creates buttons corresponding to events. The user can then trigger the events by pressing buttons in GUI
+
 ## Classes segregated into groups
 
 The classes created in this project can be found [here](markdown_scripts/class_groups.md)
