@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_2f3435fd4a1c45342a3549d747e9cf9a" kind="dir">
+    <compoundname>events</compoundname>
+    <innerfile refid="visual__servoing__events">visual_servoing_events</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/events/"/>
+  </compounddef>
+</doxygen>
