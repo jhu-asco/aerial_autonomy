@@ -221,7 +221,8 @@ public:
   * @tparam FSM Backend to trigger events etc
   * @tparam Event Event type that triggered no transition
   * @param e event instance
-  * @param state Current state when event is received
+  * @param  state_index The index of the state where the no transition event is
+  * received
   */
   template <class FSM, class Event>
   void no_transition(Event const &e, FSM &, int state_index) {
