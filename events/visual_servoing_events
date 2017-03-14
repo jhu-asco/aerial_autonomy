@@ -1,3 +1,0 @@
-VisualServoingEventManager:
-  basic_events/BasicEventManager
-  FollowTrajectory
