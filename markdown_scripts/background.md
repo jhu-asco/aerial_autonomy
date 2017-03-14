@@ -63,7 +63,7 @@ The events that trigger state machine transitions are created using event files 
        event1 # Event name
        event2 # Event name
 
-The event files can also include other event file as shown in `visual_servoing_events` file. The event manager class provides a function to trigger events for the state machine by name. The GUI takes in an event file and automatically creates buttons corresponding to events. The user can then trigger the events by pressing buttons in GUI
+The event files can also include other event file as shown in [visual_servoing_events](https://github.com/jhu-asco/aerial_autonomy/blob/master/events/visual_servoing_events) file. The event manager class provides a function to trigger events for the state machine by name. The GUI takes in an event file and automatically creates buttons corresponding to events. The user can then trigger the events by pressing buttons in GUI
 
 ## Classes segregated into groups
 
