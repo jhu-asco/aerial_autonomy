@@ -66,11 +66,9 @@
 <codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="58"><highlight class="normal">The<sp/>classes<sp/>created<sp/>in<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>project<sp/>can<sp/>be<sp/>found<sp/>[here](markdown_scripts/class_groups.md)</highlight></codeline>
 <codeline lineno="59"><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal">@file<sp/>Introduction<sp/>to<sp/>subcomponents<sp/>of<sp/>the<sp/>package</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight></codeline>
-<codeline lineno="62"><highlight class="normal">##<sp/>Additional<sp/>Resources</highlight></codeline>
-<codeline lineno="63"><highlight class="normal">-<sp/>[Creating<sp/>a<sp/>State<sp/>Machine](markdown_scripts/creating_state_machine.md)</highlight></codeline>
-<codeline lineno="64"><highlight class="normal">-<sp/>[Classes<sp/>by<sp/>group](markdown_scripts/class_groups.md)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">##<sp/>Additional<sp/>Resources</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">-<sp/>[Creating<sp/>a<sp/>State<sp/>Machine](markdown_scripts/creating_state_machine.md)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">-<sp/>[Classes<sp/>by<sp/>group](markdown_scripts/class_groups.md)</highlight></codeline>
     </programlisting>
     <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/markdown_scripts/background.md"/>
   </compounddef>
