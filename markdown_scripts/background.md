@@ -19,6 +19,9 @@ The goal of the project is to create a generic state machine interface for the q
 4. GUIFrontEnd
 5. OnboardSystemHandler
 
+# Setup
+The setup and brief README for the project is presented [here](README.md)
+
 # Components
 ## Robot System
 
@@ -60,3 +63,4 @@ The classes created in this project can be found [here](markdown_scripts/class_g
 ## Additional Resources
 - [Creating a State Machine](markdown_scripts/creating_state_machine.md)
 - [Classes by group](markdown_scripts/class_groups.md)
+- [Setup and README](README.md)

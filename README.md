@@ -1,7 +1,7 @@
 # ASCO Aerial Autonomy
 
 ## Introduction
-The doxygen documentation to the project can be found __TODO: Add Link here__.
+The doxygen documentation to the project can be found [here](https://jhu-asco.github.io/aerial_autonomy/).
 
 
 ## Setup
@@ -51,3 +51,6 @@ We use `lcov` to generate the test coverage report into the `test_coverage_info`
 by running CMake using `catkin build aerial_autonomy`.
 
 The test generation is integrated into the `pre-push` commit hook. This runs the above test coverage generation script and verifies that the coverage level is above 95% threshold. This can be skipped by either naming the branch as `develop[your_branch_name]` or using `git push --no-verify`.
+
+## Uploading documentation
+The documentation is uploaded through `gh-pages` branch. The docs are created in master and passed to the `gh-pages` branch using `scripts/applydocs.bash` script. The script checks that there are not uncommited changes before uploading documentation to avoid issues with git. The script also requires that you explicitly link gh-pages branch to the remote using `git branch --set-upstream-to=[GH_PAGES_REMOTE]`

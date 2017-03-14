@@ -31,6 +31,13 @@ else
   git config --unset merge.renameLimit
   echo "Commiting docs"
   git commit -m "Applying Docs from $branch_name on $( date )"
+  echo "Pushing docs"
+  git push --no-verify
+  error=$?
+  if [ $error -ne 0 ]; then
+    echo "Failed to push; Set git branch --set-upstream-to=[GH_PAGES_BRANCH_REMOTE]"
+    exit 1
+  fi
   echo "Reverting to original branch"
   git checkout $branch_name
 fi
