@@ -10,7 +10,7 @@ else
   doxygen > /dev/null
   git config merge.renameLimit 999999
   echo "Adding docs to git"
-  git add -f docs > /dev/null
+  git add -f docs/html docs/xml > /dev/null
   echo "Stashing docs"
   git stash  > /dev/null
   echo "Checking gh-pages"
