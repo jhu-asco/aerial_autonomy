@@ -15,7 +15,7 @@ doxygen $GIT_REPO_PATH/Doxyfile > /dev/null
 [ -d documentation_coverage_info ] || mkdir documentation_coverage_info
 python -m coverxygen --xml-dir ./docs/xml --src-dir . --output ./documentation_coverage_info/doc_coverage.info > /dev/null
 echo "Checking documentation Coverage..."
-./setup/test_coverage.py --threshold $threshold ./documentation_coverage_info/doc_coverage.info
+./scripts/test_coverage.py --threshold $threshold ./documentation_coverage_info/doc_coverage.info
 error=$?
 if [ $error -ne 0 ]
 then
@@ -49,7 +49,7 @@ fi
 # Check test coverage
 threshold=95
 echo "Checking test coverage..."
-./setup/test_coverage.py --threshold $threshold ./test_coverage_info/test_coverage.info
+./scripts/test_coverage.py --threshold $threshold ./test_coverage_info/test_coverage.info
 error=$?
 if [ $error -ne 0 ]
 then
