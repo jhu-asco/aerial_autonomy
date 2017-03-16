@@ -311,4 +311,4 @@ install(FILES plugin.xml
         )
 
 ## Configure script to generate test coverage
-configure_file(setup/generate_test_coverage.bash.in ${CMAKE_CURRENT_SOURCE_DIR}/scripts/generate_test_coverage.bash)
+configure_file(scripts/generate_test_coverage.bash.in ${CMAKE_CURRENT_SOURCE_DIR}/scripts/generate_test_coverage.bash)
