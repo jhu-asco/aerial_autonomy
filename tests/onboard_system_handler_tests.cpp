@@ -1,13 +1,13 @@
-#include <aerial_autonomy/basic_events.h>
 #include <aerial_autonomy/onboard_system_handler.h>
-#include <aerial_autonomy/state_machines/basic_state_machine.h>
+#include <aerial_autonomy/state_machines/uav_state_machine.h>
+#include <aerial_autonomy/uav_basic_events.h>
 #include <gtest/gtest.h>
 #include <ros/ros.h>
 
 #include <geometry_msgs/PoseStamped.h>
 #include <std_msgs/String.h>
 
-using namespace basic_events;
+using namespace uav_basic_events;
 
 class OnboardSystemHandlerTests : public ::testing::Test {
 public:
@@ -20,8 +20,8 @@ public:
         ->set_minimum_takeoff_height(0.4);
 
     onboard_system_handler_.reset(
-        new OnboardSystemHandler<LogicStateMachine,
-                                 BasicEventManager<LogicStateMachine>>(
+        new OnboardSystemHandler<UAVStateMachine,
+                                 UAVEventManager<UAVStateMachine>>(
             nh_, onboard_system_config));
     event_pub_ = nh_send_.advertise<std_msgs::String>("event_manager", 1);
     pose_pub_ =
@@ -70,8 +70,8 @@ private:
   ros::Subscriber status_subscriber_; ///< System status subscriber
 
 public:
-  std::unique_ptr<OnboardSystemHandler<LogicStateMachine,
-                                       BasicEventManager<LogicStateMachine>>>
+  std::unique_ptr<OnboardSystemHandler<UAVStateMachine,
+                                       UAVEventManager<UAVStateMachine>>>
       onboard_system_handler_; ///< system contains robot system, state machine
 };
 

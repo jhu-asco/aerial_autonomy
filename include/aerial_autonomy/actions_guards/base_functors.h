@@ -39,7 +39,8 @@ struct ActionFunctor {
                   TargetState &) {
     static_assert(
         std::is_same<RobotSystemT &,
-                     decltype(logic_state_machine.robot_system_)>::value,
+                     decltype(
+                         logic_state_machine.robot_system_container_())>::value,
         "Robot system in logic state machine is not the same as one used in "
         "action functor");
     static_assert(
@@ -47,7 +48,8 @@ struct ActionFunctor {
         "Template Logic state machine arg is not subclass of provided FSM");
     LogicStateMachineT *logic_state_machine_cast =
         static_cast<LogicStateMachineT *>(&logic_state_machine);
-    run(event, logic_state_machine.robot_system_, *logic_state_machine_cast);
+    run(event, logic_state_machine.robot_system_container_(),
+        *logic_state_machine_cast);
   }
 
   /**
@@ -93,7 +95,8 @@ struct GuardFunctor {
                   TargetState &) {
     static_assert(
         std::is_same<RobotSystemT &,
-                     decltype(logic_state_machine.robot_system_)>::value,
+                     decltype(
+                         logic_state_machine.robot_system_container_())>::value,
         "Robot system in logic state machine is not the same as one used in "
         "action functor");
     static_assert(
@@ -101,7 +104,7 @@ struct GuardFunctor {
         "Template Logic state machine arg is not subclass of provided FSM");
     LogicStateMachineT *logic_state_machine_cast =
         static_cast<LogicStateMachineT *>(&logic_state_machine);
-    return guard(event, logic_state_machine.robot_system_,
+    return guard(event, logic_state_machine.robot_system_container_(),
                  *logic_state_machine_cast);
   }
   /**
@@ -142,7 +145,8 @@ struct EventAgnosticActionFunctor {
                   TargetState &) {
     static_assert(
         std::is_same<RobotSystemT &,
-                     decltype(logic_state_machine.robot_system_)>::value,
+                     decltype(
+                         logic_state_machine.robot_system_container_())>::value,
         "Robot system in logic state machine is not the same as one used in "
         "action functor");
     static_assert(
@@ -150,7 +154,8 @@ struct EventAgnosticActionFunctor {
         "Template Logic state machine arg is not subclass of provided FSM");
     LogicStateMachineT *logic_state_machine_cast =
         static_cast<LogicStateMachineT *>(&logic_state_machine);
-    run(logic_state_machine.robot_system_, *logic_state_machine_cast);
+    run(logic_state_machine.robot_system_container_(),
+        *logic_state_machine_cast);
   }
 
   /**
@@ -192,7 +197,8 @@ struct EventAgnosticGuardFunctor {
                   TargetState &) {
     static_assert(
         std::is_same<RobotSystemT &,
-                     decltype(logic_state_machine.robot_system_)>::value,
+                     decltype(
+                         logic_state_machine.robot_system_container_())>::value,
         "Robot system in logic state machine is not the same as one used in "
         "action functor");
     static_assert(
@@ -200,7 +206,8 @@ struct EventAgnosticGuardFunctor {
         "Template Logic state machine arg is not subclass of provided FSM");
     LogicStateMachineT *logic_state_machine_cast =
         static_cast<LogicStateMachineT *>(&logic_state_machine);
-    return guard(logic_state_machine.robot_system_, *logic_state_machine_cast);
+    return guard(logic_state_machine.robot_system_container_(),
+                 *logic_state_machine_cast);
   }
 
   /**

@@ -2,12 +2,6 @@
 /**
  * Basic State Machine that handles flying and going to a goal state
  *
- * States:
- *      Landed
- *      TakingOff
- *      Hovering
- *      ReachingGoal
- *      Landing
  * Events:
  *      >>> Without args
  *      Land
@@ -27,7 +21,7 @@
 #include <boost/msm/front/functor_row.hpp>
 
 // Actions and guards used
-#include <aerial_autonomy/actions_guards/basic_states.h>
+#include <aerial_autonomy/actions_guards/uav_states_actions.h>
 
 // Robot System used
 #include <aerial_autonomy/robot_systems/uav_system.h>
@@ -38,56 +32,31 @@
 // Store state machine states
 #include <array>
 
+// Base state machine
+#include <aerial_autonomy/state_machines/base_state_machine.h>
+
 namespace msmf = boost::msm::front;
-namespace be = basic_events;
+namespace be = uav_basic_events;
 
 // Forward Declaration
-struct LogicStateMachineFrontEnd;
+struct UAVStateMachineFrontEnd;
 
 /**
 * @brief Backend for Logic State Machine.
 *
 * Used to forward arguments to constructor, and process events
 */
-using LogicStateMachine =
-    boost::msm::back::thread_safe_state_machine<LogicStateMachineFrontEnd>;
+using UAVStateMachine =
+    boost::msm::back::thread_safe_state_machine<UAVStateMachineFrontEnd>;
 
 /**
 * @brief front-end: define the FSM structure
 */
-class LogicStateMachineFrontEnd
-    : public msmf::state_machine_def<LogicStateMachineFrontEnd> {
-  // Add friend classes that can use the robot system
-  template <class EventT, class RobotSystemT, class LogicStateMachineT>
-  friend class ActionFunctor;
-
-  template <class EventT, class RobotSystemT, class LogicStateMachineT>
-  friend class GuardFunctor;
-
-  template <class RobotSystemT1, class LogicStateMachineT>
-  friend class EventAgnosticActionFunctor;
-
-  template <class RobotSystemT1, class LogicStateMachineT>
-  friend class EventAgnosticGuardFunctor;
-
-protected:
-  /**
-  * @brief robot system used by states to get sensor data and send commands
-  */
-  UAVSystem &robot_system_;
-  /**
-  * @brief type index to store the event that did not trigger any transition
-  */
-  std::type_index no_transition_event_index_ = typeid(NULL);
-
+class UAVStateMachineFrontEnd
+    : public msmf::state_machine_def<UAVStateMachineFrontEnd>,
+      public BaseStateMachine<UAVSystem>,
+      public UAVStatesActions<UAVStateMachine> {
 public:
-  /**
-  * @brief Returns the index of the event that did not trigger any transition
-  * @return The no-transition event index
-  */
-  std::type_index get_no_transition_event_index() {
-    return no_transition_event_index_;
-  }
   /**
   * @brief Action to take on entering state machine
   *
@@ -113,81 +82,13 @@ public:
   * @param uav_system robot system that is stored internally
   * and shared with events
   */
-  LogicStateMachineFrontEnd(UAVSystem &uav_system)
-      : robot_system_(uav_system) {}
+  UAVStateMachineFrontEnd(UAVSystem &uav_system)
+      : BaseStateMachine(uav_system) {}
 
-  // States Used in the state machine:
-  /**
-  * @brief Takingoff state
-  */
-  using TakingOff = TakingOff_<LogicStateMachine>;
-  /**
-  * @brief Landing state
-  */
-  using Landing = Landing_<LogicStateMachine>;
-  /**
-  * @brief Reaching goal state
-  */
-  using ReachingGoal = ReachingGoal_<LogicStateMachine>;
-  /**
-  * @brief Hovering state
-  */
-  using Hovering = Hovering_<LogicStateMachine>;
-  // States without any internal actions:
-  /**
-  * @brief Landed state
-  */
-  struct Landed : msmf::state<> {
-    /**
-    * @brief Internal event without any action
-    */
-    struct internal_transition_table
-        : boost::mpl::vector<
-              msmf::Internal<InternalTransitionEvent, msmf::none, msmf::none>> {
-    };
-  };
   /**
   * @brief Initial state for state machine
   */
   using initial_state = Landed;
-
-  // Transition Actions
-  /**
-  * @brief Action to take when taking off
-  */
-  using TakeoffAction = TakeoffTransitionActionFunctor_<LogicStateMachine>;
-  /**
-  * @brief Guard to stop taking off under low voltage
-  */
-  using TakeoffGuard = TakeoffTransitionGuardFunctor_<LogicStateMachine>;
-  /**
-  * @brief Abort action when taking off
-  */
-  using TakeoffAbort = TakeoffAbortActionFunctor_<LogicStateMachine>;
-  /**
-  * @brief Action to take when landing
-  */
-  using LandingAction = LandTransitionActionFunctor_<LogicStateMachine>;
-  /**
-  * @brief set goal action when transitioning
-  */
-  using ReachingGoalSet =
-      PositionControlTransitionActionFunctor_<LogicStateMachine>;
-  /**
-  * @brief Guard to avoid going to goal if goal is not correct
-  */
-  using ReachingGoalGuard =
-      PositionControlTransitionGuardFunctor_<LogicStateMachine>;
-  /**
-  * @brief Abort action when reaching goal
-  */
-  using ReachingGoalAbort =
-      PositionControlAbortActionFunctor_<LogicStateMachine>;
-  /**
-  * @brief Land action when reaching goal
-  */
-  using ReachingGoalLand = LandingAction;
-
   /**
   * @brief Transition table for State Machine
   */
@@ -216,20 +117,9 @@ public:
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             > {};
   /**
-  * @brief Print event typeid if no action present for the corresponding event
-  *
-  * @tparam FSM Backend to trigger events etc
-  * @tparam Event Event type that triggered no transition
-  * @param e event instance
-  * @param  state_index The index of the state where the no transition event is
-  * received
+  * @brief Use Inherited no transition function
   */
-  template <class FSM, class Event>
-  void no_transition(Event const &e, FSM &, int state_index) {
-    no_transition_event_index_ = typeid(e);
-    LOG(WARNING) << "Event " << no_transition_event_index_.name()
-                 << " triggered no transition";
-  }
+  using BaseStateMachine<UAVSystem>::no_transition;
 };
 
 /**
@@ -244,6 +134,6 @@ static constexpr std::array<const char *, 5> state_names = {
 *
 * @return state name
 */
-const char *pstate(LogicStateMachine const &p) {
+const char *pstate(UAVStateMachine const &p) {
   return state_names.at(p.current_state()[0]);
 }

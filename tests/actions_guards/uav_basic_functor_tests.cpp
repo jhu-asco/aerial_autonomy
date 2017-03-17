@@ -1,4 +1,4 @@
-#include <aerial_autonomy/actions_guards/basic_states.h>
+#include <aerial_autonomy/actions_guards/uav_states_actions.h>
 #include <aerial_autonomy/tests/sample_logic_state_machine.h>
 #include <gtest/gtest.h>
 #include <quad_simulator_parser/quad_simulator.h>
@@ -8,37 +8,24 @@
 * @brief Namespace for UAV Simulator Hardware
 */
 using namespace quad_simulator;
+using bsa = UAVStatesActions<UAVLogicStateMachine>;
 
 // Land
-using LandTransitionActionFunctor =
-    LandTransitionActionFunctor_<UAVLogicStateMachine>;
 using LandInternalActionFunctor =
     LandInternalActionFunctor_<UAVLogicStateMachine>;
 // Hovering
 using HoveringInternalActionFunctor =
     HoveringInternalActionFunctor_<UAVLogicStateMachine>;
 // Takeoff
-using TakeoffTransitionActionFunctor =
-    TakeoffTransitionActionFunctor_<UAVLogicStateMachine>;
-using TakeoffTransitionGuardFunctor =
-    TakeoffTransitionGuardFunctor_<UAVLogicStateMachine>;
-using TakeoffAbortActionFunctor =
-    TakeoffAbortActionFunctor_<UAVLogicStateMachine>;
 using TakeoffInternalActionFunctor =
     TakeoffInternalActionFunctor_<UAVLogicStateMachine>;
 // Takeoff
-using PositionControlTransitionActionFunctor =
-    PositionControlTransitionActionFunctor_<UAVLogicStateMachine>;
-using PositionControlTransitionGuardFunctor =
-    PositionControlTransitionGuardFunctor_<UAVLogicStateMachine>;
-using PositionControlAbortActionFunctor =
-    PositionControlAbortActionFunctor_<UAVLogicStateMachine>;
 using PositionControlInternalActionFunctor =
     PositionControlInternalActionFunctor_<UAVLogicStateMachine>;
 
 /// \brief Test LandFunctor
 TEST(LandFunctorTests, Constructor) {
-  ASSERT_NO_THROW(new LandTransitionActionFunctor());
+  ASSERT_NO_THROW(new bsa::LandingAction());
   ASSERT_NO_THROW(new LandInternalActionFunctor());
 }
 
@@ -46,7 +33,7 @@ TEST(LandFunctorTests, CallOperatorFunction) {
   QuadSimulator drone_hardware;
   UAVSystem uav_system(drone_hardware);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
-  LandTransitionActionFunctor land_transition_action_functor;
+  bsa::LandingAction land_transition_action_functor;
   int dummy_start_state, dummy_target_state;
   land_transition_action_functor(Land(), sample_logic_state_machine,
                                  dummy_start_state, dummy_target_state);
@@ -101,9 +88,9 @@ TEST(HoveringFunctorTests, CallOperatorFunction) {
 /// \brief Test Takeoff Functors
 TEST(TakeoffFunctorTests, Constructor) {
   ASSERT_NO_THROW(new TakeoffInternalActionFunctor());
-  ASSERT_NO_THROW(new TakeoffTransitionActionFunctor());
-  ASSERT_NO_THROW(new TakeoffTransitionGuardFunctor());
-  ASSERT_NO_THROW(new TakeoffAbortActionFunctor());
+  ASSERT_NO_THROW(new bsa::TakeoffAction());
+  ASSERT_NO_THROW(new bsa::TakeoffGuard());
+  ASSERT_NO_THROW(new bsa::TakeoffAbort());
 }
 
 TEST(TakeoffFunctorTests, TransitionActionTest) {
@@ -111,7 +98,7 @@ TEST(TakeoffFunctorTests, TransitionActionTest) {
   UAVSystem uav_system(drone_hardware);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
-  TakeoffTransitionActionFunctor takeoff_transition_action_functor;
+  bsa::TakeoffAction takeoff_transition_action_functor;
   takeoff_transition_action_functor(Takeoff(), sample_logic_state_machine,
                                     dummy_start_state, dummy_target_state);
   ASSERT_STREQ(uav_system.getUAVData().quadstate.c_str(),
@@ -123,7 +110,7 @@ TEST(TakeoffFunctorTests, AbortActionTest) {
   UAVSystem uav_system(drone_hardware);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
-  TakeoffAbortActionFunctor takeoff_abort_action_functor;
+  bsa::TakeoffAbort takeoff_abort_action_functor;
   takeoff_abort_action_functor(Abort(), sample_logic_state_machine,
                                dummy_start_state, dummy_target_state);
   ASSERT_STREQ(uav_system.getUAVData().quadstate.c_str(), "");
@@ -134,7 +121,7 @@ TEST(TakeoffFunctorTests, TransitionGuardTest) {
   UAVSystem uav_system(drone_hardware);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
-  TakeoffTransitionGuardFunctor takeoff_transition_guard_functor;
+  bsa::TakeoffGuard takeoff_transition_guard_functor;
   drone_hardware.setBatteryPercent(60);
   bool result =
       takeoff_transition_guard_functor(Takeoff(), sample_logic_state_machine,
@@ -171,9 +158,9 @@ TEST(TakeoffFunctorTests, InternalActionTest) {
 /// \brief Test Takeoff Functors
 TEST(PositionControlFunctorTests, Constructor) {
   ASSERT_NO_THROW(new PositionControlInternalActionFunctor());
-  ASSERT_NO_THROW(new PositionControlTransitionActionFunctor());
-  ASSERT_NO_THROW(new PositionControlTransitionGuardFunctor());
-  ASSERT_NO_THROW(new PositionControlAbortActionFunctor());
+  ASSERT_NO_THROW(new bsa::ReachingGoalSet());
+  ASSERT_NO_THROW(new bsa::ReachingGoalGuard());
+  ASSERT_NO_THROW(new bsa::ReachingGoalAbort());
 }
 
 TEST(PositionControlFunctorTests, TransitionActionTest) {
@@ -182,8 +169,7 @@ TEST(PositionControlFunctorTests, TransitionActionTest) {
   UAVSystem uav_system(drone_hardware);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
-  PositionControlTransitionActionFunctor
-      position_control_transition_action_functor;
+  bsa::ReachingGoalSet position_control_transition_action_functor;
   PositionYaw goal(1, 1, 1, 1);
   position_control_transition_action_functor(
       goal, sample_logic_state_machine, dummy_start_state, dummy_target_state);
@@ -202,7 +188,7 @@ TEST(PositionControlFunctorTests, AbortActionTest) {
   UAVSystem uav_system(drone_hardware);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
-  PositionControlAbortActionFunctor position_control_abort_action_functor;
+  bsa::ReachingGoalAbort position_control_abort_action_functor;
   PositionYaw goal(1, 1, 1, 1);
   uav_system.setGoal<PositionControllerDroneConnector>(goal);
   position_control_abort_action_functor(Abort(), sample_logic_state_machine,
@@ -221,8 +207,7 @@ TEST(PositionControlFunctorTests, TransitionGuardTest) {
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   PositionYaw goal(1, 1, 1, 1);
-  PositionControlTransitionGuardFunctor
-      position_control_transition_guard_functor;
+  bsa::ReachingGoalGuard position_control_transition_guard_functor;
   bool result = position_control_transition_guard_functor(
       goal, sample_logic_state_machine, dummy_start_state, dummy_target_state);
   ASSERT_TRUE(result);

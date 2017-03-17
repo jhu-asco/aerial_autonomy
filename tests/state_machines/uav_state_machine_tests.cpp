@@ -1,4 +1,4 @@
-#include <aerial_autonomy/state_machines/basic_state_machine.h>
+#include <aerial_autonomy/state_machines/uav_state_machine.h>
 #include <gtest/gtest.h>
 // Thread stuff
 #include <boost/optional/optional_io.hpp>
@@ -13,14 +13,14 @@ using namespace quad_simulator;
 
 class StateMachineTests : public ::testing::Test {
 protected:
-  std::unique_ptr<LogicStateMachine> logic_state_machine;
+  std::unique_ptr<UAVStateMachine> logic_state_machine;
   std::unique_ptr<UAVSystem> uav_system;
   QuadSimulator drone_hardware;
 
   virtual void SetUp() {
     drone_hardware.setTakeoffAltitude(2.0);
     uav_system.reset(new UAVSystem(drone_hardware));
-    logic_state_machine.reset(new LogicStateMachine(boost::ref(*uav_system)));
+    logic_state_machine.reset(new UAVStateMachine(boost::ref(*uav_system)));
     logic_state_machine->start();
   }
 

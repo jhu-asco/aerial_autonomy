@@ -59,7 +59,7 @@ class RosEventTrigger(QObject):
             rospack = rospkg.RosPack()
             aerial_autonomy_path = rospack.get_path('aerial_autonomy')
             default_path = os.path.join(aerial_autonomy_path,
-                                        'events/basic_events')
+                                        'events/uav_basic_events')
             if rospy.has_param("event_file"):
                 print "Found event file: ", rospy.get_param('event_file')
             event_file_path = rospy.get_param('event_file', default_path)
