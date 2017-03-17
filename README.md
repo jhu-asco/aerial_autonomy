@@ -5,7 +5,7 @@ The doxygen documentation to the project can be found [here](https://jhu-asco.gi
 
 
 ## Setup
-Run the setup script in setup/setup.sh to configure Git hooks.  
+Run the setup script in scripts/setup/setup.sh to configure Git hooks.  
 
 Install the following dependencies (lcov, protobuf, doxygen, doxypy, coverxygen, google-glog, class-loader). On Ubuntu 14.04 run the following line in a terminal
 

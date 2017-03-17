@@ -67,9 +67,9 @@ The event files can also include other event file as shown in [visual_servoing_e
 
 ## Classes segregated into groups
 
-The classes created in this project can be found [here](markdown_scripts/class_groups.md)
+The classes created in this project can be found [here](markdown/class_groups.md)
 
 ## Additional Resources
-- [Creating a State Machine](markdown_scripts/creating_state_machine.md)
-- [Classes by group](markdown_scripts/class_groups.md)
+- [Creating a State Machine](markdown/creating_state_machine.md)
+- [Classes by group](markdown/class_groups.md)
 - [Setup and README](README.md)

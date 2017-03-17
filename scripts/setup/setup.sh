@@ -2,7 +2,7 @@
 echo Setting up Git hooks...
 
 git_root=$(git rev-parse --show-toplevel)
-git_hooks=$git_root"/setup/hooks/*"
+git_hooks=$git_root"/scripts/setup/hooks/*"
 for h in $git_hooks
 do
   ln -sf $h $git_root"/.git/hooks/"$(basename $h)
