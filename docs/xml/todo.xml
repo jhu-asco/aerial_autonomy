@@ -9,7 +9,7 @@
 <listitem><para>Matt: Load slider settings from param file  </para></listitem>
 <varlistentry><term><anchor id="todo_1_todo000002"/>Member <ref refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI_1af611df98da28aba90ce5fcbea285603a" kindref="member">aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI.pose_command_container</ref>  </term></varlistentry>
 <listitem><para>Matt: Reset slider value based on current quad height  </para></listitem>
-<varlistentry><term><anchor id="todo_1_todo000015"/>Page <ref refid="md_markdown_scripts_creating_state_machine" kindref="compound">Creating a State Machine</ref>  </term></varlistentry>
+<varlistentry><term><anchor id="todo_1_todo000015"/>Page <ref refid="md_markdown_creating_state_machine" kindref="compound">Creating a State Machine</ref>  </term></varlistentry>
 <listitem><para>(Matt) Fill this page  </para></listitem>
 <varlistentry><term><anchor id="todo_1_todo000005"/>Member <ref refid="structHoveringInternalActionFunctor___1a87bb8dd8ed71e54729967b9e258fb66e" kindref="member">HoveringInternalActionFunctor_&lt; LogicStateMachineT &gt;::run</ref>  (<ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</term></varlistentry>
 <listitem><para>(Gowtham) Can also use uav status here  </para></listitem>

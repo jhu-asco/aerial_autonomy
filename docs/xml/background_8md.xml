@@ -76,13 +76,13 @@
 <codeline lineno="67"><highlight class="normal"></highlight></codeline>
 <codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">##<sp/>Classes<sp/>segregated<sp/>into<sp/>groups</highlight></codeline>
 <codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal">The<sp/>classes<sp/>created<sp/>in<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>project<sp/>can<sp/>be<sp/>found<sp/>[here](markdown_scripts/class_groups.md)</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">The<sp/>classes<sp/>created<sp/>in<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>project<sp/>can<sp/>be<sp/>found<sp/>[here](markdown/class_groups.md)</highlight></codeline>
 <codeline lineno="71"><highlight class="normal"></highlight></codeline>
 <codeline lineno="72"><highlight class="normal">##<sp/>Additional<sp/>Resources</highlight></codeline>
-<codeline lineno="73"><highlight class="normal">-<sp/>[Creating<sp/>a<sp/>State<sp/>Machine](markdown_scripts/creating_state_machine.md)</highlight></codeline>
-<codeline lineno="74"><highlight class="normal">-<sp/>[Classes<sp/>by<sp/>group](markdown_scripts/class_groups.md)</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">-<sp/>[Creating<sp/>a<sp/>State<sp/>Machine](markdown/creating_state_machine.md)</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">-<sp/>[Classes<sp/>by<sp/>group](markdown/class_groups.md)</highlight></codeline>
 <codeline lineno="75"><highlight class="normal">-<sp/>[Setup<sp/>and<sp/>README](README.md)</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/markdown_scripts/background.md"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/markdown/background.md"/>
   </compounddef>
 </doxygen>

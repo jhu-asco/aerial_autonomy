@@ -506,9 +506,9 @@
     <member refid="event__publish__node_8cpp_1a1992fa6885475be5d1546e3a61f6e495" kind="function"><name>sigintHandler</name></member>
     <member refid="event__publish__node_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kind="function"><name>main</name></member>
   </compound>
-  <compound refid="md_markdown_scripts_class_groups" kind="page"><name>md_markdown_scripts_class_groups</name>
+  <compound refid="md_markdown_class_groups" kind="page"><name>md_markdown_class_groups</name>
   </compound>
-  <compound refid="md_markdown_scripts_creating_state_machine" kind="page"><name>md_markdown_scripts_creating_state_machine</name>
+  <compound refid="md_markdown_creating_state_machine" kind="page"><name>md_markdown_creating_state_machine</name>
   </compound>
   <compound refid="md_README" kind="page"><name>md_README</name>
   </compound>

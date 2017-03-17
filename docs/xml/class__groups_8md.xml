@@ -55,6 +55,6 @@
 <codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">##<sp/>Robot<sp/>Systems</highlight></codeline>
 <codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal">-<sp/><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref></highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/markdown_scripts/class_groups.md"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/markdown/class_groups.md"/>
   </compounddef>
 </doxygen>

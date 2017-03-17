@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="md_markdown_creating_state_machine" kind="page">
+    <compoundname>md_markdown_creating_state_machine</compoundname>
+    <title>Creating a State Machine</title>
+    <detaileddescription>
+<para>To create a state machine, we need to implement the following components:</para><para><table rows="5" cols="2"><row>
+<entry thead="yes"><para>Component </para></entry><entry thead="yes"><para>Description  </para></entry></row>
+<row>
+<entry thead="no"><para>Robot system </para></entry><entry thead="no"><para>Provides sensor data and accepts control commands </para></entry></row>
+<row>
+<entry thead="no"><para>Actions </para></entry><entry thead="no"><para>Commands to execute when switching between states </para></entry></row>
+<row>
+<entry thead="no"><para>Guards </para></entry><entry thead="no"><para>Check if the transition between states is valid or not </para></entry></row>
+<row>
+<entry thead="no"><para>Internal actions </para></entry><entry thead="no"><para>Process robot state continuously and trigger actions accordingly </para></entry></row>
+</table>
+</para><para><heading level="2">Creating a robot system</heading>
+</para><para><xrefsect id="todo_1_todo000015"><xreftitle>Todo</xreftitle><xrefdescription><para>(Matt) Fill this page </para></xrefdescription></xrefsect></para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -14,7 +14,7 @@
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
 <codeline lineno="6"><highlight class="normal"></highlight></codeline>
 <codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">##<sp/>Setup</highlight></codeline>
-<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal">Run<sp/>the<sp/>setup<sp/>script<sp/>in<sp/>setup/setup.sh<sp/>to<sp/>configure<sp/>Git<sp/>hooks.<sp/><sp/></highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal">Run<sp/>the<sp/>setup<sp/>script<sp/>in<sp/>scripts/setup/setup.sh<sp/>to<sp/>configure<sp/>Git<sp/>hooks.<sp/><sp/></highlight></codeline>
 <codeline lineno="9"><highlight class="normal"></highlight></codeline>
 <codeline lineno="10"><highlight class="normal">Install<sp/>the<sp/>following<sp/>dependencies<sp/>(lcov,<sp/>protobuf,<sp/>doxygen,<sp/>doxypy,<sp/>coverxygen,<sp/>google-glog,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">-loader).<sp/>On<sp/>Ubuntu<sp/>14.04<sp/>run<sp/>the<sp/>following<sp/>line<sp/>in<sp/>a<sp/>terminal</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight></codeline>
