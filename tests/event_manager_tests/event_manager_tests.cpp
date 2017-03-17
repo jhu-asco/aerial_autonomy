@@ -1,5 +1,5 @@
-#include <aerial_autonomy/basic_events.h>
 #include <aerial_autonomy/tests/sample_logic_state_machine.h>
+#include <aerial_autonomy/uav_basic_events.h>
 #include <aerial_autonomy/visual_servoing_events.h>
 #include <gtest/gtest.h>
 #include <iostream>
@@ -9,25 +9,25 @@ using namespace std;
 
 /// \brief TEST
 /// All the tests are defined here
-namespace basic_events {
-TEST(BasicEventManagerTest, InstantiateManager) {
-  ASSERT_NO_THROW(new BasicEventManager<SampleLogicStateMachine>());
+namespace uav_basic_events {
+TEST(UAVEventManagerTest, InstantiateManager) {
+  ASSERT_NO_THROW(new UAVEventManager<SampleLogicStateMachine>());
 }
-TEST(BasicEventManagerTest, CheckEventSet) {
-  BasicEventManager<SampleLogicStateMachine> event_manager;
+TEST(UAVEventManagerTest, CheckEventSet) {
+  UAVEventManager<SampleLogicStateMachine> event_manager;
   std::set<std::string> event_set = event_manager.getEventSet();
   std::set<std::string> expected_set{"Land", "Takeoff", "Abort"};
   ASSERT_EQ(event_set, expected_set);
 }
-TEST(BasicEventManagerTest, TriggerWrongEvent) {
-  BasicEventManager<SampleLogicStateMachine> event_manager;
+TEST(UAVEventManagerTest, TriggerWrongEvent) {
+  UAVEventManager<SampleLogicStateMachine> event_manager;
   EmptyRobotSystem robot_system;
   SampleLogicStateMachine logic_state_machine(robot_system);
   ASSERT_FALSE(
       event_manager.triggerEvent("FollowTrajectory", logic_state_machine));
 }
-TEST(BasicEventManagerTest, TriggerEvents) {
-  BasicEventManager<SampleLogicStateMachine> event_manager;
+TEST(UAVEventManagerTest, TriggerEvents) {
+  UAVEventManager<SampleLogicStateMachine> event_manager;
   EmptyRobotSystem robot_system;
   SampleLogicStateMachine logic_state_machine(robot_system);
   event_manager.triggerEvent("Land", logic_state_machine);
@@ -47,13 +47,13 @@ TEST(VisualServoingEventManagerTest, TriggerEvents) {
   ASSERT_EQ(logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(FollowTrajectory)));
 }
-TEST(VisualServoingEventManagerTest, TriggerBasicEvent) {
+TEST(VisualServoingEventManagerTest, TriggerUAVEvent) {
   VisualServoingEventManager<SampleLogicStateMachine> event_manager;
   EmptyRobotSystem robot_system;
   SampleLogicStateMachine logic_state_machine(robot_system);
   event_manager.triggerEvent("Land", logic_state_machine);
   ASSERT_EQ(logic_state_machine.getProcessEventTypeId(),
-            std::type_index(typeid(basic_events::Land)));
+            std::type_index(typeid(uav_basic_events::Land)));
 }
 TEST(VisualServoingEventManagerTest, CheckEventSet) {
   VisualServoingEventManager<SampleLogicStateMachine> event_manager;

@@ -2,19 +2,19 @@
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 
-#include <aerial_autonomy/basic_events.h>
 #include <aerial_autonomy/state_machines/state_machine_gui_connector.h>
 #include <aerial_autonomy/tests/sample_logic_state_machine.h>
+#include <aerial_autonomy/uav_basic_events.h>
 
-using namespace basic_events;
+using namespace uav_basic_events;
 
 class StateMachineGUIConnectorTests : public ::testing::Test {
 protected:
-  BasicEventManager<SampleLogicStateMachine> event_manager;
+  UAVEventManager<SampleLogicStateMachine> event_manager;
   EmptyRobotSystem robot_system;
   SampleLogicStateMachine logic_state_machine;
   ros::NodeHandle nh;
-  StateMachineGUIConnector<BasicEventManager<SampleLogicStateMachine>,
+  StateMachineGUIConnector<UAVEventManager<SampleLogicStateMachine>,
                            SampleLogicStateMachine>
       state_machine_gui_connector;
 

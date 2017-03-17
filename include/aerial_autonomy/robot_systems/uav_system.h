@@ -197,6 +197,11 @@ public:
     }
   }
 
+  /**
+  * @brief Provide the current state of UAV system
+  *
+  * @return string representation of the UAV system state
+  */
   std::string getSystemStatus() {
     parsernode::common::quaddata data = getUAVData();
     // Get goals for different controllers:

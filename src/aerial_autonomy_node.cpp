@@ -1,6 +1,6 @@
-#include <aerial_autonomy/basic_events.h>
 #include <aerial_autonomy/onboard_system_handler.h>
-#include <aerial_autonomy/state_machines/basic_state_machine.h>
+#include <aerial_autonomy/state_machines/uav_state_machine.h>
+#include <aerial_autonomy/uav_basic_events.h>
 
 #include <fcntl.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
@@ -46,8 +46,8 @@ int main(int argc, char **argv) {
                << onboard_system_config_filename;
   }
 
-  OnboardSystemHandler<LogicStateMachine,
-                       basic_events::BasicEventManager<LogicStateMachine>>
+  OnboardSystemHandler<UAVStateMachine,
+                       uav_basic_events::UAVEventManager<UAVStateMachine>>
       onboard_system_handler(nh, onboard_system_config);
 
   ros::spin();

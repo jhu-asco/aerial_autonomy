@@ -1,5 +1,6 @@
 #pragma once
 #include <aerial_autonomy/robot_systems/uav_system.h>
+#include <aerial_autonomy/state_machines/base_state_machine.h>
 #include <aerial_autonomy/types/position_yaw.h>
 #include <type_traits>
 
@@ -14,43 +15,8 @@ struct EmptyRobotSystem {};
 * @tparam RobotSystemT The robot system that is used by states to perform
 * actions
 */
-template <class RobotSystemT> class SampleLogicStateMachine_ {
-  /**
-  * @brief Friend action class to guard robot system
-  *
-  * @tparam EventT  Event triggering action functor
-  * @tparam RobotSystemT1 Robot system used by action functor
-  * @tparam LogicStateMachineT Logic state Machine backend used by Guard functor
-  */
-  template <class EventT, class RobotSystemT1, class LogicStateMachineT>
-  friend class ActionFunctor;
-  /**
-  * @brief Friend guard class to access robot system
-  *
-  * @tparam EventT  Event triggering action functor
-  * @tparam RobotSystemT1 Robot system used by action functor
-  * @tparam LogicStateMachineT Logic state Machine backend used by Guard functor
-  */
-  template <class EventT, class RobotSystemT1, class LogicStateMachineT>
-  friend class GuardFunctor;
-  /**
-  * @brief Frient Event agnostic action class
-  *
-  * @tparam EventT  Event triggering action functor
-  * @tparam RobotSystemT1 Robot system used by action functor
-  * @tparam LogicStateMachineT Logic state Machine backend used by Guard functor
-  */
-  template <class RobotSystemT1, class LogicStateMachineT>
-  friend class EventAgnosticActionFunctor;
-  /**
-  * @brief Frient Event agnostic guard class
-  *
-  * @tparam EventT  Event triggering action functor
-  * @tparam RobotSystemT1 Robot system used by action functor
-  * @tparam LogicStateMachineT Logic state Machine backend used by Guard functor
-  */
-  template <class RobotSystemT1, class LogicStateMachineT>
-  friend class EventAgnosticGuardFunctor;
+template <class RobotSystemT>
+class SampleLogicStateMachine_ : public BaseStateMachine<RobotSystemT> {
   /**
   * @brief type index of the event triggered by LSM
   */
@@ -59,19 +25,16 @@ template <class RobotSystemT> class SampleLogicStateMachine_ {
   * @brief Positionyaw message thats triggered
   */
   PositionYaw pose_event_;
-  /**
-  * @brief store the robot system passed in
-  */
-  RobotSystemT &robot_system_;
 
 public:
   /**
-  * @brief Constructor that takes robot system
-  *
-  * @param robot_system provides actions to select controllers, get/set Goals.
-  */
+   * @brief Constructor that takes robot system
+   *
+   * @param robot_system provides actions to select controllers, get/set Goals.
+   */
   SampleLogicStateMachine_(RobotSystemT &robot_system)
-      : robot_system_(robot_system) {}
+      : BaseStateMachine<RobotSystemT>(robot_system) {}
+
   /**
   * @brief Generic process event that stores the event type
   *
