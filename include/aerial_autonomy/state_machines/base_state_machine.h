@@ -29,6 +29,13 @@ public:
   * commands
   * Use the operator function robot_system_container_() to retrieve robot system
   * in Action, Guard Functors. Other classes cannot access the robot system
+  *
+  * Decision Logic:
+  * The robot system container ensures that robot system is available
+  * to only few friend classes such as action functor, guard functors and
+  * is not available to others. This is necessary since we do not expect
+  * the logic state machine to contain the robot system. This was the only
+  * reasonable way found to share robot system across action and guard functors.
   */
   RobotSystemContainer<RobotSystemT> robot_system_container_;
 

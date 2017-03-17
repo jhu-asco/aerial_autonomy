@@ -50,12 +50,16 @@ using UAVStateMachine =
     boost::msm::back::thread_safe_state_machine<UAVStateMachineFrontEnd>;
 
 /**
+* @brief Namespace for basic uav states and actions such as takeoff, land etc
+*/
+using usa = UAVStatesActions<UAVStateMachine>;
+
+/**
 * @brief front-end: define the FSM structure
 */
 class UAVStateMachineFrontEnd
     : public msmf::state_machine_def<UAVStateMachineFrontEnd>,
-      public BaseStateMachine<UAVSystem>,
-      public UAVStatesActions<UAVStateMachine> {
+      public BaseStateMachine<UAVSystem> {
 public:
   /**
   * @brief Action to take on entering state machine
@@ -88,7 +92,7 @@ public:
   /**
   * @brief Initial state for state machine
   */
-  using initial_state = Landed;
+  using initial_state = usa::Landed;
   /**
   * @brief Transition table for State Machine
   */
@@ -96,24 +100,30 @@ public:
       : boost::mpl::vector<
             //        Start          Event         Next           Action Guard
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<Landed, be::Takeoff, TakingOff, TakeoffAction,
-                      TakeoffGuard>,
+            msmf::Row<usa::Landed, be::Takeoff, usa::TakingOff,
+                      usa::TakeoffAction, usa::TakeoffGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<TakingOff, be::Land, Landing, LandingAction, msmf::none>,
-            msmf::Row<TakingOff, be::Abort, Landing, TakeoffAbort, msmf::none>,
+            msmf::Row<usa::TakingOff, be::Land, usa::Landing,
+                      usa::LandingAction, msmf::none>,
+            msmf::Row<usa::TakingOff, be::Abort, usa::Landing,
+                      usa::TakeoffAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<Hovering, PositionYaw, ReachingGoal, ReachingGoalSet,
-                      ReachingGoalGuard>,
-            msmf::Row<Hovering, be::Land, Landing, LandingAction, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<ReachingGoal, be::Abort, Hovering, ReachingGoalAbort,
-                      msmf::none>,
-            msmf::Row<ReachingGoal, be::Land, Landing, ReachingGoalLand,
+            msmf::Row<usa::Hovering, PositionYaw, usa::ReachingGoal,
+                      usa::ReachingGoalSet, usa::ReachingGoalGuard>,
+            msmf::Row<usa::Hovering, be::Land, usa::Landing, usa::LandingAction,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<Landing, Completed, Landed, msmf::none, msmf::none>,
-            msmf::Row<TakingOff, Completed, Hovering, msmf::none, msmf::none>,
-            msmf::Row<ReachingGoal, Completed, Hovering, msmf::none, msmf::none>
+            msmf::Row<usa::ReachingGoal, be::Abort, usa::Hovering,
+                      usa::ReachingGoalAbort, msmf::none>,
+            msmf::Row<usa::ReachingGoal, be::Land, usa::Landing,
+                      usa::ReachingGoalLand, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<usa::Landing, Completed, usa::Landed, msmf::none,
+                      msmf::none>,
+            msmf::Row<usa::TakingOff, Completed, usa::Hovering, msmf::none,
+                      msmf::none>,
+            msmf::Row<usa::ReachingGoal, Completed, usa::Hovering, msmf::none,
+                      msmf::none>
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             > {};
   /**
