@@ -18,6 +18,9 @@ New robot systems should extend BaseRobotSystem and add any ControllerHardwareCo
 type can be stored in the container.  The new robot system should expose any additional hardware functionality that will be used in the state machine,
  e.g. `takeoff()` or `land()` for the `UAVSystem`.
 
+The state machine actions will have access to the robot system and interact with controllers by calling the robot system `setGoal` function templated on the controller it wants to use
+to navigate to the given goal.
+
 ## Creating Actions
 Actions define commands to execute when transitioning between states.  Examples can be found in `include/actions_guards`.
 Actions which do not need access to the event which triggered the action should derive from `EventAgnosticActionFunctor<RobotSystemT, LogicStateMachineT>`
