@@ -32,7 +32,7 @@ and override its `run` function with the intended behavior.  See `PositionContro
 
 ## Creating Guards
 Guards check if a triggered transition between states is valid or not.  For example, the `TakeoffTransitionGuardFunctor_` keeps a `UAVSystem` from taking off if the battery level percentage
-is below some threshold.  Guards which do not access to the triggering event should derive from `EventAgnosticGuardFunctor<RobotSystemT, LogicStateMachineT>` and override the `guard` function
+is below some threshold.  Guards which do not need access to the triggering event should derive from `EventAgnosticGuardFunctor<RobotSystemT, LogicStateMachineT>` and override the `guard` function
 to return true when a transition is valid and false otherwise.  
 
 Guards which do need access to the triggering event should inherit from `GuardFunctor<EventT, RobotSystemT, LogicStateMachineT>` and override its `guard` fuction. See `PositionControlTransitionGuardFunctor_` in `include/position_control_functors.h` for an example.
@@ -52,8 +52,9 @@ Create an executable with the following structure:
     int main(int argc, char** argv) {
       ros::init(argc, argv);
       ros::NodeHandle nh;
-      MySystemHandler<MyStateMachine, MyEventManager>(nh)
-      ros::spin()
+      // Load config into config
+      MySystemHandler<MyStateMachine, MyEventManager>(nh, config)
+      ros::spin();
     } 
 
 See `src/system_handler_nodes/uav_system_node.cpp` for an example.
