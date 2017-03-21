@@ -10,7 +10,6 @@ We need to implement the following components:
 | Guards | Check if the transition between states is valid or not |
 | Internal Actions | Process robot state continuously and trigger actions accordingly |
 
-![alt text](state_machine.png "Example State Machine")
 
 ## Creating a Robot System
 A robot system is responsible for owning any [ControllerHardwareConnectors](markdown/class_groups.md) and interacting with any hardware that the autonomy application will be utilizing. 
@@ -44,7 +43,12 @@ Guards which do need access to the triggering event should inherit from `GuardFu
 
 ## Creating a State Machine
 The state machine defines the logic of the system using the defined actions, states, and guards.  A "front end" for the state machine defines the connections and transitions between states.
-The front end should derive from both `msmf::state_machine_def<StateMachineFrontEnd>` and `BaseStateMachine<RobotSystemT>`.  Its `transition_table` will define the state machine itself by specifying which action will cause which state transitions and which guards will check the validity of the transitions. See `include/state_machines/uav_state_machine.h` for an example and see [here](http://www.boost.org/doc/libs/1_63_0/libs/msm/doc/HTML/ch03s02.html) for a more in depth explanation of the underlying boost mechanisms.
+The front end should derive from both `msmf::state_machine_def<StateMachineFrontEnd>` and `BaseStateMachine<RobotSystemT>`.  
+Its `transition_table` will define the state machine itself by specifying which action will cause which state transitions and which guards will check the validity of the transitions. 
+See `include/state_machines/uav_state_machine.h` and its associated flow chart below for an example and see [here](http://www.boost.org/doc/libs/1_63_0/libs/msm/doc/HTML/ch03s02.html) for a more in depth explanation of the underlying boost mechanisms. 
+
+![alt text](state_machine.png "Example State Machine")
+
 The state machine that we will interact with will be of type `boost::msm::back::thread_safe_state_machine<StateMachineFrontEnd>`.
 
 Any new state machine must include `using BaseStateMachine<UAVSystem>::no_transition` to avoid type ambiguities.
