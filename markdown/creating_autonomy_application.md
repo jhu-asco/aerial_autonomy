@@ -10,9 +10,11 @@ We need to implement the following components:
 | Guards | Check if the transition between states is valid or not |
 | Internal Actions | Process robot state continuously and trigger actions accordingly |
 
+![alt text](state_machine.png "Example State Machine")
+
 ## Creating a Robot System
-A robot system is responsible for owning any ControllerHardwareConnectors and interacting with any hardware that the autonomy application will be utilizing. 
-Examples can be found in `include/robot_systems`.
+A robot system is responsible for owning any [ControllerHardwareConnectors](markdown/class_groups.md) and interacting with any hardware that the autonomy application will be utilizing. 
+Examples can be found in [include/robot_systems](https://github.com/jhu-asco/aerial_autonomy/tree/master/include/aerial_autonomy/robot_systems).
 New robot systems should extend BaseRobotSystem and add any ControllerHardwareConnectors to the system in the derived class constructor using
 `controller_hardware_connector_container_.setObject(my_controller_connector_)`.  Keep in mind that only one instance of each ControllerHardwareConnector
 type can be stored in the container.  The new robot system should expose any additional hardware functionality that will be used in the state machine,
@@ -26,7 +28,7 @@ Actions define commands to execute when transitioning between states.  Examples 
 Actions which do not need access to the event which triggered the action should derive from `EventAgnosticActionFunctor<RobotSystemT, LogicStateMachineT>`
 and override the `run(RobotSystemT& LogicStateMachineT&)` function with the command to be executed. See `include/land_functors.h` for an example. 
 
-Actions which do need access to the triggering event should derive from `ActionFunctor<EventT, UAVSystem, LogicStateMachineT>` and override the run function
+Actions which do need access to the triggering event should derive from `ActionFunctor<EventT, RobotSystemT, LogicStateMachineT>` and override the run function
 with the command to execute.  See `include/position_control_functors.h` for an example.
 
 ## Creating Internal Actions
@@ -44,6 +46,8 @@ Guards which do need access to the triggering event should inherit from `GuardFu
 The state machine defines the logic of the system using the defined actions, states, and guards.  A "front end" for the state machine defines the connections and transitions between states.
 The front end should derive from both `msmf::state_machine_def<StateMachineFrontEnd>` and `BaseStateMachine<RobotSystemT>`.  Its `transition_table` will define the state machine itself by specifying which action will cause which state transitions and which guards will check the validity of the transitions. See `include/state_machines/uav_state_machine.h` for an example and see [here](http://www.boost.org/doc/libs/1_63_0/libs/msm/doc/HTML/ch03s02.html) for a more in depth explanation of the underlying boost mechanisms.
 The state machine that we will interact with will be of type `boost::msm::back::thread_safe_state_machine<StateMachineFrontEnd>`.
+
+Any new state machine must include `using BaseStateMachine<UAVSystem>::no_transition` to avoid type ambiguities.
 
 ## Creating a System Handler
 The system handler should have a member of type `CommonSystemHandler<LogicStateMachineT, EventManagerT, RobotSystemT>`, which will automatically take care of instantiating and managing the logic state machine it is templated on.  The system handler must call the CommonSystemHandler `startTimers` function to start the state machine.
