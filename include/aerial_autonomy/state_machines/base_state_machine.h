@@ -43,7 +43,7 @@ public:
   * @brief Returns the index of the event that did not trigger any transition
   * @return The no-transition event index
   */
-  std::type_index get_no_transition_event_index() {
+  std::type_index get_no_transition_event_index() const {
     return no_transition_event_index_;
   }
 
