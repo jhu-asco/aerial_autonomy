@@ -17,7 +17,7 @@
  * @tparam RobotSystemT robot system used by the state machine
  */
 template <class LogicStateMachineT, class EventManagerT, class RobotSystemT>
-class CommonSystemHandlerInterface {
+class CommonSystemHandler {
 public:
   /**
    * @brief Constructor
@@ -33,9 +33,9 @@ public:
    * @param config Proto configuration parameters
    * @param robot_system robot system used to create logic state machine
    */
-  CommonSystemHandlerInterface(ros::NodeHandle &nh,
-                               const CommonSystemHandlerConfig &config,
-                               RobotSystemT &robot_system)
+  CommonSystemHandler(ros::NodeHandle &nh,
+                      const CommonSystemHandlerConfig &config,
+                      RobotSystemT &robot_system)
       : logic_state_machine_(std::ref(robot_system)),
         state_machine_gui_connector_(nh, event_manager_, logic_state_machine_),
         system_status_pub_(nh, robot_system, logic_state_machine_),
@@ -54,7 +54,7 @@ public:
   /**
   * @brief Delete copy constructor
   */
-  CommonSystemHandlerInterface(const CommonSystemHandlerInterface &) = delete;
+  CommonSystemHandler(const CommonSystemHandler &) = delete;
 
   /**
    * @brief Checks if internal ROS topics are connected

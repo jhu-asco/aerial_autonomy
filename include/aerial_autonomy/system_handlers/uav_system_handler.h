@@ -7,7 +7,7 @@
 
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
-#include <aerial_autonomy/system_handlers/common_system_handler_interface.h>
+#include <aerial_autonomy/system_handlers/common_system_handler.h>
 
 #include "uav_system_handler_config.pb.h"
 
@@ -32,7 +32,7 @@ public:
         uav_hardware_(
             parser_loader_.createUnmanagedInstance(config.uav_parser_type())),
         uav_system_(*uav_hardware_, config.uav_system_config()),
-        common_handler_interface_(nh, config.base_config(), uav_system_),
+        common_handler_(nh, config.base_config(), uav_system_),
         uav_controller_timer_(
             std::bind(&UAVSystem::runActiveController, std::ref(uav_system_),
                       HardwareType::UAV),
@@ -41,7 +41,7 @@ public:
     uav_hardware_->initialize(nh);
 
     // Get the party started
-    common_handler_interface_.startTimers();
+    common_handler_.startTimers();
     uav_controller_timer_.start();
   }
 
@@ -66,15 +66,15 @@ public:
   *
   * @return true if connected
   */
-  bool isConnected() { return common_handler_interface_.isConnected(); }
+  bool isConnected() { return common_handler_.isConnected(); }
 
 private:
   pluginlib::ClassLoader<parsernode::Parser>
       parser_loader_; ///< Used to load hardware plugin
   std::unique_ptr<parsernode::Parser> uav_hardware_; ///< Hardware instance
   UAVSystem uav_system_;                             ///< Contains controllers
-  CommonSystemHandlerInterface<LogicStateMachineT, EventManagerT, UAVSystem>
-      common_handler_interface_;    ///< Common logic to create state machine
+  CommonSystemHandler<LogicStateMachineT, EventManagerT, UAVSystem>
+      common_handler_;              ///< Common logic to create state machine
                                     ///< and associated connections.
   AsyncTimer uav_controller_timer_; ///< Timer for running uav controller
 };
