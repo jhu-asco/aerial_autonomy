@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['no_5ftransition',['no_transition',['../classLogicStateMachineFrontEnd.html#aa75b2a1500d4bfe052c5421aeefbf7ab',1,'LogicStateMachineFrontEnd']]],
-  ['no_5ftransition_5fevent_5findex_5f',['no_transition_event_index_',['../classLogicStateMachineFrontEnd.html#a0f19247a261344e58dede909f598677f',1,'LogicStateMachineFrontEnd']]]
+  ['no_5ftransition',['no_transition',['../classBaseStateMachine.html#ab047241678b8eba01f428ef1af5c055f',1,'BaseStateMachine']]],
+  ['no_5ftransition_5fevent_5findex_5f',['no_transition_event_index_',['../classBaseStateMachine.html#ac261a6e2f6829dd213d58e690093c192',1,'BaseStateMachine']]]
 ];

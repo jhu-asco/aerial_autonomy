@@ -51,7 +51,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="182" column="1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="187" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structEventAgnosticGuardFunctor_1a775411c4c4e0815298200f895af3c02b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -99,7 +99,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="191" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="191" bodyend="204"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="196" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="196" bodyend="211"/>
       </memberdef>
       <memberdef kind="function" id="structEventAgnosticGuardFunctor_1aa339ada7b22b27bc6d384445d109f4e6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type></type>
@@ -112,7 +112,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="209" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="209" bodyend="209"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="216" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="216" bodyend="216"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -134,7 +134,7 @@
 </parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="173" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="173" bodyend="210"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="178" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="178" bodyend="217"/>
     <listofallmembers>
       <member refid="structEventAgnosticGuardFunctor_1ad97196f6a607d199d6dbd56156b8dd8c" prot="public" virt="pure-virtual"><scope>EventAgnosticGuardFunctor</scope><name>guard</name></member>
       <member refid="structEventAgnosticGuardFunctor_1a775411c4c4e0815298200f895af3c02b" prot="public" virt="non-virtual"><scope>EventAgnosticGuardFunctor</scope><name>operator()</name></member>

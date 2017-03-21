@@ -136,13 +136,13 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="251">
+      <node id="277">
         <label>JoysticksYaw</label>
         <link refid="structJoysticksYaw"/>
-        <childnode refid="250" relation="public-inheritance">
+        <childnode refid="276" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="250">
+      <node id="276">
         <label>Joysticks</label>
         <link refid="structJoysticks"/>
       </node>

@@ -105,38 +105,38 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="278">
+      <node id="299">
         <label>ManualRPYTControllerDroneConnector</label>
         <link refid="classManualRPYTControllerDroneConnector"/>
-        <childnode refid="279" relation="public-inheritance">
+        <childnode refid="300" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="280">
+      <node id="301">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
-      <node id="279">
+      <node id="300">
         <label>ControllerHardwareConnector&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="280" relation="public-inheritance">
+        <childnode refid="301" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="281">
+      <node id="302">
         <label>ManualRPYTControllerDroneConnector</label>
         <link refid="classManualRPYTControllerDroneConnector"/>
-        <childnode refid="282" relation="public-inheritance">
+        <childnode refid="303" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="283">
+      <node id="304">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
-      <node id="282">
+      <node id="303">
         <label>ControllerHardwareConnector&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="283" relation="public-inheritance">
+        <childnode refid="304" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

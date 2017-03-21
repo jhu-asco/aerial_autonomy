@@ -185,26 +185,26 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="312">
+      <node id="331">
         <label>Position</label>
         <link refid="structPosition"/>
       </node>
-      <node id="311">
+      <node id="330">
         <label>PositionYaw</label>
         <link refid="structPositionYaw"/>
-        <childnode refid="312" relation="public-inheritance">
+        <childnode refid="331" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="314">
+      <node id="333">
         <label>Position</label>
         <link refid="structPosition"/>
       </node>
-      <node id="313">
+      <node id="332">
         <label>PositionYaw</label>
         <link refid="structPositionYaw"/>
-        <childnode refid="314" relation="public-inheritance">
+        <childnode refid="333" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

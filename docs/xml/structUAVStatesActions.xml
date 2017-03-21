@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structUAVStatesActions" kind="struct" prot="public">
+    <compoundname>UAVStatesActions</compoundname>
+    <includes refid="uav__states__actions_8h" local="no">uav_states_actions.h</includes>
+    <innerclass refid="structUAVStatesActions_1_1Landed" prot="public">UAVStatesActions::Landed</innerclass>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structUAVStatesActions_1aec75cac817b13a7d8f4a73bfecc94056" prot="public" static="no">
+        <type><ref refid="takeoff__functors_8h_1ab6710f3cb12b7653eedcd3a2215d3228" kindref="member">TakingOff_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using UAVStatesActions&lt; LogicStateMachineT &gt;::TakingOff =  TakingOff_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>TakingOff</name>
+        <briefdescription>
+<para>Takingoff state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="17" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structUAVStatesActions_1acc910bc55ae6432004e6b1704634d1c7" prot="public" static="no">
+        <type><ref refid="land__functors_8h_1a84627965433a60de431758bddec005c3" kindref="member">Landing_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using UAVStatesActions&lt; LogicStateMachineT &gt;::Landing =  Landing_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>Landing</name>
+        <briefdescription>
+<para>Landing state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="21" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structUAVStatesActions_1a6f29ce9909b5ebc8c46ca70ef6a92d19" prot="public" static="no">
+        <type><ref refid="position__control__functors_8h_1af380346c24b534da18813f70217ea50f" kindref="member">ReachingGoal_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using UAVStatesActions&lt; LogicStateMachineT &gt;::ReachingGoal =  ReachingGoal_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>ReachingGoal</name>
+        <briefdescription>
+<para>Reaching goal state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="25" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structUAVStatesActions_1a2c18472bdc3a420dd319dc82fa507ac3" prot="public" static="no">
+        <type><ref refid="hovering__functors_8h_1a4252f403b3bcd2a850cf271512d9c6ff" kindref="member">Hovering_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using UAVStatesActions&lt; LogicStateMachineT &gt;::Hovering =  Hovering_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>Hovering</name>
+        <briefdescription>
+<para>Hovering state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="29" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structUAVStatesActions_1ad42a6d885281297a91e71b66624ee813" prot="public" static="no">
+        <type><ref refid="structTakeoffTransitionActionFunctor__" kindref="compound">TakeoffTransitionActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using UAVStatesActions&lt; LogicStateMachineT &gt;::TakeoffAction =  TakeoffTransitionActionFunctor_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>TakeoffAction</name>
+        <briefdescription>
+<para>Action to take when taking off. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="48" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structUAVStatesActions_1a9e47af475b29af18ae34d80227ee3388" prot="public" static="no">
+        <type><ref refid="structTakeoffTransitionGuardFunctor__" kindref="compound">TakeoffTransitionGuardFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using UAVStatesActions&lt; LogicStateMachineT &gt;::TakeoffGuard =  TakeoffTransitionGuardFunctor_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>TakeoffGuard</name>
+        <briefdescription>
+<para>Guard to stop taking off under low voltage. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="52" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structUAVStatesActions_1a5a69f68c781b17a48e2e6dcef9c52e1d" prot="public" static="no">
+        <type><ref refid="structTakeoffAbortActionFunctor__" kindref="compound">TakeoffAbortActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using UAVStatesActions&lt; LogicStateMachineT &gt;::TakeoffAbort =  TakeoffAbortActionFunctor_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>TakeoffAbort</name>
+        <briefdescription>
+<para>Abort action when taking off. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="56" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structUAVStatesActions_1a5cf123d42d255c842a68a223354c1b43" prot="public" static="no">
+        <type><ref refid="structLandTransitionActionFunctor__" kindref="compound">LandTransitionActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using UAVStatesActions&lt; LogicStateMachineT &gt;::LandingAction =  LandTransitionActionFunctor_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>LandingAction</name>
+        <briefdescription>
+<para>Action to take when landing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="60" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structUAVStatesActions_1a60ad11afcb23e02f34026459361f3b1d" prot="public" static="no">
+        <type><ref refid="structPositionControlTransitionActionFunctor__" kindref="compound">PositionControlTransitionActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using UAVStatesActions&lt; LogicStateMachineT &gt;::ReachingGoalSet =  PositionControlTransitionActionFunctor_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>ReachingGoalSet</name>
+        <briefdescription>
+<para>set goal action when transitioning </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="64" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structUAVStatesActions_1ab0acd6797efeedeb8704c7d24467a254" prot="public" static="no">
+        <type><ref refid="structPositionControlTransitionGuardFunctor__" kindref="compound">PositionControlTransitionGuardFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using UAVStatesActions&lt; LogicStateMachineT &gt;::ReachingGoalGuard =  PositionControlTransitionGuardFunctor_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>ReachingGoalGuard</name>
+        <briefdescription>
+<para>Guard to avoid going to goal if goal is not correct. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="69" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structUAVStatesActions_1abde47fc46f87de16bc3e0206d251a437" prot="public" static="no">
+        <type><ref refid="structPositionControlAbortActionFunctor__" kindref="compound">PositionControlAbortActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using UAVStatesActions&lt; LogicStateMachineT &gt;::ReachingGoalAbort =  PositionControlAbortActionFunctor_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>ReachingGoalAbort</name>
+        <briefdescription>
+<para>Abort action when reaching goal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="74" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structUAVStatesActions_1aaadfe040047828a68132e8976cc0aa46" prot="public" static="no">
+        <type><ref refid="structUAVStatesActions_1a5cf123d42d255c842a68a223354c1b43" kindref="member">LandingAction</ref></type>
+        <definition>using UAVStatesActions&lt; LogicStateMachineT &gt;::ReachingGoalLand =  LandingAction</definition>
+        <argsstring></argsstring>
+        <name>ReachingGoalLand</name>
+        <briefdescription>
+<para>Land action when reaching goal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="79" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Class to provide typedefs for all basic uav states and actions. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The backend of logic state machine </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="12" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="12" bodyend="80"/>
+    <listofallmembers>
+      <member refid="structUAVStatesActions_1a2c18472bdc3a420dd319dc82fa507ac3" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>Hovering</name></member>
+      <member refid="structUAVStatesActions_1acc910bc55ae6432004e6b1704634d1c7" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>Landing</name></member>
+      <member refid="structUAVStatesActions_1a5cf123d42d255c842a68a223354c1b43" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>LandingAction</name></member>
+      <member refid="structUAVStatesActions_1a6f29ce9909b5ebc8c46ca70ef6a92d19" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>ReachingGoal</name></member>
+      <member refid="structUAVStatesActions_1abde47fc46f87de16bc3e0206d251a437" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>ReachingGoalAbort</name></member>
+      <member refid="structUAVStatesActions_1ab0acd6797efeedeb8704c7d24467a254" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>ReachingGoalGuard</name></member>
+      <member refid="structUAVStatesActions_1aaadfe040047828a68132e8976cc0aa46" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>ReachingGoalLand</name></member>
+      <member refid="structUAVStatesActions_1a60ad11afcb23e02f34026459361f3b1d" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>ReachingGoalSet</name></member>
+      <member refid="structUAVStatesActions_1a5a69f68c781b17a48e2e6dcef9c52e1d" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>TakeoffAbort</name></member>
+      <member refid="structUAVStatesActions_1ad42a6d885281297a91e71b66624ee813" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>TakeoffAction</name></member>
+      <member refid="structUAVStatesActions_1a9e47af475b29af18ae34d80227ee3388" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>TakeoffGuard</name></member>
+      <member refid="structUAVStatesActions_1aec75cac817b13a7d8f4a73bfecc94056" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>TakingOff</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

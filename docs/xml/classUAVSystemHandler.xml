@@ -1,0 +1,195 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classUAVSystemHandler" kind="class" prot="public">
+    <compoundname>UAVSystemHandler</compoundname>
+    <includes refid="uav__system__handler_8h" local="no">uav_system_handler.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+      <param>
+        <type>class EventManagerT</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classUAVSystemHandler_1a72a4dd83ba984eeaa11763f0bfb71b7c" prot="private" static="no" mutable="no">
+        <type>pluginlib::ClassLoader&lt; parsernode::Parser &gt;</type>
+        <definition>pluginlib::ClassLoader&lt;parsernode::Parser&gt; UAVSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::parser_loader_</definition>
+        <argsstring></argsstring>
+        <name>parser_loader_</name>
+        <briefdescription>
+<para>Used to load hardware plugin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="73" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVSystemHandler_1adf614e55a77755d34ac2485b0734e9c8" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; parsernode::Parser &gt;</type>
+        <definition>std::unique_ptr&lt;parsernode::Parser&gt; UAVSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::uav_hardware_</definition>
+        <argsstring></argsstring>
+        <name>uav_hardware_</name>
+        <briefdescription>
+<para>Hardware instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="74" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVSystemHandler_1a61c73fcaa012e6158ddcecc1d0fe6488" prot="private" static="no" mutable="no">
+        <type><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref></type>
+        <definition>UAVSystem UAVSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::uav_system_</definition>
+        <argsstring></argsstring>
+        <name>uav_system_</name>
+        <briefdescription>
+<para>Contains controllers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="75" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVSystemHandler_1ab3e6f38f8fd43f140ef5aac5c0fd46b8" prot="private" static="no" mutable="no">
+        <type><ref refid="classCommonSystemHandler" kindref="compound">CommonSystemHandler</ref>&lt; LogicStateMachineT, EventManagerT, <ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &gt;</type>
+        <definition>CommonSystemHandler&lt;LogicStateMachineT, EventManagerT, UAVSystem&gt; UAVSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::common_handler_</definition>
+        <argsstring></argsstring>
+        <name>common_handler_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Common logic to create state machine and associated connections. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="77" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVSystemHandler_1a64bfdfb5262cd735b9be121bc9e89594" prot="private" static="no" mutable="no">
+        <type><ref refid="classAsyncTimer" kindref="compound">AsyncTimer</ref></type>
+        <definition>AsyncTimer UAVSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::uav_controller_timer_</definition>
+        <argsstring></argsstring>
+        <name>uav_controller_timer_</name>
+        <briefdescription>
+<para>Timer for running uav controller. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="79" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classUAVSystemHandler_1a365e0e41fd724a5aca509e4193d76088" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>UAVSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::UAVSystemHandler</definition>
+        <argsstring>(ros::NodeHandle &amp;nh, UAVSystemHandlerConfig &amp;config)</argsstring>
+        <name>UAVSystemHandler</name>
+        <param>
+          <type>ros::NodeHandle &amp;</type>
+          <declname>nh</declname>
+        </param>
+        <param>
+          <type>UAVSystemHandlerConfig &amp;</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeHandle to use for event and command subscription </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Proto configuration parameters </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="30" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="30" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVSystemHandler_1ab237ab8f0b450b8c892c3fac54721915" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UAVSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::UAVSystemHandler</definition>
+        <argsstring>(const UAVSystemHandler &amp;)=delete</argsstring>
+        <name>UAVSystemHandler</name>
+        <param>
+          <type>const <ref refid="classUAVSystemHandler" kindref="compound">UAVSystemHandler</ref> &amp;</type>
+        </param>
+        <briefdescription>
+<para>Delete copy constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="51" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVSystemHandler_1afccb7be9be7dba4a53d56ae5cc35a70a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>parsernode::common::quaddata</type>
+        <definition>parsernode::common::quaddata UAVSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::getUAVData</definition>
+        <argsstring>()</argsstring>
+        <name>getUAVData</name>
+        <briefdescription>
+<para>Get UAV state. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The UAV state </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="57" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="57" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVSystemHandler_1a8f37acafac0f41296058d0f6bb144893" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool UAVSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::isConnected</definition>
+        <argsstring>()</argsstring>
+        <name>isConnected</name>
+        <briefdescription>
+<para>Forward common handler connected function for testing is GUI is connected to this node or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if connected </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="69" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="69" bodyend="69"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Owns all of the autonomous system components and is responsible for thread management. Also owns a common system handler object to handle creation of state machine and connecting it to GUI. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine to use </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EventManagerT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event manager to use </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="23" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="23" bodyend="80"/>
+    <listofallmembers>
+      <member refid="classUAVSystemHandler_1ab3e6f38f8fd43f140ef5aac5c0fd46b8" prot="private" virt="non-virtual"><scope>UAVSystemHandler</scope><name>common_handler_</name></member>
+      <member refid="classUAVSystemHandler_1afccb7be9be7dba4a53d56ae5cc35a70a" prot="public" virt="non-virtual"><scope>UAVSystemHandler</scope><name>getUAVData</name></member>
+      <member refid="classUAVSystemHandler_1a8f37acafac0f41296058d0f6bb144893" prot="public" virt="non-virtual"><scope>UAVSystemHandler</scope><name>isConnected</name></member>
+      <member refid="classUAVSystemHandler_1a72a4dd83ba984eeaa11763f0bfb71b7c" prot="private" virt="non-virtual"><scope>UAVSystemHandler</scope><name>parser_loader_</name></member>
+      <member refid="classUAVSystemHandler_1a64bfdfb5262cd735b9be121bc9e89594" prot="private" virt="non-virtual"><scope>UAVSystemHandler</scope><name>uav_controller_timer_</name></member>
+      <member refid="classUAVSystemHandler_1adf614e55a77755d34ac2485b0734e9c8" prot="private" virt="non-virtual"><scope>UAVSystemHandler</scope><name>uav_hardware_</name></member>
+      <member refid="classUAVSystemHandler_1a61c73fcaa012e6158ddcecc1d0fe6488" prot="private" virt="non-virtual"><scope>UAVSystemHandler</scope><name>uav_system_</name></member>
+      <member refid="classUAVSystemHandler_1a365e0e41fd724a5aca509e4193d76088" prot="public" virt="non-virtual"><scope>UAVSystemHandler</scope><name>UAVSystemHandler</name></member>
+      <member refid="classUAVSystemHandler_1ab237ab8f0b450b8c892c3fac54721915" prot="public" virt="non-virtual"><scope>UAVSystemHandler</scope><name>UAVSystemHandler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -183,24 +183,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="348">
+      <node id="372">
         <label>state_machine&lt; A0, A1, A2, A3, A4 &gt;</label>
       </node>
-      <node id="347">
+      <node id="371">
         <label>boost::msm::back::thread_safe_state_machine&lt; A0, A1, A2, A3, A4 &gt;</label>
         <link refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine"/>
-        <childnode refid="348" relation="public-inheritance">
+        <childnode refid="372" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="350">
+      <node id="374">
         <label>state_machine&lt; A0, A1, A2, A3, A4 &gt;</label>
       </node>
-      <node id="349">
+      <node id="373">
         <label>boost::msm::back::thread_safe_state_machine&lt; A0, A1, A2, A3, A4 &gt;</label>
         <link refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine"/>
-        <childnode refid="350" relation="public-inheritance">
+        <childnode refid="374" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classRobotSystemContainer" kind="class" prot="public">
+    <compoundname>RobotSystemContainer</compoundname>
+    <includes refid="robot__system__container_8h" local="no">robot_system_container.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class</type>
+        <declname>RobotSystemT</declname>
+        <defname>RobotSystemT</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classRobotSystemContainer_1a05673eb4ec343f36c1f3fb787ac26b94" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class EventT</type>
+          </param>
+          <param>
+            <type>class RobotSystemT1</type>
+          </param>
+          <param>
+            <type>class LogicStateMachineT</type>
+          </param>
+        </templateparamlist>
+        <type>friend class</type>
+        <definition>friend class ActionFunctor</definition>
+        <argsstring></argsstring>
+        <name>ActionFunctor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="12" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="classRobotSystemContainer_1a9411581bb37b54467df520e3c73ceaf0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class EventT</type>
+          </param>
+          <param>
+            <type>class RobotSystemT1</type>
+          </param>
+          <param>
+            <type>class LogicStateMachineT</type>
+          </param>
+        </templateparamlist>
+        <type>friend class</type>
+        <definition>friend class GuardFunctor</definition>
+        <argsstring></argsstring>
+        <name>GuardFunctor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="15" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="classRobotSystemContainer_1a86a665e36420c3cbc2b45864e023f98a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class RobotSystemT1</type>
+          </param>
+          <param>
+            <type>class LogicStateMachineT</type>
+          </param>
+        </templateparamlist>
+        <type>friend class</type>
+        <definition>friend class EventAgnosticActionFunctor</definition>
+        <argsstring></argsstring>
+        <name>EventAgnosticActionFunctor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="18" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="classRobotSystemContainer_1af372c36475bc4510af791f5cb66608ad" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class RobotSystemT1</type>
+          </param>
+          <param>
+            <type>class LogicStateMachineT</type>
+          </param>
+        </templateparamlist>
+        <type>friend class</type>
+        <definition>friend class EventAgnosticGuardFunctor</definition>
+        <argsstring></argsstring>
+        <name>EventAgnosticGuardFunctor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="21" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classRobotSystemContainer_1a8aba5d340522504565dba55b16727f2a" prot="protected" static="no" mutable="no">
+        <type>RobotSystemT &amp;</type>
+        <definition>RobotSystemT&amp; RobotSystemContainer&lt; RobotSystemT &gt;::robot_system_</definition>
+        <argsstring></argsstring>
+        <name>robot_system_</name>
+        <briefdescription>
+<para>robot system i.e stored. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classRobotSystemContainer_1a0874007e25e639474ad1b07261286916" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>RobotSystemT &amp;</type>
+        <definition>RobotSystemT&amp; RobotSystemContainer&lt; RobotSystemT &gt;::operator()</definition>
+        <argsstring>()</argsstring>
+        <name>operator()</name>
+        <briefdescription>
+<para>Convenience function to return robot system. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>robot system stored </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="34" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="34" bodyend="34"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classRobotSystemContainer_1a7b089c1a77cbda3534b38f7b5e1bcc7a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>RobotSystemContainer&lt; RobotSystemT &gt;::RobotSystemContainer</definition>
+        <argsstring>(RobotSystemT &amp;robot_system)</argsstring>
+        <name>RobotSystemContainer</name>
+        <param>
+          <type>RobotSystemT &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <briefdescription>
+<para>Constructor to store robot system. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>external robot system that is stored </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="42" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="42" bodyend="43"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Container class that stores robot system and provides it to only selected friend classes. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>RobotSystemT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>robot system type to store </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="336">
+        <label>RobotSystemT</label>
+      </node>
+      <node id="335">
+        <label>RobotSystemContainer&lt; RobotSystemT &gt;</label>
+        <link refid="classRobotSystemContainer"/>
+        <childnode refid="336" relation="usage">
+          <edgelabel>robot_system_</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="9" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="9" bodyend="44"/>
+    <listofallmembers>
+      <member refid="classRobotSystemContainer_1a05673eb4ec343f36c1f3fb787ac26b94" prot="private" virt="non-virtual"><scope>RobotSystemContainer</scope><name>ActionFunctor</name></member>
+      <member refid="classRobotSystemContainer_1a86a665e36420c3cbc2b45864e023f98a" prot="private" virt="non-virtual"><scope>RobotSystemContainer</scope><name>EventAgnosticActionFunctor</name></member>
+      <member refid="classRobotSystemContainer_1af372c36475bc4510af791f5cb66608ad" prot="private" virt="non-virtual"><scope>RobotSystemContainer</scope><name>EventAgnosticGuardFunctor</name></member>
+      <member refid="classRobotSystemContainer_1a9411581bb37b54467df520e3c73ceaf0" prot="private" virt="non-virtual"><scope>RobotSystemContainer</scope><name>GuardFunctor</name></member>
+      <member refid="classRobotSystemContainer_1a0874007e25e639474ad1b07261286916" prot="protected" virt="non-virtual"><scope>RobotSystemContainer</scope><name>operator()</name></member>
+      <member refid="classRobotSystemContainer_1a8aba5d340522504565dba55b16727f2a" prot="protected" virt="non-virtual"><scope>RobotSystemContainer</scope><name>robot_system_</name></member>
+      <member refid="classRobotSystemContainer_1a7b089c1a77cbda3534b38f7b5e1bcc7a" prot="public" virt="non-virtual"><scope>RobotSystemContainer</scope><name>RobotSystemContainer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

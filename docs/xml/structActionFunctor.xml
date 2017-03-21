@@ -120,7 +120,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="38" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="38" bodyend="51"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="38" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="38" bodyend="53"/>
       </memberdef>
       <memberdef kind="function" id="structActionFunctor_1aaaa4c1ce7204b370be55f2ef4a618258" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type></type>
@@ -133,7 +133,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="56" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="56" bodyend="56"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="58" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="58" bodyend="58"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -162,7 +162,7 @@
 </parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="18" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="18" bodyend="57"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="18" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="18" bodyend="59"/>
     <listofallmembers>
       <member refid="structActionFunctor_1adbf24aea135ecf5a0d470b290a5cab02" prot="public" virt="non-virtual"><scope>ActionFunctor</scope><name>operator()</name></member>
       <member refid="structActionFunctor_1a97250a2cc027dc3ca7d10a975d11a5c7" prot="public" virt="pure-virtual"><scope>ActionFunctor</scope><name>run</name></member>

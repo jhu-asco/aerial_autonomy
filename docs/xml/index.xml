@@ -22,6 +22,13 @@
   <compound refid="classBaseState" kind="class"><name>BaseState</name>
     <member refid="classBaseState_1a3967d85ffd88b9235fcfd9732e745c13" kind="function"><name>~BaseState</name></member>
   </compound>
+  <compound refid="classBaseStateMachine" kind="class"><name>BaseStateMachine</name>
+    <member refid="classBaseStateMachine_1ac261a6e2f6829dd213d58e690093c192" kind="variable"><name>no_transition_event_index_</name></member>
+    <member refid="classBaseStateMachine_1a75dfc85f8804c2579ad9dc8c2239aba1" kind="variable"><name>robot_system_container_</name></member>
+    <member refid="classBaseStateMachine_1a0f38afdf3c3299264d3382895b6452c6" kind="function"><name>get_no_transition_event_index</name></member>
+    <member refid="classBaseStateMachine_1a2cb25947ca74c77568736975125aed44" kind="function"><name>BaseStateMachine</name></member>
+    <member refid="classBaseStateMachine_1ab047241678b8eba01f428ef1af5c055f" kind="function"><name>no_transition</name></member>
+  </compound>
   <compound refid="classBuiltInController" kind="class"><name>BuiltInController</name>
     <member refid="classBuiltInController_1aea6ab422dc24222fb168a7e9522ec7c9" kind="function"><name>~BuiltInController</name></member>
     <member refid="classBuiltInController_1ab597ac5aa54f9865c0324fbcf5c0d7bd" kind="function"><name>runImplementation</name></member>
@@ -31,6 +38,18 @@
     <member refid="classBuiltInVelocityControllerDroneConnector_1a2a9693047db6fcdadea21d54bfe10fc1" kind="function"><name>BuiltInVelocityControllerDroneConnector</name></member>
     <member refid="classBuiltInVelocityControllerDroneConnector_1af69ba169f039d9f8d59f675392af4cf0" kind="function"><name>extractSensorData</name></member>
     <member refid="classBuiltInVelocityControllerDroneConnector_1a10a06a14a9a34afbe37c79e86ffd5787" kind="function"><name>sendHardwareCommands</name></member>
+  </compound>
+  <compound refid="classCommonSystemHandler" kind="class"><name>CommonSystemHandler</name>
+    <member refid="classCommonSystemHandler_1a34cbe068c3c4715ed8ff5b9a717ae593" kind="variable"><name>logic_state_machine_</name></member>
+    <member refid="classCommonSystemHandler_1a393da82eedf31074046dd9bea22e4ca1" kind="variable"><name>event_manager_</name></member>
+    <member refid="classCommonSystemHandler_1a740bc6abe3a48d17b732a1bdc9c0fac4" kind="variable"><name>state_machine_gui_connector_</name></member>
+    <member refid="classCommonSystemHandler_1ac014b0da6b4d9e2e6694258b39a1f1b4" kind="variable"><name>system_status_pub_</name></member>
+    <member refid="classCommonSystemHandler_1a5a155b8d5335b4f072363ce4ca152fe1" kind="variable"><name>status_timer_</name></member>
+    <member refid="classCommonSystemHandler_1a97404fbbfb77d76bf62cbb388963f057" kind="variable"><name>logic_state_machine_timer_</name></member>
+    <member refid="classCommonSystemHandler_1aeb821763feeb9ddd1d878eee1b4d62de" kind="function"><name>CommonSystemHandler</name></member>
+    <member refid="classCommonSystemHandler_1a106090bca9f70de4100ce256983481d6" kind="function"><name>CommonSystemHandler</name></member>
+    <member refid="classCommonSystemHandler_1a464bb584aaf1b30eaede850f04f62f33" kind="function"><name>isConnected</name></member>
+    <member refid="classCommonSystemHandler_1a6362231dc98dfc2f8e6f24245ff901d1" kind="function"><name>startTimers</name></member>
   </compound>
   <compound refid="structCompleted" kind="struct"><name>Completed</name>
   </compound>
@@ -113,7 +132,7 @@
   </compound>
   <compound refid="structBaseState_1_1internal__transition__table" kind="struct"><name>BaseState::internal_transition_table</name>
   </compound>
-  <compound refid="structLogicStateMachineFrontEnd_1_1Landed_1_1internal__transition__table" kind="struct"><name>LogicStateMachineFrontEnd::Landed::internal_transition_table</name>
+  <compound refid="structUAVStatesActions_1_1Landed_1_1internal__transition__table" kind="struct"><name>UAVStatesActions::Landed::internal_transition_table</name>
   </compound>
   <compound refid="structInternalTransitionEvent" kind="struct"><name>InternalTransitionEvent</name>
   </compound>
@@ -130,39 +149,13 @@
     <member refid="structJoysticksYaw_1a1a5b1cf8d91d31c8aa7fb63acfc5833c" kind="function"><name>JoysticksYaw</name></member>
     <member refid="structJoysticksYaw_1a01b433c411a2071821fded99f9f17a2b" kind="function"><name>JoysticksYaw</name></member>
   </compound>
-  <compound refid="structLogicStateMachineFrontEnd_1_1Landed" kind="struct"><name>LogicStateMachineFrontEnd::Landed</name>
+  <compound refid="structUAVStatesActions_1_1Landed" kind="struct"><name>UAVStatesActions::Landed</name>
   </compound>
   <compound refid="structLandInternalActionFunctor__" kind="struct"><name>LandInternalActionFunctor_</name>
     <member refid="structLandInternalActionFunctor___1a4557b02d6cfa6712b610337cb606f54b" kind="function"><name>run</name></member>
   </compound>
   <compound refid="structLandTransitionActionFunctor__" kind="struct"><name>LandTransitionActionFunctor_</name>
     <member refid="structLandTransitionActionFunctor___1ae91b354f041edda283e306fa312e1213" kind="function"><name>run</name></member>
-  </compound>
-  <compound refid="classLogicStateMachineFrontEnd" kind="class"><name>LogicStateMachineFrontEnd</name>
-    <member refid="classLogicStateMachineFrontEnd_1a98f3148dbabd87749be3c63ea0ec2a00" kind="typedef"><name>TakingOff</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1acac7938fd313e8808e486fa884ccf49b" kind="typedef"><name>Landing</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1a8a5e85c9d100560fc79f9cbe1bbd5947" kind="typedef"><name>ReachingGoal</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1a5877b5b19ba413c2b3bb02ee2459d5ec" kind="typedef"><name>Hovering</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1ae617089cdb6687edc5d27b7f8a546af2" kind="typedef"><name>initial_state</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1af73bbbe19d413f3786c265fe91a94ffb" kind="typedef"><name>TakeoffAction</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1a4660e7e7dbd8bc3f7a379a076999187d" kind="typedef"><name>TakeoffGuard</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1a26036773cac59b48b9e545acc870a29b" kind="typedef"><name>TakeoffAbort</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1ad1619c7d43a216eb9238004470389f2e" kind="typedef"><name>LandingAction</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1a39babee29ba680422ea922504a465417" kind="typedef"><name>ReachingGoalSet</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1a84fe5b03b104adc3c3406bb0b6ffa190" kind="typedef"><name>ReachingGoalGuard</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1a6273a06430b7aa6088e25d9b78805f1a" kind="typedef"><name>ReachingGoalAbort</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1a3bec78d997dbc5ae5534c3b49c8127f5" kind="typedef"><name>ReachingGoalLand</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1a05673eb4ec343f36c1f3fb787ac26b94" kind="friend"><name>ActionFunctor</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1a9411581bb37b54467df520e3c73ceaf0" kind="friend"><name>GuardFunctor</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1a86a665e36420c3cbc2b45864e023f98a" kind="friend"><name>EventAgnosticActionFunctor</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1af372c36475bc4510af791f5cb66608ad" kind="friend"><name>EventAgnosticGuardFunctor</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1a8431e5208e24b80105d639281361a252" kind="variable"><name>robot_system_</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1a0f19247a261344e58dede909f598677f" kind="variable"><name>no_transition_event_index_</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1af2ccbab79c14bc6570091b49a2e61fff" kind="function"><name>get_no_transition_event_index</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1afea624ef452f4dd6f5380c96fd9555bb" kind="function"><name>on_entry</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1a86bc9dc7c6ab97285bb5c9ea06517da3" kind="function"><name>on_exit</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1a38a4d9fba9466fa36d012d297e8908ec" kind="function"><name>LogicStateMachineFrontEnd</name></member>
-    <member refid="classLogicStateMachineFrontEnd_1aa75b2a1500d4bfe052c5421aeefbf7ab" kind="function"><name>no_transition</name></member>
   </compound>
   <compound refid="classManualRPYTController" kind="class"><name>ManualRPYTController</name>
     <member refid="classManualRPYTController_1ac85b5cc721914cb7d265a35b155037af" kind="function"><name>~ManualRPYTController</name></member>
@@ -174,24 +167,6 @@
     <member refid="classManualRPYTControllerDroneConnector_1a1e9d3f52b19ed5d89b00d6358f826f9b" kind="function"><name>ManualRPYTControllerDroneConnector</name></member>
     <member refid="classManualRPYTControllerDroneConnector_1a6c47447c98dd1528703355f9f60f1d50" kind="function"><name>extractSensorData</name></member>
     <member refid="classManualRPYTControllerDroneConnector_1a34bde89c4b4f2d0de000b4ccbfc719c4" kind="function"><name>sendHardwareCommands</name></member>
-  </compound>
-  <compound refid="classOnboardSystemHandler" kind="class"><name>OnboardSystemHandler</name>
-    <member refid="classOnboardSystemHandler_1afdb5595dbc8a7f6b20cdf688054c54cb" kind="variable"><name>nh_</name></member>
-    <member refid="classOnboardSystemHandler_1afdcac108a0ec9d6819dd466d9f6fb351" kind="variable"><name>config_</name></member>
-    <member refid="classOnboardSystemHandler_1adad64fd4ce2084f098acda5b49429421" kind="variable"><name>parser_loader</name></member>
-    <member refid="classOnboardSystemHandler_1a73a3c4d07639c00ce86588dc68de681f" kind="variable"><name>uav_hardware_</name></member>
-    <member refid="classOnboardSystemHandler_1a8d7e3ee9b42b14479aac3405eb0c21a9" kind="variable"><name>uav_system_</name></member>
-    <member refid="classOnboardSystemHandler_1a5e676302505de87500473d848f76c5bd" kind="variable"><name>logic_state_machine_</name></member>
-    <member refid="classOnboardSystemHandler_1a18f102d4c1bd58efaca001489cf9a183" kind="variable"><name>event_manager_</name></member>
-    <member refid="classOnboardSystemHandler_1a252480269a7ed7ec50c3efa822ff29bd" kind="variable"><name>state_machine_gui_connector_</name></member>
-    <member refid="classOnboardSystemHandler_1a141aad0e051602eae81fb82a2d8b14ec" kind="variable"><name>system_status_pub_</name></member>
-    <member refid="classOnboardSystemHandler_1a545f58466a9e1845589d338e9c9d24aa" kind="variable"><name>logic_state_machine_timer_</name></member>
-    <member refid="classOnboardSystemHandler_1ab559ece31d6c987345d7c6bd5ad438a7" kind="variable"><name>uav_controller_timer_</name></member>
-    <member refid="classOnboardSystemHandler_1a0e5a200d748864e44dd87fa6c8f2c74b" kind="variable"><name>status_timer_</name></member>
-    <member refid="classOnboardSystemHandler_1a50433d9368004a07ee1d410516f16d0f" kind="function"><name>OnboardSystemHandler</name></member>
-    <member refid="classOnboardSystemHandler_1a6ab804a5c415b7dcde04babd918738e2" kind="function"><name>OnboardSystemHandler</name></member>
-    <member refid="classOnboardSystemHandler_1afd53ef53f99eb8b8af8b15dd1b059eba" kind="function"><name>isConnected</name></member>
-    <member refid="classOnboardSystemHandler_1ad39e806fb8edd6281d10b8575345ad6d" kind="function"><name>getUAVData</name></member>
   </compound>
   <compound refid="structPosition" kind="struct"><name>Position</name>
     <member refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kind="variable"><name>x</name></member>
@@ -228,6 +203,15 @@
     <member refid="structPositionYaw_1a74eb4415b12fe9c42e102e82d2bd52cb" kind="function"><name>operator==</name></member>
     <member refid="structPositionYaw_1a9302e53f05d5d07d11dcdd1d0c23610b" kind="function"><name>operator!=</name></member>
   </compound>
+  <compound refid="classRobotSystemContainer" kind="class"><name>RobotSystemContainer</name>
+    <member refid="classRobotSystemContainer_1a05673eb4ec343f36c1f3fb787ac26b94" kind="friend"><name>ActionFunctor</name></member>
+    <member refid="classRobotSystemContainer_1a9411581bb37b54467df520e3c73ceaf0" kind="friend"><name>GuardFunctor</name></member>
+    <member refid="classRobotSystemContainer_1a86a665e36420c3cbc2b45864e023f98a" kind="friend"><name>EventAgnosticActionFunctor</name></member>
+    <member refid="classRobotSystemContainer_1af372c36475bc4510af791f5cb66608ad" kind="friend"><name>EventAgnosticGuardFunctor</name></member>
+    <member refid="classRobotSystemContainer_1a8aba5d340522504565dba55b16727f2a" kind="variable"><name>robot_system_</name></member>
+    <member refid="classRobotSystemContainer_1a0874007e25e639474ad1b07261286916" kind="function"><name>operator()</name></member>
+    <member refid="classRobotSystemContainer_1a7b089c1a77cbda3534b38f7b5e1bcc7a" kind="function"><name>RobotSystemContainer</name></member>
+  </compound>
   <compound refid="structRollPitchYawThrust" kind="struct"><name>RollPitchYawThrust</name>
     <member refid="structRollPitchYawThrust_1a473205dda8a9c3cd39c7f20b9bf2573b" kind="variable"><name>r</name></member>
     <member refid="structRollPitchYawThrust_1a5a48538eafec9fcfdfb5c3ff714a6044" kind="variable"><name>p</name></member>
@@ -249,13 +233,8 @@
     <member refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger_1aa7f5a5b057de80bf818642d851fabac3" kind="function"><name>triggerEvent</name></member>
   </compound>
   <compound refid="classSampleLogicStateMachine__" kind="class"><name>SampleLogicStateMachine_</name>
-    <member refid="classSampleLogicStateMachine___1a05673eb4ec343f36c1f3fb787ac26b94" kind="friend"><name>ActionFunctor</name></member>
-    <member refid="classSampleLogicStateMachine___1a9411581bb37b54467df520e3c73ceaf0" kind="friend"><name>GuardFunctor</name></member>
-    <member refid="classSampleLogicStateMachine___1a86a665e36420c3cbc2b45864e023f98a" kind="friend"><name>EventAgnosticActionFunctor</name></member>
-    <member refid="classSampleLogicStateMachine___1af372c36475bc4510af791f5cb66608ad" kind="friend"><name>EventAgnosticGuardFunctor</name></member>
     <member refid="classSampleLogicStateMachine___1ad9d563e9bb505b603574111ef5aa1c01" kind="variable"><name>type_index_event_</name></member>
     <member refid="classSampleLogicStateMachine___1a342b143058cca6f56daf44d89973a05f" kind="variable"><name>pose_event_</name></member>
-    <member refid="classSampleLogicStateMachine___1a9e76d7525a8b1bffd4596fdcad62d951" kind="variable"><name>robot_system_</name></member>
     <member refid="classSampleLogicStateMachine___1a5450901d1fdbedd6368ea302322a5fb6" kind="function"><name>SampleLogicStateMachine_</name></member>
     <member refid="classSampleLogicStateMachine___1af577b426ec630d48148ed6aab393b43e" kind="function"><name>process_event</name></member>
     <member refid="classSampleLogicStateMachine___1a60ca43f8a484f1ab56669d0485479c47" kind="function"><name>process_event</name></member>
@@ -297,12 +276,12 @@
     <member refid="classStateMachineGUIConnector_1abd1afe58d94b7ef6d6533d02050ef5bb" kind="function"><name>poseCommandCallback</name></member>
   </compound>
   <compound refid="classSystemStatusPublisher" kind="class"><name>SystemStatusPublisher</name>
-    <member refid="classSystemStatusPublisher_1a8a9b2c7348d5d05d43ce4a8161e09fde" kind="variable"><name>nh_</name></member>
-    <member refid="classSystemStatusPublisher_1ac0bc7260ba140260c09795f4cfa008de" kind="variable"><name>system_status_pub_</name></member>
-    <member refid="classSystemStatusPublisher_1ac5b7265bac3688fa047e5f89d95fa659" kind="variable"><name>uav_system_</name></member>
-    <member refid="classSystemStatusPublisher_1a54eae304176c7b423e1a795b91e33469" kind="variable"><name>logic_state_machine_</name></member>
-    <member refid="classSystemStatusPublisher_1ad02673651f93382972c5c5ea38b98e62" kind="function"><name>SystemStatusPublisher</name></member>
-    <member refid="classSystemStatusPublisher_1a66f73a2e489face69d6f9fc16abb15aa" kind="function"><name>publishSystemStatus</name></member>
+    <member refid="classSystemStatusPublisher_1ab50c5c57edb4e506f0e9e89b2fa51fa9" kind="variable"><name>nh_</name></member>
+    <member refid="classSystemStatusPublisher_1a6fcadf0a1d4645fe6ff0e42d98a74d73" kind="variable"><name>system_status_pub_</name></member>
+    <member refid="classSystemStatusPublisher_1a985823e981472ddfd22b81b1b438ecf1" kind="variable"><name>robot_system_</name></member>
+    <member refid="classSystemStatusPublisher_1aa50c7f3ed9fb45af90032c1dc8178080" kind="variable"><name>logic_state_machine_</name></member>
+    <member refid="classSystemStatusPublisher_1a31a5a8a30b246edb129aeccb36865384" kind="function"><name>SystemStatusPublisher</name></member>
+    <member refid="classSystemStatusPublisher_1a4166ea629c3c5a06b89830dd04f2091f" kind="function"><name>publishSystemStatus</name></member>
   </compound>
   <compound refid="structTakeoffAbortActionFunctor__" kind="struct"><name>TakeoffAbortActionFunctor_</name>
     <member refid="structTakeoffAbortActionFunctor___1a8366919888a54d029b3856c3a433843d" kind="function"><name>run</name></member>
@@ -324,12 +303,32 @@
     <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1ad8d554411680bddd9959406c42407c25" kind="function"><name>thread_safe_state_machine</name></member>
     <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a9f38e619a54ce414c4ef737e8873928d" kind="function"><name>process_event</name></member>
   </compound>
-  <compound refid="structLogicStateMachineFrontEnd_1_1transition__table" kind="struct"><name>LogicStateMachineFrontEnd::transition_table</name>
+  <compound refid="structUAVStateMachineFrontEnd_1_1transition__table" kind="struct"><name>UAVStateMachineFrontEnd::transition_table</name>
   </compound>
   <compound refid="classTypeMap" kind="class"><name>TypeMap</name>
     <member refid="classTypeMap_1a63cc1d01ecc1f771cc36436621e1c32b" kind="variable"><name>object_storage_map_</name></member>
     <member refid="classTypeMap_1a738b13adaac930d128c1a81b08628b9e" kind="function"><name>setObject</name></member>
     <member refid="classTypeMap_1af45351278345a92d2d2fb13a977858aa" kind="function"><name>getObject</name></member>
+  </compound>
+  <compound refid="classUAVStateMachineFrontEnd" kind="class"><name>UAVStateMachineFrontEnd</name>
+    <member refid="classUAVStateMachineFrontEnd_1ad73219e43b8afd51bff699348dd4572f" kind="typedef"><name>initial_state</name></member>
+    <member refid="classUAVStateMachineFrontEnd_1a098d07c51f56d8a961a23df9d4b2c67b" kind="function"><name>on_entry</name></member>
+    <member refid="classUAVStateMachineFrontEnd_1a8699918ab41569ac9ce0fa458b770522" kind="function"><name>on_exit</name></member>
+    <member refid="classUAVStateMachineFrontEnd_1a35e3cdf694f700caef50c019599d1a5f" kind="function"><name>UAVStateMachineFrontEnd</name></member>
+  </compound>
+  <compound refid="structUAVStatesActions" kind="struct"><name>UAVStatesActions</name>
+    <member refid="structUAVStatesActions_1aec75cac817b13a7d8f4a73bfecc94056" kind="typedef"><name>TakingOff</name></member>
+    <member refid="structUAVStatesActions_1acc910bc55ae6432004e6b1704634d1c7" kind="typedef"><name>Landing</name></member>
+    <member refid="structUAVStatesActions_1a6f29ce9909b5ebc8c46ca70ef6a92d19" kind="typedef"><name>ReachingGoal</name></member>
+    <member refid="structUAVStatesActions_1a2c18472bdc3a420dd319dc82fa507ac3" kind="typedef"><name>Hovering</name></member>
+    <member refid="structUAVStatesActions_1ad42a6d885281297a91e71b66624ee813" kind="typedef"><name>TakeoffAction</name></member>
+    <member refid="structUAVStatesActions_1a9e47af475b29af18ae34d80227ee3388" kind="typedef"><name>TakeoffGuard</name></member>
+    <member refid="structUAVStatesActions_1a5a69f68c781b17a48e2e6dcef9c52e1d" kind="typedef"><name>TakeoffAbort</name></member>
+    <member refid="structUAVStatesActions_1a5cf123d42d255c842a68a223354c1b43" kind="typedef"><name>LandingAction</name></member>
+    <member refid="structUAVStatesActions_1a60ad11afcb23e02f34026459361f3b1d" kind="typedef"><name>ReachingGoalSet</name></member>
+    <member refid="structUAVStatesActions_1ab0acd6797efeedeb8704c7d24467a254" kind="typedef"><name>ReachingGoalGuard</name></member>
+    <member refid="structUAVStatesActions_1abde47fc46f87de16bc3e0206d251a437" kind="typedef"><name>ReachingGoalAbort</name></member>
+    <member refid="structUAVStatesActions_1aaadfe040047828a68132e8976cc0aa46" kind="typedef"><name>ReachingGoalLand</name></member>
   </compound>
   <compound refid="classUAVSystem" kind="class"><name>UAVSystem</name>
     <member refid="classUAVSystem_1ab47721beaeb776063b46f7c3c7721b7a" kind="variable"><name>drone_hardware_</name></member>
@@ -355,6 +354,17 @@
     <member refid="classUAVSystem_1ab0840278177ee64082ee05937d028421" kind="function"><name>getSystemStatus</name></member>
     <member refid="classUAVSystem_1a89d67e42aec09dd65a23f39462a8202e" kind="function"><name>getConfiguration</name></member>
   </compound>
+  <compound refid="classUAVSystemHandler" kind="class"><name>UAVSystemHandler</name>
+    <member refid="classUAVSystemHandler_1a72a4dd83ba984eeaa11763f0bfb71b7c" kind="variable"><name>parser_loader_</name></member>
+    <member refid="classUAVSystemHandler_1adf614e55a77755d34ac2485b0734e9c8" kind="variable"><name>uav_hardware_</name></member>
+    <member refid="classUAVSystemHandler_1a61c73fcaa012e6158ddcecc1d0fe6488" kind="variable"><name>uav_system_</name></member>
+    <member refid="classUAVSystemHandler_1ab3e6f38f8fd43f140ef5aac5c0fd46b8" kind="variable"><name>common_handler_</name></member>
+    <member refid="classUAVSystemHandler_1a64bfdfb5262cd735b9be121bc9e89594" kind="variable"><name>uav_controller_timer_</name></member>
+    <member refid="classUAVSystemHandler_1a365e0e41fd724a5aca509e4193d76088" kind="function"><name>UAVSystemHandler</name></member>
+    <member refid="classUAVSystemHandler_1ab237ab8f0b450b8c892c3fac54721915" kind="function"><name>UAVSystemHandler</name></member>
+    <member refid="classUAVSystemHandler_1afccb7be9be7dba4a53d56ae5cc35a70a" kind="function"><name>getUAVData</name></member>
+    <member refid="classUAVSystemHandler_1a8f37acafac0f41296058d0f6bb144893" kind="function"><name>isConnected</name></member>
+  </compound>
   <compound refid="structVelocity" kind="struct"><name>Velocity</name>
     <member refid="structVelocity_1a99a9f9580c8a025a2c7a18890993b56a" kind="variable"><name>x</name></member>
     <member refid="structVelocity_1ae1282d20e14cc4be4aac24ab4e1e3e5c" kind="variable"><name>y</name></member>
@@ -379,8 +389,6 @@
   <compound refid="namespaceaerial__autonomy_1_1ros__event__trigger" kind="namespace"><name>aerial_autonomy::ros_event_trigger</name>
     <member refid="namespaceaerial__autonomy_1_1ros__event__trigger_1aba3ce776fb18b017fde0d8c6257a4b0a" kind="function"><name>parse_event_file</name></member>
   </compound>
-  <compound refid="namespacebasic__events" kind="namespace"><name>basic_events</name>
-  </compound>
   <compound refid="namespaceboost" kind="namespace"><name>boost</name>
   </compound>
   <compound refid="namespaceboost_1_1msm" kind="namespace"><name>boost::msm</name>
@@ -391,9 +399,9 @@
   </compound>
   <compound refid="namespacepython__qt__binding_1_1QtCore" kind="namespace"><name>python_qt_binding::QtCore</name>
   </compound>
-  <compound refid="base__functors_8h" kind="file"><name>base_functors.h</name>
+  <compound refid="namespaceuav__basic__events" kind="namespace"><name>uav_basic_events</name>
   </compound>
-  <compound refid="basic__states_8h" kind="file"><name>basic_states.h</name>
+  <compound refid="base__functors_8h" kind="file"><name>base_functors.h</name>
   </compound>
   <compound refid="hovering__functors_8h" kind="file"><name>hovering_functors.h</name>
     <member refid="hovering__functors_8h_1a4252f403b3bcd2a850cf271512d9c6ff" kind="typedef"><name>Hovering_</name></member>
@@ -407,7 +415,13 @@
   <compound refid="takeoff__functors_8h" kind="file"><name>takeoff_functors.h</name>
     <member refid="takeoff__functors_8h_1ab6710f3cb12b7653eedcd3a2215d3228" kind="typedef"><name>TakingOff_</name></member>
   </compound>
+  <compound refid="uav__states__actions_8h" kind="file"><name>uav_states_actions.h</name>
+  </compound>
   <compound refid="async__timer_8h" kind="file"><name>async_timer.h</name>
+  </compound>
+  <compound refid="robot__system__container_8h" kind="file"><name>robot_system_container.h</name>
+  </compound>
+  <compound refid="system__status__publisher_8h" kind="file"><name>system_status_publisher.h</name>
   </compound>
   <compound refid="thread__safe__state__machine_8h" kind="file"><name>thread_safe_state_machine.h</name>
   </compound>
@@ -436,18 +450,21 @@
   </compound>
   <compound refid="base__state_8h" kind="file"><name>base_state.h</name>
   </compound>
-  <compound refid="onboard__system__handler_8h" kind="file"><name>onboard_system_handler.h</name>
-  </compound>
   <compound refid="uav__system_8h" kind="file"><name>uav_system.h</name>
   </compound>
-  <compound refid="basic__state__machine_8h" kind="file"><name>basic_state_machine.h</name>
-    <member refid="basic__state__machine_8h_1ab0b6ef21baf57684550a2f05c771bd86" kind="typedef"><name>LogicStateMachine</name></member>
-    <member refid="basic__state__machine_8h_1abbfdd59e79acc3bb81b8feea16ffb827" kind="variable"><name>state_names</name></member>
-    <member refid="basic__state__machine_8h_1afcac32ee5e97ea2d2557a67769cfeaca" kind="function"><name>pstate</name></member>
+  <compound refid="base__state__machine_8h" kind="file"><name>base_state_machine.h</name>
   </compound>
   <compound refid="state__machine__gui__connector_8h" kind="file"><name>state_machine_gui_connector.h</name>
   </compound>
-  <compound refid="system__status__publisher_8h" kind="file"><name>system_status_publisher.h</name>
+  <compound refid="uav__state__machine_8h" kind="file"><name>uav_state_machine.h</name>
+    <member refid="uav__state__machine_8h_1a253d6dda5d4d478d799ef3f92ac35168" kind="typedef"><name>UAVStateMachine</name></member>
+    <member refid="uav__state__machine_8h_1aa5aa22f995a6c27f384fa147c2cb6219" kind="typedef"><name>usa</name></member>
+    <member refid="uav__state__machine_8h_1abbfdd59e79acc3bb81b8feea16ffb827" kind="variable"><name>state_names</name></member>
+    <member refid="uav__state__machine_8h_1a72b959b4319f55f2ef58b9c96fb66a23" kind="function"><name>pstate</name></member>
+  </compound>
+  <compound refid="common__system__handler_8h" kind="file"><name>common_system_handler.h</name>
+  </compound>
+  <compound refid="uav__system__handler_8h" kind="file"><name>uav_system_handler.h</name>
   </compound>
   <compound refid="sample__logic__state__machine_8h" kind="file"><name>sample_logic_state_machine.h</name>
     <member refid="sample__logic__state__machine_8h_1ad69a3ec43d8cc7edd1b681dc19da522a" kind="typedef"><name>SampleLogicStateMachine</name></member>
@@ -489,9 +506,6 @@
   </compound>
   <compound refid="ros__event__trigger_8py" kind="file"><name>ros_event_trigger.py</name>
   </compound>
-  <compound refid="aerial__autonomy__node_8cpp" kind="file"><name>aerial_autonomy_node.cpp</name>
-    <member refid="aerial__autonomy__node_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kind="function"><name>main</name></member>
-  </compound>
   <compound refid="async__timer_8cpp" kind="file"><name>async_timer.cpp</name>
   </compound>
   <compound refid="builtin__velocity__controller__drone__connector_8cpp" kind="file"><name>builtin_velocity_controller_drone_connector.cpp</name>
@@ -501,6 +515,9 @@
   <compound refid="position__controller__drone__connector_8cpp" kind="file"><name>position_controller_drone_connector.cpp</name>
   </compound>
   <compound refid="manual__rpyt__controller_8cpp" kind="file"><name>manual_rpyt_controller.cpp</name>
+  </compound>
+  <compound refid="uav__system__node_8cpp" kind="file"><name>uav_system_node.cpp</name>
+    <member refid="uav__system__node_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kind="function"><name>main</name></member>
   </compound>
   <compound refid="event__publish__node_8cpp" kind="file"><name>event_publish_node.cpp</name>
     <member refid="event__publish__node_8cpp_1a1992fa6885475be5d1546e3a61f6e495" kind="function"><name>sigintHandler</name></member>
@@ -541,6 +558,10 @@
   <compound refid="dir_d2b55a6b175e0275230d5abd8f9d8a8b" kind="dir"><name>src</name>
   </compound>
   <compound refid="dir_d8ab70ff61e6d0207b320809bd677f88" kind="dir"><name>include/aerial_autonomy/state_machines</name>
+  </compound>
+  <compound refid="dir_fbcbd0164d1ac88360f0f81b2dfbd750" kind="dir"><name>src/system_handler_nodes</name>
+  </compound>
+  <compound refid="dir_df0f30295cb48c82d79ddc60093f1c28" kind="dir"><name>include/aerial_autonomy/system_handlers</name>
   </compound>
   <compound refid="dir_39729513a4eea0c841aa121f5d628f40" kind="dir"><name>src/tests</name>
   </compound>

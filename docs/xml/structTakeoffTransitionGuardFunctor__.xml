@@ -61,25 +61,25 @@
 </parameterlist>
 </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="343">
+      <node id="367">
         <label>TakeoffTransitionGuardFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structTakeoffTransitionGuardFunctor__"/>
-        <childnode refid="344" relation="public-inheritance">
+        <childnode refid="368" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="344">
+      <node id="368">
         <label>EventAgnosticGuardFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticGuardFunctor"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="345">
+      <node id="369">
         <label>TakeoffTransitionGuardFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structTakeoffTransitionGuardFunctor__"/>
-        <childnode refid="346" relation="public-inheritance">
+        <childnode refid="370" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="346">
+      <node id="370">
         <label>EventAgnosticGuardFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticGuardFunctor"/>
       </node>

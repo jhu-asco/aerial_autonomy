@@ -146,24 +146,24 @@
     <detaileddescription>
 <para>Create event name list based on event file </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="317">
+      <node id="339">
         <label>aerial_autonomy.ros_event_trigger.RosEventTrigger</label>
         <link refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger"/>
-        <childnode refid="318" relation="public-inheritance">
+        <childnode refid="340" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="318">
+      <node id="340">
         <label>QObject</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="319">
+      <node id="341">
         <label>aerial_autonomy.ros_event_trigger.RosEventTrigger</label>
         <link refid="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger"/>
-        <childnode refid="320" relation="public-inheritance">
+        <childnode refid="342" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="320">
+      <node id="342">
         <label>QObject</label>
       </node>
     </collaborationgraph>

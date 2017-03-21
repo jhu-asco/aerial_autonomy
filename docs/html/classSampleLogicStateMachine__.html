@@ -86,7 +86,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="classSampleLogicStateMachine__-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">SampleLogicStateMachine_&lt; RobotSystemT &gt; Class Template Reference</div>  </div>
@@ -97,6 +96,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <a href="classSampleLogicStateMachine__.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="sample__logic__state__machine_8h_source.html">sample_logic_state_machine.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for SampleLogicStateMachine_&lt; RobotSystemT &gt;:</div>
+<div class="dyncontent">
+<div class="center"><img src="classSampleLogicStateMachine____inherit__graph.png" border="0" usemap="#SampleLogicStateMachine___3_01RobotSystemT_01_4_inherit__map" alt="Inheritance graph"/></div>
+<map name="SampleLogicStateMachine___3_01RobotSystemT_01_4_inherit__map" id="SampleLogicStateMachine___3_01RobotSystemT_01_4_inherit__map">
+<area shape="rect" id="node2" href="classBaseStateMachine.html" title="Base state machine. " alt="" coords="5,5,248,32"/></map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for SampleLogicStateMachine_&lt; RobotSystemT &gt;:</div>
+<div class="dyncontent">
+<div class="center"><img src="classSampleLogicStateMachine____coll__graph.png" border="0" usemap="#SampleLogicStateMachine___3_01RobotSystemT_01_4_coll__map" alt="Collaboration graph"/></div>
+<map name="SampleLogicStateMachine___3_01RobotSystemT_01_4_coll__map" id="SampleLogicStateMachine___3_01RobotSystemT_01_4_coll__map">
+<area shape="rect" id="node2" href="classBaseStateMachine.html" title="Base state machine. " alt="" coords="5,5,248,32"/></map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -116,25 +129,29 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a254ed914235117e9ffaa5ba8614335cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPositionYaw.html">PositionYaw</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSampleLogicStateMachine__.html#a254ed914235117e9ffaa5ba8614335cb">getPoseEvent</a> ()</td></tr>
 <tr class="memdesc:a254ed914235117e9ffaa5ba8614335cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrieve poseyaw event message  <a href="#a254ed914235117e9ffaa5ba8614335cb">More...</a><br/></td></tr>
 <tr class="separator:a254ed914235117e9ffaa5ba8614335cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classBaseStateMachine"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classBaseStateMachine')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classBaseStateMachine.html">BaseStateMachine&lt; RobotSystemT &gt;</a></td></tr>
+<tr class="memitem:a0f38afdf3c3299264d3382895b6452c6 inherit pub_methods_classBaseStateMachine"><td class="memItemLeft" align="right" valign="top">std::type_index&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseStateMachine.html#a0f38afdf3c3299264d3382895b6452c6">get_no_transition_event_index</a> ()</td></tr>
+<tr class="memdesc:a0f38afdf3c3299264d3382895b6452c6 inherit pub_methods_classBaseStateMachine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of the event that did not trigger any transition.  <a href="#a0f38afdf3c3299264d3382895b6452c6">More...</a><br/></td></tr>
+<tr class="separator:a0f38afdf3c3299264d3382895b6452c6 inherit pub_methods_classBaseStateMachine"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cb25947ca74c77568736975125aed44 inherit pub_methods_classBaseStateMachine"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseStateMachine.html#a2cb25947ca74c77568736975125aed44">BaseStateMachine</a> (RobotSystemT &amp;robot_system)</td></tr>
+<tr class="memdesc:a2cb25947ca74c77568736975125aed44 inherit pub_methods_classBaseStateMachine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with arguments to store robot system.  <a href="#a2cb25947ca74c77568736975125aed44">More...</a><br/></td></tr>
+<tr class="separator:a2cb25947ca74c77568736975125aed44 inherit pub_methods_classBaseStateMachine"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab047241678b8eba01f428ef1af5c055f inherit pub_methods_classBaseStateMachine"><td class="memTemplParams" colspan="2">template&lt;class FSM , class Event &gt; </td></tr>
+<tr class="memitem:ab047241678b8eba01f428ef1af5c055f inherit pub_methods_classBaseStateMachine"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classBaseStateMachine.html#ab047241678b8eba01f428ef1af5c055f">no_transition</a> (Event const &amp;e, FSM &amp;, int state_index)</td></tr>
+<tr class="memdesc:ab047241678b8eba01f428ef1af5c055f inherit pub_methods_classBaseStateMachine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print event typeid if no action present for the corresponding event.  <a href="#ab047241678b8eba01f428ef1af5c055f">More...</a><br/></td></tr>
+<tr class="separator:ab047241678b8eba01f428ef1af5c055f inherit pub_methods_classBaseStateMachine"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a05673eb4ec343f36c1f3fb787ac26b94"><td class="memTemplParams" colspan="2">template&lt;class EventT , class RobotSystemT1 , class LogicStateMachineT &gt; </td></tr>
-<tr class="memitem:a05673eb4ec343f36c1f3fb787ac26b94"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classSampleLogicStateMachine__.html#a05673eb4ec343f36c1f3fb787ac26b94">ActionFunctor</a></td></tr>
-<tr class="memdesc:a05673eb4ec343f36c1f3fb787ac26b94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Friend action class to guard robot system.  <a href="#a05673eb4ec343f36c1f3fb787ac26b94">More...</a><br/></td></tr>
-<tr class="separator:a05673eb4ec343f36c1f3fb787ac26b94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9411581bb37b54467df520e3c73ceaf0"><td class="memTemplParams" colspan="2">template&lt;class EventT , class RobotSystemT1 , class LogicStateMachineT &gt; </td></tr>
-<tr class="memitem:a9411581bb37b54467df520e3c73ceaf0"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classSampleLogicStateMachine__.html#a9411581bb37b54467df520e3c73ceaf0">GuardFunctor</a></td></tr>
-<tr class="memdesc:a9411581bb37b54467df520e3c73ceaf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Friend guard class to access robot system.  <a href="#a9411581bb37b54467df520e3c73ceaf0">More...</a><br/></td></tr>
-<tr class="separator:a9411581bb37b54467df520e3c73ceaf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86a665e36420c3cbc2b45864e023f98a"><td class="memTemplParams" colspan="2">template&lt;class RobotSystemT1 , class LogicStateMachineT &gt; </td></tr>
-<tr class="memitem:a86a665e36420c3cbc2b45864e023f98a"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classSampleLogicStateMachine__.html#a86a665e36420c3cbc2b45864e023f98a">EventAgnosticActionFunctor</a></td></tr>
-<tr class="memdesc:a86a665e36420c3cbc2b45864e023f98a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frient Event agnostic action class.  <a href="#a86a665e36420c3cbc2b45864e023f98a">More...</a><br/></td></tr>
-<tr class="separator:a86a665e36420c3cbc2b45864e023f98a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af372c36475bc4510af791f5cb66608ad"><td class="memTemplParams" colspan="2">template&lt;class RobotSystemT1 , class LogicStateMachineT &gt; </td></tr>
-<tr class="memitem:af372c36475bc4510af791f5cb66608ad"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classSampleLogicStateMachine__.html#af372c36475bc4510af791f5cb66608ad">EventAgnosticGuardFunctor</a></td></tr>
-<tr class="memdesc:af372c36475bc4510af791f5cb66608ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frient Event agnostic guard class.  <a href="#af372c36475bc4510af791f5cb66608ad">More...</a><br/></td></tr>
-<tr class="separator:af372c36475bc4510af791f5cb66608ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_attribs_classBaseStateMachine"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classBaseStateMachine')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classBaseStateMachine.html">BaseStateMachine&lt; RobotSystemT &gt;</a></td></tr>
+<tr class="memitem:a75dfc85f8804c2579ad9dc8c2239aba1 inherit pub_attribs_classBaseStateMachine"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRobotSystemContainer.html">RobotSystemContainer</a><br class="typebreak"/>
+&lt; RobotSystemT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseStateMachine.html#a75dfc85f8804c2579ad9dc8c2239aba1">robot_system_container_</a></td></tr>
+<tr class="memdesc:a75dfc85f8804c2579ad9dc8c2239aba1 inherit pub_attribs_classBaseStateMachine"><td class="mdescLeft">&#160;</td><td class="mdescRight">robot system container used by states to get sensor data and send commands Use the operator function <a class="el" href="classBaseStateMachine.html#a75dfc85f8804c2579ad9dc8c2239aba1" title="robot system container used by states to get sensor data and send commands Use the operator function ...">robot_system_container_()</a> to retrieve robot system in Action, Guard Functors. Other classes cannot access the robot system  <a href="#a75dfc85f8804c2579ad9dc8c2239aba1">More...</a><br/></td></tr>
+<tr class="separator:a75dfc85f8804c2579ad9dc8c2239aba1 inherit pub_attribs_classBaseStateMachine"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classBaseStateMachine"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classBaseStateMachine')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classBaseStateMachine.html">BaseStateMachine&lt; RobotSystemT &gt;</a></td></tr>
+<tr class="memitem:ac261a6e2f6829dd213d58e690093c192 inherit pro_attribs_classBaseStateMachine"><td class="memItemLeft" align="right" valign="top">std::type_index&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseStateMachine.html#ac261a6e2f6829dd213d58e690093c192">no_transition_event_index_</a> = typeid(NULL)</td></tr>
+<tr class="memdesc:ac261a6e2f6829dd213d58e690093c192 inherit pro_attribs_classBaseStateMachine"><td class="mdescLeft">&#160;</td><td class="mdescRight">type index to store the event that did not trigger any transition  <a href="#ac261a6e2f6829dd213d58e690093c192">More...</a><br/></td></tr>
+<tr class="separator:ac261a6e2f6829dd213d58e690093c192 inherit pro_attribs_classBaseStateMachine"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;class RobotSystemT&gt;<br/>
@@ -309,143 +326,6 @@ template&lt;class RobotSystemT &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">event</td><td>message that is stored </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a class="anchor" id="a05673eb4ec343f36c1f3fb787ac26b94"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class RobotSystemT &gt; </div>
-<div class="memtemplate">
-template&lt;class EventT , class RobotSystemT1 , class LogicStateMachineT &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="structActionFunctor.html">ActionFunctor</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Friend action class to guard robot system. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">EventT</td><td>Event triggering action functor </td></tr>
-    <tr><td class="paramname">RobotSystemT1</td><td>Robot system used by action functor </td></tr>
-    <tr><td class="paramname">LogicStateMachineT</td><td>Logic state Machine backend used by Guard functor </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a86a665e36420c3cbc2b45864e023f98a"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class RobotSystemT &gt; </div>
-<div class="memtemplate">
-template&lt;class RobotSystemT1 , class LogicStateMachineT &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="structEventAgnosticActionFunctor.html">EventAgnosticActionFunctor</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Frient Event agnostic action class. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">EventT</td><td>Event triggering action functor </td></tr>
-    <tr><td class="paramname">RobotSystemT1</td><td>Robot system used by action functor </td></tr>
-    <tr><td class="paramname">LogicStateMachineT</td><td>Logic state Machine backend used by Guard functor </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="af372c36475bc4510af791f5cb66608ad"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class RobotSystemT &gt; </div>
-<div class="memtemplate">
-template&lt;class RobotSystemT1 , class LogicStateMachineT &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="structEventAgnosticGuardFunctor.html">EventAgnosticGuardFunctor</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Frient Event agnostic guard class. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">EventT</td><td>Event triggering action functor </td></tr>
-    <tr><td class="paramname">RobotSystemT1</td><td>Robot system used by action functor </td></tr>
-    <tr><td class="paramname">LogicStateMachineT</td><td>Logic state Machine backend used by Guard functor </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a9411581bb37b54467df520e3c73ceaf0"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class RobotSystemT &gt; </div>
-<div class="memtemplate">
-template&lt;class EventT , class RobotSystemT1 , class LogicStateMachineT &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="structGuardFunctor.html">GuardFunctor</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Friend guard class to access robot system. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">EventT</td><td>Event triggering action functor </td></tr>
-    <tr><td class="paramname">RobotSystemT1</td><td>Robot system used by action functor </td></tr>
-    <tr><td class="paramname">LogicStateMachineT</td><td>Logic state Machine backend used by Guard functor </td></tr>
   </table>
   </dd>
 </dl>

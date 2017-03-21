@@ -1,4 +1,4 @@
 <map id="include/aerial_autonomy/common/thread_safe_state_machine.h" name="include/aerial_autonomy/common/thread_safe_state_machine.h">
-<area shape="rect" id="node2" href="$basic__state__machine_8h.html" title="include/aerial_autonomy\l/state_machines/basic\l_state_machine.h" alt="" coords="16,109,179,165"/>
-<area shape="rect" id="node3" href="$aerial__autonomy__node_8cpp.html" title="src/aerial_autonomy\l_node.cpp" alt="" coords="28,214,167,255"/>
+<area shape="rect" id="node2" href="$uav__state__machine_8h.html" title="include/aerial_autonomy\l/state_machines/uav_state\l_machine.h" alt="" coords="15,109,193,165"/>
+<area shape="rect" id="node3" href="$uav__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_system_node.cpp" alt="" coords="5,214,203,255"/>
 </map>

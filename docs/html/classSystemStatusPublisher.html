@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>ASCO Aerial Autonomy: SystemStatusPublisher&lt; LogicStateMachineT &gt; Class Template Reference</title>
+<title>ASCO Aerial Autonomy: SystemStatusPublisher&lt; LogicStateMachineT, RobotSystemT &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,7 +88,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classSystemStatusPublisher-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">SystemStatusPublisher&lt; LogicStateMachineT &gt; Class Template Reference</div>  </div>
+<div class="title">SystemStatusPublisher&lt; LogicStateMachineT, RobotSystemT &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -99,16 +99,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad02673651f93382972c5c5ea38b98e62"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSystemStatusPublisher.html#ad02673651f93382972c5c5ea38b98e62">SystemStatusPublisher</a> (ros::NodeHandle &amp;nh, <a class="el" href="classUAVSystem.html">UAVSystem</a> &amp;uav_system, LogicStateMachineT &amp;logic_state_machine)</td></tr>
-<tr class="memdesc:ad02673651f93382972c5c5ea38b98e62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ad02673651f93382972c5c5ea38b98e62">More...</a><br/></td></tr>
-<tr class="separator:ad02673651f93382972c5c5ea38b98e62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66f73a2e489face69d6f9fc16abb15aa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSystemStatusPublisher.html#a66f73a2e489face69d6f9fc16abb15aa">publishSystemStatus</a> ()</td></tr>
-<tr class="memdesc:a66f73a2e489face69d6f9fc16abb15aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publish system status and state machine status.  <a href="#a66f73a2e489face69d6f9fc16abb15aa">More...</a><br/></td></tr>
-<tr class="separator:a66f73a2e489face69d6f9fc16abb15aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31a5a8a30b246edb129aeccb36865384"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSystemStatusPublisher.html#a31a5a8a30b246edb129aeccb36865384">SystemStatusPublisher</a> (ros::NodeHandle &amp;nh, RobotSystemT &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</td></tr>
+<tr class="memdesc:a31a5a8a30b246edb129aeccb36865384"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a31a5a8a30b246edb129aeccb36865384">More...</a><br/></td></tr>
+<tr class="separator:a31a5a8a30b246edb129aeccb36865384"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4166ea629c3c5a06b89830dd04f2091f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSystemStatusPublisher.html#a4166ea629c3c5a06b89830dd04f2091f">publishSystemStatus</a> ()</td></tr>
+<tr class="memdesc:a4166ea629c3c5a06b89830dd04f2091f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publish system status and state machine status.  <a href="#a4166ea629c3c5a06b89830dd04f2091f">More...</a><br/></td></tr>
+<tr class="separator:a4166ea629c3c5a06b89830dd04f2091f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;class LogicStateMachineT&gt;<br/>
-class SystemStatusPublisher&lt; LogicStateMachineT &gt;</h3>
+<div class="textblock"><h3>template&lt;class LogicStateMachineT, class RobotSystemT&gt;<br/>
+class SystemStatusPublisher&lt; LogicStateMachineT, RobotSystemT &gt;</h3>
 
 <p>Responsible for publishing system status message. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
@@ -118,17 +118,17 @@ class SystemStatusPublisher&lt; LogicStateMachineT &gt;</h3>
   </dd>
 </dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ad02673651f93382972c5c5ea38b98e62"></a>
+<a class="anchor" id="a31a5a8a30b246edb129aeccb36865384"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class LogicStateMachineT &gt; </div>
+template&lt;class LogicStateMachineT, class RobotSystemT&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classSystemStatusPublisher.html">SystemStatusPublisher</a>&lt; LogicStateMachineT &gt;::<a class="el" href="classSystemStatusPublisher.html">SystemStatusPublisher</a> </td>
+          <td class="memname"><a class="el" href="classSystemStatusPublisher.html">SystemStatusPublisher</a>&lt; LogicStateMachineT, RobotSystemT &gt;::<a class="el" href="classSystemStatusPublisher.html">SystemStatusPublisher</a> </td>
           <td>(</td>
           <td class="paramtype">ros::NodeHandle &amp;&#160;</td>
           <td class="paramname"><em>nh</em>, </td>
@@ -136,8 +136,8 @@ template&lt;class LogicStateMachineT &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classUAVSystem.html">UAVSystem</a> &amp;&#160;</td>
-          <td class="paramname"><em>uav_system</em>, </td>
+          <td class="paramtype">RobotSystemT &amp;&#160;</td>
+          <td class="paramname"><em>robot_system</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -162,7 +162,7 @@ template&lt;class LogicStateMachineT &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nh</td><td>NodeHandle to use for publishing system status </td></tr>
-    <tr><td class="paramname">uav_system</td><td><a class="el" href="classUAVSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components...">UAVSystem</a> whose status will be published </td></tr>
+    <tr><td class="paramname">robot_system</td><td>RobotSystem whose status will be published </td></tr>
     <tr><td class="paramname">logic_state_machine</td><td>State machine whose status will be published </td></tr>
   </table>
   </dd>
@@ -171,17 +171,17 @@ template&lt;class LogicStateMachineT &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a66f73a2e489face69d6f9fc16abb15aa"></a>
+<a class="anchor" id="a4166ea629c3c5a06b89830dd04f2091f"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class LogicStateMachineT &gt; </div>
+template&lt;class LogicStateMachineT, class RobotSystemT&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classSystemStatusPublisher.html">SystemStatusPublisher</a>&lt; LogicStateMachineT &gt;::publishSystemStatus </td>
+          <td class="memname">void <a class="el" href="classSystemStatusPublisher.html">SystemStatusPublisher</a>&lt; LogicStateMachineT, RobotSystemT &gt;::publishSystemStatus </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -195,12 +195,12 @@ template&lt;class LogicStateMachineT &gt; </div>
 </div><div class="memdoc">
 
 <p>Publish system status and state machine status. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">Todo:</a></b></dt><dd>Replace status text with html script. Need a html manager to automatically add table lines </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd>Replace status text with html script. Need a html manager to automatically add table lines </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/aerial_autonomy/<a class="el" href="system__status__publisher_8h_source.html">system_status_publisher.h</a></li>
+<li>include/aerial_autonomy/common/<a class="el" href="system__status__publisher_8h_source.html">system_status_publisher.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.6-->

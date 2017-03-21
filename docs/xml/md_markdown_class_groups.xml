@@ -17,7 +17,7 @@
 </para><para><heading level="2">States</heading>
 </para><para><itemizedlist>
 <listitem><para><ref refid="classBaseState" kindref="compound">BaseState</ref><itemizedlist>
-<listitem><para><ref refid="structLogicStateMachineFrontEnd_1_1Landed" kindref="compound">LogicStateMachineFrontEnd::Landed</ref></para></listitem><listitem><para><ref refid="takeoff__functors_8h_1ab6710f3cb12b7653eedcd3a2215d3228" kindref="member">TakingOff_</ref></para></listitem><listitem><para><ref refid="hovering__functors_8h_1a4252f403b3bcd2a850cf271512d9c6ff" kindref="member">Hovering_</ref></para></listitem><listitem><para><ref refid="position__control__functors_8h_1af380346c24b534da18813f70217ea50f" kindref="member">ReachingGoal_</ref></para></listitem><listitem><para><ref refid="land__functors_8h_1a84627965433a60de431758bddec005c3" kindref="member">Landing_</ref></para></listitem></itemizedlist>
+<listitem><para>LogicStateMachineFrontEnd::Landed</para></listitem><listitem><para><ref refid="takeoff__functors_8h_1ab6710f3cb12b7653eedcd3a2215d3228" kindref="member">TakingOff_</ref></para></listitem><listitem><para><ref refid="hovering__functors_8h_1a4252f403b3bcd2a850cf271512d9c6ff" kindref="member">Hovering_</ref></para></listitem><listitem><para><ref refid="position__control__functors_8h_1af380346c24b534da18813f70217ea50f" kindref="member">ReachingGoal_</ref></para></listitem><listitem><para><ref refid="land__functors_8h_1a84627965433a60de431758bddec005c3" kindref="member">Landing_</ref></para></listitem></itemizedlist>
 </para></listitem></itemizedlist>
 </para><para><heading level="2">Action Functors</heading>
 </para><para><itemizedlist>
@@ -33,10 +33,10 @@
 </para></listitem><listitem><para><ref refid="structEventAgnosticGuardFunctor" kindref="compound">EventAgnosticGuardFunctor</ref></para></listitem></itemizedlist>
 </para><para><heading level="2">State Machine Front End</heading>
 </para><para><itemizedlist>
-<listitem><para><ref refid="classLogicStateMachineFrontEnd" kindref="compound">LogicStateMachineFrontEnd</ref></para></listitem></itemizedlist>
+<listitem><para>LogicStateMachineFrontEnd</para></listitem></itemizedlist>
 </para><para><heading level="2">State Machine Back End</heading>
 </para><para><itemizedlist>
-<listitem><para><ref refid="basic__state__machine_8h_1ab0b6ef21baf57684550a2f05c771bd86" kindref="member">LogicStateMachine</ref></para></listitem></itemizedlist>
+<listitem><para>::LogicStateMachine</para></listitem></itemizedlist>
 </para><para><heading level="2">Robot Systems</heading>
 </para><para><itemizedlist>
 <listitem><para><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> </para></listitem></itemizedlist>

@@ -1,0 +1,5 @@
+<map id="UAVStateMachineFrontEnd" name="UAVStateMachineFrontEnd">
+<area shape="rect" id="node3" href="$classBaseStateMachine.html" title="BaseStateMachine\&lt; UAVSystem \&gt;" alt="" coords="227,217,456,244"/>
+<area shape="rect" id="node4" href="$classRobotSystemContainer.html" title="RobotSystemContainer\l\&lt; UAVSystem \&gt;" alt="" coords="262,97,420,138"/>
+<area shape="rect" id="node5" href="$classUAVSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components..." alt="" coords="294,5,388,32"/>
+</map>

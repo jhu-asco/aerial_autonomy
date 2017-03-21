@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_df0f30295cb48c82d79ddc60093f1c28" kind="dir">
+    <compoundname>include/aerial_autonomy/system_handlers</compoundname>
+    <innerfile refid="common__system__handler_8h">common_system_handler.h</innerfile>
+    <innerfile refid="uav__system__handler_8h">uav_system_handler.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/"/>
+  </compounddef>
+</doxygen>

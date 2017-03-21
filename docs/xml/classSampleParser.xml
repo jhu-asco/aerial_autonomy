@@ -511,24 +511,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="324">
+      <node id="348">
         <label>parsernode::Parser</label>
       </node>
-      <node id="323">
+      <node id="347">
         <label>SampleParser</label>
         <link refid="classSampleParser"/>
-        <childnode refid="324" relation="public-inheritance">
+        <childnode refid="348" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="326">
+      <node id="350">
         <label>parsernode::Parser</label>
       </node>
-      <node id="325">
+      <node id="349">
         <label>SampleParser</label>
         <link refid="classSampleParser"/>
-        <childnode refid="326" relation="public-inheritance">
+        <childnode refid="350" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

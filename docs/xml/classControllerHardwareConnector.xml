@@ -230,25 +230,25 @@
 </parameterlist>
 </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="214">
+      <node id="240">
         <label>ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="215" relation="public-inheritance">
+        <childnode refid="241" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="215">
+      <node id="241">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="216">
+      <node id="242">
         <label>ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="217" relation="public-inheritance">
+        <childnode refid="243" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="217">
+      <node id="243">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>

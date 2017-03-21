@@ -21,7 +21,7 @@
 <codeline lineno="12"><highlight class="normal"></highlight></codeline>
 <codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">##<sp/>States</highlight></codeline>
 <codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal">-<sp/><ref refid="classBaseState" kindref="compound">BaseState</ref></highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/><ref refid="structLogicStateMachineFrontEnd_1_1Landed" kindref="compound">LogicStateMachineFrontEnd::Landed</ref></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/>LogicStateMachineFrontEnd::Landed</highlight></codeline>
 <codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/><ref refid="classBaseState" kindref="compound">::TakingOff_</ref></highlight></codeline>
 <codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/><ref refid="classBaseState" kindref="compound">::Hovering_</ref></highlight></codeline>
 <codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>-<sp/><ref refid="classBaseState" kindref="compound">::ReachingGoal_</ref></highlight></codeline>
@@ -47,10 +47,10 @@
 <codeline lineno="38"><highlight class="normal">-<sp/><ref refid="structEventAgnosticGuardFunctor" kindref="compound">EventAgnosticGuardFunctor</ref></highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
 <codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">##<sp/>State<sp/>Machine<sp/>Front<sp/>End</highlight></codeline>
-<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal">-<sp/><ref refid="classLogicStateMachineFrontEnd" kindref="compound">LogicStateMachineFrontEnd</ref></highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal">-<sp/>LogicStateMachineFrontEnd</highlight></codeline>
 <codeline lineno="42"><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">##<sp/>State<sp/>Machine<sp/>Back<sp/>End</highlight></codeline>
-<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal">-<sp/><ref refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine" kindref="compound">::LogicStateMachine</ref></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal">-<sp/>::LogicStateMachine</highlight></codeline>
 <codeline lineno="45"><highlight class="normal"></highlight></codeline>
 <codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">##<sp/>Robot<sp/>Systems</highlight></codeline>
 <codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal">-<sp/><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref></highlight></codeline>

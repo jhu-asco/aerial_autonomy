@@ -3,6 +3,8 @@
   <compounddef id="dir_dbb1c79ada1dfd68f9623b1c747f82ff" kind="dir">
     <compoundname>include/aerial_autonomy/common</compoundname>
     <innerfile refid="async__timer_8h">async_timer.h</innerfile>
+    <innerfile refid="robot__system__container_8h">robot_system_container.h</innerfile>
+    <innerfile refid="system__status__publisher_8h">system_status_publisher.h</innerfile>
     <innerfile refid="thread__safe__state__machine_8h">thread_safe_state_machine.h</innerfile>
     <innerfile refid="type__map_8h">type_map.h</innerfile>
     <briefdescription>

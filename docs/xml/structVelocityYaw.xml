@@ -185,26 +185,26 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="363">
+      <node id="399">
         <label>Velocity</label>
         <link refid="structVelocity"/>
       </node>
-      <node id="362">
+      <node id="398">
         <label>VelocityYaw</label>
         <link refid="structVelocityYaw"/>
-        <childnode refid="363" relation="public-inheritance">
+        <childnode refid="399" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="365">
+      <node id="401">
         <label>Velocity</label>
         <link refid="structVelocity"/>
       </node>
-      <node id="364">
+      <node id="400">
         <label>VelocityYaw</label>
         <link refid="structVelocityYaw"/>
-        <childnode refid="365" relation="public-inheritance">
+        <childnode refid="401" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

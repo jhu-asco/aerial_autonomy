@@ -1,0 +1,261 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classCommonSystemHandler" kind="class" prot="public">
+    <compoundname>CommonSystemHandler</compoundname>
+    <includes refid="common__system__handler_8h" local="no">common_system_handler.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class</type>
+        <declname>LogicStateMachineT</declname>
+        <defname>LogicStateMachineT</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>EventManagerT</declname>
+        <defname>EventManagerT</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>RobotSystemT</declname>
+        <defname>RobotSystemT</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classCommonSystemHandler_1a34cbe068c3c4715ed8ff5b9a717ae593" prot="protected" static="no" mutable="no">
+        <type>LogicStateMachineT</type>
+        <definition>LogicStateMachineT CommonSystemHandler&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;::logic_state_machine_</definition>
+        <argsstring></argsstring>
+        <name>logic_state_machine_</name>
+        <briefdescription>
+<para>State machine that gets run by the system. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="79" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCommonSystemHandler_1a393da82eedf31074046dd9bea22e4ca1" prot="protected" static="no" mutable="no">
+        <type>EventManagerT</type>
+        <definition>EventManagerT CommonSystemHandler&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;::event_manager_</definition>
+        <argsstring></argsstring>
+        <name>event_manager_</name>
+        <briefdescription>
+<para>Event manager used by the state machine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="80" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCommonSystemHandler_1a740bc6abe3a48d17b732a1bdc9c0fac4" prot="protected" static="no" mutable="no">
+        <type><ref refid="classStateMachineGUIConnector" kindref="compound">StateMachineGUIConnector</ref>&lt; EventManagerT, LogicStateMachineT &gt;</type>
+        <definition>StateMachineGUIConnector&lt;EventManagerT, LogicStateMachineT&gt; CommonSystemHandler&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;::state_machine_gui_connector_</definition>
+        <argsstring></argsstring>
+        <name>state_machine_gui_connector_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Connects event manager to the state machine </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="82" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCommonSystemHandler_1ac014b0da6b4d9e2e6694258b39a1f1b4" prot="protected" static="no" mutable="no">
+        <type><ref refid="classSystemStatusPublisher" kindref="compound">SystemStatusPublisher</ref>&lt; LogicStateMachineT, RobotSystemT &gt;</type>
+        <definition>SystemStatusPublisher&lt;LogicStateMachineT, RobotSystemT&gt; CommonSystemHandler&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;::system_status_pub_</definition>
+        <argsstring></argsstring>
+        <name>system_status_pub_</name>
+        <briefdescription>
+<para>publishes status messages </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="85" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCommonSystemHandler_1a5a155b8d5335b4f072363ce4ca152fe1" prot="protected" static="no" mutable="no">
+        <type><ref refid="classAsyncTimer" kindref="compound">AsyncTimer</ref></type>
+        <definition>AsyncTimer CommonSystemHandler&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;::status_timer_</definition>
+        <argsstring></argsstring>
+        <name>status_timer_</name>
+        <briefdescription>
+<para>Update uav status and state machine status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="86" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classCommonSystemHandler_1a97404fbbfb77d76bf62cbb388963f057" prot="protected" static="no" mutable="no">
+        <type><ref refid="classAsyncTimer" kindref="compound">AsyncTimer</ref></type>
+        <definition>AsyncTimer CommonSystemHandler&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;::logic_state_machine_timer_</definition>
+        <argsstring></argsstring>
+        <name>logic_state_machine_timer_</name>
+        <briefdescription>
+<para>Timer for running state machine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="87" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classCommonSystemHandler_1aeb821763feeb9ddd1d878eee1b4d62de" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CommonSystemHandler&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;::CommonSystemHandler</definition>
+        <argsstring>(ros::NodeHandle &amp;nh, const CommonSystemHandlerConfig &amp;config, RobotSystemT &amp;robot_system)</argsstring>
+        <name>CommonSystemHandler</name>
+        <param>
+          <type>ros::NodeHandle &amp;</type>
+          <declname>nh</declname>
+        </param>
+        <param>
+          <type>const CommonSystemHandlerConfig &amp;</type>
+          <declname>config</declname>
+        </param>
+        <param>
+          <type>RobotSystemT &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+<para>Instantiates state machine, timers. Individual system handlers must call startTimers to start the state machine and status timers.</para><para>A convenience function isConnected is provided to check if the ros topics associated with state machine event processing are connected or not. The individual system handlers must extend this function if needed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeHandle to use for event and command subscription </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Proto configuration parameters </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>robot system used to create logic state machine </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="36" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="36" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classCommonSystemHandler_1a106090bca9f70de4100ce256983481d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CommonSystemHandler&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;::CommonSystemHandler</definition>
+        <argsstring>(const CommonSystemHandler &amp;)=delete</argsstring>
+        <name>CommonSystemHandler</name>
+        <param>
+          <type>const <ref refid="classCommonSystemHandler" kindref="compound">CommonSystemHandler</ref> &amp;</type>
+        </param>
+        <briefdescription>
+<para>Delete copy constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="57" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classCommonSystemHandler_1a464bb584aaf1b30eaede850f04f62f33" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool CommonSystemHandler&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;::isConnected</definition>
+        <argsstring>()</argsstring>
+        <name>isConnected</name>
+        <briefdescription>
+<para>Checks if internal ROS topics are connected. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Returns true if connected and false otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="63" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="63" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classCommonSystemHandler_1a6362231dc98dfc2f8e6f24245ff901d1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CommonSystemHandler&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;::startTimers</definition>
+        <argsstring>()</argsstring>
+        <name>startTimers</name>
+        <briefdescription>
+<para>Start state machine internal event processing and status timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="71" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="71" bodyend="75"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides logic common to different system handlers to reduce code duplication. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine to use </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EventManagerT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event manager to use </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RobotSystemT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>robot system used by the state machine </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="233">
+        <label>AsyncTimer</label>
+        <link refid="classAsyncTimer"/>
+      </node>
+      <node id="232">
+        <label>CommonSystemHandler&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;</label>
+        <link refid="classCommonSystemHandler"/>
+        <childnode refid="233" relation="usage">
+          <edgelabel>logic_state_machine_timer_</edgelabel>
+          <edgelabel>status_timer_</edgelabel>
+        </childnode>
+        <childnode refid="234" relation="usage">
+          <edgelabel>logic_state_machine_</edgelabel>
+        </childnode>
+        <childnode refid="235" relation="usage">
+          <edgelabel>event_manager_</edgelabel>
+        </childnode>
+      </node>
+      <node id="234">
+        <label>LogicStateMachineT</label>
+      </node>
+      <node id="235">
+        <label>EventManagerT</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="20" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="20" bodyend="88"/>
+    <listofallmembers>
+      <member refid="classCommonSystemHandler_1aeb821763feeb9ddd1d878eee1b4d62de" prot="public" virt="non-virtual"><scope>CommonSystemHandler</scope><name>CommonSystemHandler</name></member>
+      <member refid="classCommonSystemHandler_1a106090bca9f70de4100ce256983481d6" prot="public" virt="non-virtual"><scope>CommonSystemHandler</scope><name>CommonSystemHandler</name></member>
+      <member refid="classCommonSystemHandler_1a393da82eedf31074046dd9bea22e4ca1" prot="protected" virt="non-virtual"><scope>CommonSystemHandler</scope><name>event_manager_</name></member>
+      <member refid="classCommonSystemHandler_1a464bb584aaf1b30eaede850f04f62f33" prot="public" virt="non-virtual"><scope>CommonSystemHandler</scope><name>isConnected</name></member>
+      <member refid="classCommonSystemHandler_1a34cbe068c3c4715ed8ff5b9a717ae593" prot="protected" virt="non-virtual"><scope>CommonSystemHandler</scope><name>logic_state_machine_</name></member>
+      <member refid="classCommonSystemHandler_1a97404fbbfb77d76bf62cbb388963f057" prot="protected" virt="non-virtual"><scope>CommonSystemHandler</scope><name>logic_state_machine_timer_</name></member>
+      <member refid="classCommonSystemHandler_1a6362231dc98dfc2f8e6f24245ff901d1" prot="public" virt="non-virtual"><scope>CommonSystemHandler</scope><name>startTimers</name></member>
+      <member refid="classCommonSystemHandler_1a740bc6abe3a48d17b732a1bdc9c0fac4" prot="protected" virt="non-virtual"><scope>CommonSystemHandler</scope><name>state_machine_gui_connector_</name></member>
+      <member refid="classCommonSystemHandler_1a5a155b8d5335b4f072363ce4ca152fe1" prot="protected" virt="non-virtual"><scope>CommonSystemHandler</scope><name>status_timer_</name></member>
+      <member refid="classCommonSystemHandler_1ac014b0da6b4d9e2e6694258b39a1f1b4" prot="protected" virt="non-virtual"><scope>CommonSystemHandler</scope><name>system_status_pub_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

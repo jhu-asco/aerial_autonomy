@@ -6,102 +6,94 @@
     <includes local="no">unordered_map</includes>
     <includedby refid="uav__system_8h" local="no">include/aerial_autonomy/robot_systems/uav_system.h</includedby>
     <incdepgraph>
-      <node id="1200">
+      <node id="1220">
         <label>include/aerial_autonomy/common/type_map.h</label>
         <link refid="type_map.h"/>
-        <childnode refid="1201" relation="include">
+        <childnode refid="1221" relation="include">
         </childnode>
-        <childnode refid="1202" relation="include">
+        <childnode refid="1222" relation="include">
         </childnode>
       </node>
-      <node id="1202">
+      <node id="1222">
         <label>unordered_map</label>
       </node>
-      <node id="1201">
+      <node id="1221">
         <label>typeindex</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1209">
+      <node id="1232">
+        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
+        <link refid="uav__system__handler_8h"/>
+        <childnode refid="1228" relation="include">
+        </childnode>
+      </node>
+      <node id="1229">
         <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
         <link refid="land__functors_8h"/>
-        <childnode refid="1206" relation="include">
+        <childnode refid="1226" relation="include">
         </childnode>
       </node>
-      <node id="1208">
-        <label>src/aerial_autonomy_node.cpp</label>
-        <link refid="aerial__autonomy__node_8cpp"/>
-      </node>
-      <node id="1207">
-        <label>include/aerial_autonomy/state_machines/basic_state_machine.h</label>
-        <link refid="basic__state__machine_8h"/>
-        <childnode refid="1208" relation="include">
+      <node id="1226">
+        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
+        <link refid="uav__states__actions_8h"/>
+        <childnode refid="1227" relation="include">
         </childnode>
       </node>
-      <node id="1210">
+      <node id="1228">
+        <label>src/system_handler_nodes/uav_system_node.cpp</label>
+        <link refid="uav__system__node_8cpp"/>
+      </node>
+      <node id="1230">
         <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
         <link refid="position__control__functors_8h"/>
-        <childnode refid="1206" relation="include">
+        <childnode refid="1226" relation="include">
         </childnode>
       </node>
-      <node id="1212">
-        <label>include/aerial_autonomy/onboard_system_handler.h</label>
-        <link refid="onboard__system__handler_8h"/>
-        <childnode refid="1208" relation="include">
-        </childnode>
-      </node>
-      <node id="1203">
+      <node id="1223">
         <label>include/aerial_autonomy/common/type_map.h</label>
         <link refid="type_map.h"/>
-        <childnode refid="1204" relation="include">
+        <childnode refid="1224" relation="include">
         </childnode>
       </node>
-      <node id="1213">
-        <label>include/aerial_autonomy/system_status_publisher.h</label>
-        <link refid="system__status__publisher_8h"/>
-        <childnode refid="1212" relation="include">
-        </childnode>
-      </node>
-      <node id="1206">
-        <label>include/aerial_autonomy/actions_guards/basic_states.h</label>
-        <link refid="basic__states_8h"/>
-        <childnode refid="1207" relation="include">
-        </childnode>
-      </node>
-      <node id="1205">
+      <node id="1225">
         <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
         <link refid="hovering__functors_8h"/>
-        <childnode refid="1206" relation="include">
+        <childnode refid="1226" relation="include">
         </childnode>
       </node>
-      <node id="1204">
+      <node id="1227">
+        <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
+        <link refid="uav__state__machine_8h"/>
+        <childnode refid="1228" relation="include">
+        </childnode>
+      </node>
+      <node id="1224">
         <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
         <link refid="uav__system_8h"/>
-        <childnode refid="1205" relation="include">
+        <childnode refid="1225" relation="include">
         </childnode>
-        <childnode refid="1209" relation="include">
+        <childnode refid="1229" relation="include">
         </childnode>
-        <childnode refid="1210" relation="include">
+        <childnode refid="1230" relation="include">
         </childnode>
-        <childnode refid="1211" relation="include">
+        <childnode refid="1231" relation="include">
         </childnode>
-        <childnode refid="1212" relation="include">
+        <childnode refid="1227" relation="include">
         </childnode>
-        <childnode refid="1207" relation="include">
+        <childnode refid="1232" relation="include">
         </childnode>
-        <childnode refid="1213" relation="include">
-        </childnode>
-        <childnode refid="1214" relation="include">
+        <childnode refid="1233" relation="include">
         </childnode>
       </node>
-      <node id="1214">
+      <node id="1233">
         <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
         <link refid="sample__logic__state__machine_8h"/>
       </node>
-      <node id="1211">
+      <node id="1231">
         <label>include/aerial_autonomy/actions_guards/takeoff_functors.h</label>
         <link refid="takeoff__functors_8h"/>
-        <childnode refid="1206" relation="include">
+        <childnode refid="1226" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structUAVStatesActions_1_1Landed" kind="struct" prot="public">
+    <compoundname>UAVStatesActions::Landed</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">boost::msm::front::state&lt;&gt;</basecompoundref>
+    <includes refid="uav__states__actions_8h" local="no">uav_states_actions.h</includes>
+    <innerclass refid="structUAVStatesActions_1_1Landed_1_1internal__transition__table" prot="public">UAVStatesActions::Landed::internal_transition_table</innerclass>
+    <briefdescription>
+<para><ref refid="structUAVStatesActions_1_1Landed" kindref="compound">Landed</ref> state. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="284">
+        <label>msmf::state&lt;&gt;</label>
+      </node>
+      <node id="283">
+        <label>UAVStatesActions&lt; LogicStateMachineT &gt;::Landed</label>
+        <link refid="structUAVStatesActions_1_1Landed"/>
+        <childnode refid="284" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="286">
+        <label>msmf::state&lt;&gt;</label>
+      </node>
+      <node id="285">
+        <label>UAVStatesActions&lt; LogicStateMachineT &gt;::Landed</label>
+        <link refid="structUAVStatesActions_1_1Landed"/>
+        <childnode refid="286" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="34" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="34" bodyend="42"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

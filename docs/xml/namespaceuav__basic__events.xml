@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="namespaceuav__basic__events" kind="namespace">
+    <compoundname>uav_basic_events</compoundname>
+    <briefdescription>
+<para>namespace for basic events such as takeoff, land etc </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" line="13" column="1"/>
+  </compounddef>
+</doxygen>

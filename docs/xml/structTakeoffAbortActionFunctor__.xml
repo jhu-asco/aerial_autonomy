@@ -61,26 +61,26 @@
 </parameterlist>
 </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="332">
+      <node id="356">
         <label>EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticActionFunctor"/>
       </node>
-      <node id="331">
+      <node id="355">
         <label>TakeoffAbortActionFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structTakeoffAbortActionFunctor__"/>
-        <childnode refid="332" relation="public-inheritance">
+        <childnode refid="356" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="334">
+      <node id="358">
         <label>EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticActionFunctor"/>
       </node>
-      <node id="333">
+      <node id="357">
         <label>TakeoffAbortActionFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structTakeoffAbortActionFunctor__"/>
-        <childnode refid="334" relation="public-inheritance">
+        <childnode refid="358" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

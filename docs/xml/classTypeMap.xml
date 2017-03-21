@@ -19,7 +19,7 @@
         <briefdescription>
 <para>Map to store the objects using the type of object as key. </para>        </briefdescription>
         <detaileddescription>
-<para><xrefsect id="todo_1_todo000011"><xreftitle>Todo</xreftitle><xrefdescription><para>Gowtham Maybe use shared/unique pointers </para></xrefdescription></xrefsect></para>        </detaileddescription>
+<para><xrefsect id="todo_1_todo000012"><xreftitle>Todo</xreftitle><xrefdescription><para>Gowtham Maybe use shared/unique pointers </para></xrefdescription></xrefsect></para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
         <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="17" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="17" bodyend="-1"/>

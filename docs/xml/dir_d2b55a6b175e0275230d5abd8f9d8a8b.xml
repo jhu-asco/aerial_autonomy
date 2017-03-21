@@ -6,8 +6,8 @@
     <innerdir refid="dir_8ecd37509ba98a063f23f24d5940d6f2">src/common</innerdir>
     <innerdir refid="dir_91ac798137b3e96702b55b367c2564dd">src/controller_hardware_connectors</innerdir>
     <innerdir refid="dir_19db5a8c0e38c93ea54aacd6e857dd45">src/controllers</innerdir>
+    <innerdir refid="dir_fbcbd0164d1ac88360f0f81b2dfbd750">src/system_handler_nodes</innerdir>
     <innerdir refid="dir_39729513a4eea0c841aa121f5d628f40">src/tests</innerdir>
-    <innerfile refid="aerial__autonomy__node_8cpp">aerial_autonomy_node.cpp</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

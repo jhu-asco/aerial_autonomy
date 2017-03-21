@@ -72,25 +72,25 @@
 </parameterlist>
 </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="303">
+      <node id="322">
         <label>PositionControlTransitionActionFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structPositionControlTransitionActionFunctor__"/>
-        <childnode refid="304" relation="public-inheritance">
+        <childnode refid="323" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="304">
+      <node id="323">
         <label>ActionFunctor&lt; PositionYaw, UAVSystem, LogicStateMachineT &gt;</label>
         <link refid="structActionFunctor"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="305">
+      <node id="324">
         <label>PositionControlTransitionActionFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structPositionControlTransitionActionFunctor__"/>
-        <childnode refid="306" relation="public-inheritance">
+        <childnode refid="325" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="306">
+      <node id="325">
         <label>ActionFunctor&lt; PositionYaw, UAVSystem, LogicStateMachineT &gt;</label>
         <link refid="structActionFunctor"/>
       </node>

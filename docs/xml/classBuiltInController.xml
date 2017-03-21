@@ -71,26 +71,26 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="201">
+      <node id="222">
         <label>Controller&lt; EmptySensor, GoalType, GoalType &gt;</label>
         <link refid="classController"/>
       </node>
-      <node id="200">
+      <node id="221">
         <label>BuiltInController&lt; GoalType &gt;</label>
         <link refid="classBuiltInController"/>
-        <childnode refid="201" relation="public-inheritance">
+        <childnode refid="222" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="203">
+      <node id="224">
         <label>Controller&lt; EmptySensor, GoalType, GoalType &gt;</label>
         <link refid="classController"/>
       </node>
-      <node id="202">
+      <node id="223">
         <label>BuiltInController&lt; GoalType &gt;</label>
         <link refid="classBuiltInController"/>
-        <childnode refid="203" relation="public-inheritance">
+        <childnode refid="224" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

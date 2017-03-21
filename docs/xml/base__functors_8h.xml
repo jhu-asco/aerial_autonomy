@@ -8,91 +8,100 @@
     <includedby refid="position__control__functors_8h" local="no">include/aerial_autonomy/actions_guards/position_control_functors.h</includedby>
     <includedby refid="takeoff__functors_8h" local="no">include/aerial_autonomy/actions_guards/takeoff_functors.h</includedby>
     <includedby refid="base__state_8h" local="no">include/aerial_autonomy/logic_states/base_state.h</includedby>
-    <includedby refid="onboard__system__handler_8h" local="no">include/aerial_autonomy/onboard_system_handler.h</includedby>
+    <includedby refid="common__system__handler_8h" local="no">include/aerial_autonomy/system_handlers/common_system_handler.h</includedby>
+    <includedby refid="uav__system__handler_8h" local="no">include/aerial_autonomy/system_handlers/uav_system_handler.h</includedby>
     <incdepgraph>
-      <node id="972">
+      <node id="979">
         <label>include/aerial_autonomy/actions_guards/base_functors.h</label>
         <link refid="base_functors.h"/>
-        <childnode refid="973" relation="include">
+        <childnode refid="980" relation="include">
         </childnode>
       </node>
-      <node id="973">
+      <node id="980">
         <label>type_traits</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="979">
+      <node id="991">
+        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
+        <link refid="uav__system__handler_8h"/>
+        <childnode refid="985" relation="include">
+        </childnode>
+      </node>
+      <node id="986">
         <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
         <link refid="land__functors_8h"/>
-        <childnode refid="976" relation="include">
-        </childnode>
-      </node>
-      <node id="978">
-        <label>src/aerial_autonomy_node.cpp</label>
-        <link refid="aerial__autonomy__node_8cpp"/>
-      </node>
-      <node id="982">
-        <label>include/aerial_autonomy/logic_states/base_state.h</label>
-        <link refid="base__state_8h"/>
-        <childnode refid="975" relation="include">
-        </childnode>
-        <childnode refid="979" relation="include">
-        </childnode>
-        <childnode refid="980" relation="include">
-        </childnode>
-        <childnode refid="981" relation="include">
-        </childnode>
-      </node>
-      <node id="977">
-        <label>include/aerial_autonomy/state_machines/basic_state_machine.h</label>
-        <link refid="basic__state__machine_8h"/>
-        <childnode refid="978" relation="include">
-        </childnode>
-      </node>
-      <node id="974">
-        <label>include/aerial_autonomy/actions_guards/base_functors.h</label>
-        <link refid="base_functors.h"/>
-        <childnode refid="975" relation="include">
-        </childnode>
-        <childnode refid="979" relation="include">
-        </childnode>
-        <childnode refid="980" relation="include">
-        </childnode>
-        <childnode refid="981" relation="include">
-        </childnode>
-        <childnode refid="982" relation="include">
-        </childnode>
         <childnode refid="983" relation="include">
         </childnode>
       </node>
-      <node id="980">
-        <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
-        <link refid="position__control__functors_8h"/>
-        <childnode refid="976" relation="include">
-        </childnode>
-      </node>
       <node id="983">
-        <label>include/aerial_autonomy/onboard_system_handler.h</label>
-        <link refid="onboard__system__handler_8h"/>
-        <childnode refid="978" relation="include">
+        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
+        <link refid="uav__states__actions_8h"/>
+        <childnode refid="984" relation="include">
         </childnode>
       </node>
-      <node id="976">
-        <label>include/aerial_autonomy/actions_guards/basic_states.h</label>
-        <link refid="basic__states_8h"/>
-        <childnode refid="977" relation="include">
+      <node id="985">
+        <label>src/system_handler_nodes/uav_system_node.cpp</label>
+        <link refid="uav__system__node_8cpp"/>
+      </node>
+      <node id="989">
+        <label>include/aerial_autonomy/logic_states/base_state.h</label>
+        <link refid="base__state_8h"/>
+        <childnode refid="982" relation="include">
+        </childnode>
+        <childnode refid="986" relation="include">
+        </childnode>
+        <childnode refid="987" relation="include">
+        </childnode>
+        <childnode refid="988" relation="include">
         </childnode>
       </node>
-      <node id="975">
-        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
-        <link refid="hovering__functors_8h"/>
-        <childnode refid="976" relation="include">
+      <node id="990">
+        <label>include/aerial_autonomy/system_handlers/common_system_handler.h</label>
+        <link refid="common__system__handler_8h"/>
+        <childnode refid="991" relation="include">
         </childnode>
       </node>
       <node id="981">
+        <label>include/aerial_autonomy/actions_guards/base_functors.h</label>
+        <link refid="base_functors.h"/>
+        <childnode refid="982" relation="include">
+        </childnode>
+        <childnode refid="986" relation="include">
+        </childnode>
+        <childnode refid="987" relation="include">
+        </childnode>
+        <childnode refid="988" relation="include">
+        </childnode>
+        <childnode refid="989" relation="include">
+        </childnode>
+        <childnode refid="990" relation="include">
+        </childnode>
+        <childnode refid="991" relation="include">
+        </childnode>
+      </node>
+      <node id="987">
+        <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
+        <link refid="position__control__functors_8h"/>
+        <childnode refid="983" relation="include">
+        </childnode>
+      </node>
+      <node id="982">
+        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
+        <link refid="hovering__functors_8h"/>
+        <childnode refid="983" relation="include">
+        </childnode>
+      </node>
+      <node id="984">
+        <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
+        <link refid="uav__state__machine_8h"/>
+        <childnode refid="985" relation="include">
+        </childnode>
+      </node>
+      <node id="988">
         <label>include/aerial_autonomy/actions_guards/takeoff_functors.h</label>
         <link refid="takeoff__functors_8h"/>
-        <childnode refid="976" relation="include">
+        <childnode refid="983" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -121,92 +130,99 @@
 <codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TargetState<sp/>&amp;)<sp/>{</highlight></codeline>
 <codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>static_assert(</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_same&lt;RobotSystemT<sp/>&amp;,</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>decltype(logic_state_machine.robot_system_)&gt;::value,</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Robot<sp/>system<sp/>in<sp/>logic<sp/>state<sp/>machine<sp/>is<sp/>not<sp/>the<sp/>same<sp/>as<sp/>one<sp/>used<sp/>in<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;action<sp/>functor&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>static_assert(</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_base_of&lt;FSM,<sp/>LogicStateMachineT&gt;::value,</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Template<sp/>Logic<sp/>state<sp/>machine<sp/>arg<sp/>is<sp/>not<sp/>subclass<sp/>of<sp/>provided<sp/>FSM&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>LogicStateMachineT<sp/>*logic_state_machine_cast<sp/>=</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">LogicStateMachineT<sp/>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(&amp;logic_state_machine);</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structActionFunctor_1a97250a2cc027dc3ca7d10a975d11a5c7" kindref="member">run</ref>(event,<sp/>logic_state_machine.robot_system_,<sp/>*logic_state_machine_cast);</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight></codeline>
-<codeline lineno="56" refid="structActionFunctor_1aaaa4c1ce7204b370be55f2ef4a618258" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="structActionFunctor_1aaaa4c1ce7204b370be55f2ef4a618258" kindref="member">~ActionFunctor</ref>()<sp/>{}</highlight></codeline>
-<codeline lineno="57"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"></highlight></codeline>
-<codeline lineno="71"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>EventT,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>RobotSystemT,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
-<codeline lineno="72" refid="structGuardFunctor" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structGuardFunctor" kindref="compound">GuardFunctor</ref><sp/>{</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structGuardFunctor_1a9f023aa88503d6127cc8280d7dc733b8" kindref="member">guard</ref>(EventT<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;event,<sp/>RobotSystemT<sp/>&amp;robot_system,</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LogicStateMachineT<sp/>&amp;logic_state_machine)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>FSM,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>SourceState,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>TargetState&gt;</highlight></codeline>
-<codeline lineno="92" refid="structGuardFunctor_1a42b30d1737ceca71bfe47a9bb525ceda" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structGuardFunctor_1a42b30d1737ceca71bfe47a9bb525ceda" kindref="member">operator()</ref>(EventT<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;event,<sp/>FSM<sp/>&amp;logic_state_machine,<sp/>SourceState<sp/>&amp;,</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TargetState<sp/>&amp;)<sp/>{</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>static_assert(</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_same&lt;RobotSystemT<sp/>&amp;,</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>decltype(logic_state_machine.robot_system_)&gt;::value,</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Robot<sp/>system<sp/>in<sp/>logic<sp/>state<sp/>machine<sp/>is<sp/>not<sp/>the<sp/>same<sp/>as<sp/>one<sp/>used<sp/>in<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;action<sp/>functor&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>static_assert(</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_base_of&lt;FSM,<sp/>LogicStateMachineT&gt;::value,</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Template<sp/>Logic<sp/>state<sp/>machine<sp/>arg<sp/>is<sp/>not<sp/>subclass<sp/>of<sp/>provided<sp/>FSM&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>LogicStateMachineT<sp/>*logic_state_machine_cast<sp/>=</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">LogicStateMachineT<sp/>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(&amp;logic_state_machine);</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structGuardFunctor_1a9f023aa88503d6127cc8280d7dc733b8" kindref="member">guard</ref>(event,<sp/>logic_state_machine.robot_system_,</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*logic_state_machine_cast);</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="110" refid="structGuardFunctor_1a3876b6e5028dcdc35ac786322e8afca3" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="structGuardFunctor_1a3876b6e5028dcdc35ac786322e8afca3" kindref="member">~GuardFunctor</ref>()<sp/>{}</highlight></codeline>
-<codeline lineno="111"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"></highlight></codeline>
-<codeline lineno="122"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>RobotSystemT,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
-<codeline lineno="123" refid="structEventAgnosticActionFunctor" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structEventAgnosticActionFunctor" kindref="compound">EventAgnosticActionFunctor</ref><sp/>{</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structEventAgnosticActionFunctor_1a53a48938d68370ff2ef262222565ffcf" kindref="member">run</ref>(RobotSystemT<sp/>&amp;robot_system,</highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LogicStateMachineT<sp/>&amp;logic_state_machine)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"></highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>EventT,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>FSM,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>SourceState,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>TargetState&gt;</highlight></codeline>
-<codeline lineno="141" refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" kindref="member">operator()</ref>(EventT<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;,<sp/>FSM<sp/>&amp;logic_state_machine,<sp/>SourceState<sp/>&amp;,</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TargetState<sp/>&amp;)<sp/>{</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/>static_assert(</highlight></codeline>
-<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_same&lt;RobotSystemT<sp/>&amp;,</highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>decltype(logic_state_machine.robot_system_)&gt;::value,</highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Robot<sp/>system<sp/>in<sp/>logic<sp/>state<sp/>machine<sp/>is<sp/>not<sp/>the<sp/>same<sp/>as<sp/>one<sp/>used<sp/>in<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;action<sp/>functor&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/>static_assert(</highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_base_of&lt;FSM,<sp/>LogicStateMachineT&gt;::value,</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Template<sp/>Logic<sp/>state<sp/>machine<sp/>arg<sp/>is<sp/>not<sp/>subclass<sp/>of<sp/>provided<sp/>FSM&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/>LogicStateMachineT<sp/>*logic_state_machine_cast<sp/>=</highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">LogicStateMachineT<sp/>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(&amp;logic_state_machine);</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structEventAgnosticActionFunctor_1a53a48938d68370ff2ef262222565ffcf" kindref="member">run</ref>(logic_state_machine.robot_system_,<sp/>*logic_state_machine_cast);</highlight></codeline>
-<codeline lineno="154"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="155"><highlight class="normal"></highlight></codeline>
-<codeline lineno="159" refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" kindref="member">~EventAgnosticActionFunctor</ref>()<sp/>{}</highlight></codeline>
-<codeline lineno="160"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="161"><highlight class="normal"></highlight></codeline>
-<codeline lineno="172"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>RobotSystemT,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
-<codeline lineno="173" refid="structEventAgnosticGuardFunctor" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structEventAgnosticGuardFunctor" kindref="compound">EventAgnosticGuardFunctor</ref><sp/>{</highlight></codeline>
-<codeline lineno="182"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structEventAgnosticGuardFunctor_1ad97196f6a607d199d6dbd56156b8dd8c" kindref="member">guard</ref>(RobotSystemT<sp/>&amp;robot_system,</highlight></codeline>
-<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LogicStateMachineT<sp/>&amp;logic_state_machine)<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="184"><highlight class="normal"></highlight></codeline>
-<codeline lineno="190"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>EventT,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>FSM,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>SourceState,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>TargetState&gt;</highlight></codeline>
-<codeline lineno="191" refid="structEventAgnosticGuardFunctor_1a775411c4c4e0815298200f895af3c02b" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structEventAgnosticGuardFunctor_1a775411c4c4e0815298200f895af3c02b" kindref="member">operator()</ref>(EventT<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;,<sp/>FSM<sp/>&amp;logic_state_machine,<sp/>SourceState<sp/>&amp;,</highlight></codeline>
-<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TargetState<sp/>&amp;)<sp/>{</highlight></codeline>
-<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/>static_assert(</highlight></codeline>
-<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_same&lt;RobotSystemT<sp/>&amp;,</highlight></codeline>
-<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>decltype(logic_state_machine.robot_system_)&gt;::value,</highlight></codeline>
-<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Robot<sp/>system<sp/>in<sp/>logic<sp/>state<sp/>machine<sp/>is<sp/>not<sp/>the<sp/>same<sp/>as<sp/>one<sp/>used<sp/>in<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;action<sp/>functor&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>decltype(</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logic_state_machine.robot_system_container_())&gt;::value,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Robot<sp/>system<sp/>in<sp/>logic<sp/>state<sp/>machine<sp/>is<sp/>not<sp/>the<sp/>same<sp/>as<sp/>one<sp/>used<sp/>in<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;action<sp/>functor&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>static_assert(</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_base_of&lt;FSM,<sp/>LogicStateMachineT&gt;::value,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Template<sp/>Logic<sp/>state<sp/>machine<sp/>arg<sp/>is<sp/>not<sp/>subclass<sp/>of<sp/>provided<sp/>FSM&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>LogicStateMachineT<sp/>*logic_state_machine_cast<sp/>=</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">LogicStateMachineT<sp/>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(&amp;logic_state_machine);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structActionFunctor_1a97250a2cc027dc3ca7d10a975d11a5c7" kindref="member">run</ref>(event,<sp/>logic_state_machine.robot_system_container_(),</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*logic_state_machine_cast);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="structActionFunctor_1aaaa4c1ce7204b370be55f2ef4a618258" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="structActionFunctor_1aaaa4c1ce7204b370be55f2ef4a618258" kindref="member">~ActionFunctor</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>EventT,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>RobotSystemT,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
+<codeline lineno="74" refid="structGuardFunctor" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structGuardFunctor" kindref="compound">GuardFunctor</ref><sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structGuardFunctor_1a9f023aa88503d6127cc8280d7dc733b8" kindref="member">guard</ref>(EventT<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;event,<sp/>RobotSystemT<sp/>&amp;robot_system,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LogicStateMachineT<sp/>&amp;logic_state_machine)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>FSM,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>SourceState,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>TargetState&gt;</highlight></codeline>
+<codeline lineno="94" refid="structGuardFunctor_1a42b30d1737ceca71bfe47a9bb525ceda" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structGuardFunctor_1a42b30d1737ceca71bfe47a9bb525ceda" kindref="member">operator()</ref>(EventT<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;event,<sp/>FSM<sp/>&amp;logic_state_machine,<sp/>SourceState<sp/>&amp;,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TargetState<sp/>&amp;)<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>static_assert(</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_same&lt;RobotSystemT<sp/>&amp;,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>decltype(</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logic_state_machine.robot_system_container_())&gt;::value,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Robot<sp/>system<sp/>in<sp/>logic<sp/>state<sp/>machine<sp/>is<sp/>not<sp/>the<sp/>same<sp/>as<sp/>one<sp/>used<sp/>in<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;action<sp/>functor&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>static_assert(</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_base_of&lt;FSM,<sp/>LogicStateMachineT&gt;::value,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Template<sp/>Logic<sp/>state<sp/>machine<sp/>arg<sp/>is<sp/>not<sp/>subclass<sp/>of<sp/>provided<sp/>FSM&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>LogicStateMachineT<sp/>*logic_state_machine_cast<sp/>=</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">LogicStateMachineT<sp/>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(&amp;logic_state_machine);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structGuardFunctor_1a9f023aa88503d6127cc8280d7dc733b8" kindref="member">guard</ref>(event,<sp/>logic_state_machine.robot_system_container_(),</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*logic_state_machine_cast);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="113" refid="structGuardFunctor_1a3876b6e5028dcdc35ac786322e8afca3" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="structGuardFunctor_1a3876b6e5028dcdc35ac786322e8afca3" kindref="member">~GuardFunctor</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>RobotSystemT,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
+<codeline lineno="126" refid="structEventAgnosticActionFunctor" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structEventAgnosticActionFunctor" kindref="compound">EventAgnosticActionFunctor</ref><sp/>{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structEventAgnosticActionFunctor_1a53a48938d68370ff2ef262222565ffcf" kindref="member">run</ref>(RobotSystemT<sp/>&amp;robot_system,</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LogicStateMachineT<sp/>&amp;logic_state_machine)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>EventT,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>FSM,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>SourceState,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>TargetState&gt;</highlight></codeline>
+<codeline lineno="144" refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" kindref="member">operator()</ref>(EventT<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;,<sp/>FSM<sp/>&amp;logic_state_machine,<sp/>SourceState<sp/>&amp;,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TargetState<sp/>&amp;)<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>static_assert(</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_same&lt;RobotSystemT<sp/>&amp;,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>decltype(</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logic_state_machine.robot_system_container_())&gt;::value,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Robot<sp/>system<sp/>in<sp/>logic<sp/>state<sp/>machine<sp/>is<sp/>not<sp/>the<sp/>same<sp/>as<sp/>one<sp/>used<sp/>in<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;action<sp/>functor&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/>static_assert(</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_base_of&lt;FSM,<sp/>LogicStateMachineT&gt;::value,</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Template<sp/>Logic<sp/>state<sp/>machine<sp/>arg<sp/>is<sp/>not<sp/>subclass<sp/>of<sp/>provided<sp/>FSM&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/>LogicStateMachineT<sp/>*logic_state_machine_cast<sp/>=</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">LogicStateMachineT<sp/>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(&amp;logic_state_machine);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structEventAgnosticActionFunctor_1a53a48938d68370ff2ef262222565ffcf" kindref="member">run</ref>(logic_state_machine.robot_system_container_(),</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*logic_state_machine_cast);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164" refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" kindref="member">~EventAgnosticActionFunctor</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>RobotSystemT,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
+<codeline lineno="178" refid="structEventAgnosticGuardFunctor" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structEventAgnosticGuardFunctor" kindref="compound">EventAgnosticGuardFunctor</ref><sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structEventAgnosticGuardFunctor_1ad97196f6a607d199d6dbd56156b8dd8c" kindref="member">guard</ref>(RobotSystemT<sp/>&amp;robot_system,</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LogicStateMachineT<sp/>&amp;logic_state_machine)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>EventT,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>FSM,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>SourceState,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>TargetState&gt;</highlight></codeline>
+<codeline lineno="196" refid="structEventAgnosticGuardFunctor_1a775411c4c4e0815298200f895af3c02b" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structEventAgnosticGuardFunctor_1a775411c4c4e0815298200f895af3c02b" kindref="member">operator()</ref>(EventT<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;,<sp/>FSM<sp/>&amp;logic_state_machine,<sp/>SourceState<sp/>&amp;,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TargetState<sp/>&amp;)<sp/>{</highlight></codeline>
 <codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/>static_assert(</highlight></codeline>
-<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_base_of&lt;FSM,<sp/>LogicStateMachineT&gt;::value,</highlight></codeline>
-<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Template<sp/>Logic<sp/>state<sp/>machine<sp/>arg<sp/>is<sp/>not<sp/>subclass<sp/>of<sp/>provided<sp/>FSM&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/>LogicStateMachineT<sp/>*logic_state_machine_cast<sp/>=</highlight></codeline>
-<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">LogicStateMachineT<sp/>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(&amp;logic_state_machine);</highlight></codeline>
-<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structEventAgnosticGuardFunctor_1ad97196f6a607d199d6dbd56156b8dd8c" kindref="member">guard</ref>(logic_state_machine.robot_system_,<sp/>*logic_state_machine_cast);</highlight></codeline>
-<codeline lineno="204"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="205"><highlight class="normal"></highlight></codeline>
-<codeline lineno="209" refid="structEventAgnosticGuardFunctor_1aa339ada7b22b27bc6d384445d109f4e6" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="structEventAgnosticGuardFunctor_1aa339ada7b22b27bc6d384445d109f4e6" kindref="member">~EventAgnosticGuardFunctor</ref>()<sp/>{}</highlight></codeline>
-<codeline lineno="210"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="211"><highlight class="normal"></highlight></codeline>
-<codeline lineno="216" refid="structInternalTransitionEvent" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structInternalTransitionEvent" kindref="compound">InternalTransitionEvent</ref><sp/>{};</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_same&lt;RobotSystemT<sp/>&amp;,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>decltype(</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logic_state_machine.robot_system_container_())&gt;::value,</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Robot<sp/>system<sp/>in<sp/>logic<sp/>state<sp/>machine<sp/>is<sp/>not<sp/>the<sp/>same<sp/>as<sp/>one<sp/>used<sp/>in<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;action<sp/>functor&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/>static_assert(</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::is_base_of&lt;FSM,<sp/>LogicStateMachineT&gt;::value,</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Template<sp/>Logic<sp/>state<sp/>machine<sp/>arg<sp/>is<sp/>not<sp/>subclass<sp/>of<sp/>provided<sp/>FSM&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/>LogicStateMachineT<sp/>*logic_state_machine_cast<sp/>=</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">LogicStateMachineT<sp/>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(&amp;logic_state_machine);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structEventAgnosticGuardFunctor_1ad97196f6a607d199d6dbd56156b8dd8c" kindref="member">guard</ref>(logic_state_machine.robot_system_container_(),</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*logic_state_machine_cast);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216" refid="structEventAgnosticGuardFunctor_1aa339ada7b22b27bc6d384445d109f4e6" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="structEventAgnosticGuardFunctor_1aa339ada7b22b27bc6d384445d109f4e6" kindref="member">~EventAgnosticGuardFunctor</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223" refid="structInternalTransitionEvent" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structInternalTransitionEvent" kindref="compound">InternalTransitionEvent</ref><sp/>{};</highlight></codeline>
     </programlisting>
     <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h"/>
   </compounddef>

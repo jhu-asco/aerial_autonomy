@@ -199,7 +199,7 @@
 </parameterlist>
 </para>        </detaileddescription>
         <inbodydescription>
-<para><xrefsect id="todo_1_todo000012"><xreftitle>Todo</xreftitle><xrefdescription><para>make enum class iterable to do this automatically </para></xrefdescription></xrefsect></para>        </inbodydescription>
+<para><xrefsect id="todo_1_todo000013"><xreftitle>Todo</xreftitle><xrefdescription><para>make enum class iterable to do this automatically </para></xrefdescription></xrefsect></para>        </inbodydescription>
         <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="90" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="90" bodyend="116"/>
       </memberdef>
       <memberdef kind="function" id="classUAVSystem_1a8a1cbcd8770841ee2a30365f4a75bf34" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
@@ -383,12 +383,13 @@
         <argsstring>()</argsstring>
         <name>getSystemStatus</name>
         <briefdescription>
-        </briefdescription>
+<para>Provide the current state of UAV system. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><simplesect kind="return"><para>string representation of the UAV system state </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="200" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="200" bodyend="229"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="205" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="205" bodyend="234"/>
       </memberdef>
       <memberdef kind="function" id="classUAVSystem_1a89d67e42aec09dd65a23f39462a8202e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>UAVSystemConfig</type>
@@ -402,14 +403,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="235" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="235" bodyend="235"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="240" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="240" bodyend="240"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Owns, initializes, and facilitates communication between different hardware/software components. Provides builtin position, velocity, and rpy controllers for controlling UAV. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="21" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="21" bodyend="236"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="21" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="21" bodyend="241"/>
     <listofallmembers>
       <member refid="classUAVSystem_1a90634eb2ac4c515c9065ce85cc21dc19" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>abortController</name></member>
       <member refid="classUAVSystem_1aca1ff6cb6b1ce7563671d2ecb0eba435" prot="private" virt="non-virtual"><scope>UAVSystem</scope><name>active_controllers_</name></member>

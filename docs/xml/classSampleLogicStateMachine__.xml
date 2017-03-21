@@ -2,192 +2,13 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
   <compounddef id="classSampleLogicStateMachine__" kind="class" prot="public">
     <compoundname>SampleLogicStateMachine_</compoundname>
+    <basecompoundref refid="classBaseStateMachine" prot="public" virt="non-virtual">BaseStateMachine&lt; RobotSystemT &gt;</basecompoundref>
     <includes refid="sample__logic__state__machine_8h" local="no">sample_logic_state_machine.h</includes>
     <templateparamlist>
       <param>
         <type>class RobotSystemT</type>
       </param>
     </templateparamlist>
-      <sectiondef kind="friend">
-      <memberdef kind="friend" id="classSampleLogicStateMachine___1a05673eb4ec343f36c1f3fb787ac26b94" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <templateparamlist>
-          <param>
-            <type>class EventT</type>
-          </param>
-          <param>
-            <type>class RobotSystemT1</type>
-          </param>
-          <param>
-            <type>class LogicStateMachineT</type>
-          </param>
-        </templateparamlist>
-        <type>friend class</type>
-        <definition>friend class ActionFunctor</definition>
-        <argsstring></argsstring>
-        <name>ActionFunctor</name>
-        <briefdescription>
-<para>Friend action class to guard robot system. </para>        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="templateparam"><parameteritem>
-<parameternamelist>
-<parametername>EventT</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Event triggering action functor </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>RobotSystemT1</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Robot system used by action functor </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>LogicStateMachineT</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Logic state Machine backend used by Guard functor </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="26" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="26" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="friend" id="classSampleLogicStateMachine___1a9411581bb37b54467df520e3c73ceaf0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <templateparamlist>
-          <param>
-            <type>class EventT</type>
-          </param>
-          <param>
-            <type>class RobotSystemT1</type>
-          </param>
-          <param>
-            <type>class LogicStateMachineT</type>
-          </param>
-        </templateparamlist>
-        <type>friend class</type>
-        <definition>friend class GuardFunctor</definition>
-        <argsstring></argsstring>
-        <name>GuardFunctor</name>
-        <briefdescription>
-<para>Friend guard class to access robot system. </para>        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="templateparam"><parameteritem>
-<parameternamelist>
-<parametername>EventT</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Event triggering action functor </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>RobotSystemT1</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Robot system used by action functor </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>LogicStateMachineT</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Logic state Machine backend used by Guard functor </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="35" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="35" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="friend" id="classSampleLogicStateMachine___1a86a665e36420c3cbc2b45864e023f98a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <templateparamlist>
-          <param>
-            <type>class RobotSystemT1</type>
-          </param>
-          <param>
-            <type>class LogicStateMachineT</type>
-          </param>
-        </templateparamlist>
-        <type>friend class</type>
-        <definition>friend class EventAgnosticActionFunctor</definition>
-        <argsstring></argsstring>
-        <name>EventAgnosticActionFunctor</name>
-        <briefdescription>
-<para>Frient Event agnostic action class. </para>        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="templateparam"><parameteritem>
-<parameternamelist>
-<parametername>EventT</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Event triggering action functor </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>RobotSystemT1</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Robot system used by action functor </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>LogicStateMachineT</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Logic state Machine backend used by Guard functor </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="44" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="44" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="friend" id="classSampleLogicStateMachine___1af372c36475bc4510af791f5cb66608ad" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <templateparamlist>
-          <param>
-            <type>class RobotSystemT1</type>
-          </param>
-          <param>
-            <type>class LogicStateMachineT</type>
-          </param>
-        </templateparamlist>
-        <type>friend class</type>
-        <definition>friend class EventAgnosticGuardFunctor</definition>
-        <argsstring></argsstring>
-        <name>EventAgnosticGuardFunctor</name>
-        <briefdescription>
-<para>Frient Event agnostic guard class. </para>        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="templateparam"><parameteritem>
-<parameternamelist>
-<parametername>EventT</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Event triggering action functor </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>RobotSystemT1</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Robot system used by action functor </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>LogicStateMachineT</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Logic state Machine backend used by Guard functor </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="53" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="53" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
       <sectiondef kind="private-attrib">
       <memberdef kind="variable" id="classSampleLogicStateMachine___1ad9d563e9bb505b603574111ef5aa1c01" prot="private" static="no" mutable="no">
         <type>std::type_index</type>
@@ -201,7 +22,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="57" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="57" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="23" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="23" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classSampleLogicStateMachine___1a342b143058cca6f56daf44d89973a05f" prot="private" static="no" mutable="no">
         <type><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref></type>
@@ -214,20 +35,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="61" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="61" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classSampleLogicStateMachine___1a9e76d7525a8b1bffd4596fdcad62d951" prot="private" static="no" mutable="no">
-        <type>RobotSystemT &amp;</type>
-        <definition>RobotSystemT&amp; SampleLogicStateMachine_&lt; RobotSystemT &gt;::robot_system_</definition>
-        <argsstring></argsstring>
-        <name>robot_system_</name>
-        <briefdescription>
-<para>store the robot system passed in </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="65" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="65" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="27" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -254,7 +62,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="73" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="73" bodyend="74"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="35" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="35" bodyend="36"/>
       </memberdef>
       <memberdef kind="function" id="classSampleLogicStateMachine___1af577b426ec630d48148ed6aab393b43e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -292,7 +100,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="81" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="81" bodyend="83"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="44" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="44" bodyend="46"/>
       </memberdef>
       <memberdef kind="function" id="classSampleLogicStateMachine___1a60ca43f8a484f1ab56669d0485479c47" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -317,7 +125,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="90" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="90" bodyend="93"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="53" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="53" bodyend="56"/>
       </memberdef>
       <memberdef kind="function" id="classSampleLogicStateMachine___1a469a3cdffcce57a12c5b7890410b63e8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>std::type_index</type>
@@ -331,7 +139,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="99" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="99" bodyend="99"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="62" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="62" bodyend="62"/>
       </memberdef>
       <memberdef kind="function" id="classSampleLogicStateMachine___1a254ed914235117e9ffaa5ba8614335cb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref></type>
@@ -345,7 +153,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="105" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="105" bodyend="105"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="68" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="68" bodyend="68"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -360,18 +168,42 @@
 </parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="17" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="17" bodyend="106"/>
+    <inheritancegraph>
+      <node id="344">
+        <label>BaseStateMachine&lt; RobotSystemT &gt;</label>
+        <link refid="classBaseStateMachine"/>
+      </node>
+      <node id="343">
+        <label>SampleLogicStateMachine_&lt; RobotSystemT &gt;</label>
+        <link refid="classSampleLogicStateMachine__"/>
+        <childnode refid="344" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="346">
+        <label>BaseStateMachine&lt; RobotSystemT &gt;</label>
+        <link refid="classBaseStateMachine"/>
+      </node>
+      <node id="345">
+        <label>SampleLogicStateMachine_&lt; RobotSystemT &gt;</label>
+        <link refid="classSampleLogicStateMachine__"/>
+        <childnode refid="346" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="19" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="19" bodyend="69"/>
     <listofallmembers>
-      <member refid="classSampleLogicStateMachine___1a05673eb4ec343f36c1f3fb787ac26b94" prot="private" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>ActionFunctor</name></member>
-      <member refid="classSampleLogicStateMachine___1a86a665e36420c3cbc2b45864e023f98a" prot="private" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>EventAgnosticActionFunctor</name></member>
-      <member refid="classSampleLogicStateMachine___1af372c36475bc4510af791f5cb66608ad" prot="private" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>EventAgnosticGuardFunctor</name></member>
+      <member refid="classBaseStateMachine_1a2cb25947ca74c77568736975125aed44" prot="public" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>BaseStateMachine</name></member>
+      <member refid="classBaseStateMachine_1a0f38afdf3c3299264d3382895b6452c6" prot="public" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>get_no_transition_event_index</name></member>
       <member refid="classSampleLogicStateMachine___1a254ed914235117e9ffaa5ba8614335cb" prot="public" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>getPoseEvent</name></member>
       <member refid="classSampleLogicStateMachine___1a469a3cdffcce57a12c5b7890410b63e8" prot="public" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>getProcessEventTypeId</name></member>
-      <member refid="classSampleLogicStateMachine___1a9411581bb37b54467df520e3c73ceaf0" prot="private" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>GuardFunctor</name></member>
+      <member refid="classBaseStateMachine_1ab047241678b8eba01f428ef1af5c055f" prot="public" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>no_transition</name></member>
+      <member refid="classBaseStateMachine_1ac261a6e2f6829dd213d58e690093c192" prot="protected" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>no_transition_event_index_</name></member>
       <member refid="classSampleLogicStateMachine___1a342b143058cca6f56daf44d89973a05f" prot="private" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>pose_event_</name></member>
       <member refid="classSampleLogicStateMachine___1af577b426ec630d48148ed6aab393b43e" prot="public" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>process_event</name></member>
       <member refid="classSampleLogicStateMachine___1a60ca43f8a484f1ab56669d0485479c47" prot="public" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>process_event</name></member>
-      <member refid="classSampleLogicStateMachine___1a9e76d7525a8b1bffd4596fdcad62d951" prot="private" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>robot_system_</name></member>
+      <member refid="classBaseStateMachine_1a75dfc85f8804c2579ad9dc8c2239aba1" prot="public" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>robot_system_container_</name></member>
       <member refid="classSampleLogicStateMachine___1a5450901d1fdbedd6368ea302322a5fb6" prot="public" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>SampleLogicStateMachine_</name></member>
       <member refid="classSampleLogicStateMachine___1ad9d563e9bb505b603574111ef5aa1c01" prot="private" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>type_index_event_</name></member>
     </listofallmembers>

@@ -9,139 +9,131 @@
     <includedby refid="manual__rpyt__controller_8cpp" local="yes">src/controllers/manual_rpyt_controller.cpp</includedby>
     <includedby refid="basic__controllers_8h" local="no">include/aerial_autonomy/controllers/basic_controllers.h</includedby>
     <incdepgraph>
-      <node id="1400">
+      <node id="1411">
         <label>boost/thread/mutex.hpp</label>
       </node>
-      <node id="1403">
+      <node id="1414">
         <label>aerial_autonomy/types/joysticks.h</label>
         <link refid="joysticks_8h"/>
       </node>
-      <node id="1399">
+      <node id="1410">
         <label>aerial_autonomy/controllers/base_controller.h</label>
         <link refid="base__controller_8h"/>
-        <childnode refid="1400" relation="include">
+        <childnode refid="1411" relation="include">
         </childnode>
       </node>
-      <node id="1401">
+      <node id="1412">
         <label>aerial_autonomy/types/empty_goal.h</label>
         <link refid="empty__goal_8h"/>
       </node>
-      <node id="1398">
+      <node id="1409">
         <label>include/aerial_autonomy/controllers/manual_rpyt_controller.h</label>
         <link refid="manual_rpyt_controller.h"/>
-        <childnode refid="1399" relation="include">
+        <childnode refid="1410" relation="include">
         </childnode>
-        <childnode refid="1401" relation="include">
+        <childnode refid="1412" relation="include">
         </childnode>
-        <childnode refid="1402" relation="include">
+        <childnode refid="1413" relation="include">
         </childnode>
-        <childnode refid="1404" relation="include">
+        <childnode refid="1415" relation="include">
         </childnode>
       </node>
-      <node id="1402">
+      <node id="1413">
         <label>aerial_autonomy/types/joysticks_yaw.h</label>
         <link refid="joysticks__yaw_8h"/>
-        <childnode refid="1403" relation="include">
+        <childnode refid="1414" relation="include">
         </childnode>
       </node>
-      <node id="1404">
+      <node id="1415">
         <label>aerial_autonomy/types/roll_pitch_yaw_thrust.h</label>
         <link refid="roll__pitch__yaw__thrust_8h"/>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1413">
+      <node id="1427">
+        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
+        <link refid="uav__system__handler_8h"/>
+        <childnode refid="1423" relation="include">
+        </childnode>
+      </node>
+      <node id="1424">
         <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
         <link refid="land__functors_8h"/>
-        <childnode refid="1410" relation="include">
+        <childnode refid="1421" relation="include">
         </childnode>
       </node>
-      <node id="1412">
-        <label>src/aerial_autonomy_node.cpp</label>
-        <link refid="aerial__autonomy__node_8cpp"/>
-      </node>
-      <node id="1411">
-        <label>include/aerial_autonomy/state_machines/basic_state_machine.h</label>
-        <link refid="basic__state__machine_8h"/>
-        <childnode refid="1412" relation="include">
+      <node id="1421">
+        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
+        <link refid="uav__states__actions_8h"/>
+        <childnode refid="1422" relation="include">
         </childnode>
       </node>
-      <node id="1407">
+      <node id="1423">
+        <label>src/system_handler_nodes/uav_system_node.cpp</label>
+        <link refid="uav__system__node_8cpp"/>
+      </node>
+      <node id="1418">
         <label>include/aerial_autonomy/controllers/basic_controllers.h</label>
         <link refid="basic__controllers_8h"/>
-        <childnode refid="1408" relation="include">
+        <childnode refid="1419" relation="include">
         </childnode>
       </node>
-      <node id="1414">
+      <node id="1425">
         <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
         <link refid="position__control__functors_8h"/>
-        <childnode refid="1410" relation="include">
+        <childnode refid="1421" relation="include">
         </childnode>
       </node>
-      <node id="1416">
-        <label>include/aerial_autonomy/onboard_system_handler.h</label>
-        <link refid="onboard__system__handler_8h"/>
-        <childnode refid="1412" relation="include">
+      <node id="1420">
+        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
+        <link refid="hovering__functors_8h"/>
+        <childnode refid="1421" relation="include">
         </childnode>
       </node>
       <node id="1417">
-        <label>include/aerial_autonomy/system_status_publisher.h</label>
-        <link refid="system__status__publisher_8h"/>
-        <childnode refid="1416" relation="include">
-        </childnode>
-      </node>
-      <node id="1410">
-        <label>include/aerial_autonomy/actions_guards/basic_states.h</label>
-        <link refid="basic__states_8h"/>
-        <childnode refid="1411" relation="include">
-        </childnode>
-      </node>
-      <node id="1409">
-        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
-        <link refid="hovering__functors_8h"/>
-        <childnode refid="1410" relation="include">
-        </childnode>
-      </node>
-      <node id="1406">
         <label>src/controllers/manual_rpyt_controller.cpp</label>
         <link refid="manual__rpyt__controller_8cpp"/>
       </node>
-      <node id="1405">
-        <label>include/aerial_autonomy/controllers/manual_rpyt_controller.h</label>
-        <link refid="manual_rpyt_controller.h"/>
-        <childnode refid="1406" relation="include">
-        </childnode>
-        <childnode refid="1407" relation="include">
+      <node id="1422">
+        <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
+        <link refid="uav__state__machine_8h"/>
+        <childnode refid="1423" relation="include">
         </childnode>
       </node>
-      <node id="1408">
-        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
-        <link refid="uav__system_8h"/>
-        <childnode refid="1409" relation="include">
-        </childnode>
-        <childnode refid="1413" relation="include">
-        </childnode>
-        <childnode refid="1414" relation="include">
-        </childnode>
-        <childnode refid="1415" relation="include">
-        </childnode>
-        <childnode refid="1416" relation="include">
-        </childnode>
-        <childnode refid="1411" relation="include">
-        </childnode>
+      <node id="1416">
+        <label>include/aerial_autonomy/controllers/manual_rpyt_controller.h</label>
+        <link refid="manual_rpyt_controller.h"/>
         <childnode refid="1417" relation="include">
         </childnode>
         <childnode refid="1418" relation="include">
         </childnode>
       </node>
-      <node id="1418">
+      <node id="1419">
+        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
+        <link refid="uav__system_8h"/>
+        <childnode refid="1420" relation="include">
+        </childnode>
+        <childnode refid="1424" relation="include">
+        </childnode>
+        <childnode refid="1425" relation="include">
+        </childnode>
+        <childnode refid="1426" relation="include">
+        </childnode>
+        <childnode refid="1422" relation="include">
+        </childnode>
+        <childnode refid="1427" relation="include">
+        </childnode>
+        <childnode refid="1428" relation="include">
+        </childnode>
+      </node>
+      <node id="1428">
         <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
         <link refid="sample__logic__state__machine_8h"/>
       </node>
-      <node id="1415">
+      <node id="1426">
         <label>include/aerial_autonomy/actions_guards/takeoff_functors.h</label>
         <link refid="takeoff__functors_8h"/>
-        <childnode refid="1410" relation="include">
+        <childnode refid="1421" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

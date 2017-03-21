@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structUAVStateMachineFrontEnd_1_1transition__table" kind="struct" prot="public">
+    <compoundname>UAVStateMachineFrontEnd::transition_table</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">boost::mpl::vector&lt; msmf::Row&lt; usa::Landed, be::Takeoff, usa::TakingOff, usa::TakeoffAction, usa::TakeoffGuard &gt;, msmf::Row&lt; usa::TakingOff, be::Land, usa::Landing, usa::LandingAction, msmf::none &gt;, msmf::Row&lt; usa::TakingOff, be::Abort, usa::Landing, usa::TakeoffAbort, msmf::none &gt;, msmf::Row&lt; usa::Hovering, PositionYaw, usa::ReachingGoal, usa::ReachingGoalSet, usa::ReachingGoalGuard &gt;, msmf::Row&lt; usa::Hovering, be::Land, usa::Landing, usa::LandingAction, msmf::none &gt;, msmf::Row&lt; usa::ReachingGoal, be::Abort, usa::Hovering, usa::ReachingGoalAbort, msmf::none &gt;, msmf::Row&lt; usa::ReachingGoal, be::Land, usa::Landing, usa::ReachingGoalLand, msmf::none &gt;, msmf::Row&lt; usa::Landing, Completed, usa::Landed, msmf::none, msmf::none &gt;, msmf::Row&lt; usa::TakingOff, Completed, usa::Hovering, msmf::none, msmf::none &gt;, msmf::Row&lt; usa::ReachingGoal, Completed, usa::Hovering, msmf::none, msmf::none &gt; &gt;</basecompoundref>
+    <includes refid="uav__state__machine_8h" local="no">uav_state_machine.h</includes>
+    <briefdescription>
+<para>Transition table for State Machine. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="375">
+        <label>UAVStateMachineFrontEnd::transition_table</label>
+        <link refid="structUAVStateMachineFrontEnd_1_1transition__table"/>
+        <childnode refid="376" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="376">
+        <label>boost::mpl::vector&lt; msmf::Row&lt; usa::Landed, be::Takeoff, usa::TakingOff, usa::TakeoffAction, usa::TakeoffGuard &gt;,msmf::Row&lt; usa::TakingOff, be::Land, usa::Landing, usa::LandingAction, msmf::none &gt;, msmf::Row&lt; usa::TakingOff, be::Abort, usa::Landing, usa::TakeoffAbort, msmf::none &gt;,msmf::Row&lt; usa::Hovering, PositionYaw, usa::ReachingGoal, usa::ReachingGoalSet, usa::ReachingGoalGuard &gt;, msmf::Row&lt; usa::Hovering, be::Land, usa::Landing, usa::LandingAction, msmf::none &gt;,msmf::Row&lt; usa::ReachingGoal, be::Abort, usa::Hovering, usa::ReachingGoalAbort, msmf::none &gt;, msmf::Row&lt; usa::ReachingGoal, be::Land, usa::Landing, usa::ReachingGoalLand, msmf::none &gt;,msmf::Row&lt; usa::Landing, Completed, usa::Landed, msmf::none, msmf::none &gt;, msmf::Row&lt; usa::TakingOff, Completed, usa::Hovering, msmf::none, msmf::none &gt;, msmf::Row&lt; usa::ReachingGoal, Completed, usa::Hovering, msmf::none, msmf::none &gt; &gt;</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="377">
+        <label>UAVStateMachineFrontEnd::transition_table</label>
+        <link refid="structUAVStateMachineFrontEnd_1_1transition__table"/>
+        <childnode refid="378" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="378">
+        <label>boost::mpl::vector&lt; msmf::Row&lt; usa::Landed, be::Takeoff, usa::TakingOff, usa::TakeoffAction, usa::TakeoffGuard &gt;,msmf::Row&lt; usa::TakingOff, be::Land, usa::Landing, usa::LandingAction, msmf::none &gt;, msmf::Row&lt; usa::TakingOff, be::Abort, usa::Landing, usa::TakeoffAbort, msmf::none &gt;,msmf::Row&lt; usa::Hovering, PositionYaw, usa::ReachingGoal, usa::ReachingGoalSet, usa::ReachingGoalGuard &gt;, msmf::Row&lt; usa::Hovering, be::Land, usa::Landing, usa::LandingAction, msmf::none &gt;,msmf::Row&lt; usa::ReachingGoal, be::Abort, usa::Hovering, usa::ReachingGoalAbort, msmf::none &gt;, msmf::Row&lt; usa::ReachingGoal, be::Land, usa::Landing, usa::ReachingGoalLand, msmf::none &gt;,msmf::Row&lt; usa::Landing, Completed, usa::Landed, msmf::none, msmf::none &gt;, msmf::Row&lt; usa::TakingOff, Completed, usa::Hovering, msmf::none, msmf::none &gt;, msmf::Row&lt; usa::ReachingGoal, Completed, usa::Hovering, msmf::none, msmf::none &gt; &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="128" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="99" bodyend="128"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

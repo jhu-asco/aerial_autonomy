@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['uavsystem',['UAVSystem',['../classUAVSystem.html',1,'']]]
+  ['velocity',['Velocity',['../structVelocity.html',1,'']]],
+  ['velocityyaw',['VelocityYaw',['../structVelocityYaw.html',1,'']]]
 ];

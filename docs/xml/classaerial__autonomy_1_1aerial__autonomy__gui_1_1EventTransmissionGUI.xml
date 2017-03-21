@@ -317,24 +317,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="230">
+      <node id="256">
         <label>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI</label>
         <link refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI"/>
-        <childnode refid="231" relation="public-inheritance">
+        <childnode refid="257" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="231">
+      <node id="257">
         <label>Plugin</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="232">
+      <node id="258">
         <label>aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI</label>
         <link refid="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI"/>
-        <childnode refid="233" relation="public-inheritance">
+        <childnode refid="259" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="233">
+      <node id="259">
         <label>Plugin</label>
       </node>
     </collaborationgraph>

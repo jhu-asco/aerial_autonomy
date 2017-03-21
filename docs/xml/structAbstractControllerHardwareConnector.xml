@@ -44,50 +44,50 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="185">
+      <node id="203">
         <label>ControllerHardwareConnector&lt; EmptySensor, PositionYaw, PositionYaw &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="183" relation="public-inheritance">
+        <childnode refid="201" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="184">
+      <node id="202">
         <label>ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="183" relation="public-inheritance">
+        <childnode refid="201" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="190">
+      <node id="208">
         <label>ManualRPYTControllerDroneConnector</label>
         <link refid="classManualRPYTControllerDroneConnector"/>
-        <childnode refid="189" relation="public-inheritance">
+        <childnode refid="207" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="183">
+      <node id="201">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
-      <node id="187">
+      <node id="205">
         <label>ControllerHardwareConnector&lt; EmptySensor, VelocityYaw, VelocityYaw &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="183" relation="public-inheritance">
+        <childnode refid="201" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="189">
+      <node id="207">
         <label>ControllerHardwareConnector&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="183" relation="public-inheritance">
+        <childnode refid="201" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="188">
+      <node id="206">
         <label>BuiltInVelocityControllerDroneConnector</label>
         <link refid="classBuiltInVelocityControllerDroneConnector"/>
-        <childnode refid="187" relation="public-inheritance">
+        <childnode refid="205" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="186">
+      <node id="204">
         <label>PositionControllerDroneConnector</label>
         <link refid="classPositionControllerDroneConnector"/>
-        <childnode refid="185" relation="public-inheritance">
+        <childnode refid="203" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>

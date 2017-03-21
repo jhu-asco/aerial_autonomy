@@ -7,54 +7,60 @@
     <includes local="no">functional</includes>
     <includes local="no">thread</includes>
     <includedby refid="async__timer_8cpp" local="no">src/common/async_timer.cpp</includedby>
-    <includedby refid="onboard__system__handler_8h" local="no">include/aerial_autonomy/onboard_system_handler.h</includedby>
+    <includedby refid="common__system__handler_8h" local="no">include/aerial_autonomy/system_handlers/common_system_handler.h</includedby>
     <incdepgraph>
-      <node id="1186">
+      <node id="1193">
         <label>atomic</label>
       </node>
-      <node id="1188">
+      <node id="1195">
         <label>functional</label>
       </node>
-      <node id="1185">
+      <node id="1192">
         <label>include/aerial_autonomy/common/async_timer.h</label>
         <link refid="async_timer.h"/>
-        <childnode refid="1186" relation="include">
+        <childnode refid="1193" relation="include">
         </childnode>
-        <childnode refid="1187" relation="include">
+        <childnode refid="1194" relation="include">
         </childnode>
-        <childnode refid="1188" relation="include">
+        <childnode refid="1195" relation="include">
         </childnode>
-        <childnode refid="1189" relation="include">
+        <childnode refid="1196" relation="include">
         </childnode>
       </node>
-      <node id="1187">
+      <node id="1194">
         <label>chrono</label>
       </node>
-      <node id="1189">
+      <node id="1196">
         <label>thread</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1193">
-        <label>src/aerial_autonomy_node.cpp</label>
-        <link refid="aerial__autonomy__node_8cpp"/>
+      <node id="1200">
+        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
+        <link refid="uav__system__handler_8h"/>
+        <childnode refid="1201" relation="include">
+        </childnode>
       </node>
-      <node id="1191">
+      <node id="1201">
+        <label>src/system_handler_nodes/uav_system_node.cpp</label>
+        <link refid="uav__system__node_8cpp"/>
+      </node>
+      <node id="1198">
         <label>src/common/async_timer.cpp</label>
         <link refid="async__timer_8cpp"/>
       </node>
-      <node id="1192">
-        <label>include/aerial_autonomy/onboard_system_handler.h</label>
-        <link refid="onboard__system__handler_8h"/>
-        <childnode refid="1193" relation="include">
+      <node id="1199">
+        <label>include/aerial_autonomy/system_handlers/common_system_handler.h</label>
+        <link refid="common__system__handler_8h"/>
+        <childnode refid="1200" relation="include">
         </childnode>
       </node>
-      <node id="1190">
+      <node id="1197">
         <label>include/aerial_autonomy/common/async_timer.h</label>
         <link refid="async_timer.h"/>
-        <childnode refid="1191" relation="include">
+        <childnode refid="1198" relation="include">
         </childnode>
-        <childnode refid="1192" relation="include">
+        <childnode refid="1199" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

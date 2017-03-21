@@ -136,25 +136,25 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="274">
+      <node id="295">
         <label>ManualRPYTController</label>
         <link refid="classManualRPYTController"/>
-        <childnode refid="275" relation="public-inheritance">
+        <childnode refid="296" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="275">
+      <node id="296">
         <label>Controller&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</label>
         <link refid="classController"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="276">
+      <node id="297">
         <label>ManualRPYTController</label>
         <link refid="classManualRPYTController"/>
-        <childnode refid="277" relation="public-inheritance">
+        <childnode refid="298" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="277">
+      <node id="298">
         <label>Controller&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</label>
         <link refid="classController"/>
       </node>

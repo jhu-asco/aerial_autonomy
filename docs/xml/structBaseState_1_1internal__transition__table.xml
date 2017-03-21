@@ -9,24 +9,24 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="240">
+      <node id="266">
         <label>BaseState&lt; RobotSystemT, LogicStateMachineT, ActionFctr &gt;::internal_transition_table</label>
         <link refid="structBaseState_1_1internal__transition__table"/>
-        <childnode refid="241" relation="public-inheritance">
+        <childnode refid="267" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="241">
+      <node id="267">
         <label>boost::mpl::vector&lt; msmf::Internal&lt; InternalTransitionEvent, ActionFctr, msmf::none &gt; &gt;</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="242">
+      <node id="268">
         <label>BaseState&lt; RobotSystemT, LogicStateMachineT, ActionFctr &gt;::internal_transition_table</label>
         <link refid="structBaseState_1_1internal__transition__table"/>
-        <childnode refid="243" relation="public-inheritance">
+        <childnode refid="269" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="243">
+      <node id="269">
         <label>boost::mpl::vector&lt; msmf::Internal&lt; InternalTransitionEvent, ActionFctr, msmf::none &gt; &gt;</label>
       </node>
     </collaborationgraph>

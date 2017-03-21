@@ -105,38 +105,38 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="206">
+      <node id="227">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
-      <node id="205">
+      <node id="226">
         <label>ControllerHardwareConnector&lt; EmptySensor, VelocityYaw, VelocityYaw &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="206" relation="public-inheritance">
+        <childnode refid="227" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="204">
+      <node id="225">
         <label>BuiltInVelocityControllerDroneConnector</label>
         <link refid="classBuiltInVelocityControllerDroneConnector"/>
-        <childnode refid="205" relation="public-inheritance">
+        <childnode refid="226" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="209">
+      <node id="230">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
-      <node id="208">
+      <node id="229">
         <label>ControllerHardwareConnector&lt; EmptySensor, VelocityYaw, VelocityYaw &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="209" relation="public-inheritance">
+        <childnode refid="230" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="207">
+      <node id="228">
         <label>BuiltInVelocityControllerDroneConnector</label>
         <link refid="classBuiltInVelocityControllerDroneConnector"/>
-        <childnode refid="208" relation="public-inheritance">
+        <childnode refid="229" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>

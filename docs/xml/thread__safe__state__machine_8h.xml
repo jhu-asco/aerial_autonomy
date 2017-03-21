@@ -4,38 +4,38 @@
     <compoundname>thread_safe_state_machine.h</compoundname>
     <includes local="no">boost/msm/back/state_machine.hpp</includes>
     <includes local="no">boost/thread/recursive_mutex.hpp</includes>
-    <includedby refid="basic__state__machine_8h" local="no">include/aerial_autonomy/state_machines/basic_state_machine.h</includedby>
+    <includedby refid="uav__state__machine_8h" local="no">include/aerial_autonomy/state_machines/uav_state_machine.h</includedby>
     <incdepgraph>
-      <node id="1196">
+      <node id="1216">
         <label>boost/thread/recursive_mutex.hpp</label>
       </node>
-      <node id="1195">
+      <node id="1215">
         <label>boost/msm/back/state_machine.hpp</label>
       </node>
-      <node id="1194">
+      <node id="1214">
         <label>include/aerial_autonomy/common/thread_safe_state_machine.h</label>
         <link refid="thread_safe_state_machine.h"/>
-        <childnode refid="1195" relation="include">
+        <childnode refid="1215" relation="include">
         </childnode>
-        <childnode refid="1196" relation="include">
+        <childnode refid="1216" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1199">
-        <label>src/aerial_autonomy_node.cpp</label>
-        <link refid="aerial__autonomy__node_8cpp"/>
+      <node id="1219">
+        <label>src/system_handler_nodes/uav_system_node.cpp</label>
+        <link refid="uav__system__node_8cpp"/>
       </node>
-      <node id="1198">
-        <label>include/aerial_autonomy/state_machines/basic_state_machine.h</label>
-        <link refid="basic__state__machine_8h"/>
-        <childnode refid="1199" relation="include">
-        </childnode>
-      </node>
-      <node id="1197">
+      <node id="1217">
         <label>include/aerial_autonomy/common/thread_safe_state_machine.h</label>
         <link refid="thread_safe_state_machine.h"/>
-        <childnode refid="1198" relation="include">
+        <childnode refid="1218" relation="include">
+        </childnode>
+      </node>
+      <node id="1218">
+        <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
+        <link refid="uav__state__machine_8h"/>
+        <childnode refid="1219" relation="include">
         </childnode>
       </node>
     </invincdepgraph>

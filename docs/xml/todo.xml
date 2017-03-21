@@ -25,11 +25,11 @@
 <listitem><para>(matt): need to pass RC mapping as parameter </para><para>(matt): need to pass in frequency as a parameter  </para></listitem>
 <varlistentry><term><anchor id="todo_1_todo000009"/>Class <ref refid="structPositionControlTransitionGuardFunctor__" kindref="compound">PositionControlTransitionGuardFunctor_&lt; LogicStateMachineT &gt;</ref>  </term></varlistentry>
 <listitem><para>Use a parameter for setting position tolerance </para></listitem>
-<varlistentry><term><anchor id="todo_1_todo000013"/>Member <ref refid="classSystemStatusPublisher_1a66f73a2e489face69d6f9fc16abb15aa" kindref="member">SystemStatusPublisher&lt; LogicStateMachineT &gt;::publishSystemStatus</ref>  ()</term></varlistentry>
+<varlistentry><term><anchor id="todo_1_todo000011"/>Member <ref refid="classSystemStatusPublisher_1a4166ea629c3c5a06b89830dd04f2091f" kindref="member">SystemStatusPublisher&lt; LogicStateMachineT, RobotSystemT &gt;::publishSystemStatus</ref>  ()</term></varlistentry>
 <listitem><para>Replace status text with html script. Need a html manager to automatically add table lines  </para></listitem>
 <varlistentry><term><anchor id="todo_1_todo000010"/>Member <ref refid="structTakeoffInternalActionFunctor___1a2118df6e326662cd0088344499e49696" kindref="member">TakeoffInternalActionFunctor_&lt; LogicStateMachineT &gt;::run</ref>  (<ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</term></varlistentry>
 <listitem><para>add a parameter for height when to transition from takeoff to hovering </para></listitem>
-<varlistentry><term><anchor id="todo_1_todo000012"/>Member <ref refid="classUAVSystem_1a9218f794905e832cc356b5e4b659e1da" kindref="member">UAVSystem::UAVSystem</ref>  (parsernode::Parser &amp;drone_hardware, UAVSystemConfig config)</term></varlistentry>
+<varlistentry><term><anchor id="todo_1_todo000013"/>Member <ref refid="classUAVSystem_1a9218f794905e832cc356b5e4b659e1da" kindref="member">UAVSystem::UAVSystem</ref>  (parsernode::Parser &amp;drone_hardware, UAVSystemConfig config)</term></varlistentry>
 <listitem><para>make enum class iterable to do this automatically </para></listitem>
 </variablelist>
 </para>    </detaileddescription>

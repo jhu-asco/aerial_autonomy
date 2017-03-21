@@ -105,38 +105,38 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="298">
+      <node id="317">
         <label>ControllerHardwareConnector&lt; EmptySensor, PositionYaw, PositionYaw &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="299" relation="public-inheritance">
+        <childnode refid="318" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="299">
+      <node id="318">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
-      <node id="297">
+      <node id="316">
         <label>PositionControllerDroneConnector</label>
         <link refid="classPositionControllerDroneConnector"/>
-        <childnode refid="298" relation="public-inheritance">
+        <childnode refid="317" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="301">
+      <node id="320">
         <label>ControllerHardwareConnector&lt; EmptySensor, PositionYaw, PositionYaw &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="302" relation="public-inheritance">
+        <childnode refid="321" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="302">
+      <node id="321">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
-      <node id="300">
+      <node id="319">
         <label>PositionControllerDroneConnector</label>
         <link refid="classPositionControllerDroneConnector"/>
-        <childnode refid="301" relation="public-inheritance">
+        <childnode refid="320" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
