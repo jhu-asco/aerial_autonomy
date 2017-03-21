@@ -153,8 +153,9 @@ visual_servoing_events
 ## Protobuf ##
 ##############
 PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER 
-  proto/onboard_system_handler_config.proto 
   proto/uav_system_config.proto
+  proto/common_system_handler_config.proto
+  proto/uav_system_handler_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -190,7 +191,7 @@ add_library(aerial_autonomy
 # add_dependencies(aerial_autonomy ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-add_executable(aerial_autonomy_node src/aerial_autonomy_node.cpp)
+add_executable(uav_system_node src/system_handler_nodes/uav_system_node.cpp)
 add_executable(event_publish_node src/tests/event_publish_node.cpp)
 
 ## Add cmake target dependencies of the executable
@@ -199,7 +200,7 @@ add_executable(event_publish_node src/tests/event_publish_node.cpp)
 
 ## Specify libraries to link a library or executable target against
 
-target_link_libraries(aerial_autonomy_node aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+target_link_libraries(uav_system_node aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
 
 #############
@@ -258,8 +259,8 @@ add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-event-test ${${PROJ
 add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-pose-test tests/state_machines/state_machine_gui_connector_pose_tests.test tests/state_machines/state_machine_gui_connector_pose_tests.cpp)
 add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-pose-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
 catkin_add_gtest(${PROJECT_NAME}-async-timer-test tests/common/async_timer_tests.cpp)
-add_rostest_gtest(${PROJECT_NAME}-onboard-system-handler-test tests/onboard_system_handler_tests.test tests/onboard_system_handler_tests.cpp)
-add_dependencies(${PROJECT_NAME}-onboard-system-handler-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
+add_rostest_gtest(${PROJECT_NAME}-uav-system-handler-test tests/system_handlers/uav_system_handler_tests.test tests/system_handlers/uav_system_handler_tests.cpp)
+add_dependencies(${PROJECT_NAME}-uav-system-handler-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
 catkin_add_gtest(${PROJECT_NAME}-thread-safe-state-machine-test tests/common/thread_safe_state_machine_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
@@ -300,8 +301,8 @@ endif()
 if(TARGET ${PROJECT_NAME}-thread-safe-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-thread-safe-state-machine-test ${Boost_LIBRARIES} ${catkin_LIBRARIES})
 endif()
-if(TARGET ${PROJECT_NAME}-onboard-system-handler-test)
-  target_link_libraries(${PROJECT_NAME}-onboard-system-handler-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+if(TARGET ${PROJECT_NAME}-uav-system-handler-test)
+  target_link_libraries(${PROJECT_NAME}-uav-system-handler-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 
 ## Add folders to be run by python nosetests

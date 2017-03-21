@@ -1,6 +1,7 @@
 import "uav_system_config.proto";
+import "common_system_handler_config.proto";
 
-message OnboardSystemHandlerConfig {
+message UAVSystemHandlerConfig {
   /**
   * @brief robot system configuration
   */
@@ -15,13 +16,9 @@ message OnboardSystemHandlerConfig {
   * continously
   */
   optional int32 uav_controller_timer_duration = 3 [ default = 20 ];
+
   /**
-   * @brief Timestep in milliseconds for timer which runs state machine internal
-   * transition continously
-   */
-  optional int32 state_machine_timer_duration = 4 [ default = 20 ];
-  /**
-  * @brief Timestep in milliseconds for timer which runs system status update
+  * @brief Store parent config options
   */
-  optional int32 status_timer_duration = 5 [ default = 50 ];         // millis
+  optional CommonSystemHandlerConfig base_config = 4;
 }

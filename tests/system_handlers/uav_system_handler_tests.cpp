@@ -1,5 +1,5 @@
-#include <aerial_autonomy/onboard_system_handler.h>
 #include <aerial_autonomy/state_machines/uav_state_machine.h>
+#include <aerial_autonomy/system_handlers/uav_system_handler.h>
 #include <aerial_autonomy/uav_basic_events.h>
 #include <gtest/gtest.h>
 #include <ros/ros.h>
@@ -9,25 +9,24 @@
 
 using namespace uav_basic_events;
 
-class OnboardSystemHandlerTests : public ::testing::Test {
+class UAVSystemHandlerTests : public ::testing::Test {
 public:
-  OnboardSystemHandlerTests() : nh_(), nh_send_(), nh_receive_status_() {
+  UAVSystemHandlerTests() : nh_(), nh_send_(), nh_receive_status_() {
     // Configure system
-    OnboardSystemHandlerConfig onboard_system_config;
-    onboard_system_config.set_uav_parser_type(
+    UAVSystemHandlerConfig uav_system_handler_config;
+    uav_system_handler_config.set_uav_parser_type(
         "quad_simulator_parser/QuadSimParser");
-    onboard_system_config.mutable_uav_system_config()
+    uav_system_handler_config.mutable_uav_system_config()
         ->set_minimum_takeoff_height(0.4);
 
-    onboard_system_handler_.reset(
-        new OnboardSystemHandler<UAVStateMachine,
-                                 UAVEventManager<UAVStateMachine>>(
-            nh_, onboard_system_config));
+    uav_system_handler_.reset(
+        new UAVSystemHandler<UAVStateMachine, UAVEventManager<UAVStateMachine>>(
+            nh_, uav_system_handler_config));
     event_pub_ = nh_send_.advertise<std_msgs::String>("event_manager", 1);
     pose_pub_ =
         nh_send_.advertise<geometry_msgs::PoseStamped>("goal_pose_command", 1);
     status_subscriber_ = nh_receive_status_.subscribe(
-        "system_status", 1, &OnboardSystemHandlerTests::statusCallback, this);
+        "system_status", 1, &UAVSystemHandlerTests::statusCallback, this);
     ros::spinOnce();
   }
 
@@ -70,50 +69,49 @@ private:
   ros::Subscriber status_subscriber_; ///< System status subscriber
 
 public:
-  std::unique_ptr<OnboardSystemHandler<UAVStateMachine,
-                                       UAVEventManager<UAVStateMachine>>>
-      onboard_system_handler_; ///< system contains robot system, state machine
+  std::unique_ptr<UAVSystemHandler<UAVStateMachine,
+                                   UAVEventManager<UAVStateMachine>>>
+      uav_system_handler_; ///< system contains robot system, state machine
 };
 
-TEST_F(OnboardSystemHandlerTests, Constructor) {}
+TEST_F(UAVSystemHandlerTests, Constructor) {}
 
-TEST_F(OnboardSystemHandlerTests, TestConnections) {
-  while (!onboard_system_handler_->isConnected()) {
+TEST_F(UAVSystemHandlerTests, TestConnections) {
+  while (!uav_system_handler_->isConnected()) {
   }
   SUCCEED();
 }
 
-TEST_F(OnboardSystemHandlerTests, ProcessEvents) {
-  while (!onboard_system_handler_->isConnected()) {
+TEST_F(UAVSystemHandlerTests, ProcessEvents) {
+  while (!uav_system_handler_->isConnected()) {
   }
   // Check takeoff works
   publishEvent("Takeoff");
-  ASSERT_TRUE(onboard_system_handler_->getUAVData().armed);
-  ASSERT_EQ(onboard_system_handler_->getUAVData().localpos.z, 0.5);
+  ASSERT_TRUE(uav_system_handler_->getUAVData().armed);
+  ASSERT_EQ(uav_system_handler_->getUAVData().localpos.z, 0.5);
   // Check subsequent event works
   publishEvent("Land");
-  ASSERT_FALSE(onboard_system_handler_->getUAVData().armed);
-  ASSERT_EQ(onboard_system_handler_->getUAVData().localpos.z, 0.0);
+  ASSERT_FALSE(uav_system_handler_->getUAVData().armed);
+  ASSERT_EQ(uav_system_handler_->getUAVData().localpos.z, 0.0);
 }
 
-TEST_F(OnboardSystemHandlerTests, ProcessPoseCommand) {
-  while (!onboard_system_handler_->isConnected()) {
+TEST_F(UAVSystemHandlerTests, ProcessPoseCommand) {
+  while (!uav_system_handler_->isConnected()) {
   }
   // Check pose command works
   publishEvent("Takeoff");
-  ASSERT_TRUE(onboard_system_handler_->getUAVData().armed);
-  ASSERT_EQ(onboard_system_handler_->getUAVData().localpos.z, 0.5);
+  ASSERT_TRUE(uav_system_handler_->getUAVData().armed);
+  ASSERT_EQ(uav_system_handler_->getUAVData().localpos.z, 0.5);
   PositionYaw pose_command(1, 2, 3, 0);
   publishPoseCommand(pose_command);
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
-  parsernode::common::quaddata quad_data =
-      onboard_system_handler_->getUAVData();
+  parsernode::common::quaddata quad_data = uav_system_handler_->getUAVData();
   ASSERT_EQ(PositionYaw(quad_data.localpos.x, quad_data.localpos.y,
                         quad_data.localpos.z, quad_data.rpydata.z),
             pose_command);
 }
 
-TEST_F(OnboardSystemHandlerTests, ReceiveStatus) {
+TEST_F(UAVSystemHandlerTests, ReceiveStatus) {
   while (!isStatusConnected())
     ;
   for (int count = 0; count < 2; ++count) {
@@ -125,6 +123,6 @@ TEST_F(OnboardSystemHandlerTests, ReceiveStatus) {
 
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
-  ros::init(argc, argv, "onboard_system_handler_tests");
+  ros::init(argc, argv, "uav_system_handler_tests");
   return RUN_ALL_TESTS();
 }
