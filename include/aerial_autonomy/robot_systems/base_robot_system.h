@@ -19,6 +19,8 @@ protected:
    */
   TypeMap<AbstractControllerHardwareConnector>
       controller_hardware_connector_container_;
+
+private:
   /**
   * @brief Map to store active controller based on hardware type
   */
