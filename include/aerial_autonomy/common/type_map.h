@@ -37,4 +37,9 @@ public:
   template <class ObjectT> ObjectT *getObject() {
     return static_cast<ObjectT *>(object_storage_map_[typeid(ObjectT)]);
   }
+
+  template <class ObjectT> const ObjectT *getObject() const {
+    return (
+        static_cast<const ObjectT *>(object_storage_map_.at(typeid(ObjectT))));
+  }
 };

@@ -40,9 +40,9 @@ public:
         state_machine_gui_connector_(nh, event_manager_, logic_state_machine_),
         system_status_pub_(nh, robot_system, logic_state_machine_),
         status_timer_(
-            std::bind(&SystemStatusPublisher<LogicStateMachineT,
-                                             RobotSystemT>::publishSystemStatus,
-                      std::ref(system_status_pub_)),
+            std::bind(
+                &SystemStatusPublisher<LogicStateMachineT>::publishSystemStatus,
+                std::ref(system_status_pub_)),
             std::chrono::milliseconds(config.status_timer_duration())),
         logic_state_machine_timer_(
             std::bind(&LogicStateMachineT::template process_event<
@@ -81,7 +81,7 @@ protected:
   StateMachineGUIConnector<EventManagerT, LogicStateMachineT>
       state_machine_gui_connector_; ///< Connects event manager to the state
                                     /// machine
-  SystemStatusPublisher<LogicStateMachineT, RobotSystemT>
+  SystemStatusPublisher<LogicStateMachineT>
       system_status_pub_;   ///< publishes status messages
   AsyncTimer status_timer_; ///< Update uav status and state machine status
   AsyncTimer logic_state_machine_timer_; ///< Timer for running state machine

@@ -80,7 +80,7 @@ public:
    *
    * @return Goal for controller
    */
-  GoalType getGoal() { return controller_.getGoal(); }
+  GoalType getGoal() const { return controller_.getGoal(); }
 
   /**
   * @brief Return the type of hardware (HardwareType) used by the controller
