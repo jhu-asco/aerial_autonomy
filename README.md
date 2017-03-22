@@ -13,7 +13,7 @@ Install the following dependencies (lcov, protobuf, doxygen, doxypy, coverxygen,
     sudo pip install coverxygen
 
 ## Running Executables
-The package provides an `aerial_autonomy_node` executable which loads a state machine and hardware and waits for event commands from a ROS topic. The `rqt_aerial_autonomy_gui` script
+The package provides a `uav_system_node` executable which loads a state machine and hardware and waits for event commands from a ROS topic. The `rqt_aerial_autonomy_gui` script
 provides a GUI to generate events for the state machine. The rqt plugin can be loaded along with `rqt_rviz` in the `rqt_gui` framework.
 
 The `simulator.launch` file in the launch folder executes the state machine node using simulated hardware. The GUI can be launched individually using rosrun. The steps to launch a simulated quadrotor with the state machine are
@@ -28,7 +28,7 @@ To see all test outputs run `catkin run_tests --this`.
 ## Logging
 GLOG is used to log messages from the state machine. The messages are divided into different levels (INFO, WARNING, ERROR, etc.,). The information messages are divided into different verbosity levels (0,1,2 and so on). The verbosity level can be adjusted using the environment variable `GLOG_v`. If the environment variable is set to 1 (`export GLOG_v=1`), then all the messages with verbosity 0 and 1 are streamed to stderr output.
 
-The log messages are also recorded into log files in the `logs` folder. The symbolic links `aerial_autonomy_node.INFO` and `aerial_autonomy_node.WARNING` in the log folder point to the latest log files. The log directory can be changed using the `GLOG_log_dir` environment variable. More information about the log files can be found in the Google Log [documentation](http://rpg.ifi.uzh.ch/docs/glog.html).
+The log messages are also recorded into log files in the `logs` folder. The symbolic links `uav_system_node.INFO` and `uav_system_node.WARNING` in the log folder point to the latest log files. The log directory can be changed using the `GLOG_log_dir` environment variable. More information about the log files can be found in the Google Log [documentation](http://rpg.ifi.uzh.ch/docs/glog.html).
 
 The `simulator` launch file introduced above allows for specifying the log level and log directory using roslaunch arguments `log_level` and `log_dir` respectively. For example
 
