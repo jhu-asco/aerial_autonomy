@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="iterable__enum_8h" kind="file">
+    <compoundname>iterable_enum.h</compoundname>
+    <includedby refid="base__robot__system_8h" local="no">include/aerial_autonomy/robot_systems/base_robot_system.h</includedby>
+    <invincdepgraph>
+      <node id="1306">
+        <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
+        <link refid="uav__state__machine_8h"/>
+        <childnode refid="1302" relation="include">
+        </childnode>
+      </node>
+      <node id="1310">
+        <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
+        <link refid="sample__logic__state__machine_8h"/>
+      </node>
+      <node id="1304">
+        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
+        <link refid="hovering__functors_8h"/>
+        <childnode refid="1305" relation="include">
+        </childnode>
+      </node>
+      <node id="1302">
+        <label>src/system_handler_nodes/uav_system_node.cpp</label>
+        <link refid="uav__system__node_8cpp"/>
+      </node>
+      <node id="1309">
+        <label>include/aerial_autonomy/actions_guards/takeoff_functors.h</label>
+        <link refid="takeoff__functors_8h"/>
+        <childnode refid="1305" relation="include">
+        </childnode>
+      </node>
+      <node id="1303">
+        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
+        <link refid="uav__system_8h"/>
+        <childnode refid="1304" relation="include">
+        </childnode>
+        <childnode refid="1307" relation="include">
+        </childnode>
+        <childnode refid="1308" relation="include">
+        </childnode>
+        <childnode refid="1309" relation="include">
+        </childnode>
+        <childnode refid="1306" relation="include">
+        </childnode>
+        <childnode refid="1301" relation="include">
+        </childnode>
+        <childnode refid="1310" relation="include">
+        </childnode>
+      </node>
+      <node id="1297">
+        <label>include/aerial_autonomy/common/iterable_enum.h</label>
+        <link refid="iterable_enum.h"/>
+        <childnode refid="1298" relation="include">
+        </childnode>
+      </node>
+      <node id="1298">
+        <label>include/aerial_autonomy/robot_systems/base_robot_system.h</label>
+        <link refid="base__robot__system_8h"/>
+        <childnode refid="1299" relation="include">
+        </childnode>
+        <childnode refid="1303" relation="include">
+        </childnode>
+      </node>
+      <node id="1301">
+        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
+        <link refid="uav__system__handler_8h"/>
+        <childnode refid="1302" relation="include">
+        </childnode>
+      </node>
+      <node id="1300">
+        <label>include/aerial_autonomy/system_handlers/common_system_handler.h</label>
+        <link refid="common__system__handler_8h"/>
+        <childnode refid="1301" relation="include">
+        </childnode>
+      </node>
+      <node id="1305">
+        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
+        <link refid="uav__states__actions_8h"/>
+        <childnode refid="1306" relation="include">
+        </childnode>
+      </node>
+      <node id="1308">
+        <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
+        <link refid="position__control__functors_8h"/>
+        <childnode refid="1305" relation="include">
+        </childnode>
+      </node>
+      <node id="1307">
+        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
+        <link refid="land__functors_8h"/>
+        <childnode refid="1305" relation="include">
+        </childnode>
+      </node>
+      <node id="1299">
+        <label>include/aerial_autonomy/common/system_status_publisher.h</label>
+        <link refid="system__status__publisher_8h"/>
+        <childnode refid="1300" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classIterableEnum" prot="public">IterableEnum</innerclass>
+    <innerclass refid="classIterableEnum_1_1Iterator" prot="public">IterableEnum::Iterator</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="iterable__enum_8h_1a4a2f2f920a75f5cfc63b5abd06a608de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classIterableEnum" kindref="compound">IterableEnum</ref>&lt; T &gt;::Iterator</type>
+        <definition>IterableEnum&lt;T&gt;::Iterator begin</definition>
+        <argsstring>(IterableEnum&lt; T &gt;)</argsstring>
+        <name>begin</name>
+        <param>
+          <type><ref refid="classIterableEnum" kindref="compound">IterableEnum</ref>&lt; T &gt;</type>
+        </param>
+        <briefdescription>
+<para>Iterator corresponding to the beginning of the enum. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>enum type </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" line="45" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" bodystart="45" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="iterable__enum_8h_1a1dbdd362a66f0118f8da85eb59002155" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classIterableEnum" kindref="compound">IterableEnum</ref>&lt; T &gt;::Iterator</type>
+        <definition>IterableEnum&lt;T&gt;::Iterator end</definition>
+        <argsstring>(IterableEnum&lt; T &gt;)</argsstring>
+        <name>end</name>
+        <param>
+          <type><ref refid="classIterableEnum" kindref="compound">IterableEnum</ref>&lt; T &gt;</type>
+        </param>
+        <briefdescription>
+<para>Iterator corresponding to the last value of the enum. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>enum type </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" line="53" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" bodystart="53" bodyend="55"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="8" refid="classIterableEnum" refkind="compound"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classIterableEnum" kindref="compound">IterableEnum</ref><sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="13" refid="classIterableEnum_1_1Iterator" refkind="compound"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classIterableEnum_1_1Iterator" kindref="compound">Iterator</ref><sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="18" refid="classIterableEnum_1_1Iterator_1a17807910635ca07c0a1116a461611454" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classIterableEnum_1_1Iterator_1a17807910635ca07c0a1116a461611454" kindref="member">Iterator</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>value)<sp/>:<sp/>m_value_(value)<sp/>{}</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="classIterableEnum_1_1Iterator_1aa2658ad548cc08cc78d57b00ee0ea912" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>T<sp/><ref refid="classIterableEnum_1_1Iterator_1aa2658ad548cc08cc78d57b00ee0ea912" kindref="member">operator*</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight><highlight class="keyword">const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(T)m_value_;<sp/>}</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28" refid="classIterableEnum_1_1Iterator_1ab98cb69c64fb848d8ec5a29b36578dea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classIterableEnum_1_1Iterator_1ab98cb69c64fb848d8ec5a29b36578dea" kindref="member">operator++</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>{<sp/>++m_value_;<sp/>}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="classIterableEnum_1_1Iterator_1ab944185ae667bc64f0a3cd04be21f50e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classIterableEnum_1_1Iterator_1ab944185ae667bc64f0a3cd04be21f50e" kindref="member">operator!=</ref>(<ref refid="classIterableEnum_1_1Iterator" kindref="compound">Iterator</ref><sp/>rhs)<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m_value_<sp/>!=<sp/>rhs.m_value_;<sp/>}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>m_value_;<sp/></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="45" refid="iterable__enum_8h_1a4a2f2f920a75f5cfc63b5abd06a608de" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="classIterableEnum_1_1Iterator" kindref="compound">IterableEnum&lt;T&gt;::Iterator</ref><sp/><ref refid="iterable__enum_8h_1a4a2f2f920a75f5cfc63b5abd06a608de" kindref="member">begin</ref>(<ref refid="classIterableEnum" kindref="compound">IterableEnum&lt;T&gt;</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="classIterableEnum_1_1Iterator" kindref="compound">IterableEnum&lt;T&gt;::Iterator</ref>((</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)T::First);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="iterable__enum_8h_1a1dbdd362a66f0118f8da85eb59002155" refkind="member"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="classIterableEnum_1_1Iterator" kindref="compound">IterableEnum&lt;T&gt;::Iterator</ref><sp/><ref refid="iterable__enum_8h_1a1dbdd362a66f0118f8da85eb59002155" kindref="member">end</ref>(<ref refid="classIterableEnum" kindref="compound">IterableEnum&lt;T&gt;</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="classIterableEnum_1_1Iterator" kindref="compound">IterableEnum&lt;T&gt;::Iterator</ref>(((</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)T::Last)<sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h"/>
+  </compounddef>
+</doxygen>

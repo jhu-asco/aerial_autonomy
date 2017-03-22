@@ -64,6 +64,6 @@
 <codeline lineno="55"><highlight class="normal">##<sp/>Uploading<sp/>documentation</highlight></codeline>
 <codeline lineno="56"><highlight class="normal">The<sp/>documentation<sp/>is<sp/>uploaded<sp/>through<sp/>`gh-pages`<sp/>branch.<sp/>The<sp/>docs<sp/>are<sp/>created<sp/>in<sp/>master<sp/>and<sp/>passed<sp/>to<sp/>the<sp/>`gh-pages`<sp/>branch<sp/>using<sp/>`scripts/applydocs.bash`<sp/>script.<sp/>The<sp/>script<sp/>checks<sp/>that<sp/>there<sp/>are<sp/>not<sp/>uncommited<sp/>changes<sp/>before<sp/>uploading<sp/>documentation<sp/>to<sp/>avoid<sp/>issues<sp/>with<sp/>git.<sp/>The<sp/>script<sp/>also<sp/>requires<sp/>that<sp/>you<sp/>explicitly<sp/>link<sp/>gh-pages<sp/>branch<sp/>to<sp/>the<sp/>remote<sp/>using<sp/>`git<sp/>branch<sp/>--set-upstream-to=[GH_PAGES_REMOTE]`</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/README.md"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/README.md"/>
   </compounddef>
 </doxygen>

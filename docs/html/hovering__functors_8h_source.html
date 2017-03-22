@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_2f8e754ab99ce0b8ad0265163734387c.html">include</a></li><li class="navelem"><a class="el" href="dir_aa08a9b8af1d5448e3e7b8b8a4c3ba6b.html">aerial_autonomy</a></li><li class="navelem"><a class="el" href="dir_93d27638e58ab29a9245462ac4a60f23.html">actions_guards</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_6fe9f9c87adb79173c1aa2f732811b45.html">include</a></li><li class="navelem"><a class="el" href="dir_8c66c8138e7b35f6ec94720b060b21f5.html">aerial_autonomy</a></li><li class="navelem"><a class="el" href="dir_13969f9b7f9b36853bb55690c82e3ede.html">actions_guards</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -104,7 +104,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="structHoveringInternalActionFunctor__.html">   17</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structHoveringInternalActionFunctor__.html">HoveringInternalActionFunctor_</a></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    : <a class="code" href="structEventAgnosticActionFunctor.html">EventAgnosticActionFunctor</a>&lt;UAVSystem, LogicStateMachineT&gt; {</div>
 <div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structHoveringInternalActionFunctor__.html#a87bb8dd8ed71e54729967b9e258fb66e">   25</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="structHoveringInternalActionFunctor__.html#a87bb8dd8ed71e54729967b9e258fb66e">run</a>(<a class="code" href="classUAVSystem.html">UAVSystem</a> &amp;robot_system, LogicStateMachineT &amp;logic_state_machine) {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    parsernode::common::quaddata data = robot_system.<a class="code" href="classUAVSystem.html#a8a1cbcd8770841ee2a30365f4a75bf34">getUAVData</a>();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    parsernode::common::quaddata data = robot_system.<a class="code" href="classUAVSystem.html#a4ccf5fcb488485d369752b406e36b8e3">getUAVData</a>();</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="comment">// Transition to hovering state once reached high altitude</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"></span>    <span class="keywordflow">if</span> (data.batterypercent &lt;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        robot_system.<a class="code" href="classUAVSystem.html#a89d67e42aec09dd65a23f39462a8202e">getConfiguration</a>().minimum_battery_percent()) {</div>
@@ -122,10 +122,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="classBaseState_html"><div class="ttname"><a href="classBaseState.html">BaseState</a></div><div class="ttdoc">Base state for all states in logic state machine. </div><div class="ttdef"><b>Definition:</b> base_state.h:24</div></div>
 <div class="ttc" id="structEventAgnosticActionFunctor_html"><div class="ttname"><a href="structEventAgnosticActionFunctor.html">EventAgnosticActionFunctor</a></div><div class="ttdoc">Action functor that does not require the event triggering it. </div><div class="ttdef"><b>Definition:</b> base_functors.h:126</div></div>
 <div class="ttc" id="uav__system_8h_html"><div class="ttname"><a href="uav__system_8h.html">uav_system.h</a></div></div>
-<div class="ttc" id="classUAVSystem_html"><div class="ttname"><a href="classUAVSystem.html">UAVSystem</a></div><div class="ttdoc">Owns, initializes, and facilitates communication between different hardware/software components...</div><div class="ttdef"><b>Definition:</b> uav_system.h:21</div></div>
+<div class="ttc" id="classUAVSystem_html"><div class="ttname"><a href="classUAVSystem.html">UAVSystem</a></div><div class="ttdoc">Owns, initializes, and facilitates communication between different hardware/software components...</div><div class="ttdef"><b>Definition:</b> uav_system.h:16</div></div>
+<div class="ttc" id="classUAVSystem_html_a4ccf5fcb488485d369752b406e36b8e3"><div class="ttname"><a href="classUAVSystem.html#a4ccf5fcb488485d369752b406e36b8e3">UAVSystem::getUAVData</a></div><div class="ttdeci">parsernode::common::quaddata getUAVData() const </div><div class="ttdoc">Get sensor data from UAV. </div><div class="ttdef"><b>Definition:</b> uav_system.h:91</div></div>
 <div class="ttc" id="structHoveringInternalActionFunctor___html"><div class="ttname"><a href="structHoveringInternalActionFunctor__.html">HoveringInternalActionFunctor_</a></div><div class="ttdoc">Internal action when hovering. </div><div class="ttdef"><b>Definition:</b> hovering_functors.h:17</div></div>
-<div class="ttc" id="classUAVSystem_html_a89d67e42aec09dd65a23f39462a8202e"><div class="ttname"><a href="classUAVSystem.html#a89d67e42aec09dd65a23f39462a8202e">UAVSystem::getConfiguration</a></div><div class="ttdeci">UAVSystemConfig getConfiguration()</div><div class="ttdoc">Get system configuration. </div><div class="ttdef"><b>Definition:</b> uav_system.h:240</div></div>
-<div class="ttc" id="classUAVSystem_html_a8a1cbcd8770841ee2a30365f4a75bf34"><div class="ttname"><a href="classUAVSystem.html#a8a1cbcd8770841ee2a30365f4a75bf34">UAVSystem::getUAVData</a></div><div class="ttdeci">parsernode::common::quaddata getUAVData()</div><div class="ttdoc">Get sensor data from UAV. </div><div class="ttdef"><b>Definition:</b> uav_system.h:122</div></div>
+<div class="ttc" id="classUAVSystem_html_a89d67e42aec09dd65a23f39462a8202e"><div class="ttname"><a href="classUAVSystem.html#a89d67e42aec09dd65a23f39462a8202e">UAVSystem::getConfiguration</a></div><div class="ttdeci">UAVSystemConfig getConfiguration()</div><div class="ttdoc">Get system configuration. </div><div class="ttdef"><b>Definition:</b> uav_system.h:147</div></div>
 <div class="ttc" id="base__state_8h_html"><div class="ttname"><a href="base__state_8h.html">base_state.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.6-->

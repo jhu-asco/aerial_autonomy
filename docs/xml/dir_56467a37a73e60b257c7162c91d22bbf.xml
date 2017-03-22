@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_56467a37a73e60b257c7162c91d22bbf" kind="dir">
+    <compoundname>src/tests</compoundname>
+    <innerfile refid="event__publish__node_8cpp">event_publish_node.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/tests/"/>
+  </compounddef>
+</doxygen>

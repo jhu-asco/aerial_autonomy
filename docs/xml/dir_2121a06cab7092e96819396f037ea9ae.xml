@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_2121a06cab7092e96819396f037ea9ae" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_cec98d5f928916f8f4b75228a866e3e2">src/aerial_autonomy</innerdir>
+    <innerdir refid="dir_7f65febb9ac9c30c8afa5d4b8ee60bc8">src/common</innerdir>
+    <innerdir refid="dir_76d4338bda73915b525722d873c900c6">src/controller_hardware_connectors</innerdir>
+    <innerdir refid="dir_e272882b54fa08318b07191f5a5d2d81">src/controllers</innerdir>
+    <innerdir refid="dir_ebad1b30060562947c2b408a5a8e8463">src/system_handler_nodes</innerdir>
+    <innerdir refid="dir_56467a37a73e60b257c7162c91d22bbf">src/tests</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/"/>
+  </compounddef>
+</doxygen>

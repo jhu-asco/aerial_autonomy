@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_2f8e754ab99ce0b8ad0265163734387c.html">include</a></li><li class="navelem"><a class="el" href="dir_aa08a9b8af1d5448e3e7b8b8a4c3ba6b.html">aerial_autonomy</a></li><li class="navelem"><a class="el" href="dir_dbb1c79ada1dfd68f9623b1c747f82ff.html">common</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_6fe9f9c87adb79173c1aa2f732811b45.html">include</a></li><li class="navelem"><a class="el" href="dir_8c66c8138e7b35f6ec94720b060b21f5.html">aerial_autonomy</a></li><li class="navelem"><a class="el" href="dir_1077e06fddebf1de34a04bcc222dd5f0.html">common</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -106,8 +106,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classTypeMap.html#af45351278345a92d2d2fb13a977858aa">   37</a></span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class</span> ObjectT&gt; ObjectT *<a class="code" href="classTypeMap.html#af45351278345a92d2d2fb13a977858aa">getObject</a>() {</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>ObjectT *<span class="keyword">&gt;</span>(object_storage_map_[<span class="keyword">typeid</span>(ObjectT)]);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classTypeMap.html#a44adb7aedc90a3acc2ca461cd16a91d3">   41</a></span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">class</span> ObjectT&gt; <span class="keyword">const</span> ObjectT *<a class="code" href="classTypeMap.html#a44adb7aedc90a3acc2ca461cd16a91d3">getObject</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">return</span> (</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        static_cast&lt;const ObjectT *&gt;(object_storage_map_.at(<span class="keyword">typeid</span>(ObjectT))));</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;};</div>
 <div class="ttc" id="classTypeMap_html_af45351278345a92d2d2fb13a977858aa"><div class="ttname"><a href="classTypeMap.html#af45351278345a92d2d2fb13a977858aa">TypeMap::getObject</a></div><div class="ttdeci">ObjectT * getObject()</div><div class="ttdoc">return the object stored </div><div class="ttdef"><b>Definition:</b> type_map.h:37</div></div>
+<div class="ttc" id="classTypeMap_html_a44adb7aedc90a3acc2ca461cd16a91d3"><div class="ttname"><a href="classTypeMap.html#a44adb7aedc90a3acc2ca461cd16a91d3">TypeMap::getObject</a></div><div class="ttdeci">const ObjectT * getObject() const </div><div class="ttdef"><b>Definition:</b> type_map.h:41</div></div>
 <div class="ttc" id="classTypeMap_html"><div class="ttname"><a href="classTypeMap.html">TypeMap</a></div><div class="ttdoc">Store objects with a common base class. </div><div class="ttdef"><b>Definition:</b> type_map.h:12</div></div>
 <div class="ttc" id="classTypeMap_html_a738b13adaac930d128c1a81b08628b9e"><div class="ttname"><a href="classTypeMap.html#a738b13adaac930d128c1a81b08628b9e">TypeMap::setObject</a></div><div class="ttdeci">void setObject(ObjectT &amp;object)</div><div class="ttdoc">Store the object with base class as GenericObjectT. </div><div class="ttdef"><b>Definition:</b> type_map.h:27</div></div>
 </div><!-- fragment --></div><!-- contents -->

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_8c66c8138e7b35f6ec94720b060b21f5" kind="dir">
+    <compoundname>include/aerial_autonomy</compoundname>
+    <innerdir refid="dir_13969f9b7f9b36853bb55690c82e3ede">include/aerial_autonomy/actions_guards</innerdir>
+    <innerdir refid="dir_1077e06fddebf1de34a04bcc222dd5f0">include/aerial_autonomy/common</innerdir>
+    <innerdir refid="dir_445bdcf957f01aa880029319edb744c6">include/aerial_autonomy/controller_hardware_connectors</innerdir>
+    <innerdir refid="dir_cdc58b17d4a9946c2f8de8826eb5b0fc">include/aerial_autonomy/controllers</innerdir>
+    <innerdir refid="dir_b9460f247869254f5a62faa1ecb0a671">include/aerial_autonomy/logic_states</innerdir>
+    <innerdir refid="dir_2a002ea9328334d55addba985f077982">include/aerial_autonomy/robot_systems</innerdir>
+    <innerdir refid="dir_50f50694a776225a9bcb429ba955942f">include/aerial_autonomy/state_machines</innerdir>
+    <innerdir refid="dir_0c7a7bfd4e5485ee47ea3001ef1b0b95">include/aerial_autonomy/system_handlers</innerdir>
+    <innerdir refid="dir_4bd02bc1034a74a0e71577e983a56171">include/aerial_autonomy/tests</innerdir>
+    <innerdir refid="dir_dbb4bb2971137fcd631eb50662186a12">include/aerial_autonomy/types</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/"/>
+  </compounddef>
+</doxygen>

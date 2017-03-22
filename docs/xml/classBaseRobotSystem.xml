@@ -1,0 +1,257 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classBaseRobotSystem" kind="class" prot="public" abstract="yes">
+    <compoundname>BaseRobotSystem</compoundname>
+    <derivedcompoundref refid="classUAVSystem" prot="public" virt="non-virtual">UAVSystem</derivedcompoundref>
+    <includes refid="base__robot__system_8h" local="no">base_robot_system.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classBaseRobotSystem_1a9539998f793faa61ed89e4c7ecc711ad" prot="protected" static="no" mutable="no">
+        <type><ref refid="classTypeMap" kindref="compound">TypeMap</ref>&lt; <ref refid="structAbstractControllerHardwareConnector" kindref="compound">AbstractControllerHardwareConnector</ref> &gt;</type>
+        <definition>TypeMap&lt;AbstractControllerHardwareConnector&gt; BaseRobotSystem::controller_hardware_connector_container_</definition>
+        <argsstring></argsstring>
+        <name>controller_hardware_connector_container_</name>
+        <briefdescription>
+<para>Container to store and retrieve controller-hardware-connectors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="23" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classBaseRobotSystem_1a7992abb50e0779872a1f3ec272fd49fa" prot="private" static="no" mutable="no">
+        <type>std::map&lt; <ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref>, <ref refid="structAbstractControllerHardwareConnector" kindref="compound">AbstractControllerHardwareConnector</ref> * &gt;</type>
+        <definition>std::map&lt;HardwareType, AbstractControllerHardwareConnector *&gt; BaseRobotSystem::active_controllers_</definition>
+        <argsstring></argsstring>
+        <name>active_controllers_</name>
+        <briefdescription>
+<para>Map to store active controller based on hardware type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="30" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classBaseRobotSystem_1ac5f7bf2982dab769a15969db1f67c46b" prot="private" static="no" mutable="no">
+        <type>std::map&lt; <ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref>, std::unique_ptr&lt; boost::mutex &gt; &gt;</type>
+        <definition>std::map&lt;HardwareType, std::unique_ptr&lt;boost::mutex&gt; &gt; BaseRobotSystem::thread_mutexes_</definition>
+        <argsstring></argsstring>
+        <name>thread_mutexes_</name>
+        <briefdescription>
+<para>Map to lock and swap the active controller for a given hardware type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="35" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classBaseRobotSystem_1a257fff284254de019428ae7073333b47" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>BaseRobotSystem::BaseRobotSystem</definition>
+        <argsstring>()</argsstring>
+        <name>BaseRobotSystem</name>
+        <briefdescription>
+<para>Constructor to initialize active controllers and mutexes to NULL. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="41" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="41" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classBaseRobotSystem_1a2814a05f2648e26d18fe20e1ad0b0c0a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class ControllerHardwareConnectorT</type>
+          </param>
+          <param>
+            <type>class GoalT</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void BaseRobotSystem::setGoal</definition>
+        <argsstring>(GoalT goal)</argsstring>
+        <name>setGoal</name>
+        <param>
+          <type>GoalT</type>
+          <declname>goal</declname>
+        </param>
+        <briefdescription>
+<para>sets goal to the connector and swaps the active connector with the specified connector type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>ControllerHardwareConnectorT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of connector to use </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GoalT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of Goal to set to connector </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>goal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Goal to set to connector </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="59" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="59" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classBaseRobotSystem_1add092f1cc4faec7b7f1ecb624f54a56a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class ControllerHardwareConnectorT</type>
+          </param>
+          <param>
+            <type>class GoalT</type>
+          </param>
+        </templateparamlist>
+        <type>GoalT</type>
+        <definition>GoalT BaseRobotSystem::getGoal</definition>
+        <argsstring>() const </argsstring>
+        <name>getGoal</name>
+        <briefdescription>
+<para>Get the goal from connector. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>ControllerHardwareConnectorT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of connector to use </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GoalT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of Goal to get</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>goal of GoalT type </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="80" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="80" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classBaseRobotSystem_1a3e7031f99e64e7c371ee31fbd69f6bf9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BaseRobotSystem::abortController</definition>
+        <argsstring>(HardwareType hardware_type)</argsstring>
+        <name>abortController</name>
+        <param>
+          <type><ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref></type>
+          <declname>hardware_type</declname>
+        </param>
+        <briefdescription>
+<para>Remove active controller for given hardware type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>hardware_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of hardware for which active controller is switched off </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="93" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="93" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="classBaseRobotSystem_1abad7fac8177f72f932a5ef543408f986" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void BaseRobotSystem::runActiveController</definition>
+        <argsstring>(HardwareType hardware_type)</argsstring>
+        <name>runActiveController</name>
+        <param>
+          <type><ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref></type>
+          <declname>hardware_type</declname>
+        </param>
+        <briefdescription>
+<para>Run active controller stored for a given hardware type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>hardware_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of hardware for which active controller is run </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="103" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="103" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="classBaseRobotSystem_1a63c0c5e504f352000c6fb6fce9047dec" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type>std::string</type>
+        <definition>virtual std::string BaseRobotSystem::getSystemStatus</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getSystemStatus</name>
+        <reimplementedby refid="classUAVSystem_1a686bdf431c8b790308d17cc9df231ee4">getSystemStatus</reimplementedby>
+        <briefdescription>
+<para>Provide the current state of robot system. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>string representation of the robot system state </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="118" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides functions to switch between active controllers and get goals. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="227">
+        <label>BaseRobotSystem</label>
+        <link refid="classBaseRobotSystem"/>
+      </node>
+      <node id="228">
+        <label>UAVSystem</label>
+        <link refid="classUAVSystem"/>
+        <childnode refid="227" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="230">
+        <label>TypeMap&lt; AbstractControllerHardwareConnector &gt;</label>
+        <link refid="classTypeMap"/>
+      </node>
+      <node id="229">
+        <label>BaseRobotSystem</label>
+        <link refid="classBaseRobotSystem"/>
+        <childnode refid="230" relation="usage">
+          <edgelabel>controller_hardware_connector_container_</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="16" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="16" bodyend="119"/>
+    <listofallmembers>
+      <member refid="classBaseRobotSystem_1a3e7031f99e64e7c371ee31fbd69f6bf9" prot="public" virt="non-virtual"><scope>BaseRobotSystem</scope><name>abortController</name></member>
+      <member refid="classBaseRobotSystem_1a7992abb50e0779872a1f3ec272fd49fa" prot="private" virt="non-virtual"><scope>BaseRobotSystem</scope><name>active_controllers_</name></member>
+      <member refid="classBaseRobotSystem_1a257fff284254de019428ae7073333b47" prot="public" virt="non-virtual"><scope>BaseRobotSystem</scope><name>BaseRobotSystem</name></member>
+      <member refid="classBaseRobotSystem_1a9539998f793faa61ed89e4c7ecc711ad" prot="protected" virt="non-virtual"><scope>BaseRobotSystem</scope><name>controller_hardware_connector_container_</name></member>
+      <member refid="classBaseRobotSystem_1add092f1cc4faec7b7f1ecb624f54a56a" prot="public" virt="non-virtual"><scope>BaseRobotSystem</scope><name>getGoal</name></member>
+      <member refid="classBaseRobotSystem_1a63c0c5e504f352000c6fb6fce9047dec" prot="public" virt="pure-virtual"><scope>BaseRobotSystem</scope><name>getSystemStatus</name></member>
+      <member refid="classBaseRobotSystem_1abad7fac8177f72f932a5ef543408f986" prot="public" virt="non-virtual"><scope>BaseRobotSystem</scope><name>runActiveController</name></member>
+      <member refid="classBaseRobotSystem_1a2814a05f2648e26d18fe20e1ad0b0c0a" prot="public" virt="non-virtual"><scope>BaseRobotSystem</scope><name>setGoal</name></member>
+      <member refid="classBaseRobotSystem_1ac5f7bf2982dab769a15969db1f67c46b" prot="private" virt="non-virtual"><scope>BaseRobotSystem</scope><name>thread_mutexes_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

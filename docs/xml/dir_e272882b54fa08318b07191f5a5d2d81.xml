@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_e272882b54fa08318b07191f5a5d2d81" kind="dir">
+    <compoundname>src/controllers</compoundname>
+    <innerfile refid="manual__rpyt__controller_8cpp">manual_rpyt_controller.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/controllers/"/>
+  </compounddef>
+</doxygen>

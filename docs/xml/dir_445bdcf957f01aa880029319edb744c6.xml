@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_445bdcf957f01aa880029319edb744c6" kind="dir">
+    <compoundname>include/aerial_autonomy/controller_hardware_connectors</compoundname>
+    <innerfile refid="base__controller__hardware__connector_8h">base_controller_hardware_connector.h</innerfile>
+    <innerfile refid="basic__controller__hardware__connectors_8h">basic_controller_hardware_connectors.h</innerfile>
+    <innerfile refid="builtin__velocity__controller__drone__connector_8h">builtin_velocity_controller_drone_connector.h</innerfile>
+    <innerfile refid="manual__rpyt__controller__drone__connector_8h">manual_rpyt_controller_drone_connector.h</innerfile>
+    <innerfile refid="position__controller__drone__connector_8h">position_controller_drone_connector.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/"/>
+  </compounddef>
+</doxygen>

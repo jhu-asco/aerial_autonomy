@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/manual_rpyt_controller.h" line="17" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/manual_rpyt_controller.h" bodystart="17" bodyend="17"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/manual_rpyt_controller.h" line="17" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/manual_rpyt_controller.h" bodystart="17" bodyend="17"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -56,7 +56,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para><xrefsect id="todo_1_todo000003"><xreftitle>Todo</xreftitle><xrefdescription><para>(matt): need to pass RC mapping as parameter </para></xrefdescription></xrefsect></para><para><xrefsect id="todo_1_todo000004"><xreftitle>Todo</xreftitle><xrefdescription><para>(matt): need to pass in frequency as a parameter </para></xrefdescription></xrefsect></para>        </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/manual_rpyt_controller.h" line="26" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controllers/manual_rpyt_controller.cpp" bodystart="4" bodyend="21"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/manual_rpyt_controller.h" line="26" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/controllers/manual_rpyt_controller.cpp" bodystart="4" bodyend="21"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -128,7 +128,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/manual_rpyt_controller.h" line="41" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controllers/manual_rpyt_controller.cpp" bodystart="23" bodyend="33"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/manual_rpyt_controller.h" line="41" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/controllers/manual_rpyt_controller.cpp" bodystart="23" bodyend="33"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -136,32 +136,32 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="295">
+      <node id="316">
         <label>ManualRPYTController</label>
         <link refid="classManualRPYTController"/>
-        <childnode refid="296" relation="public-inheritance">
+        <childnode refid="317" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="296">
+      <node id="317">
         <label>Controller&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</label>
         <link refid="classController"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="297">
+      <node id="318">
         <label>ManualRPYTController</label>
         <link refid="classManualRPYTController"/>
-        <childnode refid="298" relation="public-inheritance">
+        <childnode refid="319" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="298">
+      <node id="319">
         <label>Controller&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</label>
         <link refid="classController"/>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/manual_rpyt_controller.h" line="12" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/manual_rpyt_controller.h" bodystart="11" bodyend="43"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/manual_rpyt_controller.h" line="12" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/manual_rpyt_controller.h" bodystart="11" bodyend="43"/>
     <listofallmembers>
-      <member refid="classController_1a712cefd3af65956a9bd420641b175214" prot="public" virt="virtual"><scope>ManualRPYTController</scope><name>getGoal</name></member>
+      <member refid="classController_1a287a48298ec6f08e36ac3d72a2e6de34" prot="public" virt="virtual"><scope>ManualRPYTController</scope><name>getGoal</name></member>
       <member refid="classManualRPYTController_1a6c7f02df3c78f7ba63049c13aff65032" prot="private" virt="non-virtual"><scope>ManualRPYTController</scope><name>map</name></member>
       <member refid="classController_1a5caae261ff8a9f299cb8d220fbaf204b" prot="public" virt="virtual"><scope>ManualRPYTController</scope><name>run</name></member>
       <member refid="classManualRPYTController_1ae29c56af6d0bc913d357c7849201c8fb" prot="protected" virt="virtual"><scope>ManualRPYTController</scope><name>runImplementation</name></member>

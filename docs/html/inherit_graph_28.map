@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structInternalTransitionEvent.html" title="The InternalTransitionEvent struct used to trigger action behaviors in states. " alt="" coords="6,5,162,32"/>
+<area shape="rect" id="node1" href="$structGuardFunctor.html" title="GuardFunctor\&lt; PositionYaw,\l UAVSystem, LogicStateMachineT \&gt;" alt="" coords="6,5,245,46"/>
+<area shape="rect" id="node2" href="$structPositionControlTransitionGuardFunctor__.html" title="Guard function to check the goal is within tolerance before starting towards goal. " alt="" coords="293,5,544,46"/>
 </map>

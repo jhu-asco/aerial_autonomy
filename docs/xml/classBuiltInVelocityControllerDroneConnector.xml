@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" line="52" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" bodystart="52" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" line="52" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -54,7 +54,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" bodystart="27" bodyend="31"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" line="27" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" bodystart="27" bodyend="31"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -71,7 +71,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" line="39" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp" bodystart="3" bodyend="5"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" line="39" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp" bodystart="3" bodyend="5"/>
       </memberdef>
       <memberdef kind="function" id="classBuiltInVelocityControllerDroneConnector_1a10a06a14a9a34afbe37c79e86ffd5787" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -97,7 +97,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" line="46" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp" bodystart="7" bodyend="14"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" line="46" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp" bodystart="7" bodyend="14"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -105,48 +105,48 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="227">
+      <node id="244">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
-      <node id="226">
+      <node id="243">
         <label>ControllerHardwareConnector&lt; EmptySensor, VelocityYaw, VelocityYaw &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="227" relation="public-inheritance">
+        <childnode refid="244" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="225">
+      <node id="242">
         <label>BuiltInVelocityControllerDroneConnector</label>
         <link refid="classBuiltInVelocityControllerDroneConnector"/>
-        <childnode refid="226" relation="public-inheritance">
+        <childnode refid="243" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="230">
+      <node id="247">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
-      <node id="229">
+      <node id="246">
         <label>ControllerHardwareConnector&lt; EmptySensor, VelocityYaw, VelocityYaw &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="230" relation="public-inheritance">
+        <childnode refid="247" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="228">
+      <node id="245">
         <label>BuiltInVelocityControllerDroneConnector</label>
         <link refid="classBuiltInVelocityControllerDroneConnector"/>
-        <childnode refid="229" relation="public-inheritance">
+        <childnode refid="246" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" line="16" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" bodystart="14" bodyend="53"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" line="16" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h" bodystart="14" bodyend="53"/>
     <listofallmembers>
       <member refid="classBuiltInVelocityControllerDroneConnector_1a2a9693047db6fcdadea21d54bfe10fc1" prot="public" virt="non-virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>BuiltInVelocityControllerDroneConnector</name></member>
       <member refid="classControllerHardwareConnector_1a6c5d8e5a5ded026ccee3d51f2899ce3e" prot="public" virt="non-virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>ControllerHardwareConnector</name></member>
       <member refid="classBuiltInVelocityControllerDroneConnector_1a9454622a4a0388e5b88067dcd19209cc" prot="private" virt="non-virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>drone_hardware_</name></member>
       <member refid="classBuiltInVelocityControllerDroneConnector_1af69ba169f039d9f8d59f675392af4cf0" prot="protected" virt="virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>extractSensorData</name></member>
-      <member refid="classControllerHardwareConnector_1a1ea002003e277fc82e04615343b927f5" prot="public" virt="non-virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>getGoal</name></member>
+      <member refid="classControllerHardwareConnector_1adccf30ddf2b8be152e53636b1c2d3ad5" prot="public" virt="non-virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>getGoal</name></member>
       <member refid="classControllerHardwareConnector_1accd0c9bff560fa3c6d1e60d97644415e" prot="public" virt="non-virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>getHardwareType</name></member>
       <member refid="classControllerHardwareConnector_1a1e47c12f796c9cc2fcb5c2495ede2392" prot="protected" virt="non-virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>hardware_type_</name></member>
       <member refid="classControllerHardwareConnector_1afb46464434a3a5881ecc1091f58bbd61" prot="public" virt="virtual"><scope>BuiltInVelocityControllerDroneConnector</scope><name>run</name></member>

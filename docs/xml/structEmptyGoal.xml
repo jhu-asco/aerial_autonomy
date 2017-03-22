@@ -7,7 +7,7 @@
 <para>If the controllers do not need a goal such as rpytcontroller. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/empty_goal.h" line="5" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/empty_goal.h" bodystart="5" bodyend="5"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/empty_goal.h" line="5" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/empty_goal.h" bodystart="5" bodyend="5"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

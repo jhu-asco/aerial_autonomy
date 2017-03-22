@@ -4,122 +4,122 @@
     <compoundname>joysticks.h</compoundname>
     <includedby refid="joysticks__yaw_8h" local="yes">include/aerial_autonomy/types/joysticks_yaw.h</includedby>
     <invincdepgraph>
-      <node id="1703">
-        <label>include/aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h</label>
-        <link refid="basic__controller__hardware__connectors_8h"/>
-        <childnode refid="1704" relation="include">
-        </childnode>
-      </node>
-      <node id="1712">
-        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
-        <link refid="uav__system__handler_8h"/>
-        <childnode refid="1708" relation="include">
-        </childnode>
-      </node>
-      <node id="1709">
-        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
-        <link refid="land__functors_8h"/>
-        <childnode refid="1706" relation="include">
-        </childnode>
-      </node>
-      <node id="1702">
-        <label>src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp</label>
-        <link refid="manual__rpyt__controller__drone__connector_8cpp"/>
-      </node>
-      <node id="1706">
-        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
-        <link refid="uav__states__actions_8h"/>
-        <childnode refid="1707" relation="include">
-        </childnode>
-      </node>
-      <node id="1708">
-        <label>src/system_handler_nodes/uav_system_node.cpp</label>
-        <link refid="uav__system__node_8cpp"/>
-      </node>
-      <node id="1699">
-        <label>include/aerial_autonomy/types/joysticks.h</label>
-        <link refid="joysticks.h"/>
-        <childnode refid="1700" relation="include">
-        </childnode>
-      </node>
-      <node id="1716">
-        <label>include/aerial_autonomy/controllers/basic_controllers.h</label>
-        <link refid="basic__controllers_8h"/>
-        <childnode refid="1704" relation="include">
-        </childnode>
-      </node>
-      <node id="1710">
-        <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
-        <link refid="position__control__functors_8h"/>
-        <childnode refid="1706" relation="include">
-        </childnode>
-      </node>
-      <node id="1705">
-        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
-        <link refid="hovering__functors_8h"/>
-        <childnode refid="1706" relation="include">
-        </childnode>
-      </node>
-      <node id="1715">
-        <label>src/controllers/manual_rpyt_controller.cpp</label>
-        <link refid="manual__rpyt__controller_8cpp"/>
-      </node>
-      <node id="1707">
+      <node id="1873">
         <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
         <link refid="uav__state__machine_8h"/>
-        <childnode refid="1708" relation="include">
+        <childnode refid="1874" relation="include">
         </childnode>
       </node>
-      <node id="1714">
-        <label>include/aerial_autonomy/controllers/manual_rpyt_controller.h</label>
-        <link refid="manual__rpyt__controller_8h"/>
-        <childnode refid="1715" relation="include">
-        </childnode>
-        <childnode refid="1716" relation="include">
+      <node id="1882">
+        <label>include/aerial_autonomy/controllers/basic_controllers.h</label>
+        <link refid="basic__controllers_8h"/>
+        <childnode refid="1870" relation="include">
         </childnode>
       </node>
-      <node id="1701">
-        <label>include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h</label>
-        <link refid="manual__rpyt__controller__drone__connector_8h"/>
-        <childnode refid="1702" relation="include">
-        </childnode>
-        <childnode refid="1703" relation="include">
-        </childnode>
-      </node>
-      <node id="1700">
-        <label>include/aerial_autonomy/types/joysticks_yaw.h</label>
-        <link refid="joysticks__yaw_8h"/>
-        <childnode refid="1701" relation="include">
-        </childnode>
-        <childnode refid="1714" relation="include">
-        </childnode>
-      </node>
-      <node id="1704">
-        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
-        <link refid="uav__system_8h"/>
-        <childnode refid="1705" relation="include">
-        </childnode>
-        <childnode refid="1709" relation="include">
-        </childnode>
-        <childnode refid="1710" relation="include">
-        </childnode>
-        <childnode refid="1711" relation="include">
-        </childnode>
-        <childnode refid="1707" relation="include">
-        </childnode>
-        <childnode refid="1712" relation="include">
-        </childnode>
-        <childnode refid="1713" relation="include">
-        </childnode>
-      </node>
-      <node id="1713">
+      <node id="1879">
         <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
         <link refid="sample__logic__state__machine_8h"/>
       </node>
-      <node id="1711">
+      <node id="1871">
+        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
+        <link refid="hovering__functors_8h"/>
+        <childnode refid="1872" relation="include">
+        </childnode>
+      </node>
+      <node id="1874">
+        <label>src/system_handler_nodes/uav_system_node.cpp</label>
+        <link refid="uav__system__node_8cpp"/>
+      </node>
+      <node id="1868">
+        <label>src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp</label>
+        <link refid="manual__rpyt__controller__drone__connector_8cpp"/>
+      </node>
+      <node id="1877">
         <label>include/aerial_autonomy/actions_guards/takeoff_functors.h</label>
         <link refid="takeoff__functors_8h"/>
-        <childnode refid="1706" relation="include">
+        <childnode refid="1872" relation="include">
+        </childnode>
+      </node>
+      <node id="1866">
+        <label>include/aerial_autonomy/types/joysticks_yaw.h</label>
+        <link refid="joysticks__yaw_8h"/>
+        <childnode refid="1867" relation="include">
+        </childnode>
+        <childnode refid="1880" relation="include">
+        </childnode>
+      </node>
+      <node id="1870">
+        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
+        <link refid="uav__system_8h"/>
+        <childnode refid="1871" relation="include">
+        </childnode>
+        <childnode refid="1875" relation="include">
+        </childnode>
+        <childnode refid="1876" relation="include">
+        </childnode>
+        <childnode refid="1877" relation="include">
+        </childnode>
+        <childnode refid="1873" relation="include">
+        </childnode>
+        <childnode refid="1878" relation="include">
+        </childnode>
+        <childnode refid="1879" relation="include">
+        </childnode>
+      </node>
+      <node id="1867">
+        <label>include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h</label>
+        <link refid="manual__rpyt__controller__drone__connector_8h"/>
+        <childnode refid="1868" relation="include">
+        </childnode>
+        <childnode refid="1869" relation="include">
+        </childnode>
+      </node>
+      <node id="1865">
+        <label>include/aerial_autonomy/types/joysticks.h</label>
+        <link refid="joysticks.h"/>
+        <childnode refid="1866" relation="include">
+        </childnode>
+      </node>
+      <node id="1881">
+        <label>src/controllers/manual_rpyt_controller.cpp</label>
+        <link refid="manual__rpyt__controller_8cpp"/>
+      </node>
+      <node id="1878">
+        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
+        <link refid="uav__system__handler_8h"/>
+        <childnode refid="1874" relation="include">
+        </childnode>
+      </node>
+      <node id="1880">
+        <label>include/aerial_autonomy/controllers/manual_rpyt_controller.h</label>
+        <link refid="manual__rpyt__controller_8h"/>
+        <childnode refid="1881" relation="include">
+        </childnode>
+        <childnode refid="1882" relation="include">
+        </childnode>
+      </node>
+      <node id="1869">
+        <label>include/aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h</label>
+        <link refid="basic__controller__hardware__connectors_8h"/>
+        <childnode refid="1870" relation="include">
+        </childnode>
+      </node>
+      <node id="1872">
+        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
+        <link refid="uav__states__actions_8h"/>
+        <childnode refid="1873" relation="include">
+        </childnode>
+      </node>
+      <node id="1876">
+        <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
+        <link refid="position__control__functors_8h"/>
+        <childnode refid="1872" relation="include">
+        </childnode>
+      </node>
+      <node id="1875">
+        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
+        <link refid="land__functors_8h"/>
+        <childnode refid="1872" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -142,6 +142,6 @@
 <codeline lineno="24" refid="structJoysticks_1a154d66609cbfcb527d4dcf7473bf7af5" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structJoysticks_1a154d66609cbfcb527d4dcf7473bf7af5" kindref="member">channel4</ref>;<sp/></highlight></codeline>
 <codeline lineno="25"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/joysticks.h"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/joysticks.h"/>
   </compounddef>
 </doxygen>

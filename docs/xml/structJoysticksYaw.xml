@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/joysticks_yaw.h" line="24" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/joysticks_yaw.h" bodystart="24" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/joysticks_yaw.h" line="24" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/joysticks_yaw.h" bodystart="24" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -31,7 +31,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/joysticks_yaw.h" line="11" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/joysticks_yaw.h" bodystart="11" bodyend="11"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/joysticks_yaw.h" line="11" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/joysticks_yaw.h" bodystart="11" bodyend="11"/>
       </memberdef>
       <memberdef kind="function" id="structJoysticksYaw_1a01b433c411a2071821fded99f9f17a2b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -100,7 +100,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/joysticks_yaw.h" line="21" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/joysticks_yaw.h" bodystart="21" bodyend="23"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/joysticks_yaw.h" line="21" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/joysticks_yaw.h" bodystart="21" bodyend="23"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -108,30 +108,30 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="279">
+      <node id="300">
         <label>JoysticksYaw</label>
         <link refid="structJoysticksYaw"/>
-        <childnode refid="280" relation="public-inheritance">
+        <childnode refid="301" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="280">
+      <node id="301">
         <label>Joysticks</label>
         <link refid="structJoysticks"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="281">
+      <node id="302">
         <label>JoysticksYaw</label>
         <link refid="structJoysticksYaw"/>
-        <childnode refid="282" relation="public-inheritance">
+        <childnode refid="303" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="282">
+      <node id="303">
         <label>Joysticks</label>
         <link refid="structJoysticks"/>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/joysticks_yaw.h" line="7" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/joysticks_yaw.h" bodystart="7" bodyend="25"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/joysticks_yaw.h" line="7" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/joysticks_yaw.h" bodystart="7" bodyend="25"/>
     <listofallmembers>
       <member refid="structJoysticks_1a3dc64d66808dddbf053033465777c493" prot="public" virt="non-virtual"><scope>JoysticksYaw</scope><name>channel1</name></member>
       <member refid="structJoysticks_1a14f4be76749f40ea8d75d579504ef932" prot="public" virt="non-virtual"><scope>JoysticksYaw</scope><name>channel2</name></member>

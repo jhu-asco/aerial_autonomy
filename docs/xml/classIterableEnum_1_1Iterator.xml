@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classIterableEnum_1_1Iterator" kind="class" prot="public">
+    <compoundname>IterableEnum::Iterator</compoundname>
+    <includes refid="iterable__enum_8h" local="no">iterable_enum.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classIterableEnum_1_1Iterator_1aa03091a83f1bac390fec5165c5fc941b" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int IterableEnum&lt; T &gt;::Iterator::m_value_</definition>
+        <argsstring></argsstring>
+        <name>m_value_</name>
+        <briefdescription>
+<para>The current enum value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" line="36" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classIterableEnum_1_1Iterator_1a17807910635ca07c0a1116a461611454" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>IterableEnum&lt; T &gt;::Iterator::Iterator</definition>
+        <argsstring>(int value)</argsstring>
+        <name>Iterator</name>
+        <param>
+          <type>int</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" line="18" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" bodystart="18" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classIterableEnum_1_1Iterator_1aa2658ad548cc08cc78d57b00ee0ea912" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>T</type>
+        <definition>T IterableEnum&lt; T &gt;::Iterator::operator*</definition>
+        <argsstring>(void) const </argsstring>
+        <name>operator*</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Returns underlying iterator value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" line="23" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" bodystart="23" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classIterableEnum_1_1Iterator_1ab98cb69c64fb848d8ec5a29b36578dea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void IterableEnum&lt; T &gt;::Iterator::operator++</definition>
+        <argsstring>(void)</argsstring>
+        <name>operator++</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Increment iterator. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" line="28" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" bodystart="28" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="classIterableEnum_1_1Iterator_1ab944185ae667bc64f0a3cd04be21f50e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool IterableEnum&lt; T &gt;::Iterator::operator!=</definition>
+        <argsstring>(Iterator rhs)</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type><ref refid="classIterableEnum_1_1Iterator" kindref="compound">Iterator</ref></type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+<para>Compare iterator using underlying value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" line="33" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" bodystart="33" bodyend="33"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="classIterableEnum_1_1Iterator" kindref="compound">Iterator</ref> for the wrapper class. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" line="13" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" bodystart="13" bodyend="37"/>
+    <listofallmembers>
+      <member refid="classIterableEnum_1_1Iterator_1a17807910635ca07c0a1116a461611454" prot="public" virt="non-virtual"><scope>IterableEnum::Iterator</scope><name>Iterator</name></member>
+      <member refid="classIterableEnum_1_1Iterator_1aa03091a83f1bac390fec5165c5fc941b" prot="private" virt="non-virtual"><scope>IterableEnum::Iterator</scope><name>m_value_</name></member>
+      <member refid="classIterableEnum_1_1Iterator_1ab944185ae667bc64f0a3cd04be21f50e" prot="public" virt="non-virtual"><scope>IterableEnum::Iterator</scope><name>operator!=</name></member>
+      <member refid="classIterableEnum_1_1Iterator_1aa2658ad548cc08cc78d57b00ee0ea912" prot="public" virt="non-virtual"><scope>IterableEnum::Iterator</scope><name>operator*</name></member>
+      <member refid="classIterableEnum_1_1Iterator_1ab98cb69c64fb848d8ec5a29b36578dea" prot="public" virt="non-virtual"><scope>IterableEnum::Iterator</scope><name>operator++</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

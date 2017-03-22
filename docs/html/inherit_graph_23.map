@@ -1,3 +1,11 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structEventAgnosticGuardFunctor.html" title="Guard functor that does not require the event triggering it. " alt="" coords="5,5,267,46"/>
+<area shape="rect" id="node1" href="$structEventAgnosticActionFunctor.html" title="EventAgnosticActionFunctor\l\&lt; UAVSystem, LogicStateMachineT \&gt;" alt="" coords="6,234,253,275"/>
+<area shape="rect" id="node2" href="$structHoveringInternalActionFunctor__.html" title="Internal action when hovering. " alt="" coords="310,5,509,46"/>
+<area shape="rect" id="node3" href="$structLandInternalActionFunctor__.html" title="Internal action to figure out when landing is complete. " alt="" coords="322,70,497,111"/>
+<area shape="rect" id="node4" href="$structLandTransitionActionFunctor__.html" title="Transition action when starting to land. " alt="" coords="315,135,503,177"/>
+<area shape="rect" id="node5" href="$structPositionControlAbortActionFunctor__.html" title="Transition action to perform when aborting position control. " alt="" coords="301,201,517,242"/>
+<area shape="rect" id="node6" href="$structPositionControlInternalActionFunctor__.html" title="Logic to check while reaching a position control goal. " alt="" coords="301,266,517,307"/>
+<area shape="rect" id="node7" href="$structTakeoffAbortActionFunctor__.html" title="action to perform when aborting takeoff " alt="" coords="320,331,499,373"/>
+<area shape="rect" id="node8" href="$structTakeoffInternalActionFunctor__.html" title="Check when takeoff is complete, and ensure enough battery voltage. " alt="" coords="314,397,505,438"/>
+<area shape="rect" id="node9" href="$structTakeoffTransitionActionFunctor__.html" title="action to take when starting takeoff " alt="" coords="307,462,511,503"/>
 </map>

@@ -33,7 +33,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="12" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="12" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="12" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="12" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="classRobotSystemContainer_1a9411581bb37b54467df520e3c73ceaf0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -57,7 +57,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="15" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="15" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="15" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="15" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="classRobotSystemContainer_1a86a665e36420c3cbc2b45864e023f98a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -78,7 +78,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="18" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="18" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="18" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="18" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="classRobotSystemContainer_1af372c36475bc4510af791f5cb66608ad" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -99,7 +99,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="21" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="21" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="21" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="21" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
@@ -114,7 +114,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="27" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="27" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="27" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -130,7 +130,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="34" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="34" bodyend="34"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="34" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="34" bodyend="34"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -157,7 +157,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="42" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="42" bodyend="43"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="42" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="42" bodyend="43"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -173,18 +173,18 @@
 </parameterlist>
 </para>    </detaileddescription>
     <collaborationgraph>
-      <node id="336">
+      <node id="357">
         <label>RobotSystemT</label>
       </node>
-      <node id="335">
+      <node id="356">
         <label>RobotSystemContainer&lt; RobotSystemT &gt;</label>
         <link refid="classRobotSystemContainer"/>
-        <childnode refid="336" relation="usage">
+        <childnode refid="357" relation="usage">
           <edgelabel>robot_system_</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="9" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="9" bodyend="44"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" line="9" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/robot_system_container.h" bodystart="9" bodyend="44"/>
     <listofallmembers>
       <member refid="classRobotSystemContainer_1a05673eb4ec343f36c1f3fb787ac26b94" prot="private" virt="non-virtual"><scope>RobotSystemContainer</scope><name>ActionFunctor</name></member>
       <member refid="classRobotSystemContainer_1a86a665e36420c3cbc2b45864e023f98a" prot="private" virt="non-virtual"><scope>RobotSystemContainer</scope><name>EventAgnosticActionFunctor</name></member>

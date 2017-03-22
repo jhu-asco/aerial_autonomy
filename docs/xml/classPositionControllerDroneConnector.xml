@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h" line="53" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h" bodystart="53" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h" line="53" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -54,7 +54,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h" line="28" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h" bodystart="28" bodyend="32"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h" line="28" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h" bodystart="28" bodyend="32"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -71,7 +71,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h" line="40" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/position_controller_drone_connector.cpp" bodystart="3" bodyend="5"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h" line="40" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/controller_hardware_connectors/position_controller_drone_connector.cpp" bodystart="3" bodyend="5"/>
       </memberdef>
       <memberdef kind="function" id="classPositionControllerDroneConnector_1a826092eadfbbf9442fa1869fea98070d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -97,7 +97,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h" line="47" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/position_controller_drone_connector.cpp" bodystart="7" bodyend="14"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h" line="47" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/controller_hardware_connectors/position_controller_drone_connector.cpp" bodystart="7" bodyend="14"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -105,47 +105,47 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="317">
+      <node id="338">
         <label>ControllerHardwareConnector&lt; EmptySensor, PositionYaw, PositionYaw &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="318" relation="public-inheritance">
+        <childnode refid="339" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="318">
+      <node id="339">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
-      <node id="316">
+      <node id="337">
         <label>PositionControllerDroneConnector</label>
         <link refid="classPositionControllerDroneConnector"/>
-        <childnode refid="317" relation="public-inheritance">
+        <childnode refid="338" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="320">
+      <node id="341">
         <label>ControllerHardwareConnector&lt; EmptySensor, PositionYaw, PositionYaw &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="321" relation="public-inheritance">
+        <childnode refid="342" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="321">
+      <node id="342">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
-      <node id="319">
+      <node id="340">
         <label>PositionControllerDroneConnector</label>
         <link refid="classPositionControllerDroneConnector"/>
-        <childnode refid="320" relation="public-inheritance">
+        <childnode refid="341" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h" line="17" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h" bodystart="15" bodyend="54"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h" line="17" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h" bodystart="15" bodyend="54"/>
     <listofallmembers>
       <member refid="classControllerHardwareConnector_1a6c5d8e5a5ded026ccee3d51f2899ce3e" prot="public" virt="non-virtual"><scope>PositionControllerDroneConnector</scope><name>ControllerHardwareConnector</name></member>
       <member refid="classPositionControllerDroneConnector_1a977de12cad1986c769b2641384b85aea" prot="private" virt="non-virtual"><scope>PositionControllerDroneConnector</scope><name>drone_hardware_</name></member>
       <member refid="classPositionControllerDroneConnector_1a21859ad4bcc85a907e2e23456869b3d6" prot="protected" virt="virtual"><scope>PositionControllerDroneConnector</scope><name>extractSensorData</name></member>
-      <member refid="classControllerHardwareConnector_1a1ea002003e277fc82e04615343b927f5" prot="public" virt="non-virtual"><scope>PositionControllerDroneConnector</scope><name>getGoal</name></member>
+      <member refid="classControllerHardwareConnector_1adccf30ddf2b8be152e53636b1c2d3ad5" prot="public" virt="non-virtual"><scope>PositionControllerDroneConnector</scope><name>getGoal</name></member>
       <member refid="classControllerHardwareConnector_1accd0c9bff560fa3c6d1e60d97644415e" prot="public" virt="non-virtual"><scope>PositionControllerDroneConnector</scope><name>getHardwareType</name></member>
       <member refid="classControllerHardwareConnector_1a1e47c12f796c9cc2fcb5c2495ede2392" prot="protected" virt="non-virtual"><scope>PositionControllerDroneConnector</scope><name>hardware_type_</name></member>
       <member refid="classPositionControllerDroneConnector_1a12664821f9f9316f6343b16f3dc9f84f" prot="public" virt="non-virtual"><scope>PositionControllerDroneConnector</scope><name>PositionControllerDroneConnector</name></member>

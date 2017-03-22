@@ -22,6 +22,6 @@
 <codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="14"><highlight class="normal">\todo<sp/>(Matt)<sp/>Fill<sp/>this<sp/>page</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/markdown/creating_state_machine.md"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/markdown/creating_state_machine.md"/>
   </compounddef>
 </doxygen>

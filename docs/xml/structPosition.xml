@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position.h" line="19" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position.h" bodystart="19" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position.h" line="19" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position.h" bodystart="19" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position.h" line="20" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position.h" bodystart="20" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position.h" line="20" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position.h" bodystart="20" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structPosition_1ab26043bc2f8f6094818c17dd44e43228" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -42,7 +42,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position.h" line="21" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position.h" bodystart="21" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position.h" line="21" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position.h" bodystart="21" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -57,7 +57,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position.h" line="10" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position.h" bodystart="10" bodyend="10"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position.h" line="10" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position.h" bodystart="10" bodyend="10"/>
       </memberdef>
       <memberdef kind="function" id="structPosition_1a039074b4b66e3b570ea2f4e14583b0e0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -104,7 +104,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position.h" line="18" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position.h" bodystart="18" bodyend="18"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position.h" line="18" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position.h" bodystart="18" bodyend="18"/>
       </memberdef>
       <memberdef kind="function" id="structPosition_1abf82a72c9a5f64a4dfce9691bd3010ed" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -130,7 +130,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position.h" line="30" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position.h" bodystart="30" bodyend="32"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position.h" line="30" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position.h" bodystart="30" bodyend="32"/>
       </memberdef>
       <memberdef kind="function" id="structPosition_1aac2ef88bfed1a5370bb4c2921046e9c0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -156,7 +156,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position.h" line="40" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position.h" bodystart="40" bodyend="40"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position.h" line="40" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position.h" bodystart="40" bodyend="40"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -164,18 +164,18 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="305">
+      <node id="326">
         <label>Position</label>
         <link refid="structPosition"/>
       </node>
-      <node id="306">
+      <node id="327">
         <label>PositionYaw</label>
         <link refid="structPositionYaw"/>
-        <childnode refid="305" relation="public-inheritance">
+        <childnode refid="326" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position.h" line="5" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position.h" bodystart="5" bodyend="41"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position.h" line="5" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position.h" bodystart="5" bodyend="41"/>
     <listofallmembers>
       <member refid="structPosition_1aac2ef88bfed1a5370bb4c2921046e9c0" prot="public" virt="non-virtual"><scope>Position</scope><name>operator!=</name></member>
       <member refid="structPosition_1abf82a72c9a5f64a4dfce9691bd3010ed" prot="public" virt="non-virtual"><scope>Position</scope><name>operator==</name></member>

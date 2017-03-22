@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_6fe9f9c87adb79173c1aa2f732811b45" kind="dir">
+    <compoundname>include</compoundname>
+    <innerdir refid="dir_8c66c8138e7b35f6ec94720b060b21f5">include/aerial_autonomy</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/"/>
+  </compounddef>
+</doxygen>

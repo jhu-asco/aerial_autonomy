@@ -96,6 +96,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <a href="classUAVSystem.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="uav__system_8h_source.html">uav_system.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for UAVSystem:</div>
+<div class="dyncontent">
+<div class="center"><img src="classUAVSystem__inherit__graph.png" border="0" usemap="#UAVSystem_inherit__map" alt="Inheritance graph"/></div>
+<map name="UAVSystem_inherit__map" id="UAVSystem_inherit__map">
+<area shape="rect" id="node2" href="classBaseRobotSystem.html" title="Provides functions to switch between active controllers and get goals. " alt="" coords="5,5,136,32"/></map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for UAVSystem:</div>
+<div class="dyncontent">
+<div class="center"><img src="classUAVSystem__coll__graph.png" border="0" usemap="#UAVSystem_coll__map" alt="Collaboration graph"/></div>
+<map name="UAVSystem_coll__map" id="UAVSystem_coll__map">
+<area shape="rect" id="node2" href="classBaseRobotSystem.html" title="Provides functions to switch between active controllers and get goals. " alt="" coords="35,125,167,152"/><area shape="rect" id="node3" href="classTypeMap.html" title="TypeMap\&lt; AbstractController\lHardwareConnector \&gt;" alt="" coords="5,6,197,47"/></map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -105,35 +119,47 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9218f794905e832cc356b5e4b659e1da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#a9218f794905e832cc356b5e4b659e1da">UAVSystem</a> (parsernode::Parser &amp;drone_hardware, UAVSystemConfig config)</td></tr>
 <tr class="memdesc:a9218f794905e832cc356b5e4b659e1da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a9218f794905e832cc356b5e4b659e1da">More...</a><br/></td></tr>
 <tr class="separator:a9218f794905e832cc356b5e4b659e1da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a1cbcd8770841ee2a30365f4a75bf34"><td class="memItemLeft" align="right" valign="top">parsernode::common::quaddata&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#a8a1cbcd8770841ee2a30365f4a75bf34">getUAVData</a> ()</td></tr>
-<tr class="memdesc:a8a1cbcd8770841ee2a30365f4a75bf34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get sensor data from UAV.  <a href="#a8a1cbcd8770841ee2a30365f4a75bf34">More...</a><br/></td></tr>
-<tr class="separator:a8a1cbcd8770841ee2a30365f4a75bf34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ccf5fcb488485d369752b406e36b8e3"><td class="memItemLeft" align="right" valign="top">parsernode::common::quaddata&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#a4ccf5fcb488485d369752b406e36b8e3">getUAVData</a> () const </td></tr>
+<tr class="memdesc:a4ccf5fcb488485d369752b406e36b8e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get sensor data from UAV.  <a href="#a4ccf5fcb488485d369752b406e36b8e3">More...</a><br/></td></tr>
+<tr class="separator:a4ccf5fcb488485d369752b406e36b8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f010477b67bfeb5d6d32c0f10630b8e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#a7f010477b67bfeb5d6d32c0f10630b8e">takeOff</a> ()</td></tr>
 <tr class="memdesc:a7f010477b67bfeb5d6d32c0f10630b8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Public API call to takeoff.  <a href="#a7f010477b67bfeb5d6d32c0f10630b8e">More...</a><br/></td></tr>
 <tr class="separator:a7f010477b67bfeb5d6d32c0f10630b8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1bac31ca121a54cb1e3ed7fac322993"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#ae1bac31ca121a54cb1e3ed7fac322993">land</a> ()</td></tr>
 <tr class="memdesc:ae1bac31ca121a54cb1e3ed7fac322993"><td class="mdescLeft">&#160;</td><td class="mdescRight">Public API call to land.  <a href="#ae1bac31ca121a54cb1e3ed7fac322993">More...</a><br/></td></tr>
 <tr class="separator:ae1bac31ca121a54cb1e3ed7fac322993"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6aae5b94424be17ed6bafeaa4f64f416"><td class="memTemplParams" colspan="2">template&lt;class ControllerHardwareConnectorT , class GoalT &gt; </td></tr>
-<tr class="memitem:a6aae5b94424be17ed6bafeaa4f64f416"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#a6aae5b94424be17ed6bafeaa4f64f416">setGoal</a> (GoalT goal)</td></tr>
-<tr class="memdesc:a6aae5b94424be17ed6bafeaa4f64f416"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets goal to the connector and swaps the active connector with the specified connector type.  <a href="#a6aae5b94424be17ed6bafeaa4f64f416">More...</a><br/></td></tr>
-<tr class="separator:a6aae5b94424be17ed6bafeaa4f64f416"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5381ca45049c8c92e872a80a2974339b"><td class="memTemplParams" colspan="2">template&lt;class ControllerHardwareConnectorT , class GoalT &gt; </td></tr>
-<tr class="memitem:a5381ca45049c8c92e872a80a2974339b"><td class="memTemplItemLeft" align="right" valign="top">GoalT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#a5381ca45049c8c92e872a80a2974339b">getGoal</a> ()</td></tr>
-<tr class="memdesc:a5381ca45049c8c92e872a80a2974339b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the goal from connector.  <a href="#a5381ca45049c8c92e872a80a2974339b">More...</a><br/></td></tr>
-<tr class="separator:a5381ca45049c8c92e872a80a2974339b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90634eb2ac4c515c9065ce85cc21dc19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#a90634eb2ac4c515c9065ce85cc21dc19">abortController</a> (<a class="el" href="base__controller__hardware__connector_8h.html#ae4dfd42394001deb6e8a0e60c81d6f7a">HardwareType</a> hardware_type)</td></tr>
-<tr class="memdesc:a90634eb2ac4c515c9065ce85cc21dc19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove active controller for given hardware type.  <a href="#a90634eb2ac4c515c9065ce85cc21dc19">More...</a><br/></td></tr>
-<tr class="separator:a90634eb2ac4c515c9065ce85cc21dc19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3d60a491f325261a1acebdadd7478a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#ad3d60a491f325261a1acebdadd7478a6">runActiveController</a> (<a class="el" href="base__controller__hardware__connector_8h.html#ae4dfd42394001deb6e8a0e60c81d6f7a">HardwareType</a> hardware_type)</td></tr>
-<tr class="memdesc:ad3d60a491f325261a1acebdadd7478a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run active controller stored for a given hardware type.  <a href="#ad3d60a491f325261a1acebdadd7478a6">More...</a><br/></td></tr>
-<tr class="separator:ad3d60a491f325261a1acebdadd7478a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0840278177ee64082ee05937d028421"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#ab0840278177ee64082ee05937d028421">getSystemStatus</a> ()</td></tr>
-<tr class="memdesc:ab0840278177ee64082ee05937d028421"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provide the current state of UAV system.  <a href="#ab0840278177ee64082ee05937d028421">More...</a><br/></td></tr>
-<tr class="separator:ab0840278177ee64082ee05937d028421"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a686bdf431c8b790308d17cc9df231ee4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#a686bdf431c8b790308d17cc9df231ee4">getSystemStatus</a> () const </td></tr>
+<tr class="memdesc:a686bdf431c8b790308d17cc9df231ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provide the current state of UAV system.  <a href="#a686bdf431c8b790308d17cc9df231ee4">More...</a><br/></td></tr>
+<tr class="separator:a686bdf431c8b790308d17cc9df231ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89d67e42aec09dd65a23f39462a8202e"><td class="memItemLeft" align="right" valign="top">UAVSystemConfig&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#a89d67e42aec09dd65a23f39462a8202e">getConfiguration</a> ()</td></tr>
 <tr class="memdesc:a89d67e42aec09dd65a23f39462a8202e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get system configuration.  <a href="#a89d67e42aec09dd65a23f39462a8202e">More...</a><br/></td></tr>
 <tr class="separator:a89d67e42aec09dd65a23f39462a8202e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classBaseRobotSystem"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classBaseRobotSystem')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classBaseRobotSystem.html">BaseRobotSystem</a></td></tr>
+<tr class="memitem:a257fff284254de019428ae7073333b47 inherit pub_methods_classBaseRobotSystem"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a257fff284254de019428ae7073333b47">BaseRobotSystem</a> ()</td></tr>
+<tr class="memdesc:a257fff284254de019428ae7073333b47 inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor to initialize active controllers and mutexes to NULL.  <a href="#a257fff284254de019428ae7073333b47">More...</a><br/></td></tr>
+<tr class="separator:a257fff284254de019428ae7073333b47 inherit pub_methods_classBaseRobotSystem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2814a05f2648e26d18fe20e1ad0b0c0a inherit pub_methods_classBaseRobotSystem"><td class="memTemplParams" colspan="2">template&lt;class ControllerHardwareConnectorT , class GoalT &gt; </td></tr>
+<tr class="memitem:a2814a05f2648e26d18fe20e1ad0b0c0a inherit pub_methods_classBaseRobotSystem"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a2814a05f2648e26d18fe20e1ad0b0c0a">setGoal</a> (GoalT goal)</td></tr>
+<tr class="memdesc:a2814a05f2648e26d18fe20e1ad0b0c0a inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets goal to the connector and swaps the active connector with the specified connector type.  <a href="#a2814a05f2648e26d18fe20e1ad0b0c0a">More...</a><br/></td></tr>
+<tr class="separator:a2814a05f2648e26d18fe20e1ad0b0c0a inherit pub_methods_classBaseRobotSystem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add092f1cc4faec7b7f1ecb624f54a56a inherit pub_methods_classBaseRobotSystem"><td class="memTemplParams" colspan="2">template&lt;class ControllerHardwareConnectorT , class GoalT &gt; </td></tr>
+<tr class="memitem:add092f1cc4faec7b7f1ecb624f54a56a inherit pub_methods_classBaseRobotSystem"><td class="memTemplItemLeft" align="right" valign="top">GoalT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#add092f1cc4faec7b7f1ecb624f54a56a">getGoal</a> () const </td></tr>
+<tr class="memdesc:add092f1cc4faec7b7f1ecb624f54a56a inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the goal from connector.  <a href="#add092f1cc4faec7b7f1ecb624f54a56a">More...</a><br/></td></tr>
+<tr class="separator:add092f1cc4faec7b7f1ecb624f54a56a inherit pub_methods_classBaseRobotSystem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e7031f99e64e7c371ee31fbd69f6bf9 inherit pub_methods_classBaseRobotSystem"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a3e7031f99e64e7c371ee31fbd69f6bf9">abortController</a> (<a class="el" href="base__controller__hardware__connector_8h.html#ae4dfd42394001deb6e8a0e60c81d6f7a">HardwareType</a> hardware_type)</td></tr>
+<tr class="memdesc:a3e7031f99e64e7c371ee31fbd69f6bf9 inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove active controller for given hardware type.  <a href="#a3e7031f99e64e7c371ee31fbd69f6bf9">More...</a><br/></td></tr>
+<tr class="separator:a3e7031f99e64e7c371ee31fbd69f6bf9 inherit pub_methods_classBaseRobotSystem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abad7fac8177f72f932a5ef543408f986 inherit pub_methods_classBaseRobotSystem"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#abad7fac8177f72f932a5ef543408f986">runActiveController</a> (<a class="el" href="base__controller__hardware__connector_8h.html#ae4dfd42394001deb6e8a0e60c81d6f7a">HardwareType</a> hardware_type)</td></tr>
+<tr class="memdesc:abad7fac8177f72f932a5ef543408f986 inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run active controller stored for a given hardware type.  <a href="#abad7fac8177f72f932a5ef543408f986">More...</a><br/></td></tr>
+<tr class="separator:abad7fac8177f72f932a5ef543408f986 inherit pub_methods_classBaseRobotSystem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_classBaseRobotSystem"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classBaseRobotSystem')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classBaseRobotSystem.html">BaseRobotSystem</a></td></tr>
+<tr class="memitem:a9539998f793faa61ed89e4c7ecc711ad inherit pro_attribs_classBaseRobotSystem"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTypeMap.html">TypeMap</a><br class="typebreak"/>
+&lt; <a class="el" href="structAbstractControllerHardwareConnector.html">AbstractControllerHardwareConnector</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a9539998f793faa61ed89e4c7ecc711ad">controller_hardware_connector_container_</a></td></tr>
+<tr class="memdesc:a9539998f793faa61ed89e4c7ecc711ad inherit pro_attribs_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Container to store and retrieve controller-hardware-connectors.  <a href="#a9539998f793faa61ed89e4c7ecc711ad">More...</a><br/></td></tr>
+<tr class="separator:a9539998f793faa61ed89e4c7ecc711ad inherit pro_attribs_classBaseRobotSystem"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Owns, initializes, and facilitates communication between different hardware/software components. Provides builtin position, velocity, and rpy controllers for controlling UAV. </p>
@@ -205,43 +231,10 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">Todo:</a></b></dt><dd>make enum class iterable to do this automatically </dd></dl>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a90634eb2ac4c515c9065ce85cc21dc19"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UAVSystem::abortController </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="base__controller__hardware__connector_8h.html#ae4dfd42394001deb6e8a0e60c81d6f7a">HardwareType</a>&#160;</td>
-          <td class="paramname"><em>hardware_type</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Remove active controller for given hardware type. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">hardware_type</td><td>Type of hardware for which active controller is switched off </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="a89d67e42aec09dd65a23f39462a8202e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -268,42 +261,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a5381ca45049c8c92e872a80a2974339b"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class ControllerHardwareConnectorT , class GoalT &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">GoalT UAVSystem::getGoal </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get the goal from connector. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">ControllerHardwareConnectorT</td><td>Type of connector to use </td></tr>
-    <tr><td class="paramname">GoalT</td><td>Type of Goal to get</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>goal of GoalT type </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ab0840278177ee64082ee05937d028421"></a>
+<a class="anchor" id="a686bdf431c8b790308d17cc9df231ee4"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -314,12 +272,12 @@ template&lt;class ControllerHardwareConnectorT , class GoalT &gt; </div>
           <td class="memname">std::string UAVSystem::getSystemStatus </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -327,9 +285,11 @@ template&lt;class ControllerHardwareConnectorT , class GoalT &gt; </div>
 <p>Provide the current state of UAV system. </p>
 <dl class="section return"><dt>Returns</dt><dd>string representation of the UAV system state </dd></dl>
 
+<p>Implements <a class="el" href="classBaseRobotSystem.html#a63c0c5e504f352000c6fb6fce9047dec">BaseRobotSystem</a>.</p>
+
 </div>
 </div>
-<a class="anchor" id="a8a1cbcd8770841ee2a30365f4a75bf34"></a>
+<a class="anchor" id="a4ccf5fcb488485d369752b406e36b8e3"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -340,7 +300,7 @@ template&lt;class ControllerHardwareConnectorT , class GoalT &gt; </div>
           <td class="memname">parsernode::common::quaddata UAVSystem::getUAVData </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -377,79 +337,6 @@ template&lt;class ControllerHardwareConnectorT , class GoalT &gt; </div>
 </div><div class="memdoc">
 
 <p>Public API call to land. </p>
-
-</div>
-</div>
-<a class="anchor" id="ad3d60a491f325261a1acebdadd7478a6"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UAVSystem::runActiveController </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="base__controller__hardware__connector_8h.html#ae4dfd42394001deb6e8a0e60c81d6f7a">HardwareType</a>&#160;</td>
-          <td class="paramname"><em>hardware_type</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Run active controller stored for a given hardware type. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">hardware_type</td><td>Type of hardware for which active controller is run </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a6aae5b94424be17ed6bafeaa4f64f416"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class ControllerHardwareConnectorT , class GoalT &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UAVSystem::setGoal </td>
-          <td>(</td>
-          <td class="paramtype">GoalT&#160;</td>
-          <td class="paramname"><em>goal</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>sets goal to the connector and swaps the active connector with the specified connector type. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">ControllerHardwareConnectorT</td><td>type of connector to use </td></tr>
-    <tr><td class="paramname">GoalT</td><td>Type of Goal to set to connector </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">goal</td><td>Goal to set to connector </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>

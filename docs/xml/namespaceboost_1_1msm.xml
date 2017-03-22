@@ -7,6 +7,6 @@
 <para>Meta state machine namespace. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="13" column="1"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="13" column="1"/>
   </compounddef>
 </doxygen>

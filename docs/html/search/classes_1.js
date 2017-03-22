@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['baserobotsystem',['BaseRobotSystem',['../classBaseRobotSystem.html',1,'']]],
   ['basestate',['BaseState',['../classBaseState.html',1,'']]],
   ['basestatemachine',['BaseStateMachine',['../classBaseStateMachine.html',1,'']]],
   ['basestatemachine_3c_20uavsystem_20_3e',['BaseStateMachine&lt; UAVSystem &gt;',['../classBaseStateMachine.html',1,'']]],

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_b9460f247869254f5a62faa1ecb0a671" kind="dir">
+    <compoundname>include/aerial_autonomy/logic_states</compoundname>
+    <innerfile refid="base__state_8h">base_state.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/logic_states/"/>
+  </compounddef>
+</doxygen>

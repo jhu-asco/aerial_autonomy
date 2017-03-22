@@ -16,6 +16,6 @@
 <entry thead="no"><para>Internal actions </para></entry><entry thead="no"><para>Process robot state continuously and trigger actions accordingly </para></entry></row>
 </table>
 </para><para><heading level="2">Creating a robot system</heading>
-</para><para><xrefsect id="todo_1_todo000015"><xreftitle>Todo</xreftitle><xrefdescription><para>(Matt) Fill this page </para></xrefdescription></xrefsect></para>    </detaileddescription>
+</para><para><xrefsect id="todo_1_todo000014"><xreftitle>Todo</xreftitle><xrefdescription><para>(Matt) Fill this page </para></xrefdescription></xrefsect></para>    </detaileddescription>
   </compounddef>
 </doxygen>

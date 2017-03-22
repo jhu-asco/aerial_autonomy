@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_2f8e754ab99ce0b8ad0265163734387c.html">include</a></li><li class="navelem"><a class="el" href="dir_aa08a9b8af1d5448e3e7b8b8a4c3ba6b.html">aerial_autonomy</a></li><li class="navelem"><a class="el" href="dir_c60cdb5df3bce9a4e2c7dcb3b5f30e66.html">controllers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_6fe9f9c87adb79173c1aa2f732811b45.html">include</a></li><li class="navelem"><a class="el" href="dir_8c66c8138e7b35f6ec94720b060b21f5.html">aerial_autonomy</a></li><li class="navelem"><a class="el" href="dir_cdc58b17d4a9946c2f8de8826eb5b0fc.html">controllers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -109,7 +109,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    boost::mutex::scoped_lock lock(goal_mutex_);</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    goal_ = goal;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  }</div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classController.html#a712cefd3af65956a9bd420641b175214">   46</a></span>&#160;  <span class="keyword">virtual</span> GoalType <a class="code" href="classController.html#a712cefd3af65956a9bd420641b175214">getGoal</a>() {</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classController.html#a287a48298ec6f08e36ac3d72a2e6de34">   46</a></span>&#160;  <span class="keyword">virtual</span> GoalType <a class="code" href="classController.html#a287a48298ec6f08e36ac3d72a2e6de34">getGoal</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    boost::mutex::scoped_lock lock(goal_mutex_);</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">return</span> goal_;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  }</div>
@@ -120,14 +120,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                        GoalType goal) = 0;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  boost::mutex goal_mutex_;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keyword">mutable</span> boost::mutex goal_mutex_;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  GoalType goal_;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;};</div>
 <div class="ttc" id="classController_html"><div class="ttname"><a href="classController.html">Controller</a></div><div class="ttdoc">Base Controller class. </div><div class="ttdef"><b>Definition:</b> base_controller.h:17</div></div>
 <div class="ttc" id="classController_html_a172aae7e2475b72fb2eb469ccd198387"><div class="ttname"><a href="classController.html#a172aae7e2475b72fb2eb469ccd198387">Controller::setGoal</a></div><div class="ttdeci">virtual void setGoal(GoalType goal)</div><div class="ttdoc">set the goal condition for the controller. Should use internal locking as the run function can be cal...</div><div class="ttdef"><b>Definition:</b> base_controller.h:38</div></div>
 <div class="ttc" id="classController_html_a86c5dbf78d3d948228c7c629e885151c"><div class="ttname"><a href="classController.html#a86c5dbf78d3d948228c7c629e885151c">Controller::~Controller</a></div><div class="ttdeci">virtual ~Controller()</div><div class="ttdoc">Destructor. </div><div class="ttdef"><b>Definition:</b> base_controller.h:53</div></div>
 <div class="ttc" id="classController_html_a9a5a0b6fbedeb476f3a7bfad5f16167e"><div class="ttname"><a href="classController.html#a9a5a0b6fbedeb476f3a7bfad5f16167e">Controller::runImplementation</a></div><div class="ttdeci">virtual ControlType runImplementation(SensorDataType sensor_data, GoalType goal)=0</div><div class="ttdoc">Run the control loop and return control arguments. </div></div>
-<div class="ttc" id="classController_html_a712cefd3af65956a9bd420641b175214"><div class="ttname"><a href="classController.html#a712cefd3af65956a9bd420641b175214">Controller::getGoal</a></div><div class="ttdeci">virtual GoalType getGoal()</div><div class="ttdoc">get the goal condition for the controller. Should use internal locking as the run function can be cal...</div><div class="ttdef"><b>Definition:</b> base_controller.h:46</div></div>
+<div class="ttc" id="classController_html_a287a48298ec6f08e36ac3d72a2e6de34"><div class="ttname"><a href="classController.html#a287a48298ec6f08e36ac3d72a2e6de34">Controller::getGoal</a></div><div class="ttdeci">virtual GoalType getGoal() const </div><div class="ttdoc">get the goal condition for the controller. Should use internal locking as the run function can be cal...</div><div class="ttdef"><b>Definition:</b> base_controller.h:46</div></div>
 <div class="ttc" id="classController_html_a5caae261ff8a9f299cb8d220fbaf204b"><div class="ttname"><a href="classController.html#a5caae261ff8a9f299cb8d220fbaf204b">Controller::run</a></div><div class="ttdeci">virtual ControlType run(SensorDataType sensor_data)</div><div class="ttdoc">Run the control loop and return control arguments. </div><div class="ttdef"><b>Definition:</b> base_controller.h:25</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.6-->

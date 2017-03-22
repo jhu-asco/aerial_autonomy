@@ -22,7 +22,7 @@
 <para><xrefsect id="todo_1_todo000012"><xreftitle>Todo</xreftitle><xrefdescription><para>Gowtham Maybe use shared/unique pointers </para></xrefdescription></xrefsect></para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="17" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="17" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="17" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="17" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -62,7 +62,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="27" bodyend="29"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="27" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="27" bodyend="29"/>
       </memberdef>
       <memberdef kind="function" id="classTypeMap_1af45351278345a92d2d2fb13a977858aa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -89,7 +89,25 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="37" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="37" bodyend="39"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="37" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="37" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classTypeMap_1a44adb7aedc90a3acc2ca461cd16a91d3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class ObjectT</type>
+          </param>
+        </templateparamlist>
+        <type>const ObjectT *</type>
+        <definition>const ObjectT* TypeMap&lt; GenericObjectT &gt;::getObject</definition>
+        <argsstring>() const </argsstring>
+        <name>getObject</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="41" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="41" bodyend="44"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -104,9 +122,10 @@
 </parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="12" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="12" bodyend="40"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="12" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="12" bodyend="45"/>
     <listofallmembers>
       <member refid="classTypeMap_1af45351278345a92d2d2fb13a977858aa" prot="public" virt="non-virtual"><scope>TypeMap</scope><name>getObject</name></member>
+      <member refid="classTypeMap_1a44adb7aedc90a3acc2ca461cd16a91d3" prot="public" virt="non-virtual"><scope>TypeMap</scope><name>getObject</name></member>
       <member refid="classTypeMap_1a63cc1d01ecc1f771cc36436621e1c32b" prot="private" virt="non-virtual"><scope>TypeMap</scope><name>object_storage_map_</name></member>
       <member refid="classTypeMap_1a738b13adaac930d128c1a81b08628b9e" prot="public" virt="non-virtual"><scope>TypeMap</scope><name>setObject</name></member>
     </listofallmembers>

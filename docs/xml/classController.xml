@@ -21,7 +21,7 @@
       </param>
     </templateparamlist>
       <sectiondef kind="private-attrib">
-      <memberdef kind="variable" id="classController_1a3900decb29d3f2731050de2b53c7e4de" prot="private" static="no" mutable="no">
+      <memberdef kind="variable" id="classController_1a3900decb29d3f2731050de2b53c7e4de" prot="private" static="no" mutable="yes">
         <type>boost::mutex</type>
         <definition>boost::mutex Controller&lt; SensorDataType, GoalType, ControlType &gt;::goal_mutex_</definition>
         <argsstring></argsstring>
@@ -32,7 +32,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="70" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="70" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="70" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="70" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classController_1aa960f9ef4afad6fa6b1c402e3f533f58" prot="private" static="no" mutable="no">
         <type>GoalType</type>
@@ -45,7 +45,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="74" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="74" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="74" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="74" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -73,7 +73,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="25" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="25" bodyend="32"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="25" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="25" bodyend="32"/>
       </memberdef>
       <memberdef kind="function" id="classController_1a172aae7e2475b72fb2eb469ccd198387" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
@@ -98,12 +98,12 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="38" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="38" bodyend="41"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="38" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="38" bodyend="41"/>
       </memberdef>
-      <memberdef kind="function" id="classController_1a712cefd3af65956a9bd420641b175214" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+      <memberdef kind="function" id="classController_1a287a48298ec6f08e36ac3d72a2e6de34" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>GoalType</type>
         <definition>virtual GoalType Controller&lt; SensorDataType, GoalType, ControlType &gt;::getGoal</definition>
-        <argsstring>()</argsstring>
+        <argsstring>() const </argsstring>
         <name>getGoal</name>
         <briefdescription>
 <para>get the goal condition for the controller. Should use internal locking as the run function can be called from a separate thread </para>        </briefdescription>
@@ -111,7 +111,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="46" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="46" bodyend="49"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="46" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="46" bodyend="49"/>
       </memberdef>
       <memberdef kind="function" id="classController_1a86c5dbf78d3d948228c7c629e885151c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type></type>
@@ -124,7 +124,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="53" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="53" bodyend="53"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="53" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="53" bodyend="53"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -167,7 +167,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="63" column="1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="63" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -196,9 +196,9 @@
 </parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="17" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="17" bodyend="75"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="17" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="17" bodyend="75"/>
     <listofallmembers>
-      <member refid="classController_1a712cefd3af65956a9bd420641b175214" prot="public" virt="virtual"><scope>Controller</scope><name>getGoal</name></member>
+      <member refid="classController_1a287a48298ec6f08e36ac3d72a2e6de34" prot="public" virt="virtual"><scope>Controller</scope><name>getGoal</name></member>
       <member refid="classController_1aa960f9ef4afad6fa6b1c402e3f533f58" prot="private" virt="non-virtual"><scope>Controller</scope><name>goal_</name></member>
       <member refid="classController_1a3900decb29d3f2731050de2b53c7e4de" prot="private" virt="non-virtual"><scope>Controller</scope><name>goal_mutex_</name></member>
       <member refid="classController_1a5caae261ff8a9f299cb8d220fbaf204b" prot="public" virt="virtual"><scope>Controller</scope><name>run</name></member>

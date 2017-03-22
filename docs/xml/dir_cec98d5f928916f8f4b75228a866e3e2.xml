@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_cec98d5f928916f8f4b75228a866e3e2" kind="dir">
+    <compoundname>src/aerial_autonomy</compoundname>
+    <innerfile refid="____init_____8py">__init__.py</innerfile>
+    <innerfile refid="aerial__autonomy__gui_8py">aerial_autonomy_gui.py</innerfile>
+    <innerfile refid="ros__event__trigger_8py">ros_event_trigger.py</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/aerial_autonomy/"/>
+  </compounddef>
+</doxygen>
