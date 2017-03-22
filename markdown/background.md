@@ -70,6 +70,6 @@ The event files can also include other event file as shown in [visual_servoing_e
 The classes created in this project can be found [here](markdown/class_groups.md)
 
 ## Additional Resources
-- [Creating a State Machine](markdown/creating_state_machine.md)
+- [Creating an Autonomy Application](markdown/creating_autonomy_application.md)
 - [Classes by group](markdown/class_groups.md)
 - [Setup and README](README.md)
