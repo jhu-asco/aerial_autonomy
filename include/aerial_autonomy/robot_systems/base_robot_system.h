@@ -3,6 +3,8 @@
 #include <aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h>
 // Store type_map
 #include <aerial_autonomy/common/type_map.h>
+// Iterable Enum
+#include <aerial_autonomy/common/iterable_enum.h>
 // Boost thread stuff
 #include <boost/thread/mutex.hpp>
 // Unique ptr
@@ -38,14 +40,11 @@ public:
   */
   BaseRobotSystem() {
     // Initialize active controller map
-    /// \todo make enum class iterable to do this automatically
-    active_controllers_[HardwareType::Arm] = nullptr;
-    thread_mutexes_[HardwareType::Arm] =
-        std::unique_ptr<boost::mutex>(new boost::mutex);
-
-    active_controllers_[HardwareType::UAV] = nullptr;
-    thread_mutexes_[HardwareType::UAV] =
-        std::unique_ptr<boost::mutex>(new boost::mutex);
+    for (auto hardware_type : IterableEnum<HardwareType>()) {
+      active_controllers_[hardware_type] = nullptr;
+      thread_mutexes_[hardware_type] =
+          std::unique_ptr<boost::mutex>(new boost::mutex);
+    }
   }
 
   /**
