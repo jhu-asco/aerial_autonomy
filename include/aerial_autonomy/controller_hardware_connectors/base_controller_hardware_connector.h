@@ -2,11 +2,14 @@
 #include <aerial_autonomy/controllers/base_controller.h>
 
 /**
-* @brief Type of hardware used by controllerhardwareconnector
+* @brief Type of hardware used by ControllerHardwareConnector. Enum ID must be
+* contiguous.
 */
 enum class HardwareType {
-  UAV, ///< Only aerial vehicle
-  Arm, ///< Only arm
+  UAV,         ///< Only aerial vehicle
+  Arm,         ///< Only arm
+  First = UAV, // This should always point to the first in the list
+  Last = Arm   // This should always point to the last in the list
 };
 
 /**
@@ -80,7 +83,7 @@ public:
    *
    * @return Goal for controller
    */
-  GoalType getGoal() { return controller_.getGoal(); }
+  GoalType getGoal() const { return controller_.getGoal(); }
 
   /**
   * @brief Return the type of hardware (HardwareType) used by the controller

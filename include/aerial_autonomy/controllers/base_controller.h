@@ -43,7 +43,7 @@ public:
    * @brief get the goal condition for the controller. Should use
    * internal locking as the run function can be called from a separate thread
    */
-  virtual GoalType getGoal() {
+  virtual GoalType getGoal() const {
     boost::mutex::scoped_lock lock(goal_mutex_);
     return goal_;
   }
@@ -67,7 +67,7 @@ private:
   /**
   * @brief Synchronize set goal and running controller implementation.
   */
-  boost::mutex goal_mutex_;
+  mutable boost::mutex goal_mutex_;
   /**
   * @brief store goal internally for usage with Controller::runImplementation
   */
