@@ -25,7 +25,7 @@ var searchData=
   ['controllerhardwareconnector_3c_20emptysensor_2c_20velocityyaw_2c_20velocityyaw_20_3e',['ControllerHardwareConnector&lt; EmptySensor, VelocityYaw, VelocityYaw &gt;',['../classControllerHardwareConnector.html',1,'']]],
   ['controllerhardwareconnector_3c_20joysticksyaw_2c_20emptygoal_2c_20rollpitchyawthrust_20_3e',['ControllerHardwareConnector&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;',['../classControllerHardwareConnector.html',1,'']]],
   ['controllog',['controllog',['../classSampleParser.html#a78923bbce68debb4d035a2d8b25f7d6d',1,'SampleParser']]],
-  ['creating_5fstate_5fmachine_2emd',['creating_state_machine.md',['../creating__state__machine_8md.html',1,'']]],
+  ['creating_5fautonomy_5fapplication_2emd',['creating_autonomy_application.md',['../creating__autonomy__application_8md.html',1,'']]],
   ['classes_20by_20group',['Classes by Group',['../md_markdown_class_groups.html',1,'']]],
-  ['creating_20a_20state_20machine',['Creating a State Machine',['../md_markdown_creating_state_machine.html',1,'']]]
+  ['creating_20an_20autonomy_20application',['Creating an Autonomy Application',['../md_markdown_creating_autonomy_application.html',1,'']]]
 ];

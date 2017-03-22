@@ -36,7 +36,7 @@
 </verbatim></para><para>The event files can also include other event file as shown in <ulink url="https://github.com/jhu-asco/aerial_autonomy/blob/master/events/visual_servoing_events">visual_servoing_events</ulink> file. The event manager class provides a function to trigger events for the state machine by name. The GUI takes in an event file and automatically creates buttons corresponding to events. The user can then trigger the events by pressing buttons in GUI</para><para><heading level="2">Classes segregated into groups</heading>
 </para><para>The classes created in this project can be found <ref refid="md_markdown_class_groups" kindref="compound">here</ref></para><para><heading level="2">Additional Resources</heading>
 </para><para><itemizedlist>
-<listitem><para><ref refid="md_markdown_creating_state_machine" kindref="compound">Creating a State Machine</ref></para></listitem><listitem><para><ref refid="md_markdown_class_groups" kindref="compound">Classes by group</ref></para></listitem><listitem><para><ref refid="md_README" kindref="compound">Setup and README</ref> </para></listitem></itemizedlist>
+<listitem><para><ref refid="md_markdown_creating_autonomy_application" kindref="compound">Creating an Autonomy Application</ref></para></listitem><listitem><para><ref refid="md_markdown_class_groups" kindref="compound">Classes by group</ref></para></listitem><listitem><para><ref refid="md_README" kindref="compound">Setup and README</ref> </para></listitem></itemizedlist>
 </para>    </detaileddescription>
   </compounddef>
 </doxygen>

@@ -79,7 +79,7 @@
 <codeline lineno="70"><highlight class="normal">The<sp/>classes<sp/>created<sp/>in<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>project<sp/>can<sp/>be<sp/>found<sp/>[here](markdown/class_groups.md)</highlight></codeline>
 <codeline lineno="71"><highlight class="normal"></highlight></codeline>
 <codeline lineno="72"><highlight class="normal">##<sp/>Additional<sp/>Resources</highlight></codeline>
-<codeline lineno="73"><highlight class="normal">-<sp/>[Creating<sp/>a<sp/>State<sp/>Machine](markdown/creating_state_machine.md)</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">-<sp/>[Creating<sp/>an<sp/>Autonomy<sp/>Application](markdown/creating_autonomy_application.md)</highlight></codeline>
 <codeline lineno="74"><highlight class="normal">-<sp/>[Classes<sp/>by<sp/>group](markdown/class_groups.md)</highlight></codeline>
 <codeline lineno="75"><highlight class="normal">-<sp/>[Setup<sp/>and<sp/>README](README.md)</highlight></codeline>
     </programlisting>
