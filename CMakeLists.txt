@@ -16,6 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   rostest
   tf_conversions
   quad_simulator_parser
+  arm_plugins
 )
 
 include(cmake/add_event_function.cmake)
@@ -254,6 +255,7 @@ catkin_add_gtest(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test tests/contro
 catkin_add_gtest(${PROJECT_NAME}-uav-system-test tests/robot_systems/uav_system_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-uav-basic-functor-tests tests/actions_guards/uav_basic_functor_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-uav-basic-state-machine-test tests/state_machines/uav_state_machine_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-arm-system-test tests/robot_systems/arm_system_tests.test tests/robot_systems/arm_system_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-event-test tests/state_machines/state_machine_gui_connector_event_tests.test tests/state_machines/state_machine_gui_connector_event_tests.cpp)
 add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-event-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
 add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-pose-test tests/state_machines/state_machine_gui_connector_pose_tests.test tests/state_machines/state_machine_gui_connector_pose_tests.cpp)
@@ -283,6 +285,9 @@ if(TARGET ${PROJECT_NAME}-evnt-mngr-test)
 endif()
 if(TARGET ${PROJECT_NAME}-uav-system-test)
   target_link_libraries(${PROJECT_NAME}-uav-system-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-arm-system-test)
+  target_link_libraries(${PROJECT_NAME}-arm-system-test ${catkin_LIBRARIES} ${GCOP_LIBRARIES} ${TINYXML_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-uav-basic-functor-tests)
   target_link_libraries(${PROJECT_NAME}-uav-basic-functor-tests aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
