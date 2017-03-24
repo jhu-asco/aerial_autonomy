@@ -32,13 +32,6 @@ public:
   ArmSystem(ros::NodeHandle &nh) : BaseRobotSystem(), arm_hardware_(nh) {}
 
   /**
-  * @brief Public API call to set end effector transform
-  */
-  void setEndEffectorPose(const Eigen::Matrix4d &end_effector_pose) {
-    arm_hardware_.setEndEffectorPose(end_effector_pose);
-  }
-
-  /**
   * @brief Public API call to get end effector transform
   */
   Eigen::Matrix4d getEndEffectorPose() {
