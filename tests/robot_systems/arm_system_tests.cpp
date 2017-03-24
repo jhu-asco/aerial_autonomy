@@ -8,6 +8,7 @@ TEST(ArmSystemTests, Constructor) {
   ros::NodeHandle nh;
   ASSERT_NO_THROW(new ArmSystem(nh));
 }
+/// \todo Add tests for arm system using a simulated arm hardware
 ///
 
 int main(int argc, char **argv) {
