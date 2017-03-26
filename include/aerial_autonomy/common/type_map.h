@@ -38,6 +38,13 @@ public:
     return static_cast<ObjectT *>(object_storage_map_[typeid(ObjectT)]);
   }
 
+  /**
+  * @brief return a const oject pointer stored
+  *
+  * @tparam ObjectT type of object to be retrieved
+  *
+  * @return const pointer to the instance of the object.
+  */
   template <class ObjectT> const ObjectT *getObject() const {
     return (
         static_cast<const ObjectT *>(object_storage_map_.at(typeid(ObjectT))));
