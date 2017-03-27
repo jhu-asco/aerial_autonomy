@@ -1,3 +1,7 @@
+syntax = "proto2";
+
+import "vision_based_uav_system_config.proto";
+
 message UAVSystemConfig {
   /**
   * @brief Battery percentage required for takeoff
@@ -31,4 +35,10 @@ message UAVSystemConfig {
   * TODO Use lat, long coordinates may be
   */
   optional double max_goal_distance = 6 [ default = 100 ];
+
+  /**
+  * @brief A crude form of inheritance for proto. Contains a config for
+  * subclasses of UAVSystemConfig
+  */
+  oneof subclass { VisionBasedUAVSystemConfig vision_based_uav_config = 7; }
 }

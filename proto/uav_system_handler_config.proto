@@ -1,3 +1,5 @@
+syntax = "proto2";
+
 import "uav_system_config.proto";
 import "common_system_handler_config.proto";
 

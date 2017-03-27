@@ -1,0 +1,7 @@
+syntax = "proto2";
+
+import "velocity_based_position_controller_config.proto";
+
+message VisualServoingControllerConnectorConfig {
+  required VelocityBasedPositionControllerConfig position_controller_config = 1;
+}

@@ -1,0 +1,7 @@
+syntax = "proto2";
+
+import "visual_servoing_controller_connector_config.proto";
+
+message VisionBasedUAVSystemConfig {
+  required VisualServoingControllerConnectorConfig visual_servoing_config = 1;
+}

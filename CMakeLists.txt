@@ -21,7 +21,7 @@ find_package(catkin REQUIRED COMPONENTS
 include(cmake/add_event_function.cmake)
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system)
-find_package(Protobuf REQUIRED) 
+find_package(Protobuf 3.1 REQUIRED) 
 find_package(Glog REQUIRED)
 
 # Quad simulator parser dependencies
@@ -154,8 +154,11 @@ visual_servoing_events
 ##############
 PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER 
   proto/uav_system_config.proto
+  proto/vision_based_uav_system_config.proto
   proto/common_system_handler_config.proto
   proto/uav_system_handler_config.proto
+  proto/visual_servoing_controller_connector_config.proto
+  proto/velocity_based_position_controller_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -165,7 +168,6 @@ add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-# include_directories(include)
 include_directories(
   include
   ${Boost_INCLUDE_DIRS}
@@ -179,10 +181,13 @@ include_directories(
 add_library(aerial_autonomy
   src/common/async_timer.cpp
   src/controllers/manual_rpyt_controller.cpp
+  src/controllers/velocity_based_position_controller.cpp
+  src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp
   src/controller_hardware_connectors/position_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
 )
+add_dependencies(aerial_autonomy proto)
 
 
 ## Add cmake target dependencies of the library

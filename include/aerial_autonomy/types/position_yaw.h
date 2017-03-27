@@ -45,9 +45,29 @@ struct PositionYaw : public Position {
   /**
   * @brief Compare two position and yaw entities
   *
-  * @param p PositionYaw to compare against
+  * @param p PositionYaw to add
   *
-  * @return True if position and yaw are not the same
+  * @return True if position and yaw are different
   */
   bool operator!=(const PositionYaw &p) const { return !(*this == p); }
+  /**
+  * @brief Add two position and yaw entities
+  * @param p PositionYaw to add
+  * @return Sum of position and yaw
+  */
+  PositionYaw operator+(const PositionYaw &p) const {
+    Position p1(this->x, this->y, this->z);
+    Position p2(p.x, p.y, p.z);
+    return PositionYaw(p1 + p2, this->yaw + p.yaw);
+  }
+  /**
+  * @brief Subtract two position and yaw entities
+  * @param p PositionYaw to subtract
+  * @return Difference of position and yaw
+  */
+  PositionYaw operator-(const PositionYaw &p) const {
+    Position p1(this->x, this->y, this->z);
+    Position p2(p.x, p.y, p.z);
+    return PositionYaw(p1 - p2, this->yaw - p.yaw);
+  }
 };

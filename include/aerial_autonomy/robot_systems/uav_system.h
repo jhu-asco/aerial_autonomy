@@ -14,12 +14,17 @@
  * Provides builtin position, velocity, and rpy controllers for controlling UAV
 */
 class UAVSystem : public BaseRobotSystem {
-
-private:
+protected:
   /**
   * @brief Hardware
   */
   parsernode::Parser &drone_hardware_;
+  /**
+   * @brief UAV configuration parameters
+   */
+  UAVSystemConfig config_;
+
+private:
   // Controllers
   /**
   * @brief Position Controller
@@ -45,10 +50,6 @@ private:
   * @brief connector for rpyt controller
   */
   ManualRPYTControllerDroneConnector rpyt_controller_drone_connector_;
-  /**
-   * @brief UAV configuration parameters
-   */
-  UAVSystemConfig config_;
 
 public:
   /**
@@ -67,14 +68,13 @@ public:
   * takeoff height, etc.
   */
   UAVSystem(parsernode::Parser &drone_hardware, UAVSystemConfig config)
-      : BaseRobotSystem(), drone_hardware_(drone_hardware),
+      : BaseRobotSystem(), drone_hardware_(drone_hardware), config_(config),
         position_controller_drone_connector_(drone_hardware,
                                              builtin_position_controller_),
         velocity_controller_drone_connector_(drone_hardware,
                                              builtin_velocity_controller_),
         rpyt_controller_drone_connector_(drone_hardware,
-                                         manual_rpyt_controller_),
-        config_(config) {
+                                         manual_rpyt_controller_) {
     // Add control hardware connector containers
     controller_hardware_connector_container_.setObject(
         position_controller_drone_connector_);

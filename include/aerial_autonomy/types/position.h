@@ -38,4 +38,20 @@ struct Position {
   * @return True if two positions are not same
   */
   bool operator!=(const Position &p) const { return !(*this == p); }
+  /**
+  * @ brief Add two positions
+  * @param p Position to add
+  * @return Sum of this position and p
+  */
+  Position operator+(const Position &p) const {
+    return Position(p.x + this->x, p.y + this->y, p.z + this->z);
+  }
+  /**
+  * @ brief Subtract two positions
+  * @param p Position to subtract
+  * @return Difference of this position and p
+  */
+  Position operator-(const Position &p) const {
+    return Position(this->x - p.x, this->y - p.y, this->z - p.z);
+  }
 };
