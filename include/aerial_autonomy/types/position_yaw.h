@@ -21,8 +21,7 @@ struct PositionYaw : public Position {
   */
   PositionYaw(Position p, double yaw) : Position(p), yaw(yaw) {}
   /**
-  * @brief Explicit constructor with x,y,z, and yaw
-  *
+  * @brief Explicit constructor with x,y,z,   *
   * @param x x component (m)
   * @param y y component (m)
   * @param z z component (m)
@@ -30,6 +29,23 @@ struct PositionYaw : public Position {
   */
   PositionYaw(double x, double y, double z, double yaw)
       : Position(x, y, z), yaw(yaw) {}
+
+  /**
+  * @brief Return position
+  * @return position
+  */
+  Position position() { return Position(x, y, z); }
+
+  /**
+  * @brief Set the Position
+  * @param p Position to set
+  */
+  void setPosition(const Position &p) {
+    x = p.x;
+    y = p.y;
+    z = p.z;
+  }
+
   double yaw; ///< Orientation about body axis rad
 
   /**

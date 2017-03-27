@@ -8,9 +8,10 @@ VelocityBasedPositionController::runImplementation(PositionYaw sensor_data,
                  std::min(std::max(config_.yaw_gain() * position_diff.yaw,
                                    -config_.max_yaw_rate()),
                           config_.max_yaw_rate());
-  // \todo (matt) add max velocity and possibly factor in control rate for
-  // yaw_cmd
-  return VelocityYaw(config_.position_gain() * position_diff.x,
-                     config_.position_gain() * position_diff.y,
-                     config_.position_gain() * position_diff.z, yaw_cmd);
+  double position_norm = position_diff.position().norm();
+  double velocity =
+      std::min(config_.max_velocity(), config_.position_gain() * position_norm);
+  return VelocityYaw(velocity * position_diff.x / position_norm,
+                     velocity * position_diff.y / position_norm,
+                     velocity * position_diff.z / position_norm, yaw_cmd);
 }

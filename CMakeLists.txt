@@ -271,6 +271,7 @@ add_rostest_gtest(${PROJECT_NAME}-uav-system-handler-test tests/system_handlers/
 add_dependencies(${PROJECT_NAME}-uav-system-handler-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
 catkin_add_gtest(${PROJECT_NAME}-thread-safe-state-machine-test tests/common/thread_safe_state_machine_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-iterable-enum-test tests/common/iterable_enum_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-velocity-based-position-controller tests/controllers/velocity_based_position_controller_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
@@ -312,6 +313,9 @@ if(TARGET ${PROJECT_NAME}-thread-safe-state-machine-test)
 endif()
 if(TARGET ${PROJECT_NAME}-uav-system-handler-test)
   target_link_libraries(${PROJECT_NAME}-uav-system-handler-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-velocity-based-position-controller)
+  target_link_libraries(${PROJECT_NAME}-velocity-based-position-controller aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 
 ## Add folders to be run by python nosetests

@@ -11,7 +11,12 @@ class VelocityBasedPositionController
     : public Controller<PositionYaw, PositionYaw, VelocityYaw> {
 public:
   /**
-  * @brief Constructor
+  * @brief Constructor with default configuration
+  */
+  VelocityBasedPositionController()
+      : config_(VelocityBasedPositionControllerConfig()) {}
+  /**
+  * @brief Constructor which takes a configuration
   */
   VelocityBasedPositionController(VelocityBasedPositionControllerConfig config)
       : config_(config) {}
