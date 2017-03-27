@@ -1,5 +1,8 @@
 #include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h"
 
+void VisualServoingControllerDroneConnector::roiCallback(
+    const sensor_msgs::RegionOfInterest &roi_msg) {}
+
 PositionYaw VisualServoingControllerDroneConnector::extractSensorData() {
   return PositionYaw();
 }

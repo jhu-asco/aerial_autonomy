@@ -7,6 +7,8 @@
 
 #include <ros/ros.h>
 
+#include <sensor_msgs/RegionOfInterest.h>
+
 #include <parsernode/parser.h>
 
 /**
@@ -24,7 +26,10 @@ public:
       VelocityBasedPositionController &controller,
       VisualServoingControllerConnectorConfig config)
       : ControllerHardwareConnector(controller, HardwareType::UAV),
-        config_(config), drone_hardware_(drone_hardware), nh_(nh) {}
+        config_(config), drone_hardware_(drone_hardware), nh_(nh),
+        roi_subscriber_(nh_.subscribe(
+            "roi", 1, &VisualServoingControllerDroneConnector::roiCallback,
+            this)) {}
   /**
    * @brief Destructor
    */
@@ -45,6 +50,11 @@ protected:
    */
   virtual void sendHardwareCommands(VelocityYaw controls);
 
+  /**
+   * @brief ROI subscriber callback
+   */
+  void roiCallback(const sensor_msgs::RegionOfInterest &roi_msg);
+
 private:
   /**
   * @brief Configuration
@@ -58,4 +68,8 @@ private:
   * @brief ROS node handle for receiving ROI
   */
   ros::NodeHandle nh_;
+  /**
+  * @brief ROS subscriber for receiving region of interest
+  */
+  ros::Subscriber roi_subscriber_;
 };
