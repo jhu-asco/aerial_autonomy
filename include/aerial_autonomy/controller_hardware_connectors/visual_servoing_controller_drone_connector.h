@@ -1,8 +1,8 @@
 #pragma once
 #include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
 #include "aerial_autonomy/controllers/velocity_based_position_controller.h"
-#include "aerial_autonomy/types/velocity_yaw.h"
 #include "aerial_autonomy/types/position_yaw.h"
+#include "aerial_autonomy/types/velocity_yaw.h"
 #include "visual_servoing_controller_connector_config.pb.h"
 
 #include <ros/ros.h>
