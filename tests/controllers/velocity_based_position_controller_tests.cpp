@@ -6,7 +6,7 @@ TEST(VelocityBasedPositionControllerTests, Constructor) {
   ASSERT_NO_THROW(VelocityBasedPositionController());
 }
 
-TEST(VelocityBasedPositionControllerTests, TestRunControlsInBounds) {
+TEST(VelocityBasedPositionControllerTests, ControlsInBounds) {
   VelocityBasedPositionControllerConfig config;
   VelocityBasedPositionController controller(config);
   PositionYaw sensor_data(0, 0, 0, 0);
@@ -20,7 +20,7 @@ TEST(VelocityBasedPositionControllerTests, TestRunControlsInBounds) {
   ASSERT_NEAR(controls.yaw, position_diff.yaw * config.yaw_gain(), 1e-8);
 }
 
-TEST(VelocityBasedPositionControllerTests, TestRunControlsOutofBounds) {
+TEST(VelocityBasedPositionControllerTests, ControlsOutofBounds) {
   VelocityBasedPositionControllerConfig config;
   VelocityBasedPositionController controller(config);
   PositionYaw sensor_data(0, 0, 0, 0);
@@ -38,7 +38,7 @@ TEST(VelocityBasedPositionControllerTests, TestRunControlsOutofBounds) {
   ASSERT_NEAR(controls.yaw, config.max_yaw_rate(), 1e-8);
 }
 
-TEST(VelocityBasedPositionControllerTests, TestRunControlsOutofBoundsNegYaw) {
+TEST(VelocityBasedPositionControllerTests, ControlsOutofBoundsNegYaw) {
   VelocityBasedPositionControllerConfig config;
   VelocityBasedPositionController controller(config);
   PositionYaw sensor_data(0, 0, 0, 0);
