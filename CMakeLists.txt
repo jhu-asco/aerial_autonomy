@@ -18,6 +18,9 @@ find_package(catkin REQUIRED COMPONENTS
   rostest
   tf_conversions
   quad_simulator_parser
+  tf
+  cv_bridge
+  image_transport
 )
 
 include(cmake/add_event_function.cmake)
@@ -161,6 +164,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/uav_system_handler_config.proto
   proto/visual_servoing_controller_connector_config.proto
   proto/velocity_based_position_controller_config.proto
+  proto/constant_heading_depth_controller_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -182,8 +186,10 @@ include_directories(
 ## Declare a C++ library
 add_library(aerial_autonomy
   src/common/async_timer.cpp
+  src/common/roi_to_position_converter.cpp
   src/controllers/manual_rpyt_controller.cpp
   src/controllers/velocity_based_position_controller.cpp
+  src/controllers/constant_heading_depth_controller.cpp
   src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp
   src/controller_hardware_connectors/position_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
@@ -272,17 +278,18 @@ add_dependencies(${PROJECT_NAME}-uav-system-handler-test ${${PROJECT_NAME}_EXPOR
 catkin_add_gtest(${PROJECT_NAME}-thread-safe-state-machine-test tests/common/thread_safe_state_machine_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-iterable-enum-test tests/common/iterable_enum_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-velocity-based-position-controller tests/controllers/velocity_based_position_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-constant-heading-depth-controller tests/controllers/constant_heading_depth_controller_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test)
-  target_link_libraries(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test)
-  target_link_libraries(${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test)
-  target_link_libraries(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-logic-states-test)
   target_link_libraries(${PROJECT_NAME}-logic-states-test proto ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
@@ -306,7 +313,7 @@ if(TARGET ${PROJECT_NAME}-state-machine-gui-connector-pose-test)
   target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-pose-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-async-timer-test)
-  target_link_libraries(${PROJECT_NAME}-async-timer-test aerial_autonomy proto ${Boost_LIBRARIES} ${catkin_LIBRARIES} ${PROTOBUF_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-async-timer-test aerial_autonomy proto ${Boost_LIBRARIES} ${catkin_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-thread-safe-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-thread-safe-state-machine-test ${Boost_LIBRARIES} ${catkin_LIBRARIES})
@@ -316,6 +323,9 @@ if(TARGET ${PROJECT_NAME}-uav-system-handler-test)
 endif()
 if(TARGET ${PROJECT_NAME}-velocity-based-position-controller)
   target_link_libraries(${PROJECT_NAME}-velocity-based-position-controller aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-constant-heading-depth-controller)
+  target_link_libraries(${PROJECT_NAME}-constant-heading-depth-controller aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 
 ## Add folders to be run by python nosetests

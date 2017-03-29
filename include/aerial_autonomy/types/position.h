@@ -1,4 +1,7 @@
 #pragma once
+
+#include <cmath>
+
 /**
 * @brief Store 3D position
 */

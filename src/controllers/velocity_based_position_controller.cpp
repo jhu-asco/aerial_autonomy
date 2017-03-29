@@ -4,6 +4,7 @@ VelocityYaw
 VelocityBasedPositionController::runImplementation(PositionYaw sensor_data,
                                                    PositionYaw goal) {
   PositionYaw position_diff = goal - sensor_data;
+  // \todo Matt account for wrapping
   auto yaw_cmd = sensor_data.yaw +
                  std::min(std::max(config_.yaw_gain() * position_diff.yaw,
                                    -config_.max_yaw_rate()),

@@ -1,35 +1,32 @@
 #pragma once
+#include "aerial_autonomy/common/roi_to_position_converter.h"
 #include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
-#include "aerial_autonomy/controllers/velocity_based_position_controller.h"
+#include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
 #include "visual_servoing_controller_connector_config.pb.h"
 
-#include <ros/ros.h>
-
-#include <sensor_msgs/RegionOfInterest.h>
-
 #include <parsernode/parser.h>
+
+#include <tf/tf.h>
 
 /**
  * @brief A visual servoing controller that uses an image ROI as feedback
  */
 class VisualServoingControllerDroneConnector
-    : public ControllerHardwareConnector<PositionYaw, PositionYaw,
-                                         VelocityYaw> {
+    : public ControllerHardwareConnector<PositionYaw, Position,
+                                         VelocityYawRate> {
 public:
   /**
    * @brief Constructor
    */
   VisualServoingControllerDroneConnector(
-      ros::NodeHandle nh, parsernode::Parser &drone_hardware,
-      VelocityBasedPositionController &controller,
+      ros::NodeHandle &nh, parsernode::Parser &drone_hardware,
+      ConstantHeadingDepthController &controller,
       VisualServoingControllerConnectorConfig config)
       : ControllerHardwareConnector(controller, HardwareType::UAV),
-        config_(config), drone_hardware_(drone_hardware), nh_(nh),
-        roi_subscriber_(nh_.subscribe(
-            "roi", 1, &VisualServoingControllerDroneConnector::roiCallback,
-            this)) {}
+        config_(config), drone_hardware_(drone_hardware),
+        roi_to_position_converter_(nh) {}
   /**
    * @brief Destructor
    */
@@ -48,14 +45,14 @@ protected:
    *
    * @param controls velocity command to send to UAV
    */
-  virtual void sendHardwareCommands(VelocityYaw controls);
-
-  /**
-   * @brief ROI subscriber callback
-   */
-  void roiCallback(const sensor_msgs::RegionOfInterest &roi_msg);
+  virtual void sendHardwareCommands(VelocityYawRate controls);
 
 private:
+  void initializeDesiredServoingDirection();
+
+  tf::Transform getBodyFrameTransform();
+  tf::Vector3 getTrackingDirectionGlobalFrame();
+
   /**
   * @brief Configuration
   */
@@ -65,11 +62,12 @@ private:
   */
   parsernode::Parser &drone_hardware_;
   /**
-  * @brief ROS node handle for receiving ROI
+  * @brief Converts received ROS ROI to a position
   */
-  ros::NodeHandle nh_;
+  RoiToPositionConverter roi_to_position_converter_;
   /**
-  * @brief ROS subscriber for receiving region of interest
+  * @brief UAV should point in this direction as it servos
   */
-  ros::Subscriber roi_subscriber_;
+  tf::Vector3 desired_servoing_direction_;
+  tf::Transform camera_transform_;
 };
