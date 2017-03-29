@@ -1,5 +1,8 @@
 #pragma once
 
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 namespace math {
 
 /**
@@ -8,7 +11,7 @@ namespace math {
  * @return Wrapped angle
  */
 static double angleWrap(double x) {
-  x = fmod(x + M_PI, 2 * M_PI);
+  x = std::fmod(x + M_PI, 2 * M_PI);
   if (x < 0)
     x += 2 * M_PI;
   return x - M_PI;
