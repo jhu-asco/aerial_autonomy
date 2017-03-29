@@ -1,0 +1,4 @@
+<launch>
+  <test test-name="ArmSystemTests" pkg="aerial_autonomy" type="aerial_autonomy-arm-system-test">
+  </test>
+</launch>
