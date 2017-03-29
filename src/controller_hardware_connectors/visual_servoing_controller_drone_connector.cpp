@@ -1,10 +1,9 @@
 #include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h"
 
 PositionYaw VisualServoingControllerDroneConnector::extractSensorData() {
-  // \todo Matt needs to be position * depth
-  tf::Vector3 tracking_position = getTrackingDirectionGlobalFrame();
   parsernode::common::quaddata quad_data;
   drone_hardware_.getquaddata(quad_data);
+  tf::Vector3 tracking_position = getTrackingVectorGlobalFrame();
   return PositionYaw(tracking_position.getX(), tracking_position.getY(),
                      tracking_position.getZ(), quad_data.rpydata.z);
 }
@@ -19,7 +18,7 @@ void VisualServoingControllerDroneConnector::sendHardwareCommands(
 }
 
 tf::Vector3
-VisualServoingControllerDroneConnector::getTrackingDirectionGlobalFrame() {
+VisualServoingControllerDroneConnector::getTrackingVectorGlobalFrame() {
   Position object_position_cam;
   if (!roi_to_position_converter_.getObjectPosition(object_position_cam)) {
     // \todo(Matt) handle case when cannot get object position
@@ -37,9 +36,4 @@ tf::Transform VisualServoingControllerDroneConnector::getBodyFrameTransform() {
   drone_hardware_.getquaddata(quad_data);
   return tf::Transform(tf::createQuaternionFromRPY(
       quad_data.rpydata.x, quad_data.rpydata.y, quad_data.rpydata.z));
-}
-
-void VisualServoingControllerDroneConnector::
-    initializeDesiredServoingDirection() {
-  desired_servoing_direction_ = getTrackingDirectionGlobalFrame();
 }

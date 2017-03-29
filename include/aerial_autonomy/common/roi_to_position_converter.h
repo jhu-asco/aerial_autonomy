@@ -4,6 +4,8 @@
 
 #include <ros/ros.h>
 
+#include <cv_bridge/cv_bridge.h>
+
 #include <image_transport/image_transport.h>
 
 #include <sensor_msgs/CameraInfo.h>
@@ -26,12 +28,20 @@ public:
         image_subscriber_(it_.subscribe(
             "image", 1, &RoiToPositionConverter::imageCallback, this)) {}
   /**
-   * @brief Get the position of the object in the ROI (in the frame of the
+   * @brief Get the 3D position of the ROI (in the frame of the
    * camera)
+   * @param roi Region of interest to consider
+   * @param depth Pixel depths
+   * @param cam_info Camera calibration parameters
+   * @param max_distance Ignore pixels farther away than this
    * @param pos Returned position
    * @return Return true if successful and false otherwise
    */
   bool getObjectPosition(Position &pos);
+  static bool computeObjectPosition(const sensor_msgs::RegionOfInterest &roi,
+                                    const cv_bridge::CvImagePtr &depth,
+                                    const sensor_msgs::CameraInfoPtr &cam_info,
+                                    double max_distance, Position &pos);
 
 private:
   /**
@@ -100,13 +110,13 @@ private:
   */
   sensor_msgs::RegionOfInterest roi_rect_;
   /**
-  * @brief Object 2D position in camera (pixels)
-  */
-  Eigen::Vector2d object_position_cam_;
-  /**
   * @brief Distance of object from camera (meters)
   */
   double object_distance_;
+  /**
+  * @brief Position of object in camera frame (meters)
+  */
+  Position object_position_;
   /**
   * @brief Max distance of object from camera (meters)
   * \todo Make this a configurable param

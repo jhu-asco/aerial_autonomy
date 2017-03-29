@@ -48,10 +48,8 @@ protected:
   virtual void sendHardwareCommands(VelocityYawRate controls);
 
 private:
-  void initializeDesiredServoingDirection();
-
   tf::Transform getBodyFrameTransform();
-  tf::Vector3 getTrackingDirectionGlobalFrame();
+  tf::Vector3 getTrackingVectorGlobalFrame();
 
   /**
   * @brief Configuration
@@ -69,5 +67,9 @@ private:
   * @brief UAV should point in this direction as it servos
   */
   tf::Vector3 desired_servoing_direction_;
+  /*
+  * @brief camera transform with respect to body
+  * \todo Matt Add to configuration (using rpy maybe?)
+  */
   tf::Transform camera_transform_;
 };

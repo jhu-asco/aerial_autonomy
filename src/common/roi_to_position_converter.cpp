@@ -1,7 +1,5 @@
 #include "aerial_autonomy/common/roi_to_position_converter.h"
 
-#include <cv_bridge/cv_bridge.h>
-
 #include <sensor_msgs/image_encodings.h>
 
 #include <glog/logging.h>
@@ -36,16 +34,42 @@ void RoiToPositionConverter::depthCallback(
     return;
   }
 
-  cv_bridge::CvImagePtr cv_depth =
+  cv_bridge::CvImagePtr depth =
       cv_bridge::toCvCopy(depth_msg, sensor_msgs::image_encodings::TYPE_32FC1);
+  // \todo Matt lock this to avoid conflict with getObjectPosition
+  if (!computeObjectPosition(roi_rect_, depth, camera_info_,
+                             max_object_distance_, object_position_)) {
+    // \todo Matt handle this case
+  }
+  object_distance_ = object_position_.z;
+}
+
+bool RoiToPositionConverter::getObjectPosition(Position &pos) {
+  if ((ros::Time::now() - last_roi_update_time_).toSec() > 0.5) {
+    // No roi no object position
+    return false;
+  }
+  if (!camera_info_) // Need cam info
+    return false;
+
+  // \todo Matt lock this to avoid conflict with depthCallback
+  pos = object_position_;
+  return true;
+}
+
+bool RoiToPositionConverter::computeObjectPosition(
+    const sensor_msgs::RegionOfInterest &roi_rect,
+    const cv_bridge::CvImagePtr &depth,
+    const sensor_msgs::CameraInfoPtr &camera_info, double max_distance,
+    Position &pos) {
   std::vector<std::pair<double, Eigen::Vector2d>> roi_depths;
-  for (unsigned int x = roi_rect_.x_offset;
-       x < roi_rect_.x_offset + roi_rect_.width; x++) {
-    for (unsigned int y = roi_rect_.y_offset;
-         y < roi_rect_.y_offset + roi_rect_.height; y++) {
-      float px_depth = *(cv_depth->image.ptr<float>(y, x));
+  for (unsigned int x = roi_rect.x_offset;
+       x < roi_rect.x_offset + roi_rect.width; x++) {
+    for (unsigned int y = roi_rect.y_offset;
+         y < roi_rect.y_offset + roi_rect.height; y++) {
+      float px_depth = *(depth->image.ptr<float>(y, x));
       if (!isnan(px_depth) && px_depth > 0) {
-        if (px_depth <= max_object_distance_)
+        if (px_depth <= max_distance)
           roi_depths.push_back(std::pair<double, Eigen::Vector2d>(
               px_depth, Eigen::Vector2d(x, y)));
       }
@@ -54,8 +78,10 @@ void RoiToPositionConverter::depthCallback(
 
   // \todo (Matt) make perc configurable
   double perc = 0.2;
+  double object_distance = 0;
+  Eigen::Vector2d object_position_cam(0, 0);
   if (roi_depths.size() == 0) {
-    object_distance_ = max_object_distance_;
+    object_distance = max_distance;
   } else {
     // Average of smallest "perc" percent of depths
     int number_of_depths_to_sort = int(ceil(roi_depths.size() * perc));
@@ -68,30 +94,22 @@ void RoiToPositionConverter::depthCallback(
                              roi_depths[i].first);
     }
     sum *= (1.0f / number_of_depths_to_sort);
-    object_distance_ = sum(2);
-    object_position_cam_(0) = sum(0);
-    object_position_cam_(1) = sum(1);
+    object_distance = sum(2);
+    object_position_cam(0) = sum(0);
+    object_position_cam(1) = sum(1);
   }
-}
 
-bool RoiToPositionConverter::getObjectPosition(Position &pos) {
-  if ((ros::Time::now() - last_roi_update_time_).toSec() > 0.5) {
-    // No roi no object position
-    return false;
-  }
-  if (!camera_info_) // Need cam info
-    return false;
-  double &cx = camera_info_->K[2];
-  double &cy = camera_info_->K[5];
-  double &fx = camera_info_->K[0];
-  double &fy = camera_info_->K[4];
+  double &cx = camera_info->K[2];
+  double &cy = camera_info->K[5];
+  double &fx = camera_info->K[0];
+  double &fy = camera_info->K[4];
   if (fx == 0 || fy == 0) {
     LOG(WARNING) << "Invalid camera info";
     return false;
   }
-  pos.x = object_distance_ * (object_position_cam_(0) - cx) / fx;
-  pos.y = object_distance_ * (object_position_cam_(1) - cy) / fy;
-  pos.z = object_distance_;
+  pos.x = object_distance * (object_position_cam(0) - cx) / fx;
+  pos.y = object_distance * (object_position_cam(1) - cy) / fy;
+  pos.z = object_distance;
   return true;
 }
 
