@@ -34,14 +34,16 @@ public:
    * @param depth Pixel depths
    * @param cam_info Camera calibration parameters
    * @param max_distance Ignore pixels farther away than this
+   * @param front_percent Average over closest front_percent of pixels
    * @param pos Returned position
    * @return Return true if successful and false otherwise
    */
   bool getObjectPosition(Position &pos);
   static bool computeObjectPosition(const sensor_msgs::RegionOfInterest &roi,
-                                    const cv_bridge::CvImagePtr &depth,
-                                    const sensor_msgs::CameraInfoPtr &cam_info,
-                                    double max_distance, Position &pos);
+                                    const cv::Mat &depth,
+                                    const sensor_msgs::CameraInfo &cam_info,
+                                    double max_distance, double front_percent,
+                                    Position &pos);
 
 private:
   /**

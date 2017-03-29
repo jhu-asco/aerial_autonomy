@@ -37,8 +37,8 @@ void RoiToPositionConverter::depthCallback(
   cv_bridge::CvImagePtr depth =
       cv_bridge::toCvCopy(depth_msg, sensor_msgs::image_encodings::TYPE_32FC1);
   // \todo Matt lock this to avoid conflict with getObjectPosition
-  if (!computeObjectPosition(roi_rect_, depth, camera_info_,
-                             max_object_distance_, object_position_)) {
+  if (!computeObjectPosition(roi_rect_, depth->image, *camera_info_,
+                             max_object_distance_, 0.2, object_position_)) {
     // \todo Matt handle this case
   }
   object_distance_ = object_position_.z;
@@ -58,16 +58,15 @@ bool RoiToPositionConverter::getObjectPosition(Position &pos) {
 }
 
 bool RoiToPositionConverter::computeObjectPosition(
-    const sensor_msgs::RegionOfInterest &roi_rect,
-    const cv_bridge::CvImagePtr &depth,
-    const sensor_msgs::CameraInfoPtr &camera_info, double max_distance,
-    Position &pos) {
+    const sensor_msgs::RegionOfInterest &roi_rect, const cv::Mat &depth,
+    const sensor_msgs::CameraInfo &camera_info, double max_distance,
+    double front_percent, Position &pos) {
   std::vector<std::pair<double, Eigen::Vector2d>> roi_depths;
   for (unsigned int x = roi_rect.x_offset;
        x < roi_rect.x_offset + roi_rect.width; x++) {
     for (unsigned int y = roi_rect.y_offset;
          y < roi_rect.y_offset + roi_rect.height; y++) {
-      float px_depth = *(depth->image.ptr<float>(y, x));
+      float px_depth = *(depth.ptr<float>(y, x));
       if (!isnan(px_depth) && px_depth > 0) {
         if (px_depth <= max_distance)
           roi_depths.push_back(std::pair<double, Eigen::Vector2d>(
@@ -77,14 +76,13 @@ bool RoiToPositionConverter::computeObjectPosition(
   }
 
   // \todo (Matt) make perc configurable
-  double perc = 0.2;
   double object_distance = 0;
   Eigen::Vector2d object_position_cam(0, 0);
   if (roi_depths.size() == 0) {
     object_distance = max_distance;
   } else {
-    // Average of smallest "perc" percent of depths
-    int number_of_depths_to_sort = int(ceil(roi_depths.size() * perc));
+    // Average of smallest "front_percent" percent of depths
+    int number_of_depths_to_sort = int(ceil(roi_depths.size() * front_percent));
     std::partial_sort(roi_depths.begin(),
                       roi_depths.begin() + number_of_depths_to_sort,
                       roi_depths.end(), compare); // Doing Partial Sort
@@ -99,10 +97,10 @@ bool RoiToPositionConverter::computeObjectPosition(
     object_position_cam(1) = sum(1);
   }
 
-  double &cx = camera_info->K[2];
-  double &cy = camera_info->K[5];
-  double &fx = camera_info->K[0];
-  double &fy = camera_info->K[4];
+  const double &cx = camera_info.K[2];
+  const double &cy = camera_info.K[5];
+  const double &fx = camera_info.K[0];
+  const double &fy = camera_info.K[4];
   if (fx == 0 || fy == 0) {
     LOG(WARNING) << "Invalid camera info";
     return false;
