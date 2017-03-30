@@ -148,7 +148,6 @@ catkin_package(
 generate_event_targets(
 uav_basic_events
 visual_servoing_events
-uav_arm_visual_servoing_events
 )
 
 ##############
