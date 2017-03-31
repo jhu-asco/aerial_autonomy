@@ -21,7 +21,8 @@ struct PositionYaw : public Position {
   */
   PositionYaw(Position p, double yaw) : Position(p), yaw(yaw) {}
   /**
-  * @brief Explicit constructor with x,y,z,   *
+  * @brief Explicit constructor with x,y,z, and yaw
+  *
   * @param x x component (m)
   * @param y y component (m)
   * @param z z component (m)

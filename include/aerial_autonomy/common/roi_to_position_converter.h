@@ -26,6 +26,13 @@ public:
             "depth", 1, &RoiToPositionConverter::depthCallback, this)),
         image_subscriber_(it_.subscribe(
             "image", 1, &RoiToPositionConverter::imageCallback, this)) {}
+
+  /**
+   * @brief Get the stored object position
+   * @param pos Returned object position
+   * @return True if successful, false otherwise
+   */
+  bool getObjectPosition(Position &pos);
   /**
    * @brief Get the 3D position of the ROI (in the frame of the
    * camera)
@@ -35,16 +42,29 @@ public:
    * @param max_distance Ignore pixels farther away than this
    * @param front_percent Average over closest front_percent of pixels
    * @param pos Returned position
-   * @return Return true if successful and false otherwise
    */
-  bool getObjectPosition(Position &pos);
-  static bool computeObjectPosition(const sensor_msgs::RegionOfInterest &roi,
+  static void computeObjectPosition(const sensor_msgs::RegionOfInterest &roi,
                                     const cv::Mat &depth,
                                     const sensor_msgs::CameraInfo &cam_info,
                                     double max_distance, double front_percent,
                                     Position &pos);
+  /*
+  * @brief Check whether position is valid
+  * @return True if the position is valid, false otherwise
+  */
+  bool positionIsValid();
 
 private:
+  /*
+  * @brief Check whether the system has valid camera info
+  * @return True if the ROI is valid, false otherwise
+  */
+  bool cameraInfoIsValid();
+  /*
+  * @brief Check whether the system has a valid ROI
+  * @return True if the ROI is valid, false otherwise
+  */
+  bool roiIsValid();
   /**
    * @brief ROI subscriber callback
    * @param roi_msg ROI message
@@ -75,8 +95,7 @@ private:
   * @param b Second point
   * @return True if a depth is less than b depth
   */
-  static bool compare(std::pair<double, Eigen::Vector2d> a,
-                      std::pair<double, Eigen::Vector2d> b);
+  static bool compare(Eigen::Vector3d a, Eigen::Vector3d b);
 
   /**
   * @brief Image transport
