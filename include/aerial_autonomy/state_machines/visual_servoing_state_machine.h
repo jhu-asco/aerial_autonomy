@@ -147,11 +147,11 @@ public:
             msmf::Row<vsa::TakingOff, Completed, vsa::Hovering, msmf::none,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<vsa::ReachingGoal, Completed, vsa::Hovering, msmf::none,
-                      msmf::none>,
+            msmf::Row<vsa::ReachingGoal, Completed, vsa::Hovering,
+                      vsa::ReachingGoalAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<vsa::VisualServoing, Completed, vsa::Hovering, msmf::none,
-                      msmf::none>
+            msmf::Row<vsa::VisualServoing, Completed, vsa::Hovering,
+                      vsa::ReachingGoalAbort, msmf::none>
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             > {};
   /**
