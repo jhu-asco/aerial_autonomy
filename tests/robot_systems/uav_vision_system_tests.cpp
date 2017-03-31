@@ -15,6 +15,8 @@ TEST(UAVSystemTests, Constructor) {
   ASSERT_NO_THROW(new UAVVisionSystem(nh, drone_hardware, config));
 }
 
+/// \todo Matt Add more tests!
+
 int main(int argc, char **argv) {
   ros::init(argc, argv, "uav_vision_system_tests");
   testing::InitGoogleTest(&argc, argv);
