@@ -17,13 +17,12 @@
 class RoiToPositionConverter {
 public:
   RoiToPositionConverter(ros::NodeHandle &nh)
-      : nh_(nh), it_(nh_),
-        roi_subscriber_(nh_.subscribe(
-            "roi", 10, &RoiToPositionConverter::roiCallback, this)),
+      : it_(nh), roi_subscriber_(nh.subscribe(
+                     "roi", 10, &RoiToPositionConverter::roiCallback, this)),
         camera_info_subscriber_(
-            nh_.subscribe("camera_info", 1,
-                          &RoiToPositionConverter::cameraInfoCallback, this)),
-        depth_subscriber_(nh_.subscribe(
+            nh.subscribe("camera_info", 1,
+                         &RoiToPositionConverter::cameraInfoCallback, this)),
+        depth_subscriber_(nh.subscribe(
             "depth", 1, &RoiToPositionConverter::depthCallback, this)),
         image_subscriber_(it_.subscribe(
             "image", 1, &RoiToPositionConverter::imageCallback, this)) {}
@@ -79,10 +78,6 @@ private:
   static bool compare(std::pair<double, Eigen::Vector2d> a,
                       std::pair<double, Eigen::Vector2d> b);
 
-  /**
-  * @brief ROS node handle for receiving ROI
-  */
-  ros::NodeHandle nh_;
   /**
   * @brief Image transport
   */

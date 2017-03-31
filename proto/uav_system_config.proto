@@ -1,6 +1,6 @@
 syntax = "proto2";
 
-import "vision_based_uav_system_config.proto";
+import "uav_vision_system_config.proto";
 
 message UAVSystemConfig {
   /**
@@ -40,5 +40,5 @@ message UAVSystemConfig {
   * @brief A crude form of inheritance for proto. Contains a config for
   * subclasses of UAVSystemConfig
   */
-  oneof subclass { VisionBasedUAVSystemConfig vision_based_uav_config = 7; }
+  oneof subclass { UAVVisionSystemConfig uav_vision_system_config = 7; }
 }
