@@ -70,7 +70,7 @@ template <class LogicStateMachineT>
 struct VisualServoingInternalActionFunctor_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   /**
-  * @brief check if we reached VS goal and trigger pick/place when we reach it
+  * @brief check if we reached VS goal and trigger completed event
   *
   * @param robot_system robot system to get sensor data
   * @param logic_state_machine logic state machine to trigger events
@@ -82,6 +82,9 @@ struct VisualServoingInternalActionFunctor_
     /// PositionYaw goal =
     ///    robot_system.getGoal<PositionControllerDroneConnector,
     ///    PositionYaw>();
+    /// \todo Matt: Implement the correct function to check if we
+    /// reached the visual servoing goal based on object distance.
+    /// Also need to check if tracking is valid
     PositionYaw goal;
     // Get current position, yaw
     parsernode::common::quaddata data = robot_system.getUAVData();
@@ -109,8 +112,7 @@ template <class LogicStateMachineT>
 struct VisualServoingTransitionGuardFunctor_
     : EventAgnosticGuardFunctor<UAVSystem, LogicStateMachineT> {
   bool guard(UAVSystem &robot_system_, LogicStateMachineT &) {
-    ///\todo Matt (How to verify if we are ready to do visual servoing)
-    /// do we need any checks here?
+    ///\todo Matt: Implement function to check if tracking is valid
     return true;
   }
 };

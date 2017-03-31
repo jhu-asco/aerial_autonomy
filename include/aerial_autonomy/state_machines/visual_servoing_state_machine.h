@@ -138,6 +138,9 @@ public:
             msmf::Row<vsa::VisualServoing, be::Abort, vsa::Hovering,
                       vsa::ReachingGoalAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<vsa::VisualServoing, be::Land, vsa::Landing,
+                      vsa::ReachingGoalLand, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::Landing, Completed, vsa::Landed, msmf::none,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
