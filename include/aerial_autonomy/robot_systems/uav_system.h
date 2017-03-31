@@ -50,6 +50,10 @@ private:
    */
   UAVSystemConfig config_;
 
+  PositionYaw home_location_;
+
+  bool home_location_specified_;
+
 public:
   /**
    * @brief Constructor with default configuration
@@ -74,7 +78,7 @@ public:
                                              builtin_velocity_controller_),
         rpyt_controller_drone_connector_(drone_hardware,
                                          manual_rpyt_controller_),
-        config_(config) {
+        config_(config), home_location_specified_(false) {
     // Add control hardware connector containers
     controller_hardware_connector_container_.setObject(
         position_controller_drone_connector_);
@@ -145,4 +149,17 @@ public:
    * @return Configuration
    */
   UAVSystemConfig getConfiguration() { return config_; }
+
+  void setHomeLocation() {
+    parsernode::common::quaddata data = getUAVData();
+    home_location_.x = data.localpos.x;
+    home_location_.y = data.localpos.y;
+    home_location_.z = data.localpos.z;
+    home_location_.yaw = data.rpydata.z;
+    home_location_specified_ = true;
+  }
+
+  bool isHomeLocationSpecified() { return home_location_specified_; }
+
+  PositionYaw getHomeLocation() { return home_location_; }
 };

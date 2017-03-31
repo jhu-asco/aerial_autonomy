@@ -23,8 +23,7 @@ TEST(UAVEventManagerTest, TriggerWrongEvent) {
   UAVEventManager<SampleLogicStateMachine> event_manager;
   EmptyRobotSystem robot_system;
   SampleLogicStateMachine logic_state_machine(robot_system);
-  ASSERT_FALSE(
-      event_manager.triggerEvent("FollowTrajectory", logic_state_machine));
+  ASSERT_FALSE(event_manager.triggerEvent("TrackROI", logic_state_machine));
 }
 TEST(UAVEventManagerTest, TriggerEvents) {
   UAVEventManager<SampleLogicStateMachine> event_manager;
@@ -43,9 +42,9 @@ TEST(VisualServoingEventManagerTest, TriggerEvents) {
   VisualServoingEventManager<SampleLogicStateMachine> event_manager;
   EmptyRobotSystem robot_system;
   SampleLogicStateMachine logic_state_machine(robot_system);
-  event_manager.triggerEvent("FollowTrajectory", logic_state_machine);
+  event_manager.triggerEvent("TrackROI", logic_state_machine);
   ASSERT_EQ(logic_state_machine.getProcessEventTypeId(),
-            std::type_index(typeid(FollowTrajectory)));
+            std::type_index(typeid(TrackROI)));
 }
 TEST(VisualServoingEventManagerTest, TriggerUAVEvent) {
   VisualServoingEventManager<SampleLogicStateMachine> event_manager;
@@ -58,8 +57,8 @@ TEST(VisualServoingEventManagerTest, TriggerUAVEvent) {
 TEST(VisualServoingEventManagerTest, CheckEventSet) {
   VisualServoingEventManager<SampleLogicStateMachine> event_manager;
   std::set<std::string> event_set = event_manager.getEventSet();
-  std::set<std::string> expected_set{"Land", "Takeoff", "Abort",
-                                     "FollowTrajectory"};
+  std::set<std::string> expected_set{"Land", "Takeoff", "Abort", "TrackROI",
+                                     "GoHome"};
   ASSERT_TRUE(event_set == expected_set);
 }
 }
