@@ -27,8 +27,8 @@ TEST(RoiToPositionConverterTests, ComputeObjectPosition) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
 
-  ASSERT_TRUE(RoiToPositionConverter::computeObjectPosition(
-      roi, depth, camera_info, max_distance, front_percent, pos));
+  RoiToPositionConverter::computeObjectPosition(
+      roi, depth, camera_info, max_distance, front_percent, pos);
   ASSERT_NEAR(pos.x, (5.5 - cx) / fx, 1e-5);
   ASSERT_NEAR(pos.y, (5.5 - cy) / fy, 1e-5);
   ASSERT_NEAR(pos.z, 1, 1e-5);
@@ -60,8 +60,8 @@ TEST(RoiToPositionConverterTests, ComputeObjectPositionFront) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
 
-  ASSERT_TRUE(RoiToPositionConverter::computeObjectPosition(
-      roi, depth, camera_info, max_distance, front_percent, pos));
+  RoiToPositionConverter::computeObjectPosition(
+      roi, depth, camera_info, max_distance, front_percent, pos);
   ASSERT_NEAR(pos.x, 0.5 * (2 - cx) / fx, 1e-5);
   ASSERT_NEAR(pos.y, 0.5 * (2 - cy) / fy, 1e-5);
   ASSERT_NEAR(pos.z, 0.5, 1e-5);
@@ -92,8 +92,8 @@ TEST(RoiToPositionConverterTests, ComputeObjectPositionMaxDistance) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
 
-  ASSERT_TRUE(RoiToPositionConverter::computeObjectPosition(
-      roi, depth, camera_info, max_distance, front_percent, pos));
+  RoiToPositionConverter::computeObjectPosition(
+      roi, depth, camera_info, max_distance, front_percent, pos);
   ASSERT_NEAR(pos.x, max_distance * (0 - cx) / fx, 1e-5);
   ASSERT_NEAR(pos.y, max_distance * (0 - cy) / fy, 1e-5);
   ASSERT_NEAR(pos.z, max_distance, 1e-5);

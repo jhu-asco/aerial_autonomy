@@ -45,6 +45,8 @@ void RoiToPositionConverter::depthCallback(
   computeObjectPosition(roi_rect_, depth->image, *camera_info_,
                         max_object_distance_, 0.2, object_position_);
   object_distance_ = object_position_.z;
+  /// \todo store a flag indicating a position has been computed and return
+  /// false in positionIsValid if it has not
 }
 
 bool RoiToPositionConverter::positionIsValid() {

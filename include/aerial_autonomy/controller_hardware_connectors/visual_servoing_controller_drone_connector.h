@@ -48,7 +48,16 @@ protected:
   virtual void sendHardwareCommands(VelocityYawRate controls);
 
 private:
-  tf::Transform getBodyFrameTransform();
+  /**
+   * @brief Get the rotation of the uav body frame
+   * @return The rotation transform
+   */
+  tf::Transform getBodyFrameRotation();
+  /**
+   * @brief Get the tracking vector of the RoiToPositionConverter in the global
+   * frame
+   * @return The tracking vector
+   */
   tf::Vector3 getTrackingVectorGlobalFrame();
 
   /**

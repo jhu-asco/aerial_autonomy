@@ -21,17 +21,17 @@ tf::Vector3
 VisualServoingControllerDroneConnector::getTrackingVectorGlobalFrame() {
   Position object_position_cam;
   if (!roi_to_position_converter_.getObjectPosition(object_position_cam)) {
-    // \todo(Matt) handle case when cannot get object position
+    /// \todo(Matt) handle case when cannot get object position
   }
   tf::Vector3 object_direction_cam(object_position_cam.x, object_position_cam.y,
                                    object_position_cam.z);
   // Convert from camera frame to global frame
-  tf::Transform body_rpy_tf = getBodyFrameTransform();
+  tf::Transform body_rpy_tf = getBodyFrameRotation();
   return (body_rpy_tf * (camera_transform_.getBasis() * object_direction_cam))
       .normalize();
 }
 
-tf::Transform VisualServoingControllerDroneConnector::getBodyFrameTransform() {
+tf::Transform VisualServoingControllerDroneConnector::getBodyFrameRotation() {
   parsernode::common::quaddata quad_data;
   drone_hardware_.getquaddata(quad_data);
   return tf::Transform(tf::createQuaternionFromRPY(
