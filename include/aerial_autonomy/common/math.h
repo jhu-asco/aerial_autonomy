@@ -10,10 +10,14 @@ namespace math {
  * @param x Angle to wrap
  * @return Wrapped angle
  */
-static double angleWrap(double x) {
-  x = std::fmod(x + M_PI, 2 * M_PI);
-  if (x < 0)
-    x += 2 * M_PI;
-  return x - M_PI;
-}
+double angleWrap(double x);
+
+/**
+ * @brief Clip a number to bewteen a min and max value
+ * @param x Number to clamp
+ * @param min Minimum value
+ * @param max Maximum value
+ * @return Clamped value
+ */
+double clamp(double x, double min, double max);
 }

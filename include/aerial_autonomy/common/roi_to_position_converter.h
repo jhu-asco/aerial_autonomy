@@ -14,6 +14,8 @@
 
 #include <Eigen/Dense>
 
+#include <boost/thread/mutex.hpp>
+
 class RoiToPositionConverter {
 public:
   RoiToPositionConverter(ros::NodeHandle &nh)
@@ -57,7 +59,7 @@ public:
 private:
   /*
   * @brief Check whether the system has valid camera info
-  * @return True if the ROI is valid, false otherwise
+  * @return True if the camera info is valid, false otherwise
   */
   bool cameraInfoIsValid();
   /*
@@ -126,10 +128,6 @@ private:
   */
   sensor_msgs::RegionOfInterest roi_rect_;
   /**
-  * @brief Distance of object from camera (meters)
-  */
-  double object_distance_;
-  /**
   * @brief Position of object in camera frame (meters)
   */
   Position object_position_;
@@ -143,4 +141,24 @@ private:
   * @brief last time ROI was updated
   */
   ros::Time last_roi_update_time_;
+
+  /**
+  * @brief Mutex to control access to camera_info_
+  */
+  boost::mutex camera_info_mutex_;
+
+  /**
+  * @brief Mutex to control access to object_position_
+  */
+  boost::mutex position_mutex_;
+
+  /**
+  * @brief Mutex to control access to ROI
+  */
+  boost::mutex roi_mutex_;
+
+  /**
+  * @brief Mutex to control access to ROI update time
+  */
+  boost::mutex roi_update_mutex_;
 };

@@ -187,6 +187,7 @@ include_directories(
 ## Declare a C++ library
 add_library(aerial_autonomy
   src/common/async_timer.cpp
+  src/common/math.cpp
   src/common/roi_to_position_converter.cpp
   src/controllers/manual_rpyt_controller.cpp
   src/controllers/velocity_based_position_controller.cpp
@@ -344,6 +345,9 @@ if(TARGET ${PROJECT_NAME}-visual-servoing-drone-connector-test)
 endif()
 if(TARGET ${PROJECT_NAME}-roi-to-position-converter-test)
   target_link_libraries(${PROJECT_NAME}-roi-to-position-converter-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-math-test)
+  target_link_libraries(${PROJECT_NAME}-math-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 
 ## Add folders to be run by python nosetests

@@ -52,7 +52,7 @@ private:
    * @brief Get the rotation of the uav body frame
    * @return The rotation transform
    */
-  tf::Transform getBodyFrameRotation();
+  tf::Matrix3x3 getBodyFrameRotation();
   /**
    * @brief Get the tracking vector of the RoiToPositionConverter in the global
    * frame

@@ -44,6 +44,24 @@ TEST(AngleWrapTests, TwoNegativeToNegativeWrap) {
   ASSERT_NEAR(-M_PI / 2, math::angleWrap(-9 * M_PI / 2), 1e-10);
 }
 
+///
+
+TEST(ClampTests, InBounds) {
+  ASSERT_EQ(math::clamp(0, -1, 1), 0);
+  ASSERT_EQ(math::clamp(0.5, -1, 1), 0.5);
+  ASSERT_EQ(math::clamp(-0.5, -1, 1), -0.5);
+}
+
+TEST(ClampTests, Max) {
+  ASSERT_EQ(math::clamp(2, -1, 1), 1);
+  ASSERT_EQ(math::clamp(1, -1, 1), 1);
+}
+
+TEST(ClampTests, Min) {
+  ASSERT_EQ(math::clamp(-2, -2, 1), -2);
+  ASSERT_EQ(math::clamp(-100, -2, 1), -2);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

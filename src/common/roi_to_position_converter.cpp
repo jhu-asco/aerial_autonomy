@@ -6,8 +6,14 @@
 
 void RoiToPositionConverter::roiCallback(
     const sensor_msgs::RegionOfInterest &roi_msg) {
-  last_roi_update_time_ = ros::Time::now();
-  roi_rect_ = roi_msg;
+  {
+    boost::mutex::scoped_lock(roi_update_mutex_);
+    last_roi_update_time_ = ros::Time::now();
+  }
+  {
+    boost::mutex::scoped_lock(roi_mutex_);
+    roi_rect_ = roi_msg;
+  }
 }
 
 void RoiToPositionConverter::imageCallback(
@@ -15,6 +21,7 @@ void RoiToPositionConverter::imageCallback(
 
 void RoiToPositionConverter::cameraInfoCallback(
     const sensor_msgs::CameraInfo &cam_info_msg) {
+  boost::mutex::scoped_lock(camera_info_mutex_);
   camera_info_.reset(new sensor_msgs::CameraInfo());
   *camera_info_ = cam_info_msg;
   camera_info_subscriber_.shutdown();
@@ -29,8 +36,6 @@ void RoiToPositionConverter::depthCallback(
 
   /// \todo (Matt) make timeout configurable
   if (!roiIsValid()) {
-    VLOG(1) << "Last ROI update more than 0.5 seconds ago";
-    object_distance_ = max_object_distance_;
     return;
   }
 
@@ -38,13 +43,27 @@ void RoiToPositionConverter::depthCallback(
       cv_bridge::toCvCopy(depth_msg, sensor_msgs::image_encodings::TYPE_32FC1);
 
   if (!cameraInfoIsValid()) {
-    LOG(WARNING) << "Invalid camera info: focal lengths must be non-zero";
     return;
   }
-  /// \todo Matt lock this to avoid conflict with getObjectPosition
-  computeObjectPosition(roi_rect_, depth->image, *camera_info_,
-                        max_object_distance_, 0.2, object_position_);
-  object_distance_ = object_position_.z;
+
+  // Copy variables
+  sensor_msgs::RegionOfInterest roi_rect;
+  {
+    boost::mutex::scoped_lock(roi_mutex_);
+    roi_rect = roi_rect_;
+  }
+  sensor_msgs::CameraInfo camera_info;
+  {
+    boost::mutex::scoped_lock(camera_info_mutex_);
+    camera_info = *camera_info_;
+  }
+  Position object_position;
+  computeObjectPosition(roi_rect, depth->image, camera_info,
+                        max_object_distance_, 0.2, object_position);
+  {
+    boost::mutex::scoped_lock(position_mutex_);
+    object_position_ = object_position;
+  }
   /// \todo store a flag indicating a position has been computed and return
   /// false in positionIsValid if it has not
 }
@@ -54,26 +73,34 @@ bool RoiToPositionConverter::positionIsValid() {
 }
 
 bool RoiToPositionConverter::cameraInfoIsValid() {
-  return camera_info_ && camera_info_->K[0] != 0 && camera_info_->K[4] != 0;
+  boost::mutex::scoped_lock(camera_info_mutex_);
+  bool valid =
+      camera_info_ && camera_info_->K[0] != 0 && camera_info_->K[4] != 0;
+  if (!valid)
+    LOG(WARNING) << "Invalid camera info";
+  return valid;
 }
 
 bool RoiToPositionConverter::roiIsValid() {
-  return (ros::Time::now() - last_roi_update_time_).toSec() > 0.5;
+  boost::mutex::scoped_lock(roi_update_mutex_);
+  bool valid = (ros::Time::now() - last_roi_update_time_).toSec() > 0.5;
+  if (!valid)
+    LOG(WARNING) << "ROI has not been updated for 0.5 seconds";
+  return valid;
 }
 
 bool RoiToPositionConverter::getObjectPosition(Position &pos) {
   if (!roiIsValid()) {
-    // No roi no object position
-    LOG(WARNING) << "ROI is too old!";
     return false;
   }
   if (!cameraInfoIsValid()) { // Need cam info
-    LOG(WARNING) << "Camera info not valid!";
     return false;
   }
 
-  /// \todo Matt lock this to avoid conflict with depthCallback
-  pos = object_position_;
+  {
+    boost::mutex::scoped_lock(position_mutex_);
+    pos = object_position_;
+  }
   return true;
 }
 

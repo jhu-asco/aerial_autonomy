@@ -29,9 +29,8 @@ ConstantHeadingDepthController::runImplementation(PositionYaw sensor_data,
                                 desired_tracking_direction.getX()) -
                      sensor_data.yaw;
   double yaw_rate =
-      std::min(std::max(config_.yaw_gain() * math::angleWrap(error_yaw),
-                        -config_.max_yaw_rate()),
-               config_.max_yaw_rate());
+      math::clamp(config_.yaw_gain() * math::angleWrap(error_yaw),
+                  -config_.max_yaw_rate(), config_.max_yaw_rate());
   return VelocityYawRate(desired_vel_tf.getX(), desired_vel_tf.getY(),
                          desired_vel_tf.getZ(), yaw_rate);
 }
