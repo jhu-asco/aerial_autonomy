@@ -122,8 +122,8 @@ public:
                       msmf::none>,
             msmf::Row<usa::TakingOff, Completed, usa::Hovering, msmf::none,
                       msmf::none>,
-            msmf::Row<usa::ReachingGoal, Completed, usa::Hovering, msmf::none,
-                      msmf::none>
+            msmf::Row<usa::ReachingGoal, Completed, usa::Hovering,
+                      usa::ReachingGoalAbort, msmf::none>
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             > {};
   /**
