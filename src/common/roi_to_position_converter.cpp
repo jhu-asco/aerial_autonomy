@@ -59,7 +59,8 @@ void RoiToPositionConverter::depthCallback(
   }
   Position object_position;
   computeObjectPosition(roi_rect, depth->image, camera_info,
-                        max_object_distance_, 0.2, object_position);
+                        max_object_distance_, foreground_percent_,
+                        object_position);
   {
     boost::mutex::scoped_lock(position_mutex_);
     object_position_ = object_position;
@@ -83,7 +84,6 @@ bool RoiToPositionConverter::cameraInfoIsValid() {
 
 bool RoiToPositionConverter::roiIsValid() {
   boost::mutex::scoped_lock(roi_update_mutex_);
-  std::cout << (ros::Time::now() - last_roi_update_time_).toSec() << std::endl;
   bool valid = (ros::Time::now() - last_roi_update_time_).toSec() < 0.5;
   if (!valid)
     LOG(WARNING) << "ROI has not been updated for 0.5 seconds";

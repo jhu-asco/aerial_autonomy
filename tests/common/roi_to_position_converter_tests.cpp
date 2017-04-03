@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <chrono>
+#include <sensor_msgs/image_encodings.h>
 #include <thread>
 
 #include "aerial_autonomy/common/roi_to_position_converter.h"
@@ -20,9 +21,14 @@ public:
     roi_pub_.publish(roi);
     ros::spinOnce();
     ros::spinOnce();
+    ros::spinOnce();
+    ros::spinOnce();
   }
-  void publishDepth(sensor_msgs::Image &depth) {
-    depth_pub_.publish(depth);
+  void publishDepth(cv::Mat &depth) {
+    cv_bridge::CvImage depth_msg;
+    depth_msg.encoding = sensor_msgs::image_encodings::TYPE_32FC1;
+    depth_msg.image = depth;
+    depth_pub_.publish(depth_msg.toImageMsg());
     ros::spinOnce();
   }
 
@@ -151,6 +157,47 @@ TEST_F(RoiToPositionConverterROSTests, PositionValid) {
   /// \todo Matt This should depend on the configured ROI timeout
   std::this_thread::sleep_for(std::chrono::milliseconds(700));
   ASSERT_FALSE(converter.positionIsValid());
+  /// \todo Matt when isPositionValid depends on depth, we should publish a
+  /// depth too
+}
+
+TEST_F(RoiToPositionConverterROSTests, GetPosition) {
+  ros::NodeHandle nh;
+  RoiToPositionConverter converter(nh);
+  Position pos;
+
+  ASSERT_FALSE(converter.getObjectPosition(pos));
+
+  sensor_msgs::CameraInfo camera_info;
+  double cx = 20;
+  double cy = 20;
+  double fx = 2;
+  double fy = 2;
+  camera_info.K[2] = cx;
+  camera_info.K[5] = cy;
+  camera_info.K[0] = fx;
+  camera_info.K[4] = fy;
+  publishCameraInfo(camera_info);
+  ASSERT_FALSE(converter.getObjectPosition(pos));
+
+  sensor_msgs::RegionOfInterest roi;
+  roi.x_offset = 0;
+  roi.y_offset = 0;
+  roi.height = 10;
+  roi.width = 10;
+  publishRoi(roi);
+  /// \todo Matt when isPositionValid depends on depth, getObjectPosition should
+  /// return false when no depth has been received
+
+  cv::Mat depth(40, 40, CV_32F);
+  depth(cv::Rect(0, 0, 40, 40)).setTo(1);
+  depth(cv::Rect(0, 0, 5, 5)).setTo(0.5);
+  publishDepth(depth);
+
+  ASSERT_TRUE(converter.getObjectPosition(pos));
+  ASSERT_NEAR(pos.x, 0.5 * (2 - cx) / fx, 1e-5);
+  ASSERT_NEAR(pos.y, 0.5 * (2 - cy) / fy, 1e-5);
+  ASSERT_NEAR(pos.z, 0.5, 1e-5);
 }
 
 int main(int argc, char **argv) {
