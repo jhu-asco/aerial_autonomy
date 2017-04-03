@@ -1,0 +1,7 @@
+syntax = "proto2";
+
+import "constant_heading_depth_controller_config.proto";
+
+message VisualServoingControllerConnectorConfig {
+  required ConstantHeadingDepthControllerConfig controller_config = 1;
+}

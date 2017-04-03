@@ -1,0 +1,4 @@
+<launch>
+  <test test-name="VisualServoingDroneConnector" pkg="aerial_autonomy" type="aerial_autonomy-visual-servoing-drone-connector-test">
+  </test>
+</launch>

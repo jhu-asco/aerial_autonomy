@@ -42,6 +42,8 @@
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>std_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
   <build_depend>rqt_gui_py</build_depend>
   <run_depend>python-rospkg</run_depend>
   <build_depend>class_loader</build_depend>
@@ -50,10 +52,15 @@
   <build_depend>rostest</build_depend>
   <build_depend>tf_conversions</build_depend>
   <build_depend>quad_simulator_parser</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>image_transport</build_depend>
   <build_depend>arm_plugins</build_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>rospy</run_depend>
   <run_depend>std_msgs</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
   <run_depend version_gte="0.2.12">rqt_gui</run_depend>
   <run_depend>rqt_gui_py</run_depend>
   <run_depend>class_loader</run_depend>
@@ -62,6 +69,9 @@
   <run_depend>rostest</run_depend>
   <run_depend>tf_conversions</run_depend>
   <run_depend>quad_simulator_parser</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>cv_bridge</run_depend>
+  <run_depend>image_transport</run_depend>
   <run_depend>arm_plugins</run_depend>
 
 

@@ -1,0 +1,24 @@
+syntax = "proto2";
+
+message ConstantHeadingDepthControllerConfig {
+  /**
+  * @brief Gain to convert radial position error to velocity
+  */
+  optional double radial_gain = 1 [ default = 0.1 ];
+  /**
+  * @brief Gain to convert tangential position error to velocity
+  */
+  optional double tangential_gain = 2 [ default = 0.1 ];
+  /**
+  * @brief Gain to convert yaw error to yaw rate
+  */
+  optional double yaw_gain = 3 [ default = 0.1 ];
+  /**
+  * @brief Maximum velocity to be commanded in m/s
+  */
+  optional double max_velocity = 4 [ default = 1 ];
+  /**
+  * @brief Maximum yaw rate to be commanded in rad/s
+  */
+  optional double max_yaw_rate = 5 [ default = 0.1 ];
+}
