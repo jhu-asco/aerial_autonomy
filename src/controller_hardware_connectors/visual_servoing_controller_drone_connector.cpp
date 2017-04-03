@@ -15,6 +15,7 @@ void VisualServoingControllerDroneConnector::sendHardwareCommands(
   velocity_cmd.y = controls.y;
   velocity_cmd.z = controls.z;
   drone_hardware_.cmdvelguided(velocity_cmd, controls.yaw_rate);
+  /// \todo Gowtham Add function for commanding velocity with yaw rate
 }
 
 tf::Vector3
