@@ -1,6 +1,37 @@
 #include <gtest/gtest.h>
 
+#include <chrono>
+#include <thread>
+
 #include "aerial_autonomy/common/roi_to_position_converter.h"
+
+class RoiToPositionConverterROSTests : public ::testing::Test {
+public:
+  RoiToPositionConverterROSTests()
+      : nh_(), camera_info_pub_(
+                   nh_.advertise<sensor_msgs::CameraInfo>("camera_info", 1)),
+        roi_pub_(nh_.advertise<sensor_msgs::RegionOfInterest>("roi", 1)),
+        depth_pub_(nh_.advertise<sensor_msgs::Image>("depth", 1)) {}
+  void publishCameraInfo(sensor_msgs::CameraInfo &camera_info) {
+    camera_info_pub_.publish(camera_info);
+    ros::spinOnce();
+  }
+  void publishRoi(sensor_msgs::RegionOfInterest &roi) {
+    roi_pub_.publish(roi);
+    ros::spinOnce();
+    ros::spinOnce();
+  }
+  void publishDepth(sensor_msgs::Image &depth) {
+    depth_pub_.publish(depth);
+    ros::spinOnce();
+  }
+
+private:
+  ros::NodeHandle nh_;
+  ros::Publisher camera_info_pub_;
+  ros::Publisher roi_pub_;
+  ros::Publisher depth_pub_;
+};
 
 TEST(RoiToPositionConverterTests, ComputeObjectPosition) {
   sensor_msgs::RegionOfInterest roi;
@@ -99,7 +130,31 @@ TEST(RoiToPositionConverterTests, ComputeObjectPositionMaxDistance) {
   ASSERT_NEAR(pos.z, max_distance, 1e-5);
 }
 
+TEST_F(RoiToPositionConverterROSTests, PositionValid) {
+  ros::NodeHandle nh;
+  RoiToPositionConverter converter(nh);
+
+  ASSERT_FALSE(converter.positionIsValid());
+
+  sensor_msgs::CameraInfo camera_info;
+  camera_info.K[2] = 1;
+  camera_info.K[5] = 1;
+  camera_info.K[0] = 1;
+  camera_info.K[4] = 1;
+  publishCameraInfo(camera_info);
+  ASSERT_FALSE(converter.positionIsValid());
+
+  sensor_msgs::RegionOfInterest roi;
+  publishRoi(roi);
+  ASSERT_TRUE(converter.positionIsValid());
+
+  /// \todo Matt This should depend on the configured ROI timeout
+  std::this_thread::sleep_for(std::chrono::milliseconds(700));
+  ASSERT_FALSE(converter.positionIsValid());
+}
+
 int main(int argc, char **argv) {
+  ros::init(argc, argv, "roi_to_position_converter_test");
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

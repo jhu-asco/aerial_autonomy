@@ -83,7 +83,8 @@ bool RoiToPositionConverter::cameraInfoIsValid() {
 
 bool RoiToPositionConverter::roiIsValid() {
   boost::mutex::scoped_lock(roi_update_mutex_);
-  bool valid = (ros::Time::now() - last_roi_update_time_).toSec() > 0.5;
+  std::cout << (ros::Time::now() - last_roi_update_time_).toSec() << std::endl;
+  bool valid = (ros::Time::now() - last_roi_update_time_).toSec() < 0.5;
   if (!valid)
     LOG(WARNING) << "ROI has not been updated for 0.5 seconds";
   return valid;
