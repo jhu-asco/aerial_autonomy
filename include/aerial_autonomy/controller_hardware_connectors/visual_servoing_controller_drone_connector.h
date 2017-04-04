@@ -21,16 +21,24 @@ public:
    * @brief Constructor
    */
   VisualServoingControllerDroneConnector(
-      ros::NodeHandle &nh, parsernode::Parser &drone_hardware,
+      RoiToPositionConverter &roi_to_position_converter, parsernode::Parser &drone_hardware,
       ConstantHeadingDepthController &controller,
       VisualServoingControllerConnectorConfig config)
       : ControllerHardwareConnector(controller, HardwareType::UAV),
         config_(config), drone_hardware_(drone_hardware),
-        roi_to_position_converter_(nh) {}
+        roi_to_position_converter_(roi_to_position_converter) {}
   /**
    * @brief Destructor
    */
   virtual ~VisualServoingControllerDroneConnector() {}
+
+  /**
+   * @brief Get the tracking vector of the RoiToPositionConverter in the global
+   * frame
+   * @param tracking_vector Returned tracking vector
+   * @return True if successful and false otherwise
+   */
+  bool getTrackingVectorGlobalFrame(Position& tracking_vector);
 
 protected:
   /**
@@ -53,12 +61,6 @@ private:
    * @return The rotation transform
    */
   tf::Matrix3x3 getBodyFrameRotation();
-  /**
-   * @brief Get the tracking vector of the RoiToPositionConverter in the global
-   * frame
-   * @return The tracking vector
-   */
-  tf::Vector3 getTrackingVectorGlobalFrame();
 
   /**
   * @brief Configuration
@@ -71,11 +73,7 @@ private:
   /**
   * @brief Converts received ROS ROI to a position
   */
-  RoiToPositionConverter roi_to_position_converter_;
-  /**
-  * @brief UAV should point in this direction as it servos
-  */
-  tf::Vector3 desired_servoing_direction_;
+  RoiToPositionConverter &roi_to_position_converter_;
   /*
   * @brief camera transform with respect to body
   * \todo Matt Add to configuration (using rpy maybe?)

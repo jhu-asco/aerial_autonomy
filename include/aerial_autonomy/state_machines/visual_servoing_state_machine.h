@@ -26,8 +26,7 @@
 #include <aerial_autonomy/actions_guards/visual_servoing_states_actions.h>
 
 // Robot System used
-/// \todo Matt Repace with correct robot system
-#include <aerial_autonomy/robot_systems/uav_system.h>
+#include <aerial_autonomy/robot_systems/uav_vision_system.h>
 
 // Logging library
 #include <glog/logging.h>
@@ -66,7 +65,7 @@ using vsa = VisualServoingStatesActions<VisualServoingStateMachine>;
 */
 class VisualServoingStateMachineFrontEnd
     : public msmf::state_machine_def<VisualServoingStateMachineFrontEnd>,
-      public BaseStateMachine<UAVSystem> {
+      public BaseStateMachine<UAVVisionSystem> {
 public:
   /**
   * @brief Action to take on entering state machine
@@ -93,7 +92,7 @@ public:
   * @param uav_system robot system that is stored internally
   * and shared with events
   */
-  VisualServoingStateMachineFrontEnd(UAVSystem &uav_system)
+  VisualServoingStateMachineFrontEnd(UAVVisionSystem &uav_system)
       : BaseStateMachine(uav_system) {}
 
   /**
@@ -157,7 +156,7 @@ public:
   /**
   * @brief Use Inherited no transition function
   */
-  using BaseStateMachine<UAVSystem>::no_transition;
+  using BaseStateMachine<UAVVisionSystem>::no_transition;
 };
 
 /**

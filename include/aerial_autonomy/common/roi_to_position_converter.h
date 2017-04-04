@@ -34,7 +34,7 @@ public:
    * @param pos Returned object position
    * @return True if successful, false otherwise
    */
-  bool getObjectPosition(Position &pos);
+  bool getTrackingVector(Position &pos);
   /**
    * @brief Get the 3D position of the ROI (in the frame of the
    * camera)
@@ -45,7 +45,7 @@ public:
    * @param front_percent Average over closest front_percent of pixels
    * @param pos Returned position
    */
-  static void computeObjectPosition(const sensor_msgs::RegionOfInterest &roi,
+  static void computeTrackingVector(const sensor_msgs::RegionOfInterest &roi,
                                     const cv::Mat &depth,
                                     const sensor_msgs::CameraInfo &cam_info,
                                     double max_distance, double front_percent,

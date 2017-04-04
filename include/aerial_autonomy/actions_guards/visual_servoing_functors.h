@@ -1,8 +1,7 @@
 #pragma once
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/logic_states/base_state.h>
-/// \todo Matt: Change this to correct robot system
-#include <aerial_autonomy/robot_systems/uav_system.h>
+#include <aerial_autonomy/robot_systems/uav_vision_system.h>
 ///
 #include <aerial_autonomy/types/completed_event.h>
 #include <glog/logging.h>
@@ -15,11 +14,18 @@
 */
 template <class LogicStateMachineT>
 struct VisualServoingTransitionActionFunctor_
-    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
-  void run(UAVSystem &robot_system, LogicStateMachineT &) {
-    VLOG(1) << "Selecting Home Location";
+    : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
+  void run(UAVVisionSystem &robot_system, LogicStateMachineT & logic_state_machine) {
+    VLOG(1) << "Selecting home location";
     robot_system.setHomeLocation();
-    /// \todo Matt: Select the right visual servoing controller for quadrotor
+
+    Position tracking_vector;
+    if(!robot_system.getTrackingVector(tracking_vector)) {
+      LOG(WARNING) << "Lost tracking while servoing.";
+      logic_state_machine.process_event(be::Abort());
+    }
+    VLOG(1) << "Setting tracking vector";
+    robot_system.setGoal<VisualServoingControllerDroneConnector, Position>(tracking_vector);
   }
 };
 
@@ -30,9 +36,9 @@ struct VisualServoingTransitionActionFunctor_
 */
 template <class LogicStateMachineT>
 struct VisualServoingAbortActionFunctor_
-    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
-  void run(UAVSystem &robot_system, LogicStateMachineT &) {
-    LOG(WARNING) << "Aborting Visual servoing Controller";
+    : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
+  void run(UAVVisionSystem &robot_system, LogicStateMachineT &) {
+    LOG(WARNING) << "Aborting visual servoing controller";
     robot_system.abortController(HardwareType::UAV);
   }
 };
@@ -44,8 +50,8 @@ struct VisualServoingAbortActionFunctor_
 */
 template <class LogicStateMachineT>
 struct GoHomeTransitionActionFunctor_
-    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
-  void run(UAVSystem &robot_system, LogicStateMachineT &) {
+    : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
+  void run(UAVVisionSystem &robot_system, LogicStateMachineT &) {
     PositionYaw home_location = robot_system.getHomeLocation();
     VLOG(1) << "Going home";
     robot_system.setGoal<PositionControllerDroneConnector, PositionYaw>(
@@ -55,8 +61,8 @@ struct GoHomeTransitionActionFunctor_
 
 template <class LogicStateMachineT>
 struct GoHomeTransitionGuardFunctor_
-    : EventAgnosticGuardFunctor<UAVSystem, LogicStateMachineT> {
-  bool guard(UAVSystem &robot_system, LogicStateMachineT &) {
+    : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {
+  bool guard(UAVVisionSystem &robot_system, LogicStateMachineT &) {
     return robot_system.isHomeLocationSpecified();
   }
 };
@@ -68,14 +74,14 @@ struct GoHomeTransitionGuardFunctor_
 */
 template <class LogicStateMachineT>
 struct VisualServoingInternalActionFunctor_
-    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+    : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
   /**
   * @brief check if we reached VS goal and trigger completed event
   *
   * @param robot_system robot system to get sensor data
   * @param logic_state_machine logic state machine to trigger events
   */
-  virtual void run(UAVSystem &robot_system,
+  virtual void run(UAVVisionSystem &robot_system,
                    LogicStateMachineT &logic_state_machine) {
     /// \todo Matt: Get current goal for visual servoing
     /// //Example:
@@ -110,10 +116,10 @@ struct VisualServoingInternalActionFunctor_
 
 template <class LogicStateMachineT>
 struct VisualServoingTransitionGuardFunctor_
-    : EventAgnosticGuardFunctor<UAVSystem, LogicStateMachineT> {
-  bool guard(UAVSystem &robot_system_, LogicStateMachineT &) {
-    ///\todo Matt: Implement function to check if tracking is valid
-    return true;
+    : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {
+  bool guard(UAVVisionSystem &robot_system_, LogicStateMachineT &) {
+    Position tracking_vector;
+    return robot_system_.getTrackingVector(tracking_vector);
   }
 };
 
@@ -124,5 +130,5 @@ struct VisualServoingTransitionGuardFunctor_
 */
 template <class LogicStateMachineT>
 using VisualServoing_ =
-    BaseState<UAVSystem, LogicStateMachineT,
+    BaseState<UAVVisionSystem, LogicStateMachineT,
               VisualServoingInternalActionFunctor_<LogicStateMachineT>>;

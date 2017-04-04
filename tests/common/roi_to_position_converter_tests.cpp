@@ -2,7 +2,7 @@
 
 #include "aerial_autonomy/common/roi_to_position_converter.h"
 
-TEST(RoiToPositionConverterTests, ComputeObjectPosition) {
+TEST(RoiToPositionConverterTests, ComputeTrackingVector) {
   sensor_msgs::RegionOfInterest roi;
   cv::Mat depth(40, 40, CV_32F);
   sensor_msgs::CameraInfo camera_info;
@@ -27,14 +27,14 @@ TEST(RoiToPositionConverterTests, ComputeObjectPosition) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
 
-  RoiToPositionConverter::computeObjectPosition(
+  RoiToPositionConverter::computeTrackingVector(
       roi, depth, camera_info, max_distance, front_percent, pos);
   ASSERT_NEAR(pos.x, (5.5 - cx) / fx, 1e-5);
   ASSERT_NEAR(pos.y, (5.5 - cy) / fy, 1e-5);
   ASSERT_NEAR(pos.z, 1, 1e-5);
 }
 
-TEST(RoiToPositionConverterTests, ComputeObjectPositionFront) {
+TEST(RoiToPositionConverterTests, ComputeTrackingVectorFront) {
   sensor_msgs::RegionOfInterest roi;
   cv::Mat depth(40, 40, CV_32F);
   sensor_msgs::CameraInfo camera_info;
@@ -60,14 +60,14 @@ TEST(RoiToPositionConverterTests, ComputeObjectPositionFront) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
 
-  RoiToPositionConverter::computeObjectPosition(
+  RoiToPositionConverter::computeTrackingVector(
       roi, depth, camera_info, max_distance, front_percent, pos);
   ASSERT_NEAR(pos.x, 0.5 * (2 - cx) / fx, 1e-5);
   ASSERT_NEAR(pos.y, 0.5 * (2 - cy) / fy, 1e-5);
   ASSERT_NEAR(pos.z, 0.5, 1e-5);
 }
 
-TEST(RoiToPositionConverterTests, ComputeObjectPositionMaxDistance) {
+TEST(RoiToPositionConverterTests, ComputeTrackingVectorMaxDistance) {
   sensor_msgs::RegionOfInterest roi;
   cv::Mat depth(40, 40, CV_32F);
   sensor_msgs::CameraInfo camera_info;
@@ -92,7 +92,7 @@ TEST(RoiToPositionConverterTests, ComputeObjectPositionMaxDistance) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
 
-  RoiToPositionConverter::computeObjectPosition(
+  RoiToPositionConverter::computeTrackingVector(
       roi, depth, camera_info, max_distance, front_percent, pos);
   ASSERT_NEAR(pos.x, max_distance * (0 - cx) / fx, 1e-5);
   ASSERT_NEAR(pos.y, max_distance * (0 - cy) / fy, 1e-5);

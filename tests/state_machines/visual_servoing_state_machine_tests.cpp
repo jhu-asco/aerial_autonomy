@@ -14,12 +14,14 @@ using namespace quad_simulator;
 class VisualServoingStateMachineTests : public ::testing::Test {
 protected:
   std::unique_ptr<VisualServoingStateMachine> logic_state_machine;
-  std::unique_ptr<UAVSystem> uav_system;
+  std::unique_ptr<UAVVisionSystem> uav_system;
   QuadSimulator drone_hardware;
+  ros::NodeHandle nh;
+  UAVSystemConfig config;
 
   virtual void SetUp() {
     drone_hardware.setTakeoffAltitude(2.0);
-    uav_system.reset(new UAVSystem(drone_hardware));
+    uav_system.reset(new UAVVisionSystem(nh, drone_hardware, config));
     logic_state_machine.reset(
         new VisualServoingStateMachine(boost::ref(*uav_system)));
     logic_state_machine->start();
@@ -44,6 +46,7 @@ TEST_F(VisualServoingStateMachineTests, InitialState) {
 }
 
 int main(int argc, char **argv) {
+  ros::init(argc, argv, "visual_servoing_state_machine_test");
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

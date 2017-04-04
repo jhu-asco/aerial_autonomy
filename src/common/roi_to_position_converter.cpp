@@ -58,7 +58,7 @@ void RoiToPositionConverter::depthCallback(
     camera_info = *camera_info_;
   }
   Position object_position;
-  computeObjectPosition(roi_rect, depth->image, camera_info,
+  computeTrackingVector(roi_rect, depth->image, camera_info,
                         max_object_distance_, 0.2, object_position);
   {
     boost::mutex::scoped_lock(position_mutex_);
@@ -89,7 +89,7 @@ bool RoiToPositionConverter::roiIsValid() {
   return valid;
 }
 
-bool RoiToPositionConverter::getObjectPosition(Position &pos) {
+bool RoiToPositionConverter::getTrackingVector(Position &pos) {
   if (!roiIsValid()) {
     return false;
   }
@@ -104,7 +104,7 @@ bool RoiToPositionConverter::getObjectPosition(Position &pos) {
   return true;
 }
 
-void RoiToPositionConverter::computeObjectPosition(
+void RoiToPositionConverter::computeTrackingVector(
     const sensor_msgs::RegionOfInterest &roi_rect, const cv::Mat &depth,
     const sensor_msgs::CameraInfo &camera_info, double max_distance,
     double front_percent, Position &pos) {
