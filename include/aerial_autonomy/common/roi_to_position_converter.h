@@ -42,19 +42,25 @@ public:
    * @param depth Pixel depths
    * @param cam_info Camera calibration parameters
    * @param max_distance Ignore pixels farther away than this
-   * @param front_percent Average over closest front_percent of pixels
+   * @param foreground_percent Average over closest foreground_percent of pixels
    * @param pos Returned position
    */
   static void computeObjectPosition(const sensor_msgs::RegionOfInterest &roi,
                                     const cv::Mat &depth,
                                     const sensor_msgs::CameraInfo &cam_info,
-                                    double max_distance, double front_percent,
-                                    Position &pos);
+                                    double max_distance,
+                                    double foreground_percent, Position &pos);
   /*
   * @brief Check whether position is valid
   * @return True if the position is valid, false otherwise
   */
   bool positionIsValid();
+
+  /**
+  * @brief Check whether topics are connected
+  * @return True if connected and false otherwise
+  */
+  bool isConnected();
 
 private:
   /*
@@ -136,6 +142,11 @@ private:
   * \todo Make this a configurable param
   */
   double max_object_distance_ = 3.0;
+  /**
+  * @brief Percentage of pixel depths to include as foreground
+  * \todo Make this a configurable param
+  */
+  double foreground_percent_ = 0.25;
 
   /**
   * @brief last time ROI was updated
