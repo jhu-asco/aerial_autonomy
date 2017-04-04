@@ -1,8 +1,8 @@
 #pragma once
 #include <aerial_autonomy/actions_guards/base_functors.h>
+#include <aerial_autonomy/common/math.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_vision_system.h>
-///
 #include <aerial_autonomy/types/completed_event.h>
 #include <glog/logging.h>
 #include <parsernode/common.h>
@@ -26,8 +26,11 @@ struct VisualServoingTransitionActionFunctor_
       logic_state_machine.process_event(be::Abort());
     }
     VLOG(1) << "Setting tracking vector";
+    double desired_distance = robot_system.getConfiguration()
+                                  .uav_vision_system_config()
+                                  .desired_visual_servoing_distance();
     robot_system.setGoal<VisualServoingControllerDroneConnector, Position>(
-        tracking_vector);
+        tracking_vector * desired_distance / tracking_vector.norm());
   }
 };
 
@@ -85,19 +88,22 @@ struct VisualServoingInternalActionFunctor_
   */
   virtual void run(UAVVisionSystem &robot_system,
                    LogicStateMachineT &logic_state_machine) {
-    /// \todo Matt: Get current goal for visual servoing
-    /// //Example:
-    /// PositionYaw goal =
-    ///    robot_system.getGoal<PositionControllerDroneConnector,
-    ///    PositionYaw>();
-    /// \todo Matt: Implement the correct function to check if we
-    /// reached the visual servoing goal based on object distance.
-    /// Also need to check if tracking is valid
-    PositionYaw goal;
-    // Get current position, yaw
+    Position goal =
+        robot_system
+            .getGoal<VisualServoingControllerDroneConnector, Position>();
+    Position tracking_vector;
+    // Check if tracking is still valid and get current trackng vector
+    if (!robot_system.getTrackingVector(tracking_vector)) {
+      LOG(WARNING) << "Lost tracking while servoing.";
+      logic_state_machine.process_event(be::Abort());
+    }
+    /// \todo Matt/Gowtham Instead of re-implementing controller logic, add a
+    /// function to the robot system to check if the current controller has
+    /// converged or has failed
+    // Get current yaw
     parsernode::common::quaddata data = robot_system.getUAVData();
-    geometry_msgs::Vector3 current_position = data.localpos;
     double yaw = data.rpydata.z;
+    double error_yaw = math::angleWrap(std::atan2(goal.x, goal.y) - yaw);
     // Define tolerance and check if reached goal
     const auto &robot_config = robot_system.getConfiguration();
     const double &tolerance_pos = robot_config.goal_position_tolerance(); // m
@@ -106,10 +112,8 @@ struct VisualServoingInternalActionFunctor_
       LOG(WARNING) << "Battery too low " << data.batterypercent
                    << "\% Landing!";
       logic_state_machine.process_event(be::Land());
-    } else if (std::abs(current_position.x - goal.x) < tolerance_pos &&
-               std::abs(current_position.y - goal.y) < tolerance_pos &&
-               std::abs(current_position.z - goal.z) < tolerance_pos &&
-               std::abs(yaw - goal.yaw) < tolerance_yaw) {
+    } else if ((tracking_vector - goal).norm() < tolerance_pos &&
+               std::abs(error_yaw) < tolerance_yaw) {
       VLOG(1) << "Reached goal";
       logic_state_machine.process_event(Completed());
     }

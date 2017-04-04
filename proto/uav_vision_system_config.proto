@@ -4,4 +4,8 @@ import "visual_servoing_controller_connector_config.proto";
 
 message UAVVisionSystemConfig {
   required VisualServoingControllerConnectorConfig visual_servoing_config = 1;
+  /**
+  * @brief Desired distance to tracked position in meters
+  */
+  required double desired_visual_servoing_distance = 2 [ default = 3.0 ];
 }
