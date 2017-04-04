@@ -4,6 +4,11 @@
 
 #include <glog/logging.h>
 
+bool RoiToPositionConverter::isConnected() {
+  return roi_subscriber_.getNumPublishers() > 0 &&
+         depth_subscriber_.getNumPublishers() > 0;
+}
+
 void RoiToPositionConverter::roiCallback(
     const sensor_msgs::RegionOfInterest &roi_msg) {
   {

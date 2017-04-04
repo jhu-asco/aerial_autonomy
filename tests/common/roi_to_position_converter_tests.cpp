@@ -19,9 +19,7 @@ public:
   }
   void publishRoi(sensor_msgs::RegionOfInterest &roi) {
     roi_pub_.publish(roi);
-    ros::spinOnce();
-    ros::spinOnce();
-    ros::spinOnce();
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
     ros::spinOnce();
   }
   void publishDepth(cv::Mat &depth) {
@@ -139,6 +137,8 @@ TEST(RoiToPositionConverterTests, ComputeObjectPositionMaxDistance) {
 TEST_F(RoiToPositionConverterROSTests, PositionValid) {
   ros::NodeHandle nh;
   RoiToPositionConverter converter(nh);
+  while (!converter.isConnected()) {
+  }
 
   ASSERT_FALSE(converter.positionIsValid());
 
@@ -164,6 +164,8 @@ TEST_F(RoiToPositionConverterROSTests, PositionValid) {
 TEST_F(RoiToPositionConverterROSTests, GetPosition) {
   ros::NodeHandle nh;
   RoiToPositionConverter converter(nh);
+  while (!converter.isConnected()) {
+  }
   Position pos;
 
   ASSERT_FALSE(converter.getObjectPosition(pos));

@@ -56,6 +56,12 @@ public:
   */
   bool positionIsValid();
 
+  /**
+  * @brief Check whether topics are connected
+  * @return True if connected and false otherwise
+  */
+  bool isConnected();
+
 private:
   /*
   * @brief Check whether the system has valid camera info
