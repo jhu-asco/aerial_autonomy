@@ -15,17 +15,19 @@
 template <class LogicStateMachineT>
 struct VisualServoingTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
-  void run(UAVVisionSystem &robot_system, LogicStateMachineT & logic_state_machine) {
+  void run(UAVVisionSystem &robot_system,
+           LogicStateMachineT &logic_state_machine) {
     VLOG(1) << "Selecting home location";
     robot_system.setHomeLocation();
 
     Position tracking_vector;
-    if(!robot_system.getTrackingVector(tracking_vector)) {
+    if (!robot_system.getTrackingVector(tracking_vector)) {
       LOG(WARNING) << "Lost tracking while servoing.";
       logic_state_machine.process_event(be::Abort());
     }
     VLOG(1) << "Setting tracking vector";
-    robot_system.setGoal<VisualServoingControllerDroneConnector, Position>(tracking_vector);
+    robot_system.setGoal<VisualServoingControllerDroneConnector, Position>(
+        tracking_vector);
   }
 };
 

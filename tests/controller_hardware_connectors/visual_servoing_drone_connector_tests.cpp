@@ -12,11 +12,11 @@ using namespace quad_simulator;
 
 class VisualServoingControllerDroneConnectorTests : public ::testing::Test {
 public:
-  VisualServoingControllerDroneConnectorTests() : nh_(),
-    roi_to_position_converter_(nh_),
-    visual_servoing_connector_(new VisualServoingControllerDroneConnector(
-        roi_to_position_converter_, drone_hardware_, controller_, config_)) {
-  }
+  VisualServoingControllerDroneConnectorTests()
+      : nh_(), roi_to_position_converter_(nh_),
+        visual_servoing_connector_(new VisualServoingControllerDroneConnector(
+            roi_to_position_converter_, drone_hardware_, controller_,
+            config_)) {}
   ros::NodeHandle nh_;
   RoiToPositionConverter roi_to_position_converter_;
   QuadSimulator drone_hardware_;

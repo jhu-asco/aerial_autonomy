@@ -21,7 +21,8 @@ public:
    * @brief Constructor
    */
   VisualServoingControllerDroneConnector(
-      RoiToPositionConverter &roi_to_position_converter, parsernode::Parser &drone_hardware,
+      RoiToPositionConverter &roi_to_position_converter,
+      parsernode::Parser &drone_hardware,
       ConstantHeadingDepthController &controller,
       VisualServoingControllerConnectorConfig config)
       : ControllerHardwareConnector(controller, HardwareType::UAV),
@@ -38,7 +39,7 @@ public:
    * @param tracking_vector Returned tracking vector
    * @return True if successful and false otherwise
    */
-  bool getTrackingVectorGlobalFrame(Position& tracking_vector);
+  bool getTrackingVectorGlobalFrame(Position &tracking_vector);
 
 protected:
   /**

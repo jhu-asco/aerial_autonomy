@@ -18,8 +18,8 @@ void VisualServoingControllerDroneConnector::sendHardwareCommands(
   /// \todo Gowtham Add function for commanding velocity with yaw rate
 }
 
-bool
-VisualServoingControllerDroneConnector::getTrackingVectorGlobalFrame(Position& tracking_vector) {
+bool VisualServoingControllerDroneConnector::getTrackingVectorGlobalFrame(
+    Position &tracking_vector) {
   Position object_position_cam;
   if (!roi_to_position_converter_.getTrackingVector(object_position_cam)) {
     return false;
@@ -27,9 +27,10 @@ VisualServoingControllerDroneConnector::getTrackingVectorGlobalFrame(Position& t
   tf::Vector3 object_direction_cam(object_position_cam.x, object_position_cam.y,
                                    object_position_cam.z);
   // Convert from camera frame to global frame
-  tf::Vector3 tracking_vector_tf = (getBodyFrameRotation() *
-          (camera_transform_.getBasis() * object_direction_cam))
-      .normalize();
+  tf::Vector3 tracking_vector_tf =
+      (getBodyFrameRotation() *
+       (camera_transform_.getBasis() * object_direction_cam))
+          .normalize();
   tracking_vector.x = tracking_vector_tf.getX();
   tracking_vector.y = tracking_vector_tf.getY();
   tracking_vector.z = tracking_vector_tf.getZ();
