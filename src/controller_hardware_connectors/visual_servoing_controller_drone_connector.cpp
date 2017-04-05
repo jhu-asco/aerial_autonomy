@@ -3,9 +3,10 @@
 PositionYaw VisualServoingControllerDroneConnector::extractSensorData() {
   parsernode::common::quaddata quad_data;
   drone_hardware_.getquaddata(quad_data);
-  tf::Vector3 tracking_position = getTrackingVectorGlobalFrame();
-  return PositionYaw(tracking_position.getX(), tracking_position.getY(),
-                     tracking_position.getZ(), quad_data.rpydata.z);
+  Position tracking_vector;
+  getTrackingVectorGlobalFrame(tracking_vector);
+  /// \todo Matt don't let the controller send a bad command if tracking fails!
+  return PositionYaw(tracking_vector, quad_data.rpydata.z);
 }
 
 void VisualServoingControllerDroneConnector::sendHardwareCommands(
@@ -18,18 +19,23 @@ void VisualServoingControllerDroneConnector::sendHardwareCommands(
   /// \todo Gowtham Add function for commanding velocity with yaw rate
 }
 
-tf::Vector3
-VisualServoingControllerDroneConnector::getTrackingVectorGlobalFrame() {
+bool VisualServoingControllerDroneConnector::getTrackingVectorGlobalFrame(
+    Position &tracking_vector) {
   Position object_position_cam;
-  if (!roi_to_position_converter_.getObjectPosition(object_position_cam)) {
-    /// \todo(Matt) handle case when cannot get object position
+  if (!roi_to_position_converter_.getTrackingVector(object_position_cam)) {
+    return false;
   }
   tf::Vector3 object_direction_cam(object_position_cam.x, object_position_cam.y,
                                    object_position_cam.z);
   // Convert from camera frame to global frame
-  return (getBodyFrameRotation() *
-          (camera_transform_.getBasis() * object_direction_cam))
-      .normalize();
+  tf::Vector3 tracking_vector_tf =
+      (getBodyFrameRotation() *
+       (camera_transform_.getBasis() * object_direction_cam))
+          .normalize();
+  tracking_vector.x = tracking_vector_tf.getX();
+  tracking_vector.y = tracking_vector_tf.getY();
+  tracking_vector.z = tracking_vector_tf.getZ();
+  return true;
 }
 
 tf::Matrix3x3 VisualServoingControllerDroneConnector::getBodyFrameRotation() {

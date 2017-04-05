@@ -38,9 +38,9 @@ struct ActionFunctor {
   void operator()(EventT const &event, FSM &logic_state_machine, SourceState &,
                   TargetState &) {
     static_assert(
-        std::is_same<RobotSystemT &,
-                     decltype(
-                         logic_state_machine.robot_system_container_())>::value,
+        std::is_convertible<decltype(
+                                logic_state_machine.robot_system_container_()),
+                            RobotSystemT &>::value,
         "Robot system in logic state machine is not the same as one used in "
         "action functor");
     static_assert(
@@ -94,9 +94,9 @@ struct GuardFunctor {
   bool operator()(EventT const &event, FSM &logic_state_machine, SourceState &,
                   TargetState &) {
     static_assert(
-        std::is_same<RobotSystemT &,
-                     decltype(
-                         logic_state_machine.robot_system_container_())>::value,
+        std::is_convertible<decltype(
+                                logic_state_machine.robot_system_container_()),
+                            RobotSystemT &>::value,
         "Robot system in logic state machine is not the same as one used in "
         "action functor");
     static_assert(
@@ -144,9 +144,9 @@ struct EventAgnosticActionFunctor {
   void operator()(EventT const &, FSM &logic_state_machine, SourceState &,
                   TargetState &) {
     static_assert(
-        std::is_same<RobotSystemT &,
-                     decltype(
-                         logic_state_machine.robot_system_container_())>::value,
+        std::is_convertible<decltype(
+                                logic_state_machine.robot_system_container_()),
+                            RobotSystemT &>::value,
         "Robot system in logic state machine is not the same as one used in "
         "action functor");
     static_assert(
@@ -196,9 +196,9 @@ struct EventAgnosticGuardFunctor {
   bool operator()(EventT const &, FSM &logic_state_machine, SourceState &,
                   TargetState &) {
     static_assert(
-        std::is_same<RobotSystemT &,
-                     decltype(
-                         logic_state_machine.robot_system_container_())>::value,
+        std::is_convertible<decltype(
+                                logic_state_machine.robot_system_container_()),
+                            RobotSystemT &>::value,
         "Robot system in logic state machine is not the same as one used in "
         "action functor");
     static_assert(

@@ -42,8 +42,6 @@ struct PositionControlAbortActionFunctor_
 * @brief Guard function to check the goal is within tolerance before starting
 * towards goal
 *
-* \todo Use a parameter for setting position tolerance
-*
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
@@ -88,6 +86,9 @@ struct PositionControlInternalActionFunctor_
     PositionYaw goal =
         robot_system.getGoal<PositionControllerDroneConnector, PositionYaw>();
     // Get current position, yaw
+    /// \todo Matt/Gowtham Instead of re-implementing controller logic, add a
+    /// function to the robot system to check if the current controller has
+    /// converged or has failed
     parsernode::common::quaddata data = robot_system.getUAVData();
     geometry_msgs::Vector3 current_position = data.localpos;
     double yaw = data.rpydata.z;

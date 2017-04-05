@@ -37,7 +37,7 @@ private:
   ros::Publisher depth_pub_;
 };
 
-TEST(RoiToPositionConverterTests, ComputeObjectPosition) {
+TEST(RoiToPositionConverterTests, ComputeTrackingVector) {
   sensor_msgs::RegionOfInterest roi;
   cv::Mat depth(40, 40, CV_32F);
   sensor_msgs::CameraInfo camera_info;
@@ -62,14 +62,14 @@ TEST(RoiToPositionConverterTests, ComputeObjectPosition) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
 
-  RoiToPositionConverter::computeObjectPosition(
+  RoiToPositionConverter::computeTrackingVector(
       roi, depth, camera_info, max_distance, front_percent, pos);
   ASSERT_NEAR(pos.x, (5.5 - cx) / fx, 1e-5);
   ASSERT_NEAR(pos.y, (5.5 - cy) / fy, 1e-5);
   ASSERT_NEAR(pos.z, 1, 1e-5);
 }
 
-TEST(RoiToPositionConverterTests, ComputeObjectPositionFront) {
+TEST(RoiToPositionConverterTests, ComputeTrackingVectorFront) {
   sensor_msgs::RegionOfInterest roi;
   cv::Mat depth(40, 40, CV_32F);
   sensor_msgs::CameraInfo camera_info;
@@ -95,14 +95,14 @@ TEST(RoiToPositionConverterTests, ComputeObjectPositionFront) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
 
-  RoiToPositionConverter::computeObjectPosition(
+  RoiToPositionConverter::computeTrackingVector(
       roi, depth, camera_info, max_distance, front_percent, pos);
   ASSERT_NEAR(pos.x, 0.5 * (2 - cx) / fx, 1e-5);
   ASSERT_NEAR(pos.y, 0.5 * (2 - cy) / fy, 1e-5);
   ASSERT_NEAR(pos.z, 0.5, 1e-5);
 }
 
-TEST(RoiToPositionConverterTests, ComputeObjectPositionMaxDistance) {
+TEST(RoiToPositionConverterTests, ComputeTrackingVectorMaxDistance) {
   sensor_msgs::RegionOfInterest roi;
   cv::Mat depth(40, 40, CV_32F);
   sensor_msgs::CameraInfo camera_info;
@@ -127,20 +127,20 @@ TEST(RoiToPositionConverterTests, ComputeObjectPositionMaxDistance) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
 
-  RoiToPositionConverter::computeObjectPosition(
+  RoiToPositionConverter::computeTrackingVector(
       roi, depth, camera_info, max_distance, front_percent, pos);
   ASSERT_NEAR(pos.x, max_distance * (0 - cx) / fx, 1e-5);
   ASSERT_NEAR(pos.y, max_distance * (0 - cy) / fy, 1e-5);
   ASSERT_NEAR(pos.z, max_distance, 1e-5);
 }
 
-TEST_F(RoiToPositionConverterROSTests, PositionValid) {
+TEST_F(RoiToPositionConverterROSTests, TrackingValid) {
   ros::NodeHandle nh;
   RoiToPositionConverter converter(nh);
   while (!converter.isConnected()) {
   }
 
-  ASSERT_FALSE(converter.positionIsValid());
+  ASSERT_FALSE(converter.trackingIsValid());
 
   sensor_msgs::CameraInfo camera_info;
   camera_info.K[2] = 1;
@@ -148,27 +148,27 @@ TEST_F(RoiToPositionConverterROSTests, PositionValid) {
   camera_info.K[0] = 1;
   camera_info.K[4] = 1;
   publishCameraInfo(camera_info);
-  ASSERT_FALSE(converter.positionIsValid());
+  ASSERT_FALSE(converter.trackingIsValid());
 
   sensor_msgs::RegionOfInterest roi;
   publishRoi(roi);
-  ASSERT_TRUE(converter.positionIsValid());
+  ASSERT_TRUE(converter.trackingIsValid());
 
   /// \todo Matt This should depend on the configured ROI timeout
   std::this_thread::sleep_for(std::chrono::milliseconds(700));
-  ASSERT_FALSE(converter.positionIsValid());
+  ASSERT_FALSE(converter.trackingIsValid());
   /// \todo Matt when isPositionValid depends on depth, we should publish a
   /// depth too
 }
 
-TEST_F(RoiToPositionConverterROSTests, GetPosition) {
+TEST_F(RoiToPositionConverterROSTests, GetTrackingVector) {
   ros::NodeHandle nh;
   RoiToPositionConverter converter(nh);
   while (!converter.isConnected()) {
   }
   Position pos;
 
-  ASSERT_FALSE(converter.getObjectPosition(pos));
+  ASSERT_FALSE(converter.getTrackingVector(pos));
 
   sensor_msgs::CameraInfo camera_info;
   double cx = 20;
@@ -180,7 +180,7 @@ TEST_F(RoiToPositionConverterROSTests, GetPosition) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
   publishCameraInfo(camera_info);
-  ASSERT_FALSE(converter.getObjectPosition(pos));
+  ASSERT_FALSE(converter.getTrackingVector(pos));
 
   sensor_msgs::RegionOfInterest roi;
   roi.x_offset = 0;
@@ -188,7 +188,7 @@ TEST_F(RoiToPositionConverterROSTests, GetPosition) {
   roi.height = 10;
   roi.width = 10;
   publishRoi(roi);
-  /// \todo Matt when isPositionValid depends on depth, getObjectPosition should
+  /// \todo Matt when isPositionValid depends on depth, getTrackingVector should
   /// return false when no depth has been received
 
   cv::Mat depth(40, 40, CV_32F);
@@ -196,7 +196,7 @@ TEST_F(RoiToPositionConverterROSTests, GetPosition) {
   depth(cv::Rect(0, 0, 5, 5)).setTo(0.5);
   publishDepth(depth);
 
-  ASSERT_TRUE(converter.getObjectPosition(pos));
+  ASSERT_TRUE(converter.getTrackingVector(pos));
   ASSERT_NEAR(pos.x, 0.5 * (2 - cx) / fx, 1e-5);
   ASSERT_NEAR(pos.y, 0.5 * (2 - cy) / fy, 1e-5);
   ASSERT_NEAR(pos.z, 0.5, 1e-5);

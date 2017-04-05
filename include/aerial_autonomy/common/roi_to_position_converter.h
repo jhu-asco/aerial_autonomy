@@ -34,7 +34,7 @@ public:
    * @param pos Returned object position
    * @return True if successful, false otherwise
    */
-  bool getObjectPosition(Position &pos);
+  bool getTrackingVector(Position &pos);
   /**
    * @brief Get the 3D position of the ROI (in the frame of the
    * camera)
@@ -45,16 +45,16 @@ public:
    * @param foreground_percent Average over closest foreground_percent of pixels
    * @param pos Returned position
    */
-  static void computeObjectPosition(const sensor_msgs::RegionOfInterest &roi,
+  static void computeTrackingVector(const sensor_msgs::RegionOfInterest &roi,
                                     const cv::Mat &depth,
                                     const sensor_msgs::CameraInfo &cam_info,
                                     double max_distance,
                                     double foreground_percent, Position &pos);
   /*
-  * @brief Check whether position is valid
-  * @return True if the position is valid, false otherwise
+  * @brief Check whether tracking is valid
+  * @return True if the tracking is valid, false otherwise
   */
-  bool positionIsValid();
+  bool trackingIsValid();
 
   /**
   * @brief Check whether topics are connected
