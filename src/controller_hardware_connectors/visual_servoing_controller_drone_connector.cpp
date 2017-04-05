@@ -5,6 +5,7 @@ PositionYaw VisualServoingControllerDroneConnector::extractSensorData() {
   drone_hardware_.getquaddata(quad_data);
   Position tracking_vector;
   getTrackingVectorGlobalFrame(tracking_vector);
+  /// \todo Matt don't let the controller send a bad command if tracking fails!
   return PositionYaw(tracking_vector, quad_data.rpydata.z);
 }
 

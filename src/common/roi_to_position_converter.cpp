@@ -96,13 +96,9 @@ bool RoiToPositionConverter::roiIsValid() {
 }
 
 bool RoiToPositionConverter::getTrackingVector(Position &pos) {
-  if (!roiIsValid()) {
+  if (!trackingIsValid()) {
     return false;
   }
-  if (!cameraInfoIsValid()) { // Need cam info
-    return false;
-  }
-
   {
     boost::mutex::scoped_lock(position_mutex_);
     pos = object_position_;
