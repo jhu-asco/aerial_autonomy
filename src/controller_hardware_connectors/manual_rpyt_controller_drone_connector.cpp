@@ -1,6 +1,7 @@
 #include "aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h"
 
-JoysticksYaw ManualRPYTControllerDroneConnector::extractSensorData() {
+JoysticksYaw
+ManualRPYTControllerDroneConnector::extractSensorData(ControllerStatus &) {
   parsernode::common::quaddata quad_data;
   drone_hardware_.getquaddata(quad_data);
   return JoysticksYaw(quad_data.servo_in[0], quad_data.servo_in[1],

@@ -1,5 +1,6 @@
 #pragma once
 #include "aerial_autonomy/types/position.h"
+#include <aerial_autonomy/common/math.h>
 
 /**
 * @brief Stores Position, yaw.
@@ -85,6 +86,6 @@ struct PositionYaw : public Position {
   PositionYaw operator-(const PositionYaw &p) const {
     Position p1(this->x, this->y, this->z);
     Position p2(p.x, p.y, p.z);
-    return PositionYaw(p1 - p2, this->yaw - p.yaw);
+    return PositionYaw(p1 - p2, math::angleWrap(this->yaw - p.yaw));
   }
 };

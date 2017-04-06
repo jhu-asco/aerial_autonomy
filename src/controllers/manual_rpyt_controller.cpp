@@ -2,7 +2,7 @@
 
 RollPitchYawThrust
 ManualRPYTController::runImplementation(JoysticksYaw sensor_data,
-                                        EmptyGoal goal) {
+                                        EmptyGoal goal, ControllerStatus &) {
   RollPitchYawThrust controls;
   /// \todo(matt): need to pass RC mapping as parameter
   controls.r = map(sensor_data.channel1, -10000, 10000, -M_PI / 6, M_PI / 6);

@@ -1,5 +1,11 @@
 syntax = "proto2";
 
+import "position_controller_config.proto";
+
+/**
+* Uses the position controller config for tolerance
+* in position, yaw
+*/
 message VelocityBasedPositionControllerConfig {
   /**
   * @brief Gain to convert position error to velocity
@@ -17,4 +23,8 @@ message VelocityBasedPositionControllerConfig {
   * @brief Maximum yaw rate to be commanded in rad/s
   */
   optional double max_yaw_rate = 4 [ default = 0.1 ];
+  /**
+  * @brief Config about position tolerance, yaw tolerance
+  */
+  optional PositionControllerConfig position_controller_config = 5;
 }

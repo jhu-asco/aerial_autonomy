@@ -15,12 +15,10 @@ public:
   VisualServoingControllerDroneConnectorTests()
       : nh_(), roi_to_position_converter_(nh_),
         visual_servoing_connector_(new VisualServoingControllerDroneConnector(
-            roi_to_position_converter_, drone_hardware_, controller_,
-            config_)) {}
+            roi_to_position_converter_, drone_hardware_, controller_)) {}
   ros::NodeHandle nh_;
   RoiToPositionConverter roi_to_position_converter_;
   QuadSimulator drone_hardware_;
-  VisualServoingControllerConnectorConfig config_;
   ConstantHeadingDepthController controller_;
   std::unique_ptr<VisualServoingControllerDroneConnector>
       visual_servoing_connector_;

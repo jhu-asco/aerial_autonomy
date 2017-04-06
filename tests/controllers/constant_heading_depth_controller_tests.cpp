@@ -12,7 +12,8 @@ TEST(ConstantHeadingDepthControllerTests, Converged) {
   Position goal(1, .1, 0.5);
   controller.setGoal(goal);
   PositionYaw sensor_data(1, .1, 0.5, std::atan2(goal.y, goal.x));
-  VelocityYawRate controls = controller.run(sensor_data);
+  ControllerStatus status;
+  VelocityYawRate controls = controller.run(sensor_data, status);
   ASSERT_NEAR(controls.x, 0, 1e-10);
   ASSERT_NEAR(controls.y, 0, 1e-10);
   ASSERT_NEAR(controls.z, 0, 1e-10);
@@ -27,7 +28,8 @@ TEST(ConstantHeadingDepthControllerTests, NotConvergedRadial) {
   Position goal(1, .1, 0.5);
   controller.setGoal(goal);
   PositionYaw sensor_data(2, .2, 1.0, std::atan2(goal.y, goal.x));
-  VelocityYawRate controls = controller.run(sensor_data);
+  ControllerStatus status;
+  VelocityYawRate controls = controller.run(sensor_data, status);
   ASSERT_NEAR(controls.x, 0.5, 1e-10);
   ASSERT_NEAR(controls.y, 0.05, 1e-10);
   ASSERT_NEAR(controls.z, 0.25, 1e-10);
@@ -43,7 +45,8 @@ TEST(ConstantHeadingDepthControllerTests, NotConvergedAll) {
   Position goal(1, 0, 0);
   controller.setGoal(goal);
   PositionYaw sensor_data(2, 1, 0, std::atan2(goal.y, goal.x) + M_PI / 12);
-  VelocityYawRate controls = controller.run(sensor_data);
+  ControllerStatus status;
+  VelocityYawRate controls = controller.run(sensor_data, status);
   ASSERT_NEAR(controls.x, 0.5, 1e-10);
   ASSERT_NEAR(controls.y, 1., 1e-10);
   ASSERT_NEAR(controls.z, 0., 1e-10);
@@ -59,7 +62,8 @@ TEST(ConstantHeadingDepthControllerTests, NegativeNotConvergedAll) {
   Position goal(-1, 0, 0);
   controller.setGoal(goal);
   PositionYaw sensor_data(-2, -1, 0, std::atan2(goal.y, goal.x) - M_PI / 12);
-  VelocityYawRate controls = controller.run(sensor_data);
+  ControllerStatus status;
+  VelocityYawRate controls = controller.run(sensor_data, status);
   ASSERT_NEAR(controls.x, -0.5, 1e-10);
   ASSERT_NEAR(controls.y, -1., 1e-10);
   ASSERT_NEAR(controls.z, 0., 1e-10);
@@ -75,7 +79,8 @@ TEST(ConstantHeadingDepthControllerTests, MaxVelocity) {
   Position goal(1, 0, 0);
   controller.setGoal(goal);
   PositionYaw sensor_data(2, 1, 0, std::atan2(goal.y, goal.x));
-  VelocityYawRate controls = controller.run(sensor_data);
+  ControllerStatus status;
+  VelocityYawRate controls = controller.run(sensor_data, status);
   ASSERT_NEAR(controls.x, 0.5 / std::sqrt(1.25), 1e-10);
   ASSERT_NEAR(controls.y, 1. / std::sqrt(1.25), 1e-10);
   ASSERT_NEAR(controls.z, 0., 1e-10);
@@ -92,7 +97,8 @@ TEST(ConstantHeadingDepthControllerTests, MaxYawRate) {
   Position goal(1, 1, 0);
   controller.setGoal(goal);
   PositionYaw sensor_data(2, 2, 1, std::atan2(goal.y, goal.x) - M_PI / 3);
-  VelocityYawRate controls = controller.run(sensor_data);
+  ControllerStatus status;
+  VelocityYawRate controls = controller.run(sensor_data, status);
   ASSERT_NEAR(controls.x, 0.5, 1e-10);
   ASSERT_NEAR(controls.y, 0.5, 1e-10);
   ASSERT_NEAR(controls.z, 1, 1e-10);
@@ -109,7 +115,8 @@ TEST(ConstantHeadingDepthControllerTests, MaxNegativeYawRate) {
   Position goal(1, 1, 0);
   controller.setGoal(goal);
   PositionYaw sensor_data(2, 2, 1, std::atan2(goal.y, goal.x) + M_PI / 3);
-  VelocityYawRate controls = controller.run(sensor_data);
+  ControllerStatus status;
+  VelocityYawRate controls = controller.run(sensor_data, status);
   ASSERT_NEAR(controls.x, 0.5, 1e-10);
   ASSERT_NEAR(controls.y, 0.5, 1e-10);
   ASSERT_NEAR(controls.z, 1, 1e-10);

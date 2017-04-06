@@ -34,6 +34,16 @@ protected:
    * @return Velocity command to send to hardware
    */
   virtual VelocityYaw runImplementation(PositionYaw sensor_data,
-                                        PositionYaw goal);
+                                        PositionYaw goal, ControllerStatus &);
+  /**
+  * @brief Check if velocity based position controller converged
+  *
+  * @param sensor_data Current position yaw
+  * @param goal Goal position yaw
+  *
+  * @return  True if sensor data is close to goal
+  */
+  virtual bool isConvergedImplementation(PositionYaw sensor_data,
+                                         PositionYaw goal);
   VelocityBasedPositionControllerConfig config_; ///< Controller configuration
 };

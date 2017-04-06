@@ -1,5 +1,6 @@
 #pragma once
 #include "aerial_autonomy/types/velocity.h"
+#include <aerial_autonomy/common/math.h>
 
 /**
 * @brief Store velocity and yaw
@@ -49,4 +50,16 @@ struct VelocityYaw : public Velocity {
   * @return True if not same
   */
   bool operator!=(const VelocityYaw &v) const { return !(*this == v); }
+
+  /**
+  * @brief Substract two velocity yaw entities
+  *
+  * @param v VelocityYaw to be substracted from current velocity yaw
+  *
+  * @return Difference between velocity yaws
+  */
+  VelocityYaw operator-(const VelocityYaw &v) const {
+    return VelocityYaw(this->x - v.x, this->y - v.y, this->z - v.z,
+                       math::angleWrap(this->yaw - v.yaw));
+  }
 };

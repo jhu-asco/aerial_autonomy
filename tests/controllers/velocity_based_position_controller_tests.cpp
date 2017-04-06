@@ -13,7 +13,8 @@ TEST(VelocityBasedPositionControllerTests, ControlsInBounds) {
   PositionYaw goal(1, -1, 0.5, 0.1);
   controller.setGoal(goal);
   PositionYaw position_diff = goal - sensor_data;
-  VelocityYaw controls = controller.run(sensor_data);
+  ControllerStatus status;
+  VelocityYaw controls = controller.run(sensor_data, status);
   ASSERT_NEAR(controls.x, position_diff.x * config.position_gain(), 1e-8);
   ASSERT_NEAR(controls.y, position_diff.y * config.position_gain(), 1e-8);
   ASSERT_NEAR(controls.z, position_diff.z * config.position_gain(), 1e-8);
@@ -27,7 +28,8 @@ TEST(VelocityBasedPositionControllerTests, ControlsOutofBounds) {
   PositionYaw goal(10, -10, 0.5, 1.5);
   controller.setGoal(goal);
   PositionYaw position_diff = goal - sensor_data;
-  VelocityYaw controls = controller.run(sensor_data);
+  ControllerStatus status;
+  VelocityYaw controls = controller.run(sensor_data, status);
   double position_norm = position_diff.norm();
   ASSERT_NEAR(controls.x,
               position_diff.x * config.max_velocity() / position_norm, 1e-8);
@@ -45,7 +47,8 @@ TEST(VelocityBasedPositionControllerTests, ControlsOutofBoundsNegYaw) {
   PositionYaw goal(10, -10, 0.5, -1.5);
   controller.setGoal(goal);
   PositionYaw position_diff = goal - sensor_data;
-  VelocityYaw controls = controller.run(sensor_data);
+  ControllerStatus status;
+  VelocityYaw controls = controller.run(sensor_data, status);
   double position_norm = position_diff.norm();
   ASSERT_NEAR(controls.x,
               position_diff.x * config.max_velocity() / position_norm, 1e-8);

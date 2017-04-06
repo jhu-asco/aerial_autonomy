@@ -1,7 +1,6 @@
 #pragma once
 
 #include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
-#include "aerial_autonomy/types/empty_sensor.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
 
 #include <parsernode/parser.h>
@@ -12,7 +11,7 @@
  * that outputs velocity commands.
  */
 class BuiltInVelocityControllerDroneConnector
-    : public ControllerHardwareConnector<EmptySensor, VelocityYaw,
+    : public ControllerHardwareConnector<VelocityYaw, VelocityYaw,
                                          VelocityYaw> {
 public:
   /**
@@ -26,7 +25,7 @@ public:
   */
   BuiltInVelocityControllerDroneConnector(
       parsernode::Parser &drone_hardware,
-      Controller<EmptySensor, VelocityYaw, VelocityYaw> &controller)
+      Controller<VelocityYaw, VelocityYaw, VelocityYaw> &controller)
       : ControllerHardwareConnector(controller, HardwareType::UAV),
         drone_hardware_(drone_hardware) {}
 
@@ -36,7 +35,7 @@ protected:
    *
    * @return empty data structure
    */
-  virtual EmptySensor extractSensorData();
+  virtual VelocityYaw extractSensorData(ControllerStatus &);
 
   /**
    * @brief  Send velocity commands to hardware

@@ -24,7 +24,16 @@ protected:
    * @return RPYT to send to hardware
    */
   virtual RollPitchYawThrust runImplementation(JoysticksYaw sensor_data,
-                                               EmptyGoal goal);
+                                               EmptyGoal goal,
+                                               ControllerStatus &);
+  /**
+  * @brief Default implementation since there is no concept of convergence
+  * for manual rpyt controller
+  * @return True always
+  */
+  virtual bool isConvergedImplementation(JoysticksYaw, EmptyGoal) {
+    return true;
+  }
 
 private:
   /**

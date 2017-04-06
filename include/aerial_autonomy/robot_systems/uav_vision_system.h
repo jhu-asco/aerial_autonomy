@@ -6,6 +6,10 @@
 
 #include <ros/ros.h>
 
+/**
+* @brief UAV Vision system that extends UAV system to
+* include constant heading depth controller.
+*/
 class UAVVisionSystem : public UAVSystem {
 public:
   /**
@@ -17,13 +21,12 @@ public:
   UAVVisionSystem(ros::NodeHandle &nh, parsernode::Parser &drone_hardware,
                   UAVSystemConfig config)
       : UAVSystem(drone_hardware, config), roi_to_position_converter_(nh),
-        constant_heading_depth_controller_(config_.uav_vision_system_config()
-                                               .visual_servoing_config()
-                                               .controller_config()),
-        visual_servoing_drone_connector_(
-            roi_to_position_converter_, drone_hardware_,
-            constant_heading_depth_controller_,
-            config_.uav_vision_system_config().visual_servoing_config()) {
+        constant_heading_depth_controller_(
+            config_.uav_vision_system_config()
+                .constant_heading_depth_controller_config()),
+        visual_servoing_drone_connector_(roi_to_position_converter_,
+                                         drone_hardware_,
+                                         constant_heading_depth_controller_) {
     controller_hardware_connector_container_.setObject(
         visual_servoing_drone_connector_);
   }
@@ -39,7 +42,17 @@ public:
   }
 
 private:
+  /**
+  * @brief Convert Image ROI to global vector for tracking
+  */
   RoiToPositionConverter roi_to_position_converter_;
+  /**
+  * @brief Track the ROI vector from RoiToPositionConverter
+  */
   ConstantHeadingDepthController constant_heading_depth_controller_;
+  /**
+  * @brief Connector for the constant heading depth controller to
+  * UAV
+  */
   VisualServoingControllerDroneConnector visual_servoing_drone_connector_;
 };

@@ -1,7 +1,11 @@
 #include "aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h"
 
-EmptySensor PositionControllerDroneConnector::extractSensorData() {
-  return EmptySensor();
+PositionYaw
+PositionControllerDroneConnector::extractSensorData(ControllerStatus &) {
+  parsernode::common::quaddata data;
+  drone_hardware_.getquaddata(data);
+  return PositionYaw(data.localpos.x, data.localpos.y, data.localpos.z,
+                     data.rpydata.z);
 }
 
 void PositionControllerDroneConnector::sendHardwareCommands(

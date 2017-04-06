@@ -3,6 +3,7 @@
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/velocity_yaw_rate.h"
 #include "constant_heading_depth_controller_config.pb.h"
+#include <tf/tf.h>
 
 /**
  * @brief A position controller that keeps a constant heading while attempting
@@ -15,7 +16,8 @@ public:
   * @brief Constructor with default configuration
   */
   ConstantHeadingDepthController()
-      : config_(ConstantHeadingDepthControllerConfig()) {}
+      : ConstantHeadingDepthController(ConstantHeadingDepthControllerConfig()) {
+  }
   /**
   * @brief Constructor which takes a configuration
   */
@@ -35,6 +37,20 @@ protected:
    * @return Velocity command to send to hardware
    */
   virtual VelocityYawRate runImplementation(PositionYaw sensor_data,
-                                            Position goal);
+                                            Position goal, ControllerStatus &);
+  /**
+  * @brief Check if controller converged
+  *
+  * @param sensor_data Current position yaw
+  * @param goal Goal position. Yaw inferred from position
+  *
+  * @return if converged
+  */
+  virtual bool isConvergedImplementation(PositionYaw sensor_data,
+                                         Position goal);
   ConstantHeadingDepthControllerConfig config_; ///< Controller configuration
+private:
+  tf::Vector3 tracking_error_; ///< Difference between desired object direction
+                               /// and current direction
+  double error_yaw_; ///< Difference between current yaw and desired yaw
 };

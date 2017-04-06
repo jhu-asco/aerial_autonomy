@@ -109,6 +109,7 @@ TEST_F(StateMachineTests, PositionControl) {
                             data.rpydata.z);
   ASSERT_EQ(curr_pose_yaw, goal);
   // Verify if we reached the goal
+  uav_system->runActiveController(HardwareType::UAV); // Update status
   logic_state_machine->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
 }

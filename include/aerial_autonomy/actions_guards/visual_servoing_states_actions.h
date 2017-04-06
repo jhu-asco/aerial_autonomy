@@ -10,6 +10,9 @@
 template <class LogicStateMachineT>
 struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
   // Visual servoing states
+  /**
+  * @brief State when reaching a visual servoing goal
+  */
   using VisualServoing = VisualServoing_<LogicStateMachineT>;
 
   // Basic transition Actions
@@ -24,8 +27,14 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
   using VisualServoingTransitionGuard =
       VisualServoingTransitionGuardFunctor_<LogicStateMachineT>;
 
+  /**
+  * @brief Send the UAV back to home position
+  */
   using GoHomeTransitionAction =
       GoHomeTransitionActionFunctor_<LogicStateMachineT>;
+  /**
+  * @brief Check if home location is specified
+  */
   using GoHomeTransitionGuard =
       GoHomeTransitionGuardFunctor_<LogicStateMachineT>;
 };

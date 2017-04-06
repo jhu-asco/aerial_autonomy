@@ -34,7 +34,7 @@ protected:
    *
    * @return Joystick commands and current yaw
    */
-  virtual JoysticksYaw extractSensorData();
+  virtual JoysticksYaw extractSensorData(ControllerStatus &);
 
   /**
    * @brief  Send RPYT commands to hardware

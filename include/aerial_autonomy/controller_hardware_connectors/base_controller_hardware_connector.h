@@ -1,5 +1,6 @@
 #pragma once
 #include <aerial_autonomy/controllers/base_controller.h>
+#include <glog/logging.h>
 
 /**
 * @brief Type of hardware used by ControllerHardwareConnector. Enum ID must be
@@ -59,7 +60,7 @@ public:
       Controller<SensorDataType, GoalType, ControlType> &controller,
       HardwareType hardware_type)
       : AbstractControllerHardwareConnector(), hardware_type_(hardware_type),
-        controller_(controller) {}
+        controller_(controller), status_(ControllerStatus::Active) {}
 
   /**
    * @brief Extracts sensor data, run controller and send data back to hardware
@@ -68,9 +69,27 @@ public:
     // Get latest sensor data
     // run the controller
     // send the data back to hardware manager
-    SensorDataType sensor_data = extractSensorData();
-    ControlType control = controller_.run(sensor_data);
+    ControllerStatus status = getStatus();
+    SensorDataType sensor_data = extractSensorData(status);
+    // Check if status is critical
+    if (status == ControllerStatus::Critical) {
+      setStatus(status);
+      return;
+    }
+    // Run controller step
+    ControlType control = controller_.run(sensor_data, status);
+    // Check if status is critical
+    if (status == ControllerStatus::Critical) {
+      setStatus(status);
+      return;
+    }
     sendHardwareCommands(control);
+    // Check if controller converged
+    if (controller_.isConverged(sensor_data)) {
+      status = ControllerStatus::Completed;
+    }
+    // Finally set the status and return
+    setStatus(status);
   }
   /**
    * @brief Set the goal for controller
@@ -92,13 +111,25 @@ public:
   */
   HardwareType getHardwareType() { return hardware_type_; }
 
+  /**
+  * @brief Provide the status of the controller
+  *
+  * @return The status of the controller
+  */
+  ControllerStatus getStatus() const {
+    boost::mutex::scoped_lock lock(controller_status_mutex_);
+    return status_;
+  }
+
 protected:
   /**
    * @brief  extract relevant data from hardware/estimators
    *
+   * @param status update status if cannot extract data
+   *
    * @return data structure needed for controller to perform step function
    */
-  virtual SensorDataType extractSensorData() = 0;
+  virtual SensorDataType extractSensorData(ControllerStatus &status) = 0;
 
   /**
    * @brief  Send hardware commands for example UAV rpy
@@ -122,4 +153,21 @@ private:
    * @brief  controller class used to perform step function
    */
   Controller<SensorDataType, GoalType, ControlType> &controller_;
+  /**
+  * @brief Synchronize reading and setting controller status
+  */
+  mutable boost::mutex controller_status_mutex_;
+  /**
+  * @brief Status of the controller
+  */
+  ControllerStatus status_;
+  /**
+  * @brief Set the status of the controller
+  *
+  * @param status the status of the controller
+  */
+  void setStatus(ControllerStatus status) {
+    boost::mutex::scoped_lock lock(controller_status_mutex_);
+    status_ = status;
+  }
 };

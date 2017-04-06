@@ -1,8 +1,15 @@
 #pragma once
 
+/**
+* @brief Define Math constants such as pi, e etc.
+*/
 #define _USE_MATH_DEFINES
 #include <cmath>
 
+/**
+* @brief Math namespace to separate math functions from
+* system functions if exist
+*/
 namespace math {
 
 /**

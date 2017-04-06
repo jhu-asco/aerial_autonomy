@@ -1,11 +1,14 @@
 #include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h"
 
-PositionYaw VisualServoingControllerDroneConnector::extractSensorData() {
+PositionYaw VisualServoingControllerDroneConnector::extractSensorData(
+    ControllerStatus &status) {
   parsernode::common::quaddata quad_data;
   drone_hardware_.getquaddata(quad_data);
   Position tracking_vector;
-  getTrackingVectorGlobalFrame(tracking_vector);
-  /// \todo Matt don't let the controller send a bad command if tracking fails!
+  bool result = getTrackingVectorGlobalFrame(tracking_vector);
+  if (!result) {
+    status = ControllerStatus::Critical;
+  }
   return PositionYaw(tracking_vector, quad_data.rpydata.z);
 }
 

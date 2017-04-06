@@ -16,8 +16,16 @@
 
 #include <boost/thread/mutex.hpp>
 
+/**
+* @brief Converts a ROI in image to vector in global frame
+*/
 class RoiToPositionConverter {
 public:
+  /**
+  * @brief Constructor
+  *
+  * @param nh Nodehandle for subscribers, publishers
+  */
   RoiToPositionConverter(ros::NodeHandle &nh)
       : it_(nh), roi_subscriber_(nh.subscribe(
                      "roi", 10, &RoiToPositionConverter::roiCallback, this)),
@@ -50,7 +58,7 @@ public:
                                     const sensor_msgs::CameraInfo &cam_info,
                                     double max_distance,
                                     double foreground_percent, Position &pos);
-  /*
+  /**
   * @brief Check whether tracking is valid
   * @return True if the tracking is valid, false otherwise
   */
@@ -63,12 +71,12 @@ public:
   bool isConnected();
 
 private:
-  /*
+  /**
   * @brief Check whether the system has valid camera info
   * @return True if the camera info is valid, false otherwise
   */
   bool cameraInfoIsValid();
-  /*
+  /**
   * @brief Check whether the system has a valid ROI
   * @return True if the ROI is valid, false otherwise
   */
