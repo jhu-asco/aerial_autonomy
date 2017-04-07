@@ -69,27 +69,26 @@ public:
     // Get latest sensor data
     // run the controller
     // send the data back to hardware manager
-    ControllerStatus status = getStatus();
-    SensorDataType sensor_data = extractSensorData(status);
-    // Check if status is critical
-    if (status == ControllerStatus::Critical) {
-      setStatus(status);
+    SensorDataType sensor_data; // Declare sensor data
+    ControlType control;        // Declare control to send hardware
+    // Extract Sensor data
+    if (!extractSensorData(sensor_data)) {
+      setStatus(ControllerStatus::Critical);
       return;
     }
     // Run controller step
-    ControlType control = controller_.run(sensor_data, status);
-    // Check if status is critical
-    if (status == ControllerStatus::Critical) {
-      setStatus(status);
+    if (!controller_.run(sensor_data, control)) {
+      setStatus(ControllerStatus::Critical);
       return;
     }
+    // Send hardware commands
     sendHardwareCommands(control);
     // Check if controller converged
     if (controller_.isConverged(sensor_data)) {
-      status = ControllerStatus::Completed;
+      setStatus(ControllerStatus::Completed);
+    } else {
+      setStatus(ControllerStatus::Active);
     }
-    // Finally set the status and return
-    setStatus(status);
   }
   /**
    * @brief Set the goal for controller
@@ -125,11 +124,11 @@ protected:
   /**
    * @brief  extract relevant data from hardware/estimators
    *
-   * @param status update status if cannot extract data
+   * @param sensor_data Data to be updated based on sensor measurements
    *
-   * @return data structure needed for controller to perform step function
+   * @return true if extraction succeeded otherwise false
    */
-  virtual SensorDataType extractSensorData(ControllerStatus &status) = 0;
+  virtual bool extractSensorData(SensorDataType &sensor_data) = 0;
 
   /**
    * @brief  Send hardware commands for example UAV rpy

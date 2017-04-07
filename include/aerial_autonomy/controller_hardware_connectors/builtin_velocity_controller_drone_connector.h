@@ -33,9 +33,11 @@ protected:
   /**
    * @brief  does not extract any data since nothing is needed
    *
-   * @return empty data structure
+   * @param sensor_data current velocity and yaw of UAV
+   *
+   * @return true if velocity and yaw can be found
    */
-  virtual VelocityYaw extractSensorData(ControllerStatus &);
+  virtual bool extractSensorData(VelocityYaw &sensor_data);
 
   /**
    * @brief  Send velocity commands to hardware

@@ -1,11 +1,12 @@
 #include "aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h"
 
-VelocityYaw
-BuiltInVelocityControllerDroneConnector::extractSensorData(ControllerStatus &) {
+bool BuiltInVelocityControllerDroneConnector::extractSensorData(
+    VelocityYaw &sensor_data) {
   parsernode::common::quaddata data;
   drone_hardware_.getquaddata(data);
-  return VelocityYaw(data.linvel.x, data.linvel.y, data.linvel.z,
-                     data.rpydata.z);
+  sensor_data =
+      VelocityYaw(data.linvel.x, data.linvel.y, data.linvel.z, data.rpydata.z);
+  return true;
 }
 
 void BuiltInVelocityControllerDroneConnector::sendHardwareCommands(

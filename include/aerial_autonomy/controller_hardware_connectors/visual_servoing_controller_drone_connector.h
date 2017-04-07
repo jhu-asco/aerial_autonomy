@@ -43,9 +43,11 @@ protected:
   /**
    * @brief Extracts pose data from ROI
    *
-   * @return Position and yaw of object tracked by ROI
+   * @param sensor_data Position and yaw of object tracked by ROI
+   *
+   * @return true if able to extract ROI position and yaw
    */
-  virtual PositionYaw extractSensorData(ControllerStatus &status);
+  virtual bool extractSensorData(PositionYaw &sensor_data);
 
   /**
    * @brief  Send velocity commands to hardware

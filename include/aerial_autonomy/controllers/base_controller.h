@@ -29,16 +29,16 @@ public:
    * @brief Run the control loop and return control arguments
    * @param sensor_data Data required for control loop. Can also be
    * estimator data
-   * @return Control values to send to hardware
+   * @param control Control values to send to hardware
+   * @return True if the control run is successful
    */
-  virtual ControlType run(SensorDataType sensor_data,
-                          ControllerStatus &status) {
+  virtual bool run(SensorDataType sensor_data, ControlType &control) {
     GoalType goal;
     {
       boost::mutex::scoped_lock lock(goal_mutex_);
       goal = goal_;
     }
-    return runImplementation(sensor_data, goal, status);
+    return runImplementation(sensor_data, goal, control);
   }
 
   /**
@@ -85,12 +85,11 @@ protected:
    * @param sensor_data Data required for control loop. Can also be
    * estimator data
    * @param goal The set-point for the controller
-   * @param status Controller status
-   * @return Control values to send to hardware
+   * @param control Output Control values to send to hardware
+   * @return True if the run is successful
    */
-  virtual ControlType runImplementation(SensorDataType sensor_data,
-                                        GoalType goal,
-                                        ControllerStatus &status) = 0;
+  virtual bool runImplementation(SensorDataType sensor_data, GoalType goal,
+                                 ControlType &control) = 0;
   /**
   * @brief Implementation for checking convergence to be implemented by
   * subclasses. This function is called after runImplementation function

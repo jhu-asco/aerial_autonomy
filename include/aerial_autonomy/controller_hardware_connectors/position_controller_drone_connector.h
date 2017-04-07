@@ -34,9 +34,11 @@ protected:
   /**
    * @brief  does not extract any data since nothing is needed
    *
-   * @return empty data structure
+   * @param sensor_data Current position and yaw of UAV
+   *
+   * @return true if position and yaw can be extracted
    */
-  virtual PositionYaw extractSensorData(ControllerStatus &);
+  virtual bool extractSensorData(PositionYaw &sensor_data);
 
   /**
    * @brief  Send position commands to hardware

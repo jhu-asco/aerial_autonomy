@@ -21,11 +21,11 @@ protected:
    * @brief Run the control loop.  Converts Joystick commands to RPYT.
    * @param sensor_data Joystick commands to be converted into RPYT.
    * @param goal Goal is not used here
-   * @return RPYT to send to hardware
+   * @param control RPYT to send to hardware
+   * return True if successfully converted sensor data to control
    */
-  virtual RollPitchYawThrust runImplementation(JoysticksYaw sensor_data,
-                                               EmptyGoal goal,
-                                               ControllerStatus &);
+  virtual bool runImplementation(JoysticksYaw sensor_data, EmptyGoal goal,
+                                 RollPitchYawThrust &control);
   /**
   * @brief Default implementation since there is no concept of convergence
   * for manual rpyt controller

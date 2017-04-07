@@ -14,25 +14,26 @@ using namespace quad_simulator;
 TEST(ManualRPYTControllerTests, TestMapInputOutOfBounds) {
   ManualRPYTController manual_rpyt_controller;
   JoysticksYaw input(15000, -15000, 0, 0, 0);
-  ControllerStatus status;
-  RollPitchYawThrust out_controls = manual_rpyt_controller.run(input, status);
+  RollPitchYawThrust out_controls;
+  bool result = manual_rpyt_controller.run(input, out_controls);
   ASSERT_NEAR(out_controls.r, M_PI / 6, 1e-8);
   ASSERT_NEAR(out_controls.p, -M_PI / 6, 1e-8);
+  ASSERT_TRUE(result);
 }
 
 TEST(ManualRPYTControllerTests, TestYawGreaterThanPi) {
   ManualRPYTController manual_rpyt_controller;
   JoysticksYaw input(0, 0, 0, 0, 1.5 * M_PI);
-  ControllerStatus status;
-  RollPitchYawThrust out_controls = manual_rpyt_controller.run(input, status);
+  RollPitchYawThrust out_controls;
+  manual_rpyt_controller.run(input, out_controls);
   ASSERT_NEAR(out_controls.y, -0.5 * M_PI, 1e-8);
 }
 
 TEST(ManualRPYTControllerTests, TestYawLessThanNegativePi) {
   ManualRPYTController manual_rpyt_controller;
   JoysticksYaw input(0, 0, 0, 0, -1.5 * M_PI);
-  ControllerStatus status;
-  RollPitchYawThrust out_controls = manual_rpyt_controller.run(input, status);
+  RollPitchYawThrust out_controls;
+  manual_rpyt_controller.run(input, out_controls);
   ASSERT_NEAR(out_controls.y, 0.5 * M_PI, 1e-8);
 }
 ///
@@ -70,6 +71,8 @@ TEST(ManualRPYTControllerDroneConnectorTests, Run) {
     manual_rpyt_controller_connector.run();
     std::this_thread::sleep_for(std::chrono::milliseconds(20));
   }
+  ASSERT_EQ(manual_rpyt_controller_connector.getStatus(),
+            ControllerStatus::Completed);
   drone_hardware.getquaddata(sensor_data);
   ASSERT_NEAR(sensor_data.rpydata.x, 0.00523599, 1e-4);
   ASSERT_NEAR(sensor_data.rpydata.y, 0.00261799, 1e-4);

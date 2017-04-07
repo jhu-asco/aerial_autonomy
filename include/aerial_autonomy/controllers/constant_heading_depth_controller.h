@@ -34,10 +34,11 @@ protected:
    * distance from a tracked point.
    * @param sensor_data Current direction vector multiplied times distance
    * @param goal Goal direction vector multiplied times distance
-   * @return Velocity command to send to hardware
+   * @param control Velocity command to send to hardware
+   * @return True if Controller is successful in running
    */
-  virtual VelocityYawRate runImplementation(PositionYaw sensor_data,
-                                            Position goal, ControllerStatus &);
+  virtual bool runImplementation(PositionYaw sensor_data, Position goal,
+                                 VelocityYawRate &control);
   /**
   * @brief Check if controller converged
   *
@@ -49,8 +50,4 @@ protected:
   virtual bool isConvergedImplementation(PositionYaw sensor_data,
                                          Position goal);
   ConstantHeadingDepthControllerConfig config_; ///< Controller configuration
-private:
-  tf::Vector3 tracking_error_; ///< Difference between desired object direction
-                               /// and current direction
-  double error_yaw_; ///< Difference between current yaw and desired yaw
 };

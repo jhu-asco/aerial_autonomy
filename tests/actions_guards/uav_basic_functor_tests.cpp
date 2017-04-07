@@ -179,6 +179,8 @@ TEST(PositionControlFunctorTests, TransitionActionTest) {
       uav_system.getGoal<PositionControllerDroneConnector, PositionYaw>();
   ASSERT_EQ(goal, resulting_goal);
   uav_system.runActiveController(HardwareType::UAV);
+  ASSERT_EQ(uav_system.getStatus<PositionControllerDroneConnector>(),
+            ControllerStatus::Active);
   parsernode::common::quaddata data = uav_system.getUAVData();
   PositionYaw data_position_yaw(data.localpos.x, data.localpos.y,
                                 data.localpos.z, data.rpydata.z);

@@ -26,6 +26,12 @@ public:
 
 TEST_F(VisualServoingControllerDroneConnectorTests, Constructor) {}
 
+TEST_F(VisualServoingControllerDroneConnectorTests, CriticalRun) {
+  visual_servoing_connector_->run();
+  ASSERT_EQ(visual_servoing_connector_->getStatus(),
+            ControllerStatus::Critical);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   ros::init(argc, argv, "visual_servoing_drone_connector_tests");

@@ -21,11 +21,12 @@ protected:
    * @brief Run the control loop.  Simply returns the goal.
    * @param sensor_data Empty sensor data struct since no sensing is required.
    * @param goal Goal set-point
-   * @return Goal to send to hardware
+   * @param control Goal to send to hardware
+   * @return Always true
    */
-  virtual GoalType runImplementation(GoalType, GoalType goal,
-                                     ControllerStatus &) {
-    return goal;
+  virtual bool runImplementation(GoalType, GoalType goal, GoalType &control) {
+    control = goal;
+    return true;
   }
 };
 

@@ -1,11 +1,12 @@
 #include "aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h"
 
-PositionYaw
-PositionControllerDroneConnector::extractSensorData(ControllerStatus &) {
+bool PositionControllerDroneConnector::extractSensorData(
+    PositionYaw &sensor_data) {
   parsernode::common::quaddata data;
   drone_hardware_.getquaddata(data);
-  return PositionYaw(data.localpos.x, data.localpos.y, data.localpos.z,
-                     data.rpydata.z);
+  sensor_data = PositionYaw(data.localpos.x, data.localpos.y, data.localpos.z,
+                            data.rpydata.z);
+  return true;
 }
 
 void PositionControllerDroneConnector::sendHardwareCommands(
