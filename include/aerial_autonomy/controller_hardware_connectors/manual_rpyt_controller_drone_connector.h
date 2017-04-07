@@ -32,9 +32,11 @@ protected:
   /**
    * @brief Extracts joystick commands and current yaw from hardware
    *
-   * @return Joystick commands and current yaw
+   * @param sensor_data Joystick commands and current yaw
+   *
+   * @return true if succesfully extracted joystick data
    */
-  virtual JoysticksYaw extractSensorData();
+  virtual bool extractSensorData(JoysticksYaw &sensor_data);
 
   /**
    * @brief  Send RPYT commands to hardware

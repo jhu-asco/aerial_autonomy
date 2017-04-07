@@ -13,7 +13,7 @@ using namespace quad_simulator;
 TEST(VelocityControllerDroneConnectorTests, Constructor) {
   QuadSimulator drone_hardware;
 
-  BuiltInController<VelocityYaw> velocity_controller;
+  BuiltInVelocityController velocity_controller;
 
   ASSERT_NO_THROW(new BuiltInVelocityControllerDroneConnector(
       drone_hardware, velocity_controller));
@@ -24,7 +24,7 @@ TEST(VelocityControllerDroneConnectorTests, SetGoal) {
   drone_hardware.takeoff();
 
   // Create controller and connector
-  BuiltInController<VelocityYaw> velocity_controller;
+  BuiltInVelocityController velocity_controller;
   BuiltInVelocityControllerDroneConnector velocity_controller_connector(
       drone_hardware, velocity_controller);
 

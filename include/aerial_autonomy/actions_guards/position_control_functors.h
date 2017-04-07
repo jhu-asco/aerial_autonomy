@@ -82,30 +82,22 @@ struct PositionControlInternalActionFunctor_
   */
   virtual void run(UAVSystem &robot_system,
                    LogicStateMachineT &logic_state_machine) {
-    // Get current goal
-    PositionYaw goal =
-        robot_system.getGoal<PositionControllerDroneConnector, PositionYaw>();
-    // Get current position, yaw
-    /// \todo Matt/Gowtham Instead of re-implementing controller logic, add a
-    /// function to the robot system to check if the current controller has
-    /// converged or has failed
+    // Check status of controller
+    ControllerStatus status =
+        robot_system.getStatus<PositionControllerDroneConnector>();
+    // Check battery percentage and controller status
     parsernode::common::quaddata data = robot_system.getUAVData();
-    geometry_msgs::Vector3 current_position = data.localpos;
-    double yaw = data.rpydata.z;
-    // Define tolerance and check if reached goal
     const auto &robot_config = robot_system.getConfiguration();
-    const double &tolerance_pos = robot_config.goal_position_tolerance(); // m
-    const double &tolerance_yaw = robot_config.goal_yaw_tolerance();      // m
     if (data.batterypercent < robot_config.minimum_battery_percent()) {
       LOG(WARNING) << "Battery too low " << data.batterypercent
                    << "\% Landing!";
       logic_state_machine.process_event(be::Land());
-    } else if (std::abs(current_position.x - goal.x) < tolerance_pos &&
-               std::abs(current_position.y - goal.y) < tolerance_pos &&
-               std::abs(current_position.z - goal.z) < tolerance_pos &&
-               std::abs(yaw - goal.yaw) < tolerance_yaw) {
+    } else if (status == ControllerStatus::Completed) {
       VLOG(1) << "Reached goal";
       logic_state_machine.process_event(Completed());
+    } else if (status == ControllerStatus::Critical) {
+      LOG(WARNING) << "Controller critical";
+      logic_state_machine.process_event(be::Abort());
     }
   }
 };

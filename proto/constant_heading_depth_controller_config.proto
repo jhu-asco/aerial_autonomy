@@ -1,5 +1,7 @@
 syntax = "proto2";
 
+import "position_controller_config.proto";
+
 message ConstantHeadingDepthControllerConfig {
   /**
   * @brief Gain to convert radial position error to velocity
@@ -21,4 +23,8 @@ message ConstantHeadingDepthControllerConfig {
   * @brief Maximum yaw rate to be commanded in rad/s
   */
   optional double max_yaw_rate = 5 [ default = 0.1 ];
+  /**
+  * @brief Config about position tolerance, yaw tolerance
+  */
+  optional PositionControllerConfig position_controller_config = 6;
 }

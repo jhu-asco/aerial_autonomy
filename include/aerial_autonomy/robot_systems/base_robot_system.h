@@ -85,6 +85,21 @@ public:
   }
 
   /**
+  * @brief Get the status of the active controller
+  *
+  * @tparam ControllerHardwareConnectorT Type of connector that is active
+  *
+  * @return Status is active/completed/critical
+  */
+  template <class ControllerHardwareConnectorT>
+  ControllerStatus getStatus() const {
+    const ControllerHardwareConnectorT *controller_hardware_connector =
+        controller_hardware_connector_container_
+            .getObject<ControllerHardwareConnectorT>();
+    return controller_hardware_connector->getStatus();
+  }
+
+  /**
   * @brief Remove active controller for given hardware type
   *
   * @param hardware_type Type of hardware for which active controller is

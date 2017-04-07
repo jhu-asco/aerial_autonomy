@@ -2,6 +2,10 @@
 
 #include <algorithm>
 
+/**
+* @brief Math namespace to separate math functions from
+* system functions if exist
+*/
 namespace math {
 
 double angleWrap(double x) {

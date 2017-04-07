@@ -1,9 +1,10 @@
 syntax = "proto2";
 
-import "visual_servoing_controller_connector_config.proto";
+import "constant_heading_depth_controller_config.proto";
 
 message UAVVisionSystemConfig {
-  required VisualServoingControllerConnectorConfig visual_servoing_config = 1;
+  required ConstantHeadingDepthControllerConfig
+      constant_heading_depth_controller_config = 1;
   /**
   * @brief Desired distance to tracked position in meters
   */

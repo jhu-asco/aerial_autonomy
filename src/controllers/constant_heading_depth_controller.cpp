@@ -1,10 +1,9 @@
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
 #include "aerial_autonomy/common/math.h"
-#include <tf/tf.h>
+#include <glog/logging.h>
 
-VelocityYawRate
-ConstantHeadingDepthController::runImplementation(PositionYaw sensor_data,
-                                                  Position goal) {
+bool ConstantHeadingDepthController::runImplementation(
+    PositionYaw sensor_data, Position goal, VelocityYawRate &control) {
   tf::Vector3 current_tracking_vector(sensor_data.x, sensor_data.y,
                                       sensor_data.z);
   tf::Vector3 desired_tracking_vector(goal.x, goal.y, goal.z);
@@ -25,12 +24,34 @@ ConstantHeadingDepthController::runImplementation(PositionYaw sensor_data,
     desired_vel_tf *= config_.max_velocity() / desired_vel_tf.length();
   }
 
-  double error_yaw = std::atan2(desired_tracking_direction.getY(),
-                                desired_tracking_direction.getX()) -
-                     sensor_data.yaw;
+  double error_yaw =
+      math::angleWrap(std::atan2(desired_tracking_direction.getY(),
+                                 desired_tracking_direction.getX()) -
+                      sensor_data.yaw);
   double yaw_rate =
-      math::clamp(config_.yaw_gain() * math::angleWrap(error_yaw),
-                  -config_.max_yaw_rate(), config_.max_yaw_rate());
-  return VelocityYawRate(desired_vel_tf.getX(), desired_vel_tf.getY(),
-                         desired_vel_tf.getZ(), yaw_rate);
+      math::clamp(config_.yaw_gain() * error_yaw, -config_.max_yaw_rate(),
+                  config_.max_yaw_rate());
+  control = VelocityYawRate(desired_vel_tf.getX(), desired_vel_tf.getY(),
+                            desired_vel_tf.getZ(), yaw_rate);
+  return true;
+}
+
+bool ConstantHeadingDepthController::isConvergedImplementation(
+    PositionYaw sensor_data, Position goal) {
+  double error_yaw =
+      math::angleWrap(std::atan2(goal.y, goal.x) - sensor_data.yaw);
+  const PositionControllerConfig &position_controller_config =
+      config_.position_controller_config();
+  const double &tolerance_pos =
+      position_controller_config.goal_position_tolerance();
+  const double &tolerance_yaw = position_controller_config.goal_yaw_tolerance();
+  // Compare
+  if (std::abs(sensor_data.x - goal.x) < tolerance_pos &&
+      std::abs(sensor_data.y - goal.y) < tolerance_pos &&
+      std::abs(sensor_data.z - goal.z) < tolerance_pos &&
+      std::abs(error_yaw) < tolerance_yaw) {
+    VLOG(1) << "Reached goal";
+    return true;
+  }
+  return false;
 }

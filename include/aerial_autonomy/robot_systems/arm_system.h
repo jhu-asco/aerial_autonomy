@@ -18,7 +18,7 @@ private:
   * @brief Hardware
   */
   GenericArm arm_hardware_;
-  // \todo Add controllers, controller connectors, config if needed
+  /// \todo Add controllers, controller connectors, config if needed
 
 public:
   /**
@@ -87,6 +87,11 @@ public:
   */
   std::string getSystemStatus() const { return std::string(); }
 
+  /**
+  * @brief Verify the status of grip/power on/off commands
+  *
+  * @return True if the command is complete
+  */
   bool getCommandStatus() const { return arm_hardware_.getCommandStatus(); }
 
   /**

@@ -4,7 +4,6 @@
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
-#include "visual_servoing_controller_connector_config.pb.h"
 
 #include <parsernode/parser.h>
 
@@ -23,10 +22,9 @@ public:
   VisualServoingControllerDroneConnector(
       RoiToPositionConverter &roi_to_position_converter,
       parsernode::Parser &drone_hardware,
-      ConstantHeadingDepthController &controller,
-      VisualServoingControllerConnectorConfig config)
+      ConstantHeadingDepthController &controller)
       : ControllerHardwareConnector(controller, HardwareType::UAV),
-        config_(config), drone_hardware_(drone_hardware),
+        drone_hardware_(drone_hardware),
         roi_to_position_converter_(roi_to_position_converter) {}
   /**
    * @brief Destructor
@@ -45,9 +43,11 @@ protected:
   /**
    * @brief Extracts pose data from ROI
    *
-   * @return Position and yaw of object tracked by ROI
+   * @param sensor_data Position and yaw of object tracked by ROI
+   *
+   * @return true if able to extract ROI position and yaw
    */
-  virtual PositionYaw extractSensorData();
+  virtual bool extractSensorData(PositionYaw &sensor_data);
 
   /**
    * @brief  Send velocity commands to hardware
@@ -64,10 +64,6 @@ private:
   tf::Matrix3x3 getBodyFrameRotation();
 
   /**
-  * @brief Configuration
-  */
-  VisualServoingControllerConnectorConfig config_;
-  /**
   * @brief Quad hardware to send commands
   */
   parsernode::Parser &drone_hardware_;
@@ -75,7 +71,7 @@ private:
   * @brief Converts received ROS ROI to a position
   */
   RoiToPositionConverter &roi_to_position_converter_;
-  /*
+  /**
   * @brief camera transform with respect to body
   * \todo Matt Add to configuration (using rpy maybe?)
   */

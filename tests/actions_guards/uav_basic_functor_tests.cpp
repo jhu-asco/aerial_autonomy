@@ -173,14 +173,21 @@ TEST(PositionControlFunctorTests, TransitionActionTest) {
   PositionYaw goal(1, 1, 1, 1);
   position_control_transition_action_functor(
       goal, sample_logic_state_machine, dummy_start_state, dummy_target_state);
+  ASSERT_EQ(uav_system.getStatus<PositionControllerDroneConnector>(),
+            ControllerStatus::Active);
   PositionYaw resulting_goal =
       uav_system.getGoal<PositionControllerDroneConnector, PositionYaw>();
   ASSERT_EQ(goal, resulting_goal);
   uav_system.runActiveController(HardwareType::UAV);
+  ASSERT_EQ(uav_system.getStatus<PositionControllerDroneConnector>(),
+            ControllerStatus::Active);
   parsernode::common::quaddata data = uav_system.getUAVData();
   PositionYaw data_position_yaw(data.localpos.x, data.localpos.y,
                                 data.localpos.z, data.rpydata.z);
   ASSERT_EQ(data_position_yaw, goal);
+  uav_system.runActiveController(HardwareType::UAV);
+  ASSERT_EQ(uav_system.getStatus<PositionControllerDroneConnector>(),
+            ControllerStatus::Completed);
 }
 
 TEST(PositionControlFunctorTests, AbortActionTest) {
@@ -231,7 +238,9 @@ TEST(PositionControlFunctorTests, InternalActionTest) {
       dummy_target_state);
   ASSERT_NE(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(Completed)));
-  // After running the active controller once
+  // After running the active controller once updates quad state
+  uav_system.runActiveController(HardwareType::UAV);
+  // Second time updates controller status
   uav_system.runActiveController(HardwareType::UAV);
   position_control_internal_action_functor(
       InternalTransitionEvent(), sample_logic_state_machine, dummy_start_state,

@@ -13,7 +13,7 @@ using namespace quad_simulator;
 TEST(PositionControllerDroneConnectorTests, Constructor) {
   QuadSimulator drone_hardware;
 
-  BuiltInController<PositionYaw> position_controller;
+  BuiltInPositionController position_controller;
 
   ASSERT_NO_THROW(new PositionControllerDroneConnector(drone_hardware,
                                                        position_controller));
@@ -24,7 +24,7 @@ TEST(PositionControllerDroneConnectorTests, SetGoal) {
   drone_hardware.takeoff();
 
   // Create controller and connector
-  BuiltInController<PositionYaw> position_controller;
+  BuiltInPositionController position_controller;
   PositionControllerDroneConnector position_controller_connector(
       drone_hardware, position_controller);
 
