@@ -4,7 +4,7 @@
 #include <sensor_msgs/image_encodings.h>
 #include <thread>
 
-#include "aerial_autonomy/common/roi_to_position_converter.h"
+#include "aerial_autonomy/trackers/roi_to_position_converter.h"
 
 class RoiToPositionConverterROSTests : public ::testing::Test {
 public:

@@ -14,25 +14,25 @@ class UAVVisionSystem : public UAVSystem {
 public:
   /**
   * @brief Constructor
-  * @param nh ROS Nodehandle
+  * @param tracker Used to track targets for visual servoing
   * @param drone_hardware UAV driver
   * @param config Configuration parameters
   */
-  UAVVisionSystem(ros::NodeHandle &nh, parsernode::Parser &drone_hardware,
+  UAVVisionSystem(BaseTracker &tracker, parsernode::Parser &drone_hardware,
                   UAVSystemConfig config)
-      : UAVSystem(drone_hardware, config), roi_to_position_converter_(nh),
+      : UAVSystem(drone_hardware, config),
         constant_heading_depth_controller_(
             config_.uav_vision_system_config()
                 .constant_heading_depth_controller_config()),
-        visual_servoing_drone_connector_(roi_to_position_converter_,
-                                         drone_hardware_,
+        visual_servoing_drone_connector_(tracker, drone_hardware_,
                                          constant_heading_depth_controller_) {
     controller_hardware_connector_container_.setObject(
         visual_servoing_drone_connector_);
   }
 
   /**
-  * @brief Get the distance-scaled direction vector of a tracking ROI in the
+  * @brief Get the distance-scaled direction vector of the tracking target in
+  * the
   * global frame
   * @param pos Returned position
   * @return True if successful and false otherwise
@@ -43,11 +43,7 @@ public:
 
 private:
   /**
-  * @brief Convert Image ROI to global vector for tracking
-  */
-  RoiToPositionConverter roi_to_position_converter_;
-  /**
-  * @brief Track the ROI vector from RoiToPositionConverter
+  * @brief Track the target position given by the tracker
   */
   ConstantHeadingDepthController constant_heading_depth_controller_;
   /**

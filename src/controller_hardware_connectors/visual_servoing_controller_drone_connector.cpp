@@ -26,7 +26,7 @@ void VisualServoingControllerDroneConnector::sendHardwareCommands(
 bool VisualServoingControllerDroneConnector::getTrackingVectorGlobalFrame(
     Position &tracking_vector) {
   Position object_position_cam;
-  if (!roi_to_position_converter_.getTrackingVector(object_position_cam)) {
+  if (!tracker_.getTrackingVector(object_position_cam)) {
     return false;
   }
   tf::Vector3 object_direction_cam(object_position_cam.x, object_position_cam.y,

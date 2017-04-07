@@ -2,6 +2,7 @@
 
 #include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h"
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
+#include "aerial_autonomy/trackers/roi_to_position_converter.h"
 
 #include <quad_simulator_parser/quad_simulator.h>
 

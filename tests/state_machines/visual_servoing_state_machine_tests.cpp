@@ -1,4 +1,5 @@
 #include <aerial_autonomy/state_machines/visual_servoing_state_machine.h>
+#include <aerial_autonomy/trackers/simple_tracker.h>
 #include <gtest/gtest.h>
 // Thread stuff
 #include <boost/optional/optional_io.hpp>
@@ -12,26 +13,27 @@
 using namespace quad_simulator;
 
 class VisualServoingStateMachineTests : public ::testing::Test {
-protected:
-  std::unique_ptr<VisualServoingStateMachine> logic_state_machine;
-  std::unique_ptr<UAVVisionSystem> uav_system;
-  QuadSimulator drone_hardware;
-  ros::NodeHandle nh;
-  UAVSystemConfig config;
-
-  virtual void SetUp() {
+public:
+  VisualServoingStateMachineTests() :
+    tracker(drone_hardware),
+    uav_system(new UAVVisionSystem(tracker, drone_hardware, config),
+    logic_state_machine(
+        new VisualServoingStateMachine(boost::ref(*uav_system))) {
     drone_hardware.setTakeoffAltitude(2.0);
-    uav_system.reset(new UAVVisionSystem(nh, drone_hardware, config));
-    logic_state_machine.reset(
-        new VisualServoingStateMachine(boost::ref(*uav_system)));
     logic_state_machine->start();
   }
 
-  virtual void TearDown() {
+  ~VisualServoingStateMachineTests() {
     logic_state_machine->stop();
     uav_system.reset();
     logic_state_machine.reset();
   }
+protected:
+  SimpleTracker tracker;
+  QuadSimulator drone_hardware;
+  UAVSystemConfig config;
+  std::unique_ptr<UAVVisionSystem> uav_system;
+  std::unique_ptr<VisualServoingStateMachine> logic_state_machine;
 
   void GoToHoverFromLanded() {
     drone_hardware.setBatteryPercent(100);
