@@ -37,6 +37,12 @@ public:
    */
   bool getTrackingVectorGlobalFrame(Position &tracking_vector);
 
+  /**
+   * @brief Get a reference to the camera transform
+   * @return The camera transform
+   */
+  tf::Transform &cameraTransform();
+
 protected:
   /**
    * @brief Extracts pose data from ROI
@@ -72,6 +78,5 @@ private:
   /**
   * @brief camera transform with respect to body
   */
-  /// \todo Matt Add to configuration (using rpy maybe?)
   tf::Transform camera_transform_;
 };

@@ -48,3 +48,7 @@ tf::Matrix3x3 VisualServoingControllerDroneConnector::getBodyFrameRotation() {
   return tf::Matrix3x3(tf::createQuaternionFromRPY(
       quad_data.rpydata.x, quad_data.rpydata.y, quad_data.rpydata.z));
 }
+
+tf::Transform &VisualServoingControllerDroneConnector::cameraTransform() {
+  return camera_transform_;
+}
