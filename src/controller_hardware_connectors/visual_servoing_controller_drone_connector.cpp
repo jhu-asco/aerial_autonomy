@@ -26,7 +26,7 @@ void VisualServoingControllerDroneConnector::sendHardwareCommands(
 bool VisualServoingControllerDroneConnector::getTrackingVectorGlobalFrame(
     Position &tracking_vector) {
   Position object_position_cam;
-  if (!roi_to_position_converter_.getTrackingVector(object_position_cam)) {
+  if (!tracker_.getTrackingVector(object_position_cam)) {
     return false;
   }
   tf::Vector3 object_direction_cam(object_position_cam.x, object_position_cam.y,
@@ -47,4 +47,8 @@ tf::Matrix3x3 VisualServoingControllerDroneConnector::getBodyFrameRotation() {
   drone_hardware_.getquaddata(quad_data);
   return tf::Matrix3x3(tf::createQuaternionFromRPY(
       quad_data.rpydata.x, quad_data.rpydata.y, quad_data.rpydata.z));
+}
+
+tf::Transform &VisualServoingControllerDroneConnector::cameraTransform() {
+  return camera_transform_;
 }

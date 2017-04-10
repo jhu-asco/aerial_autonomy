@@ -1,7 +1,7 @@
 #pragma once
-#include "aerial_autonomy/common/roi_to_position_converter.h"
 #include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
+#include "aerial_autonomy/trackers/base_tracker.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
 
@@ -10,7 +10,7 @@
 #include <tf/tf.h>
 
 /**
- * @brief A visual servoing controller that uses an image ROI as feedback
+ * @brief A visual servoing controller that uses a tracker output as feedback
  */
 class VisualServoingControllerDroneConnector
     : public ControllerHardwareConnector<PositionYaw, Position,
@@ -20,12 +20,10 @@ public:
    * @brief Constructor
    */
   VisualServoingControllerDroneConnector(
-      RoiToPositionConverter &roi_to_position_converter,
-      parsernode::Parser &drone_hardware,
+      BaseTracker &tracker, parsernode::Parser &drone_hardware,
       ConstantHeadingDepthController &controller)
       : ControllerHardwareConnector(controller, HardwareType::UAV),
-        drone_hardware_(drone_hardware),
-        roi_to_position_converter_(roi_to_position_converter) {}
+        drone_hardware_(drone_hardware), tracker_(tracker) {}
   /**
    * @brief Destructor
    */
@@ -38,6 +36,12 @@ public:
    * @return True if successful and false otherwise
    */
   bool getTrackingVectorGlobalFrame(Position &tracking_vector);
+
+  /**
+   * @brief Get a reference to the camera transform
+   * @return The camera transform
+   */
+  tf::Transform &cameraTransform();
 
 protected:
   /**
@@ -68,12 +72,11 @@ private:
   */
   parsernode::Parser &drone_hardware_;
   /**
-  * @brief Converts received ROS ROI to a position
+  * @brief Tracks whatever we are servoing to
   */
-  RoiToPositionConverter &roi_to_position_converter_;
+  BaseTracker &tracker_;
   /**
   * @brief camera transform with respect to body
-  * \todo Matt Add to configuration (using rpy maybe?)
   */
   tf::Transform camera_transform_;
 };

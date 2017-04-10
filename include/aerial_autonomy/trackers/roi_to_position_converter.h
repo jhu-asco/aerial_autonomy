@@ -1,5 +1,6 @@
 #pragma once
 
+#include "aerial_autonomy/trackers/base_tracker.h"
 #include "aerial_autonomy/types/position.h"
 
 #include <ros/ros.h>
@@ -17,9 +18,9 @@
 #include <boost/thread/mutex.hpp>
 
 /**
-* @brief Converts a ROI in image to vector in global frame
+* @brief Converts a ROI in image to vector in camera frame
 */
-class RoiToPositionConverter {
+class RoiToPositionConverter : public BaseTracker {
 public:
   /**
   * @brief Constructor
@@ -38,8 +39,8 @@ public:
             "image", 1, &RoiToPositionConverter::imageCallback, this)) {}
 
   /**
-   * @brief Get the stored object position
-   * @param pos Returned object position
+   * @brief Get the stored tracking vector
+   * @param pos Returned tracking vector
    * @return True if successful, false otherwise
    */
   bool getTrackingVector(Position &pos);

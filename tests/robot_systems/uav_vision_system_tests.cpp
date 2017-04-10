@@ -1,4 +1,5 @@
 #include "aerial_autonomy/robot_systems/uav_vision_system.h"
+#include "aerial_autonomy/trackers/roi_to_position_converter.h"
 
 #include <gtest/gtest.h>
 #include <quad_simulator_parser/quad_simulator.h>
@@ -11,8 +12,10 @@ using namespace quad_simulator;
 TEST(UAVSystemTests, Constructor) {
   QuadSimulator drone_hardware;
   ros::NodeHandle nh;
+  RoiToPositionConverter roi_to_position_converter(nh);
   UAVSystemConfig config;
-  ASSERT_NO_THROW(new UAVVisionSystem(nh, drone_hardware, config));
+  ASSERT_NO_THROW(
+      new UAVVisionSystem(roi_to_position_converter, drone_hardware, config));
 }
 
 /// \todo Matt Add more tests!
