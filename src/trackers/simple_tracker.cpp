@@ -34,3 +34,5 @@ bool SimpleTracker::trackingIsValid() { return tracking_valid_; }
 void SimpleTracker::setTrackingIsValid(bool is_valid) {
   tracking_valid_ = is_valid;
 }
+
+tf::Transform &SimpleTracker::cameraTransform() { return camera_transform_; }

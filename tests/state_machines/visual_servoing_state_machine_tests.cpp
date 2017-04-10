@@ -14,11 +14,15 @@ using namespace quad_simulator;
 
 class VisualServoingStateMachineTests : public ::testing::Test {
 public:
-  VisualServoingStateMachineTests() :
-    tracker(drone_hardware),
-    uav_system(new UAVVisionSystem(tracker, drone_hardware, config),
-    logic_state_machine(
-        new VisualServoingStateMachine(boost::ref(*uav_system))) {
+  VisualServoingStateMachineTests()
+      : tracker(drone_hardware),
+        uav_system(new UAVVisionSystem(tracker, drone_hardware, config)),
+        logic_state_machine(
+            new VisualServoingStateMachine(boost::ref(*uav_system))) {
+    /// \todo set camera transform to match the visual servoing controller cam
+    /// transform
+    tracker.cameraTransform().setIdentity();
+    tracker.setTargetPositionGlobalFrame(Position(5, 0, 0));
     drone_hardware.setTakeoffAltitude(2.0);
     logic_state_machine->start();
   }
@@ -28,6 +32,7 @@ public:
     uav_system.reset();
     logic_state_machine.reset();
   }
+
 protected:
   SimpleTracker tracker;
   QuadSimulator drone_hardware;
@@ -48,7 +53,6 @@ TEST_F(VisualServoingStateMachineTests, InitialState) {
 }
 
 int main(int argc, char **argv) {
-  ros::init(argc, argv, "visual_servoing_state_machine_test");
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

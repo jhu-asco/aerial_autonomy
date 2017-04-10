@@ -33,6 +33,12 @@ public:
    */
   void setTargetPositionGlobalFrame(Position p);
 
+  /**
+   * @brief Get a reference to the camera transform
+   * @return Reference to the camera transform
+   */
+  tf::Transform &cameraTransform();
+
 private:
   parsernode::Parser &drone_hardware_;
   bool tracking_valid_;

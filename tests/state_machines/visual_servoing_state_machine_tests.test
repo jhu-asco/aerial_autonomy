@@ -1,4 +1,0 @@
-<launch>
-  <test test-name="VisualServoingStateMachineTest" pkg="aerial_autonomy" type="aerial_autonomy-visual-servoing-state-machine-test">
-  </test>
-</launch>
