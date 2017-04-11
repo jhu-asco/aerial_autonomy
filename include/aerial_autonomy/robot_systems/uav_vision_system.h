@@ -25,7 +25,8 @@ public:
             config_.uav_vision_system_config()
                 .constant_heading_depth_controller_config()),
         visual_servoing_drone_connector_(tracker, drone_hardware_,
-                                         constant_heading_depth_controller_) {
+                                         constant_heading_depth_controller_,
+                                         config.uav_vision_system_config()) {
     auto camera_transform =
         config_.uav_vision_system_config().camera_transform();
     if (camera_transform.size() != 6) {
@@ -35,14 +36,13 @@ public:
         camera_transform[0], camera_transform[1], camera_transform[2]));
     camera_transform_.setRotation(tf::createQuaternionFromRPY(
         camera_transform[3], camera_transform[4], camera_transform[5]));
-    visual_servoing_drone_connector_.cameraTransform() = camera_transform_;
 
     controller_hardware_connector_container_.setObject(
         visual_servoing_drone_connector_);
   }
 
   /**
-  * @brief Get the distance-scaled direction vector of the tracking target in
+  * @brief Get the direction vector of the tracking target in
   * the
   * global frame
   * @param pos Returned position

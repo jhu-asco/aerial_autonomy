@@ -15,13 +15,10 @@ using namespace quad_simulator;
 class VisualServoingStateMachineTests : public ::testing::Test {
 public:
   VisualServoingStateMachineTests()
-      : tracker(drone_hardware),
+      : tracker(drone_hardware, config.uav_vision_system_config()),
         uav_system(new UAVVisionSystem(tracker, drone_hardware, config)),
         logic_state_machine(
             new VisualServoingStateMachine(boost::ref(*uav_system))) {
-    /// \todo set camera transform to match the visual servoing controller cam
-    /// transform
-    tracker.cameraTransform().setIdentity();
     tracker.setTargetPositionGlobalFrame(Position(5, 0, 0));
     drone_hardware.setTakeoffAltitude(2.0);
     logic_state_machine->start();

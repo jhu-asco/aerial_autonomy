@@ -24,13 +24,21 @@ struct VisualServoingTransitionActionFunctor_
     if (!robot_system.getTrackingVector(tracking_vector)) {
       LOG(WARNING) << "Lost tracking while servoing.";
       logic_state_machine.process_event(be::Abort());
+      return;
     }
     VLOG(1) << "Setting tracking vector";
     double desired_distance = robot_system.getConfiguration()
                                   .uav_vision_system_config()
                                   .desired_visual_servoing_distance();
-    robot_system.setGoal<VisualServoingControllerDroneConnector, Position>(
-        tracking_vector * desired_distance / tracking_vector.norm());
+    double tracking_vector_norm = tracking_vector.norm();
+    if (tracking_vector_norm < 1e-6) {
+      LOG(WARNING) << "Tracking vector too small cannot initialize direction";
+      logic_state_machine.process_event(be::Abort());
+      return;
+    } else {
+      robot_system.setGoal<VisualServoingControllerDroneConnector, Position>(
+          tracking_vector * desired_distance / tracking_vector_norm);
+    }
   }
 };
 

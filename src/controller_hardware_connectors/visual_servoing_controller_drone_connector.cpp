@@ -34,8 +34,7 @@ bool VisualServoingControllerDroneConnector::getTrackingVectorGlobalFrame(
   // Convert from camera frame to global frame
   tf::Vector3 tracking_vector_tf =
       (getBodyFrameRotation() *
-       (camera_transform_.getBasis() * object_direction_cam))
-          .normalize();
+       (camera_transform_.getBasis() * object_direction_cam));
   tracking_vector.x = tracking_vector_tf.getX();
   tracking_vector.y = tracking_vector_tf.getY();
   tracking_vector.z = tracking_vector_tf.getZ();
@@ -47,8 +46,4 @@ tf::Matrix3x3 VisualServoingControllerDroneConnector::getBodyFrameRotation() {
   drone_hardware_.getquaddata(quad_data);
   return tf::Matrix3x3(tf::createQuaternionFromRPY(
       quad_data.rpydata.x, quad_data.rpydata.y, quad_data.rpydata.z));
-}
-
-tf::Transform &VisualServoingControllerDroneConnector::cameraTransform() {
-  return camera_transform_;
 }

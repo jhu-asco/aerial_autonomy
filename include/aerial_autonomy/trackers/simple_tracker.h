@@ -1,5 +1,6 @@
 #pragma once
-#include "aerial_autonomy/trackers/base_tracker.h"
+#include "uav_vision_system_config.pb.h"
+#include <aerial_autonomy/trackers/base_tracker.h>
 #include <parsernode/parser.h>
 #include <tf/tf.h>
 
@@ -8,7 +9,8 @@
  */
 class SimpleTracker : public BaseTracker {
 public:
-  SimpleTracker(parsernode::Parser &drone_hardware);
+  SimpleTracker(parsernode::Parser &drone_hardware,
+                UAVVisionSystemConfig config);
   /**
    * @brief Get the tracking vector
    * @param pos Returned tracking vector
@@ -34,10 +36,10 @@ public:
   void setTargetPositionGlobalFrame(Position p);
 
   /**
-   * @brief Get a reference to the camera transform
+   * @brief Get the camera transform stored
    * @return Reference to the camera transform
    */
-  tf::Transform &cameraTransform();
+  tf::Transform cameraTransform();
 
 private:
   parsernode::Parser &drone_hardware_;

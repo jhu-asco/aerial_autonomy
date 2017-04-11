@@ -1,7 +1,21 @@
 #include "aerial_autonomy/trackers/simple_tracker.h"
+#include <glog/logging.h>
 
-SimpleTracker::SimpleTracker(parsernode::Parser &drone_hardware)
-    : drone_hardware_(drone_hardware), tracking_valid_(true) {}
+SimpleTracker::SimpleTracker(parsernode::Parser &drone_hardware,
+                             UAVVisionSystemConfig config)
+    : drone_hardware_(drone_hardware) {
+  auto camera_transform = config.camera_transform();
+  if (camera_transform.size() != 6) {
+    LOG(WARNING) << "Camera transform configuration does not have 6 parameters";
+    tracking_valid_ = false;
+  } else {
+    tracking_valid_ = true;
+    camera_transform_.setOrigin(tf::Vector3(
+        camera_transform[0], camera_transform[1], camera_transform[2]));
+    camera_transform_.setRotation(tf::createQuaternionFromRPY(
+        camera_transform[3], camera_transform[4], camera_transform[5]));
+  }
+}
 
 bool SimpleTracker::getTrackingVector(Position &p) {
   if (!trackingIsValid()) {
@@ -35,4 +49,4 @@ void SimpleTracker::setTrackingIsValid(bool is_valid) {
   tracking_valid_ = is_valid;
 }
 
-tf::Transform &SimpleTracker::cameraTransform() { return camera_transform_; }
+tf::Transform SimpleTracker::cameraTransform() { return camera_transform_; }

@@ -4,6 +4,7 @@
 #include "aerial_autonomy/trackers/base_tracker.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
+#include "uav_vision_system_config.pb.h"
 
 #include <parsernode/parser.h>
 
@@ -21,9 +22,18 @@ public:
    */
   VisualServoingControllerDroneConnector(
       BaseTracker &tracker, parsernode::Parser &drone_hardware,
-      ConstantHeadingDepthController &controller)
+      ConstantHeadingDepthController &controller, UAVVisionSystemConfig config)
       : ControllerHardwareConnector(controller, HardwareType::UAV),
-        drone_hardware_(drone_hardware), tracker_(tracker) {}
+        drone_hardware_(drone_hardware), tracker_(tracker) {
+    auto camera_transform = config.camera_transform();
+    if (camera_transform.size() != 6) {
+      LOG(FATAL) << "Camera transform configuration does not have 6 parameters";
+    }
+    camera_transform_.setOrigin(tf::Vector3(
+        camera_transform[0], camera_transform[1], camera_transform[2]));
+    camera_transform_.setRotation(tf::createQuaternionFromRPY(
+        camera_transform[3], camera_transform[4], camera_transform[5]));
+  }
   /**
    * @brief Destructor
    */
@@ -36,12 +46,6 @@ public:
    * @return True if successful and false otherwise
    */
   bool getTrackingVectorGlobalFrame(Position &tracking_vector);
-
-  /**
-   * @brief Get a reference to the camera transform
-   * @return The camera transform
-   */
-  tf::Transform &cameraTransform();
 
 protected:
   /**
