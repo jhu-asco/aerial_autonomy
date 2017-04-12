@@ -20,4 +20,5 @@
     <param name="resource_path" type="string" value="$(find quad_simulator_parser)/ogre_cfg/"/>
     <param name="model_name" type="string" value="hackerman2.mesh"/>
   </node>
+  <include file="$(find opencv3_tracking)/launch/opencv3_tracking.launch" />
 </launch>
