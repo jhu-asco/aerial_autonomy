@@ -1,5 +1,6 @@
 #pragma once
 #include "uav_vision_system_config.pb.h"
+#include <aerial_autonomy/common/math.h>
 #include <aerial_autonomy/trackers/base_tracker.h>
 #include <parsernode/parser.h>
 #include <tf/tf.h>

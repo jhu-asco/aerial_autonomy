@@ -4,17 +4,12 @@
 SimpleTracker::SimpleTracker(parsernode::Parser &drone_hardware,
                              UAVVisionSystemConfig config)
     : drone_hardware_(drone_hardware) {
-  auto camera_transform = config.camera_transform();
-  if (camera_transform.size() != 6) {
-    LOG(WARNING) << "Camera transform configuration does not have 6 parameters";
-    tracking_valid_ = false;
-  } else {
-    tracking_valid_ = true;
-    camera_transform_.setOrigin(tf::Vector3(
-        camera_transform[0], camera_transform[1], camera_transform[2]));
-    camera_transform_.setRotation(tf::createQuaternionFromRPY(
-        camera_transform[3], camera_transform[4], camera_transform[5]));
+  try {
+    camera_transform_ = math::getTransformFromVector(config.camera_transform());
+  } catch (std::runtime_error) {
+    LOG(FATAL) << "Camera transform configuration does not have 6 parameters";
   }
+  tracking_valid_ = true;
 }
 
 bool SimpleTracker::getTrackingVector(Position &p) {
