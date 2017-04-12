@@ -1,4 +1,5 @@
 #pragma once
+#include "aerial_autonomy/common/math.h"
 #include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h"
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
 #include "aerial_autonomy/robot_systems/uav_system.h"
@@ -24,25 +25,17 @@ public:
         constant_heading_depth_controller_(
             config_.uav_vision_system_config()
                 .constant_heading_depth_controller_config()),
+        camera_transform_(math::getTransformFromVector(
+            config_.uav_vision_system_config().camera_transform())),
         visual_servoing_drone_connector_(tracker, drone_hardware_,
-                                         constant_heading_depth_controller_) {
-    auto camera_transform =
-        config_.uav_vision_system_config().camera_transform();
-    if (camera_transform.size() != 6) {
-      LOG(FATAL) << "Camera transform configuration does not have 6 parameters";
-    }
-    camera_transform_.setOrigin(tf::Vector3(
-        camera_transform[0], camera_transform[1], camera_transform[2]));
-    camera_transform_.setRotation(tf::createQuaternionFromRPY(
-        camera_transform[3], camera_transform[4], camera_transform[5]));
-    visual_servoing_drone_connector_.cameraTransform() = camera_transform_;
-
+                                         constant_heading_depth_controller_,
+                                         camera_transform_) {
     controller_hardware_connector_container_.setObject(
         visual_servoing_drone_connector_);
   }
 
   /**
-  * @brief Get the distance-scaled direction vector of the tracking target in
+  * @brief Get the direction vector of the tracking target in
   * the
   * global frame
   * @param pos Returned position
@@ -58,12 +51,12 @@ private:
   */
   ConstantHeadingDepthController constant_heading_depth_controller_;
   /**
+  * @brief Camera transform in the frame of the UAV
+  */
+  tf::Transform camera_transform_;
+  /**
   * @brief Connector for the constant heading depth controller to
   * UAV
   */
   VisualServoingControllerDroneConnector visual_servoing_drone_connector_;
-  /**
-  * @brief Camera transform in the frame of the UAV
-  */
-  tf::Transform camera_transform_;
 };

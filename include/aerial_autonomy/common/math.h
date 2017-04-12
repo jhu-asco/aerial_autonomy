@@ -5,6 +5,8 @@
 */
 #define _USE_MATH_DEFINES
 #include <cmath>
+#include <stdexcept>
+#include <tf/tf.h>
 
 /**
 * @brief Math namespace to separate math functions from
@@ -27,4 +29,24 @@ double angleWrap(double x);
  * @return Clamped value
  */
 double clamp(double x, double min, double max);
+
+/**
+* @brief Generate a tf transform from a vector of xyzrpy
+*
+* @tparam T The vector type can be Eigen, std vector, protobuf
+* @param input The input vector containing x,y,z, r,p,y
+*
+* @return tf transform
+*/
+template <class T> tf::Transform getTransformFromVector(const T &input) {
+  tf::Transform transform;
+  if (input.size() != 6) {
+    throw std::runtime_error("The input does not have 6 elements x,y,z, r,p,y");
+  } else {
+    transform.setOrigin(tf::Vector3(input[0], input[1], input[2]));
+    transform.setRotation(
+        tf::createQuaternionFromRPY(input[3], input[4], input[5]));
+  }
+  return transform;
+}
 }
