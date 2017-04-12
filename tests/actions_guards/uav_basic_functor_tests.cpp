@@ -8,7 +8,17 @@
 * @brief Namespace for UAV Simulator Hardware
 */
 using namespace quad_simulator;
+
+/**
+* @brief Namespace for basic states and actions for
+* UAVLogicStateMachine
+*/
 using bsa = UAVStatesActions<UAVLogicStateMachine>;
+
+/**
+* @brief Namespace for basic events such as takeoff, land.
+*/
+namespace be = uav_basic_events;
 
 // Land
 using LandInternalActionFunctor =
@@ -35,7 +45,7 @@ TEST(LandFunctorTests, CallOperatorFunction) {
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   bsa::LandingAction land_transition_action_functor;
   int dummy_start_state, dummy_target_state;
-  land_transition_action_functor(Land(), sample_logic_state_machine,
+  land_transition_action_functor(be::Land(), sample_logic_state_machine,
                                  dummy_start_state, dummy_target_state);
   ASSERT_STREQ(uav_system.getUAVData().quadstate.c_str(), "");
   // Internal Action
@@ -74,14 +84,14 @@ TEST(HoveringFunctorTests, CallOperatorFunction) {
                                    sample_logic_state_machine,
                                    dummy_start_state, dummy_target_state);
   ASSERT_NE(sample_logic_state_machine.getProcessEventTypeId(),
-            std::type_index(typeid(Land)));
+            std::type_index(typeid(be::Land)));
   // After setting correct altitude
   drone_hardware.setBatteryPercent(20);
   hovering_internal_action_functor(InternalTransitionEvent(),
                                    sample_logic_state_machine,
                                    dummy_start_state, dummy_target_state);
   ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
-            std::type_index(typeid(Land)));
+            std::type_index(typeid(be::Land)));
 }
 ///
 
@@ -99,7 +109,7 @@ TEST(TakeoffFunctorTests, TransitionActionTest) {
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   bsa::TakeoffAction takeoff_transition_action_functor;
-  takeoff_transition_action_functor(Takeoff(), sample_logic_state_machine,
+  takeoff_transition_action_functor(be::Takeoff(), sample_logic_state_machine,
                                     dummy_start_state, dummy_target_state);
   ASSERT_STREQ(uav_system.getUAVData().quadstate.c_str(),
                "ARMED ENABLE_CONTROL ");
@@ -111,7 +121,7 @@ TEST(TakeoffFunctorTests, AbortActionTest) {
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   bsa::TakeoffAbort takeoff_abort_action_functor;
-  takeoff_abort_action_functor(Abort(), sample_logic_state_machine,
+  takeoff_abort_action_functor(be::Abort(), sample_logic_state_machine,
                                dummy_start_state, dummy_target_state);
   ASSERT_STREQ(uav_system.getUAVData().quadstate.c_str(), "");
 }
@@ -123,14 +133,14 @@ TEST(TakeoffFunctorTests, TransitionGuardTest) {
   int dummy_start_state, dummy_target_state;
   bsa::TakeoffGuard takeoff_transition_guard_functor;
   drone_hardware.setBatteryPercent(60);
-  bool result =
-      takeoff_transition_guard_functor(Takeoff(), sample_logic_state_machine,
-                                       dummy_start_state, dummy_target_state);
+  bool result = takeoff_transition_guard_functor(
+      be::Takeoff(), sample_logic_state_machine, dummy_start_state,
+      dummy_target_state);
   ASSERT_TRUE(result);
   drone_hardware.setBatteryPercent(10);
-  result =
-      takeoff_transition_guard_functor(Takeoff(), sample_logic_state_machine,
-                                       dummy_start_state, dummy_target_state);
+  result = takeoff_transition_guard_functor(
+      be::Takeoff(), sample_logic_state_machine, dummy_start_state,
+      dummy_target_state);
   ASSERT_FALSE(result);
 }
 
@@ -198,7 +208,7 @@ TEST(PositionControlFunctorTests, AbortActionTest) {
   bsa::ReachingGoalAbort position_control_abort_action_functor;
   PositionYaw goal(1, 1, 1, 1);
   uav_system.setGoal<PositionControllerDroneConnector>(goal);
-  position_control_abort_action_functor(Abort(), sample_logic_state_machine,
+  position_control_abort_action_functor(be::Abort(), sample_logic_state_machine,
                                         dummy_start_state, dummy_target_state);
   // Since the controller is aborted, will not run the controller
   uav_system.runActiveController(HardwareType::UAV);
