@@ -4,6 +4,7 @@
 #include "aerial_autonomy/trackers/base_tracker.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
+#include "uav_vision_system_config.pb.h"
 
 #include <parsernode/parser.h>
 
@@ -21,9 +22,11 @@ public:
    */
   VisualServoingControllerDroneConnector(
       BaseTracker &tracker, parsernode::Parser &drone_hardware,
-      ConstantHeadingDepthController &controller)
+      ConstantHeadingDepthController &controller,
+      tf::Transform camera_transform)
       : ControllerHardwareConnector(controller, HardwareType::UAV),
-        drone_hardware_(drone_hardware), tracker_(tracker) {}
+        drone_hardware_(drone_hardware), tracker_(tracker),
+        camera_transform_(camera_transform) {}
   /**
    * @brief Destructor
    */
@@ -36,12 +39,6 @@ public:
    * @return True if successful and false otherwise
    */
   bool getTrackingVectorGlobalFrame(Position &tracking_vector);
-
-  /**
-   * @brief Get a reference to the camera transform
-   * @return The camera transform
-   */
-  tf::Transform &cameraTransform();
 
 protected:
   /**

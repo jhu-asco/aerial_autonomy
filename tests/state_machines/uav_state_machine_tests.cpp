@@ -11,6 +11,11 @@
 */
 using namespace quad_simulator;
 
+/**
+* @brief Namespace for basic events such as takeoff, land.
+*/
+namespace be = uav_basic_events;
+
 class StateMachineTests : public ::testing::Test {
 protected:
   std::unique_ptr<UAVStateMachine> logic_state_machine;
@@ -32,7 +37,7 @@ protected:
 
   void GoToHoverFromLanded() {
     drone_hardware.setBatteryPercent(100);
-    logic_state_machine->process_event(Takeoff());
+    logic_state_machine->process_event(be::Takeoff());
     logic_state_machine->process_event(InternalTransitionEvent());
   }
 };
@@ -44,9 +49,9 @@ TEST_F(StateMachineTests, InitialState) {
 
 TEST_F(StateMachineTests, NoTransitionEvent) {
   // We are in landed state, and we give Land command
-  logic_state_machine->process_event(Land());
+  logic_state_machine->process_event(be::Land());
   ASSERT_EQ(logic_state_machine->get_no_transition_event_index(),
-            std::type_index(typeid(Land)));
+            std::type_index(typeid(be::Land)));
   // No Transition so we are still in landed state
   ASSERT_STREQ(pstate(*logic_state_machine), "Landed");
 }
@@ -54,14 +59,14 @@ TEST_F(StateMachineTests, NoTransitionEvent) {
 /// \brief Test Takeoff related events
 TEST_F(StateMachineTests, LowBatteryTakeoff) {
   drone_hardware.setBatteryPercent(10);
-  logic_state_machine->process_event(Takeoff());
+  logic_state_machine->process_event(be::Takeoff());
   // Cannot takeoff
   ASSERT_STREQ(pstate(*logic_state_machine), "Landed");
 }
 
 TEST_F(StateMachineTests, LowBatteryAfterTakeoff) {
   drone_hardware.setBatteryPercent(100);
-  logic_state_machine->process_event(Takeoff());
+  logic_state_machine->process_event(be::Takeoff());
   ASSERT_STREQ(pstate(*logic_state_machine), "TakingOff");
   drone_hardware.setBatteryPercent(10);
   logic_state_machine->process_event(InternalTransitionEvent());
@@ -71,7 +76,7 @@ TEST_F(StateMachineTests, LowBatteryAfterTakeoff) {
 
 TEST_F(StateMachineTests, Takeoff) {
   drone_hardware.setBatteryPercent(100);
-  logic_state_machine->process_event(Takeoff());
+  logic_state_machine->process_event(be::Takeoff());
   // Takeoff in process
   ASSERT_STREQ(pstate(*logic_state_machine), "TakingOff");
   ASSERT_STREQ(uav_system->getUAVData().quadstate.c_str(),
@@ -86,7 +91,7 @@ TEST_F(StateMachineTests, Land) {
   // First takeoff
   GoToHoverFromLanded();
   // Now we are hovering, Lets Land!
-  logic_state_machine->process_event(Land());
+  logic_state_machine->process_event(be::Land());
   ASSERT_STREQ(pstate(*logic_state_machine), "Landing");
   // Set altitude and check if landing is done
   logic_state_machine->process_event(InternalTransitionEvent());
@@ -121,7 +126,7 @@ TEST_F(StateMachineTests, PositionControlAbort) {
   PositionYaw goal(0, 0, 5, 0);
   logic_state_machine->process_event(goal);
   // Abort goal
-  logic_state_machine->process_event(Abort());
+  logic_state_machine->process_event(be::Abort());
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
   // Once aborted running active controller will not reach goal
   uav_system->runActiveController(HardwareType::UAV);
@@ -139,7 +144,7 @@ TEST_F(StateMachineTests, PositionControlLand) {
   logic_state_machine->process_event(goal);
   ASSERT_STREQ(pstate(*logic_state_machine), "ReachingGoal");
   // Land while reaching the goal
-  logic_state_machine->process_event(Land());
+  logic_state_machine->process_event(be::Land());
   ASSERT_STREQ(pstate(*logic_state_machine), "Landing");
   // It should also abort the controller:
   uav_system->runActiveController(HardwareType::UAV);
@@ -184,7 +189,7 @@ protected:
   }
 
   void takeoffEventCall() {
-    logic_state_machine->process_event(Takeoff());
+    logic_state_machine->process_event(be::Takeoff());
     for (int count = 0; count < 200; ++count) {
       logic_state_machine->process_event(InternalTransitionEvent());
     }

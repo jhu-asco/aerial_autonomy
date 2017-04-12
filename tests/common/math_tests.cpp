@@ -62,6 +62,20 @@ TEST(ClampTests, Min) {
   ASSERT_EQ(math::clamp(-100, -2, 1), -2);
 }
 
+TEST(TransformTests, StdVector) {
+  std::vector<double> input = {1.0, 2.0, 3.0, 0.0, 0.0, 0.0};
+  tf::Transform out = math::getTransformFromVector(input);
+  tf::Vector3 origin = out.getOrigin();
+  ASSERT_EQ(origin.getX(), input[0]);
+  ASSERT_EQ(origin.getY(), input[1]);
+  ASSERT_EQ(origin.getZ(), input[2]);
+}
+
+TEST(TransformTests, StdVectorThrow) {
+  std::vector<double> input = {1.0, 2.0, 3.0, 0.0, 0.0};
+  ASSERT_THROW(math::getTransformFromVector(input), std::runtime_error);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

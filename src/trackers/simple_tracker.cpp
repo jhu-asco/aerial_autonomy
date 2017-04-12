@@ -1,7 +1,11 @@
 #include "aerial_autonomy/trackers/simple_tracker.h"
+#include <glog/logging.h>
 
-SimpleTracker::SimpleTracker(parsernode::Parser &drone_hardware)
-    : drone_hardware_(drone_hardware), tracking_valid_(true) {}
+SimpleTracker::SimpleTracker(parsernode::Parser &drone_hardware,
+                             tf::Transform camera_transform)
+    : drone_hardware_(drone_hardware), camera_transform_(camera_transform) {
+  tracking_valid_ = true;
+}
 
 bool SimpleTracker::getTrackingVector(Position &p) {
   if (!trackingIsValid()) {
@@ -35,4 +39,4 @@ void SimpleTracker::setTrackingIsValid(bool is_valid) {
   tracking_valid_ = is_valid;
 }
 
-tf::Transform &SimpleTracker::cameraTransform() { return camera_transform_; }
+tf::Transform SimpleTracker::cameraTransform() { return camera_transform_; }

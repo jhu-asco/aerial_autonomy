@@ -8,11 +8,6 @@
 #include <parsernode/common.h>
 
 /**
-* @brief namespace for basic events such as takeoff, land etc
-*/
-using namespace uav_basic_events;
-
-/**
 * @brief action to take when starting takeoff
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
@@ -85,7 +80,7 @@ struct TakeoffInternalActionFunctor_
         robot_system.getConfiguration().minimum_battery_percent()) {
       LOG(WARNING) << "Battery too low! " << data.batterypercent
                    << "\% Aborting takeoff";
-      logic_state_machine.process_event(Land());
+      logic_state_machine.process_event(uav_basic_events::Land());
     } else if (data.localpos.z >=
                // Transition to hovering state once reached high altitude
                robot_system.getConfiguration().minimum_takeoff_height()) {
