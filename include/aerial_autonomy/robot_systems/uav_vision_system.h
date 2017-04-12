@@ -25,15 +25,11 @@ public:
         constant_heading_depth_controller_(
             config_.uav_vision_system_config()
                 .constant_heading_depth_controller_config()),
+        camera_transform_(math::getTransformFromVector(
+            config_.uav_vision_system_config().camera_transform())),
         visual_servoing_drone_connector_(tracker, drone_hardware_,
                                          constant_heading_depth_controller_,
-                                         config.uav_vision_system_config()) {
-    try {
-      camera_transform_ = math::getTransformFromVector(
-          config_.uav_vision_system_config().camera_transform());
-    } catch (std::runtime_error) {
-      LOG(FATAL) << "Camera transform configuration does not have 6 parameters";
-    }
+                                         camera_transform_) {
     controller_hardware_connector_container_.setObject(
         visual_servoing_drone_connector_);
   }
@@ -55,12 +51,12 @@ private:
   */
   ConstantHeadingDepthController constant_heading_depth_controller_;
   /**
+  * @brief Camera transform in the frame of the UAV
+  */
+  tf::Transform camera_transform_;
+  /**
   * @brief Connector for the constant heading depth controller to
   * UAV
   */
   VisualServoingControllerDroneConnector visual_servoing_drone_connector_;
-  /**
-  * @brief Camera transform in the frame of the UAV
-  */
-  tf::Transform camera_transform_;
 };

@@ -2,13 +2,8 @@
 #include <glog/logging.h>
 
 SimpleTracker::SimpleTracker(parsernode::Parser &drone_hardware,
-                             UAVVisionSystemConfig config)
-    : drone_hardware_(drone_hardware) {
-  try {
-    camera_transform_ = math::getTransformFromVector(config.camera_transform());
-  } catch (std::runtime_error) {
-    LOG(FATAL) << "Camera transform configuration does not have 6 parameters";
-  }
+                             tf::Transform camera_transform)
+    : drone_hardware_(drone_hardware), camera_transform_(camera_transform) {
   tracking_valid_ = true;
 }
 

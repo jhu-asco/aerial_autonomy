@@ -28,8 +28,9 @@ protected:
       uav_vision_system_config->add_camera_transform(0.0);
     }
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
-    simple_tracker.reset(
-        new SimpleTracker(drone_hardware, *uav_vision_system_config));
+    tf::Transform camera_transform = math::getTransformFromVector(
+        uav_vision_system_config->camera_transform());
+    simple_tracker.reset(new SimpleTracker(drone_hardware, camera_transform));
     uav_system.reset(
         new UAVVisionSystem(*simple_tracker, drone_hardware, config));
     sample_logic_state_machine.reset(

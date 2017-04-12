@@ -15,21 +15,15 @@ using namespace quad_simulator;
 class VisualServoingControllerDroneConnectorTests : public ::testing::Test {
 public:
   VisualServoingControllerDroneConnectorTests() : goal_tolerance_position(0.5) {
-    UAVVisionSystemConfig uav_vision_system_config;
-    for (int i = 0; i < 6; ++i) {
-      uav_vision_system_config.add_camera_transform(0.0);
-    }
-    auto depth_config = uav_vision_system_config
-                            .mutable_constant_heading_depth_controller_config();
-    depth_config->set_radial_gain(0.5);
-    depth_config->mutable_position_controller_config()
+    ConstantHeadingDepthControllerConfig depth_config;
+    depth_config.set_radial_gain(0.5);
+    depth_config.mutable_position_controller_config()
         ->set_goal_position_tolerance(goal_tolerance_position);
-    simple_tracker_.reset(
-        new SimpleTracker(drone_hardware_, uav_vision_system_config));
-    controller_.reset(new ConstantHeadingDepthController(*depth_config));
+    tf::Transform camera_transform = tf::Transform::getIdentity();
+    simple_tracker_.reset(new SimpleTracker(drone_hardware_, camera_transform));
+    controller_.reset(new ConstantHeadingDepthController(depth_config));
     visual_servoing_connector_.reset(new VisualServoingControllerDroneConnector(
-        *simple_tracker_, drone_hardware_, *controller_,
-        uav_vision_system_config));
+        *simple_tracker_, drone_hardware_, *controller_, camera_transform));
   }
   QuadSimulator drone_hardware_;
   std::unique_ptr<ConstantHeadingDepthController> controller_;

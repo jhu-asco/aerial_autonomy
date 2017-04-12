@@ -10,28 +10,14 @@ using namespace quad_simulator;
 
 TEST(SimpleTrackerTests, Constructor) {
   QuadSimulator drone_hardware;
-  UAVVisionSystemConfig config;
-  for (int i = 0; i < 6; ++i) {
-    config.add_camera_transform(0.0);
-  }
-  config.set_desired_visual_servoing_distance(1.0);
-  SimpleTracker simple_tracker(drone_hardware, config);
-}
-
-TEST(SimpleTrackerTests, InvalidCameraTransform) {
-  QuadSimulator drone_hardware;
-  UAVVisionSystemConfig config;
-  SimpleTracker simple_tracker(drone_hardware, config);
-  ASSERT_FALSE(simple_tracker.trackingIsValid());
+  tf::Transform camera_transform = tf::Transform::getIdentity();
+  SimpleTracker simple_tracker(drone_hardware, camera_transform);
 }
 
 TEST(SimpleTrackerTests, TrackingVector) {
   QuadSimulator drone_hardware;
-  UAVVisionSystemConfig config;
-  for (int i = 0; i < 6; ++i) {
-    config.add_camera_transform(0.0);
-  }
-  SimpleTracker simple_tracker(drone_hardware, config);
+  tf::Transform camera_transform = tf::Transform::getIdentity();
+  SimpleTracker simple_tracker(drone_hardware, camera_transform);
   Position position;
   Position tracking_vector;
   // Test tracking is valid
@@ -48,14 +34,9 @@ TEST(SimpleTrackerTests, TrackingVector) {
 
 TEST(SimpleTrackerTests, TrackingVectorActiveCameraTransform) {
   QuadSimulator drone_hardware;
-  UAVVisionSystemConfig config;
-  for (int i = 0; i < 6; ++i) {
-    config.add_camera_transform(0.0);
-  }
-  config.set_camera_transform(0, 1.0);
-  config.set_camera_transform(1, 2.0);
-  config.set_camera_transform(2, 3.0);
-  SimpleTracker simple_tracker(drone_hardware, config);
+  tf::Transform camera_transform = tf::Transform::getIdentity();
+  camera_transform.setOrigin(tf::Vector3(1.0, 2.0, 3.0));
+  SimpleTracker simple_tracker(drone_hardware, camera_transform);
   Position position;
   Position tracking_vector;
   // Test setting tracking vector

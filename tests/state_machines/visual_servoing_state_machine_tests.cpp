@@ -36,8 +36,9 @@ public:
     depth_config->set_radial_gain(0.5);
     depth_config->mutable_position_controller_config()
         ->set_goal_position_tolerance(goal_tolerance_position);
-    tracker.reset(
-        new SimpleTracker(drone_hardware, config.uav_vision_system_config()));
+    tf::Transform camera_transform = math::getTransformFromVector(
+        uav_vision_system_config->camera_transform());
+    tracker.reset(new SimpleTracker(drone_hardware, camera_transform));
     uav_system.reset(new UAVVisionSystem(*tracker, drone_hardware, config));
     logic_state_machine.reset(
         new VisualServoingStateMachine(boost::ref(*uav_system)));

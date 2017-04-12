@@ -1,5 +1,4 @@
 #pragma once
-#include "aerial_autonomy/common/math.h"
 #include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
 #include "aerial_autonomy/trackers/base_tracker.h"
@@ -23,16 +22,11 @@ public:
    */
   VisualServoingControllerDroneConnector(
       BaseTracker &tracker, parsernode::Parser &drone_hardware,
-      ConstantHeadingDepthController &controller, UAVVisionSystemConfig config)
+      ConstantHeadingDepthController &controller,
+      tf::Transform camera_transform)
       : ControllerHardwareConnector(controller, HardwareType::UAV),
-        drone_hardware_(drone_hardware), tracker_(tracker) {
-    try {
-      camera_transform_ =
-          math::getTransformFromVector(config.camera_transform());
-    } catch (std::runtime_error) {
-      LOG(FATAL) << "Camera transform configuration does not have 6 parameters";
-    }
-  }
+        drone_hardware_(drone_hardware), tracker_(tracker),
+        camera_transform_(camera_transform) {}
   /**
    * @brief Destructor
    */
