@@ -119,6 +119,30 @@ TEST_F(StateMachineTests, PositionControl) {
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
 }
 
+// Check if position controller status is reset to active when setgoal is
+// called
+TEST_F(StateMachineTests, PositionControlResetActive) {
+  // First takeoff
+  GoToHoverFromLanded();
+  // Now we are hovering, Lets go to a goal
+  PositionYaw goal(0, 0, 5, 0);
+  logic_state_machine->process_event(goal);
+  // Run active controller:
+  uav_system->runActiveController(HardwareType::UAV);
+  uav_system->runActiveController(HardwareType::UAV); // Update status
+  // Transition to hovering
+  logic_state_machine->process_event(InternalTransitionEvent());
+  // Now try going to a second goal
+  goal.x = 1.0;
+  logic_state_machine->process_event(goal);
+  // Check we are actually reaching goal
+  ASSERT_STREQ(pstate(*logic_state_machine), "ReachingGoal");
+  // Running internal transition now should not switch to
+  // hovering since the controller status is active
+  logic_state_machine->process_event(InternalTransitionEvent());
+  ASSERT_STREQ(pstate(*logic_state_machine), "ReachingGoal");
+}
+
 TEST_F(StateMachineTests, PositionControlAbort) {
   // First takeoff
   GoToHoverFromLanded();
