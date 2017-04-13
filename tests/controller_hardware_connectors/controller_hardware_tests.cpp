@@ -4,7 +4,11 @@
 //// \brief Definitions
 ///  Define any necessary subclasses for tests here
 class SampleController : public Controller<int, int, int> {
-  virtual int runImplementation(int, int) { return 0; }
+  virtual bool runImplementation(int, int, int &control) {
+    control = 0;
+    return true;
+  }
+  virtual bool isConvergedImplementation(int, int) { return true; }
 };
 
 class SampleHardwareController
@@ -15,7 +19,10 @@ public:
                                                    HardwareType::Arm) {}
   virtual void sendHardwareCommands(int) { return; }
 
-  virtual int extractSensorData() { return 0; }
+  virtual bool extractSensorData(int &sensor_data) {
+    sensor_data = 0;
+    return true;
+  }
 };
 
 ////

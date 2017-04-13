@@ -1,0 +1,18 @@
+syntax = "proto2";
+
+import "constant_heading_depth_controller_config.proto";
+
+message UAVVisionSystemConfig {
+  required ConstantHeadingDepthControllerConfig
+      constant_heading_depth_controller_config = 1;
+  /**
+  * @brief Desired distance to tracked position in meters
+  */
+  required double desired_visual_servoing_distance = 2 [ default = 3.0 ];
+
+  /**
+  * @brief Camera transform in the frame of the UAV (assuming NWU).  Specified
+  * as x, y, z, roll, pitch, yaw.
+  */
+  repeated double camera_transform = 3;
+}

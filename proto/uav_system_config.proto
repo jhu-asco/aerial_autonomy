@@ -1,3 +1,13 @@
+syntax = "proto2";
+
+import "uav_vision_system_config.proto";
+
+import "position_controller_config.proto";
+
+import "velocity_controller_config.proto";
+
+import "velocity_based_position_controller_config.proto";
+
 message UAVSystemConfig {
   /**
   * @brief Battery percentage required for takeoff
@@ -12,17 +22,6 @@ message UAVSystemConfig {
   * is completed.
   */
   optional double landing_height = 3 [ default = 0.1 ];
-  /**
-  * @brief If UAV is within this distance in x,y, and z
-  * dimensions, the goal is reached.
-  */
-  optional double goal_position_tolerance = 4 [ default = 1.0 ];
-
-  /**
-  * @brief UAV is within this yaw angle (radians),
-  * the goal is reached.
-  */
-  optional double goal_yaw_tolerance = 5 [ default = 0.1 ];
 
   /**
   * @brief If the distance from goal to current position
@@ -30,5 +29,21 @@ message UAVSystemConfig {
   * the goal is rejected. (GeoFence around current position)
   * TODO Use lat, long coordinates may be
   */
-  optional double max_goal_distance = 6 [ default = 100 ];
+  optional double max_goal_distance = 4 [ default = 100 ];
+
+  /**
+  * @brief Position controller configuration
+  */
+  optional PositionControllerConfig position_controller_config = 5;
+
+  optional VelocityControllerConfig velocity_controller_config = 6;
+
+  optional VelocityBasedPositionControllerConfig
+      velocity_based_position_controller_config = 7;
+
+  /**
+  * @brief A crude form of inheritance for proto. Contains a config for
+  * subclasses of UAVSystemConfig
+  */
+  oneof subclass { UAVVisionSystemConfig uav_vision_system_config = 8; }
 }

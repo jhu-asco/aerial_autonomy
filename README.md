@@ -12,6 +12,17 @@ Install the following dependencies (lcov, protobuf, doxygen, doxypy, coverxygen,
     sudo apt-get install lcov protobuf-compiler libprotobuf-dev doxygen doxypy libgoogle-glog-dev ros-indigo-class-loader
     sudo pip install coverxygen
 
+Install protobuf 3.1:
+
+    git clone https://github.com/google/protobuf.git
+    cd protobuf
+    git checkout v3.1.0
+    ./autogen.sh
+    ./configure
+    make
+    sudo make install
+    sudo ldconfig
+
 ## Running Executables
 The package provides a `uav_system_node` executable which loads a state machine and hardware and waits for event commands from a ROS topic. The `rqt_aerial_autonomy_gui` script
 provides a GUI to generate events for the state machine. The rqt plugin can be loaded along with `rqt_rviz` in the `rqt_gui` framework.

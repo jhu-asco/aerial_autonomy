@@ -1,5 +1,6 @@
 #pragma once
 #include "aerial_autonomy/types/position.h"
+#include <aerial_autonomy/common/math.h>
 
 /**
 * @brief Stores Position, yaw.
@@ -30,6 +31,23 @@ struct PositionYaw : public Position {
   */
   PositionYaw(double x, double y, double z, double yaw)
       : Position(x, y, z), yaw(yaw) {}
+
+  /**
+  * @brief Return position
+  * @return position
+  */
+  Position position() { return Position(x, y, z); }
+
+  /**
+  * @brief Set the Position
+  * @param p Position to set
+  */
+  void setPosition(const Position &p) {
+    x = p.x;
+    y = p.y;
+    z = p.z;
+  }
+
   double yaw; ///< Orientation about body axis rad
 
   /**
@@ -45,9 +63,29 @@ struct PositionYaw : public Position {
   /**
   * @brief Compare two position and yaw entities
   *
-  * @param p PositionYaw to compare against
+  * @param p PositionYaw to add
   *
-  * @return True if position and yaw are not the same
+  * @return True if position and yaw are different
   */
   bool operator!=(const PositionYaw &p) const { return !(*this == p); }
+  /**
+  * @brief Add two position and yaw entities
+  * @param p PositionYaw to add
+  * @return Sum of position and yaw
+  */
+  PositionYaw operator+(const PositionYaw &p) const {
+    Position p1(this->x, this->y, this->z);
+    Position p2(p.x, p.y, p.z);
+    return PositionYaw(p1 + p2, this->yaw + p.yaw);
+  }
+  /**
+  * @brief Subtract two position and yaw entities
+  * @param p PositionYaw to subtract
+  * @return Difference of position and yaw
+  */
+  PositionYaw operator-(const PositionYaw &p) const {
+    Position p1(this->x, this->y, this->z);
+    Position p2(p.x, p.y, p.z);
+    return PositionYaw(p1 - p2, math::angleWrap(this->yaw - p.yaw));
+  }
 };

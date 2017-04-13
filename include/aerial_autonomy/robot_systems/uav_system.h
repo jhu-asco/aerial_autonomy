@@ -14,21 +14,26 @@
  * Provides builtin position, velocity, and rpy controllers for controlling UAV
 */
 class UAVSystem : public BaseRobotSystem {
-
-private:
+protected:
   /**
   * @brief Hardware
   */
   parsernode::Parser &drone_hardware_;
+  /**
+   * @brief UAV configuration parameters
+   */
+  UAVSystemConfig config_;
+
+private:
   // Controllers
   /**
   * @brief Position Controller
   */
-  BuiltInController<PositionYaw> builtin_position_controller_;
+  BuiltInPositionController builtin_position_controller_;
   /**
   * @brief  velocity controller
   */
-  BuiltInController<VelocityYaw> builtin_velocity_controller_;
+  BuiltInVelocityController builtin_velocity_controller_;
   /**
   * @brief rpyt controller using joystick controller connectors
   */
@@ -45,10 +50,16 @@ private:
   * @brief connector for rpyt controller
   */
   ManualRPYTControllerDroneConnector rpyt_controller_drone_connector_;
+
   /**
-   * @brief UAV configuration parameters
-   */
-  UAVSystemConfig config_;
+  * @brief Home Location
+  */
+  PositionYaw home_location_;
+
+  /**
+  * @brief Flag to specify if home location is specified or not
+  */
+  bool home_location_specified_;
 
 public:
   /**
@@ -67,14 +78,16 @@ public:
   * takeoff height, etc.
   */
   UAVSystem(parsernode::Parser &drone_hardware, UAVSystemConfig config)
-      : BaseRobotSystem(), drone_hardware_(drone_hardware),
+      : BaseRobotSystem(), drone_hardware_(drone_hardware), config_(config),
+        builtin_position_controller_(config.position_controller_config()),
+        builtin_velocity_controller_(config.velocity_controller_config()),
         position_controller_drone_connector_(drone_hardware,
                                              builtin_position_controller_),
         velocity_controller_drone_connector_(drone_hardware,
                                              builtin_velocity_controller_),
         rpyt_controller_drone_connector_(drone_hardware,
                                          manual_rpyt_controller_),
-        config_(config) {
+        home_location_specified_(false) {
     // Add control hardware connector containers
     controller_hardware_connector_container_.setObject(
         position_controller_drone_connector_);
@@ -145,4 +158,30 @@ public:
    * @return Configuration
    */
   UAVSystemConfig getConfiguration() { return config_; }
+
+  /**
+  * @brief save current location as home location
+  */
+  void setHomeLocation() {
+    parsernode::common::quaddata data = getUAVData();
+    home_location_.x = data.localpos.x;
+    home_location_.y = data.localpos.y;
+    home_location_.z = data.localpos.z;
+    home_location_.yaw = data.rpydata.z;
+    home_location_specified_ = true;
+  }
+
+  /**
+  * @brief Check if home location is specified
+  *
+  * @return True if home location is specified
+  */
+  bool isHomeLocationSpecified() { return home_location_specified_; }
+
+  /**
+  * @brief Stored home location
+  *
+  * @return Home location (PositionYaw)
+  */
+  PositionYaw getHomeLocation() { return home_location_; }
 };

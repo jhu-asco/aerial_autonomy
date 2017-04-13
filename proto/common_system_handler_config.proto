@@ -1,3 +1,5 @@
+syntax = "proto2";
+
 message CommonSystemHandlerConfig {
   /**
    * @brief Timestep in milliseconds for timer which runs state machine internal

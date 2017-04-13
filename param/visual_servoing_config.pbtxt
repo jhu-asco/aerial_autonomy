@@ -1,0 +1,35 @@
+uav_parser_type: "quad_simulator_parser/QuadSimParser"
+uav_controller_timer_duration: 20
+
+base_config {
+  state_machine_timer_duration: 20
+  status_timer_duration: 50
+}
+
+uav_system_config {
+  minimum_battery_percent: 40
+  minimum_takeoff_height: 0.5
+  landing_height: 0.1
+
+  uav_vision_system_config {
+    camera_transform: 0
+    camera_transform: 0
+    camera_transform: 0
+    camera_transform: -1.5708
+    camera_transform: 0
+    camera_transform: -1.5708
+
+    desired_visual_servoing_distance: 1.0
+    constant_heading_depth_controller_config {
+      radial_gain: 0.1
+      tangential_gain: 0.1
+      yaw_gain: 0.1
+      max_velocity: 1
+      max_yaw_rate: 0.1
+      position_controller_config {
+        goal_position_tolerance: 0.05
+        goal_yaw_tolerance: 0.04
+      }
+    }
+  }
+}

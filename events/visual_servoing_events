@@ -1,3 +1,4 @@
 VisualServoingEventManager:
   uav_basic_events/UAVEventManager
-  FollowTrajectory
+  TrackROI
+  GoHome

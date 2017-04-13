@@ -1,0 +1,4 @@
+<launch>
+  <test test-name="RoiToPositionConverter" pkg="aerial_autonomy" type="aerial_autonomy-roi-to-position-converter-test">
+  </test>
+</launch>

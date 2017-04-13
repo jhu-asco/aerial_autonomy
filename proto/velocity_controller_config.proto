@@ -1,0 +1,15 @@
+syntax = "proto2";
+
+message VelocityControllerConfig {
+  /**
+  * @brief If UAV is within this distance in x,y, and z
+  * velocity, the goal is reached.
+  */
+  optional double goal_velocity_tolerance = 1 [ default = 0.1 ];
+
+  /**
+  * @brief UAV is within this yaw (radians),
+  * the goal is reached.
+  */
+  optional double goal_yaw_tolerance = 2 [ default = 0.1 ];
+}

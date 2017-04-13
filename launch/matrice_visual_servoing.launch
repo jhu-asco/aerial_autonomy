@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+  <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/matrice_visual_servoing_config.pbtxt" />
+  <param name="event_file" value="$(find aerial_autonomy)/events/visual_servoing_events" />
+  <arg name="log_level" default="0"/>
+  <arg name="log_dir" default="$(find aerial_autonomy)/logs"/>
+  <node pkg="aerial_autonomy" type="uav_vision_system_node" name="uav_vision_system_node" output="screen">
+    <remap from="goal_pose_command" to="pose_command_combined" />
+    <remap from="event_manager" to="event_trigger" />
+    <!--Depth image from duo-->
+    <remap from="depth" to="duo3d_camera/depth_image"/>
+    <!--Camera info from duo-->
+    <remap from="camera_info" to="duo3d_camera/left/camera_info"/>
+    <!-- ROI From opencv3 tracker-->
+    <remap from="roi" to="roi_out"/>
+    <env name="GLOG_log_dir" value="$(arg log_dir)"/>
+    <env name="GLOG_v" value="$(arg log_level)"/>
+    <env name="GLOG_alsologtostderr" value="1"/>
+  </node>
+  <!-- Matrice SDK params -->
+  <param name="serial_name" type="string" value="/dev/ttydji"/>
+  <param name="baud_rate" type="int" value="230400"/>
+  <param name="app_id" type="int" value="1024052"/>
+  <param name="app_api_level" type="int" value="2"/>
+  <param name="app_version" type="int" value="1"/>
+  <param name="app_bundle_id" type="string" value="Welcome to use dji-sdk"/>
+  <param name="enc_key" type="string" value="8667ff1ec3a163d6ef14a7bf6a9fae66210855f309c1876788f61d2195dc58d7"/>
+</launch>
