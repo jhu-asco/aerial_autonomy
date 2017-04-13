@@ -95,7 +95,10 @@ public:
    *
    * @param goal Goal for controller
    */
-  void setGoal(GoalType goal) { controller_.setGoal(goal); }
+  void setGoal(GoalType goal) {
+    setStatus(ControllerStatus::Active);
+    controller_.setGoal(goal);
+  }
   /**
    * @brief Get the goal for controller
    *

@@ -91,7 +91,7 @@ bool RoiToPositionConverter::roiIsValid() {
   boost::mutex::scoped_lock(roi_update_mutex_);
   bool valid = (ros::Time::now() - last_roi_update_time_).toSec() < 0.5;
   if (!valid)
-    LOG(WARNING) << "ROI has not been updated for 0.5 seconds";
+    VLOG(2) << "ROI has not been updated for 0.5 seconds";
   return valid;
 }
 
@@ -127,7 +127,7 @@ void RoiToPositionConverter::computeTrackingVector(
   double object_distance = 0;
   Eigen::Vector2d object_position_cam(0, 0);
   if (roi_position_depths.size() == 0) {
-    LOG(WARNING) << "No ROI pixel depths within configured max distance";
+    VLOG(2) << "No ROI pixel depths within configured max distance";
     object_distance = max_distance;
     object_position_cam(0) = roi_rect.x_offset + roi_rect.width / 2.;
     object_position_cam(1) = roi_rect.y_offset + roi_rect.height / 2.;
