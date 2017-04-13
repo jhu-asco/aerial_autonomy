@@ -129,6 +129,8 @@ void RoiToPositionConverter::computeTrackingVector(
   if (roi_position_depths.size() == 0) {
     LOG(WARNING) << "No ROI pixel depths within configured max distance";
     object_distance = max_distance;
+    object_position_cam(0) = roi_rect.x_offset + roi_rect.width / 2.;
+    object_position_cam(1) = roi_rect.y_offset + roi_rect.height / 2.;
   } else {
     // Average of smallest "front_percent" percent of depths
     /// \todo Matt Perform foreground/background clustering with k-means

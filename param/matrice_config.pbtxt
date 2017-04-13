@@ -1,6 +1,10 @@
 uav_parser_type: "dji_parser/DjiParser"
 uav_controller_timer_duration: 20
-state_machine_timer_duration: 20
+
+base_config {
+  state_machine_timer_duration: 20
+  status_timer_duration: 50
+}
 
 uav_system_config {
   minimum_battery_percent: 40

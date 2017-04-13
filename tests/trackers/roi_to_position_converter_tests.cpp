@@ -129,8 +129,10 @@ TEST(RoiToPositionConverterTests, ComputeTrackingVectorMaxDistance) {
 
   RoiToPositionConverter::computeTrackingVector(
       roi, depth, camera_info, max_distance, front_percent, pos);
-  ASSERT_NEAR(pos.x, max_distance * (0 - cx) / fx, 1e-5);
-  ASSERT_NEAR(pos.y, max_distance * (0 - cy) / fy, 1e-5);
+  ASSERT_NEAR(pos.x, max_distance * (roi.x_offset + roi.width / 2. - cx) / fx,
+              1e-5);
+  ASSERT_NEAR(pos.y, max_distance * (roi.y_offset + roi.height / 2. - cy) / fy,
+              1e-5);
   ASSERT_NEAR(pos.z, max_distance, 1e-5);
 }
 
