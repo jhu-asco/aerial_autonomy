@@ -1,6 +1,7 @@
 // States and actions corresponding to basic events
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
 #include <aerial_autonomy/actions_guards/land_functors.h>
+#include <aerial_autonomy/actions_guards/manual_control_functors.h>
 #include <aerial_autonomy/actions_guards/position_control_functors.h>
 #include <aerial_autonomy/actions_guards/takeoff_functors.h>
 
@@ -27,19 +28,14 @@ template <class LogicStateMachineT> struct UAVStatesActions {
   * @brief Hovering state
   */
   using Hovering = Hovering_<LogicStateMachineT>;
-  // States without any internal actions:
   /**
   * @brief Landed state
   */
-  struct Landed : msmf::state<> {
-    /**
-    * @brief Internal event without any action
-    */
-    struct internal_transition_table
-        : boost::mpl::vector<
-              msmf::Internal<InternalTransitionEvent, msmf::none, msmf::none>> {
-    };
-  };
+  using Landed = Landed_<LogicStateMachineT>;
+  /**
+  * @brief Manual control state
+  */
+  using ManualControlState = ManualControlState_<LogicStateMachineT>;
 
   // Basic transition Actions
   /**
@@ -71,10 +67,20 @@ template <class LogicStateMachineT> struct UAVStatesActions {
   /**
   * @brief Abort action when reaching goal
   */
-  using ReachingGoalAbort =
-      PositionControlAbortActionFunctor_<LogicStateMachineT>;
+  using UAVControllerAbort =
+      UAVControllerAbortActionFunctor_<LogicStateMachineT>;
   /**
   * @brief Land action when reaching goal
   */
   using ReachingGoalLand = LandingAction;
+  /**
+  * @brief Action to enable sdk when switching to sdk mode
+  */
+  using ManualControlSwitchAction =
+      ManualControlSwitchAction_<LogicStateMachineT>;
+  /**
+  * @brief Guard for switching to SDK mode from manual control
+  */
+  using ManualControlSwitchGuard =
+      ManualControlSwitchGuard_<LogicStateMachineT>;
 };

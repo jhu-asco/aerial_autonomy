@@ -43,6 +43,8 @@ public:
     logic_state_machine.reset(
         new VisualServoingStateMachine(boost::ref(*uav_system)));
     logic_state_machine->start();
+    // Move to landed state
+    logic_state_machine->process_event(InternalTransitionEvent());
   }
 
   ~VisualServoingStateMachineTests() {
@@ -114,6 +116,31 @@ TEST_F(VisualServoingStateMachineTests, VisualServoingAbort) {
   ASSERT_EQ(uav_data.localpos.y, 0.0);
   ASSERT_EQ(uav_data.localpos.z, 0.5);
   // Check we are back in hovering
+  ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
+}
+// Manual rc abort
+TEST_F(VisualServoingStateMachineTests, VisualServoingManualControlAbort) {
+  // First takeoff
+  GoToHoverFromLanded();
+  // Set goal for simple tracker
+  Position roi_goal(2, 0, 0.5);
+  tracker->setTargetPositionGlobalFrame(roi_goal);
+  // Initialize event to vse::TrackROI
+  logic_state_machine->process_event(vse::TrackROI());
+  // Check we are in visual servoing state
+  ASSERT_STREQ(pstate(*logic_state_machine), "VisualServoing");
+  // Disable SDK
+  drone_hardware.flowControl(false);
+  // Check we are in Hovering
+  logic_state_machine->process_event(InternalTransitionEvent());
+  ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
+  // And finally in manual control state
+  logic_state_machine->process_event(InternalTransitionEvent());
+  ASSERT_STREQ(pstate(*logic_state_machine), "ManualControlState");
+  // Enable SDK
+  drone_hardware.flowControl(true);
+  // CHeck we are back in hovering
+  logic_state_machine->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
 }
 ///

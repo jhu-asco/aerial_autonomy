@@ -40,6 +40,8 @@
 // Events
 #include <aerial_autonomy/visual_servoing_events.h>
 
+#include <aerial_autonomy/types/manual_control_event.h>
+
 namespace msmf = boost::msm::front;
 namespace vse = visual_servoing_events;
 namespace be = uav_basic_events;
@@ -98,7 +100,7 @@ public:
   /**
   * @brief Initial state for state machine
   */
-  using initial_state = vsa::Landed;
+  using initial_state = vsa::ManualControlState;
   /**
   * @brief Transition table for State Machine
   */
@@ -109,11 +111,17 @@ public:
             msmf::Row<vsa::Landed, be::Takeoff, vsa::TakingOff,
                       vsa::TakeoffAction, vsa::TakeoffGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<vsa::Landed, ManualControlEvent, vsa::ManualControlState,
+                      msmf::none, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::TakingOff, be::Land, vsa::Landing,
                       vsa::LandingAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::TakingOff, be::Abort, vsa::Landing,
                       vsa::TakeoffAbort, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<vsa::TakingOff, ManualControlEvent,
+                      vsa::ManualControlState, msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::Hovering, PositionYaw, vsa::ReachingGoal,
                       vsa::ReachingGoalSet, vsa::ReachingGoalGuard>,
@@ -128,14 +136,17 @@ public:
             msmf::Row<vsa::Hovering, be::Land, vsa::Landing, vsa::LandingAction,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<vsa::Hovering, ManualControlEvent,
+                      vsa::ManualControlState, msmf::none, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::ReachingGoal, be::Abort, vsa::Hovering,
-                      vsa::ReachingGoalAbort, msmf::none>,
+                      vsa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::ReachingGoal, be::Land, vsa::Landing,
                       vsa::ReachingGoalLand, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::VisualServoing, be::Abort, vsa::Hovering,
-                      vsa::ReachingGoalAbort, msmf::none>,
+                      vsa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::VisualServoing, be::Land, vsa::Landing,
                       vsa::ReachingGoalLand, msmf::none>,
@@ -143,16 +154,25 @@ public:
             msmf::Row<vsa::Landing, Completed, vsa::Landed, msmf::none,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<vsa::Landing, ManualControlEvent, vsa::ManualControlState,
+                      msmf::none, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::TakingOff, Completed, vsa::Hovering, msmf::none,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::ReachingGoal, Completed, vsa::Hovering,
-                      vsa::ReachingGoalAbort, msmf::none>,
+                      vsa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::VisualServoing, Completed, vsa::Hovering,
-                      vsa::ReachingGoalAbort, msmf::none>
+                      vsa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            > {};
+            msmf::Row<vsa::ManualControlState, be::Takeoff, vsa::Hovering,
+                      vsa::ManualControlSwitchAction,
+                      vsa::ManualControlSwitchGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<vsa::ManualControlState, be::Land, vsa::Landed,
+                      vsa::ManualControlSwitchAction,
+                      vsa::ManualControlSwitchGuard>> {};
   /**
   * @brief Use Inherited no transition function
   */
@@ -162,9 +182,9 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 6> state_names = {
-    "Landed",       "TakingOff",      "Hovering",
-    "ReachingGoal", "VisualServoing", "Landing"};
+static constexpr std::array<const char *, 7> state_names = {
+    "Landed",         "TakingOff", "Hovering",          "ReachingGoal",
+    "VisualServoing", "Landing",   "ManualControlState"};
 /**
 * @brief Get current state name
 *

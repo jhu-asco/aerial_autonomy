@@ -106,7 +106,10 @@ struct VisualServoingInternalActionFunctor_
         robot_system.getStatus<VisualServoingControllerDroneConnector>();
     // Define tolerance and check if reached goal
     const auto &robot_config = robot_system.getConfiguration();
-    if (data.batterypercent < robot_config.minimum_battery_percent()) {
+    if (!data.rc_sdk_control_switch) {
+      LOG(WARNING) << "Aborting Controller due to sdk being closed";
+      logic_state_machine.process_event(be::Abort());
+    } else if (data.batterypercent < robot_config.minimum_battery_percent()) {
       LOG(WARNING) << "Battery too low " << data.batterypercent
                    << "\% Landing!";
       logic_state_machine.process_event(be::Land());
@@ -121,8 +124,7 @@ struct VisualServoingInternalActionFunctor_
 };
 
 /**
-* @brief Check tracking is valid before starting visual servoing
-*
+* @brief Check tracking is valid before starting visual servoing *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>

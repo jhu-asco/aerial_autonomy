@@ -25,12 +25,12 @@ struct PositionControlTransitionActionFunctor_
 };
 
 /**
-* @brief Transition action to perform when aborting position control
+* @brief Transition action to perform when aborting any UAV Controller
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-struct PositionControlAbortActionFunctor_
+struct UAVControllerAbortActionFunctor_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system, LogicStateMachineT &) {
     LOG(WARNING) << "Aborting UAV Controller";
@@ -88,7 +88,10 @@ struct PositionControlInternalActionFunctor_
     // Check battery percentage and controller status
     parsernode::common::quaddata data = robot_system.getUAVData();
     const auto &robot_config = robot_system.getConfiguration();
-    if (data.batterypercent < robot_config.minimum_battery_percent()) {
+    if (!data.rc_sdk_control_switch) {
+      LOG(WARNING) << "Aborting Controller due to sdk being closed";
+      logic_state_machine.process_event(be::Abort());
+    } else if (data.batterypercent < robot_config.minimum_battery_percent()) {
       LOG(WARNING) << "Battery too low " << data.batterypercent
                    << "\% Landing!";
       logic_state_machine.process_event(be::Land());

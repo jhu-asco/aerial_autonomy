@@ -2,6 +2,7 @@
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
+#include <aerial_autonomy/types/manual_control_event.h>
 #include <aerial_autonomy/uav_basic_events.h>
 #include <glog/logging.h>
 #include <parsernode/common.h>
@@ -24,10 +25,12 @@ struct HoveringInternalActionFunctor_
   */
   void run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     parsernode::common::quaddata data = robot_system.getUAVData();
-    // Transition to hovering state once reached high altitude
-    /// \todo (Gowtham) Can also use uav status here
-    if (data.batterypercent <
-        robot_system.getConfiguration().minimum_battery_percent()) {
+    // If hardware is not allowing us to control UAV
+    if (!data.rc_sdk_control_switch) {
+      VLOG(1) << "Switching to Manual UAV state";
+      logic_state_machine.process_event(ManualControlEvent());
+    } else if (data.batterypercent <
+               robot_system.getConfiguration().minimum_battery_percent()) {
       LOG(WARNING) << "Battery too low! " << data.batterypercent << "%";
       logic_state_machine.process_event(be::Land());
     }
