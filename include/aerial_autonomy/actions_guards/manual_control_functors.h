@@ -26,7 +26,7 @@ struct ManualControlSwitchAction_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system, LogicStateMachineT &) {
     VLOG(1) << "Enabling SDK";
-    robot_system.enableSDK();
+    robot_system.enableAutonomousMode();
   }
 };
 

@@ -39,7 +39,7 @@ TEST(UAVSystemTests, EnableSDK) {
   // Disable SDK
   drone_hardware.flowControl(false);
   // Enable SDK
-  uav_system.enableSDK();
+  uav_system.enableAutonomousMode();
   // Check status is updated in data
   parsernode::common::quaddata data = uav_system.getUAVData();
   ASSERT_TRUE(data.rc_sdk_control_switch);

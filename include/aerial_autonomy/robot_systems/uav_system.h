@@ -117,7 +117,7 @@ public:
   * This call is only necessary if Quad goes into manual mode
   * due to rc switching while state machine is running
   */
-  void enableSDK() { drone_hardware_.flowControl(true); }
+  void enableAutonomousMode() { drone_hardware_.flowControl(true); }
 
   /**
   * @brief Public API call to land
