@@ -1,5 +1,6 @@
 #pragma once
 #include <aerial_autonomy/actions_guards/base_functors.h>
+#include <aerial_autonomy/actions_guards/uav_status_functor.h>
 #include <aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
@@ -25,12 +26,12 @@ struct PositionControlTransitionActionFunctor_
 };
 
 /**
-* @brief Transition action to perform when aborting position control
+* @brief Transition action to perform when aborting any UAV Controller
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-struct PositionControlAbortActionFunctor_
+struct UAVControllerAbortActionFunctor_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system, LogicStateMachineT &) {
     LOG(WARNING) << "Aborting UAV Controller";
@@ -73,26 +74,19 @@ struct PositionControlTransitionGuardFunctor_
 */
 template <class LogicStateMachineT>
 struct PositionControlInternalActionFunctor_
-    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+    : UAVStatusActionFunctor<UAVSystem, LogicStateMachineT> {
   /**
   * @brief check if we reached goal and trigger hovering if we reached goal.
   *
   * @param robot_system robot system to get sensor data
   * @param logic_state_machine logic state machine to trigger events
   */
-  virtual void run(UAVSystem &robot_system,
-                   LogicStateMachineT &logic_state_machine) {
+  void statusIndependentRun(UAVSystem &robot_system,
+                            LogicStateMachineT &logic_state_machine) {
     // Check status of controller
     ControllerStatus status =
         robot_system.getStatus<PositionControllerDroneConnector>();
-    // Check battery percentage and controller status
-    parsernode::common::quaddata data = robot_system.getUAVData();
-    const auto &robot_config = robot_system.getConfiguration();
-    if (data.batterypercent < robot_config.minimum_battery_percent()) {
-      LOG(WARNING) << "Battery too low " << data.batterypercent
-                   << "\% Landing!";
-      logic_state_machine.process_event(be::Land());
-    } else if (status == ControllerStatus::Completed) {
+    if (status == ControllerStatus::Completed) {
       VLOG(1) << "Reached goal";
       logic_state_machine.process_event(Completed());
     } else if (status == ControllerStatus::Critical) {

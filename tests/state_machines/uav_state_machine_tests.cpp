@@ -27,6 +27,8 @@ protected:
     uav_system.reset(new UAVSystem(drone_hardware));
     logic_state_machine.reset(new UAVStateMachine(boost::ref(*uav_system)));
     logic_state_machine->start();
+    // Will switch to Landed state from manual control state
+    logic_state_machine->process_event(InternalTransitionEvent());
   }
 
   virtual void TearDown() {
@@ -82,6 +84,21 @@ TEST_F(StateMachineTests, Takeoff) {
   ASSERT_STREQ(uav_system->getUAVData().quadstate.c_str(),
                "ARMED ENABLE_CONTROL ");
   // Complete takeoff
+  logic_state_machine->process_event(InternalTransitionEvent());
+  ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
+}
+
+TEST_F(StateMachineTests, TakeoffManualControlAbort) {
+  drone_hardware.setBatteryPercent(100);
+  logic_state_machine->process_event(be::Takeoff());
+  // Disable sdk
+  drone_hardware.flowControl(false);
+  // Enter to Manual Control State
+  logic_state_machine->process_event(InternalTransitionEvent());
+  ASSERT_STREQ(pstate(*logic_state_machine), "ManualControlState");
+  // Enable SDK
+  drone_hardware.flowControl(true);
+  // Check we are back to hovering
   logic_state_machine->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
 }
@@ -152,6 +169,27 @@ TEST_F(StateMachineTests, PositionControlAbort) {
   // Abort goal
   logic_state_machine->process_event(be::Abort());
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
+  // Once aborted running active controller will not reach goal
+  uav_system->runActiveController(HardwareType::UAV);
+  parsernode::common::quaddata data = uav_system->getUAVData();
+  PositionYaw curr_pose_yaw(data.localpos.x, data.localpos.y, data.localpos.z,
+                            data.rpydata.z);
+  ASSERT_NE(curr_pose_yaw, goal);
+}
+
+TEST_F(StateMachineTests, PositionControlManualControlAbort) {
+  // First takeoff
+  GoToHoverFromLanded();
+  // Now we are hovering, Lets go to a goal
+  PositionYaw goal(0, 0, 5, 0);
+  logic_state_machine->process_event(goal);
+  // Disable sdk
+  drone_hardware.flowControl(false);
+  // Run Internal Transition
+  logic_state_machine->process_event(InternalTransitionEvent());
+  ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
+  logic_state_machine->process_event(InternalTransitionEvent());
+  ASSERT_STREQ(pstate(*logic_state_machine), "ManualControlState");
   // Once aborted running active controller will not reach goal
   uav_system->runActiveController(HardwareType::UAV);
   parsernode::common::quaddata data = uav_system->getUAVData();

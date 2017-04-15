@@ -113,6 +113,13 @@ public:
   void takeOff() { drone_hardware_.takeoff(); }
 
   /**
+  * @brief Public API call to enable Quadcopter SDK.
+  * This call is only necessary if Quad goes into manual mode
+  * due to rc switching while state machine is running
+  */
+  void enableAutonomousMode() { drone_hardware_.flowControl(true); }
+
+  /**
   * @brief Public API call to land
   */
   void land() { drone_hardware_.land(); }

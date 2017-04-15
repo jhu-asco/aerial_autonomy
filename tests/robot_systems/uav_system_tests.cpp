@@ -30,7 +30,19 @@ TEST(UAVSystemTests, Land) {
   UAVSystem uav_system(drone_hardware);
   uav_system.land();
   parsernode::common::quaddata data = uav_system.getUAVData();
-  ASSERT_STREQ(data.quadstate.c_str(), "");
+  ASSERT_STREQ(data.quadstate.c_str(), "ENABLE_CONTROL ");
+}
+
+TEST(UAVSystemTests, EnableSDK) {
+  QuadSimulator drone_hardware;
+  UAVSystem uav_system(drone_hardware);
+  // Disable SDK
+  drone_hardware.flowControl(false);
+  // Enable SDK
+  uav_system.enableAutonomousMode();
+  // Check status is updated in data
+  parsernode::common::quaddata data = uav_system.getUAVData();
+  ASSERT_TRUE(data.rc_sdk_control_switch);
 }
 
 TEST(UAVSystemTests, SetGetGoal) {

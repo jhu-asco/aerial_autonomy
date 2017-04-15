@@ -19,8 +19,7 @@ void VisualServoingControllerDroneConnector::sendHardwareCommands(
   velocity_cmd.x = controls.x;
   velocity_cmd.y = controls.y;
   velocity_cmd.z = controls.z;
-  drone_hardware_.cmdvelguided(velocity_cmd, controls.yaw_rate);
-  /// \todo Gowtham Add function for commanding velocity with yaw rate
+  drone_hardware_.cmdvel_yaw_rate_guided(velocity_cmd, controls.yaw_rate);
 }
 
 bool VisualServoingControllerDroneConnector::getTrackingVectorGlobalFrame(

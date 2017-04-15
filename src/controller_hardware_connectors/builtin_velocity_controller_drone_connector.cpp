@@ -15,5 +15,5 @@ void BuiltInVelocityControllerDroneConnector::sendHardwareCommands(
   velocity_command.x = controls.x;
   velocity_command.y = controls.y;
   velocity_command.z = controls.z;
-  drone_hardware_.cmdvelguided(velocity_command, controls.yaw);
+  drone_hardware_.cmdvel_yaw_angle_guided(velocity_command, controls.yaw);
 }

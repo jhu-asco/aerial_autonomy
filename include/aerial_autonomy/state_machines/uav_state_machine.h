@@ -92,7 +92,7 @@ public:
   /**
   * @brief Initial state for state machine
   */
-  using initial_state = usa::Landed;
+  using initial_state = usa::ManualControlState;
   /**
   * @brief Transition table for State Machine
   */
@@ -102,19 +102,25 @@ public:
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::Landed, be::Takeoff, usa::TakingOff,
                       usa::TakeoffAction, usa::TakeoffGuard>,
+            msmf::Row<usa::Landed, ManualControlEvent, usa::ManualControlState,
+                      msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::TakingOff, be::Land, usa::Landing,
                       usa::LandingAction, msmf::none>,
             msmf::Row<usa::TakingOff, be::Abort, usa::Landing,
                       usa::TakeoffAbort, msmf::none>,
+            msmf::Row<usa::TakingOff, ManualControlEvent,
+                      usa::ManualControlState, msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::Hovering, PositionYaw, usa::ReachingGoal,
                       usa::ReachingGoalSet, usa::ReachingGoalGuard>,
             msmf::Row<usa::Hovering, be::Land, usa::Landing, usa::LandingAction,
                       msmf::none>,
+            msmf::Row<usa::Hovering, ManualControlEvent,
+                      usa::ManualControlState, msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::ReachingGoal, be::Abort, usa::Hovering,
-                      usa::ReachingGoalAbort, msmf::none>,
+                      usa::UAVControllerAbort, msmf::none>,
             msmf::Row<usa::ReachingGoal, be::Land, usa::Landing,
                       usa::ReachingGoalLand, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
@@ -123,7 +129,17 @@ public:
             msmf::Row<usa::TakingOff, Completed, usa::Hovering, msmf::none,
                       msmf::none>,
             msmf::Row<usa::ReachingGoal, Completed, usa::Hovering,
-                      usa::ReachingGoalAbort, msmf::none>
+                      usa::UAVControllerAbort, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<usa::Landing, ManualControlEvent, usa::ManualControlState,
+                      msmf::none, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<usa::ManualControlState, be::Takeoff, usa::Hovering,
+                      usa::ManualControlSwitchAction,
+                      usa::ManualControlSwitchGuard>,
+            msmf::Row<usa::ManualControlState, be::Land, usa::Landed,
+                      usa::ManualControlSwitchAction,
+                      usa::ManualControlSwitchGuard>
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             > {};
   /**
@@ -135,8 +151,9 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 5> state_names = {
-    "Landed", "TakingOff", "Hovering", "ReachingGoal", "Landing"};
+static constexpr std::array<const char *, 6> state_names = {
+    "Landed",       "TakingOff", "Hovering",
+    "ReachingGoal", "Landing",   "ManualControlState"};
 /**
 * @brief Get current state name
 *

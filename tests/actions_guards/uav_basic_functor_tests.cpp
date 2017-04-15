@@ -20,6 +20,9 @@ using bsa = UAVStatesActions<UAVLogicStateMachine>;
 */
 namespace be = uav_basic_events;
 
+// Landed
+using LandedInternalActionFunctor =
+    LandedInternalActionFunctor_<UAVLogicStateMachine>;
 // Land
 using LandInternalActionFunctor =
     LandInternalActionFunctor_<UAVLogicStateMachine>;
@@ -29,9 +32,12 @@ using HoveringInternalActionFunctor =
 // Takeoff
 using TakeoffInternalActionFunctor =
     TakeoffInternalActionFunctor_<UAVLogicStateMachine>;
-// Takeoff
+// PositionControl
 using PositionControlInternalActionFunctor =
     PositionControlInternalActionFunctor_<UAVLogicStateMachine>;
+// ManualControl
+using ManualControlInternalActionFunctor =
+    ManualControlInternalActionFunctor_<UAVLogicStateMachine>;
 
 /// \brief Test LandFunctor
 TEST(LandFunctorTests, Constructor) {
@@ -47,7 +53,7 @@ TEST(LandFunctorTests, CallOperatorFunction) {
   int dummy_start_state, dummy_target_state;
   land_transition_action_functor(be::Land(), sample_logic_state_machine,
                                  dummy_start_state, dummy_target_state);
-  ASSERT_STREQ(uav_system.getUAVData().quadstate.c_str(), "");
+  ASSERT_STREQ(uav_system.getUAVData().quadstate.c_str(), "ENABLE_CONTROL ");
   // Internal Action
   LandInternalActionFunctor land_internal_action_functor;
   // Taking off which sets altitude to 0.5
@@ -64,6 +70,25 @@ TEST(LandFunctorTests, CallOperatorFunction) {
                                dummy_target_state);
   ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(Completed)));
+}
+
+TEST(LandFunctorTests, ManualControlInternalActionTest) {
+  QuadSimulator drone_hardware;
+  drone_hardware.flowControl(false);
+  UAVSystem uav_system(drone_hardware);
+  UAVLogicStateMachine sample_logic_state_machine(uav_system);
+  int dummy_event, dummy_start_state, dummy_target_state;
+  LandInternalActionFunctor land_internal_action_functor;
+  land_internal_action_functor(dummy_event, sample_logic_state_machine,
+                               dummy_start_state, dummy_target_state);
+  ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
+            std::type_index(typeid(ManualControlEvent)));
+  // Check the same for landed functor
+  LandedInternalActionFunctor landed_internal_action_functor;
+  landed_internal_action_functor(dummy_event, sample_logic_state_machine,
+                                 dummy_start_state, dummy_target_state);
+  ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
+            std::type_index(typeid(ManualControlEvent)));
 }
 ///
 
@@ -92,6 +117,18 @@ TEST(HoveringFunctorTests, CallOperatorFunction) {
                                    dummy_start_state, dummy_target_state);
   ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(be::Land)));
+}
+TEST(HoveringFunctorTests, ManualControlInternalActionTest) {
+  QuadSimulator drone_hardware;
+  drone_hardware.flowControl(false);
+  UAVSystem uav_system(drone_hardware);
+  UAVLogicStateMachine sample_logic_state_machine(uav_system);
+  int dummy_event, dummy_start_state, dummy_target_state;
+  HoveringInternalActionFunctor hovering_internal_action_functor;
+  hovering_internal_action_functor(dummy_event, sample_logic_state_machine,
+                                   dummy_start_state, dummy_target_state);
+  ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
+            std::type_index(typeid(ManualControlEvent)));
 }
 ///
 
@@ -123,7 +160,7 @@ TEST(TakeoffFunctorTests, AbortActionTest) {
   bsa::TakeoffAbort takeoff_abort_action_functor;
   takeoff_abort_action_functor(be::Abort(), sample_logic_state_machine,
                                dummy_start_state, dummy_target_state);
-  ASSERT_STREQ(uav_system.getUAVData().quadstate.c_str(), "");
+  ASSERT_STREQ(uav_system.getUAVData().quadstate.c_str(), "ENABLE_CONTROL ");
 }
 
 TEST(TakeoffFunctorTests, TransitionGuardTest) {
@@ -163,6 +200,18 @@ TEST(TakeoffFunctorTests, InternalActionTest) {
   ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(Completed)));
 }
+TEST(TakeoffFunctorTests, ManualControlInternalActionTest) {
+  QuadSimulator drone_hardware;
+  drone_hardware.flowControl(false);
+  UAVSystem uav_system(drone_hardware);
+  UAVLogicStateMachine sample_logic_state_machine(uav_system);
+  int dummy_event, dummy_start_state, dummy_target_state;
+  TakeoffInternalActionFunctor takeoff_internal_action_functor;
+  takeoff_internal_action_functor(dummy_event, sample_logic_state_machine,
+                                  dummy_start_state, dummy_target_state);
+  ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
+            std::type_index(typeid(ManualControlEvent)));
+}
 ///
 
 /// \brief Test Takeoff Functors
@@ -170,7 +219,7 @@ TEST(PositionControlFunctorTests, Constructor) {
   ASSERT_NO_THROW(new PositionControlInternalActionFunctor());
   ASSERT_NO_THROW(new bsa::ReachingGoalSet());
   ASSERT_NO_THROW(new bsa::ReachingGoalGuard());
-  ASSERT_NO_THROW(new bsa::ReachingGoalAbort());
+  ASSERT_NO_THROW(new bsa::UAVControllerAbort());
 }
 
 TEST(PositionControlFunctorTests, TransitionActionTest) {
@@ -205,7 +254,7 @@ TEST(PositionControlFunctorTests, AbortActionTest) {
   UAVSystem uav_system(drone_hardware);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
-  bsa::ReachingGoalAbort position_control_abort_action_functor;
+  bsa::UAVControllerAbort position_control_abort_action_functor;
   PositionYaw goal(1, 1, 1, 1);
   uav_system.setGoal<PositionControllerDroneConnector>(goal);
   position_control_abort_action_functor(be::Abort(), sample_logic_state_machine,
@@ -257,6 +306,89 @@ TEST(PositionControlFunctorTests, InternalActionTest) {
       dummy_target_state);
   ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(Completed)));
+}
+TEST(PositionControlFunctorTests, ManualControlInternalActionTest) {
+  QuadSimulator drone_hardware;
+  drone_hardware.flowControl(false);
+  UAVSystem uav_system(drone_hardware);
+  UAVLogicStateMachine sample_logic_state_machine(uav_system);
+  int dummy_event, dummy_start_state, dummy_target_state;
+  PositionControlInternalActionFunctor position_control_internal_action_functor;
+  position_control_internal_action_functor(
+      dummy_event, sample_logic_state_machine, dummy_start_state,
+      dummy_target_state);
+  ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
+            std::type_index(typeid(be::Abort)));
+}
+///
+/// \brief Test Manual control functors
+TEST(ManualControlFunctorTests, Constructor) {
+  ASSERT_NO_THROW(new bsa::ManualControlSwitchAction());
+  ASSERT_NO_THROW(new bsa::ManualControlSwitchGuard());
+  ASSERT_NO_THROW(new ManualControlInternalActionFunctor());
+}
+TEST(ManualControlFunctorTests, ManualControlAction) {
+  QuadSimulator drone_hardware;
+  UAVSystem uav_system(drone_hardware);
+  UAVLogicStateMachine sample_logic_state_machine(uav_system);
+  // Disable SDK
+  drone_hardware.flowControl(false);
+  // Check status in quad data is updated
+  parsernode::common::quaddata data = uav_system.getUAVData();
+  ASSERT_FALSE(data.rc_sdk_control_switch);
+  bsa::ManualControlSwitchAction action;
+  // Call action
+  int dummy_event, dummy_start_state, dummy_target_state;
+  action(dummy_event, sample_logic_state_machine, dummy_start_state,
+         dummy_target_state);
+  // Update data and check status changed
+  data = uav_system.getUAVData();
+  ASSERT_TRUE(data.rc_sdk_control_switch);
+}
+TEST(ManualControlFunctorTests, ManualControlGuard) {
+  QuadSimulator drone_hardware;
+  UAVSystem uav_system(drone_hardware);
+  UAVLogicStateMachine sample_logic_state_machine(uav_system);
+  // Disable SDK
+  drone_hardware.flowControl(false);
+  bsa::ManualControlSwitchGuard guard;
+  int dummy_event, dummy_start_state, dummy_target_state;
+  // Check guard result
+  ASSERT_FALSE(guard(dummy_event, sample_logic_state_machine, dummy_start_state,
+                     dummy_target_state));
+  // Enable SDK
+  drone_hardware.flowControl(true);
+  // Check guard result
+  ASSERT_TRUE(guard(dummy_event, sample_logic_state_machine, dummy_start_state,
+                    dummy_target_state));
+  // Set low battery
+  drone_hardware.setBatteryPercent(20);
+  // Check guard result
+  ASSERT_FALSE(guard(dummy_event, sample_logic_state_machine, dummy_start_state,
+                     dummy_target_state));
+}
+TEST(ManualControlFunctorTests, LeaveManualMode) {
+  QuadSimulator drone_hardware;
+  UAVSystem uav_system(drone_hardware);
+  UAVLogicStateMachine sample_logic_state_machine(uav_system);
+  // Takeoff
+  uav_system.takeOff();
+  // Call internal action
+  int dummy_event, dummy_start_state, dummy_target_state;
+  ManualControlInternalActionFunctor action;
+  action(dummy_event, sample_logic_state_machine, dummy_start_state,
+         dummy_target_state);
+  // Check Takeoff event is triggered
+  ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
+            std::type_index(typeid(be::Takeoff)));
+  // Land
+  uav_system.land();
+  // Call action again
+  action(dummy_event, sample_logic_state_machine, dummy_start_state,
+         dummy_target_state);
+  // Check Land event is triggered
+  ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
+            std::type_index(typeid(be::Land)));
 }
 ///
 
