@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="namespacemath" kind="namespace">
+    <compoundname>math</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespacemath_1a5948c30f26d082a30d534de02beed3d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double math::angleWrap</definition>
+        <argsstring>(double x)</argsstring>
+        <name>angleWrap</name>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Wrap an angle to be in the range [-pi, pi) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Angle to wrap </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Wrapped angle </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/common/math.cpp" line="11" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/common/math.cpp" bodystart="11" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacemath_1a6d507253f29fa253416474c4364b50f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double math::clamp</definition>
+        <argsstring>(double x, double min, double max)</argsstring>
+        <name>clamp</name>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>min</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>max</declname>
+        </param>
+        <briefdescription>
+<para>Clip a number to bewteen a min and max value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number to clamp </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>min</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Minimum value </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum value </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Clamped value </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/common/math.cpp" line="18" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/common/math.cpp" bodystart="18" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacemath_1abc9135c6c399525915081a36016749bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>tf::Transform</type>
+        <definition>tf::Transform math::getTransformFromVector</definition>
+        <argsstring>(const T &amp;input)</argsstring>
+        <name>getTransformFromVector</name>
+        <param>
+          <type>const T &amp;</type>
+          <declname>input</declname>
+        </param>
+        <briefdescription>
+<para>Generate a tf transform from a vector of xyzrpy. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The vector type can be Eigen, std vector, protobuf </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input vector containing x,y,z, r,p,y</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>tf transform </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/math.h" line="41" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/math.h" bodystart="41" bodyend="51"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Math namespace to separate math functions from system functions if exist. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/common/math.cpp" line="9" column="1"/>
+  </compounddef>
+</doxygen>

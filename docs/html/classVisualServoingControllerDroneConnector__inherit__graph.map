@@ -1,0 +1,4 @@
+<map id="VisualServoingControllerDroneConnector" name="VisualServoingControllerDroneConnector">
+<area shape="rect" id="node2" href="$classControllerHardwareConnector.html" title="ControllerHardwareConnector\l\&lt; PositionYaw, Position,\l VelocityYawRate \&gt;" alt="" coords="5,96,200,152"/>
+<area shape="rect" id="node3" href="$structAbstractControllerHardwareConnector.html" title="Base for ControllerHardwareConnector class. " alt="" coords="11,6,193,47"/>
+</map>

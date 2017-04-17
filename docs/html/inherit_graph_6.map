@@ -1,4 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classBaseRobotSystem.html" title="Provides functions to switch between active controllers and get goals. " alt="" coords="6,5,138,32"/>
-<area shape="rect" id="node2" href="$classUAVSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components..." alt="" coords="187,5,282,32"/>
+<area shape="rect" id="node1" href="$classBaseRobotSystem.html" title="Provides functions to switch between active controllers and get goals. " alt="" coords="6,31,138,57"/>
+<area shape="rect" id="node2" href="$classArmSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components..." alt="" coords="189,5,280,32"/>
+<area shape="rect" id="node3" href="$classUAVSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components..." alt="" coords="187,56,282,83"/>
+<area shape="rect" id="node4" href="$classUAVVisionSystem.html" title="UAV Vision system that extends UAV system to include constant heading depth controller. " alt="" coords="331,56,461,83"/>
 </map>

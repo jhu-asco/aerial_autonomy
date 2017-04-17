@@ -203,6 +203,6 @@
 <codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">not</highlight><highlight class="normal"><sp/>sip.isdeleted(text_box):</highlight></codeline>
 <codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>text_box.setText(status)</highlight></codeline>
     </programlisting>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/aerial_autonomy_gui.py"/>
   </compounddef>
 </doxygen>

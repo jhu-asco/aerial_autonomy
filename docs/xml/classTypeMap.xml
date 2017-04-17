@@ -19,10 +19,10 @@
         <briefdescription>
 <para>Map to store the objects using the type of object as key. </para>        </briefdescription>
         <detaileddescription>
-<para><xrefsect id="todo_1_todo000012"><xreftitle>Todo</xreftitle><xrefdescription><para>Gowtham Maybe use shared/unique pointers </para></xrefdescription></xrefsect></para>        </detaileddescription>
+<para><xrefsect id="todo_1_todo000013"><xreftitle>Todo</xreftitle><xrefdescription><para>Gowtham Maybe use shared/unique pointers </para></xrefdescription></xrefsect></para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="17" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="17" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="17" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="17" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -62,7 +62,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="27" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="27" bodyend="29"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="27" bodyend="29"/>
       </memberdef>
       <memberdef kind="function" id="classTypeMap_1af45351278345a92d2d2fb13a977858aa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -89,7 +89,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="37" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="37" bodyend="39"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="37" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="37" bodyend="39"/>
       </memberdef>
       <memberdef kind="function" id="classTypeMap_1a44adb7aedc90a3acc2ca461cd16a91d3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -102,12 +102,21 @@
         <argsstring>() const </argsstring>
         <name>getObject</name>
         <briefdescription>
-        </briefdescription>
+<para>return a const oject pointer stored </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>ObjectT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of object to be retrieved</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>const pointer to the instance of the object. </para></simplesect>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="41" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="41" bodyend="44"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="48" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="48" bodyend="51"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -122,7 +131,7 @@
 </parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="12" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="12" bodyend="45"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" line="12" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/type_map.h" bodystart="12" bodyend="52"/>
     <listofallmembers>
       <member refid="classTypeMap_1af45351278345a92d2d2fb13a977858aa" prot="public" virt="non-virtual"><scope>TypeMap</scope><name>getObject</name></member>
       <member refid="classTypeMap_1a44adb7aedc90a3acc2ca461cd16a91d3" prot="public" virt="non-virtual"><scope>TypeMap</scope><name>getObject</name></member>

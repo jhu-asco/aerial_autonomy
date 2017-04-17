@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="roi__to__position__converter_8h" kind="file">
+    <compoundname>roi_to_position_converter.h</compoundname>
+    <includes refid="base__tracker_8h" local="yes">aerial_autonomy/trackers/base_tracker.h</includes>
+    <includes refid="position_8h" local="yes">aerial_autonomy/types/position.h</includes>
+    <includes local="no">ros/ros.h</includes>
+    <includes local="no">cv_bridge/cv_bridge.h</includes>
+    <includes local="no">image_transport/image_transport.h</includes>
+    <includes local="no">sensor_msgs/CameraInfo.h</includes>
+    <includes local="no">sensor_msgs/Image.h</includes>
+    <includes local="no">sensor_msgs/RegionOfInterest.h</includes>
+    <includes local="no">Eigen/Dense</includes>
+    <includes local="no">boost/thread/mutex.hpp</includes>
+    <includedby refid="roi__to__position__converter_8cpp" local="yes">src/trackers/roi_to_position_converter.cpp</includedby>
+    <includedby refid="uav__vision__system__handler_8h" local="no">include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</includedby>
+    <incdepgraph>
+      <node id="3758">
+        <label>boost/thread/mutex.hpp</label>
+      </node>
+      <node id="3754">
+        <label>sensor_msgs/CameraInfo.h</label>
+      </node>
+      <node id="3750">
+        <label>cmath</label>
+      </node>
+      <node id="3753">
+        <label>image_transport/image_transport.h</label>
+      </node>
+      <node id="3755">
+        <label>sensor_msgs/Image.h</label>
+      </node>
+      <node id="3752">
+        <label>cv_bridge/cv_bridge.h</label>
+      </node>
+      <node id="3748">
+        <label>aerial_autonomy/trackers/base_tracker.h</label>
+        <link refid="base__tracker_8h"/>
+        <childnode refid="3749" relation="include">
+        </childnode>
+      </node>
+      <node id="3756">
+        <label>sensor_msgs/RegionOfInterest.h</label>
+      </node>
+      <node id="3757">
+        <label>Eigen/Dense</label>
+      </node>
+      <node id="3751">
+        <label>ros/ros.h</label>
+      </node>
+      <node id="3747">
+        <label>include/aerial_autonomy/trackers/roi_to_position_converter.h</label>
+        <link refid="roi_to_position_converter.h"/>
+        <childnode refid="3748" relation="include">
+        </childnode>
+        <childnode refid="3749" relation="include">
+        </childnode>
+        <childnode refid="3751" relation="include">
+        </childnode>
+        <childnode refid="3752" relation="include">
+        </childnode>
+        <childnode refid="3753" relation="include">
+        </childnode>
+        <childnode refid="3754" relation="include">
+        </childnode>
+        <childnode refid="3755" relation="include">
+        </childnode>
+        <childnode refid="3756" relation="include">
+        </childnode>
+        <childnode refid="3757" relation="include">
+        </childnode>
+        <childnode refid="3758" relation="include">
+        </childnode>
+      </node>
+      <node id="3749">
+        <label>aerial_autonomy/types/position.h</label>
+        <link refid="position_8h"/>
+        <childnode refid="3750" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3762">
+        <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
+        <link refid="uav__vision__system__node_8cpp"/>
+      </node>
+      <node id="3759">
+        <label>include/aerial_autonomy/trackers/roi_to_position_converter.h</label>
+        <link refid="roi_to_position_converter.h"/>
+        <childnode refid="3760" relation="include">
+        </childnode>
+        <childnode refid="3761" relation="include">
+        </childnode>
+      </node>
+      <node id="3760">
+        <label>src/trackers/roi_to_position_converter.cpp</label>
+        <link refid="roi__to__position__converter_8cpp"/>
+      </node>
+      <node id="3761">
+        <label>include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</label>
+        <link refid="uav__vision__system__handler_8h"/>
+        <childnode refid="3762" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classRoiToPositionConverter" prot="public">RoiToPositionConverter</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="base__tracker_8h" kindref="compound">aerial_autonomy/trackers/base_tracker.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="position_8h" kindref="compound">aerial_autonomy/types/position.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ros/ros.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cv_bridge/cv_bridge.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;image_transport/image_transport.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sensor_msgs/CameraInfo.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sensor_msgs/Image.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sensor_msgs/RegionOfInterest.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Eigen/Dense&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/thread/mutex.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="classRoiToPositionConverter" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classRoiToPositionConverter" kindref="compound">RoiToPositionConverter</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classBaseTracker" kindref="compound">BaseTracker</ref><sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="30" refid="classRoiToPositionConverter_1a93b30449d5b9946e065e4e78c404f9a5" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classRoiToPositionConverter_1a93b30449d5b9946e065e4e78c404f9a5" kindref="member">RoiToPositionConverter</ref>(ros::NodeHandle<sp/>&amp;nh)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>it_(nh),<sp/>roi_subscriber_(nh.subscribe(</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;roi&quot;</highlight><highlight class="normal">,<sp/>10,<sp/>&amp;<ref refid="classRoiToPositionConverter" kindref="compound">RoiToPositionConverter</ref>::roiCallback,<sp/>this)),</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>camera_info_subscriber_(</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nh.subscribe(</highlight><highlight class="stringliteral">&quot;camera_info&quot;</highlight><highlight class="normal">,<sp/>1,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="classRoiToPositionConverter" kindref="compound">RoiToPositionConverter</ref>::cameraInfoCallback,<sp/>this)),</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>depth_subscriber_(nh.subscribe(</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;depth&quot;</highlight><highlight class="normal">,<sp/>1,<sp/>&amp;<ref refid="classRoiToPositionConverter" kindref="compound">RoiToPositionConverter</ref>::depthCallback,<sp/>this)),</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>image_subscriber_(it_.subscribe(</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;image&quot;</highlight><highlight class="normal">,<sp/>1,<sp/>&amp;<ref refid="classRoiToPositionConverter" kindref="compound">RoiToPositionConverter</ref>::imageCallback,<sp/>this))<sp/>{}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classRoiToPositionConverter_1a537e53d157931a08343d0b41195a924c" kindref="member">getTrackingVector</ref>(<ref refid="structPosition" kindref="compound">Position</ref><sp/>&amp;pos);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classRoiToPositionConverter_1a5384fe4584c3a0dc654eb0e6b9d8a73d" kindref="member">computeTrackingVector</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>sensor_msgs::RegionOfInterest<sp/>&amp;roi,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>cv::Mat<sp/>&amp;depth,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>sensor_msgs::CameraInfo<sp/>&amp;cam_info,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>max_distance,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>foreground_percent,<sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>&amp;pos);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classRoiToPositionConverter_1a408f82ba9764ba20e2463535850d3268" kindref="member">trackingIsValid</ref>();</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classRoiToPositionConverter_1a6ff5fa7a373c3917e9a7047df0a99560" kindref="member">isConnected</ref>();</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>cameraInfoIsValid();</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>roiIsValid();</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>roiCallback(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>sensor_msgs::RegionOfInterest<sp/>&amp;roi_msg);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>imageCallback(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>sensor_msgs::ImageConstPtr<sp/>&amp;img_msg);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>cameraInfoCallback(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>sensor_msgs::CameraInfo<sp/>&amp;cam_info_msg);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>depthCallback(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>sensor_msgs::ImageConstPtr<sp/>&amp;depth_msg);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>compare(Eigen::Vector3d<sp/>a,<sp/>Eigen::Vector3d<sp/>b);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/>image_transport::ImageTransport<sp/>it_;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/>ros::Subscriber<sp/>roi_subscriber_;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/>ros::Subscriber<sp/>camera_info_subscriber_;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/>ros::Subscriber<sp/>depth_subscriber_;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/>image_transport::Subscriber<sp/>image_subscriber_;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/>sensor_msgs::CameraInfoPtr<sp/>camera_info_;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/>sensor_msgs::RegionOfInterest<sp/>roi_rect_;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>object_position_;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>max_object_distance_<sp/>=<sp/>3.0;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>foreground_percent_<sp/>=<sp/>0.25;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/>ros::Time<sp/>last_roi_update_time_;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/>boost::mutex<sp/>camera_info_mutex_;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/>boost::mutex<sp/>position_mutex_;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/>boost::mutex<sp/>roi_mutex_;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/>boost::mutex<sp/>roi_update_mutex_;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h"/>
+  </compounddef>
+</doxygen>

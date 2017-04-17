@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="visual__servoing__controller__drone__connector_8cpp" kind="file">
+    <compoundname>visual_servoing_controller_drone_connector.cpp</compoundname>
+    <includes refid="visual__servoing__controller__drone__connector_8h" local="yes">aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h</includes>
+    <incdepgraph>
+      <node id="4135">
+        <label>boost/thread/mutex.hpp</label>
+      </node>
+      <node id="4138">
+        <label>aerial_autonomy/types/position_yaw.h</label>
+        <link refid="position__yaw_8h"/>
+        <childnode refid="4139" relation="include">
+        </childnode>
+        <childnode refid="4141" relation="include">
+        </childnode>
+      </node>
+      <node id="4136">
+        <label>glog/logging.h</label>
+      </node>
+      <node id="4132">
+        <label>aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h</label>
+        <link refid="visual__servoing__controller__drone__connector_8h"/>
+        <childnode refid="4133" relation="include">
+        </childnode>
+        <childnode refid="4137" relation="include">
+        </childnode>
+        <childnode refid="4147" relation="include">
+        </childnode>
+        <childnode refid="4138" relation="include">
+        </childnode>
+        <childnode refid="4148" relation="include">
+        </childnode>
+        <childnode refid="4149" relation="include">
+        </childnode>
+        <childnode refid="4150" relation="include">
+        </childnode>
+        <childnode refid="4143" relation="include">
+        </childnode>
+      </node>
+      <node id="4140">
+        <label>cmath</label>
+      </node>
+      <node id="4142">
+        <label>stdexcept</label>
+      </node>
+      <node id="4146">
+        <label>constant_heading_depth_controller_config.pb.h</label>
+      </node>
+      <node id="4134">
+        <label>aerial_autonomy/controllers/base_controller.h</label>
+        <link refid="base__controller_8h"/>
+        <childnode refid="4135" relation="include">
+        </childnode>
+      </node>
+      <node id="4149">
+        <label>uav_vision_system_config.pb.h</label>
+      </node>
+      <node id="4144">
+        <label>aerial_autonomy/types/velocity_yaw_rate.h</label>
+        <link refid="velocity__yaw__rate_8h"/>
+        <childnode refid="4145" relation="include">
+        </childnode>
+      </node>
+      <node id="4143">
+        <label>tf/tf.h</label>
+      </node>
+      <node id="4147">
+        <label>aerial_autonomy/trackers/base_tracker.h</label>
+        <link refid="base__tracker_8h"/>
+        <childnode refid="4139" relation="include">
+        </childnode>
+      </node>
+      <node id="4148">
+        <label>aerial_autonomy/types/velocity_yaw.h</label>
+        <link refid="velocity__yaw_8h"/>
+        <childnode refid="4145" relation="include">
+        </childnode>
+        <childnode refid="4141" relation="include">
+        </childnode>
+      </node>
+      <node id="4131">
+        <label>src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp</label>
+        <link refid="visual_servoing_controller_drone_connector.cpp"/>
+        <childnode refid="4132" relation="include">
+        </childnode>
+      </node>
+      <node id="4145">
+        <label>aerial_autonomy/types/velocity.h</label>
+        <link refid="velocity_8h"/>
+      </node>
+      <node id="4133">
+        <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
+        <link refid="base__controller__hardware__connector_8h"/>
+        <childnode refid="4134" relation="include">
+        </childnode>
+        <childnode refid="4136" relation="include">
+        </childnode>
+      </node>
+      <node id="4141">
+        <label>aerial_autonomy/common/math.h</label>
+        <link refid="math_8h"/>
+        <childnode refid="4140" relation="include">
+        </childnode>
+        <childnode refid="4142" relation="include">
+        </childnode>
+        <childnode refid="4143" relation="include">
+        </childnode>
+      </node>
+      <node id="4137">
+        <label>aerial_autonomy/controllers/constant_heading_depth_controller.h</label>
+        <link refid="constant__heading__depth__controller_8h"/>
+        <childnode refid="4134" relation="include">
+        </childnode>
+        <childnode refid="4138" relation="include">
+        </childnode>
+        <childnode refid="4144" relation="include">
+        </childnode>
+        <childnode refid="4146" relation="include">
+        </childnode>
+        <childnode refid="4143" relation="include">
+        </childnode>
+      </node>
+      <node id="4139">
+        <label>aerial_autonomy/types/position.h</label>
+        <link refid="position_8h"/>
+        <childnode refid="4140" relation="include">
+        </childnode>
+      </node>
+      <node id="4150">
+        <label>parsernode/parser.h</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="visual__servoing__controller__drone__connector_8h" kindref="compound">aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classVisualServoingControllerDroneConnector_1ae1c2073bf3c7a4c4de967529c076cde8" kindref="member">VisualServoingControllerDroneConnector::extractSensorData</ref>(</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>&amp;sensor_data)<sp/>{</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/>parsernode::common::quaddata<sp/>quad_data;</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/>drone_hardware_.getquaddata(quad_data);</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>tracking_vector;</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classVisualServoingControllerDroneConnector_1abba59a278bdfa813a34b36f8a6714639" kindref="member">getTrackingVectorGlobalFrame</ref>(tracking_vector))<sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>VLOG(1)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Cannot<sp/>Find<sp/>tracking<sp/>vector<sp/>of<sp/>ROI&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/>sensor_data<sp/>=<sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref>(tracking_vector,<sp/>quad_data.rpydata.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classVisualServoingControllerDroneConnector_1a139939cb0298d57487f6c3ed488c4448" kindref="member">VisualServoingControllerDroneConnector::sendHardwareCommands</ref>(</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structVelocityYawRate" kindref="compound">VelocityYawRate</ref><sp/>controls)<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>geometry_msgs::Vector3<sp/>velocity_cmd;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>velocity_cmd.x<sp/>=<sp/>controls.<ref refid="structVelocity_1a99a9f9580c8a025a2c7a18890993b56a" kindref="member">x</ref>;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/>velocity_cmd.y<sp/>=<sp/>controls.<ref refid="structVelocity_1ae1282d20e14cc4be4aac24ab4e1e3e5c" kindref="member">y</ref>;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/>velocity_cmd.z<sp/>=<sp/>controls.<ref refid="structVelocity_1aaebcd198674f7adcb61f9bb981dab465" kindref="member">z</ref>;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/>drone_hardware_.cmdvel_yaw_rate_guided(velocity_cmd,<sp/>controls.<ref refid="structVelocityYawRate_1a0038cbd604b5260e0aab9709715e7366" kindref="member">yaw_rate</ref>);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classVisualServoingControllerDroneConnector_1abba59a278bdfa813a34b36f8a6714639" kindref="member">VisualServoingControllerDroneConnector::getTrackingVectorGlobalFrame</ref>(</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>&amp;tracking_vector)<sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>object_position_cam;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!tracker_.<ref refid="classBaseTracker_1adfba0b9b37f9f4923b97bdd0d0fbbb68" kindref="member">getTrackingVector</ref>(object_position_cam))<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/>tf::Vector3<sp/>object_direction_cam(object_position_cam.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>,<sp/>object_position_cam.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>object_position_cam.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Convert<sp/>from<sp/>camera<sp/>frame<sp/>to<sp/>global<sp/>frame</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/>tf::Vector3<sp/>tracking_vector_tf<sp/>=</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>(getBodyFrameRotation()<sp/>*</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(camera_transform_.getBasis()<sp/>*<sp/>object_direction_cam));</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>tracking_vector.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref><sp/>=<sp/>tracking_vector_tf.getX();</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/>tracking_vector.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref><sp/>=<sp/>tracking_vector_tf.getY();</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>tracking_vector.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref><sp/>=<sp/>tracking_vector_tf.getZ();</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal">tf::Matrix3x3<sp/>VisualServoingControllerDroneConnector::getBodyFrameRotation()<sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/>parsernode::common::quaddata<sp/>quad_data;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/>drone_hardware_.getquaddata(quad_data);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>tf::Matrix3x3(tf::createQuaternionFromRPY(</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>quad_data.rpydata.x,<sp/>quad_data.rpydata.y,<sp/>quad_data.rpydata.z));</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp"/>
+  </compounddef>
+</doxygen>

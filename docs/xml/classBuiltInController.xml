@@ -2,7 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
   <compounddef id="classBuiltInController" kind="class" prot="public">
     <compoundname>BuiltInController</compoundname>
-    <basecompoundref refid="classController" prot="public" virt="non-virtual">Controller&lt; EmptySensor, GoalType, GoalType &gt;</basecompoundref>
+    <basecompoundref refid="classController" prot="public" virt="non-virtual">Controller&lt; GoalType, GoalType, GoalType &gt;</basecompoundref>
     <includes refid="builtin__controller_8h" local="no">builtin_controller.h</includes>
     <templateparamlist>
       <param>
@@ -23,23 +23,26 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="14" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="14" bodyend="14"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="17" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="17" bodyend="17"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
-      <memberdef kind="function" id="classBuiltInController_1ab597ac5aa54f9865c0324fbcf5c0d7bd" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
-        <type>GoalType</type>
-        <definition>virtual GoalType BuiltInController&lt; GoalType &gt;::runImplementation</definition>
-        <argsstring>(EmptySensor sensor_data, GoalType goal)</argsstring>
+      <memberdef kind="function" id="classBuiltInController_1a74df6a6af0ef0c1ed49f50ecb80774e8" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>virtual bool BuiltInController&lt; GoalType &gt;::runImplementation</definition>
+        <argsstring>(GoalType, GoalType goal, GoalType &amp;control)</argsstring>
         <name>runImplementation</name>
-        <reimplements refid="classController_1a9a5a0b6fbedeb476f3a7bfad5f16167e">runImplementation</reimplements>
+        <reimplements refid="classController_1a25a24fe858c6d5a0e1a1475073475a4d">runImplementation</reimplements>
         <param>
-          <type><ref refid="structEmptySensor" kindref="compound">EmptySensor</ref></type>
-          <declname>sensor_data</declname>
+          <type>GoalType</type>
         </param>
         <param>
           <type>GoalType</type>
           <declname>goal</declname>
+        </param>
+        <param>
+          <type>GoalType &amp;</type>
+          <declname>control</declname>
         </param>
         <briefdescription>
 <para>Run the control loop. Simply returns the goal. </para>        </briefdescription>
@@ -58,12 +61,19 @@
 <parameterdescription>
 <para>Goal set-point </para></parameterdescription>
 </parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>control</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Goal to send to hardware </para></parameterdescription>
+</parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>Goal to send to hardware </para></simplesect>
+<simplesect kind="return"><para>Always true </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="23" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="23" bodyend="25"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="27" bodyend="30"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -71,34 +81,36 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="239">
-        <label>Controller&lt; EmptySensor, GoalType, GoalType &gt;</label>
-        <link refid="classController"/>
-      </node>
-      <node id="238">
+      <node id="376">
         <label>BuiltInController&lt; GoalType &gt;</label>
         <link refid="classBuiltInController"/>
-        <childnode refid="239" relation="public-inheritance">
+        <childnode refid="377" relation="public-inheritance">
         </childnode>
+      </node>
+      <node id="377">
+        <label>Controller&lt; GoalType, GoalType, GoalType &gt;</label>
+        <link refid="classController"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="241">
-        <label>Controller&lt; EmptySensor, GoalType, GoalType &gt;</label>
-        <link refid="classController"/>
-      </node>
-      <node id="240">
+      <node id="378">
         <label>BuiltInController&lt; GoalType &gt;</label>
         <link refid="classBuiltInController"/>
-        <childnode refid="241" relation="public-inheritance">
+        <childnode refid="379" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="379">
+        <label>Controller&lt; GoalType, GoalType, GoalType &gt;</label>
+        <link refid="classController"/>
+      </node>
     </collaborationgraph>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="9" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="9" bodyend="26"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="12" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="12" bodyend="31"/>
     <listofallmembers>
       <member refid="classController_1a287a48298ec6f08e36ac3d72a2e6de34" prot="public" virt="virtual"><scope>BuiltInController</scope><name>getGoal</name></member>
-      <member refid="classController_1a5caae261ff8a9f299cb8d220fbaf204b" prot="public" virt="virtual"><scope>BuiltInController</scope><name>run</name></member>
-      <member refid="classBuiltInController_1ab597ac5aa54f9865c0324fbcf5c0d7bd" prot="protected" virt="virtual"><scope>BuiltInController</scope><name>runImplementation</name></member>
+      <member refid="classController_1ab25282f175c8eaa2b132b4a80b61f7ae" prot="public" virt="non-virtual"><scope>BuiltInController</scope><name>isConverged</name></member>
+      <member refid="classController_1ada247bf6a611958743df418250d5b454" prot="protected" virt="pure-virtual"><scope>BuiltInController</scope><name>isConvergedImplementation</name></member>
+      <member refid="classController_1a973e1525b28d50ab77303e2f80c5c706" prot="public" virt="virtual"><scope>BuiltInController</scope><name>run</name></member>
+      <member refid="classBuiltInController_1a74df6a6af0ef0c1ed49f50ecb80774e8" prot="protected" virt="virtual"><scope>BuiltInController</scope><name>runImplementation</name></member>
       <member refid="classController_1a172aae7e2475b72fb2eb469ccd198387" prot="public" virt="virtual"><scope>BuiltInController</scope><name>setGoal</name></member>
       <member refid="classBuiltInController_1aea6ab422dc24222fb168a7e9522ec7c9" prot="public" virt="virtual"><scope>BuiltInController</scope><name>~BuiltInController</name></member>
       <member refid="classController_1a86c5dbf78d3d948228c7c629e885151c" prot="public" virt="virtual"><scope>BuiltInController</scope><name>~Controller</name></member>

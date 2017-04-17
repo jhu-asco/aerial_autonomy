@@ -14,7 +14,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="55" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="55" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="55" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="55" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEventPublisher_1aff37548f2b7bfed29e0e2528841d87ed" prot="private" static="no" mutable="no">
         <type>ros::Timer</type>
@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="56" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="56" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="56" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="56" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEventPublisher_1a9ed24cad13c5631e6a88e9a16860b908" prot="private" static="no" mutable="no">
         <type>ros::Publisher</type>
@@ -40,7 +40,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="57" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="57" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="57" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classEventPublisher_1a25f16feb9ce5a4b1b87999f5737a3acf" prot="private" static="no" mutable="no">
         <type>ros::NodeHandle &amp;</type>
@@ -53,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="58" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="58" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="58" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="58" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -80,7 +80,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="18" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="18" bodyend="31"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="18" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="18" bodyend="31"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -98,14 +98,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="37" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="37" bodyend="53"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="37" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="37" bodyend="53"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Event publisher to publish named event at regular intervals. </para>    </briefdescription>
     <detaileddescription>
 <para>Used for testing the state machine gui connector </para>    </detaileddescription>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="11" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="11" bodyend="59"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" line="11" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/tests/event_publish_node.cpp" bodystart="11" bodyend="59"/>
     <listofallmembers>
       <member refid="classEventPublisher_1a7c9b9cceae7c91cf0c5db0ace1d213d3" prot="private" virt="non-virtual"><scope>EventPublisher</scope><name>event</name></member>
       <member refid="classEventPublisher_1a9ed24cad13c5631e6a88e9a16860b908" prot="private" virt="non-virtual"><scope>EventPublisher</scope><name>event_pub_</name></member>

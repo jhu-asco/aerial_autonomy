@@ -5,7 +5,9 @@
     <innerfile refid="base__controller_8h">base_controller.h</innerfile>
     <innerfile refid="basic__controllers_8h">basic_controllers.h</innerfile>
     <innerfile refid="builtin__controller_8h">builtin_controller.h</innerfile>
+    <innerfile refid="constant__heading__depth__controller_8h">constant_heading_depth_controller.h</innerfile>
     <innerfile refid="manual__rpyt__controller_8h">manual_rpyt_controller.h</innerfile>
+    <innerfile refid="velocity__based__position__controller_8h">velocity_based_position_controller.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

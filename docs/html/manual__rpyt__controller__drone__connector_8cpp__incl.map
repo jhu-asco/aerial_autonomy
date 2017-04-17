@@ -1,9 +1,9 @@
 <map id="src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp" name="src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp">
-<area shape="rect" id="node2" href="$manual__rpyt__controller__drone__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/manual\l_rpyt_controller_drone_connector.h" alt="" coords="387,109,612,165"/>
-<area shape="rect" id="node3" href="$base__controller__hardware__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/base\l_controller_hardware_connector.h" alt="" coords="5,213,221,269"/>
-<area shape="rect" id="node6" href="$empty__goal_8h.html" title="aerial_autonomy/types\l/empty_goal.h" alt="" coords="246,221,399,262"/>
-<area shape="rect" id="node7" href="$joysticks__yaw_8h.html" title="aerial_autonomy/types\l/joysticks_yaw.h" alt="" coords="423,221,576,262"/>
-<area shape="rect" id="node9" href="$roll__pitch__yaw__thrust_8h.html" title="aerial_autonomy/types\l/roll_pitch_yaw_thrust.h" alt="" coords="601,221,760,262"/>
-<area shape="rect" id="node4" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="23,318,204,359"/>
-<area shape="rect" id="node8" href="$joysticks_8h.html" title="aerial_autonomy/types\l/joysticks.h" alt="" coords="423,318,576,359"/>
+<area shape="rect" id="node2" href="$manual__rpyt__controller__drone__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/manual\l_rpyt_controller_drone_connector.h" alt="" coords="453,109,677,165"/>
+<area shape="rect" id="node3" href="$base__controller__hardware__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/base\l_controller_hardware_connector.h" alt="" coords="70,213,287,269"/>
+<area shape="rect" id="node7" href="$empty__goal_8h.html" title="aerial_autonomy/types\l/empty_goal.h" alt="" coords="311,221,464,262"/>
+<area shape="rect" id="node8" href="$joysticks__yaw_8h.html" title="aerial_autonomy/types\l/joysticks_yaw.h" alt="" coords="489,221,641,262"/>
+<area shape="rect" id="node10" href="$roll__pitch__yaw__thrust_8h.html" title="aerial_autonomy/types\l/roll_pitch_yaw_thrust.h" alt="" coords="667,221,825,262"/>
+<area shape="rect" id="node4" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="5,318,187,359"/>
+<area shape="rect" id="node9" href="$joysticks_8h.html" title="aerial_autonomy/types\l/joysticks.h" alt="" coords="489,318,641,359"/>
 </map>

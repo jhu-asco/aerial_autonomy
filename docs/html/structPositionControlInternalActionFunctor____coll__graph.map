@@ -1,3 +1,4 @@
 <map id="PositionControlInternalActionFunctor_&lt; LogicStateMachineT &gt;" name="PositionControlInternalActionFunctor_&lt; LogicStateMachineT &gt;">
-<area shape="rect" id="node2" href="$structEventAgnosticActionFunctor.html" title="EventAgnosticActionFunctor\l\&lt; UAVSystem, LogicStateMachineT \&gt;" alt="" coords="5,6,251,47"/>
+<area shape="rect" id="node2" href="$structUAVStatusActionFunctor.html" title="UAVStatusActionFunctor\l\&lt; UAVSystem, LogicStateMachineT \&gt;" alt="" coords="5,97,251,138"/>
+<area shape="rect" id="node3" href="$structEventAgnosticActionFunctor.html" title="EventAgnosticActionFunctor\l\&lt; UAVSystem, LogicStateMachineT \&gt;" alt="" coords="5,6,251,47"/>
 </map>

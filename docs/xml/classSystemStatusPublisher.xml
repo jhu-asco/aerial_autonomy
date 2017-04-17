@@ -20,7 +20,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" line="49" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" bodystart="49" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" line="49" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classSystemStatusPublisher_1ac0bc7260ba140260c09795f4cfa008de" prot="private" static="no" mutable="no">
         <type>ros::Publisher</type>
@@ -33,7 +33,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" line="50" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" bodystart="50" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" line="50" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" bodystart="50" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classSystemStatusPublisher_1a326de69119681ea86c249ed73dec47d5" prot="private" static="no" mutable="no">
         <type>const <ref refid="classBaseRobotSystem" kindref="compound">BaseRobotSystem</ref> &amp;</type>
@@ -46,7 +46,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" line="52" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" bodystart="52" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" line="52" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classSystemStatusPublisher_1ab228fdbf930a61207c5c8964043e1d59" prot="private" static="no" mutable="no">
         <type>const LogicStateMachineT &amp;</type>
@@ -59,7 +59,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" line="54" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" bodystart="54" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" line="54" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -108,7 +108,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" line="20" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" bodystart="20" bodyend="26"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" line="20" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" bodystart="20" bodyend="26"/>
       </memberdef>
       <memberdef kind="function" id="classSystemStatusPublisher_1a66f73a2e489face69d6f9fc16abb15aa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -118,10 +118,10 @@
         <briefdescription>
 <para>Publish system status and state machine status. </para>        </briefdescription>
         <detaileddescription>
-<para><xrefsect id="todo_1_todo000011"><xreftitle>Todo</xreftitle><xrefdescription><para>Replace status text with html script. Need a html manager to automatically add table lines </para></xrefdescription></xrefsect></para>        </detaileddescription>
+<para><xrefsect id="todo_1_todo000012"><xreftitle>Todo</xreftitle><xrefdescription><para>Replace status text with html script. Need a html manager to automatically add table lines </para></xrefdescription></xrefsect></para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" line="33" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" bodystart="33" bodyend="46"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" line="33" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" bodystart="33" bodyend="46"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -136,7 +136,7 @@
 </parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" line="12" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" bodystart="12" bodyend="55"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" line="12" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h" bodystart="12" bodyend="55"/>
     <listofallmembers>
       <member refid="classSystemStatusPublisher_1ab228fdbf930a61207c5c8964043e1d59" prot="private" virt="non-virtual"><scope>SystemStatusPublisher</scope><name>logic_state_machine_</name></member>
       <member refid="classSystemStatusPublisher_1a8a9b2c7348d5d05d43ce4a8161e09fde" prot="private" virt="non-virtual"><scope>SystemStatusPublisher</scope><name>nh_</name></member>

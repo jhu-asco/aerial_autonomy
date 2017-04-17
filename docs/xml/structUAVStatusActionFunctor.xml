@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structUAVStatusActionFunctor" kind="struct" prot="public" abstract="yes">
+    <compoundname>UAVStatusActionFunctor</compoundname>
+    <basecompoundref refid="structEventAgnosticActionFunctor" prot="public" virt="non-virtual">EventAgnosticActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;</basecompoundref>
+    <includes refid="uav__status__functor_8h" local="no">uav_status_functor.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class</type>
+        <declname>RobotSystemT</declname>
+        <defname>RobotSystemT</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>LogicStateMachineT</declname>
+        <defname>LogicStateMachineT</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structUAVStatusActionFunctor_1a05dfaff6ccd9ca5388fda51ccd831f8c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool UAVStatusActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;::checkStatus</definition>
+        <argsstring>(UAVSystem &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</argsstring>
+        <name>checkStatus</name>
+        <param>
+          <type><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <param>
+          <type>LogicStateMachineT &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <briefdescription>
+<para>Check the status using UAV data. The status is basically checking for low voltage and if manual mode is on. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>UAV system to get sensor data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend to process events based on data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the checks on sensor data pass </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" line="19" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" bodystart="19" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="structUAVStatusActionFunctor_1a18b62050ab2cbf50fc222988347b4c3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void UAVStatusActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;::statusIndependentRun</definition>
+        <argsstring>(RobotSystemT &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)=0</argsstring>
+        <name>statusIndependentRun</name>
+        <reimplementedby refid="structPositionControlInternalActionFunctor___1aa5676982392898435d97a482bb5b6fd0">statusIndependentRun</reimplementedby>
+        <reimplementedby refid="structVisualServoingInternalActionFunctor___1a10cf4e572f0db0f7fb004caf5d7edcd9">statusIndependentRun</reimplementedby>
+        <param>
+          <type>RobotSystemT &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <param>
+          <type>LogicStateMachineT &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <briefdescription>
+<para>Run function that is independent of uav status. Since uav status is already checked by the run function in this class. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Provides sensor data and allows for controlling hardware. Should be convertible to <ref refid="classUAVSystem" kindref="compound">UAVSystem</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend of logic State Machine. can send events using this. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" line="47" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structUAVStatusActionFunctor_1aaa0f0405f45c252aefe9fda6287ba964" prot="public" static="no" const="no" explicit="no" inline="yes" final="yes" virt="virtual">
+        <type>void</type>
+        <definition>void UAVStatusActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;::run</definition>
+        <argsstring>(RobotSystemT &amp;robot_system, LogicStateMachineT &amp;logic_state_machine) final</argsstring>
+        <name>run</name>
+        <reimplements refid="structEventAgnosticActionFunctor_1a53a48938d68370ff2ef262222565ffcf">run</reimplements>
+        <param>
+          <type>RobotSystemT &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <param>
+          <type>LogicStateMachineT &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <briefdescription>
+<para>Override this run function for different sub classes. This function performs the logic checking for each state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Provides sensor data and allows for controlling hardware </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend of logic State Machine. can send events using this. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" line="50" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" bodystart="50" bodyend="55"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="602">
+        <label>UAVStatusActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;</label>
+        <link refid="structUAVStatusActionFunctor"/>
+        <childnode refid="603" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="603">
+        <label>EventAgnosticActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;</label>
+        <link refid="structEventAgnosticActionFunctor"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="604">
+        <label>UAVStatusActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;</label>
+        <link refid="structUAVStatusActionFunctor"/>
+        <childnode refid="605" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="605">
+        <label>EventAgnosticActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;</label>
+        <link refid="structEventAgnosticActionFunctor"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" line="9" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" bodystart="8" bodyend="56"/>
+    <listofallmembers>
+      <member refid="structUAVStatusActionFunctor_1a05dfaff6ccd9ca5388fda51ccd831f8c" prot="public" virt="non-virtual"><scope>UAVStatusActionFunctor</scope><name>checkStatus</name></member>
+      <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>UAVStatusActionFunctor</scope><name>operator()</name></member>
+      <member refid="structUAVStatusActionFunctor_1aaa0f0405f45c252aefe9fda6287ba964" prot="public" virt="virtual"><scope>UAVStatusActionFunctor</scope><name>run</name></member>
+      <member refid="structUAVStatusActionFunctor_1a18b62050ab2cbf50fc222988347b4c3e" prot="public" virt="pure-virtual"><scope>UAVStatusActionFunctor</scope><name>statusIndependentRun</name></member>
+      <member refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" prot="public" virt="virtual"><scope>UAVStatusActionFunctor</scope><name>~EventAgnosticActionFunctor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

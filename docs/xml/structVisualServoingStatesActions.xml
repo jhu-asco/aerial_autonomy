@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structVisualServoingStatesActions" kind="struct" prot="public">
+    <compoundname>VisualServoingStatesActions</compoundname>
+    <basecompoundref refid="structUAVStatesActions" prot="public" virt="non-virtual">UAVStatesActions&lt; LogicStateMachineT &gt;</basecompoundref>
+    <includes refid="visual__servoing__states__actions_8h" local="no">visual_servoing_states_actions.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structVisualServoingStatesActions_1ae2d9c1f6e607afa330760c6cfd16ab51" prot="public" static="no">
+        <type><ref refid="visual__servoing__functors_8h_1a814f35ce6cf838220c4bf72bd501a27d" kindref="member">VisualServoing_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using VisualServoingStatesActions&lt; LogicStateMachineT &gt;::VisualServoing =  VisualServoing_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>VisualServoing</name>
+        <briefdescription>
+<para>State when reaching a visual servoing goal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" line="16" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structVisualServoingStatesActions_1ac739aa6c2f2adebef80daa9d769d81ec" prot="public" static="no">
+        <type><ref refid="structVisualServoingTransitionActionFunctor__" kindref="compound">VisualServoingTransitionActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using VisualServoingStatesActions&lt; LogicStateMachineT &gt;::VisualServoingTransitionAction =  VisualServoingTransitionActionFunctor_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>VisualServoingTransitionAction</name>
+        <briefdescription>
+<para>Action to take when starting visual servoing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" line="22" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structVisualServoingStatesActions_1a869955a85f6cfa9631d7bd4e95be3b96" prot="public" static="no">
+        <type><ref refid="structVisualServoingTransitionGuardFunctor__" kindref="compound">VisualServoingTransitionGuardFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using VisualServoingStatesActions&lt; LogicStateMachineT &gt;::VisualServoingTransitionGuard =  VisualServoingTransitionGuardFunctor_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>VisualServoingTransitionGuard</name>
+        <briefdescription>
+<para>Check whether visual servoing is feasible currently. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structVisualServoingStatesActions_1ac4a0f045842f957324eb6ee5d7680543" prot="public" static="no">
+        <type><ref refid="structGoHomeTransitionActionFunctor__" kindref="compound">GoHomeTransitionActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using VisualServoingStatesActions&lt; LogicStateMachineT &gt;::GoHomeTransitionAction =  GoHomeTransitionActionFunctor_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>GoHomeTransitionAction</name>
+        <briefdescription>
+<para>Send the UAV back to home position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" line="33" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structVisualServoingStatesActions_1aba25d3f90f757a049e892465d2cc9b12" prot="public" static="no">
+        <type><ref refid="structGoHomeTransitionGuardFunctor__" kindref="compound">GoHomeTransitionGuardFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using VisualServoingStatesActions&lt; LogicStateMachineT &gt;::GoHomeTransitionGuard =  GoHomeTransitionGuardFunctor_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>GoHomeTransitionGuard</name>
+        <briefdescription>
+<para>Check if home location is specified. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" line="38" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Class to provide typedefs for all basic uav states and actions. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The backend of logic state machine </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="666">
+        <label>VisualServoingStatesActions&lt; LogicStateMachineT &gt;</label>
+        <link refid="structVisualServoingStatesActions"/>
+        <childnode refid="667" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="667">
+        <label>UAVStatesActions&lt; LogicStateMachineT &gt;</label>
+        <link refid="structUAVStatesActions"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="668">
+        <label>VisualServoingStatesActions&lt; LogicStateMachineT &gt;</label>
+        <link refid="structVisualServoingStatesActions"/>
+        <childnode refid="669" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="669">
+        <label>UAVStatesActions&lt; LogicStateMachineT &gt;</label>
+        <link refid="structUAVStatesActions"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" line="11" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" bodystart="11" bodyend="40"/>
+    <listofallmembers>
+      <member refid="structVisualServoingStatesActions_1ac4a0f045842f957324eb6ee5d7680543" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>GoHomeTransitionAction</name></member>
+      <member refid="structVisualServoingStatesActions_1aba25d3f90f757a049e892465d2cc9b12" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>GoHomeTransitionGuard</name></member>
+      <member refid="structUAVStatesActions_1a2c18472bdc3a420dd319dc82fa507ac3" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>Hovering</name></member>
+      <member refid="structUAVStatesActions_1aa0da8657bf853ddcdcc581795aa68e91" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>Landed</name></member>
+      <member refid="structUAVStatesActions_1acc910bc55ae6432004e6b1704634d1c7" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>Landing</name></member>
+      <member refid="structUAVStatesActions_1a5cf123d42d255c842a68a223354c1b43" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>LandingAction</name></member>
+      <member refid="structUAVStatesActions_1ad12379ab87f454043ca0c96dac85fef5" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>ManualControlState</name></member>
+      <member refid="structUAVStatesActions_1ae2625fc53a6e10745c591ea95826ea62" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>ManualControlSwitchAction</name></member>
+      <member refid="structUAVStatesActions_1a8183ff8aefe3ee857ffe5897fcbe771e" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>ManualControlSwitchGuard</name></member>
+      <member refid="structUAVStatesActions_1a6f29ce9909b5ebc8c46ca70ef6a92d19" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>ReachingGoal</name></member>
+      <member refid="structUAVStatesActions_1ab0acd6797efeedeb8704c7d24467a254" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>ReachingGoalGuard</name></member>
+      <member refid="structUAVStatesActions_1aaadfe040047828a68132e8976cc0aa46" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>ReachingGoalLand</name></member>
+      <member refid="structUAVStatesActions_1a60ad11afcb23e02f34026459361f3b1d" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>ReachingGoalSet</name></member>
+      <member refid="structUAVStatesActions_1a5a69f68c781b17a48e2e6dcef9c52e1d" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>TakeoffAbort</name></member>
+      <member refid="structUAVStatesActions_1ad42a6d885281297a91e71b66624ee813" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>TakeoffAction</name></member>
+      <member refid="structUAVStatesActions_1a9e47af475b29af18ae34d80227ee3388" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>TakeoffGuard</name></member>
+      <member refid="structUAVStatesActions_1aec75cac817b13a7d8f4a73bfecc94056" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>TakingOff</name></member>
+      <member refid="structUAVStatesActions_1ad2d705e67a383e1b5ad08332da9c7300" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>UAVControllerAbort</name></member>
+      <member refid="structVisualServoingStatesActions_1ae2d9c1f6e607afa330760c6cfd16ab51" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>VisualServoing</name></member>
+      <member refid="structVisualServoingStatesActions_1ac739aa6c2f2adebef80daa9d769d81ec" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>VisualServoingTransitionAction</name></member>
+      <member refid="structVisualServoingStatesActions_1a869955a85f6cfa9631d7bd4e95be3b96" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>VisualServoingTransitionGuard</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

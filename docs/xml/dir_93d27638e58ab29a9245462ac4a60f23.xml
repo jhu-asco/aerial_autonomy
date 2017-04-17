@@ -5,9 +5,13 @@
     <innerfile refid="base__functors_8h">base_functors.h</innerfile>
     <innerfile refid="hovering__functors_8h">hovering_functors.h</innerfile>
     <innerfile refid="land__functors_8h">land_functors.h</innerfile>
+    <innerfile refid="manual__control__functors_8h">manual_control_functors.h</innerfile>
     <innerfile refid="position__control__functors_8h">position_control_functors.h</innerfile>
     <innerfile refid="takeoff__functors_8h">takeoff_functors.h</innerfile>
     <innerfile refid="uav__states__actions_8h">uav_states_actions.h</innerfile>
+    <innerfile refid="uav__status__functor_8h">uav_status_functor.h</innerfile>
+    <innerfile refid="visual__servoing__functors_8h">visual_servoing_functors.h</innerfile>
+    <innerfile refid="visual__servoing__states__actions_8h">visual_servoing_states_actions.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

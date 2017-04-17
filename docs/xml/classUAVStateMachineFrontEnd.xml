@@ -7,9 +7,9 @@
     <includes refid="uav__state__machine_8h" local="no">uav_state_machine.h</includes>
     <innerclass refid="structUAVStateMachineFrontEnd_1_1transition__table" prot="public">UAVStateMachineFrontEnd::transition_table</innerclass>
       <sectiondef kind="public-type">
-      <memberdef kind="typedef" id="classUAVStateMachineFrontEnd_1ad73219e43b8afd51bff699348dd4572f" prot="public" static="no">
-        <type><ref refid="structUAVStatesActions_1_1Landed" kindref="compound">usa::Landed</ref></type>
-        <definition>using UAVStateMachineFrontEnd::initial_state =  usa::Landed</definition>
+      <memberdef kind="typedef" id="classUAVStateMachineFrontEnd_1a7f894e8e7f5925472704c7467bbc7963" prot="public" static="no">
+        <type><ref refid="structUAVStatesActions_1ad12379ab87f454043ca0c96dac85fef5" kindref="member">usa::ManualControlState</ref></type>
+        <definition>using UAVStateMachineFrontEnd::initial_state =  usa::ManualControlState</definition>
         <argsstring></argsstring>
         <name>initial_state</name>
         <briefdescription>
@@ -18,7 +18,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="95" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="95" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="95" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="95" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -62,7 +62,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="70" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="70" bodyend="72"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="70" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="70" bodyend="72"/>
       </memberdef>
       <memberdef kind="function" id="classUAVStateMachineFrontEnd_1a8699918ab41569ac9ce0fa458b770522" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -104,7 +104,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="79" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="79" bodyend="81"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="79" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="79" bodyend="81"/>
       </memberdef>
       <memberdef kind="function" id="classUAVStateMachineFrontEnd_1a35e3cdf694f700caef50c019599d1a5f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -129,7 +129,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="89" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="89" bodyend="90"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="89" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="89" bodyend="90"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -137,71 +137,71 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="403">
+      <node id="590">
         <label>msmf::state_machine_def&lt; UAVStateMachineFrontEnd &gt;</label>
       </node>
-      <node id="402">
+      <node id="589">
         <label>UAVStateMachineFrontEnd</label>
         <link refid="classUAVStateMachineFrontEnd"/>
-        <childnode refid="403" relation="public-inheritance">
+        <childnode refid="590" relation="public-inheritance">
         </childnode>
-        <childnode refid="404" relation="public-inheritance">
+        <childnode refid="591" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="404">
+      <node id="591">
         <label>BaseStateMachine&lt; UAVSystem &gt;</label>
         <link refid="classBaseStateMachine"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="411">
+      <node id="598">
         <label>TypeMap&lt; AbstractControllerHardwareConnector &gt;</label>
         <link refid="classTypeMap"/>
       </node>
-      <node id="410">
+      <node id="597">
         <label>BaseRobotSystem</label>
         <link refid="classBaseRobotSystem"/>
-        <childnode refid="411" relation="usage">
+        <childnode refid="598" relation="usage">
           <edgelabel>controller_hardware_connector_container_</edgelabel>
         </childnode>
       </node>
-      <node id="406">
+      <node id="593">
         <label>msmf::state_machine_def&lt; UAVStateMachineFrontEnd &gt;</label>
       </node>
-      <node id="405">
+      <node id="592">
         <label>UAVStateMachineFrontEnd</label>
         <link refid="classUAVStateMachineFrontEnd"/>
-        <childnode refid="406" relation="public-inheritance">
+        <childnode refid="593" relation="public-inheritance">
         </childnode>
-        <childnode refid="407" relation="public-inheritance">
+        <childnode refid="594" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="407">
+      <node id="594">
         <label>BaseStateMachine&lt; UAVSystem &gt;</label>
         <link refid="classBaseStateMachine"/>
-        <childnode refid="408" relation="usage">
+        <childnode refid="595" relation="usage">
           <edgelabel>robot_system_container_</edgelabel>
         </childnode>
       </node>
-      <node id="408">
+      <node id="595">
         <label>RobotSystemContainer&lt; UAVSystem &gt;</label>
         <link refid="classRobotSystemContainer"/>
-        <childnode refid="409" relation="usage">
+        <childnode refid="596" relation="usage">
           <edgelabel>robot_system_</edgelabel>
         </childnode>
       </node>
-      <node id="409">
+      <node id="596">
         <label>UAVSystem</label>
         <link refid="classUAVSystem"/>
-        <childnode refid="410" relation="public-inheritance">
+        <childnode refid="597" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="62" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="60" bodyend="133"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="62" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="60" bodyend="149"/>
     <listofallmembers>
       <member refid="classBaseStateMachine_1a2cb25947ca74c77568736975125aed44" prot="public" virt="non-virtual"><scope>UAVStateMachineFrontEnd</scope><name>BaseStateMachine</name></member>
       <member refid="classBaseStateMachine_1a286ff1d9af1151821ed44842a5e4fb8c" prot="public" virt="non-virtual"><scope>UAVStateMachineFrontEnd</scope><name>get_no_transition_event_index</name></member>
-      <member refid="classUAVStateMachineFrontEnd_1ad73219e43b8afd51bff699348dd4572f" prot="public" virt="non-virtual"><scope>UAVStateMachineFrontEnd</scope><name>initial_state</name></member>
+      <member refid="classUAVStateMachineFrontEnd_1a7f894e8e7f5925472704c7467bbc7963" prot="public" virt="non-virtual"><scope>UAVStateMachineFrontEnd</scope><name>initial_state</name></member>
       <member refid="classBaseStateMachine_1ab047241678b8eba01f428ef1af5c055f" prot="public" virt="non-virtual"><scope>UAVStateMachineFrontEnd</scope><name>no_transition</name></member>
       <member refid="classBaseStateMachine_1ac261a6e2f6829dd213d58e690093c192" prot="protected" virt="non-virtual"><scope>UAVStateMachineFrontEnd</scope><name>no_transition_event_index_</name></member>
       <member refid="classUAVStateMachineFrontEnd_1a098d07c51f56d8a961a23df9d4b2c67b" prot="public" virt="non-virtual"><scope>UAVStateMachineFrontEnd</scope><name>on_entry</name></member>

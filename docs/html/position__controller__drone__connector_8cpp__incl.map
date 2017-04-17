@@ -1,8 +1,8 @@
 <map id="src/controller_hardware_connectors/position_controller_drone_connector.cpp" name="src/controller_hardware_connectors/position_controller_drone_connector.cpp">
-<area shape="rect" id="node2" href="$position__controller__drone__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/position\l_controller_drone_connector.h" alt="" coords="309,109,512,165"/>
-<area shape="rect" id="node3" href="$base__controller__hardware__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/base\l_controller_hardware_connector.h" alt="" coords="5,213,221,269"/>
-<area shape="rect" id="node6" href="$empty__sensor_8h.html" title="aerial_autonomy/types\l/empty_sensor.h" alt="" coords="246,221,399,262"/>
-<area shape="rect" id="node7" href="$position__yaw_8h.html" title="aerial_autonomy/types\l/position_yaw.h" alt="" coords="423,221,576,262"/>
-<area shape="rect" id="node4" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="23,318,204,359"/>
-<area shape="rect" id="node8" href="$position_8h.html" title="aerial_autonomy/types\l/position.h" alt="" coords="423,318,576,359"/>
+<area shape="rect" id="node2" href="$position__controller__drone__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/position\l_controller_drone_connector.h" alt="" coords="356,109,559,165"/>
+<area shape="rect" id="node3" href="$base__controller__hardware__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/base\l_controller_hardware_connector.h" alt="" coords="139,213,356,269"/>
+<area shape="rect" id="node7" href="$position__yaw_8h.html" title="aerial_autonomy/types\l/position_yaw.h" alt="" coords="381,221,533,262"/>
+<area shape="rect" id="node4" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="5,318,187,359"/>
+<area shape="rect" id="node8" href="$position_8h.html" title="aerial_autonomy/types\l/position.h" alt="" coords="366,318,519,359"/>
+<area shape="rect" id="node10" href="$math_8h.html" title="aerial_autonomy/common\l/math.h" alt="" coords="544,318,715,359"/>
 </map>

@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classTypeMap.html" title="TypeMap\&lt; AbstractController\lHardwareConnector \&gt;" alt="" coords="6,5,199,46"/>
+<area shape="rect" id="node1" href="$structPosition.html" title="Store 3D position. " alt="" coords="5,5,75,32"/>
+<area shape="rect" id="node2" href="$structPositionYaw.html" title="Stores Position, yaw. PositionYaw is used as the goal for UAV systems. " alt="" coords="123,5,218,32"/>
 </map>

@@ -1,3 +1,5 @@
 <map id="BaseRobotSystem" name="BaseRobotSystem">
-<area shape="rect" id="node2" href="$classUAVSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components..." alt="" coords="23,80,117,107"/>
+<area shape="rect" id="node2" href="$classArmSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components..." alt="" coords="5,80,96,107"/>
+<area shape="rect" id="node3" href="$classUAVSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components..." alt="" coords="121,80,215,107"/>
+<area shape="rect" id="node4" href="$classUAVVisionSystem.html" title="UAV Vision system that extends UAV system to include constant heading depth controller. " alt="" coords="103,155,232,181"/>
 </map>

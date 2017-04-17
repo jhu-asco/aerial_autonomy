@@ -4,98 +4,168 @@
     <compoundname>iterable_enum.h</compoundname>
     <includedby refid="base__robot__system_8h" local="no">include/aerial_autonomy/robot_systems/base_robot_system.h</includedby>
     <invincdepgraph>
-      <node id="1306">
-        <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
-        <link refid="uav__state__machine_8h"/>
-        <childnode refid="1302" relation="include">
+      <node id="2718">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_functors.h</label>
+        <link refid="visual__servoing__functors_8h"/>
+        <childnode refid="2710" relation="include">
         </childnode>
       </node>
-      <node id="1310">
-        <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
-        <link refid="sample__logic__state__machine_8h"/>
-      </node>
-      <node id="1304">
-        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
-        <link refid="hovering__functors_8h"/>
-        <childnode refid="1305" relation="include">
+      <node id="2714">
+        <label>include/aerial_autonomy/actions_guards/manual_control_functors.h</label>
+        <link refid="manual__control__functors_8h"/>
+        <childnode refid="2709" relation="include">
         </childnode>
       </node>
-      <node id="1302">
+      <node id="2702">
+        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
+        <link refid="uav__system__handler_8h"/>
+        <childnode refid="2703" relation="include">
+        </childnode>
+      </node>
+      <node id="2713">
+        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
+        <link refid="land__functors_8h"/>
+        <childnode refid="2709" relation="include">
+        </childnode>
+      </node>
+      <node id="2717">
+        <label>include/aerial_autonomy/actions_guards/uav_status_functor.h</label>
+        <link refid="uav__status__functor_8h"/>
+        <childnode refid="2715" relation="include">
+        </childnode>
+        <childnode refid="2718" relation="include">
+        </childnode>
+      </node>
+      <node id="2709">
+        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
+        <link refid="uav__states__actions_8h"/>
+        <childnode refid="2710" relation="include">
+        </childnode>
+        <childnode refid="2712" relation="include">
+        </childnode>
+      </node>
+      <node id="2703">
         <label>src/system_handler_nodes/uav_system_node.cpp</label>
         <link refid="uav__system__node_8cpp"/>
       </node>
-      <node id="1309">
-        <label>include/aerial_autonomy/actions_guards/takeoff_functors.h</label>
-        <link refid="takeoff__functors_8h"/>
-        <childnode refid="1305" relation="include">
-        </childnode>
-      </node>
-      <node id="1303">
-        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
-        <link refid="uav__system_8h"/>
-        <childnode refid="1304" relation="include">
-        </childnode>
-        <childnode refid="1307" relation="include">
-        </childnode>
-        <childnode refid="1308" relation="include">
-        </childnode>
-        <childnode refid="1309" relation="include">
-        </childnode>
-        <childnode refid="1306" relation="include">
-        </childnode>
-        <childnode refid="1301" relation="include">
-        </childnode>
-        <childnode refid="1310" relation="include">
-        </childnode>
-      </node>
-      <node id="1297">
-        <label>include/aerial_autonomy/common/iterable_enum.h</label>
-        <link refid="iterable_enum.h"/>
-        <childnode refid="1298" relation="include">
-        </childnode>
-      </node>
-      <node id="1298">
-        <label>include/aerial_autonomy/robot_systems/base_robot_system.h</label>
-        <link refid="base__robot__system_8h"/>
-        <childnode refid="1299" relation="include">
-        </childnode>
-        <childnode refid="1303" relation="include">
-        </childnode>
-      </node>
-      <node id="1301">
-        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
-        <link refid="uav__system__handler_8h"/>
-        <childnode refid="1302" relation="include">
-        </childnode>
-      </node>
-      <node id="1300">
+      <node id="2701">
         <label>include/aerial_autonomy/system_handlers/common_system_handler.h</label>
         <link refid="common__system__handler_8h"/>
-        <childnode refid="1301" relation="include">
+        <childnode refid="2702" relation="include">
+        </childnode>
+        <childnode refid="2704" relation="include">
         </childnode>
       </node>
-      <node id="1305">
-        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
-        <link refid="uav__states__actions_8h"/>
-        <childnode refid="1306" relation="include">
+      <node id="2698">
+        <label>include/aerial_autonomy/common/iterable_enum.h</label>
+        <link refid="iterable_enum.h"/>
+        <childnode refid="2699" relation="include">
         </childnode>
       </node>
-      <node id="1308">
+      <node id="2710">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
+        <link refid="visual__servoing__states__actions_8h"/>
+        <childnode refid="2711" relation="include">
+        </childnode>
+      </node>
+      <node id="2719">
+        <label>include/aerial_autonomy/robot_systems/uav_vision_system.h</label>
+        <link refid="uav__vision__system_8h"/>
+        <childnode refid="2718" relation="include">
+        </childnode>
+        <childnode refid="2711" relation="include">
+        </childnode>
+        <childnode refid="2704" relation="include">
+        </childnode>
+        <childnode refid="2720" relation="include">
+        </childnode>
+      </node>
+      <node id="2706">
+        <label>include/aerial_autonomy/robot_systems/arm_system.h</label>
+        <link refid="arm__system_8h"/>
+      </node>
+      <node id="2715">
         <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
         <link refid="position__control__functors_8h"/>
-        <childnode refid="1305" relation="include">
+        <childnode refid="2709" relation="include">
         </childnode>
       </node>
-      <node id="1307">
-        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
-        <link refid="land__functors_8h"/>
-        <childnode refid="1305" relation="include">
+      <node id="2711">
+        <label>include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</label>
+        <link refid="visual__servoing__state__machine_8h"/>
+        <childnode refid="2705" relation="include">
         </childnode>
       </node>
-      <node id="1299">
+      <node id="2708">
+        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
+        <link refid="hovering__functors_8h"/>
+        <childnode refid="2709" relation="include">
+        </childnode>
+      </node>
+      <node id="2705">
+        <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
+        <link refid="uav__vision__system__node_8cpp"/>
+      </node>
+      <node id="2712">
+        <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
+        <link refid="uav__state__machine_8h"/>
+        <childnode refid="2703" relation="include">
+        </childnode>
+      </node>
+      <node id="2700">
         <label>include/aerial_autonomy/common/system_status_publisher.h</label>
         <link refid="system__status__publisher_8h"/>
-        <childnode refid="1300" relation="include">
+        <childnode refid="2701" relation="include">
+        </childnode>
+      </node>
+      <node id="2707">
+        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
+        <link refid="uav__system_8h"/>
+        <childnode refid="2708" relation="include">
+        </childnode>
+        <childnode refid="2713" relation="include">
+        </childnode>
+        <childnode refid="2714" relation="include">
+        </childnode>
+        <childnode refid="2715" relation="include">
+        </childnode>
+        <childnode refid="2716" relation="include">
+        </childnode>
+        <childnode refid="2717" relation="include">
+        </childnode>
+        <childnode refid="2719" relation="include">
+        </childnode>
+        <childnode refid="2712" relation="include">
+        </childnode>
+        <childnode refid="2702" relation="include">
+        </childnode>
+        <childnode refid="2720" relation="include">
+        </childnode>
+      </node>
+      <node id="2720">
+        <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
+        <link refid="sample__logic__state__machine_8h"/>
+      </node>
+      <node id="2704">
+        <label>include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</label>
+        <link refid="uav__vision__system__handler_8h"/>
+        <childnode refid="2705" relation="include">
+        </childnode>
+      </node>
+      <node id="2699">
+        <label>include/aerial_autonomy/robot_systems/base_robot_system.h</label>
+        <link refid="base__robot__system_8h"/>
+        <childnode refid="2700" relation="include">
+        </childnode>
+        <childnode refid="2706" relation="include">
+        </childnode>
+        <childnode refid="2707" relation="include">
+        </childnode>
+      </node>
+      <node id="2716">
+        <label>include/aerial_autonomy/actions_guards/takeoff_functors.h</label>
+        <link refid="takeoff__functors_8h"/>
+        <childnode refid="2709" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -129,7 +199,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" line="45" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" bodystart="45" bodyend="47"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" line="45" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" bodystart="45" bodyend="47"/>
       </memberdef>
       <memberdef kind="function" id="iterable__enum_8h_1a1dbdd362a66f0118f8da85eb59002155" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -158,7 +228,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" line="53" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" bodystart="53" bodyend="55"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" line="53" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h" bodystart="53" bodyend="55"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -194,6 +264,6 @@
 <codeline lineno="54"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/><ref refid="classIterableEnum_1_1Iterator" kindref="compound">IterableEnum&lt;T&gt;::Iterator</ref>(((</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)T::Last)<sp/>+<sp/>1);</highlight></codeline>
 <codeline lineno="55"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/iterable_enum.h"/>
   </compounddef>
 </doxygen>

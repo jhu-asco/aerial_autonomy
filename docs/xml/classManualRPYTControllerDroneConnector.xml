@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" line="50" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" bodystart="50" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" line="52" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -54,24 +54,36 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" line="25" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" bodystart="25" bodyend="29"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" line="25" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" bodystart="25" bodyend="29"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
-      <memberdef kind="function" id="classManualRPYTControllerDroneConnector_1a6c47447c98dd1528703355f9f60f1d50" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type><ref refid="structJoysticksYaw" kindref="compound">JoysticksYaw</ref></type>
-        <definition>JoysticksYaw ManualRPYTControllerDroneConnector::extractSensorData</definition>
-        <argsstring>()</argsstring>
+      <memberdef kind="function" id="classManualRPYTControllerDroneConnector_1a7271235b60d06ddeae34c18b2cc0b800" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool ManualRPYTControllerDroneConnector::extractSensorData</definition>
+        <argsstring>(JoysticksYaw &amp;sensor_data)</argsstring>
         <name>extractSensorData</name>
-        <reimplements refid="classControllerHardwareConnector_1af6952c0d8829b93557eb7d8887bebd63">extractSensorData</reimplements>
+        <reimplements refid="classControllerHardwareConnector_1ad241af05eac639961a1b07fe7330f054">extractSensorData</reimplements>
+        <param>
+          <type><ref refid="structJoysticksYaw" kindref="compound">JoysticksYaw</ref> &amp;</type>
+          <declname>sensor_data</declname>
+        </param>
         <briefdescription>
 <para>Extracts joystick commands and current yaw from hardware. </para>        </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para>Joystick commands and current yaw </para></simplesect>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sensor_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Joystick commands and current yaw</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if succesfully extracted joystick data </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" line="37" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp" bodystart="3" bodyend="9"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" line="39" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp" bodystart="3" bodyend="11"/>
       </memberdef>
       <memberdef kind="function" id="classManualRPYTControllerDroneConnector_1a34bde89c4b4f2d0de000b4ccbfc719c4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -97,7 +109,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" line="44" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp" bodystart="11" bodyend="19"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" line="46" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp" bodystart="13" bodyend="21"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -105,48 +117,49 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="320">
+      <node id="493">
         <label>ManualRPYTControllerDroneConnector</label>
         <link refid="classManualRPYTControllerDroneConnector"/>
-        <childnode refid="321" relation="public-inheritance">
+        <childnode refid="494" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="322">
+      <node id="495">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
-      <node id="321">
+      <node id="494">
         <label>ControllerHardwareConnector&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="322" relation="public-inheritance">
+        <childnode refid="495" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="323">
+      <node id="496">
         <label>ManualRPYTControllerDroneConnector</label>
         <link refid="classManualRPYTControllerDroneConnector"/>
-        <childnode refid="324" relation="public-inheritance">
+        <childnode refid="497" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="325">
+      <node id="498">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
-      <node id="324">
+      <node id="497">
         <label>ControllerHardwareConnector&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="325" relation="public-inheritance">
+        <childnode refid="498" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" line="14" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" bodystart="12" bodyend="51"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" line="14" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" bodystart="12" bodyend="53"/>
     <listofallmembers>
       <member refid="classControllerHardwareConnector_1a6c5d8e5a5ded026ccee3d51f2899ce3e" prot="public" virt="non-virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>ControllerHardwareConnector</name></member>
       <member refid="classManualRPYTControllerDroneConnector_1a84a01d9ad6b06c34513126089f89ccba" prot="private" virt="non-virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>drone_hardware_</name></member>
-      <member refid="classManualRPYTControllerDroneConnector_1a6c47447c98dd1528703355f9f60f1d50" prot="protected" virt="virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>extractSensorData</name></member>
+      <member refid="classManualRPYTControllerDroneConnector_1a7271235b60d06ddeae34c18b2cc0b800" prot="protected" virt="virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>extractSensorData</name></member>
       <member refid="classControllerHardwareConnector_1adccf30ddf2b8be152e53636b1c2d3ad5" prot="public" virt="non-virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>getGoal</name></member>
       <member refid="classControllerHardwareConnector_1accd0c9bff560fa3c6d1e60d97644415e" prot="public" virt="non-virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>getHardwareType</name></member>
+      <member refid="classControllerHardwareConnector_1a3e69fcccb3826adbd02ea9f7f0740613" prot="public" virt="non-virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>getStatus</name></member>
       <member refid="classControllerHardwareConnector_1a1e47c12f796c9cc2fcb5c2495ede2392" prot="protected" virt="non-virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>hardware_type_</name></member>
       <member refid="classManualRPYTControllerDroneConnector_1a1e9d3f52b19ed5d89b00d6358f826f9b" prot="public" virt="non-virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>ManualRPYTControllerDroneConnector</name></member>
       <member refid="classControllerHardwareConnector_1afb46464434a3a5881ecc1091f58bbd61" prot="public" virt="virtual"><scope>ManualRPYTControllerDroneConnector</scope><name>run</name></member>

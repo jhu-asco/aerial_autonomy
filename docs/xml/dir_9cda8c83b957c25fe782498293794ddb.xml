@@ -7,6 +7,7 @@
     <innerfile refid="builtin__velocity__controller__drone__connector_8h">builtin_velocity_controller_drone_connector.h</innerfile>
     <innerfile refid="manual__rpyt__controller__drone__connector_8h">manual_rpyt_controller_drone_connector.h</innerfile>
     <innerfile refid="position__controller__drone__connector_8h">position_controller_drone_connector.h</innerfile>
+    <innerfile refid="visual__servoing__controller__drone__connector_8h">visual_servoing_controller_drone_connector.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

@@ -7,7 +7,7 @@
 <para>Robot system that does not perform any actions. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="10" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="10" bodyend="10"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="11" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="11" bodyend="11"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

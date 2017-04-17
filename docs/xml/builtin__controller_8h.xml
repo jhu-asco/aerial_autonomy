@@ -3,114 +3,234 @@
   <compounddef id="builtin__controller_8h" kind="file">
     <compoundname>builtin_controller.h</compoundname>
     <includes refid="base__controller_8h" local="yes">aerial_autonomy/controllers/base_controller.h</includes>
-    <includes refid="empty__sensor_8h" local="yes">aerial_autonomy/types/empty_sensor.h</includes>
+    <includes refid="position__yaw_8h" local="yes">aerial_autonomy/types/position_yaw.h</includes>
+    <includes refid="velocity__yaw_8h" local="yes">aerial_autonomy/types/velocity_yaw.h</includes>
+    <includes local="yes">position_controller_config.pb.h</includes>
+    <includes local="yes">velocity_controller_config.pb.h</includes>
     <includedby refid="basic__controllers_8h" local="no">include/aerial_autonomy/controllers/basic_controllers.h</includedby>
     <incdepgraph>
-      <node id="1522">
+      <node id="3106">
         <label>boost/thread/mutex.hpp</label>
       </node>
-      <node id="1523">
-        <label>aerial_autonomy/types/empty_sensor.h</label>
-        <link refid="empty__sensor_8h"/>
+      <node id="3107">
+        <label>aerial_autonomy/types/position_yaw.h</label>
+        <link refid="position__yaw_8h"/>
+        <childnode refid="3108" relation="include">
+        </childnode>
+        <childnode refid="3110" relation="include">
+        </childnode>
       </node>
-      <node id="1521">
+      <node id="3116">
+        <label>velocity_controller_config.pb.h</label>
+      </node>
+      <node id="3109">
+        <label>cmath</label>
+      </node>
+      <node id="3111">
+        <label>stdexcept</label>
+      </node>
+      <node id="3105">
         <label>aerial_autonomy/controllers/base_controller.h</label>
         <link refid="base__controller_8h"/>
-        <childnode refid="1522" relation="include">
+        <childnode refid="3106" relation="include">
         </childnode>
       </node>
-      <node id="1520">
+      <node id="3112">
+        <label>tf/tf.h</label>
+      </node>
+      <node id="3104">
         <label>include/aerial_autonomy/controllers/builtin_controller.h</label>
         <link refid="builtin_controller.h"/>
-        <childnode refid="1521" relation="include">
+        <childnode refid="3105" relation="include">
         </childnode>
-        <childnode refid="1523" relation="include">
+        <childnode refid="3107" relation="include">
+        </childnode>
+        <childnode refid="3113" relation="include">
+        </childnode>
+        <childnode refid="3115" relation="include">
+        </childnode>
+        <childnode refid="3116" relation="include">
+        </childnode>
+      </node>
+      <node id="3115">
+        <label>position_controller_config.pb.h</label>
+      </node>
+      <node id="3113">
+        <label>aerial_autonomy/types/velocity_yaw.h</label>
+        <link refid="velocity__yaw_8h"/>
+        <childnode refid="3114" relation="include">
+        </childnode>
+        <childnode refid="3110" relation="include">
+        </childnode>
+      </node>
+      <node id="3114">
+        <label>aerial_autonomy/types/velocity.h</label>
+        <link refid="velocity_8h"/>
+      </node>
+      <node id="3110">
+        <label>aerial_autonomy/common/math.h</label>
+        <link refid="math_8h"/>
+        <childnode refid="3109" relation="include">
+        </childnode>
+        <childnode refid="3111" relation="include">
+        </childnode>
+        <childnode refid="3112" relation="include">
+        </childnode>
+      </node>
+      <node id="3108">
+        <label>aerial_autonomy/types/position.h</label>
+        <link refid="position_8h"/>
+        <childnode refid="3109" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1529">
-        <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
-        <link refid="uav__state__machine_8h"/>
-        <childnode refid="1530" relation="include">
+      <node id="3132">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_functors.h</label>
+        <link refid="visual__servoing__functors_8h"/>
+        <childnode refid="3122" relation="include">
         </childnode>
       </node>
-      <node id="1525">
-        <label>include/aerial_autonomy/controllers/basic_controllers.h</label>
-        <link refid="basic__controllers_8h"/>
-        <childnode refid="1526" relation="include">
+      <node id="3128">
+        <label>include/aerial_autonomy/actions_guards/manual_control_functors.h</label>
+        <link refid="manual__control__functors_8h"/>
+        <childnode refid="3121" relation="include">
         </childnode>
       </node>
-      <node id="1535">
-        <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
-        <link refid="sample__logic__state__machine_8h"/>
-      </node>
-      <node id="1527">
-        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
-        <link refid="hovering__functors_8h"/>
-        <childnode refid="1528" relation="include">
+      <node id="3136">
+        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
+        <link refid="uav__system__handler_8h"/>
+        <childnode refid="3126" relation="include">
         </childnode>
       </node>
-      <node id="1530">
+      <node id="3127">
+        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
+        <link refid="land__functors_8h"/>
+        <childnode refid="3121" relation="include">
+        </childnode>
+      </node>
+      <node id="3131">
+        <label>include/aerial_autonomy/actions_guards/uav_status_functor.h</label>
+        <link refid="uav__status__functor_8h"/>
+        <childnode refid="3129" relation="include">
+        </childnode>
+        <childnode refid="3132" relation="include">
+        </childnode>
+      </node>
+      <node id="3121">
+        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
+        <link refid="uav__states__actions_8h"/>
+        <childnode refid="3122" relation="include">
+        </childnode>
+        <childnode refid="3125" relation="include">
+        </childnode>
+      </node>
+      <node id="3126">
         <label>src/system_handler_nodes/uav_system_node.cpp</label>
         <link refid="uav__system__node_8cpp"/>
       </node>
-      <node id="1533">
-        <label>include/aerial_autonomy/actions_guards/takeoff_functors.h</label>
-        <link refid="takeoff__functors_8h"/>
-        <childnode refid="1528" relation="include">
+      <node id="3122">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
+        <link refid="visual__servoing__states__actions_8h"/>
+        <childnode refid="3123" relation="include">
         </childnode>
       </node>
-      <node id="1526">
-        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
-        <link refid="uav__system_8h"/>
-        <childnode refid="1527" relation="include">
+      <node id="3133">
+        <label>include/aerial_autonomy/robot_systems/uav_vision_system.h</label>
+        <link refid="uav__vision__system_8h"/>
+        <childnode refid="3132" relation="include">
         </childnode>
-        <childnode refid="1531" relation="include">
+        <childnode refid="3123" relation="include">
         </childnode>
-        <childnode refid="1532" relation="include">
+        <childnode refid="3134" relation="include">
         </childnode>
-        <childnode refid="1533" relation="include">
-        </childnode>
-        <childnode refid="1529" relation="include">
-        </childnode>
-        <childnode refid="1534" relation="include">
-        </childnode>
-        <childnode refid="1535" relation="include">
+        <childnode refid="3135" relation="include">
         </childnode>
       </node>
-      <node id="1534">
-        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
-        <link refid="uav__system__handler_8h"/>
-        <childnode refid="1530" relation="include">
+      <node id="3118">
+        <label>include/aerial_autonomy/controllers/basic_controllers.h</label>
+        <link refid="basic__controllers_8h"/>
+        <childnode refid="3119" relation="include">
         </childnode>
       </node>
-      <node id="1528">
-        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
-        <link refid="uav__states__actions_8h"/>
-        <childnode refid="1529" relation="include">
-        </childnode>
-      </node>
-      <node id="1532">
+      <node id="3129">
         <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
         <link refid="position__control__functors_8h"/>
-        <childnode refid="1528" relation="include">
+        <childnode refid="3121" relation="include">
         </childnode>
       </node>
-      <node id="1531">
-        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
-        <link refid="land__functors_8h"/>
-        <childnode refid="1528" relation="include">
-        </childnode>
-      </node>
-      <node id="1524">
+      <node id="3117">
         <label>include/aerial_autonomy/controllers/builtin_controller.h</label>
         <link refid="builtin_controller.h"/>
-        <childnode refid="1525" relation="include">
+        <childnode refid="3118" relation="include">
+        </childnode>
+      </node>
+      <node id="3123">
+        <label>include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</label>
+        <link refid="visual__servoing__state__machine_8h"/>
+        <childnode refid="3124" relation="include">
+        </childnode>
+      </node>
+      <node id="3120">
+        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
+        <link refid="hovering__functors_8h"/>
+        <childnode refid="3121" relation="include">
+        </childnode>
+      </node>
+      <node id="3124">
+        <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
+        <link refid="uav__vision__system__node_8cpp"/>
+      </node>
+      <node id="3125">
+        <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
+        <link refid="uav__state__machine_8h"/>
+        <childnode refid="3126" relation="include">
+        </childnode>
+      </node>
+      <node id="3119">
+        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
+        <link refid="uav__system_8h"/>
+        <childnode refid="3120" relation="include">
+        </childnode>
+        <childnode refid="3127" relation="include">
+        </childnode>
+        <childnode refid="3128" relation="include">
+        </childnode>
+        <childnode refid="3129" relation="include">
+        </childnode>
+        <childnode refid="3130" relation="include">
+        </childnode>
+        <childnode refid="3131" relation="include">
+        </childnode>
+        <childnode refid="3133" relation="include">
+        </childnode>
+        <childnode refid="3125" relation="include">
+        </childnode>
+        <childnode refid="3136" relation="include">
+        </childnode>
+        <childnode refid="3135" relation="include">
+        </childnode>
+      </node>
+      <node id="3135">
+        <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
+        <link refid="sample__logic__state__machine_8h"/>
+      </node>
+      <node id="3134">
+        <label>include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</label>
+        <link refid="uav__vision__system__handler_8h"/>
+        <childnode refid="3124" relation="include">
+        </childnode>
+      </node>
+      <node id="3130">
+        <label>include/aerial_autonomy/actions_guards/takeoff_functors.h</label>
+        <link refid="takeoff__functors_8h"/>
+        <childnode refid="3121" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
     <innerclass refid="classBuiltInController" prot="public">BuiltInController</innerclass>
+    <innerclass refid="classBuiltInPositionController" prot="public">BuiltInPositionController</innerclass>
+    <innerclass refid="classBuiltInVelocityController" prot="public">BuiltInVelocityController</innerclass>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
@@ -118,19 +238,81 @@
     <programlisting>
 <codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
 <codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="base__controller_8h" kindref="compound">aerial_autonomy/controllers/base_controller.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="empty__sensor_8h" kindref="compound">aerial_autonomy/types/empty_sensor.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="4"><highlight class="normal"></highlight></codeline>
-<codeline lineno="8"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>GoalType&gt;</highlight></codeline>
-<codeline lineno="9" refid="classBuiltInController" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classBuiltInController" kindref="compound">BuiltInController</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classController" kindref="compound">Controller</ref>&lt;EmptySensor,<sp/>GoalType,<sp/>GoalType&gt;<sp/>{</highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="14" refid="classBuiltInController_1aea6ab422dc24222fb168a7e9522ec7c9" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classBuiltInController_1aea6ab422dc24222fb168a7e9522ec7c9" kindref="member">~BuiltInController</ref>()<sp/>{}</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"></highlight></codeline>
-<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="23" refid="classBuiltInController_1ab597ac5aa54f9865c0324fbcf5c0d7bd" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>GoalType<sp/><ref refid="classBuiltInController_1ab597ac5aa54f9865c0324fbcf5c0d7bd" kindref="member">runImplementation</ref>(<ref refid="structEmptySensor" kindref="compound">EmptySensor</ref><sp/>sensor_data,<sp/>GoalType<sp/>goal)<sp/>{</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>goal;</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="26"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="position__yaw_8h" kindref="compound">aerial_autonomy/types/position_yaw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="velocity__yaw_8h" kindref="compound">aerial_autonomy/types/velocity_yaw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;position_controller_config.pb.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;velocity_controller_config.pb.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>GoalType&gt;</highlight></codeline>
+<codeline lineno="12" refid="classBuiltInController" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classBuiltInController" kindref="compound">BuiltInController</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classController" kindref="compound">Controller</ref>&lt;GoalType,<sp/>GoalType,<sp/>GoalType&gt;<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="17" refid="classBuiltInController_1aea6ab422dc24222fb168a7e9522ec7c9" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classBuiltInController_1aea6ab422dc24222fb168a7e9522ec7c9" kindref="member">~BuiltInController</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="27" refid="classBuiltInController_1a74df6a6af0ef0c1ed49f50ecb80774e8" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classBuiltInController_1a74df6a6af0ef0c1ed49f50ecb80774e8" kindref="member">runImplementation</ref>(GoalType,<sp/>GoalType<sp/>goal,<sp/>GoalType<sp/>&amp;control)<sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>control<sp/>=<sp/>goal;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="classBuiltInPositionController" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classBuiltInPositionController" kindref="compound">BuiltInPositionController</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classBuiltInController" kindref="compound">BuiltInController</ref>&lt;PositionYaw&gt;<sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="43" refid="classBuiltInPositionController_1a03e769df6d60a73f4bc83960a49b77eb" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classBuiltInPositionController_1a03e769df6d60a73f4bc83960a49b77eb" kindref="member">BuiltInPositionController</ref>(PositionControllerConfig<sp/>config)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>config_(config)<sp/>{}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="classBuiltInPositionController_1a20f19446102441d3ef9fac13c4216691" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classBuiltInPositionController_1a20f19446102441d3ef9fac13c4216691" kindref="member">BuiltInPositionController</ref>()</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classBuiltInPositionController" kindref="compound">BuiltInPositionController</ref>(PositionControllerConfig())<sp/>{}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="62" refid="classBuiltInPositionController_1a797c182616418e13ea42610ae7bed71c" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classBuiltInPositionController_1a797c182616418e13ea42610ae7bed71c" kindref="member">isConvergedImplementation</ref>(<ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>current_position_yaw,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>goal)<sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>position_yaw_diff<sp/>=<sp/>current_position_yaw<sp/>-<sp/>goal;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;tolerance_pos<sp/>=<sp/>config_.goal_position_tolerance();</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;tolerance_yaw<sp/>=<sp/>config_.goal_yaw_tolerance();</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Compare</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::abs(position_yaw_diff.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>)<sp/>&lt;<sp/>tolerance_pos<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::abs(position_yaw_diff.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>)<sp/>&lt;<sp/>tolerance_pos<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::abs(position_yaw_diff.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>)<sp/>&lt;<sp/>tolerance_pos<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::abs(position_yaw_diff.<ref refid="structPositionYaw_1a712a15ba9739cb5f4e31ea973074b8bf" kindref="member">yaw</ref>)<sp/>&lt;<sp/>tolerance_yaw)<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>VLOG(1)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Reached<sp/>goal&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>PositionControllerConfig<sp/>config_;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88" refid="classBuiltInVelocityController" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classBuiltInVelocityController" kindref="compound">BuiltInVelocityController</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classBuiltInController" kindref="compound">BuiltInController</ref>&lt;VelocityYaw&gt;<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="95" refid="classBuiltInVelocityController_1ab4547721730a122298d9e1c0bee21bf3" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classBuiltInVelocityController_1ab4547721730a122298d9e1c0bee21bf3" kindref="member">BuiltInVelocityController</ref>(VelocityControllerConfig<sp/>config)</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>config_(config)<sp/>{}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101" refid="classBuiltInVelocityController_1aa4e105a8aa0ec2d1e32a3cd9bb9e996b" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classBuiltInVelocityController_1aa4e105a8aa0ec2d1e32a3cd9bb9e996b" kindref="member">BuiltInVelocityController</ref>()</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classBuiltInVelocityController" kindref="compound">BuiltInVelocityController</ref>(VelocityControllerConfig())<sp/>{}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="114" refid="classBuiltInVelocityController_1a4782d572397a29928703e6463fcc2e81" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classBuiltInVelocityController_1a4782d572397a29928703e6463fcc2e81" kindref="member">isConvergedImplementation</ref>(<ref refid="structVelocityYaw" kindref="compound">VelocityYaw</ref><sp/>current_velocity_yaw,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structVelocityYaw" kindref="compound">VelocityYaw</ref><sp/>goal)<sp/>{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structVelocityYaw" kindref="compound">VelocityYaw</ref><sp/>velocity_yaw_diff<sp/>=<sp/>current_velocity_yaw<sp/>-<sp/>goal;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;tolerance_pos<sp/>=<sp/>config_.goal_velocity_tolerance();</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;tolerance_yaw<sp/>=<sp/>config_.goal_yaw_tolerance();</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Compare</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::abs(velocity_yaw_diff.<ref refid="structVelocity_1a99a9f9580c8a025a2c7a18890993b56a" kindref="member">x</ref>)<sp/>&lt;<sp/>tolerance_pos<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::abs(velocity_yaw_diff.<ref refid="structVelocity_1ae1282d20e14cc4be4aac24ab4e1e3e5c" kindref="member">y</ref>)<sp/>&lt;<sp/>tolerance_pos<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::abs(velocity_yaw_diff.<ref refid="structVelocity_1aaebcd198674f7adcb61f9bb981dab465" kindref="member">z</ref>)<sp/>&lt;<sp/>tolerance_pos<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::abs(velocity_yaw_diff.<ref refid="structVelocityYaw_1a5bef45a2807a9814495080d2e5603ce4" kindref="member">yaw</ref>)<sp/>&lt;<sp/>tolerance_yaw)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>VLOG(1)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Reached<sp/>goal&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/>VelocityControllerConfig<sp/>config_;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h"/>
   </compounddef>
 </doxygen>

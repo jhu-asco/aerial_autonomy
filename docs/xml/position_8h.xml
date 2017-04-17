@@ -2,122 +2,292 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
   <compounddef id="position_8h" kind="file">
     <compoundname>position.h</compoundname>
+    <includes local="no">cmath</includes>
+    <includedby refid="base__tracker_8h" local="yes">include/aerial_autonomy/trackers/base_tracker.h</includedby>
+    <includedby refid="roi__to__position__converter_8h" local="yes">include/aerial_autonomy/trackers/roi_to_position_converter.h</includedby>
     <includedby refid="position__yaw_8h" local="yes">include/aerial_autonomy/types/position_yaw.h</includedby>
+    <incdepgraph>
+      <node id="3878">
+        <label>cmath</label>
+      </node>
+      <node id="3877">
+        <label>include/aerial_autonomy/types/position.h</label>
+        <link refid="position.h"/>
+        <childnode refid="3878" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
     <invincdepgraph>
-      <node id="1906">
-        <label>src/controller_hardware_connectors/position_controller_drone_connector.cpp</label>
-        <link refid="position__controller__drone__connector_8cpp"/>
-      </node>
-      <node id="1909">
-        <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
-        <link refid="uav__state__machine_8h"/>
-        <childnode refid="1910" relation="include">
+      <node id="3901">
+        <label>include/aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h</label>
+        <link refid="basic__controller__hardware__connectors_8h"/>
+        <childnode refid="3902" relation="include">
         </childnode>
       </node>
-      <node id="1917">
-        <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
-        <link refid="sample__logic__state__machine_8h"/>
-      </node>
-      <node id="1913">
-        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
-        <link refid="hovering__functors_8h"/>
-        <childnode refid="1908" relation="include">
+      <node id="3884">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_functors.h</label>
+        <link refid="visual__servoing__functors_8h"/>
+        <childnode refid="3885" relation="include">
         </childnode>
       </node>
-      <node id="1910">
+      <node id="3894">
+        <label>include/aerial_autonomy/types/position_yaw.h</label>
+        <link refid="position__yaw_8h"/>
+        <childnode refid="3895" relation="include">
+        </childnode>
+        <childnode refid="3881" relation="include">
+        </childnode>
+        <childnode refid="3909" relation="include">
+        </childnode>
+        <childnode refid="3911" relation="include">
+        </childnode>
+        <childnode refid="3913" relation="include">
+        </childnode>
+        <childnode refid="3915" relation="include">
+        </childnode>
+        <childnode refid="3889" relation="include">
+        </childnode>
+      </node>
+      <node id="3905">
+        <label>include/aerial_autonomy/actions_guards/manual_control_functors.h</label>
+        <link refid="manual__control__functors_8h"/>
+        <childnode refid="3898" relation="include">
+        </childnode>
+      </node>
+      <node id="3908">
+        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
+        <link refid="uav__system__handler_8h"/>
+        <childnode refid="3900" relation="include">
+        </childnode>
+      </node>
+      <node id="3904">
+        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
+        <link refid="land__functors_8h"/>
+        <childnode refid="3898" relation="include">
+        </childnode>
+      </node>
+      <node id="3907">
+        <label>include/aerial_autonomy/actions_guards/uav_status_functor.h</label>
+        <link refid="uav__status__functor_8h"/>
+        <childnode refid="3897" relation="include">
+        </childnode>
+        <childnode refid="3884" relation="include">
+        </childnode>
+      </node>
+      <node id="3898">
+        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
+        <link refid="uav__states__actions_8h"/>
+        <childnode refid="3885" relation="include">
+        </childnode>
+        <childnode refid="3899" relation="include">
+        </childnode>
+      </node>
+      <node id="3900">
         <label>src/system_handler_nodes/uav_system_node.cpp</label>
         <link refid="uav__system__node_8cpp"/>
       </node>
-      <node id="1915">
-        <label>include/aerial_autonomy/actions_guards/takeoff_functors.h</label>
-        <link refid="takeoff__functors_8h"/>
-        <childnode refid="1908" relation="include">
+      <node id="3881">
+        <label>include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h</label>
+        <link refid="visual__servoing__controller__drone__connector_8h"/>
+        <childnode refid="3882" relation="include">
+        </childnode>
+        <childnode refid="3883" relation="include">
         </childnode>
       </node>
-      <node id="1912">
-        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
-        <link refid="uav__system_8h"/>
-        <childnode refid="1913" relation="include">
-        </childnode>
-        <childnode refid="1914" relation="include">
-        </childnode>
-        <childnode refid="1907" relation="include">
-        </childnode>
-        <childnode refid="1915" relation="include">
-        </childnode>
-        <childnode refid="1909" relation="include">
-        </childnode>
-        <childnode refid="1916" relation="include">
-        </childnode>
-        <childnode refid="1917" relation="include">
-        </childnode>
-      </node>
-      <node id="1916">
-        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
-        <link refid="uav__system__handler_8h"/>
-        <childnode refid="1910" relation="include">
-        </childnode>
-      </node>
-      <node id="1919">
+      <node id="3916">
         <label>include/aerial_autonomy/system_handlers/common_system_handler.h</label>
         <link refid="common__system__handler_8h"/>
-        <childnode refid="1916" relation="include">
+        <childnode refid="3908" relation="include">
+        </childnode>
+        <childnode refid="3888" relation="include">
         </childnode>
       </node>
-      <node id="1911">
-        <label>include/aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h</label>
-        <link refid="basic__controller__hardware__connectors_8h"/>
-        <childnode refid="1912" relation="include">
+      <node id="3885">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
+        <link refid="visual__servoing__states__actions_8h"/>
+        <childnode refid="3886" relation="include">
         </childnode>
       </node>
-      <node id="1908">
-        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
-        <link refid="uav__states__actions_8h"/>
-        <childnode refid="1909" relation="include">
+      <node id="3883">
+        <label>include/aerial_autonomy/robot_systems/uav_vision_system.h</label>
+        <link refid="uav__vision__system_8h"/>
+        <childnode refid="3884" relation="include">
+        </childnode>
+        <childnode refid="3886" relation="include">
+        </childnode>
+        <childnode refid="3888" relation="include">
+        </childnode>
+        <childnode refid="3889" relation="include">
         </childnode>
       </node>
-      <node id="1907">
+      <node id="3910">
+        <label>include/aerial_autonomy/controllers/basic_controllers.h</label>
+        <link refid="basic__controllers_8h"/>
+        <childnode refid="3902" relation="include">
+        </childnode>
+      </node>
+      <node id="3880">
+        <label>include/aerial_autonomy/trackers/base_tracker.h</label>
+        <link refid="base__tracker_8h"/>
+        <childnode refid="3881" relation="include">
+        </childnode>
+        <childnode refid="3890" relation="include">
+        </childnode>
+        <childnode refid="3892" relation="include">
+        </childnode>
+      </node>
+      <node id="3897">
         <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
         <link refid="position__control__functors_8h"/>
-        <childnode refid="1908" relation="include">
+        <childnode refid="3898" relation="include">
         </childnode>
       </node>
-      <node id="1914">
-        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
-        <link refid="land__functors_8h"/>
-        <childnode refid="1908" relation="include">
+      <node id="3909">
+        <label>include/aerial_autonomy/controllers/builtin_controller.h</label>
+        <link refid="builtin__controller_8h"/>
+        <childnode refid="3910" relation="include">
         </childnode>
       </node>
-      <node id="1904">
-        <label>include/aerial_autonomy/types/position_yaw.h</label>
-        <link refid="position__yaw_8h"/>
-        <childnode refid="1905" relation="include">
-        </childnode>
-        <childnode refid="1918" relation="include">
-        </childnode>
-        <childnode refid="1917" relation="include">
-        </childnode>
-      </node>
-      <node id="1918">
+      <node id="3915">
         <label>include/aerial_autonomy/state_machines/state_machine_gui_connector.h</label>
         <link refid="state__machine__gui__connector_8h"/>
-        <childnode refid="1919" relation="include">
+        <childnode refid="3916" relation="include">
         </childnode>
       </node>
-      <node id="1903">
-        <label>include/aerial_autonomy/types/position.h</label>
-        <link refid="position.h"/>
-        <childnode refid="1904" relation="include">
+      <node id="3886">
+        <label>include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</label>
+        <link refid="visual__servoing__state__machine_8h"/>
+        <childnode refid="3887" relation="include">
         </childnode>
       </node>
-      <node id="1905">
+      <node id="3892">
+        <label>include/aerial_autonomy/trackers/simple_tracker.h</label>
+        <link refid="simple__tracker_8h"/>
+        <childnode refid="3893" relation="include">
+        </childnode>
+      </node>
+      <node id="3903">
+        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
+        <link refid="hovering__functors_8h"/>
+        <childnode refid="3898" relation="include">
+        </childnode>
+      </node>
+      <node id="3887">
+        <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
+        <link refid="uav__vision__system__node_8cpp"/>
+      </node>
+      <node id="3895">
         <label>include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h</label>
         <link refid="position__controller__drone__connector_8h"/>
-        <childnode refid="1906" relation="include">
+        <childnode refid="3896" relation="include">
         </childnode>
-        <childnode refid="1907" relation="include">
+        <childnode refid="3897" relation="include">
         </childnode>
-        <childnode refid="1911" relation="include">
+        <childnode refid="3901" relation="include">
+        </childnode>
+      </node>
+      <node id="3899">
+        <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
+        <link refid="uav__state__machine_8h"/>
+        <childnode refid="3900" relation="include">
+        </childnode>
+      </node>
+      <node id="3882">
+        <label>src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp</label>
+        <link refid="visual__servoing__controller__drone__connector_8cpp"/>
+      </node>
+      <node id="3890">
+        <label>include/aerial_autonomy/trackers/roi_to_position_converter.h</label>
+        <link refid="roi__to__position__converter_8h"/>
+        <childnode refid="3891" relation="include">
+        </childnode>
+        <childnode refid="3888" relation="include">
+        </childnode>
+      </node>
+      <node id="3914">
+        <label>src/controllers/velocity_based_position_controller.cpp</label>
+        <link refid="velocity__based__position__controller_8cpp"/>
+      </node>
+      <node id="3913">
+        <label>include/aerial_autonomy/controllers/velocity_based_position_controller.h</label>
+        <link refid="velocity__based__position__controller_8h"/>
+        <childnode refid="3914" relation="include">
+        </childnode>
+      </node>
+      <node id="3912">
+        <label>src/controllers/constant_heading_depth_controller.cpp</label>
+        <link refid="constant__heading__depth__controller_8cpp"/>
+      </node>
+      <node id="3896">
+        <label>src/controller_hardware_connectors/position_controller_drone_connector.cpp</label>
+        <link refid="position__controller__drone__connector_8cpp"/>
+      </node>
+      <node id="3891">
+        <label>src/trackers/roi_to_position_converter.cpp</label>
+        <link refid="roi__to__position__converter_8cpp"/>
+      </node>
+      <node id="3911">
+        <label>include/aerial_autonomy/controllers/constant_heading_depth_controller.h</label>
+        <link refid="constant__heading__depth__controller_8h"/>
+        <childnode refid="3912" relation="include">
+        </childnode>
+        <childnode refid="3881" relation="include">
+        </childnode>
+        <childnode refid="3883" relation="include">
+        </childnode>
+      </node>
+      <node id="3879">
+        <label>include/aerial_autonomy/types/position.h</label>
+        <link refid="position.h"/>
+        <childnode refid="3880" relation="include">
+        </childnode>
+        <childnode refid="3890" relation="include">
+        </childnode>
+        <childnode refid="3894" relation="include">
+        </childnode>
+      </node>
+      <node id="3902">
+        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
+        <link refid="uav__system_8h"/>
+        <childnode refid="3903" relation="include">
+        </childnode>
+        <childnode refid="3904" relation="include">
+        </childnode>
+        <childnode refid="3905" relation="include">
+        </childnode>
+        <childnode refid="3897" relation="include">
+        </childnode>
+        <childnode refid="3906" relation="include">
+        </childnode>
+        <childnode refid="3907" relation="include">
+        </childnode>
+        <childnode refid="3883" relation="include">
+        </childnode>
+        <childnode refid="3899" relation="include">
+        </childnode>
+        <childnode refid="3908" relation="include">
+        </childnode>
+        <childnode refid="3889" relation="include">
+        </childnode>
+      </node>
+      <node id="3893">
+        <label>src/trackers/simple_tracker.cpp</label>
+        <link refid="simple__tracker_8cpp"/>
+      </node>
+      <node id="3889">
+        <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
+        <link refid="sample__logic__state__machine_8h"/>
+      </node>
+      <node id="3888">
+        <label>include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</label>
+        <link refid="uav__vision__system__handler_8h"/>
+        <childnode refid="3887" relation="include">
+        </childnode>
+      </node>
+      <node id="3906">
+        <label>include/aerial_autonomy/actions_guards/takeoff_functors.h</label>
+        <link refid="takeoff__functors_8h"/>
+        <childnode refid="3898" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -128,20 +298,37 @@
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
-<codeline lineno="2"><highlight class="preprocessor"></highlight></codeline>
-<codeline lineno="5" refid="structPosition" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structPosition" kindref="compound">Position</ref><sp/>{</highlight></codeline>
-<codeline lineno="10" refid="structPosition_1a369a577425f8ba02e8750d04b6a088db" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structPosition_1a369a577425f8ba02e8750d04b6a088db" kindref="member">Position</ref>()<sp/>:<sp/><ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>(0),<sp/><ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>(0),<sp/><ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>(0)<sp/>{}</highlight></codeline>
-<codeline lineno="18" refid="structPosition_1a039074b4b66e3b570ea2f4e14583b0e0" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structPosition_1a039074b4b66e3b570ea2f4e14583b0e0" kindref="member">Position</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>)<sp/>:<sp/>x(x),<sp/>y(y),<sp/>z(z)<sp/>{}</highlight></codeline>
-<codeline lineno="19" refid="structPosition_1a9abbe738bad177de91fe4774099c1260" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>;<sp/></highlight></codeline>
-<codeline lineno="20" refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>;<sp/></highlight></codeline>
-<codeline lineno="21" refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>;<sp/></highlight></codeline>
-<codeline lineno="22"><highlight class="normal"></highlight></codeline>
-<codeline lineno="30" refid="structPosition_1abf82a72c9a5f64a4dfce9691bd3010ed" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structPosition_1abf82a72c9a5f64a4dfce9691bd3010ed" kindref="member">operator==</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>&amp;p)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref><sp/>==<sp/>p.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref><sp/>&amp;&amp;<sp/><ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref><sp/>==<sp/>p.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref><sp/>&amp;&amp;<sp/><ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref><sp/>==<sp/>p.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>);</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="structPosition" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structPosition" kindref="compound">Position</ref><sp/>{</highlight></codeline>
+<codeline lineno="13" refid="structPosition_1a369a577425f8ba02e8750d04b6a088db" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structPosition_1a369a577425f8ba02e8750d04b6a088db" kindref="member">Position</ref>()<sp/>:<sp/><ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>(0),<sp/><ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>(0),<sp/><ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>(0)<sp/>{}</highlight></codeline>
+<codeline lineno="21" refid="structPosition_1a039074b4b66e3b570ea2f4e14583b0e0" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structPosition_1a039074b4b66e3b570ea2f4e14583b0e0" kindref="member">Position</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>)<sp/>:<sp/>x(x),<sp/>y(y),<sp/>z(z)<sp/>{}</highlight></codeline>
+<codeline lineno="22" refid="structPosition_1a9abbe738bad177de91fe4774099c1260" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>;<sp/></highlight></codeline>
+<codeline lineno="23" refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>;<sp/></highlight></codeline>
+<codeline lineno="24" refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>;<sp/></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30" refid="structPosition_1a40e46af3ea52c99e607030a96c89cfc3" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structPosition_1a40e46af3ea52c99e607030a96c89cfc3" kindref="member">norm</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::sqrt(std::pow(<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>,<sp/>2)<sp/>+<sp/>std::pow(<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>,<sp/>2)<sp/>+<sp/>std::pow(<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>,<sp/>2));</highlight></codeline>
 <codeline lineno="32"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="40" refid="structPosition_1aac2ef88bfed1a5370bb4c2921046e9c0" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structPosition_1aac2ef88bfed1a5370bb4c2921046e9c0" kindref="member">operator!=</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>&amp;p)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!(*</highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>==<sp/>p);<sp/>}</highlight></codeline>
-<codeline lineno="41"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="structPosition_1abf82a72c9a5f64a4dfce9691bd3010ed" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structPosition_1abf82a72c9a5f64a4dfce9691bd3010ed" kindref="member">operator==</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>&amp;p)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref><sp/>==<sp/>p.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref><sp/>&amp;&amp;<sp/><ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref><sp/>==<sp/>p.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref><sp/>&amp;&amp;<sp/><ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref><sp/>==<sp/>p.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="51" refid="structPosition_1aac2ef88bfed1a5370bb4c2921046e9c0" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structPosition_1aac2ef88bfed1a5370bb4c2921046e9c0" kindref="member">operator!=</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>&amp;p)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!(*</highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>==<sp/>p);<sp/>}</highlight></codeline>
+<codeline lineno="57" refid="structPosition_1ac03f54aeec429d94d1fd6b2050b432b3" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/><ref refid="structPosition_1ac03f54aeec429d94d1fd6b2050b432b3" kindref="member">operator+</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>&amp;p)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structPosition_1a369a577425f8ba02e8750d04b6a088db" kindref="member">Position</ref>(p.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref><sp/>+<sp/>this-&gt;x,<sp/>p.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref><sp/>+<sp/>this-&gt;y,<sp/>p.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref><sp/>+<sp/>this-&gt;z);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="65" refid="structPosition_1a9e6f90b2c5ace8250c55dcc5602b3d01" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/><ref refid="structPosition_1a9e6f90b2c5ace8250c55dcc5602b3d01" kindref="member">operator-</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>&amp;p)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structPosition_1a369a577425f8ba02e8750d04b6a088db" kindref="member">Position</ref>(this-&gt;<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref><sp/>-<sp/>p.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>,<sp/>this-&gt;y<sp/>-<sp/>p.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>,<sp/>this-&gt;z<sp/>-<sp/>p.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="structPosition_1a673c979cfd85c06ebe727e7195c52109" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/><ref refid="structPosition_1a673c979cfd85c06ebe727e7195c52109" kindref="member">operator*</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;m)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structPosition_1a369a577425f8ba02e8750d04b6a088db" kindref="member">Position</ref>(this-&gt;<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref><sp/>*<sp/>m,<sp/>this-&gt;<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref><sp/>*<sp/>m,<sp/>this-&gt;<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref><sp/>*<sp/>m);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82" refid="structPosition_1a58f4f48dc96ae023fa19cb0ae5ddd3f7" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/><ref refid="structPosition_1a58f4f48dc96ae023fa19cb0ae5ddd3f7" kindref="member">operator/</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;m)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;<ref refid="structPosition_1a673c979cfd85c06ebe727e7195c52109" kindref="member">operator*</ref>(1.<sp/>/<sp/>m);<sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position.h"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position.h"/>
   </compounddef>
 </doxygen>

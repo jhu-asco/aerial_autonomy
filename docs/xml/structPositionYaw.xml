@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" line="33" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" bodystart="33" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" line="51" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" bodystart="51" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -31,7 +31,7 @@
 <para>Instantiate position and yaw to zero </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" line="15" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" bodystart="15" bodyend="15"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" line="16" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" bodystart="16" bodyend="16"/>
       </memberdef>
       <memberdef kind="function" id="structPositionYaw_1a0a03ecfbad91c4c48a6aed44f4933a74" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -67,7 +67,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" line="22" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" bodystart="22" bodyend="22"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" line="23" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" bodystart="23" bodyend="23"/>
       </memberdef>
       <memberdef kind="function" id="structPositionYaw_1ae5642ce9e93710cf9cda7263511300f0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -125,7 +125,46 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" line="31" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" bodystart="31" bodyend="32"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" line="32" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" bodystart="32" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="structPositionYaw_1a53f39ab3b9bd509242e33362339181cf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+        <definition>Position PositionYaw::position</definition>
+        <argsstring>()</argsstring>
+        <name>position</name>
+        <briefdescription>
+<para>Return position. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>position </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" line="39" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" bodystart="39" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="structPositionYaw_1a05216e850c35e7e170daa29ad31e2386" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PositionYaw::setPosition</definition>
+        <argsstring>(const Position &amp;p)</argsstring>
+        <name>setPosition</name>
+        <param>
+          <type>const <ref refid="structPosition" kindref="compound">Position</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Set the <ref refid="structPosition" kindref="compound">Position</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="structPosition" kindref="compound">Position</ref> to set </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" line="45" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" bodystart="45" bodyend="49"/>
       </memberdef>
       <memberdef kind="function" id="structPositionYaw_1a74eb4415b12fe9c42e102e82d2bd52cb" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -151,7 +190,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" line="42" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" bodystart="42" bodyend="44"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" line="60" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" bodystart="60" bodyend="62"/>
       </memberdef>
       <memberdef kind="function" id="structPositionYaw_1a9302e53f05d5d07d11dcdd1d0c23610b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -170,14 +209,66 @@
 <parametername>p</parametername>
 </parameternamelist>
 <parameterdescription>
-<para><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref> to compare against</para></parameterdescription>
+<para><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref> to add</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>True if position and yaw are not the same </para></simplesect>
+<simplesect kind="return"><para>True if position and yaw are different </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" line="52" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" bodystart="52" bodyend="52"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" line="70" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" bodystart="70" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="structPositionYaw_1abaa72beb6c3bc0aa74763cd65d99dcac" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref></type>
+        <definition>PositionYaw PositionYaw::operator+</definition>
+        <argsstring>(const PositionYaw &amp;p) const </argsstring>
+        <name>operator+</name>
+        <param>
+          <type>const <ref refid="structPositionYaw" kindref="compound">PositionYaw</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Add two position and yaw entities. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref> to add </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Sum of position and yaw </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" line="76" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" bodystart="76" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="structPositionYaw_1ab8d7f9429f1cd3ad61bfc6b3741b90e0" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref></type>
+        <definition>PositionYaw PositionYaw::operator-</definition>
+        <argsstring>(const PositionYaw &amp;p) const </argsstring>
+        <name>operator-</name>
+        <param>
+          <type>const <ref refid="structPositionYaw" kindref="compound">PositionYaw</ref> &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Subtract two position and yaw entities. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref> to subtract </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Difference of position and yaw </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" line="86" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" bodystart="86" bodyend="90"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -185,40 +276,49 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="352">
+      <node id="523">
         <label>Position</label>
         <link refid="structPosition"/>
       </node>
-      <node id="351">
+      <node id="522">
         <label>PositionYaw</label>
         <link refid="structPositionYaw"/>
-        <childnode refid="352" relation="public-inheritance">
+        <childnode refid="523" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="354">
+      <node id="525">
         <label>Position</label>
         <link refid="structPosition"/>
       </node>
-      <node id="353">
+      <node id="524">
         <label>PositionYaw</label>
         <link refid="structPositionYaw"/>
-        <childnode refid="354" relation="public-inheritance">
+        <childnode refid="525" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" line="9" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" bodystart="9" bodyend="53"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" line="10" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/position_yaw.h" bodystart="10" bodyend="91"/>
     <listofallmembers>
+      <member refid="structPosition_1a40e46af3ea52c99e607030a96c89cfc3" prot="public" virt="non-virtual"><scope>PositionYaw</scope><name>norm</name></member>
       <member refid="structPositionYaw_1a9302e53f05d5d07d11dcdd1d0c23610b" prot="public" virt="non-virtual"><scope>PositionYaw</scope><name>operator!=</name></member>
       <member refid="structPosition_1aac2ef88bfed1a5370bb4c2921046e9c0" prot="public" virt="non-virtual" ambiguityscope="Position::"><scope>PositionYaw</scope><name>operator!=</name></member>
+      <member refid="structPosition_1a673c979cfd85c06ebe727e7195c52109" prot="public" virt="non-virtual"><scope>PositionYaw</scope><name>operator*</name></member>
+      <member refid="structPositionYaw_1abaa72beb6c3bc0aa74763cd65d99dcac" prot="public" virt="non-virtual"><scope>PositionYaw</scope><name>operator+</name></member>
+      <member refid="structPosition_1ac03f54aeec429d94d1fd6b2050b432b3" prot="public" virt="non-virtual" ambiguityscope="Position::"><scope>PositionYaw</scope><name>operator+</name></member>
+      <member refid="structPositionYaw_1ab8d7f9429f1cd3ad61bfc6b3741b90e0" prot="public" virt="non-virtual"><scope>PositionYaw</scope><name>operator-</name></member>
+      <member refid="structPosition_1a9e6f90b2c5ace8250c55dcc5602b3d01" prot="public" virt="non-virtual" ambiguityscope="Position::"><scope>PositionYaw</scope><name>operator-</name></member>
+      <member refid="structPosition_1a58f4f48dc96ae023fa19cb0ae5ddd3f7" prot="public" virt="non-virtual"><scope>PositionYaw</scope><name>operator/</name></member>
       <member refid="structPositionYaw_1a74eb4415b12fe9c42e102e82d2bd52cb" prot="public" virt="non-virtual"><scope>PositionYaw</scope><name>operator==</name></member>
       <member refid="structPosition_1abf82a72c9a5f64a4dfce9691bd3010ed" prot="public" virt="non-virtual" ambiguityscope="Position::"><scope>PositionYaw</scope><name>operator==</name></member>
+      <member refid="structPositionYaw_1a53f39ab3b9bd509242e33362339181cf" prot="public" virt="non-virtual"><scope>PositionYaw</scope><name>position</name></member>
       <member refid="structPosition_1a369a577425f8ba02e8750d04b6a088db" prot="public" virt="non-virtual"><scope>PositionYaw</scope><name>Position</name></member>
       <member refid="structPosition_1a039074b4b66e3b570ea2f4e14583b0e0" prot="public" virt="non-virtual"><scope>PositionYaw</scope><name>Position</name></member>
       <member refid="structPositionYaw_1a27f89c7703b62e5120c669822c98bcf1" prot="public" virt="non-virtual"><scope>PositionYaw</scope><name>PositionYaw</name></member>
       <member refid="structPositionYaw_1a0a03ecfbad91c4c48a6aed44f4933a74" prot="public" virt="non-virtual"><scope>PositionYaw</scope><name>PositionYaw</name></member>
       <member refid="structPositionYaw_1ae5642ce9e93710cf9cda7263511300f0" prot="public" virt="non-virtual"><scope>PositionYaw</scope><name>PositionYaw</name></member>
+      <member refid="structPositionYaw_1a05216e850c35e7e170daa29ad31e2386" prot="public" virt="non-virtual"><scope>PositionYaw</scope><name>setPosition</name></member>
       <member refid="structPosition_1a9abbe738bad177de91fe4774099c1260" prot="public" virt="non-virtual"><scope>PositionYaw</scope><name>x</name></member>
       <member refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" prot="public" virt="non-virtual"><scope>PositionYaw</scope><name>y</name></member>
       <member refid="structPositionYaw_1a712a15ba9739cb5f4e31ea973074b8bf" prot="public" virt="non-virtual"><scope>PositionYaw</scope><name>yaw</name></member>

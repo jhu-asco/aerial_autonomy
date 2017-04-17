@@ -7,11 +7,13 @@
     <innerfile refid="empty__sensor_8h">empty_sensor.h</innerfile>
     <innerfile refid="joysticks_8h">joysticks.h</innerfile>
     <innerfile refid="joysticks__yaw_8h">joysticks_yaw.h</innerfile>
+    <innerfile refid="manual__control__event_8h">manual_control_event.h</innerfile>
     <innerfile refid="position_8h">position.h</innerfile>
     <innerfile refid="position__yaw_8h">position_yaw.h</innerfile>
     <innerfile refid="roll__pitch__yaw__thrust_8h">roll_pitch_yaw_thrust.h</innerfile>
     <innerfile refid="velocity_8h">velocity.h</innerfile>
     <innerfile refid="velocity__yaw_8h">velocity_yaw.h</innerfile>
+    <innerfile refid="velocity__yaw__rate_8h">velocity_yaw_rate.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

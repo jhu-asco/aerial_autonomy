@@ -8,6 +8,6 @@
 <para>GUI source code to provide user the ability to trigger events from GUI to state machine. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/aerial_autonomy/__init__.py" line="1" column="1"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/__init__.py" line="1" column="1"/>
   </compounddef>
 </doxygen>

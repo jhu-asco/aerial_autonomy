@@ -127,6 +127,6 @@
 <codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msg.data<sp/>=<sp/>event_name</highlight></codeline>
 <codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>self.event_pub.publish(msg)</highlight></codeline>
     </programlisting>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py"/>
   </compounddef>
 </doxygen>

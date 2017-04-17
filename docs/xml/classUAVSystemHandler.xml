@@ -23,7 +23,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="73" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="73" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="73" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="73" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classUAVSystemHandler_1adf614e55a77755d34ac2485b0734e9c8" prot="private" static="no" mutable="no">
         <type>std::unique_ptr&lt; parsernode::Parser &gt;</type>
@@ -36,7 +36,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="74" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="74" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="74" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="74" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classUAVSystemHandler_1a61c73fcaa012e6158ddcecc1d0fe6488" prot="private" static="no" mutable="no">
         <type><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref></type>
@@ -49,7 +49,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="75" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="75" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="75" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="75" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classUAVSystemHandler_1ab3e6f38f8fd43f140ef5aac5c0fd46b8" prot="private" static="no" mutable="no">
         <type><ref refid="classCommonSystemHandler" kindref="compound">CommonSystemHandler</ref>&lt; LogicStateMachineT, EventManagerT, <ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &gt;</type>
@@ -62,7 +62,7 @@
 <para>Common logic to create state machine and associated connections. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="77" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="77" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="77" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classUAVSystemHandler_1a64bfdfb5262cd735b9be121bc9e89594" prot="private" static="no" mutable="no">
         <type><ref refid="classAsyncTimer" kindref="compound">AsyncTimer</ref></type>
@@ -75,7 +75,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="79" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="79" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="79" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="79" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -113,7 +113,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="30" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="30" bodyend="46"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="30" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="30" bodyend="46"/>
       </memberdef>
       <memberdef kind="function" id="classUAVSystemHandler_1ab237ab8f0b450b8c892c3fac54721915" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -129,7 +129,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="51" column="1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="51" column="1"/>
       </memberdef>
       <memberdef kind="function" id="classUAVSystemHandler_1afccb7be9be7dba4a53d56ae5cc35a70a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>parsernode::common::quaddata</type>
@@ -143,7 +143,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="57" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="57" bodyend="61"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="57" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="57" bodyend="61"/>
       </memberdef>
       <memberdef kind="function" id="classUAVSystemHandler_1a8f37acafac0f41296058d0f6bb144893" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -157,7 +157,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="69" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="69" bodyend="69"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="69" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="69" bodyend="69"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -179,7 +179,7 @@
 </parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="23" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="23" bodyend="80"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" line="23" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_system_handler.h" bodystart="23" bodyend="80"/>
     <listofallmembers>
       <member refid="classUAVSystemHandler_1ab3e6f38f8fd43f140ef5aac5c0fd46b8" prot="private" virt="non-virtual"><scope>UAVSystemHandler</scope><name>common_handler_</name></member>
       <member refid="classUAVSystemHandler_1afccb7be9be7dba4a53d56ae5cc35a70a" prot="public" virt="non-virtual"><scope>UAVSystemHandler</scope><name>getUAVData</name></member>

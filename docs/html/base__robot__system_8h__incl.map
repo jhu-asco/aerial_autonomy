@@ -1,6 +1,6 @@
 <map id="include/aerial_autonomy/robot_systems/base_robot_system.h" name="include/aerial_autonomy/robot_systems/base_robot_system.h">
-<area shape="rect" id="node2" href="$base__controller__hardware__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/base\l_controller_hardware_connector.h" alt="" coords="5,109,221,165"/>
-<area shape="rect" id="node5" href="$type__map_8h.html" title="aerial_autonomy/common\l/type_map.h" alt="" coords="297,117,468,158"/>
-<area shape="rect" id="node8" href="$iterable__enum_8h.html" title="aerial_autonomy/common\l/iterable_enum.h" alt="" coords="492,117,663,158"/>
-<area shape="rect" id="node3" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="32,214,213,255"/>
+<area shape="rect" id="node2" href="$base__controller__hardware__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/base\l_controller_hardware_connector.h" alt="" coords="97,109,313,165"/>
+<area shape="rect" id="node6" href="$type__map_8h.html" title="aerial_autonomy/common\l/type_map.h" alt="" coords="389,117,560,158"/>
+<area shape="rect" id="node9" href="$iterable__enum_8h.html" title="aerial_autonomy/common\l/iterable_enum.h" alt="" coords="584,117,755,158"/>
+<area shape="rect" id="node3" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="5,214,187,255"/>
 </map>

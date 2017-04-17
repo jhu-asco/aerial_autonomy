@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structEmptyRobotSystem.html" title="Robot system that does not perform any actions. " alt="" coords="6,5,146,32"/>
+<area shape="rect" id="node1" href="$classController.html" title="Controller\&lt; PositionYaw,\l PositionYaw, VelocityYaw \&gt;" alt="" coords="5,5,197,46"/>
+<area shape="rect" id="node2" href="$classVelocityBasedPositionController.html" title="A position controller that sends velocity commands to the hardware. " alt="" coords="246,12,455,39"/>
 </map>

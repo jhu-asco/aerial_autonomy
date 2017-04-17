@@ -10,69 +10,104 @@
     <includes refid="position__yaw_8h" local="no">aerial_autonomy/types/position_yaw.h</includes>
     <includedby refid="common__system__handler_8h" local="no">include/aerial_autonomy/system_handlers/common_system_handler.h</includedby>
     <incdepgraph>
-      <node id="1640">
-        <label>glog/logging.h</label>
-      </node>
-      <node id="1643">
-        <label>tf_conversions/tf_eigen.h</label>
-      </node>
-      <node id="1639">
-        <label>geometry_msgs/PoseStamped.h</label>
-      </node>
-      <node id="1641">
-        <label>ros/ros.h</label>
-      </node>
-      <node id="1642">
-        <label>std_msgs/String.h</label>
-      </node>
-      <node id="1644">
+      <node id="3381">
         <label>aerial_autonomy/types/position_yaw.h</label>
         <link refid="position__yaw_8h"/>
-        <childnode refid="1645" relation="include">
+        <childnode refid="3382" relation="include">
+        </childnode>
+        <childnode refid="3384" relation="include">
         </childnode>
       </node>
-      <node id="1638">
+      <node id="3377">
+        <label>glog/logging.h</label>
+      </node>
+      <node id="3383">
+        <label>cmath</label>
+      </node>
+      <node id="3385">
+        <label>stdexcept</label>
+      </node>
+      <node id="3380">
+        <label>tf_conversions/tf_eigen.h</label>
+      </node>
+      <node id="3386">
+        <label>tf/tf.h</label>
+      </node>
+      <node id="3375">
         <label>include/aerial_autonomy/state_machines/state_machine_gui_connector.h</label>
         <link refid="state_machine_gui_connector.h"/>
-        <childnode refid="1639" relation="include">
+        <childnode refid="3376" relation="include">
         </childnode>
-        <childnode refid="1640" relation="include">
+        <childnode refid="3377" relation="include">
         </childnode>
-        <childnode refid="1641" relation="include">
+        <childnode refid="3378" relation="include">
         </childnode>
-        <childnode refid="1642" relation="include">
+        <childnode refid="3379" relation="include">
         </childnode>
-        <childnode refid="1643" relation="include">
+        <childnode refid="3380" relation="include">
         </childnode>
-        <childnode refid="1644" relation="include">
+        <childnode refid="3381" relation="include">
         </childnode>
       </node>
-      <node id="1645">
+      <node id="3376">
+        <label>geometry_msgs/PoseStamped.h</label>
+      </node>
+      <node id="3378">
+        <label>ros/ros.h</label>
+      </node>
+      <node id="3379">
+        <label>std_msgs/String.h</label>
+      </node>
+      <node id="3384">
+        <label>aerial_autonomy/common/math.h</label>
+        <link refid="math_8h"/>
+        <childnode refid="3383" relation="include">
+        </childnode>
+        <childnode refid="3385" relation="include">
+        </childnode>
+        <childnode refid="3386" relation="include">
+        </childnode>
+      </node>
+      <node id="3382">
         <label>aerial_autonomy/types/position.h</label>
         <link refid="position_8h"/>
+        <childnode refid="3383" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1649">
+      <node id="3389">
+        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
+        <link refid="uav__system__handler_8h"/>
+        <childnode refid="3390" relation="include">
+        </childnode>
+      </node>
+      <node id="3390">
         <label>src/system_handler_nodes/uav_system_node.cpp</label>
         <link refid="uav__system__node_8cpp"/>
       </node>
-      <node id="1648">
-        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
-        <link refid="uav__system__handler_8h"/>
-        <childnode refid="1649" relation="include">
-        </childnode>
-      </node>
-      <node id="1647">
+      <node id="3388">
         <label>include/aerial_autonomy/system_handlers/common_system_handler.h</label>
         <link refid="common__system__handler_8h"/>
-        <childnode refid="1648" relation="include">
+        <childnode refid="3389" relation="include">
+        </childnode>
+        <childnode refid="3391" relation="include">
         </childnode>
       </node>
-      <node id="1646">
+      <node id="3387">
         <label>include/aerial_autonomy/state_machines/state_machine_gui_connector.h</label>
         <link refid="state_machine_gui_connector.h"/>
-        <childnode refid="1647" relation="include">
+        <childnode refid="3388" relation="include">
+        </childnode>
+      </node>
+      <node id="3392">
+        <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
+        <link refid="uav__vision__system__node_8cpp"/>
+      </node>
+      <node id="3391">
+        <label>include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</label>
+        <link refid="uav__vision__system__handler_8h"/>
+        <childnode refid="3392" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -138,6 +173,6 @@
 <codeline lineno="101"><highlight class="normal"><sp/><sp/>LogicStateMachineT<sp/>&amp;logic_state_machine_;</highlight></codeline>
 <codeline lineno="102"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h"/>
   </compounddef>
 </doxygen>

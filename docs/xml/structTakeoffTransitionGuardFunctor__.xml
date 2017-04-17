@@ -45,7 +45,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" line="51" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" bodystart="51" bodyend="63"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" line="46" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" bodystart="46" bodyend="58"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -61,30 +61,30 @@
 </parameterlist>
 </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="388">
+      <node id="567">
         <label>TakeoffTransitionGuardFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structTakeoffTransitionGuardFunctor__"/>
-        <childnode refid="389" relation="public-inheritance">
+        <childnode refid="568" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="389">
+      <node id="568">
         <label>EventAgnosticGuardFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticGuardFunctor"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="390">
+      <node id="569">
         <label>TakeoffTransitionGuardFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structTakeoffTransitionGuardFunctor__"/>
-        <childnode refid="391" relation="public-inheritance">
+        <childnode refid="570" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="391">
+      <node id="570">
         <label>EventAgnosticGuardFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticGuardFunctor"/>
       </node>
     </collaborationgraph>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" line="50" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" bodystart="49" bodyend="64"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" line="45" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" bodystart="44" bodyend="59"/>
     <listofallmembers>
       <member refid="structTakeoffTransitionGuardFunctor___1abef370db0002076671a6f9c2adb9bbaa" prot="public" virt="virtual"><scope>TakeoffTransitionGuardFunctor_</scope><name>guard</name></member>
       <member refid="structEventAgnosticGuardFunctor_1a775411c4c4e0815298200f895af3c02b" prot="public" virt="non-virtual"><scope>TakeoffTransitionGuardFunctor_</scope><name>operator()</name></member>

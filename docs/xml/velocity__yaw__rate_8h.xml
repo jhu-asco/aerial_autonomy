@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="velocity__yaw__rate_8h" kind="file">
+    <compoundname>velocity_yaw_rate.h</compoundname>
+    <includes refid="velocity_8h" local="yes">aerial_autonomy/types/velocity.h</includes>
+    <includedby refid="constant__heading__depth__controller_8h" local="yes">include/aerial_autonomy/controllers/constant_heading_depth_controller.h</includedby>
+    <incdepgraph>
+      <node id="4048">
+        <label>include/aerial_autonomy/types/velocity_yaw_rate.h</label>
+        <link refid="velocity_yaw_rate.h"/>
+        <childnode refid="4049" relation="include">
+        </childnode>
+      </node>
+      <node id="4049">
+        <label>aerial_autonomy/types/velocity.h</label>
+        <link refid="velocity_8h"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4056">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_functors.h</label>
+        <link refid="visual__servoing__functors_8h"/>
+        <childnode refid="4057" relation="include">
+        </childnode>
+      </node>
+      <node id="4053">
+        <label>include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h</label>
+        <link refid="visual__servoing__controller__drone__connector_8h"/>
+        <childnode refid="4054" relation="include">
+        </childnode>
+        <childnode refid="4055" relation="include">
+        </childnode>
+      </node>
+      <node id="4057">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
+        <link refid="visual__servoing__states__actions_8h"/>
+        <childnode refid="4058" relation="include">
+        </childnode>
+      </node>
+      <node id="4055">
+        <label>include/aerial_autonomy/robot_systems/uav_vision_system.h</label>
+        <link refid="uav__vision__system_8h"/>
+        <childnode refid="4056" relation="include">
+        </childnode>
+        <childnode refid="4058" relation="include">
+        </childnode>
+        <childnode refid="4060" relation="include">
+        </childnode>
+        <childnode refid="4061" relation="include">
+        </childnode>
+      </node>
+      <node id="4050">
+        <label>include/aerial_autonomy/types/velocity_yaw_rate.h</label>
+        <link refid="velocity_yaw_rate.h"/>
+        <childnode refid="4051" relation="include">
+        </childnode>
+      </node>
+      <node id="4058">
+        <label>include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</label>
+        <link refid="visual__servoing__state__machine_8h"/>
+        <childnode refid="4059" relation="include">
+        </childnode>
+      </node>
+      <node id="4059">
+        <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
+        <link refid="uav__vision__system__node_8cpp"/>
+      </node>
+      <node id="4054">
+        <label>src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp</label>
+        <link refid="visual__servoing__controller__drone__connector_8cpp"/>
+      </node>
+      <node id="4052">
+        <label>src/controllers/constant_heading_depth_controller.cpp</label>
+        <link refid="constant__heading__depth__controller_8cpp"/>
+      </node>
+      <node id="4051">
+        <label>include/aerial_autonomy/controllers/constant_heading_depth_controller.h</label>
+        <link refid="constant__heading__depth__controller_8h"/>
+        <childnode refid="4052" relation="include">
+        </childnode>
+        <childnode refid="4053" relation="include">
+        </childnode>
+        <childnode refid="4055" relation="include">
+        </childnode>
+      </node>
+      <node id="4061">
+        <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
+        <link refid="sample__logic__state__machine_8h"/>
+      </node>
+      <node id="4060">
+        <label>include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</label>
+        <link refid="uav__vision__system__handler_8h"/>
+        <childnode refid="4059" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structVelocityYawRate" prot="public">VelocityYawRate</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="velocity_8h" kindref="compound">aerial_autonomy/types/velocity.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="structVelocityYawRate" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structVelocityYawRate" kindref="compound">VelocityYawRate</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="structVelocity" kindref="compound">Velocity</ref><sp/>{</highlight></codeline>
+<codeline lineno="12" refid="structVelocityYawRate_1a019fbd52facffb5497b2546f21c4457b" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structVelocityYawRate_1a019fbd52facffb5497b2546f21c4457b" kindref="member">VelocityYawRate</ref>()<sp/>:<sp/><ref refid="structVelocity" kindref="compound">Velocity</ref>(),<sp/><ref refid="structVelocityYawRate_1a0038cbd604b5260e0aab9709715e7366" kindref="member">yaw_rate</ref>(0)<sp/>{}</highlight></codeline>
+<codeline lineno="19" refid="structVelocityYawRate_1a9037a36323ee1fc339cdf8c05ef66966" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structVelocityYawRate_1a9037a36323ee1fc339cdf8c05ef66966" kindref="member">VelocityYawRate</ref>(<ref refid="structVelocity" kindref="compound">Velocity</ref><sp/>v,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structVelocityYawRate_1a0038cbd604b5260e0aab9709715e7366" kindref="member">yaw_rate</ref>)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="structVelocity" kindref="compound">Velocity</ref>(v),<sp/>yaw_rate(yaw_rate)<sp/>{}</highlight></codeline>
+<codeline lineno="29" refid="structVelocityYawRate_1a307b357ff482bfe724962a1677d4de7c" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structVelocityYawRate_1a307b357ff482bfe724962a1677d4de7c" kindref="member">VelocityYawRate</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structVelocity_1a99a9f9580c8a025a2c7a18890993b56a" kindref="member">x</ref>,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structVelocity_1ae1282d20e14cc4be4aac24ab4e1e3e5c" kindref="member">y</ref>,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structVelocity_1aaebcd198674f7adcb61f9bb981dab465" kindref="member">z</ref>,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structVelocityYawRate_1a0038cbd604b5260e0aab9709715e7366" kindref="member">yaw_rate</ref>)</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="structVelocity" kindref="compound">Velocity</ref>(x,<sp/>y,<sp/>z),<sp/>yaw_rate(yaw_rate)<sp/>{}</highlight></codeline>
+<codeline lineno="31" refid="structVelocityYawRate_1a0038cbd604b5260e0aab9709715e7366" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structVelocityYawRate_1a0038cbd604b5260e0aab9709715e7366" kindref="member">yaw_rate</ref>;<sp/></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="structVelocityYawRate_1a48111f21a8dc2b54306caa6ac16a85eb" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structVelocityYawRate_1a48111f21a8dc2b54306caa6ac16a85eb" kindref="member">operator==</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structVelocityYawRate" kindref="compound">VelocityYawRate</ref><sp/>&amp;v)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Velocity::operator==(v)<sp/>&amp;&amp;<sp/><ref refid="structVelocityYawRate_1a0038cbd604b5260e0aab9709715e7366" kindref="member">yaw_rate</ref><sp/>==<sp/>v.<ref refid="structVelocityYawRate_1a0038cbd604b5260e0aab9709715e7366" kindref="member">yaw_rate</ref>);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="50" refid="structVelocityYawRate_1a049a750c4d53c20f70329b7cdd702116" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structVelocityYawRate_1a049a750c4d53c20f70329b7cdd702116" kindref="member">operator!=</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structVelocityYawRate" kindref="compound">VelocityYawRate</ref><sp/>&amp;v)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!(*</highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>==<sp/>v);<sp/>}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/velocity_yaw_rate.h"/>
+  </compounddef>
+</doxygen>

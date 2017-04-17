@@ -73,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -118,9 +118,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ac85b5cc721914cb7d265a35b155037af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#ac85b5cc721914cb7d265a35b155037af">More...</a><br/></td></tr>
 <tr class="separator:ac85b5cc721914cb7d265a35b155037af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classController"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classController')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classController.html">Controller&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</a></td></tr>
-<tr class="memitem:a5caae261ff8a9f299cb8d220fbaf204b inherit pub_methods_classController"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structRollPitchYawThrust.html">RollPitchYawThrust</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#a5caae261ff8a9f299cb8d220fbaf204b">run</a> (JoysticksYawsensor_data)</td></tr>
-<tr class="memdesc:a5caae261ff8a9f299cb8d220fbaf204b inherit pub_methods_classController"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the control loop and return control arguments.  <a href="#a5caae261ff8a9f299cb8d220fbaf204b">More...</a><br/></td></tr>
-<tr class="separator:a5caae261ff8a9f299cb8d220fbaf204b inherit pub_methods_classController"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a973e1525b28d50ab77303e2f80c5c706 inherit pub_methods_classController"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#a973e1525b28d50ab77303e2f80c5c706">run</a> (JoysticksYawsensor_data, <a class="el" href="structRollPitchYawThrust.html">RollPitchYawThrust</a> &amp;control)</td></tr>
+<tr class="memdesc:a973e1525b28d50ab77303e2f80c5c706 inherit pub_methods_classController"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the control loop and return control arguments.  <a href="#a973e1525b28d50ab77303e2f80c5c706">More...</a><br/></td></tr>
+<tr class="separator:a973e1525b28d50ab77303e2f80c5c706 inherit pub_methods_classController"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab25282f175c8eaa2b132b4a80b61f7ae inherit pub_methods_classController"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#ab25282f175c8eaa2b132b4a80b61f7ae">isConverged</a> (JoysticksYawsensor_data)</td></tr>
+<tr class="memdesc:ab25282f175c8eaa2b132b4a80b61f7ae inherit pub_methods_classController"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if controller is converged.  <a href="#ab25282f175c8eaa2b132b4a80b61f7ae">More...</a><br/></td></tr>
+<tr class="separator:ab25282f175c8eaa2b132b4a80b61f7ae inherit pub_methods_classController"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a172aae7e2475b72fb2eb469ccd198387 inherit pub_methods_classController"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#a172aae7e2475b72fb2eb469ccd198387">setGoal</a> (EmptyGoalgoal)</td></tr>
 <tr class="memdesc:a172aae7e2475b72fb2eb469ccd198387 inherit pub_methods_classController"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the goal condition for the controller. Should use internal locking as the run function can be called from a separate thread  <a href="#a172aae7e2475b72fb2eb469ccd198387">More...</a><br/></td></tr>
 <tr class="separator:a172aae7e2475b72fb2eb469ccd198387 inherit pub_methods_classController"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -133,9 +136,12 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ae29c56af6d0bc913d357c7849201c8fb"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structRollPitchYawThrust.html">RollPitchYawThrust</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classManualRPYTController.html#ae29c56af6d0bc913d357c7849201c8fb">runImplementation</a> (<a class="el" href="structJoysticksYaw.html">JoysticksYaw</a> sensor_data, <a class="el" href="structEmptyGoal.html">EmptyGoal</a> goal)</td></tr>
-<tr class="memdesc:ae29c56af6d0bc913d357c7849201c8fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the control loop. Converts Joystick commands to RPYT.  <a href="#ae29c56af6d0bc913d357c7849201c8fb">More...</a><br/></td></tr>
-<tr class="separator:ae29c56af6d0bc913d357c7849201c8fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37e85721f5e631d01eef12decb771c90"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classManualRPYTController.html#a37e85721f5e631d01eef12decb771c90">runImplementation</a> (<a class="el" href="structJoysticksYaw.html">JoysticksYaw</a> sensor_data, <a class="el" href="structEmptyGoal.html">EmptyGoal</a> goal, <a class="el" href="structRollPitchYawThrust.html">RollPitchYawThrust</a> &amp;control)</td></tr>
+<tr class="memdesc:a37e85721f5e631d01eef12decb771c90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the control loop. Converts Joystick commands to RPYT.  <a href="#a37e85721f5e631d01eef12decb771c90">More...</a><br/></td></tr>
+<tr class="separator:a37e85721f5e631d01eef12decb771c90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a828067d46cbaff43131c4a7c8129b569"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classManualRPYTController.html#a828067d46cbaff43131c4a7c8129b569">isConvergedImplementation</a> (<a class="el" href="structJoysticksYaw.html">JoysticksYaw</a>, <a class="el" href="structEmptyGoal.html">EmptyGoal</a>)</td></tr>
+<tr class="memdesc:a828067d46cbaff43131c4a7c8129b569"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default implementation since there is no concept of convergence for manual rpyt controller.  <a href="#a828067d46cbaff43131c4a7c8129b569">More...</a><br/></td></tr>
+<tr class="separator:a828067d46cbaff43131c4a7c8129b569"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A controller that passes joystick commands to a drone's RPYT controller. </p>
@@ -166,7 +172,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="ae29c56af6d0bc913d357c7849201c8fb"></a>
+<a class="anchor" id="a828067d46cbaff43131c4a7c8129b569"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -174,7 +180,46 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structRollPitchYawThrust.html">RollPitchYawThrust</a> ManualRPYTController::runImplementation </td>
+          <td class="memname">virtual bool ManualRPYTController::isConvergedImplementation </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structJoysticksYaw.html">JoysticksYaw</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structEmptyGoal.html">EmptyGoal</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default implementation since there is no concept of convergence for manual rpyt controller. </p>
+<dl class="section return"><dt>Returns</dt><dd>True always </dd></dl>
+
+<p>Implements <a class="el" href="classController.html#ada247bf6a611958743df418250d5b454">Controller&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a37e85721f5e631d01eef12decb771c90"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ManualRPYTController::runImplementation </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structJoysticksYaw.html">JoysticksYaw</a>&#160;</td>
           <td class="paramname"><em>sensor_data</em>, </td>
@@ -183,7 +228,13 @@ Protected Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structEmptyGoal.html">EmptyGoal</a>&#160;</td>
-          <td class="paramname"><em>goal</em>&#160;</td>
+          <td class="paramname"><em>goal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structRollPitchYawThrust.html">RollPitchYawThrust</a> &amp;&#160;</td>
+          <td class="paramname"><em>control</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -203,14 +254,14 @@ Protected Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">sensor_data</td><td>Joystick commands to be converted into RPYT. </td></tr>
     <tr><td class="paramname">goal</td><td>Goal is not used here </td></tr>
+    <tr><td class="paramname">control</td><td>RPYT to send to hardware return True if successfully converted sensor data to control </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>RPYT to send to hardware </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>(matt): need to pass RC mapping as parameter </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>(matt): need to pass in frequency as a parameter </dd></dl>
 
-<p>Implements <a class="el" href="classController.html#a9a5a0b6fbedeb476f3a7bfad5f16167e">Controller&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</a>.</p>
+<p>Implements <a class="el" href="classController.html#a25a24fe858c6d5a0e1a1475073475a4d">Controller&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</a>.</p>
 
 </div>
 </div>

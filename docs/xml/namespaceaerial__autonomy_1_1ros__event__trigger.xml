@@ -15,7 +15,7 @@
 <para>If an event file includes another event file, it recursively crawls through all event files and saves event names </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" line="23" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" bodystart="23" bodyend="40"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" line="23" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" bodystart="23" bodyend="40"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -23,6 +23,6 @@
     <detaileddescription>
 <para><simplesect kind="author"><para>gowtham </para></simplesect>
 </para>    </detaileddescription>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" line="1" column="1"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/ros_event_trigger.py" line="1" column="1"/>
   </compounddef>
 </doxygen>

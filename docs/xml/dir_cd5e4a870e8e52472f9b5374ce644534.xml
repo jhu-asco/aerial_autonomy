@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_cd5e4a870e8e52472f9b5374ce644534" kind="dir">
+    <compoundname>src/trackers</compoundname>
+    <innerfile refid="roi__to__position__converter_8cpp">roi_to_position_converter.cpp</innerfile>
+    <innerfile refid="simple__tracker_8cpp">simple_tracker.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/"/>
+  </compounddef>
+</doxygen>

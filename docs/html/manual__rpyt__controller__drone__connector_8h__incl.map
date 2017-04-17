@@ -1,8 +1,8 @@
 <map id="include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h" name="include/aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h">
-<area shape="rect" id="node2" href="$base__controller__hardware__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/base\l_controller_hardware_connector.h" alt="" coords="5,125,221,181"/>
-<area shape="rect" id="node5" href="$empty__goal_8h.html" title="aerial_autonomy/types\l/empty_goal.h" alt="" coords="246,133,399,174"/>
-<area shape="rect" id="node6" href="$joysticks__yaw_8h.html" title="aerial_autonomy/types\l/joysticks_yaw.h" alt="" coords="423,133,576,174"/>
-<area shape="rect" id="node8" href="$roll__pitch__yaw__thrust_8h.html" title="aerial_autonomy/types\l/roll_pitch_yaw_thrust.h" alt="" coords="601,133,760,174"/>
-<area shape="rect" id="node3" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="23,230,204,271"/>
-<area shape="rect" id="node7" href="$joysticks_8h.html" title="aerial_autonomy/types\l/joysticks.h" alt="" coords="423,230,576,271"/>
+<area shape="rect" id="node2" href="$base__controller__hardware__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/base\l_controller_hardware_connector.h" alt="" coords="70,125,287,181"/>
+<area shape="rect" id="node6" href="$empty__goal_8h.html" title="aerial_autonomy/types\l/empty_goal.h" alt="" coords="311,133,464,174"/>
+<area shape="rect" id="node7" href="$joysticks__yaw_8h.html" title="aerial_autonomy/types\l/joysticks_yaw.h" alt="" coords="489,133,641,174"/>
+<area shape="rect" id="node9" href="$roll__pitch__yaw__thrust_8h.html" title="aerial_autonomy/types\l/roll_pitch_yaw_thrust.h" alt="" coords="667,133,825,174"/>
+<area shape="rect" id="node3" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="5,230,187,271"/>
+<area shape="rect" id="node8" href="$joysticks_8h.html" title="aerial_autonomy/types\l/joysticks.h" alt="" coords="489,230,641,271"/>
 </map>

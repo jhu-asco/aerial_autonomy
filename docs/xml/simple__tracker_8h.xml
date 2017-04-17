@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="simple__tracker_8h" kind="file">
+    <compoundname>simple_tracker.h</compoundname>
+    <includes local="yes">uav_vision_system_config.pb.h</includes>
+    <includes refid="base__tracker_8h" local="no">aerial_autonomy/trackers/base_tracker.h</includes>
+    <includes local="no">parsernode/parser.h</includes>
+    <includes local="no">tf/tf.h</includes>
+    <includedby refid="simple__tracker_8cpp" local="yes">src/trackers/simple_tracker.cpp</includedby>
+    <incdepgraph>
+      <node id="3767">
+        <label>cmath</label>
+      </node>
+      <node id="3764">
+        <label>uav_vision_system_config.pb.h</label>
+      </node>
+      <node id="3769">
+        <label>tf/tf.h</label>
+      </node>
+      <node id="3765">
+        <label>aerial_autonomy/trackers/base_tracker.h</label>
+        <link refid="base__tracker_8h"/>
+        <childnode refid="3766" relation="include">
+        </childnode>
+      </node>
+      <node id="3763">
+        <label>include/aerial_autonomy/trackers/simple_tracker.h</label>
+        <link refid="simple_tracker.h"/>
+        <childnode refid="3764" relation="include">
+        </childnode>
+        <childnode refid="3765" relation="include">
+        </childnode>
+        <childnode refid="3768" relation="include">
+        </childnode>
+        <childnode refid="3769" relation="include">
+        </childnode>
+      </node>
+      <node id="3766">
+        <label>aerial_autonomy/types/position.h</label>
+        <link refid="position_8h"/>
+        <childnode refid="3767" relation="include">
+        </childnode>
+      </node>
+      <node id="3768">
+        <label>parsernode/parser.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3770">
+        <label>include/aerial_autonomy/trackers/simple_tracker.h</label>
+        <link refid="simple_tracker.h"/>
+        <childnode refid="3771" relation="include">
+        </childnode>
+      </node>
+      <node id="3771">
+        <label>src/trackers/simple_tracker.cpp</label>
+        <link refid="simple__tracker_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classSimpleTracker" prot="public">SimpleTracker</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;uav_vision_system_config.pb.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="base__tracker_8h" kindref="compound">aerial_autonomy/trackers/base_tracker.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;parsernode/parser.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;tf/tf.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10" refid="classSimpleTracker" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classSimpleTracker" kindref="compound">SimpleTracker</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classBaseTracker" kindref="compound">BaseTracker</ref><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><ref refid="classSimpleTracker_1ae48dc9e78ccb74c838f0626b802b8c19" kindref="member">SimpleTracker</ref>(parsernode::Parser<sp/>&amp;drone_hardware,</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tf::Transform<sp/>camera_transform);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSimpleTracker_1ae1059e568ba2637c56009bb0ffbd039f" kindref="member">getTrackingVector</ref>(<ref refid="structPosition" kindref="compound">Position</ref><sp/>&amp;pos);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSimpleTracker_1ac07a4053eb915074b7efe62778c4a573" kindref="member">trackingIsValid</ref>();</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSimpleTracker_1ae63b078e013ba7ae25f14c583ae13464" kindref="member">setTrackingIsValid</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>is_valid);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSimpleTracker_1a03955ff260b374d76d426ad027419a0e" kindref="member">setTargetPositionGlobalFrame</ref>(<ref refid="structPosition" kindref="compound">Position</ref><sp/>p);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/>tf::Transform<sp/><ref refid="classSimpleTracker_1a3cd0ea83e2267e36da1683d09ee0fdbf" kindref="member">cameraTransform</ref>();</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/>parsernode::Parser<sp/>&amp;drone_hardware_;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>tracking_valid_;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>target_position_;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/>tf::Transform</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>camera_transform_;<sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h"/>
+  </compounddef>
+</doxygen>

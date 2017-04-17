@@ -1,3 +1,15 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structGuardFunctor.html" title="Action Functor for a given event, robot system, state machine. " alt="" coords="5,5,259,46"/>
+<area shape="rect" id="node1" href="$structEventAgnosticActionFunctor.html" title="EventAgnosticActionFunctor\l\&lt; UAVSystem, LogicStateMachineT \&gt;" alt="" coords="6,331,253,373"/>
+<area shape="rect" id="node2" href="$structHoveringInternalActionFunctor__.html" title="Internal action when hovering. " alt="" coords="326,5,525,46"/>
+<area shape="rect" id="node3" href="$structLandedInternalActionFunctor__.html" title="Internal action to switch to manual uav state. " alt="" coords="331,70,519,111"/>
+<area shape="rect" id="node4" href="$structLandInternalActionFunctor__.html" title="Internal action to figure out when landing is complete. " alt="" coords="338,135,513,177"/>
+<area shape="rect" id="node5" href="$structLandTransitionActionFunctor__.html" title="Transition action when starting to land. " alt="" coords="331,201,519,242"/>
+<area shape="rect" id="node6" href="$structManualControlInternalActionFunctor__.html" title="Check if hardware is allowing to switch sdk mode. " alt="" coords="317,266,533,307"/>
+<area shape="rect" id="node7" href="$structManualControlSwitchAction__.html" title="Basic events such as takeoff land etc. " alt="" coords="334,331,517,373"/>
+<area shape="rect" id="node8" href="$structTakeoffAbortActionFunctor__.html" title="action to perform when aborting takeoff " alt="" coords="336,397,515,438"/>
+<area shape="rect" id="node9" href="$structTakeoffInternalActionFunctor__.html" title="Check when takeoff is complete, and ensure enough battery voltage. " alt="" coords="330,462,521,503"/>
+<area shape="rect" id="node10" href="$structTakeoffTransitionActionFunctor__.html" title="action to take when starting takeoff " alt="" coords="323,527,527,569"/>
+<area shape="rect" id="node11" href="$structUAVControllerAbortActionFunctor__.html" title="Transition action to perform when aborting any UAV Controller. " alt="" coords="317,593,533,634"/>
+<area shape="rect" id="node12" href="$structUAVStatusActionFunctor.html" title="UAVStatusActionFunctor\l\&lt; UAVSystem, LogicStateMachineT \&gt;" alt="" coords="302,658,549,699"/>
+<area shape="rect" id="node13" href="$structPositionControlInternalActionFunctor__.html" title="Logic to check while reaching a position control goal. " alt="" coords="597,658,813,699"/>
 </map>

@@ -83,6 +83,6 @@
 <codeline lineno="74"><highlight class="normal">-<sp/>[Classes<sp/>by<sp/>group](markdown/class_groups.md)</highlight></codeline>
 <codeline lineno="75"><highlight class="normal">-<sp/>[Setup<sp/>and<sp/>README](README.md)</highlight></codeline>
     </programlisting>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/markdown/background.md"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/markdown/background.md"/>
   </compounddef>
 </doxygen>

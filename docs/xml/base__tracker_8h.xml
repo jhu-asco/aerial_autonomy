@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="base__tracker_8h" kind="file">
+    <compoundname>base_tracker.h</compoundname>
+    <includes refid="position_8h" local="yes">aerial_autonomy/types/position.h</includes>
+    <includedby refid="visual__servoing__controller__drone__connector_8h" local="yes">include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h</includedby>
+    <includedby refid="roi__to__position__converter_8h" local="yes">include/aerial_autonomy/trackers/roi_to_position_converter.h</includedby>
+    <includedby refid="simple__tracker_8h" local="no">include/aerial_autonomy/trackers/simple_tracker.h</includedby>
+    <incdepgraph>
+      <node id="3732">
+        <label>cmath</label>
+      </node>
+      <node id="3730">
+        <label>include/aerial_autonomy/trackers/base_tracker.h</label>
+        <link refid="base_tracker.h"/>
+        <childnode refid="3731" relation="include">
+        </childnode>
+      </node>
+      <node id="3731">
+        <label>aerial_autonomy/types/position.h</label>
+        <link refid="position_8h"/>
+        <childnode refid="3732" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3737">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_functors.h</label>
+        <link refid="visual__servoing__functors_8h"/>
+        <childnode refid="3738" relation="include">
+        </childnode>
+      </node>
+      <node id="3734">
+        <label>include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h</label>
+        <link refid="visual__servoing__controller__drone__connector_8h"/>
+        <childnode refid="3735" relation="include">
+        </childnode>
+        <childnode refid="3736" relation="include">
+        </childnode>
+      </node>
+      <node id="3738">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
+        <link refid="visual__servoing__states__actions_8h"/>
+        <childnode refid="3739" relation="include">
+        </childnode>
+      </node>
+      <node id="3736">
+        <label>include/aerial_autonomy/robot_systems/uav_vision_system.h</label>
+        <link refid="uav__vision__system_8h"/>
+        <childnode refid="3737" relation="include">
+        </childnode>
+        <childnode refid="3739" relation="include">
+        </childnode>
+        <childnode refid="3741" relation="include">
+        </childnode>
+        <childnode refid="3742" relation="include">
+        </childnode>
+      </node>
+      <node id="3733">
+        <label>include/aerial_autonomy/trackers/base_tracker.h</label>
+        <link refid="base_tracker.h"/>
+        <childnode refid="3734" relation="include">
+        </childnode>
+        <childnode refid="3743" relation="include">
+        </childnode>
+        <childnode refid="3745" relation="include">
+        </childnode>
+      </node>
+      <node id="3739">
+        <label>include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</label>
+        <link refid="visual__servoing__state__machine_8h"/>
+        <childnode refid="3740" relation="include">
+        </childnode>
+      </node>
+      <node id="3745">
+        <label>include/aerial_autonomy/trackers/simple_tracker.h</label>
+        <link refid="simple__tracker_8h"/>
+        <childnode refid="3746" relation="include">
+        </childnode>
+      </node>
+      <node id="3740">
+        <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
+        <link refid="uav__vision__system__node_8cpp"/>
+      </node>
+      <node id="3735">
+        <label>src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp</label>
+        <link refid="visual__servoing__controller__drone__connector_8cpp"/>
+      </node>
+      <node id="3743">
+        <label>include/aerial_autonomy/trackers/roi_to_position_converter.h</label>
+        <link refid="roi__to__position__converter_8h"/>
+        <childnode refid="3744" relation="include">
+        </childnode>
+        <childnode refid="3741" relation="include">
+        </childnode>
+      </node>
+      <node id="3744">
+        <label>src/trackers/roi_to_position_converter.cpp</label>
+        <link refid="roi__to__position__converter_8cpp"/>
+      </node>
+      <node id="3746">
+        <label>src/trackers/simple_tracker.cpp</label>
+        <link refid="simple__tracker_8cpp"/>
+      </node>
+      <node id="3742">
+        <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
+        <link refid="sample__logic__state__machine_8h"/>
+      </node>
+      <node id="3741">
+        <label>include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</label>
+        <link refid="uav__vision__system__handler_8h"/>
+        <childnode refid="3740" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classBaseTracker" prot="public">BaseTracker</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="position_8h" kindref="compound">aerial_autonomy/types/position.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="classBaseTracker" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classBaseTracker" kindref="compound">BaseTracker</ref><sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classBaseTracker_1adfba0b9b37f9f4923b97bdd0d0fbbb68" kindref="member">getTrackingVector</ref>(<ref refid="structPosition" kindref="compound">Position</ref><sp/>&amp;pos)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classBaseTracker_1aa1ad8436be9476278e78142ee1ab8fd6" kindref="member">trackingIsValid</ref>()<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/base_tracker.h"/>
+  </compounddef>
+</doxygen>

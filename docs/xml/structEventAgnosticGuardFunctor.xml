@@ -21,7 +21,10 @@
         <definition>virtual bool EventAgnosticGuardFunctor&lt; RobotSystemT, LogicStateMachineT &gt;::guard</definition>
         <argsstring>(RobotSystemT &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)=0</argsstring>
         <name>guard</name>
+        <reimplementedby refid="structManualControlSwitchGuard___1a52522767691b69c9dec8f9c360fba6c8">guard</reimplementedby>
         <reimplementedby refid="structTakeoffTransitionGuardFunctor___1abef370db0002076671a6f9c2adb9bbaa">guard</reimplementedby>
+        <reimplementedby refid="structGoHomeTransitionGuardFunctor___1a12492118c45a32646caa2d5f4f52d90c">guard</reimplementedby>
+        <reimplementedby refid="structVisualServoingTransitionGuardFunctor___1acf19d404297286c2ed6c5372997c2266">guard</reimplementedby>
         <param>
           <type>RobotSystemT &amp;</type>
           <declname>robot_system</declname>
@@ -51,7 +54,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="187" column="1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="187" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structEventAgnosticGuardFunctor_1a775411c4c4e0815298200f895af3c02b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -99,7 +102,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="196" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="196" bodyend="211"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="196" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="196" bodyend="211"/>
       </memberdef>
       <memberdef kind="function" id="structEventAgnosticGuardFunctor_1aa339ada7b22b27bc6d384445d109f4e6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type></type>
@@ -112,7 +115,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="216" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="216" bodyend="216"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="216" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="216" bodyend="216"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -134,7 +137,7 @@
 </parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="178" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="178" bodyend="217"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="178" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="178" bodyend="217"/>
     <listofallmembers>
       <member refid="structEventAgnosticGuardFunctor_1ad97196f6a607d199d6dbd56156b8dd8c" prot="public" virt="pure-virtual"><scope>EventAgnosticGuardFunctor</scope><name>guard</name></member>
       <member refid="structEventAgnosticGuardFunctor_1a775411c4c4e0815298200f895af3c02b" prot="public" virt="non-virtual"><scope>EventAgnosticGuardFunctor</scope><name>operator()</name></member>

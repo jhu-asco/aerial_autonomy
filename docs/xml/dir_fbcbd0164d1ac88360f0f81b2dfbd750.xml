@@ -3,6 +3,7 @@
   <compounddef id="dir_fbcbd0164d1ac88360f0f81b2dfbd750" kind="dir">
     <compoundname>src/system_handler_nodes</compoundname>
     <innerfile refid="uav__system__node_8cpp">uav_system_node.cpp</innerfile>
+    <innerfile refid="uav__vision__system__node_8cpp">uav_vision_system_node.cpp</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

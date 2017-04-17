@@ -1,0 +1,15 @@
+<map id="include/aerial_autonomy/trackers/base_tracker.h" name="include/aerial_autonomy/trackers/base_tracker.h">
+<area shape="rect" id="node2" href="$visual__servoing__controller__drone__connector_8h.html" title="include/aerial_autonomy\l/controller_hardware_connectors\l/visual_servoing_controller\l_drone_connector.h" alt="" coords="241,97,451,167"/>
+<area shape="rect" id="node11" href="$roi__to__position__converter_8h.html" title="include/aerial_autonomy\l/trackers/roi_to_position\l_converter.h" alt="" coords="499,104,661,160"/>
+<area shape="rect" id="node13" href="$simple__tracker_8h.html" title="include/aerial_autonomy\l/trackers/simple_tracker.h" alt="" coords="731,111,904,153"/>
+<area shape="rect" id="node3" href="$visual__servoing__controller__drone__connector_8cpp.html" title="src/controller_hardware\l_connectors/visual_servoing\l_controller_drone_connector.cpp" alt="" coords="23,216,232,272"/>
+<area shape="rect" id="node4" href="$uav__vision__system_8h.html" title="include/aerial_autonomy\l/robot_systems/uav_vision\l_system.h" alt="" coords="257,216,436,272"/>
+<area shape="rect" id="node5" href="$visual__servoing__functors_8h.html" title="include/aerial_autonomy\l/actions_guards/visual\l_servoing_functors.h" alt="" coords="19,320,181,376"/>
+<area shape="rect" id="node7" href="$visual__servoing__state__machine_8h.html" title="include/aerial_autonomy\l/state_machines/visual\l_servoing_state_machine.h" alt="" coords="133,528,315,584"/>
+<area shape="rect" id="node9" href="$uav__vision__system__handler_8h.html" title="include/aerial_autonomy\l/system_handlers/uav_vision\l_system_handler.h" alt="" coords="457,320,647,376"/>
+<area shape="rect" id="node10" href="$sample__logic__state__machine_8h.html" title="include/aerial_autonomy\l/tests/sample_logic_state\l_machine.h" alt="" coords="261,320,432,376"/>
+<area shape="rect" id="node6" href="$visual__servoing__states__actions_8h.html" title="include/aerial_autonomy\l/actions_guards/visual\l_servoing_states_actions.h" alt="" coords="5,424,187,480"/>
+<area shape="rect" id="node8" href="$uav__vision__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_vision_system\l_node.cpp" alt="" coords="247,632,427,688"/>
+<area shape="rect" id="node12" href="$roi__to__position__converter_8cpp.html" title="src/trackers/roi_to\l_position_converter.cpp" alt="" coords="579,223,737,265"/>
+<area shape="rect" id="node14" href="$simple__tracker_8cpp.html" title="src/trackers/simple\l_tracker.cpp" alt="" coords="763,223,896,265"/>
+</map>

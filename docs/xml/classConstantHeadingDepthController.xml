@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classConstantHeadingDepthController" kind="class" prot="public">
+    <compoundname>ConstantHeadingDepthController</compoundname>
+    <basecompoundref refid="classController" prot="public" virt="non-virtual">Controller&lt; PositionYaw, Position, VelocityYawRate &gt;</basecompoundref>
+    <includes refid="constant__heading__depth__controller_8h" local="no">constant_heading_depth_controller.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classConstantHeadingDepthController_1aae0505b21217af365a8a2a0a19be274c" prot="protected" static="no" mutable="no">
+        <type>ConstantHeadingDepthControllerConfig</type>
+        <definition>ConstantHeadingDepthControllerConfig ConstantHeadingDepthController::config_</definition>
+        <argsstring></argsstring>
+        <name>config_</name>
+        <briefdescription>
+<para><ref refid="classController" kindref="compound">Controller</ref> configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/constant_heading_depth_controller.h" line="52" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/constant_heading_depth_controller.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classConstantHeadingDepthController_1a5e5414724433542bf00c74c1894dfeea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ConstantHeadingDepthController::ConstantHeadingDepthController</definition>
+        <argsstring>()</argsstring>
+        <name>ConstantHeadingDepthController</name>
+        <briefdescription>
+<para>Constructor with default configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/constant_heading_depth_controller.h" line="18" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/constant_heading_depth_controller.h" bodystart="18" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classConstantHeadingDepthController_1a9e36892df0549e40b8a1c56a2d3b1df9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ConstantHeadingDepthController::ConstantHeadingDepthController</definition>
+        <argsstring>(ConstantHeadingDepthControllerConfig config)</argsstring>
+        <name>ConstantHeadingDepthController</name>
+        <param>
+          <type>ConstantHeadingDepthControllerConfig</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>Constructor which takes a configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/constant_heading_depth_controller.h" line="24" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/constant_heading_depth_controller.h" bodystart="24" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classConstantHeadingDepthController_1a623a18b7c564a57af43c06d45702fced" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual ConstantHeadingDepthController::~ConstantHeadingDepthController</definition>
+        <argsstring>()</argsstring>
+        <name>~ConstantHeadingDepthController</name>
+        <briefdescription>
+<para>Destructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/constant_heading_depth_controller.h" line="29" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/constant_heading_depth_controller.h" bodystart="29" bodyend="29"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classConstantHeadingDepthController_1a3c7320e1b93e5f8b42f51dd23df3a116" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool ConstantHeadingDepthController::runImplementation</definition>
+        <argsstring>(PositionYaw sensor_data, Position goal, VelocityYawRate &amp;control)</argsstring>
+        <name>runImplementation</name>
+        <reimplements refid="classController_1a25a24fe858c6d5a0e1a1475073475a4d">runImplementation</reimplements>
+        <param>
+          <type><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref></type>
+          <declname>sensor_data</declname>
+        </param>
+        <param>
+          <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+          <declname>goal</declname>
+        </param>
+        <param>
+          <type><ref refid="structVelocityYawRate" kindref="compound">VelocityYawRate</ref> &amp;</type>
+          <declname>control</declname>
+        </param>
+        <briefdescription>
+<para>Run the control loop. Uses a velocity controller to keep a desired distance from a tracked point. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sensor_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current direction vector multiplied times distance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>goal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Goal direction vector multiplied times distance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>control</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="structVelocity" kindref="compound">Velocity</ref> command to send to hardware </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if <ref refid="classController" kindref="compound">Controller</ref> is successful in running </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/constant_heading_depth_controller.h" line="40" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controllers/constant_heading_depth_controller.cpp" bodystart="5" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="classConstantHeadingDepthController_1a4688dc8ce569991da85dddb31097d493" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool ConstantHeadingDepthController::isConvergedImplementation</definition>
+        <argsstring>(PositionYaw sensor_data, Position goal)</argsstring>
+        <name>isConvergedImplementation</name>
+        <reimplements refid="classController_1ada247bf6a611958743df418250d5b454">isConvergedImplementation</reimplements>
+        <param>
+          <type><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref></type>
+          <declname>sensor_data</declname>
+        </param>
+        <param>
+          <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+          <declname>goal</declname>
+        </param>
+        <briefdescription>
+<para>Check if controller converged. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sensor_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current position yaw </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>goal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Goal position. Yaw inferred from position</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>if converged </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/constant_heading_depth_controller.h" line="50" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controllers/constant_heading_depth_controller.cpp" bodystart="39" bodyend="57"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A position controller that keeps a constant heading while attempting to keep a certain distance from the feedback position. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="406">
+        <label>Controller&lt; PositionYaw, Position, VelocityYawRate &gt;</label>
+        <link refid="classController"/>
+      </node>
+      <node id="405">
+        <label>ConstantHeadingDepthController</label>
+        <link refid="classConstantHeadingDepthController"/>
+        <childnode refid="406" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="408">
+        <label>Controller&lt; PositionYaw, Position, VelocityYawRate &gt;</label>
+        <link refid="classController"/>
+      </node>
+      <node id="407">
+        <label>ConstantHeadingDepthController</label>
+        <link refid="classConstantHeadingDepthController"/>
+        <childnode refid="408" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/constant_heading_depth_controller.h" line="13" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/constant_heading_depth_controller.h" bodystart="12" bodyend="53"/>
+    <listofallmembers>
+      <member refid="classConstantHeadingDepthController_1aae0505b21217af365a8a2a0a19be274c" prot="protected" virt="non-virtual"><scope>ConstantHeadingDepthController</scope><name>config_</name></member>
+      <member refid="classConstantHeadingDepthController_1a5e5414724433542bf00c74c1894dfeea" prot="public" virt="non-virtual"><scope>ConstantHeadingDepthController</scope><name>ConstantHeadingDepthController</name></member>
+      <member refid="classConstantHeadingDepthController_1a9e36892df0549e40b8a1c56a2d3b1df9" prot="public" virt="non-virtual"><scope>ConstantHeadingDepthController</scope><name>ConstantHeadingDepthController</name></member>
+      <member refid="classController_1a287a48298ec6f08e36ac3d72a2e6de34" prot="public" virt="virtual"><scope>ConstantHeadingDepthController</scope><name>getGoal</name></member>
+      <member refid="classController_1ab25282f175c8eaa2b132b4a80b61f7ae" prot="public" virt="non-virtual"><scope>ConstantHeadingDepthController</scope><name>isConverged</name></member>
+      <member refid="classConstantHeadingDepthController_1a4688dc8ce569991da85dddb31097d493" prot="protected" virt="virtual"><scope>ConstantHeadingDepthController</scope><name>isConvergedImplementation</name></member>
+      <member refid="classController_1a973e1525b28d50ab77303e2f80c5c706" prot="public" virt="virtual"><scope>ConstantHeadingDepthController</scope><name>run</name></member>
+      <member refid="classConstantHeadingDepthController_1a3c7320e1b93e5f8b42f51dd23df3a116" prot="protected" virt="virtual"><scope>ConstantHeadingDepthController</scope><name>runImplementation</name></member>
+      <member refid="classController_1a172aae7e2475b72fb2eb469ccd198387" prot="public" virt="virtual"><scope>ConstantHeadingDepthController</scope><name>setGoal</name></member>
+      <member refid="classConstantHeadingDepthController_1a623a18b7c564a57af43c06d45702fced" prot="public" virt="virtual"><scope>ConstantHeadingDepthController</scope><name>~ConstantHeadingDepthController</name></member>
+      <member refid="classController_1a86c5dbf78d3d948228c7c629e885151c" prot="public" virt="virtual"><scope>ConstantHeadingDepthController</scope><name>~Controller</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

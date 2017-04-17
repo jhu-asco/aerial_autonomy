@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['first',['First',['../base__controller__hardware__connector_8h.html#ae4dfd42394001deb6e8a0e60c81d6f7aa7fb55ed0b7a30342ba6da306428cae04',1,'base_controller_hardware_connector.h']]]
+  ['completed',['Completed',['../base__controller_8h.html#addd69ea32460850b571ba88f2a994b73a07ca5050e697392c9ed47e6453f1453f',1,'base_controller.h']]],
+  ['critical',['Critical',['../base__controller_8h.html#addd69ea32460850b571ba88f2a994b73a278d01e5af56273bae1bb99a98b370cd',1,'base_controller.h']]]
 ];

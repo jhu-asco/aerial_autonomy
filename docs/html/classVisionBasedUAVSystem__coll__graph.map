@@ -1,0 +1,5 @@
+<map id="VisionBasedUAVSystem" name="VisionBasedUAVSystem">
+<area shape="rect" id="node2" href="$classUAVSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components..." alt="" coords="54,203,148,229"/>
+<area shape="rect" id="node3" href="$classBaseRobotSystem.html" title="Provides functions to switch between active controllers and get goals. " alt="" coords="35,125,167,152"/>
+<area shape="rect" id="node4" href="$classTypeMap.html" title="TypeMap\&lt; AbstractController\lHardwareConnector \&gt;" alt="" coords="5,6,197,47"/>
+</map>

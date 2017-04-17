@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classBaseTracker" kind="class" prot="public" abstract="yes">
+    <compoundname>BaseTracker</compoundname>
+    <derivedcompoundref refid="classRoiToPositionConverter" prot="public" virt="non-virtual">RoiToPositionConverter</derivedcompoundref>
+    <derivedcompoundref refid="classSimpleTracker" prot="public" virt="non-virtual">SimpleTracker</derivedcompoundref>
+    <includes refid="base__tracker_8h" local="no">base_tracker.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classBaseTracker_1adfba0b9b37f9f4923b97bdd0d0fbbb68" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool BaseTracker::getTrackingVector</definition>
+        <argsstring>(Position &amp;pos)=0</argsstring>
+        <name>getTrackingVector</name>
+        <reimplementedby refid="classSimpleTracker_1ae1059e568ba2637c56009bb0ffbd039f">getTrackingVector</reimplementedby>
+        <reimplementedby refid="classRoiToPositionConverter_1a537e53d157931a08343d0b41195a924c">getTrackingVector</reimplementedby>
+        <param>
+          <type><ref refid="structPosition" kindref="compound">Position</ref> &amp;</type>
+          <declname>pos</declname>
+        </param>
+        <briefdescription>
+<para>Get the tracking vector. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Returned tracking vector </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if successful, false otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/base_tracker.h" line="15" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classBaseTracker_1aa1ad8436be9476278e78142ee1ab8fd6" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool BaseTracker::trackingIsValid</definition>
+        <argsstring>()=0</argsstring>
+        <name>trackingIsValid</name>
+        <reimplementedby refid="classSimpleTracker_1ac07a4053eb915074b7efe62778c4a573">trackingIsValid</reimplementedby>
+        <reimplementedby refid="classRoiToPositionConverter_1a408f82ba9764ba20e2463535850d3268">trackingIsValid</reimplementedby>
+        <briefdescription>
+<para>Check whether tracking is valid. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>True if the tracking is valid, false otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/base_tracker.h" line="20" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Interface for classes that provide a vector to a tracked target. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="372">
+        <label>BaseTracker</label>
+        <link refid="classBaseTracker"/>
+      </node>
+      <node id="373">
+        <label>RoiToPositionConverter</label>
+        <link refid="classRoiToPositionConverter"/>
+        <childnode refid="372" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="374">
+        <label>SimpleTracker</label>
+        <link refid="classSimpleTracker"/>
+        <childnode refid="372" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/base_tracker.h" line="8" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/base_tracker.h" bodystart="8" bodyend="21"/>
+    <listofallmembers>
+      <member refid="classBaseTracker_1adfba0b9b37f9f4923b97bdd0d0fbbb68" prot="public" virt="pure-virtual"><scope>BaseTracker</scope><name>getTrackingVector</name></member>
+      <member refid="classBaseTracker_1aa1ad8436be9476278e78142ee1ab8fd6" prot="public" virt="pure-virtual"><scope>BaseTracker</scope><name>trackingIsValid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

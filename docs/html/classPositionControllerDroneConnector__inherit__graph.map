@@ -1,4 +1,4 @@
 <map id="PositionControllerDroneConnector" name="PositionControllerDroneConnector">
-<area shape="rect" id="node2" href="$classControllerHardwareConnector.html" title="ControllerHardwareConnector\l\&lt; EmptySensor, PositionYaw,\l PositionYaw \&gt;" alt="" coords="15,96,213,152"/>
+<area shape="rect" id="node2" href="$classControllerHardwareConnector.html" title="ControllerHardwareConnector\l\&lt; PositionYaw, PositionYaw,\l PositionYaw \&gt;" alt="" coords="17,96,212,152"/>
 <area shape="rect" id="node3" href="$structAbstractControllerHardwareConnector.html" title="Base for ControllerHardwareConnector class. " alt="" coords="23,6,205,47"/>
 </map>

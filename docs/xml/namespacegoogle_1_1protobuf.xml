@@ -6,6 +6,6 @@
 <para>Protobuf namespace. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/system_handler_nodes/uav_system_node.cpp" line="16" column="1"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/system_handler_nodes/uav_system_node.cpp" line="16" column="1"/>
   </compounddef>
 </doxygen>

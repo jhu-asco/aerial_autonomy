@@ -1,4 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structGuardFunctor.html" title="GuardFunctor\&lt; PositionYaw,\l UAVSystem, LogicStateMachineT \&gt;" alt="" coords="6,5,245,46"/>
-<area shape="rect" id="node2" href="$structPositionControlTransitionGuardFunctor__.html" title="Guard function to check the goal is within tolerance before starting towards goal. " alt="" coords="293,5,544,46"/>
+<area shape="rect" id="node1" href="$structEventAgnosticActionFunctor.html" title="EventAgnosticActionFunctor\l\&lt; UAVVisionSystem, LogicStateMachineT \&gt;" alt="" coords="5,113,288,154"/>
+<area shape="rect" id="node2" href="$structGoHomeTransitionActionFunctor__.html" title="Action to reach a pre designated point. " alt="" coords="357,5,569,46"/>
+<area shape="rect" id="node3" href="$structUAVStatusActionFunctor.html" title="UAVStatusActionFunctor\l\&lt; UAVVisionSystem, LogicState\lMachineT \&gt;" alt="" coords="356,69,569,125"/>
+<area shape="rect" id="node5" href="$structVisualServoingAbortActionFunctor__.html" title="VisualServoingAbortAction\lFunctor_\&lt; LogicStateMachineT \&gt;" alt="" coords="355,149,571,190"/>
+<area shape="rect" id="node6" href="$structVisualServoingTransitionActionFunctor__.html" title="VisualServoingTransition\lActionFunctor_\&lt; LogicStateMachineT \&gt;" alt="" coords="336,214,589,255"/>
+<area shape="rect" id="node4" href="$structVisualServoingInternalActionFunctor__.html" title="Logic to check while reaching a visual servoing goal. " alt="" coords="637,77,853,118"/>
 </map>

@@ -71,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_6fe9f9c87adb79173c1aa2f732811b45.html">include</a></li><li class="navelem"><a class="el" href="dir_8c66c8138e7b35f6ec94720b060b21f5.html">aerial_autonomy</a></li><li class="navelem"><a class="el" href="dir_13969f9b7f9b36853bb55690c82e3ede.html">actions_guards</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_2f8e754ab99ce0b8ad0265163734387c.html">include</a></li><li class="navelem"><a class="el" href="dir_aa08a9b8af1d5448e3e7b8b8a4c3ba6b.html">aerial_autonomy</a></li><li class="navelem"><a class="el" href="dir_93d27638e58ab29a9245462ac4a60f23.html">actions_guards</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -104,9 +104,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structActionFunctor.html#adbf24aea135ecf5a0d470b290a5cab02">   38</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="structActionFunctor.html#adbf24aea135ecf5a0d470b290a5cab02">operator()</a>(EventT <span class="keyword">const</span> &amp;event, FSM &amp;logic_state_machine, SourceState &amp;,</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                  TargetState &amp;) {</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    static_assert(</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        std::is_same&lt;RobotSystemT &amp;,</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                     decltype(</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                         logic_state_machine.robot_system_container_())&gt;::value,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        std::is_convertible&lt;decltype(</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                                logic_state_machine.robot_system_container_()),</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                            RobotSystemT &amp;&gt;::value,</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="stringliteral">&quot;Robot system in logic state machine is not the same as one used in &quot;</span></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="stringliteral">&quot;action functor&quot;</span>);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    static_assert(</div>
@@ -129,9 +129,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="structGuardFunctor.html#a42b30d1737ceca71bfe47a9bb525ceda">   94</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="structGuardFunctor.html#a42b30d1737ceca71bfe47a9bb525ceda">operator()</a>(EventT <span class="keyword">const</span> &amp;event, FSM &amp;logic_state_machine, SourceState &amp;,</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                  TargetState &amp;) {</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    static_assert(</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        std::is_same&lt;RobotSystemT &amp;,</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                     decltype(</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                         logic_state_machine.robot_system_container_())&gt;::value,</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        std::is_convertible&lt;decltype(</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                                logic_state_machine.robot_system_container_()),</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                            RobotSystemT &amp;&gt;::value,</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="stringliteral">&quot;Robot system in logic state machine is not the same as one used in &quot;</span></div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="stringliteral">&quot;action functor&quot;</span>);</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    static_assert(</div>
@@ -154,9 +154,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="structEventAgnosticActionFunctor.html#a3c0bcfed676d49c725ae987f37922534">  144</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="structEventAgnosticActionFunctor.html#a3c0bcfed676d49c725ae987f37922534">operator()</a>(EventT <span class="keyword">const</span> &amp;, FSM &amp;logic_state_machine, SourceState &amp;,</div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                  TargetState &amp;) {</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    static_assert(</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        std::is_same&lt;RobotSystemT &amp;,</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                     decltype(</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                         logic_state_machine.robot_system_container_())&gt;::value,</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        std::is_convertible&lt;decltype(</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                                logic_state_machine.robot_system_container_()),</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                            RobotSystemT &amp;&gt;::value,</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <span class="stringliteral">&quot;Robot system in logic state machine is not the same as one used in &quot;</span></div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="stringliteral">&quot;action functor&quot;</span>);</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    static_assert(</div>
@@ -180,9 +180,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00196"></a><span class="lineno"><a class="line" href="structEventAgnosticGuardFunctor.html#a775411c4c4e0815298200f895af3c02b">  196</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="structEventAgnosticGuardFunctor.html#a775411c4c4e0815298200f895af3c02b">operator()</a>(EventT <span class="keyword">const</span> &amp;, FSM &amp;logic_state_machine, SourceState &amp;,</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                  TargetState &amp;) {</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    static_assert(</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        std::is_same&lt;RobotSystemT &amp;,</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                     decltype(</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                         logic_state_machine.robot_system_container_())&gt;::value,</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        std::is_convertible&lt;decltype(</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                                logic_state_machine.robot_system_container_()),</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                            RobotSystemT &amp;&gt;::value,</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        <span class="stringliteral">&quot;Robot system in logic state machine is not the same as one used in &quot;</span></div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        <span class="stringliteral">&quot;action functor&quot;</span>);</div>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    static_assert(</div>

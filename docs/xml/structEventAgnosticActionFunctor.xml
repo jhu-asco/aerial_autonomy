@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
   <compounddef id="structEventAgnosticActionFunctor" kind="struct" prot="public" abstract="yes">
     <compoundname>EventAgnosticActionFunctor</compoundname>
+    <derivedcompoundref refid="structUAVStatusActionFunctor" prot="public" virt="non-virtual">UAVStatusActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;</derivedcompoundref>
     <includes refid="base__functors_8h" local="no">base_functors.h</includes>
     <templateparamlist>
       <param>
@@ -23,12 +24,20 @@
         <name>run</name>
         <reimplementedby refid="structLandTransitionActionFunctor___1ae91b354f041edda283e306fa312e1213">run</reimplementedby>
         <reimplementedby refid="structTakeoffTransitionActionFunctor___1aaf8ba8ac8cf0f07e2978da244b5efb2b">run</reimplementedby>
+        <reimplementedby refid="structVisualServoingTransitionActionFunctor___1a3399d28d43c167eeeda29844199b291d">run</reimplementedby>
         <reimplementedby refid="structHoveringInternalActionFunctor___1a87bb8dd8ed71e54729967b9e258fb66e">run</reimplementedby>
-        <reimplementedby refid="structPositionControlAbortActionFunctor___1a04152d311e51abb5b330ee74b3c29702">run</reimplementedby>
+        <reimplementedby refid="structManualControlSwitchAction___1a2e6c09414da27cdd11871c0ee1ef3fee">run</reimplementedby>
         <reimplementedby refid="structTakeoffAbortActionFunctor___1a8366919888a54d029b3856c3a433843d">run</reimplementedby>
+        <reimplementedby refid="structUAVControllerAbortActionFunctor___1a9c6cfbfac359f99665533c8278f060f1">run</reimplementedby>
         <reimplementedby refid="structLandInternalActionFunctor___1a4557b02d6cfa6712b610337cb606f54b">run</reimplementedby>
+        <reimplementedby refid="structUAVStatusActionFunctor_1aaa0f0405f45c252aefe9fda6287ba964">run</reimplementedby>
+        <reimplementedby refid="structUAVStatusActionFunctor_1aaa0f0405f45c252aefe9fda6287ba964">run</reimplementedby>
+        <reimplementedby refid="structUAVStatusActionFunctor_1aaa0f0405f45c252aefe9fda6287ba964">run</reimplementedby>
+        <reimplementedby refid="structVisualServoingAbortActionFunctor___1adb2093d9e8673199f25457a747c54846">run</reimplementedby>
+        <reimplementedby refid="structGoHomeTransitionActionFunctor___1a4b6a9713db0954ebb632c2da5790136a">run</reimplementedby>
+        <reimplementedby refid="structManualControlInternalActionFunctor___1ad85ed8dbcd26ee5c4a7f4b9358b20c16">run</reimplementedby>
+        <reimplementedby refid="structLandedInternalActionFunctor___1a4f5e4955962461c9cee82845ba1986cb">run</reimplementedby>
         <reimplementedby refid="structTakeoffInternalActionFunctor___1a2118df6e326662cd0088344499e49696">run</reimplementedby>
-        <reimplementedby refid="structPositionControlInternalActionFunctor___1a81589e5ecfba853969942b9842ac1563">run</reimplementedby>
         <param>
           <type>RobotSystemT &amp;</type>
           <declname>robot_system</declname>
@@ -58,7 +67,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="135" column="1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="135" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -106,7 +115,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="144" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="144" bodyend="159"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="144" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="144" bodyend="159"/>
       </memberdef>
       <memberdef kind="function" id="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type></type>
@@ -119,7 +128,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="164" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="164" bodyend="164"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="164" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="164" bodyend="164"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -141,7 +150,19 @@
 </parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="126" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="126" bodyend="165"/>
+    <inheritancegraph>
+      <node id="422">
+        <label>UAVStatusActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;</label>
+        <link refid="structUAVStatusActionFunctor"/>
+        <childnode refid="421" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="421">
+        <label>EventAgnosticActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;</label>
+        <link refid="structEventAgnosticActionFunctor"/>
+      </node>
+    </inheritancegraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="126" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="126" bodyend="165"/>
     <listofallmembers>
       <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>EventAgnosticActionFunctor</scope><name>operator()</name></member>
       <member refid="structEventAgnosticActionFunctor_1a53a48938d68370ff2ef262222565ffcf" prot="public" virt="pure-virtual"><scope>EventAgnosticActionFunctor</scope><name>run</name></member>

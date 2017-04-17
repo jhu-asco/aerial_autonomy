@@ -4,48 +4,48 @@
     <compoundname>manual_rpyt_controller.cpp</compoundname>
     <includes refid="manual__rpyt__controller_8h" local="yes">aerial_autonomy/controllers/manual_rpyt_controller.h</includes>
     <incdepgraph>
-      <node id="2044">
+      <node id="4170">
         <label>boost/thread/mutex.hpp</label>
       </node>
-      <node id="2045">
-        <label>aerial_autonomy/types/empty_goal.h</label>
-        <link refid="empty__goal_8h"/>
-      </node>
-      <node id="2046">
-        <label>aerial_autonomy/types/joysticks_yaw.h</label>
-        <link refid="joysticks__yaw_8h"/>
-        <childnode refid="2047" relation="include">
-        </childnode>
-      </node>
-      <node id="2047">
+      <node id="4173">
         <label>aerial_autonomy/types/joysticks.h</label>
         <link refid="joysticks_8h"/>
       </node>
-      <node id="2041">
-        <label>src/controllers/manual_rpyt_controller.cpp</label>
-        <link refid="manual_rpyt_controller.cpp"/>
-        <childnode refid="2042" relation="include">
-        </childnode>
-      </node>
-      <node id="2043">
+      <node id="4169">
         <label>aerial_autonomy/controllers/base_controller.h</label>
         <link refid="base__controller_8h"/>
-        <childnode refid="2044" relation="include">
+        <childnode refid="4170" relation="include">
         </childnode>
       </node>
-      <node id="2042">
+      <node id="4171">
+        <label>aerial_autonomy/types/empty_goal.h</label>
+        <link refid="empty__goal_8h"/>
+      </node>
+      <node id="4167">
+        <label>src/controllers/manual_rpyt_controller.cpp</label>
+        <link refid="manual_rpyt_controller.cpp"/>
+        <childnode refid="4168" relation="include">
+        </childnode>
+      </node>
+      <node id="4168">
         <label>aerial_autonomy/controllers/manual_rpyt_controller.h</label>
         <link refid="manual__rpyt__controller_8h"/>
-        <childnode refid="2043" relation="include">
+        <childnode refid="4169" relation="include">
         </childnode>
-        <childnode refid="2045" relation="include">
+        <childnode refid="4171" relation="include">
         </childnode>
-        <childnode refid="2046" relation="include">
+        <childnode refid="4172" relation="include">
         </childnode>
-        <childnode refid="2048" relation="include">
+        <childnode refid="4174" relation="include">
         </childnode>
       </node>
-      <node id="2048">
+      <node id="4172">
+        <label>aerial_autonomy/types/joysticks_yaw.h</label>
+        <link refid="joysticks__yaw_8h"/>
+        <childnode refid="4173" relation="include">
+        </childnode>
+      </node>
+      <node id="4174">
         <label>aerial_autonomy/types/roll_pitch_yaw_thrust.h</label>
         <link refid="roll__pitch__yaw__thrust_8h"/>
       </node>
@@ -57,36 +57,35 @@
     <programlisting>
 <codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="manual__rpyt__controller_8h" kindref="compound">aerial_autonomy/controllers/manual_rpyt_controller.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2"><highlight class="normal"></highlight></codeline>
-<codeline lineno="3"><highlight class="normal"><ref refid="structRollPitchYawThrust" kindref="compound">RollPitchYawThrust</ref></highlight></codeline>
-<codeline lineno="4"><highlight class="normal"><ref refid="classManualRPYTController_1ae29c56af6d0bc913d357c7849201c8fb" kindref="member">ManualRPYTController::runImplementation</ref>(<ref refid="structJoysticksYaw" kindref="compound">JoysticksYaw</ref><sp/>sensor_data,</highlight></codeline>
-<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structEmptyGoal" kindref="compound">EmptyGoal</ref><sp/>goal)<sp/>{</highlight></codeline>
-<codeline lineno="6"><highlight class="normal"><sp/><sp/><ref refid="structRollPitchYawThrust" kindref="compound">RollPitchYawThrust</ref><sp/>controls;</highlight></codeline>
-<codeline lineno="8"><highlight class="normal"><sp/><sp/>controls.<ref refid="structRollPitchYawThrust_1a473205dda8a9c3cd39c7f20b9bf2573b" kindref="member">r</ref><sp/>=<sp/>map(sensor_data.<ref refid="structJoysticks_1a3dc64d66808dddbf053033465777c493" kindref="member">channel1</ref>,<sp/>-10000,<sp/>10000,<sp/>-M_PI<sp/>/<sp/>6,<sp/>M_PI<sp/>/<sp/>6);</highlight></codeline>
-<codeline lineno="9"><highlight class="normal"><sp/><sp/>controls.<ref refid="structRollPitchYawThrust_1a5a48538eafec9fcfdfb5c3ff714a6044" kindref="member">p</ref><sp/>=<sp/>map(sensor_data.<ref refid="structJoysticks_1a14f4be76749f40ea8d75d579504ef932" kindref="member">channel2</ref>,<sp/>-10000,<sp/>10000,<sp/>-M_PI<sp/>/<sp/>6,<sp/>M_PI<sp/>/<sp/>6);</highlight></codeline>
-<codeline lineno="10"><highlight class="normal"><sp/><sp/>controls.<ref refid="structRollPitchYawThrust_1aa489ea694a9abb4b891e371d31e63ec4" kindref="member">t</ref><sp/>=<sp/>map(sensor_data.<ref refid="structJoysticks_1a2640f7dbb2364b8d92c464077c38ec56" kindref="member">channel3</ref>,<sp/>-10000,<sp/>10000,<sp/>10,<sp/>100);</highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight></codeline>
-<codeline lineno="12"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>yaw_rate<sp/>=<sp/>map(sensor_data.<ref refid="structJoysticks_1a154d66609cbfcb527d4dcf7473bf7af5" kindref="member">channel4</ref>,<sp/>-10000,<sp/>10000,<sp/>-M_PI,<sp/>M_PI);</highlight></codeline>
-<codeline lineno="14"><highlight class="normal"><sp/><sp/>controls.<ref refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" kindref="member">y</ref><sp/>=<sp/>sensor_data.<ref refid="structJoysticksYaw_1aed456b5f37609c1b68843ccf1e29019a" kindref="member">yaw</ref><sp/>-<sp/>yaw_rate<sp/>*<sp/>0.02;</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(controls.<ref refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" kindref="member">y</ref><sp/>&gt;<sp/>M_PI)</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>controls.<ref refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" kindref="member">y</ref><sp/>=<sp/>controls.<ref refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" kindref="member">y</ref><sp/>-<sp/>2<sp/>*<sp/>M_PI;</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(controls.<ref refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" kindref="member">y</ref><sp/>&lt;<sp/>-M_PI)</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>controls.<ref refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" kindref="member">y</ref><sp/>=<sp/>controls.<ref refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" kindref="member">y</ref><sp/>+<sp/>2<sp/>*<sp/>M_PI;</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"></highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>controls;</highlight></codeline>
-<codeline lineno="21"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"></highlight></codeline>
-<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>ManualRPYTController::map(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>input,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>input_min,</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>input_max,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>output_min,</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>output_max)<sp/>{</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(input<sp/>&gt;<sp/>input_max)</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>output_max;</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(input<sp/>&lt;<sp/>input_min)</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>output_min;</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>output_min<sp/>+</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((input<sp/>-<sp/>input_min)<sp/>*<sp/>(output_max<sp/>-<sp/>output_min))<sp/>/</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(input_max<sp/>-<sp/>input_min);</highlight></codeline>
-<codeline lineno="33"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classManualRPYTController_1a37e85721f5e631d01eef12decb771c90" kindref="member">ManualRPYTController::runImplementation</ref>(<ref refid="structJoysticksYaw" kindref="compound">JoysticksYaw</ref><sp/>sensor_data,</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structEmptyGoal" kindref="compound">EmptyGoal</ref><sp/>goal,</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structRollPitchYawThrust" kindref="compound">RollPitchYawThrust</ref><sp/>&amp;control)<sp/>{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/>control.<ref refid="structRollPitchYawThrust_1a473205dda8a9c3cd39c7f20b9bf2573b" kindref="member">r</ref><sp/>=<sp/>map(sensor_data.<ref refid="structJoysticks_1a3dc64d66808dddbf053033465777c493" kindref="member">channel1</ref>,<sp/>-10000,<sp/>10000,<sp/>-M_PI<sp/>/<sp/>6,<sp/>M_PI<sp/>/<sp/>6);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/>control.<ref refid="structRollPitchYawThrust_1a5a48538eafec9fcfdfb5c3ff714a6044" kindref="member">p</ref><sp/>=<sp/>map(sensor_data.<ref refid="structJoysticks_1a14f4be76749f40ea8d75d579504ef932" kindref="member">channel2</ref>,<sp/>-10000,<sp/>10000,<sp/>-M_PI<sp/>/<sp/>6,<sp/>M_PI<sp/>/<sp/>6);</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/>control.<ref refid="structRollPitchYawThrust_1aa489ea694a9abb4b891e371d31e63ec4" kindref="member">t</ref><sp/>=<sp/>map(sensor_data.<ref refid="structJoysticks_1a2640f7dbb2364b8d92c464077c38ec56" kindref="member">channel3</ref>,<sp/>-10000,<sp/>10000,<sp/>10,<sp/>100);</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>yaw_rate<sp/>=<sp/>map(sensor_data.<ref refid="structJoysticks_1a154d66609cbfcb527d4dcf7473bf7af5" kindref="member">channel4</ref>,<sp/>-10000,<sp/>10000,<sp/>-M_PI,<sp/>M_PI);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/>control.<ref refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" kindref="member">y</ref><sp/>=<sp/>sensor_data.<ref refid="structJoysticksYaw_1aed456b5f37609c1b68843ccf1e29019a" kindref="member">yaw</ref><sp/>-<sp/>yaw_rate<sp/>*<sp/>0.02;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(control.<ref refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" kindref="member">y</ref><sp/>&gt;<sp/>M_PI)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>control.<ref refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" kindref="member">y</ref><sp/>=<sp/>control.<ref refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" kindref="member">y</ref><sp/>-<sp/>2<sp/>*<sp/>M_PI;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(control.<ref refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" kindref="member">y</ref><sp/>&lt;<sp/>-M_PI)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>control.<ref refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" kindref="member">y</ref><sp/>=<sp/>control.<ref refid="structRollPitchYawThrust_1a0c2bb32fd791f081b55ffd971dcf1206" kindref="member">y</ref><sp/>+<sp/>2<sp/>*<sp/>M_PI;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>ManualRPYTController::map(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>input,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>input_min,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>input_max,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>output_min,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>output_max)<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(input<sp/>&gt;<sp/>input_max)</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>output_max;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(input<sp/>&lt;<sp/>input_min)</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>output_min;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>output_min<sp/>+</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((input<sp/>-<sp/>input_min)<sp/>*<sp/>(output_max<sp/>-<sp/>output_min))<sp/>/</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(input_max<sp/>-<sp/>input_min);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/controllers/manual_rpyt_controller.cpp"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controllers/manual_rpyt_controller.cpp"/>
   </compounddef>
 </doxygen>

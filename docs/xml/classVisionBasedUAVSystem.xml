@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classVisionBasedUAVSystem" kind="class" prot="public">
+    <compoundname>VisionBasedUAVSystem</compoundname>
+    <basecompoundref refid="classUAVSystem" prot="public" virt="non-virtual">UAVSystem</basecompoundref>
+    <includes refid="vision__based__uav__system_8h" local="no">vision_based_uav_system.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classVisionBasedUAVSystem_1a25857f5b174d9092c3d94c505c631756" prot="protected" static="no" mutable="no">
+        <type>ros::NodeHandle &amp;</type>
+        <definition>ros::NodeHandle&amp; VisionBasedUAVSystem::nh_</definition>
+        <argsstring></argsstring>
+        <name>nh_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/vision_based_uav_system.h" line="15" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/vision_based_uav_system.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classVisionBasedUAVSystem_1ab695c55c5c87708a04ee91f46e660d34" prot="private" static="no" mutable="no">
+        <type><ref refid="classConstantHeadingDepthController" kindref="compound">ConstantHeadingDepthController</ref></type>
+        <definition>ConstantHeadingDepthController VisionBasedUAVSystem::constant_heading_depth_controller_</definition>
+        <argsstring></argsstring>
+        <name>constant_heading_depth_controller_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/vision_based_uav_system.h" line="17" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/vision_based_uav_system.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classVisionBasedUAVSystem_1ad01cf4830d70efbf97fe95d70a69d013" prot="private" static="no" mutable="no">
+        <type><ref refid="classVisualServoingControllerDroneConnector" kindref="compound">VisualServoingControllerDroneConnector</ref></type>
+        <definition>VisualServoingControllerDroneConnector VisionBasedUAVSystem::visual_servoing_drone_connector_</definition>
+        <argsstring></argsstring>
+        <name>visual_servoing_drone_connector_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/vision_based_uav_system.h" line="18" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/vision_based_uav_system.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classVisionBasedUAVSystem_1a7162ff6d3418216dbfb0dd793617434e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VisionBasedUAVSystem::VisionBasedUAVSystem</definition>
+        <argsstring>(ros::NodeHandle &amp;nh, parsernode::Parser &amp;drone_hardware, UAVSystemConfig config)</argsstring>
+        <name>VisionBasedUAVSystem</name>
+        <param>
+          <type>ros::NodeHandle &amp;</type>
+          <declname>nh</declname>
+        </param>
+        <param>
+          <type>parsernode::Parser &amp;</type>
+          <declname>drone_hardware</declname>
+        </param>
+        <param>
+          <type>UAVSystemConfig</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/vision_based_uav_system.h" line="6" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/vision_based_uav_system.h" bodystart="6" bodyend="13"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="481">
+        <label>BaseRobotSystem</label>
+        <link refid="classBaseRobotSystem"/>
+      </node>
+      <node id="480">
+        <label>UAVSystem</label>
+        <link refid="classUAVSystem"/>
+        <childnode refid="481" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="479">
+        <label>VisionBasedUAVSystem</label>
+        <link refid="classVisionBasedUAVSystem"/>
+        <childnode refid="480" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="485">
+        <label>TypeMap&lt; AbstractControllerHardwareConnector &gt;</label>
+        <link refid="classTypeMap"/>
+      </node>
+      <node id="484">
+        <label>BaseRobotSystem</label>
+        <link refid="classBaseRobotSystem"/>
+        <childnode refid="485" relation="usage">
+          <edgelabel>controller_hardware_connector_container_</edgelabel>
+        </childnode>
+      </node>
+      <node id="483">
+        <label>UAVSystem</label>
+        <link refid="classUAVSystem"/>
+        <childnode refid="484" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="482">
+        <label>VisionBasedUAVSystem</label>
+        <link refid="classVisionBasedUAVSystem"/>
+        <childnode refid="483" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/vision_based_uav_system.h" line="4" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/vision_based_uav_system.h" bodystart="4" bodyend="19"/>
+    <listofallmembers>
+      <member refid="classBaseRobotSystem_1a3e7031f99e64e7c371ee31fbd69f6bf9" prot="public" virt="non-virtual"><scope>VisionBasedUAVSystem</scope><name>abortController</name></member>
+      <member refid="classBaseRobotSystem_1a257fff284254de019428ae7073333b47" prot="public" virt="non-virtual"><scope>VisionBasedUAVSystem</scope><name>BaseRobotSystem</name></member>
+      <member refid="classUAVSystem_1a9bdf636000ef7cd55612bc2c2f66d60b" prot="protected" virt="non-virtual"><scope>VisionBasedUAVSystem</scope><name>config_</name></member>
+      <member refid="classVisionBasedUAVSystem_1ab695c55c5c87708a04ee91f46e660d34" prot="private" virt="non-virtual"><scope>VisionBasedUAVSystem</scope><name>constant_heading_depth_controller_</name></member>
+      <member refid="classBaseRobotSystem_1a9539998f793faa61ed89e4c7ecc711ad" prot="protected" virt="non-virtual"><scope>VisionBasedUAVSystem</scope><name>controller_hardware_connector_container_</name></member>
+      <member refid="classUAVSystem_1ab47721beaeb776063b46f7c3c7721b7a" prot="protected" virt="non-virtual"><scope>VisionBasedUAVSystem</scope><name>drone_hardware_</name></member>
+      <member refid="classUAVSystem_1a89d67e42aec09dd65a23f39462a8202e" prot="public" virt="non-virtual"><scope>VisionBasedUAVSystem</scope><name>getConfiguration</name></member>
+      <member refid="classBaseRobotSystem_1add092f1cc4faec7b7f1ecb624f54a56a" prot="public" virt="non-virtual"><scope>VisionBasedUAVSystem</scope><name>getGoal</name></member>
+      <member refid="classUAVSystem_1a686bdf431c8b790308d17cc9df231ee4" prot="public" virt="virtual"><scope>VisionBasedUAVSystem</scope><name>getSystemStatus</name></member>
+      <member refid="classUAVSystem_1a4ccf5fcb488485d369752b406e36b8e3" prot="public" virt="non-virtual"><scope>VisionBasedUAVSystem</scope><name>getUAVData</name></member>
+      <member refid="classUAVSystem_1ae1bac31ca121a54cb1e3ed7fac322993" prot="public" virt="non-virtual"><scope>VisionBasedUAVSystem</scope><name>land</name></member>
+      <member refid="classVisionBasedUAVSystem_1a25857f5b174d9092c3d94c505c631756" prot="protected" virt="non-virtual"><scope>VisionBasedUAVSystem</scope><name>nh_</name></member>
+      <member refid="classBaseRobotSystem_1abad7fac8177f72f932a5ef543408f986" prot="public" virt="non-virtual"><scope>VisionBasedUAVSystem</scope><name>runActiveController</name></member>
+      <member refid="classBaseRobotSystem_1a2814a05f2648e26d18fe20e1ad0b0c0a" prot="public" virt="non-virtual"><scope>VisionBasedUAVSystem</scope><name>setGoal</name></member>
+      <member refid="classUAVSystem_1a7f010477b67bfeb5d6d32c0f10630b8e" prot="public" virt="non-virtual"><scope>VisionBasedUAVSystem</scope><name>takeOff</name></member>
+      <member refid="classUAVSystem_1a99ac3986113a03546b8dc4bcc73d65b0" prot="public" virt="non-virtual"><scope>VisionBasedUAVSystem</scope><name>UAVSystem</name></member>
+      <member refid="classUAVSystem_1a9218f794905e832cc356b5e4b659e1da" prot="public" virt="non-virtual"><scope>VisionBasedUAVSystem</scope><name>UAVSystem</name></member>
+      <member refid="classVisionBasedUAVSystem_1a7162ff6d3418216dbfb0dd793617434e" prot="public" virt="non-virtual"><scope>VisionBasedUAVSystem</scope><name>VisionBasedUAVSystem</name></member>
+      <member refid="classVisionBasedUAVSystem_1ad01cf4830d70efbf97fe95d70a69d013" prot="private" virt="non-virtual"><scope>VisionBasedUAVSystem</scope><name>visual_servoing_drone_connector_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -4,6 +4,7 @@
     <compoundname>include/aerial_autonomy/system_handlers</compoundname>
     <innerfile refid="common__system__handler_8h">common_system_handler.h</innerfile>
     <innerfile refid="uav__system__handler_8h">uav_system_handler.h</innerfile>
+    <innerfile refid="uav__vision__system__handler_8h">uav_vision_system_handler.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

@@ -10,6 +10,6 @@
     <programlisting>
 <codeline lineno="1" refid="namespaceaerial__autonomy" refkind="compound"><highlight class="comment">##<sp/>init<sp/>py<sp/>file<sp/>to<sp/>load<sp/>aerial_autonomy_gui<sp/>and<sp/>ros_event_trigger<sp/>modules</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/aerial_autonomy/__init__.py"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/aerial_autonomy/__init__.py"/>
   </compounddef>
 </doxygen>

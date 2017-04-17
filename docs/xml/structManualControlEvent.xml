@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structManualControlEvent" kind="struct" prot="public">
+    <compoundname>ManualControlEvent</compoundname>
+    <includes refid="manual__control__event_8h" local="no">manual_control_event.h</includes>
+    <briefdescription>
+<para>Event to get into manual control state when UAV leaves SDK mode and enters Manual mode. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/manual_control_event.h" line="8" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/manual_control_event.h" bodystart="8" bodyend="8"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

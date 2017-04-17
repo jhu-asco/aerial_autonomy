@@ -73,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -86,6 +86,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classUAVSystem-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">UAVSystem Class Reference</div>  </div>
@@ -101,7 +102,7 @@ Inheritance diagram for UAVSystem:</div>
 <div class="dyncontent">
 <div class="center"><img src="classUAVSystem__inherit__graph.png" border="0" usemap="#UAVSystem_inherit__map" alt="Inheritance graph"/></div>
 <map name="UAVSystem_inherit__map" id="UAVSystem_inherit__map">
-<area shape="rect" id="node2" href="classBaseRobotSystem.html" title="Provides functions to switch between active controllers and get goals. " alt="" coords="5,5,136,32"/></map>
+<area shape="rect" id="node3" href="classUAVVisionSystem.html" title="UAV Vision system that extends UAV system to include constant heading depth controller. " alt="" coords="5,155,135,181"/><area shape="rect" id="node2" href="classBaseRobotSystem.html" title="Provides functions to switch between active controllers and get goals. " alt="" coords="5,5,136,32"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for UAVSystem:</div>
@@ -125,6 +126,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7f010477b67bfeb5d6d32c0f10630b8e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#a7f010477b67bfeb5d6d32c0f10630b8e">takeOff</a> ()</td></tr>
 <tr class="memdesc:a7f010477b67bfeb5d6d32c0f10630b8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Public API call to takeoff.  <a href="#a7f010477b67bfeb5d6d32c0f10630b8e">More...</a><br/></td></tr>
 <tr class="separator:a7f010477b67bfeb5d6d32c0f10630b8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b379202b204125b0523b512b94dc91f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#a8b379202b204125b0523b512b94dc91f">enableAutonomousMode</a> ()</td></tr>
+<tr class="memdesc:a8b379202b204125b0523b512b94dc91f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Public API call to enable Quadcopter SDK. This call is only necessary if Quad goes into manual mode due to rc switching while state machine is running.  <a href="#a8b379202b204125b0523b512b94dc91f">More...</a><br/></td></tr>
+<tr class="separator:a8b379202b204125b0523b512b94dc91f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1bac31ca121a54cb1e3ed7fac322993"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#ae1bac31ca121a54cb1e3ed7fac322993">land</a> ()</td></tr>
 <tr class="memdesc:ae1bac31ca121a54cb1e3ed7fac322993"><td class="mdescLeft">&#160;</td><td class="mdescRight">Public API call to land.  <a href="#ae1bac31ca121a54cb1e3ed7fac322993">More...</a><br/></td></tr>
 <tr class="separator:ae1bac31ca121a54cb1e3ed7fac322993"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,6 +138,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a89d67e42aec09dd65a23f39462a8202e"><td class="memItemLeft" align="right" valign="top">UAVSystemConfig&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#a89d67e42aec09dd65a23f39462a8202e">getConfiguration</a> ()</td></tr>
 <tr class="memdesc:a89d67e42aec09dd65a23f39462a8202e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get system configuration.  <a href="#a89d67e42aec09dd65a23f39462a8202e">More...</a><br/></td></tr>
 <tr class="separator:a89d67e42aec09dd65a23f39462a8202e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f31741d7d13ca93c7f02453aa97cc16"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#a5f31741d7d13ca93c7f02453aa97cc16">setHomeLocation</a> ()</td></tr>
+<tr class="memdesc:a5f31741d7d13ca93c7f02453aa97cc16"><td class="mdescLeft">&#160;</td><td class="mdescRight">save current location as home location  <a href="#a5f31741d7d13ca93c7f02453aa97cc16">More...</a><br/></td></tr>
+<tr class="separator:a5f31741d7d13ca93c7f02453aa97cc16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a226c842c7e5e1120be5d6fe233f1bb2d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#a226c842c7e5e1120be5d6fe233f1bb2d">isHomeLocationSpecified</a> ()</td></tr>
+<tr class="memdesc:a226c842c7e5e1120be5d6fe233f1bb2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if home location is specified.  <a href="#a226c842c7e5e1120be5d6fe233f1bb2d">More...</a><br/></td></tr>
+<tr class="separator:a226c842c7e5e1120be5d6fe233f1bb2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e9242b82c55106b66e80a0a100098a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structPositionYaw.html">PositionYaw</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#a0e9242b82c55106b66e80a0a100098a0">getHomeLocation</a> ()</td></tr>
+<tr class="memdesc:a0e9242b82c55106b66e80a0a100098a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stored home location.  <a href="#a0e9242b82c55106b66e80a0a100098a0">More...</a><br/></td></tr>
+<tr class="separator:a0e9242b82c55106b66e80a0a100098a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classBaseRobotSystem"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classBaseRobotSystem')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classBaseRobotSystem.html">BaseRobotSystem</a></td></tr>
 <tr class="memitem:a257fff284254de019428ae7073333b47 inherit pub_methods_classBaseRobotSystem"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a257fff284254de019428ae7073333b47">BaseRobotSystem</a> ()</td></tr>
 <tr class="memdesc:a257fff284254de019428ae7073333b47 inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor to initialize active controllers and mutexes to NULL.  <a href="#a257fff284254de019428ae7073333b47">More...</a><br/></td></tr>
@@ -146,6 +159,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:add092f1cc4faec7b7f1ecb624f54a56a inherit pub_methods_classBaseRobotSystem"><td class="memTemplItemLeft" align="right" valign="top">GoalT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#add092f1cc4faec7b7f1ecb624f54a56a">getGoal</a> () const </td></tr>
 <tr class="memdesc:add092f1cc4faec7b7f1ecb624f54a56a inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the goal from connector.  <a href="#add092f1cc4faec7b7f1ecb624f54a56a">More...</a><br/></td></tr>
 <tr class="separator:add092f1cc4faec7b7f1ecb624f54a56a inherit pub_methods_classBaseRobotSystem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22435ca0b28e562a230b4dfdeaffa716 inherit pub_methods_classBaseRobotSystem"><td class="memTemplParams" colspan="2">template&lt;class ControllerHardwareConnectorT &gt; </td></tr>
+<tr class="memitem:a22435ca0b28e562a230b4dfdeaffa716 inherit pub_methods_classBaseRobotSystem"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="base__controller_8h.html#addd69ea32460850b571ba88f2a994b73">ControllerStatus</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a22435ca0b28e562a230b4dfdeaffa716">getStatus</a> () const </td></tr>
+<tr class="memdesc:a22435ca0b28e562a230b4dfdeaffa716 inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the status of the active controller.  <a href="#a22435ca0b28e562a230b4dfdeaffa716">More...</a><br/></td></tr>
+<tr class="separator:a22435ca0b28e562a230b4dfdeaffa716 inherit pub_methods_classBaseRobotSystem"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e7031f99e64e7c371ee31fbd69f6bf9 inherit pub_methods_classBaseRobotSystem"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a3e7031f99e64e7c371ee31fbd69f6bf9">abortController</a> (<a class="el" href="base__controller__hardware__connector_8h.html#ae4dfd42394001deb6e8a0e60c81d6f7a">HardwareType</a> hardware_type)</td></tr>
 <tr class="memdesc:a3e7031f99e64e7c371ee31fbd69f6bf9 inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove active controller for given hardware type.  <a href="#a3e7031f99e64e7c371ee31fbd69f6bf9">More...</a><br/></td></tr>
 <tr class="separator:a3e7031f99e64e7c371ee31fbd69f6bf9 inherit pub_methods_classBaseRobotSystem"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -153,8 +170,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:abad7fac8177f72f932a5ef543408f986 inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run active controller stored for a given hardware type.  <a href="#abad7fac8177f72f932a5ef543408f986">More...</a><br/></td></tr>
 <tr class="separator:abad7fac8177f72f932a5ef543408f986 inherit pub_methods_classBaseRobotSystem"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:ab47721beaeb776063b46f7c3c7721b7a"><td class="memItemLeft" align="right" valign="top">parsernode::Parser &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#ab47721beaeb776063b46f7c3c7721b7a">drone_hardware_</a></td></tr>
+<tr class="memdesc:ab47721beaeb776063b46f7c3c7721b7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hardware.  <a href="#ab47721beaeb776063b46f7c3c7721b7a">More...</a><br/></td></tr>
+<tr class="separator:ab47721beaeb776063b46f7c3c7721b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bdf636000ef7cd55612bc2c2f66d60b"><td class="memItemLeft" align="right" valign="top">UAVSystemConfig&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUAVSystem.html#a9bdf636000ef7cd55612bc2c2f66d60b">config_</a></td></tr>
+<tr class="memdesc:a9bdf636000ef7cd55612bc2c2f66d60b"><td class="mdescLeft">&#160;</td><td class="mdescRight">UAV configuration parameters.  <a href="#a9bdf636000ef7cd55612bc2c2f66d60b">More...</a><br/></td></tr>
+<tr class="separator:a9bdf636000ef7cd55612bc2c2f66d60b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classBaseRobotSystem"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classBaseRobotSystem')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classBaseRobotSystem.html">BaseRobotSystem</a></td></tr>
 <tr class="memitem:a9539998f793faa61ed89e4c7ecc711ad inherit pro_attribs_classBaseRobotSystem"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classTypeMap.html">TypeMap</a><br class="typebreak"/>
 &lt; <a class="el" href="structAbstractControllerHardwareConnector.html">AbstractControllerHardwareConnector</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a9539998f793faa61ed89e4c7ecc711ad">controller_hardware_connector_container_</a></td></tr>
@@ -235,6 +258,31 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a8b379202b204125b0523b512b94dc91f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UAVSystem::enableAutonomousMode </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Public API call to enable Quadcopter SDK. This call is only necessary if Quad goes into manual mode due to rc switching while state machine is running. </p>
+
+</div>
+</div>
 <a class="anchor" id="a89d67e42aec09dd65a23f39462a8202e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -258,6 +306,32 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Get system configuration. </p>
 <dl class="section return"><dt>Returns</dt><dd>Configuration </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0e9242b82c55106b66e80a0a100098a0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structPositionYaw.html">PositionYaw</a> UAVSystem::getHomeLocation </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stored home location. </p>
+<dl class="section return"><dt>Returns</dt><dd>Home location (<a class="el" href="structPositionYaw.html" title="Stores Position, yaw. PositionYaw is used as the goal for UAV systems. ">PositionYaw</a>) </dd></dl>
 
 </div>
 </div>
@@ -315,6 +389,32 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a226c842c7e5e1120be5d6fe233f1bb2d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool UAVSystem::isHomeLocationSpecified </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if home location is specified. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if home location is specified </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ae1bac31ca121a54cb1e3ed7fac322993"></a>
 <div class="memitem">
 <div class="memproto">
@@ -340,6 +440,31 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a5f31741d7d13ca93c7f02453aa97cc16"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UAVSystem::setHomeLocation </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>save current location as home location </p>
+
+</div>
+</div>
 <a class="anchor" id="a7f010477b67bfeb5d6d32c0f10630b8e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -362,6 +487,51 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Public API call to takeoff. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a9bdf636000ef7cd55612bc2c2f66d60b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">UAVSystemConfig UAVSystem::config_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>UAV configuration parameters. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab47721beaeb776063b46f7c3c7721b7a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">parsernode::Parser&amp; UAVSystem::drone_hardware_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Hardware. </p>
 
 </div>
 </div>

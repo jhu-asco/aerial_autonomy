@@ -8,266 +8,365 @@
     <includes refid="basic__controller__hardware__connectors_8h" local="no">aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h</includes>
     <includedby refid="hovering__functors_8h" local="no">include/aerial_autonomy/actions_guards/hovering_functors.h</includedby>
     <includedby refid="land__functors_8h" local="no">include/aerial_autonomy/actions_guards/land_functors.h</includedby>
+    <includedby refid="manual__control__functors_8h" local="no">include/aerial_autonomy/actions_guards/manual_control_functors.h</includedby>
     <includedby refid="position__control__functors_8h" local="no">include/aerial_autonomy/actions_guards/position_control_functors.h</includedby>
     <includedby refid="takeoff__functors_8h" local="no">include/aerial_autonomy/actions_guards/takeoff_functors.h</includedby>
+    <includedby refid="uav__status__functor_8h" local="no">include/aerial_autonomy/actions_guards/uav_status_functor.h</includedby>
+    <includedby refid="uav__vision__system_8h" local="yes">include/aerial_autonomy/robot_systems/uav_vision_system.h</includedby>
     <includedby refid="uav__state__machine_8h" local="no">include/aerial_autonomy/state_machines/uav_state_machine.h</includedby>
     <includedby refid="uav__system__handler_8h" local="no">include/aerial_autonomy/system_handlers/uav_system_handler.h</includedby>
     <includedby refid="sample__logic__state__machine_8h" local="no">include/aerial_autonomy/tests/sample_logic_state_machine.h</includedby>
     <incdepgraph>
-      <node id="1596">
+      <node id="3269">
         <label>boost/thread/mutex.hpp</label>
       </node>
-      <node id="1597">
-        <label>aerial_autonomy/common/type_map.h</label>
-        <link refid="type__map_8h"/>
-        <childnode refid="1598" relation="include">
+      <node id="3293">
+        <label>aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h</label>
+        <link refid="basic__controller__hardware__connectors_8h"/>
+        <childnode refid="3294" relation="include">
         </childnode>
-        <childnode refid="1599" relation="include">
+        <childnode refid="3296" relation="include">
         </childnode>
-      </node>
-      <node id="1613">
-        <label>aerial_autonomy/types/velocity.h</label>
-        <link refid="velocity_8h"/>
-      </node>
-      <node id="1602">
-        <label>aerial_autonomy/controllers/basic_controllers.h</label>
-        <link refid="basic__controllers_8h"/>
-        <childnode refid="1603" relation="include">
-        </childnode>
-        <childnode refid="1605" relation="include">
+        <childnode refid="3297" relation="include">
         </childnode>
       </node>
-      <node id="1606">
-        <label>aerial_autonomy/types/empty_goal.h</label>
-        <link refid="empty__goal_8h"/>
-      </node>
-      <node id="1594">
-        <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
-        <link refid="base__controller__hardware__connector_8h"/>
-        <childnode refid="1595" relation="include">
+      <node id="3278">
+        <label>aerial_autonomy/types/position_yaw.h</label>
+        <link refid="position__yaw_8h"/>
+        <childnode refid="3279" relation="include">
+        </childnode>
+        <childnode refid="3281" relation="include">
         </childnode>
       </node>
-      <node id="1607">
-        <label>aerial_autonomy/types/joysticks_yaw.h</label>
-        <link refid="joysticks__yaw_8h"/>
-        <childnode refid="1608" relation="include">
-        </childnode>
+      <node id="3270">
+        <label>glog/logging.h</label>
       </node>
-      <node id="1591">
-        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
-        <link refid="uav_system.h"/>
-        <childnode refid="1592" relation="include">
-        </childnode>
-        <childnode refid="1593" relation="include">
-        </childnode>
-        <childnode refid="1602" relation="include">
-        </childnode>
-        <childnode refid="1610" relation="include">
-        </childnode>
+      <node id="3287">
+        <label>velocity_controller_config.pb.h</label>
       </node>
-      <node id="1600">
-        <label>aerial_autonomy/common/iterable_enum.h</label>
-        <link refid="iterable__enum_8h"/>
+      <node id="3280">
+        <label>cmath</label>
       </node>
-      <node id="1611">
-        <label>aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h</label>
-        <link refid="builtin__velocity__controller__drone__connector_8h"/>
-        <childnode refid="1594" relation="include">
-        </childnode>
-        <childnode refid="1604" relation="include">
-        </childnode>
-        <childnode refid="1612" relation="include">
-        </childnode>
-        <childnode refid="1614" relation="include">
-        </childnode>
-      </node>
-      <node id="1593">
-        <label>aerial_autonomy/robot_systems/base_robot_system.h</label>
-        <link refid="base__robot__system_8h"/>
-        <childnode refid="1594" relation="include">
-        </childnode>
-        <childnode refid="1597" relation="include">
-        </childnode>
-        <childnode refid="1600" relation="include">
-        </childnode>
-        <childnode refid="1596" relation="include">
-        </childnode>
-        <childnode refid="1601" relation="include">
-        </childnode>
-      </node>
-      <node id="1615">
-        <label>aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h</label>
-        <link refid="manual__rpyt__controller__drone__connector_8h"/>
-        <childnode refid="1594" relation="include">
-        </childnode>
-        <childnode refid="1606" relation="include">
-        </childnode>
-        <childnode refid="1607" relation="include">
-        </childnode>
-        <childnode refid="1609" relation="include">
-        </childnode>
-        <childnode refid="1614" relation="include">
-        </childnode>
-      </node>
-      <node id="1608">
+      <node id="3291">
         <label>aerial_autonomy/types/joysticks.h</label>
         <link refid="joysticks_8h"/>
       </node>
-      <node id="1604">
-        <label>aerial_autonomy/types/empty_sensor.h</label>
-        <link refid="empty__sensor_8h"/>
+      <node id="3282">
+        <label>stdexcept</label>
       </node>
-      <node id="1595">
+      <node id="3268">
         <label>aerial_autonomy/controllers/base_controller.h</label>
         <link refid="base__controller_8h"/>
-        <childnode refid="1596" relation="include">
+        <childnode refid="3269" relation="include">
         </childnode>
       </node>
-      <node id="1605">
+      <node id="3274">
+        <label>aerial_autonomy/common/iterable_enum.h</label>
+        <link refid="iterable__enum_8h"/>
+      </node>
+      <node id="3283">
+        <label>tf/tf.h</label>
+      </node>
+      <node id="3276">
+        <label>aerial_autonomy/controllers/basic_controllers.h</label>
+        <link refid="basic__controllers_8h"/>
+        <childnode refid="3277" relation="include">
+        </childnode>
+        <childnode refid="3288" relation="include">
+        </childnode>
+      </node>
+      <node id="3277">
+        <label>aerial_autonomy/controllers/builtin_controller.h</label>
+        <link refid="builtin__controller_8h"/>
+        <childnode refid="3268" relation="include">
+        </childnode>
+        <childnode refid="3278" relation="include">
+        </childnode>
+        <childnode refid="3284" relation="include">
+        </childnode>
+        <childnode refid="3286" relation="include">
+        </childnode>
+        <childnode refid="3287" relation="include">
+        </childnode>
+      </node>
+      <node id="3271">
+        <label>aerial_autonomy/common/type_map.h</label>
+        <link refid="type__map_8h"/>
+        <childnode refid="3272" relation="include">
+        </childnode>
+        <childnode refid="3273" relation="include">
+        </childnode>
+      </node>
+      <node id="3289">
+        <label>aerial_autonomy/types/empty_goal.h</label>
+        <link refid="empty__goal_8h"/>
+      </node>
+      <node id="3297">
+        <label>aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h</label>
+        <link refid="position__controller__drone__connector_8h"/>
+        <childnode refid="3267" relation="include">
+        </childnode>
+        <childnode refid="3278" relation="include">
+        </childnode>
+        <childnode refid="3295" relation="include">
+        </childnode>
+      </node>
+      <node id="3286">
+        <label>position_controller_config.pb.h</label>
+      </node>
+      <node id="3284">
+        <label>aerial_autonomy/types/velocity_yaw.h</label>
+        <link refid="velocity__yaw_8h"/>
+        <childnode refid="3285" relation="include">
+        </childnode>
+        <childnode refid="3281" relation="include">
+        </childnode>
+      </node>
+      <node id="3294">
+        <label>aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h</label>
+        <link refid="builtin__velocity__controller__drone__connector_8h"/>
+        <childnode refid="3267" relation="include">
+        </childnode>
+        <childnode refid="3284" relation="include">
+        </childnode>
+        <childnode refid="3295" relation="include">
+        </childnode>
+      </node>
+      <node id="3285">
+        <label>aerial_autonomy/types/velocity.h</label>
+        <link refid="velocity_8h"/>
+      </node>
+      <node id="3288">
         <label>aerial_autonomy/controllers/manual_rpyt_controller.h</label>
         <link refid="manual__rpyt__controller_8h"/>
-        <childnode refid="1595" relation="include">
+        <childnode refid="3268" relation="include">
         </childnode>
-        <childnode refid="1606" relation="include">
+        <childnode refid="3289" relation="include">
         </childnode>
-        <childnode refid="1607" relation="include">
+        <childnode refid="3290" relation="include">
         </childnode>
-        <childnode refid="1609" relation="include">
-        </childnode>
-      </node>
-      <node id="1610">
-        <label>aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h</label>
-        <link refid="basic__controller__hardware__connectors_8h"/>
-        <childnode refid="1611" relation="include">
-        </childnode>
-        <childnode refid="1615" relation="include">
-        </childnode>
-        <childnode refid="1616" relation="include">
+        <childnode refid="3292" relation="include">
         </childnode>
       </node>
-      <node id="1599">
+      <node id="3296">
+        <label>aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h</label>
+        <link refid="manual__rpyt__controller__drone__connector_8h"/>
+        <childnode refid="3267" relation="include">
+        </childnode>
+        <childnode refid="3289" relation="include">
+        </childnode>
+        <childnode refid="3290" relation="include">
+        </childnode>
+        <childnode refid="3292" relation="include">
+        </childnode>
+        <childnode refid="3295" relation="include">
+        </childnode>
+      </node>
+      <node id="3290">
+        <label>aerial_autonomy/types/joysticks_yaw.h</label>
+        <link refid="joysticks__yaw_8h"/>
+        <childnode refid="3291" relation="include">
+        </childnode>
+      </node>
+      <node id="3273">
         <label>unordered_map</label>
       </node>
-      <node id="1617">
-        <label>aerial_autonomy/types/position_yaw.h</label>
-        <link refid="position__yaw_8h"/>
-        <childnode refid="1618" relation="include">
+      <node id="3267">
+        <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
+        <link refid="base__controller__hardware__connector_8h"/>
+        <childnode refid="3268" relation="include">
+        </childnode>
+        <childnode refid="3270" relation="include">
         </childnode>
       </node>
-      <node id="1609">
+      <node id="3281">
+        <label>aerial_autonomy/common/math.h</label>
+        <link refid="math_8h"/>
+        <childnode refid="3280" relation="include">
+        </childnode>
+        <childnode refid="3282" relation="include">
+        </childnode>
+        <childnode refid="3283" relation="include">
+        </childnode>
+      </node>
+      <node id="3292">
         <label>aerial_autonomy/types/roll_pitch_yaw_thrust.h</label>
         <link refid="roll__pitch__yaw__thrust_8h"/>
       </node>
-      <node id="1618">
+      <node id="3279">
         <label>aerial_autonomy/types/position.h</label>
         <link refid="position_8h"/>
-      </node>
-      <node id="1616">
-        <label>aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h</label>
-        <link refid="position__controller__drone__connector_8h"/>
-        <childnode refid="1594" relation="include">
-        </childnode>
-        <childnode refid="1604" relation="include">
-        </childnode>
-        <childnode refid="1617" relation="include">
-        </childnode>
-        <childnode refid="1614" relation="include">
+        <childnode refid="3280" relation="include">
         </childnode>
       </node>
-      <node id="1612">
-        <label>aerial_autonomy/types/velocity_yaw.h</label>
-        <link refid="velocity__yaw_8h"/>
-        <childnode refid="1613" relation="include">
+      <node id="3264">
+        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
+        <link refid="uav_system.h"/>
+        <childnode refid="3265" relation="include">
+        </childnode>
+        <childnode refid="3266" relation="include">
+        </childnode>
+        <childnode refid="3276" relation="include">
+        </childnode>
+        <childnode refid="3293" relation="include">
         </childnode>
       </node>
-      <node id="1603">
-        <label>aerial_autonomy/controllers/builtin_controller.h</label>
-        <link refid="builtin__controller_8h"/>
-        <childnode refid="1595" relation="include">
-        </childnode>
-        <childnode refid="1604" relation="include">
-        </childnode>
-      </node>
-      <node id="1592">
+      <node id="3265">
         <label>uav_system_config.pb.h</label>
       </node>
-      <node id="1614">
+      <node id="3295">
         <label>parsernode/parser.h</label>
       </node>
-      <node id="1601">
+      <node id="3275">
         <label>memory</label>
       </node>
-      <node id="1598">
+      <node id="3272">
         <label>typeindex</label>
+      </node>
+      <node id="3266">
+        <label>aerial_autonomy/robot_systems/base_robot_system.h</label>
+        <link refid="base__robot__system_8h"/>
+        <childnode refid="3267" relation="include">
+        </childnode>
+        <childnode refid="3271" relation="include">
+        </childnode>
+        <childnode refid="3274" relation="include">
+        </childnode>
+        <childnode refid="3269" relation="include">
+        </childnode>
+        <childnode refid="3275" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="1622">
-        <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
-        <link refid="uav__state__machine_8h"/>
-        <childnode refid="1623" relation="include">
+      <node id="3311">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_functors.h</label>
+        <link refid="visual__servoing__functors_8h"/>
+        <childnode refid="3301" relation="include">
         </childnode>
       </node>
-      <node id="1628">
-        <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
-        <link refid="sample__logic__state__machine_8h"/>
-      </node>
-      <node id="1620">
-        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
-        <link refid="hovering__functors_8h"/>
-        <childnode refid="1621" relation="include">
+      <node id="3307">
+        <label>include/aerial_autonomy/actions_guards/manual_control_functors.h</label>
+        <link refid="manual__control__functors_8h"/>
+        <childnode refid="3300" relation="include">
         </childnode>
       </node>
-      <node id="1623">
+      <node id="3315">
+        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
+        <link refid="uav__system__handler_8h"/>
+        <childnode refid="3305" relation="include">
+        </childnode>
+      </node>
+      <node id="3306">
+        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
+        <link refid="land__functors_8h"/>
+        <childnode refid="3300" relation="include">
+        </childnode>
+      </node>
+      <node id="3310">
+        <label>include/aerial_autonomy/actions_guards/uav_status_functor.h</label>
+        <link refid="uav__status__functor_8h"/>
+        <childnode refid="3308" relation="include">
+        </childnode>
+        <childnode refid="3311" relation="include">
+        </childnode>
+      </node>
+      <node id="3300">
+        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
+        <link refid="uav__states__actions_8h"/>
+        <childnode refid="3301" relation="include">
+        </childnode>
+        <childnode refid="3304" relation="include">
+        </childnode>
+      </node>
+      <node id="3305">
         <label>src/system_handler_nodes/uav_system_node.cpp</label>
         <link refid="uav__system__node_8cpp"/>
       </node>
-      <node id="1626">
-        <label>include/aerial_autonomy/actions_guards/takeoff_functors.h</label>
-        <link refid="takeoff__functors_8h"/>
-        <childnode refid="1621" relation="include">
+      <node id="3301">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
+        <link refid="visual__servoing__states__actions_8h"/>
+        <childnode refid="3302" relation="include">
         </childnode>
       </node>
-      <node id="1619">
-        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
-        <link refid="uav_system.h"/>
-        <childnode refid="1620" relation="include">
+      <node id="3312">
+        <label>include/aerial_autonomy/robot_systems/uav_vision_system.h</label>
+        <link refid="uav__vision__system_8h"/>
+        <childnode refid="3311" relation="include">
         </childnode>
-        <childnode refid="1624" relation="include">
+        <childnode refid="3302" relation="include">
         </childnode>
-        <childnode refid="1625" relation="include">
+        <childnode refid="3313" relation="include">
         </childnode>
-        <childnode refid="1626" relation="include">
-        </childnode>
-        <childnode refid="1622" relation="include">
-        </childnode>
-        <childnode refid="1627" relation="include">
-        </childnode>
-        <childnode refid="1628" relation="include">
+        <childnode refid="3314" relation="include">
         </childnode>
       </node>
-      <node id="1627">
-        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
-        <link refid="uav__system__handler_8h"/>
-        <childnode refid="1623" relation="include">
-        </childnode>
-      </node>
-      <node id="1621">
-        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
-        <link refid="uav__states__actions_8h"/>
-        <childnode refid="1622" relation="include">
-        </childnode>
-      </node>
-      <node id="1625">
+      <node id="3308">
         <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
         <link refid="position__control__functors_8h"/>
-        <childnode refid="1621" relation="include">
+        <childnode refid="3300" relation="include">
         </childnode>
       </node>
-      <node id="1624">
-        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
-        <link refid="land__functors_8h"/>
-        <childnode refid="1621" relation="include">
+      <node id="3302">
+        <label>include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</label>
+        <link refid="visual__servoing__state__machine_8h"/>
+        <childnode refid="3303" relation="include">
+        </childnode>
+      </node>
+      <node id="3299">
+        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
+        <link refid="hovering__functors_8h"/>
+        <childnode refid="3300" relation="include">
+        </childnode>
+      </node>
+      <node id="3303">
+        <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
+        <link refid="uav__vision__system__node_8cpp"/>
+      </node>
+      <node id="3304">
+        <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
+        <link refid="uav__state__machine_8h"/>
+        <childnode refid="3305" relation="include">
+        </childnode>
+      </node>
+      <node id="3298">
+        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
+        <link refid="uav_system.h"/>
+        <childnode refid="3299" relation="include">
+        </childnode>
+        <childnode refid="3306" relation="include">
+        </childnode>
+        <childnode refid="3307" relation="include">
+        </childnode>
+        <childnode refid="3308" relation="include">
+        </childnode>
+        <childnode refid="3309" relation="include">
+        </childnode>
+        <childnode refid="3310" relation="include">
+        </childnode>
+        <childnode refid="3312" relation="include">
+        </childnode>
+        <childnode refid="3304" relation="include">
+        </childnode>
+        <childnode refid="3315" relation="include">
+        </childnode>
+        <childnode refid="3314" relation="include">
+        </childnode>
+      </node>
+      <node id="3314">
+        <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
+        <link refid="sample__logic__state__machine_8h"/>
+      </node>
+      <node id="3313">
+        <label>include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</label>
+        <link refid="uav__vision__system__handler_8h"/>
+        <childnode refid="3303" relation="include">
+        </childnode>
+      </node>
+      <node id="3309">
+        <label>include/aerial_autonomy/actions_guards/takeoff_functors.h</label>
+        <link refid="takeoff__functors_8h"/>
+        <childnode refid="3300" relation="include">
         </childnode>
       </node>
     </invincdepgraph>
@@ -288,82 +387,104 @@
 <codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="basic__controller__hardware__connectors_8h" kindref="compound">aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="10"><highlight class="normal"></highlight></codeline>
 <codeline lineno="16" refid="classUAVSystem" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classBaseRobotSystem" kindref="compound">BaseRobotSystem</ref><sp/>{</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"></highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/>parsernode::Parser<sp/>&amp;drone_hardware_;</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Controllers</highlight></codeline>
-<codeline lineno="27"><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><ref refid="classBuiltInController" kindref="compound">BuiltInController&lt;PositionYaw&gt;</ref><sp/>builtin_position_controller_;</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><ref refid="classBuiltInController" kindref="compound">BuiltInController&lt;VelocityYaw&gt;</ref><sp/>builtin_velocity_controller_;</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><ref refid="classManualRPYTController" kindref="compound">ManualRPYTController</ref><sp/>manual_rpyt_controller_;</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><ref refid="classPositionControllerDroneConnector" kindref="compound">PositionControllerDroneConnector</ref><sp/>position_controller_drone_connector_;</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><ref refid="classBuiltInVelocityControllerDroneConnector" kindref="compound">BuiltInVelocityControllerDroneConnector</ref><sp/>velocity_controller_drone_connector_;</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><ref refid="classManualRPYTControllerDroneConnector" kindref="compound">ManualRPYTControllerDroneConnector</ref><sp/>rpyt_controller_drone_connector_;</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/>UAVSystemConfig<sp/>config_;</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="57" refid="classUAVSystem_1a99ac3986113a03546b8dc4bcc73d65b0" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classUAVSystem_1a99ac3986113a03546b8dc4bcc73d65b0" kindref="member">UAVSystem</ref>(parsernode::Parser<sp/>&amp;drone_hardware)</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref>(drone_hardware,<sp/>UAVSystemConfig())<sp/>{}</highlight></codeline>
-<codeline lineno="69" refid="classUAVSystem_1a9218f794905e832cc356b5e4b659e1da" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classUAVSystem_1a9218f794905e832cc356b5e4b659e1da" kindref="member">UAVSystem</ref>(parsernode::Parser<sp/>&amp;drone_hardware,<sp/>UAVSystemConfig<sp/>config)</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classBaseRobotSystem" kindref="compound">BaseRobotSystem</ref>(),<sp/>drone_hardware_(drone_hardware),</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>position_controller_drone_connector_(drone_hardware,</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>builtin_position_controller_),</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>velocity_controller_drone_connector_(drone_hardware,</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>builtin_velocity_controller_),</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rpyt_controller_drone_connector_(drone_hardware,</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>manual_rpyt_controller_),</highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>config_(config)<sp/>{</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Add<sp/>control<sp/>hardware<sp/>connector<sp/>containers</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classBaseRobotSystem_1a9539998f793faa61ed89e4c7ecc711ad" kindref="member">controller_hardware_connector_container_</ref>.<ref refid="classTypeMap_1a738b13adaac930d128c1a81b08628b9e" kindref="member">setObject</ref>(</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>position_controller_drone_connector_);</highlight></codeline>
-<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classBaseRobotSystem_1a9539998f793faa61ed89e4c7ecc711ad" kindref="member">controller_hardware_connector_container_</ref>.<ref refid="classTypeMap_1a738b13adaac930d128c1a81b08628b9e" kindref="member">setObject</ref>(</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>velocity_controller_drone_connector_);</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classBaseRobotSystem_1a9539998f793faa61ed89e4c7ecc711ad" kindref="member">controller_hardware_connector_container_</ref>.<ref refid="classTypeMap_1a738b13adaac930d128c1a81b08628b9e" kindref="member">setObject</ref>(</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rpyt_controller_drone_connector_);</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="91" refid="classUAVSystem_1a4ccf5fcb488485d369752b406e36b8e3" refkind="member"><highlight class="normal"><sp/><sp/>parsernode::common::quaddata<sp/><ref refid="classUAVSystem_1a4ccf5fcb488485d369752b406e36b8e3" kindref="member">getUAVData</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>parsernode::common::quaddata<sp/>data;</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>drone_hardware_.getquaddata(data);</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>data;</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"></highlight></codeline>
-<codeline lineno="100" refid="classUAVSystem_1a7f010477b67bfeb5d6d32c0f10630b8e" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classUAVSystem_1a7f010477b67bfeb5d6d32c0f10630b8e" kindref="member">takeOff</ref>()<sp/>{<sp/>drone_hardware_.takeoff();<sp/>}</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"></highlight></codeline>
-<codeline lineno="105" refid="classUAVSystem_1ae1bac31ca121a54cb1e3ed7fac322993" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classUAVSystem_1ae1bac31ca121a54cb1e3ed7fac322993" kindref="member">land</ref>()<sp/>{<sp/>drone_hardware_.land();<sp/>}</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight></codeline>
-<codeline lineno="112" refid="classUAVSystem_1a686bdf431c8b790308d17cc9df231ee4" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classUAVSystem_1a686bdf431c8b790308d17cc9df231ee4" kindref="member">getSystemStatus</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>parsernode::common::quaddata<sp/>data<sp/>=<sp/><ref refid="classUAVSystem_1a4ccf5fcb488485d369752b406e36b8e3" kindref="member">getUAVData</ref>();</highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Get<sp/>goals<sp/>for<sp/>different<sp/>controllers:</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structVelocityYaw" kindref="compound">VelocityYaw</ref><sp/>velocity_controller_goal<sp/>=</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>builtin_velocity_controller_.<ref refid="classController_1a287a48298ec6f08e36ac3d72a2e6de34" kindref="member">getGoal</ref>();</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>position_controller_goal<sp/>=</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>builtin_position_controller_.<ref refid="classController_1a287a48298ec6f08e36ac3d72a2e6de34" kindref="member">getGoal</ref>();</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>buffer[1500];</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>sprintf(buffer,</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Battery<sp/>Percent:<sp/>%2.2f\t\nlx:<sp/>%2.2f\tly:<sp/>%2.2f\tlz:<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;%2.2f\nAltitude:<sp/>%2.2f\t\nRoll:<sp/>%2.2f\tPitch<sp/>%2.2f\tYaw<sp/>%2.2f\n&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Magx:<sp/>%2.2f\tMagy<sp/>%2.2f\tMagz<sp/>%2.2f\naccx:<sp/>%2.2f\taccy<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;%2.2f\taccz<sp/>%2.2f\nvelx:<sp/>%2.2f\tvely<sp/>%2.2f\tvelz<sp/>%2.2f\n&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Goalvx:<sp/>%2.2f\tGoalvy:<sp/>%2.2f\tGoalvz:<sp/>%2.2f\tGoalvyaw:<sp/>%2.2f\n&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Goalx:<sp/>%2.2f\tGoaly:<sp/>%2.2f\tGoalz:<sp/>%2.2f\tGoalpyaw:<sp/>%2.2f\n&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Mass:<sp/>%2.2f\tTimestamp:<sp/>%2.2f\t\nQuadState:<sp/>%s&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.batterypercent,<sp/>data.localpos.x,<sp/>data.localpos.y,</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.localpos.z,<sp/>data.altitude,<sp/>data.rpydata.x<sp/>*<sp/>(180<sp/>/<sp/>M_PI),</highlight></codeline>
-<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.rpydata.y<sp/>*<sp/>(180<sp/>/<sp/>M_PI),</highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.rpydata.z<sp/>*<sp/>(180<sp/>/<sp/>M_PI),<sp/></highlight><highlight class="comment">//<sp/>IMU<sp/>rpy<sp/>angles</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.magdata.x,<sp/>data.magdata.y,<sp/>data.magdata.z,<sp/>data.linacc.x,</highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.linacc.y,<sp/>data.linacc.z,<sp/>data.linvel.x,<sp/>data.linvel.y,</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.linvel.z,<sp/>velocity_controller_goal.<ref refid="structVelocity_1a99a9f9580c8a025a2c7a18890993b56a" kindref="member">x</ref>,</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>velocity_controller_goal.<ref refid="structVelocity_1ae1282d20e14cc4be4aac24ab4e1e3e5c" kindref="member">y</ref>,<sp/>velocity_controller_goal.<ref refid="structVelocity_1aaebcd198674f7adcb61f9bb981dab465" kindref="member">z</ref>,</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>velocity_controller_goal.<ref refid="structVelocityYaw_1a5bef45a2807a9814495080d2e5603ce4" kindref="member">yaw</ref>,<sp/>position_controller_goal.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>,</highlight></codeline>
-<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>position_controller_goal.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>,<sp/>position_controller_goal.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>,</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>position_controller_goal.<ref refid="structPositionYaw_1a712a15ba9739cb5f4e31ea973074b8bf" kindref="member">yaw</ref>,<sp/>data.mass,<sp/>data.timestamp,</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.quadstate.c_str());</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>buffer;</highlight></codeline>
-<codeline lineno="141"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"></highlight></codeline>
-<codeline lineno="147" refid="classUAVSystem_1a89d67e42aec09dd65a23f39462a8202e" refkind="member"><highlight class="normal"><sp/><sp/>UAVSystemConfig<sp/><ref refid="classUAVSystem_1a89d67e42aec09dd65a23f39462a8202e" kindref="member">getConfiguration</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>config_;<sp/>}</highlight></codeline>
-<codeline lineno="148"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="21" refid="classUAVSystem_1ab47721beaeb776063b46f7c3c7721b7a" refkind="member"><highlight class="normal"><sp/><sp/>parsernode::Parser<sp/>&amp;<ref refid="classUAVSystem_1ab47721beaeb776063b46f7c3c7721b7a" kindref="member">drone_hardware_</ref>;</highlight></codeline>
+<codeline lineno="25" refid="classUAVSystem_1a9bdf636000ef7cd55612bc2c2f66d60b" refkind="member"><highlight class="normal"><sp/><sp/>UAVSystemConfig<sp/><ref refid="classUAVSystem_1a9bdf636000ef7cd55612bc2c2f66d60b" kindref="member">config_</ref>;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Controllers</highlight></codeline>
+<codeline lineno="32"><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><ref refid="classBuiltInPositionController" kindref="compound">BuiltInPositionController</ref><sp/>builtin_position_controller_;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><ref refid="classBuiltInVelocityController" kindref="compound">BuiltInVelocityController</ref><sp/>builtin_velocity_controller_;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><ref refid="classManualRPYTController" kindref="compound">ManualRPYTController</ref><sp/>manual_rpyt_controller_;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><ref refid="classPositionControllerDroneConnector" kindref="compound">PositionControllerDroneConnector</ref><sp/>position_controller_drone_connector_;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><ref refid="classBuiltInVelocityControllerDroneConnector" kindref="compound">BuiltInVelocityControllerDroneConnector</ref><sp/>velocity_controller_drone_connector_;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><ref refid="classManualRPYTControllerDroneConnector" kindref="compound">ManualRPYTControllerDroneConnector</ref><sp/>rpyt_controller_drone_connector_;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>home_location_;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>home_location_specified_;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="68" refid="classUAVSystem_1a99ac3986113a03546b8dc4bcc73d65b0" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classUAVSystem_1a99ac3986113a03546b8dc4bcc73d65b0" kindref="member">UAVSystem</ref>(parsernode::Parser<sp/>&amp;drone_hardware)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref>(drone_hardware,<sp/>UAVSystemConfig())<sp/>{}</highlight></codeline>
+<codeline lineno="80" refid="classUAVSystem_1a9218f794905e832cc356b5e4b659e1da" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classUAVSystem_1a9218f794905e832cc356b5e4b659e1da" kindref="member">UAVSystem</ref>(parsernode::Parser<sp/>&amp;drone_hardware,<sp/>UAVSystemConfig<sp/>config)</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classBaseRobotSystem" kindref="compound">BaseRobotSystem</ref>(),<sp/><ref refid="classUAVSystem_1ab47721beaeb776063b46f7c3c7721b7a" kindref="member">drone_hardware_</ref>(drone_hardware),<sp/><ref refid="classUAVSystem_1a9bdf636000ef7cd55612bc2c2f66d60b" kindref="member">config_</ref>(config),</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>builtin_position_controller_(config.position_controller_config()),</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>builtin_velocity_controller_(config.velocity_controller_config()),</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>position_controller_drone_connector_(drone_hardware,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>builtin_position_controller_),</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>velocity_controller_drone_connector_(drone_hardware,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>builtin_velocity_controller_),</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rpyt_controller_drone_connector_(drone_hardware,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>manual_rpyt_controller_),</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>home_location_specified_(false)<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Add<sp/>control<sp/>hardware<sp/>connector<sp/>containers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classBaseRobotSystem_1a9539998f793faa61ed89e4c7ecc711ad" kindref="member">controller_hardware_connector_container_</ref>.<ref refid="classTypeMap_1a738b13adaac930d128c1a81b08628b9e" kindref="member">setObject</ref>(</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>position_controller_drone_connector_);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classBaseRobotSystem_1a9539998f793faa61ed89e4c7ecc711ad" kindref="member">controller_hardware_connector_container_</ref>.<ref refid="classTypeMap_1a738b13adaac930d128c1a81b08628b9e" kindref="member">setObject</ref>(</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>velocity_controller_drone_connector_);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classBaseRobotSystem_1a9539998f793faa61ed89e4c7ecc711ad" kindref="member">controller_hardware_connector_container_</ref>.<ref refid="classTypeMap_1a738b13adaac930d128c1a81b08628b9e" kindref="member">setObject</ref>(</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rpyt_controller_drone_connector_);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104" refid="classUAVSystem_1a4ccf5fcb488485d369752b406e36b8e3" refkind="member"><highlight class="normal"><sp/><sp/>parsernode::common::quaddata<sp/><ref refid="classUAVSystem_1a4ccf5fcb488485d369752b406e36b8e3" kindref="member">getUAVData</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>parsernode::common::quaddata<sp/>data;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classUAVSystem_1ab47721beaeb776063b46f7c3c7721b7a" kindref="member">drone_hardware_</ref>.getquaddata(data);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>data;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113" refid="classUAVSystem_1a7f010477b67bfeb5d6d32c0f10630b8e" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classUAVSystem_1a7f010477b67bfeb5d6d32c0f10630b8e" kindref="member">takeOff</ref>()<sp/>{<sp/><ref refid="classUAVSystem_1ab47721beaeb776063b46f7c3c7721b7a" kindref="member">drone_hardware_</ref>.takeoff();<sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120" refid="classUAVSystem_1a8b379202b204125b0523b512b94dc91f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classUAVSystem_1a8b379202b204125b0523b512b94dc91f" kindref="member">enableAutonomousMode</ref>()<sp/>{<sp/><ref refid="classUAVSystem_1ab47721beaeb776063b46f7c3c7721b7a" kindref="member">drone_hardware_</ref>.flowControl(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);<sp/>}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125" refid="classUAVSystem_1ae1bac31ca121a54cb1e3ed7fac322993" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classUAVSystem_1ae1bac31ca121a54cb1e3ed7fac322993" kindref="member">land</ref>()<sp/>{<sp/><ref refid="classUAVSystem_1ab47721beaeb776063b46f7c3c7721b7a" kindref="member">drone_hardware_</ref>.land();<sp/>}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132" refid="classUAVSystem_1a686bdf431c8b790308d17cc9df231ee4" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classUAVSystem_1a686bdf431c8b790308d17cc9df231ee4" kindref="member">getSystemStatus</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>parsernode::common::quaddata<sp/>data<sp/>=<sp/><ref refid="classUAVSystem_1a4ccf5fcb488485d369752b406e36b8e3" kindref="member">getUAVData</ref>();</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Get<sp/>goals<sp/>for<sp/>different<sp/>controllers:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structVelocityYaw" kindref="compound">VelocityYaw</ref><sp/>velocity_controller_goal<sp/>=</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>builtin_velocity_controller_.<ref refid="classController_1a287a48298ec6f08e36ac3d72a2e6de34" kindref="member">getGoal</ref>();</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>position_controller_goal<sp/>=</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>builtin_position_controller_.<ref refid="classController_1a287a48298ec6f08e36ac3d72a2e6de34" kindref="member">getGoal</ref>();</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>buffer[1500];</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/>sprintf(buffer,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Battery<sp/>Percent:<sp/>%2.2f\t\nlx:<sp/>%2.2f\tly:<sp/>%2.2f\tlz:<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;%2.2f\nAltitude:<sp/>%2.2f\t\nRoll:<sp/>%2.2f\tPitch<sp/>%2.2f\tYaw<sp/>%2.2f\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Magx:<sp/>%2.2f\tMagy<sp/>%2.2f\tMagz<sp/>%2.2f\naccx:<sp/>%2.2f\taccy<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;%2.2f\taccz<sp/>%2.2f\nvelx:<sp/>%2.2f\tvely<sp/>%2.2f\tvelz<sp/>%2.2f\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Goalvx:<sp/>%2.2f\tGoalvy:<sp/>%2.2f\tGoalvz:<sp/>%2.2f\tGoalvyaw:<sp/>%2.2f\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Goalx:<sp/>%2.2f\tGoaly:<sp/>%2.2f\tGoalz:<sp/>%2.2f\tGoalpyaw:<sp/>%2.2f\n&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Mass:<sp/>%2.2f\tTimestamp:<sp/>%2.2f\t\nQuadState:<sp/>%s&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.batterypercent,<sp/>data.localpos.x,<sp/>data.localpos.y,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.localpos.z,<sp/>data.altitude,<sp/>data.rpydata.x<sp/>*<sp/>(180<sp/>/<sp/>M_PI),</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.rpydata.y<sp/>*<sp/>(180<sp/>/<sp/>M_PI),</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.rpydata.z<sp/>*<sp/>(180<sp/>/<sp/>M_PI),<sp/></highlight><highlight class="comment">//<sp/>IMU<sp/>rpy<sp/>angles</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.magdata.x,<sp/>data.magdata.y,<sp/>data.magdata.z,<sp/>data.linacc.x,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.linacc.y,<sp/>data.linacc.z,<sp/>data.linvel.x,<sp/>data.linvel.y,</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.linvel.z,<sp/>velocity_controller_goal.<ref refid="structVelocity_1a99a9f9580c8a025a2c7a18890993b56a" kindref="member">x</ref>,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>velocity_controller_goal.<ref refid="structVelocity_1ae1282d20e14cc4be4aac24ab4e1e3e5c" kindref="member">y</ref>,<sp/>velocity_controller_goal.<ref refid="structVelocity_1aaebcd198674f7adcb61f9bb981dab465" kindref="member">z</ref>,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>velocity_controller_goal.<ref refid="structVelocityYaw_1a5bef45a2807a9814495080d2e5603ce4" kindref="member">yaw</ref>,<sp/>position_controller_goal.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>position_controller_goal.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>,<sp/>position_controller_goal.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>,</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>position_controller_goal.<ref refid="structPositionYaw_1a712a15ba9739cb5f4e31ea973074b8bf" kindref="member">yaw</ref>,<sp/>data.mass,<sp/>data.timestamp,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.quadstate.c_str());</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>buffer;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167" refid="classUAVSystem_1a89d67e42aec09dd65a23f39462a8202e" refkind="member"><highlight class="normal"><sp/><sp/>UAVSystemConfig<sp/><ref refid="classUAVSystem_1a89d67e42aec09dd65a23f39462a8202e" kindref="member">getConfiguration</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classUAVSystem_1a9bdf636000ef7cd55612bc2c2f66d60b" kindref="member">config_</ref>;<sp/>}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172" refid="classUAVSystem_1a5f31741d7d13ca93c7f02453aa97cc16" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classUAVSystem_1a5f31741d7d13ca93c7f02453aa97cc16" kindref="member">setHomeLocation</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/>parsernode::common::quaddata<sp/>data<sp/>=<sp/><ref refid="classUAVSystem_1a4ccf5fcb488485d369752b406e36b8e3" kindref="member">getUAVData</ref>();</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/>home_location_.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref><sp/>=<sp/>data.localpos.x;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/>home_location_.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref><sp/>=<sp/>data.localpos.y;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/>home_location_.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref><sp/>=<sp/>data.localpos.z;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/>home_location_.<ref refid="structPositionYaw_1a712a15ba9739cb5f4e31ea973074b8bf" kindref="member">yaw</ref><sp/>=<sp/>data.rpydata.z;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/>home_location_specified_<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186" refid="classUAVSystem_1a226c842c7e5e1120be5d6fe233f1bb2d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classUAVSystem_1a226c842c7e5e1120be5d6fe233f1bb2d" kindref="member">isHomeLocationSpecified</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>home_location_specified_;<sp/>}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193" refid="classUAVSystem_1a0e9242b82c55106b66e80a0a100098a0" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/><ref refid="classUAVSystem_1a0e9242b82c55106b66e80a0a100098a0" kindref="member">getHomeLocation</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>home_location_;<sp/>}</highlight></codeline>
+<codeline lineno="194"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h"/>
   </compounddef>
 </doxygen>

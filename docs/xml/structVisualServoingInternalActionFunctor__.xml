@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structVisualServoingInternalActionFunctor__" kind="struct" prot="public">
+    <compoundname>VisualServoingInternalActionFunctor_</compoundname>
+    <basecompoundref refid="structUAVStatusActionFunctor" prot="public" virt="non-virtual">UAVStatusActionFunctor&lt; UAVVisionSystem, LogicStateMachineT &gt;</basecompoundref>
+    <includes refid="visual__servoing__functors_8h" local="no">visual_servoing_functors.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structVisualServoingInternalActionFunctor___1a10cf4e572f0db0f7fb004caf5d7edcd9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void VisualServoingInternalActionFunctor_&lt; LogicStateMachineT &gt;::statusIndependentRun</definition>
+        <argsstring>(UAVVisionSystem &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</argsstring>
+        <name>statusIndependentRun</name>
+        <reimplements refid="structUAVStatusActionFunctor_1a18b62050ab2cbf50fc222988347b4c3e">statusIndependentRun</reimplements>
+        <param>
+          <type><ref refid="classUAVVisionSystem" kindref="compound">UAVVisionSystem</ref> &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <param>
+          <type>LogicStateMachineT &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <briefdescription>
+<para>check if we reached VS goal and trigger completed event </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>robot system to get sensor data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>logic state machine to trigger events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" line="103" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" bodystart="103" bodyend="115"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Logic to check while reaching a visual servoing goal. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine used to process events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="650">
+        <label>UAVStatusActionFunctor&lt; UAVVisionSystem, LogicStateMachineT &gt;</label>
+        <link refid="structUAVStatusActionFunctor"/>
+        <childnode refid="651" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="651">
+        <label>EventAgnosticActionFunctor&lt; UAVVisionSystem, LogicStateMachineT &gt;</label>
+        <link refid="structEventAgnosticActionFunctor"/>
+      </node>
+      <node id="649">
+        <label>VisualServoingInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
+        <link refid="structVisualServoingInternalActionFunctor__"/>
+        <childnode refid="650" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="653">
+        <label>UAVStatusActionFunctor&lt; UAVVisionSystem, LogicStateMachineT &gt;</label>
+        <link refid="structUAVStatusActionFunctor"/>
+        <childnode refid="654" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="654">
+        <label>EventAgnosticActionFunctor&lt; UAVVisionSystem, LogicStateMachineT &gt;</label>
+        <link refid="structEventAgnosticActionFunctor"/>
+      </node>
+      <node id="652">
+        <label>VisualServoingInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
+        <link refid="structVisualServoingInternalActionFunctor__"/>
+        <childnode refid="653" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" line="96" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" bodystart="95" bodyend="116"/>
+    <listofallmembers>
+      <member refid="structUAVStatusActionFunctor_1a05dfaff6ccd9ca5388fda51ccd831f8c" prot="public" virt="non-virtual"><scope>VisualServoingInternalActionFunctor_</scope><name>checkStatus</name></member>
+      <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>VisualServoingInternalActionFunctor_</scope><name>operator()</name></member>
+      <member refid="structUAVStatusActionFunctor_1aaa0f0405f45c252aefe9fda6287ba964" prot="public" virt="virtual"><scope>VisualServoingInternalActionFunctor_</scope><name>run</name></member>
+      <member refid="structVisualServoingInternalActionFunctor___1a10cf4e572f0db0f7fb004caf5d7edcd9" prot="public" virt="virtual"><scope>VisualServoingInternalActionFunctor_</scope><name>statusIndependentRun</name></member>
+      <member refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" prot="public" virt="virtual"><scope>VisualServoingInternalActionFunctor_</scope><name>~EventAgnosticActionFunctor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

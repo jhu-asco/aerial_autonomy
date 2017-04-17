@@ -27,7 +27,7 @@
         <briefdescription>
 <para>Function to check when takeoff is complete. If battery is low while takeoff, trigger Land event. </para>        </briefdescription>
         <detaileddescription>
-<para><xrefsect id="todo_1_todo000010"><xreftitle>Todo</xreftitle><xrefdescription><para>add a parameter for height when to transition from takeoff to hovering</para></xrefdescription></xrefsect></para><para><parameterlist kind="param"><parameteritem>
+<para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>robot_system</parametername>
 </parameternamelist>
@@ -45,7 +45,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" line="84" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" bodystart="84" bodyend="98"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" line="76" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" bodystart="76" bodyend="94"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -61,30 +61,30 @@
 </parameterlist>
 </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="380">
+      <node id="559">
         <label>TakeoffInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structTakeoffInternalActionFunctor__"/>
-        <childnode refid="381" relation="public-inheritance">
+        <childnode refid="560" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="381">
+      <node id="560">
         <label>EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticActionFunctor"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="382">
+      <node id="561">
         <label>TakeoffInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structTakeoffInternalActionFunctor__"/>
-        <childnode refid="383" relation="public-inheritance">
+        <childnode refid="562" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="383">
+      <node id="562">
         <label>EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticActionFunctor"/>
       </node>
     </collaborationgraph>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" line="73" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" bodystart="72" bodyend="99"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" line="68" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/takeoff_functors.h" bodystart="67" bodyend="95"/>
     <listofallmembers>
       <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>TakeoffInternalActionFunctor_</scope><name>operator()</name></member>
       <member refid="structTakeoffInternalActionFunctor___1a2118df6e326662cd0088344499e49696" prot="public" virt="virtual"><scope>TakeoffInternalActionFunctor_</scope><name>run</name></member>

@@ -112,7 +112,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -139,6 +139,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="classControllerHardwareConnector.html#a5fc86156d5c747aba36497732962d6d0">ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;</a>
 , <a class="el" href="classManualRPYTControllerDroneConnector.html#a34bde89c4b4f2d0de000b4ccbfc719c4">ManualRPYTControllerDroneConnector</a>
 , <a class="el" href="classPositionControllerDroneConnector.html#a826092eadfbbf9442fa1869fea98070d">PositionControllerDroneConnector</a>
+, <a class="el" href="classVisualServoingControllerDroneConnector.html#a139939cb0298d57487f6c3ed488c4448">VisualServoingControllerDroneConnector</a>
 </li>
 <li>setaltitude()
 : <a class="el" href="classSampleParser.html#a98153bd7644b1ca0eb12b442ec54034f">SampleParser</a>
@@ -151,6 +152,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="classController.html#a172aae7e2475b72fb2eb469ccd198387">Controller&lt; SensorDataType, GoalType, ControlType &gt;</a>
 , <a class="el" href="classControllerHardwareConnector.html#a14ce51377f80b67796fcb50ce8195efd">ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;</a>
 </li>
+<li>setHomeLocation()
+: <a class="el" href="classUAVSystem.html#a5f31741d7d13ca93c7f02453aa97cc16">UAVSystem</a>
+</li>
 <li>setlogdir()
 : <a class="el" href="classSampleParser.html#aaf4d068b2dabd1ca8da12f7109b288c4">SampleParser</a>
 </li>
@@ -160,8 +164,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>setObject()
 : <a class="el" href="classTypeMap.html#a738b13adaac930d128c1a81b08628b9e">TypeMap&lt; GenericObjectT &gt;</a>
 </li>
+<li>setPosition()
+: <a class="el" href="structPositionYaw.html#a05216e850c35e7e170daa29ad31e2386">PositionYaw</a>
+</li>
 <li>setRC()
 : <a class="el" href="classSampleParser.html#a50ed35fede29930ff853fe6ab175fad6">SampleParser</a>
+</li>
+<li>setTargetPositionGlobalFrame()
+: <a class="el" href="classSimpleTracker.html#a03955ff260b374d76d426ad027419a0e">SimpleTracker</a>
+</li>
+<li>setTrackingIsValid()
+: <a class="el" href="classSimpleTracker.html#ae63b078e013ba7ae25f14c583ae13464">SimpleTracker</a>
+</li>
+<li>SimpleTracker()
+: <a class="el" href="classSimpleTracker.html#ae48dc9e78ccb74c838f0626b802b8c19">SimpleTracker</a>
 </li>
 <li>start()
 : <a class="el" href="classAsyncTimer.html#ab058544794ccb0310eb5a803458de860">AsyncTimer</a>
@@ -183,6 +199,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>statusCallback()
 : <a class="el" href="classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger.html#a62ba54708585892d5f227682954fc1c6">aerial_autonomy.ros_event_trigger.RosEventTrigger</a>
+</li>
+<li>statusIndependentRun()
+: <a class="el" href="structPositionControlInternalActionFunctor__.html#aa5676982392898435d97a482bb5b6fd0">PositionControlInternalActionFunctor_&lt; LogicStateMachineT &gt;</a>
+, <a class="el" href="structUAVStatusActionFunctor.html#a18b62050ab2cbf50fc222988347b4c3e">UAVStatusActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;</a>
+, <a class="el" href="structVisualServoingInternalActionFunctor__.html#a10cf4e572f0db0f7fb004caf5d7edcd9">VisualServoingInternalActionFunctor_&lt; LogicStateMachineT &gt;</a>
 </li>
 <li>system_status_pub_
 : <a class="el" href="classCommonSystemHandler.html#af4173056e027945fcf72b0e35f33cb54">CommonSystemHandler&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;</a>

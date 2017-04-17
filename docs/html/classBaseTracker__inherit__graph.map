@@ -1,0 +1,4 @@
+<map id="BaseTracker" name="BaseTracker">
+<area shape="rect" id="node2" href="$classRoiToPositionConverter.html" title="Converts a ROI in image to vector in camera frame. " alt="" coords="5,80,165,107"/>
+<area shape="rect" id="node3" href="$classSimpleTracker.html" title="Simple tracker for a given fixed position. " alt="" coords="191,80,297,107"/>
+</map>

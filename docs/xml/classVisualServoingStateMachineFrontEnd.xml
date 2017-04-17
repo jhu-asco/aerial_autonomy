@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classVisualServoingStateMachineFrontEnd" kind="class" prot="public">
+    <compoundname>VisualServoingStateMachineFrontEnd</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">boost::msm::front::state_machine_def&lt; VisualServoingStateMachineFrontEnd &gt;</basecompoundref>
+    <basecompoundref refid="classBaseStateMachine" prot="public" virt="non-virtual">BaseStateMachine&lt; UAVVisionSystem &gt;</basecompoundref>
+    <includes refid="visual__servoing__state__machine_8h" local="no">visual_servoing_state_machine.h</includes>
+    <innerclass refid="structVisualServoingStateMachineFrontEnd_1_1transition__table" prot="public">VisualServoingStateMachineFrontEnd::transition_table</innerclass>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classVisualServoingStateMachineFrontEnd_1a34f0cbd7abb23ca89e6a1ba09351493a" prot="public" static="no">
+        <type><ref refid="structUAVStatesActions_1ad12379ab87f454043ca0c96dac85fef5" kindref="member">vsa::ManualControlState</ref></type>
+        <definition>using VisualServoingStateMachineFrontEnd::initial_state =  vsa::ManualControlState</definition>
+        <argsstring></argsstring>
+        <name>initial_state</name>
+        <briefdescription>
+<para>Initial state for state machine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" line="103" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classVisualServoingStateMachineFrontEnd_1aaab834ade1cec1dde7061102fe921ef6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Event</type>
+          </param>
+          <param>
+            <type>class FSM</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void VisualServoingStateMachineFrontEnd::on_entry</definition>
+        <argsstring>(Event const &amp;, FSM &amp;)</argsstring>
+        <name>on_entry</name>
+        <param>
+          <type>Event const &amp;</type>
+        </param>
+        <param>
+          <type>FSM &amp;</type>
+        </param>
+        <briefdescription>
+<para>Action to take on entering state machine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of event causing state machine to enter </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FSM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend finite state machine type to trigger events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" line="78" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" bodystart="78" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="classVisualServoingStateMachineFrontEnd_1a4137592c05a2e423557ff010cad0dc48" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Event</type>
+          </param>
+          <param>
+            <type>class FSM</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void VisualServoingStateMachineFrontEnd::on_exit</definition>
+        <argsstring>(Event const &amp;, FSM &amp;)</argsstring>
+        <name>on_exit</name>
+        <param>
+          <type>Event const &amp;</type>
+        </param>
+        <param>
+          <type>FSM &amp;</type>
+        </param>
+        <briefdescription>
+<para>Action to take on leaving state machine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of event causing state machine to enter </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FSM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend finite state machine type to trigger events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" line="87" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" bodystart="87" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="classVisualServoingStateMachineFrontEnd_1a2b7ae72d046ba5ae34fda38b89482ccd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>VisualServoingStateMachineFrontEnd::VisualServoingStateMachineFrontEnd</definition>
+        <argsstring>(UAVVisionSystem &amp;uav_system)</argsstring>
+        <name>VisualServoingStateMachineFrontEnd</name>
+        <param>
+          <type><ref refid="classUAVVisionSystem" kindref="compound">UAVVisionSystem</ref> &amp;</type>
+          <declname>uav_system</declname>
+        </param>
+        <briefdescription>
+<para>Constructor with arguments to store robot system. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>uav_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>robot system that is stored internally and shared with events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" line="97" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" bodystart="97" bodyend="98"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>front-end: define the FSM structure </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="656">
+        <label>boost::msm::front::state_machine_def&lt; VisualServoingStateMachineFrontEnd &gt;</label>
+      </node>
+      <node id="657">
+        <label>BaseStateMachine&lt; UAVVisionSystem &gt;</label>
+        <link refid="classBaseStateMachine"/>
+      </node>
+      <node id="655">
+        <label>VisualServoingStateMachineFrontEnd</label>
+        <link refid="classVisualServoingStateMachineFrontEnd"/>
+        <childnode refid="656" relation="public-inheritance">
+        </childnode>
+        <childnode refid="657" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="662">
+        <label>UAVVisionSystem</label>
+        <link refid="classUAVVisionSystem"/>
+        <childnode refid="663" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="665">
+        <label>TypeMap&lt; AbstractControllerHardwareConnector &gt;</label>
+        <link refid="classTypeMap"/>
+      </node>
+      <node id="664">
+        <label>BaseRobotSystem</label>
+        <link refid="classBaseRobotSystem"/>
+        <childnode refid="665" relation="usage">
+          <edgelabel>controller_hardware_connector_container_</edgelabel>
+        </childnode>
+      </node>
+      <node id="663">
+        <label>UAVSystem</label>
+        <link refid="classUAVSystem"/>
+        <childnode refid="664" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="661">
+        <label>RobotSystemContainer&lt; UAVVisionSystem &gt;</label>
+        <link refid="classRobotSystemContainer"/>
+        <childnode refid="662" relation="usage">
+          <edgelabel>robot_system_</edgelabel>
+        </childnode>
+      </node>
+      <node id="659">
+        <label>boost::msm::front::state_machine_def&lt; VisualServoingStateMachineFrontEnd &gt;</label>
+      </node>
+      <node id="660">
+        <label>BaseStateMachine&lt; UAVVisionSystem &gt;</label>
+        <link refid="classBaseStateMachine"/>
+        <childnode refid="661" relation="usage">
+          <edgelabel>robot_system_container_</edgelabel>
+        </childnode>
+      </node>
+      <node id="658">
+        <label>VisualServoingStateMachineFrontEnd</label>
+        <link refid="classVisualServoingStateMachineFrontEnd"/>
+        <childnode refid="659" relation="public-inheritance">
+        </childnode>
+        <childnode refid="660" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" line="70" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" bodystart="68" bodyend="180"/>
+    <listofallmembers>
+      <member refid="classBaseStateMachine_1a2cb25947ca74c77568736975125aed44" prot="public" virt="non-virtual"><scope>VisualServoingStateMachineFrontEnd</scope><name>BaseStateMachine</name></member>
+      <member refid="classBaseStateMachine_1a286ff1d9af1151821ed44842a5e4fb8c" prot="public" virt="non-virtual"><scope>VisualServoingStateMachineFrontEnd</scope><name>get_no_transition_event_index</name></member>
+      <member refid="classVisualServoingStateMachineFrontEnd_1a34f0cbd7abb23ca89e6a1ba09351493a" prot="public" virt="non-virtual"><scope>VisualServoingStateMachineFrontEnd</scope><name>initial_state</name></member>
+      <member refid="classBaseStateMachine_1ab047241678b8eba01f428ef1af5c055f" prot="public" virt="non-virtual"><scope>VisualServoingStateMachineFrontEnd</scope><name>no_transition</name></member>
+      <member refid="classBaseStateMachine_1ac261a6e2f6829dd213d58e690093c192" prot="protected" virt="non-virtual"><scope>VisualServoingStateMachineFrontEnd</scope><name>no_transition_event_index_</name></member>
+      <member refid="classVisualServoingStateMachineFrontEnd_1aaab834ade1cec1dde7061102fe921ef6" prot="public" virt="non-virtual"><scope>VisualServoingStateMachineFrontEnd</scope><name>on_entry</name></member>
+      <member refid="classVisualServoingStateMachineFrontEnd_1a4137592c05a2e423557ff010cad0dc48" prot="public" virt="non-virtual"><scope>VisualServoingStateMachineFrontEnd</scope><name>on_exit</name></member>
+      <member refid="classBaseStateMachine_1a75dfc85f8804c2579ad9dc8c2239aba1" prot="public" virt="non-virtual"><scope>VisualServoingStateMachineFrontEnd</scope><name>robot_system_container_</name></member>
+      <member refid="classVisualServoingStateMachineFrontEnd_1a2b7ae72d046ba5ae34fda38b89482ccd" prot="public" virt="non-virtual"><scope>VisualServoingStateMachineFrontEnd</scope><name>VisualServoingStateMachineFrontEnd</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

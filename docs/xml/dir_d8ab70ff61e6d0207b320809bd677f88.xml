@@ -5,6 +5,7 @@
     <innerfile refid="base__state__machine_8h">base_state_machine.h</innerfile>
     <innerfile refid="state__machine__gui__connector_8h">state_machine_gui_connector.h</innerfile>
     <innerfile refid="uav__state__machine_8h">uav_state_machine.h</innerfile>
+    <innerfile refid="visual__servoing__state__machine_8h">visual_servoing_state_machine.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

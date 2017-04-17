@@ -4,54 +4,76 @@
     <compoundname>position_controller_drone_connector.cpp</compoundname>
     <includes refid="position__controller__drone__connector_8h" local="yes">aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h</includes>
     <incdepgraph>
-      <node id="2035">
+      <node id="4121">
         <label>boost/thread/mutex.hpp</label>
       </node>
-      <node id="2031">
-        <label>src/controller_hardware_connectors/position_controller_drone_connector.cpp</label>
-        <link refid="position_controller_drone_connector.cpp"/>
-        <childnode refid="2032" relation="include">
-        </childnode>
-      </node>
-      <node id="2033">
-        <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
-        <link refid="base__controller__hardware__connector_8h"/>
-        <childnode refid="2034" relation="include">
-        </childnode>
-      </node>
-      <node id="2036">
-        <label>aerial_autonomy/types/empty_sensor.h</label>
-        <link refid="empty__sensor_8h"/>
-      </node>
-      <node id="2034">
-        <label>aerial_autonomy/controllers/base_controller.h</label>
-        <link refid="base__controller_8h"/>
-        <childnode refid="2035" relation="include">
-        </childnode>
-      </node>
-      <node id="2037">
+      <node id="4123">
         <label>aerial_autonomy/types/position_yaw.h</label>
         <link refid="position__yaw_8h"/>
-        <childnode refid="2038" relation="include">
+        <childnode refid="4124" relation="include">
+        </childnode>
+        <childnode refid="4126" relation="include">
         </childnode>
       </node>
-      <node id="2038">
-        <label>aerial_autonomy/types/position.h</label>
-        <link refid="position_8h"/>
+      <node id="4122">
+        <label>glog/logging.h</label>
       </node>
-      <node id="2032">
+      <node id="4125">
+        <label>cmath</label>
+      </node>
+      <node id="4127">
+        <label>stdexcept</label>
+      </node>
+      <node id="4120">
+        <label>aerial_autonomy/controllers/base_controller.h</label>
+        <link refid="base__controller_8h"/>
+        <childnode refid="4121" relation="include">
+        </childnode>
+      </node>
+      <node id="4128">
+        <label>tf/tf.h</label>
+      </node>
+      <node id="4118">
         <label>aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h</label>
         <link refid="position__controller__drone__connector_8h"/>
-        <childnode refid="2033" relation="include">
+        <childnode refid="4119" relation="include">
         </childnode>
-        <childnode refid="2036" relation="include">
+        <childnode refid="4123" relation="include">
         </childnode>
-        <childnode refid="2037" relation="include">
-        </childnode>
-        <childnode refid="2039" relation="include">
+        <childnode refid="4129" relation="include">
         </childnode>
       </node>
-      <node id="2039">
+      <node id="4117">
+        <label>src/controller_hardware_connectors/position_controller_drone_connector.cpp</label>
+        <link refid="position_controller_drone_connector.cpp"/>
+        <childnode refid="4118" relation="include">
+        </childnode>
+      </node>
+      <node id="4119">
+        <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
+        <link refid="base__controller__hardware__connector_8h"/>
+        <childnode refid="4120" relation="include">
+        </childnode>
+        <childnode refid="4122" relation="include">
+        </childnode>
+      </node>
+      <node id="4126">
+        <label>aerial_autonomy/common/math.h</label>
+        <link refid="math_8h"/>
+        <childnode refid="4125" relation="include">
+        </childnode>
+        <childnode refid="4127" relation="include">
+        </childnode>
+        <childnode refid="4128" relation="include">
+        </childnode>
+      </node>
+      <node id="4124">
+        <label>aerial_autonomy/types/position.h</label>
+        <link refid="position_8h"/>
+        <childnode refid="4125" relation="include">
+        </childnode>
+      </node>
+      <node id="4129">
         <label>parsernode/parser.h</label>
       </node>
     </incdepgraph>
@@ -62,19 +84,24 @@
     <programlisting>
 <codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="position__controller__drone__connector_8h" kindref="compound">aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="2"><highlight class="normal"></highlight></codeline>
-<codeline lineno="3"><highlight class="normal"><ref refid="structEmptySensor" kindref="compound">EmptySensor</ref><sp/><ref refid="classPositionControllerDroneConnector_1a21859ad4bcc85a907e2e23456869b3d6" kindref="member">PositionControllerDroneConnector::extractSensorData</ref>()<sp/>{</highlight></codeline>
-<codeline lineno="4"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structEmptySensor" kindref="compound">EmptySensor</ref>();</highlight></codeline>
-<codeline lineno="5"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="6"><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classPositionControllerDroneConnector_1a826092eadfbbf9442fa1869fea98070d" kindref="member">PositionControllerDroneConnector::sendHardwareCommands</ref>(</highlight></codeline>
-<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>controls)<sp/>{</highlight></codeline>
-<codeline lineno="9"><highlight class="normal"><sp/><sp/>geometry_msgs::Vector3<sp/>position_command;</highlight></codeline>
-<codeline lineno="10"><highlight class="normal"><sp/><sp/>position_command.x<sp/>=<sp/>controls.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>;</highlight></codeline>
-<codeline lineno="11"><highlight class="normal"><sp/><sp/>position_command.y<sp/>=<sp/>controls.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>;</highlight></codeline>
-<codeline lineno="12"><highlight class="normal"><sp/><sp/>position_command.z<sp/>=<sp/>controls.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>;</highlight></codeline>
-<codeline lineno="13"><highlight class="normal"><sp/><sp/>drone_hardware_.cmdwaypoint(position_command,<sp/>controls.<ref refid="structPositionYaw_1a712a15ba9739cb5f4e31ea973074b8bf" kindref="member">yaw</ref>);</highlight></codeline>
-<codeline lineno="14"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classPositionControllerDroneConnector_1a813874b7b677580fc6b5a9a995e79017" kindref="member">PositionControllerDroneConnector::extractSensorData</ref>(</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>&amp;sensor_data)<sp/>{</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/>parsernode::common::quaddata<sp/>data;</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/>drone_hardware_.getquaddata(data);</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/>sensor_data<sp/>=<sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref>(data.localpos.x,<sp/>data.localpos.y,<sp/>data.localpos.z,</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data.rpydata.z);</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classPositionControllerDroneConnector_1a826092eadfbbf9442fa1869fea98070d" kindref="member">PositionControllerDroneConnector::sendHardwareCommands</ref>(</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>controls)<sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/>geometry_msgs::Vector3<sp/>position_command;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/>position_command.x<sp/>=<sp/>controls.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/>position_command.y<sp/>=<sp/>controls.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/>position_command.z<sp/>=<sp/>controls.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>drone_hardware_.cmdwaypoint(position_command,<sp/>controls.<ref refid="structPositionYaw_1a712a15ba9739cb5f4e31ea973074b8bf" kindref="member">yaw</ref>);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/controller_hardware_connectors/position_controller_drone_connector.cpp"/>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/position_controller_drone_connector.cpp"/>
   </compounddef>
 </doxygen>

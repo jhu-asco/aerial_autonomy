@@ -1,7 +1,7 @@
 var searchData=
 [
   ['t',['t',['../structRollPitchYawThrust.html#aa489ea694a9abb4b891e371d31e63ec4',1,'RollPitchYawThrust']]],
-  ['takeoff',['takeOff',['../classUAVSystem.html#a7f010477b67bfeb5d6d32c0f10630b8e',1,'UAVSystem::takeOff()'],['../classSampleParser.html#aaec0124f3a5a19e183438484f98db761',1,'SampleParser::takeoff()']]],
+  ['takeoff',['takeoff',['../classSampleParser.html#aaec0124f3a5a19e183438484f98db761',1,'SampleParser::takeoff()'],['../classUAVSystem.html#a7f010477b67bfeb5d6d32c0f10630b8e',1,'UAVSystem::takeOff()']]],
   ['takeoff_5ffunctors_2eh',['takeoff_functors.h',['../takeoff__functors_8h.html',1,'']]],
   ['takeoffabort',['TakeoffAbort',['../structUAVStatesActions.html#a5a69f68c781b17a48e2e6dcef9c52e1d',1,'UAVStatesActions']]],
   ['takeoffabortactionfunctor_5f',['TakeoffAbortActionFunctor_',['../structTakeoffAbortActionFunctor__.html',1,'']]],
@@ -16,6 +16,8 @@ var searchData=
   ['thread_5fsafe_5fstate_5fmachine',['thread_safe_state_machine',['../classboost_1_1msm_1_1back_1_1thread__safe__state__machine.html#a5b5a31229aed12a1f7036b8b46de0884',1,'boost::msm::back::thread_safe_state_machine::thread_safe_state_machine()'],['../classboost_1_1msm_1_1back_1_1thread__safe__state__machine.html#ad8d554411680bddd9959406c42407c25',1,'boost::msm::back::thread_safe_state_machine::thread_safe_state_machine(Expr const &amp;expr)']]],
   ['thread_5fsafe_5fstate_5fmachine_2eh',['thread_safe_state_machine.h',['../thread__safe__state__machine_8h.html',1,'']]],
   ['todo_20list',['Todo List',['../todo.html',1,'']]],
+  ['trackingisvalid',['trackingIsValid',['../classBaseTracker.html#aa1ad8436be9476278e78142ee1ab8fd6',1,'BaseTracker::trackingIsValid()'],['../classRoiToPositionConverter.html#a408f82ba9764ba20e2463535850d3268',1,'RoiToPositionConverter::trackingIsValid()'],['../classSimpleTracker.html#ac07a4053eb915074b7efe62778c4a573',1,'SimpleTracker::trackingIsValid()']]],
+  ['transition_5ftable',['transition_table',['../structVisualServoingStateMachineFrontEnd_1_1transition__table.html',1,'VisualServoingStateMachineFrontEnd']]],
   ['transition_5ftable',['transition_table',['../structUAVStateMachineFrontEnd_1_1transition__table.html',1,'UAVStateMachineFrontEnd']]],
   ['triggerevent',['triggerEvent',['../classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger.html#aa7f5a5b057de80bf818642d851fabac3',1,'aerial_autonomy::ros_event_trigger::RosEventTrigger']]],
   ['triggerposecommand',['triggerPoseCommand',['../classaerial__autonomy_1_1ros__event__trigger_1_1RosEventTrigger.html#a7277f5df8fedc93bf3616535ea588ba8',1,'aerial_autonomy::ros_event_trigger::RosEventTrigger']]],

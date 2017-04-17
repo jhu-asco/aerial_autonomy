@@ -2,8 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
   <compounddef id="structUAVStatesActions" kind="struct" prot="public">
     <compoundname>UAVStatesActions</compoundname>
+    <derivedcompoundref refid="structVisualServoingStatesActions" prot="public" virt="non-virtual">VisualServoingStatesActions&lt; LogicStateMachineT &gt;</derivedcompoundref>
     <includes refid="uav__states__actions_8h" local="no">uav_states_actions.h</includes>
-    <innerclass refid="structUAVStatesActions_1_1Landed" prot="public">UAVStatesActions::Landed</innerclass>
     <templateparamlist>
       <param>
         <type>class LogicStateMachineT</type>
@@ -21,7 +21,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="17" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="17" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="18" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="18" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="structUAVStatesActions_1acc910bc55ae6432004e6b1704634d1c7" prot="public" static="no">
         <type><ref refid="land__functors_8h_1a84627965433a60de431758bddec005c3" kindref="member">Landing_</ref>&lt; LogicStateMachineT &gt;</type>
@@ -34,7 +34,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="21" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="21" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="22" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="22" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="structUAVStatesActions_1a6f29ce9909b5ebc8c46ca70ef6a92d19" prot="public" static="no">
         <type><ref refid="position__control__functors_8h_1af380346c24b534da18813f70217ea50f" kindref="member">ReachingGoal_</ref>&lt; LogicStateMachineT &gt;</type>
@@ -47,7 +47,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="25" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="25" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="26" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="26" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="structUAVStatesActions_1a2c18472bdc3a420dd319dc82fa507ac3" prot="public" static="no">
         <type><ref refid="hovering__functors_8h_1a4252f403b3bcd2a850cf271512d9c6ff" kindref="member">Hovering_</ref>&lt; LogicStateMachineT &gt;</type>
@@ -60,7 +60,33 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="29" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="29" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="30" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structUAVStatesActions_1aa0da8657bf853ddcdcc581795aa68e91" prot="public" static="no">
+        <type><ref refid="land__functors_8h_1a62c9cfeb0650fa1303a51bf756c92ccc" kindref="member">Landed_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using UAVStatesActions&lt; LogicStateMachineT &gt;::Landed =  Landed_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>Landed</name>
+        <briefdescription>
+<para>Landed state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="34" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structUAVStatesActions_1ad12379ab87f454043ca0c96dac85fef5" prot="public" static="no">
+        <type><ref refid="manual__control__functors_8h_1a278d3db2e2cc437099e90a26d9eda7f1" kindref="member">ManualControlState_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using UAVStatesActions&lt; LogicStateMachineT &gt;::ManualControlState =  ManualControlState_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>ManualControlState</name>
+        <briefdescription>
+<para>Manual control state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="38" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="38" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="structUAVStatesActions_1ad42a6d885281297a91e71b66624ee813" prot="public" static="no">
         <type><ref refid="structTakeoffTransitionActionFunctor__" kindref="compound">TakeoffTransitionActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
@@ -73,7 +99,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="48" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="48" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="44" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="44" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="structUAVStatesActions_1a9e47af475b29af18ae34d80227ee3388" prot="public" static="no">
         <type><ref refid="structTakeoffTransitionGuardFunctor__" kindref="compound">TakeoffTransitionGuardFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
@@ -86,7 +112,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="52" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="52" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="48" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="structUAVStatesActions_1a5a69f68c781b17a48e2e6dcef9c52e1d" prot="public" static="no">
         <type><ref refid="structTakeoffAbortActionFunctor__" kindref="compound">TakeoffAbortActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
@@ -99,7 +125,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="56" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="56" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="52" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="structUAVStatesActions_1a5cf123d42d255c842a68a223354c1b43" prot="public" static="no">
         <type><ref refid="structLandTransitionActionFunctor__" kindref="compound">LandTransitionActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
@@ -112,7 +138,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="60" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="60" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="56" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="56" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="structUAVStatesActions_1a60ad11afcb23e02f34026459361f3b1d" prot="public" static="no">
         <type><ref refid="structPositionControlTransitionActionFunctor__" kindref="compound">PositionControlTransitionActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
@@ -125,7 +151,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="64" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="65" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="60" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="structUAVStatesActions_1ab0acd6797efeedeb8704c7d24467a254" prot="public" static="no">
         <type><ref refid="structPositionControlTransitionGuardFunctor__" kindref="compound">PositionControlTransitionGuardFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
@@ -138,20 +164,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="69" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="70" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="65" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="66" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="typedef" id="structUAVStatesActions_1abde47fc46f87de16bc3e0206d251a437" prot="public" static="no">
-        <type><ref refid="structPositionControlAbortActionFunctor__" kindref="compound">PositionControlAbortActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
-        <definition>using UAVStatesActions&lt; LogicStateMachineT &gt;::ReachingGoalAbort =  PositionControlAbortActionFunctor_&lt;LogicStateMachineT&gt;</definition>
+      <memberdef kind="typedef" id="structUAVStatesActions_1ad2d705e67a383e1b5ad08332da9c7300" prot="public" static="no">
+        <type><ref refid="structUAVControllerAbortActionFunctor__" kindref="compound">UAVControllerAbortActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using UAVStatesActions&lt; LogicStateMachineT &gt;::UAVControllerAbort =  UAVControllerAbortActionFunctor_&lt;LogicStateMachineT&gt;</definition>
         <argsstring></argsstring>
-        <name>ReachingGoalAbort</name>
+        <name>UAVControllerAbort</name>
         <briefdescription>
 <para>Abort action when reaching goal. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="74" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="75" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="70" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="71" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="structUAVStatesActions_1aaadfe040047828a68132e8976cc0aa46" prot="public" static="no">
         <type><ref refid="structUAVStatesActions_1a5cf123d42d255c842a68a223354c1b43" kindref="member">LandingAction</ref></type>
@@ -164,7 +190,33 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="79" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="79" bodyend="-1"/>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="75" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structUAVStatesActions_1ae2625fc53a6e10745c591ea95826ea62" prot="public" static="no">
+        <type><ref refid="structManualControlSwitchAction__" kindref="compound">ManualControlSwitchAction_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using UAVStatesActions&lt; LogicStateMachineT &gt;::ManualControlSwitchAction =  ManualControlSwitchAction_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>ManualControlSwitchAction</name>
+        <briefdescription>
+<para>Action to enable sdk when switching to sdk mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="79" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structUAVStatesActions_1a8183ff8aefe3ee857ffe5897fcbe771e" prot="public" static="no">
+        <type><ref refid="structManualControlSwitchGuard__" kindref="compound">ManualControlSwitchGuard_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using UAVStatesActions&lt; LogicStateMachineT &gt;::ManualControlSwitchGuard =  ManualControlSwitchGuard_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>ManualControlSwitchGuard</name>
+        <briefdescription>
+<para>Guard for switching to SDK mode from manual control. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="84" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="85" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -179,13 +231,28 @@
 </parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="12" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="12" bodyend="80"/>
+    <inheritancegraph>
+      <node id="600">
+        <label>VisualServoingStatesActions&lt; LogicStateMachineT &gt;</label>
+        <link refid="structVisualServoingStatesActions"/>
+        <childnode refid="599" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="599">
+        <label>UAVStatesActions&lt; LogicStateMachineT &gt;</label>
+        <link refid="structUAVStatesActions"/>
+      </node>
+    </inheritancegraph>
+    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" line="13" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_states_actions.h" bodystart="13" bodyend="86"/>
     <listofallmembers>
       <member refid="structUAVStatesActions_1a2c18472bdc3a420dd319dc82fa507ac3" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>Hovering</name></member>
+      <member refid="structUAVStatesActions_1aa0da8657bf853ddcdcc581795aa68e91" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>Landed</name></member>
       <member refid="structUAVStatesActions_1acc910bc55ae6432004e6b1704634d1c7" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>Landing</name></member>
       <member refid="structUAVStatesActions_1a5cf123d42d255c842a68a223354c1b43" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>LandingAction</name></member>
+      <member refid="structUAVStatesActions_1ad12379ab87f454043ca0c96dac85fef5" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>ManualControlState</name></member>
+      <member refid="structUAVStatesActions_1ae2625fc53a6e10745c591ea95826ea62" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>ManualControlSwitchAction</name></member>
+      <member refid="structUAVStatesActions_1a8183ff8aefe3ee857ffe5897fcbe771e" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>ManualControlSwitchGuard</name></member>
       <member refid="structUAVStatesActions_1a6f29ce9909b5ebc8c46ca70ef6a92d19" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>ReachingGoal</name></member>
-      <member refid="structUAVStatesActions_1abde47fc46f87de16bc3e0206d251a437" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>ReachingGoalAbort</name></member>
       <member refid="structUAVStatesActions_1ab0acd6797efeedeb8704c7d24467a254" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>ReachingGoalGuard</name></member>
       <member refid="structUAVStatesActions_1aaadfe040047828a68132e8976cc0aa46" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>ReachingGoalLand</name></member>
       <member refid="structUAVStatesActions_1a60ad11afcb23e02f34026459361f3b1d" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>ReachingGoalSet</name></member>
@@ -193,6 +260,7 @@
       <member refid="structUAVStatesActions_1ad42a6d885281297a91e71b66624ee813" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>TakeoffAction</name></member>
       <member refid="structUAVStatesActions_1a9e47af475b29af18ae34d80227ee3388" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>TakeoffGuard</name></member>
       <member refid="structUAVStatesActions_1aec75cac817b13a7d8f4a73bfecc94056" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>TakingOff</name></member>
+      <member refid="structUAVStatesActions_1ad2d705e67a383e1b5ad08332da9c7300" prot="public" virt="non-virtual"><scope>UAVStatesActions</scope><name>UAVControllerAbort</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

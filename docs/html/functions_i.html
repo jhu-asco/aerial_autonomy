@@ -112,7 +112,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -126,17 +126,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
 <li>initial_state
-: <a class="el" href="classUAVStateMachineFrontEnd.html#ad73219e43b8afd51bff699348dd4572f">UAVStateMachineFrontEnd</a>
+: <a class="el" href="classUAVStateMachineFrontEnd.html#a7f894e8e7f5925472704c7467bbc7963">UAVStateMachineFrontEnd</a>
+, <a class="el" href="classVisualServoingStateMachineFrontEnd.html#a34f0cbd7abb23ca89e6a1ba09351493a">VisualServoingStateMachineFrontEnd</a>
 </li>
 <li>initialize()
 : <a class="el" href="classSampleParser.html#acaf99fced8fc57433781e766dcb931cf">SampleParser</a>
 </li>
 <li>isConnected()
 : <a class="el" href="classCommonSystemHandler.html#a464bb584aaf1b30eaede850f04f62f33">CommonSystemHandler&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;</a>
+, <a class="el" href="classRoiToPositionConverter.html#a6ff5fa7a373c3917e9a7047df0a99560">RoiToPositionConverter</a>
 , <a class="el" href="classUAVSystemHandler.html#a8f37acafac0f41296058d0f6bb144893">UAVSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;</a>
+, <a class="el" href="classUAVVisionSystemHandler.html#adbb3c12304b2759d8d47eb6ac9786406">UAVVisionSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;</a>
+</li>
+<li>isConverged()
+: <a class="el" href="classController.html#ab25282f175c8eaa2b132b4a80b61f7ae">Controller&lt; SensorDataType, GoalType, ControlType &gt;</a>
+</li>
+<li>isConvergedImplementation()
+: <a class="el" href="classBuiltInPositionController.html#a797c182616418e13ea42610ae7bed71c">BuiltInPositionController</a>
+, <a class="el" href="classBuiltInVelocityController.html#a4782d572397a29928703e6463fcc2e81">BuiltInVelocityController</a>
+, <a class="el" href="classConstantHeadingDepthController.html#a4688dc8ce569991da85dddb31097d493">ConstantHeadingDepthController</a>
+, <a class="el" href="classController.html#ada247bf6a611958743df418250d5b454">Controller&lt; SensorDataType, GoalType, ControlType &gt;</a>
+, <a class="el" href="classManualRPYTController.html#a828067d46cbaff43131c4a7c8129b569">ManualRPYTController</a>
+, <a class="el" href="classVelocityBasedPositionController.html#a0c966f3c0fbda08fdaaba82973047909">VelocityBasedPositionController</a>
 </li>
 <li>isEventManagerConnected()
 : <a class="el" href="classStateMachineGUIConnector.html#a41ccee1af3a8f99ca533694ebdf3085c">StateMachineGUIConnector&lt; EventManagerT, LogicStateMachineT &gt;</a>
+</li>
+<li>isHomeLocationSpecified()
+: <a class="el" href="classUAVSystem.html#a226c842c7e5e1120be5d6fe233f1bb2d">UAVSystem</a>
 </li>
 <li>isPoseCommandConnected()
 : <a class="el" href="classStateMachineGUIConnector.html#a4c321da086299de9c33583255c4666f3">StateMachineGUIConnector&lt; EventManagerT, LogicStateMachineT &gt;</a>
