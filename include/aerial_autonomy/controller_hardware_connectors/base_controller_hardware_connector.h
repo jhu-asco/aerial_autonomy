@@ -25,6 +25,14 @@ public:
   * and send commands to hardware
   */
   virtual void run() = 0;
+
+  /**
+  * @brief Provide the status of the controller
+  *
+  * @return The status of the controller
+  */
+  virtual ControllerStatus getStatus() const = 0;
+
   /**
   * @brief Destructor to get polymorphism
   */

@@ -85,9 +85,9 @@ public:
   }
 
   /**
-  * @brief Get the status of the active controller
+  * @brief Get the status of a controller
   *
-  * @tparam ControllerHardwareConnectorT Type of connector that is active
+  * @tparam ControllerHardwareConnectorT Type of connector
   *
   * @return Status is active/completed/critical
   */
@@ -97,6 +97,26 @@ public:
         controller_hardware_connector_container_
             .getObject<ControllerHardwareConnectorT>();
     return controller_hardware_connector->getStatus();
+  }
+
+  /**
+  * @brief Get the status of the active controller
+  *
+  * @param hardware_type Hardware to get controller for
+  * @param status Returned status
+  *
+  * @return True if active controller exists and false otherwise
+  */
+  bool getActiveControllerStatus(HardwareType hardware_type,
+                                 ControllerStatus &status) const {
+    auto active_controller = active_controllers_.find(hardware_type);
+    if (active_controller != active_controllers_.end() &&
+        active_controller->second != nullptr) {
+      status = active_controller->second->getStatus();
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /**

@@ -103,6 +103,25 @@ TEST(UAVSystemTests, runRPYTController) {
   ASSERT_NEAR(sensor_data.omega.z, -0.00314, 1e-3);
 }
 
+TEST(UAVSystemTests, getActiveControllerStatus) {
+  QuadSimulator drone_hardware;
+  UAVSystem uav_system(drone_hardware);
+  PositionYaw position_yaw(1, 1, 1, 1);
+  uav_system.setGoal<PositionControllerDroneConnector>(position_yaw);
+
+  ControllerStatus status;
+  ASSERT_TRUE(uav_system.getActiveControllerStatus(HardwareType::UAV, status));
+  ASSERT_EQ(status, ControllerStatus::Active);
+
+  uav_system.runActiveController(HardwareType::UAV);
+  uav_system.runActiveController(HardwareType::UAV);
+  ASSERT_TRUE(uav_system.getActiveControllerStatus(HardwareType::UAV, status));
+  ASSERT_EQ(status, ControllerStatus::Completed);
+
+  uav_system.abortController(HardwareType::UAV);
+  ASSERT_FALSE(uav_system.getActiveControllerStatus(HardwareType::UAV, status));
+}
+
 TEST(UAVSystemTests, abortController) {
   QuadSimulator drone_hardware;
   UAVSystem uav_system(drone_hardware);

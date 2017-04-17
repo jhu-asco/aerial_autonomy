@@ -31,12 +31,33 @@ public:
   * to automatically add table lines
   */
   void publishSystemStatus() {
+    ControllerStatus controller_status;
+    std::string controller_status_str;
+    bool hasActiveController = robot_system_.getActiveControllerStatus(
+        HardwareType::UAV, controller_status);
+    if (hasActiveController) {
+      switch (controller_status) {
+      case ControllerStatus::Active:
+        controller_status_str = "Active";
+        break;
+      case ControllerStatus::Completed:
+        controller_status_str = "Completed";
+        break;
+      case ControllerStatus::Critical:
+        controller_status_str = "Critical";
+        break;
+      }
+    } else {
+      controller_status_str = " No active controller";
+    }
     std::string robot_system_status = robot_system_.getSystemStatus();
     std::string current_state_name = pstate(logic_state_machine_);
     std::string no_transition_event_name =
         logic_state_machine_.get_no_transition_event_index().name();
     std_msgs::String status;
     status.data = "Robot System Status:\n" + robot_system_status + "\n";
+    status.data += "\n\n========================\n\n";
+    status.data += "Controller Status: " + controller_status_str;
     status.data += "\n\n========================\n\n";
     status.data += "Logic State Machine Status: \n";
     status.data += "Current state:\t" + current_state_name + "\n";
