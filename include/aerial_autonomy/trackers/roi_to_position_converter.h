@@ -1,5 +1,6 @@
 #pragma once
 
+#include "aerial_autonomy/common/atomic.h"
 #include "aerial_autonomy/trackers/base_tracker.h"
 #include "aerial_autonomy/types/position.h"
 
@@ -137,15 +138,15 @@ private:
   /**
   * @brief Camera info for conversion to 3D
   */
-  sensor_msgs::CameraInfoPtr camera_info_;
+  Atomic<sensor_msgs::CameraInfo> camera_info_;
   /**
   * @brief Current roi
   */
-  sensor_msgs::RegionOfInterest roi_rect_;
+  Atomic<sensor_msgs::RegionOfInterest> roi_rect_;
   /**
   * @brief Position of object in camera frame (meters)
   */
-  Position object_position_;
+  Atomic<Position> object_position_;
   /**
   * @brief Max distance of object from camera (meters)
   * \todo Make this a configurable param
@@ -160,25 +161,5 @@ private:
   /**
   * @brief last time ROI was updated
   */
-  ros::Time last_roi_update_time_;
-
-  /**
-  * @brief Mutex to control access to camera_info_
-  */
-  boost::mutex camera_info_mutex_;
-
-  /**
-  * @brief Mutex to control access to object_position_
-  */
-  boost::mutex position_mutex_;
-
-  /**
-  * @brief Mutex to control access to ROI
-  */
-  boost::mutex roi_mutex_;
-
-  /**
-  * @brief Mutex to control access to ROI update time
-  */
-  boost::mutex roi_update_mutex_;
+  Atomic<ros::Time> last_roi_update_time_;
 };
