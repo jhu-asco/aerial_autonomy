@@ -72,7 +72,9 @@ TEST_F(StateMachineTests, LowBatteryAfterTakeoff) {
   ASSERT_STREQ(pstate(*logic_state_machine), "TakingOff");
   drone_hardware.setBatteryPercent(10);
   logic_state_machine->process_event(InternalTransitionEvent());
-  // Cannot takeoff
+  // We switch to Hovering here
+  logic_state_machine->process_event(InternalTransitionEvent());
+  // After Hovering if battery is low we go to landing
   ASSERT_STREQ(pstate(*logic_state_machine), "Landing");
 }
 
@@ -90,17 +92,17 @@ TEST_F(StateMachineTests, Takeoff) {
 
 TEST_F(StateMachineTests, TakeoffManualControlAbort) {
   drone_hardware.setBatteryPercent(100);
+  //Takeoff
   logic_state_machine->process_event(be::Takeoff());
   // Disable sdk
   drone_hardware.flowControl(false);
-  // Enter to Manual Control State
+  // While taking off we do not check for manual control event
+  logic_state_machine->process_event(InternalTransitionEvent());
+  // Check we are in Hovering
+  ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
+  // Since flow control is disabled, we should enter manual state
   logic_state_machine->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "ManualControlState");
-  // Enable SDK
-  drone_hardware.flowControl(true);
-  // Check we are back to hovering
-  logic_state_machine->process_event(InternalTransitionEvent());
-  ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
 }
 ///
 /// \brief Test Takeoff related events

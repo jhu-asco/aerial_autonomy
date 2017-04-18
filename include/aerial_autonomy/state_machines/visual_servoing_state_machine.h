@@ -114,14 +114,8 @@ public:
             msmf::Row<vsa::Landed, ManualControlEvent, vsa::ManualControlState,
                       msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<vsa::TakingOff, be::Land, vsa::Landing,
-                      vsa::LandingAction, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<vsa::TakingOff, be::Abort, vsa::Landing,
-                      vsa::TakeoffAbort, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<vsa::TakingOff, ManualControlEvent,
-                      vsa::ManualControlState, msmf::none, msmf::none>,
+            msmf::Row<vsa::TakingOff, Completed, vsa::Hovering, msmf::none,
+                      msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::Hovering, PositionYaw, vsa::ReachingGoal,
                       vsa::ReachingGoalSet, vsa::ReachingGoalGuard>,
@@ -152,12 +146,6 @@ public:
                       vsa::ReachingGoalLand, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::Landing, Completed, vsa::Landed, msmf::none,
-                      msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<vsa::Landing, ManualControlEvent, vsa::ManualControlState,
-                      msmf::none, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<vsa::TakingOff, Completed, vsa::Hovering, msmf::none,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::ReachingGoal, Completed, vsa::Hovering,

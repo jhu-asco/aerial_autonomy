@@ -76,16 +76,7 @@ struct TakeoffInternalActionFunctor_
   void run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     parsernode::common::quaddata data = robot_system.getUAVData();
     // If hardware is not allowing us to control UAV
-    if (!data.rc_sdk_control_switch) {
-      VLOG(1) << "Switching to Manual UAV state";
-      logic_state_machine.process_event(ManualControlEvent());
-    } else if (data.batterypercent <
-               robot_system.getConfiguration().minimum_battery_percent()) {
-      // If battery too low abort and goto landed mode
-      LOG(WARNING) << "Battery too low! " << data.batterypercent
-                   << "\% Aborting takeoff";
-      logic_state_machine.process_event(uav_basic_events::Land());
-    } else if (data.localpos.z >=
+    if (data.localpos.z >=
                // Transition to hovering state once reached high altitude
                robot_system.getConfiguration().minimum_takeoff_height()) {
       VLOG(1) << "Completed Takeoff";

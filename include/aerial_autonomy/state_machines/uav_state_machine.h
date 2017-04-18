@@ -105,12 +105,8 @@ public:
             msmf::Row<usa::Landed, ManualControlEvent, usa::ManualControlState,
                       msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<usa::TakingOff, be::Land, usa::Landing,
-                      usa::LandingAction, msmf::none>,
-            msmf::Row<usa::TakingOff, be::Abort, usa::Landing,
-                      usa::TakeoffAbort, msmf::none>,
-            msmf::Row<usa::TakingOff, ManualControlEvent,
-                      usa::ManualControlState, msmf::none, msmf::none>,
+            msmf::Row<usa::TakingOff, Completed, usa::Hovering, msmf::none,
+                      msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::Hovering, PositionYaw, usa::ReachingGoal,
                       usa::ReachingGoalSet, usa::ReachingGoalGuard>,
@@ -126,13 +122,8 @@ public:
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::Landing, Completed, usa::Landed, msmf::none,
                       msmf::none>,
-            msmf::Row<usa::TakingOff, Completed, usa::Hovering, msmf::none,
-                      msmf::none>,
             msmf::Row<usa::ReachingGoal, Completed, usa::Hovering,
                       usa::UAVControllerAbort, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<usa::Landing, ManualControlEvent, usa::ManualControlState,
-                      msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::ManualControlState, be::Takeoff, usa::Hovering,
                       usa::ManualControlSwitchAction,
