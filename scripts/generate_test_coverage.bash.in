@@ -1,4 +1,5 @@
 #!/bin/bash
+rm -rf ${CMAKE_CURRENT_BINARY_DIR}
 catkin run_tests aerial_autonomy > /dev/null
 error=$?
 if [ $error -ne 0 ]
@@ -6,7 +7,7 @@ then
   echo "Catkin BUILD Failed"
   exit 1
 fi
-TEST_COVERAGE_DIR=${CMAKE_CURRENT_SOURCE_DIR}/test_coverage_info
+TEST_COVERAGE_DIR=${CMAKE_CURRENT_SOURCE_DIR}/.test_coverage_info
 if [ ! -d "$TEST_COVERAGE_DIR" ]; then
   mkdir $TEST_COVERAGE_DIR
 fi
