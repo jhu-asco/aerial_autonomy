@@ -12,10 +12,10 @@ cd $GIT_REPO_PATH
 echo "Generating documentation coverage report..."
 doxygen $GIT_REPO_PATH/Doxyfile > /dev/null
 # Create coverage folder if it does not exist
-[ -d documentation_coverage_info ] || mkdir documentation_coverage_info
-python -m coverxygen --xml-dir ./docs/xml --src-dir . --output ./documentation_coverage_info/doc_coverage.info > /dev/null
+[ -d .documentation_coverage_info ] || mkdir .documentation_coverage_info
+python -m coverxygen --xml-dir ./docs/xml --src-dir . --output ./.documentation_coverage_info/doc_coverage.info > /dev/null
 echo "Checking documentation Coverage..."
-./scripts/test_coverage.py --threshold $threshold ./documentation_coverage_info/doc_coverage.info
+./scripts/test_coverage.py --threshold $threshold ./.documentation_coverage_info/doc_coverage.info
 error=$?
 if [ $error -ne 0 ]
 then
@@ -25,7 +25,7 @@ then
     echo "The documentation coverage is $codecoverage percentage"
     echo "The code is short by $error percentage"
     echo "Running documentation coverage html generation script"
-    genhtml --no-function-coverage --no-branch-coverage documentation_coverage_info/doc_coverage.info -o ./documentation_coverage_info > /dev/null
+    genhtml --no-function-coverage --no-branch-coverage .documentation_coverage_info/doc_coverage.info -o ./.documentation_coverage_info > /dev/null
     lcov --summary ./documentation_coverage_info/doc_coverage.info
     echo "Check code-coverage-info/index.html for detailed code generation stats"
     exit 1;
@@ -49,7 +49,7 @@ fi
 # Check test coverage
 threshold=95
 echo "Checking test coverage..."
-./scripts/test_coverage.py --threshold $threshold ./test_coverage_info/test_coverage.info
+./scripts/test_coverage.py --threshold $threshold ./.test_coverage_info/test_coverage.info
 error=$?
 if [ $error -ne 0 ]
 then
