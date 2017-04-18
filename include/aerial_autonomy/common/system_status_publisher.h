@@ -33,9 +33,8 @@ public:
   void publishSystemStatus() {
     ControllerStatus controller_status;
     std::string controller_status_str;
-    bool hasActiveController = robot_system_.getActiveControllerStatus(
-        HardwareType::UAV, controller_status);
-    if (hasActiveController) {
+    if (robot_system_.getActiveControllerStatus(
+        HardwareType::UAV, controller_status)) {
       switch (controller_status) {
       case ControllerStatus::Active:
         controller_status_str = "Active";
@@ -46,9 +45,12 @@ public:
       case ControllerStatus::Critical:
         controller_status_str = "Critical";
         break;
+      case default:
+        controller_status_str = "Unknown controller status!";
+        break;
       }
     } else {
-      controller_status_str = " No active controller";
+      controller_status_str = "No active controller";
     }
     std::string robot_system_status = robot_system_.getSystemStatus();
     std::string current_state_name = pstate(logic_state_machine_);
