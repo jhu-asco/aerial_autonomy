@@ -43,10 +43,7 @@ struct LandInternalActionFunctor_
   void run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     parsernode::common::quaddata data = robot_system.getUAVData();
     // If hardware is not allowing us to control UAV
-    if (!data.rc_sdk_control_switch) {
-      VLOG(1) << "Switching to Manual UAV state";
-      logic_state_machine.process_event(ManualControlEvent());
-    } else if (data.localpos.z <
+    if (data.localpos.z <
                robot_system.getConfiguration().landing_height()) {
       /// \todo (Gowtham) Can also use uav status here
       VLOG(1) << "Completed Landing";
