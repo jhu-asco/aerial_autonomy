@@ -131,32 +131,26 @@ public:
   */
   std::string getSystemStatus() const {
     parsernode::common::quaddata data = getUAVData();
-    // Get goals for different controllers:
-    VelocityYaw velocity_controller_goal =
-        builtin_velocity_controller_.getGoal();
-    PositionYaw position_controller_goal =
-        builtin_position_controller_.getGoal();
     char buffer[1500];
-    sprintf(buffer,
-            "Battery Percent: %2.2f\t\nlx: %2.2f\tly: %2.2f\tlz: "
-            "%2.2f\nAltitude: %2.2f\t\nRoll: %2.2f\tPitch %2.2f\tYaw %2.2f\n"
-            "Magx: %2.2f\tMagy %2.2f\tMagz %2.2f\naccx: %2.2f\taccy "
-            "%2.2f\taccz %2.2f\nvelx: %2.2f\tvely %2.2f\tvelz %2.2f\n"
-            "Goalvx: %2.2f\tGoalvy: %2.2f\tGoalvz: %2.2f\tGoalvyaw: %2.2f\n"
-            "Goalx: %2.2f\tGoaly: %2.2f\tGoalz: %2.2f\tGoalpyaw: %2.2f\n"
-            "Mass: %2.2f\tTimestamp: %2.2f\t\nQuadState: %s",
-            data.batterypercent, data.localpos.x, data.localpos.y,
-            data.localpos.z, data.altitude, data.rpydata.x * (180 / M_PI),
-            data.rpydata.y * (180 / M_PI),
-            data.rpydata.z * (180 / M_PI), // IMU rpy angles
-            data.magdata.x, data.magdata.y, data.magdata.z, data.linacc.x,
-            data.linacc.y, data.linacc.z, data.linvel.x, data.linvel.y,
-            data.linvel.z, velocity_controller_goal.x,
-            velocity_controller_goal.y, velocity_controller_goal.z,
-            velocity_controller_goal.yaw, position_controller_goal.x,
-            position_controller_goal.y, position_controller_goal.z,
-            position_controller_goal.yaw, data.mass, data.timestamp,
-            data.quadstate.c_str());
+    sprintf(
+        buffer,
+        "Battery Percent: %2.2f\t\nLocal x: %2.2f\tLocal y: %2.2f\tLocal z: "
+        "%2.2f\nAltitude: %2.2f\t\nRoll: %2.2f\tPitch %2.2f\tYaw %2.2f\n"
+        "Mag x: %2.2f\tMag y %2.2f\tMag z %2.2f\nAcc x: %2.2f\tAcc y "
+        "%2.2f\tAcc z %2.2f\nVel x: %2.2f\tVel y %2.2f\tVel z %2.2f\n"
+        "Goal vx: %2.2f\tGoal vy: %2.2f\tGoal vz: %2.2f\t Goal vyaw: %2.2f\n"
+        "Goal x: %2.2f\tGoal y: %2.2f\tGoal z: %2.2f\t Goal yaw: %2.2f\n"
+        "Mass: %2.2f\tTimestamp: %2.2f\t\nQuadState: %s",
+        data.batterypercent, data.localpos.x, data.localpos.y, data.localpos.z,
+        data.altitude, data.rpydata.x * (180 / M_PI),
+        data.rpydata.y * (180 / M_PI),
+        data.rpydata.z * (180 / M_PI), // IMU rpy angles
+        data.magdata.x, data.magdata.y, data.magdata.z, data.linacc.x,
+        data.linacc.y, data.linacc.z, data.linvel.x, data.linvel.y,
+        data.linvel.z, data.velocity_goal.x, data.velocity_goal.y,
+        data.velocity_goal.z, data.velocity_goal_yaw, data.position_goal.x,
+        data.position_goal.y, data.position_goal.z, data.position_goal_yaw,
+        data.mass, data.timestamp, data.quadstate.c_str());
     return buffer;
   }
 
