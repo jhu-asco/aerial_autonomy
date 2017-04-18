@@ -1,6 +1,6 @@
 #pragma once
 
-#include <boost/thread/mutex.hpp>
+#include "aerial_autonomy/common/atomic.h"
 
 /**
 * @brief Status of the controller
@@ -33,12 +33,7 @@ public:
    * @return True if the control run is successful
    */
   virtual bool run(SensorDataType sensor_data, ControlType &control) {
-    GoalType goal;
-    {
-      boost::mutex::scoped_lock lock(goal_mutex_);
-      goal = goal_;
-    }
-    return runImplementation(sensor_data, goal, control);
+    return runImplementation(sensor_data, goal_, control);
   }
 
   /**
@@ -50,30 +45,19 @@ public:
   * @return true if converged/false otherwise
   */
   bool isConverged(SensorDataType sensor_data) {
-    GoalType goal;
-    {
-      boost::mutex::scoped_lock lock(goal_mutex_);
-      goal = goal_;
-    }
-    return isConvergedImplementation(sensor_data, goal);
+    return isConvergedImplementation(sensor_data, goal_);
   }
   /**
    * @brief set the goal condition for the controller. Should use
    * internal locking as the run function can be called from a separate thread
    * @param goal The goal for control loop
    */
-  virtual void setGoal(GoalType goal) {
-    boost::mutex::scoped_lock lock(goal_mutex_);
-    goal_ = goal;
-  }
+  virtual void setGoal(GoalType goal) { goal_ = goal; }
   /**
    * @brief get the goal condition for the controller. Should use
    * internal locking as the run function can be called from a separate thread
    */
-  virtual GoalType getGoal() const {
-    boost::mutex::scoped_lock lock(goal_mutex_);
-    return goal_;
-  }
+  virtual GoalType getGoal() const { return goal_; }
   /**
    * @brief Destructor
    */
@@ -106,11 +90,7 @@ protected:
 
 private:
   /**
-  * @brief Synchronize set goal and running controller implementation.
-  */
-  mutable boost::mutex goal_mutex_;
-  /**
   * @brief store goal internally for usage with Controller::runImplementation
   */
-  GoalType goal_;
+  Atomic<GoalType> goal_;
 };

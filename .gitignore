@@ -2,8 +2,8 @@ CMakeLists.txt.user
 *.pyc
 *.swp
 doxy_errors.txt
-documentation_coverage_info/*
-test_coverage_info/*
+.documentation_coverage_info/*
+.test_coverage_info/*
 docs/
 scripts/generate_test_coverage.bash
 .vscode
