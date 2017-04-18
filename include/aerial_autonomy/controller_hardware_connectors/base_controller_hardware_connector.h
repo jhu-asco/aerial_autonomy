@@ -1,4 +1,5 @@
 #pragma once
+#include <aerial_autonomy/common/atomic.h>
 #include <aerial_autonomy/controllers/base_controller.h>
 #include <glog/logging.h>
 
@@ -118,10 +119,7 @@ public:
   *
   * @return The status of the controller
   */
-  ControllerStatus getStatus() const {
-    boost::mutex::scoped_lock lock(controller_status_mutex_);
-    return status_;
-  }
+  ControllerStatus getStatus() const { return status_; }
 
 protected:
   /**
@@ -156,20 +154,13 @@ private:
    */
   Controller<SensorDataType, GoalType, ControlType> &controller_;
   /**
-  * @brief Synchronize reading and setting controller status
-  */
-  mutable boost::mutex controller_status_mutex_;
-  /**
   * @brief Status of the controller
   */
-  ControllerStatus status_;
+  Atomic<ControllerStatus> status_;
   /**
   * @brief Set the status of the controller
   *
   * @param status the status of the controller
   */
-  void setStatus(ControllerStatus status) {
-    boost::mutex::scoped_lock lock(controller_status_mutex_);
-    status_ = status;
-  }
+  void setStatus(ControllerStatus status) { status_ = status; }
 };
