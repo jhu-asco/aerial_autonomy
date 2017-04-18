@@ -33,8 +33,8 @@ public:
   void publishSystemStatus() {
     ControllerStatus controller_status;
     std::string controller_status_str;
-    if (robot_system_.getActiveControllerStatus(
-        HardwareType::UAV, controller_status)) {
+    if (robot_system_.getActiveControllerStatus(HardwareType::UAV,
+                                                controller_status)) {
       switch (controller_status) {
       case ControllerStatus::Active:
         controller_status_str = "Active";
@@ -45,7 +45,7 @@ public:
       case ControllerStatus::Critical:
         controller_status_str = "Critical";
         break;
-      case default:
+      default:
         controller_status_str = "Unknown controller status!";
         break;
       }

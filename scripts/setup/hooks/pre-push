@@ -26,7 +26,7 @@ then
     echo "The code is short by $error percentage"
     echo "Running documentation coverage html generation script"
     genhtml --no-function-coverage --no-branch-coverage .documentation_coverage_info/doc_coverage.info -o ./.documentation_coverage_info > /dev/null
-    lcov --summary ./documentation_coverage_info/doc_coverage.info
+    lcov --summary ./.documentation_coverage_info/doc_coverage.info
     echo "Check code-coverage-info/index.html for detailed code generation stats"
     exit 1;
 fi
