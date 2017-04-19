@@ -81,8 +81,6 @@ TEST(LandFunctorTests, ManualControlInternalActionTest) {
   LandInternalActionFunctor land_internal_action_functor;
   land_internal_action_functor(dummy_event, sample_logic_state_machine,
                                dummy_start_state, dummy_target_state);
-  ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
-            std::type_index(typeid(ManualControlEvent)));
   // Check the same for landed functor
   LandedInternalActionFunctor landed_internal_action_functor;
   landed_internal_action_functor(dummy_event, sample_logic_state_machine,
@@ -199,18 +197,6 @@ TEST(TakeoffFunctorTests, InternalActionTest) {
                                   dummy_target_state);
   ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(Completed)));
-}
-TEST(TakeoffFunctorTests, ManualControlInternalActionTest) {
-  QuadSimulator drone_hardware;
-  drone_hardware.flowControl(false);
-  UAVSystem uav_system(drone_hardware);
-  UAVLogicStateMachine sample_logic_state_machine(uav_system);
-  int dummy_event, dummy_start_state, dummy_target_state;
-  TakeoffInternalActionFunctor takeoff_internal_action_functor;
-  takeoff_internal_action_functor(dummy_event, sample_logic_state_machine,
-                                  dummy_start_state, dummy_target_state);
-  ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
-            std::type_index(typeid(ManualControlEvent)));
 }
 ///
 
