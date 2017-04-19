@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(aerial_autonomy)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-set(CMAKE_CXX_FLAGS "-Werror -Wall -std=c++11 --coverage ${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "-g -Werror -Wall -std=c++11 --coverage ${CMAKE_CXX_FLAGS}")
 add_definitions(-DBOOST_MPL_CFG_NO_PREPROCESSED_HEADERS -DBOOST_MPL_LIMIT_VECTOR_SIZE=30)
 
 ## Find catkin macros and libraries
