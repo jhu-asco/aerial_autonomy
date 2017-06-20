@@ -88,7 +88,7 @@ public:
   std::string getSystemStatus() const { return std::string(); }
 
   /**
-  * @brief Verify the status of grip/power on/off commands
+  * @brief Verify the status of grip/power on/off and fold/rightArm commands
   *
   * @return True if the command is complete
   */

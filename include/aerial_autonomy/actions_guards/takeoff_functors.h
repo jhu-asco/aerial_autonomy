@@ -77,8 +77,8 @@ struct TakeoffInternalActionFunctor_
     parsernode::common::quaddata data = robot_system.getUAVData();
     // If hardware is not allowing us to control UAV
     if (data.localpos.z >=
-               // Transition to hovering state once reached high altitude
-               robot_system.getConfiguration().minimum_takeoff_height()) {
+        // Transition to hovering state once reached high altitude
+        robot_system.getConfiguration().minimum_takeoff_height()) {
       VLOG(1) << "Completed Takeoff";
       logic_state_machine.process_event(Completed());
     }
