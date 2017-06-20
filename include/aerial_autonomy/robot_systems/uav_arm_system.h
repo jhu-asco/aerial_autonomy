@@ -1,0 +1,47 @@
+#pragma once
+#include "aerial_autonomy/common/math.h"
+#include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_arm_connector.h"
+#include "aerial_autonomy/controllers/relative_position_controller.h"
+#include "aerial_autonomy/robot_systems/arm_system.h"
+#include "aerial_autonomy/robot_systems/uav_vision_system.h"
+
+/**
+* @brief UAV system with an arm.
+*/
+class UAVArmSystem : public UAVVisionSystem, public ArmSystem {
+public:
+  /**
+  * @brief Constructor
+  * @param tracker Used to track targets for visual servoing
+  * @param drone_hardware UAV driver
+  * @param arm_hardware Manipulator driver
+  * @param config Configuration parameters
+  */
+  UAVArmSystem(BaseTracker &tracker, parsernode::Parser &drone_hardware,
+               ArmParser &arm_hardware, UAVSystemConfig config)
+      : UAVVisionSystem(tracker, drone_hardware, config),
+        ArmSystem(arm_hardware),
+        arm_transform_(math::getTransformFromVector(
+            config_.uav_arm_system_config().arm_transform())),
+        relative_position_controller_()
+            visual_servoing_arm_connector_(tracker, arm_hardware,
+                                           relative_position_controller_,
+                                           camera_transform_, arm_transform_) {
+    controller_hardware_connector_container_.setObject(
+        visual_servoing_arm_connector_);
+  }
+
+private:
+  /**
+  * @brief Arm transform in the frame of the UAV
+  */
+  tf::Transform arm_transform_;
+  /**
+  * @brief Moves to a position relative to a tracked position
+  */
+  RelativePositionController relative_position_controller_;
+  /**
+  * @brief Connects relative position controller to tracker and arm
+  */
+  VisualServoingArmConnector visual_servoing_arm_connector_;
+};

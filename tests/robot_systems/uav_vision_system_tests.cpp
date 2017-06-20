@@ -9,7 +9,7 @@
 */
 using namespace quad_simulator;
 
-TEST(UAVSystemTests, Constructor) {
+TEST(UAVVisionSystemTests, Constructor) {
   QuadSimulator drone_hardware;
   ros::NodeHandle nh;
   RoiToPositionConverter roi_to_position_converter(nh);

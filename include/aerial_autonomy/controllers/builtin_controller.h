@@ -19,7 +19,7 @@ public:
 protected:
   /**
    * @brief Run the control loop.  Simply returns the goal.
-   * @param sensor_data Empty sensor data struct since no sensing is required.
+   * @param sensor_data The current value of the controlled state
    * @param goal Goal set-point
    * @param control Goal to send to hardware
    * @return Always true

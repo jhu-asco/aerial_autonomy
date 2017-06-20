@@ -3,7 +3,7 @@
 // Base robot system
 #include <aerial_autonomy/robot_systems/base_robot_system.h>
 // Arm hardware
-#include <arm_parsers/generic_arm.h>
+#include <arm_parsers/arm_parser.h>
 /// \todo Add controllers and controller connectors for visual servoing
 
 /**
@@ -17,7 +17,7 @@ private:
   /**
   * @brief Hardware
   */
-  GenericArm arm_hardware_;
+  ArmParser &arm_hardware_;
   /// \todo Add controllers, controller connectors, config if needed
 
 public:
@@ -29,7 +29,8 @@ public:
   *
   * @param arm_hardware input hardware to send commands back
   */
-  ArmSystem(ros::NodeHandle &nh) : BaseRobotSystem(), arm_hardware_(nh) {}
+  ArmSystem(ArmParser &arm_hardware)
+      : BaseRobotSystem(), arm_hardware_(arm_hardware) {}
 
   /**
   * @brief Public API call to get end effector transform
