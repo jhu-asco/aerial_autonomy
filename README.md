@@ -9,7 +9,7 @@ Run the setup script in scripts/setup/setup.sh to configure Git hooks.
 
 Install the following dependencies (lcov, protobuf, doxygen, doxypy, coverxygen, google-glog, class-loader). On Ubuntu 14.04 run the following line in a terminal
 
-    sudo apt-get install lcov protobuf-compiler libprotobuf-dev doxygen doxypy libgoogle-glog-dev ros-indigo-class-loader
+    sudo apt-get install lcov protobuf-compiler libprotobuf-dev doxygen doxypy libgoogle-glog-dev ros-indigo-class-loader autoconf
     sudo pip install coverxygen
 
 Install protobuf 3.1:
