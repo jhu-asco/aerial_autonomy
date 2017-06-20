@@ -1,0 +1,16 @@
+syntax = "proto2";
+
+import "position_controller_config.proto";
+
+message UAVArmSystemConfig {
+  /**
+  * @brief Arm transform in the frame of the UAV (assuming NWU).  Specified
+  * as x, y, z, roll, pitch, yaw.
+  */
+  repeated double arm_transform = 3;
+
+  /**
+  * @brief Config for arm controller
+  */
+  optional PositionControllerConfig position_controller_config = 6;
+}

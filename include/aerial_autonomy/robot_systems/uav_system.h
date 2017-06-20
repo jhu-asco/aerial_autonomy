@@ -13,7 +13,7 @@
  * hardware/software components.
  * Provides builtin position, velocity, and rpy controllers for controlling UAV
 */
-class UAVSystem : public BaseRobotSystem {
+class UAVSystem : public virtual BaseRobotSystem {
 protected:
   /**
   * @brief Hardware

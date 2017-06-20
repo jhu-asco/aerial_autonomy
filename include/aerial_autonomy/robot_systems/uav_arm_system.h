@@ -20,16 +20,26 @@ public:
   UAVArmSystem(BaseTracker &tracker, parsernode::Parser &drone_hardware,
                ArmParser &arm_hardware, UAVSystemConfig config)
       : UAVVisionSystem(tracker, drone_hardware, config),
-        ArmSystem(arm_hardware),
-        arm_transform_(math::getTransformFromVector(
-            config_.uav_arm_system_config().arm_transform())),
-        relative_position_controller_()
-            visual_servoing_arm_connector_(tracker, arm_hardware,
-                                           relative_position_controller_,
-                                           camera_transform_, arm_transform_) {
+        ArmSystem(arm_hardware), arm_transform_(math::getTransformFromVector(
+                                     config_.uav_vision_system_config()
+                                         .uav_arm_system_config()
+                                         .arm_transform())),
+        relative_position_controller_(config_.uav_vision_system_config()
+                                          .uav_arm_system_config()
+                                          .position_controller_config()),
+        visual_servoing_arm_connector_(tracker, arm_hardware,
+                                       relative_position_controller_,
+                                       camera_transform_, arm_transform_) {
     controller_hardware_connector_container_.setObject(
         visual_servoing_arm_connector_);
   }
+
+  /**
+  * @brief Provide the current state of UAV system
+  *
+  * @return string representation of the UAV system state
+  */
+  std::string getSystemStatus() const { return UAVSystem::getSystemStatus(); }
 
 private:
   /**
@@ -43,5 +53,5 @@ private:
   /**
   * @brief Connects relative position controller to tracker and arm
   */
-  VisualServoingArmConnector visual_servoing_arm_connector_;
+  VisualServoingControllerArmConnector visual_servoing_arm_connector_;
 };

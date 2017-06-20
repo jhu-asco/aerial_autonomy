@@ -11,7 +11,7 @@
  * hardware/software components.
  * Provides builtin set/get end effector pose, joint angles for a generic arm
 */
-class ArmSystem : public BaseRobotSystem {
+class ArmSystem : public virtual BaseRobotSystem {
 
 private:
   /**

@@ -162,6 +162,7 @@ visual_servoing_events
 PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER 
   proto/uav_system_config.proto
   proto/uav_vision_system_config.proto
+  proto/uav_arm_system_config.proto
   proto/common_system_handler_config.proto
   proto/uav_system_handler_config.proto
   proto/velocity_based_position_controller_config.proto
