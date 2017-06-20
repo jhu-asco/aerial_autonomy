@@ -1,0 +1,4 @@
+PickPlaceEventManager:
+  uav_basic_events/UAVEventManager
+  visual_servoing_events/VisualServoingEventManager/GoHome
+  Pick
