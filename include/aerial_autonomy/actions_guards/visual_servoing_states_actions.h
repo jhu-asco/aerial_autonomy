@@ -1,3 +1,4 @@
+#pragma once
 // States and actions corresponding to basic events
 #include <aerial_autonomy/actions_guards/uav_states_actions.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_functors.h>
