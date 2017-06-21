@@ -64,9 +64,19 @@ struct PickInternalActionFunctor_
   }
 };
 
+/**
+* @brief Logic to check arm power and manual mode
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+
 template <class LogicStateMachineT>
 struct ManualControlArmInternalActionFunctor_
     : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  /**
+  * @brief The parent functor to switch to other states based on state of
+  * rc switch
+  */
   ManualControlInternalActionFunctor_<LogicStateMachineT> parent_functor_;
   /**
   * @brief Check if arm is enabled and print warning otherwise. Also call
