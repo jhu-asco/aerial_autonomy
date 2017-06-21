@@ -63,21 +63,21 @@ public:
   */
   void power(bool state) {
     if (state) {
-      arm_hardware_.sendCmd("power on");
+      arm_hardware_.sendCmd(ArmParser::POWER_ON);
     } else {
-      arm_hardware_.sendCmd("power off");
+      arm_hardware_.sendCmd(ArmParser::POWER_OFF);
     }
   }
 
   /**
   * @brief Set the arm joints to a known folded configuration
   */
-  void foldArm() { arm_hardware_.sendCmd("fold arm"); }
+  void foldArm() { arm_hardware_.sendCmd(ArmParser::FOLD_ARM); }
 
   /**
   * @brief Set the arm joints to a known L shaped configuration.
   */
-  void rightArm() { arm_hardware_.sendCmd("right arm"); }
+  void rightArm() { arm_hardware_.sendCmd(ArmParser::RIGHT_ARM); }
 
   /**
   * @brief Provide the current state of arm system

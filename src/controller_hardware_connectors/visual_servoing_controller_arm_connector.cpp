@@ -9,10 +9,7 @@ bool VisualServoingControllerArmConnector::extractSensorData(
   }
 
   Eigen::Matrix4d arm_tf = arm_hardware_.getEndEffectorTransform();
-  Position arm_position;
-  arm_position.x = arm_tf(0, 3);
-  arm_position.y = arm_tf(1, 3);
-  arm_position.z = arm_tf(2, 3);
+  Position arm_position(arm_tf(0, 3), arm_tf(1, 3), arm_tf(2, 3));
 
   sensor_data = std::make_tuple(arm_position, tracking_position);
 
