@@ -85,8 +85,8 @@ TEST_F(VisualServoingControllerArmConnectorTests, SetGoal) {
   Eigen::Matrix4d pose = arm_hardware_.getEndEffectorTransform();
   Position arm_position(pose(0, 3), pose(1, 3), pose(2, 3));
   ASSERT_NEAR(arm_position.x, 1.5, goal_tolerance_position);
-  ASSERT_NEAR(arm_position.y, 0, goal_tolerance_position);
   ASSERT_NEAR(arm_position.z, 0.1, goal_tolerance_position);
+  ASSERT_NEAR(arm_position.z, 0., goal_tolerance_position);
   ASSERT_EQ(visual_servoing_connector_->getStatus(),
             ControllerStatus::Completed);
 }

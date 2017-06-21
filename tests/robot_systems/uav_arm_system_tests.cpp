@@ -13,6 +13,9 @@ using namespace quad_simulator;
 
 TEST(UAVArmSystemTests, Constructor) {
   UAVSystemConfig config;
+  auto uav_vision_system_config = config.mutable_uav_vision_system_config();
+  uav_vision_system_config->mutable_uav_arm_system_config()
+      ->mutable_position_controller_config();
   QuadSimulator drone_hardware;
   ros::NodeHandle nh;
   GenericArm arm(nh);
@@ -23,7 +26,7 @@ TEST(UAVArmSystemTests, Constructor) {
 }
 
 int main(int argc, char **argv) {
-  ros::init(argc, argv, "arm_system_tests");
+  ros::init(argc, argv, "uav_arm_system_tests");
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
