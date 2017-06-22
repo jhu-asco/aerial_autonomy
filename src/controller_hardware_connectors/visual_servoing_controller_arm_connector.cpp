@@ -34,7 +34,6 @@ bool VisualServoingControllerArmConnector::getTrackingVectorArmFrame(
   }
   tf::Vector3 object_direction_cam(object_position_cam.x, object_position_cam.y,
                                    object_position_cam.z);
-  // TODO: Convert from camera frame to arm frame
   tf::Vector3 tracking_vector_tf =
       arm_transform_.inverse() * camera_transform_ * object_direction_cam;
   tracking_vector.x = tracking_vector_tf.getX();

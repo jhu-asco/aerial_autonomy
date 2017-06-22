@@ -32,7 +32,7 @@ public:
   virtual ~VisualServoingControllerArmConnector() {}
 
   /**
-   * @brief Get the tracking vector of the RoiToPositionConverter in the arm
+   * @brief Get the tracking vector of the tracker in the arm
    * frame
    * @param tracking_vector Returned tracking vector
    * @return True if successful and false otherwise
@@ -43,7 +43,8 @@ protected:
   /**
    * @brief Extracts pose data from ROI
    *
-   * @param sensor_data Position of object tracked by ROI in arm frame
+   * @param sensor_data Position of arm end effector and position of object
+   * tracked by ROI in arm frame
    *
    * @return true if able to extract ROI position
    */
