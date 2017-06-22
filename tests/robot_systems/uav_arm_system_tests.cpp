@@ -14,8 +14,16 @@ using namespace quad_simulator;
 TEST(UAVArmSystemTests, Constructor) {
   UAVSystemConfig config;
   auto uav_vision_system_config = config.mutable_uav_vision_system_config();
-  uav_vision_system_config->mutable_uav_arm_system_config()
-      ->mutable_position_controller_config();
+  auto uav_arm_system_config =
+      uav_vision_system_config->mutable_uav_arm_system_config();
+  for (int i = 0; i < 6; ++i) {
+    uav_vision_system_config->add_camera_transform(0.0);
+  }
+  for (int i = 0; i < 6; ++i) {
+    uav_arm_system_config->add_arm_transform(0.0);
+  }
+  uav_arm_system_config->mutable_position_controller_config();
+
   QuadSimulator drone_hardware;
   ros::NodeHandle nh;
   GenericArm arm(nh);
