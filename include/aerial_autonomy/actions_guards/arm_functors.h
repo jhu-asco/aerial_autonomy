@@ -114,3 +114,17 @@ template <class LogicStateMachineT>
 using ArmFolding_ =
     BaseState<ArmSystem, LogicStateMachineT,
               ArmFoldInternalActionFunctor_<LogicStateMachineT>>;
+/**
+* @brief Same state as above. Used to distinguish between landing and takeoff
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+class ArmPreTakeoffFolding_ : public ArmFolding_<LogicStateMachineT> {};
+/**
+* @brief Same state as above. Used to distinguish between landing and takeoff
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+class ArmPreLandingFolding_ : public ArmFolding_<LogicStateMachineT> {};

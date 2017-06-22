@@ -112,14 +112,14 @@ public:
       : boost::mpl::vector<
             //        Start          Event         Next           Action Guard
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Landed, be::Takeoff, psa::ArmFolding,
+            msmf::Row<psa::Landed, be::Takeoff, psa::ArmPreTakeoffFolding,
                       psa::ArmPoweronFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ArmFolding, be::Takeoff, psa::TakingOff,
+            msmf::Row<psa::ArmPreTakeoffFolding, be::Takeoff, psa::TakingOff,
                       psa::TakeoffAction, psa::TakeoffGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ArmFolding, be::Abort, psa::Landed, psa::ArmPoweroff,
-                      msmf::none>,
+            msmf::Row<psa::ArmPreTakeoffFolding, be::Abort, psa::Landed,
+                      psa::ArmPoweroff, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Landed, ManualControlEvent, psa::ManualControlState,
                       msmf::none, msmf::none>,
@@ -137,13 +137,13 @@ public:
             msmf::Row<psa::Hovering, vse::GoHome, psa::ReachingGoal,
                       psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, be::Land, psa::ArmFolding, psa::ArmFold,
-                      msmf::none>,
+            msmf::Row<psa::Hovering, be::Land, psa::ArmPreLandingFolding,
+                      psa::ArmFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ArmFolding, Completed, psa::Landing,
+            msmf::Row<psa::ArmPreLandingFolding, Completed, psa::Landing,
                       psa::LandingAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ArmFolding, be::Abort, psa::Landing,
+            msmf::Row<psa::ArmPreLandingFolding, be::Abort, psa::Landing,
                       psa::LandingAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Hovering, ManualControlEvent,
@@ -152,7 +152,7 @@ public:
             msmf::Row<psa::ReachingGoal, be::Abort, psa::Hovering,
                       psa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingGoal, be::Land, psa::ArmFolding,
+            msmf::Row<psa::ReachingGoal, be::Land, psa::ArmPreLandingFolding,
                       psa::ArmFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PickState, be::Abort, psa::Hovering,
@@ -184,9 +184,9 @@ public:
 * @brief state names to get name based on state id
 */
 static constexpr std::array<const char *, 10> state_names = {
-    "Landed",    "ArmFolding", "Landed",
-    "Takingoff", "Hovering",   "ReachingGoal",
-    "PickState", "Landing",    "ManualControlArmState"};
+    "Landed",   "ArmPreTakeoffFolding", "Landed",       "Takingoff",
+    "Hovering", "ArmPreLandingFolding", "ReachingGoal", "PickState",
+    "Landing",  "ManualControlArmState"};
 /**
 * @brief Get current state name
 *

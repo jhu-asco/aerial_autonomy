@@ -16,9 +16,17 @@ struct PickPlaceStatesActions
     : VisualServoingStatesActions<LogicStateMachineT> {
   // Pre takeoff, land states
   /**
-  * @brief State before landing
+  * @brief State for folding arm
   */
   using ArmFolding = ArmFolding_<LogicStateMachineT>;
+  /**
+  * @brief State before takeoff
+  */
+  using ArmPreTakeoffFolding = ArmPreTakeoffFolding_<LogicStateMachineT>;
+  /**
+  * @brief State before landing
+  */
+  using ArmPreLandingFolding = ArmPreLandingFolding_<LogicStateMachineT>;
   // PickPlace State
   /**
   * @brief State during picking an object
