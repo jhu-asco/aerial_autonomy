@@ -10,6 +10,7 @@
 
 /**
  * @brief A visual servoing controller that uses a tracker output as feedback
+ * and moves the arm to a goal location relative to the tracked target
  */
 class VisualServoingControllerArmConnector
     : public ControllerHardwareConnector<std::tuple<Position, Position>,

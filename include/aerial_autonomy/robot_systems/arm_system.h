@@ -4,7 +4,6 @@
 #include <aerial_autonomy/robot_systems/base_robot_system.h>
 // Arm hardware
 #include <arm_parsers/arm_parser.h>
-/// \todo Add controllers and controller connectors for visual servoing
 
 /**
  * @brief Owns, initializes, and facilitates communication between different
@@ -18,7 +17,6 @@ private:
   * @brief Hardware
   */
   ArmParser &arm_hardware_;
-  /// \todo Add controllers, controller connectors, config if needed
 
 public:
   /**

@@ -39,7 +39,9 @@ public:
   *
   * @return string representation of the UAV system state
   */
-  std::string getSystemStatus() const { return UAVSystem::getSystemStatus(); }
+  std::string getSystemStatus() const {
+    return UAVSystem::getSystemStatus() + "\n" + ArmSystem::getSystemStatus();
+  }
 
 private:
   /**
