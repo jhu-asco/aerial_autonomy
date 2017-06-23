@@ -1,6 +1,6 @@
 syntax = "proto2";
 
-import "position_controller_config.proto";
+import "pose_controller_config.proto";
 
 message UAVArmSystemConfig {
   /**
@@ -12,5 +12,5 @@ message UAVArmSystemConfig {
   /**
   * @brief Config for arm controller
   */
-  optional PositionControllerConfig position_controller_config = 6;
+  optional PoseControllerConfig position_controller_config = 6;
 }

@@ -1,0 +1,15 @@
+syntax = "proto2";
+
+message PoseControllerConfig {
+  /**
+  * @brief If robot is within this distance in x,y, and z
+  * dimensions, the goal is reached.
+  */
+  optional double goal_position_tolerance = 1 [ default = 1.0 ];
+
+  /**
+  * @brief Robot is within this angle (radians),
+  * the goal is reached.
+  */
+  optional double goal_rotation_tolerance = 2 [ default = 0.1 ];
+}

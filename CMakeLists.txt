@@ -168,6 +168,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/velocity_based_position_controller_config.proto
   proto/constant_heading_depth_controller_config.proto
   proto/position_controller_config.proto
+  proto/pose_controller_config.proto
   proto/velocity_controller_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
@@ -191,12 +192,13 @@ include_directories(
 add_library(aerial_autonomy
   src/common/async_timer.cpp
   src/common/math.cpp
+  src/common/conversions.cpp
   src/trackers/roi_to_position_converter.cpp
   src/trackers/simple_tracker.cpp
   src/controllers/manual_rpyt_controller.cpp
   src/controllers/velocity_based_position_controller.cpp
   src/controllers/constant_heading_depth_controller.cpp
-  src/controllers/relative_position_controller.cpp
+  src/controllers/relative_pose_controller.cpp
   src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp
   src/controller_hardware_connectors/visual_servoing_controller_arm_connector.cpp
   src/controller_hardware_connectors/position_controller_drone_connector.cpp
@@ -297,7 +299,7 @@ add_dependencies(${PROJECT_NAME}-uav-vision-system-handler-test ${${PROJECT_NAME
 catkin_add_gtest(${PROJECT_NAME}-thread-safe-state-machine-test tests/common/thread_safe_state_machine_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-iterable-enum-test tests/common/iterable_enum_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-velocity-based-position-controller-test tests/controllers/velocity_based_position_controller_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-relative-position-controller-test tests/controllers/relative_position_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-relative-pose-controller-test tests/controllers/relative_pose_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-constant-heading-depth-controller-test tests/controllers/constant_heading_depth_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-math-test tests/common/math_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-tracker-test tests/trackers/simple_tracker_tests.cpp)
@@ -370,8 +372,8 @@ endif()
 if(TARGET ${PROJECT_NAME}-velocity-based-position-controller-test)
   target_link_libraries(${PROJECT_NAME}-velocity-based-position-controller-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
-if(TARGET ${PROJECT_NAME}-relative-position-controller-test)
-  target_link_libraries(${PROJECT_NAME}-relative-position-controller-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+if(TARGET ${PROJECT_NAME}-relative-pose-controller-test)
+  target_link_libraries(${PROJECT_NAME}-relative-pose-controller-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-constant-heading-depth-controller-test)
   target_link_libraries(${PROJECT_NAME}-constant-heading-depth-controller-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})

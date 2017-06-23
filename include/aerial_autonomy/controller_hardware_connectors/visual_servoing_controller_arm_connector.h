@@ -1,10 +1,12 @@
 #pragma once
 #include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
-#include "aerial_autonomy/controllers/relative_position_controller.h"
+#include "aerial_autonomy/controllers/relative_pose_controller.h"
 #include "aerial_autonomy/trackers/base_tracker.h"
 #include "aerial_autonomy/types/position.h"
 
 #include <arm_parsers/arm_parser.h>
+
+#include <parsernode/parser.h>
 
 #include <tf/tf.h>
 
@@ -13,54 +15,62 @@
  * and moves the arm to a goal location relative to the tracked target
  */
 class VisualServoingControllerArmConnector
-    : public ControllerHardwareConnector<std::tuple<Position, Position>,
-                                         Position, Position> {
+    : public ControllerHardwareConnector<
+          std::tuple<tf::Transform, tf::Transform>, tf::Transform,
+          tf::Transform> {
 public:
   /**
    * @brief Constructor
    */
   VisualServoingControllerArmConnector(BaseTracker &tracker,
+                                       parsernode::Parser &drone_hardware,
                                        ArmParser &arm_hardware,
-                                       RelativePositionController &controller,
+                                       RelativePoseController &controller,
                                        tf::Transform camera_transform,
                                        tf::Transform arm_transform)
       : ControllerHardwareConnector(controller, HardwareType::Arm),
-        arm_hardware_(arm_hardware), tracker_(tracker),
-        camera_transform_(camera_transform), arm_transform_(arm_transform) {}
+        drone_hardware_(drone_hardware), arm_hardware_(arm_hardware),
+        tracker_(tracker), camera_transform_(camera_transform),
+        arm_transform_(arm_transform) {}
   /**
    * @brief Destructor
    */
   virtual ~VisualServoingControllerArmConnector() {}
 
   /**
-   * @brief Get the tracking vector of the tracker in the arm
+   * @brief Get the tracking pose of the tracker in the arm
    * frame
-   * @param tracking_vector Returned tracking vector
+   * @param tracking_vector Returned tracking pose
    * @return True if successful and false otherwise
    */
-  bool getTrackingVectorArmFrame(Position &tracking_vector);
+  bool getTrackingPoseArmFrame(tf::Transform &tracking_pose);
 
 protected:
   /**
    * @brief Extracts pose data from ROI
    *
-   * @param sensor_data Position of arm end effector and position of object
-   * tracked by ROI in arm frame
+   * @param sensor_data Pose of arm end effector and pose of tracked object
+   * in arm frame
    *
    * @return true if able to extract ROI position
    */
-  virtual bool extractSensorData(std::tuple<Position, Position> &sensor_data);
+  virtual bool
+  extractSensorData(std::tuple<tf::Transform, tf::Transform> &sensor_data);
 
   /**
    * @brief  Send position commands to hardware
    *
    * @param controls position command to send to arm
    */
-  virtual void sendHardwareCommands(Position controls);
+  virtual void sendHardwareCommands(tf::Transform controls);
 
 private:
   /**
-  * @brief Quad hardware to send commands
+  * @brief Drone hardware to send commands
+  */
+  parsernode::Parser &drone_hardware_;
+  /**
+  * @brief Arm hardware to send commands
   */
   ArmParser &arm_hardware_;
   /**

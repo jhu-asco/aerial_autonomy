@@ -1,12 +1,12 @@
 #pragma once
 #include "aerial_autonomy/common/math.h"
 #include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_arm_connector.h"
-#include "aerial_autonomy/controllers/relative_position_controller.h"
+#include "aerial_autonomy/controllers/relative_pose_controller.h"
 #include "aerial_autonomy/robot_systems/arm_system.h"
 #include "aerial_autonomy/robot_systems/uav_vision_system.h"
 
 /**
-* @brief UAV system with an arm.
+* @brief UAV vision system with an arm.
 */
 class UAVArmSystem : public UAVVisionSystem, public ArmSystem {
 public:
@@ -24,11 +24,11 @@ public:
                                      config_.uav_vision_system_config()
                                          .uav_arm_system_config()
                                          .arm_transform())),
-        relative_position_controller_(config_.uav_vision_system_config()
-                                          .uav_arm_system_config()
-                                          .position_controller_config()),
-        visual_servoing_arm_connector_(tracker, arm_hardware,
-                                       relative_position_controller_,
+        relative_pose_controller_(config_.uav_vision_system_config()
+                                      .uav_arm_system_config()
+                                      .position_controller_config()),
+        visual_servoing_arm_connector_(tracker, drone_hardware, arm_hardware,
+                                       relative_pose_controller_,
                                        camera_transform_, arm_transform_) {
     controller_hardware_connector_container_.setObject(
         visual_servoing_arm_connector_);
@@ -51,7 +51,7 @@ private:
   /**
   * @brief Moves to a position relative to a tracked position
   */
-  RelativePositionController relative_position_controller_;
+  RelativePoseController relative_pose_controller_;
   /**
   * @brief Connects relative position controller to tracker and arm
   */
