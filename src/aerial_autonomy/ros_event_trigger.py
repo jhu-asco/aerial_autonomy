@@ -32,6 +32,8 @@ def parse_event_file(event_folder, event_file_name, event_name_list):
                 event_folder,
                 event_name_split[0],
                 event_name_list)
+        elif len(event_name_split) == 3:
+            event_name_list.append(event_name_split[2])
         else:
             event_name_list.append(event_name)
 

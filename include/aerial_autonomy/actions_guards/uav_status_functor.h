@@ -4,6 +4,13 @@
 #include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/uav_basic_events.h>
 
+/**
+* @brief Functor which internally checks for UAV status
+* before calling status independent run function
+*
+* @tparam RobotSystemT Robot System used by status independent run
+* @tparam LogicStateMachineT State Machine used by status independent run
+*/
 template <class RobotSystemT, class LogicStateMachineT>
 struct UAVStatusActionFunctor
     : EventAgnosticActionFunctor<RobotSystemT, LogicStateMachineT> {

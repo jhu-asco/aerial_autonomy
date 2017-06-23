@@ -9,6 +9,13 @@
  */
 class SimpleTracker : public BaseTracker {
 public:
+  /**
+  * @brief Constructor that stores drone hardware
+  * and camera transform for further use
+  *
+  * @param drone_hardware UAV Hardware for getting sensor data
+  * @param camera_transform Camera transform from UAV base
+  */
   SimpleTracker(parsernode::Parser &drone_hardware,
                 tf::Transform camera_transform);
   /**
@@ -42,12 +49,8 @@ public:
   tf::Transform cameraTransform();
 
 private:
-  parsernode::Parser &drone_hardware_;
-  bool tracking_valid_;
-  Position target_position_;
-  /**
-   * @brief Transform of camera in uav frame
-   */
-  tf::Transform
-      camera_transform_; /// \todo Matt set this to something somewhere
+  parsernode::Parser &drone_hardware_; ///< UAV Hardware
+  bool tracking_valid_;                ///< Flag to specify if tracking is valid
+  Position target_position_;           ///< Goal position to track
+  tf::Transform camera_transform_;     ///< Transform of camera in uav frame
 };

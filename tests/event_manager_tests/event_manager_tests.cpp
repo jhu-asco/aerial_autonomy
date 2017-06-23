@@ -1,3 +1,4 @@
+#include <aerial_autonomy/pick_place_events.h>
 #include <aerial_autonomy/tests/sample_logic_state_machine.h>
 #include <aerial_autonomy/uav_basic_events.h>
 #include <aerial_autonomy/visual_servoing_events.h>
@@ -58,6 +59,43 @@ TEST(VisualServoingEventManagerTest, CheckEventSet) {
   VisualServoingEventManager<SampleLogicStateMachine> event_manager;
   std::set<std::string> event_set = event_manager.getEventSet();
   std::set<std::string> expected_set{"Land", "Takeoff", "Abort", "TrackROI",
+                                     "GoHome"};
+  ASSERT_TRUE(event_set == expected_set);
+}
+}
+
+namespace pick_place_events {
+TEST(PickPlaceEventManagerTest, InstantiateManager) {
+  ASSERT_NO_THROW(new PickPlaceEventManager<SampleLogicStateMachine>());
+}
+TEST(PickPlaceEventManagerTest, TriggerHomeEvent) {
+  PickPlaceEventManager<SampleLogicStateMachine> event_manager;
+  EmptyRobotSystem robot_system;
+  SampleLogicStateMachine logic_state_machine(robot_system);
+  event_manager.triggerEvent("GoHome", logic_state_machine);
+  ASSERT_EQ(logic_state_machine.getProcessEventTypeId(),
+            std::type_index(typeid(visual_servoing_events::GoHome)));
+}
+TEST(PickPlaceEventManagerTest, TriggerPickEvent) {
+  PickPlaceEventManager<SampleLogicStateMachine> event_manager;
+  EmptyRobotSystem robot_system;
+  SampleLogicStateMachine logic_state_machine(robot_system);
+  event_manager.triggerEvent("Pick", logic_state_machine);
+  ASSERT_EQ(logic_state_machine.getProcessEventTypeId(),
+            std::type_index(typeid(Pick)));
+}
+TEST(PickPlaceEventManagerTest, TriggerUAVEvent) {
+  PickPlaceEventManager<SampleLogicStateMachine> event_manager;
+  EmptyRobotSystem robot_system;
+  SampleLogicStateMachine logic_state_machine(robot_system);
+  event_manager.triggerEvent("Land", logic_state_machine);
+  ASSERT_EQ(logic_state_machine.getProcessEventTypeId(),
+            std::type_index(typeid(uav_basic_events::Land)));
+}
+TEST(PickPlaceEventManagerTest, CheckEventSet) {
+  PickPlaceEventManager<SampleLogicStateMachine> event_manager;
+  std::set<std::string> event_set = event_manager.getEventSet();
+  std::set<std::string> expected_set{"Land", "Takeoff", "Abort", "Pick",
                                      "GoHome"};
   ASSERT_TRUE(event_set == expected_set);
 }

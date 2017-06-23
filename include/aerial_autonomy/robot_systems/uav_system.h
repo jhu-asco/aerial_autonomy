@@ -131,6 +131,7 @@ public:
   */
   std::string getSystemStatus() const {
     parsernode::common::quaddata data = getUAVData();
+    /// \todo Matt fix this to avoid stack overflows
     char buffer[1500];
     sprintf(
         buffer,
