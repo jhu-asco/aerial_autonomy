@@ -65,3 +65,8 @@ The test generation is integrated into the `pre-push` commit hook. This runs the
 
 ## Uploading documentation
 The documentation is uploaded through `gh-pages` branch. The docs are created in master and passed to the `gh-pages` branch using `scripts/applydocs.bash` script. The script checks that there are not uncommited changes before uploading documentation to avoid issues with git. The script also requires that you explicitly link gh-pages branch to the remote using `git branch --set-upstream-to=[GH_PAGES_REMOTE]`
+
+## Generating Visual graphs from state machines
+The script `scripts/generate_dot_files.py` converts the transition tables in state machines to dot format and also png format. The script automatically runs through all the state machines stored in the `include/aerial_autonomy/state_machines` folder.
+
+    Usage: ./generate_dot_files.py

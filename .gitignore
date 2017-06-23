@@ -6,4 +6,6 @@ doxy_errors.txt
 .test_coverage_info/*
 docs/
 scripts/generate_test_coverage.bash
+scripts/generate_dot_files.py
 .vscode
+.dot_output/*
