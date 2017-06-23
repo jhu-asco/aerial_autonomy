@@ -66,7 +66,6 @@ def generate_dot_files(file_path, out_folder):
         dot_out += '\t"{0}"->"{2}"[label="{1}"];\n'.format(*states_actions[:3])
 
     dot_out += '}'
-    # dot_file = tkFileDialog.asksaveasfile(mode='w', defaultextension=".gv")
     dot_file = file(os.path.join(out_folder, file_name_short + '.gv'), 'w')
     if dot_file is None:
         print "Cannot Save File. Instead Printing the dot format!"
