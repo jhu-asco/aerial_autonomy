@@ -64,9 +64,8 @@ TEST_F(VisualServoingControllerArmConnectorTests, GetTrackingPoseArmFrame) {
   ASSERT_TRUE(
       visual_servoing_connector_->getTrackingPoseArmFrame(tracking_pose));
   ASSERT_EQ(tracking_pose.getOrigin(), expected_tracking_pose.getOrigin());
-  ASSERT_NEAR((tracking_pose.getRotation().inverse() *
-               expected_tracking_pose.getRotation())
-                  .getAngle(),
+  ASSERT_NEAR(tracking_pose.getRotation().angleShortestPath(
+                  expected_tracking_pose.getRotation()),
               0., 1e-8);
 }
 
@@ -95,9 +94,8 @@ TEST_F(VisualServoingControllerArmConnectorTests, SetGoal) {
   ASSERT_NEAR(arm_pose.getOrigin().x(), 1.5, goal_tolerance_position);
   ASSERT_NEAR(arm_pose.getOrigin().y(), 0.0, goal_tolerance_position);
   ASSERT_NEAR(arm_pose.getOrigin().z(), -0.1, goal_tolerance_position);
-  ASSERT_NEAR((arm_pose.getRotation().inverse() *
-               tf::createQuaternionFromRPY(M_PI, 0, 0))
-                  .getAngle(),
+  ASSERT_NEAR(arm_pose.getRotation().angleShortestPath(
+                  tf::createQuaternionFromRPY(M_PI, 0, 0)),
               0., 1e-8);
   ASSERT_EQ(visual_servoing_connector_->getStatus(),
             ControllerStatus::Completed);
