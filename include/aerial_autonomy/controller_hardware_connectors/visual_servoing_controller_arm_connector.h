@@ -2,7 +2,6 @@
 #include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
 #include "aerial_autonomy/controllers/relative_pose_controller.h"
 #include "aerial_autonomy/trackers/base_tracker.h"
-#include "aerial_autonomy/types/position.h"
 
 #include <arm_parsers/arm_parser.h>
 
@@ -12,7 +11,7 @@
 
 /**
  * @brief A visual servoing controller that uses a tracker output as feedback
- * and moves the arm to a goal location relative to the tracked target
+ * and moves the arm to a goal pose relative to the tracked target
  */
 class VisualServoingControllerArmConnector
     : public ControllerHardwareConnector<

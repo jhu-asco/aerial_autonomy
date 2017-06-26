@@ -18,7 +18,8 @@ bool RelativePoseController::isConvergedImplementation(
   tf::Vector3 goal_position = goal.getOrigin();
   tf::Quaternion relative_quat = relative_pose.getRotation();
   tf::Quaternion goal_quat = goal.getRotation();
-  double rot_diff = (relative_quat.inverse() * goal_quat).getAngle();
+  double rot_diff =
+      (relative_quat.inverse() * goal_quat).getAngleShortestPath();
 
   const double &tolerance_pos = config_.goal_position_tolerance();
   if (std::abs(relative_position.x() - goal_position.x()) < tolerance_pos &&
