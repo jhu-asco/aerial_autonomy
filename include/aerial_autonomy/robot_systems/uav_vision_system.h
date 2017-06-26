@@ -8,8 +8,7 @@
 #include <tf/tf.h>
 
 /**
-* @brief UAV Vision system that extends UAV system to
-* include constant heading depth controller.
+* @brief UAV system with a camera and visual sevoing capabilities.
 */
 class UAVVisionSystem : public UAVSystem {
 public:
@@ -22,11 +21,11 @@ public:
   UAVVisionSystem(BaseTracker &tracker, parsernode::Parser &drone_hardware,
                   UAVSystemConfig config)
       : UAVSystem(drone_hardware, config),
+        camera_transform_(math::getTransformFromVector(
+            config_.uav_vision_system_config().camera_transform())),
         constant_heading_depth_controller_(
             config_.uav_vision_system_config()
                 .constant_heading_depth_controller_config()),
-        camera_transform_(math::getTransformFromVector(
-            config_.uav_vision_system_config().camera_transform())),
         visual_servoing_drone_connector_(tracker, drone_hardware_,
                                          constant_heading_depth_controller_,
                                          camera_transform_) {
@@ -45,15 +44,17 @@ public:
     return visual_servoing_drone_connector_.getTrackingVectorGlobalFrame(pos);
   }
 
+protected:
+  /**
+  * @brief Camera transform in the frame of the UAV
+  */
+  tf::Transform camera_transform_;
+
 private:
   /**
   * @brief Track the target position given by the tracker
   */
   ConstantHeadingDepthController constant_heading_depth_controller_;
-  /**
-  * @brief Camera transform in the frame of the UAV
-  */
-  tf::Transform camera_transform_;
   /**
   * @brief Connector for the constant heading depth controller to
   * UAV

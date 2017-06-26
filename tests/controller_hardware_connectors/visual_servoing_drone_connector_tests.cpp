@@ -14,9 +14,9 @@ using namespace quad_simulator;
 
 class VisualServoingControllerDroneConnectorTests : public ::testing::Test {
 public:
-  VisualServoingControllerDroneConnectorTests() : goal_tolerance_position(0.5) {
+  VisualServoingControllerDroneConnectorTests() : goal_tolerance_position(0.1) {
     ConstantHeadingDepthControllerConfig depth_config;
-    depth_config.set_radial_gain(0.5);
+    depth_config.set_radial_gain(2.0);
     depth_config.mutable_position_controller_config()
         ->set_goal_position_tolerance(goal_tolerance_position);
     tf::Transform camera_transform = tf::Transform::getIdentity();

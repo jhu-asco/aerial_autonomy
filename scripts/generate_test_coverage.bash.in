@@ -7,6 +7,13 @@ then
   echo "Catkin BUILD Failed"
   exit 1
 fi
+catkin_test_results ${CMAKE_CURRENT_BINARY_DIR}
+error=$?
+if [ $error -ne 0 ]
+then
+  echo "Some tests failed!"
+  exit 1
+fi
 TEST_COVERAGE_DIR=${CMAKE_CURRENT_SOURCE_DIR}/.test_coverage_info
 if [ ! -d "$TEST_COVERAGE_DIR" ]; then
   mkdir $TEST_COVERAGE_DIR

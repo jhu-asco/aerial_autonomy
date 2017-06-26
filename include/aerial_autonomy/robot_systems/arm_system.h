@@ -3,22 +3,20 @@
 // Base robot system
 #include <aerial_autonomy/robot_systems/base_robot_system.h>
 // Arm hardware
-#include <arm_parsers/generic_arm.h>
-/// \todo Add controllers and controller connectors for visual servoing
+#include <arm_parsers/arm_parser.h>
 
 /**
  * @brief Owns, initializes, and facilitates communication between different
  * hardware/software components.
  * Provides builtin set/get end effector pose, joint angles for a generic arm
 */
-class ArmSystem : public BaseRobotSystem {
+class ArmSystem : public virtual BaseRobotSystem {
 
 private:
   /**
   * @brief Hardware
   */
-  GenericArm arm_hardware_;
-  /// \todo Add controllers, controller connectors, config if needed
+  ArmParser &arm_hardware_;
 
 public:
   /**
@@ -29,7 +27,8 @@ public:
   *
   * @param arm_hardware input hardware to send commands back
   */
-  ArmSystem(ros::NodeHandle &nh) : BaseRobotSystem(), arm_hardware_(nh) {}
+  ArmSystem(ArmParser &arm_hardware)
+      : BaseRobotSystem(), arm_hardware_(arm_hardware) {}
 
   /**
   * @brief Public API call to get end effector transform
@@ -62,21 +61,21 @@ public:
   */
   void power(bool state) {
     if (state) {
-      arm_hardware_.sendCmd("power on");
+      arm_hardware_.sendCmd(ArmParser::POWER_ON);
     } else {
-      arm_hardware_.sendCmd("power off");
+      arm_hardware_.sendCmd(ArmParser::POWER_OFF);
     }
   }
 
   /**
   * @brief Set the arm joints to a known folded configuration
   */
-  void foldArm() { arm_hardware_.sendCmd("fold arm"); }
+  void foldArm() { arm_hardware_.sendCmd(ArmParser::FOLD_ARM); }
 
   /**
   * @brief Set the arm joints to a known L shaped configuration.
   */
-  void rightArm() { arm_hardware_.sendCmd("right arm"); }
+  void rightArm() { arm_hardware_.sendCmd(ArmParser::RIGHT_ARM); }
 
   /**
   * @brief Provide the current state of arm system
