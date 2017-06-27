@@ -9,7 +9,7 @@
 #include <parsernode/common.h>
 
 /**
-* @brief
+* @brief Action to initialize object direction and set goal to visual servoing
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */

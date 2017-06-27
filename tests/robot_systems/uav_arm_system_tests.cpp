@@ -21,6 +21,7 @@ TEST(UAVArmSystemTests, Constructor) {
   }
   for (int i = 0; i < 6; ++i) {
     uav_arm_system_config->add_arm_transform(0.0);
+    uav_arm_system_config->add_arm_goal_transform(0.0);
   }
   uav_arm_system_config->mutable_position_controller_config();
 

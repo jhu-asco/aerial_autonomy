@@ -4,6 +4,7 @@
 #include "aerial_autonomy/controllers/relative_pose_controller.h"
 #include "aerial_autonomy/robot_systems/arm_system.h"
 #include "aerial_autonomy/robot_systems/uav_vision_system.h"
+#include <chrono>
 
 /**
 * @brief UAV vision system with an arm.
@@ -20,10 +21,18 @@ public:
   UAVArmSystem(BaseTracker &tracker, parsernode::Parser &drone_hardware,
                ArmParser &arm_hardware, UAVSystemConfig config)
       : UAVVisionSystem(tracker, drone_hardware, config),
-        ArmSystem(arm_hardware), arm_transform_(math::getTransformFromVector(
-                                     config_.uav_vision_system_config()
-                                         .uav_arm_system_config()
-                                         .arm_transform())),
+        ArmSystem(arm_hardware),
+        grip_timeout_(config_.uav_vision_system_config()
+                          .uav_arm_system_config()
+                          .grip_timeout()),
+        arm_goal_transform_(
+            math::getTransformFromVector(config_.uav_vision_system_config()
+                                             .uav_arm_system_config()
+                                             .arm_goal_transform())),
+        arm_transform_(
+            math::getTransformFromVector(config_.uav_vision_system_config()
+                                             .uav_arm_system_config()
+                                             .arm_transform())),
         relative_pose_controller_(config_.uav_vision_system_config()
                                       .uav_arm_system_config()
                                       .position_controller_config()),
@@ -43,7 +52,19 @@ public:
     return UAVSystem::getSystemStatus() + "\n" + ArmSystem::getSystemStatus();
   }
 
+  uint32_t gripTimeout() { return grip_timeout_; }
+
+  tf::Transform armGoalTransform() { return arm_goal_transform_; }
+
 private:
+  /**
+  * @brief Timeout for gripping by arm
+  */
+  uint32_t grip_timeout_;
+  /**
+  * @brief Arm transform in the frame of the UAV
+  */
+  tf::Transform arm_goal_transform_;
   /**
   * @brief Arm transform in the frame of the UAV
   */

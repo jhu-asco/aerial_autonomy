@@ -81,3 +81,7 @@ using UAVLogicStateMachine = SampleLogicStateMachine_<UAVSystem>;
 * @brief Sample logic state machine templated on UAV system
 */
 using UAVVisionLogicStateMachine = SampleLogicStateMachine_<UAVVisionSystem>;
+/**
+* @brief Sample logic state machine templated on UAV arm system
+*/
+using UAVArmLogicStateMachine = SampleLogicStateMachine_<UAVArmSystem>;
