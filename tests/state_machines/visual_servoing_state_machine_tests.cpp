@@ -75,6 +75,9 @@ TEST_F(VisualServoingStateMachineTests, InitialState) {
 
 /// \brief Test Visual servoing related events
 TEST_F(VisualServoingStateMachineTests, VisualServoing) {
+  int time_out = 5000;  // Milliseconds
+  int time_period = 20; // Milliseconds
+  int max_count = time_out / time_period;
   // First takeoff
   GoToHoverFromLanded();
   // Set goal for simple tracker
@@ -88,11 +91,13 @@ TEST_F(VisualServoingStateMachineTests, VisualServoing) {
   ASSERT_EQ(uav_system->getStatus<VisualServoingControllerDroneConnector>(),
             ControllerStatus::Active);
   // Keep running the controller until its completed
+  int temp_count = 0;
   while (uav_system->getStatus<VisualServoingControllerDroneConnector>() ==
-         ControllerStatus::Active) {
+             ControllerStatus::Active &&
+         ++temp_count < max_count) {
     uav_system->runActiveController(HardwareType::UAV);
     logic_state_machine->process_event(InternalTransitionEvent());
-    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+    std::this_thread::sleep_for(std::chrono::milliseconds(time_period));
   }
   // Finally check we are back in hovering
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");

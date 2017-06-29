@@ -18,6 +18,9 @@ using psa = PickPlaceStatesActions<UAVArmLogicStateMachine>;
 // Visual Servoing
 using PickInternalAction = PickInternalActionFunctor_<UAVArmLogicStateMachine>;
 
+using ArmFoldInternalAction =
+    ArmFoldInternalActionFunctor_<UAVArmLogicStateMachine>;
+
 using ManualControlArmAction =
     ManualControlArmInternalActionFunctor_<UAVArmLogicStateMachine>;
 
@@ -67,6 +70,7 @@ protected:
 TEST_F(PickPlaceFunctorTests, Constructor) {
   ASSERT_NO_THROW(new psa::PickTransitionAction());
   ASSERT_NO_THROW(new PickInternalAction());
+  ASSERT_NO_THROW(new ArmFoldInternalAction());
 }
 
 TEST_F(PickPlaceFunctorTests, CallActionFunction) {
@@ -151,11 +155,22 @@ TEST_F(PickPlaceFunctorTests, CallInternalActionFunction) {
   status = uav_arm_system->getStatus<VisualServoingControllerArmConnector>();
   ASSERT_EQ(status, ControllerStatus::Completed);
   // Call internal action functor
-  PickInternalAction visual_servoing_internal_action;
-  visual_servoing_internal_action(NULL, *sample_logic_state_machine,
-                                  dummy_start_state, dummy_target_state);
+  PickInternalAction pick_internal_action;
+  pick_internal_action(NULL, *sample_logic_state_machine, dummy_start_state,
+                       dummy_target_state);
   ASSERT_EQ(sample_logic_state_machine->getProcessEventTypeId(),
             std::type_index(typeid(Completed)));
+}
+
+TEST_F(PickPlaceFunctorTests, ArmFoldInternalPoweroff) {
+  drone_hardware.setBatteryPercent(60);
+  uav_arm_system->power(false);
+  ArmFoldInternalAction arm_fold_internal_action;
+  int dummy_start_state, dummy_target_state;
+  arm_fold_internal_action(NULL, *sample_logic_state_machine, dummy_start_state,
+                           dummy_target_state);
+  ASSERT_EQ(sample_logic_state_machine->getProcessEventTypeId(),
+            std::type_index(typeid(be::Abort)));
 }
 
 TEST_F(PickPlaceFunctorTests, ManualAction) {
