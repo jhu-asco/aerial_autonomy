@@ -43,9 +43,9 @@ int main(int argc, char **argv) {
     LOG(FATAL) << "Failed to parse config file: " << uav_system_config_filename;
   }
 
-  UAVArmSystemHandler<PickPlaceStateMachine,
-                         pick_place_events::PickPlaceEventManager<
-                             PickPlaceStateMachine>>
+  UAVArmSystemHandler<
+      PickPlaceStateMachine,
+      pick_place_events::PickPlaceEventManager<PickPlaceStateMachine>>
       uav_system_handler(nh, uav_system_config);
 
   ros::spin();

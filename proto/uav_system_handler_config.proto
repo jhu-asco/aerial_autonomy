@@ -25,5 +25,7 @@ message UAVSystemHandlerConfig {
   */
   optional CommonSystemHandlerConfig base_config = 4;
 
-  oneof subclass { UAVArmSystemHandlerConfig uav_arm_system_handler_config = 5; }
+  oneof subclass {
+    UAVArmSystemHandlerConfig uav_arm_system_handler_config = 5;
+  }
 }

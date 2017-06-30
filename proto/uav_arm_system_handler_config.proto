@@ -11,5 +11,4 @@ message UAVArmSystemHandlerConfig {
   * @brief Arm hardware plugin name
   */
   required string arm_parser_type = 2;
-
 }

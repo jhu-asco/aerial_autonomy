@@ -1,6 +1,6 @@
+#include <aerial_autonomy/pick_place_events.h>
 #include <aerial_autonomy/state_machines/pick_place_state_machine.h>
 #include <aerial_autonomy/system_handlers/uav_arm_system_handler.h>
-#include <aerial_autonomy/pick_place_events.h>
 #include <gtest/gtest.h>
 #include <ros/ros.h>
 
@@ -16,7 +16,8 @@ public:
     UAVSystemHandlerConfig uav_system_handler_config;
     uav_system_handler_config.set_uav_parser_type(
         "quad_simulator_parser/QuadSimParser");
-    uav_system_handler_config.mutable_uav_arm_system_handler_config()->set_arm_parser_type("ArmSimulator");
+    uav_system_handler_config.mutable_uav_arm_system_handler_config()
+        ->set_arm_parser_type("ArmSimulator");
     uav_system_handler_config.mutable_uav_system_config()
         ->set_minimum_takeoff_height(0.4);
     for (int i = 0; i < 6; ++i) {
@@ -25,25 +26,27 @@ public:
           ->add_camera_transform(0.0);
 
       uav_system_handler_config.mutable_uav_system_config()
-          ->mutable_uav_vision_system_config()->mutable_uav_arm_system_config()
+          ->mutable_uav_vision_system_config()
+          ->mutable_uav_arm_system_config()
           ->add_arm_transform(0.0);
 
       uav_system_handler_config.mutable_uav_system_config()
-          ->mutable_uav_vision_system_config()->mutable_uav_arm_system_config()
+          ->mutable_uav_vision_system_config()
+          ->mutable_uav_arm_system_config()
           ->add_arm_goal_transform(0.0);
     }
 
     uav_system_handler_.reset(
         new UAVArmSystemHandler<
             PickPlaceStateMachine,
-            pick_place_events::PickPlaceEventManager<
-                PickPlaceStateMachine>>(nh_, uav_system_handler_config));
+            pick_place_events::PickPlaceEventManager<PickPlaceStateMachine>>(
+            nh_, uav_system_handler_config));
     event_pub_ = nh_send_.advertise<std_msgs::String>("event_manager", 1);
     pose_pub_ =
         nh_send_.advertise<geometry_msgs::PoseStamped>("goal_pose_command", 1);
     status_subscriber_ = nh_receive_status_.subscribe(
         "system_status", 1, &UAVArmSystemHandlerTests::statusCallback, this);
-    //uav_system_handler_->powerArm(true);
+    // uav_system_handler_->powerArm(true);
     ros::spinOnce();
   }
 
@@ -86,10 +89,9 @@ private:
   ros::Subscriber status_subscriber_; ///< System status subscriber
 
 public:
-  std::unique_ptr<
-      UAVArmSystemHandler<PickPlaceStateMachine,
-                             pick_place_events::PickPlaceEventManager<
-                                 PickPlaceStateMachine>>>
+  std::unique_ptr<UAVArmSystemHandler<
+      PickPlaceStateMachine,
+      pick_place_events::PickPlaceEventManager<PickPlaceStateMachine>>>
       uav_system_handler_; ///< system contains robot system, state machine
 };
 
