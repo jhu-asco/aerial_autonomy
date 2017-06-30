@@ -166,6 +166,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/uav_arm_system_config.proto
   proto/common_system_handler_config.proto
   proto/uav_system_handler_config.proto
+  proto/uav_arm_system_handler_config.proto
   proto/velocity_based_position_controller_config.proto
   proto/constant_heading_depth_controller_config.proto
   proto/position_controller_config.proto
@@ -218,6 +219,7 @@ target_link_libraries(aerial_autonomy ${catkin_LIBRARIES})
 ## Declare a C++ executable
 add_executable(uav_system_node src/system_handler_nodes/uav_system_node.cpp)
 add_executable(uav_vision_system_node src/system_handler_nodes/uav_vision_system_node.cpp)
+add_executable(uav_arm_system_node src/system_handler_nodes/uav_arm_system_node.cpp)
 add_executable(event_publish_node src/tests/event_publish_node.cpp)
 
 ## Add cmake target dependencies of the executable
@@ -228,6 +230,7 @@ add_executable(event_publish_node src/tests/event_publish_node.cpp)
 
 target_link_libraries(uav_system_node aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 target_link_libraries(uav_vision_system_node aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+target_link_libraries(uav_arm_system_node aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
 
 #############
@@ -299,6 +302,8 @@ add_rostest_gtest(${PROJECT_NAME}-uav-system-handler-test tests/system_handlers/
 add_dependencies(${PROJECT_NAME}-uav-system-handler-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
 add_rostest_gtest(${PROJECT_NAME}-uav-vision-system-handler-test tests/system_handlers/uav_vision_system_handler_tests.test tests/system_handlers/uav_vision_system_handler_tests.cpp)
 add_dependencies(${PROJECT_NAME}-uav-vision-system-handler-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
+add_rostest_gtest(${PROJECT_NAME}-uav-arm-system-handler-test tests/system_handlers/uav_arm_system_handler_tests.test tests/system_handlers/uav_arm_system_handler_tests.cpp)
+add_dependencies(${PROJECT_NAME}-uav-arm-system-handler-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
 catkin_add_gtest(${PROJECT_NAME}-thread-safe-state-machine-test tests/common/thread_safe_state_machine_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-iterable-enum-test tests/common/iterable_enum_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-velocity-based-position-controller-test tests/controllers/velocity_based_position_controller_tests.cpp)
@@ -374,6 +379,9 @@ if(TARGET ${PROJECT_NAME}-uav-system-handler-test)
 endif()
 if(TARGET ${PROJECT_NAME}-uav-vision-system-handler-test)
   target_link_libraries(${PROJECT_NAME}-uav-vision-system-handler-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-uav-arm-system-handler-test)
+  target_link_libraries(${PROJECT_NAME}-uav-arm-system-handler-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-uav-vision-system-test)
   target_link_libraries(${PROJECT_NAME}-uav-vision-system-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
