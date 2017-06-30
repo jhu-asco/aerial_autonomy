@@ -165,8 +165,8 @@ public:
             msmf::Row<psa::ReachingGoal, Completed, psa::Hovering,
                       psa::AbortUAVControllerArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PickState, Completed, psa::Hovering, psa::PickAction,
-                      msmf::none>,
+            msmf::Row<psa::PickState, Completed, psa::Hovering,
+                      psa::AbortUAVArmController, psa::PickGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ManualControlArmState, be::Takeoff, psa::Hovering,
                       psa::ManualControlSwitchAction,

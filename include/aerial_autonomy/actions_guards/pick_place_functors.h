@@ -15,20 +15,21 @@
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-struct PickAction_
-    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
-  void run(UAVArmSystem &robot_system,
-           LogicStateMachineT &logic_state_machine) {
-    VLOG(1) << "Aborting Controllers";
-    robot_system.abortController(HardwareType::UAV);
-    robot_system.abortController(HardwareType::Arm);
+struct PickGuard_
+    : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
+  bool guard(UAVArmSystem &robot_system,
+             LogicStateMachineT &logic_state_machine) {
     VLOG(1) << "Grip Object";
     robot_system.grip(true);
     std::this_thread::sleep_for(
         std::chrono::milliseconds(robot_system.gripTimeout()));
     if (!robot_system.getCommandStatus()) {
       LOG(WARNING) << "Failed to grip object by timeout!";
+      robot_system.grip(false);
+      return false;
     }
+    VLOG(1) << "Done Gripping!";
+    return true;
   }
 };
 
@@ -129,6 +130,8 @@ struct VisualServoingArmTransitionActionFunctor_
     VLOG(1) << "Setting Goal for visual servoing arm connector!";
     robot_system.setGoal<VisualServoingControllerArmConnector, tf::Transform>(
         robot_system.armGoalTransform());
+    // Also ensure the gripper is open before going to pick objects
+    robot_system.grip(false);
   }
 };
 /**

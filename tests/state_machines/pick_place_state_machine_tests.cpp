@@ -166,6 +166,28 @@ TEST_F(PickPlaceStateMachineTests, PickPlaceArmAbort) {
   logic_state_machine->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
 }
+// Abort due to tracking becoming invalid
+TEST_F(PickPlaceStateMachineTests, PickPlaceInvalidTrackingAbort) {
+  // First takeoff
+  GoToHoverFromLanded();
+  // Set goal for simple tracker
+  Position roi_goal(2, 0, 0.5);
+  tracker->setTargetPositionGlobalFrame(roi_goal);
+  // Initialize event to vse::TrackROI
+  logic_state_machine->process_event(pe::Pick());
+  // Check we are in pick state
+  ASSERT_STREQ(pstate(*logic_state_machine), "PickState");
+  // Set tracker to invalid
+  tracker->setTrackingIsValid(false);
+  // Run active controllers
+  for (int i = 0; i < 2; ++i) {
+    uav_arm_system->runActiveController(HardwareType::UAV);
+    uav_arm_system->runActiveController(HardwareType::Arm);
+  }
+  // Check we are in Hovering
+  logic_state_machine->process_event(InternalTransitionEvent());
+  ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
+}
 // Manual rc abort
 TEST_F(PickPlaceStateMachineTests, PickPlaceManualControlAbort) {
   // First takeoff

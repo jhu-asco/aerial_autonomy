@@ -98,7 +98,7 @@ TEST_F(PickPlaceFunctorTests, CallActionFunction) {
   ASSERT_EQ(arm_goal.getOrigin(), tf::Vector3(-0.2, 0, 0));
 }
 
-TEST_F(PickPlaceFunctorTests, InvalidTrackingCallGuardFunction) {
+TEST_F(PickPlaceFunctorTests, PoweroffCallGuardFunction) {
   // Turn off arm
   uav_arm_system->power(false);
   psa::PickTransitionGuard pick_place_transition_guard;

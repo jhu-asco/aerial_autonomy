@@ -103,5 +103,5 @@ struct PickPlaceStatesActions
   /**
   * @brief Action to grab an object
   */
-  using PickAction = PickAction_<LogicStateMachineT>;
+  using PickGuard = PickGuard_<LogicStateMachineT>;
 };
