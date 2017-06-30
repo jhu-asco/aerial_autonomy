@@ -2,12 +2,11 @@
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/actions_guards/manual_control_functors.h>
 #include <aerial_autonomy/actions_guards/uav_status_functor.h>
-#include <aerial_autonomy/common/math.h>
 #include <aerial_autonomy/logic_states/base_state.h>
-//\todo replace system
-//#include <aerial_autonomy/robot_systems/uav_arm_system.h>
+#include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/types/completed_event.h>
 #include <glog/logging.h>
+#include <thread>
 
 /**
 * @brief Logic to grab an object, sleep for few seconds
@@ -16,20 +15,21 @@
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-struct PickAction_
-    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
-  void run(UAVArmSystem &robot_system,
-           LogicStateMachineT &logic_state_machine) {
-    VLOG(1) << "Aborting Controllers";
-    robot_system.abortController(HardwareType::UAV);
-    robot_system.abortController(HardwareType::Arm);
-    ///\todo Add code to pick an object
-    // Check type of event to decide what to do
+struct PickGuard_
+    : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
+  bool guard(UAVArmSystem &robot_system,
+             LogicStateMachineT &logic_state_machine) {
     VLOG(1) << "Grip Object";
     robot_system.grip(true);
-    // Timeout
-    // Check gripping is done to print warning if not done
-    // Exit irrespective of gripping done or not after timeout
+    std::this_thread::sleep_for(
+        std::chrono::milliseconds(robot_system.gripTimeout()));
+    if (!robot_system.getCommandStatus()) {
+      LOG(WARNING) << "Failed to grip object by timeout!";
+      robot_system.grip(false);
+      return false;
+    }
+    VLOG(1) << "Done Gripping!";
+    return true;
   }
 };
 
@@ -50,15 +50,25 @@ struct PickInternalActionFunctor_
   */
   void statusIndependentRun(UAVArmSystem &robot_system,
                             LogicStateMachineT &logic_state_machine) {
-    ControllerStatus status =
+    // Check arm status before proceeding
+    if (!robot_system.enabled()) {
+      LOG(WARNING) << "Arm not enabled!";
+      logic_state_machine.process_event(be::Abort());
+      return;
+    }
+    ControllerStatus uav_status =
         robot_system.getStatus<VisualServoingControllerDroneConnector>();
-    //\todo Check controller status of arm along with quad
-    // Define tolerance and check if reached goal
-    if (status == ControllerStatus::Completed) {
-      VLOG(1) << "Reached goal";
+    ControllerStatus arm_status =
+        robot_system.getStatus<VisualServoingControllerArmConnector>();
+    if (uav_status == ControllerStatus::Completed &&
+        arm_status == ControllerStatus::Completed) {
+      VLOG(1) << "Reached goal for UAV and arm";
       logic_state_machine.process_event(Completed());
-    } else if (status == ControllerStatus::Critical) {
-      LOG(WARNING) << "Lost tracking while servoing.";
+    } else if (uav_status == ControllerStatus::Critical) {
+      LOG(WARNING) << "Lost tracking while servoing. Aborting!";
+      logic_state_machine.process_event(be::Abort());
+    } else if (arm_status == ControllerStatus::Critical) {
+      LOG(WARNING) << "Arm status critical. Aborting!";
       logic_state_machine.process_event(be::Abort());
     }
   }
@@ -112,6 +122,18 @@ struct PickTransitionGuardFunctor_
   }
 };
 
+template <class LogicStateMachineT>
+struct VisualServoingArmTransitionActionFunctor_
+    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  void run(UAVArmSystem &robot_system,
+           LogicStateMachineT &logic_state_machine) {
+    VLOG(1) << "Setting Goal for visual servoing arm connector!";
+    robot_system.setGoal<VisualServoingControllerArmConnector, tf::Transform>(
+        robot_system.armGoalTransform());
+    // Also ensure the gripper is open before going to pick objects
+    robot_system.grip(false);
+  }
+};
 /**
 * @brief State that uses position control functor to reach a desired goal.
 *

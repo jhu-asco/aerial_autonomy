@@ -28,8 +28,7 @@
 #include <aerial_autonomy/actions_guards/pick_place_states_actions.h>
 
 // Robot System used
-///\todo Find the right system to use here
-//#include <aerial_autonomy/robot_systems/uav_arm_system.h>
+#include <aerial_autonomy/robot_systems/uav_arm_system.h>
 
 // Logging library
 #include <glog/logging.h>
@@ -115,14 +114,14 @@ public:
             msmf::Row<psa::Landed, be::Takeoff, psa::ArmPreTakeoffFolding,
                       psa::ArmPoweronFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ArmPreTakeoffFolding, be::Takeoff, psa::TakingOff,
+            msmf::Row<psa::Landed, ManualControlEvent,
+                      psa::ManualControlArmState, msmf::none, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::ArmPreTakeoffFolding, Completed, psa::TakingOff,
                       psa::TakeoffAction, psa::TakeoffGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ArmPreTakeoffFolding, be::Abort, psa::Landed,
                       psa::ArmPoweroff, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Landed, ManualControlEvent, psa::ManualControlState,
-                      msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::TakingOff, Completed, psa::Hovering,
                       psa::ArmRightFold, msmf::none>,
@@ -131,8 +130,7 @@ public:
                       psa::ReachingGoalSet, psa::ReachingGoalGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Hovering, pe::Pick, psa::PickState,
-                      psa::VisualServoingTransitionAction,
-                      psa::PickTransitionGuard>,
+                      psa::PickTransitionAction, psa::PickTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Hovering, vse::GoHome, psa::ReachingGoal,
                       psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,
@@ -150,7 +148,7 @@ public:
                       psa::ManualControlArmState, msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ReachingGoal, be::Abort, psa::Hovering,
-                      psa::UAVControllerAbort, msmf::none>,
+                      psa::AbortUAVControllerArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ReachingGoal, be::Land, psa::ArmPreLandingFolding,
                       psa::ArmFold, msmf::none>,
@@ -158,14 +156,17 @@ public:
             msmf::Row<psa::PickState, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::PickState, be::Land, psa::ArmPreLandingFolding,
+                      psa::AbortUAVControllerArmFold, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Landing, Completed, psa::Landed, psa::ArmPoweroff,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ReachingGoal, Completed, psa::Hovering,
                       psa::AbortUAVControllerArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PickState, Completed, psa::Hovering, psa::PickAction,
-                      msmf::none>,
+            msmf::Row<psa::PickState, Completed, psa::Hovering,
+                      psa::AbortUAVArmController, psa::PickGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ManualControlArmState, be::Takeoff, psa::Hovering,
                       psa::ManualControlSwitchAction,
@@ -183,10 +184,16 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 10> state_names = {
-    "Landed",   "ArmPreTakeoffFolding", "Landed",       "Takingoff",
-    "Hovering", "ArmPreLandingFolding", "ReachingGoal", "PickState",
-    "Landing",  "ManualControlArmState"};
+static constexpr std::array<const char *, 9> state_names = {
+    "Landed",
+    "ArmPreTakeoffFolding",
+    "Takingoff",
+    "Hovering",
+    "ArmPreLandingFolding",
+    "ReachingGoal",
+    "PickState",
+    "Landing",
+    "ManualControlArmState"};
 /**
 * @brief Get current state name
 *

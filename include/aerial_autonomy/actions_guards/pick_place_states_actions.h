@@ -4,7 +4,7 @@
 #include <aerial_autonomy/actions_guards/arm_functors.h>
 #include <aerial_autonomy/actions_guards/pick_place_functors.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_states_actions.h>
-#include <boost/msm/front/euml/operator.hpp>
+#include <boost/msm/front/functor_row.hpp>
 
 /**
 * @brief Class to provide typedefs for all basic uav states and actions
@@ -14,6 +14,12 @@
 template <class LogicStateMachineT>
 struct PickPlaceStatesActions
     : VisualServoingStatesActions<LogicStateMachineT> {
+
+  template <class Sequence>
+  using bActionSequence = boost::msm::front::ActionSequence_<Sequence>;
+
+  using vsa = VisualServoingStatesActions<LogicStateMachineT>;
+  using usa = UAVStatesActions<LogicStateMachineT>;
   // Pre takeoff, land states
   /**
   * @brief State for folding arm
@@ -63,19 +69,31 @@ struct PickPlaceStatesActions
   * @brief Action sequence to abort UAV controller and move arm to right
   * angle
   */
-  using AbortUAVControllerArmRightFold = msm::front::euml::ActionSequence<
-      boost::mpl::vector<UAVControllerAbort, ArmRightFoldTransitionAction>>;
+  using AbortUAVControllerArmRightFold = bActionSequence<
+      boost::mpl::vector<typename usa::UAVControllerAbort, ArmRightFold>>;
+  /**
+  * @brief Action sequence to abort UAV controller and move arm to right
+  * angle
+  */
+  using AbortUAVControllerArmFold = bActionSequence<
+      boost::mpl::vector<typename usa::UAVControllerAbort, ArmFold>>;
+  /**
+  * @brief Set goal for visual servoing and also arm controller
+  */
+  using PickTransitionAction = bActionSequence<boost::mpl::vector<
+      typename vsa::VisualServoingTransitionAction,
+      VisualServoingArmTransitionActionFunctor_<LogicStateMachineT>>>;
   /**
   * @brief Action to take when starting folding arm before takeoff
   */
   using ArmPoweronFold =
-      msm::front::euml::ActionSequence<boost::mpl::vector<ArmPoweron, ArmFold>>;
+      bActionSequence<boost::mpl::vector<ArmPoweron, ArmFold>>;
   /**
   * @brief Action sequence to abort UAV controller and arm controller
   * angle
   */
-  using AbortUAVArmController = msm::front::euml::ActionSequence<
-      boost::mpl::vector<UAVControllerAbort, AbortArmController>>;
+  using AbortUAVArmController = bActionSequence<
+      boost::mpl::vector<typename usa::UAVControllerAbort, AbortArmController>>;
   // Guards
   /**
   * @brief Guard to stop pick place if arm is not powered or vision is not
@@ -85,5 +103,5 @@ struct PickPlaceStatesActions
   /**
   * @brief Action to grab an object
   */
-  using PickAction = PickAction_<LogicStateMachineT>;
+  using PickGuard = PickGuard_<LogicStateMachineT>;
 };
