@@ -25,6 +25,10 @@ message UAVSystemHandlerConfig {
   */
   optional CommonSystemHandlerConfig base_config = 4;
 
+  /**
+  * @brief A crude form of inheritance for proto. Contains a config for
+  * subclasses of UAVSystemHandlerConfig
+  */
   oneof subclass {
     UAVArmSystemHandlerConfig uav_arm_system_handler_config = 5;
   }

@@ -9,6 +9,7 @@
 
 using namespace uav_basic_events;
 
+// \todo Make test fixture and functions a common file
 class UAVArmSystemHandlerTests : public ::testing::Test {
 public:
   UAVArmSystemHandlerTests() : nh_(), nh_send_(), nh_receive_status_() {
@@ -46,7 +47,6 @@ public:
         nh_send_.advertise<geometry_msgs::PoseStamped>("goal_pose_command", 1);
     status_subscriber_ = nh_receive_status_.subscribe(
         "system_status", 1, &UAVArmSystemHandlerTests::statusCallback, this);
-    // uav_system_handler_->powerArm(true);
     ros::spinOnce();
   }
 
@@ -148,7 +148,7 @@ TEST_F(UAVArmSystemHandlerTests, ReceiveStatus) {
   ASSERT_FALSE(status_.empty());
 }
 
-/// \todo Matt Add visual servoing tests
+/// \todo Matt Add pick and place tests
 
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
