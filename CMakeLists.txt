@@ -23,6 +23,7 @@ find_package(catkin REQUIRED COMPONENTS
   cv_bridge
   image_transport
   arm_plugins
+  ar_track_alvar
 )
 
 include(cmake/add_event_function.cmake)
@@ -197,6 +198,8 @@ add_library(aerial_autonomy
   src/common/conversions.cpp
   src/trackers/roi_to_position_converter.cpp
   src/trackers/simple_tracker.cpp
+  src/trackers/alvar_tracker.cpp
+  src/trackers/multi_tracker.cpp
   src/controllers/manual_rpyt_controller.cpp
   src/controllers/velocity_based_position_controller.cpp
   src/controllers/constant_heading_depth_controller.cpp

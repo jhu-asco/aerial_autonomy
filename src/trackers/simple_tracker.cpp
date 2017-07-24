@@ -23,9 +23,8 @@ bool SimpleTracker::getTrackingVector(Position &p) {
   tf::Vector3 target_position_camera = camera_transform_.inverse() *
                                        quad_tf_global.inverse() *
                                        target_position_global;
-  p.x = target_position_camera.getX();
-  p.y = target_position_camera.getY();
-  p.z = target_position_camera.getZ();
+  p = Position(target_position_camera.getX(), target_position_camera.getY(),
+               target_position_camera.getZ());
   return true;
 }
 
