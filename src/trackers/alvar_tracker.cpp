@@ -31,3 +31,5 @@ void AlvarTracker::markerCallback(
   }
   object_positions_ = object_positions;
 }
+
+bool AlvarTracker::isConnected() { return alvar_sub_.getNumPublishers() > 0; }

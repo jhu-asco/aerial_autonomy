@@ -200,6 +200,7 @@ add_library(aerial_autonomy
   src/trackers/simple_tracker.cpp
   src/trackers/alvar_tracker.cpp
   src/trackers/multi_tracker.cpp
+  src/trackers/simple_multi_tracker.cpp
   src/controllers/manual_rpyt_controller.cpp
   src/controllers/velocity_based_position_controller.cpp
   src/controllers/constant_heading_depth_controller.cpp
@@ -314,7 +315,9 @@ catkin_add_gtest(${PROJECT_NAME}-relative-pose-controller-test tests/controllers
 catkin_add_gtest(${PROJECT_NAME}-constant-heading-depth-controller-test tests/controllers/constant_heading_depth_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-math-test tests/common/math_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-tracker-test tests/trackers/simple_tracker_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-simple-multi-tracker-test tests/trackers/simple_multi_tracker_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-roi-to-position-converter-test tests/trackers/roi_to_position_converter_tests.test tests/trackers/roi_to_position_converter_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-alvar-tracker-test tests/trackers/alvar_tracker_tests.test tests/trackers/alvar_tracker_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-drone-connector-test tests/controller_hardware_connectors/visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-arm-connector-test tests/controller_hardware_connectors/visual_servoing_arm_connector_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
@@ -407,8 +410,14 @@ endif()
 if(TARGET ${PROJECT_NAME}-roi-to-position-converter-test)
   target_link_libraries(${PROJECT_NAME}-roi-to-position-converter-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
+if(TARGET ${PROJECT_NAME}-alvar-tracker-test)
+  target_link_libraries(${PROJECT_NAME}-alvar-tracker-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+endif()
 if(TARGET ${PROJECT_NAME}-simple-tracker-test)
   target_link_libraries(${PROJECT_NAME}-simple-tracker-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-simple-multi-tracker-test)
+  target_link_libraries(${PROJECT_NAME}-simple-multi-tracker-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-math-test)
   target_link_libraries(${PROJECT_NAME}-math-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})

@@ -16,7 +16,7 @@ public:
   * @param nh ROS node handle for comms
   */
   AlvarTracker(ros::NodeHandle &nh)
-      : nh_(nh),
+      : MultiTracker(MultiTracker::CLOSEST), nh_(nh),
         alvar_sub_(nh_.subscribe("ar_pose_marker", 1,
                                  &AlvarTracker::markerCallback, this)) {}
   /**
@@ -31,6 +31,12 @@ public:
   * @return True if the tracking is valid, false otherwise
   */
   virtual bool trackingIsValid();
+
+  /**
+  * @brief Check if subscriber is connected
+  * @return True if connected, false otherwise
+  */
+  bool isConnected();
 
 private:
   /**
