@@ -6,6 +6,11 @@
  */
 class SimpleMultiTracker : public MultiTracker {
 public:
+  /**
+  * @brief Constructor
+  * @param tracking_strategy Strategy to use for picking target among a group of
+  * tracked objects
+  */
   SimpleMultiTracker(TrackingStrategyType tracking_strategy)
       : MultiTracker(tracking_strategy) {}
   /**

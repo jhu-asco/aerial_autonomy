@@ -5,10 +5,26 @@
 #include <tuple>
 #include <vector>
 
+/**
+ * @brief Defines a strategy for choosing a target to track among a group of
+ * tracked targets
+ */
 class TrackingStrategy {
 public:
+  /**
+  * @brief Initialize the strategy from a group of targets
+  * @param tracking_vectors The vectors to the tracked targets
+  * @return True if successful, false otherwise
+  */
   virtual bool initialize(
       const std::vector<std::tuple<uint32_t, Position>> &tracking_vectors) = 0;
+  /**
+  * @brief Get the tracking vector for one target based on the implemented
+  * strategy
+  * @param tracking_vectors The vectors to the tracked targets
+  * @param tracking_vector Chosen target
+  * @return True if successful, false otherwise
+  */
   virtual bool getTrackingVector(
       const std::vector<std::tuple<uint32_t, Position>> &tracking_vectors,
       std::tuple<uint32_t, Position> &tracking_vector) = 0;

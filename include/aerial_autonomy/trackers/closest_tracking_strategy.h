@@ -2,11 +2,30 @@
 
 #include "aerial_autonomy/trackers/tracking_strategy.h"
 
+/**
+ * @brief A tracking strategy that locks on to the closest target when
+ * initialized
+ */
 class ClosestTrackingStrategy : public TrackingStrategy {
 public:
+  /**
+  * @brief Constructor
+  */
   ClosestTrackingStrategy() : tracking_locked_(false) {}
+  /**
+  * @brief Initialize the strategy from a group of targets. Locks on to closest
+  * target
+  * @param tracking_vectors The vectors to the tracked targets
+  * @return True if successful, false otherwise
+  */
   virtual bool initialize(
       const std::vector<std::tuple<uint32_t, Position>> &tracking_vectors);
+  /**
+  * @brief Get the tracking vector for the tracked target.
+  * @param tracking_vectors The vectors to the tracked targets
+  * @param tracking_vector Chosen target
+  * @return True if successful, false otherwise
+  */
   virtual bool getTrackingVector(
       const std::vector<std::tuple<uint32_t, Position>> &tracking_vectors,
       std::tuple<uint32_t, Position> &tracking_vector);
@@ -22,6 +41,12 @@ private:
       const std::vector<std::tuple<uint32_t, Position>> &tracking_vectors,
       std::tuple<uint32_t, Position> &tracking_vector);
 
+  /**
+  * @brief ID of tracked target
+  */
   uint32_t tracked_id_;
+  /**
+  * @brief True if tracking has been locked, false otherwise
+  */
   bool tracking_locked_;
 };

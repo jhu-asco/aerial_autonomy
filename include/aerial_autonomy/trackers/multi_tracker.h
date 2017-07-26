@@ -11,6 +11,9 @@
  */
 class MultiTracker : public BaseTracker {
 public:
+  /**
+  * @brief Defines the possible tracking strategies
+  */
   enum TrackingStrategyType { CLOSEST };
   /**
   * @brief Default constructor
