@@ -1,7 +1,15 @@
 #include "aerial_autonomy/trackers/multi_tracker.h"
-#include <limits>
 
 bool MultiTracker::getTrackingVector(Position &pos) {
+  std::tuple<uint32_t, Position> pos_tuple;
+  if (!getTrackingVector(pos_tuple)) {
+    return false;
+  }
+  pos = std::get<1>(pos_tuple);
+  return true;
+}
+
+bool MultiTracker::getTrackingVector(std::tuple<uint32_t, Position> &pos) {
   if (!trackingIsValid()) {
     return false;
   }
@@ -9,20 +17,18 @@ bool MultiTracker::getTrackingVector(Position &pos) {
   if (!getTrackingVectors(tracking_vectors) || tracking_vectors.empty()) {
     return false;
   }
-  pos = getClosest(tracking_vectors);
+
+  if (!tracking_strategy_->getTrackingVector(tracking_vectors, pos)) {
+    return false;
+  }
 
   return true;
 }
 
-Position MultiTracker::getClosest(
-    const std::vector<std::tuple<uint32_t, Position>> &positions) {
-  int closest_idx = 0;
-  double closest_norm = std::numeric_limits<double>::max();
-  for (unsigned int i = 0; i < positions.size(); i++) {
-    if (std::get<1>(positions[i]).norm() < closest_norm) {
-      closest_norm = std::get<1>(positions[i]).norm();
-      closest_idx = i;
-    }
+bool MultiTracker::initialize() {
+  std::vector<std::tuple<uint32_t, Position>> tracking_vectors;
+  if (!getTrackingVectors(tracking_vectors)) {
+    return false;
   }
-  return std::get<1>(positions[closest_idx]);
+  return tracking_strategy_->initialize(tracking_vectors);
 }

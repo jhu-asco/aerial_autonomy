@@ -8,6 +8,12 @@
 class BaseTracker {
 public:
   /**
+  * @brief Initialze the tracker.  Can simply return true if the subclass
+  * requires no additional initialization.
+  * @return True if initialization succeeds, false otherwise
+  */
+  virtual bool initialize() { return true; }
+  /**
    * @brief Get the tracking vector
    * @param pos Returned tracking vector
    * @return True if successful, false otherwise

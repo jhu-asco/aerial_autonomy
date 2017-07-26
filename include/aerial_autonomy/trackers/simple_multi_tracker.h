@@ -6,7 +6,7 @@
  */
 class SimpleMultiTracker : public MultiTracker {
 public:
-  SimpleMultiTracker(TrackingStrategy tracking_strategy)
+  SimpleMultiTracker(TrackingStrategyType tracking_strategy)
       : MultiTracker(tracking_strategy) {}
   /**
    * @brief Get the tracking vectors

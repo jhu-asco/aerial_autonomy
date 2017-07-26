@@ -60,6 +60,8 @@ TEST_F(AlvarTrackerTests, GetTrackingVector) {
   markers.push_back(std::make_tuple(0, Position(0, 2, 3)));
   publishMarkers(markers);
 
+  tracker.initialize();
+
   ASSERT_TRUE(tracker.getTrackingVector(pos));
   ASSERT_NEAR(pos.x, 0, 1e-6);
   ASSERT_NEAR(pos.y, 2, 1e-6);

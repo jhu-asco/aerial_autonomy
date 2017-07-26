@@ -23,9 +23,9 @@ public:
       : UAVSystem(drone_hardware, config),
         camera_transform_(math::getTransformFromVector(
             config_.uav_vision_system_config().camera_transform())),
-        constant_heading_depth_controller_(
-            config_.uav_vision_system_config()
-                .constant_heading_depth_controller_config()),
+        tracker_(tracker), constant_heading_depth_controller_(
+                               config_.uav_vision_system_config()
+                                   .constant_heading_depth_controller_config()),
         visual_servoing_drone_connector_(tracker, drone_hardware_,
                                          constant_heading_depth_controller_,
                                          camera_transform_) {
@@ -44,6 +44,8 @@ public:
     return visual_servoing_drone_connector_.getTrackingVectorGlobalFrame(pos);
   }
 
+  bool initializeTracker() { return tracker_.initialize(); }
+
 protected:
   /**
   * @brief Camera transform in the frame of the UAV
@@ -51,6 +53,7 @@ protected:
   tf::Transform camera_transform_;
 
 private:
+  BaseTracker &tracker_;
   /**
   * @brief Track the target position given by the tracker
   */

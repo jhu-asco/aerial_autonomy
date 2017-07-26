@@ -9,7 +9,7 @@
 #include <parsernode/common.h>
 
 /**
-* @brief Action to initialize object direction and set goal to visual servoing
+* @brief Empty for now
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
@@ -17,30 +17,7 @@ template <class LogicStateMachineT>
 struct VisualServoingTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
   void run(UAVVisionSystem &robot_system,
-           LogicStateMachineT &logic_state_machine) {
-    VLOG(1) << "Selecting home location";
-    robot_system.setHomeLocation();
-
-    Position tracking_vector;
-    if (!robot_system.getTrackingVector(tracking_vector)) {
-      LOG(WARNING) << "Lost tracking while servoing.";
-      logic_state_machine.process_event(be::Abort());
-      return;
-    }
-    VLOG(1) << "Setting tracking vector";
-    double desired_distance = robot_system.getConfiguration()
-                                  .uav_vision_system_config()
-                                  .desired_visual_servoing_distance();
-    double tracking_vector_norm = tracking_vector.norm();
-    if (tracking_vector_norm < 1e-6) {
-      LOG(WARNING) << "Tracking vector too small cannot initialize direction";
-      logic_state_machine.process_event(be::Abort());
-      return;
-    } else {
-      robot_system.setGoal<VisualServoingControllerDroneConnector, Position>(
-          tracking_vector * desired_distance / tracking_vector_norm);
-    }
-  }
+           LogicStateMachineT &logic_state_machine) {}
 };
 
 /**
@@ -116,15 +93,39 @@ struct VisualServoingInternalActionFunctor_
 };
 
 /**
-* @brief Check tracking is valid before starting visual servoing *
+* @brief Check tracking is valid before starting visual servoing
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
 struct VisualServoingTransitionGuardFunctor_
     : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {
-  bool guard(UAVVisionSystem &robot_system_, LogicStateMachineT &) {
+  bool guard(UAVVisionSystem &robot_system, LogicStateMachineT &) {
+    if (!robot_system.initializeTracker()) {
+      LOG(WARNING) << "Could not initialize tracking.";
+      return false;
+    }
+
     Position tracking_vector;
-    return robot_system_.getTrackingVector(tracking_vector);
+    if (!robot_system.getTrackingVector(tracking_vector)) {
+      LOG(WARNING) << "Lost tracking while servoing.";
+      return false;
+    }
+    VLOG(1) << "Setting tracking vector";
+    double desired_distance = robot_system.getConfiguration()
+                                  .uav_vision_system_config()
+                                  .desired_visual_servoing_distance();
+    double tracking_vector_norm = tracking_vector.norm();
+    if (tracking_vector_norm < 1e-6) {
+      LOG(WARNING) << "Tracking vector too small cannot initialize direction";
+      return false;
+    } else {
+      // \todo Matt: could possibly move this block to the action functor
+      VLOG(1) << "Selecting home location";
+      robot_system.setHomeLocation();
+      robot_system.setGoal<VisualServoingControllerDroneConnector, Position>(
+          tracking_vector * desired_distance / tracking_vector_norm);
+    }
+    return true;
   }
 };
 

@@ -98,7 +98,7 @@ struct ManualControlArmInternalActionFunctor_
   void run(UAVArmSystem &robot_system,
            LogicStateMachineT &logic_state_machine) {
     if (!robot_system.enabled()) {
-      LOG(WARNING) << "Arm not enabled!";
+      LOG(WARNING) << "Arm not enabled! Enabling arm now.";
       robot_system.power(true); // Try to enable arm
     } else {
       // Since arm is enabled we can switch to other states
@@ -116,9 +116,7 @@ template <class LogicStateMachineT>
 struct PickTransitionGuardFunctor_
     : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
   bool guard(UAVArmSystem &robot_system_, LogicStateMachineT &) {
-    Position tracking_vector;
-    return (robot_system_.getTrackingVector(tracking_vector) &&
-            robot_system_.enabled());
+    return robot_system_.enabled();
   }
 };
 

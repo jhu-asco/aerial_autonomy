@@ -78,9 +78,12 @@ TEST_F(PickPlaceFunctorTests, CallActionFunction) {
   Position roi_goal(1, 1, 1);
   simple_tracker->setTargetPositionGlobalFrame(roi_goal);
   // Test action functor
+  psa::PickTransitionGuard pick_place_transition_guard;
   psa::PickTransitionAction pick_place_transition_action;
   int dummy_start_state, dummy_target_state;
   ASSERT_FALSE(uav_arm_system->isHomeLocationSpecified());
+  pick_place_transition_guard(NULL, *sample_logic_state_machine,
+                              dummy_start_state, dummy_target_state);
   pick_place_transition_action(NULL, *sample_logic_state_machine,
                                dummy_start_state, dummy_target_state);
   ASSERT_TRUE(uav_arm_system->isHomeLocationSpecified());
@@ -121,7 +124,10 @@ TEST_F(PickPlaceFunctorTests, CallInternalActionFunction) {
   uav_arm_system->power(true);
   // Call action functor
   psa::PickTransitionAction pick_place_transition_action;
+  psa::PickTransitionGuard pick_place_transition_guard;
   int dummy_start_state, dummy_target_state;
+  pick_place_transition_guard(NULL, *sample_logic_state_machine,
+                              dummy_start_state, dummy_target_state);
   pick_place_transition_action(NULL, *sample_logic_state_machine,
                                dummy_start_state, dummy_target_state);
   // After transition the status should be active

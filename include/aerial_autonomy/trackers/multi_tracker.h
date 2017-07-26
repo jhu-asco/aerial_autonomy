@@ -1,6 +1,8 @@
 #pragma once
 #include "aerial_autonomy/trackers/base_tracker.h"
+#include "aerial_autonomy/trackers/closest_tracking_strategy.h"
 
+#include <memory>
 #include <tuple>
 #include <vector>
 
@@ -9,23 +11,35 @@
  */
 class MultiTracker : public BaseTracker {
 public:
-  enum TrackingStrategy { CLOSEST };
+  enum TrackingStrategyType { CLOSEST };
   /**
   * @brief Default constructor
   */
-  MultiTracker() : tracking_strategy_(CLOSEST) {}
+  MultiTracker() : tracking_strategy_(new ClosestTrackingStrategy()) {}
   /**
   * @brief Constructor that takes a tracking strategy
   * @param tracking_strategy Strategy used to choose among multiple objects
   */
-  MultiTracker(TrackingStrategy tracking_strategy)
-      : tracking_strategy_(tracking_strategy) {}
+  MultiTracker(TrackingStrategyType tracking_strategy) {
+    switch (tracking_strategy) {
+    case (CLOSEST):
+      tracking_strategy_.reset(new ClosestTrackingStrategy());
+      break;
+    }
+  }
+
   /**
    * @brief Get the tracking vector
    * @param pos Returned tracking vector
    * @return True if successful, false otherwise
    */
   virtual bool getTrackingVector(Position &pos);
+  /**
+   * @brief Get the tracking vector
+   * @param pos Returned tracking vector
+   * @return True if successful, false otherwise
+   */
+  virtual bool getTrackingVector(std::tuple<uint32_t, Position> &pos);
   /**
    * @brief Get the tracking vectors
    * @param pos Returned list of tracking vectors
@@ -39,17 +53,14 @@ public:
   */
   virtual bool trackingIsValid() = 0;
 
-private:
   /**
-  * @brief Get the object with the closest position
-  * @param positions List of tracked objects
-  * @return Closest object tracked
+  * @brief Initialize the tracking strategy
   */
-  Position
-  getClosest(const std::vector<std::tuple<uint32_t, Position>> &positions);
+  virtual bool initialize();
 
+private:
   /**
   * @brief Strategy used to choose which object to track among multiple objects
   */
-  TrackingStrategy tracking_strategy_;
+  std::unique_ptr<TrackingStrategy> tracking_strategy_;
 };
