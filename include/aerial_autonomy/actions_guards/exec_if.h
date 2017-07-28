@@ -42,7 +42,7 @@ template <bool done = true> struct exec_if_impl {
   template <typename Iterator, typename LastIterator, typename TransformFunc,
             typename F>
   static bool execute(Iterator *, LastIterator *, TransformFunc *, F) {
-    return false;
+    return true;
   }
 };
 
@@ -56,13 +56,14 @@ template <> struct exec_if_impl<false> {
     // dwa 2002/9/10 -- make sure not to invoke undefined behavior
     // when we pass arg.
     value_initialized<arg> x;
-    if (!aux::unwrap(f, 0)(boost::get(x))) {
+    // Only execute further actions if return from the current action is true
+    if (aux::unwrap(f, 0)(boost::get(x))) {
       typedef typename mpl::next<Iterator>::type iter;
       return exec_if_impl<boost::is_same<iter, LastIterator>::value>::execute(
           static_cast<iter *>(0), static_cast<LastIterator *>(0),
           static_cast<TransformFunc *>(0), f);
     }
-    return true;
+    return false;
   }
 };
 

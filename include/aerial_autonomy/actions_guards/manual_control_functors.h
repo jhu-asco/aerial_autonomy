@@ -57,7 +57,7 @@ struct ManualControlSwitchGuard_
 */
 template <class LogicStateMachineT>
 struct ManualControlInternalActionFunctor_
-    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+    : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
   /**
   * @brief Check if hardware is allowing to switch to sdk mode
   * and trigger appropriate events
@@ -65,7 +65,7 @@ struct ManualControlInternalActionFunctor_
   * @param robot_system robot system to get sensor data
   * @param logic_state_machine logic state machine to trigger events
   */
-  void run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
+  bool run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     parsernode::common::quaddata data = robot_system.getUAVData();
     // If sdk mode is allowed
     if (data.rc_sdk_control_switch) {
@@ -76,7 +76,9 @@ struct ManualControlInternalActionFunctor_
         VLOG(1) << "Switching to Hovering mode";
         logic_state_machine.process_event(be::Takeoff());
       }
+      return false;
     }
+    return true;
   }
 };
 

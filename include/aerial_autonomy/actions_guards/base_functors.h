@@ -220,10 +220,12 @@ struct EventAgnosticGuardFunctor {
 * @brief Internal action that returns whether it processed an event
 *
 * This action functor performs logic checks and processes events
-* on the logic state machine. It also returns true if it processed
+* on the logic state machine. It also returns if it processed
 * events or not. This is used with ShortingActionSequence to chain
 * internal actions and stop executing actions once an action processes
 * events with logic state machine
+*
+* Returns true if no event processed. false if some event processed
 *
 * @tparam RobotSystemT The robot system used in the guard
 * @tparam LogicStateMachineT The logic state machine used to retrieve robot
@@ -234,16 +236,16 @@ struct InternalActionFunctor {
   /**
     * @brief Override this run function for different sub classes.
     * This function performs the logic checking for each state and
-    * processes events on the state machine. It returns true if
-    * an action is processed/ false otherwise.
+    * processes events on the state machine. It returns false if
+    * an action is processed/ true otherwise.
     *
     * @param robot_system Provides sensor data and allows for controlling
     * hardware
     * @param logic_state_machine Backend of logic State Machine. can send events
     * using this.
     */
-  virtual bool action(RobotSystemT &robot_system,
-                      LogicStateMachineT &logic_state_machine) = 0;
+  virtual bool run(RobotSystemT &robot_system,
+                   LogicStateMachineT &logic_state_machine) = 0;
 
   /**
    * @brief operator () Internally calls run function
@@ -264,8 +266,8 @@ struct InternalActionFunctor {
         "Template Logic state machine arg is not subclass of provided FSM");
     LogicStateMachineT *logic_state_machine_cast =
         static_cast<LogicStateMachineT *>(&logic_state_machine);
-    return action(logic_state_machine.robot_system_container_(),
-                  *logic_state_machine_cast);
+    return run(logic_state_machine.robot_system_container_(),
+               *logic_state_machine_cast);
   }
 
   /**

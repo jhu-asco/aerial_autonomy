@@ -65,7 +65,7 @@ struct TakeoffTransitionGuardFunctor_
 */
 template <class LogicStateMachineT>
 struct TakeoffInternalActionFunctor_
-    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+    : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
   /**
   * @brief Function to check when takeoff is complete.
   * If battery is low while takeoff, trigger Land event
@@ -73,7 +73,7 @@ struct TakeoffInternalActionFunctor_
   * @param robot_system robot system to get sensor data
   * @param logic_state_machine logic state machine to trigger events
   */
-  void run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
+  bool run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     parsernode::common::quaddata data = robot_system.getUAVData();
     // If hardware is not allowing us to control UAV
     if (data.localpos.z >=
@@ -81,7 +81,9 @@ struct TakeoffInternalActionFunctor_
         robot_system.getConfiguration().minimum_takeoff_height()) {
       VLOG(1) << "Completed Takeoff";
       logic_state_machine.process_event(Completed());
+      return false;
     }
+    return true;
   }
 };
 

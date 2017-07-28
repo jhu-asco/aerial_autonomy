@@ -69,6 +69,7 @@ struct PositionControlTransitionGuardFunctor_
 
 /**
 * @brief Logic to check while reaching a position control goal
+* TODO Remove UAVStatusActionFunctor
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */

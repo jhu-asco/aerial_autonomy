@@ -1,6 +1,7 @@
 #pragma once
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/actions_guards/manual_control_functors.h>
+#include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/actions_guards/uav_status_functor.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
@@ -35,6 +36,7 @@ struct PickGuard_
 
 /**
 * @brief Logic to check while reaching a visual servoing goal
+* TODO Change this to reduce code duplication
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
@@ -75,38 +77,6 @@ struct PickInternalActionFunctor_
 };
 
 /**
-* @brief Logic to check arm power and manual mode
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-
-template <class LogicStateMachineT>
-struct ManualControlArmInternalActionFunctor_
-    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
-  /**
-  * @brief The parent functor to switch to other states based on state of
-  * rc switch
-  */
-  ManualControlInternalActionFunctor_<LogicStateMachineT> parent_functor_;
-  /**
-  * @brief Check if arm is enabled and print warning otherwise. Also call
-  * parent functor for checking rc switch
-  *
-  * @param robot_system robot system to get sensor data
-  * @param logic_state_machine logic state machine to trigger events
-  */
-  void run(UAVArmSystem &robot_system,
-           LogicStateMachineT &logic_state_machine) {
-    if (!robot_system.enabled()) {
-      LOG(WARNING) << "Arm not enabled!";
-      robot_system.power(true); // Try to enable arm
-    } else {
-      // Since arm is enabled we can switch to other states
-      parent_functor_.run(robot_system, logic_state_machine);
-    }
-  }
-};
-/**
 * @brief Check tracking is valid before starting visual servoing and arm is
 * enabled before picking objects
 *
@@ -134,6 +104,7 @@ struct VisualServoingArmTransitionActionFunctor_
     robot_system.grip(false);
   }
 };
+
 /**
 * @brief State that uses position control functor to reach a desired goal.
 *
@@ -142,6 +113,11 @@ struct VisualServoingArmTransitionActionFunctor_
 template <class LogicStateMachineT>
 using PickState_ = BaseState<UAVArmSystem, LogicStateMachineT,
                              PickInternalActionFunctor_<LogicStateMachineT>>;
+
+template <class LogicStateMachineT>
+using ManualControlArmInternalActionFunctor_ = SAC<boost::mpl::vector<
+    ArmPoweronTransitionGuardFunctor_<LogicStateMachineT>,
+    ManualControlInternalActionFunctor_<LogicStateMachineT>>>;
 /**
 * @brief State that checks arm status along with regular manual control
 * state

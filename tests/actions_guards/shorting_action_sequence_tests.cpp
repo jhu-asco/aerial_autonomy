@@ -18,7 +18,7 @@ namespace be = uav_basic_events;
 template <bool return_value>
 struct TestInternalActionFunctor
     : InternalActionFunctor<EmptyRobotSystem, SampleLogicStateMachine> {
-  bool action(EmptyRobotSystem &, SampleLogicStateMachine &) {
+  bool run(EmptyRobotSystem &, SampleLogicStateMachine &) {
     return return_value;
   }
 };
@@ -29,9 +29,9 @@ struct TestInternalActionFunctor
  */
 struct TakeoffInternalActionFunctor
     : InternalActionFunctor<EmptyRobotSystem, SampleLogicStateMachine> {
-  bool action(EmptyRobotSystem &, SampleLogicStateMachine &fsm) {
+  bool run(EmptyRobotSystem &, SampleLogicStateMachine &fsm) {
     fsm.process_event(be::Takeoff());
-    return true;
+    return false;
   }
 };
 
@@ -41,9 +41,9 @@ struct TakeoffInternalActionFunctor
  */
 struct LandInternalActionFunctor
     : InternalActionFunctor<EmptyRobotSystem, SampleLogicStateMachine> {
-  bool action(EmptyRobotSystem &, SampleLogicStateMachine &fsm) {
+  bool run(EmptyRobotSystem &, SampleLogicStateMachine &fsm) {
     fsm.process_event(be::Land());
-    return true;
+    return false;
   }
 };
 
@@ -52,11 +52,11 @@ TEST(ShortingActionSequenceTests, CreateInternalActionFunctor) {
   EmptyRobotSystem robot_system;
   SampleLogicStateMachine sample_logic_state_machine(robot_system);
   TestInternalActionFunctor<true> internal_action_functor_true;
-  EXPECT_TRUE(internal_action_functor_true.action(robot_system,
-                                                  sample_logic_state_machine));
+  EXPECT_TRUE(internal_action_functor_true.run(robot_system,
+                                               sample_logic_state_machine));
   TestInternalActionFunctor<false> internal_action_functor_false;
-  EXPECT_FALSE(internal_action_functor_false.action(
-      robot_system, sample_logic_state_machine));
+  EXPECT_FALSE(internal_action_functor_false.run(robot_system,
+                                                 sample_logic_state_machine));
 }
 ///
 /// \brief Test Shorting Action Sequence
@@ -69,13 +69,14 @@ TEST(ShortingActionSequenceTests, CallShortingActionSequence) {
   int dummy_event, dummy_source_state, dummy_target_state;
   EmptyRobotSystem robot_system;
   SampleLogicStateMachine sample_logic_state_machine(robot_system);
-  EXPECT_TRUE(shorting_action_sequence(dummy_event, sample_logic_state_machine,
-                                       dummy_source_state, dummy_target_state));
+  EXPECT_FALSE(shorting_action_sequence(dummy_event, sample_logic_state_machine,
+                                        dummy_source_state,
+                                        dummy_target_state));
 
   boost::msm::front::ShortingActionSequence_<
-      boost::mpl::vector<TestActionFunctorFalse, TestActionFunctorFalse>>
+      boost::mpl::vector<TestActionFunctorTrue, TestActionFunctorTrue>>
       shorting_action_sequence_2;
-  EXPECT_FALSE(
+  EXPECT_TRUE(
       shorting_action_sequence_2(dummy_event, sample_logic_state_machine,
                                  dummy_source_state, dummy_target_state));
 }
@@ -84,12 +85,12 @@ TEST(ShortingActionSequenceTests, ShortingActionSequenceMidWay) {
   typedef TestInternalActionFunctor<false> TestActionFunctorFalse;
   typedef TestInternalActionFunctor<true> TestActionFunctorTrue;
   boost::msm::front::ShortingActionSequence_<
-      boost::mpl::vector<TestActionFunctorFalse, TestActionFunctorTrue,
-                         TestActionFunctorFalse, TakeoffInternalActionFunctor>>
+      boost::mpl::vector<TestActionFunctorTrue, TestActionFunctorFalse,
+                         TestActionFunctorTrue, TakeoffInternalActionFunctor>>
       shorting_action_sequence;
   boost::msm::front::ShortingActionSequence_<
-      boost::mpl::vector<TestActionFunctorFalse, TestActionFunctorFalse,
-                         TakeoffInternalActionFunctor, TestActionFunctorTrue>>
+      boost::mpl::vector<TestActionFunctorTrue, TestActionFunctorTrue,
+                         TakeoffInternalActionFunctor, TestActionFunctorFalse>>
       shorting_action_sequence_2;
   boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
       LandInternalActionFunctor, TakeoffInternalActionFunctor>>
@@ -97,16 +98,17 @@ TEST(ShortingActionSequenceTests, ShortingActionSequenceMidWay) {
   int dummy_event, dummy_source_state, dummy_target_state;
   EmptyRobotSystem robot_system;
   SampleLogicStateMachine sample_logic_state_machine(robot_system);
-  EXPECT_TRUE(shorting_action_sequence(dummy_event, sample_logic_state_machine,
-                                       dummy_source_state, dummy_target_state));
+  EXPECT_FALSE(shorting_action_sequence(dummy_event, sample_logic_state_machine,
+                                        dummy_source_state,
+                                        dummy_target_state));
   EXPECT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(NULL)));
-  EXPECT_TRUE(
+  EXPECT_FALSE(
       shorting_action_sequence_2(dummy_event, sample_logic_state_machine,
                                  dummy_source_state, dummy_target_state));
   EXPECT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(be::Takeoff)));
-  EXPECT_TRUE(
+  EXPECT_FALSE(
       shorting_action_sequence_3(dummy_event, sample_logic_state_machine,
                                  dummy_source_state, dummy_target_state));
   EXPECT_EQ(sample_logic_state_machine.getProcessEventTypeId(),

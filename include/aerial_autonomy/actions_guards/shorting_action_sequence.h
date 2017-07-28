@@ -78,3 +78,6 @@ template <class Sequence> struct ShortingActionSequence_ {
 }
 }
 }
+
+template <class Sequence>
+using SAC = boost::msm::front::ShortingActionSequence_<Sequence>;

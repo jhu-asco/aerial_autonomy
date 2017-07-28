@@ -80,13 +80,33 @@ struct AbortArmController_
 };
 
 /**
+* @brief Guard for checking arm power. Tries to power on if
+* powered off.
+*
+* Returns true if arm is powered on/ false if powered off
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct ArmPoweronTransitionGuardFunctor_
+    : EventAgnosticGuardFunctor<ArmSystem, LogicStateMachineT> {
+  bool guard(ArmSystem &robot_system, LogicStateMachineT &) {
+    if (!robot_system.enabled()) {
+      LOG(WARNING) << "Arm not enabled!";
+      robot_system.power(true); // Try to enable arm
+      return false;
+    }
+    return true;
+  }
+};
+/**
 * @brief Check when folding arm is complete
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
 struct ArmFoldInternalActionFunctor_
-    : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
+    : InternalActionFunctor<ArmSystem, LogicStateMachineT> {
   /**
   * @brief Function to check when folding arm is complete.
   * If arm is not enabled, then abort
@@ -94,14 +114,17 @@ struct ArmFoldInternalActionFunctor_
   * @param robot_system robot system to get sensor data
   * @param logic_state_machine logic state machine to trigger events
   */
-  void run(ArmSystem &robot_system, LogicStateMachineT &logic_state_machine) {
+  bool run(ArmSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     if (robot_system.getCommandStatus()) {
       VLOG(1) << "Completed Folding arm!";
       logic_state_machine.process_event(Completed());
+      return true;
     } else if (!robot_system.enabled()) {
       LOG(WARNING) << "Arm not enabled!";
       logic_state_machine.process_event(be::Abort());
+      return true;
     }
+    return false;
   }
 };
 
