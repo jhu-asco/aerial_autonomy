@@ -1,10 +1,10 @@
 #pragma once
 #include <aerial_autonomy/actions_guards/base_functors.h>
-#include <aerial_autonomy/actions_guards/uav_status_functor.h>
+#include <aerial_autonomy/actions_guards/hovering_functors.h>
+#include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
-#include <aerial_autonomy/types/completed_event.h>
 #include <aerial_autonomy/uav_basic_events.h>
 #include <glog/logging.h>
 #include <parsernode/common.h>
@@ -67,35 +67,11 @@ struct PositionControlTransitionGuardFunctor_
   }
 };
 
-/**
-* @brief Logic to check while reaching a position control goal
-* TODO Remove UAVStatusActionFunctor
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
 template <class LogicStateMachineT>
-struct PositionControlInternalActionFunctor_
-    : UAVStatusActionFunctor<UAVSystem, LogicStateMachineT> {
-  /**
-  * @brief check if we reached goal and trigger hovering if we reached goal.
-  *
-  * @param robot_system robot system to get sensor data
-  * @param logic_state_machine logic state machine to trigger events
-  */
-  void statusIndependentRun(UAVSystem &robot_system,
-                            LogicStateMachineT &logic_state_machine) {
-    // Check status of controller
-    ControllerStatus status =
-        robot_system.getStatus<PositionControllerDroneConnector>();
-    if (status == ControllerStatus::Completed) {
-      VLOG(1) << "Reached goal";
-      logic_state_machine.process_event(Completed());
-    } else if (status == ControllerStatus::Critical) {
-      LOG(WARNING) << "Controller critical";
-      logic_state_machine.process_event(be::Abort());
-    }
-  }
-};
+using PositionControlInternalActionFunctor_ = SAC<boost::mpl::vector<
+    UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+    ControllerStatusInternalActionFunctor_<LogicStateMachineT,
+                                           PositionControllerDroneConnector>>>;
 
 /**
 * @brief State that uses position control functor to reach a desired goal.

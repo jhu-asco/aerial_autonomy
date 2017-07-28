@@ -185,8 +185,11 @@ TEST_F(PickPlaceFunctorTests, ManualAction) {
   int dummy_start_state, dummy_target_state;
   manual_control_arm_action(NULL, *sample_logic_state_machine,
                             dummy_start_state, dummy_target_state);
-  // Arm should be powered
-  ASSERT_TRUE(uav_arm_system->enabled());
+  // Since arm is not enabled it will create an abort event
+  ASSERT_EQ(sample_logic_state_machine->getProcessEventTypeId(),
+            std::type_index(typeid(be::Abort)));
+  // Turn on arm
+  uav_arm_system->power(true);
   // Turn drone flow control on
   drone_hardware.flowControl(true);
   // Rerun action functor

@@ -80,20 +80,26 @@ struct AbortArmController_
 };
 
 /**
-* @brief Guard for checking arm power. Tries to power on if
-* powered off.
+* @brief action for checking arm status.
+*
+* Aborts if arm did not power on.
 *
 * Returns true if arm is powered on/ false if powered off
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-struct ArmPoweronTransitionGuardFunctor_
-    : EventAgnosticGuardFunctor<ArmSystem, LogicStateMachineT> {
-  bool guard(ArmSystem &robot_system, LogicStateMachineT &) {
-    if (!robot_system.enabled()) {
+struct ArmStatusInternalActionFunctor_
+    : InternalActionFunctor<ArmSystem, LogicStateMachineT> {
+  bool run(ArmSystem &robot_system, LogicStateMachineT &logic_state_machine) {
+    // If arm not powered on try powering it on!
+    /*if (!robot_system.enabled()) {
       LOG(WARNING) << "Arm not enabled!";
       robot_system.power(true); // Try to enable arm
+    }*/
+    // Check if arm finally powered on
+    if (!robot_system.enabled()) {
+      logic_state_machine.process_event(be::Abort());
       return false;
     }
     return true;

@@ -1,8 +1,8 @@
 #pragma once
 #include <aerial_autonomy/actions_guards/base_functors.h>
+#include <aerial_autonomy/actions_guards/hovering_functors.h>
 #include <aerial_autonomy/actions_guards/manual_control_functors.h>
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
-#include <aerial_autonomy/actions_guards/uav_status_functor.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/types/completed_event.h>
@@ -36,45 +36,26 @@ struct PickGuard_
 
 /**
 * @brief Logic to check while reaching a visual servoing goal
-* TODO Change this to reduce code duplication
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-struct PickInternalActionFunctor_
-    : UAVStatusActionFunctor<UAVArmSystem, LogicStateMachineT> {
-  /**
-  * @brief check if quad and arm reached VS goal and
-  * trigger completed event
-  *
-  * @param robot_system robot system to get sensor data
-  * @param logic_state_machine logic state machine to trigger events
-  */
-  void statusIndependentRun(UAVArmSystem &robot_system,
-                            LogicStateMachineT &logic_state_machine) {
-    // Check arm status before proceeding
-    if (!robot_system.enabled()) {
-      LOG(WARNING) << "Arm not enabled!";
-      logic_state_machine.process_event(be::Abort());
-      return;
-    }
-    ControllerStatus uav_status =
-        robot_system.getStatus<VisualServoingControllerDroneConnector>();
-    ControllerStatus arm_status =
-        robot_system.getStatus<VisualServoingControllerArmConnector>();
-    if (uav_status == ControllerStatus::Completed &&
-        arm_status == ControllerStatus::Completed) {
-      VLOG(1) << "Reached goal for UAV and arm";
-      logic_state_machine.process_event(Completed());
-    } else if (uav_status == ControllerStatus::Critical) {
-      LOG(WARNING) << "Lost tracking while servoing. Aborting!";
-      logic_state_machine.process_event(be::Abort());
-    } else if (arm_status == ControllerStatus::Critical) {
-      LOG(WARNING) << "Arm status critical. Aborting!";
-      logic_state_machine.process_event(be::Abort());
-    }
-  }
-};
+using PickInternalActionFunctor_ = SAC<boost::mpl::vector<
+    UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+    ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+    ControllerStatusInternalActionFunctor_<
+        LogicStateMachineT, VisualServoingControllerDroneConnector>,
+    ControllerStatusInternalActionFunctor_<
+        LogicStateMachineT, VisualServoingControllerArmConnector>>>;
+/**
+* @brief Logic to check arm power and manual mode
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+using ManualControlArmInternalActionFunctor_ = SAC<boost::mpl::vector<
+    ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+    ManualControlInternalActionFunctor_<LogicStateMachineT>>>;
 
 /**
 * @brief Check tracking is valid before starting visual servoing and arm is
@@ -114,10 +95,6 @@ template <class LogicStateMachineT>
 using PickState_ = BaseState<UAVArmSystem, LogicStateMachineT,
                              PickInternalActionFunctor_<LogicStateMachineT>>;
 
-template <class LogicStateMachineT>
-using ManualControlArmInternalActionFunctor_ = SAC<boost::mpl::vector<
-    ArmPoweronTransitionGuardFunctor_<LogicStateMachineT>,
-    ManualControlInternalActionFunctor_<LogicStateMachineT>>>;
 /**
 * @brief State that checks arm status along with regular manual control
 * state

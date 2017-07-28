@@ -1,6 +1,7 @@
 #pragma once
 #include <aerial_autonomy/actions_guards/base_functors.h>
-#include <aerial_autonomy/actions_guards/uav_status_functor.h>
+#include <aerial_autonomy/actions_guards/hovering_functors.h>
+#include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/common/math.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_vision_system.h>
@@ -10,6 +11,7 @@
 
 /**
 * @brief Action to initialize object direction and set goal to visual servoing
+* TODO No more state machine in transition actions
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
@@ -92,28 +94,10 @@ struct GoHomeTransitionGuardFunctor_
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-struct VisualServoingInternalActionFunctor_
-    : UAVStatusActionFunctor<UAVVisionSystem, LogicStateMachineT> {
-  /**
-  * @brief check if we reached VS goal and trigger completed event
-  *
-  * @param robot_system robot system to get sensor data
-  * @param logic_state_machine logic state machine to trigger events
-  */
-  void statusIndependentRun(UAVVisionSystem &robot_system,
-                            LogicStateMachineT &logic_state_machine) {
-    ControllerStatus status =
-        robot_system.getStatus<VisualServoingControllerDroneConnector>();
-    // Define tolerance and check if reached goal
-    if (status == ControllerStatus::Completed) {
-      VLOG(1) << "Reached goal";
-      logic_state_machine.process_event(Completed());
-    } else if (status == ControllerStatus::Critical) {
-      LOG(WARNING) << "Lost tracking while servoing.";
-      logic_state_machine.process_event(be::Abort());
-    }
-  }
-};
+using VisualServoingInternalActionFunctor_ = SAC<boost::mpl::vector<
+    UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+    ControllerStatusInternalActionFunctor_<
+        LogicStateMachineT, VisualServoingControllerDroneConnector>>>;
 
 /**
 * @brief Check tracking is valid before starting visual servoing *
