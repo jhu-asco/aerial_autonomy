@@ -68,10 +68,11 @@ struct PositionControlTransitionGuardFunctor_
 };
 
 template <class LogicStateMachineT>
-using PositionControlInternalActionFunctor_ = SAC<boost::mpl::vector<
-    UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-    ControllerStatusInternalActionFunctor_<LogicStateMachineT,
-                                           PositionControllerDroneConnector>>>;
+using PositionControlInternalActionFunctor_ =
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ControllerStatusInternalActionFunctor_<
+            LogicStateMachineT, PositionControllerDroneConnector>>>;
 
 /**
 * @brief State that uses position control functor to reach a desired goal.

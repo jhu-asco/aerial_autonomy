@@ -40,22 +40,24 @@ struct PickGuard_
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using PickInternalActionFunctor_ = SAC<boost::mpl::vector<
-    UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-    ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-    ControllerStatusInternalActionFunctor_<
-        LogicStateMachineT, VisualServoingControllerDroneConnector>,
-    ControllerStatusInternalActionFunctor_<
-        LogicStateMachineT, VisualServoingControllerArmConnector>>>;
+using PickInternalActionFunctor_ =
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+        ControllerStatusInternalActionFunctor_<
+            LogicStateMachineT, VisualServoingControllerDroneConnector>,
+        ControllerStatusInternalActionFunctor_<
+            LogicStateMachineT, VisualServoingControllerArmConnector>>>;
 /**
 * @brief Logic to check arm power and manual mode
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using ManualControlArmInternalActionFunctor_ = SAC<boost::mpl::vector<
-    ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-    ManualControlInternalActionFunctor_<LogicStateMachineT>>>;
+using ManualControlArmInternalActionFunctor_ =
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+        ManualControlInternalActionFunctor_<LogicStateMachineT>>>;
 
 /**
 * @brief Check tracking is valid before starting visual servoing and arm is

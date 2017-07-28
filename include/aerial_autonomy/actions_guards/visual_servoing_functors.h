@@ -94,10 +94,11 @@ struct GoHomeTransitionGuardFunctor_
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using VisualServoingInternalActionFunctor_ = SAC<boost::mpl::vector<
-    UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-    ControllerStatusInternalActionFunctor_<
-        LogicStateMachineT, VisualServoingControllerDroneConnector>>>;
+using VisualServoingInternalActionFunctor_ =
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ControllerStatusInternalActionFunctor_<
+            LogicStateMachineT, VisualServoingControllerDroneConnector>>>;
 
 /**
 * @brief Check tracking is valid before starting visual servoing *
