@@ -65,6 +65,11 @@ struct PositionControlTransitionGuardFunctor_
   }
 };
 
+/**
+ * @brief internal action while performing position control
+ *
+* @tparam LogicStateMachineT Logic state machine used to process events
+ */
 template <class LogicStateMachineT>
 using PositionControlInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<

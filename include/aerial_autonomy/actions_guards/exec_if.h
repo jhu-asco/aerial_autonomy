@@ -33,20 +33,64 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/value_init.hpp>
 
+/**
+ * @brief namespace for boost library
+ */
 namespace boost {
+/**
+ * @brief namespace for mpl module
+ */
 namespace mpl {
 
+/**
+ * @brief namespace for aux module
+ */
 namespace aux {
 
+/**
+ * @brief Default implementation of exec which returns true
+ *
+ * @tparam done If done is false, there is a specialized implementation
+ */
 template <bool done = true> struct exec_if_impl {
   template <typename Iterator, typename LastIterator, typename TransformFunc,
             typename F>
+  /**
+   * @brief Default implementation that returns true
+   *
+   * @param  Initial position in the vector
+   * @param  Final position in the vector
+   * @param  Function used to transform the elements in vector before calling
+   * @param F Functor to call on the elements in the vector
+   *
+   * @return true if Functor evaluation returned True/False otherwise
+   */
   static bool execute(Iterator *, LastIterator *, TransformFunc *, F) {
     return true;
   }
 };
 
+/**
+ * @brief Specialized implementation for done  = false
+ */
 template <> struct exec_if_impl<false> {
+  /**
+   * @brief
+   *
+   * @tparam Iterator  Vector iterator
+   * @tparam LastIterator  Vector iterator
+   * @tparam TransformFunc  Transform function to be applied on the vector
+   * elements
+   * @tparam F Functor to call on the elements of the vector
+   * @param  Initial position in the vector
+   * @param  Final position in the vector
+   * @param  Function used to transform the elements in vector before calling
+   * functor on them
+   * @param f Functor to call on the elements of the vector
+   *
+   * @return False if the functor call returned false. Otherwise will evaluate
+   * the next element in the vector
+   */
   template <typename Iterator, typename LastIterator, typename TransformFunc,
             typename F>
   static bool execute(Iterator *, LastIterator *, TransformFunc *, F f) {
@@ -71,6 +115,22 @@ template <> struct exec_if_impl<false> {
 
 // agurt, 17/mar/02: pointer default parameters are necessary to workaround
 // MSVC 6.5 function template signature's mangling bug
+/**
+ * @brief Function to go through elements of boost sequence and apply the
+ * functor F on each element. If the functor F returns false in between
+ * the function stops executing further elements and returns false
+ *
+ * @tparam Sequence Sequence type to iterate on
+ * @tparam TransformOp Operation to transform the elements in the sequence
+ * @tparam F Functor type to apply on the element sequence
+ * @param f functor instance
+ * @param  Sequence pointer (Sequence elements are instantiated by default)
+ * @param  Transform operation pointer not used (Instantiated internally)
+ *
+ * @return  If the functor F returns false in between
+ * the function stops executing further elements and returns false. Otherwise
+ * returns true.
+ */
 template <typename Sequence, typename TransformOp, typename F>
 inline bool exec_if(F f, Sequence * = 0, TransformOp * = 0) {
   BOOST_MPL_ASSERT((is_sequence<Sequence>));
@@ -83,6 +143,18 @@ inline bool exec_if(F f, Sequence * = 0, TransformOp * = 0) {
       static_cast<TransformOp *>(0), f);
 }
 
+/**
+ * @brief Simplified implementation without transform operation
+ *
+ * @tparam Sequence Sequence type to iterate on
+ * @tparam F Functor type to apply on the element sequence
+ * @param f functor instance
+ * @param  Sequence pointer (Sequence elements are instantiated by default)
+ *
+ * @return  If the functor F returns false in between
+ * the function stops executing further elements and returns false. Otherwise
+ * returns true.
+ */
 template <typename Sequence, typename F>
 inline bool exec_if(F f, Sequence * = 0) {
   return exec_if<Sequence, identity<>>(f);

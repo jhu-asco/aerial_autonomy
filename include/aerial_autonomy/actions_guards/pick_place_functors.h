@@ -74,6 +74,11 @@ struct PickTransitionGuardFunctor_
   }
 };
 
+/**
+ * @brief Set arm goal and set grip to false to start with.
+ *
+ * @tparam LogicStateMachineT State machine that contains the functor
+ */
 template <class LogicStateMachineT>
 struct VisualServoingArmTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
