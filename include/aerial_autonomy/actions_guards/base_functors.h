@@ -21,12 +21,9 @@ struct ActionFunctor {
    * This function performs the logic checking for each state
    * @param robot_system Provides sensor data and allows for controlling
    * hardware
-   * @param logic_state_machine Backend of logic State Machine. can send events
-   * using this.
    * @param event Event triggering the action
    */
-  virtual void run(EventT const &event, RobotSystemT &robot_system,
-                   LogicStateMachineT &logic_state_machine) = 0;
+  virtual void run(EventT const &event, RobotSystemT &robot_system) = 0;
 
   /**
      * @brief operator () Internally calls run function
@@ -46,10 +43,7 @@ struct ActionFunctor {
     static_assert(
         std::is_base_of<FSM, LogicStateMachineT>::value,
         "Template Logic state machine arg is not subclass of provided FSM");
-    LogicStateMachineT *logic_state_machine_cast =
-        static_cast<LogicStateMachineT *>(&logic_state_machine);
-    run(event, logic_state_machine.robot_system_container_(),
-        *logic_state_machine_cast);
+    run(event, logic_state_machine.robot_system_container_());
   }
 
   /**
@@ -67,8 +61,6 @@ struct ActionFunctor {
 *
 * @tparam EventT  Event triggering this action
 * @tparam RobotSystemT The robot system used in the guard check
-* @tparam LogicStateMachineT The logic state machine used to retrieve robot
-* system
 */
 template <class EventT, class RobotSystemT, class LogicStateMachineT>
 struct GuardFunctor {
@@ -77,12 +69,9 @@ struct GuardFunctor {
    * This function decides whether to call the run function for each state
    * @param robot_system Provides sensor data and allows for controlling
    * hardware
-   * @param logic_state_machine Backend of logic State Machine. can send events
-   * using this.
    * @param event Event triggering the action
    */
-  virtual bool guard(EventT const &event, RobotSystemT &robot_system,
-                     LogicStateMachineT &logic_state_machine) = 0;
+  virtual bool guard(EventT const &event, RobotSystemT &robot_system) = 0;
   /**
    * @brief operator () Internally calls guard function
    * @param logic_state_machine Backend of logic State Machine. can send events
@@ -102,10 +91,7 @@ struct GuardFunctor {
     static_assert(
         std::is_base_of<FSM, LogicStateMachineT>::value,
         "Template Logic state machine arg is not subclass of provided FSM");
-    LogicStateMachineT *logic_state_machine_cast =
-        static_cast<LogicStateMachineT *>(&logic_state_machine);
-    return guard(event, logic_state_machine.robot_system_container_(),
-                 *logic_state_machine_cast);
+    return guard(event, logic_state_machine.robot_system_container_());
   }
   /**
    * @brief Destructor
@@ -120,7 +106,6 @@ struct GuardFunctor {
 * triggering it. For example takeoff, land actions
 *
 * @tparam RobotSystemT The robot system used in the action
-* @tparam LogicStateMachineT The logic state machine used to trigger events
 */
 template <class RobotSystemT, class LogicStateMachineT>
 struct EventAgnosticActionFunctor {
@@ -129,11 +114,8 @@ struct EventAgnosticActionFunctor {
     * This function performs the logic checking for each state
     * @param robot_system Provides sensor data and allows for controlling
     * hardware
-    * @param logic_state_machine Backend of logic State Machine. can send events
-    * using this.
     */
-  virtual void run(RobotSystemT &robot_system,
-                   LogicStateMachineT &logic_state_machine) = 0;
+  virtual void run(RobotSystemT &robot_system) = 0;
 
   /**
      * @brief operator () Internally calls run function
@@ -152,10 +134,7 @@ struct EventAgnosticActionFunctor {
     static_assert(
         std::is_base_of<FSM, LogicStateMachineT>::value,
         "Template Logic state machine arg is not subclass of provided FSM");
-    LogicStateMachineT *logic_state_machine_cast =
-        static_cast<LogicStateMachineT *>(&logic_state_machine);
-    run(logic_state_machine.robot_system_container_(),
-        *logic_state_machine_cast);
+    run(logic_state_machine.robot_system_container_());
   }
 
   /**
@@ -171,8 +150,6 @@ struct EventAgnosticActionFunctor {
 * event triggering it.
 *
 * @tparam RobotSystemT The robot system used in the guard
-* @tparam LogicStateMachineT The logic state machine used to retrieve robot
-* system
 */
 template <class RobotSystemT, class LogicStateMachineT>
 struct EventAgnosticGuardFunctor {
@@ -181,11 +158,8 @@ struct EventAgnosticGuardFunctor {
     * This function performs the logic checking for each state
     * @param robot_system Provides sensor data and allows for controlling
     * hardware
-    * @param logic_state_machine Backend of logic State Machine. can send events
-    * using this.
     */
-  virtual bool guard(RobotSystemT &robot_system,
-                     LogicStateMachineT &logic_state_machine) = 0;
+  virtual bool guard(RobotSystemT &robot_system) = 0;
 
   /**
      * @brief operator () Internally calls run function
@@ -204,10 +178,7 @@ struct EventAgnosticGuardFunctor {
     static_assert(
         std::is_base_of<FSM, LogicStateMachineT>::value,
         "Template Logic state machine arg is not subclass of provided FSM");
-    LogicStateMachineT *logic_state_machine_cast =
-        static_cast<LogicStateMachineT *>(&logic_state_machine);
-    return guard(logic_state_machine.robot_system_container_(),
-                 *logic_state_machine_cast);
+    return guard(logic_state_machine.robot_system_container_());
   }
 
   /**

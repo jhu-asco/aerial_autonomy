@@ -15,7 +15,7 @@
 template <class LogicStateMachineT>
 struct TakeoffTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
-  void run(UAVSystem &robot_system, LogicStateMachineT &) {
+  void run(UAVSystem &robot_system) {
     VLOG(1) << "Takingoff!";
     robot_system.takeOff();
   }
@@ -29,7 +29,7 @@ struct TakeoffTransitionActionFunctor_
 template <class LogicStateMachineT>
 struct TakeoffAbortActionFunctor_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
-  void run(UAVSystem &robot_system, LogicStateMachineT &) {
+  void run(UAVSystem &robot_system) {
     VLOG(1) << "Aborting Takeoff!";
     robot_system.land();
   }
@@ -43,7 +43,7 @@ struct TakeoffAbortActionFunctor_
 template <class LogicStateMachineT>
 struct TakeoffTransitionGuardFunctor_
     : EventAgnosticGuardFunctor<UAVSystem, LogicStateMachineT> {
-  bool guard(UAVSystem &robot_system, LogicStateMachineT &) {
+  bool guard(UAVSystem &robot_system) {
     parsernode::common::quaddata data = robot_system.getUAVData();
     bool result = false;
     // Check for voltage

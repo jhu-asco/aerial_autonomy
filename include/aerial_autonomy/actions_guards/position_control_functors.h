@@ -19,8 +19,7 @@ namespace be = uav_basic_events;
 template <class LogicStateMachineT>
 struct PositionControlTransitionActionFunctor_
     : ActionFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
-  void run(const PositionYaw &goal, UAVSystem &robot_system,
-           LogicStateMachineT &) {
+  void run(const PositionYaw &goal, UAVSystem &robot_system) {
     robot_system.setGoal<PositionControllerDroneConnector, PositionYaw>(goal);
   }
 };
@@ -33,7 +32,7 @@ struct PositionControlTransitionActionFunctor_
 template <class LogicStateMachineT>
 struct UAVControllerAbortActionFunctor_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
-  void run(UAVSystem &robot_system, LogicStateMachineT &) {
+  void run(UAVSystem &robot_system) {
     LOG(WARNING) << "Aborting UAV Controller";
     robot_system.abortController(HardwareType::UAV);
   }
@@ -48,8 +47,7 @@ struct UAVControllerAbortActionFunctor_
 template <class LogicStateMachineT>
 struct PositionControlTransitionGuardFunctor_
     : GuardFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
-  bool guard(const PositionYaw &goal, UAVSystem &robot_system,
-             LogicStateMachineT &) {
+  bool guard(const PositionYaw &goal, UAVSystem &robot_system) {
     parsernode::common::quaddata data = robot_system.getUAVData();
     geometry_msgs::Vector3 current_position = data.localpos;
     // Check goal is close to position before sending goal (Can use a geofence

@@ -18,8 +18,7 @@
 template <class LogicStateMachineT>
 struct PickGuard_
     : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
-  bool guard(UAVArmSystem &robot_system,
-             LogicStateMachineT &logic_state_machine) {
+  bool guard(UAVArmSystem &robot_system) {
     VLOG(1) << "Grip Object";
     robot_system.grip(true);
     std::this_thread::sleep_for(
@@ -68,7 +67,7 @@ using ManualControlArmInternalActionFunctor_ =
 template <class LogicStateMachineT>
 struct PickTransitionGuardFunctor_
     : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
-  bool guard(UAVArmSystem &robot_system_, LogicStateMachineT &) {
+  bool guard(UAVArmSystem &robot_system_) {
     Position tracking_vector;
     return (robot_system_.getTrackingVector(tracking_vector) &&
             robot_system_.enabled());
@@ -78,8 +77,7 @@ struct PickTransitionGuardFunctor_
 template <class LogicStateMachineT>
 struct VisualServoingArmTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
-  void run(UAVArmSystem &robot_system,
-           LogicStateMachineT &logic_state_machine) {
+  void run(UAVArmSystem &robot_system) {
     VLOG(1) << "Setting Goal for visual servoing arm connector!";
     robot_system.setGoal<VisualServoingControllerArmConnector, tf::Transform>(
         robot_system.armGoalTransform());

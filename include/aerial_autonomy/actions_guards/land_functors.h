@@ -14,7 +14,7 @@
 template <class LogicStateMachineT>
 struct LandTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
-  void run(UAVSystem &robot_system, LogicStateMachineT &) {
+  void run(UAVSystem &robot_system) {
     /// \todo Have to abort all hardware controllers not just UAV.
     // Need to iterate through enum class HardwareType
     VLOG(1) << "Aborting UAV Controllers";

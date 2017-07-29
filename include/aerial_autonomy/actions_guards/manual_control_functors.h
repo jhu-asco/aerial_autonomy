@@ -24,7 +24,7 @@ namespace be = uav_basic_events;
 template <class LogicStateMachineT>
 struct ManualControlSwitchAction_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
-  void run(UAVSystem &robot_system, LogicStateMachineT &) {
+  void run(UAVSystem &robot_system) {
     VLOG(1) << "Enabling SDK";
     robot_system.enableAutonomousMode();
   }
@@ -39,7 +39,7 @@ struct ManualControlSwitchAction_
 template <class LogicStateMachineT>
 struct ManualControlSwitchGuard_
     : EventAgnosticGuardFunctor<UAVSystem, LogicStateMachineT> {
-  bool guard(UAVSystem &robot_system, LogicStateMachineT &) {
+  bool guard(UAVSystem &robot_system) {
     parsernode::common::quaddata data = robot_system.getUAVData();
     if (data.batterypercent <
         robot_system.getConfiguration().minimum_battery_percent()) {

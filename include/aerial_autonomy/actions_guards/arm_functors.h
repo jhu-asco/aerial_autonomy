@@ -17,7 +17,7 @@ namespace be = uav_basic_events;
 template <class LogicStateMachineT>
 struct ArmFoldTransitionActionFunctor_
     : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
-  void run(ArmSystem &robot_system, LogicStateMachineT &) {
+  void run(ArmSystem &robot_system) {
     VLOG(1) << "Folding Arm!";
     robot_system.foldArm();
   }
@@ -31,7 +31,7 @@ struct ArmFoldTransitionActionFunctor_
 template <class LogicStateMachineT>
 struct ArmRightFoldTransitionActionFunctor_
     : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
-  void run(ArmSystem &robot_system, LogicStateMachineT &) {
+  void run(ArmSystem &robot_system) {
     VLOG(1) << "Folding Arm to right angle!";
     robot_system.rightArm();
   }
@@ -45,7 +45,7 @@ struct ArmRightFoldTransitionActionFunctor_
 template <class LogicStateMachineT>
 struct ArmPoweroffTransitionActionFunctor_
     : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
-  void run(ArmSystem &robot_system, LogicStateMachineT &) {
+  void run(ArmSystem &robot_system) {
     VLOG(1) << "Powering off Arm!";
     robot_system.power(false);
   }
@@ -59,7 +59,7 @@ struct ArmPoweroffTransitionActionFunctor_
 template <class LogicStateMachineT>
 struct ArmPoweronTransitionActionFunctor_
     : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
-  void run(ArmSystem &robot_system, LogicStateMachineT &) {
+  void run(ArmSystem &robot_system) {
     VLOG(1) << "Powering on Arm!";
     robot_system.power(true);
   }
@@ -73,7 +73,7 @@ struct ArmPoweronTransitionActionFunctor_
 template <class LogicStateMachineT>
 struct AbortArmController_
     : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
-  void run(ArmSystem &robot_system, LogicStateMachineT &) {
+  void run(ArmSystem &robot_system) {
     LOG(WARNING) << "Aborting arm controller";
     robot_system.abortController(HardwareType::Arm);
   }

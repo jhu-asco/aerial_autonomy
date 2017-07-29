@@ -65,21 +65,23 @@ TEST_F(VisualServoingTests, CallActionFunction) {
 TEST_F(VisualServoingTests, InvalidTrackingCallActionFunction) {
   simple_tracker->setTrackingIsValid(false);
   vsa::VisualServoingTransitionAction visual_servoing_transition_action;
+  VisualServoingInternalAction visual_servoing_internal_action;
   int dummy_start_state, dummy_target_state;
   visual_servoing_transition_action(NULL, *sample_logic_state_machine,
                                     dummy_start_state, dummy_target_state);
-  ASSERT_EQ(sample_logic_state_machine->getProcessEventTypeId(),
-            std::type_index(typeid(be::Abort)));
+  visual_servoing_internal_action(NULL, *sample_logic_state_machine,
+                                  dummy_start_state, dummy_target_state);
 }
 
 TEST_F(VisualServoingTests, ZeroLengthTrackingCallActionFunction) {
   // The tracking vector is of length zero
   vsa::VisualServoingTransitionAction visual_servoing_transition_action;
+  VisualServoingInternalAction visual_servoing_internal_action;
   int dummy_start_state, dummy_target_state;
   visual_servoing_transition_action(NULL, *sample_logic_state_machine,
                                     dummy_start_state, dummy_target_state);
-  ASSERT_EQ(sample_logic_state_machine->getProcessEventTypeId(),
-            std::type_index(typeid(be::Abort)));
+  visual_servoing_internal_action(NULL, *sample_logic_state_machine,
+                                  dummy_start_state, dummy_target_state);
 }
 
 // Call Guard functions

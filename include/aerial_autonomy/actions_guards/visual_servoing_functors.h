@@ -18,15 +18,13 @@
 template <class LogicStateMachineT>
 struct VisualServoingTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
-  void run(UAVVisionSystem &robot_system,
-           LogicStateMachineT &logic_state_machine) {
+  void run(UAVVisionSystem &robot_system) {
     VLOG(1) << "Selecting home location";
     robot_system.setHomeLocation();
 
     Position tracking_vector;
     if (!robot_system.getTrackingVector(tracking_vector)) {
       LOG(WARNING) << "Lost tracking while servoing.";
-      logic_state_machine.process_event(be::Abort());
       return;
     }
     VLOG(1) << "Setting tracking vector";
@@ -36,7 +34,6 @@ struct VisualServoingTransitionActionFunctor_
     double tracking_vector_norm = tracking_vector.norm();
     if (tracking_vector_norm < 1e-6) {
       LOG(WARNING) << "Tracking vector too small cannot initialize direction";
-      logic_state_machine.process_event(be::Abort());
       return;
     } else {
       robot_system.setGoal<VisualServoingControllerDroneConnector, Position>(
@@ -53,7 +50,7 @@ struct VisualServoingTransitionActionFunctor_
 template <class LogicStateMachineT>
 struct VisualServoingAbortActionFunctor_
     : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
-  void run(UAVVisionSystem &robot_system, LogicStateMachineT &) {
+  void run(UAVVisionSystem &robot_system) {
     LOG(WARNING) << "Aborting visual servoing controller";
     robot_system.abortController(HardwareType::UAV);
   }
@@ -67,7 +64,7 @@ struct VisualServoingAbortActionFunctor_
 template <class LogicStateMachineT>
 struct GoHomeTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
-  void run(UAVVisionSystem &robot_system, LogicStateMachineT &) {
+  void run(UAVVisionSystem &robot_system) {
     PositionYaw home_location = robot_system.getHomeLocation();
     VLOG(1) << "Going home";
     robot_system.setGoal<PositionControllerDroneConnector, PositionYaw>(
@@ -83,7 +80,7 @@ struct GoHomeTransitionActionFunctor_
 template <class LogicStateMachineT>
 struct GoHomeTransitionGuardFunctor_
     : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {
-  bool guard(UAVVisionSystem &robot_system, LogicStateMachineT &) {
+  bool guard(UAVVisionSystem &robot_system) {
     return robot_system.isHomeLocationSpecified();
   }
 };
@@ -107,7 +104,7 @@ using VisualServoingInternalActionFunctor_ =
 template <class LogicStateMachineT>
 struct VisualServoingTransitionGuardFunctor_
     : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {
-  bool guard(UAVVisionSystem &robot_system_, LogicStateMachineT &) {
+  bool guard(UAVVisionSystem &robot_system_) {
     Position tracking_vector;
     return robot_system_.getTrackingVector(tracking_vector);
   }
