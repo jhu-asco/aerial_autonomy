@@ -89,7 +89,7 @@ private:
   pluginlib::ClassLoader<parsernode::Parser>
       parser_loader_; ///< Used to load hardware plugin
   std::unique_ptr<parsernode::Parser> uav_hardware_; ///< Hardware instance
-  std::unique_ptr<ArmParser> arm_hardware_;
+  std::unique_ptr<ArmParser> arm_hardware_;          ///< Arm Hardware instance
   RoiToPositionConverter roi_to_position_converter_; ///< Tracking system
   UAVArmSystem uav_system_;                          ///< Contains controllers
   CommonSystemHandler<LogicStateMachineT, EventManagerT, UAVArmSystem>

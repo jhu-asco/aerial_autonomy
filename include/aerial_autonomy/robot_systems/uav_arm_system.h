@@ -52,8 +52,18 @@ public:
     return UAVSystem::getSystemStatus() + "\n" + ArmSystem::getSystemStatus();
   }
 
+  /**
+   * @brief getter for timeout used for gripping
+   *
+   * @return timeout used for gripping
+   */
   uint32_t gripTimeout() { return grip_timeout_; }
 
+  /**
+   * @brief getter for transfrom from arm to object
+   *
+   * @return  transform from arm to object
+   */
   tf::Transform armGoalTransform() { return arm_goal_transform_; }
 
 private:
