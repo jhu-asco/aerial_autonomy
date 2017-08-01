@@ -4,6 +4,7 @@
 #include <aerial_autonomy/actions_guards/arm_functors.h>
 #include <aerial_autonomy/actions_guards/pick_place_functors.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_states_actions.h>
+#include <boost/msm/front/euml/operator.hpp>
 #include <boost/msm/front/functor_row.hpp>
 
 /**
@@ -22,6 +23,8 @@ struct PickPlaceStatesActions
    */
   template <class Sequence>
   using bActionSequence = boost::msm::front::ActionSequence_<Sequence>;
+  template <class G1, class G2>
+  using bAnd = boost::msm::front::euml::And_<G1, G2>;
 
   /**
    * @brief namespace for states and actions in visual servoing
@@ -110,7 +113,8 @@ struct PickPlaceStatesActions
   * @brief Guard to stop pick place if arm is not powered or vision is not
   * working
   */
-  using PickTransitionGuard = PickTransitionGuardFunctor_<LogicStateMachineT>;
+  using PickTransitionGuard = bAnd<typename vsa::VisualServoingTransitionGuard,
+                                   ArmEnabledGuardFunctor_<LogicStateMachineT>>;
   /**
   * @brief Action to grab an object
   */

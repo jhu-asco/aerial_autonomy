@@ -66,6 +66,23 @@ struct ArmPoweronTransitionActionFunctor_
 };
 
 /**
+* @brief Check arm is enabled before picking objects
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct ArmEnabledGuardFunctor_
+    : EventAgnosticGuardFunctor<ArmSystem, LogicStateMachineT> {
+  bool guard(ArmSystem &robot_system_) {
+    if (!robot_system_.enabled()) {
+      LOG(WARNING) << "Robot system not enabled!";
+      return false;
+    }
+    return true;
+  }
+};
+
+/**
 * @brief Abort arm controller
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
@@ -92,11 +109,6 @@ template <class LogicStateMachineT>
 struct ArmStatusInternalActionFunctor_
     : InternalActionFunctor<ArmSystem, LogicStateMachineT> {
   bool run(ArmSystem &robot_system, LogicStateMachineT &logic_state_machine) {
-    // If arm not powered on try powering it on!
-    /*if (!robot_system.enabled()) {
-      LOG(WARNING) << "Arm not enabled!";
-      robot_system.power(true); // Try to enable arm
-    }*/
     // Check if arm finally powered on
     if (!robot_system.enabled()) {
       logic_state_machine.process_event(be::Abort());

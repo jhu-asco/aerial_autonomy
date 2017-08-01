@@ -23,7 +23,7 @@ public:
    * @param pos Returned tracking vector
    * @return True if successful, false otherwise
    */
-  virtual bool getTrackingVector(Position &pos);
+  virtual bool getTrackingVectors(std::unordered_map<uint32_t, Position> &pos);
   /**
   * @brief Check whether tracking is valid
   * @return True if the tracking is valid, false otherwise

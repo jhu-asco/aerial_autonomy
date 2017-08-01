@@ -44,16 +44,16 @@ TEST_F(VisualServoingTests, Constructor) {
   ASSERT_NO_THROW(new VisualServoingInternalAction());
 }
 
-TEST_F(VisualServoingTests, CallActionFunction) {
+TEST_F(VisualServoingTests, CallGuardFunction) {
   // Specify a global position
   Position roi_goal(1, 1, 1);
   simple_tracker->setTargetPositionGlobalFrame(roi_goal);
   // Test action functors
-  vsa::VisualServoingTransitionAction visual_servoing_transition_action;
+  vsa::VisualServoingTransitionGuard visual_servoing_transition_guard;
   int dummy_start_state, dummy_target_state;
   ASSERT_FALSE(uav_system->isHomeLocationSpecified());
-  visual_servoing_transition_action(NULL, *sample_logic_state_machine,
-                                    dummy_start_state, dummy_target_state);
+  visual_servoing_transition_guard(NULL, *sample_logic_state_machine,
+                                   dummy_start_state, dummy_target_state);
   ASSERT_TRUE(uav_system->isHomeLocationSpecified());
   ASSERT_EQ(uav_system->getHomeLocation(), PositionYaw(0, 0, 0, 0));
   // Get goal from controllerConnector and check if the goal is what we expect
@@ -62,43 +62,22 @@ TEST_F(VisualServoingTests, CallActionFunction) {
   ASSERT_EQ(goal, roi_goal / roi_goal.norm());
 }
 
-TEST_F(VisualServoingTests, InvalidTrackingCallActionFunction) {
+TEST_F(VisualServoingTests, InvalidTrackingCallGuardFunction) {
   simple_tracker->setTrackingIsValid(false);
-  vsa::VisualServoingTransitionAction visual_servoing_transition_action;
-  VisualServoingInternalAction visual_servoing_internal_action;
-  int dummy_start_state, dummy_target_state;
-  visual_servoing_transition_action(NULL, *sample_logic_state_machine,
-                                    dummy_start_state, dummy_target_state);
-  visual_servoing_internal_action(NULL, *sample_logic_state_machine,
-                                  dummy_start_state, dummy_target_state);
-}
-
-TEST_F(VisualServoingTests, ZeroLengthTrackingCallActionFunction) {
-  // The tracking vector is of length zero
-  vsa::VisualServoingTransitionAction visual_servoing_transition_action;
-  VisualServoingInternalAction visual_servoing_internal_action;
-  int dummy_start_state, dummy_target_state;
-  visual_servoing_transition_action(NULL, *sample_logic_state_machine,
-                                    dummy_start_state, dummy_target_state);
-  visual_servoing_internal_action(NULL, *sample_logic_state_machine,
-                                  dummy_start_state, dummy_target_state);
-}
-
-// Call Guard functions
-TEST_F(VisualServoingTests, CallGuardFunction) {
-  // Set tracking is not valid for simple tracker
-  simple_tracker->setTrackingIsValid(false);
-  // Call guard function to ensure it does not succeed
-  int dummy_start_state, dummy_target_state;
   vsa::VisualServoingTransitionGuard visual_servoing_transition_guard;
-  bool result = visual_servoing_transition_guard(
-      NULL, *sample_logic_state_machine, dummy_start_state, dummy_target_state);
-  ASSERT_FALSE(result);
-  // Set tracking is not valid for simple tracker
-  simple_tracker->setTrackingIsValid(true);
-  result = visual_servoing_transition_guard(
-      NULL, *sample_logic_state_machine, dummy_start_state, dummy_target_state);
-  ASSERT_TRUE(result);
+  int dummy_start_state, dummy_target_state;
+  ASSERT_FALSE(
+      visual_servoing_transition_guard(NULL, *sample_logic_state_machine,
+                                       dummy_start_state, dummy_target_state));
+}
+
+TEST_F(VisualServoingTests, ZeroLengthTrackingCallGuardFunction) {
+  // The tracking vector is of length zero
+  vsa::VisualServoingTransitionGuard visual_servoing_transition_guard;
+  int dummy_start_state, dummy_target_state;
+  ASSERT_FALSE(
+      visual_servoing_transition_guard(NULL, *sample_logic_state_machine,
+                                       dummy_start_state, dummy_target_state));
 }
 
 // Call Internal Action function after setting the quad to the right target
@@ -110,11 +89,12 @@ TEST_F(VisualServoingTests, CallInternalActionFunction) {
   // Fly quadrotor which sets the altitude to 0.5
   drone_hardware.setBatteryPercent(60);
   drone_hardware.takeoff();
-  // Call action functor
-  vsa::VisualServoingTransitionAction visual_servoing_transition_action;
+  // Call guard
+  vsa::VisualServoingTransitionGuard visual_servoing_transition_guard;
   int dummy_start_state, dummy_target_state;
-  visual_servoing_transition_action(NULL, *sample_logic_state_machine,
-                                    dummy_start_state, dummy_target_state);
+  ASSERT_TRUE(
+      visual_servoing_transition_guard(NULL, *sample_logic_state_machine,
+                                       dummy_start_state, dummy_target_state));
   // After transition the status should be active
   ControllerStatus status;
   status = uav_system->getStatus<VisualServoingControllerDroneConnector>();
@@ -148,10 +128,10 @@ TEST_F(VisualServoingTests, LowBatteryCallInternalActionFunction) {
   drone_hardware.setBatteryPercent(60);
   drone_hardware.takeoff();
   // Call action functor
-  vsa::VisualServoingTransitionAction visual_servoing_transition_action;
+  vsa::VisualServoingTransitionGuard visual_servoing_transition_guard;
   int dummy_start_state, dummy_target_state;
-  visual_servoing_transition_action(NULL, *sample_logic_state_machine,
-                                    dummy_start_state, dummy_target_state);
+  visual_servoing_transition_guard(NULL, *sample_logic_state_machine,
+                                   dummy_start_state, dummy_target_state);
   // Run Internal action
   VisualServoingInternalAction visual_servoing_internal_action;
   visual_servoing_internal_action(NULL, *sample_logic_state_machine,
@@ -177,10 +157,11 @@ TEST_F(VisualServoingTests, LostTrackingInternalActionFunction) {
   drone_hardware.setBatteryPercent(60);
   drone_hardware.takeoff();
   // Call action functor
-  vsa::VisualServoingTransitionAction visual_servoing_transition_action;
+  vsa::VisualServoingTransitionGuard visual_servoing_transition_guard;
   int dummy_start_state, dummy_target_state;
-  visual_servoing_transition_action(NULL, *sample_logic_state_machine,
-                                    dummy_start_state, dummy_target_state);
+  ASSERT_TRUE(
+      visual_servoing_transition_guard(NULL, *sample_logic_state_machine,
+                                       dummy_start_state, dummy_target_state));
   // Make tracking invalid
   simple_tracker->setTrackingIsValid(false);
   // Run controller to update controller status

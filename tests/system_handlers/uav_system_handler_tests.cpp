@@ -49,8 +49,9 @@ public:
     pose_pub_.publish(pose_msg);
     // wait for threads to process
     ros::spinOnce();
-    std::this_thread::sleep_for(std::chrono::milliseconds(30));
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
     ros::spinOnce();
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
   }
 
   bool isStatusConnected() { return status_subscriber_.getNumPublishers() > 0; }
