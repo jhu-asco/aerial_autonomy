@@ -11,7 +11,7 @@ SimpleTracker::SimpleTracker(parsernode::Parser &drone_hardware,
 
 bool SimpleTracker::getTrackingVectors(
     std::unordered_map<uint32_t, Position> &p) {
-  p.clear();
+  CHECK(p.empty()) << "Tracking vector map not empty";
   if (!trackingIsValid()) {
     return false;
   }
