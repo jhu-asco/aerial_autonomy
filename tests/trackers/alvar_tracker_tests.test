@@ -1,0 +1,4 @@
+<launch>
+  <test test-name="AlvarTracker" pkg="aerial_autonomy" type="aerial_autonomy-alvar-tracker-test">
+  </test>
+</launch>

@@ -98,27 +98,12 @@ struct ManualControlArmInternalActionFunctor_
   void run(UAVArmSystem &robot_system,
            LogicStateMachineT &logic_state_machine) {
     if (!robot_system.enabled()) {
-      LOG(WARNING) << "Arm not enabled!";
+      LOG(WARNING) << "Arm not enabled! Enabling arm now.";
       robot_system.power(true); // Try to enable arm
     } else {
       // Since arm is enabled we can switch to other states
       parent_functor_.run(robot_system, logic_state_machine);
     }
-  }
-};
-/**
-* @brief Check tracking is valid before starting visual servoing and arm is
-* enabled before picking objects
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-struct PickTransitionGuardFunctor_
-    : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
-  bool guard(UAVArmSystem &robot_system_, LogicStateMachineT &) {
-    Position tracking_vector;
-    return (robot_system_.getTrackingVector(tracking_vector) &&
-            robot_system_.enabled());
   }
 };
 
