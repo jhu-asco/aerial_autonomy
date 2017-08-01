@@ -106,19 +106,6 @@ struct ManualControlArmInternalActionFunctor_
     }
   }
 };
-/**
-* @brief Check tracking is valid before starting visual servoing and arm is
-* enabled before picking objects
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-struct PickTransitionGuardFunctor_
-    : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
-  bool guard(UAVArmSystem &robot_system_, LogicStateMachineT &) {
-    return robot_system_.enabled();
-  }
-};
 
 template <class LogicStateMachineT>
 struct VisualServoingArmTransitionActionFunctor_

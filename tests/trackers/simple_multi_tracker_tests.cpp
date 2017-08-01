@@ -1,59 +1,60 @@
 #include <gtest/gtest.h>
 
 #include "aerial_autonomy/trackers/simple_multi_tracker.h"
+#include "aerial_autonomy/trackers/closest_tracking_strategy.h"
 
 TEST(SimpleMultiTrackerTests, Constructor) {
-  SimpleMultiTracker simple_tracker(MultiTracker::CLOSEST);
+  SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy());
 }
 
 TEST(SimpleMultiTrackerTests, SetTrackingVectors) {
-  SimpleMultiTracker simple_tracker(MultiTracker::CLOSEST);
+  SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy());
 
-  std::vector<std::tuple<uint32_t, Position>> tracking_vectors;
-  tracking_vectors.push_back(std::make_tuple(0, Position(1, 1, 1)));
-  tracking_vectors.push_back(std::make_tuple(1, Position(1, 1, 3)));
+  std::unordered_map<uint32_t, Position> tracking_vectors;
+  tracking_vectors[0] = Position(1, 1, 1);
+  tracking_vectors[1] = Position(1, 1, 3);
   simple_tracker.setTrackingVectors(tracking_vectors);
 
-  std::vector<std::tuple<uint32_t, Position>> tracking_vectors_get;
+  std::unordered_map<uint32_t, Position> tracking_vectors_get;
   simple_tracker.getTrackingVectors(tracking_vectors_get);
 
   ASSERT_EQ(tracking_vectors_get.size(), tracking_vectors.size());
 
-  for (unsigned int i = 0; i < tracking_vectors_get.size(); i++) {
-    ASSERT_EQ(tracking_vectors_get[i], tracking_vectors[i]);
+  for (auto itr : tracking_vectors_get) {
+    ASSERT_EQ(tracking_vectors_get[itr.first], tracking_vectors[itr.first]);
   }
 }
 
 TEST(SimpleMultiTrackerTests, GetTrackingVectorClosest) {
-  SimpleMultiTracker simple_tracker(MultiTracker::CLOSEST);
+  SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy());
 
-  std::vector<std::tuple<uint32_t, Position>> tracking_vectors;
-  tracking_vectors.push_back(std::make_tuple(0, Position(1, 1, 1)));
-  tracking_vectors.push_back(std::make_tuple(1, Position(1, 1, 3)));
+  std::unordered_map<uint32_t, Position> tracking_vectors;
+  tracking_vectors[0] = Position(1, 1, 1);
+  tracking_vectors[1] = Position(1, 1, 3);
   simple_tracker.setTrackingVectors(tracking_vectors);
 
   simple_tracker.initialize();
 
   Position tracking_vector;
   ASSERT_TRUE(simple_tracker.getTrackingVector(tracking_vector));
-  ASSERT_EQ(tracking_vector, std::get<1>(tracking_vectors[0]));
+  ASSERT_EQ(tracking_vector, tracking_vectors[0]);
 }
 
 TEST(SimpleMultiTrackerTests, ClosestTrackingLost) {
-  SimpleMultiTracker simple_tracker(MultiTracker::CLOSEST);
+  SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy());
 
-  std::vector<std::tuple<uint32_t, Position>> tracking_vectors;
-  tracking_vectors.push_back(std::make_tuple(0, Position(1, 1, 1)));
-  tracking_vectors.push_back(std::make_tuple(1, Position(1, 1, 3)));
+  std::unordered_map<uint32_t, Position> tracking_vectors;
+  tracking_vectors[0] = Position(1, 1, 1);
+  tracking_vectors[1] = Position(1, 1, 3);
   simple_tracker.setTrackingVectors(tracking_vectors);
 
   simple_tracker.initialize();
   Position tracking_vector;
   ASSERT_TRUE(simple_tracker.getTrackingVector(tracking_vector));
-  ASSERT_EQ(tracking_vector, std::get<1>(tracking_vectors[0]));
+  ASSERT_EQ(tracking_vector, tracking_vectors[0]);
 
   // Remove tracked vector
-  tracking_vectors.erase(tracking_vectors.begin());
+  tracking_vectors.erase(0);
   simple_tracker.setTrackingVectors(tracking_vectors);
   ASSERT_FALSE(simple_tracker.getTrackingVector(tracking_vector));
 }

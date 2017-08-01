@@ -2,6 +2,7 @@
 
 #include "aerial_autonomy/common/atomic.h"
 #include "aerial_autonomy/trackers/base_tracker.h"
+#include "aerial_autonomy/trackers/simple_tracking_strategy.h"
 #include "aerial_autonomy/types/position.h"
 
 #include <ros/ros.h>
@@ -29,8 +30,9 @@ public:
   * @param nh Nodehandle for subscribers, publishers
   */
   RoiToPositionConverter(ros::NodeHandle &nh)
-      : it_(nh), roi_subscriber_(nh.subscribe(
-                     "roi", 10, &RoiToPositionConverter::roiCallback, this)),
+      : BaseTracker(new SimpleTrackingStrategy()), it_(nh),
+        roi_subscriber_(nh.subscribe(
+            "roi", 10, &RoiToPositionConverter::roiCallback, this)),
         camera_info_subscriber_(
             nh.subscribe("camera_info", 1,
                          &RoiToPositionConverter::cameraInfoCallback, this)),
@@ -41,10 +43,10 @@ public:
 
   /**
    * @brief Get the stored tracking vector
-   * @param pos Returned tracking vector
+   * @param pos Returned tracking vectors
    * @return True if successful, false otherwise
    */
-  bool getTrackingVector(Position &pos);
+  bool getTrackingVectors(std::unordered_map<uint32_t, Position> &pos);
   /**
    * @brief Get the 3D position of the ROI (in the frame of the
    * camera)

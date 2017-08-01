@@ -102,9 +102,8 @@ struct PickPlaceStatesActions
   * @brief Guard to stop pick place if arm is not powered or vision is not
   * working
   */
-  using PickTransitionGuard =
-      bAnd<typename vsa::VisualServoingTransitionGuard,
-           PickTransitionGuardFunctor_<LogicStateMachineT>>;
+  using PickTransitionGuard = bAnd<typename vsa::VisualServoingTransitionGuard,
+                                   ArmEnabledGuardFunctor_<LogicStateMachineT>>;
   /**
   * @brief Action to grab an object
   */

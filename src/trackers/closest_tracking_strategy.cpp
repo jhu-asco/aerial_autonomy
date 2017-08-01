@@ -3,7 +3,7 @@
 #include <limits>
 
 bool ClosestTrackingStrategy::initialize(
-    const std::vector<std::tuple<uint32_t, Position>> &tracking_vectors) {
+    const std::unordered_map<uint32_t, Position> &tracking_vectors) {
   std::tuple<uint32_t, Position> tracking_vector;
   if (!getClosest(tracking_vectors, tracking_vector)) {
     return false;
@@ -15,17 +15,16 @@ bool ClosestTrackingStrategy::initialize(
 }
 
 bool ClosestTrackingStrategy::getTrackingVector(
-    const std::vector<std::tuple<uint32_t, Position>> &tracking_vectors,
+    const std::unordered_map<uint32_t, Position> &tracking_vectors,
     std::tuple<uint32_t, Position> &tracking_vector) {
   if (!tracking_locked_) {
     return false;
   }
 
-  for (unsigned int i = 0; i < tracking_vectors.size(); i++) {
-    if (std::get<0>(tracking_vectors[i]) == tracked_id_) {
-      tracking_vector = tracking_vectors[i];
-      return true;
-    }
+  auto find_id = tracking_vectors.find(tracked_id_);
+  if (find_id != tracking_vectors.end()) {
+    tracking_vector = std::make_tuple(tracked_id_, find_id->second);
+    return true;
   }
 
   // If was lost track of the target, strategy must be reinitialized
@@ -34,19 +33,20 @@ bool ClosestTrackingStrategy::getTrackingVector(
 }
 
 bool ClosestTrackingStrategy::getClosest(
-    const std::vector<std::tuple<uint32_t, Position>> &tracking_vectors,
+    const std::unordered_map<uint32_t, Position> &tracking_vectors,
     std::tuple<uint32_t, Position> &tracking_vector) {
   if (tracking_vectors.empty()) {
     return false;
   }
-  int closest_idx = 0;
+  int closest_id = 0;
   double closest_norm = std::numeric_limits<double>::max();
-  for (unsigned int i = 0; i < tracking_vectors.size(); i++) {
-    if (std::get<1>(tracking_vectors[i]).norm() < closest_norm) {
-      closest_norm = std::get<1>(tracking_vectors[i]).norm();
-      closest_idx = i;
+  for (auto itr : tracking_vectors) {
+    if (itr.second.norm() < closest_norm) {
+      closest_norm = itr.second.norm();
+      closest_id = itr.first;
     }
   }
-  tracking_vector = tracking_vectors[closest_idx];
+  tracking_vector =
+      std::make_tuple(closest_id, tracking_vectors.find(closest_id)->second);
   return true;
 }

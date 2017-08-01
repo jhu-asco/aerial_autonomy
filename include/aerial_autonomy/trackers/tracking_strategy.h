@@ -3,7 +3,7 @@
 #include "aerial_autonomy/types/position.h"
 
 #include <tuple>
-#include <vector>
+#include <unordered_map>
 
 /**
  * @brief Defines a strategy for choosing a target to track among a group of
@@ -17,7 +17,7 @@ public:
   * @return True if successful, false otherwise
   */
   virtual bool initialize(
-      const std::vector<std::tuple<uint32_t, Position>> &tracking_vectors) = 0;
+      const std::unordered_map<uint32_t, Position> &tracking_vectors) = 0;
   /**
   * @brief Get the tracking vector for one target based on the implemented
   * strategy
@@ -26,6 +26,6 @@ public:
   * @return True if successful, false otherwise
   */
   virtual bool getTrackingVector(
-      const std::vector<std::tuple<uint32_t, Position>> &tracking_vectors,
+      const std::unordered_map<uint32_t, Position> &tracking_vectors,
       std::tuple<uint32_t, Position> &tracking_vector) = 0;
 };

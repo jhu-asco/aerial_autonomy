@@ -8,10 +8,10 @@
 class AlvarTrackerTests : public ::testing::Test {
 public:
   AlvarTrackerTests()
-      : nh_(), alvar_pub_(nh_.advertise<ar_track_alvar::AlvarMarkers>(
+      : nh_(), alvar_pub_(nh_.advertise<ar_track_alvar_msgs::AlvarMarkers>(
                    "ar_pose_marker", 1)) {}
   void publishMarkers(std::vector<std::tuple<uint32_t, Position>> markers) {
-    ar_track_alvar::AlvarMarkers marker_msg;
+    ar_track_alvar_msgs::AlvarMarkers marker_msg;
     marker_msg.markers.resize(markers.size());
     for (unsigned int i = 0; i < markers.size(); i++) {
       marker_msg.markers[i].id = std::get<0>(markers[i]);
@@ -29,7 +29,7 @@ private:
   ros::Publisher alvar_pub_;
 };
 
-TEST_F(AlvarTrackerTests, TrackingValid) {
+TEST_F(AlvarTrackerTests, TrackingValidTimeout) {
   ros::NodeHandle nh;
   AlvarTracker tracker(nh);
   while (!tracker.isConnected()) {
@@ -66,6 +66,31 @@ TEST_F(AlvarTrackerTests, GetTrackingVector) {
   ASSERT_NEAR(pos.x, 0, 1e-6);
   ASSERT_NEAR(pos.y, 2, 1e-6);
   ASSERT_NEAR(pos.z, 3, 1e-6);
+}
+
+TEST_F(AlvarTrackerTests, TrackingValidEmpty) {
+  ros::NodeHandle nh;
+  AlvarTracker tracker(nh);
+  while (!tracker.isConnected()) {
+  }
+  Position pos;
+
+  ASSERT_FALSE(tracker.getTrackingVector(pos));
+
+  std::vector<std::tuple<uint32_t, Position>> markers;
+  markers.push_back(std::make_tuple(0, Position(0, 2, 3)));
+  publishMarkers(markers);
+
+  tracker.initialize();
+
+  ASSERT_TRUE(tracker.getTrackingVector(pos));
+  ASSERT_NEAR(pos.x, 0, 1e-6);
+  ASSERT_NEAR(pos.y, 2, 1e-6);
+  ASSERT_NEAR(pos.z, 3, 1e-6);
+
+  markers.clear();
+  publishMarkers(markers);
+  ASSERT_FALSE(tracker.trackingIsValid());
 }
 
 int main(int argc, char **argv) {
