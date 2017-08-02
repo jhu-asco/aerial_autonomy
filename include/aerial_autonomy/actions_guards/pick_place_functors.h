@@ -99,14 +99,3 @@ struct VisualServoingArmTransitionActionFunctor_
 template <class LogicStateMachineT>
 using PickState_ = BaseState<UAVArmSystem, LogicStateMachineT,
                              PickInternalActionFunctor_<LogicStateMachineT>>;
-
-/**
-* @brief State that checks arm status along with regular manual control
-* state
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-using ManualControlArmState_ =
-    BaseState<UAVArmSystem, LogicStateMachineT,
-              ManualControlArmInternalActionFunctor_<LogicStateMachineT>>;

@@ -81,7 +81,7 @@ public:
   template <class Event, class FSM> void on_entry(Event const &evt, FSM &fsm) {
     VLOG(1) << "entering: PickPlace system";
     int dummy_source_state = 0, dummy_target_state = 0;
-    psa::ArmPoweron()(evt, fsm, dummy_source_state, dummy_target_state);
+    psa::ArmPowerOn()(evt, fsm, dummy_source_state, dummy_target_state);
   }
   /**
   * @brief Action to take on leaving state machine
@@ -92,7 +92,7 @@ public:
   template <class Event, class FSM> void on_exit(Event const &evt, FSM &fsm) {
     VLOG(1) << "leaving: PickPlace system";
     int dummy_source_state = 0, dummy_target_state = 0;
-    psa::ArmPoweroff()(evt, fsm, dummy_source_state, dummy_target_state);
+    psa::ArmPowerOff()(evt, fsm, dummy_source_state, dummy_target_state);
   }
 
   /**
@@ -116,7 +116,7 @@ public:
             //        Start          Event         Next           Action Guard
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Landed, be::Takeoff, psa::ArmPreTakeoffFolding,
-                      psa::ArmPoweronFold, msmf::none>,
+                      psa::ArmPowerOnFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Landed, ManualControlEvent,
                       psa::ManualControlArmState, msmf::none, msmf::none>,
@@ -125,7 +125,7 @@ public:
                       psa::TakeoffAction, psa::TakeoffGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ArmPreTakeoffFolding, be::Abort, psa::Landed,
-                      psa::ArmPoweroff, msmf::none>,
+                      psa::ArmPowerOff, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::TakingOff, Completed, psa::Hovering,
                       psa::ArmRightFold, msmf::none>,
@@ -163,7 +163,7 @@ public:
             msmf::Row<psa::PickState, be::Land, psa::ArmPreLandingFolding,
                       psa::AbortUAVControllerArmFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Landing, Completed, psa::Landed, psa::ArmPoweroff,
+            msmf::Row<psa::Landing, Completed, psa::Landed, psa::ArmPowerOff,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ReachingGoal, Completed, psa::Hovering,
