@@ -4,6 +4,7 @@
 #include <aerial_autonomy/actions_guards/arm_functors.h>
 #include <aerial_autonomy/actions_guards/pick_place_functors.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_states_actions.h>
+#include <aerial_autonomy/arm_events.h>
 #include <boost/msm/front/euml/operator.hpp>
 #include <boost/msm/front/functor_row.hpp>
 
@@ -23,6 +24,7 @@ struct PickPlaceStatesActions
 
   using vsa = VisualServoingStatesActions<LogicStateMachineT>;
   using usa = UAVStatesActions<LogicStateMachineT>;
+
   // Pre takeoff, land states
   /**
   * @brief State for folding arm
@@ -41,21 +43,15 @@ struct PickPlaceStatesActions
   * @brief State during picking an object
   */
   using PickState = PickState_<LogicStateMachineT>;
-  // Manual control along with arm status check state
-  /**
-  * @brief State to check for arm power, manual rc switch
-  */
-  using ManualControlArmState = ManualControlArmState_<LogicStateMachineT>;
-
   // Transition Actions
   /**
   * @brief Action to poweroff arm
   */
-  using ArmPoweron = ArmPoweronTransitionActionFunctor_<LogicStateMachineT>;
+  using ArmPowerOn = ArmPoweronTransitionActionFunctor_<LogicStateMachineT>;
   /**
   * @brief Action to poweroff arm
   */
-  using ArmPoweroff = ArmPoweroffTransitionActionFunctor_<LogicStateMachineT>;
+  using ArmPowerOff = ArmPoweroffTransitionActionFunctor_<LogicStateMachineT>;
   /**
   * @brief Action to take when starting folding arm before land
   */
@@ -89,8 +85,8 @@ struct PickPlaceStatesActions
   /**
   * @brief Action to take when starting folding arm before takeoff
   */
-  using ArmPoweronFold =
-      bActionSequence<boost::mpl::vector<ArmPoweron, ArmFold>>;
+  using ArmPowerOnFold =
+      bActionSequence<boost::mpl::vector<ArmPowerOn, ArmFold>>;
   /**
   * @brief Action sequence to abort UAV controller and arm controller
   * angle
@@ -108,4 +104,24 @@ struct PickPlaceStatesActions
   * @brief Action to grab an object
   */
   using PickGuard = PickGuard_<LogicStateMachineT>;
+  // Explicitly defined manual Control state
+  /**
+  * @brief State that checks arm status along with regular manual control
+  * state
+  *
+  * @tparam LogicStateMachineT Logic state machine used to process events
+  */
+  struct ManualControlArmState : public msmf::state<> {
+    struct internal_transition_table
+        : boost::mpl::vector<
+              msmf::Internal<
+                  InternalTransitionEvent,
+                  ManualControlArmInternalActionFunctor_<LogicStateMachineT>,
+                  msmf::none>,
+              msmf::Internal<arm_events::PowerOn, ArmPowerOn, msmf::none>,
+              msmf::Internal<arm_events::PowerOff, ArmPowerOff, msmf::none>,
+              msmf::Internal<arm_events::Fold, ArmFold, msmf::none>,
+              msmf::Internal<arm_events::RightAngleFold, ArmRightFold,
+                             msmf::none>> {};
+  };
 };
