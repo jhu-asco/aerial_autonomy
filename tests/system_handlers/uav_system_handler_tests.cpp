@@ -13,7 +13,7 @@ using namespace uav_basic_events;
 class UAVSystemHandlerTests : public ::testing::Test,
                               public test_utils::BaseTestPubSubs {
 public:
-  UAVSystemHandlerTests() : BaseTestPubSubs(), nh_() {
+  UAVSystemHandlerTests() : BaseTestPubSubs() {
     // Configure system
     UAVSystemHandlerConfig uav_system_handler_config;
     uav_system_handler_config.set_uav_parser_type(
@@ -23,14 +23,10 @@ public:
 
     uav_system_handler_.reset(
         new UAVSystemHandler<UAVStateMachine, UAVEventManager<UAVStateMachine>>(
-            nh_, uav_system_handler_config));
+            uav_system_handler_config));
     ros::spinOnce();
   }
 
-private:
-  ros::NodeHandle nh_; ///< NodeHandle used by onboard nodehandler
-
-public:
   const unsigned long timeout_wait =
       20; ///< Timeout for ros topic wait in seconds
   std::unique_ptr<UAVSystemHandler<UAVStateMachine,

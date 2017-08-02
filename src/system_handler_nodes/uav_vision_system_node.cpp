@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
   UAVVisionSystemHandler<VisualServoingStateMachine,
                          visual_servoing_events::VisualServoingEventManager<
                              VisualServoingStateMachine>>
-      uav_system_handler(nh, uav_system_config);
+      uav_system_handler(uav_system_config);
 
   ros::spin();
 

@@ -7,6 +7,7 @@
 
 #include <arm_parsers/arm_simulator.h>
 #include <arm_parsers/generic_arm.h>
+#include <arm_parsers/simple_arm.h>
 
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
@@ -31,19 +32,25 @@ public:
    * @param nh NodeHandle to use for event and command subscription
    * @param config Proto configuration parameters
    */
-  UAVArmSystemHandler(ros::NodeHandle &nh, UAVSystemHandlerConfig &config)
-      : parser_loader_("parsernode", "parsernode::Parser"),
+  UAVArmSystemHandler(UAVSystemHandlerConfig &config)
+      : nh_uav_("~uav"), nh_arm_("~arm"), nh_tracker_("~tracker"),
+        nh_common_("~common"),
+        parser_loader_("parsernode", "parsernode::Parser"),
         uav_hardware_(
             parser_loader_.createUnmanagedInstance(config.uav_parser_type())),
+        // \todo Make arm hardware a plugin
         arm_hardware_(
             config.uav_arm_system_handler_config().arm_parser_type() ==
                     "GenericArm"
-                ? dynamic_cast<ArmParser *>(new GenericArm(nh))
-                : dynamic_cast<ArmParser *>(new ArmSimulator())),
-        roi_to_position_converter_(nh),
+                ? dynamic_cast<ArmParser *>(new GenericArm(nh_arm_))
+                : (config.uav_arm_system_handler_config().arm_parser_type() ==
+                           "SimpleArm"
+                       ? dynamic_cast<ArmParser *>(new SimpleArm(nh_arm_))
+                       : dynamic_cast<ArmParser *>(new ArmSimulator()))),
+        roi_to_position_converter_(nh_tracker_),
         uav_system_(roi_to_position_converter_, *uav_hardware_, *arm_hardware_,
                     config.uav_system_config()),
-        common_handler_(nh, config.base_config(), uav_system_),
+        common_handler_(nh_common_, config.base_config(), uav_system_),
         uav_controller_timer_(
             std::bind(&UAVArmSystem::runActiveController, std::ref(uav_system_),
                       HardwareType::UAV),
@@ -54,7 +61,7 @@ public:
             std::chrono::milliseconds(config.uav_arm_system_handler_config()
                                           .arm_controller_timer_duration())) {
     // Initialize UAV plugin
-    uav_hardware_->initialize(nh);
+    uav_hardware_->initialize(nh_uav_);
 
     // Get the party started
     common_handler_.startTimers();
@@ -86,6 +93,10 @@ public:
   bool isConnected() { return common_handler_.isConnected(); }
 
 private:
+  ros::NodeHandle nh_uav_;
+  ros::NodeHandle nh_arm_;
+  ros::NodeHandle nh_tracker_;
+  ros::NodeHandle nh_common_;
   pluginlib::ClassLoader<parsernode::Parser>
       parser_loader_; ///< Used to load hardware plugin
   std::unique_ptr<parsernode::Parser> uav_hardware_; ///< Hardware instance
