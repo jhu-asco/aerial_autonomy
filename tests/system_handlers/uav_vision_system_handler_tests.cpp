@@ -8,8 +8,6 @@
 #include <geometry_msgs/PoseStamped.h>
 #include <std_msgs/String.h>
 
-#define TIMEOUT_WAIT 20
-
 using namespace uav_basic_events;
 
 class UAVVisionSystemHandlerTests : public ::testing::Test,
@@ -40,6 +38,8 @@ private:
   ros::NodeHandle nh_; ///< NodeHandle used by onboard nodehandler
 
 public:
+  const unsigned long timeout_wait =
+      20; ///< Timeout for ros topic wait in seconds
   std::unique_ptr<
       UAVVisionSystemHandler<VisualServoingStateMachine,
                              visual_servoing_events::VisualServoingEventManager<
@@ -64,12 +64,12 @@ TEST_F(UAVVisionSystemHandlerTests, ProcessEvents) {
   // Check takeoff works
   publishEvent("Takeoff");
   ASSERT_TRUE(test_utils::waitUntilTrue()(armed_true_fun,
-                                          std::chrono::seconds(TIMEOUT_WAIT)));
+                                          std::chrono::seconds(timeout_wait)));
   ASSERT_EQ(uav_system_handler_->getUAVData().localpos.z, 0.5);
   // Check subsequent event works
   publishEvent("Land");
   ASSERT_FALSE(test_utils::waitUntilFalse()(
-      armed_true_fun, std::chrono::seconds(TIMEOUT_WAIT)));
+      armed_true_fun, std::chrono::seconds(timeout_wait)));
   ASSERT_EQ(uav_system_handler_->getUAVData().localpos.z, 0.0);
 }
 
@@ -82,7 +82,7 @@ TEST_F(UAVVisionSystemHandlerTests, ProcessPoseCommand) {
   // Check pose command works
   publishEvent("Takeoff");
   ASSERT_TRUE(test_utils::waitUntilTrue()(armed_true_fun,
-                                          std::chrono::seconds(TIMEOUT_WAIT)));
+                                          std::chrono::seconds(timeout_wait)));
   ASSERT_EQ(uav_system_handler_->getUAVData().localpos.z, 0.5);
   PositionYaw pose_command(1, 2, 3, 0);
   publishPoseCommand(pose_command);
@@ -91,14 +91,14 @@ TEST_F(UAVVisionSystemHandlerTests, ProcessPoseCommand) {
         return pose_command ==
                getPositionYaw(uav_system_handler_->getUAVData());
       },
-      std::chrono::seconds(TIMEOUT_WAIT)));
+      std::chrono::seconds(timeout_wait)));
 }
 
 TEST_F(UAVVisionSystemHandlerTests, ReceiveStatus) {
   while (!isStatusConnected())
     ;
   ASSERT_FALSE(test_utils::waitUntilFalse()(
-      [=]() { return status_.empty(); }, std::chrono::seconds(TIMEOUT_WAIT)));
+      [=]() { return status_.empty(); }, std::chrono::seconds(timeout_wait)));
 }
 
 /// \todo Matt Add visual servoing tests

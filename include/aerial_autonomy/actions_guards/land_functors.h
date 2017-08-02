@@ -73,9 +73,9 @@ struct LandedInternalActionFunctor_
     if (!data.rc_sdk_control_switch) {
       VLOG(1) << "Switching to Manual UAV state";
       logic_state_machine.process_event(ManualControlEvent());
-      return true;
+      return false;
     }
-    return false;
+    return true;
   }
 };
 

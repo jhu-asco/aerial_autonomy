@@ -130,7 +130,7 @@ template <class Sequence> struct ShortingActionSequence_ {
    * @tparam TargetState target state of action in state machine
    */
   template <class EVT, class FSM, class SourceState, class TargetState>
-  struct Call2 {
+  struct CallSourceTarget {
     /**
      * @brief Constructor to store event, statemachine, source, target
      *
@@ -139,7 +139,8 @@ template <class Sequence> struct ShortingActionSequence_ {
      * @param src source state instance
      * @param tgt target state instance
      */
-    Call2(EVT const &evt, FSM &fsm, SourceState &src, TargetState &tgt)
+    CallSourceTarget(EVT const &evt, FSM &fsm, SourceState &src,
+                     TargetState &tgt)
         : evt_(evt), fsm_(fsm), src_(src), tgt_(tgt) {}
     /**
      * @brief operator function that instantiates the functor and evaluates it
@@ -203,7 +204,8 @@ template <class Sequence> struct ShortingActionSequence_ {
                   TargetState &tgt) {
     return ::boost::mpl::exec_if<
         Sequence, boost::msm::wrap<::boost::mpl::placeholders::_1>>(
-        Call2<EVT, FSM, SourceState, TargetState>(evt, fsm, src, tgt));
+        CallSourceTarget<EVT, FSM, SourceState, TargetState>(evt, fsm, src,
+                                                             tgt));
   }
 };
 }

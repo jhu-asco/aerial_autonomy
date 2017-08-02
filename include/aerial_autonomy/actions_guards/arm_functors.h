@@ -136,13 +136,13 @@ struct ArmFoldInternalActionFunctor_
     if (robot_system.getCommandStatus()) {
       VLOG(1) << "Completed Folding arm!";
       logic_state_machine.process_event(Completed());
-      return true;
+      return false;
     } else if (!robot_system.enabled()) {
       LOG(WARNING) << "Arm not enabled!";
       logic_state_machine.process_event(be::Abort());
-      return true;
+      return false;
     }
-    return false;
+    return true;
   }
 };
 
