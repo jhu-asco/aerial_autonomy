@@ -50,12 +50,10 @@ public:
   */
   std::string getSystemStatus() const {
     std::stringstream status;
-    status << std::setfill(' ');
     status << "UAV Status:" << std::endl
-           << std::setw(2) << UAVSystem::getSystemStatus() << std::setw(0)
-           << std::endl
+           << UAVSystem::getSystemStatus() << std::endl
            << "Arm Status:" << std::endl
-           << std::setw(2) << ArmSystem::getSystemStatus();
+           << ArmSystem::getSystemStatus();
     return status.str();
   }
 

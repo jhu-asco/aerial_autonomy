@@ -141,23 +141,23 @@ public:
            << "\nLocal x: " << data.localpos.x
            << "\tLocal y: " << data.localpos.y
            << "\tLocal z: " << data.localpos.z
-           << "\nAltitude: " << data.altitude
-           << "\t\nRoll: " << data.rpydata.x * (180 / M_PI)
-           << "\tPitch: " << data.rpydata.y * (180 / M_PI)
-           << "\tYaw: " << data.rpydata.z * (180 / M_PI)
-           << "\nMag x: " << data.magdata.x << "\tMag y: " << data.magdata.y
-           << "\tMag z: " << data.magdata.z << "\nAcc x: " << data.linacc.x
-           << "\tAcc y: " << data.linacc.y << "\tAcc z: " << data.linacc.z
-           << "\nVel x: " << data.linvel.x << "\tVel y: " << data.linvel.y
-           << "\tVel z: " << data.linvel.z
+           << "\tAltitude: " << data.altitude
+           << "\nRoll: " << data.rpydata.x * (180 / M_PI)
+           << "\t\tPitch: " << data.rpydata.y * (180 / M_PI)
+           << "\t\tYaw: " << data.rpydata.z * (180 / M_PI)
+           << "\nMag x: " << data.magdata.x << "\t\tMag y: " << data.magdata.y
+           << "\t\tMag z: " << data.magdata.z << "\nAcc x: " << data.linacc.x
+           << "\t\tAcc y: " << data.linacc.y << "\t\tAcc z: " << data.linacc.z
+           << "\nVel x: " << data.linvel.x << "\t\tVel y: " << data.linvel.y
+           << "\t\tVel z: " << data.linvel.z
            << "\nGoal vx: " << data.velocity_goal.x
            << "\tGoal vy: " << data.velocity_goal.y
            << "\tGoal vz: " << data.velocity_goal.x
            << "\t Goal vyaw: " << data.velocity_goal_yaw
            << "\nGoal x: " << data.position_goal.x
-           << "\tGoal y: " << data.position_goal.y
-           << "\tGoal z: " << data.position_goal.z
-           << "\t Goal yaw: " << data.position_goal_yaw
+           << "\t\tGoal y: " << data.position_goal.y
+           << "\t\tGoal z: " << data.position_goal.z
+           << "\t\t Goal yaw: " << data.position_goal_yaw
            << "\nMass: " << data.mass << "\tTimestamp: " << data.timestamp
            << "\t\nQuadState: " << data.quadstate;
     return status.str();

@@ -91,11 +91,11 @@ public:
     std::stringstream status;
     status << "Joint Angles: " << std::fixed << std::setprecision(2);
     for (double q : arm_hardware_.getJointAngles()) {
-      status << std::to_string(q) << " ";
+      status << q << " ";
     }
     status << std::endl << "Joint Velocities: ";
     for (double q : arm_hardware_.getJointVelocities()) {
-      status << std::to_string(q) << " ";
+      status << q << " ";
     }
     Eigen::Matrix4d ee_transform = arm_hardware_.getEndEffectorTransform();
     status << std::endl
