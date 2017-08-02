@@ -156,6 +156,7 @@ generate_event_targets(
 uav_basic_events
 visual_servoing_events
 pick_place_events
+arm_events
 )
 
 ##############

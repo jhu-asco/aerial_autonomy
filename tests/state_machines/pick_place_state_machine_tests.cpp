@@ -213,6 +213,35 @@ TEST_F(PickPlaceStateMachineTests, PickPlaceManualControlAbort) {
   logic_state_machine->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
 }
+// Manual control internal actions
+TEST_F(PickPlaceStateMachineTests, PickPlaceManualControlInternalActions) {
+  // Disable SDK
+  drone_hardware.flowControl(false);
+  // Move to manual control state
+  logic_state_machine->process_event(InternalTransitionEvent());
+  // Check we are in manual control state
+  ASSERT_STREQ(pstate(*logic_state_machine), "ManualControlArmState");
+  // Enable arm
+  uav_arm_system->power(true);
+  // Process Poweroff
+  logic_state_machine->process_event(arm_events::PowerOff());
+  // Check arm is powered off
+  ASSERT_FALSE(uav_arm_system->enabled());
+  // Process Poweron
+  logic_state_machine->process_event(arm_events::PowerOn());
+  // Check arm is powered on
+  ASSERT_TRUE(uav_arm_system->enabled());
+  // Check command status is false
+  ASSERT_FALSE(arm.getCommandStatus());
+  // Check we can process fold
+  logic_state_machine->process_event(arm_events::Fold());
+  ASSERT_TRUE(arm.getCommandStatus());
+  // Check we can process right fold
+  logic_state_machine->process_event(arm_events::RightAngleFold());
+  ASSERT_TRUE(arm.getCommandStatus());
+  // Check we are still in Manual Control State
+  ASSERT_STREQ(pstate(*logic_state_machine), "ManualControlArmState");
+}
 ///
 
 int main(int argc, char **argv) {

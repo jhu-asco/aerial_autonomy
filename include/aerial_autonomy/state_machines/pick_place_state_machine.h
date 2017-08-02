@@ -112,7 +112,7 @@ public:
             //        Start          Event         Next           Action Guard
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Landed, be::Takeoff, psa::ArmPreTakeoffFolding,
-                      psa::ArmPoweronFold, msmf::none>,
+                      psa::ArmPowerOnFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Landed, ManualControlEvent,
                       psa::ManualControlArmState, msmf::none, msmf::none>,
@@ -121,7 +121,7 @@ public:
                       psa::TakeoffAction, psa::TakeoffGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ArmPreTakeoffFolding, be::Abort, psa::Landed,
-                      psa::ArmPoweroff, msmf::none>,
+                      psa::ArmPowerOff, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::TakingOff, Completed, psa::Hovering,
                       psa::ArmRightFold, msmf::none>,
@@ -159,7 +159,7 @@ public:
             msmf::Row<psa::PickState, be::Land, psa::ArmPreLandingFolding,
                       psa::AbortUAVControllerArmFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Landing, Completed, psa::Landed, psa::ArmPoweroff,
+            msmf::Row<psa::Landing, Completed, psa::Landed, psa::ArmPowerOff,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ReachingGoal, Completed, psa::Hovering,

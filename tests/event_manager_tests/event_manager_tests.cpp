@@ -95,8 +95,9 @@ TEST(PickPlaceEventManagerTest, TriggerUAVEvent) {
 TEST(PickPlaceEventManagerTest, CheckEventSet) {
   PickPlaceEventManager<SampleLogicStateMachine> event_manager;
   std::set<std::string> event_set = event_manager.getEventSet();
-  std::set<std::string> expected_set{"Land", "Takeoff", "Abort", "Pick",
-                                     "GoHome"};
+  std::set<std::string> expected_set{"Land",    "Takeoff", "Abort",
+                                     "Pick",    "GoHome",  "PowerOff",
+                                     "PowerOn", "Fold",    "RightAngleFold"};
   ASSERT_TRUE(event_set == expected_set);
 }
 }

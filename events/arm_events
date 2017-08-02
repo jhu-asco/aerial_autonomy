@@ -1,0 +1,5 @@
+ArmEventManager:
+  PowerOff
+  PowerOn
+  RightAngleFold
+  Fold
