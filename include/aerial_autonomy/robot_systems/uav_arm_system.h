@@ -49,7 +49,14 @@ public:
   * @return string representation of the UAV system state
   */
   std::string getSystemStatus() const {
-    return UAVSystem::getSystemStatus() + "\n" + ArmSystem::getSystemStatus();
+    std::stringstream status;
+    status << std::setfill(' ');
+    status << "UAV Status:" << std::endl
+           << std::setw(2) << UAVSystem::getSystemStatus() << std::setw(0)
+           << std::endl
+           << "Arm Status:" << std::endl
+           << std::setw(2) << ArmSystem::getSystemStatus();
+    return status.str();
   }
 
   uint32_t gripTimeout() { return grip_timeout_; }
