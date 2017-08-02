@@ -17,7 +17,7 @@ namespace be = uav_basic_events;
 template <class LogicStateMachineT>
 struct ArmFoldTransitionActionFunctor_
     : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
-  void run(ArmSystem &robot_system, LogicStateMachineT &) {
+  void run(ArmSystem &robot_system) {
     VLOG(1) << "Folding Arm!";
     robot_system.foldArm();
   }
@@ -31,7 +31,7 @@ struct ArmFoldTransitionActionFunctor_
 template <class LogicStateMachineT>
 struct ArmRightFoldTransitionActionFunctor_
     : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
-  void run(ArmSystem &robot_system, LogicStateMachineT &) {
+  void run(ArmSystem &robot_system) {
     VLOG(1) << "Folding Arm to right angle!";
     robot_system.rightArm();
   }
@@ -45,7 +45,7 @@ struct ArmRightFoldTransitionActionFunctor_
 template <class LogicStateMachineT>
 struct ArmPoweroffTransitionActionFunctor_
     : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
-  void run(ArmSystem &robot_system, LogicStateMachineT &) {
+  void run(ArmSystem &robot_system) {
     VLOG(1) << "Powering off Arm!";
     robot_system.power(false);
   }
@@ -59,7 +59,7 @@ struct ArmPoweroffTransitionActionFunctor_
 template <class LogicStateMachineT>
 struct ArmPoweronTransitionActionFunctor_
     : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
-  void run(ArmSystem &robot_system, LogicStateMachineT &) {
+  void run(ArmSystem &robot_system) {
     VLOG(1) << "Powering on Arm!";
     robot_system.power(true);
   }
@@ -73,7 +73,7 @@ struct ArmPoweronTransitionActionFunctor_
 template <class LogicStateMachineT>
 struct ArmEnabledGuardFunctor_
     : EventAgnosticGuardFunctor<ArmSystem, LogicStateMachineT> {
-  bool guard(ArmSystem &robot_system_, LogicStateMachineT &) {
+  bool guard(ArmSystem &robot_system_) {
     if (!robot_system_.enabled()) {
       LOG(WARNING) << "Robot system not enabled!";
       return false;
@@ -90,12 +90,33 @@ struct ArmEnabledGuardFunctor_
 template <class LogicStateMachineT>
 struct AbortArmController_
     : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
-  void run(ArmSystem &robot_system, LogicStateMachineT &) {
+  void run(ArmSystem &robot_system) {
     LOG(WARNING) << "Aborting arm controller";
     robot_system.abortController(HardwareType::Arm);
   }
 };
 
+/**
+* @brief action for checking arm status.
+*
+* Aborts if arm did not power on.
+*
+* Returns true if arm is powered on/ false if powered off
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct ArmStatusInternalActionFunctor_
+    : InternalActionFunctor<ArmSystem, LogicStateMachineT> {
+  bool run(ArmSystem &robot_system, LogicStateMachineT &logic_state_machine) {
+    // Check if arm finally powered on
+    if (!robot_system.enabled()) {
+      logic_state_machine.process_event(be::Abort());
+      return false;
+    }
+    return true;
+  }
+};
 /**
 * @brief Check when folding arm is complete
 *
@@ -103,7 +124,7 @@ struct AbortArmController_
 */
 template <class LogicStateMachineT>
 struct ArmFoldInternalActionFunctor_
-    : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
+    : InternalActionFunctor<ArmSystem, LogicStateMachineT> {
   /**
   * @brief Function to check when folding arm is complete.
   * If arm is not enabled, then abort
@@ -111,14 +132,17 @@ struct ArmFoldInternalActionFunctor_
   * @param robot_system robot system to get sensor data
   * @param logic_state_machine logic state machine to trigger events
   */
-  void run(ArmSystem &robot_system, LogicStateMachineT &logic_state_machine) {
+  bool run(ArmSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     if (robot_system.getCommandStatus()) {
       VLOG(1) << "Completed Folding arm!";
       logic_state_machine.process_event(Completed());
+      return false;
     } else if (!robot_system.enabled()) {
       LOG(WARNING) << "Arm not enabled!";
       logic_state_machine.process_event(be::Abort());
+      return false;
     }
+    return true;
   }
 };
 

@@ -17,12 +17,23 @@ template <class LogicStateMachineT>
 struct PickPlaceStatesActions
     : VisualServoingStatesActions<LogicStateMachineT> {
 
+  /**
+   * @brief  Action sequence to chain multiple actions together
+   *
+   * @tparam Sequence sequence of actions
+   */
   template <class Sequence>
   using bActionSequence = boost::msm::front::ActionSequence_<Sequence>;
   template <class G1, class G2>
   using bAnd = boost::msm::front::euml::And_<G1, G2>;
 
+  /**
+   * @brief namespace for states and actions in visual servoing
+   */
   using vsa = VisualServoingStatesActions<LogicStateMachineT>;
+  /**
+   * @brief namespace for states and actions for basic uav actions
+   */
   using usa = UAVStatesActions<LogicStateMachineT>;
 
   // Pre takeoff, land states

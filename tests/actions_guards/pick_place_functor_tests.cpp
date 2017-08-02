@@ -176,10 +176,22 @@ TEST_F(PickPlaceFunctorTests, ArmFoldInternalPoweroff) {
   uav_arm_system->power(false);
   ArmFoldInternalAction arm_fold_internal_action;
   int dummy_start_state, dummy_target_state;
-  arm_fold_internal_action(NULL, *sample_logic_state_machine, dummy_start_state,
-                           dummy_target_state);
+  ASSERT_FALSE(arm_fold_internal_action(NULL, *sample_logic_state_machine,
+                                        dummy_start_state, dummy_target_state));
   ASSERT_EQ(sample_logic_state_machine->getProcessEventTypeId(),
             std::type_index(typeid(be::Abort)));
+}
+
+TEST_F(PickPlaceFunctorTests, ArmFoldInternalCompleted) {
+  drone_hardware.setBatteryPercent(60);
+  uav_arm_system->power(true);
+  uav_arm_system->foldArm();
+  ArmFoldInternalAction arm_fold_internal_action;
+  int dummy_start_state, dummy_target_state;
+  ASSERT_FALSE(arm_fold_internal_action(NULL, *sample_logic_state_machine,
+                                        dummy_start_state, dummy_target_state));
+  ASSERT_EQ(sample_logic_state_machine->getProcessEventTypeId(),
+            std::type_index(typeid(Completed)));
 }
 
 TEST_F(PickPlaceFunctorTests, ManualAction) {
@@ -194,8 +206,11 @@ TEST_F(PickPlaceFunctorTests, ManualAction) {
   int dummy_start_state, dummy_target_state;
   manual_control_arm_action(NULL, *sample_logic_state_machine,
                             dummy_start_state, dummy_target_state);
-  // Arm should be powered
-  ASSERT_TRUE(uav_arm_system->enabled());
+  // Since arm is not enabled it will create an abort event
+  ASSERT_EQ(sample_logic_state_machine->getProcessEventTypeId(),
+            std::type_index(typeid(be::Abort)));
+  // Turn on arm
+  uav_arm_system->power(true);
   // Turn drone flow control on
   drone_hardware.flowControl(true);
   // Rerun action functor

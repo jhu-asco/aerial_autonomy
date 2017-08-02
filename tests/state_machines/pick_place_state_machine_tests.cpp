@@ -56,8 +56,6 @@ public:
     logic_state_machine.reset(
         new PickPlaceStateMachine(boost::ref(*uav_arm_system)));
     logic_state_machine->start();
-    // Enable arm power through internal transition
-    logic_state_machine->process_event(InternalTransitionEvent());
     // Move to landed state
     logic_state_machine->process_event(InternalTransitionEvent());
   }

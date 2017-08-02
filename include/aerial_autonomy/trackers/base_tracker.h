@@ -1,9 +1,9 @@
 #pragma once
-#include "aerial_autonomy/types/position.h"
 #include "aerial_autonomy/trackers/tracking_strategy.h"
+#include "aerial_autonomy/types/position.h"
 
-#include <tuple>
 #include <memory>
+#include <tuple>
 #include <unordered_map>
 
 /**

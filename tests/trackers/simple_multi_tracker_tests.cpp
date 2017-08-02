@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "aerial_autonomy/trackers/simple_multi_tracker.h"
 #include "aerial_autonomy/trackers/closest_tracking_strategy.h"
+#include "aerial_autonomy/trackers/simple_multi_tracker.h"
 
 TEST(SimpleMultiTrackerTests, Constructor) {
   SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy());

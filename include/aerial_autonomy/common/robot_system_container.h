@@ -8,6 +8,9 @@
 */
 template <class RobotSystemT> class RobotSystemContainer {
   // Add friend classes that can use the robot system
+  template <class RobotSystemT1, class LogicStateMachineT>
+  friend class InternalActionFunctor;
+
   template <class EventT, class RobotSystemT1, class LogicStateMachineT>
   friend class ActionFunctor;
 

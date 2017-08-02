@@ -1,5 +1,8 @@
 #include "aerial_autonomy/common/conversions.h"
 
+/**
+ * @brief Namespace for converting eign to tf matrices
+ */
 namespace conversions {
 void transformMatrix4dToTf(const Eigen::Matrix4d &e, tf::Transform &tf) {
   Eigen::Affine3d e_affine;

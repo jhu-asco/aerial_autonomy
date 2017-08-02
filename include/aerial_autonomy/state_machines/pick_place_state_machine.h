@@ -78,8 +78,10 @@ public:
   * @tparam Event type of event causing state machine to enter
   * @tparam FSM Backend finite state machine type to trigger events
   */
-  template <class Event, class FSM> void on_entry(Event const &, FSM &) {
+  template <class Event, class FSM> void on_entry(Event const &evt, FSM &fsm) {
     VLOG(1) << "entering: PickPlace system";
+    int dummy_source_state = 0, dummy_target_state = 0;
+    psa::ArmPowerOn()(evt, fsm, dummy_source_state, dummy_target_state);
   }
   /**
   * @brief Action to take on leaving state machine
@@ -87,8 +89,10 @@ public:
   * @tparam Event type of event causing state machine to enter
   * @tparam FSM Backend finite state machine type to trigger events
   */
-  template <class Event, class FSM> void on_exit(Event const &, FSM &) {
+  template <class Event, class FSM> void on_exit(Event const &evt, FSM &fsm) {
     VLOG(1) << "leaving: PickPlace system";
+    int dummy_source_state = 0, dummy_target_state = 0;
+    psa::ArmPowerOff()(evt, fsm, dummy_source_state, dummy_target_state);
   }
 
   /**
