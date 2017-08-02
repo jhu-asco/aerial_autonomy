@@ -5,6 +5,9 @@
 // Arm hardware
 #include <arm_parsers/arm_parser.h>
 
+#include <iomanip>
+#include <sstream>
+
 /**
  * @brief Owns, initializes, and facilitates communication between different
  * hardware/software components.
@@ -84,7 +87,29 @@ public:
   *
   * @return string representation of the arm system state
   */
-  std::string getSystemStatus() const { return std::string(); }
+  std::string getSystemStatus() const {
+    std::stringstream status;
+    status << "Joint Angles: " << std::fixed << std::setprecision(2);
+    for (double q : arm_hardware_.getJointAngles()) {
+      status << q << " ";
+    }
+    status << std::endl << "Joint Velocities: ";
+    for (double q : arm_hardware_.getJointVelocities()) {
+      status << q << " ";
+    }
+    Eigen::Matrix4d ee_transform = arm_hardware_.getEndEffectorTransform();
+    status << std::endl
+           << "End effector translation: " << ee_transform(0, 3) << " "
+           << ee_transform(1, 3) << " " << ee_transform(2, 3) << std::endl;
+    Eigen::Matrix3d ee_rotation = ee_transform.topLeftCorner(3, 3);
+    Eigen::Vector3d euler_angles = ee_rotation.eulerAngles(2, 1, 0);
+    status << "End effector RPY: " << euler_angles[0] << " " << euler_angles[1]
+           << " " << euler_angles[2] << std::endl;
+    status << "Command Status: " << (getCommandStatus() ? "True" : "False")
+           << std::endl;
+    status << "Enabled: " << (enabled() ? "True" : "False");
+    return status.str();
+  }
 
   /**
   * @brief Verify the status of grip/power on/off and fold/rightArm commands
@@ -98,7 +123,7 @@ public:
   *
   * @return True if arm enabled
   */
-  bool enabled() {
+  bool enabled() const {
     return arm_hardware_.state == ArmParser::ENABLED ? true : false;
   }
 };

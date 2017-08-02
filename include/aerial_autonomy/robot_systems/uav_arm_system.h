@@ -49,7 +49,12 @@ public:
   * @return string representation of the UAV system state
   */
   std::string getSystemStatus() const {
-    return UAVSystem::getSystemStatus() + "\n" + ArmSystem::getSystemStatus();
+    std::stringstream status;
+    status << "UAV Status:" << std::endl
+           << UAVSystem::getSystemStatus() << std::endl
+           << "Arm Status:" << std::endl
+           << ArmSystem::getSystemStatus();
+    return status.str();
   }
 
   /**

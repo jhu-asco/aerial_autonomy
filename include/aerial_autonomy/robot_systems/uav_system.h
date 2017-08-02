@@ -8,6 +8,9 @@
 // Specific ControllerConnectors
 #include <aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h>
 
+#include <iomanip>
+#include <sstream>
+
 /**
  * @brief Owns, initializes, and facilitates communication between different
  * hardware/software components.
@@ -131,28 +134,33 @@ public:
   */
   std::string getSystemStatus() const {
     parsernode::common::quaddata data = getUAVData();
-    /// \todo Matt fix this to avoid stack overflows
-    char buffer[1500];
-    sprintf(
-        buffer,
-        "Battery Percent: %2.2f\t\nLocal x: %2.2f\tLocal y: %2.2f\tLocal z: "
-        "%2.2f\nAltitude: %2.2f\t\nRoll: %2.2f\tPitch %2.2f\tYaw %2.2f\n"
-        "Mag x: %2.2f\tMag y %2.2f\tMag z %2.2f\nAcc x: %2.2f\tAcc y "
-        "%2.2f\tAcc z %2.2f\nVel x: %2.2f\tVel y %2.2f\tVel z %2.2f\n"
-        "Goal vx: %2.2f\tGoal vy: %2.2f\tGoal vz: %2.2f\t Goal vyaw: %2.2f\n"
-        "Goal x: %2.2f\tGoal y: %2.2f\tGoal z: %2.2f\t Goal yaw: %2.2f\n"
-        "Mass: %2.2f\tTimestamp: %2.2f\t\nQuadState: %s",
-        data.batterypercent, data.localpos.x, data.localpos.y, data.localpos.z,
-        data.altitude, data.rpydata.x * (180 / M_PI),
-        data.rpydata.y * (180 / M_PI),
-        data.rpydata.z * (180 / M_PI), // IMU rpy angles
-        data.magdata.x, data.magdata.y, data.magdata.z, data.linacc.x,
-        data.linacc.y, data.linacc.z, data.linvel.x, data.linvel.y,
-        data.linvel.z, data.velocity_goal.x, data.velocity_goal.y,
-        data.velocity_goal.z, data.velocity_goal_yaw, data.position_goal.x,
-        data.position_goal.y, data.position_goal.z, data.position_goal_yaw,
-        data.mass, data.timestamp, data.quadstate.c_str());
-    return buffer;
+
+    std::stringstream status;
+    status << std::fixed << std::setprecision(2);
+    status << "Battery Percent: " << data.batterypercent
+           << "\nLocal x: " << data.localpos.x
+           << "\tLocal y: " << data.localpos.y
+           << "\tLocal z: " << data.localpos.z
+           << "\tAltitude: " << data.altitude
+           << "\nRoll: " << data.rpydata.x * (180 / M_PI)
+           << "\t\tPitch: " << data.rpydata.y * (180 / M_PI)
+           << "\t\tYaw: " << data.rpydata.z * (180 / M_PI)
+           << "\nMag x: " << data.magdata.x << "\t\tMag y: " << data.magdata.y
+           << "\t\tMag z: " << data.magdata.z << "\nAcc x: " << data.linacc.x
+           << "\t\tAcc y: " << data.linacc.y << "\t\tAcc z: " << data.linacc.z
+           << "\nVel x: " << data.linvel.x << "\t\tVel y: " << data.linvel.y
+           << "\t\tVel z: " << data.linvel.z
+           << "\nGoal vx: " << data.velocity_goal.x
+           << "\tGoal vy: " << data.velocity_goal.y
+           << "\tGoal vz: " << data.velocity_goal.x
+           << "\t Goal vyaw: " << data.velocity_goal_yaw
+           << "\nGoal x: " << data.position_goal.x
+           << "\t\tGoal y: " << data.position_goal.y
+           << "\t\tGoal z: " << data.position_goal.z
+           << "\t\t Goal yaw: " << data.position_goal_yaw
+           << "\nMass: " << data.mass << "\tTimestamp: " << data.timestamp
+           << "\t\nQuadState: " << data.quadstate;
+    return status.str();
   }
 
   /**
