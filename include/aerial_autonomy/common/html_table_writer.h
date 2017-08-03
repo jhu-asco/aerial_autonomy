@@ -14,7 +14,7 @@ public:
    */
   HtmlTableWriter() : table_ended(false), row_ended(true) {
     table_string_stream << std::fixed << std::setprecision(2);
-    table_string_stream << "<table border=\"1\" width=\"100\%\">";
+    table_string_stream << "<table border=\"1\">";
   }
 
   /**
@@ -35,7 +35,7 @@ public:
     if (row_ended) {
       throw std::runtime_error("Cannot add cell without beginning row");
     }
-    table_string_stream << ("<td bgcolor=\"" + bg_color + "\" >");
+    table_string_stream << ("<td width=\"120\" bgcolor=\"" + bg_color + "\" >");
     if (!header.empty()) {
       table_string_stream << header << ": ";
     }
