@@ -24,7 +24,6 @@ find_package(catkin REQUIRED COMPONENTS
   image_transport
   arm_plugins
   ar_track_alvar_msgs
-  dynamixelsdk
 )
 
 include(cmake/add_event_function.cmake)
