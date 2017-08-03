@@ -175,7 +175,6 @@ public:
     table_writer.addCell("Timestamp", data.timestamp);
     table_writer.beginRow();
     table_writer.addCell("Quadstate", data.quadstate);
-    table_writer.endTable();
     return table_writer.getTableString();
   }
 

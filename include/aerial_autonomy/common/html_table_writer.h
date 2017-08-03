@@ -38,11 +38,6 @@ public:
     row_ended = false;
   }
 
-  void endRow() {
-    row_ended = true;
-    table_string_stream << "</tr>";
-  }
-
   void addHeader(std::string header) {
     if (row_ended) {
       throw std::runtime_error("Cannot add cell without beginning row");
@@ -50,14 +45,6 @@ public:
     table_string_stream << "<th>";
     table_string_stream << header;
     table_string_stream << "</th>";
-  }
-
-  void endTable() {
-    if (!row_ended) {
-      endRow();
-    }
-    table_ended = true;
-    table_string_stream << "</table>";
   }
 
   std::string getTableString() {
@@ -74,4 +61,15 @@ private:
   std::stringstream table_string_stream; ///< Html table in string format
   bool table_ended;
   bool row_ended;
+  void endTable() {
+    if (!row_ended) {
+      endRow();
+    }
+    table_ended = true;
+    table_string_stream << "</table>";
+  }
+  void endRow() {
+    row_ended = true;
+    table_string_stream << "</tr>";
+  }
 };

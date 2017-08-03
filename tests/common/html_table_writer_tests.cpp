@@ -7,11 +7,17 @@
 TEST(HtmlTableWriterTests, SimpleTable) {
   HtmlTableWriter table_writer;
   table_writer.beginRow();
+  table_writer.addHeader("Header");
+  table_writer.beginRow();
   double data = 2.0;
   table_writer.addCell("Hello", data);
-  table_writer.endRow();
-  table_writer.endTable();
+  table_writer.addCell("Hello");
   std::cout << "Table: \n" << table_writer.getTableString() << std::endl;
+}
+TEST(HtmlTableWriterTests, TableError) {
+  HtmlTableWriter table_writer;
+  EXPECT_THROW(table_writer.addHeader("Hello"), std::runtime_error);
+  EXPECT_THROW(table_writer.addCell("Hello"), std::runtime_error);
 }
 ///
 
