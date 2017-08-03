@@ -12,20 +12,15 @@ public:
   }
 
   template <typename DataT>
-  void addCell(std::string header, const DataT &data) {
+  void addCell(const DataT &data, std::string header = "",
+               std::string bg_color = "#FFF") {
     if (row_ended) {
       throw std::runtime_error("Cannot add cell without beginning row");
     }
-    table_string_stream << "<td>";
-    table_string_stream << header << ": " << data;
-    table_string_stream << "</td>";
-  }
-
-  template <typename DataT> void addCell(DataT &data) {
-    if (row_ended) {
-      throw std::runtime_error("Cannot add cell without beginning row");
+    table_string_stream << ("<td bgcolor=\"" + bg_color + "\" >");
+    if (!header.empty()) {
+      table_string_stream << header << ": ";
     }
-    table_string_stream << "<td>";
     table_string_stream << data;
     table_string_stream << "</td>";
   }

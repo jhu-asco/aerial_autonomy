@@ -116,10 +116,11 @@ public:
     }
     table_writer.beginRow();
     bool command_status = (getCommandStatus() ? "True" : "False");
-    table_writer.addCell("CommandStatus: ", command_status);
+    table_writer.addCell(command_status, "CommandStatus");
     table_writer.beginRow();
     bool arm_enabled = (enabled() ? "True" : "False");
-    table_writer.addCell("Enabled: ", arm_enabled);
+    std::string enabled_color = (arm_enabled ? "#0F0" : "#F00");
+    table_writer.addCell(arm_enabled, "Enabled", enabled_color);
     return table_writer.getTableString();
   }
 

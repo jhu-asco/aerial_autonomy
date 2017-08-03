@@ -10,8 +10,9 @@ TEST(HtmlTableWriterTests, SimpleTable) {
   table_writer.addHeader("Header");
   table_writer.beginRow();
   double data = 2.0;
-  table_writer.addCell("Hello", data);
-  table_writer.addCell("Hello");
+  table_writer.addCell(data, "Hello");
+  table_writer.addCell("Data");
+  table_writer.addCell("Data", "Hello", "#FFF");
   std::cout << "Table: \n" << table_writer.getTableString() << std::endl;
 }
 TEST(HtmlTableWriterTests, TableError) {
