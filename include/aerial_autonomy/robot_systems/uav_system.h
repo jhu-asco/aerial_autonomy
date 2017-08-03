@@ -138,6 +138,8 @@ public:
     parsernode::common::quaddata data = getUAVData();
     HtmlTableWriter table_writer;
     table_writer.beginRow();
+    table_writer.addHeader("UAV Status");
+    table_writer.beginRow();
     table_writer.addCell(data.batterypercent, "Battery Percent");
     table_writer.beginRow();
     table_writer.addCell(data.localpos.x, "Local x");

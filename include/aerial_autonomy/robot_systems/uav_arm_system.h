@@ -51,7 +51,7 @@ public:
   std::string getSystemStatus() const {
     std::stringstream status;
     status << "<font color=\"#F00\">UAV Status:</font>" << std::endl
-           << UAVSystem::getSystemStatus() << std::endl
+           << UAVVisionSystem::getSystemStatus() << std::endl
            << "<font color=\"#F00\">Arm Status:</font>" << std::endl
            << ArmSystem::getSystemStatus();
     return status.str();
