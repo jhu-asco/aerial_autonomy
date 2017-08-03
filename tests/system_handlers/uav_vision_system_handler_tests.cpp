@@ -13,7 +13,7 @@ using namespace uav_basic_events;
 class UAVVisionSystemHandlerTests : public ::testing::Test,
                                     public test_utils::BaseTestPubSubs {
 public:
-  UAVVisionSystemHandlerTests() : BaseTestPubSubs(), nh_() {
+  UAVVisionSystemHandlerTests() : BaseTestPubSubs() {
     // Configure system
     UAVSystemHandlerConfig uav_system_handler_config;
     uav_system_handler_config.set_uav_parser_type(
@@ -30,14 +30,10 @@ public:
         new UAVVisionSystemHandler<
             VisualServoingStateMachine,
             visual_servoing_events::VisualServoingEventManager<
-                VisualServoingStateMachine>>(nh_, uav_system_handler_config));
+                VisualServoingStateMachine>>(uav_system_handler_config));
     ros::spinOnce();
   }
 
-private:
-  ros::NodeHandle nh_; ///< NodeHandle used by onboard nodehandler
-
-public:
   const unsigned long timeout_wait =
       20; ///< Timeout for ros topic wait in seconds
   std::unique_ptr<

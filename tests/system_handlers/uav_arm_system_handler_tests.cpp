@@ -13,7 +13,7 @@ using namespace uav_basic_events;
 class UAVArmSystemHandlerTests : public ::testing::Test,
                                  public test_utils::BaseTestPubSubs {
 public:
-  UAVArmSystemHandlerTests() : BaseTestPubSubs(), nh_() {
+  UAVArmSystemHandlerTests() : BaseTestPubSubs() {
     // Configure system
     UAVSystemHandlerConfig uav_system_handler_config;
     uav_system_handler_config.set_uav_parser_type(
@@ -42,14 +42,10 @@ public:
         new UAVArmSystemHandler<
             PickPlaceStateMachine,
             pick_place_events::PickPlaceEventManager<PickPlaceStateMachine>>(
-            nh_, uav_system_handler_config));
+            uav_system_handler_config));
     ros::spinOnce();
   }
 
-private:
-  ros::NodeHandle nh_; ///< NodeHandle used by onboard nodehandler
-
-public:
   const unsigned long timeout_wait =
       20; ///< Timeout for ros topic wait in seconds
   std::unique_ptr<UAVArmSystemHandler<

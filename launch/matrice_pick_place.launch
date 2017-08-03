@@ -5,14 +5,15 @@
   <arg name="log_level" default="0"/>
   <arg name="log_dir" default="$(find aerial_autonomy)/logs"/>
   <node pkg="aerial_autonomy" type="uav_arm_system_node" name="uav_arm_system_node" output="screen">
-    <remap from="goal_pose_command" to="pose_command_combined" />
-    <remap from="event_manager" to="event_trigger" />
+    <remap from="~common/goal_pose_command" to="/rqt_gui/pose_command_combined" />
+    <remap from="~common/event_manager" to="/rqt_gui/event_trigger" />
+    <remap from="~common/system_status" to="/rqt_gui/system_status" />
     <!--Depth image from duo-->
-    <remap from="depth" to="duo3d_camera/depth_image"/>
+    <remap from="~tracker/depth" to="duo3d_camera/depth_image"/>
     <!--Camera info from duo-->
-    <remap from="camera_info" to="duo3d_camera/left/camera_info"/>
+    <remap from="~tracker/camera_info" to="duo3d_camera/left/camera_info"/>
     <!-- ROI From opencv3 tracker-->
-    <remap from="roi" to="roi_out"/>
+    <remap from="~tracker/roi" to="roi_out"/>
     <env name="GLOG_log_dir" value="$(arg log_dir)"/>
     <env name="GLOG_v" value="$(arg log_level)"/>
     <env name="GLOG_alsologtostderr" value="1"/>

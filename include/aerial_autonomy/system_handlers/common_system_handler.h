@@ -33,12 +33,11 @@ public:
    * @param config Proto configuration parameters
    * @param robot_system robot system used to create logic state machine
    */
-  CommonSystemHandler(ros::NodeHandle &nh,
-                      const CommonSystemHandlerConfig &config,
+  CommonSystemHandler(const CommonSystemHandlerConfig &config,
                       RobotSystemT &robot_system)
-      : logic_state_machine_(std::ref(robot_system)),
-        state_machine_gui_connector_(nh, event_manager_, logic_state_machine_),
-        system_status_pub_(nh, robot_system, logic_state_machine_),
+      : nh_("~common"), logic_state_machine_(std::ref(robot_system)),
+        state_machine_gui_connector_(nh_, event_manager_, logic_state_machine_),
+        system_status_pub_(nh_, robot_system, logic_state_machine_),
         status_timer_(
             std::bind(
                 &SystemStatusPublisher<LogicStateMachineT>::publishSystemStatus,
@@ -75,6 +74,7 @@ public:
   }
 
 protected:
+  ros::NodeHandle nh_;
   LogicStateMachineT
       logic_state_machine_;     ///< State machine that gets run by the system
   EventManagerT event_manager_; ///< Event manager used by the state machine
