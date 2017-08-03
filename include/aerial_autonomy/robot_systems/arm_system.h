@@ -1,5 +1,7 @@
 #pragma once
 
+// Html table writer
+#include <aerial_autonomy/common/html_table_writer.h>
 // Base robot system
 #include <aerial_autonomy/robot_systems/base_robot_system.h>
 // Arm hardware
@@ -88,27 +90,37 @@ public:
   * @return string representation of the arm system state
   */
   std::string getSystemStatus() const {
-    std::stringstream status;
-    status << "Joint Angles: " << std::fixed << std::setprecision(2);
+    HtmlTableWriter table_writer;
+    table_writer.beginRow();
+    table_writer.addCell("Joint Angles: ");
     for (double q : arm_hardware_.getJointAngles()) {
-      status << q << " ";
+      table_writer.addCell(q);
     }
-    status << std::endl << "Joint Velocities: ";
+    table_writer.beginRow();
+    table_writer.addCell("Joint Velocities: ");
     for (double q : arm_hardware_.getJointVelocities()) {
-      status << q << " ";
+      table_writer.addCell(q);
     }
     Eigen::Matrix4d ee_transform = arm_hardware_.getEndEffectorTransform();
-    status << std::endl
-           << "End effector translation: " << ee_transform(0, 3) << " "
-           << ee_transform(1, 3) << " " << ee_transform(2, 3) << std::endl;
+    table_writer.beginRow();
+    table_writer.addCell("End effector translation: ");
+    for (int i = 0; i < 3; ++i) {
+      table_writer.addCell(ee_transform(i, 3));
+    }
     Eigen::Matrix3d ee_rotation = ee_transform.topLeftCorner(3, 3);
     Eigen::Vector3d euler_angles = ee_rotation.eulerAngles(2, 1, 0);
-    status << "End effector RPY: " << euler_angles[0] << " " << euler_angles[1]
-           << " " << euler_angles[2] << std::endl;
-    status << "Command Status: " << (getCommandStatus() ? "True" : "False")
-           << std::endl;
-    status << "Enabled: " << (enabled() ? "True" : "False");
-    return status.str();
+    table_writer.beginRow();
+    table_writer.addCell("End effector RPY: ");
+    for (int i = 0; i < 3; ++i) {
+      table_writer.addCell(euler_angles[i]);
+    }
+    table_writer.beginRow();
+    bool command_status = (getCommandStatus() ? "True" : "False");
+    table_writer.addCell("CommandStatus: ", command_status);
+    table_writer.beginRow();
+    bool arm_enabled = (enabled() ? "True" : "False");
+    table_writer.addCell("Enabled: ", arm_enabled);
+    return table_writer.getTableString();
   }
 
   /**

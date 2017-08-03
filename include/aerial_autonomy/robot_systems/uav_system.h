@@ -1,6 +1,8 @@
 #pragma once
 
 #include "uav_system_config.pb.h"
+// Html table writer
+#include <aerial_autonomy/common/html_table_writer.h>
 // Base robot system
 #include <aerial_autonomy/robot_systems/base_robot_system.h>
 // Controllers
@@ -134,33 +136,47 @@ public:
   */
   std::string getSystemStatus() const {
     parsernode::common::quaddata data = getUAVData();
-
-    std::stringstream status;
-    status << std::fixed << std::setprecision(2);
-    status << "Battery Percent: " << data.batterypercent
-           << "\nLocal x: " << data.localpos.x
-           << "\tLocal y: " << data.localpos.y
-           << "\tLocal z: " << data.localpos.z
-           << "\tAltitude: " << data.altitude
-           << "\nRoll: " << data.rpydata.x * (180 / M_PI)
-           << "\t\tPitch: " << data.rpydata.y * (180 / M_PI)
-           << "\t\tYaw: " << data.rpydata.z * (180 / M_PI)
-           << "\nMag x: " << data.magdata.x << "\t\tMag y: " << data.magdata.y
-           << "\t\tMag z: " << data.magdata.z << "\nAcc x: " << data.linacc.x
-           << "\t\tAcc y: " << data.linacc.y << "\t\tAcc z: " << data.linacc.z
-           << "\nVel x: " << data.linvel.x << "\t\tVel y: " << data.linvel.y
-           << "\t\tVel z: " << data.linvel.z
-           << "\nGoal vx: " << data.velocity_goal.x
-           << "\tGoal vy: " << data.velocity_goal.y
-           << "\tGoal vz: " << data.velocity_goal.x
-           << "\t Goal vyaw: " << data.velocity_goal_yaw
-           << "\nGoal x: " << data.position_goal.x
-           << "\t\tGoal y: " << data.position_goal.y
-           << "\t\tGoal z: " << data.position_goal.z
-           << "\t\t Goal yaw: " << data.position_goal_yaw
-           << "\nMass: " << data.mass << "\tTimestamp: " << data.timestamp
-           << "\t\nQuadState: " << data.quadstate;
-    return status.str();
+    HtmlTableWriter table_writer;
+    table_writer.beginRow();
+    table_writer.addCell("Battery Percent", data.batterypercent);
+    table_writer.beginRow();
+    table_writer.addCell("Local x", data.localpos.x);
+    table_writer.addCell("Local y", data.localpos.y);
+    table_writer.addCell("Local z", data.localpos.z);
+    table_writer.addCell("Altitude", data.altitude);
+    table_writer.beginRow();
+    table_writer.addCell("Roll", data.rpydata.x * (180 / M_PI));
+    table_writer.addCell("Pitch", data.rpydata.y * (180 / M_PI));
+    table_writer.addCell("Yaw", data.rpydata.z * (180 / M_PI));
+    table_writer.beginRow();
+    table_writer.addCell("Mag x", data.magdata.x);
+    table_writer.addCell("Mag y", data.magdata.y);
+    table_writer.addCell("Mag z", data.magdata.z);
+    table_writer.beginRow();
+    table_writer.addCell("Acc x", data.linacc.x);
+    table_writer.addCell("Acc y", data.linacc.y);
+    table_writer.addCell("Acc z", data.linacc.z);
+    table_writer.beginRow();
+    table_writer.addCell("Vel x", data.linvel.x);
+    table_writer.addCell("Vel y", data.linvel.y);
+    table_writer.addCell("Vel z", data.linvel.z);
+    table_writer.beginRow();
+    table_writer.addCell("Goal vel x", data.velocity_goal.x);
+    table_writer.addCell("Goal vel y", data.velocity_goal.y);
+    table_writer.addCell("Goal vel z", data.velocity_goal.z);
+    table_writer.addCell("Goal yaw", data.velocity_goal_yaw);
+    table_writer.beginRow();
+    table_writer.addCell("Goal pos x", data.position_goal.x);
+    table_writer.addCell("Goal pos y", data.position_goal.y);
+    table_writer.addCell("Goal pos z", data.position_goal.z);
+    table_writer.addCell("Goal yaw", data.velocity_goal_yaw);
+    table_writer.beginRow();
+    table_writer.addCell("Mass", data.mass);
+    table_writer.addCell("Timestamp", data.timestamp);
+    table_writer.beginRow();
+    table_writer.addCell("Quadstate", data.quadstate);
+    table_writer.endTable();
+    return table_writer.getTableString();
   }
 
   /**

@@ -57,14 +57,15 @@ public:
     std::string no_transition_event_name =
         logic_state_machine_.get_no_transition_event_index().name();
     std_msgs::String status;
-    status.data = "Robot System Status:\n" + robot_system_status + "\n";
-    status.data += "\n\n========================\n\n";
-    status.data += "Controller Status: " + controller_status_str;
-    status.data += "\n\n========================\n\n";
-    status.data += "Logic State Machine Status: \n";
-    status.data += "Current state:\t" + current_state_name + "\n";
+    status.data =
+        "<b>Robot System Status</b><br/>" + robot_system_status + "<br/>";
+    status.data += "<br/><br/>========================<br/><br/>";
+    status.data += "Controller Status:<br/>" + controller_status_str;
+    status.data += "<br/><br/>========================<br/><br/>";
+    status.data += "Logic State Machine Status: <br/>";
+    status.data += "Current state: " + current_state_name + "<br/>";
     status.data +=
-        "Last event without transition:\t" + no_transition_event_name + "\n";
+        "Last event without transition: " + no_transition_event_name + "<br/>";
     system_status_pub_.publish(status);
   }
 
