@@ -34,7 +34,6 @@ public:
    */
   UAVArmSystemHandler(UAVSystemHandlerConfig &config)
       : nh_uav_("~uav"), nh_arm_("~arm"), nh_tracker_("~tracker"),
-        nh_common_("~common"),
         parser_loader_("parsernode", "parsernode::Parser"),
         uav_hardware_(
             parser_loader_.createUnmanagedInstance(config.uav_parser_type())),
@@ -50,7 +49,7 @@ public:
         roi_to_position_converter_(nh_tracker_),
         uav_system_(roi_to_position_converter_, *uav_hardware_, *arm_hardware_,
                     config.uav_system_config()),
-        common_handler_(nh_common_, config.base_config(), uav_system_),
+        common_handler_(config.base_config(), uav_system_),
         uav_controller_timer_(
             std::bind(&UAVArmSystem::runActiveController, std::ref(uav_system_),
                       HardwareType::UAV),
@@ -96,7 +95,6 @@ private:
   ros::NodeHandle nh_uav_;     ///< Nodehandle for UAV
   ros::NodeHandle nh_arm_;     ///< Nodehandle for Arm
   ros::NodeHandle nh_tracker_; ///< Nodehandle for Tracker
-  ros::NodeHandle nh_common_;  ///< Nodehandle for CommonSystemHandler
   pluginlib::ClassLoader<parsernode::Parser>
       parser_loader_; ///< Used to load hardware plugin
   std::unique_ptr<parsernode::Parser> uav_hardware_; ///< Hardware instance
