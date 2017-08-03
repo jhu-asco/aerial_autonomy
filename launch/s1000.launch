@@ -4,8 +4,9 @@
   <arg name="log_level" default="0"/>
   <arg name="log_dir" default="$(find aerial_autonomy)/logs"/>
   <node pkg="aerial_autonomy" type="uav_system_node" name="uav_system_node" output="screen">
-    <remap from="goal_pose_command" to="pose_command_combined" />
-    <remap from="event_manager" to="event_trigger" />
+    <remap from="~common/goal_pose_command" to="/rqt_gui/pose_command_combined" />
+    <remap from="~common/event_manager" to="/rqt_gui/event_trigger" />
+    <remap from="~common/system_status" to="/rqt_gui/system_status" />
     <env name="GLOG_log_dir" value="$(arg log_dir)"/>
     <env name="GLOG_v" value="$(arg log_level)"/>
     <env name="GLOG_alsologtostderr" value="1"/>
