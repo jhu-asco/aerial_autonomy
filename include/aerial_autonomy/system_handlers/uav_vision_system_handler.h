@@ -73,9 +73,9 @@ public:
   bool isConnected() { return common_handler_.isConnected(); }
 
 private:
-  ros::NodeHandle nh_uav_;
-  ros::NodeHandle nh_tracker_;
-  ros::NodeHandle nh_common_;
+  ros::NodeHandle nh_uav_;     ///< Nodehandle for UAV
+  ros::NodeHandle nh_tracker_; ///< Nodehandle for Tracker
+  ros::NodeHandle nh_common_;  ///< Nodehandle for CommonSystemHandler
   pluginlib::ClassLoader<parsernode::Parser>
       parser_loader_; ///< Used to load hardware plugin
   std::unique_ptr<parsernode::Parser> uav_hardware_; ///< Hardware instance
