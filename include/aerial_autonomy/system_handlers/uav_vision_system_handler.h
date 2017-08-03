@@ -9,6 +9,7 @@
 #include <aerial_autonomy/robot_systems/uav_vision_system.h>
 #include <aerial_autonomy/system_handlers/common_system_handler.h>
 #include <aerial_autonomy/trackers/roi_to_position_converter.h>
+#include <aerial_autonomy/trackers/alvar_tracker.h>
 
 #include "uav_system_handler_config.pb.h"
 
@@ -33,8 +34,10 @@ public:
         parser_loader_("parsernode", "parsernode::Parser"),
         uav_hardware_(
             parser_loader_.createUnmanagedInstance(config.uav_parser_type())),
-        roi_to_position_converter_(nh_tracker_),
-        uav_system_(roi_to_position_converter_, *uav_hardware_,
+        tracker_(config.uav_system_config().uav_vision_system_config().tracker_type() == "ROI" ? 
+            dynamic_cast<BaseTracker*>(new RoiToPositionConverter(nh_tracker_)) 
+            : dynamic_cast<BaseTracker*>(new AlvarTracker(nh_tracker_))),
+        uav_system_(*tracker_, *uav_hardware_,
                     config.uav_system_config()),
         common_handler_(config.base_config(), uav_system_),
         uav_controller_timer_(
@@ -78,7 +81,7 @@ private:
   pluginlib::ClassLoader<parsernode::Parser>
       parser_loader_; ///< Used to load hardware plugin
   std::unique_ptr<parsernode::Parser> uav_hardware_; ///< Hardware instance
-  RoiToPositionConverter roi_to_position_converter_; ///< Tracking system
+  std::unique_ptr<BaseTracker> tracker_; ///< Tracking system
   UAVVisionSystem uav_system_;                       ///< Contains controllers
   CommonSystemHandler<LogicStateMachineT, EventManagerT, UAVVisionSystem>
       common_handler_;              ///< Common logic to create state machine

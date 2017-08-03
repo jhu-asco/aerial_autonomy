@@ -6,6 +6,7 @@ import "uav_arm_system_config.proto";
 message UAVVisionSystemConfig {
   required ConstantHeadingDepthControllerConfig
       constant_heading_depth_controller_config = 1;
+
   /**
   * @brief Desired distance to tracked position in meters
   */
@@ -16,6 +17,12 @@ message UAVVisionSystemConfig {
   * as x, y, z, roll, pitch, yaw.
   */
   repeated double camera_transform = 3;
+
+  /**
+  * @brief Type of tracker to use, e.g. Alvar, ROI
+  */
+  required string tracker_type = 4 [default = "ROI"];
+
 
   /**
   * @brief A crude form of inheritance for proto. Contains a config for

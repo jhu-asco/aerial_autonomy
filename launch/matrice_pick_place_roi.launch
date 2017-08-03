@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/matrice_pick_place_config.pbtxt" />
+  <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/matrice_pick_place_roi_config.pbtxt" />
   <param name="event_file" value="$(find aerial_autonomy)/events/pick_place_events" />
   <arg name="log_level" default="0"/>
   <arg name="log_dir" default="$(find aerial_autonomy)/logs"/>
@@ -17,13 +17,17 @@
     <env name="GLOG_log_dir" value="$(arg log_dir)"/>
     <env name="GLOG_v" value="$(arg log_level)"/>
     <env name="GLOG_alsologtostderr" value="1"/>
+ 
+    <param name="~arm/device_id" value="/dev/ttyACM0" />
+    <param name="~arm/baudrate" value="57600" />
+
+    <!-- Matrice SDK params -->
+    <param name="~uav/serial_name" type="string" value="/dev/ttydji"/>
+    <param name="~uav/baud_rate" type="int" value="230400"/>
+    <param name="~uav/app_id" type="int" value="1024052"/>
+    <param name="~uav/app_api_level" type="int" value="2"/>
+    <param name="~uav/app_version" type="int" value="1"/>
+    <param name="~uav/app_bundle_id" type="string" value="Welcome to use dji-sdk"/>
+    <param name="~uav/enc_key" type="string" value="8667ff1ec3a163d6ef14a7bf6a9fae66210855f309c1876788f61d2195dc58d7"/>
   </node>
-  <!-- Matrice SDK params -->
-  <param name="serial_name" type="string" value="/dev/ttydji"/>
-  <param name="baud_rate" type="int" value="230400"/>
-  <param name="app_id" type="int" value="1024052"/>
-  <param name="app_api_level" type="int" value="2"/>
-  <param name="app_version" type="int" value="1"/>
-  <param name="app_bundle_id" type="string" value="Welcome to use dji-sdk"/>
-  <param name="enc_key" type="string" value="8667ff1ec3a163d6ef14a7bf6a9fae66210855f309c1876788f61d2195dc58d7"/>
 </launch>

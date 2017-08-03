@@ -132,6 +132,7 @@ struct PickPlaceStatesActions
               msmf::Internal<arm_events::PowerOn, ArmPowerOn, msmf::none>,
               msmf::Internal<arm_events::PowerOff, ArmPowerOff, msmf::none>,
               msmf::Internal<arm_events::Fold, ArmFold, msmf::none>,
+              msmf::Internal<uav_basic_events::Abort, msmf::none, msmf::none>,
               msmf::Internal<arm_events::RightAngleFold, ArmRightFold,
                              msmf::none>> {};
   };
