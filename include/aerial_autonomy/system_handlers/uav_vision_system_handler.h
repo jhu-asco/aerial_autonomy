@@ -29,14 +29,14 @@ public:
    * @param config Proto configuration parameters
    */
   UAVVisionSystemHandler(UAVSystemHandlerConfig &config)
-      : nh_uav_("~uav"), nh_tracker_("~tracker"), nh_common_("~common"),
+      : nh_uav_("~uav"), nh_tracker_("~tracker"),
         parser_loader_("parsernode", "parsernode::Parser"),
         uav_hardware_(
             parser_loader_.createUnmanagedInstance(config.uav_parser_type())),
         roi_to_position_converter_(nh_tracker_),
         uav_system_(roi_to_position_converter_, *uav_hardware_,
                     config.uav_system_config()),
-        common_handler_(nh_common_, config.base_config(), uav_system_),
+        common_handler_(config.base_config(), uav_system_),
         uav_controller_timer_(
             std::bind(&UAVVisionSystem::runActiveController,
                       std::ref(uav_system_), HardwareType::UAV),
@@ -75,7 +75,6 @@ public:
 private:
   ros::NodeHandle nh_uav_;     ///< Nodehandle for UAV
   ros::NodeHandle nh_tracker_; ///< Nodehandle for Tracker
-  ros::NodeHandle nh_common_;  ///< Nodehandle for CommonSystemHandler
   pluginlib::ClassLoader<parsernode::Parser>
       parser_loader_; ///< Used to load hardware plugin
   std::unique_ptr<parsernode::Parser> uav_hardware_; ///< Hardware instance
