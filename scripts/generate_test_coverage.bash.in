@@ -1,6 +1,7 @@
 #!/bin/bash
-rm -rf ${CMAKE_CURRENT_BINARY_DIR}
-catkin run_tests aerial_autonomy > /dev/null
+rm -rf ${CMAKE_CURRENT_BINARY_DIR}/*
+catkin build aerial_autonomy -j 4 -p 1 > /dev/null
+catkin run_tests aerial_autonomy -j 1 -p 1 > /dev/null
 error=$?
 if [ $error -ne 0 ]
 then
