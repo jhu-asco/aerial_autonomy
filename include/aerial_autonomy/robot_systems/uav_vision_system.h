@@ -45,6 +45,21 @@ public:
   }
 
   bool initializeTracker() { return tracker_.initialize(); }
+  
+  std::string getSystemStatus() const {
+    std::stringstream status;
+    status << UAVSystem::getSystemStatus() << std::endl
+           << "Tracker Status:" << std::endl
+           << "Valid: " << (tracker_.trackingIsValid() ? "True" : "False") << std::endl;
+    std::unordered_map<uint32_t, Position> tracking_vectors;
+    if(tracker_.getTrackingVectors(tracking_vectors)) {
+      status << "Tracking Vectors: " << std::endl;
+      for(auto tv : tracking_vectors) {
+        status << "\t" << tv.first << ": " << tv.second.x << " " << tv.second.y << " " << tv.second.z << std::endl;
+      }
+    }
+    return status.str();
+  }
 
 protected:
   /**

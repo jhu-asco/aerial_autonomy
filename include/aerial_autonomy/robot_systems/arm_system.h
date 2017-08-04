@@ -89,6 +89,7 @@ public:
   */
   std::string getSystemStatus() const {
     std::stringstream status;
+    status << "Arm Status:" << std::endl;
     status << "Joint Angles: " << std::fixed << std::setprecision(2);
     for (double q : arm_hardware_.getJointAngles()) {
       status << q << " ";

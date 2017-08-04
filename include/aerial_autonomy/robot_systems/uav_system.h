@@ -137,6 +137,7 @@ public:
 
     std::stringstream status;
     status << std::fixed << std::setprecision(2);
+    status << "UAV Status:" << std::endl;
     status << "Battery Percent: " << data.batterypercent
            << "\nLocal x: " << data.localpos.x
            << "\tLocal y: " << data.localpos.y
