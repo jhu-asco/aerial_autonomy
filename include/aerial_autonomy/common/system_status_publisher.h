@@ -2,6 +2,8 @@
 
 #include <ros/ros.h>
 
+// Html utils
+#include <aerial_autonomy/common/html_utils.h>
 // Base Robot system
 #include <aerial_autonomy/robot_systems/base_robot_system.h>
 
@@ -32,40 +34,54 @@ public:
   */
   void publishSystemStatus() {
     ControllerStatus controller_status;
-    std::string controller_status_str;
+    HtmlTableWriter controller_status_table;
+    controller_status_table.beginRow();
+    controller_status_table.addHeader("Controller Status", Colors::blue, 2);
+    controller_status_table.beginRow();
     if (robot_system_.getActiveControllerStatus(HardwareType::UAV,
                                                 controller_status)) {
       switch (controller_status) {
       case ControllerStatus::Active:
-        controller_status_str = "Active";
+        controller_status_table.addCell("Active", "Status", Colors::green);
         break;
       case ControllerStatus::Completed:
-        controller_status_str = "Completed";
+        controller_status_table.addCell("Completed", "Status", Colors::green);
         break;
       case ControllerStatus::Critical:
-        controller_status_str = "Critical";
+        controller_status_table.addCell("Critical", "Status", Colors::red);
         break;
       default:
-        controller_status_str = "Unknown controller status!";
+        controller_status_table.addCell("Unknown controller status!", "Status",
+                                        Colors::red, 2);
         break;
       }
     } else {
-      controller_status_str = "No active controller";
+      controller_status_table.addCell("Unknown controller status!", "Status",
+                                      Colors::yellow, 2);
     }
     std::string robot_system_status = robot_system_.getSystemStatus();
     std::string current_state_name = pstate(logic_state_machine_);
     std::string no_transition_event_name =
         logic_state_machine_.get_no_transition_event_index().name();
+    HtmlDivisionWriter division_writer;
+    division_writer.addHeader("Robot System Status");
+    division_writer.addText(robot_system_status);
+    division_writer.addText(controller_status_table.getTableString());
+    // add table for logic state machine
+    HtmlTableWriter logic_state_machine_table(190);
+    logic_state_machine_table.beginRow();
+    logic_state_machine_table.addHeader("Logic State Machine Status",
+                                        Colors::blue, 2);
+    logic_state_machine_table.beginRow();
+    logic_state_machine_table.addCell("Current state: ");
+    logic_state_machine_table.addCell(current_state_name);
+    logic_state_machine_table.beginRow();
+    logic_state_machine_table.addCell("Last Event without transition: ");
+    logic_state_machine_table.addCell(no_transition_event_name);
+    // Add table to division
+    division_writer.addText(logic_state_machine_table.getTableString());
     std_msgs::String status;
-    status.data =
-        "<b>Robot System Status</b><br/>" + robot_system_status + "<br/>";
-    status.data += "<br/><br/>========================<br/><br/>";
-    status.data += "Controller Status:<br/>" + controller_status_str;
-    status.data += "<br/><br/>========================<br/><br/>";
-    status.data += "Logic State Machine Status: <br/>";
-    status.data += "Current state: " + current_state_name + "<br/>";
-    status.data +=
-        "Last event without transition: " + no_transition_event_name + "<br/>";
+    status.data = division_writer.getDivisionText();
     system_status_pub_.publish(status);
   }
 

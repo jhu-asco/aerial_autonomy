@@ -1,7 +1,7 @@
 #pragma once
 
 // Html table writer
-#include <aerial_autonomy/common/html_table_writer.h>
+#include <aerial_autonomy/common/html_utils.h>
 // Base robot system
 #include <aerial_autonomy/robot_systems/base_robot_system.h>
 // Arm hardware
@@ -92,7 +92,7 @@ public:
   std::string getSystemStatus() const {
     HtmlTableWriter table_writer;
     table_writer.beginRow();
-    table_writer.addHeader("Arm Status");
+    table_writer.addHeader("Arm Status:", Colors::blue, 4);
     table_writer.beginRow();
     table_writer.addCell("Joint Angles: ");
     for (double q : arm_hardware_.getJointAngles()) {
@@ -117,12 +117,15 @@ public:
       table_writer.addCell(euler_angles[i]);
     }
     table_writer.beginRow();
-    bool command_status = (getCommandStatus() ? "True" : "False");
-    table_writer.addCell(command_status, "CommandStatus");
+    std::string command_status = (getCommandStatus() ? "True" : "False");
+    std::string command_status_color =
+        (getCommandStatus() ? Colors::green : Colors::red);
+    table_writer.addCell(command_status, "CommandStatus", command_status_color,
+                         2);
     table_writer.beginRow();
     std::string arm_enabled = (enabled() ? "True" : "False");
-    std::string enabled_color = (enabled() ? "#0F0" : "#F00");
-    table_writer.addCell(arm_enabled, "Enabled", enabled_color);
+    std::string enabled_color = (enabled() ? Colors::green : Colors::red);
+    table_writer.addCell(arm_enabled, "Enabled", enabled_color, 2);
     return table_writer.getTableString();
   }
 

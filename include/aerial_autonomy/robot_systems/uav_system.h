@@ -1,8 +1,8 @@
 #pragma once
 
 #include "uav_system_config.pb.h"
-// Html table writer
-#include <aerial_autonomy/common/html_table_writer.h>
+// Html Utilities
+#include <aerial_autonomy/common/html_utils.h>
 // Base robot system
 #include <aerial_autonomy/robot_systems/base_robot_system.h>
 // Controllers
@@ -138,9 +138,13 @@ public:
     parsernode::common::quaddata data = getUAVData();
     HtmlTableWriter table_writer;
     table_writer.beginRow();
-    table_writer.addHeader("UAV Status");
+    table_writer.addHeader("UAV Status", Colors::blue, 4);
     table_writer.beginRow();
-    table_writer.addCell(data.batterypercent, "Battery Percent");
+    std::string battery_percent_color =
+        (data.batterypercent > config_.minimum_battery_percent() ? Colors::green
+                                                                 : Colors::red);
+    table_writer.addCell(data.batterypercent, "Battery Percent",
+                         battery_percent_color, 2);
     table_writer.beginRow();
     table_writer.addCell(data.localpos.x, "Local x");
     table_writer.addCell(data.localpos.y, "Local y");
@@ -174,9 +178,10 @@ public:
     table_writer.addCell(data.velocity_goal_yaw, "Goal yaw");
     table_writer.beginRow();
     table_writer.addCell(data.mass, "Mass");
-    table_writer.addCell(data.timestamp, "Timestamp");
+    table_writer.addCell(data.timestamp, "Timestamp", Colors::white, 2);
     table_writer.beginRow();
-    table_writer.addCell(data.quadstate, "Quadstate");
+    std::string quad_state_color = (data.armed ? Colors::green : Colors::white);
+    table_writer.addCell(data.quadstate, "Quadstate", quad_state_color, 2);
     return table_writer.getTableString();
   }
 
