@@ -13,6 +13,7 @@ TEST(HtmlTableWriterTests, SimpleTable) {
   table_writer.addCell(data, "Hello");
   table_writer.addCell("Data");
   table_writer.addCell("Data", "Hello", Colors::white);
+  ///\todo Add an automatic way of validating html string
   std::cout << "Table: \n" << table_writer.getTableString() << std::endl;
 }
 TEST(HtmlTableWriterTests, TableError) {
