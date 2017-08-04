@@ -1,4 +1,5 @@
 #pragma once
+#include "aerial_autonomy/common/html_utils.h"
 #include "aerial_autonomy/common/math.h"
 #include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h"
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
@@ -48,16 +49,29 @@ public:
   
   std::string getSystemStatus() const {
     std::stringstream status;
-    status << UAVSystem::getSystemStatus() << std::endl
-           << "Tracker Status:" << std::endl
-           << "Valid: " << (tracker_.trackingIsValid() ? "True" : "False") << std::endl;
+    status << UAVSystem::getSystemStatus() << std::endl;
+    HtmlTableWriter table_writer;
+    table_writer.beginRow();
+    table_writer.addHeader("Tracker Status", Colors::blue);
+    table_writer.beginRow();
+    std::string tracking_valid =
+        (tracker_.trackingIsValid() ? "True" : "False");
+    std::string valid_color =
+        (tracker_.trackingIsValid() ? Colors::green : Colors::red);
+    table_writer.addCell(tracking_valid, "Valid", valid_color);
+    table_writer.beginRow();
+    table_writer.addCell("Tracking Vectors: ");
     std::unordered_map<uint32_t, Position> tracking_vectors;
-    if(tracker_.getTrackingVectors(tracking_vectors)) {
-      status << "Tracking Vectors: " << std::endl;
-      for(auto tv : tracking_vectors) {
-        status << "\t" << tv.first << ": " << tv.second.x << " " << tv.second.y << " " << tv.second.z << std::endl;
+    if (tracker_.getTrackingVectors(tracking_vectors)) {
+      for (auto tv : tracking_vectors) {
+        table_writer.beginRow();
+        table_writer.addCell(tv.first);
+        table_writer.addCell(tv.second.x);
+        table_writer.addCell(tv.second.y);
+        table_writer.addCell(tv.second.z);
       }
     }
+    status << table_writer.getTableString();
     return status.str();
   }
 

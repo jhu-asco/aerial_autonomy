@@ -188,4 +188,4 @@ class EventTransmissionGUI(Plugin):
         Generic placeholder function to update text box
         """
         if not sip.isdeleted(text_box):
-            text_box.setText(status)
+            text_box.setHtml(status)
