@@ -44,9 +44,9 @@ using PickInternalActionFunctor_ =
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, VisualServoingControllerDroneConnector>,
+            LogicStateMachineT, VisualServoingControllerArmConnector>,
         ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, VisualServoingControllerArmConnector>>>;
+            LogicStateMachineT, VisualServoingControllerDroneConnector, false>>>;
 /**
 * @brief Logic to check arm power and manual mode
 *
