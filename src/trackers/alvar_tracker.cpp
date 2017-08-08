@@ -12,16 +12,17 @@ bool AlvarTracker::getTrackingVectors(
 }
 
 bool AlvarTracker::trackingIsValid() {
-  // \todo Matt: make timeout configurable
-  bool valid = (ros::Time::now() - last_update_time_).toSec() < 0.5;
+  bool valid = (ros::Time::now() - last_valid_time_).toSec() < timeout_;
   if (!valid)
-    VLOG(2) << "Alvar has not been updated for 0.5 seconds";
-  return valid && !object_positions_.get().empty();
+    VLOG(2) << "Alvar has not been updated for " << timeout_ << " seconds";
+  return valid;
 }
 
 void AlvarTracker::markerCallback(
     const ar_track_alvar_msgs::AlvarMarkers &marker_msg) {
-  last_update_time_ = ros::Time::now();
+  if(marker_msg.markers.size() == 0)
+    return;
+  last_valid_time_ = ros::Time::now();
   std::unordered_map<uint32_t, Position> object_positions;
   for (unsigned int i = 0; i < marker_msg.markers.size(); i++) {
     auto marker_pose = marker_msg.markers[i].pose.pose;

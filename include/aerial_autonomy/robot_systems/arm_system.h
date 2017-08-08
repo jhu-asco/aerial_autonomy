@@ -46,16 +46,17 @@ public:
   * @brief Public API call to grip/ungrip an object
   *
   * @param grip_action true to grip an object and false to ungrip
+  * @return True if command sent successfully, false otherwise
   */
-  void grip(bool grip_action) {
+  bool grip(bool grip_action) {
     if (grip_action) {
       //\todo Gowtham Change arm plugins to update gripping strategy
       int grip_position = 1000;
-      arm_hardware_.grip(grip_position);
+      return arm_hardware_.grip(grip_position);
     } else {
       //\todo Gowtham Change arm plugins to update gripping strategy
       int grip_position = 2000;
-      arm_hardware_.grip(grip_position);
+      return arm_hardware_.grip(grip_position);
     }
   }
 

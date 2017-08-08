@@ -17,9 +17,10 @@ public:
   * @param nh ROS node handle for comms
   */
   AlvarTracker(ros::NodeHandle &nh)
-      : BaseTracker(new ClosestTrackingStrategy()), nh_(nh),
+      : BaseTracker(new ClosestTrackingStrategy(20)), nh_(nh),
         alvar_sub_(nh_.subscribe("ar_pose_marker", 1,
-                                 &AlvarTracker::markerCallback, this)) {}
+                                 &AlvarTracker::markerCallback, this)),
+        timeout_(0.2) {}
   /**
    * @brief Get the tracking vectors
    * @param pos Returned tracking vectors
@@ -54,11 +55,15 @@ private:
   */
   ros::Subscriber alvar_sub_;
   /**
-  * @brief Last time we received an Alvar message
+  * @brief Last time we received a non-empty Alvar message
   */
-  Atomic<ros::Time> last_update_time_;
+  Atomic<ros::Time> last_valid_time_;
   /**
   * @brief Stored tracking position
   */
   Atomic<std::unordered_map<uint32_t, Position>> object_positions_;
+  /**
+  * @brief Timeout for valid update
+  */
+  const double timeout_;
 };

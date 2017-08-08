@@ -20,11 +20,12 @@ struct PickGuard_
     : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
   bool guard(UAVArmSystem &robot_system) {
     VLOG(1) << "Grip Object";
-    robot_system.grip(true);
-    std::this_thread::sleep_for(
-        std::chrono::milliseconds(robot_system.gripTimeout()));
-    if (!robot_system.getCommandStatus()) {
-      LOG(WARNING) << "Failed to grip object by timeout!";
+    bool success = robot_system.grip(true);
+    // \todo this wait logic should be done on the arm plugin side and we should
+    // be checking a status asynchronously for grip completion
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    if (!success) {
+      LOG(WARNING) << "Failed to send grip command!";
       robot_system.grip(false);
       return false;
     }

@@ -25,7 +25,7 @@ TEST(SimpleMultiTrackerTests, SetTrackingVectors) {
   }
 }
 
-TEST(SimpleMultiTrackerTests, GetTrackingVectorClosest) {
+TEST(ClosestTrackingStrategyTests, GetTrackingVectorClosest) {
   SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy());
 
   std::unordered_map<uint32_t, Position> tracking_vectors;
@@ -40,8 +40,8 @@ TEST(SimpleMultiTrackerTests, GetTrackingVectorClosest) {
   ASSERT_EQ(tracking_vector, tracking_vectors[0]);
 }
 
-TEST(SimpleMultiTrackerTests, ClosestTrackingLost) {
-  SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy());
+TEST(ClosestTrackingStrategyTests, ClosestTrackingLostNoRetries) {
+  SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy(0));
 
   std::unordered_map<uint32_t, Position> tracking_vectors;
   tracking_vectors[0] = Position(1, 1, 1);
@@ -57,6 +57,72 @@ TEST(SimpleMultiTrackerTests, ClosestTrackingLost) {
   tracking_vectors.erase(0);
   simple_tracker.setTrackingVectors(tracking_vectors);
   ASSERT_FALSE(simple_tracker.getTrackingVector(tracking_vector));
+}
+
+TEST(ClosestTrackingStrategyTests, ClosestTrackingLostMultipleRetries) {
+  int retries = 5;
+  SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy(retries));
+
+  std::unordered_map<uint32_t, Position> tracking_vectors;
+  tracking_vectors[0] = Position(1, 1, 1);
+  tracking_vectors[1] = Position(1, 1, 3);
+  simple_tracker.setTrackingVectors(tracking_vectors);
+
+  simple_tracker.initialize();
+  Position tracking_vector;
+  ASSERT_TRUE(simple_tracker.getTrackingVector(tracking_vector));
+  ASSERT_EQ(tracking_vector, tracking_vectors[0]);
+
+  // Remove tracked vector
+  auto old_vector = tracking_vectors[0];
+  tracking_vectors.erase(0);
+  simple_tracker.setTrackingVectors(tracking_vectors);
+ 
+  // Test retries
+  for(int i = 0; i < retries; i++) {
+    ASSERT_TRUE(simple_tracker.getTrackingVector(tracking_vector));
+    ASSERT_EQ(tracking_vector, old_vector);
+  }
+  ASSERT_FALSE(simple_tracker.getTrackingVector(tracking_vector));
+}
+
+TEST(ClosestTrackingStrategyTests, ClosestTrackingLostMultipleRetriesReinit) {
+  int retries = 5;
+  SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy(retries));
+
+  std::unordered_map<uint32_t, Position> tracking_vectors;
+  tracking_vectors[0] = Position(1, 1, 1);
+  tracking_vectors[1] = Position(1, 1, 3);
+  simple_tracker.setTrackingVectors(tracking_vectors);
+
+  simple_tracker.initialize();
+
+  // Get vector
+  Position tracking_vector;
+  ASSERT_TRUE(simple_tracker.getTrackingVector(tracking_vector));
+  ASSERT_EQ(tracking_vector, tracking_vectors[0]);
+
+  // Reset vector
+  tracking_vectors[0] = Position(1, 1, 2);
+  simple_tracker.setTrackingVectors(tracking_vectors);
+  ASSERT_TRUE(simple_tracker.getTrackingVector(tracking_vector));
+  ASSERT_EQ(tracking_vector, tracking_vectors[0]);
+
+  // Remove tracked vector
+  auto old_vector = tracking_vectors[0];
+  tracking_vectors.erase(0);
+  simple_tracker.setTrackingVectors(tracking_vectors);
+  // Test retries
+  for(int i = 0; i < retries; i++) {
+    ASSERT_TRUE(simple_tracker.getTrackingVector(tracking_vector));
+    ASSERT_EQ(tracking_vector, old_vector);
+  }
+  ASSERT_FALSE(simple_tracker.getTrackingVector(tracking_vector));
+
+  // Reinitialize tracker
+  simple_tracker.initialize();
+  ASSERT_TRUE(simple_tracker.getTrackingVector(tracking_vector));
+  ASSERT_EQ(tracking_vector, tracking_vectors[1]);
 }
 
 int main(int argc, char **argv) {
