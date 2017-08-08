@@ -90,6 +90,12 @@ TEST_F(AlvarTrackerTests, TrackingValidEmpty) {
 
   markers.clear();
   publishMarkers(markers);
+  // Should still be valid until the timeout hits
+  ASSERT_TRUE(tracker.trackingIsValid());
+
+  /// \todo Matt This should depend on the configured ROI timeout
+  std::this_thread::sleep_for(std::chrono::milliseconds(700));
+  publishMarkers(markers);
   ASSERT_FALSE(tracker.trackingIsValid());
 }
 

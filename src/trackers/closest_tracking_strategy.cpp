@@ -10,7 +10,9 @@ bool ClosestTrackingStrategy::initialize(
   }
 
   tracked_id_ = std::get<0>(tracking_vector);
+  last_tracking_vector_ = tracking_vector;
   tracking_locked_ = true;
+  tracking_retries_ = 0;
   return true;
 }
 
@@ -24,10 +26,16 @@ bool ClosestTrackingStrategy::getTrackingVector(
   auto find_id = tracking_vectors.find(tracked_id_);
   if (find_id != tracking_vectors.end()) {
     tracking_vector = std::make_tuple(tracked_id_, find_id->second);
+    last_tracking_vector_ = tracking_vector;
+    tracking_retries_ = 0;
+    return true;
+  } else if (tracking_retries_ < max_tracking_retries_) {
+    tracking_vector = last_tracking_vector_;
+    tracking_retries_++;
     return true;
   }
 
-  // If was lost track of the target, strategy must be reinitialized
+  // Lost track of the target. Strategy must be reinitialized
   tracking_locked_ = false;
   return false;
 }

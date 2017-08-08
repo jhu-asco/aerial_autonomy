@@ -4,14 +4,15 @@
 
 /**
  * @brief A tracking strategy that locks on to the closest target when
- * initialized
+ * initialized.
  */
 class ClosestTrackingStrategy : public TrackingStrategy {
 public:
   /**
   * @brief Constructor
+  * @param max_tracking_retries Number of times to retry tracking before lock is lost
   */
-  ClosestTrackingStrategy() : tracking_locked_(false) {}
+  ClosestTrackingStrategy(uint32_t max_tracking_retries = 20) : tracking_locked_(false), max_tracking_retries_(max_tracking_retries), tracking_retries_(0) {}
   /**
   * @brief Initialize the strategy from a group of targets. Locks on to closest
   * target
@@ -23,7 +24,7 @@ public:
   /**
   * @brief Get the tracking vector for the tracked target.
   * @param tracking_vectors The vectors to the tracked targets
-  * @param tracking_vector Chosen target
+  * @param tracking_vector Tracked target which was closest when initialized
   * @return True if successful, false otherwise
   */
   virtual bool getTrackingVector(
@@ -49,4 +50,16 @@ private:
   * @brief True if tracking has been locked, false otherwise
   */
   bool tracking_locked_;
+  /**
+  * @brief Number of times to retry tracking before lock is lost
+  */
+  const uint32_t max_tracking_retries_;
+  /**
+  * @brief Number of tracking retries since last success
+  */
+  uint32_t tracking_retries_;
+  /**
+  * @brief Last successful tracking vector
+  */
+  std::tuple<uint32_t, Position> last_tracking_vector_;
 };
