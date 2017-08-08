@@ -13,14 +13,14 @@ base_config {
 
 uav_system_config {
   minimum_battery_percent: 40
-  minimum_takeoff_height: 0.5
+  minimum_takeoff_height: 0.8
   landing_height: 0.1
 
   uav_vision_system_config {
     tracker_type: "Alvar"
 
     camera_transform: 0.11
-    camera_transform: 0
+    camera_transform: 0.015
     camera_transform: -0.03
     camera_transform: -2.094
     camera_transform: 0
@@ -55,7 +55,7 @@ uav_system_config {
 
       position_controller_config {
         goal_position_tolerance: 0.05
-        goal_rotation_tolerance: 0.05
+        goal_rotation_tolerance: 6
       }
     }
   }
