@@ -39,9 +39,9 @@ uav_system_config {
       }
     }
     uav_arm_system_config {
-      arm_goal_transform: -0.2
-      arm_goal_transform: 0.0
       arm_goal_transform: -0.1
+      arm_goal_transform: 0.0
+      arm_goal_transform: -0.2
       arm_goal_transform: 0.0
       arm_goal_transform: 0.0
       arm_goal_transform: 0.0
@@ -50,8 +50,8 @@ uav_system_config {
       arm_transform: 0.0
       arm_transform: -0.085
       arm_transform: 0.0
-      arm_transform: 1.5707
-      arm_transform: 0.0
+      arm_transform: -1.5707
+      arm_transform: 3.141
 
       position_controller_config {
         goal_position_tolerance: 0.05

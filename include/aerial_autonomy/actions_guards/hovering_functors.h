@@ -48,8 +48,10 @@ struct HoveringInternalActionFunctor_
 * @brief Logic to abort if controller status is critical
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
+* @tparam ControllerConnector Controller connector whose status the functor checks
+* @tparam check_completed If false, ignores check on controller completion
 */
-template <class LogicStateMachineT, class ControllerConnector>
+template <class LogicStateMachineT, class ControllerConnector, bool check_completed = true>
 struct ControllerStatusInternalActionFunctor_
     : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
   /**
@@ -62,7 +64,7 @@ struct ControllerStatusInternalActionFunctor_
   bool run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     // Check status of controller
     ControllerStatus status = robot_system.getStatus<ControllerConnector>();
-    if (status == ControllerStatus::Completed) {
+    if (status == ControllerStatus::Completed && check_completed) {
       VLOG(1) << "Reached goal for " << typeid(ControllerConnector).name();
       logic_state_machine.process_event(Completed());
       return false;
