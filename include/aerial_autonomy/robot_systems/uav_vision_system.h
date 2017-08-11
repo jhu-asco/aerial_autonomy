@@ -64,11 +64,12 @@ public:
     std::unordered_map<uint32_t, Position> tracking_vectors;
     if (tracker_.getTrackingVectors(tracking_vectors)) {
       for (auto tv : tracking_vectors) {
+        tf::Vector3 tv_body_frame = camera_transform_*tf::Vector3(tv.second.x, tv.second.y, tv.second.z);
         table_writer.beginRow();
         table_writer.addCell(tv.first);
-        table_writer.addCell(tv.second.x);
-        table_writer.addCell(tv.second.y);
-        table_writer.addCell(tv.second.z);
+        table_writer.addCell(tv_body_frame.x());
+        table_writer.addCell(tv_body_frame.y());
+        table_writer.addCell(tv_body_frame.z());
       }
     }
     status << table_writer.getTableString();
