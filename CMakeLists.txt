@@ -168,6 +168,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/constant_heading_depth_controller_config.proto
   proto/position_controller_config.proto
   proto/velocity_controller_config.proto
+  proto/rpyt_based_velocity_controller_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -195,10 +196,13 @@ add_library(aerial_autonomy
   src/controllers/manual_rpyt_controller.cpp
   src/controllers/velocity_based_position_controller.cpp
   src/controllers/constant_heading_depth_controller.cpp
+  src/controllers/rpyt_based_velocity_controller.cpp
+  src/controllers/rpyt_based_position_controller.cpp
   src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp
   src/controller_hardware_connectors/position_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
+  src/controller_hardware_connectors/rpyt_controller_vins_connector.cpp
 )
 add_dependencies(aerial_autonomy proto)
 target_link_libraries(aerial_autonomy ${catkin_LIBRARIES})
@@ -294,6 +298,8 @@ catkin_add_gtest(${PROJECT_NAME}-thread-safe-state-machine-test tests/common/thr
 catkin_add_gtest(${PROJECT_NAME}-iterable-enum-test tests/common/iterable_enum_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-velocity-based-position-controller-test tests/controllers/velocity_based_position_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-constant-heading-depth-controller-test tests/controllers/constant_heading_depth_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-rpyt-based-velocity-controller-test tests/controllers/rpyt_based_velocity_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-rpyt-based-position-controller-test tests/controllers/rpyt_based_position_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-math-test tests/common/math_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-tracker-test tests/trackers/simple_tracker_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-roi-to-position-converter-test tests/trackers/roi_to_position_converter_tests.test tests/trackers/roi_to_position_converter_tests.cpp)
@@ -363,6 +369,12 @@ if(TARGET ${PROJECT_NAME}-velocity-based-position-controller-test)
 endif()
 if(TARGET ${PROJECT_NAME}-constant-heading-depth-controller-test)
   target_link_libraries(${PROJECT_NAME}-constant-heading-depth-controller-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-rpyt-based-velocity-controller-test)
+  target_link_libraries(${PROJECT_NAME}-rpyt-based-velocity-controller-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-rpyt-based-position-controller-test)
+  target_link_libraries(${PROJECT_NAME}-rpyt-based-position-controller-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-visual-servoing-drone-connector-test)
   target_link_libraries(${PROJECT_NAME}-visual-servoing-drone-connector-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
