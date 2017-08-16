@@ -31,7 +31,8 @@ protected:
   * for manual rpyt controller
   * @return True always
   */
-  virtual bool isConvergedImplementation(JoysticksYaw, EmptyGoal) {
+  virtual bool isConvergedImplementation(JoysticksYaw, EmptyGoal,
+                                         std::stringstream &) {
     return true;
   }
 

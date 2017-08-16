@@ -3,15 +3,6 @@
 #include "aerial_autonomy/common/atomic.h"
 
 /**
-* @brief Status of the controller
-*/
-enum class ControllerStatus {
-  Active,    ///< Controller active
-  Completed, ///< Controller completed
-  Critical   ///< Controller is critical and unable to continue
-};
-
-/**
 * @brief Base Controller class
 *
 * subclass should implement the runImplementation function which
@@ -41,11 +32,24 @@ public:
   *
   * @param sensor_data Sensor data to compare against goal for convergence
   * checking
+  * @param description Optional output that can be displayed by the controller
+  *
+  * @return true if converged/false otherwise
+  */
+  bool isConverged(SensorDataType sensor_data, std::stringstream &description) {
+    return isConvergedImplementation(sensor_data, goal_, description);
+  }
+  /**
+  * @brief Check if controller is converged
+  *
+  * @param sensor_data Sensor data to compare against goal for convergence
+  * checking
   *
   * @return true if converged/false otherwise
   */
   bool isConverged(SensorDataType sensor_data) {
-    return isConvergedImplementation(sensor_data, goal_);
+    std::stringstream description;
+    return isConvergedImplementation(sensor_data, goal_, description);
   }
   /**
    * @brief set the goal condition for the controller. Should use
@@ -82,11 +86,14 @@ protected:
   *
   * @param sensor_data Data to be used for checking convergence
   * @param goal This is compared against sensor data
+  * @param description Optional output that the controller can provide
+  * about convergence such as error metrics etc
   *
   * @return true if converged/false otherwise
   */
   virtual bool isConvergedImplementation(SensorDataType sensor_data,
-                                         GoalType goal) = 0;
+                                         GoalType goal,
+                                         std::stringstream &description) = 0;
 
 private:
   /**

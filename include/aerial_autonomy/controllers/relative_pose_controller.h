@@ -42,11 +42,13 @@ protected:
   *
   * @param sensor_data Current control pose and tracked pose
   * @param goal Goal relative pose in tracked pose frame
+  * @param description Optional output that can be displayed by the controller
   *
   * @return True if converged
   */
   virtual bool isConvergedImplementation(
-      std::tuple<tf::Transform, tf::Transform> sensor_data, tf::Transform goal);
+      std::tuple<tf::Transform, tf::Transform> sensor_data, tf::Transform goal,
+      std::stringstream &description);
 
 private:
   /**

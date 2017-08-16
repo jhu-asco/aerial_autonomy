@@ -20,8 +20,11 @@ bool VelocityBasedPositionController::runImplementation(PositionYaw sensor_data,
 }
 
 bool VelocityBasedPositionController::isConvergedImplementation(
-    PositionYaw sensor_data, PositionYaw goal) {
+    PositionYaw sensor_data, PositionYaw goal, std::stringstream &description) {
   PositionYaw position_diff = goal - sensor_data;
+  description << "Error Position, Yaw: " << position_diff.x << ", "
+              << position_diff.y << ", " << position_diff.z << ", "
+              << position_diff.yaw;
   const PositionControllerConfig &position_controller_config =
       config_.position_controller_config();
   const double &tolerance_pos =

@@ -197,6 +197,7 @@ add_library(aerial_autonomy
   src/common/async_timer.cpp
   src/common/math.cpp
   src/common/conversions.cpp
+  src/common/controller_status.cpp
   src/trackers/roi_to_position_converter.cpp
   src/trackers/simple_tracker.cpp
   src/trackers/alvar_tracker.cpp
@@ -371,7 +372,7 @@ if(TARGET ${PROJECT_NAME}-visual-servoing-functor-tests)
   target_link_libraries(${PROJECT_NAME}-visual-servoing-functor-tests aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test)
-  target_link_libraries(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test ${Boost_LIBRARIES} ${GLOG_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test aerial_autonomy proto ${Boost_LIBRARIES} ${GLOG_LIBRARIES} ${PROTOBUF_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-state-machine-gui-connector-event-test)
   target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-event-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})

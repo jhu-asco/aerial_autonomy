@@ -8,7 +8,9 @@ class SampleController : public Controller<int, int, int> {
     control = 0;
     return true;
   }
-  virtual bool isConvergedImplementation(int, int) { return true; }
+  virtual bool isConvergedImplementation(int, int, std::stringstream &) {
+    return true;
+  }
 };
 
 class SampleHardwareController

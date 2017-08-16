@@ -1,5 +1,6 @@
 #pragma once
 #include <aerial_autonomy/common/atomic.h>
+#include <aerial_autonomy/common/controller_status.h>
 #include <aerial_autonomy/controllers/base_controller.h>
 #include <glog/logging.h>
 
@@ -82,21 +83,23 @@ public:
     ControlType control;        // Declare control to send hardware
     // Extract Sensor data
     if (!extractSensorData(sensor_data)) {
-      setStatus(ControllerStatus::Critical);
+      setStatus(ControllerStatus::Critical, "Cannot extract sensor data");
       return;
     }
     // Run controller step
     if (!controller_.run(sensor_data, control)) {
-      setStatus(ControllerStatus::Critical);
+      setStatus(ControllerStatus::Critical, "Cannot run controller");
       return;
     }
     // Send hardware commands
     sendHardwareCommands(control);
+    std::stringstream controller_description;
+    controller_description << std::setprecision(3);
     // Check if controller converged
-    if (controller_.isConverged(sensor_data)) {
-      setStatus(ControllerStatus::Completed);
+    if (controller_.isConverged(sensor_data, controller_description)) {
+      setStatus(ControllerStatus::Completed, "Completed Controller");
     } else {
-      setStatus(ControllerStatus::Active);
+      setStatus(ControllerStatus::Active, controller_description.str());
     }
   }
   /**
@@ -169,6 +172,10 @@ private:
   * @brief Set the status of the controller
   *
   * @param status the status of the controller
+  * @param description Optional information about status
   */
-  void setStatus(ControllerStatus status) { status_ = status; }
+  void setStatus(ControllerStatus::Status status,
+                 std::string description = "") {
+    status_ = ControllerStatus(status, description);
+  }
 };

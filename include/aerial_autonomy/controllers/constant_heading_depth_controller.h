@@ -44,10 +44,11 @@ protected:
   *
   * @param sensor_data Current position yaw
   * @param goal Goal position. Yaw inferred from position
+  * @param description Optional output that can be displayed by the controller
   *
   * @return if converged
   */
-  virtual bool isConvergedImplementation(PositionYaw sensor_data,
-                                         Position goal);
+  virtual bool isConvergedImplementation(PositionYaw sensor_data, Position goal,
+                                         std::stringstream &description);
   ConstantHeadingDepthControllerConfig config_; ///< Controller configuration
 };
