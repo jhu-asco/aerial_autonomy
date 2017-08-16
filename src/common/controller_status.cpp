@@ -35,7 +35,7 @@ bool operator==(const ControllerStatus &controller_status,
   return controller_status.status_ == status_enum;
 }
 
-bool operator==(const ControllerStatus &controller_status,
-                const ControllerStatus &controller_status_2) {
-  return controller_status.status_ == controller_status_2.status_;
+bool operator==(const ControllerStatus &lhs_controller_status,
+                const ControllerStatus &rhs_controller_status) {
+  return lhs_controller_status.status_ == rhs_controller_status.status_;
 }
