@@ -48,6 +48,14 @@ protected:
     uav_arm_system_config->add_arm_transform(0);
     uav_arm_system_config->add_arm_transform(0);
     // Arm goal transform xyz(-0.2,0,0), rpy(0,0,0):
+    // Pre-pick goal
+    uav_arm_system_config->add_arm_goal_transform(-0.1);
+    uav_arm_system_config->add_arm_goal_transform(0);
+    uav_arm_system_config->add_arm_goal_transform(0);
+    uav_arm_system_config->add_arm_goal_transform(0);
+    uav_arm_system_config->add_arm_goal_transform(0);
+    uav_arm_system_config->add_arm_goal_transform(0);
+    // Pick goal
     uav_arm_system_config->add_arm_goal_transform(-0.2);
     uav_arm_system_config->add_arm_goal_transform(0);
     uav_arm_system_config->add_arm_goal_transform(0);
@@ -73,7 +81,37 @@ TEST_F(PickPlaceFunctorTests, Constructor) {
   ASSERT_NO_THROW(new ArmFoldInternalAction());
 }
 
-TEST_F(PickPlaceFunctorTests, CallActionFunction) {
+TEST_F(PickPlaceFunctorTests, CallPrePickActionFunction) {
+  // Specify a global position
+  Position roi_goal(1, 1, 1);
+  simple_tracker->setTargetPositionGlobalFrame(roi_goal);
+  // Test action functor
+  psa::PickTransitionGuard pick_place_transition_guard;
+  psa::PrePickTransitionAction pick_place_transition_action;
+  int dummy_start_state, dummy_target_state;
+  ASSERT_FALSE(uav_arm_system->isHomeLocationSpecified());
+  uav_arm_system->power(true);
+  ASSERT_TRUE(pick_place_transition_guard(NULL, *sample_logic_state_machine,
+                                          dummy_start_state,
+                                          dummy_target_state));
+  pick_place_transition_action(NULL, *sample_logic_state_machine,
+                               dummy_start_state, dummy_target_state);
+  ASSERT_TRUE(uav_arm_system->isHomeLocationSpecified());
+  ASSERT_EQ(uav_arm_system->getHomeLocation(), PositionYaw(0, 0, 0, 0));
+  // Get goal from controllerConnector and check if the goal is what we expect
+  Position goal =
+      uav_arm_system
+          ->getGoal<VisualServoingControllerDroneConnector, Position>();
+  ASSERT_EQ(goal, roi_goal / roi_goal.norm());
+  // Arm goal
+  tf::Transform arm_goal =
+      uav_arm_system
+          ->getGoal<VisualServoingControllerArmConnector, tf::Transform>();
+  // Check origin
+  ASSERT_EQ(arm_goal.getOrigin(), tf::Vector3(-0.1, 0, 0));
+}
+
+TEST_F(PickPlaceFunctorTests, CallPickActionFunction) {
   // Specify a global position
   Position roi_goal(1, 1, 1);
   simple_tracker->setTargetPositionGlobalFrame(roi_goal);

@@ -111,6 +111,7 @@ struct ArmStatusInternalActionFunctor_
   bool run(ArmSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     // Check if arm finally powered on
     if (!robot_system.enabled()) {
+      LOG(WARNING) << "Arm not enabled! Aborting!";
       logic_state_machine.process_event(be::Abort());
       return false;
     }

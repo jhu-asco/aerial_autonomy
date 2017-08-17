@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <launch>
   <arg name="hil" default="false"/>
-  <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/matrice_hil_pick_place_alvar_config.pbtxt" if="$(arg hil)"/>
-  <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/matrice_pick_place_alvar_config.pbtxt" unless="$(arg hil)"/>
+  <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/matrice_hil_pick_place_alvar_pointgrey_config.pbtxt" if="$(arg hil)"/>
+  <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/matrice_pick_place_alvar_pointgrey_config.pbtxt" unless="$(arg hil)"/>
   <param name="event_file" value="$(find aerial_autonomy)/events/pick_place_events" />
   <arg name="log_level" default="0"/>
   <arg name="log_dir" default="$(find aerial_autonomy)/logs"/>
@@ -37,7 +37,7 @@
   </include>
   <include file="$(find duo3d_ros)/launch/duo.launch"/>-->
   <include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch">
-    <arg name="marker_size" value="25" />
+    <arg name="marker_size" value="10" />
     <arg name="cam_image_topic" value="/pointgrey_camera/image_raw" />
     <arg name="cam_info_topic"  value="/pointgrey_camera/camera_info" />
     <arg name="output_frame"    value="/pointgrey_camera" />

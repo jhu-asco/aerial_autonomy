@@ -80,13 +80,13 @@ struct PickTransitionGuardFunctor_
  *
  * @tparam LogicStateMachineT State machine that contains the functor
  */
-template <class LogicStateMachineT>
+template <class LogicStateMachineT, int TransformIndex>
 struct VisualServoingArmTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
   void run(UAVArmSystem &robot_system) {
     VLOG(1) << "Setting Goal for visual servoing arm connector!";
     robot_system.setGoal<VisualServoingControllerArmConnector, tf::Transform>(
-        robot_system.armGoalTransform());
+        robot_system.armGoalTransform(TransformIndex));
     // Also ensure the gripper is open before going to pick objects
     robot_system.grip(false);
   }
@@ -100,3 +100,6 @@ struct VisualServoingArmTransitionActionFunctor_
 template <class LogicStateMachineT>
 using PickState_ = BaseState<UAVArmSystem, LogicStateMachineT,
                              PickInternalActionFunctor_<LogicStateMachineT>>;
+
+template <class LogicStateMachineT>
+class PrePickState_ : public PickState_<LogicStateMachineT> {};
