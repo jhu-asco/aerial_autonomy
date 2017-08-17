@@ -169,6 +169,9 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/position_controller_config.proto
   proto/velocity_controller_config.proto
   proto/rpyt_based_velocity_controller_config.proto
+  proto/rpyt_based_position_controller_config.proto
+  proto/rpyt_controller_vins_connector_config.proto
+  proto/manual_velocity_controller_drone_connector_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -194,6 +197,7 @@ add_library(aerial_autonomy
   src/trackers/roi_to_position_converter.cpp
   src/trackers/simple_tracker.cpp
   src/controllers/manual_rpyt_controller.cpp
+  src/controllers/manual_velocity_controller.cpp
   src/controllers/velocity_based_position_controller.cpp
   src/controllers/constant_heading_depth_controller.cpp
   src/controllers/rpyt_based_velocity_controller.cpp
@@ -203,6 +207,7 @@ add_library(aerial_autonomy
   src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
   src/controller_hardware_connectors/rpyt_controller_vins_connector.cpp
+  src/controller_hardware_connectors/manual_velocity_controller_drone_connector.cpp 
 )
 add_dependencies(aerial_autonomy proto)
 target_link_libraries(aerial_autonomy ${catkin_LIBRARIES})

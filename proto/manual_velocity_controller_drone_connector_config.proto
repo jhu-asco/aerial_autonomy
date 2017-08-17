@@ -1,0 +1,40 @@
+syntax = "proto2";
+
+/**
+* Uses the position controller config for tolerance
+* in position, yaw
+*/
+message ManualVelocityControllerDroneConnectorConfig {
+  /**
+  * @ brief timestep to differentiate velocity
+  */
+  optional double dt = 1 [default = 0.03];
+  /**
+  * @brief x-offset of sensor in robot frame
+  */
+  optional double sensor_tx = 2 [default = 0.0];
+  /**
+  * @brief y-offset of sensor in robot frame
+  */
+  optional double sensor_ty = 3 [default = 0.0];
+  /**
+  * @ z-offset of sensor in robot frame
+  */
+  optional double sensor_tz = 4 [default = 0.0];
+  /**
+  * @ brief roll-offset of sensor in robot frame
+  */
+ optional double sensor_r = 5 [default = -1.57];
+  /**
+  * @ brief pitch-offset of sensor in robot frame
+  */
+  optional double sensor_p = 6 [default = 0.0];
+  /**
+  * @ brief yaw-offset of sensor in robot frame
+  */
+  optional double sensor_y = 7 [default = 0.0];
+  /**
+  * @brief maximum allowed divergence from gps data
+  */
+  optional double max_divergence = 8 [default = 0.5];
+}
