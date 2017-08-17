@@ -1,0 +1,18 @@
+syntax = "proto2";
+
+import "rpyt_based_velocity_controller_config.proto";
+import "velocity_based_position_controller_config.proto";
+
+/**
+* Uses controller configs for initializing member variables
+*/
+message RPYTBasedPositionControllerConfig{
+  /**
+  * @ brief Config for the interanl rpyt based velocity controller
+  */ 
+  optional RPYTBasedVelocityControllerConfig rpyt_vel_ctlr_config = 2;
+  /**
+  * @ brief Config for the internal velocity based position controller
+  */
+  optional VelocityBasedPositionControllerConfig vel_pos_ctlr_config = 3;
+}

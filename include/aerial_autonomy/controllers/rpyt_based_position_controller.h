@@ -4,8 +4,7 @@
 #include "aerial_autonomy/controllers/rpyt_based_velocity_controller.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/roll_pitch_yaw_thrust.h"
-#include "rpyt_based_velocity_controller_config.pb.h"
-#include "velocity_based_position_controller_config.pb.h"
+#include "rpyt_based_position_controller_config.pb.h"
 
 /**
  * @brief A position controller that sends rpyt commands to the hardware
@@ -20,10 +19,10 @@ public:
     /**
   * @brief Constructor 
   */
-  RPYTBasedPositionController(
-    VelocityBasedPositionControllerConfig vel_pos_ctlr_config, 
-   RPYTBasedVelocityControllerConfig rpyt_vel_ctlr_config): 
-  vel_pos_ctlr(vel_pos_ctlr_config), rpyt_vel_ctlr(rpyt_vel_ctlr_config){}
+  RPYTBasedPositionController(RPYTBasedPositionControllerConfig config): 
+  vel_pos_ctlr(config.vel_pos_ctlr_config()), 
+  rpyt_vel_ctlr(config.rpyt_vel_ctlr_config())
+  {}
   /**
    * @brief Destructor
    */
@@ -53,5 +52,4 @@ protected:
                                          PositionYaw goal);
   VelocityBasedPositionController vel_pos_ctlr; 
   RPYTBasedVelocityController rpyt_vel_ctlr;
-  double dt = 0.03; // Timestep
 };
