@@ -17,10 +17,10 @@ public:
   */
   RPYTBasedVelocityController():
   config_(RPYTBasedVelocityControllerConfig()){
-  cumulative_err.x = 0.0;
-  cumulative_err.y = 0.0;
-  cumulative_err.z = 0.0;
-  cumulative_err.yaw = 0.0;
+  cumulative_error.x = 0.0;
+  cumulative_error.y = 0.0;
+  cumulative_error.z = 0.0;
+  cumulative_error.yaw = 0.0;
   }
 
   /**
@@ -53,6 +53,5 @@ public:
   virtual bool isConvergedImplementation(VelocityYaw sensor_data,
                                          VelocityYaw goal);
   RPYTBasedVelocityControllerConfig config_; ///< Controller configuration
-  VelocityYaw cumulative_err;
-  double dt = 0.03;  
+  VelocityYaw cumulative_error;
 };

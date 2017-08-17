@@ -7,30 +7,37 @@ bool RPYTBasedVelocityController::runImplementation(VelocityYaw sensor_data,
 {
   VelocityYaw velocity_diff = goal - sensor_data;
 
-  cumulative_err.x += velocity_diff.x*dt;
-  cumulative_err.y += velocity_diff.y*dt;
-  cumulative_err.z += velocity_diff.z*dt;
+  cumulative_error.x += velocity_diff.x*config_.dt();
+  cumulative_error.y += velocity_diff.y*config_.dt();
+  cumulative_error.z += velocity_diff.z*config_.dt();
 
-  double acc_x = config_.kp()*velocity_diff.x + config_.ki()*cumulative_err.x;
-  double acc_y = config_.kp()*velocity_diff.y + config_.ki()*cumulative_err.y;
-  double acc_z = config_.kp()*velocity_diff.z + config_.ki()*cumulative_err.z;
+  // Acceleration in world frame 
+  double acc_x = config_.kp()*velocity_diff.x + config_.ki()*cumulative_error.x;
+  double acc_y = config_.kp()*velocity_diff.y + config_.ki()*cumulative_error.y;
+  double acc_z = config_.kp()*velocity_diff.z + config_.ki()*cumulative_error.z;
 
+  // Acceleration in body frame
   Eigen::Vector3d rot_acc;
   rot_acc[0] = acc_x*cos(sensor_data.yaw) + acc_y*sin(sensor_data.yaw);
   rot_acc[1] = -acc_x*sin(sensor_data.yaw) + acc_y*cos(sensor_data.yaw);
   rot_acc[2] = acc_z;
 
+  // thrust is magnitude of scaled by kt
   control.t = rot_acc.norm()/config_.kt();
 
+  // renormalize acceleration in body frame
   rot_acc = (1/(config_.kt()*control.t))*rot_acc;
 
+  // roll = -asin(body_acc_y) when yaw-compensated
   control.r = -asin(rot_acc[1]);
+
+  // check if roll is within tolerance and compute pitch accordingly
   if(rot_acc[1] < config_.tolerance_rp())
     control.p = atan2(rot_acc[0], rot_acc[2]);
   else
   {
     control.p = 0;
-    std::cout << "control out of bounds\n";
+    std::cout << "RP out of bounds !\n";
   }
 
   control.y = goal.yaw;
@@ -52,7 +59,6 @@ bool RPYTBasedVelocityController::isConvergedImplementation(
       std::abs(velocity_diff.y) < tolerance_vel &&
       std::abs(velocity_diff.z) < tolerance_vel &&
       std::abs(velocity_diff.yaw) < tolerance_yaw) {
-    //VLOG(1) << "Reached goal";
     return true;
   }
   return false;
