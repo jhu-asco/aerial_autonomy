@@ -6,7 +6,9 @@
 #include "aerial_autonomy/types/velocity_yaw.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/roll_pitch_yaw_thrust.h"
+#include "rpyt_controller_vins_connector_config.pb.h"
 #include <parsernode/parser.h>
+#include "aerial_autonomy/common/atomic.h"
 
 /**
 *
@@ -16,7 +18,7 @@
 *
 **/
 class RPYTControllerVINSConnector 
-: public ControllerHardwareConnector<std::tuple<PositionYaw, VelocityYaw>, 
+: public ControllerHardwareConnector <std::tuple<PositionYaw, VelocityYaw>, 
 PositionYaw, RollPitchYawThrust>
 {
 public:
@@ -31,23 +33,28 @@ public:
   RPYTControllerVINSConnector(
     parsernode::Parser &drone_hardware,
     Controller<std::tuple<PositionYaw, VelocityYaw>,PositionYaw,RollPitchYawThrust> &controller)
-  : ControllerHardwareConnector(controller, HardwareType::UAV), 
-  drone_hardware_(drone_hardware)
+  :ControllerHardwareConnector(controller, HardwareType::UAV), 
+  drone_hardware_(drone_hardware), 
+  config_(RPYTControllerVINSConnectorConfig())
   {
     sensor_sub = nh_.subscribe("/rpyt_vins_connector/pose",1000,
       &RPYTControllerVINSConnector::sensorCallback,this);
 
-    sensor_tf.setOrigin(tf::Vector3(0,0,0));
-    sensor_tf.setRotation(tf::createQuaternionFromRPY(M_PI/2, 0, 0));
+    sensor_tf.setOrigin(tf::Vector3(config_.sensor_tx(), 
+      config_.sensor_ty(), config_.sensor_tz()));
+
+    sensor_tf.setRotation(tf::createQuaternionFromRPY(config_.sensor_r(),
+      config_.sensor_p(),
+      config_.sensor_y()));
   }
 
 protected:
   /**
-   * @brief  does not extract any data since nothing is needed
+   * @brief  extracts pose, velocity and yaw data
    *
    * @param sensor_data Current position.velocity and yaw of UAV
    *
-   * @return true if position.velocity and yaw can be extracted
+   * @return true if position, velocity and yaw can be extracted
    */
   virtual bool extractSensorData(std::tuple<PositionYaw, VelocityYaw> &sensor_data);
 
@@ -70,6 +77,10 @@ private:
   */
   parsernode::Parser &drone_hardware_;
   /**
+  * @brief Connector configuration 
+  */
+  RPYTControllerVINSConnectorConfig config_;
+  /**
   * @brief nodehandle to get sensor data from ros
   */
   ros::NodeHandle nh_;
@@ -80,7 +91,7 @@ private:
   /*
   *@ brief variable to store sensor data 
   */
-  std::tuple<PositionYaw, VelocityYaw> sensor_data_;
+  Atomic<std::tuple<PositionYaw, VelocityYaw>> sensor_data_;
   /*
   * @brief transfrom of sensor in robot frame
   */
