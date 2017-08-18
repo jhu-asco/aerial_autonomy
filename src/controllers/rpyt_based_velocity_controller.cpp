@@ -26,7 +26,10 @@ bool RPYTBasedVelocityController::runImplementation(VelocityYaw sensor_data,
   control.t = rot_acc.norm()/config_.kt();
 
   // renormalize acceleration in body frame
-  rot_acc = (1/(config_.kt()*control.t))*rot_acc;
+  if(control.t > 1e-8)
+    rot_acc = (1/(config_.kt()*control.t))*rot_acc;
+  else
+    rot_acc = Eigen::Vector3d(0,0,0);
 
   // roll = -asin(body_acc_y) when yaw-compensated
   control.r = -asin(rot_acc[1]);
@@ -47,19 +50,19 @@ bool RPYTBasedVelocityController::runImplementation(VelocityYaw sensor_data,
 
 bool RPYTBasedVelocityController::isConvergedImplementation(
   VelocityYaw sensor_data, VelocityYaw goal)
-  {
-      VelocityYaw velocity_diff = goal - sensor_data;
+{
+  VelocityYaw velocity_diff = goal - sensor_data;
   const VelocityControllerConfig &velocity_controller_config =
-      config_.velocity_controller_config();
+  config_.velocity_controller_config();
   const double &tolerance_vel =
-      velocity_controller_config.goal_velocity_tolerance();
+  velocity_controller_config.goal_velocity_tolerance();
   const double &tolerance_yaw = velocity_controller_config.goal_yaw_tolerance();
   // Compare
   if (std::abs(velocity_diff.x) < tolerance_vel &&
-      std::abs(velocity_diff.y) < tolerance_vel &&
-      std::abs(velocity_diff.z) < tolerance_vel &&
-      std::abs(velocity_diff.yaw) < tolerance_yaw) {
+    std::abs(velocity_diff.y) < tolerance_vel &&
+    std::abs(velocity_diff.z) < tolerance_vel &&
+    std::abs(velocity_diff.yaw) < tolerance_yaw) {
     return true;
-  }
-  return false;
-  }
+}
+return false;
+}

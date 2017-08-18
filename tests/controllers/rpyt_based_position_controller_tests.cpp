@@ -20,6 +20,7 @@ TEST(RPYTBasedPositionControllerTests, ControlsInBound)
 
   PositionYaw goal(1, -1, 0.5, 0.1);
   controller.setGoal(goal);
+  PositionYaw exp_goal = controller.getGoal();
 
   RollPitchYawThrust controls;
   bool result = controller.run(sensor_data, controls);
@@ -43,6 +44,7 @@ TEST(RPYTBasedPositionControllerTests, ControlsInBound)
   double rot_acc_y = (-acc_x*sin(vel_data.yaw) + acc_y*cos(vel_data.yaw))/(rpyt_vel_ctlr_config.kt()*controls.t);
   double rot_acc_z = acc_z/(rpyt_vel_ctlr_config.kt()*controls.t);
   
+  ASSERT_EQ(exp_goal, goal);
   ASSERT_NEAR(controls.t, exp_t, 1e-8);
   ASSERT_NEAR(controls.r, -asin(rot_acc_y),1e-8);
   ASSERT_NEAR(controls.p, atan2(rot_acc_x, rot_acc_z), 1e-8);

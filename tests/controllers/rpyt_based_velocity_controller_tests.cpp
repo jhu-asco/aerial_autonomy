@@ -14,6 +14,8 @@ TEST(RPYTBasedVelocityConrtrollerTests, ControlsInBounds)
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(0.5, -0.5, 0.5, 0.1);
   controller.setGoal(goal);
+  VelocityYaw exp_goal = controller.getGoal();
+
   VelocityYaw velocity_diff = goal - sensor_data;
   RollPitchYawThrust controls;
   bool result = controller.run(sensor_data, controls);
@@ -29,6 +31,7 @@ TEST(RPYTBasedVelocityConrtrollerTests, ControlsInBounds)
   double rot_acc_y = (-acc_x*sin(sensor_data.yaw) + acc_y*cos(sensor_data.yaw))/(config.kt()*controls.t);
   double rot_acc_z = acc_z/(config.kt()*controls.t);
   
+  ASSERT_EQ(exp_goal, goal);
   ASSERT_NEAR(controls.y, goal.yaw,1e-8);
   ASSERT_NEAR(controls.t, exp_t, 1e-8);
   ASSERT_NEAR(controls.r, -asin(rot_acc_y),1e-8);
@@ -63,6 +66,23 @@ TEST(RPYTBasedVelocityConrtrollerTests, ControlsOutOfBounds)
  ASSERT_NEAR(controls.p, 0, 1e-8);
 
  ASSERT_TRUE(result);
+}
+
+TEST(RPYTBasedVelocityController, IsConverged)
+{
+  RPYTBasedVelocityControllerConfig config;
+  RPYTBasedVelocityController controller(config);
+  VelocityYaw sensor_data(0, 0, 0, 0);
+  VelocityYaw goal(0, 0, 0, 0);
+  controller.setGoal(goal);
+  RollPitchYawThrust controls;
+  bool result = controller.run(sensor_data, controls);
+
+  ASSERT_NEAR(controls.y, 0, 1e-4);
+  ASSERT_NEAR(controls.p, 0, 1e-4);
+  ASSERT_NEAR(controls.t, 0, 1e-4);
+  ASSERT_NEAR(controls.r, 0, 1e-4);
+  ASSERT_TRUE(result);
 }
 
 TEST(RPYTBasedVelocityController, Convergence)
