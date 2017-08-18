@@ -77,8 +77,6 @@ TEST(RPYTBasedVelocityController, Convergence)
 
   for(int i=0; i< 600; i++)
   {
-    std::cout << sensor_data.x <<" "<<sensor_data.y<<" "<<sensor_data.z<<"\n";
-
     RollPitchYawThrust controls;
     controller.run(sensor_data, controls);
 

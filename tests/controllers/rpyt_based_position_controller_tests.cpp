@@ -8,16 +8,15 @@ TEST(RPYTBasedPositionControllerTests, Constructor)
 
 TEST(RPYTBasedPositionControllerTests, ControlsInBound)
 {
-  RPYTBasedVelocityControllerConfig rpyt_vel_ctlr_config;
-  VelocityBasedPositionControllerConfig vel_pos_ctrl_config;
-  RPYTBasedPositionController controller(vel_pos_ctrl_config, rpyt_vel_ctlr_config);
+  RPYTBasedPositionControllerConfig config;  	
+  RPYTBasedPositionController controller(config);
 
+  VelocityBasedPositionControllerConfig vel_pos_ctlr_config = config.vel_pos_ctlr_config();
+  RPYTBasedVelocityControllerConfig rpyt_vel_ctlr_config = config.rpyt_vel_ctlr_config();
   PositionYaw pos_data(0,0,0,0);
   VelocityYaw vel_data(0,0,0,0);
 
-  std::tuple<PositionYaw, VelocityYaw> sensor_data;
-  std::get<0>(sensor_data) = pos_data;
-  std::get<1>(sensor_data) = vel_data;
+  std::tuple<PositionYaw, VelocityYaw> sensor_data = std::make_tuple(pos_data, vel_data);
 
   PositionYaw goal(1, -1, 0.5, 0.1);
   controller.setGoal(goal);
@@ -26,10 +25,10 @@ TEST(RPYTBasedPositionControllerTests, ControlsInBound)
   bool result = controller.run(sensor_data, controls);
 
   PositionYaw position_diff = goal - pos_data;
-  VelocityYaw exp_vel(position_diff.x*vel_pos_ctrl_config.position_gain(),
-    position_diff.y*vel_pos_ctrl_config.position_gain(),
-    position_diff.z*vel_pos_ctrl_config.position_gain(),
-    position_diff.yaw*vel_pos_ctrl_config.yaw_gain());
+  VelocityYaw exp_vel(position_diff.x*vel_pos_ctlr_config.position_gain(),
+    position_diff.y*vel_pos_ctlr_config.position_gain(),
+    position_diff.z*vel_pos_ctlr_config.position_gain(),
+    position_diff.yaw*vel_pos_ctlr_config.yaw_gain());
 
   VelocityYaw velocity_diff = exp_vel - vel_data;
 
