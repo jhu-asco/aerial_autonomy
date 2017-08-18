@@ -97,7 +97,7 @@ public:
     controller_description << std::setprecision(3);
     // Check if controller converged
     if (controller_.isConverged(sensor_data, controller_description)) {
-      setStatus(ControllerStatus::Completed, "Completed Controller");
+      setStatus(ControllerStatus::Completed, "Controller Converged");
     } else {
       setStatus(ControllerStatus::Active, controller_description.str());
     }

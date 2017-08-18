@@ -1,4 +1,8 @@
 #include <aerial_autonomy/common/controller_status.h>
+// Html utils
+#include <aerial_autonomy/common/html_utils.h>
+// Ostream
+#include <iostream>
 
 ControllerStatus::ControllerStatus(ControllerStatus::Status status,
                                    std::string description)

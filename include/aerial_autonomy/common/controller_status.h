@@ -1,8 +1,8 @@
 #pragma once
-// Html utils
-#include <aerial_autonomy/common/html_utils.h>
-// Ostream
-#include <iostream>
+// set precision
+#include <iomanip>
+// Define strings
+#include <string>
 
 /**
 * @brief Status of the controller
