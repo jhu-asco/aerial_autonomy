@@ -70,7 +70,7 @@ public:
       Controller<SensorDataType, GoalType, ControlType> &controller,
       HardwareType hardware_type)
       : AbstractControllerHardwareConnector(), hardware_type_(hardware_type),
-        controller_(controller), status_(ControllerStatus::Active) {}
+        controller_(controller) {}
 
   /**
    * @brief Extracts sensor data, run controller and send data back to hardware
@@ -83,24 +83,20 @@ public:
     ControlType control;        // Declare control to send hardware
     // Extract Sensor data
     if (!extractSensorData(sensor_data)) {
-      setStatus(ControllerStatus::Critical, "Cannot extract sensor data");
+      status_ = ControllerStatus(ControllerStatus::Critical,
+                                 "Cannot extract sensor data");
       return;
     }
     // Run controller step
     if (!controller_.run(sensor_data, control)) {
-      setStatus(ControllerStatus::Critical, "Cannot run controller");
+      status_ =
+          ControllerStatus(ControllerStatus::Critical, "Cannot run controller");
       return;
     }
     // Send hardware commands
     sendHardwareCommands(control);
-    std::stringstream controller_description;
-    controller_description << std::setprecision(3);
-    // Check if controller converged
-    if (controller_.isConverged(sensor_data, controller_description)) {
-      setStatus(ControllerStatus::Completed, "Controller Converged");
-    } else {
-      setStatus(ControllerStatus::Active, controller_description.str());
-    }
+    // Check if controller converged and get status
+    status_ = controller_.isConverged(sensor_data);
   }
   /**
    * @brief Set the goal for controller
@@ -108,7 +104,7 @@ public:
    * @param goal Goal for controller
    */
   void setGoal(GoalType goal) {
-    setStatus(ControllerStatus::Active);
+    status_ = ControllerStatus(ControllerStatus::Active);
     controller_.setGoal(goal);
   }
   /**
@@ -168,14 +164,4 @@ private:
   * @brief Status of the controller
   */
   Atomic<ControllerStatus> status_;
-  /**
-  * @brief Set the status of the controller
-  *
-  * @param status the status of the controller
-  * @param description Optional information about status
-  */
-  void setStatus(ControllerStatus::Status status,
-                 std::string description = "") {
-    status_ = ControllerStatus(status, description);
-  }
 };

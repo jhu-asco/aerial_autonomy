@@ -29,11 +29,10 @@ protected:
   /**
   * @brief Default implementation since there is no concept of convergence
   * for manual rpyt controller
-  * @return True always
+  * @return status that contains different states the controller and debug info.
   */
-  virtual bool isConvergedImplementation(JoysticksYaw, EmptyGoal,
-                                         std::stringstream &) {
-    return true;
+  virtual ControllerStatus isConvergedImplementation(JoysticksYaw, EmptyGoal) {
+    return ControllerStatus(ControllerStatus::Completed);
   }
 
 private:

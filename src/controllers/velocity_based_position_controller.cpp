@@ -19,12 +19,12 @@ bool VelocityBasedPositionController::runImplementation(PositionYaw sensor_data,
   return true;
 }
 
-bool VelocityBasedPositionController::isConvergedImplementation(
-    PositionYaw sensor_data, PositionYaw goal, std::stringstream &description) {
+ControllerStatus VelocityBasedPositionController::isConvergedImplementation(
+    PositionYaw sensor_data, PositionYaw goal) {
   PositionYaw position_diff = goal - sensor_data;
-  description << "Error Position, Yaw: " << position_diff.x << ", "
-              << position_diff.y << ", " << position_diff.z << ", "
-              << position_diff.yaw;
+  ControllerStatus status(ControllerStatus::Active);
+  status << "Error Position, Yaw: " << position_diff.x << position_diff.y
+         << position_diff.z << position_diff.yaw;
   const PositionControllerConfig &position_controller_config =
       config_.position_controller_config();
   const double &tolerance_pos =
@@ -36,7 +36,8 @@ bool VelocityBasedPositionController::isConvergedImplementation(
       std::abs(position_diff.z) < tolerance_pos &&
       std::abs(position_diff.yaw) < tolerance_yaw) {
     VLOG(1) << "Reached goal";
-    return true;
+    status.setStatus(ControllerStatus::Completed, "Reached goal");
+    return status;
   }
-  return false;
+  return status;
 }

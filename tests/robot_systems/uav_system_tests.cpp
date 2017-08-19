@@ -109,17 +109,16 @@ TEST(UAVSystemTests, getActiveControllerStatus) {
   PositionYaw position_yaw(1, 1, 1, 1);
   uav_system.setGoal<PositionControllerDroneConnector>(position_yaw);
 
-  ControllerStatus status;
-  ASSERT_TRUE(uav_system.getActiveControllerStatus(HardwareType::UAV, status));
-  ASSERT_EQ(status, ControllerStatus::Active);
+  ASSERT_EQ(uav_system.getActiveControllerStatus(HardwareType::UAV),
+            ControllerStatus::Active);
 
   uav_system.runActiveController(HardwareType::UAV);
   uav_system.runActiveController(HardwareType::UAV);
-  ASSERT_TRUE(uav_system.getActiveControllerStatus(HardwareType::UAV, status));
-  ASSERT_EQ(status, ControllerStatus::Completed);
+  ASSERT_TRUE(uav_system.getActiveControllerStatus(HardwareType::UAV));
 
   uav_system.abortController(HardwareType::UAV);
-  ASSERT_FALSE(uav_system.getActiveControllerStatus(HardwareType::UAV, status));
+  ASSERT_EQ(uav_system.getActiveControllerStatus(HardwareType::UAV),
+            ControllerStatus::NotEngaged);
 }
 
 TEST(UAVSystemTests, abortController) {

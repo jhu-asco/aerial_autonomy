@@ -56,18 +56,17 @@ protected:
   *
   * @param current_position_yaw Current position and yaw from UAV
   * @param goal Goal position and yaw
-  * @param description Optional output that can be displayed by the controller
   *
-  * @return True if converged/False otherwise
+  * @return status that contains different states the controller and debug info.
   */
-  virtual bool isConvergedImplementation(PositionYaw current_position_yaw,
-                                         PositionYaw goal,
-                                         std::stringstream &description) {
+  virtual ControllerStatus
+  isConvergedImplementation(PositionYaw current_position_yaw,
+                            PositionYaw goal) {
     PositionYaw position_yaw_diff = current_position_yaw - goal;
-    // Add optional description
-    description << "Position Yaw diff: " << position_yaw_diff.x << ", "
-                << position_yaw_diff.y << ", " << position_yaw_diff.z << ", "
-                << position_yaw_diff.yaw;
+    // Create Controller Status
+    ControllerStatus status(ControllerStatus::Active);
+    status << "PositionYawDiff: " << position_yaw_diff.x << position_yaw_diff.y
+           << position_yaw_diff.z << position_yaw_diff.yaw;
     const double &tolerance_pos = config_.goal_position_tolerance();
     const double &tolerance_yaw = config_.goal_yaw_tolerance();
     // Compare
@@ -76,9 +75,10 @@ protected:
         std::abs(position_yaw_diff.z) < tolerance_pos &&
         std::abs(position_yaw_diff.yaw) < tolerance_yaw) {
       VLOG(1) << "Reached goal";
-      return true;
+      status.setStatus(ControllerStatus::Completed, "Reached goal");
+      return status;
     }
-    return false;
+    return status;
   }
 
 private:
@@ -114,18 +114,18 @@ protected:
   *
   * @param current_velocity_yaw Current velocity and yaw from UAV
   * @param goal Goal velocity and yaw
-  * @param description Optional output that can be displayed by the controller
   *
-  * @return True if converged/False otherwise
+  * @return status that contains different states the controller and debug info.
   */
-  virtual bool isConvergedImplementation(VelocityYaw current_velocity_yaw,
-                                         VelocityYaw goal,
-                                         std::stringstream &description) {
+  virtual ControllerStatus
+  isConvergedImplementation(VelocityYaw current_velocity_yaw,
+                            VelocityYaw goal) {
     VelocityYaw velocity_yaw_diff = current_velocity_yaw - goal;
     // Add optional description:
-    description << "Error Velocity, Yaw: " << velocity_yaw_diff.x << ", "
-                << velocity_yaw_diff.y << ", " << velocity_yaw_diff.z << ", "
-                << velocity_yaw_diff.yaw;
+    ControllerStatus status(ControllerStatus::Active);
+    status << "Error Velocity, Yaw: " << velocity_yaw_diff.x
+           << velocity_yaw_diff.y << velocity_yaw_diff.z
+           << velocity_yaw_diff.yaw;
     const double &tolerance_pos = config_.goal_velocity_tolerance();
     const double &tolerance_yaw = config_.goal_yaw_tolerance();
     // Compare
@@ -134,9 +134,10 @@ protected:
         std::abs(velocity_yaw_diff.z) < tolerance_pos &&
         std::abs(velocity_yaw_diff.yaw) < tolerance_yaw) {
       VLOG(1) << "Reached goal";
-      return true;
+      status.setStatus(ControllerStatus::Completed, "Reached Goal");
+      return status;
     }
-    return false;
+    return status;
   }
 
 private:

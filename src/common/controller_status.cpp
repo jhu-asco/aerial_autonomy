@@ -5,11 +5,12 @@
 #include <iostream>
 
 ControllerStatus::ControllerStatus(ControllerStatus::Status status,
-                                   std::string description)
-    : status_(status), description_(description) {}
+                                   std::string status_description)
+    : status_(status), status_description_(status_description),
+      debug_header("") {}
 
-std::string ControllerStatus::getStatus() {
-  HtmlTableWriter controller_status_table;
+std::string ControllerStatus::getHtmlStatusString() {
+  HtmlTableWriter controller_status_table(90); // Shorter width
   controller_status_table.beginRow();
   switch (status_) {
   case ControllerStatus::Active:
@@ -29,8 +30,14 @@ std::string ControllerStatus::getStatus() {
                                     Colors::red, 2);
     break;
   }
+  controller_status_table.addCell(status_description_);
   controller_status_table.beginRow();
-  controller_status_table.addCell(description_, "", Colors::white, 4);
+  if (!debug_header.empty()) {
+    controller_status_table.addCell(debug_header);
+  }
+  for (const double &data : debug_info) {
+    controller_status_table.addCell(data);
+  }
   return controller_status_table.getTableString();
 }
 
@@ -42,4 +49,14 @@ bool operator==(const ControllerStatus &controller_status,
 bool operator==(const ControllerStatus &lhs_controller_status,
                 const ControllerStatus &rhs_controller_status) {
   return lhs_controller_status.status_ == rhs_controller_status.status_;
+}
+
+ControllerStatus &operator<<(ControllerStatus &cs, const double &data) {
+  cs.debug_info.push_back(data);
+  return cs;
+}
+
+ControllerStatus &operator<<(ControllerStatus &cs, const std::string &data) {
+  cs.debug_header = std::string(data);
+  return cs;
 }

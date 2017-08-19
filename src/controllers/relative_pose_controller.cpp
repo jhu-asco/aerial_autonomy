@@ -8,9 +8,8 @@ bool RelativePoseController::runImplementation(
   return true;
 }
 
-bool RelativePoseController::isConvergedImplementation(
-    std::tuple<tf::Transform, tf::Transform> sensor_data, tf::Transform goal,
-    std::stringstream &description) {
+ControllerStatus RelativePoseController::isConvergedImplementation(
+    std::tuple<tf::Transform, tf::Transform> sensor_data, tf::Transform goal) {
   tf::Transform current_pose = std::get<0>(sensor_data);
   tf::Transform tracked_pose = std::get<1>(sensor_data);
 
@@ -24,9 +23,9 @@ bool RelativePoseController::isConvergedImplementation(
   tf::Vector3 abs_error_position =
       (relative_position - goal_position).absolute();
   // Add optional description
-  description << "Error Pos, Rotation: " << abs_error_position.x() << ", "
-              << abs_error_position.y() << ", " << abs_error_position.z()
-              << ", " << rot_diff;
+  ControllerStatus status(ControllerStatus::Active);
+  status << "Error Pos, Rotation: " << abs_error_position.x()
+         << abs_error_position.y() << abs_error_position.z() << rot_diff;
 
   const double &tolerance_pos = config_.goal_position_tolerance();
   if (abs_error_position.x() < tolerance_pos &&
@@ -34,7 +33,8 @@ bool RelativePoseController::isConvergedImplementation(
       abs_error_position.z() < tolerance_pos &&
       rot_diff < config_.goal_rotation_tolerance()) {
     VLOG(1) << "Reached goal";
-    return true;
+    status.setStatus(ControllerStatus::Completed, "Reached goal");
+    return status;
   }
-  return false;
+  return status;
 }

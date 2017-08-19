@@ -41,12 +41,10 @@ protected:
   *
   * @param sensor_data Current position yaw
   * @param goal Goal position yaw
-  * @param description Optional output that can be displayed by the controller
   *
-  * @return  True if sensor data is close to goal
+  * @return status that contains different states the controller and debug info.
   */
-  virtual bool isConvergedImplementation(PositionYaw sensor_data,
-                                         PositionYaw goal,
-                                         std::stringstream &description);
+  virtual ControllerStatus isConvergedImplementation(PositionYaw sensor_data,
+                                                     PositionYaw goal);
   VelocityBasedPositionControllerConfig config_; ///< Controller configuration
 };
