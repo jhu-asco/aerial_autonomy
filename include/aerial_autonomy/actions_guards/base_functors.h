@@ -2,6 +2,8 @@
 
 // Static asserts
 #include <type_traits>
+// Internal Transition Event
+#include <aerial_autonomy/types/internal_transition_event.h>
 
 /**
 * @brief Action Functor for a given event, robot system, state machine
@@ -246,9 +248,3 @@ struct InternalActionFunctor {
   */
   virtual ~InternalActionFunctor() {}
 };
-
-/**
- * @brief The InternalTransitionEvent struct
- * used to trigger action behaviors in states
- */
-struct InternalTransitionEvent {};
