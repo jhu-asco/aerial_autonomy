@@ -154,6 +154,7 @@ catkin_package(
 generate_event_targets(
 uav_basic_events
 visual_servoing_events
+manual_velocity_control_events
 )
 
 ##############
@@ -281,7 +282,7 @@ catkin_add_gtest(${PROJECT_NAME}-type-map-test tests/common/type_map_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/position_controller_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/builtin_velocity_controller_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/manual_rpyt_controller_drone_connector_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-uav-system-test tests/robot_systems/uav_system_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-uav-system-test tests/robot_systems/uav_system_tests.test tests/robot_systems/uav_system_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-uav-basic-functor-tests tests/actions_guards/uav_basic_functor_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-functor-tests tests/actions_guards/visual_servoing_functor_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-uav-basic-state-machine-test tests/state_machines/uav_state_machine_tests.cpp)
@@ -305,7 +306,8 @@ catkin_add_gtest(${PROJECT_NAME}-velocity-based-position-controller-test tests/c
 catkin_add_gtest(${PROJECT_NAME}-constant-heading-depth-controller-test tests/controllers/constant_heading_depth_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-velocity-controller-test tests/controllers/rpyt_based_velocity_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-position-controller-test tests/controllers/rpyt_based_position_controller_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-manual-velocity-controller-test tests/controllers/manual_velocity_controller_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-manual-velocity-controller-drone-connector-test tests/controller_hardware_connectors/manual_velocity_controller_drone_connector_tests.test tests/controller_hardware_connectors/manual_velocity_controller_drone_connector_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-rpyt-controller-vins-connector-test tests/controller_hardware_connectors/rpyt_controller_vins_connector_tests.test tests/controller_hardware_connectors/rpyt_controller_vins_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-math-test tests/common/math_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-tracker-test tests/trackers/simple_tracker_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-roi-to-position-converter-test tests/trackers/roi_to_position_converter_tests.test tests/trackers/roi_to_position_converter_tests.cpp)
@@ -384,6 +386,12 @@ if(TARGET ${PROJECT_NAME}-rpyt-based-position-controller-test)
 endif()
 if(TARGET ${PROJECT_NAME}-manual-velocity-controller-test)
   target_link_libraries(${PROJECT_NAME}-manual-velocity-controller-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-manual-velocity-controller-drone-connector-test)
+  target_link_libraries(${PROJECT_NAME}-manual-velocity-controller-drone-connector-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-rpyt-controller-vins-connector-test)
+  target_link_libraries(${PROJECT_NAME}-rpyt-controller-vins-connector-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-visual-servoing-drone-connector-test)
   target_link_libraries(${PROJECT_NAME}-visual-servoing-drone-connector-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})

@@ -39,6 +39,10 @@ private:
   */
   ManualRPYTController manual_rpyt_controller_;
   /**
+  * @brief velocity controller using joystick controller connector
+  */
+  ManualVelocityController manual_velocity_controller_;
+  /**
    * @brief connector for position controller
    */
   PositionControllerDroneConnector position_controller_drone_connector_;
@@ -50,7 +54,10 @@ private:
   * @brief connector for rpyt controller
   */
   ManualRPYTControllerDroneConnector rpyt_controller_drone_connector_;
-
+  /**
+  * brief connector for manual velocity controller
+  */
+  ManualVelocityControllerDroneConnector manual_velocity_controller_drone_connector_;
   /**
   * @brief Home Location
   */
@@ -87,6 +94,8 @@ public:
                                              builtin_velocity_controller_),
         rpyt_controller_drone_connector_(drone_hardware,
                                          manual_rpyt_controller_),
+        manual_velocity_controller_drone_connector_(drone_hardware,
+                                          manual_velocity_controller_),
         home_location_specified_(false) {
     // Add control hardware connector containers
     controller_hardware_connector_container_.setObject(
@@ -95,6 +104,8 @@ public:
         velocity_controller_drone_connector_);
     controller_hardware_connector_container_.setObject(
         rpyt_controller_drone_connector_);
+    controller_hardware_connector_container_.setObject(
+        manual_velocity_controller_drone_connector_);
   }
   /**
   * @brief Get sensor data from UAV

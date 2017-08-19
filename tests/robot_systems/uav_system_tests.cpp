@@ -103,6 +103,30 @@ TEST(UAVSystemTests, runRPYTController) {
   ASSERT_NEAR(sensor_data.omega.z, -0.00314, 1e-3);
 }
 
+TEST(UAVSystemTests, runManualVelocityController) {
+  QuadSimulator drone_hardware;
+  UAVSystem uav_system(drone_hardware);
+  uav_system.takeOff();
+  
+  // set rc channels
+  int16_t channels[4] = {0, 0, 0, 0};
+  drone_hardware.setRC(channels);
+  drone_hardware.set_delay_send_time(0.02);
+  // set goal
+  uav_system.setGoal<ManualVelocityControllerDroneConnector>(EmptyGoal());
+  // Run 10 iterations
+  for (int i = 0; i < 100; ++i) {
+    uav_system.runActiveController(HardwareType::UAV);
+    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+  }
+  parsernode::common::quaddata sensor_data = uav_system.getUAVData();
+  ASSERT_NEAR(sensor_data.rpydata.x, 0.00, 1e-4);
+  ASSERT_NEAR(sensor_data.rpydata.y, 0.00, 1e-4);
+  // Verify Omegaz
+  ASSERT_NEAR(sensor_data.omega.z, 0.00, 1e-3);
+}
+
+
 TEST(UAVSystemTests, getActiveControllerStatus) {
   QuadSimulator drone_hardware;
   UAVSystem uav_system(drone_hardware);
@@ -139,6 +163,7 @@ TEST(UAVSystemTests, abortController) {
 ///
 
 int main(int argc, char **argv) {
+  ros::init(argc, argv, "uav_system_tests");
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

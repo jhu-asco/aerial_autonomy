@@ -1,0 +1,3 @@
+ManualVelocityControlEventManager:
+  uav_basic_events/UAVEventManager
+  JoystickControl
