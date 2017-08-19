@@ -20,7 +20,7 @@
 class ManualVelocityControllerDroneConnector
 : public ControllerHardwareConnector<std::tuple<JoysticksYaw, VelocityYaw>,
 EmptyGoal,
-VelocityYaw> {
+RollPitchYawThrust> {
 public:
   /**
   * @brief Constructor
@@ -33,12 +33,11 @@ public:
   */
   ManualVelocityControllerDroneConnector(
     parsernode::Parser &drone_hardware,
-    Controller<std::tuple<JoysticksYaw,VelocityYaw>, EmptyGoal, VelocityYaw> &controller)
+    Controller<std::tuple<JoysticksYaw,VelocityYaw>, EmptyGoal, RollPitchYawThrust> &controller)
   : ControllerHardwareConnector(controller, HardwareType::UAV),
   drone_hardware_(drone_hardware),
   config_(ManualVelocityControllerDroneConnectorConfig()) {
 
-    // TODO soham : create proto and get these as params
     sensor_sub = nh_.subscribe("/rpyt_vins_connector/pose",1000,
       &ManualVelocityControllerDroneConnector::sensorCallback,this);
 
@@ -79,7 +78,7 @@ private:
   */
   parsernode::Parser &drone_hardware_;
   /**
-  *
+  * @brief Config for controller connector 
   */
   ManualVelocityControllerDroneConnectorConfig config_;
   /**
