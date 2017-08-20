@@ -1,6 +1,4 @@
 #pragma once
-// set precision
-#include <iomanip>
 // Define strings
 #include <string>
 // Vector for debug info

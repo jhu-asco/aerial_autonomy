@@ -27,11 +27,13 @@ template <class A0, class A1 = parameter::void_, class A2 = parameter::void_,
 */
 class thread_safe_state_machine : public state_machine<A0, A1, A2, A3, A4> {
 
-  mutable boost::recursive_mutex
-      process_event_mutex_; ///< Mutex to synchronize process event functions
-                            /**
-                             * @brief  Last event processed by the state machine
-                             */
+  /**
+   * @brief Mutex to synchronize process event functions
+   */
+  mutable boost::recursive_mutex process_event_mutex_;
+  /**
+   * @brief  Last event processed by the state machine
+   */
   std::type_index last_processed_event_index;
 
 public:

@@ -41,9 +41,9 @@ ControllerStatus ConstantHeadingDepthController::isConvergedImplementation(
   double error_yaw =
       math::angleWrap(std::atan2(goal.y, goal.x) - sensor_data.yaw);
   Position error = Position(sensor_data.x, sensor_data.y, sensor_data.z) - goal;
-  // Add optional description
   ControllerStatus status(ControllerStatus::Active);
-  status << " Error pos, Yaw: " << error.x << error.y << error.z << error_yaw;
+  status << " Error Position, Yaw: " << error.x << error.y << error.z
+         << error_yaw;
   const PositionControllerConfig &position_controller_config =
       config_.position_controller_config();
   const double &tolerance_pos =
@@ -55,7 +55,6 @@ ControllerStatus ConstantHeadingDepthController::isConvergedImplementation(
       std::abs(error_yaw) < tolerance_yaw) {
     VLOG(1) << "Reached goal";
     status.setStatus(ControllerStatus::Completed, "Reached Goal");
-    return status;
   }
   return status;
 }

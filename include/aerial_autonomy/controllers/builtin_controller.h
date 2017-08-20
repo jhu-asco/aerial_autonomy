@@ -57,13 +57,12 @@ protected:
   * @param current_position_yaw Current position and yaw from UAV
   * @param goal Goal position and yaw
   *
-  * @return status that contains different states the controller and debug info.
+  * @return controller status that contains an enum and debug information.
   */
   virtual ControllerStatus
   isConvergedImplementation(PositionYaw current_position_yaw,
                             PositionYaw goal) {
     PositionYaw position_yaw_diff = current_position_yaw - goal;
-    // Create Controller Status
     ControllerStatus status(ControllerStatus::Active);
     status << "PositionYawDiff: " << position_yaw_diff.x << position_yaw_diff.y
            << position_yaw_diff.z << position_yaw_diff.yaw;
@@ -76,7 +75,6 @@ protected:
         std::abs(position_yaw_diff.yaw) < tolerance_yaw) {
       VLOG(1) << "Reached goal";
       status.setStatus(ControllerStatus::Completed, "Reached goal");
-      return status;
     }
     return status;
   }
@@ -135,7 +133,6 @@ protected:
         std::abs(velocity_yaw_diff.yaw) < tolerance_yaw) {
       VLOG(1) << "Reached goal";
       status.setStatus(ControllerStatus::Completed, "Reached Goal");
-      return status;
     }
     return status;
   }

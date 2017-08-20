@@ -71,6 +71,13 @@ TEST(ControllerStatusTests, Compare) {
   EXPECT_NE(controller_status_1, controller_status_2);
 }
 
+TEST(ControllerStatusTests, CompareTrue) {
+  ControllerStatus controller_status_1(ControllerStatus::Active);
+  ControllerStatus controller_status_2(ControllerStatus::Completed);
+  EXPECT_TRUE(controller_status_2);
+  EXPECT_FALSE(controller_status_1);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

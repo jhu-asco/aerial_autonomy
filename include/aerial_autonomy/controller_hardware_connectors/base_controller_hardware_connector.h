@@ -79,23 +79,19 @@ public:
     // Get latest sensor data
     // run the controller
     // send the data back to hardware manager
-    SensorDataType sensor_data; // Declare sensor data
-    ControlType control;        // Declare control to send hardware
-    // Extract Sensor data
+    SensorDataType sensor_data;
+    ControlType control;
     if (!extractSensorData(sensor_data)) {
       status_ = ControllerStatus(ControllerStatus::Critical,
                                  "Cannot extract sensor data");
       return;
     }
-    // Run controller step
     if (!controller_.run(sensor_data, control)) {
       status_ =
           ControllerStatus(ControllerStatus::Critical, "Cannot run controller");
       return;
     }
-    // Send hardware commands
     sendHardwareCommands(control);
-    // Check if controller converged and get status
     status_ = controller_.isConverged(sensor_data);
   }
   /**

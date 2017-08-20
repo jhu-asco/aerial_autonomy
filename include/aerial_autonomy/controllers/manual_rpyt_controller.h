@@ -29,7 +29,7 @@ protected:
   /**
   * @brief Default implementation since there is no concept of convergence
   * for manual rpyt controller
-  * @return status that contains different states the controller and debug info.
+  * @return controller status that contains an enum and debug information.
   */
   virtual ControllerStatus isConvergedImplementation(JoysticksYaw, EmptyGoal) {
     return ControllerStatus(ControllerStatus::Completed);

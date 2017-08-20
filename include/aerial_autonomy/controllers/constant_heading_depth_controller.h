@@ -45,7 +45,7 @@ protected:
   * @param sensor_data Current position yaw
   * @param goal Goal position. Yaw inferred from position
   *
-  * @return status that contains different states the controller and debug info.
+  * @return controller status that contains an enum and debug information.
   */
   virtual ControllerStatus isConvergedImplementation(PositionYaw sensor_data,
                                                      Position goal);

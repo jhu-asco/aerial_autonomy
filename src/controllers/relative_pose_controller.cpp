@@ -22,9 +22,8 @@ ControllerStatus RelativePoseController::isConvergedImplementation(
 
   tf::Vector3 abs_error_position =
       (relative_position - goal_position).absolute();
-  // Add optional description
   ControllerStatus status(ControllerStatus::Active);
-  status << "Error Pos, Rotation: " << abs_error_position.x()
+  status << "Error Position, Rotation: " << abs_error_position.x()
          << abs_error_position.y() << abs_error_position.z() << rot_diff;
 
   const double &tolerance_pos = config_.goal_position_tolerance();
@@ -34,7 +33,6 @@ ControllerStatus RelativePoseController::isConvergedImplementation(
       rot_diff < config_.goal_rotation_tolerance()) {
     VLOG(1) << "Reached goal";
     status.setStatus(ControllerStatus::Completed, "Reached goal");
-    return status;
   }
   return status;
 }

@@ -37,7 +37,6 @@ ControllerStatus VelocityBasedPositionController::isConvergedImplementation(
       std::abs(position_diff.yaw) < tolerance_yaw) {
     VLOG(1) << "Reached goal";
     status.setStatus(ControllerStatus::Completed, "Reached goal");
-    return status;
   }
   return status;
 }

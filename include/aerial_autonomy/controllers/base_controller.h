@@ -34,7 +34,7 @@ public:
   * @param sensor_data Sensor data to compare against goal for convergence
   * checking
   *
-  * @return status that contains different states the controller and debug info.
+  * @return controller status that contains an enum and debug information.
   */
   ControllerStatus isConverged(SensorDataType sensor_data) {
     return isConvergedImplementation(sensor_data, goal_);
@@ -75,7 +75,7 @@ protected:
   * @param sensor_data Data to be used for checking convergence
   * @param goal This is compared against sensor data
   *
-  * @return status that contains different states the controller and debug info.
+  * @return controller status that contains an enum and debug information.
   */
   virtual ControllerStatus isConvergedImplementation(SensorDataType sensor_data,
                                                      GoalType goal) = 0;
