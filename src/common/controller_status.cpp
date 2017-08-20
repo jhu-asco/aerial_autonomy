@@ -51,6 +51,11 @@ bool operator==(const ControllerStatus &lhs_controller_status,
   return lhs_controller_status.status_ == rhs_controller_status.status_;
 }
 
+bool operator!=(const ControllerStatus &lhs_controller_status,
+                const ControllerStatus &rhs_controller_status) {
+  return lhs_controller_status.status_ != rhs_controller_status.status_;
+}
+
 ControllerStatus &operator<<(ControllerStatus &cs, const double &data) {
   cs.debug_info.push_back(data);
   return cs;

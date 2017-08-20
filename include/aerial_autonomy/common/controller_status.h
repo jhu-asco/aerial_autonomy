@@ -50,6 +50,17 @@ private:
                          const ControllerStatus &rhs_controller_status);
 
   /**
+   * @brief An overload function to compare two controller status
+   * classes
+   * @param lhs_controller_status first controller status
+   * @param rhs_controller_status second controller status
+   *
+   * @return true if both controller status do not have the same status enum
+   * stored
+   */
+  friend bool operator!=(const ControllerStatus &lhs_controller_status,
+                         const ControllerStatus &rhs_controller_status);
+  /**
    * @brief Add data to controller status
    *
    * @param cs ControllerStatus instance
