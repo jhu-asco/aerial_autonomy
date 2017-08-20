@@ -12,8 +12,8 @@
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/system_handlers/common_system_handler.h>
-#include <aerial_autonomy/trackers/roi_to_position_converter.h>
 #include <aerial_autonomy/trackers/alvar_tracker.h>
+#include <aerial_autonomy/trackers/roi_to_position_converter.h>
 
 #include "uav_system_handler_config.pb.h"
 
@@ -47,9 +47,13 @@ public:
                            "SimpleArm"
                        ? dynamic_cast<ArmParser *>(new SimpleArm(nh_arm_))
                        : dynamic_cast<ArmParser *>(new ArmSimulator()))),
-        tracker_(config.uav_system_config().uav_vision_system_config().tracker_type() == "ROI" ? 
-            dynamic_cast<BaseTracker*>(new RoiToPositionConverter(nh_tracker_)) 
-            : dynamic_cast<BaseTracker*>(new AlvarTracker(nh_tracker_))),
+        tracker_(
+            config.uav_system_config()
+                        .uav_vision_system_config()
+                        .tracker_type() == "ROI"
+                ? dynamic_cast<BaseTracker *>(
+                      new RoiToPositionConverter(nh_tracker_))
+                : dynamic_cast<BaseTracker *>(new AlvarTracker(nh_tracker_))),
         uav_system_(*tracker_, *uav_hardware_, *arm_hardware_,
                     config.uav_system_config()),
         common_handler_(config.base_config(), uav_system_),
@@ -102,7 +106,7 @@ private:
       parser_loader_; ///< Used to load hardware plugin
   std::unique_ptr<parsernode::Parser> uav_hardware_; ///< Hardware instance
   std::unique_ptr<ArmParser> arm_hardware_;          ///< Arm Hardware instance
-  std::unique_ptr<BaseTracker> tracker_; ///< Tracking system
+  std::unique_ptr<BaseTracker> tracker_;             ///< Tracking system
   UAVArmSystem uav_system_;                          ///< Contains controllers
   CommonSystemHandler<LogicStateMachineT, EventManagerT, UAVArmSystem>
       common_handler_;              ///< Common logic to create state machine

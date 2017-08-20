@@ -47,7 +47,8 @@ using PickInternalActionFunctor_ =
         ControllerStatusInternalActionFunctor_<
             LogicStateMachineT, VisualServoingControllerArmConnector>,
         ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, VisualServoingControllerDroneConnector, false>>>;
+            LogicStateMachineT, VisualServoingControllerDroneConnector,
+            false>>>;
 /**
 * @brief Logic to check arm power and manual mode
 *
@@ -101,5 +102,11 @@ template <class LogicStateMachineT>
 using PickState_ = BaseState<UAVArmSystem, LogicStateMachineT,
                              PickInternalActionFunctor_<LogicStateMachineT>>;
 
+/**
+* @brief State that uses position control functor to reach a desired goal prior
+* to picking.
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 class PrePickState_ : public PickState_<LogicStateMachineT> {};

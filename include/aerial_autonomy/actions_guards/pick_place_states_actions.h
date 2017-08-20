@@ -99,7 +99,8 @@ struct PickPlaceStatesActions
       typename vsa::VisualServoingTransitionAction,
       VisualServoingArmTransitionActionFunctor_<LogicStateMachineT, 1>>>;
   /**
-  * @brief Set goal for visual servoing and also arm controller for positioning arm for pick
+  * @brief Set goal for visual servoing and also arm controller for positioning
+  * arm for pick
   */
   using PrePickTransitionAction = bActionSequence<boost::mpl::vector<
       typename vsa::VisualServoingTransitionAction,
