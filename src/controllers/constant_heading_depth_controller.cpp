@@ -55,7 +55,7 @@ ControllerStatus ConstantHeadingDepthController::isConvergedImplementation(
   if (std::abs(error.x) < tolerance_pos && std::abs(error.y) < tolerance_pos &&
       std::abs(error.z) < tolerance_pos &&
       std::abs(error_yaw) < tolerance_yaw) {
-    VLOG(1) << "Reached goal";
+    VLOG_EVERY_N(1, 50) << "Reached goal";
     status.setStatus(ControllerStatus::Completed, "Reached Goal");
   }
   return status;
