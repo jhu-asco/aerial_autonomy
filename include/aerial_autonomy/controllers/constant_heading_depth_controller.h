@@ -3,6 +3,9 @@
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/velocity_yaw_rate.h"
 #include "constant_heading_depth_controller_config.pb.h"
+#include <chrono>
+#include <ctime>
+#include <fstream>
 #include <tf/tf.h>
 
 /**
