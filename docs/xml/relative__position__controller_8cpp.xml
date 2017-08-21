@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="relative__position__controller_8cpp" kind="file">
+    <compoundname>relative_position_controller.cpp</compoundname>
+    <includes refid="relative__position__controller_8h" local="yes">aerial_autonomy/controllers/relative_position_controller.h</includes>
+    <includes local="no">glog/logging.h</includes>
+    <incdepgraph>
+      <node id="4645">
+        <label>boost/thread/mutex.hpp</label>
+      </node>
+      <node id="4650">
+        <label>glog/logging.h</label>
+      </node>
+      <node id="4647">
+        <label>cmath</label>
+      </node>
+      <node id="4641">
+        <label>src/controllers/relative_position_controller.cpp</label>
+        <link refid="relative_position_controller.cpp"/>
+        <childnode refid="4642" relation="include">
+        </childnode>
+        <childnode refid="4650" relation="include">
+        </childnode>
+      </node>
+      <node id="4649">
+        <label>tuple</label>
+      </node>
+      <node id="4643">
+        <label>aerial_autonomy/controllers/base_controller.h</label>
+        <link refid="base__controller_8h"/>
+        <childnode refid="4644" relation="include">
+        </childnode>
+      </node>
+      <node id="4648">
+        <label>position_controller_config.pb.h</label>
+      </node>
+      <node id="4642">
+        <label>aerial_autonomy/controllers/relative_position_controller.h</label>
+        <link refid="relative__position__controller_8h"/>
+        <childnode refid="4643" relation="include">
+        </childnode>
+        <childnode refid="4646" relation="include">
+        </childnode>
+        <childnode refid="4648" relation="include">
+        </childnode>
+        <childnode refid="4649" relation="include">
+        </childnode>
+      </node>
+      <node id="4646">
+        <label>aerial_autonomy/types/position.h</label>
+        <link refid="position_8h"/>
+        <childnode refid="4647" relation="include">
+        </childnode>
+      </node>
+      <node id="4644">
+        <label>aerial_autonomy/common/atomic.h</label>
+        <link refid="atomic_8h"/>
+        <childnode refid="4645" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="relative__position__controller_8h" kindref="compound">aerial_autonomy/controllers/relative_position_controller.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;glog/logging.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classRelativePositionController_1a2362c32b42aac062e895716e1c981821" kindref="member">RelativePositionController::runImplementation</ref>(</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/>std::tuple&lt;Position,<sp/>Position&gt;<sp/>sensor_data,<sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>goal,</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>&amp;control)<sp/>{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/>control<sp/>=<sp/>std::get&lt;1&gt;(sensor_data)<sp/>+<sp/>goal;</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classRelativePositionController_1a70108b11e6f06295b3c11d493441c0b4" kindref="member">RelativePositionController::isConvergedImplementation</ref>(</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>std::tuple&lt;Position,<sp/>Position&gt;<sp/>sensor_data,<sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>goal)<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>current_position<sp/>=<sp/>std::get&lt;0&gt;(sensor_data);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>tracked_position<sp/>=<sp/>std::get&lt;1&gt;(sensor_data);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>relative_position<sp/>=<sp/>current_position<sp/>-<sp/>tracked_position;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;tolerance_pos<sp/>=<sp/>config_.goal_position_tolerance();</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::abs(relative_position.x<sp/>-<sp/>goal.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>)<sp/>&lt;<sp/>tolerance_pos<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::abs(relative_position.y<sp/>-<sp/>goal.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>)<sp/>&lt;<sp/>tolerance_pos<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::abs(relative_position.z<sp/>-<sp/>goal.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>)<sp/>&lt;<sp/>tolerance_pos)<sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>VLOG(1)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Reached<sp/>goal&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/controllers/relative_position_controller.cpp"/>
+  </compounddef>
+</doxygen>

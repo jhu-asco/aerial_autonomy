@@ -21,12 +21,12 @@
       </param>
     </templateparamlist>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="structActionFunctor_1a97250a2cc027dc3ca7d10a975d11a5c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+      <memberdef kind="function" id="structActionFunctor_1aaa710274291fc963032dcb29628781d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
         <definition>virtual void ActionFunctor&lt; EventT, RobotSystemT, LogicStateMachineT &gt;::run</definition>
-        <argsstring>(EventT const &amp;event, RobotSystemT &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)=0</argsstring>
+        <argsstring>(EventT const &amp;event, RobotSystemT &amp;robot_system)=0</argsstring>
         <name>run</name>
-        <reimplementedby refid="structPositionControlTransitionActionFunctor___1a4970bb461809ffa30984e16902bb8aaa">run</reimplementedby>
+        <reimplementedby refid="structPositionControlTransitionActionFunctor___1a858864e90eb80c51b5f177aec918b378">run</reimplementedby>
         <param>
           <type>EventT const &amp;</type>
           <declname>event</declname>
@@ -34,10 +34,6 @@
         <param>
           <type>RobotSystemT &amp;</type>
           <declname>robot_system</declname>
-        </param>
-        <param>
-          <type>LogicStateMachineT &amp;</type>
-          <declname>logic_state_machine</declname>
         </param>
         <briefdescription>
 <para>Override this run function for different sub classes. This function performs the logic checking for each state. </para>        </briefdescription>
@@ -51,13 +47,6 @@
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>logic_state_machine</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Backend of logic State Machine. can send events using this. </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
 <parametername>event</parametername>
 </parameternamelist>
 <parameterdescription>
@@ -67,7 +56,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="28" column="1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="28" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structActionFunctor_1adbf24aea135ecf5a0d470b290a5cab02" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -120,7 +109,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="38" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="38" bodyend="53"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="37" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="37" bodyend="49"/>
       </memberdef>
       <memberdef kind="function" id="structActionFunctor_1aaaa4c1ce7204b370be55f2ef4a618258" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type></type>
@@ -133,7 +122,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="58" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="58" bodyend="58"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="54" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="54" bodyend="54"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -162,10 +151,10 @@
 </parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="18" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="18" bodyend="59"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="20" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="20" bodyend="55"/>
     <listofallmembers>
       <member refid="structActionFunctor_1adbf24aea135ecf5a0d470b290a5cab02" prot="public" virt="non-virtual"><scope>ActionFunctor</scope><name>operator()</name></member>
-      <member refid="structActionFunctor_1a97250a2cc027dc3ca7d10a975d11a5c7" prot="public" virt="pure-virtual"><scope>ActionFunctor</scope><name>run</name></member>
+      <member refid="structActionFunctor_1aaa710274291fc963032dcb29628781d5" prot="public" virt="pure-virtual"><scope>ActionFunctor</scope><name>run</name></member>
       <member refid="structActionFunctor_1aaaa4c1ce7204b370be55f2ef4a618258" prot="public" virt="virtual"><scope>ActionFunctor</scope><name>~ActionFunctor</name></member>
     </listofallmembers>
   </compounddef>

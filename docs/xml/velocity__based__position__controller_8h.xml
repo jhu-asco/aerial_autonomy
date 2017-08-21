@@ -8,86 +8,108 @@
     <includes local="yes">velocity_based_position_controller_config.pb.h</includes>
     <includedby refid="velocity__based__position__controller_8cpp" local="no">src/controllers/velocity_based_position_controller.cpp</includedby>
     <incdepgraph>
-      <node id="3190">
+      <node id="5659">
         <label>boost/thread/mutex.hpp</label>
       </node>
-      <node id="3191">
-        <label>aerial_autonomy/types/position_yaw.h</label>
-        <link refid="position__yaw_8h"/>
-        <childnode refid="3192" relation="include">
+      <node id="5656">
+        <label>include/aerial_autonomy/controllers/velocity_based_position_controller.h</label>
+        <link refid="velocity_based_position_controller.h"/>
+        <childnode refid="5657" relation="include">
         </childnode>
-        <childnode refid="3194" relation="include">
+        <childnode refid="5663" relation="include">
         </childnode>
-      </node>
-      <node id="3193">
-        <label>cmath</label>
-      </node>
-      <node id="3195">
-        <label>stdexcept</label>
-      </node>
-      <node id="3189">
-        <label>aerial_autonomy/controllers/base_controller.h</label>
-        <link refid="base__controller_8h"/>
-        <childnode refid="3190" relation="include">
+        <childnode refid="5669" relation="include">
+        </childnode>
+        <childnode refid="5671" relation="include">
         </childnode>
       </node>
-      <node id="3196">
-        <label>tf/tf.h</label>
-      </node>
-      <node id="3197">
-        <label>aerial_autonomy/types/velocity_yaw.h</label>
-        <link refid="velocity__yaw_8h"/>
-        <childnode refid="3198" relation="include">
-        </childnode>
-        <childnode refid="3194" relation="include">
-        </childnode>
-      </node>
-      <node id="3199">
-        <label>velocity_based_position_controller_config.pb.h</label>
-      </node>
-      <node id="3198">
+      <node id="5670">
         <label>aerial_autonomy/types/velocity.h</label>
         <link refid="velocity_8h"/>
       </node>
-      <node id="3188">
-        <label>include/aerial_autonomy/controllers/velocity_based_position_controller.h</label>
-        <link refid="velocity_based_position_controller.h"/>
-        <childnode refid="3189" relation="include">
-        </childnode>
-        <childnode refid="3191" relation="include">
-        </childnode>
-        <childnode refid="3197" relation="include">
-        </childnode>
-        <childnode refid="3199" relation="include">
-        </childnode>
+      <node id="5665">
+        <label>cmath</label>
       </node>
-      <node id="3194">
+      <node id="5667">
+        <label>stdexcept</label>
+      </node>
+      <node id="5661">
+        <label>string</label>
+      </node>
+      <node id="5668">
+        <label>tf/tf.h</label>
+      </node>
+      <node id="5666">
         <label>aerial_autonomy/common/math.h</label>
         <link refid="math_8h"/>
-        <childnode refid="3193" relation="include">
+        <childnode refid="5665" relation="include">
         </childnode>
-        <childnode refid="3195" relation="include">
+        <childnode refid="5667" relation="include">
         </childnode>
-        <childnode refid="3196" relation="include">
+        <childnode refid="5668" relation="include">
         </childnode>
       </node>
-      <node id="3192">
+      <node id="5660">
+        <label>aerial_autonomy/common/controller_status.h</label>
+        <link refid="controller__status_8h"/>
+        <childnode refid="5661" relation="include">
+        </childnode>
+        <childnode refid="5662" relation="include">
+        </childnode>
+      </node>
+      <node id="5662">
+        <label>vector</label>
+      </node>
+      <node id="5657">
+        <label>aerial_autonomy/controllers/base_controller.h</label>
+        <link refid="base__controller_8h"/>
+        <childnode refid="5658" relation="include">
+        </childnode>
+        <childnode refid="5660" relation="include">
+        </childnode>
+      </node>
+      <node id="5671">
+        <label>velocity_based_position_controller_config.pb.h</label>
+      </node>
+      <node id="5663">
+        <label>aerial_autonomy/types/position_yaw.h</label>
+        <link refid="position__yaw_8h"/>
+        <childnode refid="5664" relation="include">
+        </childnode>
+        <childnode refid="5666" relation="include">
+        </childnode>
+      </node>
+      <node id="5664">
         <label>aerial_autonomy/types/position.h</label>
         <link refid="position_8h"/>
-        <childnode refid="3193" relation="include">
+        <childnode refid="5665" relation="include">
+        </childnode>
+      </node>
+      <node id="5669">
+        <label>aerial_autonomy/types/velocity_yaw.h</label>
+        <link refid="velocity__yaw_8h"/>
+        <childnode refid="5670" relation="include">
+        </childnode>
+        <childnode refid="5666" relation="include">
+        </childnode>
+      </node>
+      <node id="5658">
+        <label>aerial_autonomy/common/atomic.h</label>
+        <link refid="atomic_8h"/>
+        <childnode refid="5659" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3201">
-        <label>src/controllers/velocity_based_position_controller.cpp</label>
-        <link refid="velocity__based__position__controller_8cpp"/>
-      </node>
-      <node id="3200">
+      <node id="5672">
         <label>include/aerial_autonomy/controllers/velocity_based_position_controller.h</label>
         <link refid="velocity_based_position_controller.h"/>
-        <childnode refid="3201" relation="include">
+        <childnode refid="5673" relation="include">
         </childnode>
+      </node>
+      <node id="5673">
+        <label>src/controllers/velocity_based_position_controller.cpp</label>
+        <link refid="velocity__based__position__controller_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classVelocityBasedPositionController" prot="public">VelocityBasedPositionController</innerclass>
@@ -114,11 +136,11 @@
 <codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
 <codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classVelocityBasedPositionController_1aa4dd4ab85aabb384141aca4de37d1747" kindref="member">runImplementation</ref>(<ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>sensor_data,<sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>goal,</highlight></codeline>
 <codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structVelocityYaw" kindref="compound">VelocityYaw</ref><sp/>&amp;control);</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classVelocityBasedPositionController_1a0c966f3c0fbda08fdaaba82973047909" kindref="member">isConvergedImplementation</ref>(<ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>sensor_data,</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>goal);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref><sp/><ref refid="classVelocityBasedPositionController_1a96cd6d6210b5388b32646edb627ecaa2" kindref="member">isConvergedImplementation</ref>(<ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>sensor_data,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>goal);</highlight></codeline>
 <codeline lineno="49" refid="classVelocityBasedPositionController_1a12d109ebf20b8479ae46c48a1b864079" refkind="member"><highlight class="normal"><sp/><sp/>VelocityBasedPositionControllerConfig<sp/><ref refid="classVelocityBasedPositionController_1a12d109ebf20b8479ae46c48a1b864079" kindref="member">config_</ref>;<sp/></highlight></codeline>
 <codeline lineno="50"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h"/>
   </compounddef>
 </doxygen>

@@ -1,12 +1,14 @@
 var searchData=
 [
-  ['main',['main',['../uav__system__node_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;uav_system_node.cpp'],['../uav__vision__system__node_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;uav_vision_system_node.cpp'],['../event__publish__node_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;event_publish_node.cpp']]],
+  ['main',['main',['../uav__arm__system__node_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;uav_arm_system_node.cpp'],['../uav__system__node_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;uav_system_node.cpp'],['../uav__vision__system__node_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;uav_vision_system_node.cpp'],['../event__publish__node_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627',1,'main(int argc, char **argv):&#160;event_publish_node.cpp']]],
   ['manual_5fcontrol_5fevent_2eh',['manual_control_event.h',['../manual__control__event_8h.html',1,'']]],
   ['manual_5fcontrol_5ffunctors_2eh',['manual_control_functors.h',['../manual__control__functors_8h.html',1,'']]],
   ['manual_5frpyt_5fcontroller_2ecpp',['manual_rpyt_controller.cpp',['../manual__rpyt__controller_8cpp.html',1,'']]],
   ['manual_5frpyt_5fcontroller_2eh',['manual_rpyt_controller.h',['../manual__rpyt__controller_8h.html',1,'']]],
   ['manual_5frpyt_5fcontroller_5fdrone_5fconnector_2ecpp',['manual_rpyt_controller_drone_connector.cpp',['../manual__rpyt__controller__drone__connector_8cpp.html',1,'']]],
   ['manual_5frpyt_5fcontroller_5fdrone_5fconnector_2eh',['manual_rpyt_controller_drone_connector.h',['../manual__rpyt__controller__drone__connector_8h.html',1,'']]],
+  ['manualcontrolarminternalactionfunctor_5f',['ManualControlArmInternalActionFunctor_',['../pick__place__functors_8h.html#ae9a33afcf83d023d4e755dcfced50d60',1,'pick_place_functors.h']]],
+  ['manualcontrolarmstate',['ManualControlArmState',['../structPickPlaceStatesActions_1_1ManualControlArmState.html',1,'PickPlaceStatesActions']]],
   ['manualcontrolevent',['ManualControlEvent',['../structManualControlEvent.html',1,'']]],
   ['manualcontrolinternalactionfunctor_5f',['ManualControlInternalActionFunctor_',['../structManualControlInternalActionFunctor__.html',1,'']]],
   ['manualcontrolstate',['ManualControlState',['../structUAVStatesActions.html#ad12379ab87f454043ca0c96dac85fef5',1,'UAVStatesActions']]],

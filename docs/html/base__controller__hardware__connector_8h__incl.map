@@ -1,3 +1,5 @@
 <map id="include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" name="include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h">
-<area shape="rect" id="node2" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="5,110,187,151"/>
+<area shape="rect" id="node2" href="$atomic_8h.html" title="aerial_autonomy/common\l/atomic.h" alt="" coords="5,201,176,242"/>
+<area shape="rect" id="node4" href="$controller__status_8h.html" title="aerial_autonomy/common\l/controller_status.h" alt="" coords="208,201,379,242"/>
+<area shape="rect" id="node7" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="101,110,283,151"/>
 </map>

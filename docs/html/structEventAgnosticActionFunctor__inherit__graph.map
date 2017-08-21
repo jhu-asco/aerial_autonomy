@@ -1,3 +1,3 @@
 <map id="EventAgnosticActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;" name="EventAgnosticActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;">
-<area shape="rect" id="node2" href="$structUAVStatusActionFunctor.html" title="UAVStatusActionFunctor\l\&lt; RobotSystemT, LogicStateMachineT \&gt;" alt="" coords="4,97,264,138"/>
+<area shape="rect" id="node2" href="$structUAVStatusActionFunctor.html" title="Functor which internally checks for UAV status before calling status independent run function..." alt="" coords="4,97,264,138"/>
 </map>

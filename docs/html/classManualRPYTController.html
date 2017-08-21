@@ -121,9 +121,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a973e1525b28d50ab77303e2f80c5c706 inherit pub_methods_classController"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#a973e1525b28d50ab77303e2f80c5c706">run</a> (JoysticksYawsensor_data, <a class="el" href="structRollPitchYawThrust.html">RollPitchYawThrust</a> &amp;control)</td></tr>
 <tr class="memdesc:a973e1525b28d50ab77303e2f80c5c706 inherit pub_methods_classController"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the control loop and return control arguments.  <a href="#a973e1525b28d50ab77303e2f80c5c706">More...</a><br/></td></tr>
 <tr class="separator:a973e1525b28d50ab77303e2f80c5c706 inherit pub_methods_classController"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab25282f175c8eaa2b132b4a80b61f7ae inherit pub_methods_classController"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#ab25282f175c8eaa2b132b4a80b61f7ae">isConverged</a> (JoysticksYawsensor_data)</td></tr>
-<tr class="memdesc:ab25282f175c8eaa2b132b4a80b61f7ae inherit pub_methods_classController"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if controller is converged.  <a href="#ab25282f175c8eaa2b132b4a80b61f7ae">More...</a><br/></td></tr>
-<tr class="separator:ab25282f175c8eaa2b132b4a80b61f7ae inherit pub_methods_classController"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ea079c466120794096a49fb768b6ae6 inherit pub_methods_classController"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classControllerStatus.html">ControllerStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#a0ea079c466120794096a49fb768b6ae6">isConverged</a> (JoysticksYawsensor_data)</td></tr>
+<tr class="memdesc:a0ea079c466120794096a49fb768b6ae6 inherit pub_methods_classController"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if controller is converged.  <a href="#a0ea079c466120794096a49fb768b6ae6">More...</a><br/></td></tr>
+<tr class="separator:a0ea079c466120794096a49fb768b6ae6 inherit pub_methods_classController"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a172aae7e2475b72fb2eb469ccd198387 inherit pub_methods_classController"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#a172aae7e2475b72fb2eb469ccd198387">setGoal</a> (EmptyGoalgoal)</td></tr>
 <tr class="memdesc:a172aae7e2475b72fb2eb469ccd198387 inherit pub_methods_classController"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the goal condition for the controller. Should use internal locking as the run function can be called from a separate thread  <a href="#a172aae7e2475b72fb2eb469ccd198387">More...</a><br/></td></tr>
 <tr class="separator:a172aae7e2475b72fb2eb469ccd198387 inherit pub_methods_classController"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -139,9 +139,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a37e85721f5e631d01eef12decb771c90"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classManualRPYTController.html#a37e85721f5e631d01eef12decb771c90">runImplementation</a> (<a class="el" href="structJoysticksYaw.html">JoysticksYaw</a> sensor_data, <a class="el" href="structEmptyGoal.html">EmptyGoal</a> goal, <a class="el" href="structRollPitchYawThrust.html">RollPitchYawThrust</a> &amp;control)</td></tr>
 <tr class="memdesc:a37e85721f5e631d01eef12decb771c90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the control loop. Converts Joystick commands to RPYT.  <a href="#a37e85721f5e631d01eef12decb771c90">More...</a><br/></td></tr>
 <tr class="separator:a37e85721f5e631d01eef12decb771c90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a828067d46cbaff43131c4a7c8129b569"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classManualRPYTController.html#a828067d46cbaff43131c4a7c8129b569">isConvergedImplementation</a> (<a class="el" href="structJoysticksYaw.html">JoysticksYaw</a>, <a class="el" href="structEmptyGoal.html">EmptyGoal</a>)</td></tr>
-<tr class="memdesc:a828067d46cbaff43131c4a7c8129b569"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default implementation since there is no concept of convergence for manual rpyt controller.  <a href="#a828067d46cbaff43131c4a7c8129b569">More...</a><br/></td></tr>
-<tr class="separator:a828067d46cbaff43131c4a7c8129b569"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4338d61ceb2985239aaa9a9be0386060"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classControllerStatus.html">ControllerStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classManualRPYTController.html#a4338d61ceb2985239aaa9a9be0386060">isConvergedImplementation</a> (<a class="el" href="structJoysticksYaw.html">JoysticksYaw</a>, <a class="el" href="structEmptyGoal.html">EmptyGoal</a>)</td></tr>
+<tr class="memdesc:a4338d61ceb2985239aaa9a9be0386060"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default implementation since there is no concept of convergence for manual rpyt controller.  <a href="#a4338d61ceb2985239aaa9a9be0386060">More...</a><br/></td></tr>
+<tr class="separator:a4338d61ceb2985239aaa9a9be0386060"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A controller that passes joystick commands to a drone's RPYT controller. </p>
@@ -172,7 +172,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a828067d46cbaff43131c4a7c8129b569"></a>
+<a class="anchor" id="a4338d61ceb2985239aaa9a9be0386060"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -180,7 +180,7 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool ManualRPYTController::isConvergedImplementation </td>
+          <td class="memname">virtual <a class="el" href="classControllerStatus.html">ControllerStatus</a> ManualRPYTController::isConvergedImplementation </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structJoysticksYaw.html">JoysticksYaw</a>&#160;</td>
           <td class="paramname">, </td>
@@ -205,9 +205,9 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Default implementation since there is no concept of convergence for manual rpyt controller. </p>
-<dl class="section return"><dt>Returns</dt><dd>True always </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>controller status that contains an enum and debug information. </dd></dl>
 
-<p>Implements <a class="el" href="classController.html#ada247bf6a611958743df418250d5b454">Controller&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</a>.</p>
+<p>Implements <a class="el" href="classController.html#a21b30148805b4eddd65d61e330361f11">Controller&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</a>.</p>
 
 </div>
 </div>

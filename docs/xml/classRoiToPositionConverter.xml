@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="120" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="120" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="123" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="123" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classRoiToPositionConverter_1a7f15d4cf311931bccdb8f913592fc2c1" prot="private" static="no" mutable="no">
         <type>ros::Subscriber</type>
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="124" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="124" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="127" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="127" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classRoiToPositionConverter_1a99f6207b2721c958be35f12ffc096234" prot="private" static="no" mutable="no">
         <type>ros::Subscriber</type>
@@ -42,7 +42,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="128" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="128" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="131" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="131" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classRoiToPositionConverter_1aee90c94ff8c073472d53cd746b0523fe" prot="private" static="no" mutable="no">
         <type>ros::Subscriber</type>
@@ -55,7 +55,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="132" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="132" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="135" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="135" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classRoiToPositionConverter_1a2ec2a7428cb0df18dbe3330bc71cf122" prot="private" static="no" mutable="no">
         <type>image_transport::Subscriber</type>
@@ -68,11 +68,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="136" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="136" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="139" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="139" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classRoiToPositionConverter_1a909173cc88124b3376ca26ce4b16502e" prot="private" static="no" mutable="no">
-        <type>sensor_msgs::CameraInfoPtr</type>
-        <definition>sensor_msgs::CameraInfoPtr RoiToPositionConverter::camera_info_</definition>
+      <memberdef kind="variable" id="classRoiToPositionConverter_1a3c8c3ba5cd0e0add94cc6a3fec462234" prot="private" static="no" mutable="no">
+        <type><ref refid="classAtomic" kindref="compound">Atomic</ref>&lt; sensor_msgs::CameraInfo &gt;</type>
+        <definition>Atomic&lt;sensor_msgs::CameraInfo&gt; RoiToPositionConverter::camera_info_</definition>
         <argsstring></argsstring>
         <name>camera_info_</name>
         <briefdescription>
@@ -81,11 +81,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="140" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="140" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="143" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="143" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classRoiToPositionConverter_1a865d5245cb967dc72d118e389bd5eef5" prot="private" static="no" mutable="no">
-        <type>sensor_msgs::RegionOfInterest</type>
-        <definition>sensor_msgs::RegionOfInterest RoiToPositionConverter::roi_rect_</definition>
+      <memberdef kind="variable" id="classRoiToPositionConverter_1a3fa70ff22e61a2261f45db241f6c4c4a" prot="private" static="no" mutable="no">
+        <type><ref refid="classAtomic" kindref="compound">Atomic</ref>&lt; sensor_msgs::RegionOfInterest &gt;</type>
+        <definition>Atomic&lt;sensor_msgs::RegionOfInterest&gt; RoiToPositionConverter::roi_rect_</definition>
         <argsstring></argsstring>
         <name>roi_rect_</name>
         <briefdescription>
@@ -94,11 +94,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="144" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="144" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="147" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="147" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classRoiToPositionConverter_1a35c85778542bfe67d2113c8e73ff79ef" prot="private" static="no" mutable="no">
-        <type><ref refid="structPosition" kindref="compound">Position</ref></type>
-        <definition>Position RoiToPositionConverter::object_position_</definition>
+      <memberdef kind="variable" id="classRoiToPositionConverter_1a8baa756f4c33f376e3faff945ae2f802" prot="private" static="no" mutable="no">
+        <type><ref refid="classAtomic" kindref="compound">Atomic</ref>&lt; <ref refid="structPosition" kindref="compound">Position</ref> &gt;</type>
+        <definition>Atomic&lt;Position&gt; RoiToPositionConverter::object_position_</definition>
         <argsstring></argsstring>
         <name>object_position_</name>
         <briefdescription>
@@ -107,7 +107,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="148" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="148" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="151" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="151" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classRoiToPositionConverter_1a9ff02e668985d7a886b5ea0aa6f17d49" prot="private" static="no" mutable="no">
         <type>double</type>
@@ -118,10 +118,10 @@
         <briefdescription>
 <para>Max distance of object from camera (meters) </para>        </briefdescription>
         <detaileddescription>
-<para><xrefsect id="todo_1_todo000017"><xreftitle>Todo</xreftitle><xrefdescription><para>Make this a configurable param </para></xrefdescription></xrefsect></para>        </detaileddescription>
+<para><xrefsect id="todo_1_todo000016"><xreftitle>Todo</xreftitle><xrefdescription><para>Make this a configurable param </para></xrefdescription></xrefsect></para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="153" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="153" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="156" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="156" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classRoiToPositionConverter_1ae61bc0cbae030a3d840afb60ee4f779c" prot="private" static="no" mutable="no">
         <type>double</type>
@@ -132,14 +132,14 @@
         <briefdescription>
 <para>Percentage of pixel depths to include as foreground. </para>        </briefdescription>
         <detaileddescription>
-<para><xrefsect id="todo_1_todo000018"><xreftitle>Todo</xreftitle><xrefdescription><para>Make this a configurable param </para></xrefdescription></xrefsect></para>        </detaileddescription>
+<para><xrefsect id="todo_1_todo000017"><xreftitle>Todo</xreftitle><xrefdescription><para>Make this a configurable param </para></xrefdescription></xrefsect></para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="158" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="158" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="161" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="161" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classRoiToPositionConverter_1a64f867f801bca3c2c73b527ebfa8ea1c" prot="private" static="no" mutable="no">
-        <type>ros::Time</type>
-        <definition>ros::Time RoiToPositionConverter::last_roi_update_time_</definition>
+      <memberdef kind="variable" id="classRoiToPositionConverter_1ac427169465a7e23d6ca87cb0c1c7aa7f" prot="private" static="no" mutable="no">
+        <type><ref refid="classAtomic" kindref="compound">Atomic</ref>&lt; ros::Time &gt;</type>
+        <definition>Atomic&lt;ros::Time&gt; RoiToPositionConverter::last_roi_update_time_</definition>
         <argsstring></argsstring>
         <name>last_roi_update_time_</name>
         <briefdescription>
@@ -148,59 +148,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="163" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="163" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classRoiToPositionConverter_1add61d19c073d324f1001b061f521465d" prot="private" static="no" mutable="no">
-        <type>boost::mutex</type>
-        <definition>boost::mutex RoiToPositionConverter::camera_info_mutex_</definition>
-        <argsstring></argsstring>
-        <name>camera_info_mutex_</name>
-        <briefdescription>
-<para>Mutex to control access to camera_info_. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="168" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="168" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classRoiToPositionConverter_1adf3d8477aa08693e71f0ca8544b35c05" prot="private" static="no" mutable="no">
-        <type>boost::mutex</type>
-        <definition>boost::mutex RoiToPositionConverter::position_mutex_</definition>
-        <argsstring></argsstring>
-        <name>position_mutex_</name>
-        <briefdescription>
-<para>Mutex to control access to object_position_. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="173" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="173" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classRoiToPositionConverter_1af60bbf75b854f60a0fe4b834416771a9" prot="private" static="no" mutable="no">
-        <type>boost::mutex</type>
-        <definition>boost::mutex RoiToPositionConverter::roi_mutex_</definition>
-        <argsstring></argsstring>
-        <name>roi_mutex_</name>
-        <briefdescription>
-<para>Mutex to control access to ROI. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="178" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="178" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classRoiToPositionConverter_1a83e7351ab786012d73c68a9d590ded53" prot="private" static="no" mutable="no">
-        <type>boost::mutex</type>
-        <definition>boost::mutex RoiToPositionConverter::roi_update_mutex_</definition>
-        <argsstring></argsstring>
-        <name>roi_update_mutex_</name>
-        <briefdescription>
-<para>Mutex to control access to ROI update time. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="183" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="183" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="166" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="166" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -227,16 +175,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="30" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="30" bodyend="39"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="32" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="32" bodyend="42"/>
       </memberdef>
-      <memberdef kind="function" id="classRoiToPositionConverter_1a537e53d157931a08343d0b41195a924c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classRoiToPositionConverter_1a83de9bf4e7ce52e3a1c55992462abc65" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
-        <definition>bool RoiToPositionConverter::getTrackingVector</definition>
-        <argsstring>(Position &amp;pos)</argsstring>
-        <name>getTrackingVector</name>
-        <reimplements refid="classBaseTracker_1adfba0b9b37f9f4923b97bdd0d0fbbb68">getTrackingVector</reimplements>
+        <definition>bool RoiToPositionConverter::getTrackingVectors</definition>
+        <argsstring>(std::unordered_map&lt; uint32_t, Position &gt; &amp;pos)</argsstring>
+        <name>getTrackingVectors</name>
+        <reimplements refid="classBaseTracker_1a20360b084ef9b2df755854c274a73f2b">getTrackingVectors</reimplements>
         <param>
-          <type><ref refid="structPosition" kindref="compound">Position</ref> &amp;</type>
+          <type>std::unordered_map&lt; uint32_t, <ref refid="structPosition" kindref="compound">Position</ref> &gt; &amp;</type>
           <declname>pos</declname>
         </param>
         <briefdescription>
@@ -247,14 +195,14 @@
 <parametername>pos</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Returned tracking vector </para></parameterdescription>
+<para>Returned tracking vectors </para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para>True if successful, false otherwise </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="46" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="98" bodyend="107"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="49" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="78" bodyend="86"/>
       </memberdef>
       <memberdef kind="function" id="classRoiToPositionConverter_1a408f82ba9764ba20e2463535850d3268" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
@@ -269,7 +217,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="66" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="77" bodyend="79"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="69" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="60" bodyend="62"/>
       </memberdef>
       <memberdef kind="function" id="classRoiToPositionConverter_1a6ff5fa7a373c3917e9a7047df0a99560" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -283,7 +231,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="72" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="7" bodyend="10"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="75" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="7" bodyend="10"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
@@ -365,7 +313,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para><xrefsect id="todo_1_todo000007"><xreftitle>Todo</xreftitle><xrefdescription><para>(Matt) make perc configurable </para></xrefdescription></xrefsect></para><para><xrefsect id="todo_1_todo000008"><xreftitle>Todo</xreftitle><xrefdescription><para>Matt Perform foreground/background clustering with k-means </para></xrefdescription></xrefsect></para>        </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="57" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="109" bodyend="159"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="60" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="88" bodyend="138"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -381,7 +329,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="79" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="81" bodyend="88"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="82" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="64" bodyend="69"/>
       </memberdef>
       <memberdef kind="function" id="classRoiToPositionConverter_1aec2101bffedd87b63038a339ce114f55" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -395,7 +343,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="84" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="90" bodyend="96"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="87" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="71" bodyend="76"/>
       </memberdef>
       <memberdef kind="function" id="classRoiToPositionConverter_1ab71768b8ac8964205cfd51d07e61a94e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -420,7 +368,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="89" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="12" bodyend="22"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="92" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="12" bodyend="16"/>
       </memberdef>
       <memberdef kind="function" id="classRoiToPositionConverter_1a0e217a593c0c23ea7ebd7bcd413bca4b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -445,7 +393,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="95" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="24" bodyend="25"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="98" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="18" bodyend="19"/>
       </memberdef>
       <memberdef kind="function" id="classRoiToPositionConverter_1a5d982d0a9c380d118766c6975700b330" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -470,7 +418,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="101" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="27" bodyend="33"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="104" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="21" bodyend="25"/>
       </memberdef>
       <memberdef kind="function" id="classRoiToPositionConverter_1aec98fccf60f07da47d72144f8230a0d2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -495,7 +443,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para><xrefsect id="todo_1_todo000005"><xreftitle>Todo</xreftitle><xrefdescription><para>(Matt) make timeout configurable </para></xrefdescription></xrefsect></para><para><xrefsect id="todo_1_todo000006"><xreftitle>Todo</xreftitle><xrefdescription><para>store a flag indicating a position has been computed and return false in positionIsValid if it has not </para></xrefdescription></xrefsect></para>        </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="107" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="35" bodyend="75"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="110" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="27" bodyend="58"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-static-func">
@@ -534,7 +482,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="115" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="161" bodyend="163"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="118" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp" bodystart="140" bodyend="142"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -542,33 +490,33 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="530">
+      <node id="821">
         <label>BaseTracker</label>
         <link refid="classBaseTracker"/>
       </node>
-      <node id="529">
+      <node id="820">
         <label>RoiToPositionConverter</label>
         <link refid="classRoiToPositionConverter"/>
-        <childnode refid="530" relation="public-inheritance">
+        <childnode refid="821" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="532">
+      <node id="823">
         <label>BaseTracker</label>
         <link refid="classBaseTracker"/>
       </node>
-      <node id="531">
+      <node id="822">
         <label>RoiToPositionConverter</label>
         <link refid="classRoiToPositionConverter"/>
-        <childnode refid="532" relation="public-inheritance">
+        <childnode refid="823" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="23" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="23" bodyend="184"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" line="25" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/roi_to_position_converter.h" bodystart="25" bodyend="167"/>
     <listofallmembers>
-      <member refid="classRoiToPositionConverter_1a909173cc88124b3376ca26ce4b16502e" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>camera_info_</name></member>
-      <member refid="classRoiToPositionConverter_1add61d19c073d324f1001b061f521465d" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>camera_info_mutex_</name></member>
+      <member refid="classBaseTracker_1a49ac5731fce16acb5ca1fb069d2a0091" prot="public" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>BaseTracker</name></member>
+      <member refid="classRoiToPositionConverter_1a3c8c3ba5cd0e0add94cc6a3fec462234" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>camera_info_</name></member>
       <member refid="classRoiToPositionConverter_1a99f6207b2721c958be35f12ffc096234" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>camera_info_subscriber_</name></member>
       <member refid="classRoiToPositionConverter_1a5d982d0a9c380d118766c6975700b330" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>cameraInfoCallback</name></member>
       <member refid="classRoiToPositionConverter_1aa92666ec852160b3cd19fa9ab9ca9af5" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>cameraInfoIsValid</name></member>
@@ -577,19 +525,19 @@
       <member refid="classRoiToPositionConverter_1aee90c94ff8c073472d53cd746b0523fe" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>depth_subscriber_</name></member>
       <member refid="classRoiToPositionConverter_1aec98fccf60f07da47d72144f8230a0d2" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>depthCallback</name></member>
       <member refid="classRoiToPositionConverter_1ae61bc0cbae030a3d840afb60ee4f779c" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>foreground_percent_</name></member>
-      <member refid="classRoiToPositionConverter_1a537e53d157931a08343d0b41195a924c" prot="public" virt="virtual"><scope>RoiToPositionConverter</scope><name>getTrackingVector</name></member>
+      <member refid="classBaseTracker_1a705369e65f51447798bb19e979de9801" prot="public" virt="virtual"><scope>RoiToPositionConverter</scope><name>getTrackingVector</name></member>
+      <member refid="classBaseTracker_1a931a8c84fc6245d3d6cb3ef9967032a5" prot="public" virt="virtual"><scope>RoiToPositionConverter</scope><name>getTrackingVector</name></member>
+      <member refid="classRoiToPositionConverter_1a83de9bf4e7ce52e3a1c55992462abc65" prot="public" virt="virtual"><scope>RoiToPositionConverter</scope><name>getTrackingVectors</name></member>
       <member refid="classRoiToPositionConverter_1a2ec2a7428cb0df18dbe3330bc71cf122" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>image_subscriber_</name></member>
       <member refid="classRoiToPositionConverter_1a0e217a593c0c23ea7ebd7bcd413bca4b" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>imageCallback</name></member>
+      <member refid="classBaseTracker_1ad1a6497933830415ee97d9ea2d2706af" prot="public" virt="virtual"><scope>RoiToPositionConverter</scope><name>initialize</name></member>
       <member refid="classRoiToPositionConverter_1a6ff5fa7a373c3917e9a7047df0a99560" prot="public" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>isConnected</name></member>
       <member refid="classRoiToPositionConverter_1a23ede0d4eb5e8e7a6e9bb2e3ccc886a0" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>it_</name></member>
-      <member refid="classRoiToPositionConverter_1a64f867f801bca3c2c73b527ebfa8ea1c" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>last_roi_update_time_</name></member>
+      <member refid="classRoiToPositionConverter_1ac427169465a7e23d6ca87cb0c1c7aa7f" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>last_roi_update_time_</name></member>
       <member refid="classRoiToPositionConverter_1a9ff02e668985d7a886b5ea0aa6f17d49" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>max_object_distance_</name></member>
-      <member refid="classRoiToPositionConverter_1a35c85778542bfe67d2113c8e73ff79ef" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>object_position_</name></member>
-      <member refid="classRoiToPositionConverter_1adf3d8477aa08693e71f0ca8544b35c05" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>position_mutex_</name></member>
-      <member refid="classRoiToPositionConverter_1af60bbf75b854f60a0fe4b834416771a9" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>roi_mutex_</name></member>
-      <member refid="classRoiToPositionConverter_1a865d5245cb967dc72d118e389bd5eef5" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>roi_rect_</name></member>
+      <member refid="classRoiToPositionConverter_1a8baa756f4c33f376e3faff945ae2f802" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>object_position_</name></member>
+      <member refid="classRoiToPositionConverter_1a3fa70ff22e61a2261f45db241f6c4c4a" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>roi_rect_</name></member>
       <member refid="classRoiToPositionConverter_1a7f15d4cf311931bccdb8f913592fc2c1" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>roi_subscriber_</name></member>
-      <member refid="classRoiToPositionConverter_1a83e7351ab786012d73c68a9d590ded53" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>roi_update_mutex_</name></member>
       <member refid="classRoiToPositionConverter_1ab71768b8ac8964205cfd51d07e61a94e" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>roiCallback</name></member>
       <member refid="classRoiToPositionConverter_1aec2101bffedd87b63038a339ce114f55" prot="private" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>roiIsValid</name></member>
       <member refid="classRoiToPositionConverter_1a93b30449d5b9946e065e4e78c404f9a5" prot="public" virt="non-virtual"><scope>RoiToPositionConverter</scope><name>RoiToPositionConverter</name></member>

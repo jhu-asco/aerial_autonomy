@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="test__utils_8h" kind="file">
+    <compoundname>test_utils.h</compoundname>
+    <includes local="no">chrono</includes>
+    <includes local="no">functional</includes>
+    <includes local="no">parsernode/common.h</includes>
+    <includes local="no">tf/transform_datatypes.h</includes>
+    <incdepgraph>
+      <node id="6619">
+        <label>functional</label>
+      </node>
+      <node id="6620">
+        <label>parsernode/common.h</label>
+      </node>
+      <node id="6621">
+        <label>tf/transform_datatypes.h</label>
+      </node>
+      <node id="6617">
+        <label>include/aerial_autonomy/tests/test_utils.h</label>
+        <link refid="test_utils.h"/>
+        <childnode refid="6618" relation="include">
+        </childnode>
+        <childnode refid="6619" relation="include">
+        </childnode>
+        <childnode refid="6620" relation="include">
+        </childnode>
+        <childnode refid="6621" relation="include">
+        </childnode>
+      </node>
+      <node id="6618">
+        <label>chrono</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="structtest__utils_1_1WaitUntilResult" prot="public">test_utils::WaitUntilResult</innerclass>
+    <innerclass refid="structtest__utils_1_1BaseTestPubSubs" prot="public">test_utils::BaseTestPubSubs</innerclass>
+    <innernamespace refid="namespacetest__utils">test_utils</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;chrono&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;functional&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;parsernode/common.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;tf/transform_datatypes.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="namespacetest__utils" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">test_utils<sp/>{</highlight></codeline>
+<codeline lineno="16" refid="structtest__utils_1_1WaitUntilResult" refkind="compound"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>done&gt;<sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structtest__utils_1_1WaitUntilResult" kindref="compound">WaitUntilResult</ref><sp/>{</highlight></codeline>
+<codeline lineno="25" refid="structtest__utils_1_1WaitUntilResult_1afd53a5787b2337b3fdeb0a4aca0faaeb" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structtest__utils_1_1WaitUntilResult_1afd53a5787b2337b3fdeb0a4aca0faaeb" kindref="member">operator()</ref>(std::function&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)&gt;<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;input_function,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::chrono::seconds<sp/>timeout)<sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>start<sp/>=<sp/>std::chrono::system_clock::now();</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>std::chrono::seconds<sp/>duration(0);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(input_function()<sp/>==<sp/>!done<sp/>&amp;&amp;<sp/>duration.count()<sp/>&lt;<sp/>timeout.count())<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>ros::spinOnce();</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::this_thread::sleep_for(std::chrono::milliseconds(100));</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>duration<sp/>=<sp/>std::chrono::duration_cast&lt;std::chrono::seconds&gt;(</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::chrono::system_clock::now()<sp/>-<sp/>start);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>input_function();</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="42" refid="structtest__utils_1_1BaseTestPubSubs" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structtest__utils_1_1BaseTestPubSubs" kindref="compound">BaseTestPubSubs</ref><sp/>{</highlight></codeline>
+<codeline lineno="48" refid="structtest__utils_1_1BaseTestPubSubs_1aac689567e9ffa15462b281359ba6b6c9" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1aac689567e9ffa15462b281359ba6b6c9" kindref="member">BaseTestPubSubs</ref>()<sp/>:<sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1a7d2eaa956a93e4294ca30b09471068ef" kindref="member">nh_send_</ref>(</highlight><highlight class="stringliteral">&quot;~common&quot;</highlight><highlight class="normal">),<sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1ab1d5a6683b0a7aa14d121f7b5987d858" kindref="member">nh_receive_status_</ref>(</highlight><highlight class="stringliteral">&quot;~common&quot;</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1ae69a793b2ca42cca45bf99120a84c553" kindref="member">event_pub_</ref><sp/>=<sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1a7d2eaa956a93e4294ca30b09471068ef" kindref="member">nh_send_</ref>.advertise&lt;std_msgs::String&gt;(</highlight><highlight class="stringliteral">&quot;event_manager&quot;</highlight><highlight class="normal">,<sp/>1);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1a2f47af8bb887fda6469363697b722468" kindref="member">pose_pub_</ref><sp/>=</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1a7d2eaa956a93e4294ca30b09471068ef" kindref="member">nh_send_</ref>.advertise&lt;geometry_msgs::PoseStamped&gt;(</highlight><highlight class="stringliteral">&quot;goal_pose_command&quot;</highlight><highlight class="normal">,<sp/>1);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1af85fa0683a70df68d885b8a62c70cf0d" kindref="member">status_subscriber_</ref><sp/>=<sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1ab1d5a6683b0a7aa14d121f7b5987d858" kindref="member">nh_receive_status_</ref>.subscribe(</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;system_status&quot;</highlight><highlight class="normal">,<sp/>1,<sp/>&amp;<ref refid="structtest__utils_1_1BaseTestPubSubs_1ac49d35a9faa997e96793087536b8ffc0" kindref="member">BaseTestPubSubs::statusCallback</ref>,<sp/></highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="60" refid="structtest__utils_1_1BaseTestPubSubs_1ab751c54f2259762b47dcf50f3eb831bb" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1ab751c54f2259762b47dcf50f3eb831bb" kindref="member">publishEvent</ref>(std::string<sp/>event)<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>std_msgs::String<sp/>event_msg;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>event_msg.data<sp/>=<sp/>event;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1ae69a793b2ca42cca45bf99120a84c553" kindref="member">event_pub_</ref>.publish(event_msg);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="structtest__utils_1_1BaseTestPubSubs_1ab82b93466f34d0ef84b483c57b8f5e5f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1ab82b93466f34d0ef84b483c57b8f5e5f" kindref="member">publishPoseCommand</ref>(<ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>position_yaw)<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>geometry_msgs::PoseStamped<sp/>pose_msg;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>pose_msg.pose.position.x<sp/>=<sp/>position_yaw.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>pose_msg.pose.position.y<sp/>=<sp/>position_yaw.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>pose_msg.pose.position.z<sp/>=<sp/>position_yaw.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>pose_msg.pose.orientation<sp/>=</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tf::createQuaternionMsgFromYaw(position_yaw.<ref refid="structPositionYaw_1a712a15ba9739cb5f4e31ea973074b8bf" kindref="member">yaw</ref>);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1a2f47af8bb887fda6469363697b722468" kindref="member">pose_pub_</ref>.publish(pose_msg);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88" refid="structtest__utils_1_1BaseTestPubSubs_1ae1f68f7eb038f65472f49d29ee10c29a" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1ae1f68f7eb038f65472f49d29ee10c29a" kindref="member">getPositionYaw</ref>(parsernode::common::quaddata<sp/>quad_data)<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref>(quad_data.localpos.x,<sp/>quad_data.localpos.y,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>quad_data.localpos.z,<sp/>quad_data.rpydata.z);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99" refid="structtest__utils_1_1BaseTestPubSubs_1a075da5fbbbb376c1ee5744eb295a36ef" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1a075da5fbbbb376c1ee5744eb295a36ef" kindref="member">isStatusConnected</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1af85fa0683a70df68d885b8a62c70cf0d" kindref="member">status_subscriber_</ref>.getNumPublishers()<sp/>&gt;<sp/>0;<sp/>}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="102" refid="structtest__utils_1_1BaseTestPubSubs_1a0686c489b17c5feb50729b84ca1bf680" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1a0686c489b17c5feb50729b84ca1bf680" kindref="member">status_</ref>;</highlight></codeline>
+<codeline lineno="103" refid="structtest__utils_1_1BaseTestPubSubs_1a7d2eaa956a93e4294ca30b09471068ef" refkind="member"><highlight class="normal"><sp/><sp/>ros::NodeHandle<sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1a7d2eaa956a93e4294ca30b09471068ef" kindref="member">nh_send_</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104" refid="structtest__utils_1_1BaseTestPubSubs_1ab1d5a6683b0a7aa14d121f7b5987d858" refkind="member"><highlight class="normal"><sp/><sp/>ros::NodeHandle<sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1ab1d5a6683b0a7aa14d121f7b5987d858" kindref="member">nh_receive_status_</ref>;<sp/></highlight></codeline>
+<codeline lineno="105" refid="structtest__utils_1_1BaseTestPubSubs_1ae69a793b2ca42cca45bf99120a84c553" refkind="member"><highlight class="normal"><sp/><sp/>ros::Publisher<sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1ae69a793b2ca42cca45bf99120a84c553" kindref="member">event_pub_</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106" refid="structtest__utils_1_1BaseTestPubSubs_1a2f47af8bb887fda6469363697b722468" refkind="member"><highlight class="normal"><sp/><sp/>ros::Publisher<sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1a2f47af8bb887fda6469363697b722468" kindref="member">pose_pub_</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107" refid="structtest__utils_1_1BaseTestPubSubs_1af85fa0683a70df68d885b8a62c70cf0d" refkind="member"><highlight class="normal"><sp/><sp/>ros::Subscriber<sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1af85fa0683a70df68d885b8a62c70cf0d" kindref="member">status_subscriber_</ref>;<sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114" refid="structtest__utils_1_1BaseTestPubSubs_1ac49d35a9faa997e96793087536b8ffc0" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1ac49d35a9faa997e96793087536b8ffc0" kindref="member">statusCallback</ref>(std_msgs::String<sp/>status)<sp/>{<sp/><ref refid="structtest__utils_1_1BaseTestPubSubs_1a0686c489b17c5feb50729b84ca1bf680" kindref="member">status_</ref><sp/>=<sp/>status.data;<sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="119" refid="namespacetest__utils_1a77b838c98717cae8ec2134e9e87e2688" refkind="member"><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structtest__utils_1_1WaitUntilResult" kindref="compound">waitUntilTrue</ref><sp/>=<sp/><ref refid="structtest__utils_1_1WaitUntilResult" kindref="compound">WaitUntilResult&lt;true&gt;</ref>;</highlight></codeline>
+<codeline lineno="123" refid="namespacetest__utils_1ad84e57d69a29dbc0fad39edeba69fa49" refkind="member"><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structtest__utils_1_1WaitUntilResult" kindref="compound">waitUntilFalse</ref><sp/>=<sp/><ref refid="structtest__utils_1_1WaitUntilResult" kindref="compound">WaitUntilResult&lt;false&gt;</ref>;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/test_utils.h"/>
+  </compounddef>
+</doxygen>

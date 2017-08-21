@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structArmPoweroffTransitionActionFunctor__" kind="struct" prot="public">
+    <compoundname>ArmPoweroffTransitionActionFunctor_</compoundname>
+    <basecompoundref refid="structEventAgnosticActionFunctor" prot="public" virt="non-virtual">EventAgnosticActionFunctor&lt; ArmSystem, LogicStateMachineT &gt;</basecompoundref>
+    <includes refid="arm__functors_8h" local="no">arm_functors.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structArmPoweroffTransitionActionFunctor___1a8e664e332e0909346004cee33a2a85c4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void ArmPoweroffTransitionActionFunctor_&lt; LogicStateMachineT &gt;::run</definition>
+        <argsstring>(ArmSystem &amp;robot_system)</argsstring>
+        <name>run</name>
+        <reimplements refid="structEventAgnosticActionFunctor_1a44caf24e060c264ec6404dd5fc746481">run</reimplements>
+        <param>
+          <type><ref refid="classArmSystem" kindref="compound">ArmSystem</ref> &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <briefdescription>
+<para>Override this run function for different sub classes. This function performs the logic checking for each state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Provides sensor data and allows for controlling hardware </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/arm_functors.h" line="48" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/arm_functors.h" bodystart="48" bodyend="51"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Power off arm. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine used to process events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="541">
+        <label>EventAgnosticActionFunctor&lt; ArmSystem, LogicStateMachineT &gt;</label>
+        <link refid="structEventAgnosticActionFunctor"/>
+      </node>
+      <node id="540">
+        <label>ArmPoweroffTransitionActionFunctor_&lt; LogicStateMachineT &gt;</label>
+        <link refid="structArmPoweroffTransitionActionFunctor__"/>
+        <childnode refid="541" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="543">
+        <label>EventAgnosticActionFunctor&lt; ArmSystem, LogicStateMachineT &gt;</label>
+        <link refid="structEventAgnosticActionFunctor"/>
+      </node>
+      <node id="542">
+        <label>ArmPoweroffTransitionActionFunctor_&lt; LogicStateMachineT &gt;</label>
+        <link refid="structArmPoweroffTransitionActionFunctor__"/>
+        <childnode refid="543" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/arm_functors.h" line="47" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/arm_functors.h" bodystart="46" bodyend="52"/>
+    <listofallmembers>
+      <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>ArmPoweroffTransitionActionFunctor_</scope><name>operator()</name></member>
+      <member refid="structArmPoweroffTransitionActionFunctor___1a8e664e332e0909346004cee33a2a85c4" prot="public" virt="virtual"><scope>ArmPoweroffTransitionActionFunctor_</scope><name>run</name></member>
+      <member refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" prot="public" virt="virtual"><scope>ArmPoweroffTransitionActionFunctor_</scope><name>~EventAgnosticActionFunctor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

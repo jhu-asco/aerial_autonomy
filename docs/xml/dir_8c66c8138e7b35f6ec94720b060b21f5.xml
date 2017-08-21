@@ -11,6 +11,7 @@
     <innerdir refid="dir_50f50694a776225a9bcb429ba955942f">include/aerial_autonomy/state_machines</innerdir>
     <innerdir refid="dir_0c7a7bfd4e5485ee47ea3001ef1b0b95">include/aerial_autonomy/system_handlers</innerdir>
     <innerdir refid="dir_4bd02bc1034a74a0e71577e983a56171">include/aerial_autonomy/tests</innerdir>
+    <innerdir refid="dir_c5511e641a604113d55bbc46e68c5631">include/aerial_autonomy/trackers</innerdir>
     <innerdir refid="dir_dbb4bb2971137fcd631eb50662186a12">include/aerial_autonomy/types</innerdir>
     <briefdescription>
     </briefdescription>

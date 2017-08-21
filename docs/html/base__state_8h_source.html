@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_2f8e754ab99ce0b8ad0265163734387c.html">include</a></li><li class="navelem"><a class="el" href="dir_aa08a9b8af1d5448e3e7b8b8a4c3ba6b.html">aerial_autonomy</a></li><li class="navelem"><a class="el" href="dir_cd22a1489c1d142b774176c85af6b0b9.html">logic_states</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_6fe9f9c87adb79173c1aa2f732811b45.html">include</a></li><li class="navelem"><a class="el" href="dir_8c66c8138e7b35f6ec94720b060b21f5.html">aerial_autonomy</a></li><li class="navelem"><a class="el" href="dir_b9460f247869254f5a62faa1ecb0a671.html">logic_states</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -106,24 +106,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> RobotSystemT, <span class="keyword">class</span> LogicStateMachineT, <span class="keyword">class</span> ActionFctr&gt;</div>
 <div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classBaseState.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="classBaseState.html">BaseState</a> : <span class="keyword">public</span> msmf::state&lt;&gt; {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="comment">// Perform static asserts to ensure the ActionFctr is valid:</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  static_assert(std::is_base_of&lt;<a class="code" href="structEventAgnosticActionFunctor.html">EventAgnosticActionFunctor</a>&lt;RobotSystemT,</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                                                           LogicStateMachineT&gt;,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                                ActionFctr&gt;::value,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                <span class="stringliteral">&quot;ActionFctr not a subclass of InternalActionFctr&quot;</span>);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="structBaseState_1_1internal__transition__table.html">   35</a></span>&#160;  <span class="keyword">struct </span><a class="code" href="structBaseState_1_1internal__transition__table.html">internal_transition_table</a></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;      : boost::mpl::vector&lt;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            msmf::Internal&lt;InternalTransitionEvent, ActionFctr, msmf::none&gt;&gt; {};</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classBaseState.html#a3967d85ffd88b9235fcfd9732e745c13">   42</a></span>&#160;  <span class="keyword">virtual</span> <a class="code" href="classBaseState.html#a3967d85ffd88b9235fcfd9732e745c13">~BaseState</a>() {}</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="structBaseState_1_1internal__transition__table.html">   29</a></span>&#160;  <span class="keyword">struct </span><a class="code" href="structBaseState_1_1internal__transition__table.html">internal_transition_table</a></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;      : boost::mpl::vector&lt;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            msmf::Internal&lt;InternalTransitionEvent, ActionFctr, msmf::none&gt;&gt; {};</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classBaseState.html#a3967d85ffd88b9235fcfd9732e745c13">   36</a></span>&#160;  <span class="keyword">virtual</span> <a class="code" href="classBaseState.html#a3967d85ffd88b9235fcfd9732e745c13">~BaseState</a>() {}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
 <div class="ttc" id="base__functors_8h_html"><div class="ttname"><a href="base__functors_8h.html">base_functors.h</a></div></div>
 <div class="ttc" id="classBaseState_html"><div class="ttname"><a href="classBaseState.html">BaseState</a></div><div class="ttdoc">Base state for all states in logic state machine. </div><div class="ttdef"><b>Definition:</b> base_state.h:24</div></div>
-<div class="ttc" id="structEventAgnosticActionFunctor_html"><div class="ttname"><a href="structEventAgnosticActionFunctor.html">EventAgnosticActionFunctor</a></div><div class="ttdoc">Action functor that does not require the event triggering it. </div><div class="ttdef"><b>Definition:</b> base_functors.h:126</div></div>
-<div class="ttc" id="classBaseState_html_a3967d85ffd88b9235fcfd9732e745c13"><div class="ttname"><a href="classBaseState.html#a3967d85ffd88b9235fcfd9732e745c13">BaseState::~BaseState</a></div><div class="ttdeci">virtual ~BaseState()</div><div class="ttdoc">Destructor. </div><div class="ttdef"><b>Definition:</b> base_state.h:42</div></div>
-<div class="ttc" id="structBaseState_1_1internal__transition__table_html"><div class="ttname"><a href="structBaseState_1_1internal__transition__table.html">BaseState::internal_transition_table</a></div><div class="ttdoc">The internal_transition_table to call run function in every state. </div><div class="ttdef"><b>Definition:</b> base_state.h:35</div></div>
+<div class="ttc" id="classBaseState_html_a3967d85ffd88b9235fcfd9732e745c13"><div class="ttname"><a href="classBaseState.html#a3967d85ffd88b9235fcfd9732e745c13">BaseState::~BaseState</a></div><div class="ttdeci">virtual ~BaseState()</div><div class="ttdoc">Destructor. </div><div class="ttdef"><b>Definition:</b> base_state.h:36</div></div>
+<div class="ttc" id="structBaseState_1_1internal__transition__table_html"><div class="ttname"><a href="structBaseState_1_1internal__transition__table.html">BaseState::internal_transition_table</a></div><div class="ttdoc">The internal_transition_table to call run function in every state. </div><div class="ttdef"><b>Definition:</b> base_state.h:29</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.6-->
 <!-- start footer part -->

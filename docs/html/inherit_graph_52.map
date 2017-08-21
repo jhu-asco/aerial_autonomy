@@ -1,3 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classUAVSystemHandler.html" title="Owns all of the autonomous system components and is responsible for thread management. Also owns a common system handler object to handle creation of state machine and connecting it to GUI. " alt="" coords="6,5,221,46"/>
+<area shape="rect" id="node1" href="$structEventAgnosticActionFunctor.html" title="EventAgnosticActionFunctor\l\&lt; UAVSystem, LogicStateMachineT \&gt;" alt="" coords="6,135,253,177"/>
+<area shape="rect" id="node2" href="$structLandTransitionActionFunctor__.html" title="Transition action when starting to land. " alt="" coords="315,5,503,46"/>
+<area shape="rect" id="node3" href="$structManualControlSwitchAction__.html" title="Basic events such as takeoff land etc. " alt="" coords="318,70,501,111"/>
+<area shape="rect" id="node4" href="$structTakeoffAbortActionFunctor__.html" title="action to perform when aborting takeoff " alt="" coords="320,135,499,177"/>
+<area shape="rect" id="node5" href="$structTakeoffTransitionActionFunctor__.html" title="action to take when starting takeoff " alt="" coords="307,201,511,242"/>
+<area shape="rect" id="node6" href="$structUAVControllerAbortActionFunctor__.html" title="Transition action to perform when aborting any UAV Controller. " alt="" coords="301,266,517,307"/>
 </map>

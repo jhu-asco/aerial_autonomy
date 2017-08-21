@@ -21,6 +21,19 @@
       </param>
     </templateparamlist>
       <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classCommonSystemHandler_1a6a8086663729053c1810d2dcf193ce51" prot="protected" static="no" mutable="no">
+        <type>ros::NodeHandle</type>
+        <definition>ros::NodeHandle CommonSystemHandler&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;::nh_</definition>
+        <argsstring></argsstring>
+        <name>nh_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="77" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="variable" id="classCommonSystemHandler_1a34cbe068c3c4715ed8ff5b9a717ae593" prot="protected" static="no" mutable="no">
         <type>LogicStateMachineT</type>
         <definition>LogicStateMachineT CommonSystemHandler&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;::logic_state_machine_</definition>
@@ -32,7 +45,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="79" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="79" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="79" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="79" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classCommonSystemHandler_1a393da82eedf31074046dd9bea22e4ca1" prot="protected" static="no" mutable="no">
         <type>EventManagerT</type>
@@ -45,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="80" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="80" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="80" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classCommonSystemHandler_1a740bc6abe3a48d17b732a1bdc9c0fac4" prot="protected" static="no" mutable="no">
         <type><ref refid="classStateMachineGUIConnector" kindref="compound">StateMachineGUIConnector</ref>&lt; EventManagerT, LogicStateMachineT &gt;</type>
@@ -58,7 +71,7 @@
 <para>Connects event manager to the state machine </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="82" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="82" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="82" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="82" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classCommonSystemHandler_1af4173056e027945fcf72b0e35f33cb54" prot="protected" static="no" mutable="no">
         <type><ref refid="classSystemStatusPublisher" kindref="compound">SystemStatusPublisher</ref>&lt; LogicStateMachineT &gt;</type>
@@ -71,7 +84,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="85" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="85" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="85" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="85" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classCommonSystemHandler_1a5a155b8d5335b4f072363ce4ca152fe1" prot="protected" static="no" mutable="no">
         <type><ref refid="classAsyncTimer" kindref="compound">AsyncTimer</ref></type>
@@ -84,7 +97,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="86" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="86" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="86" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="86" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classCommonSystemHandler_1a97404fbbfb77d76bf62cbb388963f057" prot="protected" static="no" mutable="no">
         <type><ref refid="classAsyncTimer" kindref="compound">AsyncTimer</ref></type>
@@ -97,19 +110,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="87" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="87" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="87" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="87" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="classCommonSystemHandler_1aeb821763feeb9ddd1d878eee1b4d62de" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classCommonSystemHandler_1aabef08ac98a33e49b1844194bbaff74a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
         <definition>CommonSystemHandler&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;::CommonSystemHandler</definition>
-        <argsstring>(ros::NodeHandle &amp;nh, const CommonSystemHandlerConfig &amp;config, RobotSystemT &amp;robot_system)</argsstring>
+        <argsstring>(const CommonSystemHandlerConfig &amp;config, RobotSystemT &amp;robot_system)</argsstring>
         <name>CommonSystemHandler</name>
-        <param>
-          <type>ros::NodeHandle &amp;</type>
-          <declname>nh</declname>
-        </param>
         <param>
           <type>const CommonSystemHandlerConfig &amp;</type>
           <declname>config</declname>
@@ -146,7 +155,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="36" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="36" bodyend="52"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="36" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="36" bodyend="51"/>
       </memberdef>
       <memberdef kind="function" id="classCommonSystemHandler_1a106090bca9f70de4100ce256983481d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -162,7 +171,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="57" column="1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="56" column="1"/>
       </memberdef>
       <memberdef kind="function" id="classCommonSystemHandler_1a464bb584aaf1b30eaede850f04f62f33" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -176,7 +185,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="63" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="63" bodyend="66"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="62" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="62" bodyend="65"/>
       </memberdef>
       <memberdef kind="function" id="classCommonSystemHandler_1a6362231dc98dfc2f8e6f24245ff901d1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -189,7 +198,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="71" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="71" bodyend="75"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="70" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="70" bodyend="74"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -219,39 +228,40 @@
 </parameterlist>
 </para>    </detaileddescription>
     <collaborationgraph>
-      <node id="400">
+      <node id="637">
         <label>AsyncTimer</label>
         <link refid="classAsyncTimer"/>
       </node>
-      <node id="399">
+      <node id="636">
         <label>CommonSystemHandler&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;</label>
         <link refid="classCommonSystemHandler"/>
-        <childnode refid="400" relation="usage">
+        <childnode refid="637" relation="usage">
           <edgelabel>logic_state_machine_timer_</edgelabel>
           <edgelabel>status_timer_</edgelabel>
         </childnode>
-        <childnode refid="401" relation="usage">
+        <childnode refid="638" relation="usage">
           <edgelabel>logic_state_machine_</edgelabel>
         </childnode>
-        <childnode refid="402" relation="usage">
+        <childnode refid="639" relation="usage">
           <edgelabel>event_manager_</edgelabel>
         </childnode>
       </node>
-      <node id="401">
+      <node id="638">
         <label>LogicStateMachineT</label>
       </node>
-      <node id="402">
+      <node id="639">
         <label>EventManagerT</label>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="20" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="20" bodyend="88"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" line="20" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h" bodystart="20" bodyend="88"/>
     <listofallmembers>
-      <member refid="classCommonSystemHandler_1aeb821763feeb9ddd1d878eee1b4d62de" prot="public" virt="non-virtual"><scope>CommonSystemHandler</scope><name>CommonSystemHandler</name></member>
+      <member refid="classCommonSystemHandler_1aabef08ac98a33e49b1844194bbaff74a" prot="public" virt="non-virtual"><scope>CommonSystemHandler</scope><name>CommonSystemHandler</name></member>
       <member refid="classCommonSystemHandler_1a106090bca9f70de4100ce256983481d6" prot="public" virt="non-virtual"><scope>CommonSystemHandler</scope><name>CommonSystemHandler</name></member>
       <member refid="classCommonSystemHandler_1a393da82eedf31074046dd9bea22e4ca1" prot="protected" virt="non-virtual"><scope>CommonSystemHandler</scope><name>event_manager_</name></member>
       <member refid="classCommonSystemHandler_1a464bb584aaf1b30eaede850f04f62f33" prot="public" virt="non-virtual"><scope>CommonSystemHandler</scope><name>isConnected</name></member>
       <member refid="classCommonSystemHandler_1a34cbe068c3c4715ed8ff5b9a717ae593" prot="protected" virt="non-virtual"><scope>CommonSystemHandler</scope><name>logic_state_machine_</name></member>
       <member refid="classCommonSystemHandler_1a97404fbbfb77d76bf62cbb388963f057" prot="protected" virt="non-virtual"><scope>CommonSystemHandler</scope><name>logic_state_machine_timer_</name></member>
+      <member refid="classCommonSystemHandler_1a6a8086663729053c1810d2dcf193ce51" prot="protected" virt="non-virtual"><scope>CommonSystemHandler</scope><name>nh_</name></member>
       <member refid="classCommonSystemHandler_1a6362231dc98dfc2f8e6f24245ff901d1" prot="public" virt="non-virtual"><scope>CommonSystemHandler</scope><name>startTimers</name></member>
       <member refid="classCommonSystemHandler_1a740bc6abe3a48d17b732a1bdc9c0fac4" prot="protected" virt="non-virtual"><scope>CommonSystemHandler</scope><name>state_machine_gui_connector_</name></member>
       <member refid="classCommonSystemHandler_1a5a155b8d5335b4f072363ce4ca152fe1" prot="protected" virt="non-virtual"><scope>CommonSystemHandler</scope><name>status_timer_</name></member>

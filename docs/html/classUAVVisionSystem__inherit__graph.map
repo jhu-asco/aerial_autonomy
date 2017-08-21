@@ -1,4 +1,5 @@
 <map id="UAVVisionSystem" name="UAVVisionSystem">
+<area shape="rect" id="node4" href="$classUAVArmSystem.html" title="UAV vision system with an arm. " alt="" coords="11,229,129,256"/>
 <area shape="rect" id="node2" href="$classUAVSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components..." alt="" coords="23,80,117,107"/>
 <area shape="rect" id="node3" href="$classBaseRobotSystem.html" title="Provides functions to switch between active controllers and get goals. " alt="" coords="5,5,136,32"/>
 </map>

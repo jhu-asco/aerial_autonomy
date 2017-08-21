@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classPickPlaceStateMachineFrontEnd" kind="class" prot="public">
+    <compoundname>PickPlaceStateMachineFrontEnd</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">boost::msm::front::state_machine_def&lt; PickPlaceStateMachineFrontEnd &gt;</basecompoundref>
+    <basecompoundref refid="classBaseStateMachine" prot="public" virt="non-virtual">BaseStateMachine&lt; UAVArmSystem &gt;</basecompoundref>
+    <includes refid="pick__place__state__machine_8h" local="no">pick_place_state_machine.h</includes>
+    <innerclass refid="structPickPlaceStateMachineFrontEnd_1_1transition__table" prot="public">PickPlaceStateMachineFrontEnd::transition_table</innerclass>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classPickPlaceStateMachineFrontEnd_1a2a561c1a81696fc794c99b07fecab9c4" prot="public" static="no">
+        <type><ref refid="structPickPlaceStatesActions_1_1ManualControlArmState" kindref="compound">psa::ManualControlArmState</ref></type>
+        <definition>using PickPlaceStateMachineFrontEnd::initial_state =  psa::ManualControlArmState</definition>
+        <argsstring></argsstring>
+        <name>initial_state</name>
+        <briefdescription>
+<para>Initial state for state machine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h" line="110" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPickPlaceStateMachineFrontEnd_1a73fc8b596dab243ed09289f60c26e936" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Event</type>
+          </param>
+          <param>
+            <type>class FSM</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void PickPlaceStateMachineFrontEnd::on_entry</definition>
+        <argsstring>(Event const &amp;evt, FSM &amp;fsm)</argsstring>
+        <name>on_entry</name>
+        <param>
+          <type>Event const &amp;</type>
+          <declname>evt</declname>
+        </param>
+        <param>
+          <type>FSM &amp;</type>
+          <declname>fsm</declname>
+        </param>
+        <briefdescription>
+<para>Action to take on entering state machine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of event causing state machine to enter </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FSM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend finite state machine type to trigger events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h" line="81" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h" bodystart="81" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classPickPlaceStateMachineFrontEnd_1a60698bf0d5884c18426b01435d250256" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Event</type>
+          </param>
+          <param>
+            <type>class FSM</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void PickPlaceStateMachineFrontEnd::on_exit</definition>
+        <argsstring>(Event const &amp;evt, FSM &amp;fsm)</argsstring>
+        <name>on_exit</name>
+        <param>
+          <type>Event const &amp;</type>
+          <declname>evt</declname>
+        </param>
+        <param>
+          <type>FSM &amp;</type>
+          <declname>fsm</declname>
+        </param>
+        <briefdescription>
+<para>Action to take on leaving state machine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of event causing state machine to enter </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FSM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend finite state machine type to trigger events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h" line="92" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h" bodystart="92" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="classPickPlaceStateMachineFrontEnd_1a5813e7df854f511f058c0a8b45dfa3fb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>PickPlaceStateMachineFrontEnd::PickPlaceStateMachineFrontEnd</definition>
+        <argsstring>(UAVArmSystem &amp;uav_system)</argsstring>
+        <name>PickPlaceStateMachineFrontEnd</name>
+        <param>
+          <type><ref refid="classUAVArmSystem" kindref="compound">UAVArmSystem</ref> &amp;</type>
+          <declname>uav_system</declname>
+        </param>
+        <briefdescription>
+<para>Constructor with arguments to store robot system. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>uav_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>robot system that is stored internally and shared with events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h" line="104" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h" bodystart="104" bodyend="105"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>front-end: define the FSM structure </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="764">
+        <label>boost::msm::front::state_machine_def&lt; PickPlaceStateMachineFrontEnd &gt;</label>
+      </node>
+      <node id="763">
+        <label>PickPlaceStateMachineFrontEnd</label>
+        <link refid="classPickPlaceStateMachineFrontEnd"/>
+        <childnode refid="764" relation="public-inheritance">
+        </childnode>
+        <childnode refid="765" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="765">
+        <label>BaseStateMachine&lt; UAVArmSystem &gt;</label>
+        <link refid="classBaseStateMachine"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="770">
+        <label>UAVArmSystem</label>
+        <link refid="classUAVArmSystem"/>
+        <childnode refid="771" relation="public-inheritance">
+        </childnode>
+        <childnode refid="775" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="771">
+        <label>UAVVisionSystem</label>
+        <link refid="classUAVVisionSystem"/>
+        <childnode refid="772" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="774">
+        <label>TypeMap&lt; AbstractControllerHardwareConnector &gt;</label>
+        <link refid="classTypeMap"/>
+      </node>
+      <node id="773">
+        <label>BaseRobotSystem</label>
+        <link refid="classBaseRobotSystem"/>
+        <childnode refid="774" relation="usage">
+          <edgelabel>controller_hardware_connector_container_</edgelabel>
+        </childnode>
+      </node>
+      <node id="772">
+        <label>UAVSystem</label>
+        <link refid="classUAVSystem"/>
+        <childnode refid="773" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="767">
+        <label>boost::msm::front::state_machine_def&lt; PickPlaceStateMachineFrontEnd &gt;</label>
+      </node>
+      <node id="769">
+        <label>RobotSystemContainer&lt; UAVArmSystem &gt;</label>
+        <link refid="classRobotSystemContainer"/>
+        <childnode refid="770" relation="usage">
+          <edgelabel>robot_system_</edgelabel>
+        </childnode>
+      </node>
+      <node id="766">
+        <label>PickPlaceStateMachineFrontEnd</label>
+        <link refid="classPickPlaceStateMachineFrontEnd"/>
+        <childnode refid="767" relation="public-inheritance">
+        </childnode>
+        <childnode refid="768" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="768">
+        <label>BaseStateMachine&lt; UAVArmSystem &gt;</label>
+        <link refid="classBaseStateMachine"/>
+        <childnode refid="769" relation="usage">
+          <edgelabel>robot_system_container_</edgelabel>
+        </childnode>
+      </node>
+      <node id="775">
+        <label>ArmSystem</label>
+        <link refid="classArmSystem"/>
+        <childnode refid="773" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h" line="73" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h" bodystart="71" bodyend="195"/>
+    <listofallmembers>
+      <member refid="classBaseStateMachine_1a2cb25947ca74c77568736975125aed44" prot="public" virt="non-virtual"><scope>PickPlaceStateMachineFrontEnd</scope><name>BaseStateMachine</name></member>
+      <member refid="classBaseStateMachine_1a286ff1d9af1151821ed44842a5e4fb8c" prot="public" virt="non-virtual"><scope>PickPlaceStateMachineFrontEnd</scope><name>get_no_transition_event_index</name></member>
+      <member refid="classPickPlaceStateMachineFrontEnd_1a2a561c1a81696fc794c99b07fecab9c4" prot="public" virt="non-virtual"><scope>PickPlaceStateMachineFrontEnd</scope><name>initial_state</name></member>
+      <member refid="classBaseStateMachine_1ab047241678b8eba01f428ef1af5c055f" prot="public" virt="non-virtual"><scope>PickPlaceStateMachineFrontEnd</scope><name>no_transition</name></member>
+      <member refid="classBaseStateMachine_1ac261a6e2f6829dd213d58e690093c192" prot="protected" virt="non-virtual"><scope>PickPlaceStateMachineFrontEnd</scope><name>no_transition_event_index_</name></member>
+      <member refid="classPickPlaceStateMachineFrontEnd_1a73fc8b596dab243ed09289f60c26e936" prot="public" virt="non-virtual"><scope>PickPlaceStateMachineFrontEnd</scope><name>on_entry</name></member>
+      <member refid="classPickPlaceStateMachineFrontEnd_1a60698bf0d5884c18426b01435d250256" prot="public" virt="non-virtual"><scope>PickPlaceStateMachineFrontEnd</scope><name>on_exit</name></member>
+      <member refid="classPickPlaceStateMachineFrontEnd_1a5813e7df854f511f058c0a8b45dfa3fb" prot="public" virt="non-virtual"><scope>PickPlaceStateMachineFrontEnd</scope><name>PickPlaceStateMachineFrontEnd</name></member>
+      <member refid="classBaseStateMachine_1a75dfc85f8804c2579ad9dc8c2239aba1" prot="public" virt="non-virtual"><scope>PickPlaceStateMachineFrontEnd</scope><name>robot_system_container_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

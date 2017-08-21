@@ -3,54 +3,90 @@
   <compounddef id="simple__tracker_8cpp" kind="file">
     <compoundname>simple_tracker.cpp</compoundname>
     <includes refid="simple__tracker_8h" local="yes">aerial_autonomy/trackers/simple_tracker.h</includes>
+    <includes refid="simple__tracking__strategy_8h" local="yes">aerial_autonomy/trackers/simple_tracking_strategy.h</includes>
     <includes local="no">glog/logging.h</includes>
     <incdepgraph>
-      <node id="4394">
+      <node id="7834">
         <label>glog/logging.h</label>
       </node>
-      <node id="4391">
+      <node id="7827">
         <label>cmath</label>
       </node>
-      <node id="4388">
-        <label>uav_vision_system_config.pb.h</label>
-      </node>
-      <node id="4393">
-        <label>tf/tf.h</label>
-      </node>
-      <node id="4389">
-        <label>aerial_autonomy/trackers/base_tracker.h</label>
-        <link refid="base__tracker_8h"/>
-        <childnode refid="4390" relation="include">
-        </childnode>
-      </node>
-      <node id="4387">
-        <label>aerial_autonomy/trackers/simple_tracker.h</label>
-        <link refid="simple__tracker_8h"/>
-        <childnode refid="4388" relation="include">
-        </childnode>
-        <childnode refid="4389" relation="include">
-        </childnode>
-        <childnode refid="4392" relation="include">
-        </childnode>
-        <childnode refid="4393" relation="include">
-        </childnode>
-      </node>
-      <node id="4390">
-        <label>aerial_autonomy/types/position.h</label>
-        <link refid="position_8h"/>
-        <childnode refid="4391" relation="include">
-        </childnode>
-      </node>
-      <node id="4392">
-        <label>parsernode/parser.h</label>
-      </node>
-      <node id="4386">
+      <node id="7821">
         <label>src/trackers/simple_tracker.cpp</label>
         <link refid="simple_tracker.cpp"/>
-        <childnode refid="4387" relation="include">
+        <childnode refid="7822" relation="include">
         </childnode>
-        <childnode refid="4394" relation="include">
+        <childnode refid="7833" relation="include">
         </childnode>
+        <childnode refid="7834" relation="include">
+        </childnode>
+      </node>
+      <node id="7823">
+        <label>uav_vision_system_config.pb.h</label>
+      </node>
+      <node id="7832">
+        <label>tf/tf.h</label>
+      </node>
+      <node id="7828">
+        <label>tuple</label>
+      </node>
+      <node id="7824">
+        <label>aerial_autonomy/trackers/base_tracker.h</label>
+        <link refid="base__tracker_8h"/>
+        <childnode refid="7825" relation="include">
+        </childnode>
+        <childnode refid="7826" relation="include">
+        </childnode>
+        <childnode refid="7830" relation="include">
+        </childnode>
+        <childnode refid="7828" relation="include">
+        </childnode>
+        <childnode refid="7829" relation="include">
+        </childnode>
+      </node>
+      <node id="7833">
+        <label>aerial_autonomy/trackers/simple_tracking_strategy.h</label>
+        <link refid="simple__tracking__strategy_8h"/>
+        <childnode refid="7825" relation="include">
+        </childnode>
+      </node>
+      <node id="7829">
+        <label>unordered_map</label>
+      </node>
+      <node id="7825">
+        <label>aerial_autonomy/trackers/tracking_strategy.h</label>
+        <link refid="tracking__strategy_8h"/>
+        <childnode refid="7826" relation="include">
+        </childnode>
+        <childnode refid="7828" relation="include">
+        </childnode>
+        <childnode refid="7829" relation="include">
+        </childnode>
+      </node>
+      <node id="7826">
+        <label>aerial_autonomy/types/position.h</label>
+        <link refid="position_8h"/>
+        <childnode refid="7827" relation="include">
+        </childnode>
+      </node>
+      <node id="7831">
+        <label>parsernode/parser.h</label>
+      </node>
+      <node id="7822">
+        <label>aerial_autonomy/trackers/simple_tracker.h</label>
+        <link refid="simple__tracker_8h"/>
+        <childnode refid="7823" relation="include">
+        </childnode>
+        <childnode refid="7824" relation="include">
+        </childnode>
+        <childnode refid="7831" relation="include">
+        </childnode>
+        <childnode refid="7832" relation="include">
+        </childnode>
+      </node>
+      <node id="7830">
+        <label>memory</label>
       </node>
     </incdepgraph>
     <briefdescription>
@@ -59,48 +95,51 @@
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="simple__tracker_8h" kindref="compound">aerial_autonomy/trackers/simple_tracker.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;glog/logging.h&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="3"><highlight class="normal"></highlight></codeline>
-<codeline lineno="4"><highlight class="normal"><ref refid="classSimpleTracker_1ae48dc9e78ccb74c838f0626b802b8c19" kindref="member">SimpleTracker::SimpleTracker</ref>(parsernode::Parser<sp/>&amp;drone_hardware,</highlight></codeline>
-<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tf::Transform<sp/>camera_transform)</highlight></codeline>
-<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>drone_hardware_(drone_hardware),<sp/>camera_transform_(camera_transform)<sp/>{</highlight></codeline>
-<codeline lineno="7"><highlight class="normal"><sp/><sp/>tracking_valid_<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="8"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="9"><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSimpleTracker_1ae1059e568ba2637c56009bb0ffbd039f" kindref="member">SimpleTracker::getTrackingVector</ref>(<ref refid="structPosition" kindref="compound">Position</ref><sp/>&amp;p)<sp/>{</highlight></codeline>
-<codeline lineno="11"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classSimpleTracker_1ac07a4053eb915074b7efe62778c4a573" kindref="member">trackingIsValid</ref>())<sp/>{</highlight></codeline>
-<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="13"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="14"><highlight class="normal"><sp/><sp/>parsernode::common::quaddata<sp/>uav_data;</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/>drone_hardware_.getquaddata(uav_data);</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/>tf::Transform<sp/>quad_tf_global(</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tf::createQuaternionFromRPY(uav_data.rpydata.x,<sp/>uav_data.rpydata.y,</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uav_data.rpydata.z),</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tf::Vector3(uav_data.localpos.x,<sp/>uav_data.localpos.y,</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uav_data.localpos.z));</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/>tf::Vector3<sp/>target_position_global(target_position_.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>,<sp/>target_position_.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>,</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>target_position_.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>);</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/>tf::Vector3<sp/>target_position_camera<sp/>=<sp/>camera_transform_.inverse()<sp/>*</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>quad_tf_global.inverse()<sp/>*</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>target_position_global;</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/>p.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref><sp/>=<sp/>target_position_camera.getX();</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/>p.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref><sp/>=<sp/>target_position_camera.getY();</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/>p.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref><sp/>=<sp/>target_position_camera.getZ();</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="30"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSimpleTracker_1a03955ff260b374d76d426ad027419a0e" kindref="member">SimpleTracker::setTargetPositionGlobalFrame</ref>(<ref refid="structPosition" kindref="compound">Position</ref><sp/>p)<sp/>{</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/>target_position_<sp/>=<sp/>p;</highlight></codeline>
-<codeline lineno="34"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSimpleTracker_1ac07a4053eb915074b7efe62778c4a573" kindref="member">SimpleTracker::trackingIsValid</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>tracking_valid_;<sp/>}</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSimpleTracker_1ae63b078e013ba7ae25f14c583ae13464" kindref="member">SimpleTracker::setTrackingIsValid</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>is_valid)<sp/>{</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/>tracking_valid_<sp/>=<sp/>is_valid;</highlight></codeline>
-<codeline lineno="40"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal">tf::Transform<sp/><ref refid="classSimpleTracker_1a3cd0ea83e2267e36da1683d09ee0fdbf" kindref="member">SimpleTracker::cameraTransform</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>camera_transform_;<sp/>}</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="simple__tracking__strategy_8h" kindref="compound">aerial_autonomy/trackers/simple_tracking_strategy.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;glog/logging.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><ref refid="classSimpleTracker_1ae48dc9e78ccb74c838f0626b802b8c19" kindref="member">SimpleTracker::SimpleTracker</ref>(parsernode::Parser<sp/>&amp;drone_hardware,</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tf::Transform<sp/>camera_transform)</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/><ref refid="classBaseTracker" kindref="compound">BaseTracker</ref>(new<sp/><ref refid="classSimpleTrackingStrategy" kindref="compound">SimpleTrackingStrategy</ref>()),</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>drone_hardware_(drone_hardware),<sp/>camera_transform_(camera_transform)<sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/>tracking_valid_<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSimpleTracker_1a23d8c34fbc3dcc1b46b0bc9ecd7e584a" kindref="member">SimpleTracker::getTrackingVectors</ref>(</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>std::unordered_map&lt;uint32_t,<sp/>Position&gt;<sp/>&amp;p)<sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/>CHECK(p.empty())<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Tracking<sp/>vector<sp/>map<sp/>not<sp/>empty&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classSimpleTracker_1ac07a4053eb915074b7efe62778c4a573" kindref="member">trackingIsValid</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>parsernode::common::quaddata<sp/>uav_data;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>drone_hardware_.getquaddata(uav_data);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/>tf::Transform<sp/>quad_tf_global(</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tf::createQuaternionFromRPY(uav_data.rpydata.x,<sp/>uav_data.rpydata.y,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uav_data.rpydata.z),</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tf::Vector3(uav_data.localpos.x,<sp/>uav_data.localpos.y,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uav_data.localpos.z));</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/>tf::Vector3<sp/>target_position_global(target_position_.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>,<sp/>target_position_.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>target_position_.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>tf::Vector3<sp/>target_position_camera<sp/>=<sp/>camera_transform_.inverse()<sp/>*</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>quad_tf_global.inverse()<sp/>*</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>target_position_global;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/>p[0]<sp/>=<sp/><ref refid="structPosition" kindref="compound">Position</ref>(target_position_camera.getX(),<sp/>target_position_camera.getY(),</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>target_position_camera.getZ());</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSimpleTracker_1a03955ff260b374d76d426ad027419a0e" kindref="member">SimpleTracker::setTargetPositionGlobalFrame</ref>(<ref refid="structPosition" kindref="compound">Position</ref><sp/>p)<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>target_position_<sp/>=<sp/>p;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSimpleTracker_1ac07a4053eb915074b7efe62778c4a573" kindref="member">SimpleTracker::trackingIsValid</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>tracking_valid_;<sp/>}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSimpleTracker_1ae63b078e013ba7ae25f14c583ae13464" kindref="member">SimpleTracker::setTrackingIsValid</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>is_valid)<sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/>tracking_valid_<sp/>=<sp/>is_valid;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal">tf::Transform<sp/><ref refid="classSimpleTracker_1a3cd0ea83e2267e36da1683d09ee0fdbf" kindref="member">SimpleTracker::cameraTransform</ref>()<sp/>{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>camera_transform_;<sp/>}</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/simple_tracker.cpp"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/simple_tracker.cpp"/>
   </compounddef>
 </doxygen>

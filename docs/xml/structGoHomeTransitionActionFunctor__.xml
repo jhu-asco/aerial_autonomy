@@ -10,19 +10,15 @@
       </param>
     </templateparamlist>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="structGoHomeTransitionActionFunctor___1a4b6a9713db0954ebb632c2da5790136a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+      <memberdef kind="function" id="structGoHomeTransitionActionFunctor___1acc3aa2c2a177d6702c6fa85f6e953616" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
         <definition>void GoHomeTransitionActionFunctor_&lt; LogicStateMachineT &gt;::run</definition>
-        <argsstring>(UAVVisionSystem &amp;robot_system, LogicStateMachineT &amp;)</argsstring>
+        <argsstring>(UAVVisionSystem &amp;robot_system)</argsstring>
         <name>run</name>
-        <reimplements refid="structEventAgnosticActionFunctor_1a53a48938d68370ff2ef262222565ffcf">run</reimplements>
+        <reimplements refid="structEventAgnosticActionFunctor_1a44caf24e060c264ec6404dd5fc746481">run</reimplements>
         <param>
           <type><ref refid="classUAVVisionSystem" kindref="compound">UAVVisionSystem</ref> &amp;</type>
           <declname>robot_system</declname>
-        </param>
-        <param>
-          <type>LogicStateMachineT &amp;</type>
-          <declname>logic_state_machine</declname>
         </param>
         <briefdescription>
 <para>Override this run function for different sub classes. This function performs the logic checking for each state. </para>        </briefdescription>
@@ -34,18 +30,11 @@
 <parameterdescription>
 <para>Provides sensor data and allows for controlling hardware </para></parameterdescription>
 </parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>logic_state_machine</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Backend of logic State Machine. can send events using this. </para></parameterdescription>
-</parameteritem>
 </parameterlist>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" line="68" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" bodystart="68" bodyend="73"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" line="45" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" bodystart="45" bodyend="50"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -61,33 +50,33 @@
 </parameterlist>
 </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="433">
+      <node id="679">
         <label>EventAgnosticActionFunctor&lt; UAVVisionSystem, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticActionFunctor"/>
       </node>
-      <node id="432">
+      <node id="678">
         <label>GoHomeTransitionActionFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structGoHomeTransitionActionFunctor__"/>
-        <childnode refid="433" relation="public-inheritance">
+        <childnode refid="679" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="435">
+      <node id="681">
         <label>EventAgnosticActionFunctor&lt; UAVVisionSystem, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticActionFunctor"/>
       </node>
-      <node id="434">
+      <node id="680">
         <label>GoHomeTransitionActionFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structGoHomeTransitionActionFunctor__"/>
-        <childnode refid="435" relation="public-inheritance">
+        <childnode refid="681" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" line="67" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" bodystart="66" bodyend="74"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" line="44" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" bodystart="43" bodyend="51"/>
     <listofallmembers>
       <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>GoHomeTransitionActionFunctor_</scope><name>operator()</name></member>
-      <member refid="structGoHomeTransitionActionFunctor___1a4b6a9713db0954ebb632c2da5790136a" prot="public" virt="virtual"><scope>GoHomeTransitionActionFunctor_</scope><name>run</name></member>
+      <member refid="structGoHomeTransitionActionFunctor___1acc3aa2c2a177d6702c6fa85f6e953616" prot="public" virt="virtual"><scope>GoHomeTransitionActionFunctor_</scope><name>run</name></member>
       <member refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" prot="public" virt="virtual"><scope>GoHomeTransitionActionFunctor_</scope><name>~EventAgnosticActionFunctor</name></member>
     </listofallmembers>
   </compounddef>

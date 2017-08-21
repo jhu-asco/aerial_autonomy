@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structControllerStatusInternalActionFunctor__" kind="struct" prot="public">
+    <compoundname>ControllerStatusInternalActionFunctor_</compoundname>
+    <basecompoundref refid="structInternalActionFunctor" prot="public" virt="non-virtual">InternalActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</basecompoundref>
+    <includes refid="hovering__functors_8h" local="no">hovering_functors.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+      <param>
+        <type>class ControllerConnector</type>
+      </param>
+      <param>
+        <type>bool</type>
+        <declname>check_completed</declname>
+        <defname>check_completed</defname>
+        <defval>true</defval>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structControllerStatusInternalActionFunctor___1a5f33b0f79fdccb61a5bf7768bd615915" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>bool ControllerStatusInternalActionFunctor_&lt; LogicStateMachineT, ControllerConnector, check_completed &gt;::run</definition>
+        <argsstring>(UAVSystem &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</argsstring>
+        <name>run</name>
+        <reimplements refid="structInternalActionFunctor_1acb286e73f21393549a4fff4920c83349">run</reimplements>
+        <param>
+          <type><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <param>
+          <type>LogicStateMachineT &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <briefdescription>
+<para>check if controller status is critical and abort; similarly if controller status is completed raise completed </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>robot system to get sensor data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>logic state machine to trigger events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/hovering_functors.h" line="66" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/hovering_functors.h" bodystart="66" bodyend="80"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Logic to abort if controller status is critical. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine used to process events </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ControllerConnector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classController" kindref="compound">Controller</ref> connector whose status the functor checks </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>check_completed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If false, ignores check on controller completion </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="655">
+        <label>InternalActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
+        <link refid="structInternalActionFunctor"/>
+      </node>
+      <node id="654">
+        <label>ControllerStatusInternalActionFunctor_&lt; LogicStateMachineT, ControllerConnector, check_completed &gt;</label>
+        <link refid="structControllerStatusInternalActionFunctor__"/>
+        <childnode refid="655" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="657">
+        <label>InternalActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
+        <link refid="structInternalActionFunctor"/>
+      </node>
+      <node id="656">
+        <label>ControllerStatusInternalActionFunctor_&lt; LogicStateMachineT, ControllerConnector, check_completed &gt;</label>
+        <link refid="structControllerStatusInternalActionFunctor__"/>
+        <childnode refid="657" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/hovering_functors.h" line="58" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/hovering_functors.h" bodystart="57" bodyend="81"/>
+    <listofallmembers>
+      <member refid="structInternalActionFunctor_1a08544be6541497aca6b06309312c4bf3" prot="public" virt="non-virtual"><scope>ControllerStatusInternalActionFunctor_</scope><name>operator()</name></member>
+      <member refid="structControllerStatusInternalActionFunctor___1a5f33b0f79fdccb61a5bf7768bd615915" prot="public" virt="virtual"><scope>ControllerStatusInternalActionFunctor_</scope><name>run</name></member>
+      <member refid="structInternalActionFunctor_1ac742ec395f7f9251738ab5cb12bd5329" prot="public" virt="virtual"><scope>ControllerStatusInternalActionFunctor_</scope><name>~InternalActionFunctor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

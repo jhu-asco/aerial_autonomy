@@ -1,14 +1,18 @@
 <map id="include/aerial_autonomy/system_handlers/common_system_handler.h" name="include/aerial_autonomy/system_handlers/common_system_handler.h">
-<area shape="rect" id="node5" href="$base__functors_8h.html" title="aerial_autonomy/actions\l_guards/base_functors.h" alt="" coords="1316,117,1480,158"/>
-<area shape="rect" id="node7" href="$async__timer_8h.html" title="aerial_autonomy/common\l/async_timer.h" alt="" coords="1609,117,1780,158"/>
-<area shape="rect" id="node12" href="$system__status__publisher_8h.html" title="aerial_autonomy/common\l/system_status_publisher.h" alt="" coords="483,117,665,158"/>
-<area shape="rect" id="node23" href="$state__machine__gui__connector_8h.html" title="aerial_autonomy/state\l_machines/state_machine\l_gui_connector.h" alt="" coords="793,109,967,165"/>
-<area shape="rect" id="node13" href="$base__robot__system_8h.html" title="aerial_autonomy/robot\l_systems/base_robot_system.h" alt="" coords="263,214,471,255"/>
-<area shape="rect" id="node14" href="$base__controller__hardware__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/base\l_controller_hardware_connector.h" alt="" coords="565,304,781,360"/>
-<area shape="rect" id="node18" href="$type__map_8h.html" title="aerial_autonomy/common\l/type_map.h" alt="" coords="344,311,515,353"/>
-<area shape="rect" id="node21" href="$iterable__enum_8h.html" title="aerial_autonomy/common\l/iterable_enum.h" alt="" coords="5,311,176,353"/>
-<area shape="rect" id="node15" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="583,409,764,450"/>
-<area shape="rect" id="node26" href="$position__yaw_8h.html" title="aerial_autonomy/types\l/position_yaw.h" alt="" coords="1295,214,1448,255"/>
-<area shape="rect" id="node27" href="$position_8h.html" title="aerial_autonomy/types\l/position.h" alt="" coords="1202,311,1355,353"/>
-<area shape="rect" id="node29" href="$math_8h.html" title="aerial_autonomy/common\l/math.h" alt="" coords="1380,311,1551,353"/>
+<area shape="rect" id="node5" href="$base__functors_8h.html" title="aerial_autonomy/actions\l_guards/base_functors.h" alt="" coords="1363,117,1527,158"/>
+<area shape="rect" id="node8" href="$async__timer_8h.html" title="aerial_autonomy/common\l/async_timer.h" alt="" coords="1735,117,1905,158"/>
+<area shape="rect" id="node13" href="$system__status__publisher_8h.html" title="aerial_autonomy/common\l/system_status_publisher.h" alt="" coords="374,117,556,158"/>
+<area shape="rect" id="node32" href="$state__machine__gui__connector_8h.html" title="aerial_autonomy/state\l_machines/state_machine\l_gui_connector.h" alt="" coords="698,109,872,165"/>
+<area shape="rect" id="node7" href="$internal__transition__event_8h.html" title="aerial_autonomy/types\l/internal_transition\l_event.h" alt="" coords="1510,213,1663,269"/>
+<area shape="rect" id="node14" href="$html__utils_8h.html" title="aerial_autonomy/common\l/html_utils.h" alt="" coords="921,325,1092,366"/>
+<area shape="rect" id="node19" href="$base__robot__system_8h.html" title="aerial_autonomy/robot\l_systems/base_robot_system.h" alt="" coords="215,221,423,262"/>
+<area shape="rect" id="node20" href="$base__controller__hardware__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/base\l_controller_hardware_connector.h" alt="" coords="267,317,484,373"/>
+<area shape="rect" id="node27" href="$type__map_8h.html" title="aerial_autonomy/common\l/type_map.h" alt="" coords="727,325,897,366"/>
+<area shape="rect" id="node30" href="$iterable__enum_8h.html" title="aerial_autonomy/common\l/iterable_enum.h" alt="" coords="5,325,176,366"/>
+<area shape="rect" id="node21" href="$atomic_8h.html" title="aerial_autonomy/common\l/atomic.h" alt="" coords="251,513,421,554"/>
+<area shape="rect" id="node23" href="$controller__status_8h.html" title="aerial_autonomy/common\l/controller_status.h" alt="" coords="445,513,616,554"/>
+<area shape="rect" id="node25" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="301,422,483,463"/>
+<area shape="rect" id="node35" href="$position__yaw_8h.html" title="aerial_autonomy/types\l/position_yaw.h" alt="" coords="1034,221,1187,262"/>
+<area shape="rect" id="node36" href="$position_8h.html" title="aerial_autonomy/types\l/position.h" alt="" coords="1311,325,1464,366"/>
+<area shape="rect" id="node38" href="$math_8h.html" title="aerial_autonomy/common\l/math.h" alt="" coords="1116,325,1287,366"/>
 </map>

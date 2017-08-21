@@ -1,2 +1,5 @@
 <map id="BaseState&lt; RobotSystemT, LogicStateMachineT, ActionFctr &gt;" name="BaseState&lt; RobotSystemT, LogicStateMachineT, ActionFctr &gt;">
+<area shape="rect" id="node3" href="$classArmPreLandingFolding__.html" title="Same state as above. Used to distinguish between landing and takeoff. " alt="" coords="466,5,638,46"/>
+<area shape="rect" id="node4" href="$classArmPreTakeoffFolding__.html" title="Same state as above. Used to distinguish between landing and takeoff. " alt="" coords="466,70,638,111"/>
+<area shape="rect" id="node5" href="$classPrePickState__.html" title="State that uses position control functor to reach a desired goal prior to picking. " alt="" coords="462,135,642,177"/>
 </map>

@@ -2,12 +2,13 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
   <compounddef id="classArmSystem" kind="class" prot="public">
     <compoundname>ArmSystem</compoundname>
-    <basecompoundref refid="classBaseRobotSystem" prot="public" virt="non-virtual">BaseRobotSystem</basecompoundref>
+    <basecompoundref refid="classBaseRobotSystem" prot="public" virt="virtual">BaseRobotSystem</basecompoundref>
+    <derivedcompoundref refid="classUAVArmSystem" prot="public" virt="non-virtual">UAVArmSystem</derivedcompoundref>
     <includes refid="arm__system_8h" local="no">arm_system.h</includes>
       <sectiondef kind="private-attrib">
-      <memberdef kind="variable" id="classArmSystem_1a436f51d221818fa066aff4f8f33d3f44" prot="private" static="no" mutable="no">
-        <type>GenericArm</type>
-        <definition>GenericArm ArmSystem::arm_hardware_</definition>
+      <memberdef kind="variable" id="classArmSystem_1a4a2acf3fe177e3c50a82e661ed329828" prot="private" static="no" mutable="no">
+        <type>ArmParser &amp;</type>
+        <definition>ArmParser&amp; ArmSystem::arm_hardware_</definition>
         <argsstring></argsstring>
         <name>arm_hardware_</name>
         <briefdescription>
@@ -16,23 +17,23 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="20" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="20" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="24" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="24" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="classArmSystem_1a582fe1e1dc69a555a61418a39c6428ed" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classArmSystem_1a7ffb3f8a0c24bed0e2621281cee625c0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
         <definition>ArmSystem::ArmSystem</definition>
-        <argsstring>(ros::NodeHandle &amp;nh)</argsstring>
+        <argsstring>(ArmParser &amp;arm_hardware)</argsstring>
         <name>ArmSystem</name>
         <param>
-          <type>ros::NodeHandle &amp;</type>
-          <declname>nh</declname>
+          <type>ArmParser &amp;</type>
+          <declname>arm_hardware</declname>
         </param>
         <briefdescription>
 <para>Constructor. </para>        </briefdescription>
         <detaileddescription>
-<para><xrefsect id="todo_1_todo000015"><xreftitle>Todo</xreftitle><xrefdescription><para>Add controllers, controller connectors, config if needed </para></xrefdescription></xrefsect><ref refid="classArmSystem" kindref="compound">ArmSystem</ref> requires an arm hardware. It instantiates the connectors, controllers</para><para><parameterlist kind="param"><parameteritem>
+<para><ref refid="classArmSystem" kindref="compound">ArmSystem</ref> requires an arm hardware. It instantiates the connectors, controllers</para><para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>arm_hardware</parametername>
 </parameternamelist>
@@ -43,7 +44,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="32" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="32" bodyend="32"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="35" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="35" bodyend="36"/>
       </memberdef>
       <memberdef kind="function" id="classArmSystem_1aad47744d8d45da74ca2544ccc527516a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>Eigen::Matrix4d</type>
@@ -56,11 +57,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="37" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="37" bodyend="39"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="41" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="41" bodyend="43"/>
       </memberdef>
-      <memberdef kind="function" id="classArmSystem_1a408f99ee51cbad8921c7451b75b162fb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void ArmSystem::grip</definition>
+      <memberdef kind="function" id="classArmSystem_1a5cfd218286961057e3290f583bc4b20b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ArmSystem::grip</definition>
         <argsstring>(bool grip_action)</argsstring>
         <name>grip</name>
         <param>
@@ -78,10 +79,11 @@
 <para>true to grip an object and false to ungrip </para></parameterdescription>
 </parameteritem>
 </parameterlist>
+<simplesect kind="return"><para>True if command sent successfully, false otherwise </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="46" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="46" bodyend="56"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="51" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="51" bodyend="61"/>
       </memberdef>
       <memberdef kind="function" id="classArmSystem_1a56b52cb9b2b9a250dad2f9608ffd598f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -106,7 +108,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="63" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="63" bodyend="69"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="68" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="68" bodyend="74"/>
       </memberdef>
       <memberdef kind="function" id="classArmSystem_1a838859b74e7b78b173394db035a980cb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -119,7 +121,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="74" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="74" bodyend="74"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="79" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="79" bodyend="79"/>
       </memberdef>
       <memberdef kind="function" id="classArmSystem_1a0fe569966065f6e16c49345ee1883552" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -132,7 +134,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="79" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="79" bodyend="79"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="84" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="84" bodyend="84"/>
       </memberdef>
       <memberdef kind="function" id="classArmSystem_1ac050d7d49cc7416d5992f102ff2bdc3d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>std::string</type>
@@ -140,14 +142,15 @@
         <argsstring>() const </argsstring>
         <name>getSystemStatus</name>
         <reimplements refid="classBaseRobotSystem_1a63c0c5e504f352000c6fb6fce9047dec">getSystemStatus</reimplements>
+        <reimplementedby refid="classUAVArmSystem_1a9afd991ab008115fb0f0674065e94451">getSystemStatus</reimplementedby>
         <briefdescription>
 <para>Provide the current state of arm system. </para>        </briefdescription>
         <detaileddescription>
-<para><xrefsect id="todo_1_todo000016"><xreftitle>Todo</xreftitle><xrefdescription><para>Add status about arm powered on/off, and any error messages can also add arm end effector pose if useful</para></xrefdescription></xrefsect></para><para><simplesect kind="return"><para>string representation of the arm system state </para></simplesect>
+<para><xrefsect id="todo_1_todo000015"><xreftitle>Todo</xreftitle><xrefdescription><para>Add status about arm powered on/off, and any error messages can also add arm end effector pose if useful</para></xrefdescription></xrefsect></para><para><simplesect kind="return"><para>string representation of the arm system state </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="88" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="88" bodyend="88"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="93" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="93" bodyend="131"/>
       </memberdef>
       <memberdef kind="function" id="classArmSystem_1ae7b62dcab17fbb41137f071eaeb67735" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -155,18 +158,18 @@
         <argsstring>() const </argsstring>
         <name>getCommandStatus</name>
         <briefdescription>
-<para>Verify the status of grip/power on/off commands. </para>        </briefdescription>
+<para>Verify the status of grip/power on/off and fold/rightArm commands. </para>        </briefdescription>
         <detaileddescription>
 <para><simplesect kind="return"><para>True if the command is complete </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="95" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="95" bodyend="95"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="138" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="138" bodyend="138"/>
       </memberdef>
-      <memberdef kind="function" id="classArmSystem_1af60b9bbcfd0ff2e34f766be48fe3715e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classArmSystem_1a83632018e26eea4716ad22d7011dc517" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
         <definition>bool ArmSystem::enabled</definition>
-        <argsstring>()</argsstring>
+        <argsstring>() const </argsstring>
         <name>enabled</name>
         <briefdescription>
 <para>If arm is enabled return. </para>        </briefdescription>
@@ -175,59 +178,66 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="102" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="102" bodyend="104"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="145" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="145" bodyend="147"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Owns, initializes, and facilitates communication between different hardware/software components. Provides builtin set/get end effector pose, joint angles for a generic arm. </para>    </briefdescription>
     <detaileddescription>
-<para><xrefsect id="todo_1_todo000014"><xreftitle>Todo</xreftitle><xrefdescription><para>Add controllers and controller connectors for visual servoing </para></xrefdescription></xrefsect></para>    </detaileddescription>
+    </detaileddescription>
     <inheritancegraph>
-      <node id="353">
+      <node id="570">
+        <label>UAVArmSystem</label>
+        <link refid="classUAVArmSystem"/>
+        <childnode refid="568" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="569">
         <label>BaseRobotSystem</label>
         <link refid="classBaseRobotSystem"/>
       </node>
-      <node id="352">
+      <node id="568">
         <label>ArmSystem</label>
         <link refid="classArmSystem"/>
-        <childnode refid="353" relation="public-inheritance">
+        <childnode refid="569" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="356">
+      <node id="573">
         <label>TypeMap&lt; AbstractControllerHardwareConnector &gt;</label>
         <link refid="classTypeMap"/>
       </node>
-      <node id="355">
+      <node id="572">
         <label>BaseRobotSystem</label>
         <link refid="classBaseRobotSystem"/>
-        <childnode refid="356" relation="usage">
+        <childnode refid="573" relation="usage">
           <edgelabel>controller_hardware_connector_container_</edgelabel>
         </childnode>
       </node>
-      <node id="354">
+      <node id="571">
         <label>ArmSystem</label>
         <link refid="classArmSystem"/>
-        <childnode refid="355" relation="public-inheritance">
+        <childnode refid="572" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="14" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="14" bodyend="105"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" line="18" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h" bodystart="18" bodyend="148"/>
     <listofallmembers>
       <member refid="classBaseRobotSystem_1a3e7031f99e64e7c371ee31fbd69f6bf9" prot="public" virt="non-virtual"><scope>ArmSystem</scope><name>abortController</name></member>
-      <member refid="classArmSystem_1a436f51d221818fa066aff4f8f33d3f44" prot="private" virt="non-virtual"><scope>ArmSystem</scope><name>arm_hardware_</name></member>
-      <member refid="classArmSystem_1a582fe1e1dc69a555a61418a39c6428ed" prot="public" virt="non-virtual"><scope>ArmSystem</scope><name>ArmSystem</name></member>
+      <member refid="classArmSystem_1a4a2acf3fe177e3c50a82e661ed329828" prot="private" virt="non-virtual"><scope>ArmSystem</scope><name>arm_hardware_</name></member>
+      <member refid="classArmSystem_1a7ffb3f8a0c24bed0e2621281cee625c0" prot="public" virt="non-virtual"><scope>ArmSystem</scope><name>ArmSystem</name></member>
       <member refid="classBaseRobotSystem_1a257fff284254de019428ae7073333b47" prot="public" virt="non-virtual"><scope>ArmSystem</scope><name>BaseRobotSystem</name></member>
       <member refid="classBaseRobotSystem_1a9539998f793faa61ed89e4c7ecc711ad" prot="protected" virt="non-virtual"><scope>ArmSystem</scope><name>controller_hardware_connector_container_</name></member>
-      <member refid="classArmSystem_1af60b9bbcfd0ff2e34f766be48fe3715e" prot="public" virt="non-virtual"><scope>ArmSystem</scope><name>enabled</name></member>
+      <member refid="classArmSystem_1a83632018e26eea4716ad22d7011dc517" prot="public" virt="non-virtual"><scope>ArmSystem</scope><name>enabled</name></member>
       <member refid="classArmSystem_1a838859b74e7b78b173394db035a980cb" prot="public" virt="non-virtual"><scope>ArmSystem</scope><name>foldArm</name></member>
+      <member refid="classBaseRobotSystem_1a14c406049bbf3d17e455bac5d0f5db1e" prot="public" virt="non-virtual"><scope>ArmSystem</scope><name>getActiveControllerStatus</name></member>
       <member refid="classArmSystem_1ae7b62dcab17fbb41137f071eaeb67735" prot="public" virt="non-virtual"><scope>ArmSystem</scope><name>getCommandStatus</name></member>
       <member refid="classArmSystem_1aad47744d8d45da74ca2544ccc527516a" prot="public" virt="non-virtual"><scope>ArmSystem</scope><name>getEndEffectorPose</name></member>
       <member refid="classBaseRobotSystem_1add092f1cc4faec7b7f1ecb624f54a56a" prot="public" virt="non-virtual"><scope>ArmSystem</scope><name>getGoal</name></member>
       <member refid="classBaseRobotSystem_1a22435ca0b28e562a230b4dfdeaffa716" prot="public" virt="non-virtual"><scope>ArmSystem</scope><name>getStatus</name></member>
       <member refid="classArmSystem_1ac050d7d49cc7416d5992f102ff2bdc3d" prot="public" virt="virtual"><scope>ArmSystem</scope><name>getSystemStatus</name></member>
-      <member refid="classArmSystem_1a408f99ee51cbad8921c7451b75b162fb" prot="public" virt="non-virtual"><scope>ArmSystem</scope><name>grip</name></member>
+      <member refid="classArmSystem_1a5cfd218286961057e3290f583bc4b20b" prot="public" virt="non-virtual"><scope>ArmSystem</scope><name>grip</name></member>
       <member refid="classArmSystem_1a56b52cb9b2b9a250dad2f9608ffd598f" prot="public" virt="non-virtual"><scope>ArmSystem</scope><name>power</name></member>
       <member refid="classArmSystem_1a0fe569966065f6e16c49345ee1883552" prot="public" virt="non-virtual"><scope>ArmSystem</scope><name>rightArm</name></member>
       <member refid="classBaseRobotSystem_1abad7fac8177f72f932a5ef543408f986" prot="public" virt="non-virtual"><scope>ArmSystem</scope><name>runActiveController</name></member>

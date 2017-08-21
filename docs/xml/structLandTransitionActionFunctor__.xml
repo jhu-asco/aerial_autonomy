@@ -10,19 +10,15 @@
       </param>
     </templateparamlist>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="structLandTransitionActionFunctor___1ae91b354f041edda283e306fa312e1213" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+      <memberdef kind="function" id="structLandTransitionActionFunctor___1ada1859d4739dcc2d16f9f6d4bbe0c916" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
         <definition>void LandTransitionActionFunctor_&lt; LogicStateMachineT &gt;::run</definition>
-        <argsstring>(UAVSystem &amp;robot_system, LogicStateMachineT &amp;)</argsstring>
+        <argsstring>(UAVSystem &amp;robot_system)</argsstring>
         <name>run</name>
-        <reimplements refid="structEventAgnosticActionFunctor_1a53a48938d68370ff2ef262222565ffcf">run</reimplements>
+        <reimplements refid="structEventAgnosticActionFunctor_1a44caf24e060c264ec6404dd5fc746481">run</reimplements>
         <param>
           <type><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;</type>
           <declname>robot_system</declname>
-        </param>
-        <param>
-          <type>LogicStateMachineT &amp;</type>
-          <declname>logic_state_machine</declname>
         </param>
         <briefdescription>
 <para>Override this run function for different sub classes. This function performs the logic checking for each state. </para>        </briefdescription>
@@ -34,18 +30,11 @@
 <parameterdescription>
 <para>Provides sensor data and allows for controlling hardware </para></parameterdescription>
 </parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>logic_state_machine</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Backend of logic State Machine. can send events using this. </para></parameterdescription>
-</parameteritem>
 </parameterlist>
 </para>        </detaileddescription>
         <inbodydescription>
 <para><xrefsect id="todo_1_todo000010"><xreftitle>Todo</xreftitle><xrefdescription><para>Have to abort all hardware controllers not just UAV. </para></xrefdescription></xrefsect></para>        </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/land_functors.h" line="17" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/land_functors.h" bodystart="17" bodyend="24"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/land_functors.h" line="17" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/land_functors.h" bodystart="17" bodyend="24"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -61,33 +50,33 @@
 </parameterlist>
 </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="472">
+      <node id="728">
         <label>EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticActionFunctor"/>
       </node>
-      <node id="471">
+      <node id="727">
         <label>LandTransitionActionFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structLandTransitionActionFunctor__"/>
-        <childnode refid="472" relation="public-inheritance">
+        <childnode refid="728" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="474">
+      <node id="730">
         <label>EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticActionFunctor"/>
       </node>
-      <node id="473">
+      <node id="729">
         <label>LandTransitionActionFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structLandTransitionActionFunctor__"/>
-        <childnode refid="474" relation="public-inheritance">
+        <childnode refid="730" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/land_functors.h" line="16" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/land_functors.h" bodystart="15" bodyend="25"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/land_functors.h" line="16" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/land_functors.h" bodystart="15" bodyend="25"/>
     <listofallmembers>
       <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>LandTransitionActionFunctor_</scope><name>operator()</name></member>
-      <member refid="structLandTransitionActionFunctor___1ae91b354f041edda283e306fa312e1213" prot="public" virt="virtual"><scope>LandTransitionActionFunctor_</scope><name>run</name></member>
+      <member refid="structLandTransitionActionFunctor___1ada1859d4739dcc2d16f9f6d4bbe0c916" prot="public" virt="virtual"><scope>LandTransitionActionFunctor_</scope><name>run</name></member>
       <member refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" prot="public" virt="virtual"><scope>LandTransitionActionFunctor_</scope><name>~EventAgnosticActionFunctor</name></member>
     </listofallmembers>
   </compounddef>

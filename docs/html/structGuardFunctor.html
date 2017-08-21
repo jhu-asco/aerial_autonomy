@@ -99,9 +99,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9f023aa88503d6127cc8280d7dc733b8"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structGuardFunctor.html#a9f023aa88503d6127cc8280d7dc733b8">guard</a> (EventT const &amp;event, RobotSystemT &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)=0</td></tr>
-<tr class="memdesc:a9f023aa88503d6127cc8280d7dc733b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override this guard function for different sub classes. This function decides whether to call the run function for each state.  <a href="#a9f023aa88503d6127cc8280d7dc733b8">More...</a><br/></td></tr>
-<tr class="separator:a9f023aa88503d6127cc8280d7dc733b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdaf5f7aa07d6fcf2ed6289c799fa25d"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structGuardFunctor.html#afdaf5f7aa07d6fcf2ed6289c799fa25d">guard</a> (EventT const &amp;event, RobotSystemT &amp;robot_system)=0</td></tr>
+<tr class="memdesc:afdaf5f7aa07d6fcf2ed6289c799fa25d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override this guard function for different sub classes. This function decides whether to call the run function for each state.  <a href="#afdaf5f7aa07d6fcf2ed6289c799fa25d">More...</a><br/></td></tr>
+<tr class="separator:afdaf5f7aa07d6fcf2ed6289c799fa25d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42b30d1737ceca71bfe47a9bb525ceda"><td class="memTemplParams" colspan="2">template&lt;class FSM , class SourceState , class TargetState &gt; </td></tr>
 <tr class="memitem:a42b30d1737ceca71bfe47a9bb525ceda"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structGuardFunctor.html#a42b30d1737ceca71bfe47a9bb525ceda">operator()</a> (EventT const &amp;event, FSM &amp;logic_state_machine, SourceState &amp;, TargetState &amp;)</td></tr>
 <tr class="memdesc:a42b30d1737ceca71bfe47a9bb525ceda"><td class="mdescLeft">&#160;</td><td class="mdescRight">operator () Internally calls guard function  <a href="#a42b30d1737ceca71bfe47a9bb525ceda">More...</a><br/></td></tr>
@@ -120,7 +120,6 @@ struct GuardFunctor&lt; EventT, RobotSystemT, LogicStateMachineT &gt;</h3>
   <table class="tparams">
     <tr><td class="paramname">EventT</td><td>Event triggering this action </td></tr>
     <tr><td class="paramname">RobotSystemT</td><td>The robot system used in the guard check </td></tr>
-    <tr><td class="paramname">LogicStateMachineT</td><td>The logic state machine used to retrieve robot system </td></tr>
   </table>
   </dd>
 </dl>
@@ -153,7 +152,7 @@ template&lt;class EventT, class RobotSystemT, class LogicStateMachineT&gt; </div
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a9f023aa88503d6127cc8280d7dc733b8"></a>
+<a class="anchor" id="afdaf5f7aa07d6fcf2ed6289c799fa25d"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -172,13 +171,7 @@ template&lt;class EventT, class RobotSystemT, class LogicStateMachineT&gt; </div
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">RobotSystemT &amp;&#160;</td>
-          <td class="paramname"><em>robot_system</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">LogicStateMachineT &amp;&#160;</td>
-          <td class="paramname"><em>logic_state_machine</em>&#160;</td>
+          <td class="paramname"><em>robot_system</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -197,13 +190,12 @@ template&lt;class EventT, class RobotSystemT, class LogicStateMachineT&gt; </div
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">robot_system</td><td>Provides sensor data and allows for controlling hardware </td></tr>
-    <tr><td class="paramname">logic_state_machine</td><td>Backend of logic State Machine. can send events using this. </td></tr>
     <tr><td class="paramname">event</td><td>Event triggering the action </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="structPositionControlTransitionGuardFunctor__.html#ad0334337a349f9964d0ba781e995dad6">PositionControlTransitionGuardFunctor_&lt; LogicStateMachineT &gt;</a>.</p>
+<p>Implemented in <a class="el" href="structPositionControlTransitionGuardFunctor__.html#ab41f7f140d320050825e2323f9b49ba4">PositionControlTransitionGuardFunctor_&lt; LogicStateMachineT &gt;</a>.</p>
 
 </div>
 </div>

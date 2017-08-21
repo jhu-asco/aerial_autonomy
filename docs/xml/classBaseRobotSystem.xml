@@ -2,8 +2,8 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
   <compounddef id="classBaseRobotSystem" kind="class" prot="public" abstract="yes">
     <compoundname>BaseRobotSystem</compoundname>
-    <derivedcompoundref refid="classArmSystem" prot="public" virt="non-virtual">ArmSystem</derivedcompoundref>
-    <derivedcompoundref refid="classUAVSystem" prot="public" virt="non-virtual">UAVSystem</derivedcompoundref>
+    <derivedcompoundref refid="classArmSystem" prot="public" virt="virtual">ArmSystem</derivedcompoundref>
+    <derivedcompoundref refid="classUAVSystem" prot="public" virt="virtual">UAVSystem</derivedcompoundref>
     <includes refid="base__robot__system_8h" local="no">base_robot_system.h</includes>
       <sectiondef kind="protected-attrib">
       <memberdef kind="variable" id="classBaseRobotSystem_1a9539998f793faa61ed89e4c7ecc711ad" prot="protected" static="no" mutable="no">
@@ -17,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="23" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="23" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="23" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="23" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -32,7 +32,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="30" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="30" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="30" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="30" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classBaseRobotSystem_1ac5f7bf2982dab769a15969db1f67c46b" prot="private" static="no" mutable="no">
         <type>std::map&lt; <ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref>, std::unique_ptr&lt; boost::mutex &gt; &gt;</type>
@@ -45,7 +45,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="35" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="35" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="35" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="35" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -60,7 +60,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="41" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="41" bodyend="48"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="41" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="41" bodyend="48"/>
       </memberdef>
       <memberdef kind="function" id="classBaseRobotSystem_1a2814a05f2648e26d18fe20e1ad0b0c0a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -108,7 +108,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="59" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="59" bodyend="70"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="59" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="59" bodyend="70"/>
       </memberdef>
       <memberdef kind="function" id="classBaseRobotSystem_1add092f1cc4faec7b7f1ecb624f54a56a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -145,7 +145,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="80" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="80" bodyend="85"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="80" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="80" bodyend="85"/>
       </memberdef>
       <memberdef kind="function" id="classBaseRobotSystem_1a22435ca0b28e562a230b4dfdeaffa716" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -153,26 +153,52 @@
             <type>class ControllerHardwareConnectorT</type>
           </param>
         </templateparamlist>
-        <type><ref refid="base__controller_8h_1addd69ea32460850b571ba88f2a994b73" kindref="member">ControllerStatus</ref></type>
+        <type><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref></type>
         <definition>ControllerStatus BaseRobotSystem::getStatus</definition>
         <argsstring>() const </argsstring>
         <name>getStatus</name>
         <briefdescription>
-<para>Get the status of the active controller. </para>        </briefdescription>
+<para>Get the status of a controller. </para>        </briefdescription>
         <detaileddescription>
 <para><parameterlist kind="templateparam"><parameteritem>
 <parameternamelist>
 <parametername>ControllerHardwareConnectorT</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>Type of connector that is active</para></parameterdescription>
+<para>Type of connector</para></parameterdescription>
 </parameteritem>
 </parameterlist>
 <simplesect kind="return"><para>Status is active/completed/critical </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="95" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="95" bodyend="100"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="95" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="95" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="classBaseRobotSystem_1a14c406049bbf3d17e455bac5d0f5db1e" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref></type>
+        <definition>ControllerStatus BaseRobotSystem::getActiveControllerStatus</definition>
+        <argsstring>(HardwareType hardware_type) const </argsstring>
+        <name>getActiveControllerStatus</name>
+        <param>
+          <type><ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref></type>
+          <declname>hardware_type</declname>
+        </param>
+        <briefdescription>
+<para>Get the status of the active controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>hardware_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Hardware to get controller for</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>status of the active controller. If no active controller returns status as not engaged </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="110" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="110" bodyend="118"/>
       </memberdef>
       <memberdef kind="function" id="classBaseRobotSystem_1a3e7031f99e64e7c371ee31fbd69f6bf9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -197,7 +223,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="108" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="108" bodyend="111"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="126" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="126" bodyend="129"/>
       </memberdef>
       <memberdef kind="function" id="classBaseRobotSystem_1abad7fac8177f72f932a5ef543408f986" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -222,13 +248,15 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="118" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="118" bodyend="126"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="136" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="136" bodyend="144"/>
       </memberdef>
       <memberdef kind="function" id="classBaseRobotSystem_1a63c0c5e504f352000c6fb6fce9047dec" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>std::string</type>
         <definition>virtual std::string BaseRobotSystem::getSystemStatus</definition>
         <argsstring>() const =0</argsstring>
         <name>getSystemStatus</name>
+        <reimplementedby refid="classUAVVisionSystem_1a9c7963324bc8c55b8419b17b4b39de31">getSystemStatus</reimplementedby>
+        <reimplementedby refid="classUAVArmSystem_1a9afd991ab008115fb0f0674065e94451">getSystemStatus</reimplementedby>
         <reimplementedby refid="classArmSystem_1ac050d7d49cc7416d5992f102ff2bdc3d">getSystemStatus</reimplementedby>
         <reimplementedby refid="classUAVSystem_1a686bdf431c8b790308d17cc9df231ee4">getSystemStatus</reimplementedby>
         <briefdescription>
@@ -238,7 +266,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="133" column="1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="151" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -246,48 +274,57 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="362">
-        <label>UAVVisionSystem</label>
-        <link refid="classUAVVisionSystem"/>
-        <childnode refid="361" relation="public-inheritance">
+      <node id="580">
+        <label>UAVArmSystem</label>
+        <link refid="classUAVArmSystem"/>
+        <childnode refid="579" relation="public-inheritance">
+        </childnode>
+        <childnode refid="582" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="359">
+      <node id="582">
+        <label>UAVVisionSystem</label>
+        <link refid="classUAVVisionSystem"/>
+        <childnode refid="581" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="578">
         <label>BaseRobotSystem</label>
         <link refid="classBaseRobotSystem"/>
       </node>
-      <node id="361">
+      <node id="581">
         <label>UAVSystem</label>
         <link refid="classUAVSystem"/>
-        <childnode refid="359" relation="public-inheritance">
+        <childnode refid="578" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="360">
+      <node id="579">
         <label>ArmSystem</label>
         <link refid="classArmSystem"/>
-        <childnode refid="359" relation="public-inheritance">
+        <childnode refid="578" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="364">
+      <node id="584">
         <label>TypeMap&lt; AbstractControllerHardwareConnector &gt;</label>
         <link refid="classTypeMap"/>
       </node>
-      <node id="363">
+      <node id="583">
         <label>BaseRobotSystem</label>
         <link refid="classBaseRobotSystem"/>
-        <childnode refid="364" relation="usage">
+        <childnode refid="584" relation="usage">
           <edgelabel>controller_hardware_connector_container_</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="16" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="16" bodyend="134"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" line="16" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h" bodystart="16" bodyend="152"/>
     <listofallmembers>
       <member refid="classBaseRobotSystem_1a3e7031f99e64e7c371ee31fbd69f6bf9" prot="public" virt="non-virtual"><scope>BaseRobotSystem</scope><name>abortController</name></member>
       <member refid="classBaseRobotSystem_1a7992abb50e0779872a1f3ec272fd49fa" prot="private" virt="non-virtual"><scope>BaseRobotSystem</scope><name>active_controllers_</name></member>
       <member refid="classBaseRobotSystem_1a257fff284254de019428ae7073333b47" prot="public" virt="non-virtual"><scope>BaseRobotSystem</scope><name>BaseRobotSystem</name></member>
       <member refid="classBaseRobotSystem_1a9539998f793faa61ed89e4c7ecc711ad" prot="protected" virt="non-virtual"><scope>BaseRobotSystem</scope><name>controller_hardware_connector_container_</name></member>
+      <member refid="classBaseRobotSystem_1a14c406049bbf3d17e455bac5d0f5db1e" prot="public" virt="non-virtual"><scope>BaseRobotSystem</scope><name>getActiveControllerStatus</name></member>
       <member refid="classBaseRobotSystem_1add092f1cc4faec7b7f1ecb624f54a56a" prot="public" virt="non-virtual"><scope>BaseRobotSystem</scope><name>getGoal</name></member>
       <member refid="classBaseRobotSystem_1a22435ca0b28e562a230b4dfdeaffa716" prot="public" virt="non-virtual"><scope>BaseRobotSystem</scope><name>getStatus</name></member>
       <member refid="classBaseRobotSystem_1a63c0c5e504f352000c6fb6fce9047dec" prot="public" virt="pure-virtual"><scope>BaseRobotSystem</scope><name>getSystemStatus</name></member>

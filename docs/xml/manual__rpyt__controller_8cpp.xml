@@ -4,50 +4,72 @@
     <compoundname>manual_rpyt_controller.cpp</compoundname>
     <includes refid="manual__rpyt__controller_8h" local="yes">aerial_autonomy/controllers/manual_rpyt_controller.h</includes>
     <incdepgraph>
-      <node id="4170">
+      <node id="7349">
         <label>boost/thread/mutex.hpp</label>
       </node>
-      <node id="4173">
-        <label>aerial_autonomy/types/joysticks.h</label>
-        <link refid="joysticks_8h"/>
-      </node>
-      <node id="4169">
-        <label>aerial_autonomy/controllers/base_controller.h</label>
-        <link refid="base__controller_8h"/>
-        <childnode refid="4170" relation="include">
-        </childnode>
-      </node>
-      <node id="4171">
+      <node id="7353">
         <label>aerial_autonomy/types/empty_goal.h</label>
         <link refid="empty__goal_8h"/>
       </node>
-      <node id="4167">
-        <label>src/controllers/manual_rpyt_controller.cpp</label>
-        <link refid="manual_rpyt_controller.cpp"/>
-        <childnode refid="4168" relation="include">
-        </childnode>
+      <node id="7351">
+        <label>string</label>
       </node>
-      <node id="4168">
-        <label>aerial_autonomy/controllers/manual_rpyt_controller.h</label>
-        <link refid="manual__rpyt__controller_8h"/>
-        <childnode refid="4169" relation="include">
-        </childnode>
-        <childnode refid="4171" relation="include">
-        </childnode>
-        <childnode refid="4172" relation="include">
-        </childnode>
-        <childnode refid="4174" relation="include">
-        </childnode>
-      </node>
-      <node id="4172">
+      <node id="7354">
         <label>aerial_autonomy/types/joysticks_yaw.h</label>
         <link refid="joysticks__yaw_8h"/>
-        <childnode refid="4173" relation="include">
+        <childnode refid="7355" relation="include">
         </childnode>
       </node>
-      <node id="4174">
+      <node id="7350">
+        <label>aerial_autonomy/common/controller_status.h</label>
+        <link refid="controller__status_8h"/>
+        <childnode refid="7351" relation="include">
+        </childnode>
+        <childnode refid="7352" relation="include">
+        </childnode>
+      </node>
+      <node id="7355">
+        <label>aerial_autonomy/types/joysticks.h</label>
+        <link refid="joysticks_8h"/>
+      </node>
+      <node id="7345">
+        <label>src/controllers/manual_rpyt_controller.cpp</label>
+        <link refid="manual_rpyt_controller.cpp"/>
+        <childnode refid="7346" relation="include">
+        </childnode>
+      </node>
+      <node id="7352">
+        <label>vector</label>
+      </node>
+      <node id="7347">
+        <label>aerial_autonomy/controllers/base_controller.h</label>
+        <link refid="base__controller_8h"/>
+        <childnode refid="7348" relation="include">
+        </childnode>
+        <childnode refid="7350" relation="include">
+        </childnode>
+      </node>
+      <node id="7346">
+        <label>aerial_autonomy/controllers/manual_rpyt_controller.h</label>
+        <link refid="manual__rpyt__controller_8h"/>
+        <childnode refid="7347" relation="include">
+        </childnode>
+        <childnode refid="7353" relation="include">
+        </childnode>
+        <childnode refid="7354" relation="include">
+        </childnode>
+        <childnode refid="7356" relation="include">
+        </childnode>
+      </node>
+      <node id="7356">
         <label>aerial_autonomy/types/roll_pitch_yaw_thrust.h</label>
         <link refid="roll__pitch__yaw__thrust_8h"/>
+      </node>
+      <node id="7348">
+        <label>aerial_autonomy/common/atomic.h</label>
+        <link refid="atomic_8h"/>
+        <childnode refid="7349" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <briefdescription>
@@ -86,6 +108,6 @@
 <codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(input_max<sp/>-<sp/>input_min);</highlight></codeline>
 <codeline lineno="32"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controllers/manual_rpyt_controller.cpp"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/controllers/manual_rpyt_controller.cpp"/>
   </compounddef>
 </doxygen>

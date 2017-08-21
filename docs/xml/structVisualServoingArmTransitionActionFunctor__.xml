@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structVisualServoingArmTransitionActionFunctor__" kind="struct" prot="public">
+    <compoundname>VisualServoingArmTransitionActionFunctor_</compoundname>
+    <basecompoundref refid="structEventAgnosticActionFunctor" prot="public" virt="non-virtual">EventAgnosticActionFunctor&lt; UAVArmSystem, LogicStateMachineT &gt;</basecompoundref>
+    <includes refid="pick__place__functors_8h" local="no">pick_place_functors.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+      <param>
+        <type>int</type>
+        <declname>TransformIndex</declname>
+        <defname>TransformIndex</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structVisualServoingArmTransitionActionFunctor___1a327a90b873c3ad3264e55d847cfd5b31" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void VisualServoingArmTransitionActionFunctor_&lt; LogicStateMachineT, TransformIndex &gt;::run</definition>
+        <argsstring>(UAVArmSystem &amp;robot_system)</argsstring>
+        <name>run</name>
+        <reimplements refid="structEventAgnosticActionFunctor_1a44caf24e060c264ec6404dd5fc746481">run</reimplements>
+        <param>
+          <type><ref refid="classUAVArmSystem" kindref="compound">UAVArmSystem</ref> &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <briefdescription>
+<para>Override this run function for different sub classes. This function performs the logic checking for each state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Provides sensor data and allows for controlling hardware </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_functors.h" line="87" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_functors.h" bodystart="87" bodyend="93"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Set arm goal and set grip to false to start with. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State machine that contains the functor </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="968">
+        <label>VisualServoingArmTransitionActionFunctor_&lt; LogicStateMachineT, TransformIndex &gt;</label>
+        <link refid="structVisualServoingArmTransitionActionFunctor__"/>
+        <childnode refid="969" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="969">
+        <label>EventAgnosticActionFunctor&lt; UAVArmSystem, LogicStateMachineT &gt;</label>
+        <link refid="structEventAgnosticActionFunctor"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="970">
+        <label>VisualServoingArmTransitionActionFunctor_&lt; LogicStateMachineT, TransformIndex &gt;</label>
+        <link refid="structVisualServoingArmTransitionActionFunctor__"/>
+        <childnode refid="971" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="971">
+        <label>EventAgnosticActionFunctor&lt; UAVArmSystem, LogicStateMachineT &gt;</label>
+        <link refid="structEventAgnosticActionFunctor"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_functors.h" line="86" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_functors.h" bodystart="85" bodyend="94"/>
+    <listofallmembers>
+      <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>VisualServoingArmTransitionActionFunctor_</scope><name>operator()</name></member>
+      <member refid="structVisualServoingArmTransitionActionFunctor___1a327a90b873c3ad3264e55d847cfd5b31" prot="public" virt="virtual"><scope>VisualServoingArmTransitionActionFunctor_</scope><name>run</name></member>
+      <member refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" prot="public" virt="virtual"><scope>VisualServoingArmTransitionActionFunctor_</scope><name>~EventAgnosticActionFunctor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

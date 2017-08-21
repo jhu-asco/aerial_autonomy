@@ -1,4 +1,7 @@
 <map id="include/aerial_autonomy/trackers/roi_to_position_converter.h" name="include/aerial_autonomy/trackers/roi_to_position_converter.h">
-<area shape="rect" id="node2" href="$base__tracker_8h.html" title="aerial_autonomy/trackers\l/base_tracker.h" alt="" coords="5,110,173,151"/>
-<area shape="rect" id="node3" href="$position_8h.html" title="aerial_autonomy/types\l/position.h" alt="" coords="73,201,225,242"/>
+<area shape="rect" id="node2" href="$atomic_8h.html" title="aerial_autonomy/common\l/atomic.h" alt="" coords="60,110,231,151"/>
+<area shape="rect" id="node4" href="$base__tracker_8h.html" title="aerial_autonomy/trackers\l/base_tracker.h" alt="" coords="513,110,681,151"/>
+<area shape="rect" id="node6" href="$position_8h.html" title="aerial_autonomy/types\l/position.h" alt="" coords="242,291,395,333"/>
+<area shape="rect" id="node11" href="$simple__tracking__strategy_8h.html" title="aerial_autonomy/trackers\l/simple_tracking_strategy.h" alt="" coords="306,110,488,151"/>
+<area shape="rect" id="node5" href="$tracking__strategy_8h.html" title="aerial_autonomy/trackers\l/tracking_strategy.h" alt="" coords="356,201,524,242"/>
 </map>

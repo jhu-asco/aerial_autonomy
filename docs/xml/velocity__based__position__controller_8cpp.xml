@@ -6,86 +6,108 @@
     <includes refid="velocity__based__position__controller_8h" local="no">aerial_autonomy/controllers/velocity_based_position_controller.h</includes>
     <includes local="no">glog/logging.h</includes>
     <incdepgraph>
-      <node id="4183">
+      <node id="7381">
         <label>boost/thread/mutex.hpp</label>
       </node>
-      <node id="4184">
-        <label>aerial_autonomy/types/position_yaw.h</label>
-        <link refid="position__yaw_8h"/>
-        <childnode refid="4185" relation="include">
+      <node id="7378">
+        <label>aerial_autonomy/controllers/velocity_based_position_controller.h</label>
+        <link refid="velocity__based__position__controller_8h"/>
+        <childnode refid="7379" relation="include">
         </childnode>
-        <childnode refid="4177" relation="include">
+        <childnode refid="7385" relation="include">
         </childnode>
-      </node>
-      <node id="4189">
-        <label>glog/logging.h</label>
-      </node>
-      <node id="4178">
-        <label>cmath</label>
-      </node>
-      <node id="4179">
-        <label>stdexcept</label>
-      </node>
-      <node id="4182">
-        <label>aerial_autonomy/controllers/base_controller.h</label>
-        <link refid="base__controller_8h"/>
-        <childnode refid="4183" relation="include">
+        <childnode refid="7387" relation="include">
+        </childnode>
+        <childnode refid="7389" relation="include">
         </childnode>
       </node>
-      <node id="4180">
-        <label>tf/tf.h</label>
-      </node>
-      <node id="4186">
-        <label>aerial_autonomy/types/velocity_yaw.h</label>
-        <link refid="velocity__yaw_8h"/>
-        <childnode refid="4187" relation="include">
-        </childnode>
-        <childnode refid="4177" relation="include">
-        </childnode>
-      </node>
-      <node id="4188">
-        <label>velocity_based_position_controller_config.pb.h</label>
-      </node>
-      <node id="4187">
+      <node id="7388">
         <label>aerial_autonomy/types/velocity.h</label>
         <link refid="velocity_8h"/>
       </node>
-      <node id="4176">
+      <node id="7390">
+        <label>glog/logging.h</label>
+      </node>
+      <node id="7373">
         <label>src/controllers/velocity_based_position_controller.cpp</label>
         <link refid="velocity_based_position_controller.cpp"/>
-        <childnode refid="4177" relation="include">
+        <childnode refid="7374" relation="include">
         </childnode>
-        <childnode refid="4181" relation="include">
+        <childnode refid="7378" relation="include">
         </childnode>
-        <childnode refid="4189" relation="include">
-        </childnode>
-      </node>
-      <node id="4181">
-        <label>aerial_autonomy/controllers/velocity_based_position_controller.h</label>
-        <link refid="velocity__based__position__controller_8h"/>
-        <childnode refid="4182" relation="include">
-        </childnode>
-        <childnode refid="4184" relation="include">
-        </childnode>
-        <childnode refid="4186" relation="include">
-        </childnode>
-        <childnode refid="4188" relation="include">
+        <childnode refid="7390" relation="include">
         </childnode>
       </node>
-      <node id="4177">
+      <node id="7375">
+        <label>cmath</label>
+      </node>
+      <node id="7376">
+        <label>stdexcept</label>
+      </node>
+      <node id="7383">
+        <label>string</label>
+      </node>
+      <node id="7377">
+        <label>tf/tf.h</label>
+      </node>
+      <node id="7374">
         <label>aerial_autonomy/common/math.h</label>
         <link refid="math_8h"/>
-        <childnode refid="4178" relation="include">
+        <childnode refid="7375" relation="include">
         </childnode>
-        <childnode refid="4179" relation="include">
+        <childnode refid="7376" relation="include">
         </childnode>
-        <childnode refid="4180" relation="include">
+        <childnode refid="7377" relation="include">
         </childnode>
       </node>
-      <node id="4185">
+      <node id="7382">
+        <label>aerial_autonomy/common/controller_status.h</label>
+        <link refid="controller__status_8h"/>
+        <childnode refid="7383" relation="include">
+        </childnode>
+        <childnode refid="7384" relation="include">
+        </childnode>
+      </node>
+      <node id="7384">
+        <label>vector</label>
+      </node>
+      <node id="7379">
+        <label>aerial_autonomy/controllers/base_controller.h</label>
+        <link refid="base__controller_8h"/>
+        <childnode refid="7380" relation="include">
+        </childnode>
+        <childnode refid="7382" relation="include">
+        </childnode>
+      </node>
+      <node id="7389">
+        <label>velocity_based_position_controller_config.pb.h</label>
+      </node>
+      <node id="7385">
+        <label>aerial_autonomy/types/position_yaw.h</label>
+        <link refid="position__yaw_8h"/>
+        <childnode refid="7386" relation="include">
+        </childnode>
+        <childnode refid="7374" relation="include">
+        </childnode>
+      </node>
+      <node id="7386">
         <label>aerial_autonomy/types/position.h</label>
         <link refid="position_8h"/>
-        <childnode refid="4178" relation="include">
+        <childnode refid="7375" relation="include">
+        </childnode>
+      </node>
+      <node id="7387">
+        <label>aerial_autonomy/types/velocity_yaw.h</label>
+        <link refid="velocity__yaw_8h"/>
+        <childnode refid="7388" relation="include">
+        </childnode>
+        <childnode refid="7374" relation="include">
+        </childnode>
+      </node>
+      <node id="7380">
+        <label>aerial_autonomy/common/atomic.h</label>
+        <link refid="atomic_8h"/>
+        <childnode refid="7381" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -106,7 +128,7 @@
 <codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>sensor_data.yaw<sp/>+<sp/><ref refid="namespacemath_1a6d507253f29fa253416474c4364b50f7" kindref="member">math::clamp</ref>(<ref refid="classVelocityBasedPositionController_1a12d109ebf20b8479ae46c48a1b864079" kindref="member">config_</ref>.yaw_gain()<sp/>*<sp/>position_diff.<ref refid="structPositionYaw_1a712a15ba9739cb5f4e31ea973074b8bf" kindref="member">yaw</ref>,</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<ref refid="classVelocityBasedPositionController_1a12d109ebf20b8479ae46c48a1b864079" kindref="member">config_</ref>.max_yaw_rate(),</highlight></codeline>
 <codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classVelocityBasedPositionController_1a12d109ebf20b8479ae46c48a1b864079" kindref="member">config_</ref>.max_yaw_rate()));</highlight></codeline>
-<codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>position_norm<sp/>=<sp/>position_diff.<ref refid="structPositionYaw_1a53f39ab3b9bd509242e33362339181cf" kindref="member">position</ref>().<ref refid="structPosition_1a40e46af3ea52c99e607030a96c89cfc3" kindref="member">norm</ref>();</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>position_norm<sp/>=<sp/>position_diff.<ref refid="structPositionYaw_1a53f39ab3b9bd509242e33362339181cf" kindref="member">position</ref>().<ref refid="structPosition_1ac8dc0750468e3ca1a526d2dfcb0e030e" kindref="member">norm</ref>();</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>velocity<sp/>=</highlight></codeline>
 <codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::min(<ref refid="classVelocityBasedPositionController_1a12d109ebf20b8479ae46c48a1b864079" kindref="member">config_</ref>.max_velocity(),<sp/><ref refid="classVelocityBasedPositionController_1a12d109ebf20b8479ae46c48a1b864079" kindref="member">config_</ref>.position_gain()<sp/>*<sp/>position_norm);</highlight></codeline>
 <codeline lineno="16"><highlight class="normal"><sp/><sp/>control<sp/>=<sp/><ref refid="structVelocityYaw" kindref="compound">VelocityYaw</ref>(velocity<sp/>*<sp/>position_diff.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref><sp/>/<sp/>position_norm,</highlight></codeline>
@@ -115,25 +137,28 @@
 <codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="20"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="21"><highlight class="normal"></highlight></codeline>
-<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classVelocityBasedPositionController_1a0c966f3c0fbda08fdaaba82973047909" kindref="member">VelocityBasedPositionController::isConvergedImplementation</ref>(</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref><sp/><ref refid="classVelocityBasedPositionController_1a96cd6d6210b5388b32646edb627ecaa2" kindref="member">VelocityBasedPositionController::isConvergedImplementation</ref>(</highlight></codeline>
 <codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>sensor_data,<sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>goal)<sp/>{</highlight></codeline>
 <codeline lineno="24"><highlight class="normal"><sp/><sp/><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref><sp/>position_diff<sp/>=<sp/>goal<sp/>-<sp/>sensor_data;</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>PositionControllerConfig<sp/>&amp;position_controller_config<sp/>=</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classVelocityBasedPositionController_1a12d109ebf20b8479ae46c48a1b864079" kindref="member">config_</ref>.position_controller_config();</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;tolerance_pos<sp/>=</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>position_controller_config.goal_position_tolerance();</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;tolerance_yaw<sp/>=<sp/>position_controller_config.goal_yaw_tolerance();</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Compare</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::abs(position_diff.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>)<sp/>&lt;<sp/>tolerance_pos<sp/>&amp;&amp;</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::abs(position_diff.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>)<sp/>&lt;<sp/>tolerance_pos<sp/>&amp;&amp;</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::abs(position_diff.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>)<sp/>&lt;<sp/>tolerance_pos<sp/>&amp;&amp;</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::abs(position_diff.<ref refid="structPositionYaw_1a712a15ba9739cb5f4e31ea973074b8bf" kindref="member">yaw</ref>)<sp/>&lt;<sp/>tolerance_yaw)<sp/>{</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>VLOG(1)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Reached<sp/>goal&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="39"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref><sp/>status(<ref refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5abd1aa4e51539cd0c71d10d8317b3d516" kindref="member">ControllerStatus::Active</ref>);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>status<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Error<sp/>Position,<sp/>Yaw:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>position_diff.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref><sp/>&lt;&lt;<sp/>position_diff.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>position_diff.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref><sp/>&lt;&lt;<sp/>position_diff.<ref refid="structPositionYaw_1a712a15ba9739cb5f4e31ea973074b8bf" kindref="member">yaw</ref>;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>PositionControllerConfig<sp/>&amp;position_controller_config<sp/>=</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classVelocityBasedPositionController_1a12d109ebf20b8479ae46c48a1b864079" kindref="member">config_</ref>.position_controller_config();</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>config::Position<sp/>&amp;tolerance_pos<sp/>=</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>position_controller_config.goal_position_tolerance();</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;tolerance_yaw<sp/>=<sp/>position_controller_config.goal_yaw_tolerance();</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Compare</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::abs(position_diff.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>)<sp/>&lt;<sp/>tolerance_pos.x()<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::abs(position_diff.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>)<sp/>&lt;<sp/>tolerance_pos.y()<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::abs(position_diff.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>)<sp/>&lt;<sp/>tolerance_pos.z()<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::abs(position_diff.<ref refid="structPositionYaw_1a712a15ba9739cb5f4e31ea973074b8bf" kindref="member">yaw</ref>)<sp/>&lt;<sp/>tolerance_yaw)<sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>VLOG_EVERY_N(1,<sp/>50)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Reached<sp/>goal&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>status.setStatus(<ref refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5a423a9e7373b9fa345a476136ba29fc05" kindref="member">ControllerStatus::Completed</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Reached<sp/>goal&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>status;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controllers/velocity_based_position_controller.cpp"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/controllers/velocity_based_position_controller.cpp"/>
   </compounddef>
 </doxygen>

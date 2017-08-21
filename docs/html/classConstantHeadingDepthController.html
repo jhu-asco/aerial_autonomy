@@ -128,9 +128,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a973e1525b28d50ab77303e2f80c5c706 inherit pub_methods_classController"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#a973e1525b28d50ab77303e2f80c5c706">run</a> (PositionYawsensor_data, <a class="el" href="structVelocityYawRate.html">VelocityYawRate</a> &amp;control)</td></tr>
 <tr class="memdesc:a973e1525b28d50ab77303e2f80c5c706 inherit pub_methods_classController"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the control loop and return control arguments.  <a href="#a973e1525b28d50ab77303e2f80c5c706">More...</a><br/></td></tr>
 <tr class="separator:a973e1525b28d50ab77303e2f80c5c706 inherit pub_methods_classController"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab25282f175c8eaa2b132b4a80b61f7ae inherit pub_methods_classController"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#ab25282f175c8eaa2b132b4a80b61f7ae">isConverged</a> (PositionYawsensor_data)</td></tr>
-<tr class="memdesc:ab25282f175c8eaa2b132b4a80b61f7ae inherit pub_methods_classController"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if controller is converged.  <a href="#ab25282f175c8eaa2b132b4a80b61f7ae">More...</a><br/></td></tr>
-<tr class="separator:ab25282f175c8eaa2b132b4a80b61f7ae inherit pub_methods_classController"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ea079c466120794096a49fb768b6ae6 inherit pub_methods_classController"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classControllerStatus.html">ControllerStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#a0ea079c466120794096a49fb768b6ae6">isConverged</a> (PositionYawsensor_data)</td></tr>
+<tr class="memdesc:a0ea079c466120794096a49fb768b6ae6 inherit pub_methods_classController"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if controller is converged.  <a href="#a0ea079c466120794096a49fb768b6ae6">More...</a><br/></td></tr>
+<tr class="separator:a0ea079c466120794096a49fb768b6ae6 inherit pub_methods_classController"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a172aae7e2475b72fb2eb469ccd198387 inherit pub_methods_classController"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#a172aae7e2475b72fb2eb469ccd198387">setGoal</a> (Positiongoal)</td></tr>
 <tr class="memdesc:a172aae7e2475b72fb2eb469ccd198387 inherit pub_methods_classController"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the goal condition for the controller. Should use internal locking as the run function can be called from a separate thread  <a href="#a172aae7e2475b72fb2eb469ccd198387">More...</a><br/></td></tr>
 <tr class="separator:a172aae7e2475b72fb2eb469ccd198387 inherit pub_methods_classController"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,9 +146,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a3c7320e1b93e5f8b42f51dd23df3a116"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConstantHeadingDepthController.html#a3c7320e1b93e5f8b42f51dd23df3a116">runImplementation</a> (<a class="el" href="structPositionYaw.html">PositionYaw</a> sensor_data, <a class="el" href="structPosition.html">Position</a> goal, <a class="el" href="structVelocityYawRate.html">VelocityYawRate</a> &amp;control)</td></tr>
 <tr class="memdesc:a3c7320e1b93e5f8b42f51dd23df3a116"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the control loop. Uses a velocity controller to keep a desired distance from a tracked point.  <a href="#a3c7320e1b93e5f8b42f51dd23df3a116">More...</a><br/></td></tr>
 <tr class="separator:a3c7320e1b93e5f8b42f51dd23df3a116"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4688dc8ce569991da85dddb31097d493"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConstantHeadingDepthController.html#a4688dc8ce569991da85dddb31097d493">isConvergedImplementation</a> (<a class="el" href="structPositionYaw.html">PositionYaw</a> sensor_data, <a class="el" href="structPosition.html">Position</a> goal)</td></tr>
-<tr class="memdesc:a4688dc8ce569991da85dddb31097d493"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if controller converged.  <a href="#a4688dc8ce569991da85dddb31097d493">More...</a><br/></td></tr>
-<tr class="separator:a4688dc8ce569991da85dddb31097d493"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab481e32f5f27718075ddaafc7d45e972"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classControllerStatus.html">ControllerStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classConstantHeadingDepthController.html#ab481e32f5f27718075ddaafc7d45e972">isConvergedImplementation</a> (<a class="el" href="structPositionYaw.html">PositionYaw</a> sensor_data, <a class="el" href="structPosition.html">Position</a> goal)</td></tr>
+<tr class="memdesc:ab481e32f5f27718075ddaafc7d45e972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if controller converged.  <a href="#ab481e32f5f27718075ddaafc7d45e972">More...</a><br/></td></tr>
+<tr class="separator:ab481e32f5f27718075ddaafc7d45e972"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -236,7 +236,7 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a4688dc8ce569991da85dddb31097d493"></a>
+<a class="anchor" id="ab481e32f5f27718075ddaafc7d45e972"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -244,7 +244,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool ConstantHeadingDepthController::isConvergedImplementation </td>
+          <td class="memname"><a class="el" href="classControllerStatus.html">ControllerStatus</a> ConstantHeadingDepthController::isConvergedImplementation </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structPositionYaw.html">PositionYaw</a>&#160;</td>
           <td class="paramname"><em>sensor_data</em>, </td>
@@ -276,9 +276,9 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>if converged </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>controller status that contains an enum and debug information. </dd></dl>
 
-<p>Implements <a class="el" href="classController.html#ada247bf6a611958743df418250d5b454">Controller&lt; PositionYaw, Position, VelocityYawRate &gt;</a>.</p>
+<p>Implements <a class="el" href="classController.html#a21b30148805b4eddd65d61e330361f11">Controller&lt; PositionYaw, Position, VelocityYawRate &gt;</a>.</p>
 
 </div>
 </div>

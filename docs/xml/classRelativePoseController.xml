@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classRelativePoseController" kind="class" prot="public">
+    <compoundname>RelativePoseController</compoundname>
+    <basecompoundref refid="classController" prot="public" virt="non-virtual">Controller&lt; std::tuple&lt; tf::Transform, tf::Transform &gt;, tf::Transform, tf::Transform &gt;</basecompoundref>
+    <includes refid="relative__pose__controller_8h" local="no">relative_pose_controller.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classRelativePoseController_1a054cb3447960e8845475b5e2fc5a55ef" prot="private" static="no" mutable="no">
+        <type>PoseControllerConfig</type>
+        <definition>PoseControllerConfig RelativePoseController::config_</definition>
+        <argsstring></argsstring>
+        <name>config_</name>
+        <briefdescription>
+<para>Config specifies position tolerance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_pose_controller.h" line="55" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_pose_controller.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classRelativePoseController_1a0e4b5ef846d60408659ce80e4a83668c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>RelativePoseController::RelativePoseController</definition>
+        <argsstring>(PoseControllerConfig config)</argsstring>
+        <name>RelativePoseController</name>
+        <param>
+          <type>PoseControllerConfig</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_pose_controller.h" line="21" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_pose_controller.h" bodystart="21" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classRelativePoseController_1aae3e8a82c41e28352a8b27e1a409de8b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual RelativePoseController::~RelativePoseController</definition>
+        <argsstring>()</argsstring>
+        <name>~RelativePoseController</name>
+        <briefdescription>
+<para>Destructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_pose_controller.h" line="25" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_pose_controller.h" bodystart="25" bodyend="25"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classRelativePoseController_1a1347c0bc6d6d8013dec2dc6947224df7" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool RelativePoseController::runImplementation</definition>
+        <argsstring>(std::tuple&lt; tf::Transform, tf::Transform &gt; sensor_data, tf::Transform goal, tf::Transform &amp;control)</argsstring>
+        <name>runImplementation</name>
+        <reimplements refid="classController_1a25a24fe858c6d5a0e1a1475073475a4d">runImplementation</reimplements>
+        <param>
+          <type>std::tuple&lt; tf::Transform, tf::Transform &gt;</type>
+          <declname>sensor_data</declname>
+        </param>
+        <param>
+          <type>tf::Transform</type>
+          <declname>goal</declname>
+        </param>
+        <param>
+          <type>tf::Transform &amp;</type>
+          <declname>control</declname>
+        </param>
+        <briefdescription>
+<para>Run the control loop. Uses a pose controller to keep a desired pose relative to a tracked pose. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sensor_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pose of controlled point and pose of tracked pose </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>goal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Goal relative pose in tracked pose frame </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>control</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pose command </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if controller is successful in running </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_pose_controller.h" line="38" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/controllers/relative_pose_controller.cpp" bodystart="4" bodyend="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classRelativePoseController_1a8087b063589133fd5c76b639ee27ff7f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref></type>
+        <definition>ControllerStatus RelativePoseController::isConvergedImplementation</definition>
+        <argsstring>(std::tuple&lt; tf::Transform, tf::Transform &gt; sensor_data, tf::Transform goal)</argsstring>
+        <name>isConvergedImplementation</name>
+        <reimplements refid="classController_1a21b30148805b4eddd65d61e330361f11">isConvergedImplementation</reimplements>
+        <param>
+          <type>std::tuple&lt; tf::Transform, tf::Transform &gt;</type>
+          <declname>sensor_data</declname>
+        </param>
+        <param>
+          <type>tf::Transform</type>
+          <declname>goal</declname>
+        </param>
+        <briefdescription>
+<para>Check if controller converged. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sensor_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current control pose and tracked pose </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>goal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Goal relative pose in tracked pose frame</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>controller status that contains an enum and debug information. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_pose_controller.h" line="48" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/controllers/relative_pose_controller.cpp" bodystart="11" bodyend="38"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A pose controller that keeps a pose relative to some feedback pose. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="813">
+        <label>RelativePoseController</label>
+        <link refid="classRelativePoseController"/>
+        <childnode refid="814" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="814">
+        <label>Controller&lt; std::tuple&lt; tf::Transform, tf::Transform &gt;, tf::Transform, tf::Transform &gt;</label>
+        <link refid="classController"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="815">
+        <label>RelativePoseController</label>
+        <link refid="classRelativePoseController"/>
+        <childnode refid="816" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="816">
+        <label>Controller&lt; std::tuple&lt; tf::Transform, tf::Transform &gt;, tf::Transform, tf::Transform &gt;</label>
+        <link refid="classController"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_pose_controller.h" line="16" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_pose_controller.h" bodystart="14" bodyend="56"/>
+    <listofallmembers>
+      <member refid="classRelativePoseController_1a054cb3447960e8845475b5e2fc5a55ef" prot="private" virt="non-virtual"><scope>RelativePoseController</scope><name>config_</name></member>
+      <member refid="classController_1a287a48298ec6f08e36ac3d72a2e6de34" prot="public" virt="virtual"><scope>RelativePoseController</scope><name>getGoal</name></member>
+      <member refid="classController_1a0ea079c466120794096a49fb768b6ae6" prot="public" virt="non-virtual"><scope>RelativePoseController</scope><name>isConverged</name></member>
+      <member refid="classRelativePoseController_1a8087b063589133fd5c76b639ee27ff7f" prot="protected" virt="virtual"><scope>RelativePoseController</scope><name>isConvergedImplementation</name></member>
+      <member refid="classRelativePoseController_1a0e4b5ef846d60408659ce80e4a83668c" prot="public" virt="non-virtual"><scope>RelativePoseController</scope><name>RelativePoseController</name></member>
+      <member refid="classController_1a973e1525b28d50ab77303e2f80c5c706" prot="public" virt="virtual"><scope>RelativePoseController</scope><name>run</name></member>
+      <member refid="classRelativePoseController_1a1347c0bc6d6d8013dec2dc6947224df7" prot="protected" virt="virtual"><scope>RelativePoseController</scope><name>runImplementation</name></member>
+      <member refid="classController_1a172aae7e2475b72fb2eb469ccd198387" prot="public" virt="virtual"><scope>RelativePoseController</scope><name>setGoal</name></member>
+      <member refid="classController_1a86c5dbf78d3d948228c7c629e885151c" prot="public" virt="virtual"><scope>RelativePoseController</scope><name>~Controller</name></member>
+      <member refid="classRelativePoseController_1aae3e8a82c41e28352a8b27e1a409de8b" prot="public" virt="virtual"><scope>RelativePoseController</scope><name>~RelativePoseController</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

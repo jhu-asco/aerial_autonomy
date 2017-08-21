@@ -96,19 +96,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <a href="structEventAgnosticActionFunctor.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="base__functors_8h_source.html">base_functors.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for EventAgnosticActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;:</div>
-<div class="dyncontent">
-<div class="center"><img src="structEventAgnosticActionFunctor__inherit__graph.png" border="0" usemap="#EventAgnosticActionFunctor_3_01RobotSystemT_00_01LogicStateMachineT_01_4_inherit__map" alt="Inheritance graph"/></div>
-<map name="EventAgnosticActionFunctor_3_01RobotSystemT_00_01LogicStateMachineT_01_4_inherit__map" id="EventAgnosticActionFunctor_3_01RobotSystemT_00_01LogicStateMachineT_01_4_inherit__map">
-<area shape="rect" id="node2" href="structUAVStatusActionFunctor.html" title="UAVStatusActionFunctor\l\&lt; RobotSystemT, LogicStateMachineT \&gt;" alt="" coords="4,97,264,138"/></map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a53a48938d68370ff2ef262222565ffcf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structEventAgnosticActionFunctor.html#a53a48938d68370ff2ef262222565ffcf">run</a> (RobotSystemT &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)=0</td></tr>
-<tr class="memdesc:a53a48938d68370ff2ef262222565ffcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override this run function for different sub classes. This function performs the logic checking for each state.  <a href="#a53a48938d68370ff2ef262222565ffcf">More...</a><br/></td></tr>
-<tr class="separator:a53a48938d68370ff2ef262222565ffcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44caf24e060c264ec6404dd5fc746481"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structEventAgnosticActionFunctor.html#a44caf24e060c264ec6404dd5fc746481">run</a> (RobotSystemT &amp;robot_system)=0</td></tr>
+<tr class="memdesc:a44caf24e060c264ec6404dd5fc746481"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override this run function for different sub classes. This function performs the logic checking for each state.  <a href="#a44caf24e060c264ec6404dd5fc746481">More...</a><br/></td></tr>
+<tr class="separator:a44caf24e060c264ec6404dd5fc746481"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c0bcfed676d49c725ae987f37922534"><td class="memTemplParams" colspan="2">template&lt;class EventT , class FSM , class SourceState , class TargetState &gt; </td></tr>
 <tr class="memitem:a3c0bcfed676d49c725ae987f37922534"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structEventAgnosticActionFunctor.html#a3c0bcfed676d49c725ae987f37922534">operator()</a> (EventT const &amp;, FSM &amp;logic_state_machine, SourceState &amp;, TargetState &amp;)</td></tr>
 <tr class="memdesc:a3c0bcfed676d49c725ae987f37922534"><td class="mdescLeft">&#160;</td><td class="mdescRight">operator () Internally calls run function  <a href="#a3c0bcfed676d49c725ae987f37922534">More...</a><br/></td></tr>
@@ -126,7 +119,6 @@ struct EventAgnosticActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;</h3>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">RobotSystemT</td><td>The robot system used in the action </td></tr>
-    <tr><td class="paramname">LogicStateMachineT</td><td>The logic state machine used to trigger events </td></tr>
   </table>
   </dd>
 </dl>
@@ -217,7 +209,7 @@ template&lt;class EventT , class FSM , class SourceState , class TargetState &gt
 
 </div>
 </div>
-<a class="anchor" id="a53a48938d68370ff2ef262222565ffcf"></a>
+<a class="anchor" id="a44caf24e060c264ec6404dd5fc746481"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -230,18 +222,8 @@ template&lt;class RobotSystemT, class LogicStateMachineT&gt; </div>
           <td class="memname">virtual void <a class="el" href="structEventAgnosticActionFunctor.html">EventAgnosticActionFunctor</a>&lt; RobotSystemT, LogicStateMachineT &gt;::run </td>
           <td>(</td>
           <td class="paramtype">RobotSystemT &amp;&#160;</td>
-          <td class="paramname"><em>robot_system</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>robot_system</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">LogicStateMachineT &amp;&#160;</td>
-          <td class="paramname"><em>logic_state_machine</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -255,12 +237,11 @@ template&lt;class RobotSystemT, class LogicStateMachineT&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">robot_system</td><td>Provides sensor data and allows for controlling hardware </td></tr>
-    <tr><td class="paramname">logic_state_machine</td><td>Backend of logic State Machine. can send events using this. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="structTakeoffInternalActionFunctor__.html#a2118df6e326662cd0088344499e49696">TakeoffInternalActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structLandedInternalActionFunctor__.html#a4f5e4955962461c9cee82845ba1986cb">LandedInternalActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structManualControlInternalActionFunctor__.html#ad85ed8dbcd26ee5c4a7f4b9358b20c16">ManualControlInternalActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structGoHomeTransitionActionFunctor__.html#a4b6a9713db0954ebb632c2da5790136a">GoHomeTransitionActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structVisualServoingAbortActionFunctor__.html#adb2093d9e8673199f25457a747c54846">VisualServoingAbortActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structUAVStatusActionFunctor.html#aaa0f0405f45c252aefe9fda6287ba964">UAVStatusActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;</a>, <a class="el" href="structUAVStatusActionFunctor.html#aaa0f0405f45c252aefe9fda6287ba964">UAVStatusActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</a>, <a class="el" href="structUAVStatusActionFunctor.html#aaa0f0405f45c252aefe9fda6287ba964">UAVStatusActionFunctor&lt; UAVVisionSystem, LogicStateMachineT &gt;</a>, <a class="el" href="structLandInternalActionFunctor__.html#a4557b02d6cfa6712b610337cb606f54b">LandInternalActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structUAVControllerAbortActionFunctor__.html#a9c6cfbfac359f99665533c8278f060f1">UAVControllerAbortActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structTakeoffAbortActionFunctor__.html#a8366919888a54d029b3856c3a433843d">TakeoffAbortActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structManualControlSwitchAction__.html#a2e6c09414da27cdd11871c0ee1ef3fee">ManualControlSwitchAction_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structHoveringInternalActionFunctor__.html#a87bb8dd8ed71e54729967b9e258fb66e">HoveringInternalActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structVisualServoingTransitionActionFunctor__.html#a3399d28d43c167eeeda29844199b291d">VisualServoingTransitionActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structTakeoffTransitionActionFunctor__.html#aaf8ba8ac8cf0f07e2978da244b5efb2b">TakeoffTransitionActionFunctor_&lt; LogicStateMachineT &gt;</a>, and <a class="el" href="structLandTransitionActionFunctor__.html#ae91b354f041edda283e306fa312e1213">LandTransitionActionFunctor_&lt; LogicStateMachineT &gt;</a>.</p>
+<p>Implemented in <a class="el" href="structAbortArmController__.html#aea3775305569c286a1115c0bca0563d9">AbortArmController_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structVisualServoingArmTransitionActionFunctor__.html#a327a90b873c3ad3264e55d847cfd5b31">VisualServoingArmTransitionActionFunctor_&lt; LogicStateMachineT, TransformIndex &gt;</a>, <a class="el" href="structArmPoweronTransitionActionFunctor__.html#a453b050a57c81422c7e3f9cf7527b203">ArmPoweronTransitionActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structArmPoweroffTransitionActionFunctor__.html#a8e664e332e0909346004cee33a2a85c4">ArmPoweroffTransitionActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structGoHomeTransitionActionFunctor__.html#acc3aa2c2a177d6702c6fa85f6e953616">GoHomeTransitionActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structUAVControllerAbortActionFunctor__.html#a3529431b90856297590c099d729f45b7">UAVControllerAbortActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structArmRightFoldTransitionActionFunctor__.html#a9b4e3fe220ed3082b3f1165744428aa5">ArmRightFoldTransitionActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structTakeoffAbortActionFunctor__.html#a395e5c65e4db111435d60f10a7da9a56">TakeoffAbortActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structVisualServoingAbortActionFunctor__.html#a44df9808e51b92728fb0d2eb47f8e8ab">VisualServoingAbortActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structManualControlSwitchAction__.html#a9b34c9846d89230b456ab1affa6eda4d">ManualControlSwitchAction_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structArmFoldTransitionActionFunctor__.html#aa9208b0d215663a434e12c8e6d20c803">ArmFoldTransitionActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structVisualServoingTransitionActionFunctor__.html#ac4da810c4789635154fd570caa1c1596">VisualServoingTransitionActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structTakeoffTransitionActionFunctor__.html#a8aa5cd17ccbae744fe179773c9719f37">TakeoffTransitionActionFunctor_&lt; LogicStateMachineT &gt;</a>, and <a class="el" href="structLandTransitionActionFunctor__.html#ada1859d4739dcc2d16f9f6d4bbe0c916">LandTransitionActionFunctor_&lt; LogicStateMachineT &gt;</a>.</p>
 
 </div>
 </div>

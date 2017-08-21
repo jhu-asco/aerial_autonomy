@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structManualControlEvent.html" title="Event to get into manual control state when UAV leaves SDK mode and enters Manual mode..." alt="" coords="6,5,146,32"/>
+<area shape="rect" id="node1" href="$classController.html" title="Controller\&lt; PositionYaw,\l Position, VelocityYawRate \&gt;" alt="" coords="5,5,200,46"/>
+<area shape="rect" id="node2" href="$classConstantHeadingDepthController.html" title="A position controller that keeps a constant heading while attempting to keep a certain distance from ..." alt="" coords="249,12,463,39"/>
 </map>

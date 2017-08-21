@@ -2,20 +2,24 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
   <compounddef id="structHoveringInternalActionFunctor__" kind="struct" prot="public">
     <compoundname>HoveringInternalActionFunctor_</compoundname>
-    <basecompoundref refid="structEventAgnosticActionFunctor" prot="public" virt="non-virtual">EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</basecompoundref>
+    <basecompoundref refid="structInternalActionFunctor" prot="public" virt="non-virtual">InternalActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</basecompoundref>
     <includes refid="hovering__functors_8h" local="no">hovering_functors.h</includes>
     <templateparamlist>
       <param>
         <type>class LogicStateMachineT</type>
       </param>
+      <param>
+        <type>class AbortEventT</type>
+        <defval><ref refid="structManualControlEvent" kindref="compound">ManualControlEvent</ref></defval>
+      </param>
     </templateparamlist>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="structHoveringInternalActionFunctor___1a87bb8dd8ed71e54729967b9e258fb66e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
-        <type>void</type>
-        <definition>void HoveringInternalActionFunctor_&lt; LogicStateMachineT &gt;::run</definition>
+      <memberdef kind="function" id="structHoveringInternalActionFunctor___1af7519909fe07211641b95312b88aa110" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>bool HoveringInternalActionFunctor_&lt; LogicStateMachineT, AbortEventT &gt;::run</definition>
         <argsstring>(UAVSystem &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</argsstring>
         <name>run</name>
-        <reimplements refid="structEventAgnosticActionFunctor_1a53a48938d68370ff2ef262222565ffcf">run</reimplements>
+        <reimplements refid="structInternalActionFunctor_1acb286e73f21393549a4fff4920c83349">run</reimplements>
         <param>
           <type><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;</type>
           <declname>robot_system</declname>
@@ -45,7 +49,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/hovering_functors.h" line="26" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/hovering_functors.h" bodystart="26" bodyend="37"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/hovering_functors.h" line="29" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/hovering_functors.h" bodystart="29" bodyend="44"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -58,37 +62,44 @@
 <parameterdescription>
 <para>Logic state machine used to process events </para></parameterdescription>
 </parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AbortEventT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event to generate when aborting (Default <ref refid="structManualControlEvent" kindref="compound">ManualControlEvent</ref>) </para></parameterdescription>
+</parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="443">
-        <label>EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
-        <link refid="structEventAgnosticActionFunctor"/>
+      <node id="689">
+        <label>InternalActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
+        <link refid="structInternalActionFunctor"/>
       </node>
-      <node id="442">
-        <label>HoveringInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
+      <node id="688">
+        <label>HoveringInternalActionFunctor_&lt; LogicStateMachineT, AbortEventT &gt;</label>
         <link refid="structHoveringInternalActionFunctor__"/>
-        <childnode refid="443" relation="public-inheritance">
+        <childnode refid="689" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="445">
-        <label>EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
-        <link refid="structEventAgnosticActionFunctor"/>
+      <node id="691">
+        <label>InternalActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
+        <link refid="structInternalActionFunctor"/>
       </node>
-      <node id="444">
-        <label>HoveringInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
+      <node id="690">
+        <label>HoveringInternalActionFunctor_&lt; LogicStateMachineT, AbortEventT &gt;</label>
         <link refid="structHoveringInternalActionFunctor__"/>
-        <childnode refid="445" relation="public-inheritance">
+        <childnode refid="691" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/hovering_functors.h" line="19" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/hovering_functors.h" bodystart="18" bodyend="38"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/hovering_functors.h" line="22" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/hovering_functors.h" bodystart="21" bodyend="45"/>
     <listofallmembers>
-      <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>HoveringInternalActionFunctor_</scope><name>operator()</name></member>
-      <member refid="structHoveringInternalActionFunctor___1a87bb8dd8ed71e54729967b9e258fb66e" prot="public" virt="virtual"><scope>HoveringInternalActionFunctor_</scope><name>run</name></member>
-      <member refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" prot="public" virt="virtual"><scope>HoveringInternalActionFunctor_</scope><name>~EventAgnosticActionFunctor</name></member>
+      <member refid="structInternalActionFunctor_1a08544be6541497aca6b06309312c4bf3" prot="public" virt="non-virtual"><scope>HoveringInternalActionFunctor_</scope><name>operator()</name></member>
+      <member refid="structHoveringInternalActionFunctor___1af7519909fe07211641b95312b88aa110" prot="public" virt="virtual"><scope>HoveringInternalActionFunctor_</scope><name>run</name></member>
+      <member refid="structInternalActionFunctor_1ac742ec395f7f9251738ab5cb12bd5329" prot="public" virt="virtual"><scope>HoveringInternalActionFunctor_</scope><name>~InternalActionFunctor</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

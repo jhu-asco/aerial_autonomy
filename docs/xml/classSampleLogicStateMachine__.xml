@@ -22,7 +22,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="24" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="24" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="25" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="25" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classSampleLogicStateMachine___1a342b143058cca6f56daf44d89973a05f" prot="private" static="no" mutable="no">
         <type><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref></type>
@@ -35,7 +35,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="28" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="28" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="29" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="29" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -62,7 +62,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="36" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="36" bodyend="37"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="37" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="37" bodyend="38"/>
       </memberdef>
       <memberdef kind="function" id="classSampleLogicStateMachine___1af577b426ec630d48148ed6aab393b43e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -100,7 +100,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="45" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="45" bodyend="47"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="46" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="46" bodyend="48"/>
       </memberdef>
       <memberdef kind="function" id="classSampleLogicStateMachine___1a60ca43f8a484f1ab56669d0485479c47" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -125,7 +125,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="54" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="54" bodyend="57"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="55" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="55" bodyend="58"/>
       </memberdef>
       <memberdef kind="function" id="classSampleLogicStateMachine___1a469a3cdffcce57a12c5b7890410b63e8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>std::type_index</type>
@@ -139,7 +139,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="63" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="63" bodyend="63"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="64" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="64" bodyend="64"/>
       </memberdef>
       <memberdef kind="function" id="classSampleLogicStateMachine___1a254ed914235117e9ffaa5ba8614335cb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref></type>
@@ -153,7 +153,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="69" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="69" bodyend="69"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="70" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="70" bodyend="70"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -169,30 +169,30 @@
 </parameterlist>
 </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="540">
+      <node id="831">
         <label>BaseStateMachine&lt; RobotSystemT &gt;</label>
         <link refid="classBaseStateMachine"/>
       </node>
-      <node id="539">
+      <node id="830">
         <label>SampleLogicStateMachine_&lt; RobotSystemT &gt;</label>
         <link refid="classSampleLogicStateMachine__"/>
-        <childnode refid="540" relation="public-inheritance">
+        <childnode refid="831" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="542">
+      <node id="833">
         <label>BaseStateMachine&lt; RobotSystemT &gt;</label>
         <link refid="classBaseStateMachine"/>
       </node>
-      <node id="541">
+      <node id="832">
         <label>SampleLogicStateMachine_&lt; RobotSystemT &gt;</label>
         <link refid="classSampleLogicStateMachine__"/>
-        <childnode refid="542" relation="public-inheritance">
+        <childnode refid="833" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="20" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="20" bodyend="70"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" line="21" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/sample_logic_state_machine.h" bodystart="21" bodyend="71"/>
     <listofallmembers>
       <member refid="classBaseStateMachine_1a2cb25947ca74c77568736975125aed44" prot="public" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>BaseStateMachine</name></member>
       <member refid="classBaseStateMachine_1a286ff1d9af1151821ed44842a5e4fb8c" prot="public" virt="non-virtual"><scope>SampleLogicStateMachine_</scope><name>get_no_transition_event_index</name></member>

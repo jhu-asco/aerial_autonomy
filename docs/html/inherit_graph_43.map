@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classRobotSystemContainer.html" title="RobotSystemContainer\l\&lt; UAVVisionSystem \&gt;" alt="" coords="6,5,165,46"/>
+<area shape="rect" id="node1" href="$classController.html" title="Controller\&lt; std::tuple\l\&lt; tf::Transform, tf::Transform\l \&gt;, tf::Transform, tf::Transform \&gt;" alt="" coords="6,4,218,60"/>
+<area shape="rect" id="node2" href="$classRelativePoseController.html" title="A pose controller that keeps a pose relative to some feedback pose. " alt="" coords="267,19,423,45"/>
 </map>

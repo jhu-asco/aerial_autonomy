@@ -113,9 +113,9 @@ Collaboration diagram for LandTransitionActionFunctor_&lt; LogicStateMachineT &g
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae91b354f041edda283e306fa312e1213"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structLandTransitionActionFunctor__.html#ae91b354f041edda283e306fa312e1213">run</a> (<a class="el" href="classUAVSystem.html">UAVSystem</a> &amp;robot_system, LogicStateMachineT &amp;)</td></tr>
-<tr class="memdesc:ae91b354f041edda283e306fa312e1213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override this run function for different sub classes. This function performs the logic checking for each state.  <a href="#ae91b354f041edda283e306fa312e1213">More...</a><br/></td></tr>
-<tr class="separator:ae91b354f041edda283e306fa312e1213"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada1859d4739dcc2d16f9f6d4bbe0c916"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structLandTransitionActionFunctor__.html#ada1859d4739dcc2d16f9f6d4bbe0c916">run</a> (<a class="el" href="classUAVSystem.html">UAVSystem</a> &amp;robot_system)</td></tr>
+<tr class="memdesc:ada1859d4739dcc2d16f9f6d4bbe0c916"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override this run function for different sub classes. This function performs the logic checking for each state.  <a href="#ada1859d4739dcc2d16f9f6d4bbe0c916">More...</a><br/></td></tr>
+<tr class="separator:ada1859d4739dcc2d16f9f6d4bbe0c916"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_structEventAgnosticActionFunctor"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_structEventAgnosticActionFunctor')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="structEventAgnosticActionFunctor.html">EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</a></td></tr>
 <tr class="memitem:a3c0bcfed676d49c725ae987f37922534 inherit pub_methods_structEventAgnosticActionFunctor"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structEventAgnosticActionFunctor.html#a3c0bcfed676d49c725ae987f37922534">operator()</a> (EventT const &amp;, FSM &amp;logic_state_machine, SourceState &amp;, TargetState &amp;)</td></tr>
 <tr class="memdesc:a3c0bcfed676d49c725ae987f37922534 inherit pub_methods_structEventAgnosticActionFunctor"><td class="mdescLeft">&#160;</td><td class="mdescRight">operator () Internally calls run function  <a href="#a3c0bcfed676d49c725ae987f37922534">More...</a><br/></td></tr>
@@ -136,7 +136,7 @@ struct LandTransitionActionFunctor_&lt; LogicStateMachineT &gt;</h3>
   </dd>
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="ae91b354f041edda283e306fa312e1213"></a>
+<a class="anchor" id="ada1859d4739dcc2d16f9f6d4bbe0c916"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -149,18 +149,8 @@ template&lt;class LogicStateMachineT &gt; </div>
           <td class="memname">void <a class="el" href="structLandTransitionActionFunctor__.html">LandTransitionActionFunctor_</a>&lt; LogicStateMachineT &gt;::run </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classUAVSystem.html">UAVSystem</a> &amp;&#160;</td>
-          <td class="paramname"><em>robot_system</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>robot_system</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">LogicStateMachineT &amp;&#160;</td>
-          <td class="paramname"><em>logic_state_machine</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -174,13 +164,12 @@ template&lt;class LogicStateMachineT &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">robot_system</td><td>Provides sensor data and allows for controlling hardware </td></tr>
-    <tr><td class="paramname">logic_state_machine</td><td>Backend of logic State Machine. can send events using this. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd>Have to abort all hardware controllers not just UAV. </dd></dl>
 
-<p>Implements <a class="el" href="structEventAgnosticActionFunctor.html#a53a48938d68370ff2ef262222565ffcf">EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</a>.</p>
+<p>Implements <a class="el" href="structEventAgnosticActionFunctor.html#a44caf24e060c264ec6404dd5fc746481">EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</a>.</p>
 
 </div>
 </div>

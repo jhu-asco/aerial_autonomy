@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="conversions_8h" kind="file">
+    <compoundname>conversions.h</compoundname>
+    <includes local="no">tf_conversions/tf_eigen.h</includes>
+    <includedby refid="conversions_8cpp" local="yes">src/common/conversions.cpp</includedby>
+    <includedby refid="visual__servoing__controller__arm__connector_8cpp" local="yes">src/controller_hardware_connectors/visual_servoing_controller_arm_connector.cpp</includedby>
+    <incdepgraph>
+      <node id="4928">
+        <label>tf_conversions/tf_eigen.h</label>
+      </node>
+      <node id="4927">
+        <label>include/aerial_autonomy/common/conversions.h</label>
+        <link refid="conversions.h"/>
+        <childnode refid="4928" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4931">
+        <label>src/controller_hardware_connectors/visual_servoing_controller_arm_connector.cpp</label>
+        <link refid="visual__servoing__controller__arm__connector_8cpp"/>
+      </node>
+      <node id="4929">
+        <label>include/aerial_autonomy/common/conversions.h</label>
+        <link refid="conversions.h"/>
+        <childnode refid="4930" relation="include">
+        </childnode>
+        <childnode refid="4931" relation="include">
+        </childnode>
+      </node>
+      <node id="4930">
+        <label>src/common/conversions.cpp</label>
+        <link refid="conversions_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innernamespace refid="namespaceconversions">conversions</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;tf_conversions/tf_eigen.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">conversions<sp/>{</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespaceconversions_1acda31d5dfcff323b07c276899c2f74b9" kindref="member">transformMatrix4dToTf</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::Matrix4d<sp/>&amp;e,<sp/>tf::Transform<sp/>&amp;tf);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespaceconversions_1a2c3d31bf3e2dfb156045f1baf58ceace" kindref="member">transformRPYToTf</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>r,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>p,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>y,<sp/>tf::Transform<sp/>&amp;tf);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/conversions.h"/>
+  </compounddef>
+</doxygen>

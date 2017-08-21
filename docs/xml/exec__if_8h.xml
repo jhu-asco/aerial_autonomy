@@ -1,0 +1,261 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="exec__if_8h" kind="file">
+    <compoundname>exec_if.h</compoundname>
+    <includes local="no">boost/mpl/apply.hpp</includes>
+    <includes local="no">boost/mpl/assert.hpp</includes>
+    <includes local="no">boost/mpl/aux_/unwrap.hpp</includes>
+    <includes local="no">boost/mpl/begin_end.hpp</includes>
+    <includes local="no">boost/mpl/bool.hpp</includes>
+    <includes local="no">boost/mpl/deref.hpp</includes>
+    <includes local="no">boost/mpl/identity.hpp</includes>
+    <includes local="no">boost/mpl/is_sequence.hpp</includes>
+    <includes local="no">boost/mpl/next_prior.hpp</includes>
+    <includes local="no">boost/type_traits/is_same.hpp</includes>
+    <includes local="no">boost/utility/value_init.hpp</includes>
+    <includedby refid="shorting__action__sequence_8h" local="no">include/aerial_autonomy/actions_guards/shorting_action_sequence.h</includedby>
+    <incdepgraph>
+      <node id="3985">
+        <label>boost/mpl/aux_/unwrap.hpp</label>
+      </node>
+      <node id="3983">
+        <label>boost/mpl/apply.hpp</label>
+      </node>
+      <node id="3984">
+        <label>boost/mpl/assert.hpp</label>
+      </node>
+      <node id="3986">
+        <label>boost/mpl/begin_end.hpp</label>
+      </node>
+      <node id="3991">
+        <label>boost/mpl/next_prior.hpp</label>
+      </node>
+      <node id="3988">
+        <label>boost/mpl/deref.hpp</label>
+      </node>
+      <node id="3989">
+        <label>boost/mpl/identity.hpp</label>
+      </node>
+      <node id="3993">
+        <label>boost/utility/value_init.hpp</label>
+      </node>
+      <node id="3982">
+        <label>include/aerial_autonomy/actions_guards/exec_if.h</label>
+        <link refid="exec_if.h"/>
+        <childnode refid="3983" relation="include">
+        </childnode>
+        <childnode refid="3984" relation="include">
+        </childnode>
+        <childnode refid="3985" relation="include">
+        </childnode>
+        <childnode refid="3986" relation="include">
+        </childnode>
+        <childnode refid="3987" relation="include">
+        </childnode>
+        <childnode refid="3988" relation="include">
+        </childnode>
+        <childnode refid="3989" relation="include">
+        </childnode>
+        <childnode refid="3990" relation="include">
+        </childnode>
+        <childnode refid="3991" relation="include">
+        </childnode>
+        <childnode refid="3992" relation="include">
+        </childnode>
+        <childnode refid="3993" relation="include">
+        </childnode>
+      </node>
+      <node id="3990">
+        <label>boost/mpl/is_sequence.hpp</label>
+      </node>
+      <node id="3987">
+        <label>boost/mpl/bool.hpp</label>
+      </node>
+      <node id="3992">
+        <label>boost/type_traits/is_same.hpp</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4005">
+        <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
+        <link refid="uav__state__machine_8h"/>
+        <childnode refid="4006" relation="include">
+        </childnode>
+      </node>
+      <node id="3996">
+        <label>include/aerial_autonomy/actions_guards/pick_place_functors.h</label>
+        <link refid="pick__place__functors_8h"/>
+        <childnode refid="3997" relation="include">
+        </childnode>
+      </node>
+      <node id="4006">
+        <label>src/system_handler_nodes/uav_system_node.cpp</label>
+        <link refid="uav__system__node_8cpp"/>
+      </node>
+      <node id="3998">
+        <label>include/aerial_autonomy/state_machines/pick_place_state_machine.h</label>
+        <link refid="pick__place__state__machine_8h"/>
+        <childnode refid="3999" relation="include">
+        </childnode>
+      </node>
+      <node id="3995">
+        <label>include/aerial_autonomy/actions_guards/shorting_action_sequence.h</label>
+        <link refid="shorting__action__sequence_8h"/>
+        <childnode refid="3996" relation="include">
+        </childnode>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4007" relation="include">
+        </childnode>
+      </node>
+      <node id="3997">
+        <label>include/aerial_autonomy/actions_guards/pick_place_states_actions.h</label>
+        <link refid="pick__place__states__actions_8h"/>
+        <childnode refid="3998" relation="include">
+        </childnode>
+      </node>
+      <node id="4004">
+        <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
+        <link refid="uav__vision__system__node_8cpp"/>
+      </node>
+      <node id="4002">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
+        <link refid="visual__servoing__states__actions_8h"/>
+        <childnode refid="3997" relation="include">
+        </childnode>
+        <childnode refid="4003" relation="include">
+        </childnode>
+      </node>
+      <node id="4007">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_functors.h</label>
+        <link refid="visual__servoing__functors_8h"/>
+        <childnode refid="4002" relation="include">
+        </childnode>
+      </node>
+      <node id="3994">
+        <label>include/aerial_autonomy/actions_guards/exec_if.h</label>
+        <link refid="exec_if.h"/>
+        <childnode refid="3995" relation="include">
+        </childnode>
+      </node>
+      <node id="4001">
+        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
+        <link refid="uav__states__actions_8h"/>
+        <childnode refid="4002" relation="include">
+        </childnode>
+        <childnode refid="4005" relation="include">
+        </childnode>
+      </node>
+      <node id="4000">
+        <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
+        <link refid="position__control__functors_8h"/>
+        <childnode refid="4001" relation="include">
+        </childnode>
+      </node>
+      <node id="4003">
+        <label>include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</label>
+        <link refid="visual__servoing__state__machine_8h"/>
+        <childnode refid="4004" relation="include">
+        </childnode>
+      </node>
+      <node id="3999">
+        <label>src/system_handler_nodes/uav_arm_system_node.cpp</label>
+        <link refid="uav__arm__system__node_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structboost_1_1mpl_1_1aux_1_1exec__if__impl" prot="public">boost::mpl::aux::exec_if_impl</innerclass>
+    <innerclass refid="structboost_1_1mpl_1_1aux_1_1exec__if__impl_3_01false_01_4" prot="public">boost::mpl::aux::exec_if_impl&lt; false &gt;</innerclass>
+    <innernamespace refid="namespaceboost">boost</innernamespace>
+    <innernamespace refid="namespaceboost_1_1mpl">boost::mpl</innernamespace>
+    <innernamespace refid="namespaceboost_1_1mpl_1_1aux">boost::mpl::aux</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="comment">//<sp/>Copyright<sp/>Aleksey<sp/>Gurtovoy<sp/>2000-2008</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Distributed<sp/>under<sp/>the<sp/>Boost<sp/>Software<sp/>License,<sp/>Version<sp/>1.0.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>(See<sp/>accompanying<sp/>file<sp/>LICENSE_1_0.txt<sp/>or<sp/>copy<sp/>at</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//<sp/>http://www.boost.org/LICENSE_1_0.txt)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">//<sp/>See<sp/>http://www.boost.org/libs/mpl<sp/>for<sp/>documentation.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//<sp/>$Id:<sp/>exec_if.hpp<sp/>55648<sp/>2009-08-18<sp/>05:16:53Z<sp/>agurtovoy<sp/>$</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">//<sp/>$Date:<sp/>2009-08-17<sp/>22:16:53<sp/>-0700<sp/>(Mon,<sp/>17<sp/>Aug<sp/>2009)<sp/>$</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/>$Revision:<sp/>55648<sp/>$</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor">#include<sp/>&lt;boost/mpl/apply.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/mpl/assert.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/mpl/aux_/unwrap.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/mpl/begin_end.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/mpl/bool.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/mpl/deref.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/mpl/identity.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/mpl/is_sequence.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/mpl/next_prior.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/type_traits/is_same.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/utility/value_init.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="namespaceboost" refkind="compound"><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">boost<sp/>{</highlight></codeline>
+<codeline lineno="43" refid="namespaceboost_1_1mpl" refkind="compound"><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">mpl<sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="namespaceboost_1_1mpl_1_1aux" refkind="compound"><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">aux<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="structboost_1_1mpl_1_1aux_1_1exec__if__impl" refkind="compound"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>done<sp/>=<sp/>true&gt;<sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structboost_1_1mpl_1_1aux_1_1exec__if__impl" kindref="compound">exec_if_impl</ref><sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Iterator,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>LastIterator,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>TransformFunc,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>F&gt;</highlight></codeline>
+<codeline lineno="68" refid="structboost_1_1mpl_1_1aux_1_1exec__if__impl_1a5051ed193fe5eaa57abae3876de44fde" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1mpl_1_1aux_1_1exec__if__impl_1a5051ed193fe5eaa57abae3876de44fde" kindref="member">execute</ref>(Iterator<sp/>*,<sp/>LastIterator<sp/>*,<sp/>TransformFunc<sp/>*,<sp/>F)<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76" refid="structboost_1_1mpl_1_1aux_1_1exec__if__impl_3_01false_01_4" refkind="compound"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;&gt;<sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structboost_1_1mpl_1_1aux_1_1exec__if__impl" kindref="compound">exec_if_impl</ref>&lt;false&gt;<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Iterator,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>LastIterator,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>TransformFunc,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>F&gt;</highlight></codeline>
+<codeline lineno="96" refid="structboost_1_1mpl_1_1aux_1_1exec__if__impl_3_01false_01_4_1af619f799446b103228ff07ca68f9ccd7" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1mpl_1_1aux_1_1exec__if__impl_3_01false_01_4_1af619f799446b103228ff07ca68f9ccd7" kindref="member">execute</ref>(Iterator<sp/>*,<sp/>LastIterator<sp/>*,<sp/>TransformFunc<sp/>*,<sp/>F<sp/>f)<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>deref&lt;Iterator&gt;::type<sp/>item;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>apply1&lt;TransformFunc,<sp/>item&gt;::type<sp/>arg;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>dwa<sp/>2002/9/10<sp/>--<sp/>make<sp/>sure<sp/>not<sp/>to<sp/>invoke<sp/>undefined<sp/>behavior</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>when<sp/>we<sp/>pass<sp/>arg.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>value_initialized&lt;arg&gt;<sp/>x;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Only<sp/>execute<sp/>further<sp/>actions<sp/>if<sp/>return<sp/>from<sp/>the<sp/>current<sp/>action<sp/>is<sp/>true</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(aux::unwrap(f,<sp/>0)(boost::get(x)))<sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>mpl::next&lt;Iterator&gt;::type<sp/>iter;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1mpl_1_1aux_1_1exec__if__impl" kindref="compound">exec_if_impl&lt;boost::is_same&lt;iter, LastIterator&gt;::value</ref>&gt;<ref refid="structboost_1_1mpl_1_1aux_1_1exec__if__impl_1a5051ed193fe5eaa57abae3876de44fde" kindref="member">::execute</ref>(</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_cast&lt;iter<sp/>*&gt;(0),<sp/>static_cast&lt;LastIterator<sp/>*&gt;(0),</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_cast&lt;TransformFunc<sp/>*&gt;(0),<sp/>f);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>aux</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">//<sp/>agurt,<sp/>17/mar/02:<sp/>pointer<sp/>default<sp/>parameters<sp/>are<sp/>necessary<sp/>to<sp/>workaround</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">//<sp/>MSVC<sp/>6.5<sp/>function<sp/>template<sp/>signature&apos;s<sp/>mangling<sp/>bug</highlight></codeline>
+<codeline lineno="134"><highlight class="comment"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Sequence,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>TransformOp,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>F&gt;</highlight></codeline>
+<codeline lineno="135" refid="namespaceboost_1_1mpl_1ae91dc45cdc4f2953100f334ea17e35a4" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="namespaceboost_1_1mpl_1ae91dc45cdc4f2953100f334ea17e35a4" kindref="member">exec_if</ref>(F<sp/>f,<sp/>Sequence<sp/>*<sp/>=<sp/>0,<sp/>TransformOp<sp/>*<sp/>=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/>BOOST_MPL_ASSERT((is_sequence&lt;Sequence&gt;));</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>begin&lt;Sequence&gt;::type<sp/>first;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>end&lt;Sequence&gt;::type<sp/>last;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structboost_1_1mpl_1_1aux_1_1exec__if__impl" kindref="compound">aux::exec_if_impl&lt;boost::is_same&lt;first, last&gt;::value</ref>&gt;::execute(</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>static_cast&lt;first<sp/>*&gt;(0),<sp/>static_cast&lt;last<sp/>*&gt;(0),</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>static_cast&lt;TransformOp<sp/>*&gt;(0),<sp/>f);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Sequence,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>F&gt;</highlight></codeline>
+<codeline lineno="159" refid="namespaceboost_1_1mpl_1ad6523068f62a8d5877388e0c77d2cc76" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="namespaceboost_1_1mpl_1ae91dc45cdc4f2953100f334ea17e35a4" kindref="member">exec_if</ref>(F<sp/>f,<sp/>Sequence<sp/>*<sp/>=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>exec_if&lt;Sequence,<sp/>identity&lt;&gt;&gt;(f);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/exec_if.h"/>
+  </compounddef>
+</doxygen>

@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_2f8e754ab99ce0b8ad0265163734387c.html">include</a></li><li class="navelem"><a class="el" href="dir_aa08a9b8af1d5448e3e7b8b8a4c3ba6b.html">aerial_autonomy</a></li><li class="navelem"><a class="el" href="dir_dbb1c79ada1dfd68f9623b1c747f82ff.html">common</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_6fe9f9c87adb79173c1aa2f732811b45.html">include</a></li><li class="navelem"><a class="el" href="dir_8c66c8138e7b35f6ec94720b060b21f5.html">aerial_autonomy</a></li><li class="navelem"><a class="el" href="dir_1077e06fddebf1de34a04bcc222dd5f0.html">common</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -114,10 +114,28 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  }</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordflow">return</span> transform;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="namespacemath.html#a70bc3cf992227cda7fc159e49634d83a">   68</a></span>&#160;std::vector&lt;tf::Transform&gt; <a class="code" href="namespacemath.html#a70bc3cf992227cda7fc159e49634d83a">getTransformsFromVector</a>(<span class="keyword">const</span> T &amp;input) {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keywordflow">if</span> (input.size() % 6 != 0) {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">throw</span> std::runtime_error(</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="stringliteral">&quot;The input does not have a multiple of 6 elements x,y,z, r,p,y&quot;</span>);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  std::vector&lt;tf::Transform&gt; transforms(input.size() / 6);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0, j = 0; i &lt; input.size(); i += 6, j++) {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    transforms.at(j).setOrigin(</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        tf::Vector3(input[i + 0], input[i + 1], input[i + 2]));</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    transforms.at(j).setRotation(</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        tf::createQuaternionFromRPY(input[i + 3], input[i + 4], input[i + 5]));</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="keywordflow">return</span> transforms;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
 <div class="ttc" id="namespacemath_html_a6d507253f29fa253416474c4364b50f7"><div class="ttname"><a href="namespacemath.html#a6d507253f29fa253416474c4364b50f7">math::clamp</a></div><div class="ttdeci">double clamp(double x, double min, double max)</div><div class="ttdoc">Clip a number to bewteen a min and max value. </div><div class="ttdef"><b>Definition:</b> math.cpp:18</div></div>
 <div class="ttc" id="namespacemath_html_a5948c30f26d082a30d534de02beed3d1"><div class="ttname"><a href="namespacemath.html#a5948c30f26d082a30d534de02beed3d1">math::angleWrap</a></div><div class="ttdeci">double angleWrap(double x)</div><div class="ttdoc">Wrap an angle to be in the range [-pi, pi) </div><div class="ttdef"><b>Definition:</b> math.cpp:11</div></div>
 <div class="ttc" id="namespacemath_html_abc9135c6c399525915081a36016749bf"><div class="ttname"><a href="namespacemath.html#abc9135c6c399525915081a36016749bf">math::getTransformFromVector</a></div><div class="ttdeci">tf::Transform getTransformFromVector(const T &amp;input)</div><div class="ttdoc">Generate a tf transform from a vector of xyzrpy. </div><div class="ttdef"><b>Definition:</b> math.h:41</div></div>
+<div class="ttc" id="namespacemath_html_a70bc3cf992227cda7fc159e49634d83a"><div class="ttname"><a href="namespacemath.html#a70bc3cf992227cda7fc159e49634d83a">math::getTransformsFromVector</a></div><div class="ttdeci">std::vector&lt; tf::Transform &gt; getTransformsFromVector(const T &amp;input)</div><div class="ttdoc">Generate a vector of tf transforms from a vector of xyzrpy. </div><div class="ttdef"><b>Definition:</b> math.h:68</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.6-->
 <!-- start footer part -->

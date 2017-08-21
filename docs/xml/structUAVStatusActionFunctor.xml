@@ -52,15 +52,16 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" line="19" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" bodystart="19" bodyend="35"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" line="26" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" bodystart="26" bodyend="42"/>
       </memberdef>
       <memberdef kind="function" id="structUAVStatusActionFunctor_1a18b62050ab2cbf50fc222988347b4c3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
         <definition>virtual void UAVStatusActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;::statusIndependentRun</definition>
         <argsstring>(RobotSystemT &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)=0</argsstring>
         <name>statusIndependentRun</name>
-        <reimplementedby refid="structPositionControlInternalActionFunctor___1aa5676982392898435d97a482bb5b6fd0">statusIndependentRun</reimplementedby>
+        <reimplementedby refid="structPickInternalActionFunctor___1a7cbca4293dd27465233c61fd7f284389">statusIndependentRun</reimplementedby>
         <reimplementedby refid="structVisualServoingInternalActionFunctor___1a10cf4e572f0db0f7fb004caf5d7edcd9">statusIndependentRun</reimplementedby>
+        <reimplementedby refid="structPositionControlInternalActionFunctor___1aa5676982392898435d97a482bb5b6fd0">statusIndependentRun</reimplementedby>
         <param>
           <type>RobotSystemT &amp;</type>
           <declname>robot_system</declname>
@@ -90,7 +91,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" line="47" column="1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" line="54" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structUAVStatusActionFunctor_1aaa0f0405f45c252aefe9fda6287ba964" prot="public" static="no" const="no" explicit="no" inline="yes" final="yes" virt="virtual">
         <type>void</type>
@@ -127,38 +128,53 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" line="50" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" bodystart="50" bodyend="55"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" line="57" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" bodystart="57" bodyend="62"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Functor which internally checks for UAV status before calling status independent run function. </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>RobotSystemT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Robot System used by status independent run </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State Machine used by status independent run </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
     <inheritancegraph>
-      <node id="602">
+      <node id="881">
         <label>UAVStatusActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;</label>
         <link refid="structUAVStatusActionFunctor"/>
-        <childnode refid="603" relation="public-inheritance">
+        <childnode refid="882" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="603">
+      <node id="882">
         <label>EventAgnosticActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticActionFunctor"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="604">
+      <node id="883">
         <label>UAVStatusActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;</label>
         <link refid="structUAVStatusActionFunctor"/>
-        <childnode refid="605" relation="public-inheritance">
+        <childnode refid="884" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="605">
+      <node id="884">
         <label>EventAgnosticActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticActionFunctor"/>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" line="9" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" bodystart="8" bodyend="56"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" line="16" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/uav_status_functor.h" bodystart="15" bodyend="63"/>
     <listofallmembers>
       <member refid="structUAVStatusActionFunctor_1a05dfaff6ccd9ca5388fda51ccd831f8c" prot="public" virt="non-virtual"><scope>UAVStatusActionFunctor</scope><name>checkStatus</name></member>
       <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>UAVStatusActionFunctor</scope><name>operator()</name></member>

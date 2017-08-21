@@ -45,7 +45,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/position_control_functors.h" line="84" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/position_control_functors.h" bodystart="84" bodyend="96"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/position_control_functors.h" line="84" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/position_control_functors.h" bodystart="84" bodyend="96"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -61,42 +61,42 @@
 </parameterlist>
 </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="502">
+      <node id="747">
         <label>PositionControlInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structPositionControlInternalActionFunctor__"/>
-        <childnode refid="503" relation="public-inheritance">
+        <childnode refid="748" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="504">
+      <node id="749">
         <label>EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticActionFunctor"/>
       </node>
-      <node id="503">
+      <node id="748">
         <label>UAVStatusActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
         <link refid="structUAVStatusActionFunctor"/>
-        <childnode refid="504" relation="public-inheritance">
+        <childnode refid="749" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="505">
+      <node id="750">
         <label>PositionControlInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structPositionControlInternalActionFunctor__"/>
-        <childnode refid="506" relation="public-inheritance">
+        <childnode refid="751" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="507">
+      <node id="752">
         <label>EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticActionFunctor"/>
       </node>
-      <node id="506">
+      <node id="751">
         <label>UAVStatusActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
         <link refid="structUAVStatusActionFunctor"/>
-        <childnode refid="507" relation="public-inheritance">
+        <childnode refid="752" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/position_control_functors.h" line="77" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/position_control_functors.h" bodystart="76" bodyend="97"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/position_control_functors.h" line="77" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/position_control_functors.h" bodystart="76" bodyend="97"/>
     <listofallmembers>
       <member refid="structUAVStatusActionFunctor_1a05dfaff6ccd9ca5388fda51ccd831f8c" prot="public" virt="non-virtual"><scope>PositionControlInternalActionFunctor_</scope><name>checkStatus</name></member>
       <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>PositionControlInternalActionFunctor_</scope><name>operator()</name></member>

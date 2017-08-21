@@ -1,0 +1,320 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="controller__status_8cpp" kind="file">
+    <compoundname>controller_status.cpp</compoundname>
+    <includes refid="controller__status_8h" local="no">aerial_autonomy/common/controller_status.h</includes>
+    <includes refid="html__utils_8h" local="no">aerial_autonomy/common/html_utils.h</includes>
+    <includes local="no">iostream</includes>
+    <incdepgraph>
+      <node id="7204">
+        <label>iomanip</label>
+      </node>
+      <node id="7206">
+        <label>stdexcept</label>
+      </node>
+      <node id="7201">
+        <label>string</label>
+      </node>
+      <node id="7200">
+        <label>aerial_autonomy/common/controller_status.h</label>
+        <link refid="controller__status_8h"/>
+        <childnode refid="7201" relation="include">
+        </childnode>
+        <childnode refid="7202" relation="include">
+        </childnode>
+      </node>
+      <node id="7202">
+        <label>vector</label>
+      </node>
+      <node id="7205">
+        <label>sstream</label>
+      </node>
+      <node id="7207">
+        <label>iostream</label>
+      </node>
+      <node id="7199">
+        <label>src/common/controller_status.cpp</label>
+        <link refid="controller_status.cpp"/>
+        <childnode refid="7200" relation="include">
+        </childnode>
+        <childnode refid="7203" relation="include">
+        </childnode>
+        <childnode refid="7207" relation="include">
+        </childnode>
+      </node>
+      <node id="7203">
+        <label>aerial_autonomy/common/html_utils.h</label>
+        <link refid="html__utils_8h"/>
+        <childnode refid="7204" relation="include">
+        </childnode>
+        <childnode refid="7205" relation="include">
+        </childnode>
+        <childnode refid="7206" relation="include">
+        </childnode>
+        <childnode refid="7201" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="controller__status_8cpp_1a33f9a5828e0e9ebb8f5baba5477ba4b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool operator==</definition>
+        <argsstring>(const ControllerStatus &amp;controller_status, const ControllerStatus::Status &amp;status_enum)</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &amp;</type>
+          <declname>controller_status</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5" kindref="member">ControllerStatus::Status</ref> &amp;</type>
+          <declname>status_enum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>controller_status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The LHS which is a controller status </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>status_enum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The RHS which is an enum</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the controller status has the same enum as RHS </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/common/controller_status.cpp" line="44" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/common/controller_status.cpp" bodystart="44" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="controller__status_8cpp_1a369ada8ee0cc3930c89bbfa56c71e74d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool operator==</definition>
+        <argsstring>(const ControllerStatus &amp;lhs_controller_status, const ControllerStatus &amp;rhs_controller_status)</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &amp;</type>
+          <declname>lhs_controller_status</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &amp;</type>
+          <declname>rhs_controller_status</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lhs_controller_status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>first controller status </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rhs_controller_status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>second controller status</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if both controller status have the same status enum stored </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/common/controller_status.cpp" line="49" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/common/controller_status.cpp" bodystart="49" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="controller__status_8cpp_1a5371c7e73e26e62fbf868743f875b3ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool operator!=</definition>
+        <argsstring>(const ControllerStatus &amp;lhs_controller_status, const ControllerStatus &amp;rhs_controller_status)</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &amp;</type>
+          <declname>lhs_controller_status</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &amp;</type>
+          <declname>rhs_controller_status</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lhs_controller_status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>first controller status </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rhs_controller_status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>second controller status</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if both controller status do not have the same status enum stored </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/common/controller_status.cpp" line="54" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/common/controller_status.cpp" bodystart="54" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="controller__status_8cpp_1a786ff5eb714accec2fb339510aa1cd10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &amp;</type>
+        <definition>ControllerStatus&amp; operator&lt;&lt;</definition>
+        <argsstring>(ControllerStatus &amp;cs, const double &amp;data)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &amp;</type>
+          <declname>cs</declname>
+        </param>
+        <param>
+          <type>const double &amp;</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>data to be input to controller status</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> instance </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/common/controller_status.cpp" line="59" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/common/controller_status.cpp" bodystart="59" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="controller__status_8cpp_1a963e40f389c9c9faa41fc2cbe97d6ad0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &amp;</type>
+        <definition>ControllerStatus&amp; operator&lt;&lt;</definition>
+        <argsstring>(ControllerStatus &amp;cs, const std::string &amp;data)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &amp;</type>
+          <declname>cs</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classController" kindref="compound">Controller</ref> status instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>header name</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> instance </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/common/controller_status.cpp" line="64" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/common/controller_status.cpp" bodystart="64" bodyend="67"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;<ref refid="controller__status_8h" kindref="compound">aerial_autonomy/common/controller_status.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Html<sp/>utils</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="html__utils_8h" kindref="compound">aerial_autonomy/common/html_utils.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Ostream</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><ref refid="classControllerStatus_1afc03ed405aec0b3d3165d6447a9f791a" kindref="member">ControllerStatus::ControllerStatus</ref>(<ref refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5" kindref="member">ControllerStatus::Status</ref><sp/>status,</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>status_description)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>status_(status),<sp/>status_description_(status_description),</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>debug_header(</highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">)<sp/>{}</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal">std::string<sp/><ref refid="classControllerStatus_1a0f14e9876ec9bec020fa4a7dba5fa533" kindref="member">ControllerStatus::getHtmlStatusString</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><ref refid="classHtmlTableWriter" kindref="compound">HtmlTableWriter</ref><sp/>controller_status_table(90);<sp/></highlight><highlight class="comment">//<sp/>Shorter<sp/>width</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/>controller_status_table.beginRow();</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(status_)<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5abd1aa4e51539cd0c71d10d8317b3d516" kindref="member">ControllerStatus::Active</ref>:</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>controller_status_table.addCell(</highlight><highlight class="stringliteral">&quot;Active&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Status&quot;</highlight><highlight class="normal">,<sp/><ref refid="structColors_1a1e9953f0bd8db539110c2838a09f98db" kindref="member">Colors::green</ref>);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5a423a9e7373b9fa345a476136ba29fc05" kindref="member">ControllerStatus::Completed</ref>:</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>controller_status_table.addCell(</highlight><highlight class="stringliteral">&quot;Completed&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Status&quot;</highlight><highlight class="normal">,<sp/><ref refid="structColors_1a1e9953f0bd8db539110c2838a09f98db" kindref="member">Colors::green</ref>);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5a25a624331e4843eacb2f173012402c74" kindref="member">ControllerStatus::Critical</ref>:</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>controller_status_table.addCell(</highlight><highlight class="stringliteral">&quot;Critical&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Status&quot;</highlight><highlight class="normal">,<sp/><ref refid="structColors_1aabea0bbeac1f20ea8338ce97513ef6bf" kindref="member">Colors::red</ref>);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5af0cfd086b78abab59eea7840bb641d9c" kindref="member">ControllerStatus::NotEngaged</ref>:</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>controller_status_table.addCell(</highlight><highlight class="stringliteral">&quot;NotEngaged&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Status&quot;</highlight><highlight class="normal">,<sp/><ref refid="structColors_1ad7c48ead03d5925248a821ae1a0501e8" kindref="member">Colors::yellow</ref>);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>controller_status_table.addCell(</highlight><highlight class="stringliteral">&quot;Unknown<sp/>controller<sp/>status!&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Status&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structColors_1aabea0bbeac1f20ea8338ce97513ef6bf" kindref="member">Colors::red</ref>,<sp/>2);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>controller_status_table.addCell(status_description_);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/>controller_status_table.beginRow();</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!debug_header.empty())<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>controller_status_table.addCell(debug_header);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;data<sp/>:<sp/>debug_info)<sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>controller_status_table.addCell(data);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>controller_status_table.getTableString();</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="controller__status_8cpp_1a33f9a5828e0e9ebb8f5baba5477ba4b3" kindref="member">operator==</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref><sp/>&amp;controller_status,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5" kindref="member">ControllerStatus::Status</ref><sp/>&amp;status_enum)<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>controller_status.status_<sp/>==<sp/>status_enum;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="controller__status_8cpp_1a33f9a5828e0e9ebb8f5baba5477ba4b3" kindref="member">operator==</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref><sp/>&amp;lhs_controller_status,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref><sp/>&amp;rhs_controller_status)<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>lhs_controller_status.status_<sp/>==<sp/>rhs_controller_status.status_;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="controller__status_8cpp_1a5371c7e73e26e62fbf868743f875b3ac" kindref="member">operator!=</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref><sp/>&amp;lhs_controller_status,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref><sp/>&amp;rhs_controller_status)<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>lhs_controller_status.status_<sp/>!=<sp/>rhs_controller_status.status_;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref><sp/>&amp;<ref refid="controller__status_8cpp_1a786ff5eb714accec2fb339510aa1cd10" kindref="member">operator&lt;&lt;</ref>(<ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref><sp/>&amp;cs,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;data)<sp/>{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/>cs.debug_info.push_back(data);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cs;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref><sp/>&amp;<ref refid="controller__status_8cpp_1a786ff5eb714accec2fb339510aa1cd10" kindref="member">operator&lt;&lt;</ref>(<ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref><sp/>&amp;cs,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string<sp/>&amp;data)<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>cs.debug_header<sp/>=<sp/>std::string(data);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cs;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/common/controller_status.cpp"/>
+  </compounddef>
+</doxygen>

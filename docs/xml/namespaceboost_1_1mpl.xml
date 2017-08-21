@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="namespaceboost_1_1mpl" kind="namespace">
+    <compoundname>boost::mpl</compoundname>
+    <innernamespace refid="namespaceboost_1_1mpl_1_1aux">boost::mpl::aux</innernamespace>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceboost_1_1mpl_1ae91dc45cdc4f2953100f334ea17e35a4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Sequence</type>
+          </param>
+          <param>
+            <type>typename TransformOp</type>
+          </param>
+          <param>
+            <type>typename F</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool boost::mpl::exec_if</definition>
+        <argsstring>(F f, Sequence *=0, TransformOp *=0)</argsstring>
+        <name>exec_if</name>
+        <param>
+          <type>F</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>Sequence *</type>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>TransformOp *</type>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Function to go through elements of boost sequence and apply the functor F on each element. If the functor F returns false in between the function stops executing further elements and returns false. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Sequence</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sequence type to iterate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TransformOp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation to transform the elements in the sequence </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>F</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Functor type to apply on the element sequence </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>f</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>functor instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Sequence</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer (Sequence elements are instantiated by default) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Transform</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>operation pointer not used (Instantiated internally)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>If the functor F returns false in between the function stops executing further elements and returns false. Otherwise returns true. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/exec_if.h" line="135" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/exec_if.h" bodystart="135" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceboost_1_1mpl_1ad6523068f62a8d5877388e0c77d2cc76" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Sequence</type>
+          </param>
+          <param>
+            <type>typename F</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool boost::mpl::exec_if</definition>
+        <argsstring>(F f, Sequence *=0)</argsstring>
+        <name>exec_if</name>
+        <param>
+          <type>F</type>
+          <declname>f</declname>
+        </param>
+        <param>
+          <type>Sequence *</type>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Simplified implementation without transform operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Sequence</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sequence type to iterate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>F</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Functor type to apply on the element sequence </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>f</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>functor instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Sequence</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer (Sequence elements are instantiated by default)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>If the functor F returns false in between the function stops executing further elements and returns false. Otherwise returns true. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/exec_if.h" line="159" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/exec_if.h" bodystart="159" bodyend="161"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>namespace for mpl module </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/exec_if.h" line="43" column="1"/>
+  </compounddef>
+</doxygen>

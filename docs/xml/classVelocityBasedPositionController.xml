@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" line="49" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" bodystart="49" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" line="49" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -31,7 +31,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" line="16" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" bodystart="16" bodyend="17"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" line="16" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" bodystart="16" bodyend="17"/>
       </memberdef>
       <memberdef kind="function" id="classVelocityBasedPositionController_1aa1be12d86ceb1c73329226fc34741f4d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -48,7 +48,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" line="21" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" bodystart="21" bodyend="22"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" line="21" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" bodystart="21" bodyend="22"/>
       </memberdef>
       <memberdef kind="function" id="classVelocityBasedPositionController_1a08b7c0edaed63816a8ee2a84d7e1dc50" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type></type>
@@ -61,7 +61,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" line="26" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" bodystart="26" bodyend="26"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" line="26" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" bodystart="26" bodyend="26"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -112,14 +112,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" line="37" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controllers/velocity_based_position_controller.cpp" bodystart="5" bodyend="20"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" line="37" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/controllers/velocity_based_position_controller.cpp" bodystart="5" bodyend="20"/>
       </memberdef>
-      <memberdef kind="function" id="classVelocityBasedPositionController_1a0c966f3c0fbda08fdaaba82973047909" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
-        <type>bool</type>
-        <definition>bool VelocityBasedPositionController::isConvergedImplementation</definition>
+      <memberdef kind="function" id="classVelocityBasedPositionController_1a96cd6d6210b5388b32646edb627ecaa2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref></type>
+        <definition>ControllerStatus VelocityBasedPositionController::isConvergedImplementation</definition>
         <argsstring>(PositionYaw sensor_data, PositionYaw goal)</argsstring>
         <name>isConvergedImplementation</name>
-        <reimplements refid="classController_1ada247bf6a611958743df418250d5b454">isConvergedImplementation</reimplements>
+        <reimplements refid="classController_1a21b30148805b4eddd65d61e330361f11">isConvergedImplementation</reimplements>
         <param>
           <type><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref></type>
           <declname>sensor_data</declname>
@@ -146,11 +146,11 @@
 <para>Goal position yaw</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>True if sensor data is close to goal </para></simplesect>
+<simplesect kind="return"><para>controller status that contains an enum and debug information. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" line="47" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controllers/velocity_based_position_controller.cpp" bodystart="22" bodyend="39"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" line="47" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/controllers/velocity_based_position_controller.cpp" bodystart="22" bodyend="42"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -158,35 +158,35 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="627">
+      <node id="952">
         <label>VelocityBasedPositionController</label>
         <link refid="classVelocityBasedPositionController"/>
-        <childnode refid="628" relation="public-inheritance">
+        <childnode refid="953" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="628">
+      <node id="953">
         <label>Controller&lt; PositionYaw, PositionYaw, VelocityYaw &gt;</label>
         <link refid="classController"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="629">
+      <node id="954">
         <label>VelocityBasedPositionController</label>
         <link refid="classVelocityBasedPositionController"/>
-        <childnode refid="630" relation="public-inheritance">
+        <childnode refid="955" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="630">
+      <node id="955">
         <label>Controller&lt; PositionYaw, PositionYaw, VelocityYaw &gt;</label>
         <link refid="classController"/>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" line="11" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" bodystart="10" bodyend="50"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" line="11" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/velocity_based_position_controller.h" bodystart="10" bodyend="50"/>
     <listofallmembers>
       <member refid="classVelocityBasedPositionController_1a12d109ebf20b8479ae46c48a1b864079" prot="protected" virt="non-virtual"><scope>VelocityBasedPositionController</scope><name>config_</name></member>
       <member refid="classController_1a287a48298ec6f08e36ac3d72a2e6de34" prot="public" virt="virtual"><scope>VelocityBasedPositionController</scope><name>getGoal</name></member>
-      <member refid="classController_1ab25282f175c8eaa2b132b4a80b61f7ae" prot="public" virt="non-virtual"><scope>VelocityBasedPositionController</scope><name>isConverged</name></member>
-      <member refid="classVelocityBasedPositionController_1a0c966f3c0fbda08fdaaba82973047909" prot="protected" virt="virtual"><scope>VelocityBasedPositionController</scope><name>isConvergedImplementation</name></member>
+      <member refid="classController_1a0ea079c466120794096a49fb768b6ae6" prot="public" virt="non-virtual"><scope>VelocityBasedPositionController</scope><name>isConverged</name></member>
+      <member refid="classVelocityBasedPositionController_1a96cd6d6210b5388b32646edb627ecaa2" prot="protected" virt="virtual"><scope>VelocityBasedPositionController</scope><name>isConvergedImplementation</name></member>
       <member refid="classController_1a973e1525b28d50ab77303e2f80c5c706" prot="public" virt="virtual"><scope>VelocityBasedPositionController</scope><name>run</name></member>
       <member refid="classVelocityBasedPositionController_1aa4dd4ab85aabb384141aca4de37d1747" prot="protected" virt="virtual"><scope>VelocityBasedPositionController</scope><name>runImplementation</name></member>
       <member refid="classController_1a172aae7e2475b72fb2eb469ccd198387" prot="public" virt="virtual"><scope>VelocityBasedPositionController</scope><name>setGoal</name></member>

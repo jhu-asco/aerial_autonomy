@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="alvar__tracker_8h" kind="file">
+    <compoundname>alvar_tracker.h</compoundname>
+    <includes refid="base__tracker_8h" local="yes">aerial_autonomy/trackers/base_tracker.h</includes>
+    <includes refid="closest__tracking__strategy_8h" local="yes">aerial_autonomy/trackers/closest_tracking_strategy.h</includes>
+    <includes refid="atomic_8h" local="yes">aerial_autonomy/common/atomic.h</includes>
+    <includes local="no">ar_track_alvar_msgs/AlvarMarkers.h</includes>
+    <includes local="no">ros/ros.h</includes>
+    <includedby refid="alvar__tracker_8cpp" local="yes">src/trackers/alvar_tracker.cpp</includedby>
+    <includedby refid="uav__arm__system__handler_8h" local="no">include/aerial_autonomy/system_handlers/uav_arm_system_handler.h</includedby>
+    <includedby refid="uav__vision__system__handler_8h" local="no">include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</includedby>
+    <incdepgraph>
+      <node id="6633">
+        <label>boost/thread/mutex.hpp</label>
+      </node>
+      <node id="6627">
+        <label>cmath</label>
+      </node>
+      <node id="6628">
+        <label>tuple</label>
+      </node>
+      <node id="6631">
+        <label>aerial_autonomy/trackers/closest_tracking_strategy.h</label>
+        <link refid="closest__tracking__strategy_8h"/>
+        <childnode refid="6625" relation="include">
+        </childnode>
+      </node>
+      <node id="6623">
+        <label>include/aerial_autonomy/trackers/alvar_tracker.h</label>
+        <link refid="alvar_tracker.h"/>
+        <childnode refid="6624" relation="include">
+        </childnode>
+        <childnode refid="6631" relation="include">
+        </childnode>
+        <childnode refid="6632" relation="include">
+        </childnode>
+        <childnode refid="6634" relation="include">
+        </childnode>
+        <childnode refid="6635" relation="include">
+        </childnode>
+      </node>
+      <node id="6624">
+        <label>aerial_autonomy/trackers/base_tracker.h</label>
+        <link refid="base__tracker_8h"/>
+        <childnode refid="6625" relation="include">
+        </childnode>
+        <childnode refid="6626" relation="include">
+        </childnode>
+        <childnode refid="6630" relation="include">
+        </childnode>
+        <childnode refid="6628" relation="include">
+        </childnode>
+        <childnode refid="6629" relation="include">
+        </childnode>
+      </node>
+      <node id="6635">
+        <label>ros/ros.h</label>
+      </node>
+      <node id="6629">
+        <label>unordered_map</label>
+      </node>
+      <node id="6625">
+        <label>aerial_autonomy/trackers/tracking_strategy.h</label>
+        <link refid="tracking__strategy_8h"/>
+        <childnode refid="6626" relation="include">
+        </childnode>
+        <childnode refid="6628" relation="include">
+        </childnode>
+        <childnode refid="6629" relation="include">
+        </childnode>
+      </node>
+      <node id="6626">
+        <label>aerial_autonomy/types/position.h</label>
+        <link refid="position_8h"/>
+        <childnode refid="6627" relation="include">
+        </childnode>
+      </node>
+      <node id="6634">
+        <label>ar_track_alvar_msgs/AlvarMarkers.h</label>
+      </node>
+      <node id="6632">
+        <label>aerial_autonomy/common/atomic.h</label>
+        <link refid="atomic_8h"/>
+        <childnode refid="6633" relation="include">
+        </childnode>
+      </node>
+      <node id="6630">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6637">
+        <label>src/trackers/alvar_tracker.cpp</label>
+        <link refid="alvar__tracker_8cpp"/>
+      </node>
+      <node id="6640">
+        <label>include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</label>
+        <link refid="uav__vision__system__handler_8h"/>
+        <childnode refid="6641" relation="include">
+        </childnode>
+      </node>
+      <node id="6641">
+        <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
+        <link refid="uav__vision__system__node_8cpp"/>
+      </node>
+      <node id="6636">
+        <label>include/aerial_autonomy/trackers/alvar_tracker.h</label>
+        <link refid="alvar_tracker.h"/>
+        <childnode refid="6637" relation="include">
+        </childnode>
+        <childnode refid="6638" relation="include">
+        </childnode>
+        <childnode refid="6640" relation="include">
+        </childnode>
+      </node>
+      <node id="6638">
+        <label>include/aerial_autonomy/system_handlers/uav_arm_system_handler.h</label>
+        <link refid="uav__arm__system__handler_8h"/>
+        <childnode refid="6639" relation="include">
+        </childnode>
+      </node>
+      <node id="6639">
+        <label>src/system_handler_nodes/uav_arm_system_node.cpp</label>
+        <link refid="uav__arm__system__node_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classAlvarTracker" prot="public">AlvarTracker</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="base__tracker_8h" kindref="compound">aerial_autonomy/trackers/base_tracker.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="closest__tracking__strategy_8h" kindref="compound">aerial_autonomy/trackers/closest_tracking_strategy.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="atomic_8h" kindref="compound">aerial_autonomy/common/atomic.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ar_track_alvar_msgs/AlvarMarkers.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ros/ros.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="classAlvarTracker" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classAlvarTracker" kindref="compound">AlvarTracker</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classBaseTracker" kindref="compound">BaseTracker</ref><sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="19" refid="classAlvarTracker_1a711f920384bcfbddf8a8788ce0970fd4" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classAlvarTracker_1a711f920384bcfbddf8a8788ce0970fd4" kindref="member">AlvarTracker</ref>(ros::NodeHandle<sp/>&amp;nh)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classBaseTracker" kindref="compound">BaseTracker</ref>(new<sp/><ref refid="classClosestTrackingStrategy" kindref="compound">ClosestTrackingStrategy</ref>(20)),<sp/>nh_(nh),</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>alvar_sub_(nh_.subscribe(</highlight><highlight class="stringliteral">&quot;ar_pose_marker&quot;</highlight><highlight class="normal">,<sp/>1,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="classAlvarTracker" kindref="compound">AlvarTracker</ref>::markerCallback,<sp/>this)),</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>timeout_(0.2)<sp/>{}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classAlvarTracker_1ad062d376d6795020d712f4cf4bfffeaf" kindref="member">getTrackingVectors</ref>(std::unordered_map&lt;uint32_t,<sp/>Position&gt;<sp/>&amp;pos);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classAlvarTracker_1aacf6b19dbc6100dc4ee5f367b744c91d" kindref="member">trackingIsValid</ref>();</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classAlvarTracker_1ada5aac5daf5800a4e21d42e7c20b7e52" kindref="member">isConnected</ref>();</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>markerCallback(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ar_track_alvar_msgs::AlvarMarkers<sp/>&amp;marker_msg);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/>ros::NodeHandle<sp/>nh_;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/>ros::Subscriber<sp/>alvar_sub_;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><ref refid="classAtomic" kindref="compound">Atomic&lt;ros::Time&gt;</ref><sp/>last_valid_time_;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><ref refid="classAtomic" kindref="compound">Atomic&lt;std::unordered_map&lt;uint32_t, Position&gt;</ref>&gt;<sp/>object_positions_;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>timeout_;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/alvar_tracker.h"/>
+  </compounddef>
+</doxygen>

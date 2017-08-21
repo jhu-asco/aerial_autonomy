@@ -1,0 +1,366 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="arm__functors_8h" kind="file">
+    <compoundname>arm_functors.h</compoundname>
+    <includes refid="base__functors_8h" local="no">aerial_autonomy/actions_guards/base_functors.h</includes>
+    <includes refid="base__state_8h" local="no">aerial_autonomy/logic_states/base_state.h</includes>
+    <includes refid="arm__system_8h" local="no">aerial_autonomy/robot_systems/arm_system.h</includes>
+    <includes refid="completed__event_8h" local="no">aerial_autonomy/types/completed_event.h</includes>
+    <includes local="no">aerial_autonomy/uav_basic_events.h</includes>
+    <includes local="no">glog/logging.h</includes>
+    <includes local="no">parsernode/common.h</includes>
+    <includedby refid="pick__place__states__actions_8h" local="no">include/aerial_autonomy/actions_guards/pick_place_states_actions.h</includedby>
+    <incdepgraph>
+      <node id="3938">
+        <label>boost/thread/mutex.hpp</label>
+      </node>
+      <node id="3943">
+        <label>aerial_autonomy/common/type_map.h</label>
+        <link refid="type__map_8h"/>
+        <childnode refid="3944" relation="include">
+        </childnode>
+        <childnode refid="3945" relation="include">
+        </childnode>
+      </node>
+      <node id="3931">
+        <label>iomanip</label>
+      </node>
+      <node id="3942">
+        <label>glog/logging.h</label>
+      </node>
+      <node id="3933">
+        <label>stdexcept</label>
+      </node>
+      <node id="3936">
+        <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
+        <link refid="base__controller__hardware__connector_8h"/>
+        <childnode refid="3937" relation="include">
+        </childnode>
+        <childnode refid="3939" relation="include">
+        </childnode>
+        <childnode refid="3941" relation="include">
+        </childnode>
+        <childnode refid="3942" relation="include">
+        </childnode>
+      </node>
+      <node id="3928">
+        <label>boost/msm/front/state_machine_def.hpp</label>
+      </node>
+      <node id="3934">
+        <label>string</label>
+      </node>
+      <node id="3949">
+        <label>aerial_autonomy/types/completed_event.h</label>
+        <link refid="completed__event_8h"/>
+      </node>
+      <node id="3946">
+        <label>aerial_autonomy/common/iterable_enum.h</label>
+        <link refid="iterable__enum_8h"/>
+      </node>
+      <node id="3935">
+        <label>aerial_autonomy/robot_systems/base_robot_system.h</label>
+        <link refid="base__robot__system_8h"/>
+        <childnode refid="3936" relation="include">
+        </childnode>
+        <childnode refid="3943" relation="include">
+        </childnode>
+        <childnode refid="3946" relation="include">
+        </childnode>
+        <childnode refid="3938" relation="include">
+        </childnode>
+        <childnode refid="3947" relation="include">
+        </childnode>
+      </node>
+      <node id="3951">
+        <label>parsernode/common.h</label>
+      </node>
+      <node id="3939">
+        <label>aerial_autonomy/common/controller_status.h</label>
+        <link refid="controller__status_8h"/>
+        <childnode refid="3934" relation="include">
+        </childnode>
+        <childnode refid="3940" relation="include">
+        </childnode>
+      </node>
+      <node id="3948">
+        <label>arm_parsers/arm_parser.h</label>
+      </node>
+      <node id="3926">
+        <label>aerial_autonomy/logic_states/base_state.h</label>
+        <link refid="base__state_8h"/>
+        <childnode refid="3927" relation="include">
+        </childnode>
+        <childnode refid="3928" relation="include">
+        </childnode>
+        <childnode refid="3923" relation="include">
+        </childnode>
+        <childnode refid="3924" relation="include">
+        </childnode>
+      </node>
+      <node id="3922">
+        <label>include/aerial_autonomy/actions_guards/arm_functors.h</label>
+        <link refid="arm_functors.h"/>
+        <childnode refid="3923" relation="include">
+        </childnode>
+        <childnode refid="3926" relation="include">
+        </childnode>
+        <childnode refid="3929" relation="include">
+        </childnode>
+        <childnode refid="3949" relation="include">
+        </childnode>
+        <childnode refid="3950" relation="include">
+        </childnode>
+        <childnode refid="3942" relation="include">
+        </childnode>
+        <childnode refid="3951" relation="include">
+        </childnode>
+      </node>
+      <node id="3940">
+        <label>vector</label>
+      </node>
+      <node id="3941">
+        <label>aerial_autonomy/controllers/base_controller.h</label>
+        <link refid="base__controller_8h"/>
+        <childnode refid="3937" relation="include">
+        </childnode>
+        <childnode refid="3939" relation="include">
+        </childnode>
+      </node>
+      <node id="3925">
+        <label>aerial_autonomy/types/internal_transition_event.h</label>
+        <link refid="internal__transition__event_8h"/>
+      </node>
+      <node id="3929">
+        <label>aerial_autonomy/robot_systems/arm_system.h</label>
+        <link refid="arm__system_8h"/>
+        <childnode refid="3930" relation="include">
+        </childnode>
+        <childnode refid="3935" relation="include">
+        </childnode>
+        <childnode refid="3948" relation="include">
+        </childnode>
+        <childnode refid="3931" relation="include">
+        </childnode>
+        <childnode refid="3932" relation="include">
+        </childnode>
+      </node>
+      <node id="3932">
+        <label>sstream</label>
+      </node>
+      <node id="3927">
+        <label>boost/msm/front/functor_row.hpp</label>
+      </node>
+      <node id="3945">
+        <label>unordered_map</label>
+      </node>
+      <node id="3923">
+        <label>aerial_autonomy/actions_guards/base_functors.h</label>
+        <link refid="base__functors_8h"/>
+        <childnode refid="3924" relation="include">
+        </childnode>
+        <childnode refid="3925" relation="include">
+        </childnode>
+      </node>
+      <node id="3930">
+        <label>aerial_autonomy/common/html_utils.h</label>
+        <link refid="html__utils_8h"/>
+        <childnode refid="3931" relation="include">
+        </childnode>
+        <childnode refid="3932" relation="include">
+        </childnode>
+        <childnode refid="3933" relation="include">
+        </childnode>
+        <childnode refid="3934" relation="include">
+        </childnode>
+      </node>
+      <node id="3924">
+        <label>type_traits</label>
+      </node>
+      <node id="3937">
+        <label>aerial_autonomy/common/atomic.h</label>
+        <link refid="atomic_8h"/>
+        <childnode refid="3938" relation="include">
+        </childnode>
+      </node>
+      <node id="3950">
+        <label>aerial_autonomy/uav_basic_events.h</label>
+      </node>
+      <node id="3947">
+        <label>memory</label>
+      </node>
+      <node id="3944">
+        <label>typeindex</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3954">
+        <label>include/aerial_autonomy/state_machines/pick_place_state_machine.h</label>
+        <link refid="pick__place__state__machine_8h"/>
+        <childnode refid="3955" relation="include">
+        </childnode>
+      </node>
+      <node id="3952">
+        <label>include/aerial_autonomy/actions_guards/arm_functors.h</label>
+        <link refid="arm_functors.h"/>
+        <childnode refid="3953" relation="include">
+        </childnode>
+      </node>
+      <node id="3953">
+        <label>include/aerial_autonomy/actions_guards/pick_place_states_actions.h</label>
+        <link refid="pick__place__states__actions_8h"/>
+        <childnode refid="3954" relation="include">
+        </childnode>
+      </node>
+      <node id="3955">
+        <label>src/system_handler_nodes/uav_arm_system_node.cpp</label>
+        <link refid="uav__arm__system__node_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structArmFoldTransitionActionFunctor__" prot="public">ArmFoldTransitionActionFunctor_</innerclass>
+    <innerclass refid="structArmRightFoldTransitionActionFunctor__" prot="public">ArmRightFoldTransitionActionFunctor_</innerclass>
+    <innerclass refid="structArmPoweroffTransitionActionFunctor__" prot="public">ArmPoweroffTransitionActionFunctor_</innerclass>
+    <innerclass refid="structArmPoweronTransitionActionFunctor__" prot="public">ArmPoweronTransitionActionFunctor_</innerclass>
+    <innerclass refid="structArmEnabledGuardFunctor__" prot="public">ArmEnabledGuardFunctor_</innerclass>
+    <innerclass refid="structAbortArmController__" prot="public">AbortArmController_</innerclass>
+    <innerclass refid="structArmStatusInternalActionFunctor__" prot="public">ArmStatusInternalActionFunctor_</innerclass>
+    <innerclass refid="structArmFoldInternalActionFunctor__" prot="public">ArmFoldInternalActionFunctor_</innerclass>
+    <innerclass refid="classArmPreTakeoffFolding__" prot="public">ArmPreTakeoffFolding_</innerclass>
+    <innerclass refid="classArmPreLandingFolding__" prot="public">ArmPreLandingFolding_</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="arm__functors_8h_1ae8bf9c5d14eb29dc6a2afab1faed8530" prot="public" static="no">
+        <type><ref refid="classBaseState" kindref="compound">BaseState</ref>&lt; <ref refid="classArmSystem" kindref="compound">ArmSystem</ref>, LogicStateMachineT, <ref refid="structArmFoldInternalActionFunctor__" kindref="compound">ArmFoldInternalActionFunctor_</ref>&lt; LogicStateMachineT &gt;&gt;</type>
+        <definition>using ArmFolding_ =  BaseState&lt;ArmSystem, LogicStateMachineT, ArmFoldInternalActionFunctor_&lt;LogicStateMachineT&gt;&gt;</definition>
+        <argsstring></argsstring>
+        <name>ArmFolding_</name>
+        <briefdescription>
+<para>Taking off state that uses the internal action functor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine used to process events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/arm_functors.h" line="156" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/arm_functors.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="base__functors_8h" kindref="compound">aerial_autonomy/actions_guards/base_functors.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="base__state_8h" kindref="compound">aerial_autonomy/logic_states/base_state.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="arm__system_8h" kindref="compound">aerial_autonomy/robot_systems/arm_system.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="completed__event_8h" kindref="compound">aerial_autonomy/types/completed_event.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;aerial_autonomy/uav_basic_events.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;glog/logging.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;parsernode/common.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">be<sp/>=<sp/>uav_basic_events;</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
+<codeline lineno="18" refid="structArmFoldTransitionActionFunctor__" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structArmFoldTransitionActionFunctor__" kindref="compound">ArmFoldTransitionActionFunctor_</ref></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/><ref refid="structEventAgnosticActionFunctor" kindref="compound">EventAgnosticActionFunctor</ref>&lt;ArmSystem,<sp/>LogicStateMachineT&gt;<sp/>{</highlight></codeline>
+<codeline lineno="20" refid="structArmFoldTransitionActionFunctor___1aa9208b0d215663a434e12c8e6d20c803" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structArmFoldTransitionActionFunctor___1aa9208b0d215663a434e12c8e6d20c803" kindref="member">run</ref>(<ref refid="classArmSystem" kindref="compound">ArmSystem</ref><sp/>&amp;robot_system)<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>VLOG(1)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Folding<sp/>Arm!&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>robot_system.<ref refid="classArmSystem_1a838859b74e7b78b173394db035a980cb" kindref="member">foldArm</ref>();</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
+<codeline lineno="32" refid="structArmRightFoldTransitionActionFunctor__" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structArmRightFoldTransitionActionFunctor__" kindref="compound">ArmRightFoldTransitionActionFunctor_</ref></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/><ref refid="structEventAgnosticActionFunctor" kindref="compound">EventAgnosticActionFunctor</ref>&lt;ArmSystem,<sp/>LogicStateMachineT&gt;<sp/>{</highlight></codeline>
+<codeline lineno="34" refid="structArmRightFoldTransitionActionFunctor___1a9b4e3fe220ed3082b3f1165744428aa5" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structArmRightFoldTransitionActionFunctor___1a9b4e3fe220ed3082b3f1165744428aa5" kindref="member">run</ref>(<ref refid="classArmSystem" kindref="compound">ArmSystem</ref><sp/>&amp;robot_system)<sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>VLOG(1)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Folding<sp/>Arm<sp/>to<sp/>right<sp/>angle!&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>robot_system.<ref refid="classArmSystem_1a0fe569966065f6e16c49345ee1883552" kindref="member">rightArm</ref>();</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
+<codeline lineno="46" refid="structArmPoweroffTransitionActionFunctor__" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structArmPoweroffTransitionActionFunctor__" kindref="compound">ArmPoweroffTransitionActionFunctor_</ref></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/><ref refid="structEventAgnosticActionFunctor" kindref="compound">EventAgnosticActionFunctor</ref>&lt;ArmSystem,<sp/>LogicStateMachineT&gt;<sp/>{</highlight></codeline>
+<codeline lineno="48" refid="structArmPoweroffTransitionActionFunctor___1a8e664e332e0909346004cee33a2a85c4" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structArmPoweroffTransitionActionFunctor___1a8e664e332e0909346004cee33a2a85c4" kindref="member">run</ref>(<ref refid="classArmSystem" kindref="compound">ArmSystem</ref><sp/>&amp;robot_system)<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>VLOG(1)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Powering<sp/>off<sp/>Arm!&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>robot_system.<ref refid="classArmSystem_1a56b52cb9b2b9a250dad2f9608ffd598f" kindref="member">power</ref>(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
+<codeline lineno="60" refid="structArmPoweronTransitionActionFunctor__" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structArmPoweronTransitionActionFunctor__" kindref="compound">ArmPoweronTransitionActionFunctor_</ref></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/><ref refid="structEventAgnosticActionFunctor" kindref="compound">EventAgnosticActionFunctor</ref>&lt;ArmSystem,<sp/>LogicStateMachineT&gt;<sp/>{</highlight></codeline>
+<codeline lineno="62" refid="structArmPoweronTransitionActionFunctor___1a453b050a57c81422c7e3f9cf7527b203" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structArmPoweronTransitionActionFunctor___1a453b050a57c81422c7e3f9cf7527b203" kindref="member">run</ref>(<ref refid="classArmSystem" kindref="compound">ArmSystem</ref><sp/>&amp;robot_system)<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>VLOG(1)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Powering<sp/>on<sp/>Arm!&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>robot_system.<ref refid="classArmSystem_1a56b52cb9b2b9a250dad2f9608ffd598f" kindref="member">power</ref>(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
+<codeline lineno="74" refid="structArmEnabledGuardFunctor__" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structArmEnabledGuardFunctor__" kindref="compound">ArmEnabledGuardFunctor_</ref></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/><ref refid="structEventAgnosticGuardFunctor" kindref="compound">EventAgnosticGuardFunctor</ref>&lt;ArmSystem,<sp/>LogicStateMachineT&gt;<sp/>{</highlight></codeline>
+<codeline lineno="76" refid="structArmEnabledGuardFunctor___1a2b2c81684ae702c3ece35f380fd576f7" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structArmEnabledGuardFunctor___1a2b2c81684ae702c3ece35f380fd576f7" kindref="member">guard</ref>(<ref refid="classArmSystem" kindref="compound">ArmSystem</ref><sp/>&amp;robot_system_)<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!robot_system_.<ref refid="classArmSystem_1a83632018e26eea4716ad22d7011dc517" kindref="member">enabled</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>LOG(WARNING)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Robot<sp/>system<sp/>not<sp/>enabled!&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
+<codeline lineno="91" refid="structAbortArmController__" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structAbortArmController__" kindref="compound">AbortArmController_</ref></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/><ref refid="structEventAgnosticActionFunctor" kindref="compound">EventAgnosticActionFunctor</ref>&lt;ArmSystem,<sp/>LogicStateMachineT&gt;<sp/>{</highlight></codeline>
+<codeline lineno="93" refid="structAbortArmController___1aea3775305569c286a1115c0bca0563d9" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structAbortArmController___1aea3775305569c286a1115c0bca0563d9" kindref="member">run</ref>(<ref refid="classArmSystem" kindref="compound">ArmSystem</ref><sp/>&amp;robot_system)<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>LOG(WARNING)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Aborting<sp/>arm<sp/>controller&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>robot_system.<ref refid="classBaseRobotSystem_1a3e7031f99e64e7c371ee31fbd69f6bf9" kindref="member">abortController</ref>(<ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7aa551c5c03a1a91f2cf90e0d9a9b6dd378" kindref="member">HardwareType::Arm</ref>);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
+<codeline lineno="109" refid="structArmStatusInternalActionFunctor__" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structArmStatusInternalActionFunctor__" kindref="compound">ArmStatusInternalActionFunctor_</ref></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/><ref refid="structInternalActionFunctor" kindref="compound">InternalActionFunctor</ref>&lt;ArmSystem,<sp/>LogicStateMachineT&gt;<sp/>{</highlight></codeline>
+<codeline lineno="111" refid="structArmStatusInternalActionFunctor___1a922002875e32d228d5deede3d08b2c32" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structArmStatusInternalActionFunctor___1a922002875e32d228d5deede3d08b2c32" kindref="member">run</ref>(<ref refid="classArmSystem" kindref="compound">ArmSystem</ref><sp/>&amp;robot_system,<sp/>LogicStateMachineT<sp/>&amp;logic_state_machine)<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Check<sp/>if<sp/>arm<sp/>finally<sp/>powered<sp/>on</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!robot_system.<ref refid="classArmSystem_1a83632018e26eea4716ad22d7011dc517" kindref="member">enabled</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>LOG(WARNING)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Arm<sp/>not<sp/>enabled!<sp/>Aborting!&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>logic_state_machine.process_event(be::Abort());</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="126"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
+<codeline lineno="127" refid="structArmFoldInternalActionFunctor__" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structArmFoldInternalActionFunctor__" kindref="compound">ArmFoldInternalActionFunctor_</ref></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/><ref refid="structInternalActionFunctor" kindref="compound">InternalActionFunctor</ref>&lt;ArmSystem,<sp/>LogicStateMachineT&gt;<sp/>{</highlight></codeline>
+<codeline lineno="136" refid="structArmFoldInternalActionFunctor___1a4299506615544980e5f1369e344fb900" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structArmFoldInternalActionFunctor___1a4299506615544980e5f1369e344fb900" kindref="member">run</ref>(<ref refid="classArmSystem" kindref="compound">ArmSystem</ref><sp/>&amp;robot_system,<sp/>LogicStateMachineT<sp/>&amp;logic_state_machine)<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(robot_system.<ref refid="classArmSystem_1ae7b62dcab17fbb41137f071eaeb67735" kindref="member">getCommandStatus</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>VLOG(1)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Completed<sp/>Folding<sp/>arm!&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>logic_state_machine.process_event(<ref refid="structCompleted" kindref="compound">Completed</ref>());</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!robot_system.<ref refid="classArmSystem_1a83632018e26eea4716ad22d7011dc517" kindref="member">enabled</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>LOG(WARNING)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Arm<sp/>not<sp/>enabled!&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>logic_state_machine.process_event(be::Abort());</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="classBaseState" kindref="compound">ArmFolding_</ref><sp/>=</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classBaseState" kindref="compound">BaseState</ref>&lt;<ref refid="classArmSystem" kindref="compound">ArmSystem</ref>,<sp/>LogicStateMachineT,</highlight></codeline>
+<codeline lineno="158" refid="arm__functors_8h_1ae8bf9c5d14eb29dc6a2afab1faed8530" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structArmFoldInternalActionFunctor__" kindref="compound">ArmFoldInternalActionFunctor_&lt;LogicStateMachineT&gt;</ref>&gt;;</highlight></codeline>
+<codeline lineno="164"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
+<codeline lineno="165" refid="classArmPreTakeoffFolding__" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classArmPreTakeoffFolding__" kindref="compound">ArmPreTakeoffFolding_</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classBaseState" kindref="compound">ArmFolding_</ref>&lt;LogicStateMachineT&gt;<sp/>{};</highlight></codeline>
+<codeline lineno="171"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
+<codeline lineno="172" refid="classArmPreLandingFolding__" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classArmPreLandingFolding__" kindref="compound">ArmPreLandingFolding_</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classBaseState" kindref="compound">ArmFolding_</ref>&lt;LogicStateMachineT&gt;<sp/>{};</highlight></codeline>
+    </programlisting>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/arm_functors.h"/>
+  </compounddef>
+</doxygen>

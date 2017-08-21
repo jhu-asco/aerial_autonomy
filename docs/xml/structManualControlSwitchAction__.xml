@@ -10,19 +10,15 @@
       </param>
     </templateparamlist>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="structManualControlSwitchAction___1a2e6c09414da27cdd11871c0ee1ef3fee" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+      <memberdef kind="function" id="structManualControlSwitchAction___1a9b34c9846d89230b456ab1affa6eda4d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
         <definition>void ManualControlSwitchAction_&lt; LogicStateMachineT &gt;::run</definition>
-        <argsstring>(UAVSystem &amp;robot_system, LogicStateMachineT &amp;)</argsstring>
+        <argsstring>(UAVSystem &amp;robot_system)</argsstring>
         <name>run</name>
-        <reimplements refid="structEventAgnosticActionFunctor_1a53a48938d68370ff2ef262222565ffcf">run</reimplements>
+        <reimplements refid="structEventAgnosticActionFunctor_1a44caf24e060c264ec6404dd5fc746481">run</reimplements>
         <param>
           <type><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;</type>
           <declname>robot_system</declname>
-        </param>
-        <param>
-          <type>LogicStateMachineT &amp;</type>
-          <declname>logic_state_machine</declname>
         </param>
         <briefdescription>
 <para>Override this run function for different sub classes. This function performs the logic checking for each state. </para>        </briefdescription>
@@ -34,18 +30,11 @@
 <parameterdescription>
 <para>Provides sensor data and allows for controlling hardware </para></parameterdescription>
 </parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>logic_state_machine</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Backend of logic State Machine. can send events using this. </para></parameterdescription>
-</parameteritem>
 </parameterlist>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/manual_control_functors.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/manual_control_functors.h" bodystart="27" bodyend="30"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/manual_control_functors.h" line="27" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/manual_control_functors.h" bodystart="27" bodyend="30"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -61,33 +50,33 @@
 </parameterlist>
 </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="482">
+      <node id="742">
         <label>EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticActionFunctor"/>
       </node>
-      <node id="481">
+      <node id="741">
         <label>ManualControlSwitchAction_&lt; LogicStateMachineT &gt;</label>
         <link refid="structManualControlSwitchAction__"/>
-        <childnode refid="482" relation="public-inheritance">
+        <childnode refid="742" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="484">
+      <node id="744">
         <label>EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticActionFunctor"/>
       </node>
-      <node id="483">
+      <node id="743">
         <label>ManualControlSwitchAction_&lt; LogicStateMachineT &gt;</label>
         <link refid="structManualControlSwitchAction__"/>
-        <childnode refid="484" relation="public-inheritance">
+        <childnode refid="744" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/manual_control_functors.h" line="26" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/manual_control_functors.h" bodystart="25" bodyend="31"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/manual_control_functors.h" line="26" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/manual_control_functors.h" bodystart="25" bodyend="31"/>
     <listofallmembers>
       <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>ManualControlSwitchAction_</scope><name>operator()</name></member>
-      <member refid="structManualControlSwitchAction___1a2e6c09414da27cdd11871c0ee1ef3fee" prot="public" virt="virtual"><scope>ManualControlSwitchAction_</scope><name>run</name></member>
+      <member refid="structManualControlSwitchAction___1a9b34c9846d89230b456ab1affa6eda4d" prot="public" virt="virtual"><scope>ManualControlSwitchAction_</scope><name>run</name></member>
       <member refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" prot="public" virt="virtual"><scope>ManualControlSwitchAction_</scope><name>~EventAgnosticActionFunctor</name></member>
     </listofallmembers>
   </compounddef>

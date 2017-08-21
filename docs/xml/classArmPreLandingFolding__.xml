@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classArmPreLandingFolding__" kind="class" prot="public">
+    <compoundname>ArmPreLandingFolding_</compoundname>
+    <basecompoundref refid="classBaseState" prot="public" virt="non-virtual">BaseState&lt; LogicStateMachineT &gt;</basecompoundref>
+    <includes refid="arm__functors_8h" local="no">arm_functors.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+    </templateparamlist>
+    <briefdescription>
+<para>Same state as above. Used to distinguish between landing and takeoff. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine used to process events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="549">
+        <label>ArmFolding_&lt; LogicStateMachineT &gt;</label>
+        <link refid="classBaseState"/>
+        <childnode refid="550" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="548">
+        <label>ArmPreLandingFolding_&lt; LogicStateMachineT &gt;</label>
+        <link refid="classArmPreLandingFolding__"/>
+        <childnode refid="549" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="550">
+        <label>boost::msm::front::state&lt;&gt;</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="552">
+        <label>ArmFolding_&lt; LogicStateMachineT &gt;</label>
+        <link refid="classBaseState"/>
+        <childnode refid="553" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="551">
+        <label>ArmPreLandingFolding_&lt; LogicStateMachineT &gt;</label>
+        <link refid="classArmPreLandingFolding__"/>
+        <childnode refid="552" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="553">
+        <label>boost::msm::front::state&lt;&gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/arm_functors.h" line="172" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/arm_functors.h" bodystart="172" bodyend="172"/>
+    <listofallmembers>
+      <member refid="classBaseState_1a3967d85ffd88b9235fcfd9732e745c13" prot="public" virt="virtual"><scope>ArmPreLandingFolding_</scope><name>~BaseState</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

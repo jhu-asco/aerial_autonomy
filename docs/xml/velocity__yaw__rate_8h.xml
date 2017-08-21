@@ -5,93 +5,137 @@
     <includes refid="velocity_8h" local="yes">aerial_autonomy/types/velocity.h</includes>
     <includedby refid="constant__heading__depth__controller_8h" local="yes">include/aerial_autonomy/controllers/constant_heading_depth_controller.h</includedby>
     <incdepgraph>
-      <node id="4048">
-        <label>include/aerial_autonomy/types/velocity_yaw_rate.h</label>
-        <link refid="velocity_yaw_rate.h"/>
-        <childnode refid="4049" relation="include">
-        </childnode>
-      </node>
-      <node id="4049">
+      <node id="7158">
         <label>aerial_autonomy/types/velocity.h</label>
         <link refid="velocity_8h"/>
       </node>
-    </incdepgraph>
-    <invincdepgraph>
-      <node id="4056">
-        <label>include/aerial_autonomy/actions_guards/visual_servoing_functors.h</label>
-        <link refid="visual__servoing__functors_8h"/>
-        <childnode refid="4057" relation="include">
-        </childnode>
-      </node>
-      <node id="4053">
-        <label>include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h</label>
-        <link refid="visual__servoing__controller__drone__connector_8h"/>
-        <childnode refid="4054" relation="include">
-        </childnode>
-        <childnode refid="4055" relation="include">
-        </childnode>
-      </node>
-      <node id="4057">
-        <label>include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
-        <link refid="visual__servoing__states__actions_8h"/>
-        <childnode refid="4058" relation="include">
-        </childnode>
-      </node>
-      <node id="4055">
-        <label>include/aerial_autonomy/robot_systems/uav_vision_system.h</label>
-        <link refid="uav__vision__system_8h"/>
-        <childnode refid="4056" relation="include">
-        </childnode>
-        <childnode refid="4058" relation="include">
-        </childnode>
-        <childnode refid="4060" relation="include">
-        </childnode>
-        <childnode refid="4061" relation="include">
-        </childnode>
-      </node>
-      <node id="4050">
+      <node id="7157">
         <label>include/aerial_autonomy/types/velocity_yaw_rate.h</label>
         <link refid="velocity_yaw_rate.h"/>
-        <childnode refid="4051" relation="include">
+        <childnode refid="7158" relation="include">
         </childnode>
       </node>
-      <node id="4058">
-        <label>include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</label>
-        <link refid="visual__servoing__state__machine_8h"/>
-        <childnode refid="4059" relation="include">
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="7162">
+        <label>include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h</label>
+        <link refid="visual__servoing__controller__drone__connector_8h"/>
+        <childnode refid="7163" relation="include">
+        </childnode>
+        <childnode refid="7164" relation="include">
         </childnode>
       </node>
-      <node id="4059">
-        <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
-        <link refid="uav__vision__system__node_8cpp"/>
-      </node>
-      <node id="4054">
-        <label>src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp</label>
-        <link refid="visual__servoing__controller__drone__connector_8cpp"/>
-      </node>
-      <node id="4052">
-        <label>src/controllers/constant_heading_depth_controller.cpp</label>
-        <link refid="constant__heading__depth__controller_8cpp"/>
-      </node>
-      <node id="4051">
-        <label>include/aerial_autonomy/controllers/constant_heading_depth_controller.h</label>
-        <link refid="constant__heading__depth__controller_8h"/>
-        <childnode refid="4052" relation="include">
-        </childnode>
-        <childnode refid="4053" relation="include">
-        </childnode>
-        <childnode refid="4055" relation="include">
+      <node id="7173">
+        <label>include/aerial_autonomy/actions_guards/pick_place_functors.h</label>
+        <link refid="pick__place__functors_8h"/>
+        <childnode refid="7167" relation="include">
         </childnode>
       </node>
-      <node id="4061">
+      <node id="7175">
         <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
         <link refid="sample__logic__state__machine_8h"/>
       </node>
-      <node id="4060">
+      <node id="7176">
         <label>include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</label>
         <link refid="uav__vision__system__handler_8h"/>
-        <childnode refid="4059" relation="include">
+        <childnode refid="7171" relation="include">
         </childnode>
+      </node>
+      <node id="7161">
+        <label>src/controllers/constant_heading_depth_controller.cpp</label>
+        <link refid="constant__heading__depth__controller_8cpp"/>
+      </node>
+      <node id="7163">
+        <label>src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp</label>
+        <link refid="visual__servoing__controller__drone__connector_8cpp"/>
+      </node>
+      <node id="7164">
+        <label>include/aerial_autonomy/robot_systems/uav_vision_system.h</label>
+        <link refid="uav__vision__system_8h"/>
+        <childnode refid="7165" relation="include">
+        </childnode>
+        <childnode refid="7172" relation="include">
+        </childnode>
+        <childnode refid="7170" relation="include">
+        </childnode>
+        <childnode refid="7176" relation="include">
+        </childnode>
+        <childnode refid="7175" relation="include">
+        </childnode>
+      </node>
+      <node id="7168">
+        <label>include/aerial_autonomy/state_machines/pick_place_state_machine.h</label>
+        <link refid="pick__place__state__machine_8h"/>
+        <childnode refid="7169" relation="include">
+        </childnode>
+      </node>
+      <node id="7159">
+        <label>include/aerial_autonomy/types/velocity_yaw_rate.h</label>
+        <link refid="velocity_yaw_rate.h"/>
+        <childnode refid="7160" relation="include">
+        </childnode>
+      </node>
+      <node id="7167">
+        <label>include/aerial_autonomy/actions_guards/pick_place_states_actions.h</label>
+        <link refid="pick__place__states__actions_8h"/>
+        <childnode refid="7168" relation="include">
+        </childnode>
+      </node>
+      <node id="7171">
+        <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
+        <link refid="uav__vision__system__node_8cpp"/>
+      </node>
+      <node id="7166">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
+        <link refid="visual__servoing__states__actions_8h"/>
+        <childnode refid="7167" relation="include">
+        </childnode>
+        <childnode refid="7170" relation="include">
+        </childnode>
+      </node>
+      <node id="7172">
+        <label>include/aerial_autonomy/robot_systems/uav_arm_system.h</label>
+        <link refid="uav__arm__system_8h"/>
+        <childnode refid="7173" relation="include">
+        </childnode>
+        <childnode refid="7168" relation="include">
+        </childnode>
+        <childnode refid="7174" relation="include">
+        </childnode>
+        <childnode refid="7175" relation="include">
+        </childnode>
+      </node>
+      <node id="7165">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_functors.h</label>
+        <link refid="visual__servoing__functors_8h"/>
+        <childnode refid="7166" relation="include">
+        </childnode>
+      </node>
+      <node id="7160">
+        <label>include/aerial_autonomy/controllers/constant_heading_depth_controller.h</label>
+        <link refid="constant__heading__depth__controller_8h"/>
+        <childnode refid="7161" relation="include">
+        </childnode>
+        <childnode refid="7162" relation="include">
+        </childnode>
+        <childnode refid="7164" relation="include">
+        </childnode>
+      </node>
+      <node id="7174">
+        <label>include/aerial_autonomy/system_handlers/uav_arm_system_handler.h</label>
+        <link refid="uav__arm__system__handler_8h"/>
+        <childnode refid="7169" relation="include">
+        </childnode>
+      </node>
+      <node id="7170">
+        <label>include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</label>
+        <link refid="visual__servoing__state__machine_8h"/>
+        <childnode refid="7171" relation="include">
+        </childnode>
+      </node>
+      <node id="7169">
+        <label>src/system_handler_nodes/uav_arm_system_node.cpp</label>
+        <link refid="uav__arm__system__node_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="structVelocityYawRate" prot="public">VelocityYawRate</innerclass>
@@ -117,6 +161,6 @@
 <codeline lineno="50" refid="structVelocityYawRate_1a049a750c4d53c20f70329b7cdd702116" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structVelocityYawRate_1a049a750c4d53c20f70329b7cdd702116" kindref="member">operator!=</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structVelocityYawRate" kindref="compound">VelocityYawRate</ref><sp/>&amp;v)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!(*</highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>==<sp/>v);<sp/>}</highlight></codeline>
 <codeline lineno="51"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/velocity_yaw_rate.h"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/velocity_yaw_rate.h"/>
   </compounddef>
 </doxygen>

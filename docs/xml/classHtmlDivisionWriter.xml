@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classHtmlDivisionWriter" kind="class" prot="public">
+    <compoundname>HtmlDivisionWriter</compoundname>
+    <includes refid="html__utils_8h" local="no">html_utils.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classHtmlDivisionWriter_1a02c4b9f948c0d30d32fe3add058668d7" prot="private" static="no" mutable="no">
+        <type>std::stringstream</type>
+        <definition>std::stringstream HtmlDivisionWriter::division_string_stream</definition>
+        <argsstring></argsstring>
+        <name>division_string_stream</name>
+        <briefdescription>
+<para>Html table in string format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="85" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classHtmlDivisionWriter_1a0a6c1b5f6a5e4129fa427cd3e7198dd7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>HtmlDivisionWriter::HtmlDivisionWriter</definition>
+        <argsstring>()</argsstring>
+        <name>HtmlDivisionWriter</name>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="49" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="49" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classHtmlDivisionWriter_1af700d5681598a9f4a6dde4ff8fbdf781" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HtmlDivisionWriter::addHeader</definition>
+        <argsstring>(std::string header, int level=1)</argsstring>
+        <name>addHeader</name>
+        <param>
+          <type>std::string</type>
+          <declname>header</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>level</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>Add a header inside division. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>header</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Text to put in header </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>level</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The integer level can be 1 to 5 corresponding to h1 to h5 </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="60" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="60" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classHtmlDivisionWriter_1ad2f3759fa0fc7da95215fea732d0ba85" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HtmlDivisionWriter::addText</definition>
+        <argsstring>(std::string text)</argsstring>
+        <name>addText</name>
+        <param>
+          <type>std::string</type>
+          <declname>text</declname>
+        </param>
+        <briefdescription>
+<para>Add text to the division. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>text</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>string to add </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="71" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="71" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classHtmlDivisionWriter_1a5dd6b94d4e38a469005cdf7684d631dd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string HtmlDivisionWriter::getDivisionText</definition>
+        <argsstring>()</argsstring>
+        <name>getDivisionText</name>
+        <briefdescription>
+<para>Create a divsion html in string format. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>return string of html division </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="80" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="80" bodyend="82"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Add a division to html. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="44" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="44" bodyend="86"/>
+    <listofallmembers>
+      <member refid="classHtmlDivisionWriter_1af700d5681598a9f4a6dde4ff8fbdf781" prot="public" virt="non-virtual"><scope>HtmlDivisionWriter</scope><name>addHeader</name></member>
+      <member refid="classHtmlDivisionWriter_1ad2f3759fa0fc7da95215fea732d0ba85" prot="public" virt="non-virtual"><scope>HtmlDivisionWriter</scope><name>addText</name></member>
+      <member refid="classHtmlDivisionWriter_1a02c4b9f948c0d30d32fe3add058668d7" prot="private" virt="non-virtual"><scope>HtmlDivisionWriter</scope><name>division_string_stream</name></member>
+      <member refid="classHtmlDivisionWriter_1a5dd6b94d4e38a469005cdf7684d631dd" prot="public" virt="non-virtual"><scope>HtmlDivisionWriter</scope><name>getDivisionText</name></member>
+      <member refid="classHtmlDivisionWriter_1a0a6c1b5f6a5e4129fa427cd3e7198dd7" prot="public" virt="non-virtual"><scope>HtmlDivisionWriter</scope><name>HtmlDivisionWriter</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -18,7 +18,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="95" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="95" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="95" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="95" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -62,7 +62,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="70" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="70" bodyend="72"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="70" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="70" bodyend="72"/>
       </memberdef>
       <memberdef kind="function" id="classUAVStateMachineFrontEnd_1a8699918ab41569ac9ce0fa458b770522" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -104,7 +104,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="79" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="79" bodyend="81"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="79" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="79" bodyend="81"/>
       </memberdef>
       <memberdef kind="function" id="classUAVStateMachineFrontEnd_1a35e3cdf694f700caef50c019599d1a5f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -129,7 +129,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="89" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="89" bodyend="90"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="89" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="89" bodyend="90"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -137,67 +137,67 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="590">
+      <node id="916">
         <label>msmf::state_machine_def&lt; UAVStateMachineFrontEnd &gt;</label>
       </node>
-      <node id="589">
+      <node id="915">
         <label>UAVStateMachineFrontEnd</label>
         <link refid="classUAVStateMachineFrontEnd"/>
-        <childnode refid="590" relation="public-inheritance">
+        <childnode refid="916" relation="public-inheritance">
         </childnode>
-        <childnode refid="591" relation="public-inheritance">
+        <childnode refid="917" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="591">
+      <node id="917">
         <label>BaseStateMachine&lt; UAVSystem &gt;</label>
         <link refid="classBaseStateMachine"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="598">
+      <node id="924">
         <label>TypeMap&lt; AbstractControllerHardwareConnector &gt;</label>
         <link refid="classTypeMap"/>
       </node>
-      <node id="597">
+      <node id="923">
         <label>BaseRobotSystem</label>
         <link refid="classBaseRobotSystem"/>
-        <childnode refid="598" relation="usage">
+        <childnode refid="924" relation="usage">
           <edgelabel>controller_hardware_connector_container_</edgelabel>
         </childnode>
       </node>
-      <node id="593">
+      <node id="919">
         <label>msmf::state_machine_def&lt; UAVStateMachineFrontEnd &gt;</label>
       </node>
-      <node id="592">
+      <node id="918">
         <label>UAVStateMachineFrontEnd</label>
         <link refid="classUAVStateMachineFrontEnd"/>
-        <childnode refid="593" relation="public-inheritance">
+        <childnode refid="919" relation="public-inheritance">
         </childnode>
-        <childnode refid="594" relation="public-inheritance">
+        <childnode refid="920" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="594">
+      <node id="920">
         <label>BaseStateMachine&lt; UAVSystem &gt;</label>
         <link refid="classBaseStateMachine"/>
-        <childnode refid="595" relation="usage">
+        <childnode refid="921" relation="usage">
           <edgelabel>robot_system_container_</edgelabel>
         </childnode>
       </node>
-      <node id="595">
+      <node id="921">
         <label>RobotSystemContainer&lt; UAVSystem &gt;</label>
         <link refid="classRobotSystemContainer"/>
-        <childnode refid="596" relation="usage">
+        <childnode refid="922" relation="usage">
           <edgelabel>robot_system_</edgelabel>
         </childnode>
       </node>
-      <node id="596">
+      <node id="922">
         <label>UAVSystem</label>
         <link refid="classUAVSystem"/>
-        <childnode refid="597" relation="public-inheritance">
+        <childnode refid="923" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="62" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="60" bodyend="149"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" line="62" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/uav_state_machine.h" bodystart="60" bodyend="140"/>
     <listofallmembers>
       <member refid="classBaseStateMachine_1a2cb25947ca74c77568736975125aed44" prot="public" virt="non-virtual"><scope>UAVStateMachineFrontEnd</scope><name>BaseStateMachine</name></member>
       <member refid="classBaseStateMachine_1a286ff1d9af1151821ed44842a5e4fb8c" prot="public" virt="non-virtual"><scope>UAVStateMachineFrontEnd</scope><name>get_no_transition_event_index</name></member>

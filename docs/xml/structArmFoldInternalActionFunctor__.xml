@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structArmFoldInternalActionFunctor__" kind="struct" prot="public">
+    <compoundname>ArmFoldInternalActionFunctor_</compoundname>
+    <basecompoundref refid="structInternalActionFunctor" prot="public" virt="non-virtual">InternalActionFunctor&lt; ArmSystem, LogicStateMachineT &gt;</basecompoundref>
+    <includes refid="arm__functors_8h" local="no">arm_functors.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structArmFoldInternalActionFunctor___1a4299506615544980e5f1369e344fb900" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>bool ArmFoldInternalActionFunctor_&lt; LogicStateMachineT &gt;::run</definition>
+        <argsstring>(ArmSystem &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</argsstring>
+        <name>run</name>
+        <reimplements refid="structInternalActionFunctor_1acb286e73f21393549a4fff4920c83349">run</reimplements>
+        <param>
+          <type><ref refid="classArmSystem" kindref="compound">ArmSystem</ref> &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <param>
+          <type>LogicStateMachineT &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <briefdescription>
+<para>Function to check when folding arm is complete. If arm is not enabled, then abort. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>robot system to get sensor data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>logic state machine to trigger events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/arm_functors.h" line="136" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/arm_functors.h" bodystart="136" bodyend="147"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Check when folding arm is complete. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine used to process events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="533">
+        <label>InternalActionFunctor&lt; ArmSystem, LogicStateMachineT &gt;</label>
+        <link refid="structInternalActionFunctor"/>
+      </node>
+      <node id="532">
+        <label>ArmFoldInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
+        <link refid="structArmFoldInternalActionFunctor__"/>
+        <childnode refid="533" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="535">
+        <label>InternalActionFunctor&lt; ArmSystem, LogicStateMachineT &gt;</label>
+        <link refid="structInternalActionFunctor"/>
+      </node>
+      <node id="534">
+        <label>ArmFoldInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
+        <link refid="structArmFoldInternalActionFunctor__"/>
+        <childnode refid="535" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/arm_functors.h" line="128" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/arm_functors.h" bodystart="127" bodyend="148"/>
+    <listofallmembers>
+      <member refid="structInternalActionFunctor_1a08544be6541497aca6b06309312c4bf3" prot="public" virt="non-virtual"><scope>ArmFoldInternalActionFunctor_</scope><name>operator()</name></member>
+      <member refid="structArmFoldInternalActionFunctor___1a4299506615544980e5f1369e344fb900" prot="public" virt="virtual"><scope>ArmFoldInternalActionFunctor_</scope><name>run</name></member>
+      <member refid="structInternalActionFunctor_1ac742ec395f7f9251738ab5cb12bd5329" prot="public" virt="virtual"><scope>ArmFoldInternalActionFunctor_</scope><name>~InternalActionFunctor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

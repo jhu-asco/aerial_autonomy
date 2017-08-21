@@ -1,5 +1,8 @@
 <map id="include/aerial_autonomy/actions_guards/visual_servoing_functors.h" name="include/aerial_autonomy/actions_guards/visual_servoing_functors.h">
-<area shape="rect" id="node2" href="$visual__servoing__states__actions_8h.html" title="include/aerial_autonomy\l/actions_guards/visual\l_servoing_states_actions.h" alt="" coords="5,109,187,165"/>
-<area shape="rect" id="node3" href="$visual__servoing__state__machine_8h.html" title="include/aerial_autonomy\l/state_machines/visual\l_servoing_state_machine.h" alt="" coords="5,213,187,269"/>
-<area shape="rect" id="node4" href="$uav__vision__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_vision_system\l_node.cpp" alt="" coords="6,317,185,373"/>
+<area shape="rect" id="node2" href="$visual__servoing__states__actions_8h.html" title="include/aerial_autonomy\l/actions_guards/visual\l_servoing_states_actions.h" alt="" coords="109,109,291,165"/>
+<area shape="rect" id="node3" href="$pick__place__states__actions_8h.html" title="include/aerial_autonomy\l/actions_guards/pick_place\l_states_actions.h" alt="" coords="7,213,187,269"/>
+<area shape="rect" id="node6" href="$visual__servoing__state__machine_8h.html" title="include/aerial_autonomy\l/state_machines/visual\l_servoing_state_machine.h" alt="" coords="212,213,393,269"/>
+<area shape="rect" id="node4" href="$pick__place__state__machine_8h.html" title="include/aerial_autonomy\l/state_machines/pick_place\l_state_machine.h" alt="" coords="5,317,189,373"/>
+<area shape="rect" id="node5" href="$uav__arm__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_arm_system\l_node.cpp" alt="" coords="13,421,181,477"/>
+<area shape="rect" id="node7" href="$uav__vision__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_vision_system\l_node.cpp" alt="" coords="214,317,393,373"/>
 </map>

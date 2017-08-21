@@ -23,7 +23,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="89" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="89" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="89" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="89" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classStateMachineGUIConnector_1a2da60ef3619c60db752f2ee08fce2208" prot="private" static="no" mutable="no">
         <type>ros::Subscriber</type>
@@ -36,7 +36,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="93" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="93" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="93" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="93" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classStateMachineGUIConnector_1a03037ffd6e185032310b27c4c0f2976b" prot="private" static="no" mutable="no">
         <type>EventManagerT &amp;</type>
@@ -49,7 +49,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="97" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="97" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="97" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="97" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classStateMachineGUIConnector_1af28f316696140fc8aea75169ea980563" prot="private" static="no" mutable="no">
         <type>LogicStateMachineT &amp;</type>
@@ -62,7 +62,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="101" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="101" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="101" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="101" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -111,7 +111,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="30" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="30" bodyend="39"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="30" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="30" bodyend="39"/>
       </memberdef>
       <memberdef kind="function" id="classStateMachineGUIConnector_1a41ccee1af3a8f99ca533694ebdf3085c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -125,7 +125,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="45" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="45" bodyend="47"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="45" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="45" bodyend="47"/>
       </memberdef>
       <memberdef kind="function" id="classStateMachineGUIConnector_1a4c321da086299de9c33583255c4666f3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -139,7 +139,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="54" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="54" bodyend="56"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="54" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="54" bodyend="56"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -166,7 +166,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="64" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="64" bodyend="67"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="64" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="64" bodyend="67"/>
       </memberdef>
       <memberdef kind="function" id="classStateMachineGUIConnector_1abd1afe58d94b7ef6d6533d02050ef5bb" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -191,7 +191,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="74" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="74" bodyend="84"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="74" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="74" bodyend="84"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -213,7 +213,7 @@
 </parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="20" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="20" bodyend="102"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" line="20" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/state_machine_gui_connector.h" bodystart="20" bodyend="102"/>
     <listofallmembers>
       <member refid="classStateMachineGUIConnector_1a03037ffd6e185032310b27c4c0f2976b" prot="private" virt="non-virtual"><scope>StateMachineGUIConnector</scope><name>event_manager_</name></member>
       <member refid="classStateMachineGUIConnector_1a2da60ef3619c60db752f2ee08fce2208" prot="private" virt="non-virtual"><scope>StateMachineGUIConnector</scope><name>event_manager_sub_</name></member>

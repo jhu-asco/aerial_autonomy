@@ -2,7 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
   <compounddef id="classUAVSystem" kind="class" prot="public">
     <compoundname>UAVSystem</compoundname>
-    <basecompoundref refid="classBaseRobotSystem" prot="public" virt="non-virtual">BaseRobotSystem</basecompoundref>
+    <basecompoundref refid="classBaseRobotSystem" prot="public" virt="virtual">BaseRobotSystem</basecompoundref>
     <derivedcompoundref refid="classUAVVisionSystem" prot="public" virt="non-virtual">UAVVisionSystem</derivedcompoundref>
     <includes refid="uav__system_8h" local="no">uav_system.h</includes>
       <sectiondef kind="protected-attrib">
@@ -17,7 +17,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="21" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="21" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="26" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="26" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classUAVSystem_1a9bdf636000ef7cd55612bc2c2f66d60b" prot="protected" static="no" mutable="no">
         <type>UAVSystemConfig</type>
@@ -30,7 +30,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="25" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="25" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="30" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="30" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -45,7 +45,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="32" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="32" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="37" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="37" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classUAVSystem_1aae027b6a4d3e011b1a69afbe886bed00" prot="private" static="no" mutable="no">
         <type><ref refid="classBuiltInVelocityController" kindref="compound">BuiltInVelocityController</ref></type>
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="36" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="36" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="41" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classUAVSystem_1abd95f4d3430d9c01b76d5d1e183241ff" prot="private" static="no" mutable="no">
         <type><ref refid="classManualRPYTController" kindref="compound">ManualRPYTController</ref></type>
@@ -71,7 +71,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="40" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="40" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="45" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classUAVSystem_1a56a103c8b9c6785d6859910a81b28d86" prot="private" static="no" mutable="no">
         <type><ref refid="classPositionControllerDroneConnector" kindref="compound">PositionControllerDroneConnector</ref></type>
@@ -84,7 +84,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="44" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="44" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="49" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classUAVSystem_1ae34d2f617bd1bf3ad0ad77340765b3c1" prot="private" static="no" mutable="no">
         <type><ref refid="classBuiltInVelocityControllerDroneConnector" kindref="compound">BuiltInVelocityControllerDroneConnector</ref></type>
@@ -97,7 +97,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="48" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="48" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="53" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classUAVSystem_1a1886a8c9adb0f7102a881079a27b19d9" prot="private" static="no" mutable="no">
         <type><ref refid="classManualRPYTControllerDroneConnector" kindref="compound">ManualRPYTControllerDroneConnector</ref></type>
@@ -110,7 +110,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="52" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="52" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="57" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="57" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classUAVSystem_1ab020ea6a2afd9b936ab40abd4cff9d9f" prot="private" static="no" mutable="no">
         <type><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref></type>
@@ -123,7 +123,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="57" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="57" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="62" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="62" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classUAVSystem_1a55e31ecfa7d4278cbaeaa11cf739f5db" prot="private" static="no" mutable="no">
         <type>bool</type>
@@ -136,7 +136,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="62" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="62" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="67" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="67" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -155,7 +155,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="68" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="68" bodyend="69"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="73" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="73" bodyend="74"/>
       </memberdef>
       <memberdef kind="function" id="classUAVSystem_1a9218f794905e832cc356b5e4b659e1da" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -191,7 +191,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="80" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="80" bodyend="98"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="85" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="85" bodyend="103"/>
       </memberdef>
       <memberdef kind="function" id="classUAVSystem_1a4ccf5fcb488485d369752b406e36b8e3" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>parsernode::common::quaddata</type>
@@ -205,7 +205,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="104" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="104" bodyend="108"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="109" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="109" bodyend="113"/>
       </memberdef>
       <memberdef kind="function" id="classUAVSystem_1a7f010477b67bfeb5d6d32c0f10630b8e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -218,7 +218,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="113" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="113" bodyend="113"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="118" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="118" bodyend="118"/>
       </memberdef>
       <memberdef kind="function" id="classUAVSystem_1a8b379202b204125b0523b512b94dc91f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -231,7 +231,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="120" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="120" bodyend="120"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="125" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="125" bodyend="125"/>
       </memberdef>
       <memberdef kind="function" id="classUAVSystem_1ae1bac31ca121a54cb1e3ed7fac322993" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -244,7 +244,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="125" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="125" bodyend="125"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="130" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="130" bodyend="130"/>
       </memberdef>
       <memberdef kind="function" id="classUAVSystem_1a686bdf431c8b790308d17cc9df231ee4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>std::string</type>
@@ -252,6 +252,7 @@
         <argsstring>() const </argsstring>
         <name>getSystemStatus</name>
         <reimplements refid="classBaseRobotSystem_1a63c0c5e504f352000c6fb6fce9047dec">getSystemStatus</reimplements>
+        <reimplementedby refid="classUAVVisionSystem_1a9c7963324bc8c55b8419b17b4b39de31">getSystemStatus</reimplementedby>
         <briefdescription>
 <para>Provide the current state of UAV system. </para>        </briefdescription>
         <detaileddescription>
@@ -259,7 +260,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="132" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="132" bodyend="161"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="137" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="137" bodyend="186"/>
       </memberdef>
       <memberdef kind="function" id="classUAVSystem_1a89d67e42aec09dd65a23f39462a8202e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>UAVSystemConfig</type>
@@ -273,7 +274,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="167" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="167" bodyend="167"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="192" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="192" bodyend="192"/>
       </memberdef>
       <memberdef kind="function" id="classUAVSystem_1a5f31741d7d13ca93c7f02453aa97cc16" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -286,7 +287,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="172" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="172" bodyend="179"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="197" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="197" bodyend="204"/>
       </memberdef>
       <memberdef kind="function" id="classUAVSystem_1a226c842c7e5e1120be5d6fe233f1bb2d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -300,7 +301,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="186" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="186" bodyend="186"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="211" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="211" bodyend="211"/>
       </memberdef>
       <memberdef kind="function" id="classUAVSystem_1a0e9242b82c55106b66e80a0a100098a0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref></type>
@@ -314,7 +315,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="193" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="193" bodyend="193"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="218" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="218" bodyend="218"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -322,43 +323,49 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="608">
-        <label>UAVVisionSystem</label>
-        <link refid="classUAVVisionSystem"/>
-        <childnode refid="606" relation="public-inheritance">
+      <node id="932">
+        <label>UAVArmSystem</label>
+        <link refid="classUAVArmSystem"/>
+        <childnode refid="931" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="607">
+      <node id="931">
+        <label>UAVVisionSystem</label>
+        <link refid="classUAVVisionSystem"/>
+        <childnode refid="929" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="930">
         <label>BaseRobotSystem</label>
         <link refid="classBaseRobotSystem"/>
       </node>
-      <node id="606">
+      <node id="929">
         <label>UAVSystem</label>
         <link refid="classUAVSystem"/>
-        <childnode refid="607" relation="public-inheritance">
+        <childnode refid="930" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="611">
+      <node id="935">
         <label>TypeMap&lt; AbstractControllerHardwareConnector &gt;</label>
         <link refid="classTypeMap"/>
       </node>
-      <node id="610">
+      <node id="934">
         <label>BaseRobotSystem</label>
         <link refid="classBaseRobotSystem"/>
-        <childnode refid="611" relation="usage">
+        <childnode refid="935" relation="usage">
           <edgelabel>controller_hardware_connector_container_</edgelabel>
         </childnode>
       </node>
-      <node id="609">
+      <node id="933">
         <label>UAVSystem</label>
         <link refid="classUAVSystem"/>
-        <childnode refid="610" relation="public-inheritance">
+        <childnode refid="934" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="16" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="16" bodyend="194"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" line="21" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_system.h" bodystart="21" bodyend="219"/>
     <listofallmembers>
       <member refid="classBaseRobotSystem_1a3e7031f99e64e7c371ee31fbd69f6bf9" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>abortController</name></member>
       <member refid="classBaseRobotSystem_1a257fff284254de019428ae7073333b47" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>BaseRobotSystem</name></member>
@@ -368,6 +375,7 @@
       <member refid="classBaseRobotSystem_1a9539998f793faa61ed89e4c7ecc711ad" prot="protected" virt="non-virtual"><scope>UAVSystem</scope><name>controller_hardware_connector_container_</name></member>
       <member refid="classUAVSystem_1ab47721beaeb776063b46f7c3c7721b7a" prot="protected" virt="non-virtual"><scope>UAVSystem</scope><name>drone_hardware_</name></member>
       <member refid="classUAVSystem_1a8b379202b204125b0523b512b94dc91f" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>enableAutonomousMode</name></member>
+      <member refid="classBaseRobotSystem_1a14c406049bbf3d17e455bac5d0f5db1e" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>getActiveControllerStatus</name></member>
       <member refid="classUAVSystem_1a89d67e42aec09dd65a23f39462a8202e" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>getConfiguration</name></member>
       <member refid="classBaseRobotSystem_1add092f1cc4faec7b7f1ecb624f54a56a" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>getGoal</name></member>
       <member refid="classUAVSystem_1a0e9242b82c55106b66e80a0a100098a0" prot="public" virt="non-virtual"><scope>UAVSystem</scope><name>getHomeLocation</name></member>

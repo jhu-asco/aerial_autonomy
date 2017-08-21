@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1_1state__action__result" kind="struct" prot="public">
+    <compoundname>boost::msm::front::ShortingActionSequence_::state_action_result</compoundname>
+    <includes refid="shorting__action__sequence_8h" local="no">shorting_action_sequence.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class Event</type>
+      </param>
+      <param>
+        <type>class FSM</type>
+      </param>
+      <param>
+        <type>class STATE</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1_1state__action__result_1abff0af30270a3f612773e9d6907a4045" prot="public" static="no">
+        <type>void</type>
+        <definition>typedef void boost::msm::front::ShortingActionSequence_&lt; Sequence &gt;::state_action_result&lt; Event, FSM, STATE &gt;::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+<para>Define the result type to void maybe? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" line="72" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Copied from boost main file. Not sure what this is for! </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event type in state machine </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FSM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State machine used to evaluate sequence </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>STATE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State we are currently in </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" line="68" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" bodystart="68" bodyend="73"/>
+    <listofallmembers>
+      <member refid="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1_1state__action__result_1abff0af30270a3f612773e9d6907a4045" prot="public" virt="non-virtual"><scope>boost::msm::front::ShortingActionSequence_::state_action_result</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

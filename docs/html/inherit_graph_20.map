@@ -1,4 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classController.html" title="Controller\&lt; PositionYaw,\l PositionYaw, VelocityYaw \&gt;" alt="" coords="5,5,197,46"/>
-<area shape="rect" id="node2" href="$classVelocityBasedPositionController.html" title="A position controller that sends velocity commands to the hardware. " alt="" coords="246,12,455,39"/>
+<area shape="rect" id="node2" href="$structBaseState_1_1internal__transition__table.html" title="The internal_transition_table to call run function in every state. " alt="" coords="112,5,325,61"/>
+<area shape="rect" id="node3" href="$structPickPlaceStateMachineFrontEnd_1_1transition__table.html" title="Transition table for State Machine. " alt="" coords="123,85,314,126"/>
+<area shape="rect" id="node4" href="$structPickPlaceStatesActions_1_1ManualControlArmState_1_1internal__transition__table.html" title="PickPlaceStatesActions\l\&lt; LogicStateMachineT \&gt;\l::ManualControlArmState\l::internal_transition_table" alt="" coords="134,150,303,221"/>
+<area shape="rect" id="node5" href="$structUAVStateMachineFrontEnd_1_1transition__table.html" title="Transition table for State Machine. " alt="" coords="127,245,310,286"/>
+<area shape="rect" id="node6" href="$structVisualServoingStateMachineFrontEnd_1_1transition__table.html" title="Transition table for State Machine. " alt="" coords="124,310,313,351"/>
 </map>

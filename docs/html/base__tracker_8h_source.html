@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_2f8e754ab99ce0b8ad0265163734387c.html">include</a></li><li class="navelem"><a class="el" href="dir_aa08a9b8af1d5448e3e7b8b8a4c3ba6b.html">aerial_autonomy</a></li><li class="navelem"><a class="el" href="dir_abb903b9a1d1a5b976d93df40b76c307.html">trackers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_6fe9f9c87adb79173c1aa2f732811b45.html">include</a></li><li class="navelem"><a class="el" href="dir_8c66c8138e7b35f6ec94720b060b21f5.html">aerial_autonomy</a></li><li class="navelem"><a class="el" href="dir_c5511e641a604113d55bbc46e68c5631.html">trackers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -91,15 +91,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <a href="base__tracker_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#include &quot;<a class="code" href="position_8h.html">aerial_autonomy/types/position.h</a>&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="classBaseTracker.html">    8</a></span>&#160;<span class="keyword">class </span><a class="code" href="classBaseTracker.html">BaseTracker</a> {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classBaseTracker.html#adfba0b9b37f9f4923b97bdd0d0fbbb68">getTrackingVector</a>(<a class="code" href="structPosition.html">Position</a> &amp;pos) = 0;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classBaseTracker.html#aa1ad8436be9476278e78142ee1ab8fd6">trackingIsValid</a>() = 0;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;};</div>
-<div class="ttc" id="classBaseTracker_html"><div class="ttname"><a href="classBaseTracker.html">BaseTracker</a></div><div class="ttdoc">Interface for classes that provide a vector to a tracked target. </div><div class="ttdef"><b>Definition:</b> base_tracker.h:8</div></div>
-<div class="ttc" id="classBaseTracker_html_adfba0b9b37f9f4923b97bdd0d0fbbb68"><div class="ttname"><a href="classBaseTracker.html#adfba0b9b37f9f4923b97bdd0d0fbbb68">BaseTracker::getTrackingVector</a></div><div class="ttdeci">virtual bool getTrackingVector(Position &amp;pos)=0</div><div class="ttdoc">Get the tracking vector. </div></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#include &quot;<a class="code" href="tracking__strategy_8h.html">aerial_autonomy/trackers/tracking_strategy.h</a>&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="position_8h.html">aerial_autonomy/types/position.h</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;tuple&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classBaseTracker.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="classBaseTracker.html">BaseTracker</a> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classBaseTracker.html#a49ac5731fce16acb5ca1fb069d2a0091">   15</a></span>&#160;  <a class="code" href="classBaseTracker.html#a49ac5731fce16acb5ca1fb069d2a0091">BaseTracker</a>(<a class="code" href="classTrackingStrategy.html">TrackingStrategy</a> *tracking_strategy)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;      : tracking_strategy_(tracking_strategy) {}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classBaseTracker.html#ad1a6497933830415ee97d9ea2d2706af">initialize</a>();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classBaseTracker.html#a705369e65f51447798bb19e979de9801">getTrackingVector</a>(<a class="code" href="structPosition.html">Position</a> &amp;pos);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classBaseTracker.html#a705369e65f51447798bb19e979de9801">getTrackingVector</a>(std::tuple&lt;uint32_t, Position&gt; &amp;pos);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <a class="code" href="classBaseTracker.html#a20360b084ef9b2df755854c274a73f2b">getTrackingVectors</a>(std::unordered_map&lt;uint32_t, Position&gt; &amp;pos) = 0;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classBaseTracker.html#aa1ad8436be9476278e78142ee1ab8fd6">trackingIsValid</a>() = 0;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  std::unique_ptr&lt;TrackingStrategy&gt; tracking_strategy_;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;};</div>
+<div class="ttc" id="tracking__strategy_8h_html"><div class="ttname"><a href="tracking__strategy_8h.html">tracking_strategy.h</a></div></div>
+<div class="ttc" id="classBaseTracker_html"><div class="ttname"><a href="classBaseTracker.html">BaseTracker</a></div><div class="ttdoc">Interface for classes that provide a vector to a tracked target. </div><div class="ttdef"><b>Definition:</b> base_tracker.h:13</div></div>
+<div class="ttc" id="classBaseTracker_html_a705369e65f51447798bb19e979de9801"><div class="ttname"><a href="classBaseTracker.html#a705369e65f51447798bb19e979de9801">BaseTracker::getTrackingVector</a></div><div class="ttdeci">virtual bool getTrackingVector(Position &amp;pos)</div><div class="ttdoc">Get the tracking vector. </div><div class="ttdef"><b>Definition:</b> base_tracker.cpp:3</div></div>
+<div class="ttc" id="classBaseTracker_html_ad1a6497933830415ee97d9ea2d2706af"><div class="ttname"><a href="classBaseTracker.html#ad1a6497933830415ee97d9ea2d2706af">BaseTracker::initialize</a></div><div class="ttdeci">virtual bool initialize()</div><div class="ttdoc">Initialze the tracker. Can simply return true if the subclass requires no additional initialization...</div><div class="ttdef"><b>Definition:</b> base_tracker.cpp:28</div></div>
+<div class="ttc" id="classBaseTracker_html_a49ac5731fce16acb5ca1fb069d2a0091"><div class="ttname"><a href="classBaseTracker.html#a49ac5731fce16acb5ca1fb069d2a0091">BaseTracker::BaseTracker</a></div><div class="ttdeci">BaseTracker(TrackingStrategy *tracking_strategy)</div><div class="ttdef"><b>Definition:</b> base_tracker.h:15</div></div>
+<div class="ttc" id="classBaseTracker_html_a20360b084ef9b2df755854c274a73f2b"><div class="ttname"><a href="classBaseTracker.html#a20360b084ef9b2df755854c274a73f2b">BaseTracker::getTrackingVectors</a></div><div class="ttdeci">virtual bool getTrackingVectors(std::unordered_map&lt; uint32_t, Position &gt; &amp;pos)=0</div><div class="ttdoc">Get the tracking vectors. </div></div>
+<div class="ttc" id="classTrackingStrategy_html"><div class="ttname"><a href="classTrackingStrategy.html">TrackingStrategy</a></div><div class="ttdoc">Defines a strategy for choosing a target to track among a group of tracked targets. </div><div class="ttdef"><b>Definition:</b> tracking_strategy.h:12</div></div>
 <div class="ttc" id="classBaseTracker_html_aa1ad8436be9476278e78142ee1ab8fd6"><div class="ttname"><a href="classBaseTracker.html#aa1ad8436be9476278e78142ee1ab8fd6">BaseTracker::trackingIsValid</a></div><div class="ttdeci">virtual bool trackingIsValid()=0</div><div class="ttdoc">Check whether tracking is valid. </div></div>
 <div class="ttc" id="position_8h_html"><div class="ttname"><a href="position_8h.html">position.h</a></div></div>
 <div class="ttc" id="structPosition_html"><div class="ttname"><a href="structPosition.html">Position</a></div><div class="ttdoc">Store 3D position. </div><div class="ttdef"><b>Definition:</b> position.h:8</div></div>

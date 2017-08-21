@@ -117,15 +117,27 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a93b30449d5b9946e065e4e78c404f9a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRoiToPositionConverter.html#a93b30449d5b9946e065e4e78c404f9a5">RoiToPositionConverter</a> (ros::NodeHandle &amp;nh)</td></tr>
 <tr class="memdesc:a93b30449d5b9946e065e4e78c404f9a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a93b30449d5b9946e065e4e78c404f9a5">More...</a><br/></td></tr>
 <tr class="separator:a93b30449d5b9946e065e4e78c404f9a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a537e53d157931a08343d0b41195a924c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRoiToPositionConverter.html#a537e53d157931a08343d0b41195a924c">getTrackingVector</a> (<a class="el" href="structPosition.html">Position</a> &amp;pos)</td></tr>
-<tr class="memdesc:a537e53d157931a08343d0b41195a924c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the stored tracking vector.  <a href="#a537e53d157931a08343d0b41195a924c">More...</a><br/></td></tr>
-<tr class="separator:a537e53d157931a08343d0b41195a924c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83de9bf4e7ce52e3a1c55992462abc65"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRoiToPositionConverter.html#a83de9bf4e7ce52e3a1c55992462abc65">getTrackingVectors</a> (std::unordered_map&lt; uint32_t, <a class="el" href="structPosition.html">Position</a> &gt; &amp;pos)</td></tr>
+<tr class="memdesc:a83de9bf4e7ce52e3a1c55992462abc65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the stored tracking vector.  <a href="#a83de9bf4e7ce52e3a1c55992462abc65">More...</a><br/></td></tr>
+<tr class="separator:a83de9bf4e7ce52e3a1c55992462abc65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a408f82ba9764ba20e2463535850d3268"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRoiToPositionConverter.html#a408f82ba9764ba20e2463535850d3268">trackingIsValid</a> ()</td></tr>
 <tr class="memdesc:a408f82ba9764ba20e2463535850d3268"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether tracking is valid.  <a href="#a408f82ba9764ba20e2463535850d3268">More...</a><br/></td></tr>
 <tr class="separator:a408f82ba9764ba20e2463535850d3268"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ff5fa7a373c3917e9a7047df0a99560"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRoiToPositionConverter.html#a6ff5fa7a373c3917e9a7047df0a99560">isConnected</a> ()</td></tr>
 <tr class="memdesc:a6ff5fa7a373c3917e9a7047df0a99560"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether topics are connected.  <a href="#a6ff5fa7a373c3917e9a7047df0a99560">More...</a><br/></td></tr>
 <tr class="separator:a6ff5fa7a373c3917e9a7047df0a99560"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classBaseTracker"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classBaseTracker')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classBaseTracker.html">BaseTracker</a></td></tr>
+<tr class="memitem:a49ac5731fce16acb5ca1fb069d2a0091 inherit pub_methods_classBaseTracker"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseTracker.html#a49ac5731fce16acb5ca1fb069d2a0091">BaseTracker</a> (<a class="el" href="classTrackingStrategy.html">TrackingStrategy</a> *tracking_strategy)</td></tr>
+<tr class="separator:a49ac5731fce16acb5ca1fb069d2a0091 inherit pub_methods_classBaseTracker"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1a6497933830415ee97d9ea2d2706af inherit pub_methods_classBaseTracker"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseTracker.html#ad1a6497933830415ee97d9ea2d2706af">initialize</a> ()</td></tr>
+<tr class="memdesc:ad1a6497933830415ee97d9ea2d2706af inherit pub_methods_classBaseTracker"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialze the tracker. Can simply return true if the subclass requires no additional initialization.  <a href="#ad1a6497933830415ee97d9ea2d2706af">More...</a><br/></td></tr>
+<tr class="separator:ad1a6497933830415ee97d9ea2d2706af inherit pub_methods_classBaseTracker"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a705369e65f51447798bb19e979de9801 inherit pub_methods_classBaseTracker"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseTracker.html#a705369e65f51447798bb19e979de9801">getTrackingVector</a> (<a class="el" href="structPosition.html">Position</a> &amp;pos)</td></tr>
+<tr class="memdesc:a705369e65f51447798bb19e979de9801 inherit pub_methods_classBaseTracker"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the tracking vector.  <a href="#a705369e65f51447798bb19e979de9801">More...</a><br/></td></tr>
+<tr class="separator:a705369e65f51447798bb19e979de9801 inherit pub_methods_classBaseTracker"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a931a8c84fc6245d3d6cb3ef9967032a5 inherit pub_methods_classBaseTracker"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseTracker.html#a931a8c84fc6245d3d6cb3ef9967032a5">getTrackingVector</a> (std::tuple&lt; uint32_t, <a class="el" href="structPosition.html">Position</a> &gt; &amp;pos)</td></tr>
+<tr class="memdesc:a931a8c84fc6245d3d6cb3ef9967032a5 inherit pub_methods_classBaseTracker"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the tracking vector.  <a href="#a931a8c84fc6245d3d6cb3ef9967032a5">More...</a><br/></td></tr>
+<tr class="separator:a931a8c84fc6245d3d6cb3ef9967032a5 inherit pub_methods_classBaseTracker"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -242,7 +254,7 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a537e53d157931a08343d0b41195a924c"></a>
+<a class="anchor" id="a83de9bf4e7ce52e3a1c55992462abc65"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -250,9 +262,9 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool RoiToPositionConverter::getTrackingVector </td>
+          <td class="memname">bool RoiToPositionConverter::getTrackingVectors </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structPosition.html">Position</a> &amp;&#160;</td>
+          <td class="paramtype">std::unordered_map&lt; uint32_t, <a class="el" href="structPosition.html">Position</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>pos</em></td><td>)</td>
           <td></td>
         </tr>
@@ -267,13 +279,13 @@ Static Public Member Functions</h2></td></tr>
 <p>Get the stored tracking vector. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pos</td><td>Returned tracking vector </td></tr>
+    <tr><td class="paramname">pos</td><td>Returned tracking vectors </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if successful, false otherwise </dd></dl>
 
-<p>Implements <a class="el" href="classBaseTracker.html#adfba0b9b37f9f4923b97bdd0d0fbbb68">BaseTracker</a>.</p>
+<p>Implements <a class="el" href="classBaseTracker.html#a20360b084ef9b2df755854c274a73f2b">BaseTracker</a>.</p>
 
 </div>
 </div>

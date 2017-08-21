@@ -6,84 +6,127 @@
     <includes local="no">sensor_msgs/image_encodings.h</includes>
     <includes local="no">glog/logging.h</includes>
     <incdepgraph>
-      <node id="4382">
+      <node id="7792">
         <label>boost/thread/mutex.hpp</label>
       </node>
-      <node id="4384">
+      <node id="7809">
         <label>glog/logging.h</label>
       </node>
-      <node id="4378">
+      <node id="7804">
         <label>sensor_msgs/CameraInfo.h</label>
       </node>
-      <node id="4374">
+      <node id="7796">
         <label>cmath</label>
       </node>
-      <node id="4377">
-        <label>image_transport/image_transport.h</label>
-      </node>
-      <node id="4379">
-        <label>sensor_msgs/Image.h</label>
-      </node>
-      <node id="4376">
-        <label>cv_bridge/cv_bridge.h</label>
-      </node>
-      <node id="4372">
-        <label>aerial_autonomy/trackers/base_tracker.h</label>
-        <link refid="base__tracker_8h"/>
-        <childnode refid="4373" relation="include">
-        </childnode>
-      </node>
-      <node id="4380">
-        <label>sensor_msgs/RegionOfInterest.h</label>
-      </node>
-      <node id="4381">
-        <label>Eigen/Dense</label>
-      </node>
-      <node id="4383">
-        <label>sensor_msgs/image_encodings.h</label>
-      </node>
-      <node id="4375">
-        <label>ros/ros.h</label>
-      </node>
-      <node id="4371">
-        <label>aerial_autonomy/trackers/roi_to_position_converter.h</label>
-        <link refid="roi__to__position__converter_8h"/>
-        <childnode refid="4372" relation="include">
-        </childnode>
-        <childnode refid="4373" relation="include">
-        </childnode>
-        <childnode refid="4375" relation="include">
-        </childnode>
-        <childnode refid="4376" relation="include">
-        </childnode>
-        <childnode refid="4377" relation="include">
-        </childnode>
-        <childnode refid="4378" relation="include">
-        </childnode>
-        <childnode refid="4379" relation="include">
-        </childnode>
-        <childnode refid="4380" relation="include">
-        </childnode>
-        <childnode refid="4381" relation="include">
-        </childnode>
-        <childnode refid="4382" relation="include">
-        </childnode>
-      </node>
-      <node id="4370">
+      <node id="7789">
         <label>src/trackers/roi_to_position_converter.cpp</label>
         <link refid="roi_to_position_converter.cpp"/>
-        <childnode refid="4371" relation="include">
+        <childnode refid="7790" relation="include">
         </childnode>
-        <childnode refid="4383" relation="include">
+        <childnode refid="7808" relation="include">
         </childnode>
-        <childnode refid="4384" relation="include">
+        <childnode refid="7809" relation="include">
         </childnode>
       </node>
-      <node id="4373">
+      <node id="7803">
+        <label>image_transport/image_transport.h</label>
+      </node>
+      <node id="7805">
+        <label>sensor_msgs/Image.h</label>
+      </node>
+      <node id="7802">
+        <label>cv_bridge/cv_bridge.h</label>
+      </node>
+      <node id="7806">
+        <label>sensor_msgs/RegionOfInterest.h</label>
+      </node>
+      <node id="7807">
+        <label>Eigen/Dense</label>
+      </node>
+      <node id="7790">
+        <label>aerial_autonomy/trackers/roi_to_position_converter.h</label>
+        <link refid="roi__to__position__converter_8h"/>
+        <childnode refid="7791" relation="include">
+        </childnode>
+        <childnode refid="7793" relation="include">
+        </childnode>
+        <childnode refid="7800" relation="include">
+        </childnode>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7801" relation="include">
+        </childnode>
+        <childnode refid="7802" relation="include">
+        </childnode>
+        <childnode refid="7803" relation="include">
+        </childnode>
+        <childnode refid="7804" relation="include">
+        </childnode>
+        <childnode refid="7805" relation="include">
+        </childnode>
+        <childnode refid="7806" relation="include">
+        </childnode>
+        <childnode refid="7807" relation="include">
+        </childnode>
+        <childnode refid="7792" relation="include">
+        </childnode>
+      </node>
+      <node id="7808">
+        <label>sensor_msgs/image_encodings.h</label>
+      </node>
+      <node id="7797">
+        <label>tuple</label>
+      </node>
+      <node id="7793">
+        <label>aerial_autonomy/trackers/base_tracker.h</label>
+        <link refid="base__tracker_8h"/>
+        <childnode refid="7794" relation="include">
+        </childnode>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7799" relation="include">
+        </childnode>
+        <childnode refid="7797" relation="include">
+        </childnode>
+        <childnode refid="7798" relation="include">
+        </childnode>
+      </node>
+      <node id="7800">
+        <label>aerial_autonomy/trackers/simple_tracking_strategy.h</label>
+        <link refid="simple__tracking__strategy_8h"/>
+        <childnode refid="7794" relation="include">
+        </childnode>
+      </node>
+      <node id="7801">
+        <label>ros/ros.h</label>
+      </node>
+      <node id="7798">
+        <label>unordered_map</label>
+      </node>
+      <node id="7794">
+        <label>aerial_autonomy/trackers/tracking_strategy.h</label>
+        <link refid="tracking__strategy_8h"/>
+        <childnode refid="7795" relation="include">
+        </childnode>
+        <childnode refid="7797" relation="include">
+        </childnode>
+        <childnode refid="7798" relation="include">
+        </childnode>
+      </node>
+      <node id="7795">
         <label>aerial_autonomy/types/position.h</label>
         <link refid="position_8h"/>
-        <childnode refid="4374" relation="include">
+        <childnode refid="7796" relation="include">
         </childnode>
+      </node>
+      <node id="7791">
+        <label>aerial_autonomy/common/atomic.h</label>
+        <link refid="atomic_8h"/>
+        <childnode refid="7792" relation="include">
+        </childnode>
+      </node>
+      <node id="7799">
+        <label>memory</label>
       </node>
     </incdepgraph>
     <briefdescription>
@@ -104,152 +147,131 @@
 <codeline lineno="11"><highlight class="normal"></highlight></codeline>
 <codeline lineno="12"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RoiToPositionConverter::roiCallback(</highlight></codeline>
 <codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>sensor_msgs::RegionOfInterest<sp/>&amp;roi_msg)<sp/>{</highlight></codeline>
-<codeline lineno="14"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::mutex::scoped_lock(roi_update_mutex_);</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>last_roi_update_time_<sp/>=<sp/>ros::Time::now();</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::mutex::scoped_lock(roi_mutex_);</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>roi_rect_<sp/>=<sp/>roi_msg;</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="22"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"></highlight></codeline>
-<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RoiToPositionConverter::imageCallback(</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>sensor_msgs::ImageConstPtr<sp/>&amp;img_msg)<sp/>{}</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/>last_roi_update_time_<sp/>=<sp/>ros::Time::now();</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/>roi_rect_<sp/>=<sp/>roi_msg;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RoiToPositionConverter::imageCallback(</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>sensor_msgs::ImageConstPtr<sp/>&amp;img_msg)<sp/>{}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RoiToPositionConverter::cameraInfoCallback(</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>sensor_msgs::CameraInfo<sp/>&amp;cam_info_msg)<sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>camera_info_<sp/>=<sp/>cam_info_msg;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>camera_info_subscriber_.shutdown();</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RoiToPositionConverter::cameraInfoCallback(</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>sensor_msgs::CameraInfo<sp/>&amp;cam_info_msg)<sp/>{</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/>boost::mutex::scoped_lock(camera_info_mutex_);</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/>camera_info_.reset(</highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>sensor_msgs::CameraInfo());</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/>*camera_info_<sp/>=<sp/>cam_info_msg;</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/>camera_info_subscriber_.shutdown();</highlight></codeline>
-<codeline lineno="33"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RoiToPositionConverter::depthCallback(</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>sensor_msgs::ImageConstPtr<sp/>&amp;depth_msg)<sp/>{</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(depth_msg-&gt;encoding<sp/>!=<sp/>std::string(</highlight><highlight class="stringliteral">&quot;32FC1&quot;</highlight><highlight class="normal">))<sp/>{</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>LOG(ERROR)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Depth<sp/>encoding<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>depth_msg-&gt;encoding<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>not<sp/>expected&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>RoiToPositionConverter::depthCallback(</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>sensor_msgs::ImageConstPtr<sp/>&amp;depth_msg)<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(depth_msg-&gt;encoding<sp/>!=<sp/>std::string(</highlight><highlight class="stringliteral">&quot;32FC1&quot;</highlight><highlight class="normal">))<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>LOG(ERROR)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Depth<sp/>encoding<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>depth_msg-&gt;encoding<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>not<sp/>expected&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!roiIsValid())<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>cv_bridge::CvImagePtr<sp/>depth<sp/>=</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cv_bridge::toCvCopy(depth_msg,<sp/>sensor_msgs::image_encodings::TYPE_32FC1);</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!roiIsValid())<sp/>{</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/>cv_bridge::CvImagePtr<sp/>depth<sp/>=</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cv_bridge::toCvCopy(depth_msg,<sp/>sensor_msgs::image_encodings::TYPE_32FC1);</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!cameraInfoIsValid())<sp/>{</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Copy<sp/>variables</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/>sensor_msgs::RegionOfInterest<sp/>roi_rect;</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::mutex::scoped_lock(roi_mutex_);</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>roi_rect<sp/>=<sp/>roi_rect_;</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/>sensor_msgs::CameraInfo<sp/>camera_info;</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::mutex::scoped_lock(camera_info_mutex_);</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>camera_info<sp/>=<sp/>*camera_info_;</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>object_position;</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><ref refid="classRoiToPositionConverter_1a5384fe4584c3a0dc654eb0e6b9d8a73d" kindref="member">computeTrackingVector</ref>(roi_rect,<sp/>depth-&gt;image,<sp/>camera_info,</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>max_object_distance_,<sp/>foreground_percent_,</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>object_position);</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::mutex::scoped_lock(position_mutex_);</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>object_position_<sp/>=<sp/>object_position;</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="75"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"></highlight></codeline>
-<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classRoiToPositionConverter_1a408f82ba9764ba20e2463535850d3268" kindref="member">RoiToPositionConverter::trackingIsValid</ref>()<sp/>{</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>roiIsValid()<sp/>&amp;&amp;<sp/>cameraInfoIsValid();</highlight></codeline>
-<codeline lineno="79"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="80"><highlight class="normal"></highlight></codeline>
-<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>RoiToPositionConverter::cameraInfoIsValid()<sp/>{</highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/>boost::mutex::scoped_lock(camera_info_mutex_);</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>valid<sp/>=</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>camera_info_<sp/>&amp;&amp;<sp/>camera_info_-&gt;K[0]<sp/>!=<sp/>0<sp/>&amp;&amp;<sp/>camera_info_-&gt;K[4]<sp/>!=<sp/>0;</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!valid)</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>LOG(WARNING)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Invalid<sp/>camera<sp/>info&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>valid;</highlight></codeline>
-<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"></highlight></codeline>
-<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>RoiToPositionConverter::roiIsValid()<sp/>{</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"><sp/><sp/>boost::mutex::scoped_lock(roi_update_mutex_);</highlight></codeline>
-<codeline lineno="92"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>valid<sp/>=<sp/>(ros::Time::now()<sp/>-<sp/>last_roi_update_time_).toSec()<sp/>&lt;<sp/>0.5;</highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!valid)</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>VLOG(2)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;ROI<sp/>has<sp/>not<sp/>been<sp/>updated<sp/>for<sp/>0.5<sp/>seconds&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="95"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>valid;</highlight></codeline>
-<codeline lineno="96"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"></highlight></codeline>
-<codeline lineno="98"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classRoiToPositionConverter_1a537e53d157931a08343d0b41195a924c" kindref="member">RoiToPositionConverter::getTrackingVector</ref>(<ref refid="structPosition" kindref="compound">Position</ref><sp/>&amp;pos)<sp/>{</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classRoiToPositionConverter_1a408f82ba9764ba20e2463535850d3268" kindref="member">trackingIsValid</ref>())<sp/>{</highlight></codeline>
-<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::mutex::scoped_lock(position_mutex_);</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>pos<sp/>=<sp/>object_position_;</highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="107"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"></highlight></codeline>
-<codeline lineno="109"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classRoiToPositionConverter_1a5384fe4584c3a0dc654eb0e6b9d8a73d" kindref="member">RoiToPositionConverter::computeTrackingVector</ref>(</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>sensor_msgs::RegionOfInterest<sp/>&amp;roi_rect,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>cv::Mat<sp/>&amp;depth,</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>sensor_msgs::CameraInfo<sp/>&amp;camera_info,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>max_distance,</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>front_percent,<sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>&amp;pos)<sp/>{</highlight></codeline>
-<codeline lineno="113"><highlight class="normal"><sp/><sp/>std::vector&lt;Eigen::Vector3d&gt;<sp/>roi_position_depths;</highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>roi_rect.x_offset;</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x<sp/>&lt;<sp/>roi_rect.x_offset<sp/>+<sp/>roi_rect.width;<sp/>x++)<sp/>{</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y<sp/>=<sp/>roi_rect.y_offset;</highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y<sp/>&lt;<sp/>roi_rect.y_offset<sp/>+<sp/>roi_rect.height;<sp/>y++)<sp/>{</highlight></codeline>
-<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>px_depth<sp/>=<sp/>*(depth.ptr&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&gt;(y,<sp/>x));</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!isnan(px_depth)<sp/>&amp;&amp;<sp/>px_depth<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(px_depth<sp/>&lt;=<sp/>max_distance)</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>roi_position_depths.push_back(Eigen::Vector3d(x,<sp/>y,<sp/>px_depth));</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"></highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>object_distance<sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"><sp/><sp/>Eigen::Vector2d<sp/>object_position_cam(0,<sp/>0);</highlight></codeline>
-<codeline lineno="129"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(roi_position_depths.size()<sp/>==<sp/>0)<sp/>{</highlight></codeline>
-<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/>VLOG(2)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;No<sp/>ROI<sp/>pixel<sp/>depths<sp/>within<sp/>configured<sp/>max<sp/>distance&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/>object_distance<sp/>=<sp/>max_distance;</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>object_position_cam(0)<sp/>=<sp/>roi_rect.x_offset<sp/>+<sp/>roi_rect.width<sp/>/<sp/>2.;</highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>object_position_cam(1)<sp/>=<sp/>roi_rect.y_offset<sp/>+<sp/>roi_rect.height<sp/>/<sp/>2.;</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Average<sp/>of<sp/>smallest<sp/>&quot;front_percent&quot;<sp/>percent<sp/>of<sp/>depths</highlight></codeline>
-<codeline lineno="137"><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>number_of_depths_to_sort<sp/>=</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int(ceil(roi_position_depths.size()<sp/>*<sp/>front_percent));</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>std::partial_sort(roi_position_depths.begin(),</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>roi_position_depths.begin()<sp/>+<sp/>number_of_depths_to_sort,</highlight></codeline>
-<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>roi_position_depths.end(),<sp/>compare);<sp/></highlight><highlight class="comment">//<sp/>Doing<sp/>Partial<sp/>Sort</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Vector3d<sp/>sum(0,<sp/>0,<sp/>0);</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>number_of_depths_to_sort;<sp/>++i)<sp/>{</highlight></codeline>
-<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>sum<sp/>+=<sp/>roi_position_depths[i];</highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>sum<sp/>*=<sp/>(1.0f<sp/>/<sp/>number_of_depths_to_sort);</highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/>object_distance<sp/>=<sp/>sum(2);</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/>object_position_cam(0)<sp/>=<sp/>sum(0);</highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>object_position_cam(1)<sp/>=<sp/>sum(1);</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="151"><highlight class="normal"></highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;cx<sp/>=<sp/>camera_info.K[2];</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;cy<sp/>=<sp/>camera_info.K[5];</highlight></codeline>
-<codeline lineno="154"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;fx<sp/>=<sp/>camera_info.K[0];</highlight></codeline>
-<codeline lineno="155"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;fy<sp/>=<sp/>camera_info.K[4];</highlight></codeline>
-<codeline lineno="156"><highlight class="normal"><sp/><sp/>pos.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref><sp/>=<sp/>object_distance<sp/>*<sp/>(object_position_cam(0)<sp/>-<sp/>cx)<sp/>/<sp/>fx;</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"><sp/><sp/>pos.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref><sp/>=<sp/>object_distance<sp/>*<sp/>(object_position_cam(1)<sp/>-<sp/>cy)<sp/>/<sp/>fy;</highlight></codeline>
-<codeline lineno="158"><highlight class="normal"><sp/><sp/>pos.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref><sp/>=<sp/>object_distance;</highlight></codeline>
-<codeline lineno="159"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="160"><highlight class="normal"></highlight></codeline>
-<codeline lineno="161"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>RoiToPositionConverter::compare(Eigen::Vector3d<sp/>a,<sp/>Eigen::Vector3d<sp/>b)<sp/>{</highlight></codeline>
-<codeline lineno="162"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>a(2)<sp/>&lt;<sp/>b(2);</highlight></codeline>
-<codeline lineno="163"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!cameraInfoIsValid())<sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Copy<sp/>variables</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>sensor_msgs::RegionOfInterest<sp/>roi_rect;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/>roi_rect<sp/>=<sp/>roi_rect_;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/>sensor_msgs::CameraInfo<sp/>camera_info;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/>camera_info<sp/>=<sp/>camera_info_;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>object_position;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><ref refid="classRoiToPositionConverter_1a5384fe4584c3a0dc654eb0e6b9d8a73d" kindref="member">computeTrackingVector</ref>(roi_rect,<sp/>depth-&gt;image,<sp/>camera_info,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>max_object_distance_,<sp/>foreground_percent_,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>object_position);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/>object_position_<sp/>=<sp/>object_position;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classRoiToPositionConverter_1a408f82ba9764ba20e2463535850d3268" kindref="member">RoiToPositionConverter::trackingIsValid</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>roiIsValid()<sp/>&amp;&amp;<sp/>cameraInfoIsValid();</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>RoiToPositionConverter::cameraInfoIsValid()<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>valid<sp/>=<sp/>camera_info_.<ref refid="classAtomic_1a50d5b1eadc07bf419245a5e11d718486" kindref="member">get</ref>().K[0]<sp/>!=<sp/>0<sp/>&amp;&amp;<sp/>camera_info_.<ref refid="classAtomic_1a50d5b1eadc07bf419245a5e11d718486" kindref="member">get</ref>().K[4]<sp/>!=<sp/>0;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!valid)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>LOG(WARNING)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Invalid<sp/>camera<sp/>info&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>valid;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>RoiToPositionConverter::roiIsValid()<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>valid<sp/>=<sp/>(ros::Time::now()<sp/>-<sp/>last_roi_update_time_).toSec()<sp/>&lt;<sp/>0.5;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!valid)</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>VLOG(2)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;ROI<sp/>has<sp/>not<sp/>been<sp/>updated<sp/>for<sp/>0.5<sp/>seconds&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>valid;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classRoiToPositionConverter_1a83de9bf4e7ce52e3a1c55992462abc65" kindref="member">RoiToPositionConverter::getTrackingVectors</ref>(</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>std::unordered_map&lt;uint32_t,<sp/>Position&gt;<sp/>&amp;pos)<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>CHECK(pos.empty())<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Tracking<sp/>vector<sp/>map<sp/>is<sp/>not<sp/>empty&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classRoiToPositionConverter_1a408f82ba9764ba20e2463535850d3268" kindref="member">trackingIsValid</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/>pos[0]<sp/>=<sp/>object_position_;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classRoiToPositionConverter_1a5384fe4584c3a0dc654eb0e6b9d8a73d" kindref="member">RoiToPositionConverter::computeTrackingVector</ref>(</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>sensor_msgs::RegionOfInterest<sp/>&amp;roi_rect,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>cv::Mat<sp/>&amp;depth,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>sensor_msgs::CameraInfo<sp/>&amp;camera_info,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>max_distance,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>front_percent,<sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>&amp;pos)<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/>std::vector&lt;Eigen::Vector3d&gt;<sp/>roi_position_depths;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>roi_rect.x_offset;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x<sp/>&lt;<sp/>roi_rect.x_offset<sp/>+<sp/>roi_rect.width;<sp/>x++)<sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y<sp/>=<sp/>roi_rect.y_offset;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>y<sp/>&lt;<sp/>roi_rect.y_offset<sp/>+<sp/>roi_rect.height;<sp/>y++)<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>px_depth<sp/>=<sp/>*(depth.ptr&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&gt;(y,<sp/>x));</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!isnan(px_depth)<sp/>&amp;&amp;<sp/>px_depth<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(px_depth<sp/>&lt;=<sp/>max_distance)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>roi_position_depths.push_back(Eigen::Vector3d(x,<sp/>y,<sp/>px_depth));</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>object_distance<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/>Eigen::Vector2d<sp/>object_position_cam(0,<sp/>0);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(roi_position_depths.size()<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>VLOG(2)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;No<sp/>ROI<sp/>pixel<sp/>depths<sp/>within<sp/>configured<sp/>max<sp/>distance&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>object_distance<sp/>=<sp/>max_distance;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>object_position_cam(0)<sp/>=<sp/>roi_rect.x_offset<sp/>+<sp/>roi_rect.width<sp/>/<sp/>2.;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>object_position_cam(1)<sp/>=<sp/>roi_rect.y_offset<sp/>+<sp/>roi_rect.height<sp/>/<sp/>2.;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Average<sp/>of<sp/>smallest<sp/>&quot;front_percent&quot;<sp/>percent<sp/>of<sp/>depths</highlight></codeline>
+<codeline lineno="116"><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>number_of_depths_to_sort<sp/>=</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int(ceil(roi_position_depths.size()<sp/>*<sp/>front_percent));</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>std::partial_sort(roi_position_depths.begin(),</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>roi_position_depths.begin()<sp/>+<sp/>number_of_depths_to_sort,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>roi_position_depths.end(),<sp/>compare);<sp/></highlight><highlight class="comment">//<sp/>Doing<sp/>Partial<sp/>Sort</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Vector3d<sp/>sum(0,<sp/>0,<sp/>0);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>number_of_depths_to_sort;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>sum<sp/>+=<sp/>roi_position_depths[i];</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/>sum<sp/>*=<sp/>(1.0f<sp/>/<sp/>number_of_depths_to_sort);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>object_distance<sp/>=<sp/>sum(2);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>object_position_cam(0)<sp/>=<sp/>sum(0);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>object_position_cam(1)<sp/>=<sp/>sum(1);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;cx<sp/>=<sp/>camera_info.K[2];</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;cy<sp/>=<sp/>camera_info.K[5];</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;fx<sp/>=<sp/>camera_info.K[0];</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>&amp;fy<sp/>=<sp/>camera_info.K[4];</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/>pos.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref><sp/>=<sp/>object_distance<sp/>*<sp/>(object_position_cam(0)<sp/>-<sp/>cx)<sp/>/<sp/>fx;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/>pos.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref><sp/>=<sp/>object_distance<sp/>*<sp/>(object_position_cam(1)<sp/>-<sp/>cy)<sp/>/<sp/>fy;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/>pos.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref><sp/>=<sp/>object_distance;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>RoiToPositionConverter::compare(Eigen::Vector3d<sp/>a,<sp/>Eigen::Vector3d<sp/>b)<sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>a(2)<sp/>&lt;<sp/>b(2);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/roi_to_position_converter.cpp"/>
   </compounddef>
 </doxygen>

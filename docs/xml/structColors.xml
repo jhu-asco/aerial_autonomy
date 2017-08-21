@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structColors" kind="struct" prot="public">
+    <compoundname>Colors</compoundname>
+    <includes refid="html__utils_8h" local="no">html_utils.h</includes>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structColors_1aabea0bbeac1f20ea8338ce97513ef6bf" prot="public" static="yes" mutable="no">
+        <type>constexpr const char *</type>
+        <definition>constexpr const char* Colors::red</definition>
+        <argsstring></argsstring>
+        <name>red</name>
+        <initializer>= &quot;\&quot;#DC143C\&quot;&quot;</initializer>
+        <briefdescription>
+<para>Red color hex code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="14" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structColors_1a1e9953f0bd8db539110c2838a09f98db" prot="public" static="yes" mutable="no">
+        <type>constexpr const char *</type>
+        <definition>constexpr const char* Colors::green</definition>
+        <argsstring></argsstring>
+        <name>green</name>
+        <initializer>= &quot;\&quot;#7FFF00\&quot;&quot;</initializer>
+        <briefdescription>
+<para>Green color hex code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="18" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structColors_1a7ae1c6ead1ad7fa5908d0257160088ee" prot="public" static="yes" mutable="no">
+        <type>constexpr const char *</type>
+        <definition>constexpr const char* Colors::blue</definition>
+        <argsstring></argsstring>
+        <name>blue</name>
+        <initializer>= &quot;\&quot;#4169E1\&quot;&quot;</initializer>
+        <briefdescription>
+<para>Blue color hex code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="22" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structColors_1aed2f048d5f428765d7062426df16a22d" prot="public" static="yes" mutable="no">
+        <type>constexpr const char *</type>
+        <definition>constexpr const char* Colors::grey</definition>
+        <argsstring></argsstring>
+        <name>grey</name>
+        <initializer>= &quot;\&quot;#D3D3D3\&quot;&quot;</initializer>
+        <briefdescription>
+<para>Grey color hex code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="26" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structColors_1ad7c48ead03d5925248a821ae1a0501e8" prot="public" static="yes" mutable="no">
+        <type>constexpr const char *</type>
+        <definition>constexpr const char* Colors::yellow</definition>
+        <argsstring></argsstring>
+        <name>yellow</name>
+        <initializer>= &quot;\&quot;#FFFF94\&quot;&quot;</initializer>
+        <briefdescription>
+<para>Yellow color hex code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="30" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structColors_1ae818fc85646f9f33693a0bc9828e5305" prot="public" static="yes" mutable="no">
+        <type>constexpr const char *</type>
+        <definition>constexpr const char* Colors::white</definition>
+        <argsstring></argsstring>
+        <name>white</name>
+        <initializer>= &quot;\&quot;#FFF\&quot;&quot;</initializer>
+        <briefdescription>
+<para>White color hex code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="34" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structColors_1a24947edd14d10c570eb21739b933c70b" prot="public" static="yes" mutable="no">
+        <type>constexpr const char *</type>
+        <definition>constexpr const char* Colors::black</definition>
+        <argsstring></argsstring>
+        <name>black</name>
+        <initializer>= &quot;\&quot;#000\&quot;&quot;</initializer>
+        <briefdescription>
+<para>Black color hex code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="38" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Helper class that defines colors in hex format. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="10" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="10" bodyend="39"/>
+    <listofallmembers>
+      <member refid="structColors_1a24947edd14d10c570eb21739b933c70b" prot="public" virt="non-virtual"><scope>Colors</scope><name>black</name></member>
+      <member refid="structColors_1a7ae1c6ead1ad7fa5908d0257160088ee" prot="public" virt="non-virtual"><scope>Colors</scope><name>blue</name></member>
+      <member refid="structColors_1a1e9953f0bd8db539110c2838a09f98db" prot="public" virt="non-virtual"><scope>Colors</scope><name>green</name></member>
+      <member refid="structColors_1aed2f048d5f428765d7062426df16a22d" prot="public" virt="non-virtual"><scope>Colors</scope><name>grey</name></member>
+      <member refid="structColors_1aabea0bbeac1f20ea8338ce97513ef6bf" prot="public" virt="non-virtual"><scope>Colors</scope><name>red</name></member>
+      <member refid="structColors_1ae818fc85646f9f33693a0bc9828e5305" prot="public" virt="non-virtual"><scope>Colors</scope><name>white</name></member>
+      <member refid="structColors_1ad7c48ead03d5925248a821ae1a0501e8" prot="public" virt="non-virtual"><scope>Colors</scope><name>yellow</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

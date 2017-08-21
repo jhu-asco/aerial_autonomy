@@ -1,7 +1,9 @@
 <map id="include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h" name="include/aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h">
-<area shape="rect" id="node2" href="$base__controller__hardware__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/base\l_controller_hardware_connector.h" alt="" coords="139,109,356,165"/>
-<area shape="rect" id="node6" href="$position__yaw_8h.html" title="aerial_autonomy/types\l/position_yaw.h" alt="" coords="381,117,533,158"/>
-<area shape="rect" id="node3" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="5,214,187,255"/>
-<area shape="rect" id="node7" href="$position_8h.html" title="aerial_autonomy/types\l/position.h" alt="" coords="366,214,519,255"/>
-<area shape="rect" id="node9" href="$math_8h.html" title="aerial_autonomy/common\l/math.h" alt="" coords="544,214,715,255"/>
+<area shape="rect" id="node2" href="$base__controller__hardware__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/base\l_controller_hardware_connector.h" alt="" coords="211,109,428,165"/>
+<area shape="rect" id="node10" href="$position__yaw_8h.html" title="aerial_autonomy/types\l/position_yaw.h" alt="" coords="485,117,637,158"/>
+<area shape="rect" id="node3" href="$atomic_8h.html" title="aerial_autonomy/common\l/atomic.h" alt="" coords="5,305,176,346"/>
+<area shape="rect" id="node5" href="$controller__status_8h.html" title="aerial_autonomy/common\l/controller_status.h" alt="" coords="208,305,379,346"/>
+<area shape="rect" id="node8" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="101,214,283,255"/>
+<area shape="rect" id="node11" href="$position_8h.html" title="aerial_autonomy/types\l/position.h" alt="" coords="485,214,637,255"/>
+<area shape="rect" id="node13" href="$math_8h.html" title="aerial_autonomy/common\l/math.h" alt="" coords="663,214,833,255"/>
 </map>

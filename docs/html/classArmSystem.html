@@ -101,7 +101,7 @@ Inheritance diagram for ArmSystem:</div>
 <div class="dyncontent">
 <div class="center"><img src="classArmSystem__inherit__graph.png" border="0" usemap="#ArmSystem_inherit__map" alt="Inheritance graph"/></div>
 <map name="ArmSystem_inherit__map" id="ArmSystem_inherit__map">
-<area shape="rect" id="node2" href="classBaseRobotSystem.html" title="Provides functions to switch between active controllers and get goals. " alt="" coords="5,5,136,32"/></map>
+<area shape="rect" id="node3" href="classUAVArmSystem.html" title="UAV vision system with an arm. " alt="" coords="11,155,129,181"/><area shape="rect" id="node2" href="classBaseRobotSystem.html" title="Provides functions to switch between active controllers and get goals. " alt="" coords="5,5,136,32"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for ArmSystem:</div>
@@ -113,15 +113,15 @@ Collaboration diagram for ArmSystem:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a582fe1e1dc69a555a61418a39c6428ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArmSystem.html#a582fe1e1dc69a555a61418a39c6428ed">ArmSystem</a> (ros::NodeHandle &amp;nh)</td></tr>
-<tr class="memdesc:a582fe1e1dc69a555a61418a39c6428ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a582fe1e1dc69a555a61418a39c6428ed">More...</a><br/></td></tr>
-<tr class="separator:a582fe1e1dc69a555a61418a39c6428ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ffb3f8a0c24bed0e2621281cee625c0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArmSystem.html#a7ffb3f8a0c24bed0e2621281cee625c0">ArmSystem</a> (ArmParser &amp;arm_hardware)</td></tr>
+<tr class="memdesc:a7ffb3f8a0c24bed0e2621281cee625c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a7ffb3f8a0c24bed0e2621281cee625c0">More...</a><br/></td></tr>
+<tr class="separator:a7ffb3f8a0c24bed0e2621281cee625c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad47744d8d45da74ca2544ccc527516a"><td class="memItemLeft" align="right" valign="top">Eigen::Matrix4d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArmSystem.html#aad47744d8d45da74ca2544ccc527516a">getEndEffectorPose</a> ()</td></tr>
 <tr class="memdesc:aad47744d8d45da74ca2544ccc527516a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Public API call to get end effector transform.  <a href="#aad47744d8d45da74ca2544ccc527516a">More...</a><br/></td></tr>
 <tr class="separator:aad47744d8d45da74ca2544ccc527516a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a408f99ee51cbad8921c7451b75b162fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArmSystem.html#a408f99ee51cbad8921c7451b75b162fb">grip</a> (bool grip_action)</td></tr>
-<tr class="memdesc:a408f99ee51cbad8921c7451b75b162fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Public API call to grip/ungrip an object.  <a href="#a408f99ee51cbad8921c7451b75b162fb">More...</a><br/></td></tr>
-<tr class="separator:a408f99ee51cbad8921c7451b75b162fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cfd218286961057e3290f583bc4b20b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArmSystem.html#a5cfd218286961057e3290f583bc4b20b">grip</a> (bool grip_action)</td></tr>
+<tr class="memdesc:a5cfd218286961057e3290f583bc4b20b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Public API call to grip/ungrip an object.  <a href="#a5cfd218286961057e3290f583bc4b20b">More...</a><br/></td></tr>
+<tr class="separator:a5cfd218286961057e3290f583bc4b20b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56b52cb9b2b9a250dad2f9608ffd598f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArmSystem.html#a56b52cb9b2b9a250dad2f9608ffd598f">power</a> (bool state)</td></tr>
 <tr class="memdesc:a56b52cb9b2b9a250dad2f9608ffd598f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Power the arm on/off.  <a href="#a56b52cb9b2b9a250dad2f9608ffd598f">More...</a><br/></td></tr>
 <tr class="separator:a56b52cb9b2b9a250dad2f9608ffd598f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,11 +135,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ac050d7d49cc7416d5992f102ff2bdc3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provide the current state of arm system.  <a href="#ac050d7d49cc7416d5992f102ff2bdc3d">More...</a><br/></td></tr>
 <tr class="separator:ac050d7d49cc7416d5992f102ff2bdc3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae7b62dcab17fbb41137f071eaeb67735"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArmSystem.html#ae7b62dcab17fbb41137f071eaeb67735">getCommandStatus</a> () const </td></tr>
-<tr class="memdesc:ae7b62dcab17fbb41137f071eaeb67735"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verify the status of grip/power on/off commands.  <a href="#ae7b62dcab17fbb41137f071eaeb67735">More...</a><br/></td></tr>
+<tr class="memdesc:ae7b62dcab17fbb41137f071eaeb67735"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verify the status of grip/power on/off and fold/rightArm commands.  <a href="#ae7b62dcab17fbb41137f071eaeb67735">More...</a><br/></td></tr>
 <tr class="separator:ae7b62dcab17fbb41137f071eaeb67735"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af60b9bbcfd0ff2e34f766be48fe3715e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArmSystem.html#af60b9bbcfd0ff2e34f766be48fe3715e">enabled</a> ()</td></tr>
-<tr class="memdesc:af60b9bbcfd0ff2e34f766be48fe3715e"><td class="mdescLeft">&#160;</td><td class="mdescRight">If arm is enabled return.  <a href="#af60b9bbcfd0ff2e34f766be48fe3715e">More...</a><br/></td></tr>
-<tr class="separator:af60b9bbcfd0ff2e34f766be48fe3715e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83632018e26eea4716ad22d7011dc517"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classArmSystem.html#a83632018e26eea4716ad22d7011dc517">enabled</a> () const </td></tr>
+<tr class="memdesc:a83632018e26eea4716ad22d7011dc517"><td class="mdescLeft">&#160;</td><td class="mdescRight">If arm is enabled return.  <a href="#a83632018e26eea4716ad22d7011dc517">More...</a><br/></td></tr>
+<tr class="separator:a83632018e26eea4716ad22d7011dc517"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classBaseRobotSystem"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classBaseRobotSystem')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classBaseRobotSystem.html">BaseRobotSystem</a></td></tr>
 <tr class="memitem:a257fff284254de019428ae7073333b47 inherit pub_methods_classBaseRobotSystem"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a257fff284254de019428ae7073333b47">BaseRobotSystem</a> ()</td></tr>
 <tr class="memdesc:a257fff284254de019428ae7073333b47 inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor to initialize active controllers and mutexes to NULL.  <a href="#a257fff284254de019428ae7073333b47">More...</a><br/></td></tr>
@@ -153,9 +153,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:add092f1cc4faec7b7f1ecb624f54a56a inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the goal from connector.  <a href="#add092f1cc4faec7b7f1ecb624f54a56a">More...</a><br/></td></tr>
 <tr class="separator:add092f1cc4faec7b7f1ecb624f54a56a inherit pub_methods_classBaseRobotSystem"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22435ca0b28e562a230b4dfdeaffa716 inherit pub_methods_classBaseRobotSystem"><td class="memTemplParams" colspan="2">template&lt;class ControllerHardwareConnectorT &gt; </td></tr>
-<tr class="memitem:a22435ca0b28e562a230b4dfdeaffa716 inherit pub_methods_classBaseRobotSystem"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="base__controller_8h.html#addd69ea32460850b571ba88f2a994b73">ControllerStatus</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a22435ca0b28e562a230b4dfdeaffa716">getStatus</a> () const </td></tr>
-<tr class="memdesc:a22435ca0b28e562a230b4dfdeaffa716 inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the status of the active controller.  <a href="#a22435ca0b28e562a230b4dfdeaffa716">More...</a><br/></td></tr>
+<tr class="memitem:a22435ca0b28e562a230b4dfdeaffa716 inherit pub_methods_classBaseRobotSystem"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classControllerStatus.html">ControllerStatus</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a22435ca0b28e562a230b4dfdeaffa716">getStatus</a> () const </td></tr>
+<tr class="memdesc:a22435ca0b28e562a230b4dfdeaffa716 inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the status of a controller.  <a href="#a22435ca0b28e562a230b4dfdeaffa716">More...</a><br/></td></tr>
 <tr class="separator:a22435ca0b28e562a230b4dfdeaffa716 inherit pub_methods_classBaseRobotSystem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14c406049bbf3d17e455bac5d0f5db1e inherit pub_methods_classBaseRobotSystem"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classControllerStatus.html">ControllerStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a14c406049bbf3d17e455bac5d0f5db1e">getActiveControllerStatus</a> (<a class="el" href="base__controller__hardware__connector_8h.html#ae4dfd42394001deb6e8a0e60c81d6f7a">HardwareType</a> hardware_type) const </td></tr>
+<tr class="memdesc:a14c406049bbf3d17e455bac5d0f5db1e inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the status of the active controller.  <a href="#a14c406049bbf3d17e455bac5d0f5db1e">More...</a><br/></td></tr>
+<tr class="separator:a14c406049bbf3d17e455bac5d0f5db1e inherit pub_methods_classBaseRobotSystem"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e7031f99e64e7c371ee31fbd69f6bf9 inherit pub_methods_classBaseRobotSystem"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a3e7031f99e64e7c371ee31fbd69f6bf9">abortController</a> (<a class="el" href="base__controller__hardware__connector_8h.html#ae4dfd42394001deb6e8a0e60c81d6f7a">HardwareType</a> hardware_type)</td></tr>
 <tr class="memdesc:a3e7031f99e64e7c371ee31fbd69f6bf9 inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove active controller for given hardware type.  <a href="#a3e7031f99e64e7c371ee31fbd69f6bf9">More...</a><br/></td></tr>
 <tr class="separator:a3e7031f99e64e7c371ee31fbd69f6bf9 inherit pub_methods_classBaseRobotSystem"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -173,9 +176,8 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Owns, initializes, and facilitates communication between different hardware/software components. Provides builtin set/get end effector pose, joint angles for a generic arm. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>Add controllers and controller connectors for visual servoing </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a582fe1e1dc69a555a61418a39c6428ed"></a>
+<a class="anchor" id="a7ffb3f8a0c24bed0e2621281cee625c0"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -185,8 +187,8 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">ArmSystem::ArmSystem </td>
           <td>(</td>
-          <td class="paramtype">ros::NodeHandle &amp;&#160;</td>
-          <td class="paramname"><em>nh</em></td><td>)</td>
+          <td class="paramtype">ArmParser &amp;&#160;</td>
+          <td class="paramname"><em>arm_hardware</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -198,7 +200,6 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Constructor. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>Add controllers, controller connectors, config if needed </dd></dl>
 <p><a class="el" href="classArmSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components...">ArmSystem</a> requires an arm hardware. It instantiates the connectors, controllers</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -210,7 +211,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="af60b9bbcfd0ff2e34f766be48fe3715e"></a>
+<a class="anchor" id="a83632018e26eea4716ad22d7011dc517"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -221,7 +222,7 @@ Additional Inherited Members</h2></td></tr>
           <td class="memname">bool ArmSystem::enabled </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -282,7 +283,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Verify the status of grip/power on/off commands. </p>
+<p>Verify the status of grip/power on/off and fold/rightArm commands. </p>
 <dl class="section return"><dt>Returns</dt><dd>True if the command is complete </dd></dl>
 
 </div>
@@ -334,14 +335,16 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Provide the current state of arm system. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>Add status about arm powered on/off, and any error messages can also add arm end effector pose if useful</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>Add status about arm powered on/off, and any error messages can also add arm end effector pose if useful</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>string representation of the arm system state </dd></dl>
 
 <p>Implements <a class="el" href="classBaseRobotSystem.html#a63c0c5e504f352000c6fb6fce9047dec">BaseRobotSystem</a>.</p>
 
+<p>Reimplemented in <a class="el" href="classUAVArmSystem.html#a9afd991ab008115fb0f0674065e94451">UAVArmSystem</a>.</p>
+
 </div>
 </div>
-<a class="anchor" id="a408f99ee51cbad8921c7451b75b162fb"></a>
+<a class="anchor" id="a5cfd218286961057e3290f583bc4b20b"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -349,7 +352,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void ArmSystem::grip </td>
+          <td class="memname">bool ArmSystem::grip </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>grip_action</em></td><td>)</td>
@@ -370,6 +373,7 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>True if command sent successfully, false otherwise </dd></dl>
 
 </div>
 </div>

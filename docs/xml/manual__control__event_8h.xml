@@ -5,71 +5,118 @@
     <includedby refid="hovering__functors_8h" local="no">include/aerial_autonomy/actions_guards/hovering_functors.h</includedby>
     <includedby refid="land__functors_8h" local="no">include/aerial_autonomy/actions_guards/land_functors.h</includedby>
     <includedby refid="manual__control__functors_8h" local="no">include/aerial_autonomy/actions_guards/manual_control_functors.h</includedby>
+    <includedby refid="pick__place__state__machine_8h" local="no">include/aerial_autonomy/state_machines/pick_place_state_machine.h</includedby>
     <includedby refid="visual__servoing__state__machine_8h" local="no">include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</includedby>
     <invincdepgraph>
-      <node id="3876">
-        <label>include/aerial_autonomy/actions_guards/manual_control_functors.h</label>
-        <link refid="manual__control__functors_8h"/>
-        <childnode refid="3869" relation="include">
+      <node id="6942">
+        <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
+        <link refid="uav__state__machine_8h"/>
+        <childnode refid="6943" relation="include">
         </childnode>
       </node>
-      <node id="3875">
-        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
-        <link refid="land__functors_8h"/>
-        <childnode refid="3869" relation="include">
+      <node id="6933">
+        <label>include/aerial_autonomy/actions_guards/pick_place_functors.h</label>
+        <link refid="pick__place__functors_8h"/>
+        <childnode refid="6934" relation="include">
         </childnode>
       </node>
-      <node id="3869">
-        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
-        <link refid="uav__states__actions_8h"/>
-        <childnode refid="3870" relation="include">
+      <node id="6932">
+        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
+        <link refid="hovering__functors_8h"/>
+        <childnode refid="6933" relation="include">
         </childnode>
-        <childnode refid="3873" relation="include">
+        <childnode refid="6937" relation="include">
+        </childnode>
+        <childnode refid="6938" relation="include">
+        </childnode>
+        <childnode refid="6944" relation="include">
         </childnode>
       </node>
-      <node id="3874">
+      <node id="6943">
         <label>src/system_handler_nodes/uav_system_node.cpp</label>
         <link refid="uav__system__node_8cpp"/>
       </node>
-      <node id="3870">
-        <label>include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
-        <link refid="visual__servoing__states__actions_8h"/>
-        <childnode refid="3871" relation="include">
+      <node id="6935">
+        <label>include/aerial_autonomy/state_machines/pick_place_state_machine.h</label>
+        <link refid="pick__place__state__machine_8h"/>
+        <childnode refid="6936" relation="include">
         </childnode>
       </node>
-      <node id="3871">
-        <label>include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</label>
-        <link refid="visual__servoing__state__machine_8h"/>
-        <childnode refid="3872" relation="include">
+      <node id="6946">
+        <label>include/aerial_autonomy/actions_guards/manual_control_functors.h</label>
+        <link refid="manual__control__functors_8h"/>
+        <childnode refid="6933" relation="include">
+        </childnode>
+        <childnode refid="6938" relation="include">
         </childnode>
       </node>
-      <node id="3867">
-        <label>include/aerial_autonomy/types/manual_control_event.h</label>
-        <link refid="manual_control_event.h"/>
-        <childnode refid="3868" relation="include">
-        </childnode>
-        <childnode refid="3875" relation="include">
-        </childnode>
-        <childnode refid="3876" relation="include">
-        </childnode>
-        <childnode refid="3871" relation="include">
+      <node id="6934">
+        <label>include/aerial_autonomy/actions_guards/pick_place_states_actions.h</label>
+        <link refid="pick__place__states__actions_8h"/>
+        <childnode refid="6935" relation="include">
         </childnode>
       </node>
-      <node id="3868">
-        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
-        <link refid="hovering__functors_8h"/>
-        <childnode refid="3869" relation="include">
-        </childnode>
-      </node>
-      <node id="3872">
+      <node id="6941">
         <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
         <link refid="uav__vision__system__node_8cpp"/>
       </node>
-      <node id="3873">
-        <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
-        <link refid="uav__state__machine_8h"/>
-        <childnode refid="3874" relation="include">
+      <node id="6939">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
+        <link refid="visual__servoing__states__actions_8h"/>
+        <childnode refid="6934" relation="include">
         </childnode>
+        <childnode refid="6940" relation="include">
+        </childnode>
+      </node>
+      <node id="6944">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_functors.h</label>
+        <link refid="visual__servoing__functors_8h"/>
+        <childnode refid="6939" relation="include">
+        </childnode>
+      </node>
+      <node id="6931">
+        <label>include/aerial_autonomy/types/manual_control_event.h</label>
+        <link refid="manual_control_event.h"/>
+        <childnode refid="6932" relation="include">
+        </childnode>
+        <childnode refid="6945" relation="include">
+        </childnode>
+        <childnode refid="6946" relation="include">
+        </childnode>
+        <childnode refid="6935" relation="include">
+        </childnode>
+        <childnode refid="6940" relation="include">
+        </childnode>
+      </node>
+      <node id="6938">
+        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
+        <link refid="uav__states__actions_8h"/>
+        <childnode refid="6939" relation="include">
+        </childnode>
+        <childnode refid="6942" relation="include">
+        </childnode>
+      </node>
+      <node id="6937">
+        <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
+        <link refid="position__control__functors_8h"/>
+        <childnode refid="6938" relation="include">
+        </childnode>
+      </node>
+      <node id="6945">
+        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
+        <link refid="land__functors_8h"/>
+        <childnode refid="6938" relation="include">
+        </childnode>
+      </node>
+      <node id="6940">
+        <label>include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</label>
+        <link refid="visual__servoing__state__machine_8h"/>
+        <childnode refid="6941" relation="include">
+        </childnode>
+      </node>
+      <node id="6936">
+        <label>src/system_handler_nodes/uav_arm_system_node.cpp</label>
+        <link refid="uav__arm__system__node_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="structManualControlEvent" prot="public">ManualControlEvent</innerclass>
@@ -82,6 +129,6 @@
 <codeline lineno="2"><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="8" refid="structManualControlEvent" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structManualControlEvent" kindref="compound">ManualControlEvent</ref><sp/>{};</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/manual_control_event.h"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/manual_control_event.h"/>
   </compounddef>
 </doxygen>

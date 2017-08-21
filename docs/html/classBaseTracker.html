@@ -101,22 +101,33 @@ Inheritance diagram for BaseTracker:</div>
 <div class="dyncontent">
 <div class="center"><img src="classBaseTracker__inherit__graph.png" border="0" usemap="#BaseTracker_inherit__map" alt="Inheritance graph"/></div>
 <map name="BaseTracker_inherit__map" id="BaseTracker_inherit__map">
-<area shape="rect" id="node2" href="classRoiToPositionConverter.html" title="Converts a ROI in image to vector in camera frame. " alt="" coords="5,80,165,107"/><area shape="rect" id="node3" href="classSimpleTracker.html" title="Simple tracker for a given fixed position. " alt="" coords="191,80,297,107"/></map>
+<area shape="rect" id="node2" href="classAlvarTracker.html" title="Provides vector to a tracked object based on output from alvar. " alt="" coords="5,80,101,107"/><area shape="rect" id="node3" href="classRoiToPositionConverter.html" title="Converts a ROI in image to vector in camera frame. " alt="" coords="126,80,287,107"/><area shape="rect" id="node4" href="classSimpleMultiTracker.html" title="A simple Multi&#45;object Tracker implementation for testing. " alt="" coords="311,80,445,107"/><area shape="rect" id="node5" href="classSimpleTracker.html" title="Simple tracker for a given fixed position. " alt="" coords="471,80,577,107"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adfba0b9b37f9f4923b97bdd0d0fbbb68"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseTracker.html#adfba0b9b37f9f4923b97bdd0d0fbbb68">getTrackingVector</a> (<a class="el" href="structPosition.html">Position</a> &amp;pos)=0</td></tr>
-<tr class="memdesc:adfba0b9b37f9f4923b97bdd0d0fbbb68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the tracking vector.  <a href="#adfba0b9b37f9f4923b97bdd0d0fbbb68">More...</a><br/></td></tr>
-<tr class="separator:adfba0b9b37f9f4923b97bdd0d0fbbb68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49ac5731fce16acb5ca1fb069d2a0091"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseTracker.html#a49ac5731fce16acb5ca1fb069d2a0091">BaseTracker</a> (<a class="el" href="classTrackingStrategy.html">TrackingStrategy</a> *tracking_strategy)</td></tr>
+<tr class="separator:a49ac5731fce16acb5ca1fb069d2a0091"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1a6497933830415ee97d9ea2d2706af"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseTracker.html#ad1a6497933830415ee97d9ea2d2706af">initialize</a> ()</td></tr>
+<tr class="memdesc:ad1a6497933830415ee97d9ea2d2706af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialze the tracker. Can simply return true if the subclass requires no additional initialization.  <a href="#ad1a6497933830415ee97d9ea2d2706af">More...</a><br/></td></tr>
+<tr class="separator:ad1a6497933830415ee97d9ea2d2706af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a705369e65f51447798bb19e979de9801"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseTracker.html#a705369e65f51447798bb19e979de9801">getTrackingVector</a> (<a class="el" href="structPosition.html">Position</a> &amp;pos)</td></tr>
+<tr class="memdesc:a705369e65f51447798bb19e979de9801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the tracking vector.  <a href="#a705369e65f51447798bb19e979de9801">More...</a><br/></td></tr>
+<tr class="separator:a705369e65f51447798bb19e979de9801"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a931a8c84fc6245d3d6cb3ef9967032a5"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseTracker.html#a931a8c84fc6245d3d6cb3ef9967032a5">getTrackingVector</a> (std::tuple&lt; uint32_t, <a class="el" href="structPosition.html">Position</a> &gt; &amp;pos)</td></tr>
+<tr class="memdesc:a931a8c84fc6245d3d6cb3ef9967032a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the tracking vector.  <a href="#a931a8c84fc6245d3d6cb3ef9967032a5">More...</a><br/></td></tr>
+<tr class="separator:a931a8c84fc6245d3d6cb3ef9967032a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20360b084ef9b2df755854c274a73f2b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseTracker.html#a20360b084ef9b2df755854c274a73f2b">getTrackingVectors</a> (std::unordered_map&lt; uint32_t, <a class="el" href="structPosition.html">Position</a> &gt; &amp;pos)=0</td></tr>
+<tr class="memdesc:a20360b084ef9b2df755854c274a73f2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the tracking vectors.  <a href="#a20360b084ef9b2df755854c274a73f2b">More...</a><br/></td></tr>
+<tr class="separator:a20360b084ef9b2df755854c274a73f2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1ad8436be9476278e78142ee1ab8fd6"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseTracker.html#aa1ad8436be9476278e78142ee1ab8fd6">trackingIsValid</a> ()=0</td></tr>
 <tr class="memdesc:aa1ad8436be9476278e78142ee1ab8fd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check whether tracking is valid.  <a href="#aa1ad8436be9476278e78142ee1ab8fd6">More...</a><br/></td></tr>
 <tr class="separator:aa1ad8436be9476278e78142ee1ab8fd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for classes that provide a vector to a tracked target. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="adfba0b9b37f9f4923b97bdd0d0fbbb68"></a>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a49ac5731fce16acb5ca1fb069d2a0091"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -124,7 +135,32 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool BaseTracker::getTrackingVector </td>
+          <td class="memname">BaseTracker::BaseTracker </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classTrackingStrategy.html">TrackingStrategy</a> *&#160;</td>
+          <td class="paramname"><em>tracking_strategy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a705369e65f51447798bb19e979de9801"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool BaseTracker::getTrackingVector </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structPosition.html">Position</a> &amp;&#160;</td>
           <td class="paramname"><em>pos</em></td><td>)</td>
@@ -133,7 +169,7 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -147,7 +183,99 @@ Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if successful, false otherwise </dd></dl>
 
-<p>Implemented in <a class="el" href="classRoiToPositionConverter.html#a537e53d157931a08343d0b41195a924c">RoiToPositionConverter</a>, and <a class="el" href="classSimpleTracker.html#ae1059e568ba2637c56009bb0ffbd039f">SimpleTracker</a>.</p>
+</div>
+</div>
+<a class="anchor" id="a931a8c84fc6245d3d6cb3ef9967032a5"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool BaseTracker::getTrackingVector </td>
+          <td>(</td>
+          <td class="paramtype">std::tuple&lt; uint32_t, <a class="el" href="structPosition.html">Position</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the tracking vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>Returned tracking vector </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if successful, false otherwise </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a20360b084ef9b2df755854c274a73f2b"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool BaseTracker::getTrackingVectors </td>
+          <td>(</td>
+          <td class="paramtype">std::unordered_map&lt; uint32_t, <a class="el" href="structPosition.html">Position</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the tracking vectors. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>Returned map of tracking vectors </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if successful, false otherwise </dd></dl>
+
+<p>Implemented in <a class="el" href="classRoiToPositionConverter.html#a83de9bf4e7ce52e3a1c55992462abc65">RoiToPositionConverter</a>, <a class="el" href="classAlvarTracker.html#ad062d376d6795020d712f4cf4bfffeaf">AlvarTracker</a>, <a class="el" href="classSimpleTracker.html#a23d8c34fbc3dcc1b46b0bc9ecd7e584a">SimpleTracker</a>, and <a class="el" href="classSimpleMultiTracker.html#abf2599dba7ec0cc5f2e1bbebae3fe8d2">SimpleMultiTracker</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad1a6497933830415ee97d9ea2d2706af"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool BaseTracker::initialize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initialze the tracker. Can simply return true if the subclass requires no additional initialization. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if initialization succeeds, false otherwise </dd></dl>
 
 </div>
 </div>
@@ -175,12 +303,13 @@ Public Member Functions</h2></td></tr>
 <p>Check whether tracking is valid. </p>
 <dl class="section return"><dt>Returns</dt><dd>True if the tracking is valid, false otherwise </dd></dl>
 
-<p>Implemented in <a class="el" href="classRoiToPositionConverter.html#a408f82ba9764ba20e2463535850d3268">RoiToPositionConverter</a>, and <a class="el" href="classSimpleTracker.html#ac07a4053eb915074b7efe62778c4a573">SimpleTracker</a>.</p>
+<p>Implemented in <a class="el" href="classRoiToPositionConverter.html#a408f82ba9764ba20e2463535850d3268">RoiToPositionConverter</a>, <a class="el" href="classAlvarTracker.html#aacf6b19dbc6100dc4ee5f367b744c91d">AlvarTracker</a>, <a class="el" href="classSimpleTracker.html#ac07a4053eb915074b7efe62778c4a573">SimpleTracker</a>, and <a class="el" href="classSimpleMultiTracker.html#a2ef8c9df00c6e92f44fae3204e9d8f12">SimpleMultiTracker</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>include/aerial_autonomy/trackers/<a class="el" href="base__tracker_8h_source.html">base_tracker.h</a></li>
+<li>src/trackers/<a class="el" href="base__tracker_8cpp.html">base_tracker.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.6-->

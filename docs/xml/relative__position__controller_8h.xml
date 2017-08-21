@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="relative__position__controller_8h" kind="file">
+    <compoundname>relative_position_controller.h</compoundname>
+    <includes refid="base__controller_8h" local="yes">aerial_autonomy/controllers/base_controller.h</includes>
+    <includes refid="position_8h" local="yes">aerial_autonomy/types/position.h</includes>
+    <includes local="yes">position_controller_config.pb.h</includes>
+    <includes local="no">tuple</includes>
+    <includedby refid="relative__position__controller_8cpp" local="yes">src/controllers/relative_position_controller.cpp</includedby>
+    <includedby refid="visual__servoing__controller__arm__connector_8h" local="yes">include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_arm_connector.h</includedby>
+    <includedby refid="uav__arm__system_8h" local="yes">include/aerial_autonomy/robot_systems/uav_arm_system.h</includedby>
+    <incdepgraph>
+      <node id="3540">
+        <label>boost/thread/mutex.hpp</label>
+      </node>
+      <node id="3542">
+        <label>cmath</label>
+      </node>
+      <node id="3544">
+        <label>tuple</label>
+      </node>
+      <node id="3538">
+        <label>aerial_autonomy/controllers/base_controller.h</label>
+        <link refid="base__controller_8h"/>
+        <childnode refid="3539" relation="include">
+        </childnode>
+      </node>
+      <node id="3543">
+        <label>position_controller_config.pb.h</label>
+      </node>
+      <node id="3537">
+        <label>include/aerial_autonomy/controllers/relative_position_controller.h</label>
+        <link refid="relative_position_controller.h"/>
+        <childnode refid="3538" relation="include">
+        </childnode>
+        <childnode refid="3541" relation="include">
+        </childnode>
+        <childnode refid="3543" relation="include">
+        </childnode>
+        <childnode refid="3544" relation="include">
+        </childnode>
+      </node>
+      <node id="3541">
+        <label>aerial_autonomy/types/position.h</label>
+        <link refid="position_8h"/>
+        <childnode refid="3542" relation="include">
+        </childnode>
+      </node>
+      <node id="3539">
+        <label>aerial_autonomy/common/atomic.h</label>
+        <link refid="atomic_8h"/>
+        <childnode refid="3540" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3548">
+        <label>src/controller_hardware_connectors/visual_servoing_controller_arm_connector.cpp</label>
+        <link refid="visual__servoing__controller__arm__connector_8cpp"/>
+      </node>
+      <node id="3546">
+        <label>src/controllers/relative_position_controller.cpp</label>
+        <link refid="relative__position__controller_8cpp"/>
+      </node>
+      <node id="3549">
+        <label>include/aerial_autonomy/robot_systems/uav_arm_system.h</label>
+        <link refid="uav__arm__system_8h"/>
+      </node>
+      <node id="3545">
+        <label>include/aerial_autonomy/controllers/relative_position_controller.h</label>
+        <link refid="relative_position_controller.h"/>
+        <childnode refid="3546" relation="include">
+        </childnode>
+        <childnode refid="3547" relation="include">
+        </childnode>
+        <childnode refid="3549" relation="include">
+        </childnode>
+      </node>
+      <node id="3547">
+        <label>include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_arm_connector.h</label>
+        <link refid="visual__servoing__controller__arm__connector_8h"/>
+        <childnode refid="3548" relation="include">
+        </childnode>
+        <childnode refid="3549" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classRelativePositionController" prot="public">RelativePositionController</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="base__controller_8h" kindref="compound">aerial_autonomy/controllers/base_controller.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="position_8h" kindref="compound">aerial_autonomy/types/position.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;position_controller_config.pb.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;tuple&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="classRelativePositionController" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classRelativePositionController" kindref="compound">RelativePositionController</ref></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classController" kindref="compound">Controller</ref>&lt;std::tuple&lt;Position,<sp/>Position&gt;,<sp/>Position,<sp/>Position&gt;<sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="18" refid="classRelativePositionController_1aa39b8e1674a0511f0aaadddded067f54" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classRelativePositionController_1aa39b8e1674a0511f0aaadddded067f54" kindref="member">RelativePositionController</ref>(PositionControllerConfig<sp/>config)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>config_(config)<sp/>{}</highlight></codeline>
+<codeline lineno="23" refid="classRelativePositionController_1a9f93be93f8e4f1fe70efa4231a2342dd" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classRelativePositionController_1a9f93be93f8e4f1fe70efa4231a2342dd" kindref="member">~RelativePositionController</ref>()<sp/>{}</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classRelativePositionController_1a2362c32b42aac062e895716e1c981821" kindref="member">runImplementation</ref>(std::tuple&lt;Position,<sp/>Position&gt;<sp/>sensor_data,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>goal,<sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>&amp;control);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><ref refid="classRelativePositionController_1a70108b11e6f06295b3c11d493441c0b4" kindref="member">isConvergedImplementation</ref>(std::tuple&lt;Position,<sp/>Position&gt;<sp/>sensor_data,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>goal);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/>PositionControllerConfig<sp/>config_;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_position_controller.h"/>
+  </compounddef>
+</doxygen>

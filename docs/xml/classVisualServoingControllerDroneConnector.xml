@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="70" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" bodystart="70" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="70" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" bodystart="70" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classVisualServoingControllerDroneConnector_1a31c2fa65e73f1f983d26cee74e11369b" prot="private" static="no" mutable="no">
         <type><ref refid="classBaseTracker" kindref="compound">BaseTracker</ref> &amp;</type>
@@ -29,7 +29,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="74" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" bodystart="74" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="74" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" bodystart="74" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classVisualServoingControllerDroneConnector_1ae1a4959a16dc983e2ddc8a377004433a" prot="private" static="no" mutable="no">
         <type>tf::Transform</type>
@@ -42,7 +42,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="78" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" bodystart="78" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="78" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" bodystart="78" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -73,7 +73,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="23" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" bodystart="23" bodyend="29"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="23" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" bodystart="23" bodyend="29"/>
       </memberdef>
       <memberdef kind="function" id="classVisualServoingControllerDroneConnector_1af3c14afa505e7dc320956bd9980b085e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type></type>
@@ -86,7 +86,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="33" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" bodystart="33" bodyend="33"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="33" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" bodystart="33" bodyend="33"/>
       </memberdef>
       <memberdef kind="function" id="classVisualServoingControllerDroneConnector_1abba59a278bdfa813a34b36f8a6714639" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -112,7 +112,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="41" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp" bodystart="25" bodyend="41"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="41" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp" bodystart="25" bodyend="41"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -141,7 +141,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="51" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp" bodystart="3" bodyend="14"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="51" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp" bodystart="3" bodyend="14"/>
       </memberdef>
       <memberdef kind="function" id="classVisualServoingControllerDroneConnector_1a139939cb0298d57487f6c3ed488c4448" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -167,7 +167,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="58" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp" bodystart="16" bodyend="23"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="58" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp" bodystart="16" bodyend="23"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -183,7 +183,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="65" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp" bodystart="43" bodyend="48"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="65" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp" bodystart="43" bodyend="48"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -191,42 +191,42 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="643">
+      <node id="978">
         <label>VisualServoingControllerDroneConnector</label>
         <link refid="classVisualServoingControllerDroneConnector"/>
-        <childnode refid="644" relation="public-inheritance">
+        <childnode refid="979" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="644">
+      <node id="979">
         <label>ControllerHardwareConnector&lt; PositionYaw, Position, VelocityYawRate &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="645" relation="public-inheritance">
+        <childnode refid="980" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="645">
+      <node id="980">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="646">
+      <node id="981">
         <label>VisualServoingControllerDroneConnector</label>
         <link refid="classVisualServoingControllerDroneConnector"/>
-        <childnode refid="647" relation="public-inheritance">
+        <childnode refid="982" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="647">
+      <node id="982">
         <label>ControllerHardwareConnector&lt; PositionYaw, Position, VelocityYawRate &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="648" relation="public-inheritance">
+        <childnode refid="983" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="648">
+      <node id="983">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="18" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" bodystart="16" bodyend="79"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" line="18" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h" bodystart="16" bodyend="79"/>
     <listofallmembers>
       <member refid="classVisualServoingControllerDroneConnector_1ae1a4959a16dc983e2ddc8a377004433a" prot="private" virt="non-virtual"><scope>VisualServoingControllerDroneConnector</scope><name>camera_transform_</name></member>
       <member refid="classControllerHardwareConnector_1a6c5d8e5a5ded026ccee3d51f2899ce3e" prot="public" virt="non-virtual"><scope>VisualServoingControllerDroneConnector</scope><name>ControllerHardwareConnector</name></member>
@@ -235,7 +235,7 @@
       <member refid="classVisualServoingControllerDroneConnector_1aaed1a829e8a6eec087ee66f4ce05fb15" prot="private" virt="non-virtual"><scope>VisualServoingControllerDroneConnector</scope><name>getBodyFrameRotation</name></member>
       <member refid="classControllerHardwareConnector_1adccf30ddf2b8be152e53636b1c2d3ad5" prot="public" virt="non-virtual"><scope>VisualServoingControllerDroneConnector</scope><name>getGoal</name></member>
       <member refid="classControllerHardwareConnector_1accd0c9bff560fa3c6d1e60d97644415e" prot="public" virt="non-virtual"><scope>VisualServoingControllerDroneConnector</scope><name>getHardwareType</name></member>
-      <member refid="classControllerHardwareConnector_1a3e69fcccb3826adbd02ea9f7f0740613" prot="public" virt="non-virtual"><scope>VisualServoingControllerDroneConnector</scope><name>getStatus</name></member>
+      <member refid="classControllerHardwareConnector_1a3e69fcccb3826adbd02ea9f7f0740613" prot="public" virt="virtual"><scope>VisualServoingControllerDroneConnector</scope><name>getStatus</name></member>
       <member refid="classVisualServoingControllerDroneConnector_1abba59a278bdfa813a34b36f8a6714639" prot="public" virt="non-virtual"><scope>VisualServoingControllerDroneConnector</scope><name>getTrackingVectorGlobalFrame</name></member>
       <member refid="classControllerHardwareConnector_1a1e47c12f796c9cc2fcb5c2495ede2392" prot="protected" virt="non-virtual"><scope>VisualServoingControllerDroneConnector</scope><name>hardware_type_</name></member>
       <member refid="classControllerHardwareConnector_1afb46464434a3a5881ecc1091f58bbd61" prot="public" virt="virtual"><scope>VisualServoingControllerDroneConnector</scope><name>run</name></member>

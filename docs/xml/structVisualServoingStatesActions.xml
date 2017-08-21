@@ -3,6 +3,7 @@
   <compounddef id="structVisualServoingStatesActions" kind="struct" prot="public">
     <compoundname>VisualServoingStatesActions</compoundname>
     <basecompoundref refid="structUAVStatesActions" prot="public" virt="non-virtual">UAVStatesActions&lt; LogicStateMachineT &gt;</basecompoundref>
+    <derivedcompoundref refid="structPickPlaceStatesActions" prot="public" virt="non-virtual">PickPlaceStatesActions&lt; LogicStateMachineT &gt;</derivedcompoundref>
     <includes refid="visual__servoing__states__actions_8h" local="no">visual_servoing_states_actions.h</includes>
     <templateparamlist>
       <param>
@@ -21,7 +22,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" line="16" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" bodystart="16" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" line="17" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" bodystart="17" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="structVisualServoingStatesActions_1ac739aa6c2f2adebef80daa9d769d81ec" prot="public" static="no">
         <type><ref refid="structVisualServoingTransitionActionFunctor__" kindref="compound">VisualServoingTransitionActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
@@ -34,7 +35,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" line="22" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" bodystart="23" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" line="23" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" bodystart="24" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="structVisualServoingStatesActions_1a869955a85f6cfa9631d7bd4e95be3b96" prot="public" static="no">
         <type><ref refid="structVisualServoingTransitionGuardFunctor__" kindref="compound">VisualServoingTransitionGuardFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
@@ -47,7 +48,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" bodystart="28" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" line="28" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" bodystart="29" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="structVisualServoingStatesActions_1ac4a0f045842f957324eb6ee5d7680543" prot="public" static="no">
         <type><ref refid="structGoHomeTransitionActionFunctor__" kindref="compound">GoHomeTransitionActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
@@ -60,7 +61,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" line="33" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" bodystart="34" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" line="34" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" bodystart="35" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="structVisualServoingStatesActions_1aba25d3f90f757a049e892465d2cc9b12" prot="public" static="no">
         <type><ref refid="structGoHomeTransitionGuardFunctor__" kindref="compound">GoHomeTransitionGuardFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
@@ -73,7 +74,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" line="38" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" bodystart="39" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" line="39" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" bodystart="40" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -89,30 +90,36 @@
 </parameterlist>
 </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="666">
+      <node id="995">
         <label>VisualServoingStatesActions&lt; LogicStateMachineT &gt;</label>
         <link refid="structVisualServoingStatesActions"/>
-        <childnode refid="667" relation="public-inheritance">
+        <childnode refid="996" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="667">
+      <node id="997">
+        <label>PickPlaceStatesActions&lt; LogicStateMachineT &gt;</label>
+        <link refid="structPickPlaceStatesActions"/>
+        <childnode refid="995" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="996">
         <label>UAVStatesActions&lt; LogicStateMachineT &gt;</label>
         <link refid="structUAVStatesActions"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="668">
+      <node id="998">
         <label>VisualServoingStatesActions&lt; LogicStateMachineT &gt;</label>
         <link refid="structVisualServoingStatesActions"/>
-        <childnode refid="669" relation="public-inheritance">
+        <childnode refid="999" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="669">
+      <node id="999">
         <label>UAVStatesActions&lt; LogicStateMachineT &gt;</label>
         <link refid="structUAVStatesActions"/>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" line="11" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" bodystart="11" bodyend="40"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" line="12" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h" bodystart="12" bodyend="41"/>
     <listofallmembers>
       <member refid="structVisualServoingStatesActions_1ac4a0f045842f957324eb6ee5d7680543" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>GoHomeTransitionAction</name></member>
       <member refid="structVisualServoingStatesActions_1aba25d3f90f757a049e892465d2cc9b12" prot="public" virt="non-virtual"><scope>VisualServoingStatesActions</scope><name>GoHomeTransitionGuard</name></member>

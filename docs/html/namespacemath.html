@@ -104,6 +104,10 @@ Functions</h2></td></tr>
 <tr class="memitem:abc9135c6c399525915081a36016749bf"><td class="memTemplItemLeft" align="right" valign="top">tf::Transform&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacemath.html#abc9135c6c399525915081a36016749bf">getTransformFromVector</a> (const T &amp;input)</td></tr>
 <tr class="memdesc:abc9135c6c399525915081a36016749bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a tf transform from a vector of xyzrpy.  <a href="#abc9135c6c399525915081a36016749bf">More...</a><br/></td></tr>
 <tr class="separator:abc9135c6c399525915081a36016749bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70bc3cf992227cda7fc159e49634d83a"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:a70bc3cf992227cda7fc159e49634d83a"><td class="memTemplItemLeft" align="right" valign="top">std::vector&lt; tf::Transform &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacemath.html#a70bc3cf992227cda7fc159e49634d83a">getTransformsFromVector</a> (const T &amp;input)</td></tr>
+<tr class="memdesc:a70bc3cf992227cda7fc159e49634d83a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a vector of tf transforms from a vector of xyzrpy.  <a href="#a70bc3cf992227cda7fc159e49634d83a">More...</a><br/></td></tr>
+<tr class="separator:a70bc3cf992227cda7fc159e49634d83a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Math namespace to separate math functions from system functions if exist. </p>
@@ -206,6 +210,40 @@ template&lt;class T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>tf transform </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a70bc3cf992227cda7fc159e49634d83a"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;tf::Transform&gt; math::getTransformsFromVector </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generate a vector of tf transforms from a vector of xyzrpy. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The vector type can be Eigen, std vector, protobuf </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>The input vector containing x,y,z, r,p,y</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>vector of tf::Transform </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">Todo:</a></b></dt><dd>(Matt) Add proto for transform and just process a list of the proto transforms here </dd></dl>
 
 </div>
 </div>

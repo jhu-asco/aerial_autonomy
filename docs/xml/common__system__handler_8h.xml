@@ -9,216 +9,281 @@
     <includes refid="async__timer_8h" local="no">aerial_autonomy/common/async_timer.h</includes>
     <includes refid="system__status__publisher_8h" local="no">aerial_autonomy/common/system_status_publisher.h</includes>
     <includes refid="state__machine__gui__connector_8h" local="no">aerial_autonomy/state_machines/state_machine_gui_connector.h</includes>
+    <includedby refid="uav__arm__system__handler_8h" local="no">include/aerial_autonomy/system_handlers/uav_arm_system_handler.h</includedby>
     <includedby refid="uav__system__handler_8h" local="no">include/aerial_autonomy/system_handlers/uav_system_handler.h</includedby>
     <includedby refid="uav__vision__system__handler_8h" local="no">include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</includedby>
     <incdepgraph>
-      <node id="3536">
+      <node id="6290">
         <label>boost/thread/mutex.hpp</label>
       </node>
-      <node id="3528">
+      <node id="6295">
+        <label>aerial_autonomy/common/type_map.h</label>
+        <link refid="type__map_8h"/>
+        <childnode refid="6296" relation="include">
+        </childnode>
+        <childnode refid="6297" relation="include">
+        </childnode>
+      </node>
+      <node id="6277">
         <label>atomic</label>
       </node>
-      <node id="3530">
+      <node id="6283">
+        <label>iomanip</label>
+      </node>
+      <node id="6279">
         <label>functional</label>
       </node>
-      <node id="3546">
-        <label>aerial_autonomy/types/position_yaw.h</label>
-        <link refid="position__yaw_8h"/>
-        <childnode refid="3547" relation="include">
-        </childnode>
-        <childnode refid="3549" relation="include">
-        </childnode>
-      </node>
-      <node id="3537">
+      <node id="6294">
         <label>glog/logging.h</label>
       </node>
-      <node id="3548">
+      <node id="6305">
         <label>cmath</label>
       </node>
-      <node id="3550">
+      <node id="6285">
         <label>stdexcept</label>
       </node>
-      <node id="3535">
-        <label>aerial_autonomy/controllers/base_controller.h</label>
-        <link refid="base__controller_8h"/>
-        <childnode refid="3536" relation="include">
+      <node id="6288">
+        <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
+        <link refid="base__controller__hardware__connector_8h"/>
+        <childnode refid="6289" relation="include">
+        </childnode>
+        <childnode refid="6291" relation="include">
+        </childnode>
+        <childnode refid="6293" relation="include">
+        </childnode>
+        <childnode refid="6294" relation="include">
         </childnode>
       </node>
-      <node id="3521">
-        <label>include/aerial_autonomy/system_handlers/common_system_handler.h</label>
-        <link refid="common_system_handler.h"/>
-        <childnode refid="3522" relation="include">
-        </childnode>
-        <childnode refid="3523" relation="include">
-        </childnode>
-        <childnode refid="3524" relation="include">
-        </childnode>
-        <childnode refid="3525" relation="include">
-        </childnode>
-        <childnode refid="3527" relation="include">
-        </childnode>
-        <childnode refid="3532" relation="include">
-        </childnode>
-        <childnode refid="3543" relation="include">
-        </childnode>
+      <node id="6286">
+        <label>string</label>
       </node>
-      <node id="3541">
+      <node id="6302">
+        <label>tf_conversions/tf_eigen.h</label>
+      </node>
+      <node id="6307">
+        <label>tf/tf.h</label>
+      </node>
+      <node id="6298">
         <label>aerial_autonomy/common/iterable_enum.h</label>
         <link refid="iterable__enum_8h"/>
       </node>
-      <node id="3525">
-        <label>aerial_autonomy/actions_guards/base_functors.h</label>
-        <link refid="base__functors_8h"/>
-        <childnode refid="3526" relation="include">
-        </childnode>
-      </node>
-      <node id="3545">
-        <label>tf_conversions/tf_eigen.h</label>
-      </node>
-      <node id="3551">
-        <label>tf/tf.h</label>
-      </node>
-      <node id="3543">
-        <label>aerial_autonomy/state_machines/state_machine_gui_connector.h</label>
-        <link refid="state__machine__gui__connector_8h"/>
-        <childnode refid="3544" relation="include">
-        </childnode>
-        <childnode refid="3537" relation="include">
-        </childnode>
-        <childnode refid="3522" relation="include">
-        </childnode>
-        <childnode refid="3523" relation="include">
-        </childnode>
-        <childnode refid="3545" relation="include">
-        </childnode>
-        <childnode refid="3546" relation="include">
-        </childnode>
-      </node>
-      <node id="3538">
-        <label>aerial_autonomy/common/type_map.h</label>
-        <link refid="type__map_8h"/>
-        <childnode refid="3539" relation="include">
-        </childnode>
-        <childnode refid="3540" relation="include">
-        </childnode>
-      </node>
-      <node id="3544">
-        <label>geometry_msgs/PoseStamped.h</label>
-      </node>
-      <node id="3527">
-        <label>aerial_autonomy/common/async_timer.h</label>
-        <link refid="async__timer_8h"/>
-        <childnode refid="3528" relation="include">
-        </childnode>
-        <childnode refid="3529" relation="include">
-        </childnode>
-        <childnode refid="3530" relation="include">
-        </childnode>
-        <childnode refid="3531" relation="include">
-        </childnode>
-      </node>
-      <node id="3522">
-        <label>ros/ros.h</label>
-      </node>
-      <node id="3523">
-        <label>std_msgs/String.h</label>
-      </node>
-      <node id="3540">
-        <label>unordered_map</label>
-      </node>
-      <node id="3532">
-        <label>aerial_autonomy/common/system_status_publisher.h</label>
-        <link refid="system__status__publisher_8h"/>
-        <childnode refid="3522" relation="include">
-        </childnode>
-        <childnode refid="3533" relation="include">
-        </childnode>
-      </node>
-      <node id="3534">
-        <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
-        <link refid="base__controller__hardware__connector_8h"/>
-        <childnode refid="3535" relation="include">
-        </childnode>
-        <childnode refid="3537" relation="include">
-        </childnode>
-      </node>
-      <node id="3529">
-        <label>chrono</label>
-      </node>
-      <node id="3549">
+      <node id="6306">
         <label>aerial_autonomy/common/math.h</label>
         <link refid="math_8h"/>
-        <childnode refid="3548" relation="include">
+        <childnode refid="6305" relation="include">
         </childnode>
-        <childnode refid="3550" relation="include">
+        <childnode refid="6285" relation="include">
         </childnode>
-        <childnode refid="3551" relation="include">
-        </childnode>
-      </node>
-      <node id="3531">
-        <label>thread</label>
-      </node>
-      <node id="3526">
-        <label>type_traits</label>
-      </node>
-      <node id="3547">
-        <label>aerial_autonomy/types/position.h</label>
-        <link refid="position_8h"/>
-        <childnode refid="3548" relation="include">
+        <childnode refid="6307" relation="include">
         </childnode>
       </node>
-      <node id="3524">
-        <label>common_system_handler_config.pb.h</label>
-      </node>
-      <node id="3542">
-        <label>memory</label>
-      </node>
-      <node id="3539">
-        <label>typeindex</label>
-      </node>
-      <node id="3533">
+      <node id="6287">
         <label>aerial_autonomy/robot_systems/base_robot_system.h</label>
         <link refid="base__robot__system_8h"/>
-        <childnode refid="3534" relation="include">
+        <childnode refid="6288" relation="include">
         </childnode>
-        <childnode refid="3538" relation="include">
+        <childnode refid="6295" relation="include">
         </childnode>
-        <childnode refid="3541" relation="include">
+        <childnode refid="6298" relation="include">
         </childnode>
-        <childnode refid="3536" relation="include">
+        <childnode refid="6290" relation="include">
         </childnode>
-        <childnode refid="3542" relation="include">
+        <childnode refid="6299" relation="include">
         </childnode>
+      </node>
+      <node id="6276">
+        <label>aerial_autonomy/common/async_timer.h</label>
+        <link refid="async__timer_8h"/>
+        <childnode refid="6277" relation="include">
+        </childnode>
+        <childnode refid="6278" relation="include">
+        </childnode>
+        <childnode refid="6279" relation="include">
+        </childnode>
+        <childnode refid="6280" relation="include">
+        </childnode>
+      </node>
+      <node id="6291">
+        <label>aerial_autonomy/common/controller_status.h</label>
+        <link refid="controller__status_8h"/>
+        <childnode refid="6286" relation="include">
+        </childnode>
+        <childnode refid="6292" relation="include">
+        </childnode>
+      </node>
+      <node id="6301">
+        <label>geometry_msgs/PoseStamped.h</label>
+      </node>
+      <node id="6292">
+        <label>vector</label>
+      </node>
+      <node id="6293">
+        <label>aerial_autonomy/controllers/base_controller.h</label>
+        <link refid="base__controller_8h"/>
+        <childnode refid="6289" relation="include">
+        </childnode>
+        <childnode refid="6291" relation="include">
+        </childnode>
+      </node>
+      <node id="6275">
+        <label>aerial_autonomy/types/internal_transition_event.h</label>
+        <link refid="internal__transition__event_8h"/>
+      </node>
+      <node id="6284">
+        <label>sstream</label>
+      </node>
+      <node id="6270">
+        <label>ros/ros.h</label>
+      </node>
+      <node id="6269">
+        <label>include/aerial_autonomy/system_handlers/common_system_handler.h</label>
+        <link refid="common_system_handler.h"/>
+        <childnode refid="6270" relation="include">
+        </childnode>
+        <childnode refid="6271" relation="include">
+        </childnode>
+        <childnode refid="6272" relation="include">
+        </childnode>
+        <childnode refid="6273" relation="include">
+        </childnode>
+        <childnode refid="6276" relation="include">
+        </childnode>
+        <childnode refid="6281" relation="include">
+        </childnode>
+        <childnode refid="6300" relation="include">
+        </childnode>
+      </node>
+      <node id="6271">
+        <label>std_msgs/String.h</label>
+      </node>
+      <node id="6297">
+        <label>unordered_map</label>
+      </node>
+      <node id="6303">
+        <label>aerial_autonomy/types/position_yaw.h</label>
+        <link refid="position__yaw_8h"/>
+        <childnode refid="6304" relation="include">
+        </childnode>
+        <childnode refid="6306" relation="include">
+        </childnode>
+      </node>
+      <node id="6300">
+        <label>aerial_autonomy/state_machines/state_machine_gui_connector.h</label>
+        <link refid="state__machine__gui__connector_8h"/>
+        <childnode refid="6301" relation="include">
+        </childnode>
+        <childnode refid="6294" relation="include">
+        </childnode>
+        <childnode refid="6270" relation="include">
+        </childnode>
+        <childnode refid="6271" relation="include">
+        </childnode>
+        <childnode refid="6302" relation="include">
+        </childnode>
+        <childnode refid="6303" relation="include">
+        </childnode>
+      </node>
+      <node id="6281">
+        <label>aerial_autonomy/common/system_status_publisher.h</label>
+        <link refid="system__status__publisher_8h"/>
+        <childnode refid="6270" relation="include">
+        </childnode>
+        <childnode refid="6282" relation="include">
+        </childnode>
+        <childnode refid="6287" relation="include">
+        </childnode>
+      </node>
+      <node id="6273">
+        <label>aerial_autonomy/actions_guards/base_functors.h</label>
+        <link refid="base__functors_8h"/>
+        <childnode refid="6274" relation="include">
+        </childnode>
+        <childnode refid="6275" relation="include">
+        </childnode>
+      </node>
+      <node id="6278">
+        <label>chrono</label>
+      </node>
+      <node id="6304">
+        <label>aerial_autonomy/types/position.h</label>
+        <link refid="position_8h"/>
+        <childnode refid="6305" relation="include">
+        </childnode>
+      </node>
+      <node id="6280">
+        <label>thread</label>
+      </node>
+      <node id="6282">
+        <label>aerial_autonomy/common/html_utils.h</label>
+        <link refid="html__utils_8h"/>
+        <childnode refid="6283" relation="include">
+        </childnode>
+        <childnode refid="6284" relation="include">
+        </childnode>
+        <childnode refid="6285" relation="include">
+        </childnode>
+        <childnode refid="6286" relation="include">
+        </childnode>
+      </node>
+      <node id="6274">
+        <label>type_traits</label>
+      </node>
+      <node id="6289">
+        <label>aerial_autonomy/common/atomic.h</label>
+        <link refid="atomic_8h"/>
+        <childnode refid="6290" relation="include">
+        </childnode>
+      </node>
+      <node id="6272">
+        <label>common_system_handler_config.pb.h</label>
+      </node>
+      <node id="6299">
+        <label>memory</label>
+      </node>
+      <node id="6296">
+        <label>typeindex</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3553">
-        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
-        <link refid="uav__system__handler_8h"/>
-        <childnode refid="3554" relation="include">
-        </childnode>
-      </node>
-      <node id="3554">
+      <node id="6312">
         <label>src/system_handler_nodes/uav_system_node.cpp</label>
         <link refid="uav__system__node_8cpp"/>
       </node>
-      <node id="3552">
-        <label>include/aerial_autonomy/system_handlers/common_system_handler.h</label>
-        <link refid="common_system_handler.h"/>
-        <childnode refid="3553" relation="include">
-        </childnode>
-        <childnode refid="3555" relation="include">
+      <node id="6313">
+        <label>include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</label>
+        <link refid="uav__vision__system__handler_8h"/>
+        <childnode refid="6314" relation="include">
         </childnode>
       </node>
-      <node id="3556">
+      <node id="6314">
         <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
         <link refid="uav__vision__system__node_8cpp"/>
       </node>
-      <node id="3555">
-        <label>include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</label>
-        <link refid="uav__vision__system__handler_8h"/>
-        <childnode refid="3556" relation="include">
+      <node id="6311">
+        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
+        <link refid="uav__system__handler_8h"/>
+        <childnode refid="6312" relation="include">
         </childnode>
+      </node>
+      <node id="6308">
+        <label>include/aerial_autonomy/system_handlers/common_system_handler.h</label>
+        <link refid="common_system_handler.h"/>
+        <childnode refid="6309" relation="include">
+        </childnode>
+        <childnode refid="6311" relation="include">
+        </childnode>
+        <childnode refid="6313" relation="include">
+        </childnode>
+      </node>
+      <node id="6309">
+        <label>include/aerial_autonomy/system_handlers/uav_arm_system_handler.h</label>
+        <link refid="uav__arm__system__handler_8h"/>
+        <childnode refid="6310" relation="include">
+        </childnode>
+      </node>
+      <node id="6310">
+        <label>src/system_handler_nodes/uav_arm_system_node.cpp</label>
+        <link refid="uav__arm__system__node_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classCommonSystemHandler" prot="public">CommonSystemHandler</innerclass>
@@ -241,38 +306,38 @@
 <codeline lineno="19"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>EventManagerT,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>RobotSystemT&gt;</highlight></codeline>
 <codeline lineno="20" refid="classCommonSystemHandler" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classCommonSystemHandler" kindref="compound">CommonSystemHandler</ref><sp/>{</highlight></codeline>
 <codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="36" refid="classCommonSystemHandler_1aeb821763feeb9ddd1d878eee1b4d62de" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classCommonSystemHandler_1aeb821763feeb9ddd1d878eee1b4d62de" kindref="member">CommonSystemHandler</ref>(ros::NodeHandle<sp/>&amp;nh,</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>CommonSystemHandlerConfig<sp/>&amp;config,</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RobotSystemT<sp/>&amp;robot_system)</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classCommonSystemHandler_1a34cbe068c3c4715ed8ff5b9a717ae593" kindref="member">logic_state_machine_</ref>(std::ref(robot_system)),</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCommonSystemHandler_1a740bc6abe3a48d17b732a1bdc9c0fac4" kindref="member">state_machine_gui_connector_</ref>(nh,<sp/><ref refid="classCommonSystemHandler_1a393da82eedf31074046dd9bea22e4ca1" kindref="member">event_manager_</ref>,<sp/><ref refid="classCommonSystemHandler_1a34cbe068c3c4715ed8ff5b9a717ae593" kindref="member">logic_state_machine_</ref>),</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCommonSystemHandler_1af4173056e027945fcf72b0e35f33cb54" kindref="member">system_status_pub_</ref>(nh,<sp/>robot_system,<sp/><ref refid="classCommonSystemHandler_1a34cbe068c3c4715ed8ff5b9a717ae593" kindref="member">logic_state_machine_</ref>),</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCommonSystemHandler_1a5a155b8d5335b4f072363ce4ca152fe1" kindref="member">status_timer_</ref>(</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::bind(</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="classSystemStatusPublisher" kindref="compound">SystemStatusPublisher</ref>&lt;LogicStateMachineT&gt;::publishSystemStatus,</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::ref(<ref refid="classCommonSystemHandler_1af4173056e027945fcf72b0e35f33cb54" kindref="member">system_status_pub_</ref>)),</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::chrono::milliseconds(config.status_timer_duration())),</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCommonSystemHandler_1a97404fbbfb77d76bf62cbb388963f057" kindref="member">logic_state_machine_timer_</ref>(</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::bind(&amp;LogicStateMachineT::template<sp/>process_event&lt;</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structInternalTransitionEvent" kindref="compound">InternalTransitionEvent</ref>&gt;,</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::ref(<ref refid="classCommonSystemHandler_1a34cbe068c3c4715ed8ff5b9a717ae593" kindref="member">logic_state_machine_</ref>),</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structInternalTransitionEvent" kindref="compound">InternalTransitionEvent</ref>()),</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::chrono::milliseconds(config.state_machine_timer_duration()))<sp/>{}</highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><ref refid="classCommonSystemHandler_1aeb821763feeb9ddd1d878eee1b4d62de" kindref="member">CommonSystemHandler</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCommonSystemHandler" kindref="compound">CommonSystemHandler</ref><sp/>&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"></highlight></codeline>
-<codeline lineno="63" refid="classCommonSystemHandler_1a464bb584aaf1b30eaede850f04f62f33" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCommonSystemHandler_1a464bb584aaf1b30eaede850f04f62f33" kindref="member">isConnected</ref>()<sp/>{</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCommonSystemHandler_1a740bc6abe3a48d17b732a1bdc9c0fac4" kindref="member">state_machine_gui_connector_</ref>.isEventManagerConnected()<sp/>&amp;&amp;</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCommonSystemHandler_1a740bc6abe3a48d17b732a1bdc9c0fac4" kindref="member">state_machine_gui_connector_</ref>.isPoseCommandConnected();</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"></highlight></codeline>
-<codeline lineno="71" refid="classCommonSystemHandler_1a6362231dc98dfc2f8e6f24245ff901d1" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCommonSystemHandler_1a6362231dc98dfc2f8e6f24245ff901d1" kindref="member">startTimers</ref>()<sp/>{</highlight></codeline>
-<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCommonSystemHandler_1a34cbe068c3c4715ed8ff5b9a717ae593" kindref="member">logic_state_machine_</ref>.start();</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCommonSystemHandler_1a97404fbbfb77d76bf62cbb388963f057" kindref="member">logic_state_machine_timer_</ref>.<ref refid="classAsyncTimer_1ab058544794ccb0310eb5a803458de860" kindref="member">start</ref>();</highlight></codeline>
-<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCommonSystemHandler_1a5a155b8d5335b4f072363ce4ca152fe1" kindref="member">status_timer_</ref>.<ref refid="classAsyncTimer_1ab058544794ccb0310eb5a803458de860" kindref="member">start</ref>();</highlight></codeline>
-<codeline lineno="75"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"></highlight></codeline>
-<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="36" refid="classCommonSystemHandler_1aabef08ac98a33e49b1844194bbaff74a" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classCommonSystemHandler_1aabef08ac98a33e49b1844194bbaff74a" kindref="member">CommonSystemHandler</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>CommonSystemHandlerConfig<sp/>&amp;config,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RobotSystemT<sp/>&amp;robot_system)</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classCommonSystemHandler_1a6a8086663729053c1810d2dcf193ce51" kindref="member">nh_</ref>(</highlight><highlight class="stringliteral">&quot;~common&quot;</highlight><highlight class="normal">),<sp/><ref refid="classCommonSystemHandler_1a34cbe068c3c4715ed8ff5b9a717ae593" kindref="member">logic_state_machine_</ref>(std::ref(robot_system)),</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCommonSystemHandler_1a740bc6abe3a48d17b732a1bdc9c0fac4" kindref="member">state_machine_gui_connector_</ref>(<ref refid="classCommonSystemHandler_1a6a8086663729053c1810d2dcf193ce51" kindref="member">nh_</ref>,<sp/><ref refid="classCommonSystemHandler_1a393da82eedf31074046dd9bea22e4ca1" kindref="member">event_manager_</ref>,<sp/><ref refid="classCommonSystemHandler_1a34cbe068c3c4715ed8ff5b9a717ae593" kindref="member">logic_state_machine_</ref>),</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCommonSystemHandler_1af4173056e027945fcf72b0e35f33cb54" kindref="member">system_status_pub_</ref>(<ref refid="classCommonSystemHandler_1a6a8086663729053c1810d2dcf193ce51" kindref="member">nh_</ref>,<sp/>robot_system,<sp/><ref refid="classCommonSystemHandler_1a34cbe068c3c4715ed8ff5b9a717ae593" kindref="member">logic_state_machine_</ref>),</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCommonSystemHandler_1a5a155b8d5335b4f072363ce4ca152fe1" kindref="member">status_timer_</ref>(</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::bind(</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="classSystemStatusPublisher" kindref="compound">SystemStatusPublisher</ref>&lt;LogicStateMachineT&gt;::publishSystemStatus,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::ref(<ref refid="classCommonSystemHandler_1af4173056e027945fcf72b0e35f33cb54" kindref="member">system_status_pub_</ref>)),</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::chrono::milliseconds(config.status_timer_duration())),</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCommonSystemHandler_1a97404fbbfb77d76bf62cbb388963f057" kindref="member">logic_state_machine_timer_</ref>(</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::bind(&amp;LogicStateMachineT::template<sp/>process_event&lt;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structInternalTransitionEvent" kindref="compound">InternalTransitionEvent</ref>&gt;,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::ref(<ref refid="classCommonSystemHandler_1a34cbe068c3c4715ed8ff5b9a717ae593" kindref="member">logic_state_machine_</ref>),</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structInternalTransitionEvent" kindref="compound">InternalTransitionEvent</ref>()),</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::chrono::milliseconds(config.state_machine_timer_duration()))<sp/>{}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><ref refid="classCommonSystemHandler_1aabef08ac98a33e49b1844194bbaff74a" kindref="member">CommonSystemHandler</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classCommonSystemHandler" kindref="compound">CommonSystemHandler</ref><sp/>&amp;)<sp/>=<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="classCommonSystemHandler_1a464bb584aaf1b30eaede850f04f62f33" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classCommonSystemHandler_1a464bb584aaf1b30eaede850f04f62f33" kindref="member">isConnected</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classCommonSystemHandler_1a740bc6abe3a48d17b732a1bdc9c0fac4" kindref="member">state_machine_gui_connector_</ref>.isEventManagerConnected()<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCommonSystemHandler_1a740bc6abe3a48d17b732a1bdc9c0fac4" kindref="member">state_machine_gui_connector_</ref>.isPoseCommandConnected();</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="classCommonSystemHandler_1a6362231dc98dfc2f8e6f24245ff901d1" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classCommonSystemHandler_1a6362231dc98dfc2f8e6f24245ff901d1" kindref="member">startTimers</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCommonSystemHandler_1a34cbe068c3c4715ed8ff5b9a717ae593" kindref="member">logic_state_machine_</ref>.start();</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCommonSystemHandler_1a97404fbbfb77d76bf62cbb388963f057" kindref="member">logic_state_machine_timer_</ref>.<ref refid="classAsyncTimer_1ab058544794ccb0310eb5a803458de860" kindref="member">start</ref>();</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCommonSystemHandler_1a5a155b8d5335b4f072363ce4ca152fe1" kindref="member">status_timer_</ref>.<ref refid="classAsyncTimer_1ab058544794ccb0310eb5a803458de860" kindref="member">start</ref>();</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="77" refid="classCommonSystemHandler_1a6a8086663729053c1810d2dcf193ce51" refkind="member"><highlight class="normal"><sp/><sp/>ros::NodeHandle<sp/><ref refid="classCommonSystemHandler_1a6a8086663729053c1810d2dcf193ce51" kindref="member">nh_</ref>;</highlight></codeline>
 <codeline lineno="78"><highlight class="normal"><sp/><sp/>LogicStateMachineT</highlight></codeline>
 <codeline lineno="79" refid="classCommonSystemHandler_1a34cbe068c3c4715ed8ff5b9a717ae593" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classCommonSystemHandler_1a34cbe068c3c4715ed8ff5b9a717ae593" kindref="member">logic_state_machine_</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
 <codeline lineno="80" refid="classCommonSystemHandler_1a393da82eedf31074046dd9bea22e4ca1" refkind="member"><highlight class="normal"><sp/><sp/>EventManagerT<sp/><ref refid="classCommonSystemHandler_1a393da82eedf31074046dd9bea22e4ca1" kindref="member">event_manager_</ref>;<sp/></highlight></codeline>
@@ -284,6 +349,6 @@
 <codeline lineno="87" refid="classCommonSystemHandler_1a97404fbbfb77d76bf62cbb388963f057" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classAsyncTimer" kindref="compound">AsyncTimer</ref><sp/><ref refid="classCommonSystemHandler_1a97404fbbfb77d76bf62cbb388963f057" kindref="member">logic_state_machine_timer_</ref>;<sp/></highlight></codeline>
 <codeline lineno="88"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/common_system_handler.h"/>
   </compounddef>
 </doxygen>

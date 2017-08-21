@@ -21,12 +21,12 @@
       </param>
     </templateparamlist>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="structGuardFunctor_1a9f023aa88503d6127cc8280d7dc733b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+      <memberdef kind="function" id="structGuardFunctor_1afdaf5f7aa07d6fcf2ed6289c799fa25d" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>bool</type>
         <definition>virtual bool GuardFunctor&lt; EventT, RobotSystemT, LogicStateMachineT &gt;::guard</definition>
-        <argsstring>(EventT const &amp;event, RobotSystemT &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)=0</argsstring>
+        <argsstring>(EventT const &amp;event, RobotSystemT &amp;robot_system)=0</argsstring>
         <name>guard</name>
-        <reimplementedby refid="structPositionControlTransitionGuardFunctor___1ad0334337a349f9964d0ba781e995dad6">guard</reimplementedby>
+        <reimplementedby refid="structPositionControlTransitionGuardFunctor___1ab41f7f140d320050825e2323f9b49ba4">guard</reimplementedby>
         <param>
           <type>EventT const &amp;</type>
           <declname>event</declname>
@@ -34,10 +34,6 @@
         <param>
           <type>RobotSystemT &amp;</type>
           <declname>robot_system</declname>
-        </param>
-        <param>
-          <type>LogicStateMachineT &amp;</type>
-          <declname>logic_state_machine</declname>
         </param>
         <briefdescription>
 <para>Override this guard function for different sub classes. This function decides whether to call the run function for each state. </para>        </briefdescription>
@@ -51,13 +47,6 @@
 </parameteritem>
 <parameteritem>
 <parameternamelist>
-<parametername>logic_state_machine</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Backend of logic State Machine. can send events using this. </para></parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
 <parametername>event</parametername>
 </parameternamelist>
 <parameterdescription>
@@ -67,7 +56,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="84" column="1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="76" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structGuardFunctor_1a42b30d1737ceca71bfe47a9bb525ceda" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -121,7 +110,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="94" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="94" bodyend="109"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="85" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="85" bodyend="97"/>
       </memberdef>
       <memberdef kind="function" id="structGuardFunctor_1a3876b6e5028dcdc35ac786322e8afca3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type></type>
@@ -134,7 +123,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="113" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="113" bodyend="113"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="101" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="101" bodyend="101"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -154,18 +143,11 @@
 <parameterdescription>
 <para>The robot system used in the guard check </para></parameterdescription>
 </parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>LogicStateMachineT</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>The logic state machine used to retrieve robot system </para></parameterdescription>
-</parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="74" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="74" bodyend="114"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="68" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="68" bodyend="102"/>
     <listofallmembers>
-      <member refid="structGuardFunctor_1a9f023aa88503d6127cc8280d7dc733b8" prot="public" virt="pure-virtual"><scope>GuardFunctor</scope><name>guard</name></member>
+      <member refid="structGuardFunctor_1afdaf5f7aa07d6fcf2ed6289c799fa25d" prot="public" virt="pure-virtual"><scope>GuardFunctor</scope><name>guard</name></member>
       <member refid="structGuardFunctor_1a42b30d1737ceca71bfe47a9bb525ceda" prot="public" virt="non-virtual"><scope>GuardFunctor</scope><name>operator()</name></member>
       <member refid="structGuardFunctor_1a3876b6e5028dcdc35ac786322e8afca3" prot="public" virt="virtual"><scope>GuardFunctor</scope><name>~GuardFunctor</name></member>
     </listofallmembers>

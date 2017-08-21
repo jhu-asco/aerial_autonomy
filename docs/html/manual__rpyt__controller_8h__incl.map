@@ -1,7 +1,9 @@
 <map id="include/aerial_autonomy/controllers/manual_rpyt_controller.h" name="include/aerial_autonomy/controllers/manual_rpyt_controller.h">
-<area shape="rect" id="node2" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="5,110,187,151"/>
-<area shape="rect" id="node4" href="$empty__goal_8h.html" title="aerial_autonomy/types\l/empty_goal.h" alt="" coords="211,110,364,151"/>
-<area shape="rect" id="node5" href="$joysticks__yaw_8h.html" title="aerial_autonomy/types\l/joysticks_yaw.h" alt="" coords="389,110,541,151"/>
-<area shape="rect" id="node7" href="$roll__pitch__yaw__thrust_8h.html" title="aerial_autonomy/types\l/roll_pitch_yaw_thrust.h" alt="" coords="567,110,725,151"/>
-<area shape="rect" id="node6" href="$joysticks_8h.html" title="aerial_autonomy/types\l/joysticks.h" alt="" coords="389,201,541,242"/>
+<area shape="rect" id="node2" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="103,110,284,151"/>
+<area shape="rect" id="node8" href="$empty__goal_8h.html" title="aerial_autonomy/types\l/empty_goal.h" alt="" coords="309,110,461,151"/>
+<area shape="rect" id="node9" href="$joysticks__yaw_8h.html" title="aerial_autonomy/types\l/joysticks_yaw.h" alt="" coords="486,110,639,151"/>
+<area shape="rect" id="node11" href="$roll__pitch__yaw__thrust_8h.html" title="aerial_autonomy/types\l/roll_pitch_yaw_thrust.h" alt="" coords="664,110,823,151"/>
+<area shape="rect" id="node3" href="$atomic_8h.html" title="aerial_autonomy/common\l/atomic.h" alt="" coords="5,201,176,242"/>
+<area shape="rect" id="node5" href="$controller__status_8h.html" title="aerial_autonomy/common\l/controller_status.h" alt="" coords="200,201,371,242"/>
+<area shape="rect" id="node10" href="$joysticks_8h.html" title="aerial_autonomy/types\l/joysticks.h" alt="" coords="486,201,639,242"/>
 </map>

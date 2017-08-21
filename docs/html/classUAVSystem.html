@@ -102,7 +102,7 @@ Inheritance diagram for UAVSystem:</div>
 <div class="dyncontent">
 <div class="center"><img src="classUAVSystem__inherit__graph.png" border="0" usemap="#UAVSystem_inherit__map" alt="Inheritance graph"/></div>
 <map name="UAVSystem_inherit__map" id="UAVSystem_inherit__map">
-<area shape="rect" id="node3" href="classUAVVisionSystem.html" title="UAV Vision system that extends UAV system to include constant heading depth controller. " alt="" coords="5,155,135,181"/><area shape="rect" id="node2" href="classBaseRobotSystem.html" title="Provides functions to switch between active controllers and get goals. " alt="" coords="5,5,136,32"/></map>
+<area shape="rect" id="node3" href="classUAVVisionSystem.html" title="UAV system with a camera and visual sevoing capabilities. " alt="" coords="5,155,135,181"/><area shape="rect" id="node2" href="classBaseRobotSystem.html" title="Provides functions to switch between active controllers and get goals. " alt="" coords="5,5,136,32"/><area shape="rect" id="node4" href="classUAVArmSystem.html" title="UAV vision system with an arm. " alt="" coords="11,229,129,256"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for UAVSystem:</div>
@@ -160,9 +160,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:add092f1cc4faec7b7f1ecb624f54a56a inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the goal from connector.  <a href="#add092f1cc4faec7b7f1ecb624f54a56a">More...</a><br/></td></tr>
 <tr class="separator:add092f1cc4faec7b7f1ecb624f54a56a inherit pub_methods_classBaseRobotSystem"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22435ca0b28e562a230b4dfdeaffa716 inherit pub_methods_classBaseRobotSystem"><td class="memTemplParams" colspan="2">template&lt;class ControllerHardwareConnectorT &gt; </td></tr>
-<tr class="memitem:a22435ca0b28e562a230b4dfdeaffa716 inherit pub_methods_classBaseRobotSystem"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="base__controller_8h.html#addd69ea32460850b571ba88f2a994b73">ControllerStatus</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a22435ca0b28e562a230b4dfdeaffa716">getStatus</a> () const </td></tr>
-<tr class="memdesc:a22435ca0b28e562a230b4dfdeaffa716 inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the status of the active controller.  <a href="#a22435ca0b28e562a230b4dfdeaffa716">More...</a><br/></td></tr>
+<tr class="memitem:a22435ca0b28e562a230b4dfdeaffa716 inherit pub_methods_classBaseRobotSystem"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classControllerStatus.html">ControllerStatus</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a22435ca0b28e562a230b4dfdeaffa716">getStatus</a> () const </td></tr>
+<tr class="memdesc:a22435ca0b28e562a230b4dfdeaffa716 inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the status of a controller.  <a href="#a22435ca0b28e562a230b4dfdeaffa716">More...</a><br/></td></tr>
 <tr class="separator:a22435ca0b28e562a230b4dfdeaffa716 inherit pub_methods_classBaseRobotSystem"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14c406049bbf3d17e455bac5d0f5db1e inherit pub_methods_classBaseRobotSystem"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classControllerStatus.html">ControllerStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a14c406049bbf3d17e455bac5d0f5db1e">getActiveControllerStatus</a> (<a class="el" href="base__controller__hardware__connector_8h.html#ae4dfd42394001deb6e8a0e60c81d6f7a">HardwareType</a> hardware_type) const </td></tr>
+<tr class="memdesc:a14c406049bbf3d17e455bac5d0f5db1e inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the status of the active controller.  <a href="#a14c406049bbf3d17e455bac5d0f5db1e">More...</a><br/></td></tr>
+<tr class="separator:a14c406049bbf3d17e455bac5d0f5db1e inherit pub_methods_classBaseRobotSystem"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e7031f99e64e7c371ee31fbd69f6bf9 inherit pub_methods_classBaseRobotSystem"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a3e7031f99e64e7c371ee31fbd69f6bf9">abortController</a> (<a class="el" href="base__controller__hardware__connector_8h.html#ae4dfd42394001deb6e8a0e60c81d6f7a">HardwareType</a> hardware_type)</td></tr>
 <tr class="memdesc:a3e7031f99e64e7c371ee31fbd69f6bf9 inherit pub_methods_classBaseRobotSystem"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove active controller for given hardware type.  <a href="#a3e7031f99e64e7c371ee31fbd69f6bf9">More...</a><br/></td></tr>
 <tr class="separator:a3e7031f99e64e7c371ee31fbd69f6bf9 inherit pub_methods_classBaseRobotSystem"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -360,6 +363,8 @@ Protected Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>string representation of the UAV system state </dd></dl>
 
 <p>Implements <a class="el" href="classBaseRobotSystem.html#a63c0c5e504f352000c6fb6fce9047dec">BaseRobotSystem</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classUAVVisionSystem.html#a9c7963324bc8c55b8419b17b4b39de31">UAVVisionSystem</a>.</p>
 
 </div>
 </div>

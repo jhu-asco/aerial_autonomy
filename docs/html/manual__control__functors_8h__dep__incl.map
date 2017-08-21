@@ -1,8 +1,12 @@
 <map id="include/aerial_autonomy/actions_guards/manual_control_functors.h" name="include/aerial_autonomy/actions_guards/manual_control_functors.h">
-<area shape="rect" id="node2" href="$uav__states__actions_8h.html" title="include/aerial_autonomy\l/actions_guards/uav_states\l_actions.h" alt="" coords="111,109,293,165"/>
-<area shape="rect" id="node3" href="$visual__servoing__states__actions_8h.html" title="include/aerial_autonomy\l/actions_guards/visual\l_servoing_states_actions.h" alt="" coords="8,213,189,269"/>
-<area shape="rect" id="node6" href="$uav__state__machine_8h.html" title="include/aerial_autonomy\l/state_machines/uav_state\l_machine.h" alt="" coords="219,213,397,269"/>
-<area shape="rect" id="node4" href="$visual__servoing__state__machine_8h.html" title="include/aerial_autonomy\l/state_machines/visual\l_servoing_state_machine.h" alt="" coords="5,317,187,373"/>
-<area shape="rect" id="node5" href="$uav__vision__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_vision_system\l_node.cpp" alt="" coords="6,421,185,477"/>
-<area shape="rect" id="node7" href="$uav__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_system_node.cpp" alt="" coords="211,325,409,366"/>
+<area shape="rect" id="node2" href="$pick__place__functors_8h.html" title="include/aerial_autonomy\l/actions_guards/pick_place\l_functors.h" alt="" coords="7,109,187,165"/>
+<area shape="rect" id="node6" href="$uav__states__actions_8h.html" title="include/aerial_autonomy\l/actions_guards/uav_states\l_actions.h" alt="" coords="211,109,393,165"/>
+<area shape="rect" id="node3" href="$pick__place__states__actions_8h.html" title="include/aerial_autonomy\l/actions_guards/pick_place\l_states_actions.h" alt="" coords="7,317,187,373"/>
+<area shape="rect" id="node4" href="$pick__place__state__machine_8h.html" title="include/aerial_autonomy\l/state_machines/pick_place\l_state_machine.h" alt="" coords="5,421,189,477"/>
+<area shape="rect" id="node5" href="$uav__arm__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_arm_system\l_node.cpp" alt="" coords="13,525,181,581"/>
+<area shape="rect" id="node7" href="$visual__servoing__states__actions_8h.html" title="include/aerial_autonomy\l/actions_guards/visual\l_servoing_states_actions.h" alt="" coords="212,213,393,269"/>
+<area shape="rect" id="node10" href="$uav__state__machine_8h.html" title="include/aerial_autonomy\l/state_machines/uav_state\l_machine.h" alt="" coords="423,213,601,269"/>
+<area shape="rect" id="node8" href="$visual__servoing__state__machine_8h.html" title="include/aerial_autonomy\l/state_machines/visual\l_servoing_state_machine.h" alt="" coords="212,317,393,373"/>
+<area shape="rect" id="node9" href="$uav__vision__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_vision_system\l_node.cpp" alt="" coords="214,421,393,477"/>
+<area shape="rect" id="node11" href="$uav__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_system_node.cpp" alt="" coords="418,325,616,366"/>
 </map>

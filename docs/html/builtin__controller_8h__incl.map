@@ -1,8 +1,10 @@
 <map id="include/aerial_autonomy/controllers/builtin_controller.h" name="include/aerial_autonomy/controllers/builtin_controller.h">
-<area shape="rect" id="node2" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="5,97,187,138"/>
-<area shape="rect" id="node4" href="$position__yaw_8h.html" title="aerial_autonomy/types\l/position_yaw.h" alt="" coords="211,97,364,138"/>
-<area shape="rect" id="node10" href="$velocity__yaw_8h.html" title="aerial_autonomy/types\l/velocity_yaw.h" alt="" coords="389,97,541,138"/>
-<area shape="rect" id="node5" href="$position_8h.html" title="aerial_autonomy/types\l/position.h" alt="" coords="201,187,353,229"/>
-<area shape="rect" id="node7" href="$math_8h.html" title="aerial_autonomy/common\l/math.h" alt="" coords="379,187,549,229"/>
-<area shape="rect" id="node11" href="$velocity_8h.html" title="aerial_autonomy/types\l/velocity.h" alt="" coords="574,187,727,229"/>
+<area shape="rect" id="node2" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="195,97,376,138"/>
+<area shape="rect" id="node8" href="$position__yaw_8h.html" title="aerial_autonomy/types\l/position_yaw.h" alt="" coords="405,97,557,138"/>
+<area shape="rect" id="node14" href="$velocity__yaw_8h.html" title="aerial_autonomy/types\l/velocity_yaw.h" alt="" coords="582,97,735,138"/>
+<area shape="rect" id="node3" href="$atomic_8h.html" title="aerial_autonomy/common\l/atomic.h" alt="" coords="5,187,176,229"/>
+<area shape="rect" id="node5" href="$controller__status_8h.html" title="aerial_autonomy/common\l/controller_status.h" alt="" coords="200,187,371,229"/>
+<area shape="rect" id="node9" href="$position_8h.html" title="aerial_autonomy/types\l/position.h" alt="" coords="395,187,548,229"/>
+<area shape="rect" id="node11" href="$math_8h.html" title="aerial_autonomy/common\l/math.h" alt="" coords="573,187,744,229"/>
+<area shape="rect" id="node15" href="$velocity_8h.html" title="aerial_autonomy/types\l/velocity.h" alt="" coords="769,187,921,229"/>
 </map>

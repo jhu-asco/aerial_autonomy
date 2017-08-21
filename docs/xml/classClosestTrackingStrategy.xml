@@ -1,0 +1,247 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classClosestTrackingStrategy" kind="class" prot="public">
+    <compoundname>ClosestTrackingStrategy</compoundname>
+    <basecompoundref refid="classTrackingStrategy" prot="public" virt="non-virtual">TrackingStrategy</basecompoundref>
+    <includes refid="closest__tracking__strategy_8h" local="no">closest_tracking_strategy.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classClosestTrackingStrategy_1ac6e584a0ee9cbd1a6f4f7c30415c30f5" prot="private" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ClosestTrackingStrategy::tracked_id_</definition>
+        <argsstring></argsstring>
+        <name>tracked_id_</name>
+        <briefdescription>
+<para>ID of tracked target. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/closest_tracking_strategy.h" line="51" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/closest_tracking_strategy.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classClosestTrackingStrategy_1ac6bed5b531aee56906ea44e36d885431" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool ClosestTrackingStrategy::tracking_locked_</definition>
+        <argsstring></argsstring>
+        <name>tracking_locked_</name>
+        <briefdescription>
+<para>True if tracking has been locked, false otherwise. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/closest_tracking_strategy.h" line="55" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/closest_tracking_strategy.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classClosestTrackingStrategy_1a0d54da7bea9d7be5a50677752700c50f" prot="private" static="no" mutable="no">
+        <type>const uint32_t</type>
+        <definition>const uint32_t ClosestTrackingStrategy::max_tracking_retries_</definition>
+        <argsstring></argsstring>
+        <name>max_tracking_retries_</name>
+        <briefdescription>
+<para>Number of times to retry tracking before lock is lost. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/closest_tracking_strategy.h" line="59" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/closest_tracking_strategy.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classClosestTrackingStrategy_1a4d480d7cd9fdcb7e6b940d52e34d8632" prot="private" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t ClosestTrackingStrategy::tracking_retries_</definition>
+        <argsstring></argsstring>
+        <name>tracking_retries_</name>
+        <briefdescription>
+<para>Number of tracking retries since last success. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/closest_tracking_strategy.h" line="63" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/closest_tracking_strategy.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classClosestTrackingStrategy_1a34348269154dc09d9d82b1a8da13583d" prot="private" static="no" mutable="no">
+        <type>std::tuple&lt; uint32_t, <ref refid="structPosition" kindref="compound">Position</ref> &gt;</type>
+        <definition>std::tuple&lt;uint32_t, Position&gt; ClosestTrackingStrategy::last_tracking_vector_</definition>
+        <argsstring></argsstring>
+        <name>last_tracking_vector_</name>
+        <briefdescription>
+<para>Last successful tracking vector. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/closest_tracking_strategy.h" line="67" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/closest_tracking_strategy.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classClosestTrackingStrategy_1ad02150bbcb57ce65ff68cd3cd86fda94" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ClosestTrackingStrategy::ClosestTrackingStrategy</definition>
+        <argsstring>(uint32_t max_tracking_retries=20)</argsstring>
+        <name>ClosestTrackingStrategy</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>max_tracking_retries</declname>
+          <defval>20</defval>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>max_tracking_retries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of times to retry tracking before lock is lost </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/closest_tracking_strategy.h" line="16" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/closest_tracking_strategy.h" bodystart="16" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classClosestTrackingStrategy_1ae828f364f350cb3211319a315df3c96c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool ClosestTrackingStrategy::initialize</definition>
+        <argsstring>(const std::unordered_map&lt; uint32_t, Position &gt; &amp;tracking_vectors)</argsstring>
+        <name>initialize</name>
+        <reimplements refid="classTrackingStrategy_1a5c84999d7135376575a6f6f7992d209f">initialize</reimplements>
+        <param>
+          <type>const std::unordered_map&lt; uint32_t, <ref refid="structPosition" kindref="compound">Position</ref> &gt; &amp;</type>
+          <declname>tracking_vectors</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the strategy from a group of targets. Locks on to closest target. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tracking_vectors</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The vectors to the tracked targets </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if successful, false otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/closest_tracking_strategy.h" line="26" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/closest_tracking_strategy.cpp" bodystart="5" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classClosestTrackingStrategy_1a3b2f62f154bafa7528831f715df918f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool ClosestTrackingStrategy::getTrackingVector</definition>
+        <argsstring>(const std::unordered_map&lt; uint32_t, Position &gt; &amp;tracking_vectors, std::tuple&lt; uint32_t, Position &gt; &amp;tracking_vector)</argsstring>
+        <name>getTrackingVector</name>
+        <reimplements refid="classTrackingStrategy_1ae2dea239beba8bb03f9c785972238b46">getTrackingVector</reimplements>
+        <param>
+          <type>const std::unordered_map&lt; uint32_t, <ref refid="structPosition" kindref="compound">Position</ref> &gt; &amp;</type>
+          <declname>tracking_vectors</declname>
+        </param>
+        <param>
+          <type>std::tuple&lt; uint32_t, <ref refid="structPosition" kindref="compound">Position</ref> &gt; &amp;</type>
+          <declname>tracking_vector</declname>
+        </param>
+        <briefdescription>
+<para>Get the tracking vector for the tracked target. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tracking_vectors</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The vectors to the tracked targets </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tracking_vector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tracked target which was closest when initialized </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if successful, false otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/closest_tracking_strategy.h" line="33" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/closest_tracking_strategy.cpp" bodystart="19" bodyend="41"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classClosestTrackingStrategy_1aedfd4b82265e09f225758a04f1cc2b14" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool ClosestTrackingStrategy::getClosest</definition>
+        <argsstring>(const std::unordered_map&lt; uint32_t, Position &gt; &amp;tracking_vectors, std::tuple&lt; uint32_t, Position &gt; &amp;tracking_vector)</argsstring>
+        <name>getClosest</name>
+        <param>
+          <type>const std::unordered_map&lt; uint32_t, <ref refid="structPosition" kindref="compound">Position</ref> &gt; &amp;</type>
+          <declname>tracking_vectors</declname>
+        </param>
+        <param>
+          <type>std::tuple&lt; uint32_t, <ref refid="structPosition" kindref="compound">Position</ref> &gt; &amp;</type>
+          <declname>tracking_vector</declname>
+        </param>
+        <briefdescription>
+<para>Get the object with the closest position. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tracking_vectors</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of tracked targets </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tracking_vector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Returned closest target </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if success, false otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/closest_tracking_strategy.h" line="45" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/closest_tracking_strategy.cpp" bodystart="43" bodyend="60"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A tracking strategy that locks on to the closest target when initialized. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="629">
+        <label>ClosestTrackingStrategy</label>
+        <link refid="classClosestTrackingStrategy"/>
+        <childnode refid="630" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="630">
+        <label>TrackingStrategy</label>
+        <link refid="classTrackingStrategy"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="631">
+        <label>ClosestTrackingStrategy</label>
+        <link refid="classClosestTrackingStrategy"/>
+        <childnode refid="632" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="632">
+        <label>TrackingStrategy</label>
+        <link refid="classTrackingStrategy"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/closest_tracking_strategy.h" line="9" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/closest_tracking_strategy.h" bodystart="9" bodyend="68"/>
+    <listofallmembers>
+      <member refid="classClosestTrackingStrategy_1ad02150bbcb57ce65ff68cd3cd86fda94" prot="public" virt="non-virtual"><scope>ClosestTrackingStrategy</scope><name>ClosestTrackingStrategy</name></member>
+      <member refid="classClosestTrackingStrategy_1aedfd4b82265e09f225758a04f1cc2b14" prot="private" virt="non-virtual"><scope>ClosestTrackingStrategy</scope><name>getClosest</name></member>
+      <member refid="classClosestTrackingStrategy_1a3b2f62f154bafa7528831f715df918f3" prot="public" virt="virtual"><scope>ClosestTrackingStrategy</scope><name>getTrackingVector</name></member>
+      <member refid="classClosestTrackingStrategy_1ae828f364f350cb3211319a315df3c96c" prot="public" virt="virtual"><scope>ClosestTrackingStrategy</scope><name>initialize</name></member>
+      <member refid="classClosestTrackingStrategy_1a34348269154dc09d9d82b1a8da13583d" prot="private" virt="non-virtual"><scope>ClosestTrackingStrategy</scope><name>last_tracking_vector_</name></member>
+      <member refid="classClosestTrackingStrategy_1a0d54da7bea9d7be5a50677752700c50f" prot="private" virt="non-virtual"><scope>ClosestTrackingStrategy</scope><name>max_tracking_retries_</name></member>
+      <member refid="classClosestTrackingStrategy_1ac6e584a0ee9cbd1a6f4f7c30415c30f5" prot="private" virt="non-virtual"><scope>ClosestTrackingStrategy</scope><name>tracked_id_</name></member>
+      <member refid="classClosestTrackingStrategy_1ac6bed5b531aee56906ea44e36d885431" prot="private" virt="non-virtual"><scope>ClosestTrackingStrategy</scope><name>tracking_locked_</name></member>
+      <member refid="classClosestTrackingStrategy_1a4d480d7cd9fdcb7e6b940d52e34d8632" prot="private" virt="non-virtual"><scope>ClosestTrackingStrategy</scope><name>tracking_retries_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

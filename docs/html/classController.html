@@ -103,9 +103,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a973e1525b28d50ab77303e2f80c5c706"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#a973e1525b28d50ab77303e2f80c5c706">run</a> (SensorDataType sensor_data, ControlType &amp;control)</td></tr>
 <tr class="memdesc:a973e1525b28d50ab77303e2f80c5c706"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the control loop and return control arguments.  <a href="#a973e1525b28d50ab77303e2f80c5c706">More...</a><br/></td></tr>
 <tr class="separator:a973e1525b28d50ab77303e2f80c5c706"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab25282f175c8eaa2b132b4a80b61f7ae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#ab25282f175c8eaa2b132b4a80b61f7ae">isConverged</a> (SensorDataType sensor_data)</td></tr>
-<tr class="memdesc:ab25282f175c8eaa2b132b4a80b61f7ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if controller is converged.  <a href="#ab25282f175c8eaa2b132b4a80b61f7ae">More...</a><br/></td></tr>
-<tr class="separator:ab25282f175c8eaa2b132b4a80b61f7ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ea079c466120794096a49fb768b6ae6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classControllerStatus.html">ControllerStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#a0ea079c466120794096a49fb768b6ae6">isConverged</a> (SensorDataType sensor_data)</td></tr>
+<tr class="memdesc:a0ea079c466120794096a49fb768b6ae6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if controller is converged.  <a href="#a0ea079c466120794096a49fb768b6ae6">More...</a><br/></td></tr>
+<tr class="separator:a0ea079c466120794096a49fb768b6ae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a172aae7e2475b72fb2eb469ccd198387"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#a172aae7e2475b72fb2eb469ccd198387">setGoal</a> (GoalType goal)</td></tr>
 <tr class="memdesc:a172aae7e2475b72fb2eb469ccd198387"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the goal condition for the controller. Should use internal locking as the run function can be called from a separate thread  <a href="#a172aae7e2475b72fb2eb469ccd198387">More...</a><br/></td></tr>
 <tr class="separator:a172aae7e2475b72fb2eb469ccd198387"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,9 +121,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a25a24fe858c6d5a0e1a1475073475a4d"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#a25a24fe858c6d5a0e1a1475073475a4d">runImplementation</a> (SensorDataType sensor_data, GoalType goal, ControlType &amp;control)=0</td></tr>
 <tr class="memdesc:a25a24fe858c6d5a0e1a1475073475a4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the control loop and return control arguments.  <a href="#a25a24fe858c6d5a0e1a1475073475a4d">More...</a><br/></td></tr>
 <tr class="separator:a25a24fe858c6d5a0e1a1475073475a4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada247bf6a611958743df418250d5b454"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#ada247bf6a611958743df418250d5b454">isConvergedImplementation</a> (SensorDataType sensor_data, GoalType goal)=0</td></tr>
-<tr class="memdesc:ada247bf6a611958743df418250d5b454"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation for checking convergence to be implemented by subclasses. This function is called after runImplementation function and that can be used to store any information required for checking convergence.  <a href="#ada247bf6a611958743df418250d5b454">More...</a><br/></td></tr>
-<tr class="separator:ada247bf6a611958743df418250d5b454"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21b30148805b4eddd65d61e330361f11"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classControllerStatus.html">ControllerStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#a21b30148805b4eddd65d61e330361f11">isConvergedImplementation</a> (SensorDataType sensor_data, GoalType goal)=0</td></tr>
+<tr class="memdesc:a21b30148805b4eddd65d61e330361f11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation for checking convergence to be implemented by subclasses. This function is called after runImplementation function and that can be used to store any information required for checking convergence.  <a href="#a21b30148805b4eddd65d61e330361f11">More...</a><br/></td></tr>
+<tr class="separator:a21b30148805b4eddd65d61e330361f11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;class SensorDataType, class GoalType, class ControlType&gt;<br/>
@@ -195,7 +195,7 @@ template&lt;class SensorDataType, class GoalType, class ControlType&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ab25282f175c8eaa2b132b4a80b61f7ae"></a>
+<a class="anchor" id="a0ea079c466120794096a49fb768b6ae6"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -205,7 +205,7 @@ template&lt;class SensorDataType, class GoalType, class ControlType&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classController.html">Controller</a>&lt; SensorDataType, GoalType, ControlType &gt;::isConverged </td>
+          <td class="memname"><a class="el" href="classControllerStatus.html">ControllerStatus</a> <a class="el" href="classController.html">Controller</a>&lt; SensorDataType, GoalType, ControlType &gt;::isConverged </td>
           <td>(</td>
           <td class="paramtype">SensorDataType&#160;</td>
           <td class="paramname"><em>sensor_data</em></td><td>)</td>
@@ -226,11 +226,11 @@ template&lt;class SensorDataType, class GoalType, class ControlType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if converged/false otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>controller status that contains an enum and debug information. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ada247bf6a611958743df418250d5b454"></a>
+<a class="anchor" id="a21b30148805b4eddd65d61e330361f11"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -240,7 +240,7 @@ template&lt;class SensorDataType, class GoalType, class ControlType&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool <a class="el" href="classController.html">Controller</a>&lt; SensorDataType, GoalType, ControlType &gt;::isConvergedImplementation </td>
+          <td class="memname">virtual <a class="el" href="classControllerStatus.html">ControllerStatus</a> <a class="el" href="classController.html">Controller</a>&lt; SensorDataType, GoalType, ControlType &gt;::isConvergedImplementation </td>
           <td>(</td>
           <td class="paramtype">SensorDataType&#160;</td>
           <td class="paramname"><em>sensor_data</em>, </td>
@@ -272,9 +272,9 @@ template&lt;class SensorDataType, class GoalType, class ControlType&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if converged/false otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>controller status that contains an enum and debug information. </dd></dl>
 
-<p>Implemented in <a class="el" href="classBuiltInVelocityController.html#a4782d572397a29928703e6463fcc2e81">BuiltInVelocityController</a>, <a class="el" href="classBuiltInPositionController.html#a797c182616418e13ea42610ae7bed71c">BuiltInPositionController</a>, <a class="el" href="classConstantHeadingDepthController.html#a4688dc8ce569991da85dddb31097d493">ConstantHeadingDepthController</a>, <a class="el" href="classVelocityBasedPositionController.html#a0c966f3c0fbda08fdaaba82973047909">VelocityBasedPositionController</a>, and <a class="el" href="classManualRPYTController.html#a828067d46cbaff43131c4a7c8129b569">ManualRPYTController</a>.</p>
+<p>Implemented in <a class="el" href="classBuiltInVelocityController.html#a945c9d8a9a04904db670c8fb7f69644d">BuiltInVelocityController</a>, <a class="el" href="classBuiltInPositionController.html#ab5de07460052bf10f0b8236cfd49edff">BuiltInPositionController</a>, <a class="el" href="classConstantHeadingDepthController.html#ab481e32f5f27718075ddaafc7d45e972">ConstantHeadingDepthController</a>, <a class="el" href="classRelativePoseController.html#a8087b063589133fd5c76b639ee27ff7f">RelativePoseController</a>, <a class="el" href="classVelocityBasedPositionController.html#a96cd6d6210b5388b32646edb627ecaa2">VelocityBasedPositionController</a>, and <a class="el" href="classManualRPYTController.html#a4338d61ceb2985239aaa9a9be0386060">ManualRPYTController</a>.</p>
 
 </div>
 </div>
@@ -375,7 +375,7 @@ template&lt;class SensorDataType, class GoalType, class ControlType&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the run is successful </dd></dl>
 
-<p>Implemented in <a class="el" href="classConstantHeadingDepthController.html#a3c7320e1b93e5f8b42f51dd23df3a116">ConstantHeadingDepthController</a>, <a class="el" href="classVelocityBasedPositionController.html#aa4dd4ab85aabb384141aca4de37d1747">VelocityBasedPositionController</a>, <a class="el" href="classBuiltInController.html#a74df6a6af0ef0c1ed49f50ecb80774e8">BuiltInController&lt; GoalType &gt;</a>, <a class="el" href="classManualRPYTController.html#a37e85721f5e631d01eef12decb771c90">ManualRPYTController</a>, <a class="el" href="classBuiltInController.html#a74df6a6af0ef0c1ed49f50ecb80774e8">BuiltInController&lt; PositionYaw &gt;</a>, and <a class="el" href="classBuiltInController.html#a74df6a6af0ef0c1ed49f50ecb80774e8">BuiltInController&lt; VelocityYaw &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classConstantHeadingDepthController.html#a3c7320e1b93e5f8b42f51dd23df3a116">ConstantHeadingDepthController</a>, <a class="el" href="classRelativePoseController.html#a1347c0bc6d6d8013dec2dc6947224df7">RelativePoseController</a>, <a class="el" href="classVelocityBasedPositionController.html#aa4dd4ab85aabb384141aca4de37d1747">VelocityBasedPositionController</a>, <a class="el" href="classBuiltInController.html#a74df6a6af0ef0c1ed49f50ecb80774e8">BuiltInController&lt; GoalType &gt;</a>, <a class="el" href="classManualRPYTController.html#a37e85721f5e631d01eef12decb771c90">ManualRPYTController</a>, <a class="el" href="classBuiltInController.html#a74df6a6af0ef0c1ed49f50ecb80774e8">BuiltInController&lt; PositionYaw &gt;</a>, and <a class="el" href="classBuiltInController.html#a74df6a6af0ef0c1ed49f50ecb80774e8">BuiltInController&lt; VelocityYaw &gt;</a>.</p>
 
 </div>
 </div>

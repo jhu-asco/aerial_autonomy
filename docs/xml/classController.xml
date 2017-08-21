@@ -21,22 +21,9 @@
       </param>
     </templateparamlist>
       <sectiondef kind="private-attrib">
-      <memberdef kind="variable" id="classController_1a3900decb29d3f2731050de2b53c7e4de" prot="private" static="no" mutable="yes">
-        <type>boost::mutex</type>
-        <definition>boost::mutex Controller&lt; SensorDataType, GoalType, ControlType &gt;::goal_mutex_</definition>
-        <argsstring></argsstring>
-        <name>goal_mutex_</name>
-        <briefdescription>
-<para>Synchronize set goal and running controller implementation. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="111" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="111" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classController_1aa960f9ef4afad6fa6b1c402e3f533f58" prot="private" static="no" mutable="no">
-        <type>GoalType</type>
-        <definition>GoalType Controller&lt; SensorDataType, GoalType, ControlType &gt;::goal_</definition>
+      <memberdef kind="variable" id="classController_1ad46166a8424d0dc6fc74bf6f3e60759d" prot="private" static="no" mutable="no">
+        <type><ref refid="classAtomic" kindref="compound">Atomic</ref>&lt; GoalType &gt;</type>
+        <definition>Atomic&lt;GoalType&gt; Controller&lt; SensorDataType, GoalType, ControlType &gt;::goal_</definition>
         <argsstring></argsstring>
         <name>goal_</name>
         <briefdescription>
@@ -45,7 +32,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="115" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="115" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="87" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="87" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -84,11 +71,11 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="35" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="35" bodyend="42"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="27" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="27" bodyend="29"/>
       </memberdef>
-      <memberdef kind="function" id="classController_1ab25282f175c8eaa2b132b4a80b61f7ae" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>bool</type>
-        <definition>bool Controller&lt; SensorDataType, GoalType, ControlType &gt;::isConverged</definition>
+      <memberdef kind="function" id="classController_1a0ea079c466120794096a49fb768b6ae6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref></type>
+        <definition>ControllerStatus Controller&lt; SensorDataType, GoalType, ControlType &gt;::isConverged</definition>
         <argsstring>(SensorDataType sensor_data)</argsstring>
         <name>isConverged</name>
         <param>
@@ -106,11 +93,11 @@
 <para>Sensor data to compare against goal for convergence checking</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>true if converged/false otherwise </para></simplesect>
+<simplesect kind="return"><para>controller status that contains an enum and debug information. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="52" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="52" bodyend="59"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="39" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="39" bodyend="41"/>
       </memberdef>
       <memberdef kind="function" id="classController_1a172aae7e2475b72fb2eb469ccd198387" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
@@ -135,7 +122,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="65" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="65" bodyend="68"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="47" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="47" bodyend="47"/>
       </memberdef>
       <memberdef kind="function" id="classController_1a287a48298ec6f08e36ac3d72a2e6de34" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
         <type>GoalType</type>
@@ -148,7 +135,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="73" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="73" bodyend="76"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="52" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="52" bodyend="52"/>
       </memberdef>
       <memberdef kind="function" id="classController_1a86c5dbf78d3d948228c7c629e885151c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type></type>
@@ -161,7 +148,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="80" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="80" bodyend="80"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="56" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="56" bodyend="56"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -175,6 +162,7 @@
         <reimplementedby refid="classManualRPYTController_1a37e85721f5e631d01eef12decb771c90">runImplementation</reimplementedby>
         <reimplementedby refid="classBuiltInController_1a74df6a6af0ef0c1ed49f50ecb80774e8">runImplementation</reimplementedby>
         <reimplementedby refid="classVelocityBasedPositionController_1aa4dd4ab85aabb384141aca4de37d1747">runImplementation</reimplementedby>
+        <reimplementedby refid="classRelativePoseController_1a1347c0bc6d6d8013dec2dc6947224df7">runImplementation</reimplementedby>
         <reimplementedby refid="classConstantHeadingDepthController_1a3c7320e1b93e5f8b42f51dd23df3a116">runImplementation</reimplementedby>
         <param>
           <type>SensorDataType</type>
@@ -217,18 +205,19 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="91" column="1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="67" column="1"/>
       </memberdef>
-      <memberdef kind="function" id="classController_1ada247bf6a611958743df418250d5b454" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
-        <type>bool</type>
-        <definition>virtual bool Controller&lt; SensorDataType, GoalType, ControlType &gt;::isConvergedImplementation</definition>
+      <memberdef kind="function" id="classController_1a21b30148805b4eddd65d61e330361f11" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref></type>
+        <definition>virtual ControllerStatus Controller&lt; SensorDataType, GoalType, ControlType &gt;::isConvergedImplementation</definition>
         <argsstring>(SensorDataType sensor_data, GoalType goal)=0</argsstring>
         <name>isConvergedImplementation</name>
-        <reimplementedby refid="classManualRPYTController_1a828067d46cbaff43131c4a7c8129b569">isConvergedImplementation</reimplementedby>
-        <reimplementedby refid="classVelocityBasedPositionController_1a0c966f3c0fbda08fdaaba82973047909">isConvergedImplementation</reimplementedby>
-        <reimplementedby refid="classConstantHeadingDepthController_1a4688dc8ce569991da85dddb31097d493">isConvergedImplementation</reimplementedby>
-        <reimplementedby refid="classBuiltInPositionController_1a797c182616418e13ea42610ae7bed71c">isConvergedImplementation</reimplementedby>
-        <reimplementedby refid="classBuiltInVelocityController_1a4782d572397a29928703e6463fcc2e81">isConvergedImplementation</reimplementedby>
+        <reimplementedby refid="classManualRPYTController_1a4338d61ceb2985239aaa9a9be0386060">isConvergedImplementation</reimplementedby>
+        <reimplementedby refid="classVelocityBasedPositionController_1a96cd6d6210b5388b32646edb627ecaa2">isConvergedImplementation</reimplementedby>
+        <reimplementedby refid="classRelativePoseController_1a8087b063589133fd5c76b639ee27ff7f">isConvergedImplementation</reimplementedby>
+        <reimplementedby refid="classConstantHeadingDepthController_1ab481e32f5f27718075ddaafc7d45e972">isConvergedImplementation</reimplementedby>
+        <reimplementedby refid="classBuiltInPositionController_1ab5de07460052bf10f0b8236cfd49edff">isConvergedImplementation</reimplementedby>
+        <reimplementedby refid="classBuiltInVelocityController_1a945c9d8a9a04904db670c8fb7f69644d">isConvergedImplementation</reimplementedby>
         <param>
           <type>SensorDataType</type>
           <declname>sensor_data</declname>
@@ -255,11 +244,11 @@
 <para>This is compared against sensor data</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>true if converged/false otherwise </para></simplesect>
+<simplesect kind="return"><para>controller status that contains an enum and debug information. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="104" column="1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="80" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -288,13 +277,12 @@
 </parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="26" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="26" bodyend="116"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" line="18" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/base_controller.h" bodystart="18" bodyend="88"/>
     <listofallmembers>
       <member refid="classController_1a287a48298ec6f08e36ac3d72a2e6de34" prot="public" virt="virtual"><scope>Controller</scope><name>getGoal</name></member>
-      <member refid="classController_1aa960f9ef4afad6fa6b1c402e3f533f58" prot="private" virt="non-virtual"><scope>Controller</scope><name>goal_</name></member>
-      <member refid="classController_1a3900decb29d3f2731050de2b53c7e4de" prot="private" virt="non-virtual"><scope>Controller</scope><name>goal_mutex_</name></member>
-      <member refid="classController_1ab25282f175c8eaa2b132b4a80b61f7ae" prot="public" virt="non-virtual"><scope>Controller</scope><name>isConverged</name></member>
-      <member refid="classController_1ada247bf6a611958743df418250d5b454" prot="protected" virt="pure-virtual"><scope>Controller</scope><name>isConvergedImplementation</name></member>
+      <member refid="classController_1ad46166a8424d0dc6fc74bf6f3e60759d" prot="private" virt="non-virtual"><scope>Controller</scope><name>goal_</name></member>
+      <member refid="classController_1a0ea079c466120794096a49fb768b6ae6" prot="public" virt="non-virtual"><scope>Controller</scope><name>isConverged</name></member>
+      <member refid="classController_1a21b30148805b4eddd65d61e330361f11" prot="protected" virt="pure-virtual"><scope>Controller</scope><name>isConvergedImplementation</name></member>
       <member refid="classController_1a973e1525b28d50ab77303e2f80c5c706" prot="public" virt="virtual"><scope>Controller</scope><name>run</name></member>
       <member refid="classController_1a25a24fe858c6d5a0e1a1475073475a4d" prot="protected" virt="pure-virtual"><scope>Controller</scope><name>runImplementation</name></member>
       <member refid="classController_1a172aae7e2475b72fb2eb469ccd198387" prot="public" virt="virtual"><scope>Controller</scope><name>setGoal</name></member>

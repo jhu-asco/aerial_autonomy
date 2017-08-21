@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="simple__multi__tracker_8h" kind="file">
+    <compoundname>simple_multi_tracker.h</compoundname>
+    <includes refid="base__tracker_8h" local="yes">aerial_autonomy/trackers/base_tracker.h</includes>
+    <includedby refid="simple__multi__tracker_8cpp" local="yes">src/trackers/simple_multi_tracker.cpp</includedby>
+    <incdepgraph>
+      <node id="6714">
+        <label>include/aerial_autonomy/trackers/simple_multi_tracker.h</label>
+        <link refid="simple_multi_tracker.h"/>
+        <childnode refid="6715" relation="include">
+        </childnode>
+      </node>
+      <node id="6718">
+        <label>cmath</label>
+      </node>
+      <node id="6719">
+        <label>tuple</label>
+      </node>
+      <node id="6715">
+        <label>aerial_autonomy/trackers/base_tracker.h</label>
+        <link refid="base__tracker_8h"/>
+        <childnode refid="6716" relation="include">
+        </childnode>
+        <childnode refid="6717" relation="include">
+        </childnode>
+        <childnode refid="6721" relation="include">
+        </childnode>
+        <childnode refid="6719" relation="include">
+        </childnode>
+        <childnode refid="6720" relation="include">
+        </childnode>
+      </node>
+      <node id="6720">
+        <label>unordered_map</label>
+      </node>
+      <node id="6716">
+        <label>aerial_autonomy/trackers/tracking_strategy.h</label>
+        <link refid="tracking__strategy_8h"/>
+        <childnode refid="6717" relation="include">
+        </childnode>
+        <childnode refid="6719" relation="include">
+        </childnode>
+        <childnode refid="6720" relation="include">
+        </childnode>
+      </node>
+      <node id="6717">
+        <label>aerial_autonomy/types/position.h</label>
+        <link refid="position_8h"/>
+        <childnode refid="6718" relation="include">
+        </childnode>
+      </node>
+      <node id="6721">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6723">
+        <label>src/trackers/simple_multi_tracker.cpp</label>
+        <link refid="simple__multi__tracker_8cpp"/>
+      </node>
+      <node id="6722">
+        <label>include/aerial_autonomy/trackers/simple_multi_tracker.h</label>
+        <link refid="simple_multi_tracker.h"/>
+        <childnode refid="6723" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classSimpleMultiTracker" prot="public">SimpleMultiTracker</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="base__tracker_8h" kindref="compound">aerial_autonomy/trackers/base_tracker.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="classSimpleMultiTracker" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classSimpleMultiTracker" kindref="compound">SimpleMultiTracker</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classBaseTracker" kindref="compound">BaseTracker</ref><sp/>{</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="14" refid="classSimpleMultiTracker_1acf5b4cc2355952acaec59d6cecdbcfea" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classSimpleMultiTracker_1acf5b4cc2355952acaec59d6cecdbcfea" kindref="member">SimpleMultiTracker</ref>(<ref refid="classTrackingStrategy" kindref="compound">TrackingStrategy</ref><sp/>*tracking_strategy)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classBaseTracker" kindref="compound">BaseTracker</ref>(tracking_strategy)<sp/>{}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSimpleMultiTracker_1abf2599dba7ec0cc5f2e1bbebae3fe8d2" kindref="member">getTrackingVectors</ref>(std::unordered_map&lt;uint32_t,<sp/>Position&gt;<sp/>&amp;pos);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classSimpleMultiTracker_1a2ef8c9df00c6e92f44fae3204e9d8f12" kindref="member">trackingIsValid</ref>();</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSimpleMultiTracker_1a3577d68db95da56684a1da4d0f449094" kindref="member">setTrackingVectors</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::unordered_map&lt;uint32_t,<sp/>Position&gt;<sp/>&amp;pos);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/>std::unordered_map&lt;uint32_t,<sp/>Position&gt;<sp/>tracking_vectors_;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_multi_tracker.h"/>
+  </compounddef>
+</doxygen>

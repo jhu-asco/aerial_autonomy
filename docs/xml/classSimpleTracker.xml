@@ -11,12 +11,12 @@
         <argsstring></argsstring>
         <name>drone_hardware_</name>
         <briefdescription>
-        </briefdescription>
+<para>UAV Hardware. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="45" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" bodystart="45" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="52" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classSimpleTracker_1add904f2c4ae947dba1427a07be2207c0" prot="private" static="no" mutable="no">
         <type>bool</type>
@@ -24,12 +24,12 @@
         <argsstring></argsstring>
         <name>tracking_valid_</name>
         <briefdescription>
-        </briefdescription>
+<para>Flag to specify if tracking is valid. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="46" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" bodystart="46" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="53" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" bodystart="53" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classSimpleTracker_1a3803f7ab2da2e9b4c5cdb74c27ac84fa" prot="private" static="no" mutable="no">
         <type><ref refid="structPosition" kindref="compound">Position</ref></type>
@@ -37,12 +37,12 @@
         <argsstring></argsstring>
         <name>target_position_</name>
         <briefdescription>
-        </briefdescription>
+<para>Goal position to track. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="47" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" bodystart="47" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="54" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classSimpleTracker_1a861bd8ff795ce3b73656fea4999bd4d8" prot="private" static="no" mutable="no">
         <type>tf::Transform</type>
@@ -55,7 +55,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="52" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" bodystart="52" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="55" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -73,21 +73,36 @@
           <declname>camera_transform</declname>
         </param>
         <briefdescription>
-        </briefdescription>
+<para>Constructor that stores drone hardware and camera transform for further use. </para>        </briefdescription>
         <detaileddescription>
-        </detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>drone_hardware</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>UAV Hardware for getting sensor data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>camera_transform</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Camera transform from UAV base </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="12" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/simple_tracker.cpp" bodystart="4" bodyend="8"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="19" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/simple_tracker.cpp" bodystart="5" bodyend="10"/>
       </memberdef>
-      <memberdef kind="function" id="classSimpleTracker_1ae1059e568ba2637c56009bb0ffbd039f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="classSimpleTracker_1a23d8c34fbc3dcc1b46b0bc9ecd7e584a" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
-        <definition>bool SimpleTracker::getTrackingVector</definition>
-        <argsstring>(Position &amp;pos)</argsstring>
-        <name>getTrackingVector</name>
-        <reimplements refid="classBaseTracker_1adfba0b9b37f9f4923b97bdd0d0fbbb68">getTrackingVector</reimplements>
+        <definition>bool SimpleTracker::getTrackingVectors</definition>
+        <argsstring>(std::unordered_map&lt; uint32_t, Position &gt; &amp;pos)</argsstring>
+        <name>getTrackingVectors</name>
+        <reimplements refid="classBaseTracker_1a20360b084ef9b2df755854c274a73f2b">getTrackingVectors</reimplements>
         <param>
-          <type><ref refid="structPosition" kindref="compound">Position</ref> &amp;</type>
+          <type>std::unordered_map&lt; uint32_t, <ref refid="structPosition" kindref="compound">Position</ref> &gt; &amp;</type>
           <declname>pos</declname>
         </param>
         <briefdescription>
@@ -105,7 +120,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="19" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/simple_tracker.cpp" bodystart="10" bodyend="30"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="26" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/simple_tracker.cpp" bodystart="12" bodyend="33"/>
       </memberdef>
       <memberdef kind="function" id="classSimpleTracker_1ac07a4053eb915074b7efe62778c4a573" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>bool</type>
@@ -120,7 +135,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="24" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/simple_tracker.cpp" bodystart="36" bodyend="36"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="31" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/simple_tracker.cpp" bodystart="39" bodyend="39"/>
       </memberdef>
       <memberdef kind="function" id="classSimpleTracker_1ae63b078e013ba7ae25f14c583ae13464" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -145,7 +160,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="30" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/simple_tracker.cpp" bodystart="38" bodyend="40"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="37" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/simple_tracker.cpp" bodystart="41" bodyend="43"/>
       </memberdef>
       <memberdef kind="function" id="classSimpleTracker_1a03955ff260b374d76d426ad027419a0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -170,7 +185,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="36" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/simple_tracker.cpp" bodystart="32" bodyend="34"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="43" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/simple_tracker.cpp" bodystart="35" bodyend="37"/>
       </memberdef>
       <memberdef kind="function" id="classSimpleTracker_1a3cd0ea83e2267e36da1683d09ee0fdbf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>tf::Transform</type>
@@ -184,7 +199,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="42" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/trackers/simple_tracker.cpp" bodystart="42" bodyend="42"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="49" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/simple_tracker.cpp" bodystart="45" bodyend="45"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -192,35 +207,39 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="548">
+      <node id="845">
         <label>BaseTracker</label>
         <link refid="classBaseTracker"/>
       </node>
-      <node id="547">
+      <node id="844">
         <label>SimpleTracker</label>
         <link refid="classSimpleTracker"/>
-        <childnode refid="548" relation="public-inheritance">
+        <childnode refid="845" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="550">
+      <node id="847">
         <label>BaseTracker</label>
         <link refid="classBaseTracker"/>
       </node>
-      <node id="549">
+      <node id="846">
         <label>SimpleTracker</label>
         <link refid="classSimpleTracker"/>
-        <childnode refid="550" relation="public-inheritance">
+        <childnode refid="847" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="10" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" bodystart="10" bodyend="53"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" line="10" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_tracker.h" bodystart="10" bodyend="56"/>
     <listofallmembers>
+      <member refid="classBaseTracker_1a49ac5731fce16acb5ca1fb069d2a0091" prot="public" virt="non-virtual"><scope>SimpleTracker</scope><name>BaseTracker</name></member>
       <member refid="classSimpleTracker_1a861bd8ff795ce3b73656fea4999bd4d8" prot="private" virt="non-virtual"><scope>SimpleTracker</scope><name>camera_transform_</name></member>
       <member refid="classSimpleTracker_1a3cd0ea83e2267e36da1683d09ee0fdbf" prot="public" virt="non-virtual"><scope>SimpleTracker</scope><name>cameraTransform</name></member>
       <member refid="classSimpleTracker_1ad737d9984f8b1b9d37c7be190ccbc3ef" prot="private" virt="non-virtual"><scope>SimpleTracker</scope><name>drone_hardware_</name></member>
-      <member refid="classSimpleTracker_1ae1059e568ba2637c56009bb0ffbd039f" prot="public" virt="virtual"><scope>SimpleTracker</scope><name>getTrackingVector</name></member>
+      <member refid="classBaseTracker_1a705369e65f51447798bb19e979de9801" prot="public" virt="virtual"><scope>SimpleTracker</scope><name>getTrackingVector</name></member>
+      <member refid="classBaseTracker_1a931a8c84fc6245d3d6cb3ef9967032a5" prot="public" virt="virtual"><scope>SimpleTracker</scope><name>getTrackingVector</name></member>
+      <member refid="classSimpleTracker_1a23d8c34fbc3dcc1b46b0bc9ecd7e584a" prot="public" virt="virtual"><scope>SimpleTracker</scope><name>getTrackingVectors</name></member>
+      <member refid="classBaseTracker_1ad1a6497933830415ee97d9ea2d2706af" prot="public" virt="virtual"><scope>SimpleTracker</scope><name>initialize</name></member>
       <member refid="classSimpleTracker_1a03955ff260b374d76d426ad027419a0e" prot="public" virt="non-virtual"><scope>SimpleTracker</scope><name>setTargetPositionGlobalFrame</name></member>
       <member refid="classSimpleTracker_1ae63b078e013ba7ae25f14c583ae13464" prot="public" virt="non-virtual"><scope>SimpleTracker</scope><name>setTrackingIsValid</name></member>
       <member refid="classSimpleTracker_1ae48dc9e78ccb74c838f0626b802b8c19" prot="public" virt="non-virtual"><scope>SimpleTracker</scope><name>SimpleTracker</name></member>

@@ -9,28 +9,28 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="446">
+      <node id="700">
         <label>BaseState&lt; RobotSystemT, LogicStateMachineT, ActionFctr &gt;::internal_transition_table</label>
         <link refid="structBaseState_1_1internal__transition__table"/>
-        <childnode refid="447" relation="public-inheritance">
+        <childnode refid="701" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="447">
+      <node id="701">
         <label>boost::mpl::vector&lt; msmf::Internal&lt; InternalTransitionEvent, ActionFctr, msmf::none &gt; &gt;</label>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="448">
+      <node id="702">
         <label>BaseState&lt; RobotSystemT, LogicStateMachineT, ActionFctr &gt;::internal_transition_table</label>
         <link refid="structBaseState_1_1internal__transition__table"/>
-        <childnode refid="449" relation="public-inheritance">
+        <childnode refid="703" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="449">
+      <node id="703">
         <label>boost::mpl::vector&lt; msmf::Internal&lt; InternalTransitionEvent, ActionFctr, msmf::none &gt; &gt;</label>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/logic_states/base_state.h" line="37" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/logic_states/base_state.h" bodystart="35" bodyend="37"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/logic_states/base_state.h" line="31" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/logic_states/base_state.h" bodystart="29" bodyend="31"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

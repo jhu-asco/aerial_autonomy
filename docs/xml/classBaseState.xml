@@ -3,6 +3,9 @@
   <compounddef id="classBaseState" kind="class" prot="public">
     <compoundname>BaseState</compoundname>
     <basecompoundref prot="public" virt="non-virtual">boost::msm::front::state&lt;&gt;</basecompoundref>
+    <derivedcompoundref refid="classArmPreLandingFolding__" prot="public" virt="non-virtual">ArmPreLandingFolding_&lt; LogicStateMachineT &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classArmPreTakeoffFolding__" prot="public" virt="non-virtual">ArmPreTakeoffFolding_&lt; LogicStateMachineT &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classPrePickState__" prot="public" virt="non-virtual">PrePickState_&lt; LogicStateMachineT &gt;</derivedcompoundref>
     <includes refid="base__state_8h" local="no">base_state.h</includes>
     <innerclass refid="structBaseState_1_1internal__transition__table" prot="public">BaseState::internal_transition_table</innerclass>
     <templateparamlist>
@@ -28,7 +31,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/logic_states/base_state.h" line="42" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/logic_states/base_state.h" bodystart="42" bodyend="42"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/logic_states/base_state.h" line="36" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/logic_states/base_state.h" bodystart="36" bodyend="36"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -36,28 +39,46 @@
     <detaileddescription>
 <para>This class provides a wrapper for any action function and robot system Entry and exit function can also be overwritten by subclassing this base state. </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="365">
+      <node id="585">
         <label>BaseState&lt; RobotSystemT, LogicStateMachineT, ActionFctr &gt;</label>
         <link refid="classBaseState"/>
-        <childnode refid="366" relation="public-inheritance">
+        <childnode refid="586" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="366">
-        <label>msmf::state&lt;&gt;</label>
+      <node id="589">
+        <label>PrePickState_&lt; LogicStateMachineT &gt;</label>
+        <link refid="classPrePickState__"/>
+        <childnode refid="585" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="587">
+        <label>ArmPreLandingFolding_&lt; LogicStateMachineT &gt;</label>
+        <link refid="classArmPreLandingFolding__"/>
+        <childnode refid="585" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="586">
+        <label>boost::msm::front::state&lt;&gt;</label>
+      </node>
+      <node id="588">
+        <label>ArmPreTakeoffFolding_&lt; LogicStateMachineT &gt;</label>
+        <link refid="classArmPreTakeoffFolding__"/>
+        <childnode refid="585" relation="public-inheritance">
+        </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="367">
+      <node id="590">
         <label>BaseState&lt; RobotSystemT, LogicStateMachineT, ActionFctr &gt;</label>
         <link refid="classBaseState"/>
-        <childnode refid="368" relation="public-inheritance">
+        <childnode refid="591" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="368">
-        <label>msmf::state&lt;&gt;</label>
+      <node id="591">
+        <label>boost::msm::front::state&lt;&gt;</label>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/logic_states/base_state.h" line="24" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/logic_states/base_state.h" bodystart="24" bodyend="43"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/logic_states/base_state.h" line="24" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/logic_states/base_state.h" bodystart="24" bodyend="37"/>
     <listofallmembers>
       <member refid="classBaseState_1a3967d85ffd88b9235fcfd9732e745c13" prot="public" virt="virtual"><scope>BaseState</scope><name>~BaseState</name></member>
     </listofallmembers>

@@ -1,5 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classController.html" title="Controller\&lt; VelocityYaw,\l VelocityYaw, VelocityYaw \&gt;" alt="" coords="5,5,197,46"/>
-<area shape="rect" id="node2" href="$classBuiltInController.html" title="BuiltInController\&lt;\l VelocityYaw \&gt;" alt="" coords="245,5,368,46"/>
-<area shape="rect" id="node3" href="$classBuiltInVelocityController.html" title="Builtin velocity controller. " alt="" coords="416,12,579,39"/>
+<area shape="rect" id="node1" href="$classBaseTracker.html" title="Interface for classes that provide a vector to a tracked target. " alt="" coords="5,81,101,108"/>
+<area shape="rect" id="node2" href="$classAlvarTracker.html" title="Provides vector to a tracked object based on output from alvar. " alt="" coords="183,5,279,32"/>
+<area shape="rect" id="node3" href="$classRoiToPositionConverter.html" title="Converts a ROI in image to vector in camera frame. " alt="" coords="150,56,311,83"/>
+<area shape="rect" id="node4" href="$classSimpleMultiTracker.html" title="A simple Multi&#45;object Tracker implementation for testing. " alt="" coords="163,107,298,133"/>
+<area shape="rect" id="node5" href="$classSimpleTracker.html" title="Simple tracker for a given fixed position. " alt="" coords="177,157,284,184"/>
 </map>

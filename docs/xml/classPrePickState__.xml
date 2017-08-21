@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classPrePickState__" kind="class" prot="public">
+    <compoundname>PrePickState_</compoundname>
+    <basecompoundref refid="classBaseState" prot="public" virt="non-virtual">BaseState&lt; LogicStateMachineT &gt;</basecompoundref>
+    <includes refid="pick__place__functors_8h" local="no">pick_place_functors.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+    </templateparamlist>
+    <briefdescription>
+<para>State that uses position control functor to reach a desired goal prior to picking. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine used to process events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="807">
+        <label>PrePickState_&lt; LogicStateMachineT &gt;</label>
+        <link refid="classPrePickState__"/>
+        <childnode refid="808" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="809">
+        <label>boost::msm::front::state&lt;&gt;</label>
+      </node>
+      <node id="808">
+        <label>PickState_&lt; LogicStateMachineT &gt;</label>
+        <link refid="classBaseState"/>
+        <childnode refid="809" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="810">
+        <label>PrePickState_&lt; LogicStateMachineT &gt;</label>
+        <link refid="classPrePickState__"/>
+        <childnode refid="811" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="812">
+        <label>boost::msm::front::state&lt;&gt;</label>
+      </node>
+      <node id="811">
+        <label>PickState_&lt; LogicStateMachineT &gt;</label>
+        <link refid="classBaseState"/>
+        <childnode refid="812" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_functors.h" line="112" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_functors.h" bodystart="112" bodyend="112"/>
+    <listofallmembers>
+      <member refid="classBaseState_1a3967d85ffd88b9235fcfd9732e745c13" prot="public" virt="virtual"><scope>PrePickState_</scope><name>~BaseState</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -26,7 +26,7 @@
       </param>
     </templateparamlist>
       <sectiondef kind="private-attrib">
-      <memberdef kind="variable" id="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1ae972fb5548b4412f2bf47bcca8637cdf" prot="private" static="no" mutable="no">
+      <memberdef kind="variable" id="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1ae972fb5548b4412f2bf47bcca8637cdf" prot="private" static="no" mutable="yes">
         <type>boost::recursive_mutex</type>
         <definition>boost::recursive_mutex boost::msm::back::thread_safe_state_machine&lt; A0, A1, A2, A3, A4 &gt;::process_event_mutex_</definition>
         <argsstring></argsstring>
@@ -37,7 +37,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="27" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="33" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1ab040bb60fd900c98724b85456ae1ba9a" prot="private" static="no" mutable="no">
+        <type>std::type_index</type>
+        <definition>std::type_index boost::msm::back::thread_safe_state_machine&lt; A0, A1, A2, A3, A4 &gt;::last_processed_event_index</definition>
+        <argsstring></argsstring>
+        <name>last_processed_event_index</name>
+        <briefdescription>
+<para>Last event processed by the state machine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="37" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="37" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
@@ -69,7 +82,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="40" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="40" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="52" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a3306dad625847fa2192b045a7789ca5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -99,7 +112,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="43" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="43" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="55" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="55" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -114,7 +127,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="30" bodyend="31"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="37" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="40" bodyend="42"/>
       </memberdef>
       <memberdef kind="function" id="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1ad8d554411680bddd9959406c42407c25" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -136,7 +149,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="27" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="34" bodyend="35"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="37" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="45" bodyend="47"/>
       </memberdef>
       <memberdef kind="function" id="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a9f38e619a54ce414c4ef737e8873928d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -175,7 +188,21 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="56" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="56" bodyend="59"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="68" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="68" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1af16d4dbc9b6cb22000490dbb6b39b16b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::type_index</type>
+        <definition>std::type_index boost::msm::back::thread_safe_state_machine&lt; A0, A1, A2, A3, A4 &gt;::lastProcessedEventIndex</definition>
+        <argsstring>() const </argsstring>
+        <name>lastProcessedEventIndex</name>
+        <briefdescription>
+<para>Returns the type index of last processed event after locking. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>type index of last processed event </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="82" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="82" bodyend="85"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -183,31 +210,33 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="572">
+      <node id="875">
         <label>state_machine&lt; A0, A1, A2, A3, A4 &gt;</label>
       </node>
-      <node id="571">
+      <node id="874">
         <label>boost::msm::back::thread_safe_state_machine&lt; A0, A1, A2, A3, A4 &gt;</label>
         <link refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine"/>
-        <childnode refid="572" relation="public-inheritance">
+        <childnode refid="875" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="574">
+      <node id="877">
         <label>state_machine&lt; A0, A1, A2, A3, A4 &gt;</label>
       </node>
-      <node id="573">
+      <node id="876">
         <label>boost::msm::back::thread_safe_state_machine&lt; A0, A1, A2, A3, A4 &gt;</label>
         <link refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine"/>
-        <childnode refid="574" relation="public-inheritance">
+        <childnode refid="877" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="24" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="24" bodyend="60"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="28" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" bodystart="28" bodyend="86"/>
     <listofallmembers>
       <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a83a2deae1f2169f1234e430beb3b8a95" prot="public" virt="non-virtual"><scope>boost::msm::back::thread_safe_state_machine</scope><name>boost::msm::back::state_machine</name></member>
       <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a3306dad625847fa2192b045a7789ca5f" prot="public" virt="non-virtual"><scope>boost::msm::back::thread_safe_state_machine</scope><name>boost::msm::back::thread_safe_state_machine</name></member>
+      <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1ab040bb60fd900c98724b85456ae1ba9a" prot="private" virt="non-virtual"><scope>boost::msm::back::thread_safe_state_machine</scope><name>last_processed_event_index</name></member>
+      <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1af16d4dbc9b6cb22000490dbb6b39b16b" prot="public" virt="non-virtual"><scope>boost::msm::back::thread_safe_state_machine</scope><name>lastProcessedEventIndex</name></member>
       <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a9f38e619a54ce414c4ef737e8873928d" prot="public" virt="non-virtual"><scope>boost::msm::back::thread_safe_state_machine</scope><name>process_event</name></member>
       <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1ae972fb5548b4412f2bf47bcca8637cdf" prot="private" virt="non-virtual"><scope>boost::msm::back::thread_safe_state_machine</scope><name>process_event_mutex_</name></member>
       <member refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a5b5a31229aed12a1f7036b8b46de0884" prot="public" virt="non-virtual"><scope>boost::msm::back::thread_safe_state_machine</scope><name>thread_safe_state_machine</name></member>

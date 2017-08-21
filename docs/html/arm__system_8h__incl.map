@@ -1,7 +1,10 @@
 <map id="include/aerial_autonomy/robot_systems/arm_system.h" name="include/aerial_autonomy/robot_systems/arm_system.h">
-<area shape="rect" id="node2" href="$base__robot__system_8h.html" title="aerial_autonomy/robot\l_systems/base_robot_system.h" alt="" coords="371,97,579,138"/>
-<area shape="rect" id="node3" href="$base__controller__hardware__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/base\l_controller_hardware_connector.h" alt="" coords="97,187,313,243"/>
-<area shape="rect" id="node7" href="$type__map_8h.html" title="aerial_autonomy/common\l/type_map.h" alt="" coords="389,194,560,235"/>
-<area shape="rect" id="node10" href="$iterable__enum_8h.html" title="aerial_autonomy/common\l/iterable_enum.h" alt="" coords="584,194,755,235"/>
-<area shape="rect" id="node4" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="5,291,187,333"/>
+<area shape="rect" id="node2" href="$html__utils_8h.html" title="aerial_autonomy/common\l/html_utils.h" alt="" coords="157,97,328,138"/>
+<area shape="rect" id="node7" href="$base__robot__system_8h.html" title="aerial_autonomy/robot\l_systems/base_robot_system.h" alt="" coords="520,97,728,138"/>
+<area shape="rect" id="node8" href="$base__controller__hardware__connector_8h.html" title="aerial_autonomy/controller\l_hardware_connectors/base\l_controller_hardware_connector.h" alt="" coords="827,187,1044,243"/>
+<area shape="rect" id="node15" href="$type__map_8h.html" title="aerial_autonomy/common\l/type_map.h" alt="" coords="344,194,515,235"/>
+<area shape="rect" id="node18" href="$iterable__enum_8h.html" title="aerial_autonomy/common\l/iterable_enum.h" alt="" coords="539,194,709,235"/>
+<area shape="rect" id="node9" href="$atomic_8h.html" title="aerial_autonomy/common\l/atomic.h" alt="" coords="893,382,1064,423"/>
+<area shape="rect" id="node11" href="$controller__status_8h.html" title="aerial_autonomy/common\l/controller_status.h" alt="" coords="699,382,869,423"/>
+<area shape="rect" id="node13" href="$base__controller_8h.html" title="aerial_autonomy/controllers\l/base_controller.h" alt="" coords="827,291,1008,333"/>
 </map>

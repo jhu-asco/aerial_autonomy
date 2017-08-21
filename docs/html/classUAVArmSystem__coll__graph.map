@@ -1,0 +1,7 @@
+<map id="UAVArmSystem" name="UAVArmSystem">
+<area shape="rect" id="node2" href="$classUAVVisionSystem.html" title="UAV system with a camera and visual sevoing capabilities. " alt="" coords="5,304,135,331"/>
+<area shape="rect" id="node3" href="$classUAVSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components..." alt="" coords="29,203,123,229"/>
+<area shape="rect" id="node4" href="$classBaseRobotSystem.html" title="Provides functions to switch between active controllers and get goals. " alt="" coords="74,125,205,152"/>
+<area shape="rect" id="node6" href="$classArmSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components..." alt="" coords="127,253,217,280"/>
+<area shape="rect" id="node5" href="$classTypeMap.html" title="TypeMap\&lt; AbstractController\lHardwareConnector \&gt;" alt="" coords="43,6,236,47"/>
+</map>

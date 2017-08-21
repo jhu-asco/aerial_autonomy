@@ -2,11 +2,12 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
   <compounddef id="namespaceboost" kind="namespace">
     <compoundname>boost</compoundname>
+    <innernamespace refid="namespaceboost_1_1mpl">boost::mpl</innernamespace>
     <innernamespace refid="namespaceboost_1_1msm">boost::msm</innernamespace>
     <briefdescription>
-<para>Boost namespace. </para>    </briefdescription>
+<para>namespace for boost library </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h" line="9" column="1"/>
+<para>Boost namespace.</para><para>Modified find_if that executes actions until one of the actions returns true. It stops executing after that.</para><para>Modified by Gowtham Garimella. email ggarime1[at]jhu.edu</para><para>Modified action sequence that executes actions until one of the actions returns true. Unlike regular executions, this assumes the actions return true false based on whether they processed events on state machine. This is useful to avoid running further actions when state transitions occured in the current action</para><para>Modified by Gowtham Garimella. email ggarime1[at]jhu.edu </para>    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/exec_if.h" line="39" column="1"/>
   </compounddef>
 </doxygen>

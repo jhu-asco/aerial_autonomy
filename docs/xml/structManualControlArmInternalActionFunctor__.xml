@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structManualControlArmInternalActionFunctor__" kind="struct" prot="public">
+    <compoundname>ManualControlArmInternalActionFunctor_</compoundname>
+    <basecompoundref refid="structEventAgnosticActionFunctor" prot="public" virt="non-virtual">EventAgnosticActionFunctor&lt; UAVArmSystem, LogicStateMachineT &gt;</basecompoundref>
+    <includes refid="pick__place__functors_8h" local="no">pick_place_functors.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structManualControlArmInternalActionFunctor___1a97a8ea1b8e4019cc821896a7fa4eaca4" prot="public" static="no" mutable="no">
+        <type><ref refid="structManualControlInternalActionFunctor__" kindref="compound">ManualControlInternalActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>ManualControlInternalActionFunctor_&lt;LogicStateMachineT&gt; ManualControlArmInternalActionFunctor_&lt; LogicStateMachineT &gt;::parent_functor_</definition>
+        <argsstring></argsstring>
+        <name>parent_functor_</name>
+        <briefdescription>
+<para>The parent functor to switch to other states based on state of rc switch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_functors.h" line="90" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_functors.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structManualControlArmInternalActionFunctor___1a50b523b81f4bdfac74ea0632a1a72ef4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void ManualControlArmInternalActionFunctor_&lt; LogicStateMachineT &gt;::run</definition>
+        <argsstring>(UAVArmSystem &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</argsstring>
+        <name>run</name>
+        <reimplements refid="structEventAgnosticActionFunctor_1a53a48938d68370ff2ef262222565ffcf">run</reimplements>
+        <param>
+          <type><ref refid="classUAVArmSystem" kindref="compound">UAVArmSystem</ref> &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <param>
+          <type>LogicStateMachineT &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <briefdescription>
+<para>Check if arm is enabled and print warning otherwise. Also call parent functor for checking rc switch. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>robot system to get sensor data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>logic state machine to trigger events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_functors.h" line="98" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_functors.h" bodystart="98" bodyend="107"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Logic to check arm power and manual mode. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine used to process events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="683">
+        <label>ManualControlArmInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
+        <link refid="structManualControlArmInternalActionFunctor__"/>
+        <childnode refid="684" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="684">
+        <label>EventAgnosticActionFunctor&lt; UAVArmSystem, LogicStateMachineT &gt;</label>
+        <link refid="structEventAgnosticActionFunctor"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="685">
+        <label>ManualControlArmInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
+        <link refid="structManualControlArmInternalActionFunctor__"/>
+        <childnode refid="686" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="686">
+        <label>EventAgnosticActionFunctor&lt; UAVArmSystem, LogicStateMachineT &gt;</label>
+        <link refid="structEventAgnosticActionFunctor"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_functors.h" line="85" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_functors.h" bodystart="84" bodyend="108"/>
+    <listofallmembers>
+      <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>ManualControlArmInternalActionFunctor_</scope><name>operator()</name></member>
+      <member refid="structManualControlArmInternalActionFunctor___1a97a8ea1b8e4019cc821896a7fa4eaca4" prot="public" virt="non-virtual"><scope>ManualControlArmInternalActionFunctor_</scope><name>parent_functor_</name></member>
+      <member refid="structManualControlArmInternalActionFunctor___1a50b523b81f4bdfac74ea0632a1a72ef4" prot="public" virt="virtual"><scope>ManualControlArmInternalActionFunctor_</scope><name>run</name></member>
+      <member refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" prot="public" virt="virtual"><scope>ManualControlArmInternalActionFunctor_</scope><name>~EventAgnosticActionFunctor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

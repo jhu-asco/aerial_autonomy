@@ -12,6 +12,6 @@
 <codeline lineno="2"><highlight class="preprocessor"></highlight></codeline>
 <codeline lineno="6" refid="structEmptySensor" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structEmptySensor" kindref="compound">EmptySensor</ref><sp/>{};</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/types/empty_sensor.h"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/empty_sensor.h"/>
   </compounddef>
 </doxygen>

@@ -27,7 +27,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/common/math.cpp" line="11" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/common/math.cpp" bodystart="11" bodyend="16"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/common/math.cpp" line="11" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/common/math.cpp" bodystart="11" bodyend="16"/>
       </memberdef>
       <memberdef kind="function" id="namespacemath_1a6d507253f29fa253416474c4364b50f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>double</type>
@@ -75,7 +75,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/common/math.cpp" line="18" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/common/math.cpp" bodystart="18" bodyend="20"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/common/math.cpp" line="18" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/common/math.cpp" bodystart="18" bodyend="20"/>
       </memberdef>
       <memberdef kind="function" id="namespacemath_1abc9135c6c399525915081a36016749bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -114,13 +114,52 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/math.h" line="41" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/math.h" bodystart="41" bodyend="51"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/math.h" line="41" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/math.h" bodystart="41" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="namespacemath_1a70bc3cf992227cda7fc159e49634d83a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class T</type>
+          </param>
+        </templateparamlist>
+        <type>std::vector&lt; tf::Transform &gt;</type>
+        <definition>std::vector&lt;tf::Transform&gt; math::getTransformsFromVector</definition>
+        <argsstring>(const T &amp;input)</argsstring>
+        <name>getTransformsFromVector</name>
+        <param>
+          <type>const T &amp;</type>
+          <declname>input</declname>
+        </param>
+        <briefdescription>
+<para>Generate a vector of tf transforms from a vector of xyzrpy. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The vector type can be Eigen, std vector, protobuf </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input vector containing x,y,z, r,p,y</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>vector of tf::Transform </para></simplesect>
+<xrefsect id="todo_1_todo000012"><xreftitle>Todo</xreftitle><xrefdescription><para>(Matt) Add proto for transform and just process a list of the proto transforms here </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/math.h" line="68" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/math.h" bodystart="68" bodyend="82"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Math namespace to separate math functions from system functions if exist. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/common/math.cpp" line="9" column="1"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/common/math.cpp" line="9" column="1"/>
   </compounddef>
 </doxygen>

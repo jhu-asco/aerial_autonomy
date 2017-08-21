@@ -99,9 +99,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a97250a2cc027dc3ca7d10a975d11a5c7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structActionFunctor.html#a97250a2cc027dc3ca7d10a975d11a5c7">run</a> (EventT const &amp;event, RobotSystemT &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)=0</td></tr>
-<tr class="memdesc:a97250a2cc027dc3ca7d10a975d11a5c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override this run function for different sub classes. This function performs the logic checking for each state.  <a href="#a97250a2cc027dc3ca7d10a975d11a5c7">More...</a><br/></td></tr>
-<tr class="separator:a97250a2cc027dc3ca7d10a975d11a5c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa710274291fc963032dcb29628781d5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structActionFunctor.html#aaa710274291fc963032dcb29628781d5">run</a> (EventT const &amp;event, RobotSystemT &amp;robot_system)=0</td></tr>
+<tr class="memdesc:aaa710274291fc963032dcb29628781d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override this run function for different sub classes. This function performs the logic checking for each state.  <a href="#aaa710274291fc963032dcb29628781d5">More...</a><br/></td></tr>
+<tr class="separator:aaa710274291fc963032dcb29628781d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbf24aea135ecf5a0d470b290a5cab02"><td class="memTemplParams" colspan="2">template&lt;class FSM , class SourceState , class TargetState &gt; </td></tr>
 <tr class="memitem:adbf24aea135ecf5a0d470b290a5cab02"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="structActionFunctor.html#adbf24aea135ecf5a0d470b290a5cab02">operator()</a> (EventT const &amp;event, FSM &amp;logic_state_machine, SourceState &amp;, TargetState &amp;)</td></tr>
 <tr class="memdesc:adbf24aea135ecf5a0d470b290a5cab02"><td class="mdescLeft">&#160;</td><td class="mdescRight">operator () Internally calls run function  <a href="#adbf24aea135ecf5a0d470b290a5cab02">More...</a><br/></td></tr>
@@ -212,7 +212,7 @@ template&lt;class FSM , class SourceState , class TargetState &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a97250a2cc027dc3ca7d10a975d11a5c7"></a>
+<a class="anchor" id="aaa710274291fc963032dcb29628781d5"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -231,13 +231,7 @@ template&lt;class EventT, class RobotSystemT, class LogicStateMachineT&gt; </div
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">RobotSystemT &amp;&#160;</td>
-          <td class="paramname"><em>robot_system</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">LogicStateMachineT &amp;&#160;</td>
-          <td class="paramname"><em>logic_state_machine</em>&#160;</td>
+          <td class="paramname"><em>robot_system</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -256,13 +250,12 @@ template&lt;class EventT, class RobotSystemT, class LogicStateMachineT&gt; </div
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">robot_system</td><td>Provides sensor data and allows for controlling hardware </td></tr>
-    <tr><td class="paramname">logic_state_machine</td><td>Backend of logic State Machine. can send events using this. </td></tr>
     <tr><td class="paramname">event</td><td>Event triggering the action </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="structPositionControlTransitionActionFunctor__.html#a4970bb461809ffa30984e16902bb8aaa">PositionControlTransitionActionFunctor_&lt; LogicStateMachineT &gt;</a>.</p>
+<p>Implemented in <a class="el" href="structPositionControlTransitionActionFunctor__.html#a858864e90eb80c51b5f177aec918b378">PositionControlTransitionActionFunctor_&lt; LogicStateMachineT &gt;</a>.</p>
 
 </div>
 </div>

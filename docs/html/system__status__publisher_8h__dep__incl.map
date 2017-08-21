@@ -1,7 +1,9 @@
 <map id="include/aerial_autonomy/common/system_status_publisher.h" name="include/aerial_autonomy/common/system_status_publisher.h">
-<area shape="rect" id="node2" href="$common__system__handler_8h.html" title="include/aerial_autonomy\l/system_handlers/common\l_system_handler.h" alt="" coords="125,109,304,165"/>
-<area shape="rect" id="node3" href="$uav__system__handler_8h.html" title="include/aerial_autonomy\l/system_handlers/uav_system\l_handler.h" alt="" coords="5,213,204,269"/>
-<area shape="rect" id="node5" href="$uav__vision__system__handler_8h.html" title="include/aerial_autonomy\l/system_handlers/uav_vision\l_system_handler.h" alt="" coords="230,213,420,269"/>
-<area shape="rect" id="node4" href="$uav__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_system_node.cpp" alt="" coords="6,325,204,366"/>
-<area shape="rect" id="node6" href="$uav__vision__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_vision_system\l_node.cpp" alt="" coords="235,317,415,373"/>
+<area shape="rect" id="node2" href="$common__system__handler_8h.html" title="include/aerial_autonomy\l/system_handlers/common\l_system_handler.h" alt="" coords="219,109,397,165"/>
+<area shape="rect" id="node3" href="$uav__arm__system__handler_8h.html" title="include/aerial_autonomy\l/system_handlers/uav_arm\l_system_handler.h" alt="" coords="5,213,184,269"/>
+<area shape="rect" id="node5" href="$uav__system__handler_8h.html" title="include/aerial_autonomy\l/system_handlers/uav_system\l_handler.h" alt="" coords="208,213,407,269"/>
+<area shape="rect" id="node7" href="$uav__vision__system__handler_8h.html" title="include/aerial_autonomy\l/system_handlers/uav_vision\l_system_handler.h" alt="" coords="433,213,623,269"/>
+<area shape="rect" id="node4" href="$uav__arm__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_arm_system\l_node.cpp" alt="" coords="11,317,179,373"/>
+<area shape="rect" id="node6" href="$uav__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_system_node.cpp" alt="" coords="209,325,407,366"/>
+<area shape="rect" id="node8" href="$uav__vision__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_vision_system\l_node.cpp" alt="" coords="438,317,617,373"/>
 </map>

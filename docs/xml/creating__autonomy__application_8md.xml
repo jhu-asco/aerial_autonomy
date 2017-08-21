@@ -41,7 +41,7 @@
 <codeline lineno="32"><highlight class="normal"></highlight></codeline>
 <codeline lineno="33"><highlight class="normal">##<sp/>Creating<sp/>Internal<sp/>Actions</highlight></codeline>
 <codeline lineno="34"><highlight class="normal">Internal<sp/>actions<sp/>define<sp/>a<sp/>behavior<sp/>that<sp/>is<sp/>executed<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>in<sp/>a<sp/>particular<sp/>state.<sp/><sp/>They<sp/>should<sp/>derive<sp/>from<sp/>`<ref refid="structEventAgnosticActionFunctor" kindref="compound">EventAgnosticActionFunctor&lt;RobotSystemT, LogicStateMachineT&gt;</ref>`</highlight></codeline>
-<codeline lineno="35"><highlight class="normal">and<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal"><sp/>its<sp/>`run`<sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal"><sp/>with<sp/>the<sp/>intended<sp/>behavior.<sp/><sp/>See<sp/>`<ref refid="structPositionControlInternalActionFunctor__" kindref="compound">PositionControlInternalActionFunctor_</ref>`<sp/>in<sp/>`include/position_control_functors.h`<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>an<sp/>example.</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">and<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal"><sp/>its<sp/>`run`<sp/></highlight><highlight class="keyword">function</highlight><highlight class="normal"><sp/>with<sp/>the<sp/>intended<sp/>behavior.<sp/><sp/>See<sp/>`<ref refid="structboost_1_1msm_1_1front_1_1ShortingActionSequence__" kindref="compound">PositionControlInternalActionFunctor_</ref>`<sp/>in<sp/>`include/position_control_functors.h`<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>an<sp/>example.</highlight></codeline>
 <codeline lineno="36"><highlight class="normal"></highlight></codeline>
 <codeline lineno="37"><highlight class="normal">##<sp/>Creating<sp/>Guards</highlight></codeline>
 <codeline lineno="38"><highlight class="normal">Guards<sp/>check<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>a<sp/>triggered<sp/>transition<sp/>between<sp/>states<sp/>is<sp/>valid<sp/>or<sp/>not.<sp/><sp/>For<sp/>example,<sp/>the<sp/>`<ref refid="structTakeoffTransitionGuardFunctor__" kindref="compound">TakeoffTransitionGuardFunctor_</ref>`<sp/>keeps<sp/>a<sp/>`<ref refid="classUAVSystem" kindref="compound">UAVSystem</ref>`<sp/>from<sp/>taking<sp/>off<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>the<sp/>battery<sp/>level<sp/>percentage</highlight></codeline>
@@ -69,7 +69,7 @@
 <codeline lineno="60"><highlight class="normal">##<sp/>Creating<sp/>a<sp/>Node</highlight></codeline>
 <codeline lineno="61"><highlight class="normal">Create<sp/>an<sp/>executable<sp/>with<sp/>the<sp/>following<sp/>structure:</highlight></codeline>
 <codeline lineno="62"><highlight class="normal"></highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="uav__system__node_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>argv)<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="uav__arm__system__node_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">**<sp/>argv)<sp/>{</highlight></codeline>
 <codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>ros::init(argc,<sp/>argv);</highlight></codeline>
 <codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>ros::NodeHandle<sp/>nh;</highlight></codeline>
 <codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Load<sp/>config<sp/>into<sp/>config</highlight><highlight class="normal"></highlight></codeline>
@@ -79,6 +79,6 @@
 <codeline lineno="70"><highlight class="normal"></highlight></codeline>
 <codeline lineno="71"><highlight class="normal">See<sp/>`src/system_handler_nodes/uav_system_node.cpp`<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>an<sp/>example.</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/markdown/creating_autonomy_application.md"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/markdown/creating_autonomy_application.md"/>
   </compounddef>
 </doxygen>

@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$structInternalActionFunctor.html" title="InternalActionFunctor\l\&lt; UAVSystem, LogicStateMachineT \&gt;" alt="" coords="6,198,253,239"/>
+<area shape="rect" id="node2" href="$structControllerStatusInternalActionFunctor__.html" title="Logic to abort if controller status is critical. " alt="" coords="311,5,545,75"/>
+<area shape="rect" id="node3" href="$structHoveringInternalActionFunctor__.html" title="Internal action when hovering. " alt="" coords="301,99,555,141"/>
+<area shape="rect" id="node4" href="$structLandedInternalActionFunctor__.html" title="Internal action to switch to manual uav state. " alt="" coords="334,165,522,206"/>
+<area shape="rect" id="node5" href="$structLandInternalActionFunctor__.html" title="Internal action to figure out when landing is complete. " alt="" coords="341,230,515,271"/>
+<area shape="rect" id="node6" href="$structManualControlInternalActionFunctor__.html" title="Check if hardware is allowing to switch sdk mode. " alt="" coords="320,295,536,337"/>
+<area shape="rect" id="node7" href="$structTakeoffInternalActionFunctor__.html" title="Check when takeoff is complete, and ensure enough battery voltage. " alt="" coords="333,361,523,402"/>
+</map>

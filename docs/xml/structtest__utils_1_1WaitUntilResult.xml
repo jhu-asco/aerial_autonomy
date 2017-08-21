@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structtest__utils_1_1WaitUntilResult" kind="struct" prot="public">
+    <compoundname>test_utils::WaitUntilResult</compoundname>
+    <includes refid="test__utils_8h" local="no">test_utils.h</includes>
+    <templateparamlist>
+      <param>
+        <type>bool</type>
+        <declname>done</declname>
+        <defname>done</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structtest__utils_1_1WaitUntilResult_1afd53a5787b2337b3fdeb0a4aca0faaeb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool test_utils::WaitUntilResult&lt; done &gt;::operator()</definition>
+        <argsstring>(std::function&lt; bool(void)&gt; const &amp;input_function, std::chrono::seconds timeout)</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>std::function&lt; bool(void)&gt; const &amp;</type>
+          <declname>input_function</declname>
+        </param>
+        <param>
+          <type>std::chrono::seconds</type>
+          <declname>timeout</declname>
+        </param>
+        <briefdescription>
+<para>Waits until timeout or the input function returns done. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>input_function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic function </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>timeout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Timeout in seconds until to stop waiting for function output</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the output of input function at the end of the function evaluation </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/test_utils.h" line="25" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/test_utils.h" bodystart="25" bodyend="36"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Functor class that waits until the input function results in the template parameter or timeout which ever occurs first. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>done</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Specifies the result that the input function should provide when the wait is over </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/test_utils.h" line="16" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/test_utils.h" bodystart="16" bodyend="37"/>
+    <listofallmembers>
+      <member refid="structtest__utils_1_1WaitUntilResult_1afd53a5787b2337b3fdeb0a4aca0faaeb" prot="public" virt="non-virtual"><scope>test_utils::WaitUntilResult</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

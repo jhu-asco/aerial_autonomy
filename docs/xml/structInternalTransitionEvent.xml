@@ -2,12 +2,12 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
   <compounddef id="structInternalTransitionEvent" kind="struct" prot="public">
     <compoundname>InternalTransitionEvent</compoundname>
-    <includes refid="base__functors_8h" local="no">base_functors.h</includes>
+    <includes refid="internal__transition__event_8h" local="no">internal_transition_event.h</includes>
     <briefdescription>
 <para>The <ref refid="structInternalTransitionEvent" kindref="compound">InternalTransitionEvent</ref> struct used to trigger action behaviors in states. </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="223" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="223" bodyend="223"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/internal_transition_event.h" line="6" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/types/internal_transition_event.h" bodystart="6" bodyend="6"/>
     <listofallmembers>
     </listofallmembers>
   </compounddef>

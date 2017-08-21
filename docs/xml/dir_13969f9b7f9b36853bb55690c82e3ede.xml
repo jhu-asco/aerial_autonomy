@@ -2,12 +2,20 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
   <compounddef id="dir_13969f9b7f9b36853bb55690c82e3ede" kind="dir">
     <compoundname>include/aerial_autonomy/actions_guards</compoundname>
+    <innerfile refid="arm__functors_8h">arm_functors.h</innerfile>
     <innerfile refid="base__functors_8h">base_functors.h</innerfile>
+    <innerfile refid="exec__if_8h">exec_if.h</innerfile>
     <innerfile refid="hovering__functors_8h">hovering_functors.h</innerfile>
     <innerfile refid="land__functors_8h">land_functors.h</innerfile>
+    <innerfile refid="manual__control__functors_8h">manual_control_functors.h</innerfile>
+    <innerfile refid="pick__place__functors_8h">pick_place_functors.h</innerfile>
+    <innerfile refid="pick__place__states__actions_8h">pick_place_states_actions.h</innerfile>
     <innerfile refid="position__control__functors_8h">position_control_functors.h</innerfile>
+    <innerfile refid="shorting__action__sequence_8h">shorting_action_sequence.h</innerfile>
     <innerfile refid="takeoff__functors_8h">takeoff_functors.h</innerfile>
     <innerfile refid="uav__states__actions_8h">uav_states_actions.h</innerfile>
+    <innerfile refid="visual__servoing__functors_8h">visual_servoing_functors.h</innerfile>
+    <innerfile refid="visual__servoing__states__actions_8h">visual_servoing_states_actions.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

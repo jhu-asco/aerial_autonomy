@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="relative__pose__controller_8cpp" kind="file">
+    <compoundname>relative_pose_controller.cpp</compoundname>
+    <includes refid="relative__pose__controller_8h" local="yes">aerial_autonomy/controllers/relative_pose_controller.h</includes>
+    <includes local="no">glog/logging.h</includes>
+    <incdepgraph>
+      <node id="7362">
+        <label>boost/thread/mutex.hpp</label>
+      </node>
+      <node id="7359">
+        <label>aerial_autonomy/controllers/relative_pose_controller.h</label>
+        <link refid="relative__pose__controller_8h"/>
+        <childnode refid="7360" relation="include">
+        </childnode>
+        <childnode refid="7366" relation="include">
+        </childnode>
+        <childnode refid="7368" relation="include">
+        </childnode>
+        <childnode refid="7369" relation="include">
+        </childnode>
+        <childnode refid="7370" relation="include">
+        </childnode>
+      </node>
+      <node id="7371">
+        <label>glog/logging.h</label>
+      </node>
+      <node id="7367">
+        <label>cmath</label>
+      </node>
+      <node id="7364">
+        <label>string</label>
+      </node>
+      <node id="7370">
+        <label>tf/tf.h</label>
+      </node>
+      <node id="7363">
+        <label>aerial_autonomy/common/controller_status.h</label>
+        <link refid="controller__status_8h"/>
+        <childnode refid="7364" relation="include">
+        </childnode>
+        <childnode refid="7365" relation="include">
+        </childnode>
+      </node>
+      <node id="7369">
+        <label>tuple</label>
+      </node>
+      <node id="7365">
+        <label>vector</label>
+      </node>
+      <node id="7358">
+        <label>src/controllers/relative_pose_controller.cpp</label>
+        <link refid="relative_pose_controller.cpp"/>
+        <childnode refid="7359" relation="include">
+        </childnode>
+        <childnode refid="7371" relation="include">
+        </childnode>
+      </node>
+      <node id="7360">
+        <label>aerial_autonomy/controllers/base_controller.h</label>
+        <link refid="base__controller_8h"/>
+        <childnode refid="7361" relation="include">
+        </childnode>
+        <childnode refid="7363" relation="include">
+        </childnode>
+      </node>
+      <node id="7368">
+        <label>pose_controller_config.pb.h</label>
+      </node>
+      <node id="7366">
+        <label>aerial_autonomy/types/position.h</label>
+        <link refid="position_8h"/>
+        <childnode refid="7367" relation="include">
+        </childnode>
+      </node>
+      <node id="7361">
+        <label>aerial_autonomy/common/atomic.h</label>
+        <link refid="atomic_8h"/>
+        <childnode refid="7362" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="relative__pose__controller_8h" kindref="compound">aerial_autonomy/controllers/relative_pose_controller.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;glog/logging.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classRelativePoseController_1a1347c0bc6d6d8013dec2dc6947224df7" kindref="member">RelativePoseController::runImplementation</ref>(</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/>std::tuple&lt;tf::Transform,<sp/>tf::Transform&gt;<sp/>sensor_data,<sp/>tf::Transform<sp/>goal,</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/>tf::Transform<sp/>&amp;control)<sp/>{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/>control<sp/>=<sp/>std::get&lt;1&gt;(sensor_data)<sp/>*<sp/>goal;</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref><sp/><ref refid="classRelativePoseController_1a8087b063589133fd5c76b639ee27ff7f" kindref="member">RelativePoseController::isConvergedImplementation</ref>(</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>std::tuple&lt;tf::Transform,<sp/>tf::Transform&gt;<sp/>sensor_data,<sp/>tf::Transform<sp/>goal)<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/>tf::Transform<sp/>current_pose<sp/>=<sp/>std::get&lt;0&gt;(sensor_data);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/>tf::Transform<sp/>tracked_pose<sp/>=<sp/>std::get&lt;1&gt;(sensor_data);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/>tf::Transform<sp/>relative_pose<sp/>=<sp/>tracked_pose.inverse()<sp/>*<sp/>current_pose;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/>tf::Vector3<sp/>relative_position<sp/>=<sp/>relative_pose.getOrigin();</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/>tf::Vector3<sp/>goal_position<sp/>=<sp/>goal.getOrigin();</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>tf::Quaternion<sp/>relative_quat<sp/>=<sp/>relative_pose.getRotation();</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/>tf::Quaternion<sp/>goal_quat<sp/>=<sp/>goal.getRotation();</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>rot_diff<sp/>=<sp/>goal_quat.angleShortestPath(relative_quat);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>tf::Vector3<sp/>abs_error_position<sp/>=</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>(relative_position<sp/>-<sp/>goal_position).absolute();</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref><sp/>status(<ref refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5abd1aa4e51539cd0c71d10d8317b3d516" kindref="member">ControllerStatus::Active</ref>);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/>status<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Error<sp/>Position,<sp/>Rotation:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>abs_error_position.x()</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>abs_error_position.y()<sp/>&lt;&lt;<sp/>abs_error_position.z()<sp/>&lt;&lt;<sp/>rot_diff;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>config::Position<sp/>&amp;tolerance_pos<sp/>=<sp/>config_.goal_position_tolerance();</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(abs_error_position.x()<sp/>&lt;<sp/>tolerance_pos.x()<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>abs_error_position.y()<sp/>&lt;<sp/>tolerance_pos.y()<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>abs_error_position.z()<sp/>&lt;<sp/>tolerance_pos.z()<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>rot_diff<sp/>&lt;<sp/>config_.goal_rotation_tolerance())<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>VLOG_EVERY_N(1,<sp/>50)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Reached<sp/>goal&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>status.setStatus(<ref refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5a423a9e7373b9fa345a476136ba29fc05" kindref="member">ControllerStatus::Completed</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Reached<sp/>goal&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>status;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/controllers/relative_pose_controller.cpp"/>
+  </compounddef>
+</doxygen>

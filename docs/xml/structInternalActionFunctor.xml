@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structInternalActionFunctor" kind="struct" prot="public" abstract="yes">
+    <compoundname>InternalActionFunctor</compoundname>
+    <includes refid="base__functors_8h" local="no">base_functors.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class</type>
+        <declname>RobotSystemT</declname>
+        <defname>RobotSystemT</defname>
+      </param>
+      <param>
+        <type>class</type>
+        <declname>LogicStateMachineT</declname>
+        <defname>LogicStateMachineT</defname>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structInternalActionFunctor_1acb286e73f21393549a4fff4920c83349" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>bool</type>
+        <definition>virtual bool InternalActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;::run</definition>
+        <argsstring>(RobotSystemT &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)=0</argsstring>
+        <name>run</name>
+        <reimplementedby refid="structHoveringInternalActionFunctor___1af7519909fe07211641b95312b88aa110">run</reimplementedby>
+        <reimplementedby refid="structLandInternalActionFunctor___1ae937412c999754c8859a8fe5249f3a20">run</reimplementedby>
+        <reimplementedby refid="structControllerStatusInternalActionFunctor___1a5f33b0f79fdccb61a5bf7768bd615915">run</reimplementedby>
+        <reimplementedby refid="structManualControlInternalActionFunctor___1a0045cbe810dbea8a1c722fc0e2392276">run</reimplementedby>
+        <reimplementedby refid="structLandedInternalActionFunctor___1ae110ee7c759e426c5b3c3297eb72a602">run</reimplementedby>
+        <reimplementedby refid="structTakeoffInternalActionFunctor___1ad7089c5b1050180edb833109537cd9dd">run</reimplementedby>
+        <reimplementedby refid="structArmStatusInternalActionFunctor___1a922002875e32d228d5deede3d08b2c32">run</reimplementedby>
+        <reimplementedby refid="structArmFoldInternalActionFunctor___1a4299506615544980e5f1369e344fb900">run</reimplementedby>
+        <param>
+          <type>RobotSystemT &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <param>
+          <type>LogicStateMachineT &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <briefdescription>
+<para>Override this run function for different sub classes. This function performs the logic checking for each state and processes events on the state machine. It returns false if an action is processed/ true otherwise. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Provides sensor data and allows for controlling hardware </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend of logic State Machine. can send events using this. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="220" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structInternalActionFunctor_1a08544be6541497aca6b06309312c4bf3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class EventT</type>
+          </param>
+          <param>
+            <type>class FSM</type>
+          </param>
+          <param>
+            <type>class SourceState</type>
+          </param>
+          <param>
+            <type>class TargetState</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool InternalActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;::operator()</definition>
+        <argsstring>(EventT const &amp;, FSM &amp;logic_state_machine, SourceState &amp;, TargetState &amp;)</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>EventT const &amp;</type>
+        </param>
+        <param>
+          <type>FSM &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <param>
+          <type>SourceState &amp;</type>
+        </param>
+        <param>
+          <type>TargetState &amp;</type>
+        </param>
+        <briefdescription>
+<para>operator () Internally calls run function </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend of logic State Machine. can send events using this. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="229" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="229" bodyend="244"/>
+      </memberdef>
+      <memberdef kind="function" id="structInternalActionFunctor_1ac742ec395f7f9251738ab5cb12bd5329" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual InternalActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;::~InternalActionFunctor</definition>
+        <argsstring>()</argsstring>
+        <name>~InternalActionFunctor</name>
+        <briefdescription>
+<para>virtual destructor to get polymorphism </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="249" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="249" bodyend="249"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Internal action that returns whether it processed an event. </para>    </briefdescription>
+    <detaileddescription>
+<para>This action functor performs logic checks and processes events on the logic state machine. It also returns if it processed events or not. This is used with ShortingActionSequence to chain internal actions and stop executing actions once an action processes events with logic state machine</para><para>Returns true if no event processed. false if some event processed</para><para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>RobotSystemT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The robot system used in the guard </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The logic state machine used to retrieve robot system </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" line="208" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/base_functors.h" bodystart="208" bodyend="250"/>
+    <listofallmembers>
+      <member refid="structInternalActionFunctor_1a08544be6541497aca6b06309312c4bf3" prot="public" virt="non-virtual"><scope>InternalActionFunctor</scope><name>operator()</name></member>
+      <member refid="structInternalActionFunctor_1acb286e73f21393549a4fff4920c83349" prot="public" virt="pure-virtual"><scope>InternalActionFunctor</scope><name>run</name></member>
+      <member refid="structInternalActionFunctor_1ac742ec395f7f9251738ab5cb12bd5329" prot="public" virt="virtual"><scope>InternalActionFunctor</scope><name>~InternalActionFunctor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

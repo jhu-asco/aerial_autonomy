@@ -1,0 +1,229 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="visual__servoing__controller__arm__connector_8cpp" kind="file">
+    <compoundname>visual_servoing_controller_arm_connector.cpp</compoundname>
+    <includes refid="visual__servoing__controller__arm__connector_8h" local="yes">aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_arm_connector.h</includes>
+    <includes refid="conversions_8h" local="yes">aerial_autonomy/common/conversions.h</includes>
+    <incdepgraph>
+      <node id="7276">
+        <label>boost/thread/mutex.hpp</label>
+      </node>
+      <node id="7282">
+        <label>aerial_autonomy/controllers/relative_pose_controller.h</label>
+        <link refid="relative__pose__controller_8h"/>
+        <childnode refid="7280" relation="include">
+        </childnode>
+        <childnode refid="7283" relation="include">
+        </childnode>
+        <childnode refid="7285" relation="include">
+        </childnode>
+        <childnode refid="7286" relation="include">
+        </childnode>
+        <childnode refid="7287" relation="include">
+        </childnode>
+      </node>
+      <node id="7272">
+        <label>src/controller_hardware_connectors/visual_servoing_controller_arm_connector.cpp</label>
+        <link refid="visual_servoing_controller_arm_connector.cpp"/>
+        <childnode refid="7273" relation="include">
+        </childnode>
+        <childnode refid="7294" relation="include">
+        </childnode>
+      </node>
+      <node id="7281">
+        <label>glog/logging.h</label>
+      </node>
+      <node id="7284">
+        <label>cmath</label>
+      </node>
+      <node id="7274">
+        <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
+        <link refid="base__controller__hardware__connector_8h"/>
+        <childnode refid="7275" relation="include">
+        </childnode>
+        <childnode refid="7277" relation="include">
+        </childnode>
+        <childnode refid="7280" relation="include">
+        </childnode>
+        <childnode refid="7281" relation="include">
+        </childnode>
+      </node>
+      <node id="7278">
+        <label>string</label>
+      </node>
+      <node id="7295">
+        <label>tf_conversions/tf_eigen.h</label>
+      </node>
+      <node id="7287">
+        <label>tf/tf.h</label>
+      </node>
+      <node id="7277">
+        <label>aerial_autonomy/common/controller_status.h</label>
+        <link refid="controller__status_8h"/>
+        <childnode refid="7278" relation="include">
+        </childnode>
+        <childnode refid="7279" relation="include">
+        </childnode>
+      </node>
+      <node id="7292">
+        <label>arm_parsers/arm_parser.h</label>
+      </node>
+      <node id="7286">
+        <label>tuple</label>
+      </node>
+      <node id="7279">
+        <label>vector</label>
+      </node>
+      <node id="7280">
+        <label>aerial_autonomy/controllers/base_controller.h</label>
+        <link refid="base__controller_8h"/>
+        <childnode refid="7275" relation="include">
+        </childnode>
+        <childnode refid="7277" relation="include">
+        </childnode>
+      </node>
+      <node id="7288">
+        <label>aerial_autonomy/trackers/base_tracker.h</label>
+        <link refid="base__tracker_8h"/>
+        <childnode refid="7289" relation="include">
+        </childnode>
+        <childnode refid="7283" relation="include">
+        </childnode>
+        <childnode refid="7291" relation="include">
+        </childnode>
+        <childnode refid="7286" relation="include">
+        </childnode>
+        <childnode refid="7290" relation="include">
+        </childnode>
+      </node>
+      <node id="7285">
+        <label>pose_controller_config.pb.h</label>
+      </node>
+      <node id="7290">
+        <label>unordered_map</label>
+      </node>
+      <node id="7289">
+        <label>aerial_autonomy/trackers/tracking_strategy.h</label>
+        <link refid="tracking__strategy_8h"/>
+        <childnode refid="7283" relation="include">
+        </childnode>
+        <childnode refid="7286" relation="include">
+        </childnode>
+        <childnode refid="7290" relation="include">
+        </childnode>
+      </node>
+      <node id="7294">
+        <label>aerial_autonomy/common/conversions.h</label>
+        <link refid="conversions_8h"/>
+        <childnode refid="7295" relation="include">
+        </childnode>
+      </node>
+      <node id="7283">
+        <label>aerial_autonomy/types/position.h</label>
+        <link refid="position_8h"/>
+        <childnode refid="7284" relation="include">
+        </childnode>
+      </node>
+      <node id="7273">
+        <label>aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_arm_connector.h</label>
+        <link refid="visual__servoing__controller__arm__connector_8h"/>
+        <childnode refid="7274" relation="include">
+        </childnode>
+        <childnode refid="7282" relation="include">
+        </childnode>
+        <childnode refid="7288" relation="include">
+        </childnode>
+        <childnode refid="7292" relation="include">
+        </childnode>
+        <childnode refid="7293" relation="include">
+        </childnode>
+        <childnode refid="7287" relation="include">
+        </childnode>
+      </node>
+      <node id="7293">
+        <label>parsernode/parser.h</label>
+      </node>
+      <node id="7275">
+        <label>aerial_autonomy/common/atomic.h</label>
+        <link refid="atomic_8h"/>
+        <childnode refid="7276" relation="include">
+        </childnode>
+      </node>
+      <node id="7291">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="visual__servoing__controller__arm__connector_8h" kindref="compound">aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_arm_connector.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="conversions_8h" kindref="compound">aerial_autonomy/common/conversions.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classVisualServoingControllerArmConnector_1a68607930eb73573347a259580b22b94d" kindref="member">VisualServoingControllerArmConnector::extractSensorData</ref>(</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/>std::tuple&lt;tf::Transform,<sp/>tf::Transform&gt;<sp/>&amp;sensor_data)<sp/>{</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/>tf::Transform<sp/>tracking_pose;</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classVisualServoingControllerArmConnector_1afa3195d11275bd3266169933a088d047" kindref="member">getTrackingPoseArmFrame</ref>(tracking_pose))<sp/>{</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/>VLOG(1)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Cannot<sp/>find<sp/>tracking<sp/>pose&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/>tf::Transform<sp/>arm_pose_tf;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><ref refid="namespaceconversions_1acda31d5dfcff323b07c276899c2f74b9" kindref="member">conversions::transformMatrix4dToTf</ref>(arm_hardware_.getEndEffectorTransform(),</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arm_pose_tf);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/>sensor_data<sp/>=<sp/>std::make_tuple(arm_pose_tf,<sp/>tracking_pose);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classVisualServoingControllerArmConnector_1a01f0218d6f53ab5cbed8d6494224db7f" kindref="member">VisualServoingControllerArmConnector::sendHardwareCommands</ref>(</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>tf::Transform<sp/>pose)<sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>Eigen::Affine3d<sp/>pose_eig;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>tf::transformTFToEigen(pose,<sp/>pose_eig);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!arm_hardware_.setEndEffectorPose(pose_eig.matrix()))<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>LOG_EVERY_N(WARNING,<sp/>50)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;End<sp/>effector<sp/>not<sp/>in<sp/>workspace&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classVisualServoingControllerArmConnector_1afa3195d11275bd3266169933a088d047" kindref="member">VisualServoingControllerArmConnector::getTrackingPoseArmFrame</ref>(</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>tf::Transform<sp/>&amp;tracking_pose)<sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><ref refid="structPosition" kindref="compound">Position</ref><sp/>object_position_cam;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!tracker_.<ref refid="classBaseTracker_1a705369e65f51447798bb19e979de9801" kindref="member">getTrackingVector</ref>(object_position_cam))<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Get<sp/>drone<sp/>orientation</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/>parsernode::common::quaddata<sp/>quad_data;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>drone_hardware_.getquaddata(quad_data);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>tf::Transform<sp/>body_rotation;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><ref refid="namespaceconversions_1a2c3d31bf3e2dfb156045f1baf58ceace" kindref="member">conversions::transformRPYToTf</ref>(quad_data.rpydata.x,<sp/>quad_data.rpydata.y,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>quad_data.rpydata.z,<sp/>body_rotation);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Compute<sp/>object<sp/>transform<sp/>in<sp/>drone<sp/>frame</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/>tf::Transform<sp/>object_rotation_global_frame;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Since<sp/>rotation<sp/>is<sp/>ambiguous<sp/>for<sp/>2D<sp/>tracker,<sp/>assume<sp/>gravity<sp/>aligned<sp/>frame</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>with<sp/>same<sp/>yaw<sp/>as<sp/>drone</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><ref refid="namespaceconversions_1a2c3d31bf3e2dfb156045f1baf58ceace" kindref="member">conversions::transformRPYToTf</ref>(0,<sp/>0,<sp/>quad_data.rpydata.z,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>object_rotation_global_frame);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/>tf::Transform<sp/>object_rotation_body_frame<sp/>=</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>body_rotation.inverse()<sp/>*<sp/>object_rotation_global_frame;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/>tf::Vector3<sp/>object_direction_cam(object_position_cam.<ref refid="structPosition_1a9abbe738bad177de91fe4774099c1260" kindref="member">x</ref>,<sp/>object_position_cam.<ref refid="structPosition_1a75f48c2a1d2c7131b8be1a0687ae72c8" kindref="member">y</ref>,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>object_position_cam.<ref refid="structPosition_1ab26043bc2f8f6094818c17dd44e43228" kindref="member">z</ref>);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/>tf::Vector3<sp/>object_position_body_frame<sp/>=</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>camera_transform_<sp/>*<sp/>object_direction_cam;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>tf::Transform<sp/>object_tf_body_frame(object_rotation_body_frame.getRotation(),</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>object_position_body_frame);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Compute<sp/>object<sp/>transform<sp/>in<sp/>arm<sp/>frame</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/>tracking_pose<sp/>=<sp/>arm_transform_.inverse()<sp/>*<sp/>object_tf_body_frame;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/controller_hardware_connectors/visual_servoing_controller_arm_connector.cpp"/>
+  </compounddef>
+</doxygen>

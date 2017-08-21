@@ -6,6 +6,7 @@
     <derivedcompoundref refid="classControllerHardwareConnector" prot="public" virt="non-virtual">ControllerHardwareConnector&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</derivedcompoundref>
     <derivedcompoundref refid="classControllerHardwareConnector" prot="public" virt="non-virtual">ControllerHardwareConnector&lt; PositionYaw, Position, VelocityYawRate &gt;</derivedcompoundref>
     <derivedcompoundref refid="classControllerHardwareConnector" prot="public" virt="non-virtual">ControllerHardwareConnector&lt; PositionYaw, PositionYaw, PositionYaw &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classControllerHardwareConnector" prot="public" virt="non-virtual">ControllerHardwareConnector&lt; std::tuple&lt; tf::Transform, tf::Transform &gt;, tf::Transform, tf::Transform &gt;</derivedcompoundref>
     <derivedcompoundref refid="classControllerHardwareConnector" prot="public" virt="non-virtual">ControllerHardwareConnector&lt; VelocityYaw, VelocityYaw, VelocityYaw &gt;</derivedcompoundref>
     <includes refid="base__controller__hardware__connector_8h" local="no">base_controller_hardware_connector.h</includes>
       <sectiondef kind="public-func">
@@ -19,13 +20,34 @@
         <reimplementedby refid="classControllerHardwareConnector_1afb46464434a3a5881ecc1091f58bbd61">run</reimplementedby>
         <reimplementedby refid="classControllerHardwareConnector_1afb46464434a3a5881ecc1091f58bbd61">run</reimplementedby>
         <reimplementedby refid="classControllerHardwareConnector_1afb46464434a3a5881ecc1091f58bbd61">run</reimplementedby>
+        <reimplementedby refid="classControllerHardwareConnector_1afb46464434a3a5881ecc1091f58bbd61">run</reimplementedby>
         <briefdescription>
 <para>Abstract run function. </para>        </briefdescription>
         <detaileddescription>
 <para>The run function should run controller and send commands to hardware </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="27" column="1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="29" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="structAbstractControllerHardwareConnector_1a43c4d0668ccbb2ecffe79144b06f30cf" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref></type>
+        <definition>virtual ControllerStatus AbstractControllerHardwareConnector::getStatus</definition>
+        <argsstring>() const =0</argsstring>
+        <name>getStatus</name>
+        <reimplementedby refid="classControllerHardwareConnector_1a3e69fcccb3826adbd02ea9f7f0740613">getStatus</reimplementedby>
+        <reimplementedby refid="classControllerHardwareConnector_1a3e69fcccb3826adbd02ea9f7f0740613">getStatus</reimplementedby>
+        <reimplementedby refid="classControllerHardwareConnector_1a3e69fcccb3826adbd02ea9f7f0740613">getStatus</reimplementedby>
+        <reimplementedby refid="classControllerHardwareConnector_1a3e69fcccb3826adbd02ea9f7f0740613">getStatus</reimplementedby>
+        <reimplementedby refid="classControllerHardwareConnector_1a3e69fcccb3826adbd02ea9f7f0740613">getStatus</reimplementedby>
+        <reimplementedby refid="classControllerHardwareConnector_1a3e69fcccb3826adbd02ea9f7f0740613">getStatus</reimplementedby>
+        <briefdescription>
+<para>Provide the status of the controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The status of the controller </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="36" column="1"/>
       </memberdef>
       <memberdef kind="function" id="structAbstractControllerHardwareConnector_1a06f931d74faac604c3ef56cb5ba75399" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type></type>
@@ -38,7 +60,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="31" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="31" bodyend="31"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="41" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="41" bodyend="41"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -46,67 +68,80 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="344">
+      <node id="514">
         <label>VisualServoingControllerDroneConnector</label>
         <link refid="classVisualServoingControllerDroneConnector"/>
-        <childnode refid="343" relation="public-inheritance">
+        <childnode refid="513" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="340">
+      <node id="510">
         <label>ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="339" relation="public-inheritance">
+        <childnode refid="509" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="342">
+      <node id="512">
         <label>ManualRPYTControllerDroneConnector</label>
         <link refid="classManualRPYTControllerDroneConnector"/>
-        <childnode refid="341" relation="public-inheritance">
+        <childnode refid="511" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="345">
+      <node id="515">
         <label>ControllerHardwareConnector&lt; PositionYaw, PositionYaw, PositionYaw &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="339" relation="public-inheritance">
+        <childnode refid="509" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="343">
+      <node id="513">
         <label>ControllerHardwareConnector&lt; PositionYaw, Position, VelocityYawRate &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="339" relation="public-inheritance">
+        <childnode refid="509" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="339">
+      <node id="509">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
-      <node id="347">
+      <node id="519">
         <label>ControllerHardwareConnector&lt; VelocityYaw, VelocityYaw, VelocityYaw &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="339" relation="public-inheritance">
+        <childnode refid="509" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="341">
+      <node id="517">
+        <label>ControllerHardwareConnector&lt; std::tuple&lt; tf::Transform, tf::Transform &gt;, tf::Transform, tf::Transform &gt;</label>
+        <link refid="classControllerHardwareConnector"/>
+        <childnode refid="509" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="518">
+        <label>VisualServoingControllerArmConnector</label>
+        <link refid="classVisualServoingControllerArmConnector"/>
+        <childnode refid="517" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="511">
         <label>ControllerHardwareConnector&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="339" relation="public-inheritance">
+        <childnode refid="509" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="348">
+      <node id="520">
         <label>BuiltInVelocityControllerDroneConnector</label>
         <link refid="classBuiltInVelocityControllerDroneConnector"/>
-        <childnode refid="347" relation="public-inheritance">
+        <childnode refid="519" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="346">
+      <node id="516">
         <label>PositionControllerDroneConnector</label>
         <link refid="classPositionControllerDroneConnector"/>
-        <childnode refid="345" relation="public-inheritance">
+        <childnode refid="515" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="19" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="19" bodyend="32"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="21" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="21" bodyend="42"/>
     <listofallmembers>
+      <member refid="structAbstractControllerHardwareConnector_1a43c4d0668ccbb2ecffe79144b06f30cf" prot="public" virt="pure-virtual"><scope>AbstractControllerHardwareConnector</scope><name>getStatus</name></member>
       <member refid="structAbstractControllerHardwareConnector_1a0fcf605e19daef2f9f99d4dc2a23feb4" prot="public" virt="pure-virtual"><scope>AbstractControllerHardwareConnector</scope><name>run</name></member>
       <member refid="structAbstractControllerHardwareConnector_1a06f931d74faac604c3ef56cb5ba75399" prot="public" virt="virtual"><scope>AbstractControllerHardwareConnector</scope><name>~AbstractControllerHardwareConnector</name></member>
     </listofallmembers>

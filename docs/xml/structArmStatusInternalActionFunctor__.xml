@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structArmStatusInternalActionFunctor__" kind="struct" prot="public">
+    <compoundname>ArmStatusInternalActionFunctor_</compoundname>
+    <basecompoundref refid="structInternalActionFunctor" prot="public" virt="non-virtual">InternalActionFunctor&lt; ArmSystem, LogicStateMachineT &gt;</basecompoundref>
+    <includes refid="arm__functors_8h" local="no">arm_functors.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structArmStatusInternalActionFunctor___1a922002875e32d228d5deede3d08b2c32" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>bool ArmStatusInternalActionFunctor_&lt; LogicStateMachineT &gt;::run</definition>
+        <argsstring>(ArmSystem &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</argsstring>
+        <name>run</name>
+        <reimplements refid="structInternalActionFunctor_1acb286e73f21393549a4fff4920c83349">run</reimplements>
+        <param>
+          <type><ref refid="classArmSystem" kindref="compound">ArmSystem</ref> &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <param>
+          <type>LogicStateMachineT &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <briefdescription>
+<para>Override this run function for different sub classes. This function performs the logic checking for each state and processes events on the state machine. It returns false if an action is processed/ true otherwise. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Provides sensor data and allows for controlling hardware </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Backend of logic State Machine. can send events using this. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/arm_functors.h" line="111" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/arm_functors.h" bodystart="111" bodyend="119"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>action for checking arm status. </para>    </briefdescription>
+    <detaileddescription>
+<para>Aborts if arm did not power on.</para><para>Returns true if arm is powered on/ false if powered off</para><para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine used to process events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="564">
+        <label>ArmStatusInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
+        <link refid="structArmStatusInternalActionFunctor__"/>
+        <childnode refid="565" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="565">
+        <label>InternalActionFunctor&lt; ArmSystem, LogicStateMachineT &gt;</label>
+        <link refid="structInternalActionFunctor"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="566">
+        <label>ArmStatusInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
+        <link refid="structArmStatusInternalActionFunctor__"/>
+        <childnode refid="567" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="567">
+        <label>InternalActionFunctor&lt; ArmSystem, LogicStateMachineT &gt;</label>
+        <link refid="structInternalActionFunctor"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/arm_functors.h" line="110" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/arm_functors.h" bodystart="109" bodyend="120"/>
+    <listofallmembers>
+      <member refid="structInternalActionFunctor_1a08544be6541497aca6b06309312c4bf3" prot="public" virt="non-virtual"><scope>ArmStatusInternalActionFunctor_</scope><name>operator()</name></member>
+      <member refid="structArmStatusInternalActionFunctor___1a922002875e32d228d5deede3d08b2c32" prot="public" virt="virtual"><scope>ArmStatusInternalActionFunctor_</scope><name>run</name></member>
+      <member refid="structInternalActionFunctor_1ac742ec395f7f9251738ab5cb12bd5329" prot="public" virt="virtual"><scope>ArmStatusInternalActionFunctor_</scope><name>~InternalActionFunctor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

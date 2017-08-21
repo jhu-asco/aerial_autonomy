@@ -1,0 +1,5 @@
+<map id="MultiTracker" name="MultiTracker">
+<area shape="rect" id="node3" href="$classAlvarTracker.html" title="Provides vector to a tracked object based on output from alvar. " alt="" coords="5,155,101,181"/>
+<area shape="rect" id="node4" href="$classSimpleMultiTracker.html" title="A simple MultiTracker implementation for testing. " alt="" coords="126,155,260,181"/>
+<area shape="rect" id="node2" href="$classBaseTracker.html" title="Interface for classes that provide a vector to a tracked target. " alt="" coords="75,5,171,32"/>
+</map>

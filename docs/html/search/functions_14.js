@@ -1,17 +1,10 @@
 var searchData=
 [
-  ['_7eabstractcontrollerhardwareconnector',['~AbstractControllerHardwareConnector',['../structAbstractControllerHardwareConnector.html#a06f931d74faac604c3ef56cb5ba75399',1,'AbstractControllerHardwareConnector']]],
-  ['_7eactionfunctor',['~ActionFunctor',['../structActionFunctor.html#aaaa4c1ce7204b370be55f2ef4a618258',1,'ActionFunctor']]],
-  ['_7easynctimer',['~AsyncTimer',['../classAsyncTimer.html#a92781264c62bcbad0b9ffd447d0cb3fd',1,'AsyncTimer']]],
-  ['_7ebasestate',['~BaseState',['../classBaseState.html#a3967d85ffd88b9235fcfd9732e745c13',1,'BaseState']]],
-  ['_7ebuiltincontroller',['~BuiltInController',['../classBuiltInController.html#aea6ab422dc24222fb168a7e9522ec7c9',1,'BuiltInController']]],
-  ['_7econstantheadingdepthcontroller',['~ConstantHeadingDepthController',['../classConstantHeadingDepthController.html#a623a18b7c564a57af43c06d45702fced',1,'ConstantHeadingDepthController']]],
-  ['_7econtroller',['~Controller',['../classController.html#a86c5dbf78d3d948228c7c629e885151c',1,'Controller']]],
-  ['_7eeventagnosticactionfunctor',['~EventAgnosticActionFunctor',['../structEventAgnosticActionFunctor.html#a446e93a5275bb3ba15f7f5577d06a0bf',1,'EventAgnosticActionFunctor']]],
-  ['_7eeventagnosticguardfunctor',['~EventAgnosticGuardFunctor',['../structEventAgnosticGuardFunctor.html#aa339ada7b22b27bc6d384445d109f4e6',1,'EventAgnosticGuardFunctor']]],
-  ['_7eguardfunctor',['~GuardFunctor',['../structGuardFunctor.html#a3876b6e5028dcdc35ac786322e8afca3',1,'GuardFunctor']]],
-  ['_7emanualrpytcontroller',['~ManualRPYTController',['../classManualRPYTController.html#ac85b5cc721914cb7d265a35b155037af',1,'ManualRPYTController']]],
-  ['_7esampleparser',['~SampleParser',['../classSampleParser.html#afc4af7450f685341c09e2c00af95ff73',1,'SampleParser']]],
-  ['_7evelocitybasedpositioncontroller',['~VelocityBasedPositionController',['../classVelocityBasedPositionController.html#a08b7c0edaed63816a8ee2a84d7e1dc50',1,'VelocityBasedPositionController']]],
-  ['_7evisualservoingcontrollerdroneconnector',['~VisualServoingControllerDroneConnector',['../classVisualServoingControllerDroneConnector.html#af3c14afa505e7dc320956bd9980b085e',1,'VisualServoingControllerDroneConnector']]]
+  ['velocity',['Velocity',['../structVelocity.html#a852088c8d4dbb7e1beb0d793a57e9d11',1,'Velocity::Velocity()'],['../structVelocity.html#adb5f7fd7a3e1811b44c9b4020c31987c',1,'Velocity::Velocity(double x, double y, double z)']]],
+  ['velocitybasedpositioncontroller',['VelocityBasedPositionController',['../classVelocityBasedPositionController.html#a4cac2cfa9d6326d268c1f9bd0da4c00f',1,'VelocityBasedPositionController::VelocityBasedPositionController()'],['../classVelocityBasedPositionController.html#aa1be12d86ceb1c73329226fc34741f4d',1,'VelocityBasedPositionController::VelocityBasedPositionController(VelocityBasedPositionControllerConfig config)']]],
+  ['velocityyaw',['VelocityYaw',['../structVelocityYaw.html#a1aa3de4b3e3d7510c233ebd54b2fe79d',1,'VelocityYaw::VelocityYaw()'],['../structVelocityYaw.html#a21a3493e39f5256972abe5f97315c80b',1,'VelocityYaw::VelocityYaw(Velocity v, double yaw)'],['../structVelocityYaw.html#ab4ebb3f3782c9541dafb73c4e3e82196',1,'VelocityYaw::VelocityYaw(double x, double y, double z, double yaw)']]],
+  ['velocityyawrate',['VelocityYawRate',['../structVelocityYawRate.html#a019fbd52facffb5497b2546f21c4457b',1,'VelocityYawRate::VelocityYawRate()'],['../structVelocityYawRate.html#a9037a36323ee1fc339cdf8c05ef66966',1,'VelocityYawRate::VelocityYawRate(Velocity v, double yaw_rate)'],['../structVelocityYawRate.html#a307b357ff482bfe724962a1677d4de7c',1,'VelocityYawRate::VelocityYawRate(double x, double y, double z, double yaw_rate)']]],
+  ['visualservoingcontrollerarmconnector',['VisualServoingControllerArmConnector',['../classVisualServoingControllerArmConnector.html#a46daa6b43a0d1c12a6a95560b4861a29',1,'VisualServoingControllerArmConnector']]],
+  ['visualservoingcontrollerdroneconnector',['VisualServoingControllerDroneConnector',['../classVisualServoingControllerDroneConnector.html#a65532910af410cc952ba2286045e2a7a',1,'VisualServoingControllerDroneConnector']]],
+  ['visualservoingstatemachinefrontend',['VisualServoingStateMachineFrontEnd',['../classVisualServoingStateMachineFrontEnd.html#a2b7ae72d046ba5ae34fda38b89482ccd',1,'VisualServoingStateMachineFrontEnd']]]
 ];

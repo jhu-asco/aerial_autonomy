@@ -107,9 +107,9 @@ Collaboration diagram for CommonSystemHandler&lt; LogicStateMachineT, EventManag
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aeb821763feeb9ddd1d878eee1b4d62de"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCommonSystemHandler.html#aeb821763feeb9ddd1d878eee1b4d62de">CommonSystemHandler</a> (ros::NodeHandle &amp;nh, const CommonSystemHandlerConfig &amp;config, RobotSystemT &amp;robot_system)</td></tr>
-<tr class="memdesc:aeb821763feeb9ddd1d878eee1b4d62de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#aeb821763feeb9ddd1d878eee1b4d62de">More...</a><br/></td></tr>
-<tr class="separator:aeb821763feeb9ddd1d878eee1b4d62de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabef08ac98a33e49b1844194bbaff74a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCommonSystemHandler.html#aabef08ac98a33e49b1844194bbaff74a">CommonSystemHandler</a> (const CommonSystemHandlerConfig &amp;config, RobotSystemT &amp;robot_system)</td></tr>
+<tr class="memdesc:aabef08ac98a33e49b1844194bbaff74a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#aabef08ac98a33e49b1844194bbaff74a">More...</a><br/></td></tr>
+<tr class="separator:aabef08ac98a33e49b1844194bbaff74a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a106090bca9f70de4100ce256983481d6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCommonSystemHandler.html#a106090bca9f70de4100ce256983481d6">CommonSystemHandler</a> (const <a class="el" href="classCommonSystemHandler.html">CommonSystemHandler</a> &amp;)=delete</td></tr>
 <tr class="memdesc:a106090bca9f70de4100ce256983481d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete copy constructor.  <a href="#a106090bca9f70de4100ce256983481d6">More...</a><br/></td></tr>
 <tr class="separator:a106090bca9f70de4100ce256983481d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,6 +122,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:a6a8086663729053c1810d2dcf193ce51"><td class="memItemLeft" align="right" valign="top">ros::NodeHandle&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCommonSystemHandler.html#a6a8086663729053c1810d2dcf193ce51">nh_</a></td></tr>
+<tr class="separator:a6a8086663729053c1810d2dcf193ce51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34cbe068c3c4715ed8ff5b9a717ae593"><td class="memItemLeft" align="right" valign="top">LogicStateMachineT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCommonSystemHandler.html#a34cbe068c3c4715ed8ff5b9a717ae593">logic_state_machine_</a></td></tr>
 <tr class="memdesc:a34cbe068c3c4715ed8ff5b9a717ae593"><td class="mdescLeft">&#160;</td><td class="mdescRight">State machine that gets run by the system.  <a href="#a34cbe068c3c4715ed8ff5b9a717ae593">More...</a><br/></td></tr>
 <tr class="separator:a34cbe068c3c4715ed8ff5b9a717ae593"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -157,7 +159,7 @@ class CommonSystemHandler&lt; LogicStateMachineT, EventManagerT, RobotSystemT &g
   </dd>
 </dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="aeb821763feeb9ddd1d878eee1b4d62de"></a>
+<a class="anchor" id="aabef08ac98a33e49b1844194bbaff74a"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -169,12 +171,6 @@ template&lt;class LogicStateMachineT, class EventManagerT, class RobotSystemT&gt
         <tr>
           <td class="memname"><a class="el" href="classCommonSystemHandler.html">CommonSystemHandler</a>&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;::<a class="el" href="classCommonSystemHandler.html">CommonSystemHandler</a> </td>
           <td>(</td>
-          <td class="paramtype">ros::NodeHandle &amp;&#160;</td>
-          <td class="paramname"><em>nh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const CommonSystemHandlerConfig &amp;&#160;</td>
           <td class="paramname"><em>config</em>, </td>
         </tr>
@@ -365,6 +361,28 @@ template&lt;class LogicStateMachineT, class EventManagerT, class RobotSystemT&gt
 </div><div class="memdoc">
 
 <p>Timer for running state machine. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6a8086663729053c1810d2dcf193ce51"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class LogicStateMachineT, class EventManagerT, class RobotSystemT&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ros::NodeHandle <a class="el" href="classCommonSystemHandler.html">CommonSystemHandler</a>&lt; LogicStateMachineT, EventManagerT, RobotSystemT &gt;::nh_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

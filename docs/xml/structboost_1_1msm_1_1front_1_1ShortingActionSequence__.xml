@@ -1,0 +1,262 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structboost_1_1msm_1_1front_1_1ShortingActionSequence__" kind="struct" prot="public">
+    <compoundname>boost::msm::front::ShortingActionSequence_</compoundname>
+    <includes refid="shorting__action__sequence_8h" local="no">shorting_action_sequence.h</includes>
+    <innerclass refid="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1_1Call" prot="public">boost::msm::front::ShortingActionSequence_::Call</innerclass>
+    <innerclass refid="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1_1CallSourceTarget" prot="public">boost::msm::front::ShortingActionSequence_::CallSourceTarget</innerclass>
+    <innerclass refid="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1_1state__action__result" prot="public">boost::msm::front::ShortingActionSequence_::state_action_result</innerclass>
+    <innerclass refid="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1_1transition__action__result" prot="public">boost::msm::front::ShortingActionSequence_::transition_action_result</innerclass>
+    <templateparamlist>
+      <param>
+        <type>class Sequence</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1ad7ecb78dd2e9f43c1b98bf1bd0d13338" prot="public" static="no">
+        <type>Sequence</type>
+        <definition>typedef Sequence boost::msm::front::ShortingActionSequence_&lt; Sequence &gt;::sequence</definition>
+        <argsstring></argsstring>
+        <name>sequence</name>
+        <briefdescription>
+<para>Sequence of elements that are instantiated and evaluated. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" line="50" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1a8b1de652fcfc56455ef3ca069a267e94" prot="public" static="no">
+        <type>::boost::mpl::bool_&lt; ::boost::mpl::count_if&lt; <ref refid="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1ad7ecb78dd2e9f43c1b98bf1bd0d13338" kindref="member">sequence</ref>, has_deferring_action&lt;::boost::mpl::placeholders::_1 &gt; &gt;::value!=0 &gt;</type>
+        <definition>typedef ::boost::mpl::bool_&lt; ::boost::mpl::count_if&lt; sequence, has_deferring_action&lt;::boost::mpl::placeholders::_1&gt; &gt;::value != 0&gt; boost::msm::front::ShortingActionSequence_&lt; Sequence &gt;::some_deferring_actions</definition>
+        <argsstring></argsstring>
+        <name>some_deferring_actions</name>
+        <briefdescription>
+<para>Deferring actions for the sequence. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" line="59" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1a8e19d2d0f91cb8170b597973a0089960" prot="public" static="no">
+        <type>::boost::mpl::set&lt; state_action_tag, action_tag &gt;</type>
+        <definition>typedef ::boost::mpl::set&lt;state_action_tag, action_tag&gt; boost::msm::front::ShortingActionSequence_&lt; Sequence &gt;::tag_type</definition>
+        <argsstring></argsstring>
+        <name>tag_type</name>
+        <briefdescription>
+<para>Tag type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" line="168" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1a00da3998dbae7e598cff0dcc0d549066" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class EVT</type>
+          </param>
+          <param>
+            <type>class FSM</type>
+          </param>
+          <param>
+            <type>class STATE</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool boost::msm::front::ShortingActionSequence_&lt; Sequence &gt;::operator()</definition>
+        <argsstring>(EVT const &amp;evt, FSM &amp;fsm, STATE &amp;state)</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>EVT const &amp;</type>
+          <declname>evt</declname>
+        </param>
+        <param>
+          <type>FSM &amp;</type>
+          <declname>fsm</declname>
+        </param>
+        <param>
+          <type>STATE &amp;</type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+<para>operator to evaluate the action sequence </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>EVT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event type </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FSM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Statemachine type </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>STATE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State type </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>evt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>event instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fsm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>statemachine instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>state</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>state instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the action sequence returns true/false otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" line="183" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" bodystart="183" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1a10c238102e23a8374b4fa2a579256d88" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class EVT</type>
+          </param>
+          <param>
+            <type>class FSM</type>
+          </param>
+          <param>
+            <type>class SourceState</type>
+          </param>
+          <param>
+            <type>class TargetState</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool boost::msm::front::ShortingActionSequence_&lt; Sequence &gt;::operator()</definition>
+        <argsstring>(EVT const &amp;evt, FSM &amp;fsm, SourceState &amp;src, TargetState &amp;tgt)</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>EVT const &amp;</type>
+          <declname>evt</declname>
+        </param>
+        <param>
+          <type>FSM &amp;</type>
+          <declname>fsm</declname>
+        </param>
+        <param>
+          <type>SourceState &amp;</type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type>TargetState &amp;</type>
+          <declname>tgt</declname>
+        </param>
+        <briefdescription>
+<para>operator to evaluate the action sequence </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>EVT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event type </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FSM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Statemachine type </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SourceState</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>source state type </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TargetState</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>target state type </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>evt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>event instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fsm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>statemachine instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>src</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>source state instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tgt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>target state instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the action sequence returns true/false otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" line="203" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" bodystart="203" bodyend="209"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Action sequence that runs until one of the actions returns false. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Sequence</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Sequence of elements that are instantiated and evaluated </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" line="46" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" bodystart="46" bodyend="210"/>
+    <listofallmembers>
+      <member refid="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1a00da3998dbae7e598cff0dcc0d549066" prot="public" virt="non-virtual"><scope>boost::msm::front::ShortingActionSequence_</scope><name>operator()</name></member>
+      <member refid="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1a10c238102e23a8374b4fa2a579256d88" prot="public" virt="non-virtual"><scope>boost::msm::front::ShortingActionSequence_</scope><name>operator()</name></member>
+      <member refid="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1ad7ecb78dd2e9f43c1b98bf1bd0d13338" prot="public" virt="non-virtual"><scope>boost::msm::front::ShortingActionSequence_</scope><name>sequence</name></member>
+      <member refid="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1a8b1de652fcfc56455ef3ca069a267e94" prot="public" virt="non-virtual"><scope>boost::msm::front::ShortingActionSequence_</scope><name>some_deferring_actions</name></member>
+      <member refid="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1a8e19d2d0f91cb8170b597973a0089960" prot="public" virt="non-virtual"><scope>boost::msm::front::ShortingActionSequence_</scope><name>tag_type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

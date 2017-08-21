@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structPickPlaceStatesActions_1_1ManualControlArmState" kind="struct" prot="public">
+    <compoundname>PickPlaceStatesActions::ManualControlArmState</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">boost::msm::front::state&lt;&gt;</basecompoundref>
+    <includes refid="pick__place__states__actions_8h" local="no">pick_place_states_actions.h</includes>
+    <innerclass refid="structPickPlaceStatesActions_1_1ManualControlArmState_1_1internal__transition__table" prot="public">PickPlaceStatesActions::ManualControlArmState::internal_transition_table</innerclass>
+    <briefdescription>
+<para>State that checks arm status along with regular manual control state. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine used to process events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="731">
+        <label>PickPlaceStatesActions&lt; LogicStateMachineT &gt;::ManualControlArmState</label>
+        <link refid="structPickPlaceStatesActions_1_1ManualControlArmState"/>
+        <childnode refid="732" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="732">
+        <label>msmf::state&lt;&gt;</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="733">
+        <label>PickPlaceStatesActions&lt; LogicStateMachineT &gt;::ManualControlArmState</label>
+        <link refid="structPickPlaceStatesActions_1_1ManualControlArmState"/>
+        <childnode refid="734" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="734">
+        <label>msmf::state&lt;&gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="137" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="137" bodyend="150"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

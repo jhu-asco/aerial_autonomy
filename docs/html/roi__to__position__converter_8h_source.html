@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_2f8e754ab99ce0b8ad0265163734387c.html">include</a></li><li class="navelem"><a class="el" href="dir_aa08a9b8af1d5448e3e7b8b8a4c3ba6b.html">aerial_autonomy</a></li><li class="navelem"><a class="el" href="dir_abb903b9a1d1a5b976d93df40b76c307.html">trackers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_6fe9f9c87adb79173c1aa2f732811b45.html">include</a></li><li class="navelem"><a class="el" href="dir_8c66c8138e7b35f6ec94720b060b21f5.html">aerial_autonomy</a></li><li class="navelem"><a class="el" href="dir_c5511e641a604113d55bbc46e68c5631.html">trackers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -92,87 +92,86 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <a href="roi__to__position__converter_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="base__tracker_8h.html">aerial_autonomy/trackers/base_tracker.h</a>&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="position_8h.html">aerial_autonomy/types/position.h</a>&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;ros/ros.h&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="atomic_8h.html">aerial_autonomy/common/atomic.h</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="base__tracker_8h.html">aerial_autonomy/trackers/base_tracker.h</a>&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="simple__tracking__strategy_8h.html">aerial_autonomy/trackers/simple_tracking_strategy.h</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="position_8h.html">aerial_autonomy/types/position.h</a>&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;cv_bridge/cv_bridge.h&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;ros/ros.h&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;image_transport/image_transport.h&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;cv_bridge/cv_bridge.h&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;sensor_msgs/CameraInfo.h&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;sensor_msgs/Image.h&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;sensor_msgs/RegionOfInterest.h&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;Eigen/Dense&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;image_transport/image_transport.h&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;sensor_msgs/CameraInfo.h&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;sensor_msgs/Image.h&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;sensor_msgs/RegionOfInterest.h&gt;</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;boost/thread/mutex.hpp&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;Eigen/Dense&gt;</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classRoiToPositionConverter.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRoiToPositionConverter.html">RoiToPositionConverter</a> : <span class="keyword">public</span> <a class="code" href="classBaseTracker.html">BaseTracker</a> {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classRoiToPositionConverter.html#a93b30449d5b9946e065e4e78c404f9a5">   30</a></span>&#160;  <a class="code" href="classRoiToPositionConverter.html#a93b30449d5b9946e065e4e78c404f9a5">RoiToPositionConverter</a>(ros::NodeHandle &amp;nh)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      : it_(nh), roi_subscriber_(nh.subscribe(</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                     <span class="stringliteral">&quot;roi&quot;</span>, 10, &amp;<a class="code" href="classRoiToPositionConverter.html">RoiToPositionConverter</a>::roiCallback, this)),</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        camera_info_subscriber_(</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            nh.subscribe(<span class="stringliteral">&quot;camera_info&quot;</span>, 1,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                         &amp;<a class="code" href="classRoiToPositionConverter.html">RoiToPositionConverter</a>::cameraInfoCallback, this)),</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        depth_subscriber_(nh.subscribe(</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="stringliteral">&quot;depth&quot;</span>, 1, &amp;<a class="code" href="classRoiToPositionConverter.html">RoiToPositionConverter</a>::depthCallback, this)),</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        image_subscriber_(it_.subscribe(</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="stringliteral">&quot;image&quot;</span>, 1, &amp;<a class="code" href="classRoiToPositionConverter.html">RoiToPositionConverter</a>::imageCallback, this)) {}</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classRoiToPositionConverter.html#a537e53d157931a08343d0b41195a924c">getTrackingVector</a>(<a class="code" href="structPosition.html">Position</a> &amp;pos);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classRoiToPositionConverter.html#a5384fe4584c3a0dc654eb0e6b9d8a73d">computeTrackingVector</a>(<span class="keyword">const</span> sensor_msgs::RegionOfInterest &amp;roi,</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                                    <span class="keyword">const</span> cv::Mat &amp;depth,</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                                    <span class="keyword">const</span> sensor_msgs::CameraInfo &amp;cam_info,</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                                    <span class="keywordtype">double</span> max_distance,</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                                    <span class="keywordtype">double</span> foreground_percent, <a class="code" href="structPosition.html">Position</a> &amp;pos);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classRoiToPositionConverter.html#a408f82ba9764ba20e2463535850d3268">trackingIsValid</a>();</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classRoiToPositionConverter.html#a6ff5fa7a373c3917e9a7047df0a99560">isConnected</a>();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordtype">bool</span> cameraInfoIsValid();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keywordtype">bool</span> roiIsValid();</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="keywordtype">void</span> roiCallback(<span class="keyword">const</span> sensor_msgs::RegionOfInterest &amp;roi_msg);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keywordtype">void</span> imageCallback(<span class="keyword">const</span> sensor_msgs::ImageConstPtr &amp;img_msg);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="keywordtype">void</span> cameraInfoCallback(<span class="keyword">const</span> sensor_msgs::CameraInfo &amp;cam_info_msg);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="keywordtype">void</span> depthCallback(<span class="keyword">const</span> sensor_msgs::ImageConstPtr &amp;depth_msg);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> compare(Eigen::Vector3d a, Eigen::Vector3d b);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  image_transport::ImageTransport it_;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  ros::Subscriber roi_subscriber_;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  ros::Subscriber camera_info_subscriber_;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  ros::Subscriber depth_subscriber_;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  image_transport::Subscriber image_subscriber_;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  sensor_msgs::CameraInfoPtr camera_info_;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  sensor_msgs::RegionOfInterest roi_rect_;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  <a class="code" href="structPosition.html">Position</a> object_position_;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  <span class="keywordtype">double</span> max_object_distance_ = 3.0;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  <span class="keywordtype">double</span> foreground_percent_ = 0.25;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  ros::Time last_roi_update_time_;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;  boost::mutex camera_info_mutex_;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  boost::mutex position_mutex_;</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  boost::mutex roi_mutex_;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;  boost::mutex roi_update_mutex_;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;};</div>
-<div class="ttc" id="classRoiToPositionConverter_html"><div class="ttname"><a href="classRoiToPositionConverter.html">RoiToPositionConverter</a></div><div class="ttdoc">Converts a ROI in image to vector in camera frame. </div><div class="ttdef"><b>Definition:</b> roi_to_position_converter.h:23</div></div>
-<div class="ttc" id="classRoiToPositionConverter_html_a5384fe4584c3a0dc654eb0e6b9d8a73d"><div class="ttname"><a href="classRoiToPositionConverter.html#a5384fe4584c3a0dc654eb0e6b9d8a73d">RoiToPositionConverter::computeTrackingVector</a></div><div class="ttdeci">static void computeTrackingVector(const sensor_msgs::RegionOfInterest &amp;roi, const cv::Mat &amp;depth, const sensor_msgs::CameraInfo &amp;cam_info, double max_distance, double foreground_percent, Position &amp;pos)</div><div class="ttdoc">Get the 3D position of the ROI (in the frame of the camera) </div><div class="ttdef"><b>Definition:</b> roi_to_position_converter.cpp:109</div></div>
-<div class="ttc" id="classBaseTracker_html"><div class="ttname"><a href="classBaseTracker.html">BaseTracker</a></div><div class="ttdoc">Interface for classes that provide a vector to a tracked target. </div><div class="ttdef"><b>Definition:</b> base_tracker.h:8</div></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;boost/thread/mutex.hpp&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classRoiToPositionConverter.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRoiToPositionConverter.html">RoiToPositionConverter</a> : <span class="keyword">public</span> <a class="code" href="classBaseTracker.html">BaseTracker</a> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classRoiToPositionConverter.html#a93b30449d5b9946e065e4e78c404f9a5">   32</a></span>&#160;  <a class="code" href="classRoiToPositionConverter.html#a93b30449d5b9946e065e4e78c404f9a5">RoiToPositionConverter</a>(ros::NodeHandle &amp;nh)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      : <a class="code" href="classBaseTracker.html">BaseTracker</a>(new <a class="code" href="classSimpleTrackingStrategy.html">SimpleTrackingStrategy</a>()), it_(nh),</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        roi_subscriber_(nh.subscribe(</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="stringliteral">&quot;roi&quot;</span>, 10, &amp;<a class="code" href="classRoiToPositionConverter.html">RoiToPositionConverter</a>::roiCallback, this)),</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        camera_info_subscriber_(</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            nh.subscribe(<span class="stringliteral">&quot;camera_info&quot;</span>, 1,</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                         &amp;<a class="code" href="classRoiToPositionConverter.html">RoiToPositionConverter</a>::cameraInfoCallback, this)),</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        depth_subscriber_(nh.subscribe(</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="stringliteral">&quot;depth&quot;</span>, 1, &amp;<a class="code" href="classRoiToPositionConverter.html">RoiToPositionConverter</a>::depthCallback, this)),</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        image_subscriber_(it_.subscribe(</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="stringliteral">&quot;image&quot;</span>, 1, &amp;<a class="code" href="classRoiToPositionConverter.html">RoiToPositionConverter</a>::imageCallback, this)) {}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classRoiToPositionConverter.html#a83de9bf4e7ce52e3a1c55992462abc65">getTrackingVectors</a>(std::unordered_map&lt;uint32_t, Position&gt; &amp;pos);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classRoiToPositionConverter.html#a5384fe4584c3a0dc654eb0e6b9d8a73d">computeTrackingVector</a>(<span class="keyword">const</span> sensor_msgs::RegionOfInterest &amp;roi,</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                                    <span class="keyword">const</span> cv::Mat &amp;depth,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                    <span class="keyword">const</span> sensor_msgs::CameraInfo &amp;cam_info,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                    <span class="keywordtype">double</span> max_distance,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                    <span class="keywordtype">double</span> foreground_percent, <a class="code" href="structPosition.html">Position</a> &amp;pos);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classRoiToPositionConverter.html#a408f82ba9764ba20e2463535850d3268">trackingIsValid</a>();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classRoiToPositionConverter.html#a6ff5fa7a373c3917e9a7047df0a99560">isConnected</a>();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="keywordtype">bool</span> cameraInfoIsValid();</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keywordtype">bool</span> roiIsValid();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keywordtype">void</span> roiCallback(<span class="keyword">const</span> sensor_msgs::RegionOfInterest &amp;roi_msg);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="keywordtype">void</span> imageCallback(<span class="keyword">const</span> sensor_msgs::ImageConstPtr &amp;img_msg);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keywordtype">void</span> cameraInfoCallback(<span class="keyword">const</span> sensor_msgs::CameraInfo &amp;cam_info_msg);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="keywordtype">void</span> depthCallback(<span class="keyword">const</span> sensor_msgs::ImageConstPtr &amp;depth_msg);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> compare(Eigen::Vector3d a, Eigen::Vector3d b);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  image_transport::ImageTransport it_;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  ros::Subscriber roi_subscriber_;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  ros::Subscriber camera_info_subscriber_;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  ros::Subscriber depth_subscriber_;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  image_transport::Subscriber image_subscriber_;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  <a class="code" href="classAtomic.html">Atomic&lt;sensor_msgs::CameraInfo&gt;</a> camera_info_;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  <a class="code" href="classAtomic.html">Atomic&lt;sensor_msgs::RegionOfInterest&gt;</a> roi_rect_;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  <a class="code" href="classAtomic.html">Atomic&lt;Position&gt;</a> object_position_;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  <span class="keywordtype">double</span> max_object_distance_ = 3.0;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  <span class="keywordtype">double</span> foreground_percent_ = 0.25;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  <a class="code" href="classAtomic.html">Atomic&lt;ros::Time&gt;</a> last_roi_update_time_;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;};</div>
+<div class="ttc" id="classSimpleTrackingStrategy_html"><div class="ttname"><a href="classSimpleTrackingStrategy.html">SimpleTrackingStrategy</a></div><div class="ttdoc">A strategy that simply returns the first element in the list of tracking vectors Should be used if yo...</div><div class="ttdef"><b>Definition:</b> simple_tracking_strategy.h:10</div></div>
+<div class="ttc" id="classAtomic_html"><div class="ttname"><a href="classAtomic.html">Atomic&lt; sensor_msgs::CameraInfo &gt;</a></div></div>
+<div class="ttc" id="classRoiToPositionConverter_html"><div class="ttname"><a href="classRoiToPositionConverter.html">RoiToPositionConverter</a></div><div class="ttdoc">Converts a ROI in image to vector in camera frame. </div><div class="ttdef"><b>Definition:</b> roi_to_position_converter.h:25</div></div>
+<div class="ttc" id="classRoiToPositionConverter_html_a5384fe4584c3a0dc654eb0e6b9d8a73d"><div class="ttname"><a href="classRoiToPositionConverter.html#a5384fe4584c3a0dc654eb0e6b9d8a73d">RoiToPositionConverter::computeTrackingVector</a></div><div class="ttdeci">static void computeTrackingVector(const sensor_msgs::RegionOfInterest &amp;roi, const cv::Mat &amp;depth, const sensor_msgs::CameraInfo &amp;cam_info, double max_distance, double foreground_percent, Position &amp;pos)</div><div class="ttdoc">Get the 3D position of the ROI (in the frame of the camera) </div><div class="ttdef"><b>Definition:</b> roi_to_position_converter.cpp:88</div></div>
+<div class="ttc" id="classBaseTracker_html"><div class="ttname"><a href="classBaseTracker.html">BaseTracker</a></div><div class="ttdoc">Interface for classes that provide a vector to a tracked target. </div><div class="ttdef"><b>Definition:</b> base_tracker.h:13</div></div>
 <div class="ttc" id="classRoiToPositionConverter_html_a6ff5fa7a373c3917e9a7047df0a99560"><div class="ttname"><a href="classRoiToPositionConverter.html#a6ff5fa7a373c3917e9a7047df0a99560">RoiToPositionConverter::isConnected</a></div><div class="ttdeci">bool isConnected()</div><div class="ttdoc">Check whether topics are connected. </div><div class="ttdef"><b>Definition:</b> roi_to_position_converter.cpp:7</div></div>
-<div class="ttc" id="classRoiToPositionConverter_html_a408f82ba9764ba20e2463535850d3268"><div class="ttname"><a href="classRoiToPositionConverter.html#a408f82ba9764ba20e2463535850d3268">RoiToPositionConverter::trackingIsValid</a></div><div class="ttdeci">bool trackingIsValid()</div><div class="ttdoc">Check whether tracking is valid. </div><div class="ttdef"><b>Definition:</b> roi_to_position_converter.cpp:77</div></div>
-<div class="ttc" id="classRoiToPositionConverter_html_a93b30449d5b9946e065e4e78c404f9a5"><div class="ttname"><a href="classRoiToPositionConverter.html#a93b30449d5b9946e065e4e78c404f9a5">RoiToPositionConverter::RoiToPositionConverter</a></div><div class="ttdeci">RoiToPositionConverter(ros::NodeHandle &amp;nh)</div><div class="ttdoc">Constructor. </div><div class="ttdef"><b>Definition:</b> roi_to_position_converter.h:30</div></div>
-<div class="ttc" id="classRoiToPositionConverter_html_a537e53d157931a08343d0b41195a924c"><div class="ttname"><a href="classRoiToPositionConverter.html#a537e53d157931a08343d0b41195a924c">RoiToPositionConverter::getTrackingVector</a></div><div class="ttdeci">bool getTrackingVector(Position &amp;pos)</div><div class="ttdoc">Get the stored tracking vector. </div><div class="ttdef"><b>Definition:</b> roi_to_position_converter.cpp:98</div></div>
+<div class="ttc" id="classRoiToPositionConverter_html_a408f82ba9764ba20e2463535850d3268"><div class="ttname"><a href="classRoiToPositionConverter.html#a408f82ba9764ba20e2463535850d3268">RoiToPositionConverter::trackingIsValid</a></div><div class="ttdeci">bool trackingIsValid()</div><div class="ttdoc">Check whether tracking is valid. </div><div class="ttdef"><b>Definition:</b> roi_to_position_converter.cpp:60</div></div>
+<div class="ttc" id="classRoiToPositionConverter_html_a83de9bf4e7ce52e3a1c55992462abc65"><div class="ttname"><a href="classRoiToPositionConverter.html#a83de9bf4e7ce52e3a1c55992462abc65">RoiToPositionConverter::getTrackingVectors</a></div><div class="ttdeci">bool getTrackingVectors(std::unordered_map&lt; uint32_t, Position &gt; &amp;pos)</div><div class="ttdoc">Get the stored tracking vector. </div><div class="ttdef"><b>Definition:</b> roi_to_position_converter.cpp:78</div></div>
+<div class="ttc" id="classRoiToPositionConverter_html_a93b30449d5b9946e065e4e78c404f9a5"><div class="ttname"><a href="classRoiToPositionConverter.html#a93b30449d5b9946e065e4e78c404f9a5">RoiToPositionConverter::RoiToPositionConverter</a></div><div class="ttdeci">RoiToPositionConverter(ros::NodeHandle &amp;nh)</div><div class="ttdoc">Constructor. </div><div class="ttdef"><b>Definition:</b> roi_to_position_converter.h:32</div></div>
+<div class="ttc" id="atomic_8h_html"><div class="ttname"><a href="atomic_8h.html">atomic.h</a></div></div>
+<div class="ttc" id="simple__tracking__strategy_8h_html"><div class="ttname"><a href="simple__tracking__strategy_8h.html">simple_tracking_strategy.h</a></div></div>
 <div class="ttc" id="position_8h_html"><div class="ttname"><a href="position_8h.html">position.h</a></div></div>
 <div class="ttc" id="structPosition_html"><div class="ttname"><a href="structPosition.html">Position</a></div><div class="ttdoc">Store 3D position. </div><div class="ttdef"><b>Definition:</b> position.h:8</div></div>
 <div class="ttc" id="base__tracker_8h_html"><div class="ttname"><a href="base__tracker_8h.html">base_tracker.h</a></div></div>

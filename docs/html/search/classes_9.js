@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['manualcontrolarmstate',['ManualControlArmState',['../structPickPlaceStatesActions_1_1ManualControlArmState.html',1,'PickPlaceStatesActions']]],
   ['manualcontrolevent',['ManualControlEvent',['../structManualControlEvent.html',1,'']]],
   ['manualcontrolinternalactionfunctor_5f',['ManualControlInternalActionFunctor_',['../structManualControlInternalActionFunctor__.html',1,'']]],
   ['manualcontrolswitchaction_5f',['ManualControlSwitchAction_',['../structManualControlSwitchAction__.html',1,'']]],

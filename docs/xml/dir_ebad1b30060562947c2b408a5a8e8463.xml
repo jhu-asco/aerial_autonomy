@@ -2,7 +2,9 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
   <compounddef id="dir_ebad1b30060562947c2b408a5a8e8463" kind="dir">
     <compoundname>src/system_handler_nodes</compoundname>
+    <innerfile refid="uav__arm__system__node_8cpp">uav_arm_system_node.cpp</innerfile>
     <innerfile refid="uav__system__node_8cpp">uav_system_node.cpp</innerfile>
+    <innerfile refid="uav__vision__system__node_8cpp">uav_vision_system_node.cpp</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

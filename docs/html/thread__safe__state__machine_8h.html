@@ -82,7 +82,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_2f8e754ab99ce0b8ad0265163734387c.html">include</a></li><li class="navelem"><a class="el" href="dir_aa08a9b8af1d5448e3e7b8b8a4c3ba6b.html">aerial_autonomy</a></li><li class="navelem"><a class="el" href="dir_dbb1c79ada1dfd68f9623b1c747f82ff.html">common</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_6fe9f9c87adb79173c1aa2f732811b45.html">include</a></li><li class="navelem"><a class="el" href="dir_8c66c8138e7b35f6ec94720b060b21f5.html">aerial_autonomy</a></li><li class="navelem"><a class="el" href="dir_1077e06fddebf1de34a04bcc222dd5f0.html">common</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -95,17 +95,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock"><code>#include &lt;boost/msm/back/state_machine.hpp&gt;</code><br/>
 <code>#include &lt;boost/thread/recursive_mutex.hpp&gt;</code><br/>
+<code>#include &lt;typeindex&gt;</code><br/>
+<code>#include &lt;<a class="el" href="internal__transition__event_8h_source.html">aerial_autonomy/types/internal_transition_event.h</a>&gt;</code><br/>
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for thread_safe_state_machine.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="thread__safe__state__machine_8h__incl.png" border="0" usemap="#include_2aerial__autonomy_2common_2thread__safe__state__machine_8h" alt=""/></div>
+<map name="include_2aerial__autonomy_2common_2thread__safe__state__machine_8h" id="include_2aerial__autonomy_2common_2thread__safe__state__machine_8h">
+<area shape="rect" id="node5" href="internal__transition__event_8h.html" title="aerial_autonomy/types\l/internal_transition\l_event.h" alt="" coords="459,109,612,165"/></map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="thread__safe__state__machine_8h__dep__incl.png" border="0" usemap="#include_2aerial__autonomy_2common_2thread__safe__state__machine_8hdep" alt=""/></div>
 <map name="include_2aerial__autonomy_2common_2thread__safe__state__machine_8hdep" id="include_2aerial__autonomy_2common_2thread__safe__state__machine_8hdep">
-<area shape="rect" id="node2" href="uav__state__machine_8h.html" title="include/aerial_autonomy\l/state_machines/uav_state\l_machine.h" alt="" coords="17,109,196,165"/><area shape="rect" id="node4" href="visual__servoing__state__machine_8h.html" title="include/aerial_autonomy\l/state_machines/visual\l_servoing_state_machine.h" alt="" coords="224,109,405,165"/><area shape="rect" id="node3" href="uav__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_system_node.cpp" alt="" coords="5,221,203,262"/><area shape="rect" id="node5" href="uav__vision__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_vision_system\l_node.cpp" alt="" coords="227,213,407,269"/></map>
+<area shape="rect" id="node2" href="pick__place__state__machine_8h.html" title="include/aerial_autonomy\l/state_machines/pick_place\l_state_machine.h" alt="" coords="5,109,189,165"/><area shape="rect" id="node4" href="uav__state__machine_8h.html" title="include/aerial_autonomy\l/state_machines/uav_state\l_machine.h" alt="" coords="215,109,393,165"/><area shape="rect" id="node6" href="visual__servoing__state__machine_8h.html" title="include/aerial_autonomy\l/state_machines/visual\l_servoing_state_machine.h" alt="" coords="421,109,603,165"/><area shape="rect" id="node3" href="uav__arm__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_arm_system\l_node.cpp" alt="" coords="12,213,180,269"/><area shape="rect" id="node5" href="uav__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_system_node.cpp" alt="" coords="205,221,403,262"/><area shape="rect" id="node7" href="uav__vision__system__node_8cpp.html" title="src/system_handler\l_nodes/uav_vision_system\l_node.cpp" alt="" coords="427,213,607,269"/></map>
 </div>
 </div>
 <p><a href="thread__safe__state__machine_8h_source.html">Go to the source code of this file.</a></p>
@@ -119,10 +123,10 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceboost"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost.html">boost</a></td></tr>
-<tr class="memdesc:namespaceboost"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boost namespace. <br/></td></tr>
+<tr class="memdesc:namespaceboost"><td class="mdescLeft">&#160;</td><td class="mdescRight">namespace for boost library <br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceboost_1_1msm"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1msm.html">boost::msm</a></td></tr>
-<tr class="memdesc:namespaceboost_1_1msm"><td class="mdescLeft">&#160;</td><td class="mdescRight">Meta state machine namespace. <br/></td></tr>
+<tr class="memdesc:namespaceboost_1_1msm"><td class="mdescLeft">&#160;</td><td class="mdescRight">namespace for state machine module <br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceboost_1_1msm_1_1back"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1msm_1_1back.html">boost::msm::back</a></td></tr>
 <tr class="memdesc:namespaceboost_1_1msm_1_1back"><td class="mdescLeft">&#160;</td><td class="mdescRight">Backend namespace. <br/></td></tr>

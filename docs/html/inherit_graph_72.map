@@ -1,0 +1,8 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classBaseStateMachine.html" title="BaseStateMachine\&lt; UAVArm\lSystem \&gt;" alt="" coords="22,5,218,46"/>
+<area shape="rect" id="node2" href="$classPickPlaceStateMachineFrontEnd.html" title="front&#45;end: define the FSM structure " alt="" coords="283,27,498,53"/>
+<area shape="rect" id="node3" href="$classBaseStateMachine.html" title="BaseStateMachine\&lt; UAVSystem \&gt;" alt="" coords="5,121,235,148"/>
+<area shape="rect" id="node4" href="$classUAVStateMachineFrontEnd.html" title="front&#45;end: define the FSM structure " alt="" coords="299,107,482,133"/>
+<area shape="rect" id="node5" href="$classBaseStateMachine.html" title="BaseStateMachine\&lt; UAVVision\lSystem \&gt;" alt="" coords="16,173,224,214"/>
+<area shape="rect" id="node6" href="$classVisualServoingStateMachineFrontEnd.html" title="front&#45;end: define the FSM structure " alt="" coords="296,158,485,199"/>
+</map>

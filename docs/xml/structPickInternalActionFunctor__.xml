@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structPickInternalActionFunctor__" kind="struct" prot="public">
+    <compoundname>PickInternalActionFunctor_</compoundname>
+    <basecompoundref refid="structUAVStatusActionFunctor" prot="public" virt="non-virtual">UAVStatusActionFunctor&lt; UAVArmSystem, LogicStateMachineT &gt;</basecompoundref>
+    <includes refid="pick__place__functors_8h" local="no">pick_place_functors.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structPickInternalActionFunctor___1a7cbca4293dd27465233c61fd7f284389" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void PickInternalActionFunctor_&lt; LogicStateMachineT &gt;::statusIndependentRun</definition>
+        <argsstring>(UAVArmSystem &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</argsstring>
+        <name>statusIndependentRun</name>
+        <reimplements refid="structUAVStatusActionFunctor_1a18b62050ab2cbf50fc222988347b4c3e">statusIndependentRun</reimplements>
+        <param>
+          <type><ref refid="classUAVArmSystem" kindref="compound">UAVArmSystem</ref> &amp;</type>
+          <declname>robot_system</declname>
+        </param>
+        <param>
+          <type>LogicStateMachineT &amp;</type>
+          <declname>logic_state_machine</declname>
+        </param>
+        <briefdescription>
+<para>check if quad and arm reached VS goal and trigger completed event </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>robot_system</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>robot system to get sensor data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>logic_state_machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>logic state machine to trigger events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_functors.h" line="51" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_functors.h" bodystart="51" bodyend="74"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Logic to check while reaching a visual servoing goal. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine used to process events </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="719">
+        <label>PickInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
+        <link refid="structPickInternalActionFunctor__"/>
+        <childnode refid="720" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="720">
+        <label>UAVStatusActionFunctor&lt; UAVArmSystem, LogicStateMachineT &gt;</label>
+        <link refid="structUAVStatusActionFunctor"/>
+        <childnode refid="721" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="721">
+        <label>EventAgnosticActionFunctor&lt; UAVArmSystem, LogicStateMachineT &gt;</label>
+        <link refid="structEventAgnosticActionFunctor"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="722">
+        <label>PickInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
+        <link refid="structPickInternalActionFunctor__"/>
+        <childnode refid="723" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="723">
+        <label>UAVStatusActionFunctor&lt; UAVArmSystem, LogicStateMachineT &gt;</label>
+        <link refid="structUAVStatusActionFunctor"/>
+        <childnode refid="724" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="724">
+        <label>EventAgnosticActionFunctor&lt; UAVArmSystem, LogicStateMachineT &gt;</label>
+        <link refid="structEventAgnosticActionFunctor"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_functors.h" line="43" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_functors.h" bodystart="42" bodyend="75"/>
+    <listofallmembers>
+      <member refid="structUAVStatusActionFunctor_1a05dfaff6ccd9ca5388fda51ccd831f8c" prot="public" virt="non-virtual"><scope>PickInternalActionFunctor_</scope><name>checkStatus</name></member>
+      <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>PickInternalActionFunctor_</scope><name>operator()</name></member>
+      <member refid="structUAVStatusActionFunctor_1aaa0f0405f45c252aefe9fda6287ba964" prot="public" virt="virtual"><scope>PickInternalActionFunctor_</scope><name>run</name></member>
+      <member refid="structPickInternalActionFunctor___1a7cbca4293dd27465233c61fd7f284389" prot="public" virt="virtual"><scope>PickInternalActionFunctor_</scope><name>statusIndependentRun</name></member>
+      <member refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" prot="public" virt="virtual"><scope>PickInternalActionFunctor_</scope><name>~EventAgnosticActionFunctor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -2,7 +2,10 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
   <compounddef id="dir_e272882b54fa08318b07191f5a5d2d81" kind="dir">
     <compoundname>src/controllers</compoundname>
+    <innerfile refid="constant__heading__depth__controller_8cpp">constant_heading_depth_controller.cpp</innerfile>
     <innerfile refid="manual__rpyt__controller_8cpp">manual_rpyt_controller.cpp</innerfile>
+    <innerfile refid="relative__pose__controller_8cpp">relative_pose_controller.cpp</innerfile>
+    <innerfile refid="velocity__based__position__controller_8cpp">velocity_based_position_controller.cpp</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

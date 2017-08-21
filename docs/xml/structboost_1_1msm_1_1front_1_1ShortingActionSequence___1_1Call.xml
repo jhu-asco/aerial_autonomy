@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1_1Call" kind="struct" prot="public">
+    <compoundname>boost::msm::front::ShortingActionSequence_::Call</compoundname>
+    <includes refid="shorting__action__sequence_8h" local="no">shorting_action_sequence.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class EVT</type>
+      </param>
+      <param>
+        <type>class FSM</type>
+      </param>
+      <param>
+        <type>class STATE</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1_1Call_1aaccad996dfb211675f7b3faeb8fef140" prot="private" static="no" mutable="no">
+        <type>EVT const &amp;</type>
+        <definition>EVT const&amp; boost::msm::front::ShortingActionSequence_&lt; Sequence &gt;::Call&lt; EVT, FSM, STATE &gt;::evt_</definition>
+        <argsstring></argsstring>
+        <name>evt_</name>
+        <briefdescription>
+<para>Event to call with functor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" line="105" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1_1Call_1ace6e3447c2d359b909db1ca5009ece4d" prot="private" static="no" mutable="no">
+        <type>FSM &amp;</type>
+        <definition>FSM&amp; boost::msm::front::ShortingActionSequence_&lt; Sequence &gt;::Call&lt; EVT, FSM, STATE &gt;::fsm_</definition>
+        <argsstring></argsstring>
+        <name>fsm_</name>
+        <briefdescription>
+<para>State machine to use with functor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" line="106" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1_1Call_1a1bda6e3259c15deaa9d18b1ef4cffa35" prot="private" static="no" mutable="no">
+        <type>STATE &amp;</type>
+        <definition>STATE&amp; boost::msm::front::ShortingActionSequence_&lt; Sequence &gt;::Call&lt; EVT, FSM, STATE &gt;::state_</definition>
+        <argsstring></argsstring>
+        <name>state_</name>
+        <briefdescription>
+<para>State to use with functor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" line="107" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1_1Call_1aa18cecd64094d63c78156d1b47570026" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>boost::msm::front::ShortingActionSequence_&lt; Sequence &gt;::Call&lt; EVT, FSM, STATE &gt;::Call</definition>
+        <argsstring>(EVT const &amp;evt, FSM &amp;fsm, STATE &amp;state)</argsstring>
+        <name>Call</name>
+        <param>
+          <type>EVT const &amp;</type>
+          <declname>evt</declname>
+        </param>
+        <param>
+          <type>FSM &amp;</type>
+          <declname>fsm</declname>
+        </param>
+        <param>
+          <type>STATE &amp;</type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+<para>Constructor to store event, state machine, state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>evt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fsm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State machine </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>state</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State instance </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" line="89" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" bodystart="89" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1_1Call_1a49432eb619656591d1058d847b12dbaa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class FCT</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool boost::msm::front::ShortingActionSequence_&lt; Sequence &gt;::Call&lt; EVT, FSM, STATE &gt;::operator()</definition>
+        <argsstring>(::boost::msm::wrap&lt; FCT &gt; const &amp;)</argsstring>
+        <name>operator()</name>
+        <param>
+          <type>::boost::msm::wrap&lt; FCT &gt; const &amp;</type>
+        </param>
+        <briefdescription>
+<para>operator function that instantiates the functor and evaluates it on the event, fsm, state </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>FCT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Functor type </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>functor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>result of evaluating the functor </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" line="100" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" bodystart="100" bodyend="102"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Functor used to instantiate and evaluate elements in the sequence. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>EVT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event type </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FSM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State machine type </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>STATE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State type </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" line="81" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/shorting_action_sequence.h" bodystart="81" bodyend="108"/>
+    <listofallmembers>
+      <member refid="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1_1Call_1aa18cecd64094d63c78156d1b47570026" prot="public" virt="non-virtual"><scope>boost::msm::front::ShortingActionSequence_::Call</scope><name>Call</name></member>
+      <member refid="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1_1Call_1aaccad996dfb211675f7b3faeb8fef140" prot="private" virt="non-virtual"><scope>boost::msm::front::ShortingActionSequence_::Call</scope><name>evt_</name></member>
+      <member refid="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1_1Call_1ace6e3447c2d359b909db1ca5009ece4d" prot="private" virt="non-virtual"><scope>boost::msm::front::ShortingActionSequence_::Call</scope><name>fsm_</name></member>
+      <member refid="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1_1Call_1a49432eb619656591d1058d847b12dbaa" prot="public" virt="non-virtual"><scope>boost::msm::front::ShortingActionSequence_::Call</scope><name>operator()</name></member>
+      <member refid="structboost_1_1msm_1_1front_1_1ShortingActionSequence___1_1Call_1a1bda6e3259c15deaa9d18b1ef4cffa35" prot="private" virt="non-virtual"><scope>boost::msm::front::ShortingActionSequence_::Call</scope><name>state_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

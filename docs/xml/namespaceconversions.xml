@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="namespaceconversions" kind="namespace">
+    <compoundname>conversions</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceconversions_1acda31d5dfcff323b07c276899c2f74b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void conversions::transformMatrix4dToTf</definition>
+        <argsstring>(const Eigen::Matrix4d &amp;e, tf::Transform &amp;tf)</argsstring>
+        <name>transformMatrix4dToTf</name>
+        <param>
+          <type>const Eigen::Matrix4d &amp;</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>tf::Transform &amp;</type>
+          <declname>tf</declname>
+        </param>
+        <briefdescription>
+<para>Convert an Eigen::Matrix4d to a tf::Transform. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>e</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input Eigen::Matrix4d </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output tf::Transform </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/common/conversions.cpp" line="7" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/common/conversions.cpp" bodystart="7" bodyend="11"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceconversions_1a2c3d31bf3e2dfb156045f1baf58ceace" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void conversions::transformRPYToTf</definition>
+        <argsstring>(double r, double p, double y, tf::Transform &amp;tf)</argsstring>
+        <name>transformRPYToTf</name>
+        <param>
+          <type>double</type>
+          <declname>r</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>y</declname>
+        </param>
+        <param>
+          <type>tf::Transform &amp;</type>
+          <declname>tf</declname>
+        </param>
+        <briefdescription>
+<para>Convert roll, pitch, yaw Euler angles to a tf::Transform. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>r</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Roll </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pitch </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Yaw </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output tf::Transform </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/common/conversions.cpp" line="13" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/common/conversions.cpp" bodystart="13" bodyend="16"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Namespace for converting eign to tf matrices. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/common/conversions.cpp" line="6" column="1"/>
+  </compounddef>
+</doxygen>

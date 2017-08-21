@@ -123,6 +123,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9f38e619a54ce414c4ef737e8873928d"><td class="memTemplItemLeft" align="right" valign="top">execute_return&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classboost_1_1msm_1_1back_1_1thread__safe__state__machine.html#a9f38e619a54ce414c4ef737e8873928d">process_event</a> (Event const &amp;evt)</td></tr>
 <tr class="memdesc:a9f38e619a54ce414c4ef737e8873928d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The process event function that triggers transition actions in state machine The function is thread safe but does not execute the events in any particular order.  <a href="#a9f38e619a54ce414c4ef737e8873928d">More...</a><br/></td></tr>
 <tr class="separator:a9f38e619a54ce414c4ef737e8873928d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af16d4dbc9b6cb22000490dbb6b39b16b"><td class="memItemLeft" align="right" valign="top">std::type_index&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost_1_1msm_1_1back_1_1thread__safe__state__machine.html#af16d4dbc9b6cb22000490dbb6b39b16b">lastProcessedEventIndex</a> () const </td></tr>
+<tr class="memdesc:af16d4dbc9b6cb22000490dbb6b39b16b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the type index of last processed event after locking.  <a href="#af16d4dbc9b6cb22000490dbb6b39b16b">More...</a><br/></td></tr>
+<tr class="separator:af16d4dbc9b6cb22000490dbb6b39b16b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -193,6 +196,34 @@ template&lt;class Expr &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="af16d4dbc9b6cb22000490dbb6b39b16b"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class A0 , class A1  = parameter::void_, class A2  = parameter::void_, class A3  = parameter::void_, class A4  = parameter::void_&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::type_index <a class="el" href="classboost_1_1msm_1_1back_1_1thread__safe__state__machine.html">boost::msm::back::thread_safe_state_machine</a>&lt; A0, A1, A2, A3, A4 &gt;::lastProcessedEventIndex </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the type index of last processed event after locking. </p>
+<dl class="section return"><dt>Returns</dt><dd>type index of last processed event </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a9f38e619a54ce414c4ef737e8873928d"></a>
 <div class="memitem">
 <div class="memproto">

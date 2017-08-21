@@ -1,0 +1,404 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structPickPlaceStatesActions" kind="struct" prot="public">
+    <compoundname>PickPlaceStatesActions</compoundname>
+    <basecompoundref refid="structVisualServoingStatesActions" prot="public" virt="non-virtual">VisualServoingStatesActions&lt; LogicStateMachineT &gt;</basecompoundref>
+    <includes refid="pick__place__states__actions_8h" local="no">pick_place_states_actions.h</includes>
+    <innerclass refid="structPickPlaceStatesActions_1_1ManualControlArmState" prot="public">PickPlaceStatesActions::ManualControlArmState</innerclass>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1afe373836c012f81a37ab523e518d2d5d" prot="public" static="no">
+        <type>boost::msm::front::ActionSequence_&lt; Sequence &gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::bActionSequence =  boost::msm::front::ActionSequence_&lt;Sequence&gt;</definition>
+        <argsstring></argsstring>
+        <name>bActionSequence</name>
+        <briefdescription>
+<para>Action sequence to chain multiple actions together. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Sequence</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sequence of actions </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="26" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1a627f3a2d615cc1fa1917c4ffdb222675" prot="public" static="no">
+        <type>boost::msm::front::euml::And_&lt; G1, G2 &gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::bAnd =  boost::msm::front::euml::And_&lt;G1, G2&gt;</definition>
+        <argsstring></argsstring>
+        <name>bAnd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="28" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1a5f8ca603d66fa1e35d76a99c06de9980" prot="public" static="no">
+        <type><ref refid="structVisualServoingStatesActions" kindref="compound">VisualServoingStatesActions</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::vsa =  VisualServoingStatesActions&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>vsa</name>
+        <briefdescription>
+<para>namespace for states and actions in visual servoing </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="33" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1a5efb4466718d8315805916f1ce3bda6d" prot="public" static="no">
+        <type><ref refid="structUAVStatesActions" kindref="compound">UAVStatesActions</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::usa =  UAVStatesActions&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>usa</name>
+        <briefdescription>
+<para>namespace for states and actions for basic uav actions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="37" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1a327f315a7d4fef7dbbfe453e94bcef02" prot="public" static="no">
+        <type><ref refid="arm__functors_8h_1ae8bf9c5d14eb29dc6a2afab1faed8530" kindref="member">ArmFolding_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::ArmFolding =  ArmFolding_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>ArmFolding</name>
+        <briefdescription>
+<para>State for folding arm. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="43" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1a28fb98055c40664e3b844a099a1ff443" prot="public" static="no">
+        <type><ref refid="classArmPreTakeoffFolding__" kindref="compound">ArmPreTakeoffFolding_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::ArmPreTakeoffFolding =  ArmPreTakeoffFolding_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>ArmPreTakeoffFolding</name>
+        <briefdescription>
+<para>State before takeoff. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="47" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1af6ac7855039812edabfcbd1d316eba4d" prot="public" static="no">
+        <type><ref refid="classArmPreLandingFolding__" kindref="compound">ArmPreLandingFolding_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::ArmPreLandingFolding =  ArmPreLandingFolding_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>ArmPreLandingFolding</name>
+        <briefdescription>
+<para>State before landing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="51" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1ace437fb60617f96137810a7d1dd73034" prot="public" static="no">
+        <type><ref refid="pick__place__functors_8h_1afd1817b32ddaa82337c74cc126c0d371" kindref="member">PickState_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::PickState =  PickState_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>PickState</name>
+        <briefdescription>
+<para>State while picking an object. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="56" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1a27b8d5f96e8e6f9bbc3ad5eb8eaf0b96" prot="public" static="no">
+        <type><ref refid="classPrePickState__" kindref="compound">PrePickState_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::PrePickState =  PrePickState_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>PrePickState</name>
+        <briefdescription>
+<para>State while positioning the arm for picking. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="61" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1af0acf978898ad0ca4f9c484eb61de4e3" prot="public" static="no">
+        <type><ref refid="structArmPoweronTransitionActionFunctor__" kindref="compound">ArmPoweronTransitionActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::ArmPowerOn =  ArmPoweronTransitionActionFunctor_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>ArmPowerOn</name>
+        <briefdescription>
+<para>Action to poweroff arm. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="66" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1acf3e2c95cf7864394ce6d476c49792db" prot="public" static="no">
+        <type><ref refid="structArmPoweroffTransitionActionFunctor__" kindref="compound">ArmPoweroffTransitionActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::ArmPowerOff =  ArmPoweroffTransitionActionFunctor_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>ArmPowerOff</name>
+        <briefdescription>
+<para>Action to poweroff arm. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="70" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1a4c06cf4e86038af81a3179706e3e123a" prot="public" static="no">
+        <type><ref refid="structArmFoldTransitionActionFunctor__" kindref="compound">ArmFoldTransitionActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::ArmFold =  ArmFoldTransitionActionFunctor_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>ArmFold</name>
+        <briefdescription>
+<para>Action to take when starting folding arm before land. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="74" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1a1c3840bc09d75d687f5d0d25710fe63a" prot="public" static="no">
+        <type><ref refid="structArmRightFoldTransitionActionFunctor__" kindref="compound">ArmRightFoldTransitionActionFunctor_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::ArmRightFold =  ArmRightFoldTransitionActionFunctor_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>ArmRightFold</name>
+        <briefdescription>
+<para>Action to fold arm into right angle configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="78" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1abc8ed9eb4bee9d044318530b5ff15c54" prot="public" static="no">
+        <type><ref refid="structAbortArmController__" kindref="compound">AbortArmController_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::AbortArmController =  AbortArmController_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>AbortArmController</name>
+        <briefdescription>
+<para>Abort arm controller. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="82" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1af543286ffd6994107d2fd67812e416dc" prot="public" static="no">
+        <type><ref refid="structPickPlaceStatesActions_1afe373836c012f81a37ab523e518d2d5d" kindref="member">bActionSequence</ref>&lt; boost::mpl::vector&lt; typename <ref refid="structUAVStatesActions_1ad2d705e67a383e1b5ad08332da9c7300" kindref="member">usa::UAVControllerAbort</ref>, <ref refid="structPickPlaceStatesActions_1a1c3840bc09d75d687f5d0d25710fe63a" kindref="member">ArmRightFold</ref> &gt;&gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::AbortUAVControllerArmRightFold =  bActionSequence&lt; boost::mpl::vector&lt;typename usa::UAVControllerAbort, ArmRightFold&gt;&gt;</definition>
+        <argsstring></argsstring>
+        <name>AbortUAVControllerArmRightFold</name>
+        <briefdescription>
+<para>Action sequence to abort UAV controller and move arm to right angle. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="87" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1a6d448780511fd9d5500ed66adb04f370" prot="public" static="no">
+        <type><ref refid="structPickPlaceStatesActions_1afe373836c012f81a37ab523e518d2d5d" kindref="member">bActionSequence</ref>&lt; boost::mpl::vector&lt; typename <ref refid="structUAVStatesActions_1ad2d705e67a383e1b5ad08332da9c7300" kindref="member">usa::UAVControllerAbort</ref>, <ref refid="structPickPlaceStatesActions_1a4c06cf4e86038af81a3179706e3e123a" kindref="member">ArmFold</ref> &gt;&gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::AbortUAVControllerArmFold =  bActionSequence&lt; boost::mpl::vector&lt;typename usa::UAVControllerAbort, ArmFold&gt;&gt;</definition>
+        <argsstring></argsstring>
+        <name>AbortUAVControllerArmFold</name>
+        <briefdescription>
+<para>Action sequence to abort UAV controller and move arm to right angle. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="93" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1a70c282d42f330dd800e5184b8b2e0cb4" prot="public" static="no">
+        <type><ref refid="structPickPlaceStatesActions_1afe373836c012f81a37ab523e518d2d5d" kindref="member">bActionSequence</ref>&lt; boost::mpl::vector&lt; typename <ref refid="structVisualServoingStatesActions_1ac739aa6c2f2adebef80daa9d769d81ec" kindref="member">vsa::VisualServoingTransitionAction</ref>, <ref refid="structVisualServoingArmTransitionActionFunctor__" kindref="compound">VisualServoingArmTransitionActionFunctor_</ref>&lt; LogicStateMachineT, 1 &gt;&gt;&gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::PickTransitionAction =  bActionSequence&lt;boost::mpl::vector&lt; typename vsa::VisualServoingTransitionAction, VisualServoingArmTransitionActionFunctor_&lt;LogicStateMachineT, 1&gt;&gt;&gt;</definition>
+        <argsstring></argsstring>
+        <name>PickTransitionAction</name>
+        <briefdescription>
+<para>Set goal for visual servoing and also arm controller. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="98" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1aa7de38f0e2e857f8c3f030df116b9297" prot="public" static="no">
+        <type><ref refid="structPickPlaceStatesActions_1afe373836c012f81a37ab523e518d2d5d" kindref="member">bActionSequence</ref>&lt; boost::mpl::vector&lt; typename <ref refid="structVisualServoingStatesActions_1ac739aa6c2f2adebef80daa9d769d81ec" kindref="member">vsa::VisualServoingTransitionAction</ref>, <ref refid="structVisualServoingArmTransitionActionFunctor__" kindref="compound">VisualServoingArmTransitionActionFunctor_</ref>&lt; LogicStateMachineT, 0 &gt;&gt;&gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::PrePickTransitionAction =  bActionSequence&lt;boost::mpl::vector&lt; typename vsa::VisualServoingTransitionAction, VisualServoingArmTransitionActionFunctor_&lt;LogicStateMachineT, 0&gt;&gt;&gt;</definition>
+        <argsstring></argsstring>
+        <name>PrePickTransitionAction</name>
+        <briefdescription>
+<para>Set goal for visual servoing and also arm controller for positioning arm for pick. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="105" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1a1538620cb08ffa4fff68aa351617e6b3" prot="public" static="no">
+        <type><ref refid="structPickPlaceStatesActions_1afe373836c012f81a37ab523e518d2d5d" kindref="member">bActionSequence</ref>&lt; boost::mpl::vector&lt; <ref refid="structPickPlaceStatesActions_1af0acf978898ad0ca4f9c484eb61de4e3" kindref="member">ArmPowerOn</ref>, <ref refid="structPickPlaceStatesActions_1a4c06cf4e86038af81a3179706e3e123a" kindref="member">ArmFold</ref> &gt;&gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::ArmPowerOnFold =  bActionSequence&lt;boost::mpl::vector&lt;ArmPowerOn, ArmFold&gt;&gt;</definition>
+        <argsstring></argsstring>
+        <name>ArmPowerOnFold</name>
+        <briefdescription>
+<para>Action to take when starting folding arm before takeoff. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="111" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1adb46204fa43494435d252ee5b7481009" prot="public" static="no">
+        <type><ref refid="structPickPlaceStatesActions_1afe373836c012f81a37ab523e518d2d5d" kindref="member">bActionSequence</ref>&lt; boost::mpl::vector&lt; typename <ref refid="structUAVStatesActions_1ad2d705e67a383e1b5ad08332da9c7300" kindref="member">usa::UAVControllerAbort</ref>, <ref refid="structPickPlaceStatesActions_1abc8ed9eb4bee9d044318530b5ff15c54" kindref="member">AbortArmController</ref> &gt;&gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::AbortUAVArmController =  bActionSequence&lt; boost::mpl::vector&lt;typename usa::UAVControllerAbort, AbortArmController&gt;&gt;</definition>
+        <argsstring></argsstring>
+        <name>AbortUAVArmController</name>
+        <briefdescription>
+<para>Action sequence to abort UAV controller and arm controller angle. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="117" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1a4b4da40bf55394d703db3b7e9cc2b96a" prot="public" static="no">
+        <type><ref refid="structPickPlaceStatesActions_1a627f3a2d615cc1fa1917c4ffdb222675" kindref="member">bAnd</ref>&lt; typename <ref refid="structVisualServoingStatesActions_1a869955a85f6cfa9631d7bd4e95be3b96" kindref="member">vsa::VisualServoingTransitionGuard</ref>, <ref refid="structArmEnabledGuardFunctor__" kindref="compound">ArmEnabledGuardFunctor_</ref>&lt; LogicStateMachineT &gt;&gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::PickTransitionGuard =  bAnd&lt;typename vsa::VisualServoingTransitionGuard, ArmEnabledGuardFunctor_&lt;LogicStateMachineT&gt;&gt;</definition>
+        <argsstring></argsstring>
+        <name>PickTransitionGuard</name>
+        <briefdescription>
+<para>Guard to stop pick place if arm is not powered or vision is not working. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="124" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structPickPlaceStatesActions_1a909cc414343ada27da26859ea39d1bb6" prot="public" static="no">
+        <type><ref refid="structPickGuard__" kindref="compound">PickGuard_</ref>&lt; LogicStateMachineT &gt;</type>
+        <definition>using PickPlaceStatesActions&lt; LogicStateMachineT &gt;::PickGuard =  PickGuard_&lt;LogicStateMachineT&gt;</definition>
+        <argsstring></argsstring>
+        <name>PickGuard</name>
+        <briefdescription>
+<para>Action to grab an object. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="129" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Class to provide typedefs for all basic uav states and actions. </para>    </briefdescription>
+    <detaileddescription>
+<para>States and actions corresponding to pick and place application using visual servoing. <parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The backend of logic state machine </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="777">
+        <label>VisualServoingStatesActions&lt; LogicStateMachineT &gt;</label>
+        <link refid="structVisualServoingStatesActions"/>
+        <childnode refid="778" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="776">
+        <label>PickPlaceStatesActions&lt; LogicStateMachineT &gt;</label>
+        <link refid="structPickPlaceStatesActions"/>
+        <childnode refid="777" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="778">
+        <label>UAVStatesActions&lt; LogicStateMachineT &gt;</label>
+        <link refid="structUAVStatesActions"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="780">
+        <label>VisualServoingStatesActions&lt; LogicStateMachineT &gt;</label>
+        <link refid="structVisualServoingStatesActions"/>
+        <childnode refid="781" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="779">
+        <label>PickPlaceStatesActions&lt; LogicStateMachineT &gt;</label>
+        <link refid="structPickPlaceStatesActions"/>
+        <childnode refid="780" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="781">
+        <label>UAVStatesActions&lt; LogicStateMachineT &gt;</label>
+        <link refid="structUAVStatesActions"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="18" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="17" bodyend="151"/>
+    <listofallmembers>
+      <member refid="structPickPlaceStatesActions_1abc8ed9eb4bee9d044318530b5ff15c54" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>AbortArmController</name></member>
+      <member refid="structPickPlaceStatesActions_1adb46204fa43494435d252ee5b7481009" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>AbortUAVArmController</name></member>
+      <member refid="structPickPlaceStatesActions_1a6d448780511fd9d5500ed66adb04f370" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>AbortUAVControllerArmFold</name></member>
+      <member refid="structPickPlaceStatesActions_1af543286ffd6994107d2fd67812e416dc" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>AbortUAVControllerArmRightFold</name></member>
+      <member refid="structPickPlaceStatesActions_1a4c06cf4e86038af81a3179706e3e123a" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>ArmFold</name></member>
+      <member refid="structPickPlaceStatesActions_1a327f315a7d4fef7dbbfe453e94bcef02" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>ArmFolding</name></member>
+      <member refid="structPickPlaceStatesActions_1acf3e2c95cf7864394ce6d476c49792db" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>ArmPowerOff</name></member>
+      <member refid="structPickPlaceStatesActions_1af0acf978898ad0ca4f9c484eb61de4e3" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>ArmPowerOn</name></member>
+      <member refid="structPickPlaceStatesActions_1a1538620cb08ffa4fff68aa351617e6b3" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>ArmPowerOnFold</name></member>
+      <member refid="structPickPlaceStatesActions_1af6ac7855039812edabfcbd1d316eba4d" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>ArmPreLandingFolding</name></member>
+      <member refid="structPickPlaceStatesActions_1a28fb98055c40664e3b844a099a1ff443" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>ArmPreTakeoffFolding</name></member>
+      <member refid="structPickPlaceStatesActions_1a1c3840bc09d75d687f5d0d25710fe63a" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>ArmRightFold</name></member>
+      <member refid="structPickPlaceStatesActions_1afe373836c012f81a37ab523e518d2d5d" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>bActionSequence</name></member>
+      <member refid="structPickPlaceStatesActions_1a627f3a2d615cc1fa1917c4ffdb222675" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>bAnd</name></member>
+      <member refid="structVisualServoingStatesActions_1ac4a0f045842f957324eb6ee5d7680543" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>GoHomeTransitionAction</name></member>
+      <member refid="structVisualServoingStatesActions_1aba25d3f90f757a049e892465d2cc9b12" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>GoHomeTransitionGuard</name></member>
+      <member refid="structUAVStatesActions_1a2c18472bdc3a420dd319dc82fa507ac3" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>Hovering</name></member>
+      <member refid="structUAVStatesActions_1aa0da8657bf853ddcdcc581795aa68e91" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>Landed</name></member>
+      <member refid="structUAVStatesActions_1acc910bc55ae6432004e6b1704634d1c7" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>Landing</name></member>
+      <member refid="structUAVStatesActions_1a5cf123d42d255c842a68a223354c1b43" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>LandingAction</name></member>
+      <member refid="structUAVStatesActions_1ad12379ab87f454043ca0c96dac85fef5" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>ManualControlState</name></member>
+      <member refid="structUAVStatesActions_1ae2625fc53a6e10745c591ea95826ea62" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>ManualControlSwitchAction</name></member>
+      <member refid="structUAVStatesActions_1a8183ff8aefe3ee857ffe5897fcbe771e" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>ManualControlSwitchGuard</name></member>
+      <member refid="structPickPlaceStatesActions_1a909cc414343ada27da26859ea39d1bb6" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>PickGuard</name></member>
+      <member refid="structPickPlaceStatesActions_1ace437fb60617f96137810a7d1dd73034" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>PickState</name></member>
+      <member refid="structPickPlaceStatesActions_1a70c282d42f330dd800e5184b8b2e0cb4" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>PickTransitionAction</name></member>
+      <member refid="structPickPlaceStatesActions_1a4b4da40bf55394d703db3b7e9cc2b96a" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>PickTransitionGuard</name></member>
+      <member refid="structPickPlaceStatesActions_1a27b8d5f96e8e6f9bbc3ad5eb8eaf0b96" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>PrePickState</name></member>
+      <member refid="structPickPlaceStatesActions_1aa7de38f0e2e857f8c3f030df116b9297" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>PrePickTransitionAction</name></member>
+      <member refid="structUAVStatesActions_1a6f29ce9909b5ebc8c46ca70ef6a92d19" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>ReachingGoal</name></member>
+      <member refid="structUAVStatesActions_1ab0acd6797efeedeb8704c7d24467a254" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>ReachingGoalGuard</name></member>
+      <member refid="structUAVStatesActions_1aaadfe040047828a68132e8976cc0aa46" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>ReachingGoalLand</name></member>
+      <member refid="structUAVStatesActions_1a60ad11afcb23e02f34026459361f3b1d" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>ReachingGoalSet</name></member>
+      <member refid="structUAVStatesActions_1a5a69f68c781b17a48e2e6dcef9c52e1d" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>TakeoffAbort</name></member>
+      <member refid="structUAVStatesActions_1ad42a6d885281297a91e71b66624ee813" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>TakeoffAction</name></member>
+      <member refid="structUAVStatesActions_1a9e47af475b29af18ae34d80227ee3388" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>TakeoffGuard</name></member>
+      <member refid="structUAVStatesActions_1aec75cac817b13a7d8f4a73bfecc94056" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>TakingOff</name></member>
+      <member refid="structUAVStatesActions_1ad2d705e67a383e1b5ad08332da9c7300" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>UAVControllerAbort</name></member>
+      <member refid="structPickPlaceStatesActions_1a5efb4466718d8315805916f1ce3bda6d" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>usa</name></member>
+      <member refid="structVisualServoingStatesActions_1ae2d9c1f6e607afa330760c6cfd16ab51" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>VisualServoing</name></member>
+      <member refid="structVisualServoingStatesActions_1ac739aa6c2f2adebef80daa9d769d81ec" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>VisualServoingTransitionAction</name></member>
+      <member refid="structVisualServoingStatesActions_1a869955a85f6cfa9631d7bd4e95be3b96" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>VisualServoingTransitionGuard</name></member>
+      <member refid="structPickPlaceStatesActions_1a5f8ca603d66fa1e35d76a99c06de9980" prot="public" virt="non-virtual"><scope>PickPlaceStatesActions</scope><name>vsa</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

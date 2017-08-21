@@ -1,4 +1,5 @@
 <map id="UAVSystem" name="UAVSystem">
-<area shape="rect" id="node3" href="$classUAVVisionSystem.html" title="UAV Vision system that extends UAV system to include constant heading depth controller. " alt="" coords="5,155,135,181"/>
+<area shape="rect" id="node3" href="$classUAVVisionSystem.html" title="UAV system with a camera and visual sevoing capabilities. " alt="" coords="5,155,135,181"/>
 <area shape="rect" id="node2" href="$classBaseRobotSystem.html" title="Provides functions to switch between active controllers and get goals. " alt="" coords="5,5,136,32"/>
+<area shape="rect" id="node4" href="$classUAVArmSystem.html" title="UAV vision system with an arm. " alt="" coords="11,229,129,256"/>
 </map>

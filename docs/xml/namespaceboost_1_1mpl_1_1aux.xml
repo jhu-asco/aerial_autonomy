@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="namespaceboost_1_1mpl_1_1aux" kind="namespace">
+    <compoundname>boost::mpl::aux</compoundname>
+    <innerclass refid="structboost_1_1mpl_1_1aux_1_1exec__if__impl" prot="public">boost::mpl::aux::exec_if_impl</innerclass>
+    <innerclass refid="structboost_1_1mpl_1_1aux_1_1exec__if__impl_3_01false_01_4" prot="public">boost::mpl::aux::exec_if_impl&lt; false &gt;</innerclass>
+    <briefdescription>
+<para>namespace for aux module </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/exec_if.h" line="48" column="1"/>
+  </compounddef>
+</doxygen>

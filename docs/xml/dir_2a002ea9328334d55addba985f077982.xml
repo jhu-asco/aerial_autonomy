@@ -2,8 +2,11 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
   <compounddef id="dir_2a002ea9328334d55addba985f077982" kind="dir">
     <compoundname>include/aerial_autonomy/robot_systems</compoundname>
+    <innerfile refid="arm__system_8h">arm_system.h</innerfile>
     <innerfile refid="base__robot__system_8h">base_robot_system.h</innerfile>
+    <innerfile refid="uav__arm__system_8h">uav_arm_system.h</innerfile>
     <innerfile refid="uav__system_8h">uav_system.h</innerfile>
+    <innerfile refid="uav__vision__system_8h">uav_vision_system.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

@@ -33,7 +33,7 @@
 <para>Used to group controllers. Only one controller will be running per hardware. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="151" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="151" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="152" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="152" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -48,24 +48,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="157" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="157" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="158" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="158" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classControllerHardwareConnector_1a99ae732204168dfe3659593ed2e6cfb8" prot="private" static="no" mutable="yes">
-        <type>boost::mutex</type>
-        <definition>boost::mutex ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;::controller_status_mutex_</definition>
-        <argsstring></argsstring>
-        <name>controller_status_mutex_</name>
-        <briefdescription>
-<para>Synchronize reading and setting controller status. </para>        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="161" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="161" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="classControllerHardwareConnector_1af805169f975bd5d56fc226743a550a35" prot="private" static="no" mutable="no">
-        <type><ref refid="base__controller_8h_1addd69ea32460850b571ba88f2a994b73" kindref="member">ControllerStatus</ref></type>
-        <definition>ControllerStatus ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;::status_</definition>
+      <memberdef kind="variable" id="classControllerHardwareConnector_1a6faae344d34f818a3f277ab4c1a8fc70" prot="private" static="no" mutable="no">
+        <type><ref refid="classAtomic" kindref="compound">Atomic</ref>&lt; <ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &gt;</type>
+        <definition>Atomic&lt;ControllerStatus&gt; ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;::status_</definition>
         <argsstring></argsstring>
         <name>status_</name>
         <briefdescription>
@@ -74,7 +61,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="165" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="165" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="162" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="162" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -112,7 +99,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="59" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="59" bodyend="63"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="69" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="69" bodyend="73"/>
       </memberdef>
       <memberdef kind="function" id="classControllerHardwareConnector_1afb46464434a3a5881ecc1091f58bbd61" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
@@ -126,7 +113,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="68" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="68" bodyend="92"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="78" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="78" bodyend="96"/>
       </memberdef>
       <memberdef kind="function" id="classControllerHardwareConnector_1a14ce51377f80b67796fcb50ce8195efd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -151,7 +138,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="98" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="98" bodyend="101"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="102" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="102" bodyend="105"/>
       </memberdef>
       <memberdef kind="function" id="classControllerHardwareConnector_1adccf30ddf2b8be152e53636b1c2d3ad5" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>GoalType</type>
@@ -165,7 +152,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="107" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="107" bodyend="107"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="111" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="111" bodyend="111"/>
       </memberdef>
       <memberdef kind="function" id="classControllerHardwareConnector_1accd0c9bff560fa3c6d1e60d97644415e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref></type>
@@ -179,13 +166,14 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="114" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="114" bodyend="114"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="118" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="118" bodyend="118"/>
       </memberdef>
-      <memberdef kind="function" id="classControllerHardwareConnector_1a3e69fcccb3826adbd02ea9f7f0740613" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
-        <type><ref refid="base__controller_8h_1addd69ea32460850b571ba88f2a994b73" kindref="member">ControllerStatus</ref></type>
+      <memberdef kind="function" id="classControllerHardwareConnector_1a3e69fcccb3826adbd02ea9f7f0740613" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref></type>
         <definition>ControllerStatus ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;::getStatus</definition>
         <argsstring>() const </argsstring>
         <name>getStatus</name>
+        <reimplements refid="structAbstractControllerHardwareConnector_1a43c4d0668ccbb2ecffe79144b06f30cf">getStatus</reimplements>
         <briefdescription>
 <para>Provide the status of the controller. </para>        </briefdescription>
         <detaileddescription>
@@ -193,7 +181,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="121" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="121" bodyend="124"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="125" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="125" bodyend="125"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -206,6 +194,7 @@
         <reimplementedby refid="classBuiltInVelocityControllerDroneConnector_1a8ffb54f94a09f0beea0a46b48feef697">extractSensorData</reimplementedby>
         <reimplementedby refid="classPositionControllerDroneConnector_1a813874b7b677580fc6b5a9a995e79017">extractSensorData</reimplementedby>
         <reimplementedby refid="classVisualServoingControllerDroneConnector_1ae1c2073bf3c7a4c4de967529c076cde8">extractSensorData</reimplementedby>
+        <reimplementedby refid="classVisualServoingControllerArmConnector_1a68607930eb73573347a259580b22b94d">extractSensorData</reimplementedby>
         <param>
           <type>SensorDataType &amp;</type>
           <declname>sensor_data</declname>
@@ -225,7 +214,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="134" column="1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="135" column="1"/>
       </memberdef>
       <memberdef kind="function" id="classControllerHardwareConnector_1a5fc86156d5c747aba36497732962d6d0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
@@ -236,6 +225,7 @@
         <reimplementedby refid="classBuiltInVelocityControllerDroneConnector_1a10a06a14a9a34afbe37c79e86ffd5787">sendHardwareCommands</reimplementedby>
         <reimplementedby refid="classPositionControllerDroneConnector_1a826092eadfbbf9442fa1869fea98070d">sendHardwareCommands</reimplementedby>
         <reimplementedby refid="classVisualServoingControllerDroneConnector_1a139939cb0298d57487f6c3ed488c4448">sendHardwareCommands</reimplementedby>
+        <reimplementedby refid="classVisualServoingControllerArmConnector_1a01f0218d6f53ab5cbed8d6494224db7f">sendHardwareCommands</reimplementedby>
         <param>
           <type>ControlType</type>
           <declname>controls</declname>
@@ -254,34 +244,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="141" column="1"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="private-func">
-      <memberdef kind="function" id="classControllerHardwareConnector_1a5f4ff35ce3bf94de5a871c02863abadb" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;::setStatus</definition>
-        <argsstring>(ControllerStatus status)</argsstring>
-        <name>setStatus</name>
-        <param>
-          <type><ref refid="base__controller_8h_1addd69ea32460850b571ba88f2a994b73" kindref="member">ControllerStatus</ref></type>
-          <declname>status</declname>
-        </param>
-        <briefdescription>
-<para>Set the status of the controller. </para>        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>status</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>the status of the controller </para></parameterdescription>
-</parameteritem>
-</parameterlist>
-</para>        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="171" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="171" bodyend="174"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="142" column="1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -311,44 +274,42 @@
 </parameterlist>
 </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="411">
+      <node id="648">
         <label>ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="412" relation="public-inheritance">
+        <childnode refid="649" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="412">
+      <node id="649">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="413">
+      <node id="650">
         <label>ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;</label>
         <link refid="classControllerHardwareConnector"/>
-        <childnode refid="414" relation="public-inheritance">
+        <childnode refid="651" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="414">
+      <node id="651">
         <label>AbstractControllerHardwareConnector</label>
         <link refid="structAbstractControllerHardwareConnector"/>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="43" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="43" bodyend="175"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" line="53" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h" bodystart="53" bodyend="163"/>
     <listofallmembers>
       <member refid="classControllerHardwareConnector_1ab01af9456d2b32a04f63a2eecbc7b24e" prot="private" virt="non-virtual"><scope>ControllerHardwareConnector</scope><name>controller_</name></member>
-      <member refid="classControllerHardwareConnector_1a99ae732204168dfe3659593ed2e6cfb8" prot="private" virt="non-virtual"><scope>ControllerHardwareConnector</scope><name>controller_status_mutex_</name></member>
       <member refid="classControllerHardwareConnector_1a6c5d8e5a5ded026ccee3d51f2899ce3e" prot="public" virt="non-virtual"><scope>ControllerHardwareConnector</scope><name>ControllerHardwareConnector</name></member>
       <member refid="classControllerHardwareConnector_1ad241af05eac639961a1b07fe7330f054" prot="protected" virt="pure-virtual"><scope>ControllerHardwareConnector</scope><name>extractSensorData</name></member>
       <member refid="classControllerHardwareConnector_1adccf30ddf2b8be152e53636b1c2d3ad5" prot="public" virt="non-virtual"><scope>ControllerHardwareConnector</scope><name>getGoal</name></member>
       <member refid="classControllerHardwareConnector_1accd0c9bff560fa3c6d1e60d97644415e" prot="public" virt="non-virtual"><scope>ControllerHardwareConnector</scope><name>getHardwareType</name></member>
-      <member refid="classControllerHardwareConnector_1a3e69fcccb3826adbd02ea9f7f0740613" prot="public" virt="non-virtual"><scope>ControllerHardwareConnector</scope><name>getStatus</name></member>
+      <member refid="classControllerHardwareConnector_1a3e69fcccb3826adbd02ea9f7f0740613" prot="public" virt="virtual"><scope>ControllerHardwareConnector</scope><name>getStatus</name></member>
       <member refid="classControllerHardwareConnector_1a1e47c12f796c9cc2fcb5c2495ede2392" prot="protected" virt="non-virtual"><scope>ControllerHardwareConnector</scope><name>hardware_type_</name></member>
       <member refid="classControllerHardwareConnector_1afb46464434a3a5881ecc1091f58bbd61" prot="public" virt="virtual"><scope>ControllerHardwareConnector</scope><name>run</name></member>
       <member refid="classControllerHardwareConnector_1a5fc86156d5c747aba36497732962d6d0" prot="protected" virt="pure-virtual"><scope>ControllerHardwareConnector</scope><name>sendHardwareCommands</name></member>
       <member refid="classControllerHardwareConnector_1a14ce51377f80b67796fcb50ce8195efd" prot="public" virt="non-virtual"><scope>ControllerHardwareConnector</scope><name>setGoal</name></member>
-      <member refid="classControllerHardwareConnector_1a5f4ff35ce3bf94de5a871c02863abadb" prot="private" virt="non-virtual"><scope>ControllerHardwareConnector</scope><name>setStatus</name></member>
-      <member refid="classControllerHardwareConnector_1af805169f975bd5d56fc226743a550a35" prot="private" virt="non-virtual"><scope>ControllerHardwareConnector</scope><name>status_</name></member>
+      <member refid="classControllerHardwareConnector_1a6faae344d34f818a3f277ab4c1a8fc70" prot="private" virt="non-virtual"><scope>ControllerHardwareConnector</scope><name>status_</name></member>
       <member refid="structAbstractControllerHardwareConnector_1a06f931d74faac604c3ef56cb5ba75399" prot="public" virt="virtual"><scope>ControllerHardwareConnector</scope><name>~AbstractControllerHardwareConnector</name></member>
     </listofallmembers>
   </compounddef>

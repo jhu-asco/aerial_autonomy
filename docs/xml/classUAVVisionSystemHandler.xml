@@ -12,6 +12,32 @@
       </param>
     </templateparamlist>
       <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classUAVVisionSystemHandler_1a1f0b34fd0a8bd51ba6c2ea20539def67" prot="private" static="no" mutable="no">
+        <type>ros::NodeHandle</type>
+        <definition>ros::NodeHandle UAVVisionSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::nh_uav_</definition>
+        <argsstring></argsstring>
+        <name>nh_uav_</name>
+        <briefdescription>
+<para>Nodehandle for UAV. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="82" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVVisionSystemHandler_1af56d1ac7349cd051ffa67fe1dbfe9497" prot="private" static="no" mutable="no">
+        <type>ros::NodeHandle</type>
+        <definition>ros::NodeHandle UAVVisionSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::nh_tracker_</definition>
+        <argsstring></argsstring>
+        <name>nh_tracker_</name>
+        <briefdescription>
+<para>Nodehandle for Tracker. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="83" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="variable" id="classUAVVisionSystemHandler_1a55d43e0753e7064a52a0c0bbfa49f54c" prot="private" static="no" mutable="no">
         <type>pluginlib::ClassLoader&lt; parsernode::Parser &gt;</type>
         <definition>pluginlib::ClassLoader&lt;parsernode::Parser&gt; UAVVisionSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::parser_loader_</definition>
@@ -23,7 +49,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="76" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="76" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="85" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="85" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classUAVVisionSystemHandler_1abf991ce5f1d5ce233c02f7c13f9052cd" prot="private" static="no" mutable="no">
         <type>std::unique_ptr&lt; parsernode::Parser &gt;</type>
@@ -36,20 +62,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="77" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="77" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="86" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="86" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="classUAVVisionSystemHandler_1aa9ab9154bcd57e20228854e1c715efa9" prot="private" static="no" mutable="no">
-        <type><ref refid="classRoiToPositionConverter" kindref="compound">RoiToPositionConverter</ref></type>
-        <definition>RoiToPositionConverter UAVVisionSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::roi_to_position_converter_</definition>
+      <memberdef kind="variable" id="classUAVVisionSystemHandler_1ac3c2130e07f5acb60ccf78b66c6e0c25" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classBaseTracker" kindref="compound">BaseTracker</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;BaseTracker&gt; UAVVisionSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::tracker_</definition>
         <argsstring></argsstring>
-        <name>roi_to_position_converter_</name>
+        <name>tracker_</name>
         <briefdescription>
 <para>Tracking system. </para>        </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="78" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="78" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="87" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classUAVVisionSystemHandler_1a9908a197c2675dfb27d7208dd37440b5" prot="private" static="no" mutable="no">
         <type><ref refid="classUAVVisionSystem" kindref="compound">UAVVisionSystem</ref></type>
@@ -62,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="79" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="79" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="88" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="88" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classUAVVisionSystemHandler_1ae27a79edb12a811e1c23b1759ddba2fc" prot="private" static="no" mutable="no">
         <type><ref refid="classCommonSystemHandler" kindref="compound">CommonSystemHandler</ref>&lt; LogicStateMachineT, EventManagerT, <ref refid="classUAVVisionSystem" kindref="compound">UAVVisionSystem</ref> &gt;</type>
@@ -75,7 +101,7 @@
 <para>Common logic to create state machine and associated connections. </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="81" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="81" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="90" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="90" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="classUAVVisionSystemHandler_1a1db71542789292e2b3bcae2e6aeb0956" prot="private" static="no" mutable="no">
         <type><ref refid="classAsyncTimer" kindref="compound">AsyncTimer</ref></type>
@@ -88,19 +114,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="83" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="83" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="92" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="92" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="classUAVVisionSystemHandler_1a8eed44105339d945a32ebd99074e0d4f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="classUAVVisionSystemHandler_1aa0f5ebec04e650cc664ffb28eddf7635" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
         <definition>UAVVisionSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::UAVVisionSystemHandler</definition>
-        <argsstring>(ros::NodeHandle &amp;nh, UAVSystemHandlerConfig &amp;config)</argsstring>
+        <argsstring>(UAVSystemHandlerConfig &amp;config)</argsstring>
         <name>UAVVisionSystemHandler</name>
-        <param>
-          <type>ros::NodeHandle &amp;</type>
-          <declname>nh</declname>
-        </param>
         <param>
           <type>UAVSystemHandlerConfig &amp;</type>
           <declname>config</declname>
@@ -126,7 +148,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="31" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="31" bodyend="49"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="32" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="32" bodyend="56"/>
       </memberdef>
       <memberdef kind="function" id="classUAVVisionSystemHandler_1a5982168c668592c6cdf602c692d403f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -142,7 +164,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="54" column="1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="61" column="1"/>
       </memberdef>
       <memberdef kind="function" id="classUAVVisionSystemHandler_1a93fbb3919c4eeecb21308c036afdc65f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>parsernode::common::quaddata</type>
@@ -156,7 +178,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="60" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="60" bodyend="64"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="67" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="67" bodyend="71"/>
       </memberdef>
       <memberdef kind="function" id="classUAVVisionSystemHandler_1adbb3c12304b2759d8d47eb6ac9786406" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>bool</type>
@@ -170,7 +192,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="72" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="72" bodyend="72"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="79" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="79" bodyend="79"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -192,17 +214,19 @@
 </parameteritem>
 </parameterlist>
 </para>    </detaileddescription>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="24" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="24" bodyend="84"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" line="25" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_vision_system_handler.h" bodystart="25" bodyend="93"/>
     <listofallmembers>
       <member refid="classUAVVisionSystemHandler_1ae27a79edb12a811e1c23b1759ddba2fc" prot="private" virt="non-virtual"><scope>UAVVisionSystemHandler</scope><name>common_handler_</name></member>
       <member refid="classUAVVisionSystemHandler_1a93fbb3919c4eeecb21308c036afdc65f" prot="public" virt="non-virtual"><scope>UAVVisionSystemHandler</scope><name>getUAVData</name></member>
       <member refid="classUAVVisionSystemHandler_1adbb3c12304b2759d8d47eb6ac9786406" prot="public" virt="non-virtual"><scope>UAVVisionSystemHandler</scope><name>isConnected</name></member>
+      <member refid="classUAVVisionSystemHandler_1af56d1ac7349cd051ffa67fe1dbfe9497" prot="private" virt="non-virtual"><scope>UAVVisionSystemHandler</scope><name>nh_tracker_</name></member>
+      <member refid="classUAVVisionSystemHandler_1a1f0b34fd0a8bd51ba6c2ea20539def67" prot="private" virt="non-virtual"><scope>UAVVisionSystemHandler</scope><name>nh_uav_</name></member>
       <member refid="classUAVVisionSystemHandler_1a55d43e0753e7064a52a0c0bbfa49f54c" prot="private" virt="non-virtual"><scope>UAVVisionSystemHandler</scope><name>parser_loader_</name></member>
-      <member refid="classUAVVisionSystemHandler_1aa9ab9154bcd57e20228854e1c715efa9" prot="private" virt="non-virtual"><scope>UAVVisionSystemHandler</scope><name>roi_to_position_converter_</name></member>
+      <member refid="classUAVVisionSystemHandler_1ac3c2130e07f5acb60ccf78b66c6e0c25" prot="private" virt="non-virtual"><scope>UAVVisionSystemHandler</scope><name>tracker_</name></member>
       <member refid="classUAVVisionSystemHandler_1a1db71542789292e2b3bcae2e6aeb0956" prot="private" virt="non-virtual"><scope>UAVVisionSystemHandler</scope><name>uav_controller_timer_</name></member>
       <member refid="classUAVVisionSystemHandler_1abf991ce5f1d5ce233c02f7c13f9052cd" prot="private" virt="non-virtual"><scope>UAVVisionSystemHandler</scope><name>uav_hardware_</name></member>
       <member refid="classUAVVisionSystemHandler_1a9908a197c2675dfb27d7208dd37440b5" prot="private" virt="non-virtual"><scope>UAVVisionSystemHandler</scope><name>uav_system_</name></member>
-      <member refid="classUAVVisionSystemHandler_1a8eed44105339d945a32ebd99074e0d4f" prot="public" virt="non-virtual"><scope>UAVVisionSystemHandler</scope><name>UAVVisionSystemHandler</name></member>
+      <member refid="classUAVVisionSystemHandler_1aa0f5ebec04e650cc664ffb28eddf7635" prot="public" virt="non-virtual"><scope>UAVVisionSystemHandler</scope><name>UAVVisionSystemHandler</name></member>
       <member refid="classUAVVisionSystemHandler_1a5982168c668592c6cdf602c692d403f3" prot="public" virt="non-virtual"><scope>UAVVisionSystemHandler</scope><name>UAVVisionSystemHandler</name></member>
     </listofallmembers>
   </compounddef>

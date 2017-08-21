@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classRelativePositionController" kind="class" prot="public">
+    <compoundname>RelativePositionController</compoundname>
+    <basecompoundref refid="classController" prot="public" virt="non-virtual">Controller&lt; std::tuple&lt; Position, Position &gt;, Position, Position &gt;</basecompoundref>
+    <includes refid="relative__position__controller_8h" local="no">relative_position_controller.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classRelativePositionController_1a3ec608e5a61a7c2d6bc88a61fcc9961b" prot="private" static="no" mutable="no">
+        <type>PositionControllerConfig</type>
+        <definition>PositionControllerConfig RelativePositionController::config_</definition>
+        <argsstring></argsstring>
+        <name>config_</name>
+        <briefdescription>
+<para>Config specifies position tolerance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_position_controller.h" line="53" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_position_controller.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classRelativePositionController_1aa39b8e1674a0511f0aaadddded067f54" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>RelativePositionController::RelativePositionController</definition>
+        <argsstring>(PositionControllerConfig config)</argsstring>
+        <name>RelativePositionController</name>
+        <param>
+          <type>PositionControllerConfig</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_position_controller.h" line="18" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_position_controller.h" bodystart="18" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="classRelativePositionController_1a9f93be93f8e4f1fe70efa4231a2342dd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual RelativePositionController::~RelativePositionController</definition>
+        <argsstring>()</argsstring>
+        <name>~RelativePositionController</name>
+        <briefdescription>
+<para>Destructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_position_controller.h" line="23" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_position_controller.h" bodystart="23" bodyend="23"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classRelativePositionController_1a2362c32b42aac062e895716e1c981821" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool RelativePositionController::runImplementation</definition>
+        <argsstring>(std::tuple&lt; Position, Position &gt; sensor_data, Position goal, Position &amp;control)</argsstring>
+        <name>runImplementation</name>
+        <reimplements refid="classController_1a25a24fe858c6d5a0e1a1475073475a4d">runImplementation</reimplements>
+        <param>
+          <type>std::tuple&lt; <ref refid="structPosition" kindref="compound">Position</ref>, <ref refid="structPosition" kindref="compound">Position</ref> &gt;</type>
+          <declname>sensor_data</declname>
+        </param>
+        <param>
+          <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+          <declname>goal</declname>
+        </param>
+        <param>
+          <type><ref refid="structPosition" kindref="compound">Position</ref> &amp;</type>
+          <declname>control</declname>
+        </param>
+        <briefdescription>
+<para>Run the control loop. Uses a position controller to keep a desired position relative to a tracked point. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sensor_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="structPosition" kindref="compound">Position</ref> of controlled point and position of tracked point </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>goal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Goal relative position in control frame </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>control</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="structPosition" kindref="compound">Position</ref> command </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if controller is successful in running </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_position_controller.h" line="35" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/controllers/relative_position_controller.cpp" bodystart="4" bodyend="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classRelativePositionController_1a70108b11e6f06295b3c11d493441c0b4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool RelativePositionController::isConvergedImplementation</definition>
+        <argsstring>(std::tuple&lt; Position, Position &gt; sensor_data, Position goal)</argsstring>
+        <name>isConvergedImplementation</name>
+        <reimplements refid="classController_1ada247bf6a611958743df418250d5b454">isConvergedImplementation</reimplements>
+        <param>
+          <type>std::tuple&lt; <ref refid="structPosition" kindref="compound">Position</ref>, <ref refid="structPosition" kindref="compound">Position</ref> &gt;</type>
+          <declname>sensor_data</declname>
+        </param>
+        <param>
+          <type><ref refid="structPosition" kindref="compound">Position</ref></type>
+          <declname>goal</declname>
+        </param>
+        <briefdescription>
+<para>Check if controller converged. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sensor_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current control position and tracked position </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>goal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Goal relative position</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if converged </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_position_controller.h" line="46" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/controllers/relative_position_controller.cpp" bodystart="11" bodyend="26"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A position controller that keeps a position relative to some feedback position. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="562">
+        <label>Controller&lt; std::tuple&lt; Position, Position &gt;, Position, Position &gt;</label>
+        <link refid="classController"/>
+      </node>
+      <node id="561">
+        <label>RelativePositionController</label>
+        <link refid="classRelativePositionController"/>
+        <childnode refid="562" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="564">
+        <label>Controller&lt; std::tuple&lt; Position, Position &gt;, Position, Position &gt;</label>
+        <link refid="classController"/>
+      </node>
+      <node id="563">
+        <label>RelativePositionController</label>
+        <link refid="classRelativePositionController"/>
+        <childnode refid="564" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_position_controller.h" line="13" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/relative_position_controller.h" bodystart="12" bodyend="54"/>
+    <listofallmembers>
+      <member refid="classRelativePositionController_1a3ec608e5a61a7c2d6bc88a61fcc9961b" prot="private" virt="non-virtual"><scope>RelativePositionController</scope><name>config_</name></member>
+      <member refid="classController_1a287a48298ec6f08e36ac3d72a2e6de34" prot="public" virt="virtual"><scope>RelativePositionController</scope><name>getGoal</name></member>
+      <member refid="classController_1ab25282f175c8eaa2b132b4a80b61f7ae" prot="public" virt="non-virtual"><scope>RelativePositionController</scope><name>isConverged</name></member>
+      <member refid="classRelativePositionController_1a70108b11e6f06295b3c11d493441c0b4" prot="protected" virt="virtual"><scope>RelativePositionController</scope><name>isConvergedImplementation</name></member>
+      <member refid="classRelativePositionController_1aa39b8e1674a0511f0aaadddded067f54" prot="public" virt="non-virtual"><scope>RelativePositionController</scope><name>RelativePositionController</name></member>
+      <member refid="classController_1a973e1525b28d50ab77303e2f80c5c706" prot="public" virt="virtual"><scope>RelativePositionController</scope><name>run</name></member>
+      <member refid="classRelativePositionController_1a2362c32b42aac062e895716e1c981821" prot="protected" virt="virtual"><scope>RelativePositionController</scope><name>runImplementation</name></member>
+      <member refid="classController_1a172aae7e2475b72fb2eb469ccd198387" prot="public" virt="virtual"><scope>RelativePositionController</scope><name>setGoal</name></member>
+      <member refid="classController_1a86c5dbf78d3d948228c7c629e885151c" prot="public" virt="virtual"><scope>RelativePositionController</scope><name>~Controller</name></member>
+      <member refid="classRelativePositionController_1a9f93be93f8e4f1fe70efa4231a2342dd" prot="public" virt="virtual"><scope>RelativePositionController</scope><name>~RelativePositionController</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

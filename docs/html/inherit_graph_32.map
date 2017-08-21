@@ -1,3 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classEventPublisher.html" title="Event publisher to publish named event at regular intervals. " alt="" coords="6,5,117,32"/>
+<area shape="rect" id="node1" href="$classCommonSystemHandler.html" title="Provides logic common to different system handlers to reduce code duplication. " alt="" coords="5,4,232,60"/>
 </map>

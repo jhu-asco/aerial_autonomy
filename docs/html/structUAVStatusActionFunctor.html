@@ -92,6 +92,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
+<p>Functor which internally checks for UAV status before calling status independent run function.  
+ <a href="structUAVStatusActionFunctor.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="uav__status__functor_8h_source.html">uav_status_functor.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for UAVStatusActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;:</div>
@@ -128,7 +131,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a446e93a5275bb3ba15f7f5577d06a0bf inherit pub_methods_structEventAgnosticActionFunctor"><td class="mdescLeft">&#160;</td><td class="mdescRight">virtual destructor to get polymorphism  <a href="#a446e93a5275bb3ba15f7f5577d06a0bf">More...</a><br/></td></tr>
 <tr class="separator:a446e93a5275bb3ba15f7f5577d06a0bf inherit pub_methods_structEventAgnosticActionFunctor"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;class RobotSystemT, class LogicStateMachineT&gt;<br/>
+struct UAVStatusActionFunctor&lt; RobotSystemT, LogicStateMachineT &gt;</h3>
+
+<p>Functor which internally checks for UAV status before calling status independent run function. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">RobotSystemT</td><td>Robot System used by status independent run </td></tr>
+    <tr><td class="paramname">LogicStateMachineT</td><td>State Machine used by status independent run </td></tr>
+  </table>
+  </dd>
+</dl>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a05dfaff6ccd9ca5388fda51ccd831f8c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -265,7 +280,7 @@ template&lt;class RobotSystemT, class LogicStateMachineT&gt; </div>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="structVisualServoingInternalActionFunctor__.html#a10cf4e572f0db0f7fb004caf5d7edcd9">VisualServoingInternalActionFunctor_&lt; LogicStateMachineT &gt;</a>, and <a class="el" href="structPositionControlInternalActionFunctor__.html#aa5676982392898435d97a482bb5b6fd0">PositionControlInternalActionFunctor_&lt; LogicStateMachineT &gt;</a>.</p>
+<p>Implemented in <a class="el" href="structPositionControlInternalActionFunctor__.html#aa5676982392898435d97a482bb5b6fd0">PositionControlInternalActionFunctor_&lt; LogicStateMachineT &gt;</a>, <a class="el" href="structVisualServoingInternalActionFunctor__.html#a10cf4e572f0db0f7fb004caf5d7edcd9">VisualServoingInternalActionFunctor_&lt; LogicStateMachineT &gt;</a>, and <a class="el" href="structPickInternalActionFunctor__.html#a7cbca4293dd27465233c61fd7f284389">PickInternalActionFunctor_&lt; LogicStateMachineT &gt;</a>.</p>
 
 </div>
 </div>

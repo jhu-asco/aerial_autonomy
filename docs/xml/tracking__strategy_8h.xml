@@ -1,0 +1,282 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="tracking__strategy_8h" kind="file">
+    <compoundname>tracking_strategy.h</compoundname>
+    <includes refid="position_8h" local="yes">aerial_autonomy/types/position.h</includes>
+    <includes local="no">tuple</includes>
+    <includes local="no">unordered_map</includes>
+    <includedby refid="base__tracker_8h" local="yes">include/aerial_autonomy/trackers/base_tracker.h</includedby>
+    <includedby refid="closest__tracking__strategy_8h" local="yes">include/aerial_autonomy/trackers/closest_tracking_strategy.h</includedby>
+    <includedby refid="simple__tracking__strategy_8h" local="yes">include/aerial_autonomy/trackers/simple_tracking_strategy.h</includedby>
+    <incdepgraph>
+      <node id="6754">
+        <label>cmath</label>
+      </node>
+      <node id="6755">
+        <label>tuple</label>
+      </node>
+      <node id="6756">
+        <label>unordered_map</label>
+      </node>
+      <node id="6752">
+        <label>include/aerial_autonomy/trackers/tracking_strategy.h</label>
+        <link refid="tracking_strategy.h"/>
+        <childnode refid="6753" relation="include">
+        </childnode>
+        <childnode refid="6755" relation="include">
+        </childnode>
+        <childnode refid="6756" relation="include">
+        </childnode>
+      </node>
+      <node id="6753">
+        <label>aerial_autonomy/types/position.h</label>
+        <link refid="position_8h"/>
+        <childnode refid="6754" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6769">
+        <label>include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h</label>
+        <link refid="visual__servoing__controller__drone__connector_8h"/>
+        <childnode refid="6770" relation="include">
+        </childnode>
+        <childnode refid="6771" relation="include">
+        </childnode>
+      </node>
+      <node id="6782">
+        <label>src/trackers/simple_multi_tracker.cpp</label>
+        <link refid="simple__multi__tracker_8cpp"/>
+      </node>
+      <node id="6781">
+        <label>include/aerial_autonomy/trackers/simple_multi_tracker.h</label>
+        <link refid="simple__multi__tracker_8h"/>
+        <childnode refid="6782" relation="include">
+        </childnode>
+      </node>
+      <node id="6761">
+        <label>src/controller_hardware_connectors/visual_servoing_controller_arm_connector.cpp</label>
+        <link refid="visual__servoing__controller__arm__connector_8cpp"/>
+      </node>
+      <node id="6763">
+        <label>include/aerial_autonomy/actions_guards/pick_place_functors.h</label>
+        <link refid="pick__place__functors_8h"/>
+        <childnode refid="6764" relation="include">
+        </childnode>
+      </node>
+      <node id="6768">
+        <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
+        <link refid="sample__logic__state__machine_8h"/>
+      </node>
+      <node id="6788">
+        <label>src/trackers/simple_tracking_strategy.cpp</label>
+        <link refid="simple__tracking__strategy_8cpp"/>
+      </node>
+      <node id="6784">
+        <label>src/trackers/simple_tracker.cpp</label>
+        <link refid="simple__tracker_8cpp"/>
+      </node>
+      <node id="6780">
+        <label>src/trackers/roi_to_position_converter.cpp</label>
+        <link refid="roi__to__position__converter_8cpp"/>
+      </node>
+      <node id="6778">
+        <label>src/trackers/alvar_tracker.cpp</label>
+        <link refid="alvar__tracker_8cpp"/>
+      </node>
+      <node id="6776">
+        <label>include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</label>
+        <link refid="uav__vision__system__handler_8h"/>
+        <childnode refid="6775" relation="include">
+        </childnode>
+      </node>
+      <node id="6770">
+        <label>src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp</label>
+        <link refid="visual__servoing__controller__drone__connector_8cpp"/>
+      </node>
+      <node id="6779">
+        <label>include/aerial_autonomy/trackers/roi_to_position_converter.h</label>
+        <link refid="roi__to__position__converter_8h"/>
+        <childnode refid="6780" relation="include">
+        </childnode>
+        <childnode refid="6767" relation="include">
+        </childnode>
+        <childnode refid="6776" relation="include">
+        </childnode>
+      </node>
+      <node id="6771">
+        <label>include/aerial_autonomy/robot_systems/uav_vision_system.h</label>
+        <link refid="uav__vision__system_8h"/>
+        <childnode refid="6772" relation="include">
+        </childnode>
+        <childnode refid="6762" relation="include">
+        </childnode>
+        <childnode refid="6774" relation="include">
+        </childnode>
+        <childnode refid="6776" relation="include">
+        </childnode>
+        <childnode refid="6768" relation="include">
+        </childnode>
+      </node>
+      <node id="6765">
+        <label>include/aerial_autonomy/state_machines/pick_place_state_machine.h</label>
+        <link refid="pick__place__state__machine_8h"/>
+        <childnode refid="6766" relation="include">
+        </childnode>
+      </node>
+      <node id="6764">
+        <label>include/aerial_autonomy/actions_guards/pick_place_states_actions.h</label>
+        <link refid="pick__place__states__actions_8h"/>
+        <childnode refid="6765" relation="include">
+        </childnode>
+      </node>
+      <node id="6775">
+        <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
+        <link refid="uav__vision__system__node_8cpp"/>
+      </node>
+      <node id="6785">
+        <label>include/aerial_autonomy/trackers/closest_tracking_strategy.h</label>
+        <link refid="closest__tracking__strategy_8h"/>
+        <childnode refid="6786" relation="include">
+        </childnode>
+        <childnode refid="6777" relation="include">
+        </childnode>
+      </node>
+      <node id="6773">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
+        <link refid="visual__servoing__states__actions_8h"/>
+        <childnode refid="6764" relation="include">
+        </childnode>
+        <childnode refid="6774" relation="include">
+        </childnode>
+      </node>
+      <node id="6762">
+        <label>include/aerial_autonomy/robot_systems/uav_arm_system.h</label>
+        <link refid="uav__arm__system_8h"/>
+        <childnode refid="6763" relation="include">
+        </childnode>
+        <childnode refid="6765" relation="include">
+        </childnode>
+        <childnode refid="6767" relation="include">
+        </childnode>
+        <childnode refid="6768" relation="include">
+        </childnode>
+      </node>
+      <node id="6777">
+        <label>include/aerial_autonomy/trackers/alvar_tracker.h</label>
+        <link refid="alvar__tracker_8h"/>
+        <childnode refid="6778" relation="include">
+        </childnode>
+        <childnode refid="6767" relation="include">
+        </childnode>
+        <childnode refid="6776" relation="include">
+        </childnode>
+      </node>
+      <node id="6758">
+        <label>include/aerial_autonomy/trackers/base_tracker.h</label>
+        <link refid="base__tracker_8h"/>
+        <childnode refid="6759" relation="include">
+        </childnode>
+        <childnode refid="6760" relation="include">
+        </childnode>
+        <childnode refid="6769" relation="include">
+        </childnode>
+        <childnode refid="6777" relation="include">
+        </childnode>
+        <childnode refid="6779" relation="include">
+        </childnode>
+        <childnode refid="6781" relation="include">
+        </childnode>
+        <childnode refid="6783" relation="include">
+        </childnode>
+      </node>
+      <node id="6787">
+        <label>include/aerial_autonomy/trackers/simple_tracking_strategy.h</label>
+        <link refid="simple__tracking__strategy_8h"/>
+        <childnode refid="6784" relation="include">
+        </childnode>
+        <childnode refid="6788" relation="include">
+        </childnode>
+        <childnode refid="6779" relation="include">
+        </childnode>
+      </node>
+      <node id="6772">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_functors.h</label>
+        <link refid="visual__servoing__functors_8h"/>
+        <childnode refid="6773" relation="include">
+        </childnode>
+      </node>
+      <node id="6759">
+        <label>src/trackers/base_tracker.cpp</label>
+        <link refid="base__tracker_8cpp"/>
+      </node>
+      <node id="6786">
+        <label>src/trackers/closest_tracking_strategy.cpp</label>
+        <link refid="closest__tracking__strategy_8cpp"/>
+      </node>
+      <node id="6757">
+        <label>include/aerial_autonomy/trackers/tracking_strategy.h</label>
+        <link refid="tracking_strategy.h"/>
+        <childnode refid="6758" relation="include">
+        </childnode>
+        <childnode refid="6785" relation="include">
+        </childnode>
+        <childnode refid="6787" relation="include">
+        </childnode>
+      </node>
+      <node id="6760">
+        <label>include/aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_arm_connector.h</label>
+        <link refid="visual__servoing__controller__arm__connector_8h"/>
+        <childnode refid="6761" relation="include">
+        </childnode>
+        <childnode refid="6762" relation="include">
+        </childnode>
+      </node>
+      <node id="6783">
+        <label>include/aerial_autonomy/trackers/simple_tracker.h</label>
+        <link refid="simple__tracker_8h"/>
+        <childnode refid="6784" relation="include">
+        </childnode>
+      </node>
+      <node id="6767">
+        <label>include/aerial_autonomy/system_handlers/uav_arm_system_handler.h</label>
+        <link refid="uav__arm__system__handler_8h"/>
+        <childnode refid="6766" relation="include">
+        </childnode>
+      </node>
+      <node id="6774">
+        <label>include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</label>
+        <link refid="visual__servoing__state__machine_8h"/>
+        <childnode refid="6775" relation="include">
+        </childnode>
+      </node>
+      <node id="6766">
+        <label>src/system_handler_nodes/uav_arm_system_node.cpp</label>
+        <link refid="uav__arm__system__node_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classTrackingStrategy" prot="public">TrackingStrategy</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="position_8h" kindref="compound">aerial_autonomy/types/position.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;tuple&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unordered_map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="classTrackingStrategy" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classTrackingStrategy" kindref="compound">TrackingStrategy</ref><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classTrackingStrategy_1a5c84999d7135376575a6f6f7992d209f" kindref="member">initialize</ref>(</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::unordered_map&lt;uint32_t,<sp/>Position&gt;<sp/>&amp;tracking_vectors)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classTrackingStrategy_1ae2dea239beba8bb03f9c785972238b46" kindref="member">getTrackingVector</ref>(</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::unordered_map&lt;uint32_t,<sp/>Position&gt;<sp/>&amp;tracking_vectors,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>std::tuple&lt;uint32_t,<sp/>Position&gt;<sp/>&amp;tracking_vector)<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/tracking_strategy.h"/>
+  </compounddef>
+</doxygen>

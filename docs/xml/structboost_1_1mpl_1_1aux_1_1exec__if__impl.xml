@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structboost_1_1mpl_1_1aux_1_1exec__if__impl" kind="struct" prot="public">
+    <compoundname>boost::mpl::aux::exec_if_impl</compoundname>
+    <includes refid="exec__if_8h" local="no">exec_if.h</includes>
+    <templateparamlist>
+      <param>
+        <type>bool</type>
+        <declname>done</declname>
+        <defname>done</defname>
+        <defval>true</defval>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structboost_1_1mpl_1_1aux_1_1exec__if__impl_1a5051ed193fe5eaa57abae3876de44fde" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Iterator</type>
+          </param>
+          <param>
+            <type>typename LastIterator</type>
+          </param>
+          <param>
+            <type>typename TransformFunc</type>
+          </param>
+          <param>
+            <type>typename F</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>static bool boost::mpl::aux::exec_if_impl&lt; done &gt;::execute</definition>
+        <argsstring>(Iterator *, LastIterator *, TransformFunc *, F)</argsstring>
+        <name>execute</name>
+        <param>
+          <type>Iterator *</type>
+        </param>
+        <param>
+          <type>LastIterator *</type>
+        </param>
+        <param>
+          <type>TransformFunc *</type>
+        </param>
+        <param>
+          <type>F</type>
+        </param>
+        <briefdescription>
+<para>Default implementation that returns true. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Initial</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>position in the vector </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Final</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>position in the vector </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>used to transform the elements in vector before calling </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>F</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Functor to call on the elements in the vector</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if Functor evaluation returned True/False otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/exec_if.h" line="68" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/exec_if.h" bodystart="68" bodyend="70"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Default implementation of exec which returns true. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>done</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If done is false, there is a specialized implementation </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/exec_if.h" line="55" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/exec_if.h" bodystart="55" bodyend="71"/>
+    <listofallmembers>
+      <member refid="structboost_1_1mpl_1_1aux_1_1exec__if__impl_1a5051ed193fe5eaa57abae3876de44fde" prot="public" virt="non-virtual"><scope>boost::mpl::aux::exec_if_impl</scope><name>execute</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

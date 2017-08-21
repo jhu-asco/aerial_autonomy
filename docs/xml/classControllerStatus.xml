@@ -1,0 +1,418 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classControllerStatus" kind="class" prot="public">
+    <compoundname>ControllerStatus</compoundname>
+    <includes refid="controller__status_8h" local="no">controller_status.h</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5" prot="public" static="no">
+        <name>Status</name>
+        <enumvalue id="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5abd1aa4e51539cd0c71d10d8317b3d516" prot="public">
+          <name>Active</name>
+          <briefdescription>
+<para><ref refid="classController" kindref="compound">Controller</ref> active. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5a423a9e7373b9fa345a476136ba29fc05" prot="public">
+          <name>Completed</name>
+          <briefdescription>
+<para><ref refid="classController" kindref="compound">Controller</ref> completed. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5a25a624331e4843eacb2f173012402c74" prot="public">
+          <name>Critical</name>
+          <briefdescription>
+<para><ref refid="classController" kindref="compound">Controller</ref> is critical and unable to continue. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5af0cfd086b78abab59eea7840bb641d9c" prot="public">
+          <name>NotEngaged</name>
+          <briefdescription>
+<para>This status is used when no controller is engaged. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Types of status available for a controller. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" line="15" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" bodystart="15" bodyend="20"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classControllerStatus_1a035610bc9990f3e6fbfaa5e499f05c78" prot="private" static="no" mutable="no">
+        <type><ref refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5" kindref="member">Status</ref></type>
+        <definition>Status ControllerStatus::status_</definition>
+        <argsstring></argsstring>
+        <name>status_</name>
+        <briefdescription>
+<para>Current status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" line="23" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classControllerStatus_1a3069b6e61f9390657f72bd386871b784" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string ControllerStatus::status_description_</definition>
+        <argsstring></argsstring>
+        <name>status_description_</name>
+        <briefdescription>
+<para>Description for status if any. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" line="24" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classControllerStatus_1a2b34a31f215d11b9918f6dd27ab94802" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string ControllerStatus::debug_header</definition>
+        <argsstring></argsstring>
+        <name>debug_header</name>
+        <briefdescription>
+<para>Header for debug info. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" line="25" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classControllerStatus_1a1bc5ae73c843d65796fbf97b8a8885b2" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; double &gt;</type>
+        <definition>std::vector&lt;double&gt; ControllerStatus::debug_info</definition>
+        <argsstring></argsstring>
+        <name>debug_info</name>
+        <briefdescription>
+<para>Debug data associated with current status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" line="26" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classControllerStatus_1a195ecbd30fe5a1dc06861e1a6f927f8f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend bool</type>
+        <definition>bool operator==</definition>
+        <argsstring>(const ControllerStatus &amp;controller_status, const Status &amp;status_enum)</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &amp;</type>
+          <declname>controller_status</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5" kindref="member">Status</ref> &amp;</type>
+          <declname>status_enum</declname>
+        </param>
+        <briefdescription>
+<para>An overload for comparing against an enum. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>controller_status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The LHS which is a controller status </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>status_enum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The RHS which is an enum</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the controller status has the same enum as RHS </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" line="36" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/common/controller_status.cpp" bodystart="44" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="friend" id="classControllerStatus_1a369ada8ee0cc3930c89bbfa56c71e74d" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend bool</type>
+        <definition>bool operator==</definition>
+        <argsstring>(const ControllerStatus &amp;lhs_controller_status, const ControllerStatus &amp;rhs_controller_status)</argsstring>
+        <name>operator==</name>
+        <param>
+          <type>const <ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &amp;</type>
+          <declname>lhs_controller_status</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &amp;</type>
+          <declname>rhs_controller_status</declname>
+        </param>
+        <briefdescription>
+<para>An overload function to compare two controller status classes. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lhs_controller_status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>first controller status </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rhs_controller_status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>second controller status</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if both controller status have the same status enum stored </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" line="47" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/common/controller_status.cpp" bodystart="49" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="friend" id="classControllerStatus_1a5371c7e73e26e62fbf868743f875b3ac" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend bool</type>
+        <definition>bool operator!=</definition>
+        <argsstring>(const ControllerStatus &amp;lhs_controller_status, const ControllerStatus &amp;rhs_controller_status)</argsstring>
+        <name>operator!=</name>
+        <param>
+          <type>const <ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &amp;</type>
+          <declname>lhs_controller_status</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &amp;</type>
+          <declname>rhs_controller_status</declname>
+        </param>
+        <briefdescription>
+<para>An overload function to compare two controller status classes. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lhs_controller_status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>first controller status </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rhs_controller_status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>second controller status</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if both controller status do not have the same status enum stored </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" line="59" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/common/controller_status.cpp" bodystart="54" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="friend" id="classControllerStatus_1a786ff5eb714accec2fb339510aa1cd10" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend <ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &amp;</type>
+        <definition>ControllerStatus&amp; operator&lt;&lt;</definition>
+        <argsstring>(ControllerStatus &amp;cs, const double &amp;data)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &amp;</type>
+          <declname>cs</declname>
+        </param>
+        <param>
+          <type>const double &amp;</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>Add data to controller status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>data to be input to controller status</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> instance </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" line="69" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/common/controller_status.cpp" bodystart="59" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="friend" id="classControllerStatus_1a963e40f389c9c9faa41fc2cbe97d6ad0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend <ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &amp;</type>
+        <definition>ControllerStatus&amp; operator&lt;&lt;</definition>
+        <argsstring>(ControllerStatus &amp;cs, const std::string &amp;data)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> &amp;</type>
+          <declname>cs</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>Add header for debug info. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classController" kindref="compound">Controller</ref> status instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>header name</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref> instance </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" line="79" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/common/controller_status.cpp" bodystart="64" bodyend="67"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classControllerStatus_1afc03ed405aec0b3d3165d6447a9f791a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>ControllerStatus::ControllerStatus</definition>
+        <argsstring>(ControllerStatus::Status status=ControllerStatus::NotEngaged, std::string status_description=&quot;&quot;)</argsstring>
+        <name>ControllerStatus</name>
+        <param>
+          <type><ref refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5" kindref="member">ControllerStatus::Status</ref></type>
+          <declname>status</declname>
+          <defval><ref refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5af0cfd086b78abab59eea7840bb641d9c" kindref="member">ControllerStatus::NotEngaged</ref></defval>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>status_description</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Constructor with default status as not engaged and short message describing the status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of status </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>status_description</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>short message describing the status </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" line="90" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/common/controller_status.cpp" bodystart="7" bodyend="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classControllerStatus_1a0f14e9876ec9bec020fa4a7dba5fa533" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string ControllerStatus::getHtmlStatusString</definition>
+        <argsstring>()</argsstring>
+        <name>getHtmlStatusString</name>
+        <briefdescription>
+<para>Get a Html text describing the controller status. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>html string containing controller status and description </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" line="98" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/common/controller_status.cpp" bodystart="12" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classControllerStatus_1a1eea599f7d92df260e1e2d02a6f2f624" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ControllerStatus::setStatus</definition>
+        <argsstring>(ControllerStatus::Status status, std::string status_description=&quot;&quot;)</argsstring>
+        <name>setStatus</name>
+        <param>
+          <type><ref refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5" kindref="member">ControllerStatus::Status</ref></type>
+          <declname>status</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>status_description</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Set the internal status of controller status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Enum describing the current controller status </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>status_description</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Description about the status </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" line="106" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" bodystart="106" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="classControllerStatus_1a1d0a3351ba17f33230f449f6be439741" prot="public" static="no" const="yes" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ControllerStatus::operator bool</definition>
+        <argsstring>() const </argsstring>
+        <name>operator bool</name>
+        <briefdescription>
+<para>Allows for explicit conversion of the class to a boolean variable This is pretty useful to check controller status implies controller convergence or not. For example: if(controller_status) { do something} can be used to perform actions if controller has converged. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if controller status is completed. False otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" line="121" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" bodystart="121" bodyend="123"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Status of the controller. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" line="10" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/controller_status.h" bodystart="10" bodyend="124"/>
+    <listofallmembers>
+      <member refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5abd1aa4e51539cd0c71d10d8317b3d516" prot="public" virt="non-virtual"><scope>ControllerStatus</scope><name>Active</name></member>
+      <member refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5a423a9e7373b9fa345a476136ba29fc05" prot="public" virt="non-virtual"><scope>ControllerStatus</scope><name>Completed</name></member>
+      <member refid="classControllerStatus_1afc03ed405aec0b3d3165d6447a9f791a" prot="public" virt="non-virtual"><scope>ControllerStatus</scope><name>ControllerStatus</name></member>
+      <member refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5a25a624331e4843eacb2f173012402c74" prot="public" virt="non-virtual"><scope>ControllerStatus</scope><name>Critical</name></member>
+      <member refid="classControllerStatus_1a2b34a31f215d11b9918f6dd27ab94802" prot="private" virt="non-virtual"><scope>ControllerStatus</scope><name>debug_header</name></member>
+      <member refid="classControllerStatus_1a1bc5ae73c843d65796fbf97b8a8885b2" prot="private" virt="non-virtual"><scope>ControllerStatus</scope><name>debug_info</name></member>
+      <member refid="classControllerStatus_1a0f14e9876ec9bec020fa4a7dba5fa533" prot="public" virt="non-virtual"><scope>ControllerStatus</scope><name>getHtmlStatusString</name></member>
+      <member refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5af0cfd086b78abab59eea7840bb641d9c" prot="public" virt="non-virtual"><scope>ControllerStatus</scope><name>NotEngaged</name></member>
+      <member refid="classControllerStatus_1a1d0a3351ba17f33230f449f6be439741" prot="public" virt="non-virtual"><scope>ControllerStatus</scope><name>operator bool</name></member>
+      <member refid="classControllerStatus_1a5371c7e73e26e62fbf868743f875b3ac" prot="private" virt="non-virtual"><scope>ControllerStatus</scope><name>operator!=</name></member>
+      <member refid="classControllerStatus_1a786ff5eb714accec2fb339510aa1cd10" prot="private" virt="non-virtual"><scope>ControllerStatus</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classControllerStatus_1a963e40f389c9c9faa41fc2cbe97d6ad0" prot="private" virt="non-virtual"><scope>ControllerStatus</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classControllerStatus_1a195ecbd30fe5a1dc06861e1a6f927f8f" prot="private" virt="non-virtual"><scope>ControllerStatus</scope><name>operator==</name></member>
+      <member refid="classControllerStatus_1a369ada8ee0cc3930c89bbfa56c71e74d" prot="private" virt="non-virtual"><scope>ControllerStatus</scope><name>operator==</name></member>
+      <member refid="classControllerStatus_1a1eea599f7d92df260e1e2d02a6f2f624" prot="public" virt="non-virtual"><scope>ControllerStatus</scope><name>setStatus</name></member>
+      <member refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5" prot="public" virt="non-virtual"><scope>ControllerStatus</scope><name>Status</name></member>
+      <member refid="classControllerStatus_1a035610bc9990f3e6fbfaa5e499f05c78" prot="private" virt="non-virtual"><scope>ControllerStatus</scope><name>status_</name></member>
+      <member refid="classControllerStatus_1a3069b6e61f9390657f72bd386871b784" prot="private" virt="non-virtual"><scope>ControllerStatus</scope><name>status_description_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

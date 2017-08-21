@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="structPickPlaceStatesActions_1_1ManualControlArmState_1_1internal__transition__table" kind="struct" prot="public">
+    <compoundname>PickPlaceStatesActions::ManualControlArmState::internal_transition_table</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">boost::mpl::vector&lt; msmf::Internal&lt; InternalTransitionEvent, ManualControlArmInternalActionFunctor_&lt; LogicStateMachineT &gt;, msmf::none &gt;, msmf::Internal&lt; arm_events::PowerOn, ArmPowerOn, msmf::none &gt;, msmf::Internal&lt; arm_events::PowerOff, ArmPowerOff, msmf::none &gt;, msmf::Internal&lt; arm_events::Fold, ArmFold, msmf::none &gt;, msmf::Internal&lt; uav_basic_events::Abort, msmf::none, msmf::none &gt;, msmf::Internal&lt; arm_events::RightAngleFold, ArmRightFold, msmf::none &gt; &gt;</basecompoundref>
+    <includes refid="pick__place__states__actions_8h" local="no">pick_place_states_actions.h</includes>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="696">
+        <label>PickPlaceStatesActions&lt; LogicStateMachineT &gt;::ManualControlArmState::internal_transition_table</label>
+        <link refid="structPickPlaceStatesActions_1_1ManualControlArmState_1_1internal__transition__table"/>
+        <childnode refid="697" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="697">
+        <label>boost::mpl::vector&lt; msmf::Internal&lt; InternalTransitionEvent, ManualControlArmInternalActionFunctor_&lt; LogicStateMachineT &gt;, msmf::none &gt;, msmf::Internal&lt; arm_events::PowerOn, ArmPowerOn, msmf::none &gt;, msmf::Internal&lt; arm_events::PowerOff, ArmPowerOff, msmf::none &gt;, msmf::Internal&lt; arm_events::Fold, ArmFold, msmf::none &gt;, msmf::Internal&lt; uav_basic_events::Abort, msmf::none, msmf::none &gt;, msmf::Internal&lt; arm_events::RightAngleFold, ArmRightFold, msmf::none &gt; &gt;</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="698">
+        <label>PickPlaceStatesActions&lt; LogicStateMachineT &gt;::ManualControlArmState::internal_transition_table</label>
+        <link refid="structPickPlaceStatesActions_1_1ManualControlArmState_1_1internal__transition__table"/>
+        <childnode refid="699" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="699">
+        <label>boost::mpl::vector&lt; msmf::Internal&lt; InternalTransitionEvent, ManualControlArmInternalActionFunctor_&lt; LogicStateMachineT &gt;, msmf::none &gt;, msmf::Internal&lt; arm_events::PowerOn, ArmPowerOn, msmf::none &gt;, msmf::Internal&lt; arm_events::PowerOff, ArmPowerOff, msmf::none &gt;, msmf::Internal&lt; arm_events::Fold, ArmFold, msmf::none &gt;, msmf::Internal&lt; uav_basic_events::Abort, msmf::none, msmf::none &gt;, msmf::Internal&lt; arm_events::RightAngleFold, ArmRightFold, msmf::none &gt; &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" line="149" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/pick_place_states_actions.h" bodystart="138" bodyend="149"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

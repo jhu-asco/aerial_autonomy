@@ -101,7 +101,7 @@ Inheritance diagram for AbstractControllerHardwareConnector:</div>
 <div class="dyncontent">
 <div class="center"><img src="structAbstractControllerHardwareConnector__inherit__graph.png" border="0" usemap="#AbstractControllerHardwareConnector_inherit__map" alt="Inheritance graph"/></div>
 <map name="AbstractControllerHardwareConnector_inherit__map" id="AbstractControllerHardwareConnector_inherit__map">
-<area shape="rect" id="node2" href="classControllerHardwareConnector.html" title="Performs a single step of extracting data, running controller and sending data back to hardware..." alt="" coords="237,5,437,61"/><area shape="rect" id="node3" href="classControllerHardwareConnector.html" title="ControllerHardwareConnector\l\&lt; JoysticksYaw, EmptyGoal,\l RollPitchYawThrust \&gt;" alt="" coords="240,85,435,141"/><area shape="rect" id="node5" href="classControllerHardwareConnector.html" title="ControllerHardwareConnector\l\&lt; PositionYaw, Position,\l VelocityYawRate \&gt;" alt="" coords="240,165,435,221"/><area shape="rect" id="node7" href="classControllerHardwareConnector.html" title="ControllerHardwareConnector\l\&lt; PositionYaw, PositionYaw,\l PositionYaw \&gt;" alt="" coords="240,245,435,301"/><area shape="rect" id="node9" href="classControllerHardwareConnector.html" title="ControllerHardwareConnector\l\&lt; VelocityYaw, VelocityYaw,\l VelocityYaw \&gt;" alt="" coords="240,325,435,381"/><area shape="rect" id="node4" href="classManualRPYTControllerDroneConnector.html" title="Maps Joystick goals to rpythrust commands to quadrotor. " alt="" coords="501,93,691,134"/><area shape="rect" id="node6" href="classVisualServoingControllerDroneConnector.html" title="A visual servoing controller that uses a tracker output as feedback. " alt="" coords="513,173,679,214"/><area shape="rect" id="node8" href="classPositionControllerDroneConnector.html" title="Manages communication between a drone plugin and a position controller that outputs position commands..." alt="" coords="486,260,706,287"/><area shape="rect" id="node10" href="classBuiltInVelocityControllerDroneConnector.html" title="Manages communication between a drone plugin and a velocity controller that outputs velocity commands..." alt="" coords="515,333,677,374"/></map>
+<area shape="rect" id="node2" href="classControllerHardwareConnector.html" title="Performs a single step of extracting data, running controller and sending data back to hardware..." alt="" coords="237,5,437,61"/><area shape="rect" id="node3" href="classControllerHardwareConnector.html" title="ControllerHardwareConnector\l\&lt; JoysticksYaw, EmptyGoal,\l RollPitchYawThrust \&gt;" alt="" coords="240,85,435,141"/><area shape="rect" id="node5" href="classControllerHardwareConnector.html" title="ControllerHardwareConnector\l\&lt; PositionYaw, Position,\l VelocityYawRate \&gt;" alt="" coords="240,165,435,221"/><area shape="rect" id="node7" href="classControllerHardwareConnector.html" title="ControllerHardwareConnector\l\&lt; PositionYaw, PositionYaw,\l PositionYaw \&gt;" alt="" coords="240,245,435,301"/><area shape="rect" id="node9" href="classControllerHardwareConnector.html" title="ControllerHardwareConnector\l\&lt; std::tuple\&lt; tf::Transform,\l tf::Transform \&gt;, tf::Transform,\l tf::Transform \&gt;" alt="" coords="237,326,437,397"/><area shape="rect" id="node11" href="classControllerHardwareConnector.html" title="ControllerHardwareConnector\l\&lt; VelocityYaw, VelocityYaw,\l VelocityYaw \&gt;" alt="" coords="240,421,435,477"/><area shape="rect" id="node4" href="classManualRPYTControllerDroneConnector.html" title="Maps Joystick goals to rpythrust commands to quadrotor. " alt="" coords="501,93,691,134"/><area shape="rect" id="node6" href="classVisualServoingControllerDroneConnector.html" title="A visual servoing controller that uses a tracker output as feedback. " alt="" coords="513,173,679,214"/><area shape="rect" id="node8" href="classPositionControllerDroneConnector.html" title="Manages communication between a drone plugin and a position controller that outputs position commands..." alt="" coords="486,260,706,287"/><area shape="rect" id="node10" href="classVisualServoingControllerArmConnector.html" title="A visual servoing controller that uses a tracker output as feedback and moves the arm to a goal pose ..." alt="" coords="513,341,679,382"/><area shape="rect" id="node12" href="classBuiltInVelocityControllerDroneConnector.html" title="Manages communication between a drone plugin and a velocity controller that outputs velocity commands..." alt="" coords="515,429,677,470"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -109,6 +109,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0fcf605e19daef2f9f99d4dc2a23feb4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structAbstractControllerHardwareConnector.html#a0fcf605e19daef2f9f99d4dc2a23feb4">run</a> ()=0</td></tr>
 <tr class="memdesc:a0fcf605e19daef2f9f99d4dc2a23feb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract run function.  <a href="#a0fcf605e19daef2f9f99d4dc2a23feb4">More...</a><br/></td></tr>
 <tr class="separator:a0fcf605e19daef2f9f99d4dc2a23feb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43c4d0668ccbb2ecffe79144b06f30cf"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classControllerStatus.html">ControllerStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structAbstractControllerHardwareConnector.html#a43c4d0668ccbb2ecffe79144b06f30cf">getStatus</a> () const =0</td></tr>
+<tr class="memdesc:a43c4d0668ccbb2ecffe79144b06f30cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provide the status of the controller.  <a href="#a43c4d0668ccbb2ecffe79144b06f30cf">More...</a><br/></td></tr>
+<tr class="separator:a43c4d0668ccbb2ecffe79144b06f30cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06f931d74faac604c3ef56cb5ba75399"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structAbstractControllerHardwareConnector.html#a06f931d74faac604c3ef56cb5ba75399">~AbstractControllerHardwareConnector</a> ()</td></tr>
 <tr class="memdesc:a06f931d74faac604c3ef56cb5ba75399"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor to get polymorphism.  <a href="#a06f931d74faac604c3ef56cb5ba75399">More...</a><br/></td></tr>
 <tr class="separator:a06f931d74faac604c3ef56cb5ba75399"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,6 +145,34 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a43c4d0668ccbb2ecffe79144b06f30cf"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classControllerStatus.html">ControllerStatus</a> AbstractControllerHardwareConnector::getStatus </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Provide the status of the controller. </p>
+<dl class="section return"><dt>Returns</dt><dd>The status of the controller </dd></dl>
+
+<p>Implemented in <a class="el" href="classControllerHardwareConnector.html#a3e69fcccb3826adbd02ea9f7f0740613">ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;</a>, <a class="el" href="classControllerHardwareConnector.html#a3e69fcccb3826adbd02ea9f7f0740613">ControllerHardwareConnector&lt; std::tuple&lt; tf::Transform, tf::Transform &gt;, tf::Transform, tf::Transform &gt;</a>, <a class="el" href="classControllerHardwareConnector.html#a3e69fcccb3826adbd02ea9f7f0740613">ControllerHardwareConnector&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</a>, <a class="el" href="classControllerHardwareConnector.html#a3e69fcccb3826adbd02ea9f7f0740613">ControllerHardwareConnector&lt; PositionYaw, PositionYaw, PositionYaw &gt;</a>, <a class="el" href="classControllerHardwareConnector.html#a3e69fcccb3826adbd02ea9f7f0740613">ControllerHardwareConnector&lt; PositionYaw, Position, VelocityYawRate &gt;</a>, and <a class="el" href="classControllerHardwareConnector.html#a3e69fcccb3826adbd02ea9f7f0740613">ControllerHardwareConnector&lt; VelocityYaw, VelocityYaw, VelocityYaw &gt;</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a0fcf605e19daef2f9f99d4dc2a23feb4"></a>
 <div class="memitem">
 <div class="memproto">
@@ -166,7 +197,7 @@ Public Member Functions</h2></td></tr>
 <p>Abstract run function. </p>
 <p>The run function should run controller and send commands to hardware </p>
 
-<p>Implemented in <a class="el" href="classControllerHardwareConnector.html#afb46464434a3a5881ecc1091f58bbd61">ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;</a>, <a class="el" href="classControllerHardwareConnector.html#afb46464434a3a5881ecc1091f58bbd61">ControllerHardwareConnector&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</a>, <a class="el" href="classControllerHardwareConnector.html#afb46464434a3a5881ecc1091f58bbd61">ControllerHardwareConnector&lt; PositionYaw, PositionYaw, PositionYaw &gt;</a>, <a class="el" href="classControllerHardwareConnector.html#afb46464434a3a5881ecc1091f58bbd61">ControllerHardwareConnector&lt; PositionYaw, Position, VelocityYawRate &gt;</a>, and <a class="el" href="classControllerHardwareConnector.html#afb46464434a3a5881ecc1091f58bbd61">ControllerHardwareConnector&lt; VelocityYaw, VelocityYaw, VelocityYaw &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classControllerHardwareConnector.html#afb46464434a3a5881ecc1091f58bbd61">ControllerHardwareConnector&lt; SensorDataType, GoalType, ControlType &gt;</a>, <a class="el" href="classControllerHardwareConnector.html#afb46464434a3a5881ecc1091f58bbd61">ControllerHardwareConnector&lt; std::tuple&lt; tf::Transform, tf::Transform &gt;, tf::Transform, tf::Transform &gt;</a>, <a class="el" href="classControllerHardwareConnector.html#afb46464434a3a5881ecc1091f58bbd61">ControllerHardwareConnector&lt; JoysticksYaw, EmptyGoal, RollPitchYawThrust &gt;</a>, <a class="el" href="classControllerHardwareConnector.html#afb46464434a3a5881ecc1091f58bbd61">ControllerHardwareConnector&lt; PositionYaw, PositionYaw, PositionYaw &gt;</a>, <a class="el" href="classControllerHardwareConnector.html#afb46464434a3a5881ecc1091f58bbd61">ControllerHardwareConnector&lt; PositionYaw, Position, VelocityYawRate &gt;</a>, and <a class="el" href="classControllerHardwareConnector.html#afb46464434a3a5881ecc1091f58bbd61">ControllerHardwareConnector&lt; VelocityYaw, VelocityYaw, VelocityYaw &gt;</a>.</p>
 
 </div>
 </div>

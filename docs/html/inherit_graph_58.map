@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$structEventAgnosticGuardFunctor.html" title="EventAgnosticGuardFunctor\l\&lt; UAVVisionSystem, LogicStateMachineT \&gt;" alt="" coords="5,38,288,79"/>
+<area shape="rect" id="node2" href="$structGoHomeTransitionGuardFunctor__.html" title="Guard for home transition. " alt="" coords="356,5,567,46"/>
+<area shape="rect" id="node3" href="$structVisualServoingTransitionGuardFunctor__.html" title="Check tracking is valid before starting visual servoing. " alt="" coords="336,70,587,111"/>
+</map>

@@ -102,7 +102,7 @@ Inheritance diagram for BaseRobotSystem:</div>
 <div class="dyncontent">
 <div class="center"><img src="classBaseRobotSystem__inherit__graph.png" border="0" usemap="#BaseRobotSystem_inherit__map" alt="Inheritance graph"/></div>
 <map name="BaseRobotSystem_inherit__map" id="BaseRobotSystem_inherit__map">
-<area shape="rect" id="node2" href="classArmSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components..." alt="" coords="5,80,96,107"/><area shape="rect" id="node3" href="classUAVSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components..." alt="" coords="121,80,215,107"/><area shape="rect" id="node4" href="classUAVVisionSystem.html" title="UAV Vision system that extends UAV system to include constant heading depth controller. " alt="" coords="103,155,232,181"/></map>
+<area shape="rect" id="node2" href="classArmSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components..." alt="" coords="5,155,96,181"/><area shape="rect" id="node4" href="classUAVSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components..." alt="" coords="125,80,219,107"/><area shape="rect" id="node3" href="classUAVArmSystem.html" title="UAV vision system with an arm. " alt="" coords="58,229,176,256"/><area shape="rect" id="node5" href="classUAVVisionSystem.html" title="UAV system with a camera and visual sevoing capabilities. " alt="" coords="120,155,249,181"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for BaseRobotSystem:</div>
@@ -126,9 +126,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:add092f1cc4faec7b7f1ecb624f54a56a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the goal from connector.  <a href="#add092f1cc4faec7b7f1ecb624f54a56a">More...</a><br/></td></tr>
 <tr class="separator:add092f1cc4faec7b7f1ecb624f54a56a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22435ca0b28e562a230b4dfdeaffa716"><td class="memTemplParams" colspan="2">template&lt;class ControllerHardwareConnectorT &gt; </td></tr>
-<tr class="memitem:a22435ca0b28e562a230b4dfdeaffa716"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="base__controller_8h.html#addd69ea32460850b571ba88f2a994b73">ControllerStatus</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a22435ca0b28e562a230b4dfdeaffa716">getStatus</a> () const </td></tr>
-<tr class="memdesc:a22435ca0b28e562a230b4dfdeaffa716"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the status of the active controller.  <a href="#a22435ca0b28e562a230b4dfdeaffa716">More...</a><br/></td></tr>
+<tr class="memitem:a22435ca0b28e562a230b4dfdeaffa716"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classControllerStatus.html">ControllerStatus</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a22435ca0b28e562a230b4dfdeaffa716">getStatus</a> () const </td></tr>
+<tr class="memdesc:a22435ca0b28e562a230b4dfdeaffa716"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the status of a controller.  <a href="#a22435ca0b28e562a230b4dfdeaffa716">More...</a><br/></td></tr>
 <tr class="separator:a22435ca0b28e562a230b4dfdeaffa716"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14c406049bbf3d17e455bac5d0f5db1e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classControllerStatus.html">ControllerStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a14c406049bbf3d17e455bac5d0f5db1e">getActiveControllerStatus</a> (<a class="el" href="base__controller__hardware__connector_8h.html#ae4dfd42394001deb6e8a0e60c81d6f7a">HardwareType</a> hardware_type) const </td></tr>
+<tr class="memdesc:a14c406049bbf3d17e455bac5d0f5db1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the status of the active controller.  <a href="#a14c406049bbf3d17e455bac5d0f5db1e">More...</a><br/></td></tr>
+<tr class="separator:a14c406049bbf3d17e455bac5d0f5db1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e7031f99e64e7c371ee31fbd69f6bf9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBaseRobotSystem.html#a3e7031f99e64e7c371ee31fbd69f6bf9">abortController</a> (<a class="el" href="base__controller__hardware__connector_8h.html#ae4dfd42394001deb6e8a0e60c81d6f7a">HardwareType</a> hardware_type)</td></tr>
 <tr class="memdesc:a3e7031f99e64e7c371ee31fbd69f6bf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove active controller for given hardware type.  <a href="#a3e7031f99e64e7c371ee31fbd69f6bf9">More...</a><br/></td></tr>
 <tr class="separator:a3e7031f99e64e7c371ee31fbd69f6bf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -207,6 +210,39 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a14c406049bbf3d17e455bac5d0f5db1e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classControllerStatus.html">ControllerStatus</a> BaseRobotSystem::getActiveControllerStatus </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="base__controller__hardware__connector_8h.html#ae4dfd42394001deb6e8a0e60c81d6f7a">HardwareType</a>&#160;</td>
+          <td class="paramname"><em>hardware_type</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the status of the active controller. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hardware_type</td><td>Hardware to get controller for</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status of the active controller. If no active controller returns status as not engaged </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="add092f1cc4faec7b7f1ecb624f54a56a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -252,7 +288,7 @@ template&lt;class ControllerHardwareConnectorT &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="base__controller_8h.html#addd69ea32460850b571ba88f2a994b73">ControllerStatus</a> BaseRobotSystem::getStatus </td>
+          <td class="memname"><a class="el" href="classControllerStatus.html">ControllerStatus</a> BaseRobotSystem::getStatus </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -265,10 +301,10 @@ template&lt;class ControllerHardwareConnectorT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get the status of the active controller. </p>
+<p>Get the status of a controller. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">ControllerHardwareConnectorT</td><td>Type of connector that is active</td></tr>
+    <tr><td class="paramname">ControllerHardwareConnectorT</td><td>Type of connector</td></tr>
   </table>
   </dd>
 </dl>
@@ -300,7 +336,7 @@ template&lt;class ControllerHardwareConnectorT &gt; </div>
 <p>Provide the current state of robot system. </p>
 <dl class="section return"><dt>Returns</dt><dd>string representation of the robot system state </dd></dl>
 
-<p>Implemented in <a class="el" href="classUAVSystem.html#a686bdf431c8b790308d17cc9df231ee4">UAVSystem</a>, and <a class="el" href="classArmSystem.html#ac050d7d49cc7416d5992f102ff2bdc3d">ArmSystem</a>.</p>
+<p>Implemented in <a class="el" href="classUAVSystem.html#a686bdf431c8b790308d17cc9df231ee4">UAVSystem</a>, <a class="el" href="classArmSystem.html#ac050d7d49cc7416d5992f102ff2bdc3d">ArmSystem</a>, <a class="el" href="classUAVArmSystem.html#a9afd991ab008115fb0f0674065e94451">UAVArmSystem</a>, and <a class="el" href="classUAVVisionSystem.html#a9c7963324bc8c55b8419b17b4b39de31">UAVVisionSystem</a>.</p>
 
 </div>
 </div>

@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="multi__tracker_8cpp" kind="file">
+    <compoundname>multi_tracker.cpp</compoundname>
+    <includes refid="multi__tracker_8h" local="yes">aerial_autonomy/trackers/multi_tracker.h</includes>
+    <incdepgraph>
+      <node id="6504">
+        <label>cmath</label>
+      </node>
+      <node id="6500">
+        <label>src/trackers/multi_tracker.cpp</label>
+        <link refid="multi_tracker.cpp"/>
+        <childnode refid="6501" relation="include">
+        </childnode>
+      </node>
+      <node id="6507">
+        <label>tuple</label>
+      </node>
+      <node id="6508">
+        <label>vector</label>
+      </node>
+      <node id="6505">
+        <label>aerial_autonomy/trackers/closest_tracking_strategy.h</label>
+        <link refid="closest__tracking__strategy_8h"/>
+        <childnode refid="6506" relation="include">
+        </childnode>
+      </node>
+      <node id="6502">
+        <label>aerial_autonomy/trackers/base_tracker.h</label>
+        <link refid="base__tracker_8h"/>
+        <childnode refid="6503" relation="include">
+        </childnode>
+      </node>
+      <node id="6506">
+        <label>aerial_autonomy/trackers/tracking_strategy.h</label>
+        <link refid="tracking__strategy_8h"/>
+        <childnode refid="6503" relation="include">
+        </childnode>
+        <childnode refid="6507" relation="include">
+        </childnode>
+        <childnode refid="6508" relation="include">
+        </childnode>
+      </node>
+      <node id="6503">
+        <label>aerial_autonomy/types/position.h</label>
+        <link refid="position_8h"/>
+        <childnode refid="6504" relation="include">
+        </childnode>
+      </node>
+      <node id="6501">
+        <label>aerial_autonomy/trackers/multi_tracker.h</label>
+        <link refid="multi__tracker_8h"/>
+        <childnode refid="6502" relation="include">
+        </childnode>
+        <childnode refid="6505" relation="include">
+        </childnode>
+        <childnode refid="6509" relation="include">
+        </childnode>
+        <childnode refid="6507" relation="include">
+        </childnode>
+        <childnode refid="6508" relation="include">
+        </childnode>
+      </node>
+      <node id="6509">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="multi__tracker_8h" kindref="compound">aerial_autonomy/trackers/multi_tracker.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classMultiTracker_1a2339f56422e36670157fc054635491d4" kindref="member">MultiTracker::getTrackingVector</ref>(<ref refid="structPosition" kindref="compound">Position</ref><sp/>&amp;pos)<sp/>{</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><sp/><sp/>std::tuple&lt;uint32_t,<sp/>Position&gt;<sp/>pos_tuple;</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classMultiTracker_1a2339f56422e36670157fc054635491d4" kindref="member">getTrackingVector</ref>(pos_tuple))<sp/>{</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/>pos<sp/>=<sp/>std::get&lt;1&gt;(pos_tuple);</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classMultiTracker_1a2339f56422e36670157fc054635491d4" kindref="member">MultiTracker::getTrackingVector</ref>(std::tuple&lt;uint32_t,<sp/>Position&gt;<sp/>&amp;pos)<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classMultiTracker_1a1e8b12d365afae30d55cb69cb08384ec" kindref="member">trackingIsValid</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/>std::vector&lt;std::tuple&lt;uint32_t,<sp/>Position&gt;&gt;<sp/>tracking_vectors;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classMultiTracker_1a370e7d1b955e703e47745843ea23065c" kindref="member">getTrackingVectors</ref>(tracking_vectors)<sp/>||<sp/>tracking_vectors.empty())<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!tracking_strategy_-&gt;getTrackingVector(tracking_vectors,<sp/>pos))<sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classMultiTracker_1a466d37ddae888b987be680585aff72b0" kindref="member">MultiTracker::initialize</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>std::vector&lt;std::tuple&lt;uint32_t,<sp/>Position&gt;&gt;<sp/>tracking_vectors;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="classMultiTracker_1a370e7d1b955e703e47745843ea23065c" kindref="member">getTrackingVectors</ref>(tracking_vectors))<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>tracking_strategy_-&gt;initialize(tracking_vectors);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/multi_tracker.cpp"/>
+  </compounddef>
+</doxygen>

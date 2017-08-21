@@ -4,77 +4,103 @@
     <compoundname>position_controller_drone_connector.cpp</compoundname>
     <includes refid="position__controller__drone__connector_8h" local="yes">aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h</includes>
     <incdepgraph>
-      <node id="4121">
+      <node id="7258">
         <label>boost/thread/mutex.hpp</label>
       </node>
-      <node id="4123">
-        <label>aerial_autonomy/types/position_yaw.h</label>
-        <link refid="position__yaw_8h"/>
-        <childnode refid="4124" relation="include">
-        </childnode>
-        <childnode refid="4126" relation="include">
-        </childnode>
-      </node>
-      <node id="4122">
-        <label>glog/logging.h</label>
-      </node>
-      <node id="4125">
-        <label>cmath</label>
-      </node>
-      <node id="4127">
-        <label>stdexcept</label>
-      </node>
-      <node id="4120">
-        <label>aerial_autonomy/controllers/base_controller.h</label>
-        <link refid="base__controller_8h"/>
-        <childnode refid="4121" relation="include">
-        </childnode>
-      </node>
-      <node id="4128">
-        <label>tf/tf.h</label>
-      </node>
-      <node id="4118">
-        <label>aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h</label>
-        <link refid="position__controller__drone__connector_8h"/>
-        <childnode refid="4119" relation="include">
-        </childnode>
-        <childnode refid="4123" relation="include">
-        </childnode>
-        <childnode refid="4129" relation="include">
-        </childnode>
-      </node>
-      <node id="4117">
+      <node id="7254">
         <label>src/controller_hardware_connectors/position_controller_drone_connector.cpp</label>
         <link refid="position_controller_drone_connector.cpp"/>
-        <childnode refid="4118" relation="include">
+        <childnode refid="7255" relation="include">
         </childnode>
       </node>
-      <node id="4119">
+      <node id="7263">
+        <label>glog/logging.h</label>
+      </node>
+      <node id="7266">
+        <label>cmath</label>
+      </node>
+      <node id="7268">
+        <label>stdexcept</label>
+      </node>
+      <node id="7256">
         <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
         <link refid="base__controller__hardware__connector_8h"/>
-        <childnode refid="4120" relation="include">
+        <childnode refid="7257" relation="include">
         </childnode>
-        <childnode refid="4122" relation="include">
+        <childnode refid="7259" relation="include">
+        </childnode>
+        <childnode refid="7262" relation="include">
+        </childnode>
+        <childnode refid="7263" relation="include">
         </childnode>
       </node>
-      <node id="4126">
+      <node id="7260">
+        <label>string</label>
+      </node>
+      <node id="7269">
+        <label>tf/tf.h</label>
+      </node>
+      <node id="7267">
         <label>aerial_autonomy/common/math.h</label>
         <link refid="math_8h"/>
-        <childnode refid="4125" relation="include">
+        <childnode refid="7266" relation="include">
         </childnode>
-        <childnode refid="4127" relation="include">
+        <childnode refid="7268" relation="include">
         </childnode>
-        <childnode refid="4128" relation="include">
+        <childnode refid="7269" relation="include">
         </childnode>
       </node>
-      <node id="4124">
+      <node id="7259">
+        <label>aerial_autonomy/common/controller_status.h</label>
+        <link refid="controller__status_8h"/>
+        <childnode refid="7260" relation="include">
+        </childnode>
+        <childnode refid="7261" relation="include">
+        </childnode>
+      </node>
+      <node id="7261">
+        <label>vector</label>
+      </node>
+      <node id="7262">
+        <label>aerial_autonomy/controllers/base_controller.h</label>
+        <link refid="base__controller_8h"/>
+        <childnode refid="7257" relation="include">
+        </childnode>
+        <childnode refid="7259" relation="include">
+        </childnode>
+      </node>
+      <node id="7264">
+        <label>aerial_autonomy/types/position_yaw.h</label>
+        <link refid="position__yaw_8h"/>
+        <childnode refid="7265" relation="include">
+        </childnode>
+        <childnode refid="7267" relation="include">
+        </childnode>
+      </node>
+      <node id="7265">
         <label>aerial_autonomy/types/position.h</label>
         <link refid="position_8h"/>
-        <childnode refid="4125" relation="include">
+        <childnode refid="7266" relation="include">
         </childnode>
       </node>
-      <node id="4129">
+      <node id="7255">
+        <label>aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h</label>
+        <link refid="position__controller__drone__connector_8h"/>
+        <childnode refid="7256" relation="include">
+        </childnode>
+        <childnode refid="7264" relation="include">
+        </childnode>
+        <childnode refid="7270" relation="include">
+        </childnode>
+      </node>
+      <node id="7270">
         <label>parsernode/parser.h</label>
+      </node>
+      <node id="7257">
+        <label>aerial_autonomy/common/atomic.h</label>
+        <link refid="atomic_8h"/>
+        <childnode refid="7258" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <briefdescription>
@@ -102,6 +128,6 @@
 <codeline lineno="18"><highlight class="normal"><sp/><sp/>drone_hardware_.cmdwaypoint(position_command,<sp/>controls.<ref refid="structPositionYaw_1a712a15ba9739cb5f4e31ea973074b8bf" kindref="member">yaw</ref>);</highlight></codeline>
 <codeline lineno="19"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/src/controller_hardware_connectors/position_controller_drone_connector.cpp"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/controller_hardware_connectors/position_controller_drone_connector.cpp"/>
   </compounddef>
 </doxygen>

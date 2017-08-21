@@ -2,76 +2,194 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
   <compounddef id="arm__system_8h" kind="file">
     <compoundname>arm_system.h</compoundname>
+    <includes refid="html__utils_8h" local="no">aerial_autonomy/common/html_utils.h</includes>
     <includes refid="base__robot__system_8h" local="no">aerial_autonomy/robot_systems/base_robot_system.h</includes>
-    <includes local="no">arm_parsers/generic_arm.h</includes>
+    <includes local="no">arm_parsers/arm_parser.h</includes>
+    <includes local="no">iomanip</includes>
+    <includes local="no">sstream</includes>
+    <includedby refid="arm__functors_8h" local="no">include/aerial_autonomy/actions_guards/arm_functors.h</includedby>
+    <includedby refid="uav__arm__system_8h" local="yes">include/aerial_autonomy/robot_systems/uav_arm_system.h</includedby>
     <incdepgraph>
-      <node id="3223">
+      <node id="5706">
         <label>boost/thread/mutex.hpp</label>
       </node>
-      <node id="3224">
-        <label>glog/logging.h</label>
-      </node>
-      <node id="3222">
-        <label>aerial_autonomy/controllers/base_controller.h</label>
-        <link refid="base__controller_8h"/>
-        <childnode refid="3223" relation="include">
+      <node id="5711">
+        <label>aerial_autonomy/common/type_map.h</label>
+        <link refid="type__map_8h"/>
+        <childnode refid="5712" relation="include">
+        </childnode>
+        <childnode refid="5713" relation="include">
         </childnode>
       </node>
-      <node id="3228">
+      <node id="5699">
+        <label>iomanip</label>
+      </node>
+      <node id="5710">
+        <label>glog/logging.h</label>
+      </node>
+      <node id="5701">
+        <label>stdexcept</label>
+      </node>
+      <node id="5704">
+        <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
+        <link refid="base__controller__hardware__connector_8h"/>
+        <childnode refid="5705" relation="include">
+        </childnode>
+        <childnode refid="5707" relation="include">
+        </childnode>
+        <childnode refid="5709" relation="include">
+        </childnode>
+        <childnode refid="5710" relation="include">
+        </childnode>
+      </node>
+      <node id="5702">
+        <label>string</label>
+      </node>
+      <node id="5714">
         <label>aerial_autonomy/common/iterable_enum.h</label>
         <link refid="iterable__enum_8h"/>
       </node>
-      <node id="3219">
-        <label>include/aerial_autonomy/robot_systems/arm_system.h</label>
-        <link refid="arm_system.h"/>
-        <childnode refid="3220" relation="include">
-        </childnode>
-        <childnode refid="3230" relation="include">
-        </childnode>
-      </node>
-      <node id="3230">
-        <label>arm_parsers/generic_arm.h</label>
-      </node>
-      <node id="3225">
-        <label>aerial_autonomy/common/type_map.h</label>
-        <link refid="type__map_8h"/>
-        <childnode refid="3226" relation="include">
-        </childnode>
-        <childnode refid="3227" relation="include">
-        </childnode>
-      </node>
-      <node id="3227">
-        <label>unordered_map</label>
-      </node>
-      <node id="3221">
-        <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
-        <link refid="base__controller__hardware__connector_8h"/>
-        <childnode refid="3222" relation="include">
-        </childnode>
-        <childnode refid="3224" relation="include">
-        </childnode>
-      </node>
-      <node id="3229">
-        <label>memory</label>
-      </node>
-      <node id="3226">
-        <label>typeindex</label>
-      </node>
-      <node id="3220">
+      <node id="5703">
         <label>aerial_autonomy/robot_systems/base_robot_system.h</label>
         <link refid="base__robot__system_8h"/>
-        <childnode refid="3221" relation="include">
+        <childnode refid="5704" relation="include">
         </childnode>
-        <childnode refid="3225" relation="include">
+        <childnode refid="5711" relation="include">
         </childnode>
-        <childnode refid="3228" relation="include">
+        <childnode refid="5714" relation="include">
         </childnode>
-        <childnode refid="3223" relation="include">
+        <childnode refid="5706" relation="include">
         </childnode>
-        <childnode refid="3229" relation="include">
+        <childnode refid="5715" relation="include">
         </childnode>
       </node>
+      <node id="5707">
+        <label>aerial_autonomy/common/controller_status.h</label>
+        <link refid="controller__status_8h"/>
+        <childnode refid="5702" relation="include">
+        </childnode>
+        <childnode refid="5708" relation="include">
+        </childnode>
+      </node>
+      <node id="5716">
+        <label>arm_parsers/arm_parser.h</label>
+      </node>
+      <node id="5708">
+        <label>vector</label>
+      </node>
+      <node id="5709">
+        <label>aerial_autonomy/controllers/base_controller.h</label>
+        <link refid="base__controller_8h"/>
+        <childnode refid="5705" relation="include">
+        </childnode>
+        <childnode refid="5707" relation="include">
+        </childnode>
+      </node>
+      <node id="5697">
+        <label>include/aerial_autonomy/robot_systems/arm_system.h</label>
+        <link refid="arm_system.h"/>
+        <childnode refid="5698" relation="include">
+        </childnode>
+        <childnode refid="5703" relation="include">
+        </childnode>
+        <childnode refid="5716" relation="include">
+        </childnode>
+        <childnode refid="5699" relation="include">
+        </childnode>
+        <childnode refid="5700" relation="include">
+        </childnode>
+      </node>
+      <node id="5700">
+        <label>sstream</label>
+      </node>
+      <node id="5713">
+        <label>unordered_map</label>
+      </node>
+      <node id="5698">
+        <label>aerial_autonomy/common/html_utils.h</label>
+        <link refid="html__utils_8h"/>
+        <childnode refid="5699" relation="include">
+        </childnode>
+        <childnode refid="5700" relation="include">
+        </childnode>
+        <childnode refid="5701" relation="include">
+        </childnode>
+        <childnode refid="5702" relation="include">
+        </childnode>
+      </node>
+      <node id="5705">
+        <label>aerial_autonomy/common/atomic.h</label>
+        <link refid="atomic_8h"/>
+        <childnode refid="5706" relation="include">
+        </childnode>
+      </node>
+      <node id="5715">
+        <label>memory</label>
+      </node>
+      <node id="5712">
+        <label>typeindex</label>
+      </node>
     </incdepgraph>
+    <invincdepgraph>
+      <node id="5723">
+        <label>include/aerial_autonomy/actions_guards/pick_place_functors.h</label>
+        <link refid="pick__place__functors_8h"/>
+        <childnode refid="5719" relation="include">
+        </childnode>
+      </node>
+      <node id="5725">
+        <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
+        <link refid="sample__logic__state__machine_8h"/>
+      </node>
+      <node id="5720">
+        <label>include/aerial_autonomy/state_machines/pick_place_state_machine.h</label>
+        <link refid="pick__place__state__machine_8h"/>
+        <childnode refid="5721" relation="include">
+        </childnode>
+      </node>
+      <node id="5718">
+        <label>include/aerial_autonomy/actions_guards/arm_functors.h</label>
+        <link refid="arm__functors_8h"/>
+        <childnode refid="5719" relation="include">
+        </childnode>
+      </node>
+      <node id="5719">
+        <label>include/aerial_autonomy/actions_guards/pick_place_states_actions.h</label>
+        <link refid="pick__place__states__actions_8h"/>
+        <childnode refid="5720" relation="include">
+        </childnode>
+      </node>
+      <node id="5722">
+        <label>include/aerial_autonomy/robot_systems/uav_arm_system.h</label>
+        <link refid="uav__arm__system_8h"/>
+        <childnode refid="5723" relation="include">
+        </childnode>
+        <childnode refid="5720" relation="include">
+        </childnode>
+        <childnode refid="5724" relation="include">
+        </childnode>
+        <childnode refid="5725" relation="include">
+        </childnode>
+      </node>
+      <node id="5717">
+        <label>include/aerial_autonomy/robot_systems/arm_system.h</label>
+        <link refid="arm_system.h"/>
+        <childnode refid="5718" relation="include">
+        </childnode>
+        <childnode refid="5722" relation="include">
+        </childnode>
+      </node>
+      <node id="5724">
+        <label>include/aerial_autonomy/system_handlers/uav_arm_system_handler.h</label>
+        <link refid="uav__arm__system__handler_8h"/>
+        <childnode refid="5721" relation="include">
+        </childnode>
+      </node>
+      <node id="5721">
+        <label>src/system_handler_nodes/uav_arm_system_node.cpp</label>
+        <link refid="uav__arm__system__node_8cpp"/>
+      </node>
+    </invincdepgraph>
     <innerclass refid="classArmSystem" prot="public">ArmSystem</innerclass>
     <briefdescription>
     </briefdescription>
@@ -80,56 +198,100 @@
     <programlisting>
 <codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
 <codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Base<sp/>robot<sp/>system</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="base__robot__system_8h" kindref="compound">aerial_autonomy/robot_systems/base_robot_system.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Arm<sp/>hardware</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;arm_parsers/generic_arm.h&gt;</highlight></codeline>
-<codeline lineno="8"></codeline>
-<codeline lineno="14" refid="classArmSystem" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classArmSystem" kindref="compound">ArmSystem</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classBaseRobotSystem" kindref="compound">BaseRobotSystem</ref><sp/>{</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"></highlight></codeline>
-<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/>GenericArm<sp/>arm_hardware_;</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"></highlight></codeline>
-<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="32" refid="classArmSystem_1a582fe1e1dc69a555a61418a39c6428ed" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classArmSystem_1a582fe1e1dc69a555a61418a39c6428ed" kindref="member">ArmSystem</ref>(ros::NodeHandle<sp/>&amp;nh)<sp/>:<sp/><ref refid="classBaseRobotSystem" kindref="compound">BaseRobotSystem</ref>(),<sp/>arm_hardware_(nh)<sp/>{}</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight></codeline>
-<codeline lineno="37" refid="classArmSystem_1aad47744d8d45da74ca2544ccc527516a" refkind="member"><highlight class="normal"><sp/><sp/>Eigen::Matrix4d<sp/><ref refid="classArmSystem_1aad47744d8d45da74ca2544ccc527516a" kindref="member">getEndEffectorPose</ref>()<sp/>{</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>arm_hardware_.getEndEffectorTransform();</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight></codeline>
-<codeline lineno="46" refid="classArmSystem_1a408f99ee51cbad8921c7451b75b162fb" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classArmSystem_1a408f99ee51cbad8921c7451b75b162fb" kindref="member">grip</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>grip_action)<sp/>{</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(grip_action)<sp/>{</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//\todo<sp/>Gowtham<sp/>Change<sp/>arm<sp/>plugins<sp/>to<sp/>update<sp/>gripping<sp/>strategy</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>grip_position<sp/>=<sp/>1000;</highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>arm_hardware_.grip(grip_position);</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//\todo<sp/>Gowtham<sp/>Change<sp/>arm<sp/>plugins<sp/>to<sp/>update<sp/>gripping<sp/>strategy</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>grip_position<sp/>=<sp/>2000;</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>arm_hardware_.grip(grip_position);</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"></highlight></codeline>
-<codeline lineno="63" refid="classArmSystem_1a56b52cb9b2b9a250dad2f9608ffd598f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classArmSystem_1a56b52cb9b2b9a250dad2f9608ffd598f" kindref="member">power</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>state)<sp/>{</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(state)<sp/>{</highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>arm_hardware_.sendCmd(</highlight><highlight class="stringliteral">&quot;power<sp/>on&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>arm_hardware_.sendCmd(</highlight><highlight class="stringliteral">&quot;power<sp/>off&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="69"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="70"><highlight class="normal"></highlight></codeline>
-<codeline lineno="74" refid="classArmSystem_1a838859b74e7b78b173394db035a980cb" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classArmSystem_1a838859b74e7b78b173394db035a980cb" kindref="member">foldArm</ref>()<sp/>{<sp/>arm_hardware_.sendCmd(</highlight><highlight class="stringliteral">&quot;fold<sp/>arm&quot;</highlight><highlight class="normal">);<sp/>}</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Html<sp/>table<sp/>writer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="html__utils_8h" kindref="compound">aerial_autonomy/common/html_utils.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Base<sp/>robot<sp/>system</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="base__robot__system_8h" kindref="compound">aerial_autonomy/robot_systems/base_robot_system.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Arm<sp/>hardware</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;arm_parsers/arm_parser.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iomanip&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="classArmSystem" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classArmSystem" kindref="compound">ArmSystem</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/><ref refid="classBaseRobotSystem" kindref="compound">BaseRobotSystem</ref><sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>ArmParser<sp/>&amp;arm_hardware_;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="35" refid="classArmSystem_1a7ffb3f8a0c24bed0e2621281cee625c0" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classArmSystem_1a7ffb3f8a0c24bed0e2621281cee625c0" kindref="member">ArmSystem</ref>(ArmParser<sp/>&amp;arm_hardware)</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classBaseRobotSystem" kindref="compound">BaseRobotSystem</ref>(),<sp/>arm_hardware_(arm_hardware)<sp/>{}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="classArmSystem_1aad47744d8d45da74ca2544ccc527516a" refkind="member"><highlight class="normal"><sp/><sp/>Eigen::Matrix4d<sp/><ref refid="classArmSystem_1aad47744d8d45da74ca2544ccc527516a" kindref="member">getEndEffectorPose</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>arm_hardware_.getEndEffectorTransform();</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="classArmSystem_1a5cfd218286961057e3290f583bc4b20b" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classArmSystem_1a5cfd218286961057e3290f583bc4b20b" kindref="member">grip</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>grip_action)<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(grip_action)<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//\todo<sp/>Gowtham<sp/>Change<sp/>arm<sp/>plugins<sp/>to<sp/>update<sp/>gripping<sp/>strategy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>grip_position<sp/>=<sp/>1000;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>arm_hardware_.grip(grip_position);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//\todo<sp/>Gowtham<sp/>Change<sp/>arm<sp/>plugins<sp/>to<sp/>update<sp/>gripping<sp/>strategy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>grip_position<sp/>=<sp/>2000;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>arm_hardware_.grip(grip_position);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="classArmSystem_1a56b52cb9b2b9a250dad2f9608ffd598f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classArmSystem_1a56b52cb9b2b9a250dad2f9608ffd598f" kindref="member">power</ref>(</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>state)<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(state)<sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>arm_hardware_.sendCmd(ArmParser::POWER_ON);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>arm_hardware_.sendCmd(ArmParser::POWER_OFF);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="75"><highlight class="normal"></highlight></codeline>
-<codeline lineno="79" refid="classArmSystem_1a0fe569966065f6e16c49345ee1883552" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classArmSystem_1a0fe569966065f6e16c49345ee1883552" kindref="member">rightArm</ref>()<sp/>{<sp/>arm_hardware_.sendCmd(</highlight><highlight class="stringliteral">&quot;right<sp/>arm&quot;</highlight><highlight class="normal">);<sp/>}</highlight></codeline>
+<codeline lineno="79" refid="classArmSystem_1a838859b74e7b78b173394db035a980cb" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classArmSystem_1a838859b74e7b78b173394db035a980cb" kindref="member">foldArm</ref>()<sp/>{<sp/>arm_hardware_.sendCmd(ArmParser::FOLD_ARM);<sp/>}</highlight></codeline>
 <codeline lineno="80"><highlight class="normal"></highlight></codeline>
-<codeline lineno="88" refid="classArmSystem_1ac050d7d49cc7416d5992f102ff2bdc3d" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classArmSystem_1ac050d7d49cc7416d5992f102ff2bdc3d" kindref="member">getSystemStatus</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::string();<sp/>}</highlight></codeline>
-<codeline lineno="89"><highlight class="normal"></highlight></codeline>
-<codeline lineno="95" refid="classArmSystem_1ae7b62dcab17fbb41137f071eaeb67735" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classArmSystem_1ae7b62dcab17fbb41137f071eaeb67735" kindref="member">getCommandStatus</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>arm_hardware_.getCommandStatus();<sp/>}</highlight></codeline>
-<codeline lineno="96"><highlight class="normal"></highlight></codeline>
-<codeline lineno="102" refid="classArmSystem_1af60b9bbcfd0ff2e34f766be48fe3715e" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classArmSystem_1af60b9bbcfd0ff2e34f766be48fe3715e" kindref="member">enabled</ref>()<sp/>{</highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>arm_hardware_.state<sp/>==<sp/>ArmParser::ENABLED<sp/>?<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="105"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="84" refid="classArmSystem_1a0fe569966065f6e16c49345ee1883552" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classArmSystem_1a0fe569966065f6e16c49345ee1883552" kindref="member">rightArm</ref>()<sp/>{<sp/>arm_hardware_.sendCmd(ArmParser::RIGHT_ARM);<sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93" refid="classArmSystem_1ac050d7d49cc7416d5992f102ff2bdc3d" refkind="member"><highlight class="normal"><sp/><sp/>std::string<sp/><ref refid="classArmSystem_1ac050d7d49cc7416d5992f102ff2bdc3d" kindref="member">getSystemStatus</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classHtmlTableWriter" kindref="compound">HtmlTableWriter</ref><sp/>table_writer;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>table_writer.<ref refid="classHtmlTableWriter_1a061b80702f43c5bc4f7e3bc4361a8404" kindref="member">beginRow</ref>();</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>table_writer.<ref refid="classHtmlTableWriter_1abfa7dfe2d2a521f2cf170a9d9dd73274" kindref="member">addHeader</ref>(</highlight><highlight class="stringliteral">&quot;Arm<sp/>Status:&quot;</highlight><highlight class="normal">,<sp/><ref refid="structColors_1a7ae1c6ead1ad7fa5908d0257160088ee" kindref="member">Colors::blue</ref>,<sp/>4);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>table_writer.<ref refid="classHtmlTableWriter_1a061b80702f43c5bc4f7e3bc4361a8404" kindref="member">beginRow</ref>();</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>table_writer.<ref refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" kindref="member">addCell</ref>(</highlight><highlight class="stringliteral">&quot;Joint<sp/>Angles:<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>q<sp/>:<sp/>arm_hardware_.getJointAngles())<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>table_writer.<ref refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" kindref="member">addCell</ref>(q);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>table_writer.<ref refid="classHtmlTableWriter_1a061b80702f43c5bc4f7e3bc4361a8404" kindref="member">beginRow</ref>();</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>table_writer.<ref refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" kindref="member">addCell</ref>(</highlight><highlight class="stringliteral">&quot;Joint<sp/>Velocities:<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>q<sp/>:<sp/>arm_hardware_.getJointVelocities())<sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>table_writer.<ref refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" kindref="member">addCell</ref>(q);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Matrix4d<sp/>ee_transform<sp/>=<sp/>arm_hardware_.getEndEffectorTransform();</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>table_writer.<ref refid="classHtmlTableWriter_1a061b80702f43c5bc4f7e3bc4361a8404" kindref="member">beginRow</ref>();</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>table_writer.<ref refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" kindref="member">addCell</ref>(</highlight><highlight class="stringliteral">&quot;End<sp/>effector<sp/>translation:<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>3;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>table_writer.<ref refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" kindref="member">addCell</ref>(ee_transform(i,<sp/>3));</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Matrix3d<sp/>ee_rotation<sp/>=<sp/>ee_transform.topLeftCorner(3,<sp/>3);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Vector3d<sp/>euler_angles<sp/>=<sp/>ee_rotation.eulerAngles(2,<sp/>1,<sp/>0);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>table_writer.<ref refid="classHtmlTableWriter_1a061b80702f43c5bc4f7e3bc4361a8404" kindref="member">beginRow</ref>();</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>table_writer.<ref refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" kindref="member">addCell</ref>(</highlight><highlight class="stringliteral">&quot;End<sp/>effector<sp/>RPY:<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>3;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>table_writer.<ref refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" kindref="member">addCell</ref>(euler_angles[i]);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>table_writer.<ref refid="classHtmlTableWriter_1a061b80702f43c5bc4f7e3bc4361a8404" kindref="member">beginRow</ref>();</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>command_status<sp/>=<sp/>(<ref refid="classArmSystem_1ae7b62dcab17fbb41137f071eaeb67735" kindref="member">getCommandStatus</ref>()<sp/>?<sp/></highlight><highlight class="stringliteral">&quot;True&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;False&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>command_status_color<sp/>=</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="classArmSystem_1ae7b62dcab17fbb41137f071eaeb67735" kindref="member">getCommandStatus</ref>()<sp/>?<sp/><ref refid="structColors_1a1e9953f0bd8db539110c2838a09f98db" kindref="member">Colors::green</ref><sp/>:<sp/><ref refid="structColors_1aabea0bbeac1f20ea8338ce97513ef6bf" kindref="member">Colors::red</ref>);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/>table_writer.<ref refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" kindref="member">addCell</ref>(command_status,<sp/></highlight><highlight class="stringliteral">&quot;CommandStatus&quot;</highlight><highlight class="normal">,<sp/>command_status_color,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>table_writer.<ref refid="classHtmlTableWriter_1a061b80702f43c5bc4f7e3bc4361a8404" kindref="member">beginRow</ref>();</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>arm_enabled<sp/>=<sp/>(<ref refid="classArmSystem_1a83632018e26eea4716ad22d7011dc517" kindref="member">enabled</ref>()<sp/>?<sp/></highlight><highlight class="stringliteral">&quot;True&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;False&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>enabled_color<sp/>=<sp/>(<ref refid="classArmSystem_1a83632018e26eea4716ad22d7011dc517" kindref="member">enabled</ref>()<sp/>?<sp/><ref refid="structColors_1a1e9953f0bd8db539110c2838a09f98db" kindref="member">Colors::green</ref><sp/>:<sp/><ref refid="structColors_1aabea0bbeac1f20ea8338ce97513ef6bf" kindref="member">Colors::red</ref>);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/>table_writer.<ref refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" kindref="member">addCell</ref>(arm_enabled,<sp/></highlight><highlight class="stringliteral">&quot;Enabled&quot;</highlight><highlight class="normal">,<sp/>enabled_color,<sp/>2);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>table_writer.<ref refid="classHtmlTableWriter_1a678402f705f1f52e885db9d127a379dd" kindref="member">getTableString</ref>();</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138" refid="classArmSystem_1ae7b62dcab17fbb41137f071eaeb67735" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classArmSystem_1ae7b62dcab17fbb41137f071eaeb67735" kindref="member">getCommandStatus</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>arm_hardware_.getCommandStatus();<sp/>}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145" refid="classArmSystem_1a83632018e26eea4716ad22d7011dc517" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classArmSystem_1a83632018e26eea4716ad22d7011dc517" kindref="member">enabled</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>arm_hardware_.state<sp/>==<sp/>ArmParser::ENABLED<sp/>?<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/arm_system.h"/>
   </compounddef>
 </doxygen>

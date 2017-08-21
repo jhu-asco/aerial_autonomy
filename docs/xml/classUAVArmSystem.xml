@@ -1,0 +1,310 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classUAVArmSystem" kind="class" prot="public">
+    <compoundname>UAVArmSystem</compoundname>
+    <basecompoundref refid="classUAVVisionSystem" prot="public" virt="non-virtual">UAVVisionSystem</basecompoundref>
+    <basecompoundref refid="classArmSystem" prot="public" virt="non-virtual">ArmSystem</basecompoundref>
+    <includes refid="uav__arm__system_8h" local="no">uav_arm_system.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classUAVArmSystem_1ac9c534e7a09a140a17ed1cea69248964" prot="private" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t UAVArmSystem::grip_timeout_</definition>
+        <argsstring></argsstring>
+        <name>grip_timeout_</name>
+        <briefdescription>
+<para>Timeout for gripping by arm. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" line="77" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVArmSystem_1a0ee8e73f643d385ae4a35f7658173ada" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; tf::Transform &gt;</type>
+        <definition>std::vector&lt;tf::Transform&gt; UAVArmSystem::arm_goal_transforms_</definition>
+        <argsstring></argsstring>
+        <name>arm_goal_transforms_</name>
+        <briefdescription>
+<para>Arm transforms in the frame of the UAV. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" line="81" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVArmSystem_1a981eafc24eaba252947c7f0f9ced3692" prot="private" static="no" mutable="no">
+        <type>tf::Transform</type>
+        <definition>tf::Transform UAVArmSystem::arm_transform_</definition>
+        <argsstring></argsstring>
+        <name>arm_transform_</name>
+        <briefdescription>
+<para>Arm transform in the frame of the UAV. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" line="85" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVArmSystem_1a237f15fe808b4541ab04dd445181d5c9" prot="private" static="no" mutable="no">
+        <type><ref refid="classRelativePoseController" kindref="compound">RelativePoseController</ref></type>
+        <definition>RelativePoseController UAVArmSystem::relative_pose_controller_</definition>
+        <argsstring></argsstring>
+        <name>relative_pose_controller_</name>
+        <briefdescription>
+<para>Moves to a position relative to a tracked position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" line="89" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVArmSystem_1aaeeccf2f874173bee04f3ed19b5f08b6" prot="private" static="no" mutable="no">
+        <type><ref refid="classVisualServoingControllerArmConnector" kindref="compound">VisualServoingControllerArmConnector</ref></type>
+        <definition>VisualServoingControllerArmConnector UAVArmSystem::visual_servoing_arm_connector_</definition>
+        <argsstring></argsstring>
+        <name>visual_servoing_arm_connector_</name>
+        <briefdescription>
+<para>Connects relative position controller to tracker and arm. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" line="93" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classUAVArmSystem_1aec2919c6aa9a84df15c72e63af0de4d5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>UAVArmSystem::UAVArmSystem</definition>
+        <argsstring>(BaseTracker &amp;tracker, parsernode::Parser &amp;drone_hardware, ArmParser &amp;arm_hardware, UAVSystemConfig config)</argsstring>
+        <name>UAVArmSystem</name>
+        <param>
+          <type><ref refid="classBaseTracker" kindref="compound">BaseTracker</ref> &amp;</type>
+          <declname>tracker</declname>
+        </param>
+        <param>
+          <type>parsernode::Parser &amp;</type>
+          <declname>drone_hardware</declname>
+        </param>
+        <param>
+          <type>ArmParser &amp;</type>
+          <declname>arm_hardware</declname>
+        </param>
+        <param>
+          <type>UAVSystemConfig</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tracker</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Used to track targets for visual servoing </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>drone_hardware</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>UAV driver </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>arm_hardware</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Manipulator driver </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Configuration parameters </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" line="21" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" bodystart="21" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVArmSystem_1a9afd991ab008115fb0f0674065e94451" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="virtual">
+        <type>std::string</type>
+        <definition>std::string UAVArmSystem::getSystemStatus</definition>
+        <argsstring>() const </argsstring>
+        <name>getSystemStatus</name>
+        <reimplements refid="classArmSystem_1ac050d7d49cc7416d5992f102ff2bdc3d">getSystemStatus</reimplements>
+        <briefdescription>
+<para>Provide the current state of UAV system. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>string representation of the UAV system state </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" line="51" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" bodystart="51" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVArmSystem_1a61c8c6cd9e54eb3605eb4bd041776cf5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t UAVArmSystem::gripTimeout</definition>
+        <argsstring>()</argsstring>
+        <name>gripTimeout</name>
+        <briefdescription>
+<para>getter for timeout used for gripping </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>timeout used for gripping </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" line="63" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" bodystart="63" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVArmSystem_1ae6467dbe4af4d9d0501f56c28cb7bd01" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>tf::Transform</type>
+        <definition>tf::Transform UAVArmSystem::armGoalTransform</definition>
+        <argsstring>(int i)</argsstring>
+        <name>armGoalTransform</name>
+        <param>
+          <type>int</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+<para>getter for transfrom from arm to object </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>i</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of arm transform to get</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>transform from arm to object </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" line="71" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" bodystart="71" bodyend="71"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>UAV vision system with an arm. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="898">
+        <label>UAVArmSystem</label>
+        <link refid="classUAVArmSystem"/>
+        <childnode refid="899" relation="public-inheritance">
+        </childnode>
+        <childnode refid="902" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="899">
+        <label>UAVVisionSystem</label>
+        <link refid="classUAVVisionSystem"/>
+        <childnode refid="900" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="901">
+        <label>BaseRobotSystem</label>
+        <link refid="classBaseRobotSystem"/>
+      </node>
+      <node id="900">
+        <label>UAVSystem</label>
+        <link refid="classUAVSystem"/>
+        <childnode refid="901" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="902">
+        <label>ArmSystem</label>
+        <link refid="classArmSystem"/>
+        <childnode refid="901" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="903">
+        <label>UAVArmSystem</label>
+        <link refid="classUAVArmSystem"/>
+        <childnode refid="904" relation="public-inheritance">
+        </childnode>
+        <childnode refid="908" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="904">
+        <label>UAVVisionSystem</label>
+        <link refid="classUAVVisionSystem"/>
+        <childnode refid="905" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="907">
+        <label>TypeMap&lt; AbstractControllerHardwareConnector &gt;</label>
+        <link refid="classTypeMap"/>
+      </node>
+      <node id="906">
+        <label>BaseRobotSystem</label>
+        <link refid="classBaseRobotSystem"/>
+        <childnode refid="907" relation="usage">
+          <edgelabel>controller_hardware_connector_container_</edgelabel>
+        </childnode>
+      </node>
+      <node id="905">
+        <label>UAVSystem</label>
+        <link refid="classUAVSystem"/>
+        <childnode refid="906" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="908">
+        <label>ArmSystem</label>
+        <link refid="classArmSystem"/>
+        <childnode refid="906" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" line="12" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/uav_arm_system.h" bodystart="12" bodyend="94"/>
+    <listofallmembers>
+      <member refid="classBaseRobotSystem_1a3e7031f99e64e7c371ee31fbd69f6bf9" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>abortController</name></member>
+      <member refid="classUAVArmSystem_1a0ee8e73f643d385ae4a35f7658173ada" prot="private" virt="non-virtual"><scope>UAVArmSystem</scope><name>arm_goal_transforms_</name></member>
+      <member refid="classUAVArmSystem_1a981eafc24eaba252947c7f0f9ced3692" prot="private" virt="non-virtual"><scope>UAVArmSystem</scope><name>arm_transform_</name></member>
+      <member refid="classUAVArmSystem_1ae6467dbe4af4d9d0501f56c28cb7bd01" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>armGoalTransform</name></member>
+      <member refid="classArmSystem_1a7ffb3f8a0c24bed0e2621281cee625c0" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>ArmSystem</name></member>
+      <member refid="classBaseRobotSystem_1a257fff284254de019428ae7073333b47" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>BaseRobotSystem</name></member>
+      <member refid="classUAVVisionSystem_1a273f429ace9debc2d3154ba0051d9b9d" prot="protected" virt="non-virtual"><scope>UAVArmSystem</scope><name>camera_transform_</name></member>
+      <member refid="classUAVSystem_1a9bdf636000ef7cd55612bc2c2f66d60b" prot="protected" virt="non-virtual"><scope>UAVArmSystem</scope><name>config_</name></member>
+      <member refid="classBaseRobotSystem_1a9539998f793faa61ed89e4c7ecc711ad" prot="protected" virt="non-virtual"><scope>UAVArmSystem</scope><name>controller_hardware_connector_container_</name></member>
+      <member refid="classUAVSystem_1ab47721beaeb776063b46f7c3c7721b7a" prot="protected" virt="non-virtual"><scope>UAVArmSystem</scope><name>drone_hardware_</name></member>
+      <member refid="classUAVSystem_1a8b379202b204125b0523b512b94dc91f" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>enableAutonomousMode</name></member>
+      <member refid="classArmSystem_1a83632018e26eea4716ad22d7011dc517" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>enabled</name></member>
+      <member refid="classArmSystem_1a838859b74e7b78b173394db035a980cb" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>foldArm</name></member>
+      <member refid="classBaseRobotSystem_1a14c406049bbf3d17e455bac5d0f5db1e" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>getActiveControllerStatus</name></member>
+      <member refid="classArmSystem_1ae7b62dcab17fbb41137f071eaeb67735" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>getCommandStatus</name></member>
+      <member refid="classUAVSystem_1a89d67e42aec09dd65a23f39462a8202e" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>getConfiguration</name></member>
+      <member refid="classArmSystem_1aad47744d8d45da74ca2544ccc527516a" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>getEndEffectorPose</name></member>
+      <member refid="classBaseRobotSystem_1add092f1cc4faec7b7f1ecb624f54a56a" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>getGoal</name></member>
+      <member refid="classUAVSystem_1a0e9242b82c55106b66e80a0a100098a0" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>getHomeLocation</name></member>
+      <member refid="classBaseRobotSystem_1a22435ca0b28e562a230b4dfdeaffa716" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>getStatus</name></member>
+      <member refid="classUAVArmSystem_1a9afd991ab008115fb0f0674065e94451" prot="public" virt="virtual"><scope>UAVArmSystem</scope><name>getSystemStatus</name></member>
+      <member refid="classUAVVisionSystem_1ad0ad12b5770b04fb4e6447bb13769006" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>getTrackingVector</name></member>
+      <member refid="classUAVSystem_1a4ccf5fcb488485d369752b406e36b8e3" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>getUAVData</name></member>
+      <member refid="classArmSystem_1a5cfd218286961057e3290f583bc4b20b" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>grip</name></member>
+      <member refid="classUAVArmSystem_1ac9c534e7a09a140a17ed1cea69248964" prot="private" virt="non-virtual"><scope>UAVArmSystem</scope><name>grip_timeout_</name></member>
+      <member refid="classUAVArmSystem_1a61c8c6cd9e54eb3605eb4bd041776cf5" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>gripTimeout</name></member>
+      <member refid="classUAVVisionSystem_1a5c32bb834e92ed85122b0923255f1fde" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>initializeTracker</name></member>
+      <member refid="classUAVSystem_1a226c842c7e5e1120be5d6fe233f1bb2d" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>isHomeLocationSpecified</name></member>
+      <member refid="classUAVSystem_1ae1bac31ca121a54cb1e3ed7fac322993" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>land</name></member>
+      <member refid="classArmSystem_1a56b52cb9b2b9a250dad2f9608ffd598f" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>power</name></member>
+      <member refid="classUAVArmSystem_1a237f15fe808b4541ab04dd445181d5c9" prot="private" virt="non-virtual"><scope>UAVArmSystem</scope><name>relative_pose_controller_</name></member>
+      <member refid="classArmSystem_1a0fe569966065f6e16c49345ee1883552" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>rightArm</name></member>
+      <member refid="classBaseRobotSystem_1abad7fac8177f72f932a5ef543408f986" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>runActiveController</name></member>
+      <member refid="classBaseRobotSystem_1a2814a05f2648e26d18fe20e1ad0b0c0a" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>setGoal</name></member>
+      <member refid="classUAVSystem_1a5f31741d7d13ca93c7f02453aa97cc16" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>setHomeLocation</name></member>
+      <member refid="classUAVSystem_1a7f010477b67bfeb5d6d32c0f10630b8e" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>takeOff</name></member>
+      <member refid="classUAVArmSystem_1aec2919c6aa9a84df15c72e63af0de4d5" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>UAVArmSystem</name></member>
+      <member refid="classUAVSystem_1a99ac3986113a03546b8dc4bcc73d65b0" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>UAVSystem</name></member>
+      <member refid="classUAVSystem_1a9218f794905e832cc356b5e4b659e1da" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>UAVSystem</name></member>
+      <member refid="classUAVVisionSystem_1a0710d45e2bd14f7f4973af8bb227142c" prot="public" virt="non-virtual"><scope>UAVArmSystem</scope><name>UAVVisionSystem</name></member>
+      <member refid="classUAVArmSystem_1aaeeccf2f874173bee04f3ed19b5f08b6" prot="private" virt="non-virtual"><scope>UAVArmSystem</scope><name>visual_servoing_arm_connector_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

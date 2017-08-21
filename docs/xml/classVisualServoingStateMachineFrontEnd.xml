@@ -18,7 +18,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" line="103" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" bodystart="103" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" line="103" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" bodystart="103" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -62,7 +62,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" line="78" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" bodystart="78" bodyend="80"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" line="78" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" bodystart="78" bodyend="80"/>
       </memberdef>
       <memberdef kind="function" id="classVisualServoingStateMachineFrontEnd_1a4137592c05a2e423557ff010cad0dc48" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <templateparamlist>
@@ -104,7 +104,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" line="87" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" bodystart="87" bodyend="89"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" line="87" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" bodystart="87" bodyend="89"/>
       </memberdef>
       <memberdef kind="function" id="classVisualServoingStateMachineFrontEnd_1a2b7ae72d046ba5ae34fda38b89482ccd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -129,7 +129,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" line="97" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" bodystart="97" bodyend="98"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" line="97" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" bodystart="97" bodyend="98"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -137,73 +137,73 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="656">
+      <node id="985">
         <label>boost::msm::front::state_machine_def&lt; VisualServoingStateMachineFrontEnd &gt;</label>
       </node>
-      <node id="657">
+      <node id="986">
         <label>BaseStateMachine&lt; UAVVisionSystem &gt;</label>
         <link refid="classBaseStateMachine"/>
       </node>
-      <node id="655">
+      <node id="984">
         <label>VisualServoingStateMachineFrontEnd</label>
         <link refid="classVisualServoingStateMachineFrontEnd"/>
-        <childnode refid="656" relation="public-inheritance">
+        <childnode refid="985" relation="public-inheritance">
         </childnode>
-        <childnode refid="657" relation="public-inheritance">
+        <childnode refid="986" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="662">
+      <node id="991">
         <label>UAVVisionSystem</label>
         <link refid="classUAVVisionSystem"/>
-        <childnode refid="663" relation="public-inheritance">
+        <childnode refid="992" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="665">
+      <node id="994">
         <label>TypeMap&lt; AbstractControllerHardwareConnector &gt;</label>
         <link refid="classTypeMap"/>
       </node>
-      <node id="664">
+      <node id="993">
         <label>BaseRobotSystem</label>
         <link refid="classBaseRobotSystem"/>
-        <childnode refid="665" relation="usage">
+        <childnode refid="994" relation="usage">
           <edgelabel>controller_hardware_connector_container_</edgelabel>
         </childnode>
       </node>
-      <node id="663">
+      <node id="992">
         <label>UAVSystem</label>
         <link refid="classUAVSystem"/>
-        <childnode refid="664" relation="public-inheritance">
+        <childnode refid="993" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="661">
+      <node id="990">
         <label>RobotSystemContainer&lt; UAVVisionSystem &gt;</label>
         <link refid="classRobotSystemContainer"/>
-        <childnode refid="662" relation="usage">
+        <childnode refid="991" relation="usage">
           <edgelabel>robot_system_</edgelabel>
         </childnode>
       </node>
-      <node id="659">
+      <node id="988">
         <label>boost::msm::front::state_machine_def&lt; VisualServoingStateMachineFrontEnd &gt;</label>
       </node>
-      <node id="660">
+      <node id="989">
         <label>BaseStateMachine&lt; UAVVisionSystem &gt;</label>
         <link refid="classBaseStateMachine"/>
-        <childnode refid="661" relation="usage">
+        <childnode refid="990" relation="usage">
           <edgelabel>robot_system_container_</edgelabel>
         </childnode>
       </node>
-      <node id="658">
+      <node id="987">
         <label>VisualServoingStateMachineFrontEnd</label>
         <link refid="classVisualServoingStateMachineFrontEnd"/>
-        <childnode refid="659" relation="public-inheritance">
+        <childnode refid="988" relation="public-inheritance">
         </childnode>
-        <childnode refid="660" relation="public-inheritance">
+        <childnode refid="989" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" line="70" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" bodystart="68" bodyend="180"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" line="70" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/visual_servoing_state_machine.h" bodystart="68" bodyend="168"/>
     <listofallmembers>
       <member refid="classBaseStateMachine_1a2cb25947ca74c77568736975125aed44" prot="public" virt="non-virtual"><scope>VisualServoingStateMachineFrontEnd</scope><name>BaseStateMachine</name></member>
       <member refid="classBaseStateMachine_1a286ff1d9af1151821ed44842a5e4fb8c" prot="public" virt="non-virtual"><scope>VisualServoingStateMachineFrontEnd</scope><name>get_no_transition_event_index</name></member>

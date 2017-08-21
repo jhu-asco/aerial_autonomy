@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="dir_a097fc386f2ccd66772581ec017ca7e4" kind="dir">
+    <compoundname>src/trackers</compoundname>
+    <innerfile refid="alvar__tracker_8cpp">alvar_tracker.cpp</innerfile>
+    <innerfile refid="base__tracker_8cpp">base_tracker.cpp</innerfile>
+    <innerfile refid="closest__tracking__strategy_8cpp">closest_tracking_strategy.cpp</innerfile>
+    <innerfile refid="roi__to__position__converter_8cpp">roi_to_position_converter.cpp</innerfile>
+    <innerfile refid="simple__multi__tracker_8cpp">simple_multi_tracker.cpp</innerfile>
+    <innerfile refid="simple__tracker_8cpp">simple_tracker.cpp</innerfile>
+    <innerfile refid="simple__tracking__strategy_8cpp">simple_tracking_strategy.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/"/>
+  </compounddef>
+</doxygen>

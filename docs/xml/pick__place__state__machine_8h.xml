@@ -1,0 +1,1097 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="pick__place__state__machine_8h" kind="file">
+    <compoundname>pick_place_state_machine.h</compoundname>
+    <includes refid="thread__safe__state__machine_8h" local="no">aerial_autonomy/common/thread_safe_state_machine.h</includes>
+    <includes local="no">boost/msm/front/state_machine_def.hpp</includes>
+    <includes local="no">boost/msm/front/functor_row.hpp</includes>
+    <includes refid="pick__place__states__actions_8h" local="no">aerial_autonomy/actions_guards/pick_place_states_actions.h</includes>
+    <includes refid="uav__arm__system_8h" local="no">aerial_autonomy/robot_systems/uav_arm_system.h</includes>
+    <includes local="no">glog/logging.h</includes>
+    <includes local="no">array</includes>
+    <includes refid="base__state__machine_8h" local="no">aerial_autonomy/state_machines/base_state_machine.h</includes>
+    <includes local="no">aerial_autonomy/pick_place_events.h</includes>
+    <includes refid="manual__control__event_8h" local="no">aerial_autonomy/types/manual_control_event.h</includes>
+    <includedby refid="uav__arm__system__node_8cpp" local="no">src/system_handler_nodes/uav_arm_system_node.cpp</includedby>
+    <incdepgraph>
+      <node id="6038">
+        <label>boost/mpl/aux_/unwrap.hpp</label>
+      </node>
+      <node id="5994">
+        <label>boost/thread/mutex.hpp</label>
+      </node>
+      <node id="6056">
+        <label>aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h</label>
+        <link refid="visual__servoing__controller__drone__connector_8h"/>
+        <childnode refid="5992" relation="include">
+        </childnode>
+        <childnode refid="6057" relation="include">
+        </childnode>
+        <childnode refid="6053" relation="include">
+        </childnode>
+        <childnode refid="6013" relation="include">
+        </childnode>
+        <childnode refid="6018" relation="include">
+        </childnode>
+        <childnode refid="6060" relation="include">
+        </childnode>
+        <childnode refid="6029" relation="include">
+        </childnode>
+        <childnode refid="6017" relation="include">
+        </childnode>
+      </node>
+      <node id="6050">
+        <label>aerial_autonomy/controllers/relative_pose_controller.h</label>
+        <link refid="relative__pose__controller_8h"/>
+        <childnode refid="5997" relation="include">
+        </childnode>
+        <childnode refid="6014" relation="include">
+        </childnode>
+        <childnode refid="6051" relation="include">
+        </childnode>
+        <childnode refid="6052" relation="include">
+        </childnode>
+        <childnode refid="6017" relation="include">
+        </childnode>
+      </node>
+      <node id="5999">
+        <label>aerial_autonomy/common/type_map.h</label>
+        <link refid="type__map_8h"/>
+        <childnode refid="5976" relation="include">
+        </childnode>
+        <childnode refid="6000" relation="include">
+        </childnode>
+      </node>
+      <node id="6047">
+        <label>boost/mpl/vector.hpp</label>
+      </node>
+      <node id="5987">
+        <label>iomanip</label>
+      </node>
+      <node id="6036">
+        <label>boost/mpl/apply.hpp</label>
+      </node>
+      <node id="6019">
+        <label>aerial_autonomy/types/velocity.h</label>
+        <link refid="velocity_8h"/>
+      </node>
+      <node id="6007">
+        <label>aerial_autonomy/actions_guards/pick_place_functors.h</label>
+        <link refid="pick__place__functors_8h"/>
+        <childnode refid="5982" relation="include">
+        </childnode>
+        <childnode refid="6008" relation="include">
+        </childnode>
+        <childnode refid="6033" relation="include">
+        </childnode>
+        <childnode refid="6034" relation="include">
+        </childnode>
+        <childnode refid="5984" relation="include">
+        </childnode>
+        <childnode refid="6048" relation="include">
+        </childnode>
+        <childnode refid="6004" relation="include">
+        </childnode>
+        <childnode refid="5998" relation="include">
+        </childnode>
+        <childnode refid="6062" relation="include">
+        </childnode>
+      </node>
+      <node id="5998">
+        <label>glog/logging.h</label>
+      </node>
+      <node id="6072">
+        <label>aerial_autonomy/state_machines/base_state_machine.h</label>
+        <link refid="base__state__machine_8h"/>
+        <childnode refid="5998" relation="include">
+        </childnode>
+        <childnode refid="6071" relation="include">
+        </childnode>
+        <childnode refid="5976" relation="include">
+        </childnode>
+        <childnode refid="6073" relation="include">
+        </childnode>
+      </node>
+      <node id="6011">
+        <label>aerial_autonomy/controllers/basic_controllers.h</label>
+        <link refid="basic__controllers_8h"/>
+        <childnode refid="6012" relation="include">
+        </childnode>
+        <childnode refid="6022" relation="include">
+        </childnode>
+      </node>
+      <node id="5975">
+        <label>boost/thread/recursive_mutex.hpp</label>
+      </node>
+      <node id="6023">
+        <label>aerial_autonomy/types/empty_goal.h</label>
+        <link refid="empty__goal_8h"/>
+      </node>
+      <node id="6069">
+        <label>aerial_autonomy/arm_events.h</label>
+      </node>
+      <node id="6021">
+        <label>velocity_controller_config.pb.h</label>
+      </node>
+      <node id="6008">
+        <label>aerial_autonomy/actions_guards/hovering_functors.h</label>
+        <link refid="hovering__functors_8h"/>
+        <childnode refid="5982" relation="include">
+        </childnode>
+        <childnode refid="5984" relation="include">
+        </childnode>
+        <childnode refid="6009" relation="include">
+        </childnode>
+        <childnode refid="6004" relation="include">
+        </childnode>
+        <childnode refid="6032" relation="include">
+        </childnode>
+        <childnode refid="6005" relation="include">
+        </childnode>
+        <childnode refid="5998" relation="include">
+        </childnode>
+        <childnode refid="6006" relation="include">
+        </childnode>
+      </node>
+      <node id="5974">
+        <label>boost/msm/back/state_machine.hpp</label>
+      </node>
+      <node id="6074">
+        <label>aerial_autonomy/pick_place_events.h</label>
+      </node>
+      <node id="6015">
+        <label>cmath</label>
+      </node>
+      <node id="5989">
+        <label>stdexcept</label>
+      </node>
+      <node id="6059">
+        <label>constant_heading_depth_controller_config.pb.h</label>
+      </node>
+      <node id="6067">
+        <label>aerial_autonomy/actions_guards/takeoff_functors.h</label>
+        <link refid="takeoff__functors_8h"/>
+        <childnode refid="5982" relation="include">
+        </childnode>
+        <childnode refid="5984" relation="include">
+        </childnode>
+        <childnode refid="6009" relation="include">
+        </childnode>
+        <childnode refid="6004" relation="include">
+        </childnode>
+        <childnode refid="6005" relation="include">
+        </childnode>
+        <childnode refid="5998" relation="include">
+        </childnode>
+        <childnode refid="6006" relation="include">
+        </childnode>
+      </node>
+      <node id="6060">
+        <label>uav_vision_system_config.pb.h</label>
+      </node>
+      <node id="5992">
+        <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
+        <link refid="base__controller__hardware__connector_8h"/>
+        <childnode refid="5993" relation="include">
+        </childnode>
+        <childnode refid="5995" relation="include">
+        </childnode>
+        <childnode refid="5997" relation="include">
+        </childnode>
+        <childnode refid="5998" relation="include">
+        </childnode>
+      </node>
+      <node id="5978">
+        <label>boost/msm/front/state_machine_def.hpp</label>
+      </node>
+      <node id="5990">
+        <label>string</label>
+      </node>
+      <node id="6037">
+        <label>boost/mpl/assert.hpp</label>
+      </node>
+      <node id="6024">
+        <label>aerial_autonomy/types/joysticks_yaw.h</label>
+        <link refid="joysticks__yaw_8h"/>
+        <childnode refid="6025" relation="include">
+        </childnode>
+      </node>
+      <node id="6009">
+        <label>aerial_autonomy/robot_systems/uav_system.h</label>
+        <link refid="uav__system_8h"/>
+        <childnode refid="6010" relation="include">
+        </childnode>
+        <childnode refid="5986" relation="include">
+        </childnode>
+        <childnode refid="5991" relation="include">
+        </childnode>
+        <childnode refid="6011" relation="include">
+        </childnode>
+        <childnode refid="6027" relation="include">
+        </childnode>
+        <childnode refid="5987" relation="include">
+        </childnode>
+        <childnode refid="5988" relation="include">
+        </childnode>
+      </node>
+      <node id="6017">
+        <label>tf/tf.h</label>
+      </node>
+      <node id="6039">
+        <label>boost/mpl/begin_end.hpp</label>
+      </node>
+      <node id="6004">
+        <label>aerial_autonomy/types/completed_event.h</label>
+        <link refid="completed__event_8h"/>
+      </node>
+      <node id="6001">
+        <label>aerial_autonomy/common/iterable_enum.h</label>
+        <link refid="iterable__enum_8h"/>
+      </node>
+      <node id="6044">
+        <label>boost/mpl/next_prior.hpp</label>
+      </node>
+      <node id="6028">
+        <label>aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h</label>
+        <link refid="builtin__velocity__controller__drone__connector_8h"/>
+        <childnode refid="5992" relation="include">
+        </childnode>
+        <childnode refid="6018" relation="include">
+        </childnode>
+        <childnode refid="6029" relation="include">
+        </childnode>
+      </node>
+      <node id="6016">
+        <label>aerial_autonomy/common/math.h</label>
+        <link refid="math_8h"/>
+        <childnode refid="6015" relation="include">
+        </childnode>
+        <childnode refid="5989" relation="include">
+        </childnode>
+        <childnode refid="6017" relation="include">
+        </childnode>
+      </node>
+      <node id="5991">
+        <label>aerial_autonomy/robot_systems/base_robot_system.h</label>
+        <link refid="base__robot__system_8h"/>
+        <childnode refid="5992" relation="include">
+        </childnode>
+        <childnode refid="5999" relation="include">
+        </childnode>
+        <childnode refid="6001" relation="include">
+        </childnode>
+        <childnode refid="5994" relation="include">
+        </childnode>
+        <childnode refid="6002" relation="include">
+        </childnode>
+      </node>
+      <node id="6006">
+        <label>parsernode/common.h</label>
+      </node>
+      <node id="5995">
+        <label>aerial_autonomy/common/controller_status.h</label>
+        <link refid="controller__status_8h"/>
+        <childnode refid="5990" relation="include">
+        </childnode>
+        <childnode refid="5996" relation="include">
+        </childnode>
+      </node>
+      <node id="6030">
+        <label>aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h</label>
+        <link refid="manual__rpyt__controller__drone__connector_8h"/>
+        <childnode refid="5992" relation="include">
+        </childnode>
+        <childnode refid="6023" relation="include">
+        </childnode>
+        <childnode refid="6024" relation="include">
+        </childnode>
+        <childnode refid="6026" relation="include">
+        </childnode>
+        <childnode refid="6029" relation="include">
+        </childnode>
+      </node>
+      <node id="6025">
+        <label>aerial_autonomy/types/joysticks.h</label>
+        <link refid="joysticks_8h"/>
+      </node>
+      <node id="6003">
+        <label>arm_parsers/arm_parser.h</label>
+      </node>
+      <node id="6055">
+        <label>aerial_autonomy/robot_systems/uav_vision_system.h</label>
+        <link refid="uav__vision__system_8h"/>
+        <childnode refid="5986" relation="include">
+        </childnode>
+        <childnode refid="6016" relation="include">
+        </childnode>
+        <childnode refid="6056" relation="include">
+        </childnode>
+        <childnode refid="6057" relation="include">
+        </childnode>
+        <childnode refid="6009" relation="include">
+        </childnode>
+        <childnode refid="6010" relation="include">
+        </childnode>
+        <childnode refid="6017" relation="include">
+        </childnode>
+      </node>
+      <node id="5972">
+        <label>include/aerial_autonomy/state_machines/pick_place_state_machine.h</label>
+        <link refid="pick_place_state_machine.h"/>
+        <childnode refid="5973" relation="include">
+        </childnode>
+        <childnode refid="5978" relation="include">
+        </childnode>
+        <childnode refid="5979" relation="include">
+        </childnode>
+        <childnode refid="5980" relation="include">
+        </childnode>
+        <childnode refid="6048" relation="include">
+        </childnode>
+        <childnode refid="5998" relation="include">
+        </childnode>
+        <childnode refid="6071" relation="include">
+        </childnode>
+        <childnode refid="6072" relation="include">
+        </childnode>
+        <childnode refid="6074" relation="include">
+        </childnode>
+        <childnode refid="6032" relation="include">
+        </childnode>
+      </node>
+      <node id="5984">
+        <label>aerial_autonomy/logic_states/base_state.h</label>
+        <link refid="base__state_8h"/>
+        <childnode refid="5979" relation="include">
+        </childnode>
+        <childnode refid="5978" relation="include">
+        </childnode>
+        <childnode refid="5982" relation="include">
+        </childnode>
+        <childnode refid="5983" relation="include">
+        </childnode>
+      </node>
+      <node id="6052">
+        <label>tuple</label>
+      </node>
+      <node id="6033">
+        <label>aerial_autonomy/actions_guards/manual_control_functors.h</label>
+        <link refid="manual__control__functors_8h"/>
+        <childnode refid="6009" relation="include">
+        </childnode>
+        <childnode refid="6032" relation="include">
+        </childnode>
+        <childnode refid="6005" relation="include">
+        </childnode>
+        <childnode refid="5979" relation="include">
+        </childnode>
+        <childnode refid="5978" relation="include">
+        </childnode>
+        <childnode refid="6006" relation="include">
+        </childnode>
+      </node>
+      <node id="5981">
+        <label>aerial_autonomy/actions_guards/arm_functors.h</label>
+        <link refid="arm__functors_8h"/>
+        <childnode refid="5982" relation="include">
+        </childnode>
+        <childnode refid="5984" relation="include">
+        </childnode>
+        <childnode refid="5985" relation="include">
+        </childnode>
+        <childnode refid="6004" relation="include">
+        </childnode>
+        <childnode refid="6005" relation="include">
+        </childnode>
+        <childnode refid="5998" relation="include">
+        </childnode>
+        <childnode refid="6006" relation="include">
+        </childnode>
+      </node>
+      <node id="6034">
+        <label>aerial_autonomy/actions_guards/shorting_action_sequence.h</label>
+        <link refid="shorting__action__sequence_8h"/>
+        <childnode refid="5982" relation="include">
+        </childnode>
+        <childnode refid="6035" relation="include">
+        </childnode>
+        <childnode refid="6036" relation="include">
+        </childnode>
+        <childnode refid="6037" relation="include">
+        </childnode>
+        <childnode refid="6039" relation="include">
+        </childnode>
+        <childnode refid="6040" relation="include">
+        </childnode>
+        <childnode refid="6041" relation="include">
+        </childnode>
+        <childnode refid="6043" relation="include">
+        </childnode>
+        <childnode refid="6044" relation="include">
+        </childnode>
+        <childnode refid="6047" relation="include">
+        </childnode>
+        <childnode refid="5979" relation="include">
+        </childnode>
+        <childnode refid="6045" relation="include">
+        </childnode>
+      </node>
+      <node id="6058">
+        <label>aerial_autonomy/types/velocity_yaw_rate.h</label>
+        <link refid="velocity__yaw__rate_8h"/>
+        <childnode refid="6019" relation="include">
+        </childnode>
+      </node>
+      <node id="6041">
+        <label>boost/mpl/deref.hpp</label>
+      </node>
+      <node id="5980">
+        <label>aerial_autonomy/actions_guards/pick_place_states_actions.h</label>
+        <link refid="pick__place__states__actions_8h"/>
+        <childnode refid="5981" relation="include">
+        </childnode>
+        <childnode refid="6007" relation="include">
+        </childnode>
+        <childnode refid="6063" relation="include">
+        </childnode>
+        <childnode refid="6069" relation="include">
+        </childnode>
+        <childnode refid="6070" relation="include">
+        </childnode>
+        <childnode refid="5979" relation="include">
+        </childnode>
+      </node>
+      <node id="5996">
+        <label>vector</label>
+      </node>
+      <node id="6070">
+        <label>boost/msm/front/euml/operator.hpp</label>
+      </node>
+      <node id="5997">
+        <label>aerial_autonomy/controllers/base_controller.h</label>
+        <link refid="base__controller_8h"/>
+        <childnode refid="5993" relation="include">
+        </childnode>
+        <childnode refid="5995" relation="include">
+        </childnode>
+      </node>
+      <node id="5977">
+        <label>aerial_autonomy/types/internal_transition_event.h</label>
+        <link refid="internal__transition__event_8h"/>
+      </node>
+      <node id="6020">
+        <label>position_controller_config.pb.h</label>
+      </node>
+      <node id="6063">
+        <label>aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
+        <link refid="visual__servoing__states__actions_8h"/>
+        <childnode refid="6064" relation="include">
+        </childnode>
+        <childnode refid="6068" relation="include">
+        </childnode>
+      </node>
+      <node id="6048">
+        <label>aerial_autonomy/robot_systems/uav_arm_system.h</label>
+        <link refid="uav__arm__system_8h"/>
+        <childnode refid="6016" relation="include">
+        </childnode>
+        <childnode refid="6049" relation="include">
+        </childnode>
+        <childnode refid="6050" relation="include">
+        </childnode>
+        <childnode refid="5985" relation="include">
+        </childnode>
+        <childnode refid="6055" relation="include">
+        </childnode>
+        <childnode refid="6061" relation="include">
+        </childnode>
+      </node>
+      <node id="5985">
+        <label>aerial_autonomy/robot_systems/arm_system.h</label>
+        <link refid="arm__system_8h"/>
+        <childnode refid="5986" relation="include">
+        </childnode>
+        <childnode refid="5991" relation="include">
+        </childnode>
+        <childnode refid="6003" relation="include">
+        </childnode>
+        <childnode refid="5987" relation="include">
+        </childnode>
+        <childnode refid="5988" relation="include">
+        </childnode>
+      </node>
+      <node id="5973">
+        <label>aerial_autonomy/common/thread_safe_state_machine.h</label>
+        <link refid="thread__safe__state__machine_8h"/>
+        <childnode refid="5974" relation="include">
+        </childnode>
+        <childnode refid="5975" relation="include">
+        </childnode>
+        <childnode refid="5976" relation="include">
+        </childnode>
+        <childnode refid="5977" relation="include">
+        </childnode>
+      </node>
+      <node id="6073">
+        <label>aerial_autonomy/common/robot_system_container.h</label>
+        <link refid="robot__system__container_8h"/>
+      </node>
+      <node id="6071">
+        <label>array</label>
+      </node>
+      <node id="5988">
+        <label>sstream</label>
+      </node>
+      <node id="6042">
+        <label>boost/mpl/identity.hpp</label>
+      </node>
+      <node id="6022">
+        <label>aerial_autonomy/controllers/manual_rpyt_controller.h</label>
+        <link refid="manual__rpyt__controller_8h"/>
+        <childnode refid="5997" relation="include">
+        </childnode>
+        <childnode refid="6023" relation="include">
+        </childnode>
+        <childnode refid="6024" relation="include">
+        </childnode>
+        <childnode refid="6026" relation="include">
+        </childnode>
+      </node>
+      <node id="6053">
+        <label>aerial_autonomy/trackers/base_tracker.h</label>
+        <link refid="base__tracker_8h"/>
+        <childnode refid="6054" relation="include">
+        </childnode>
+        <childnode refid="6014" relation="include">
+        </childnode>
+        <childnode refid="6002" relation="include">
+        </childnode>
+        <childnode refid="6052" relation="include">
+        </childnode>
+        <childnode refid="6000" relation="include">
+        </childnode>
+      </node>
+      <node id="6046">
+        <label>boost/utility/value_init.hpp</label>
+      </node>
+      <node id="6068">
+        <label>aerial_autonomy/actions_guards/visual_servoing_functors.h</label>
+        <link refid="visual__servoing__functors_8h"/>
+        <childnode refid="5982" relation="include">
+        </childnode>
+        <childnode refid="6008" relation="include">
+        </childnode>
+        <childnode refid="6034" relation="include">
+        </childnode>
+        <childnode refid="6016" relation="include">
+        </childnode>
+        <childnode refid="5984" relation="include">
+        </childnode>
+        <childnode refid="6055" relation="include">
+        </childnode>
+        <childnode refid="6004" relation="include">
+        </childnode>
+        <childnode refid="5998" relation="include">
+        </childnode>
+        <childnode refid="6006" relation="include">
+        </childnode>
+      </node>
+      <node id="6035">
+        <label>aerial_autonomy/actions_guards/exec_if.h</label>
+        <link refid="exec__if_8h"/>
+        <childnode refid="6036" relation="include">
+        </childnode>
+        <childnode refid="6037" relation="include">
+        </childnode>
+        <childnode refid="6038" relation="include">
+        </childnode>
+        <childnode refid="6039" relation="include">
+        </childnode>
+        <childnode refid="6040" relation="include">
+        </childnode>
+        <childnode refid="6041" relation="include">
+        </childnode>
+        <childnode refid="6042" relation="include">
+        </childnode>
+        <childnode refid="6043" relation="include">
+        </childnode>
+        <childnode refid="6044" relation="include">
+        </childnode>
+        <childnode refid="6045" relation="include">
+        </childnode>
+        <childnode refid="6046" relation="include">
+        </childnode>
+      </node>
+      <node id="6027">
+        <label>aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h</label>
+        <link refid="basic__controller__hardware__connectors_8h"/>
+        <childnode refid="6028" relation="include">
+        </childnode>
+        <childnode refid="6030" relation="include">
+        </childnode>
+        <childnode refid="6031" relation="include">
+        </childnode>
+      </node>
+      <node id="6051">
+        <label>pose_controller_config.pb.h</label>
+      </node>
+      <node id="6032">
+        <label>aerial_autonomy/types/manual_control_event.h</label>
+        <link refid="manual__control__event_8h"/>
+      </node>
+      <node id="6064">
+        <label>aerial_autonomy/actions_guards/uav_states_actions.h</label>
+        <link refid="uav__states__actions_8h"/>
+        <childnode refid="6008" relation="include">
+        </childnode>
+        <childnode refid="6065" relation="include">
+        </childnode>
+        <childnode refid="6033" relation="include">
+        </childnode>
+        <childnode refid="6066" relation="include">
+        </childnode>
+        <childnode refid="6067" relation="include">
+        </childnode>
+      </node>
+      <node id="5979">
+        <label>boost/msm/front/functor_row.hpp</label>
+      </node>
+      <node id="6000">
+        <label>unordered_map</label>
+      </node>
+      <node id="6066">
+        <label>aerial_autonomy/actions_guards/position_control_functors.h</label>
+        <link refid="position__control__functors_8h"/>
+        <childnode refid="5982" relation="include">
+        </childnode>
+        <childnode refid="6008" relation="include">
+        </childnode>
+        <childnode refid="6034" relation="include">
+        </childnode>
+        <childnode refid="6031" relation="include">
+        </childnode>
+        <childnode refid="5984" relation="include">
+        </childnode>
+        <childnode refid="6009" relation="include">
+        </childnode>
+        <childnode refid="6005" relation="include">
+        </childnode>
+        <childnode refid="5998" relation="include">
+        </childnode>
+        <childnode refid="6006" relation="include">
+        </childnode>
+      </node>
+      <node id="6065">
+        <label>aerial_autonomy/actions_guards/land_functors.h</label>
+        <link refid="land__functors_8h"/>
+        <childnode refid="5982" relation="include">
+        </childnode>
+        <childnode refid="5984" relation="include">
+        </childnode>
+        <childnode refid="6009" relation="include">
+        </childnode>
+        <childnode refid="6004" relation="include">
+        </childnode>
+        <childnode refid="6032" relation="include">
+        </childnode>
+        <childnode refid="6006" relation="include">
+        </childnode>
+      </node>
+      <node id="6054">
+        <label>aerial_autonomy/trackers/tracking_strategy.h</label>
+        <link refid="tracking__strategy_8h"/>
+        <childnode refid="6014" relation="include">
+        </childnode>
+        <childnode refid="6052" relation="include">
+        </childnode>
+        <childnode refid="6000" relation="include">
+        </childnode>
+      </node>
+      <node id="6013">
+        <label>aerial_autonomy/types/position_yaw.h</label>
+        <link refid="position__yaw_8h"/>
+        <childnode refid="6014" relation="include">
+        </childnode>
+        <childnode refid="6016" relation="include">
+        </childnode>
+      </node>
+      <node id="5982">
+        <label>aerial_autonomy/actions_guards/base_functors.h</label>
+        <link refid="base__functors_8h"/>
+        <childnode refid="5983" relation="include">
+        </childnode>
+        <childnode refid="5977" relation="include">
+        </childnode>
+      </node>
+      <node id="6061">
+        <label>chrono</label>
+      </node>
+      <node id="6026">
+        <label>aerial_autonomy/types/roll_pitch_yaw_thrust.h</label>
+        <link refid="roll__pitch__yaw__thrust_8h"/>
+      </node>
+      <node id="6014">
+        <label>aerial_autonomy/types/position.h</label>
+        <link refid="position_8h"/>
+        <childnode refid="6015" relation="include">
+        </childnode>
+      </node>
+      <node id="6031">
+        <label>aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h</label>
+        <link refid="position__controller__drone__connector_8h"/>
+        <childnode refid="5992" relation="include">
+        </childnode>
+        <childnode refid="6013" relation="include">
+        </childnode>
+        <childnode refid="6029" relation="include">
+        </childnode>
+      </node>
+      <node id="6018">
+        <label>aerial_autonomy/types/velocity_yaw.h</label>
+        <link refid="velocity__yaw_8h"/>
+        <childnode refid="6019" relation="include">
+        </childnode>
+        <childnode refid="6016" relation="include">
+        </childnode>
+      </node>
+      <node id="6062">
+        <label>thread</label>
+      </node>
+      <node id="5986">
+        <label>aerial_autonomy/common/html_utils.h</label>
+        <link refid="html__utils_8h"/>
+        <childnode refid="5987" relation="include">
+        </childnode>
+        <childnode refid="5988" relation="include">
+        </childnode>
+        <childnode refid="5989" relation="include">
+        </childnode>
+        <childnode refid="5990" relation="include">
+        </childnode>
+      </node>
+      <node id="5983">
+        <label>type_traits</label>
+      </node>
+      <node id="6049">
+        <label>aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_arm_connector.h</label>
+        <link refid="visual__servoing__controller__arm__connector_8h"/>
+        <childnode refid="5992" relation="include">
+        </childnode>
+        <childnode refid="6050" relation="include">
+        </childnode>
+        <childnode refid="6053" relation="include">
+        </childnode>
+        <childnode refid="6003" relation="include">
+        </childnode>
+        <childnode refid="6029" relation="include">
+        </childnode>
+        <childnode refid="6017" relation="include">
+        </childnode>
+      </node>
+      <node id="6043">
+        <label>boost/mpl/is_sequence.hpp</label>
+      </node>
+      <node id="6012">
+        <label>aerial_autonomy/controllers/builtin_controller.h</label>
+        <link refid="builtin__controller_8h"/>
+        <childnode refid="5997" relation="include">
+        </childnode>
+        <childnode refid="6013" relation="include">
+        </childnode>
+        <childnode refid="6018" relation="include">
+        </childnode>
+        <childnode refid="6020" relation="include">
+        </childnode>
+        <childnode refid="6021" relation="include">
+        </childnode>
+      </node>
+      <node id="6010">
+        <label>uav_system_config.pb.h</label>
+      </node>
+      <node id="6029">
+        <label>parsernode/parser.h</label>
+      </node>
+      <node id="6040">
+        <label>boost/mpl/bool.hpp</label>
+      </node>
+      <node id="5993">
+        <label>aerial_autonomy/common/atomic.h</label>
+        <link refid="atomic_8h"/>
+        <childnode refid="5994" relation="include">
+        </childnode>
+      </node>
+      <node id="6005">
+        <label>aerial_autonomy/uav_basic_events.h</label>
+      </node>
+      <node id="6002">
+        <label>memory</label>
+      </node>
+      <node id="6057">
+        <label>aerial_autonomy/controllers/constant_heading_depth_controller.h</label>
+        <link refid="constant__heading__depth__controller_8h"/>
+        <childnode refid="5997" relation="include">
+        </childnode>
+        <childnode refid="6013" relation="include">
+        </childnode>
+        <childnode refid="6058" relation="include">
+        </childnode>
+        <childnode refid="6059" relation="include">
+        </childnode>
+        <childnode refid="6017" relation="include">
+        </childnode>
+      </node>
+      <node id="5976">
+        <label>typeindex</label>
+      </node>
+      <node id="6045">
+        <label>boost/type_traits/is_same.hpp</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6075">
+        <label>include/aerial_autonomy/state_machines/pick_place_state_machine.h</label>
+        <link refid="pick_place_state_machine.h"/>
+        <childnode refid="6076" relation="include">
+        </childnode>
+      </node>
+      <node id="6076">
+        <label>src/system_handler_nodes/uav_arm_system_node.cpp</label>
+        <link refid="uav__arm__system__node_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classPickPlaceStateMachineFrontEnd" prot="public">PickPlaceStateMachineFrontEnd</innerclass>
+    <innerclass refid="structPickPlaceStateMachineFrontEnd_1_1transition__table" prot="public">PickPlaceStateMachineFrontEnd::transition_table</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="pick__place__state__machine_8h_1a91954414fadea05e22be90e50b2ab1c7" prot="public" static="no">
+        <type><ref refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine" kindref="compound">boost::msm::back::thread_safe_state_machine</ref>&lt; <ref refid="classPickPlaceStateMachineFrontEnd" kindref="compound">PickPlaceStateMachineFrontEnd</ref> &gt;</type>
+        <definition>using PickPlaceStateMachine =  boost::msm::back::thread_safe_state_machine&lt;PickPlaceStateMachineFrontEnd&gt;</definition>
+        <argsstring></argsstring>
+        <name>PickPlaceStateMachine</name>
+        <briefdescription>
+<para>Backend for Logic State Machine. </para>        </briefdescription>
+        <detaileddescription>
+<para>Used to forward arguments to constructor, and process events </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h" line="60" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="pick__place__state__machine_8h_1a52700cb8ace3a575b4225549c9f6aa80" prot="public" static="no">
+        <type><ref refid="structPickPlaceStatesActions" kindref="compound">PickPlaceStatesActions</ref>&lt; <ref refid="pick__place__state__machine_8h_1a91954414fadea05e22be90e50b2ab1c7" kindref="member">PickPlaceStateMachine</ref> &gt;</type>
+        <definition>using psa =  PickPlaceStatesActions&lt;PickPlaceStateMachine&gt;</definition>
+        <argsstring></argsstring>
+        <name>psa</name>
+        <briefdescription>
+<para>Namespace for basic uav states and actions such as takeoff, land etc. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h" line="66" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="pick__place__state__machine_8h_1af4171238813a67fc80d8b26832f43823" prot="public" static="yes" mutable="no">
+        <type>constexpr std::array&lt; const char *, 10 &gt;</type>
+        <definition>constexpr std::array&lt;const char *, 10&gt; state_names</definition>
+        <argsstring></argsstring>
+        <name>state_names</name>
+        <initializer>= {
+    &quot;Landed&quot;,       &quot;ArmPreTakeoffFolding&quot;, &quot;Takingoff&quot;,    &quot;Hovering&quot;,
+    &quot;PrePickState&quot;, &quot;ArmPreLandingFolding&quot;, &quot;ReachingGoal&quot;, &quot;PickState&quot;,
+    &quot;Landing&quot;,      &quot;ManualControlArmState&quot;}</initializer>
+        <briefdescription>
+<para>state names to get name based on state id </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h" line="200" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="pick__place__state__machine_8h_1a7acb0c5c293fb2bc40dd98e98acfafb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* pstate</definition>
+        <argsstring>(PickPlaceStateMachine const &amp;p)</argsstring>
+        <name>pstate</name>
+        <param>
+          <type><ref refid="pick__place__state__machine_8h_1a91954414fadea05e22be90e50b2ab1c7" kindref="member">PickPlaceStateMachine</ref> const &amp;</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Get current state name. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine backend to access current state</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>state name </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h" line="211" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h" bodystart="211" bodyend="213"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="18"><highlight class="comment">//<sp/>back-end</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="thread__safe__state__machine_8h" kindref="compound">aerial_autonomy/common/thread_safe_state_machine.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">//<sp/>front-end</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/msm/front/state_machine_def.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/>functors</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/msm/front/functor_row.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Actions<sp/>and<sp/>guards<sp/>used</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="pick__place__states__actions_8h" kindref="compound">aerial_autonomy/actions_guards/pick_place_states_actions.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Robot<sp/>System<sp/>used</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="uav__arm__system_8h" kindref="compound">aerial_autonomy/robot_systems/uav_arm_system.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Logging<sp/>library</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;glog/logging.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Store<sp/>state<sp/>machine<sp/>states</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;array&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Base<sp/>state<sp/>machine</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="base__state__machine_8h" kindref="compound">aerial_autonomy/state_machines/base_state_machine.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Events</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;aerial_autonomy/pick_place_events.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="manual__control__event_8h" kindref="compound">aerial_autonomy/types/manual_control_event.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">msmf<sp/>=<sp/>boost::msm::front;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">vse<sp/>=<sp/>visual_servoing_events;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">pe<sp/>=<sp/>pick_place_events;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">be<sp/>=<sp/>uav_basic_events;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Forward<sp/>Declaration</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="classPickPlaceStateMachineFrontEnd" kindref="compound">PickPlaceStateMachineFrontEnd</ref>;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine" kindref="compound">PickPlaceStateMachine</ref><sp/>=</highlight></codeline>
+<codeline lineno="61" refid="pick__place__state__machine_8h_1a91954414fadea05e22be90e50b2ab1c7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine" kindref="compound">boost::msm::back::thread_safe_state_machine&lt;PickPlaceStateMachineFrontEnd&gt;</ref>;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66" refid="pick__place__state__machine_8h_1a52700cb8ace3a575b4225549c9f6aa80" refkind="member"><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structPickPlaceStatesActions" kindref="compound">psa</ref><sp/>=<sp/><ref refid="structPickPlaceStatesActions" kindref="compound">PickPlaceStatesActions&lt;PickPlaceStateMachine&gt;</ref>;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="classPickPlaceStateMachineFrontEnd" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classPickPlaceStateMachineFrontEnd" kindref="compound">PickPlaceStateMachineFrontEnd</ref></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>msmf::state_machine_def&lt;PickPlaceStateMachineFrontEnd&gt;,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classBaseStateMachine" kindref="compound">BaseStateMachine</ref>&lt;UAVArmSystem&gt;<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="81" refid="classPickPlaceStateMachineFrontEnd_1a73fc8b596dab243ed09289f60c26e936" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Event,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>FSM&gt;<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classPickPlaceStateMachineFrontEnd_1a73fc8b596dab243ed09289f60c26e936" kindref="member">on_entry</ref>(Event<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;evt,<sp/>FSM<sp/>&amp;fsm)<sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>VLOG(1)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;entering:<sp/>PickPlace<sp/>system&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>dummy_source_state<sp/>=<sp/>0,<sp/>dummy_target_state<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structPickPlaceStatesActions_1af0acf978898ad0ca4f9c484eb61de4e3" kindref="member">psa::ArmPowerOn</ref>()(evt,<sp/>fsm,<sp/>dummy_source_state,<sp/>dummy_target_state);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92" refid="classPickPlaceStateMachineFrontEnd_1a60698bf0d5884c18426b01435d250256" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Event,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>FSM&gt;<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classPickPlaceStateMachineFrontEnd_1a60698bf0d5884c18426b01435d250256" kindref="member">on_exit</ref>(Event<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;evt,<sp/>FSM<sp/>&amp;fsm)<sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>VLOG(1)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;leaving:<sp/>PickPlace<sp/>system&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>dummy_source_state<sp/>=<sp/>0,<sp/>dummy_target_state<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structPickPlaceStatesActions_1acf3e2c95cf7864394ce6d476c49792db" kindref="member">psa::ArmPowerOff</ref>()(evt,<sp/>fsm,<sp/>dummy_source_state,<sp/>dummy_target_state);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="classPickPlaceStateMachineFrontEnd_1a5813e7df854f511f058c0a8b45dfa3fb" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classPickPlaceStateMachineFrontEnd_1a5813e7df854f511f058c0a8b45dfa3fb" kindref="member">PickPlaceStateMachineFrontEnd</ref>(<ref refid="classUAVArmSystem" kindref="compound">UAVArmSystem</ref><sp/>&amp;uav_system)</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="classBaseStateMachine" kindref="compound">BaseStateMachine</ref>(uav_system)<sp/>{}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110" refid="classPickPlaceStateMachineFrontEnd_1a2a561c1a81696fc794c99b07fecab9c4" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structPickPlaceStatesActions_1_1ManualControlArmState" kindref="compound">initial_state</ref><sp/>=<sp/><ref refid="structPickPlaceStatesActions_1_1ManualControlArmState" kindref="compound">psa::ManualControlArmState</ref>;</highlight></codeline>
+<codeline lineno="114" refid="structPickPlaceStateMachineFrontEnd_1_1transition__table" refkind="compound"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structPickPlaceStateMachineFrontEnd_1_1transition__table" kindref="compound">transition_table</ref></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>boost::mpl::vector&lt;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Start<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Event<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Next<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Action<sp/>Guard</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::Landed,<sp/>be::Takeoff,<sp/>psa::ArmPreTakeoffFolding,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::ArmPowerOnFold,<sp/>msmf::none&gt;,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::Landed,<sp/>ManualControlEvent,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::ManualControlArmState,<sp/>msmf::none,<sp/>msmf::none&gt;,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::ArmPreTakeoffFolding,<sp/>Completed,<sp/>psa::TakingOff,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::TakeoffAction,<sp/>psa::TakeoffGuard&gt;,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::ArmPreTakeoffFolding,<sp/>be::Abort,<sp/>psa::Landed,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::ArmPowerOff,<sp/>msmf::none&gt;,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::TakingOff,<sp/>Completed,<sp/>psa::Hovering,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::ArmRightFold,<sp/>msmf::none&gt;,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::Hovering,<sp/>PositionYaw,<sp/>psa::ReachingGoal,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::ReachingGoalSet,<sp/>psa::ReachingGoalGuard&gt;,</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::Hovering,<sp/>pe::Pick,<sp/>psa::PrePickState,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::PrePickTransitionAction,<sp/>psa::PickTransitionGuard&gt;,</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::PrePickState,<sp/>Completed,<sp/>psa::PickState,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::PickTransitionAction,<sp/>msmf::none&gt;,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::Hovering,<sp/>vse::GoHome,<sp/>psa::ReachingGoal,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::GoHomeTransitionAction,<sp/>psa::GoHomeTransitionGuard&gt;,</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::Hovering,<sp/>be::Land,<sp/>psa::ArmPreLandingFolding,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::ArmFold,<sp/>msmf::none&gt;,</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::ArmPreLandingFolding,<sp/>Completed,<sp/>psa::Landing,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::LandingAction,<sp/>msmf::none&gt;,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::ArmPreLandingFolding,<sp/>be::Abort,<sp/>psa::Landing,</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::LandingAction,<sp/>msmf::none&gt;,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::Hovering,<sp/>ManualControlEvent,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::ManualControlArmState,<sp/>msmf::none,<sp/>msmf::none&gt;,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::ReachingGoal,<sp/>be::Abort,<sp/>psa::Hovering,</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::AbortUAVControllerArmRightFold,<sp/>msmf::none&gt;,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::ReachingGoal,<sp/>be::Land,<sp/>psa::ArmPreLandingFolding,</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::ArmFold,<sp/>msmf::none&gt;,</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::PrePickState,<sp/>be::Abort,<sp/>psa::Hovering,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::AbortUAVArmController,<sp/>msmf::none&gt;,</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::PrePickState,<sp/>be::Land,<sp/>psa::ArmPreLandingFolding,</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::AbortUAVControllerArmFold,<sp/>msmf::none&gt;,</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::PickState,<sp/>be::Abort,<sp/>psa::Hovering,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::AbortUAVArmController,<sp/>msmf::none&gt;,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::PickState,<sp/>be::Land,<sp/>psa::ArmPreLandingFolding,</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::AbortUAVControllerArmFold,<sp/>msmf::none&gt;,</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::Landing,<sp/>Completed,<sp/>psa::Landed,<sp/>psa::ArmPowerOff,</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::none&gt;,</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::ReachingGoal,<sp/>Completed,<sp/>psa::Hovering,</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::AbortUAVControllerArmRightFold,<sp/>msmf::none&gt;,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::PickState,<sp/>Completed,<sp/>psa::Hovering,</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::AbortUAVArmController,<sp/>psa::PickGuard&gt;,</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::ManualControlArmState,<sp/>be::Takeoff,<sp/>psa::Hovering,</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::ManualControlSwitchAction,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::ManualControlSwitchGuard&gt;,</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+--------------+-------------+--------------+---------------------+---------------------------+</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>msmf::Row&lt;psa::ManualControlArmState,<sp/>be::Land,<sp/>psa::Landed,</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::ManualControlSwitchAction,</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>psa::ManualControlSwitchGuard&gt;&gt;<sp/>{};</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="classBaseStateMachine" kindref="compound">BaseStateMachine&lt;UAVArmSystem&gt;::no_transition</ref>;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>constexpr<sp/>std::array&lt;const<sp/>char<sp/>*,<sp/>10&gt;<sp/>state_names<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Landed&quot;</highlight><highlight class="normal">,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;ArmPreTakeoffFolding&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Takingoff&quot;</highlight><highlight class="normal">,<sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Hovering&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;PrePickState&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;ArmPreLandingFolding&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;ReachingGoal&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;PickState&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Landing&quot;</highlight><highlight class="normal">,<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;ManualControlArmState&quot;</highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="211" refid="pick__place__state__machine_8h_1a7acb0c5c293fb2bc40dd98e98acfafb5" refkind="member"><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="pick__place__state__machine_8h_1a7acb0c5c293fb2bc40dd98e98acfafb5" kindref="member">pstate</ref>(<ref refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine" kindref="compound">PickPlaceStateMachine</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;p)<sp/>{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>state_names.at(p.current_state()[0]);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/state_machines/pick_place_state_machine.h"/>
+  </compounddef>
+</doxygen>

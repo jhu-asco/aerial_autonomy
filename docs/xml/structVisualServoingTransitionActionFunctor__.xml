@@ -10,19 +10,15 @@
       </param>
     </templateparamlist>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="structVisualServoingTransitionActionFunctor___1a3399d28d43c167eeeda29844199b291d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+      <memberdef kind="function" id="structVisualServoingTransitionActionFunctor___1ac4da810c4789635154fd570caa1c1596" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
         <type>void</type>
         <definition>void VisualServoingTransitionActionFunctor_&lt; LogicStateMachineT &gt;::run</definition>
-        <argsstring>(UAVVisionSystem &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</argsstring>
+        <argsstring>(UAVVisionSystem &amp;robot_system)</argsstring>
         <name>run</name>
-        <reimplements refid="structEventAgnosticActionFunctor_1a53a48938d68370ff2ef262222565ffcf">run</reimplements>
+        <reimplements refid="structEventAgnosticActionFunctor_1a44caf24e060c264ec6404dd5fc746481">run</reimplements>
         <param>
           <type><ref refid="classUAVVisionSystem" kindref="compound">UAVVisionSystem</ref> &amp;</type>
           <declname>robot_system</declname>
-        </param>
-        <param>
-          <type>LogicStateMachineT &amp;</type>
-          <declname>logic_state_machine</declname>
         </param>
         <briefdescription>
 <para>Override this run function for different sub classes. This function performs the logic checking for each state. </para>        </briefdescription>
@@ -34,22 +30,15 @@
 <parameterdescription>
 <para>Provides sensor data and allows for controlling hardware </para></parameterdescription>
 </parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>logic_state_machine</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Backend of logic State Machine. can send events using this. </para></parameterdescription>
-</parameteritem>
 </parameterlist>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" line="19" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" bodystart="19" bodyend="43"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" line="20" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" bodystart="20" bodyend="20"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-    </briefdescription>
+<para>Empty for now. </para>    </briefdescription>
     <detaileddescription>
 <para><parameterlist kind="templateparam"><parameteritem>
 <parameternamelist>
@@ -61,33 +50,33 @@
 </parameterlist>
 </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="671">
+      <node id="1001">
         <label>EventAgnosticActionFunctor&lt; UAVVisionSystem, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticActionFunctor"/>
       </node>
-      <node id="670">
+      <node id="1000">
         <label>VisualServoingTransitionActionFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structVisualServoingTransitionActionFunctor__"/>
-        <childnode refid="671" relation="public-inheritance">
+        <childnode refid="1001" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="673">
+      <node id="1003">
         <label>EventAgnosticActionFunctor&lt; UAVVisionSystem, LogicStateMachineT &gt;</label>
         <link refid="structEventAgnosticActionFunctor"/>
       </node>
-      <node id="672">
+      <node id="1002">
         <label>VisualServoingTransitionActionFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structVisualServoingTransitionActionFunctor__"/>
-        <childnode refid="673" relation="public-inheritance">
+        <childnode refid="1003" relation="public-inheritance">
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" line="18" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" bodystart="17" bodyend="44"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" line="19" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_functors.h" bodystart="18" bodyend="21"/>
     <listofallmembers>
       <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>VisualServoingTransitionActionFunctor_</scope><name>operator()</name></member>
-      <member refid="structVisualServoingTransitionActionFunctor___1a3399d28d43c167eeeda29844199b291d" prot="public" virt="virtual"><scope>VisualServoingTransitionActionFunctor_</scope><name>run</name></member>
+      <member refid="structVisualServoingTransitionActionFunctor___1ac4da810c4789635154fd570caa1c1596" prot="public" virt="virtual"><scope>VisualServoingTransitionActionFunctor_</scope><name>run</name></member>
       <member refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" prot="public" virt="virtual"><scope>VisualServoingTransitionActionFunctor_</scope><name>~EventAgnosticActionFunctor</name></member>
     </listofallmembers>
   </compounddef>

@@ -2,7 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
   <compounddef id="structLandInternalActionFunctor__" kind="struct" prot="public">
     <compoundname>LandInternalActionFunctor_</compoundname>
-    <basecompoundref refid="structEventAgnosticActionFunctor" prot="public" virt="non-virtual">EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</basecompoundref>
+    <basecompoundref refid="structInternalActionFunctor" prot="public" virt="non-virtual">InternalActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</basecompoundref>
     <includes refid="land__functors_8h" local="no">land_functors.h</includes>
     <templateparamlist>
       <param>
@@ -10,12 +10,12 @@
       </param>
     </templateparamlist>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="structLandInternalActionFunctor___1a4557b02d6cfa6712b610337cb606f54b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
-        <type>void</type>
-        <definition>void LandInternalActionFunctor_&lt; LogicStateMachineT &gt;::run</definition>
+      <memberdef kind="function" id="structLandInternalActionFunctor___1ae937412c999754c8859a8fe5249f3a20" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>bool</type>
+        <definition>bool LandInternalActionFunctor_&lt; LogicStateMachineT &gt;::run</definition>
         <argsstring>(UAVSystem &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</argsstring>
         <name>run</name>
-        <reimplements refid="structEventAgnosticActionFunctor_1a53a48938d68370ff2ef262222565ffcf">run</reimplements>
+        <reimplements refid="structInternalActionFunctor_1acb286e73f21393549a4fff4920c83349">run</reimplements>
         <param>
           <type><ref refid="classUAVSystem" kindref="compound">UAVSystem</ref> &amp;</type>
           <declname>robot_system</declname>
@@ -45,7 +45,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
 <para><xrefsect id="todo_1_todo000011"><xreftitle>Todo</xreftitle><xrefdescription><para>(Gowtham) Can also use uav status here </para></xrefdescription></xrefsect></para>        </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/land_functors.h" line="43" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/land_functors.h" bodystart="43" bodyend="55"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/land_functors.h" line="43" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/land_functors.h" bodystart="43" bodyend="53"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -61,34 +61,34 @@
 </parameterlist>
 </para>    </detaileddescription>
     <inheritancegraph>
-      <node id="467">
+      <node id="723">
         <label>LandInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structLandInternalActionFunctor__"/>
-        <childnode refid="468" relation="public-inheritance">
+        <childnode refid="724" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="468">
-        <label>EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
-        <link refid="structEventAgnosticActionFunctor"/>
+      <node id="724">
+        <label>InternalActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
+        <link refid="structInternalActionFunctor"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="469">
+      <node id="725">
         <label>LandInternalActionFunctor_&lt; LogicStateMachineT &gt;</label>
         <link refid="structLandInternalActionFunctor__"/>
-        <childnode refid="470" relation="public-inheritance">
+        <childnode refid="726" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="470">
-        <label>EventAgnosticActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
-        <link refid="structEventAgnosticActionFunctor"/>
+      <node id="726">
+        <label>InternalActionFunctor&lt; UAVSystem, LogicStateMachineT &gt;</label>
+        <link refid="structInternalActionFunctor"/>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/land_functors.h" line="36" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/land_functors.h" bodystart="35" bodyend="56"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/land_functors.h" line="36" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/land_functors.h" bodystart="35" bodyend="54"/>
     <listofallmembers>
-      <member refid="structEventAgnosticActionFunctor_1a3c0bcfed676d49c725ae987f37922534" prot="public" virt="non-virtual"><scope>LandInternalActionFunctor_</scope><name>operator()</name></member>
-      <member refid="structLandInternalActionFunctor___1a4557b02d6cfa6712b610337cb606f54b" prot="public" virt="virtual"><scope>LandInternalActionFunctor_</scope><name>run</name></member>
-      <member refid="structEventAgnosticActionFunctor_1a446e93a5275bb3ba15f7f5577d06a0bf" prot="public" virt="virtual"><scope>LandInternalActionFunctor_</scope><name>~EventAgnosticActionFunctor</name></member>
+      <member refid="structInternalActionFunctor_1a08544be6541497aca6b06309312c4bf3" prot="public" virt="non-virtual"><scope>LandInternalActionFunctor_</scope><name>operator()</name></member>
+      <member refid="structLandInternalActionFunctor___1ae937412c999754c8859a8fe5249f3a20" prot="public" virt="virtual"><scope>LandInternalActionFunctor_</scope><name>run</name></member>
+      <member refid="structInternalActionFunctor_1ac742ec395f7f9251738ab5cb12bd5329" prot="public" virt="virtual"><scope>LandInternalActionFunctor_</scope><name>~InternalActionFunctor</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

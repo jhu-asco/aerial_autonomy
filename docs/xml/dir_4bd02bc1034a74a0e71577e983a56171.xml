@@ -4,6 +4,7 @@
     <compoundname>include/aerial_autonomy/tests</compoundname>
     <innerfile refid="sample__logic__state__machine_8h">sample_logic_state_machine.h</innerfile>
     <innerfile refid="sample__parser_8h">sample_parser.h</innerfile>
+    <innerfile refid="test__utils_8h">test_utils.h</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

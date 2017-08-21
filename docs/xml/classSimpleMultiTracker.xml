@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classSimpleMultiTracker" kind="class" prot="public">
+    <compoundname>SimpleMultiTracker</compoundname>
+    <basecompoundref refid="classBaseTracker" prot="public" virt="non-virtual">BaseTracker</basecompoundref>
+    <includes refid="simple__multi__tracker_8h" local="no">simple_multi_tracker.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classSimpleMultiTracker_1afff582696c1ede8439459c285cf1d26e" prot="private" static="no" mutable="no">
+        <type>std::unordered_map&lt; uint32_t, <ref refid="structPosition" kindref="compound">Position</ref> &gt;</type>
+        <definition>std::unordered_map&lt;uint32_t, Position&gt; SimpleMultiTracker::tracking_vectors_</definition>
+        <argsstring></argsstring>
+        <name>tracking_vectors_</name>
+        <briefdescription>
+<para>Tracking vectors to return. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_multi_tracker.h" line="38" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_multi_tracker.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classSimpleMultiTracker_1acf5b4cc2355952acaec59d6cecdbcfea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>SimpleMultiTracker::SimpleMultiTracker</definition>
+        <argsstring>(TrackingStrategy *tracking_strategy)</argsstring>
+        <name>SimpleMultiTracker</name>
+        <param>
+          <type><ref refid="classTrackingStrategy" kindref="compound">TrackingStrategy</ref> *</type>
+          <declname>tracking_strategy</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>tracking_strategy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Strategy to use for picking target among a group of tracked objects </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_multi_tracker.h" line="14" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_multi_tracker.h" bodystart="14" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="classSimpleMultiTracker_1abf2599dba7ec0cc5f2e1bbebae3fe8d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool SimpleMultiTracker::getTrackingVectors</definition>
+        <argsstring>(std::unordered_map&lt; uint32_t, Position &gt; &amp;pos)</argsstring>
+        <name>getTrackingVectors</name>
+        <reimplements refid="classBaseTracker_1a20360b084ef9b2df755854c274a73f2b">getTrackingVectors</reimplements>
+        <param>
+          <type>std::unordered_map&lt; uint32_t, <ref refid="structPosition" kindref="compound">Position</ref> &gt; &amp;</type>
+          <declname>pos</declname>
+        </param>
+        <briefdescription>
+<para>Get the tracking vectors. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Returned list of tracking vectors </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if successful, false otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_multi_tracker.h" line="21" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/simple_multi_tracker.cpp" bodystart="10" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classSimpleMultiTracker_1a2ef8c9df00c6e92f44fae3204e9d8f12" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>bool</type>
+        <definition>bool SimpleMultiTracker::trackingIsValid</definition>
+        <argsstring>()</argsstring>
+        <name>trackingIsValid</name>
+        <reimplements refid="classBaseTracker_1aa1ad8436be9476278e78142ee1ab8fd6">trackingIsValid</reimplements>
+        <briefdescription>
+<para>Check whether tracking is valid. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>True if the tracking is valid, false otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_multi_tracker.h" line="26" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/simple_multi_tracker.cpp" bodystart="8" bodyend="8"/>
+      </memberdef>
+      <memberdef kind="function" id="classSimpleMultiTracker_1a3577d68db95da56684a1da4d0f449094" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SimpleMultiTracker::setTrackingVectors</definition>
+        <argsstring>(const std::unordered_map&lt; uint32_t, Position &gt; &amp;pos)</argsstring>
+        <name>setTrackingVectors</name>
+        <param>
+          <type>const std::unordered_map&lt; uint32_t, <ref refid="structPosition" kindref="compound">Position</ref> &gt; &amp;</type>
+          <declname>pos</declname>
+        </param>
+        <briefdescription>
+<para>Set the tracking vectors returned by the tracker. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The tracking vectors to set </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_multi_tracker.h" line="32" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/src/trackers/simple_multi_tracker.cpp" bodystart="3" bodyend="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A simple Multi-object Tracker implementation for testing. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="840">
+        <label>SimpleMultiTracker</label>
+        <link refid="classSimpleMultiTracker"/>
+        <childnode refid="841" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="841">
+        <label>BaseTracker</label>
+        <link refid="classBaseTracker"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="842">
+        <label>SimpleMultiTracker</label>
+        <link refid="classSimpleMultiTracker"/>
+        <childnode refid="843" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="843">
+        <label>BaseTracker</label>
+        <link refid="classBaseTracker"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_multi_tracker.h" line="7" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/trackers/simple_multi_tracker.h" bodystart="7" bodyend="39"/>
+    <listofallmembers>
+      <member refid="classBaseTracker_1a49ac5731fce16acb5ca1fb069d2a0091" prot="public" virt="non-virtual"><scope>SimpleMultiTracker</scope><name>BaseTracker</name></member>
+      <member refid="classBaseTracker_1a705369e65f51447798bb19e979de9801" prot="public" virt="virtual"><scope>SimpleMultiTracker</scope><name>getTrackingVector</name></member>
+      <member refid="classBaseTracker_1a931a8c84fc6245d3d6cb3ef9967032a5" prot="public" virt="virtual"><scope>SimpleMultiTracker</scope><name>getTrackingVector</name></member>
+      <member refid="classSimpleMultiTracker_1abf2599dba7ec0cc5f2e1bbebae3fe8d2" prot="public" virt="virtual"><scope>SimpleMultiTracker</scope><name>getTrackingVectors</name></member>
+      <member refid="classBaseTracker_1ad1a6497933830415ee97d9ea2d2706af" prot="public" virt="virtual"><scope>SimpleMultiTracker</scope><name>initialize</name></member>
+      <member refid="classSimpleMultiTracker_1a3577d68db95da56684a1da4d0f449094" prot="public" virt="non-virtual"><scope>SimpleMultiTracker</scope><name>setTrackingVectors</name></member>
+      <member refid="classSimpleMultiTracker_1acf5b4cc2355952acaec59d6cecdbcfea" prot="public" virt="non-virtual"><scope>SimpleMultiTracker</scope><name>SimpleMultiTracker</name></member>
+      <member refid="classSimpleMultiTracker_1afff582696c1ede8439459c285cf1d26e" prot="private" virt="non-virtual"><scope>SimpleMultiTracker</scope><name>tracking_vectors_</name></member>
+      <member refid="classSimpleMultiTracker_1a2ef8c9df00c6e92f44fae3204e9d8f12" prot="public" virt="virtual"><scope>SimpleMultiTracker</scope><name>trackingIsValid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

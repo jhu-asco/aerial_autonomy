@@ -3,110 +3,172 @@
   <compounddef id="system__status__publisher_8h" kind="file">
     <compoundname>system_status_publisher.h</compoundname>
     <includes local="no">ros/ros.h</includes>
+    <includes refid="html__utils_8h" local="no">aerial_autonomy/common/html_utils.h</includes>
     <includes refid="base__robot__system_8h" local="no">aerial_autonomy/robot_systems/base_robot_system.h</includes>
     <includedby refid="common__system__handler_8h" local="no">include/aerial_autonomy/system_handlers/common_system_handler.h</includedby>
     <incdepgraph>
-      <node id="2775">
+      <node id="5062">
         <label>boost/thread/mutex.hpp</label>
       </node>
-      <node id="2776">
-        <label>glog/logging.h</label>
-      </node>
-      <node id="2774">
-        <label>aerial_autonomy/controllers/base_controller.h</label>
-        <link refid="base__controller_8h"/>
-        <childnode refid="2775" relation="include">
+      <node id="5067">
+        <label>aerial_autonomy/common/type_map.h</label>
+        <link refid="type__map_8h"/>
+        <childnode refid="5068" relation="include">
+        </childnode>
+        <childnode refid="5069" relation="include">
         </childnode>
       </node>
-      <node id="2780">
+      <node id="5055">
+        <label>iomanip</label>
+      </node>
+      <node id="5066">
+        <label>glog/logging.h</label>
+      </node>
+      <node id="5057">
+        <label>stdexcept</label>
+      </node>
+      <node id="5060">
+        <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
+        <link refid="base__controller__hardware__connector_8h"/>
+        <childnode refid="5061" relation="include">
+        </childnode>
+        <childnode refid="5063" relation="include">
+        </childnode>
+        <childnode refid="5065" relation="include">
+        </childnode>
+        <childnode refid="5066" relation="include">
+        </childnode>
+      </node>
+      <node id="5058">
+        <label>string</label>
+      </node>
+      <node id="5070">
         <label>aerial_autonomy/common/iterable_enum.h</label>
         <link refid="iterable__enum_8h"/>
       </node>
-      <node id="2777">
-        <label>aerial_autonomy/common/type_map.h</label>
-        <link refid="type__map_8h"/>
-        <childnode refid="2778" relation="include">
-        </childnode>
-        <childnode refid="2779" relation="include">
-        </childnode>
-      </node>
-      <node id="2771">
-        <label>ros/ros.h</label>
-      </node>
-      <node id="2779">
-        <label>unordered_map</label>
-      </node>
-      <node id="2770">
-        <label>include/aerial_autonomy/common/system_status_publisher.h</label>
-        <link refid="system_status_publisher.h"/>
-        <childnode refid="2771" relation="include">
-        </childnode>
-        <childnode refid="2772" relation="include">
-        </childnode>
-      </node>
-      <node id="2773">
-        <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
-        <link refid="base__controller__hardware__connector_8h"/>
-        <childnode refid="2774" relation="include">
-        </childnode>
-        <childnode refid="2776" relation="include">
-        </childnode>
-      </node>
-      <node id="2781">
-        <label>memory</label>
-      </node>
-      <node id="2778">
-        <label>typeindex</label>
-      </node>
-      <node id="2772">
+      <node id="5059">
         <label>aerial_autonomy/robot_systems/base_robot_system.h</label>
         <link refid="base__robot__system_8h"/>
-        <childnode refid="2773" relation="include">
+        <childnode refid="5060" relation="include">
         </childnode>
-        <childnode refid="2777" relation="include">
+        <childnode refid="5067" relation="include">
         </childnode>
-        <childnode refid="2780" relation="include">
+        <childnode refid="5070" relation="include">
         </childnode>
-        <childnode refid="2775" relation="include">
+        <childnode refid="5062" relation="include">
         </childnode>
-        <childnode refid="2781" relation="include">
+        <childnode refid="5071" relation="include">
         </childnode>
+      </node>
+      <node id="5063">
+        <label>aerial_autonomy/common/controller_status.h</label>
+        <link refid="controller__status_8h"/>
+        <childnode refid="5058" relation="include">
+        </childnode>
+        <childnode refid="5064" relation="include">
+        </childnode>
+      </node>
+      <node id="5064">
+        <label>vector</label>
+      </node>
+      <node id="5065">
+        <label>aerial_autonomy/controllers/base_controller.h</label>
+        <link refid="base__controller_8h"/>
+        <childnode refid="5061" relation="include">
+        </childnode>
+        <childnode refid="5063" relation="include">
+        </childnode>
+      </node>
+      <node id="5056">
+        <label>sstream</label>
+      </node>
+      <node id="5053">
+        <label>ros/ros.h</label>
+      </node>
+      <node id="5069">
+        <label>unordered_map</label>
+      </node>
+      <node id="5052">
+        <label>include/aerial_autonomy/common/system_status_publisher.h</label>
+        <link refid="system_status_publisher.h"/>
+        <childnode refid="5053" relation="include">
+        </childnode>
+        <childnode refid="5054" relation="include">
+        </childnode>
+        <childnode refid="5059" relation="include">
+        </childnode>
+      </node>
+      <node id="5054">
+        <label>aerial_autonomy/common/html_utils.h</label>
+        <link refid="html__utils_8h"/>
+        <childnode refid="5055" relation="include">
+        </childnode>
+        <childnode refid="5056" relation="include">
+        </childnode>
+        <childnode refid="5057" relation="include">
+        </childnode>
+        <childnode refid="5058" relation="include">
+        </childnode>
+      </node>
+      <node id="5061">
+        <label>aerial_autonomy/common/atomic.h</label>
+        <link refid="atomic_8h"/>
+        <childnode refid="5062" relation="include">
+        </childnode>
+      </node>
+      <node id="5071">
+        <label>memory</label>
+      </node>
+      <node id="5068">
+        <label>typeindex</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2784">
-        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
-        <link refid="uav__system__handler_8h"/>
-        <childnode refid="2785" relation="include">
-        </childnode>
-      </node>
-      <node id="2785">
+      <node id="5077">
         <label>src/system_handler_nodes/uav_system_node.cpp</label>
         <link refid="uav__system__node_8cpp"/>
       </node>
-      <node id="2783">
-        <label>include/aerial_autonomy/system_handlers/common_system_handler.h</label>
-        <link refid="common__system__handler_8h"/>
-        <childnode refid="2784" relation="include">
-        </childnode>
-        <childnode refid="2786" relation="include">
+      <node id="5078">
+        <label>include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</label>
+        <link refid="uav__vision__system__handler_8h"/>
+        <childnode refid="5079" relation="include">
         </childnode>
       </node>
-      <node id="2787">
+      <node id="5079">
         <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
         <link refid="uav__vision__system__node_8cpp"/>
       </node>
-      <node id="2782">
-        <label>include/aerial_autonomy/common/system_status_publisher.h</label>
-        <link refid="system_status_publisher.h"/>
-        <childnode refid="2783" relation="include">
+      <node id="5076">
+        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
+        <link refid="uav__system__handler_8h"/>
+        <childnode refid="5077" relation="include">
         </childnode>
       </node>
-      <node id="2786">
-        <label>include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</label>
-        <link refid="uav__vision__system__handler_8h"/>
-        <childnode refid="2787" relation="include">
+      <node id="5073">
+        <label>include/aerial_autonomy/system_handlers/common_system_handler.h</label>
+        <link refid="common__system__handler_8h"/>
+        <childnode refid="5074" relation="include">
         </childnode>
+        <childnode refid="5076" relation="include">
+        </childnode>
+        <childnode refid="5078" relation="include">
+        </childnode>
+      </node>
+      <node id="5072">
+        <label>include/aerial_autonomy/common/system_status_publisher.h</label>
+        <link refid="system_status_publisher.h"/>
+        <childnode refid="5073" relation="include">
+        </childnode>
+      </node>
+      <node id="5074">
+        <label>include/aerial_autonomy/system_handlers/uav_arm_system_handler.h</label>
+        <link refid="uav__arm__system__handler_8h"/>
+        <childnode refid="5075" relation="include">
+        </childnode>
+      </node>
+      <node id="5075">
+        <label>src/system_handler_nodes/uav_arm_system_node.cpp</label>
+        <link refid="uav__arm__system__node_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classSystemStatusPublisher" prot="public">SystemStatusPublisher</innerclass>
@@ -119,43 +181,80 @@
 <codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ros/ros.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4"><highlight class="normal"></highlight></codeline>
-<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Base<sp/>Robot<sp/>system</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="base__robot__system_8h" kindref="compound">aerial_autonomy/robot_systems/base_robot_system.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight></codeline>
-<codeline lineno="12" refid="classSystemStatusPublisher" refkind="compound"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classSystemStatusPublisher" kindref="compound">SystemStatusPublisher</ref><sp/>{</highlight></codeline>
-<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="20" refid="classSystemStatusPublisher_1ab9388769d6316a7fc8023c2597b1dd2d" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classSystemStatusPublisher_1ab9388769d6316a7fc8023c2597b1dd2d" kindref="member">SystemStatusPublisher</ref>(ros::NodeHandle<sp/>&amp;nh,</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classBaseRobotSystem" kindref="compound">BaseRobotSystem</ref><sp/>&amp;robot_system,</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LogicStateMachineT<sp/>&amp;logic_state_machine)</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>nh_(nh),</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>system_status_pub_(nh.advertise&lt;std_msgs::String&gt;(</highlight><highlight class="stringliteral">&quot;system_status&quot;</highlight><highlight class="normal">,<sp/>1)),</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>robot_system_(robot_system),<sp/>logic_state_machine_(logic_state_machine)<sp/>{</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight></codeline>
-<codeline lineno="33" refid="classSystemStatusPublisher_1a66f73a2e489face69d6f9fc16abb15aa" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSystemStatusPublisher_1a66f73a2e489face69d6f9fc16abb15aa" kindref="member">publishSystemStatus</ref>()<sp/>{</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>robot_system_status<sp/>=<sp/>robot_system_.<ref refid="classBaseRobotSystem_1a63c0c5e504f352000c6fb6fce9047dec" kindref="member">getSystemStatus</ref>();</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>current_state_name<sp/>=<sp/><ref refid="uav__state__machine_8h_1a72b959b4319f55f2ef58b9c96fb66a23" kindref="member">pstate</ref>(logic_state_machine_);</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>no_transition_event_name<sp/>=</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logic_state_machine_.get_no_transition_event_index().name();</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>std_msgs::String<sp/>status;</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>status.data<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Robot<sp/>System<sp/>Status:\n&quot;</highlight><highlight class="normal"><sp/>+<sp/>robot_system_status<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>status.data<sp/>+=<sp/></highlight><highlight class="stringliteral">&quot;\n\n========================\n\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>status.data<sp/>+=<sp/></highlight><highlight class="stringliteral">&quot;Logic<sp/>State<sp/>Machine<sp/>Status:<sp/>\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>status.data<sp/>+=<sp/></highlight><highlight class="stringliteral">&quot;Current<sp/>state:\t&quot;</highlight><highlight class="normal"><sp/>+<sp/>current_state_name<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>status.data<sp/>+=</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Last<sp/>event<sp/>without<sp/>transition:\t&quot;</highlight><highlight class="normal"><sp/>+<sp/>no_transition_event_name<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>system_status_pub_.publish(status);</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/>ros::NodeHandle<sp/>&amp;nh_;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/>ros::Publisher<sp/>system_status_pub_;<sp/></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classBaseRobotSystem" kindref="compound">BaseRobotSystem</ref></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;robot_system_;<sp/></highlight></codeline>
-<codeline lineno="53"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>LogicStateMachineT</highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;logic_state_machine_;<sp/></highlight></codeline>
-<codeline lineno="55"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Html<sp/>utils</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="html__utils_8h" kindref="compound">aerial_autonomy/common/html_utils.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Base<sp/>Robot<sp/>system</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="base__robot__system_8h" kindref="compound">aerial_autonomy/robot_systems/base_robot_system.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="classSystemStatusPublisher" refkind="compound"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classSystemStatusPublisher" kindref="compound">SystemStatusPublisher</ref><sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="22" refid="classSystemStatusPublisher_1ab9388769d6316a7fc8023c2597b1dd2d" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classSystemStatusPublisher_1ab9388769d6316a7fc8023c2597b1dd2d" kindref="member">SystemStatusPublisher</ref>(ros::NodeHandle<sp/>&amp;nh,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classBaseRobotSystem" kindref="compound">BaseRobotSystem</ref><sp/>&amp;robot_system,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LogicStateMachineT<sp/>&amp;logic_state_machine)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>nh_(nh),</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>system_status_pub_(nh.advertise&lt;std_msgs::String&gt;(</highlight><highlight class="stringliteral">&quot;system_status&quot;</highlight><highlight class="normal">,<sp/>1)),</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>robot_system_(robot_system),<sp/>logic_state_machine_(logic_state_machine)<sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="classSystemStatusPublisher_1a66f73a2e489face69d6f9fc16abb15aa" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classSystemStatusPublisher_1a66f73a2e489face69d6f9fc16abb15aa" kindref="member">publishSystemStatus</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Get<sp/>active<sp/>controller<sp/>status</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref><sp/>uav_controller_status<sp/>=</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>robot_system_.<ref refid="classBaseRobotSystem_1a14c406049bbf3d17e455bac5d0f5db1e" kindref="member">getActiveControllerStatus</ref>(<ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7aa6902d76cea698982754404da77e5e08a" kindref="member">HardwareType::UAV</ref>);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref><sp/>arm_controller_status<sp/>=</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>robot_system_.<ref refid="classBaseRobotSystem_1a14c406049bbf3d17e455bac5d0f5db1e" kindref="member">getActiveControllerStatus</ref>(<ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7aa551c5c03a1a91f2cf90e0d9a9b6dd378" kindref="member">HardwareType::Arm</ref>);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>robot_system_status<sp/>=<sp/>robot_system_.<ref refid="classBaseRobotSystem_1a63c0c5e504f352000c6fb6fce9047dec" kindref="member">getSystemStatus</ref>();</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>current_state_name<sp/>=<sp/><ref refid="pick__place__state__machine_8h_1a7acb0c5c293fb2bc40dd98e98acfafb5" kindref="member">pstate</ref>(logic_state_machine_);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>no_transition_event_name<sp/>=</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logic_state_machine_.get_no_transition_event_index().name();</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>std::type_index<sp/>last_transition_event_index<sp/>=</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>logic_state_machine_.lastProcessedEventIndex();</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classHtmlDivisionWriter" kindref="compound">HtmlDivisionWriter</ref><sp/>division_writer;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>division_writer.<ref refid="classHtmlDivisionWriter_1af700d5681598a9f4a6dde4ff8fbdf781" kindref="member">addHeader</ref>(</highlight><highlight class="stringliteral">&quot;Robot<sp/>System<sp/>Status&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>division_writer.<ref refid="classHtmlDivisionWriter_1ad2f3759fa0fc7da95215fea732d0ba85" kindref="member">addText</ref>(robot_system_status);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Add<sp/>subheader<sp/>for<sp/>uav<sp/>controller<sp/>status</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>division_writer.<ref refid="classHtmlDivisionWriter_1af700d5681598a9f4a6dde4ff8fbdf781" kindref="member">addHeader</ref>(</highlight><highlight class="stringliteral">&quot;UAV<sp/>Controller<sp/>Status&quot;</highlight><highlight class="normal">,<sp/>4);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>division_writer.<ref refid="classHtmlDivisionWriter_1ad2f3759fa0fc7da95215fea732d0ba85" kindref="member">addText</ref>(uav_controller_status.<ref refid="classControllerStatus_1a0f14e9876ec9bec020fa4a7dba5fa533" kindref="member">getHtmlStatusString</ref>());</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Add<sp/>subheader<sp/>for<sp/>arm<sp/>controller<sp/>status</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>division_writer.<ref refid="classHtmlDivisionWriter_1af700d5681598a9f4a6dde4ff8fbdf781" kindref="member">addHeader</ref>(</highlight><highlight class="stringliteral">&quot;Arm<sp/>Controller<sp/>Status&quot;</highlight><highlight class="normal">,<sp/>4);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>division_writer.<ref refid="classHtmlDivisionWriter_1ad2f3759fa0fc7da95215fea732d0ba85" kindref="member">addText</ref>(arm_controller_status.<ref refid="classControllerStatus_1a0f14e9876ec9bec020fa4a7dba5fa533" kindref="member">getHtmlStatusString</ref>());</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>add<sp/>table<sp/>for<sp/>logic<sp/>state<sp/>machine</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classHtmlTableWriter" kindref="compound">HtmlTableWriter</ref><sp/>logic_state_machine_table(190);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>logic_state_machine_table.<ref refid="classHtmlTableWriter_1a061b80702f43c5bc4f7e3bc4361a8404" kindref="member">beginRow</ref>();</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>logic_state_machine_table.<ref refid="classHtmlTableWriter_1abfa7dfe2d2a521f2cf170a9d9dd73274" kindref="member">addHeader</ref>(</highlight><highlight class="stringliteral">&quot;Logic<sp/>State<sp/>Machine<sp/>Status&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structColors_1a7ae1c6ead1ad7fa5908d0257160088ee" kindref="member">Colors::blue</ref>,<sp/>2);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>logic_state_machine_table.<ref refid="classHtmlTableWriter_1a061b80702f43c5bc4f7e3bc4361a8404" kindref="member">beginRow</ref>();</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>logic_state_machine_table.<ref refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" kindref="member">addCell</ref>(</highlight><highlight class="stringliteral">&quot;Current<sp/>state:<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>logic_state_machine_table.<ref refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" kindref="member">addCell</ref>(current_state_name);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>logic_state_machine_table.<ref refid="classHtmlTableWriter_1a061b80702f43c5bc4f7e3bc4361a8404" kindref="member">beginRow</ref>();</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>logic_state_machine_table.<ref refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" kindref="member">addCell</ref>(</highlight><highlight class="stringliteral">&quot;Last<sp/>Event<sp/>without<sp/>transition:<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>logic_state_machine_table.<ref refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" kindref="member">addCell</ref>(no_transition_event_name);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>logic_state_machine_table.<ref refid="classHtmlTableWriter_1a061b80702f43c5bc4f7e3bc4361a8404" kindref="member">beginRow</ref>();</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>logic_state_machine_table.<ref refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" kindref="member">addCell</ref>(</highlight><highlight class="stringliteral">&quot;Last<sp/>Event:<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(last_transition_event_index<sp/>==<sp/></highlight><highlight class="keyword">typeid</highlight><highlight class="normal">(be::Abort))<sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>logic_state_machine_table.<ref refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" kindref="member">addCell</ref>(last_transition_event_index.name(),<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structColors_1aabea0bbeac1f20ea8338ce97513ef6bf" kindref="member">Colors::red</ref>);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(last_transition_event_index<sp/>==<sp/></highlight><highlight class="keyword">typeid</highlight><highlight class="normal">(<ref refid="structCompleted" kindref="compound">Completed</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>logic_state_machine_table.<ref refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" kindref="member">addCell</ref>(last_transition_event_index.name(),<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structColors_1a1e9953f0bd8db539110c2838a09f98db" kindref="member">Colors::green</ref>);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>logic_state_machine_table.<ref refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" kindref="member">addCell</ref>(last_transition_event_index.name());</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Add<sp/>table<sp/>to<sp/>division</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>division_writer.<ref refid="classHtmlDivisionWriter_1ad2f3759fa0fc7da95215fea732d0ba85" kindref="member">addText</ref>(logic_state_machine_table.<ref refid="classHtmlTableWriter_1a678402f705f1f52e885db9d127a379dd" kindref="member">getTableString</ref>());</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>std_msgs::String<sp/>status;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>status.data<sp/>=<sp/>division_writer.<ref refid="classHtmlDivisionWriter_1a5dd6b94d4e38a469005cdf7684d631dd" kindref="member">getDivisionText</ref>();</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>system_status_pub_.publish(status);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/>ros::NodeHandle<sp/>&amp;nh_;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/>ros::Publisher<sp/>system_status_pub_;<sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classBaseRobotSystem" kindref="compound">BaseRobotSystem</ref></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;robot_system_;<sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>LogicStateMachineT</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;logic_state_machine_;<sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/system_status_publisher.h"/>
   </compounddef>
 </doxygen>

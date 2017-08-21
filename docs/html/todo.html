@@ -85,29 +85,27 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <dd>Matt: Load slider settings from param file  </dd>
 <dt><a class="anchor" id="_todo000002"></a>Member <a class="el" href="classaerial__autonomy_1_1aerial__autonomy__gui_1_1EventTransmissionGUI.html#af611df98da28aba90ce5fcbea285603a">aerial_autonomy.aerial_autonomy_gui.EventTransmissionGUI.pose_command_container</a>  </dt>
 <dd>Matt: Reset slider value based on current quad height  </dd>
-<dt><a class="anchor" id="_todo000014"></a>Class <a class="el" href="classArmSystem.html">ArmSystem</a>  </dt>
-<dd>Add controllers and controller connectors for visual servoing  </dd>
-<dt><a class="anchor" id="_todo000015"></a>Member <a class="el" href="classArmSystem.html#a582fe1e1dc69a555a61418a39c6428ed">ArmSystem::ArmSystem</a>  (ros::NodeHandle &amp;nh)</dt>
-<dd>Add controllers, controller connectors, config if needed  </dd>
-<dt><a class="anchor" id="_todo000016"></a>Member <a class="el" href="classArmSystem.html#ac050d7d49cc7416d5992f102ff2bdc3d">ArmSystem::getSystemStatus</a>  () const </dt>
+<dt><a class="anchor" id="_todo000015"></a>Member <a class="el" href="classArmSystem.html#ac050d7d49cc7416d5992f102ff2bdc3d">ArmSystem::getSystemStatus</a>  () const </dt>
 <dd>Add status about arm powered on/off, and any error messages can also add arm end effector pose if useful </dd>
 <dt><a class="anchor" id="_todo000009"></a>Class <a class="el" href="structLandInternalActionFunctor__.html">LandInternalActionFunctor_&lt; LogicStateMachineT &gt;</a>  </dt>
 <dd>(Gowtham) How to abort Land?? </dd>
-<dt><a class="anchor" id="_todo000011"></a>Member <a class="el" href="structLandInternalActionFunctor__.html#a4557b02d6cfa6712b610337cb606f54b">LandInternalActionFunctor_&lt; LogicStateMachineT &gt;::run</a>  (<a class="el" href="classUAVSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components...">UAVSystem</a> &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</dt>
+<dt><a class="anchor" id="_todo000011"></a>Member <a class="el" href="structLandInternalActionFunctor__.html#ae937412c999754c8859a8fe5249f3a20">LandInternalActionFunctor_&lt; LogicStateMachineT &gt;::run</a>  (<a class="el" href="classUAVSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components...">UAVSystem</a> &amp;robot_system, LogicStateMachineT &amp;logic_state_machine)</dt>
 <dd>(Gowtham) Can also use uav status here  </dd>
-<dt><a class="anchor" id="_todo000010"></a>Member <a class="el" href="structLandTransitionActionFunctor__.html#ae91b354f041edda283e306fa312e1213">LandTransitionActionFunctor_&lt; LogicStateMachineT &gt;::run</a>  (<a class="el" href="classUAVSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components...">UAVSystem</a> &amp;robot_system, LogicStateMachineT &amp;)</dt>
+<dt><a class="anchor" id="_todo000010"></a>Member <a class="el" href="structLandTransitionActionFunctor__.html#ada1859d4739dcc2d16f9f6d4bbe0c916">LandTransitionActionFunctor_&lt; LogicStateMachineT &gt;::run</a>  (<a class="el" href="classUAVSystem.html" title="Owns, initializes, and facilitates communication between different hardware/software components...">UAVSystem</a> &amp;robot_system)</dt>
 <dd>Have to abort all hardware controllers not just UAV.  </dd>
-<dt><a class="anchor" id="_todo000020"></a>page <a class="el" href="index.html">Main Page</a>  </dt>
+<dt><a class="anchor" id="_todo000018"></a>page <a class="el" href="index.html">Main Page</a>  </dt>
 <dd>Add picture of latest GUI with quad status etc </dd>
 <dt><a class="anchor" id="_todo000003"></a>Member <a class="el" href="classManualRPYTController.html#a37e85721f5e631d01eef12decb771c90">ManualRPYTController::runImplementation</a>  (<a class="el" href="structJoysticksYaw.html" title="Combined joystick and yaw data. ">JoysticksYaw</a> sensor_data, <a class="el" href="structEmptyGoal.html" title="If the controllers do not need a goal such as rpytcontroller. ">EmptyGoal</a> goal, <a class="el" href="structRollPitchYawThrust.html" title="Roll, pitch, yaw, and thrust message. ">RollPitchYawThrust</a> &amp;control)</dt>
 <dd><p class="startdd">(matt): need to pass RC mapping as parameter </p>
 <p class="enddd">(matt): need to pass in frequency as a parameter  </p>
 </dd>
+<dt><a class="anchor" id="_todo000012"></a>Member <a class="el" href="namespacemath.html#a70bc3cf992227cda7fc159e49634d83a">math::getTransformsFromVector</a>  (const T &amp;input)</dt>
+<dd>(Matt) Add proto for transform and just process a list of the proto transforms here  </dd>
 <dt><a class="anchor" id="_todo000007"></a>Member <a class="el" href="classRoiToPositionConverter.html#a5384fe4584c3a0dc654eb0e6b9d8a73d">RoiToPositionConverter::computeTrackingVector</a>  (const sensor_msgs::RegionOfInterest &amp;roi, const cv::Mat &amp;depth, const sensor_msgs::CameraInfo &amp;cam_info, double max_distance, double foreground_percent, <a class="el" href="structPosition.html" title="Store 3D position. ">Position</a> &amp;pos)</dt>
 <dd><p class="startdd">(Matt) make perc configurable </p>
 <p class="enddd">Matt Perform foreground/background clustering with k-means  </p>
 </dd>
-<dt><a class="anchor" id="_todo000012"></a>Member <a class="el" href="classSystemStatusPublisher.html#a66f73a2e489face69d6f9fc16abb15aa">SystemStatusPublisher&lt; LogicStateMachineT &gt;::publishSystemStatus</a>  ()</dt>
+<dt><a class="anchor" id="_todo000013"></a>Member <a class="el" href="classSystemStatusPublisher.html#a66f73a2e489face69d6f9fc16abb15aa">SystemStatusPublisher&lt; LogicStateMachineT &gt;::publishSystemStatus</a>  ()</dt>
 <dd>Replace status text with html script. Need a html manager to automatically add table lines </dd>
 </dl>
 </div></div><!-- contents -->

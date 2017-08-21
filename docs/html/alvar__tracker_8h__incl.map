@@ -1,0 +1,7 @@
+<map id="include/aerial_autonomy/trackers/alvar_tracker.h" name="include/aerial_autonomy/trackers/alvar_tracker.h">
+<area shape="rect" id="node2" href="$base__tracker_8h.html" title="aerial_autonomy/trackers\l/base_tracker.h" alt="" coords="241,97,409,138"/>
+<area shape="rect" id="node9" href="$closest__tracking__strategy_8h.html" title="aerial_autonomy/trackers\l/closest_tracking_strategy.h" alt="" coords="31,97,217,138"/>
+<area shape="rect" id="node10" href="$atomic_8h.html" title="aerial_autonomy/common\l/atomic.h" alt="" coords="433,97,604,138"/>
+<area shape="rect" id="node3" href="$tracking__strategy_8h.html" title="aerial_autonomy/trackers\l/tracking_strategy.h" alt="" coords="45,187,213,229"/>
+<area shape="rect" id="node4" href="$position_8h.html" title="aerial_autonomy/types\l/position.h" alt="" coords="165,278,317,319"/>
+</map>

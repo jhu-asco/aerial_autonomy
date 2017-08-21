@@ -11,220 +11,300 @@
     <includedby refid="arm__system_8h" local="no">include/aerial_autonomy/robot_systems/arm_system.h</includedby>
     <includedby refid="uav__system_8h" local="no">include/aerial_autonomy/robot_systems/uav_system.h</includedby>
     <incdepgraph>
-      <node id="3235">
+      <node id="5729">
         <label>boost/thread/mutex.hpp</label>
       </node>
-      <node id="3236">
-        <label>glog/logging.h</label>
-      </node>
-      <node id="3234">
-        <label>aerial_autonomy/controllers/base_controller.h</label>
-        <link refid="base__controller_8h"/>
-        <childnode refid="3235" relation="include">
+      <node id="5735">
+        <label>aerial_autonomy/common/type_map.h</label>
+        <link refid="type__map_8h"/>
+        <childnode refid="5736" relation="include">
+        </childnode>
+        <childnode refid="5737" relation="include">
         </childnode>
       </node>
-      <node id="3240">
+      <node id="5734">
+        <label>glog/logging.h</label>
+      </node>
+      <node id="5727">
+        <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
+        <link refid="base__controller__hardware__connector_8h"/>
+        <childnode refid="5728" relation="include">
+        </childnode>
+        <childnode refid="5730" relation="include">
+        </childnode>
+        <childnode refid="5733" relation="include">
+        </childnode>
+        <childnode refid="5734" relation="include">
+        </childnode>
+      </node>
+      <node id="5731">
+        <label>string</label>
+      </node>
+      <node id="5738">
         <label>aerial_autonomy/common/iterable_enum.h</label>
         <link refid="iterable__enum_8h"/>
       </node>
-      <node id="3237">
-        <label>aerial_autonomy/common/type_map.h</label>
-        <link refid="type__map_8h"/>
-        <childnode refid="3238" relation="include">
-        </childnode>
-        <childnode refid="3239" relation="include">
-        </childnode>
-      </node>
-      <node id="3239">
-        <label>unordered_map</label>
-      </node>
-      <node id="3233">
-        <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
-        <link refid="base__controller__hardware__connector_8h"/>
-        <childnode refid="3234" relation="include">
-        </childnode>
-        <childnode refid="3236" relation="include">
-        </childnode>
-      </node>
-      <node id="3241">
-        <label>memory</label>
-      </node>
-      <node id="3238">
-        <label>typeindex</label>
-      </node>
-      <node id="3232">
+      <node id="5726">
         <label>include/aerial_autonomy/robot_systems/base_robot_system.h</label>
         <link refid="base_robot_system.h"/>
-        <childnode refid="3233" relation="include">
+        <childnode refid="5727" relation="include">
         </childnode>
-        <childnode refid="3237" relation="include">
+        <childnode refid="5735" relation="include">
         </childnode>
-        <childnode refid="3240" relation="include">
+        <childnode refid="5738" relation="include">
         </childnode>
-        <childnode refid="3235" relation="include">
+        <childnode refid="5729" relation="include">
         </childnode>
-        <childnode refid="3241" relation="include">
+        <childnode refid="5739" relation="include">
         </childnode>
+      </node>
+      <node id="5730">
+        <label>aerial_autonomy/common/controller_status.h</label>
+        <link refid="controller__status_8h"/>
+        <childnode refid="5731" relation="include">
+        </childnode>
+        <childnode refid="5732" relation="include">
+        </childnode>
+      </node>
+      <node id="5732">
+        <label>vector</label>
+      </node>
+      <node id="5733">
+        <label>aerial_autonomy/controllers/base_controller.h</label>
+        <link refid="base__controller_8h"/>
+        <childnode refid="5728" relation="include">
+        </childnode>
+        <childnode refid="5730" relation="include">
+        </childnode>
+      </node>
+      <node id="5737">
+        <label>unordered_map</label>
+      </node>
+      <node id="5728">
+        <label>aerial_autonomy/common/atomic.h</label>
+        <link refid="atomic_8h"/>
+        <childnode refid="5729" relation="include">
+        </childnode>
+      </node>
+      <node id="5739">
+        <label>memory</label>
+      </node>
+      <node id="5736">
+        <label>typeindex</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3261">
-        <label>include/aerial_autonomy/actions_guards/visual_servoing_functors.h</label>
-        <link refid="visual__servoing__functors_8h"/>
-        <childnode refid="3253" relation="include">
-        </childnode>
-      </node>
-      <node id="3257">
-        <label>include/aerial_autonomy/actions_guards/manual_control_functors.h</label>
-        <link refid="manual__control__functors_8h"/>
-        <childnode refid="3252" relation="include">
-        </childnode>
-      </node>
-      <node id="3245">
-        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
-        <link refid="uav__system__handler_8h"/>
-        <childnode refid="3246" relation="include">
-        </childnode>
-      </node>
-      <node id="3256">
-        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
-        <link refid="land__functors_8h"/>
-        <childnode refid="3252" relation="include">
-        </childnode>
-      </node>
-      <node id="3260">
-        <label>include/aerial_autonomy/actions_guards/uav_status_functor.h</label>
-        <link refid="uav__status__functor_8h"/>
-        <childnode refid="3258" relation="include">
-        </childnode>
-        <childnode refid="3261" relation="include">
-        </childnode>
-      </node>
-      <node id="3252">
-        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
-        <link refid="uav__states__actions_8h"/>
-        <childnode refid="3253" relation="include">
-        </childnode>
-        <childnode refid="3255" relation="include">
-        </childnode>
-      </node>
-      <node id="3246">
-        <label>src/system_handler_nodes/uav_system_node.cpp</label>
-        <link refid="uav__system__node_8cpp"/>
-      </node>
-      <node id="3244">
-        <label>include/aerial_autonomy/system_handlers/common_system_handler.h</label>
-        <link refid="common__system__handler_8h"/>
-        <childnode refid="3245" relation="include">
-        </childnode>
-        <childnode refid="3247" relation="include">
-        </childnode>
-      </node>
-      <node id="3253">
-        <label>include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
-        <link refid="visual__servoing__states__actions_8h"/>
-        <childnode refid="3254" relation="include">
-        </childnode>
-      </node>
-      <node id="3262">
-        <label>include/aerial_autonomy/robot_systems/uav_vision_system.h</label>
-        <link refid="uav__vision__system_8h"/>
-        <childnode refid="3261" relation="include">
-        </childnode>
-        <childnode refid="3254" relation="include">
-        </childnode>
-        <childnode refid="3247" relation="include">
-        </childnode>
-        <childnode refid="3263" relation="include">
-        </childnode>
-      </node>
-      <node id="3249">
-        <label>include/aerial_autonomy/robot_systems/arm_system.h</label>
-        <link refid="arm__system_8h"/>
-      </node>
-      <node id="3258">
-        <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
-        <link refid="position__control__functors_8h"/>
-        <childnode refid="3252" relation="include">
-        </childnode>
-      </node>
-      <node id="3254">
-        <label>include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</label>
-        <link refid="visual__servoing__state__machine_8h"/>
-        <childnode refid="3248" relation="include">
-        </childnode>
-      </node>
-      <node id="3251">
-        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
-        <link refid="hovering__functors_8h"/>
-        <childnode refid="3252" relation="include">
-        </childnode>
-      </node>
-      <node id="3248">
-        <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
-        <link refid="uav__vision__system__node_8cpp"/>
-      </node>
-      <node id="3255">
+      <node id="5762">
         <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
         <link refid="uav__state__machine_8h"/>
-        <childnode refid="3246" relation="include">
+        <childnode refid="5746" relation="include">
         </childnode>
       </node>
-      <node id="3243">
-        <label>include/aerial_autonomy/common/system_status_publisher.h</label>
-        <link refid="system__status__publisher_8h"/>
-        <childnode refid="3244" relation="include">
+      <node id="5754">
+        <label>include/aerial_autonomy/actions_guards/pick_place_functors.h</label>
+        <link refid="pick__place__functors_8h"/>
+        <childnode refid="5751" relation="include">
         </childnode>
       </node>
-      <node id="3250">
-        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
-        <link refid="uav__system_8h"/>
-        <childnode refid="3251" relation="include">
-        </childnode>
-        <childnode refid="3256" relation="include">
-        </childnode>
-        <childnode refid="3257" relation="include">
-        </childnode>
-        <childnode refid="3258" relation="include">
-        </childnode>
-        <childnode refid="3259" relation="include">
-        </childnode>
-        <childnode refid="3260" relation="include">
-        </childnode>
-        <childnode refid="3262" relation="include">
-        </childnode>
-        <childnode refid="3255" relation="include">
-        </childnode>
-        <childnode refid="3245" relation="include">
-        </childnode>
-        <childnode refid="3263" relation="include">
-        </childnode>
-      </node>
-      <node id="3263">
+      <node id="5755">
         <label>include/aerial_autonomy/tests/sample_logic_state_machine.h</label>
         <link refid="sample__logic__state__machine_8h"/>
       </node>
-      <node id="3247">
-        <label>include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</label>
-        <link refid="uav__vision__system__handler_8h"/>
-        <childnode refid="3248" relation="include">
+      <node id="5757">
+        <label>include/aerial_autonomy/actions_guards/hovering_functors.h</label>
+        <link refid="hovering__functors_8h"/>
+        <childnode refid="5754" relation="include">
+        </childnode>
+        <childnode refid="5758" relation="include">
+        </childnode>
+        <childnode refid="5759" relation="include">
+        </childnode>
+        <childnode refid="5763" relation="include">
         </childnode>
       </node>
-      <node id="3242">
-        <label>include/aerial_autonomy/robot_systems/base_robot_system.h</label>
-        <link refid="base_robot_system.h"/>
-        <childnode refid="3243" relation="include">
-        </childnode>
-        <childnode refid="3249" relation="include">
-        </childnode>
-        <childnode refid="3250" relation="include">
-        </childnode>
+      <node id="5746">
+        <label>src/system_handler_nodes/uav_system_node.cpp</label>
+        <link refid="uav__system__node_8cpp"/>
       </node>
-      <node id="3259">
+      <node id="5766">
         <label>include/aerial_autonomy/actions_guards/takeoff_functors.h</label>
         <link refid="takeoff__functors_8h"/>
-        <childnode refid="3252" relation="include">
+        <childnode refid="5759" relation="include">
         </childnode>
+      </node>
+      <node id="5756">
+        <label>include/aerial_autonomy/robot_systems/uav_system.h</label>
+        <link refid="uav__system_8h"/>
+        <childnode refid="5757" relation="include">
+        </childnode>
+        <childnode refid="5764" relation="include">
+        </childnode>
+        <childnode refid="5765" relation="include">
+        </childnode>
+        <childnode refid="5758" relation="include">
+        </childnode>
+        <childnode refid="5766" relation="include">
+        </childnode>
+        <childnode refid="5767" relation="include">
+        </childnode>
+        <childnode refid="5762" relation="include">
+        </childnode>
+        <childnode refid="5745" relation="include">
+        </childnode>
+        <childnode refid="5755" relation="include">
+        </childnode>
+      </node>
+      <node id="5747">
+        <label>include/aerial_autonomy/system_handlers/uav_vision_system_handler.h</label>
+        <link refid="uav__vision__system__handler_8h"/>
+        <childnode refid="5748" relation="include">
+        </childnode>
+      </node>
+      <node id="5740">
+        <label>include/aerial_autonomy/robot_systems/base_robot_system.h</label>
+        <link refid="base_robot_system.h"/>
+        <childnode refid="5741" relation="include">
+        </childnode>
+        <childnode refid="5749" relation="include">
+        </childnode>
+        <childnode refid="5756" relation="include">
+        </childnode>
+      </node>
+      <node id="5767">
+        <label>include/aerial_autonomy/robot_systems/uav_vision_system.h</label>
+        <link refid="uav__vision__system_8h"/>
+        <childnode refid="5763" relation="include">
+        </childnode>
+        <childnode refid="5753" relation="include">
+        </childnode>
+        <childnode refid="5761" relation="include">
+        </childnode>
+        <childnode refid="5747" relation="include">
+        </childnode>
+        <childnode refid="5755" relation="include">
+        </childnode>
+      </node>
+      <node id="5752">
+        <label>include/aerial_autonomy/state_machines/pick_place_state_machine.h</label>
+        <link refid="pick__place__state__machine_8h"/>
+        <childnode refid="5744" relation="include">
+        </childnode>
+      </node>
+      <node id="5765">
+        <label>include/aerial_autonomy/actions_guards/manual_control_functors.h</label>
+        <link refid="manual__control__functors_8h"/>
+        <childnode refid="5754" relation="include">
+        </childnode>
+        <childnode refid="5759" relation="include">
+        </childnode>
+      </node>
+      <node id="5750">
+        <label>include/aerial_autonomy/actions_guards/arm_functors.h</label>
+        <link refid="arm__functors_8h"/>
+        <childnode refid="5751" relation="include">
+        </childnode>
+      </node>
+      <node id="5751">
+        <label>include/aerial_autonomy/actions_guards/pick_place_states_actions.h</label>
+        <link refid="pick__place__states__actions_8h"/>
+        <childnode refid="5752" relation="include">
+        </childnode>
+      </node>
+      <node id="5748">
+        <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
+        <link refid="uav__vision__system__node_8cpp"/>
+      </node>
+      <node id="5745">
+        <label>include/aerial_autonomy/system_handlers/uav_system_handler.h</label>
+        <link refid="uav__system__handler_8h"/>
+        <childnode refid="5746" relation="include">
+        </childnode>
+      </node>
+      <node id="5760">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
+        <link refid="visual__servoing__states__actions_8h"/>
+        <childnode refid="5751" relation="include">
+        </childnode>
+        <childnode refid="5761" relation="include">
+        </childnode>
+      </node>
+      <node id="5753">
+        <label>include/aerial_autonomy/robot_systems/uav_arm_system.h</label>
+        <link refid="uav__arm__system_8h"/>
+        <childnode refid="5754" relation="include">
+        </childnode>
+        <childnode refid="5752" relation="include">
+        </childnode>
+        <childnode refid="5743" relation="include">
+        </childnode>
+        <childnode refid="5755" relation="include">
+        </childnode>
+      </node>
+      <node id="5749">
+        <label>include/aerial_autonomy/robot_systems/arm_system.h</label>
+        <link refid="arm__system_8h"/>
+        <childnode refid="5750" relation="include">
+        </childnode>
+        <childnode refid="5753" relation="include">
+        </childnode>
+      </node>
+      <node id="5763">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_functors.h</label>
+        <link refid="visual__servoing__functors_8h"/>
+        <childnode refid="5760" relation="include">
+        </childnode>
+      </node>
+      <node id="5742">
+        <label>include/aerial_autonomy/system_handlers/common_system_handler.h</label>
+        <link refid="common__system__handler_8h"/>
+        <childnode refid="5743" relation="include">
+        </childnode>
+        <childnode refid="5745" relation="include">
+        </childnode>
+        <childnode refid="5747" relation="include">
+        </childnode>
+      </node>
+      <node id="5759">
+        <label>include/aerial_autonomy/actions_guards/uav_states_actions.h</label>
+        <link refid="uav__states__actions_8h"/>
+        <childnode refid="5760" relation="include">
+        </childnode>
+        <childnode refid="5762" relation="include">
+        </childnode>
+      </node>
+      <node id="5758">
+        <label>include/aerial_autonomy/actions_guards/position_control_functors.h</label>
+        <link refid="position__control__functors_8h"/>
+        <childnode refid="5759" relation="include">
+        </childnode>
+      </node>
+      <node id="5764">
+        <label>include/aerial_autonomy/actions_guards/land_functors.h</label>
+        <link refid="land__functors_8h"/>
+        <childnode refid="5759" relation="include">
+        </childnode>
+      </node>
+      <node id="5741">
+        <label>include/aerial_autonomy/common/system_status_publisher.h</label>
+        <link refid="system__status__publisher_8h"/>
+        <childnode refid="5742" relation="include">
+        </childnode>
+      </node>
+      <node id="5743">
+        <label>include/aerial_autonomy/system_handlers/uav_arm_system_handler.h</label>
+        <link refid="uav__arm__system__handler_8h"/>
+        <childnode refid="5744" relation="include">
+        </childnode>
+      </node>
+      <node id="5761">
+        <label>include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</label>
+        <link refid="visual__servoing__state__machine_8h"/>
+        <childnode refid="5748" relation="include">
+        </childnode>
+      </node>
+      <node id="5744">
+        <label>src/system_handler_nodes/uav_arm_system_node.cpp</label>
+        <link refid="uav__arm__system__node_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classBaseRobotSystem" prot="public">BaseRobotSystem</innerclass>
@@ -288,31 +368,41 @@
 <codeline lineno="85"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="86"><highlight class="normal"></highlight></codeline>
 <codeline lineno="94"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>ControllerHardwareConnectorT&gt;</highlight></codeline>
-<codeline lineno="95" refid="classBaseRobotSystem_1a22435ca0b28e562a230b4dfdeaffa716" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="base__controller_8h_1addd69ea32460850b571ba88f2a994b73" kindref="member">ControllerStatus</ref><sp/><ref refid="classBaseRobotSystem_1a22435ca0b28e562a230b4dfdeaffa716" kindref="member">getStatus</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="95" refid="classBaseRobotSystem_1a22435ca0b28e562a230b4dfdeaffa716" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref><sp/><ref refid="classBaseRobotSystem_1a22435ca0b28e562a230b4dfdeaffa716" kindref="member">getStatus</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ControllerHardwareConnectorT<sp/>*controller_hardware_connector<sp/>=</highlight></codeline>
 <codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classBaseRobotSystem_1a9539998f793faa61ed89e4c7ecc711ad" kindref="member">controller_hardware_connector_container_</ref></highlight></codeline>
 <codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.<ref refid="classTypeMap_1af45351278345a92d2d2fb13a977858aa" kindref="member">getObject</ref>&lt;ControllerHardwareConnectorT&gt;();</highlight></codeline>
 <codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>controller_hardware_connector-&gt;getStatus();</highlight></codeline>
 <codeline lineno="100"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="101"><highlight class="normal"></highlight></codeline>
-<codeline lineno="108" refid="classBaseRobotSystem_1a3e7031f99e64e7c371ee31fbd69f6bf9" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classBaseRobotSystem_1a3e7031f99e64e7c371ee31fbd69f6bf9" kindref="member">abortController</ref>(<ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref><sp/>hardware_type)<sp/>{</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::mutex::scoped_lock<sp/>lock(*thread_mutexes_[hardware_type]);</highlight></codeline>
-<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>active_controllers_[hardware_type]<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"></highlight></codeline>
-<codeline lineno="118" refid="classBaseRobotSystem_1abad7fac8177f72f932a5ef543408f986" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classBaseRobotSystem_1abad7fac8177f72f932a5ef543408f986" kindref="member">runActiveController</ref>(<ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref><sp/>hardware_type)<sp/>{</highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>lock<sp/>to<sp/>ensure<sp/>active_control<sp/>fcn<sp/>is<sp/>not<sp/>changed</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structAbstractControllerHardwareConnector" kindref="compound">AbstractControllerHardwareConnector</ref><sp/>*active_controller<sp/>=</highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>active_controllers_[hardware_type];</highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(active_controller<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>boost::mutex::scoped_lock<sp/>lock(*thread_mutexes_[hardware_type]);</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>active_controller-&gt;<ref refid="structAbstractControllerHardwareConnector_1a0fcf605e19daef2f9f99d4dc2a23feb4" kindref="member">run</ref>();</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="127"><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classBaseRobotSystem_1a63c0c5e504f352000c6fb6fce9047dec" kindref="member">getSystemStatus</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="134"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="110" refid="classBaseRobotSystem_1a14c406049bbf3d17e455bac5d0f5db1e" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref><sp/><ref refid="classBaseRobotSystem_1a14c406049bbf3d17e455bac5d0f5db1e" kindref="member">getActiveControllerStatus</ref>(<ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref><sp/>hardware_type)</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>active_controller<sp/>=<sp/>active_controllers_.find(hardware_type);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(active_controller<sp/>!=<sp/>active_controllers_.end()<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>active_controller-&gt;second<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>active_controller-&gt;second-&gt;getStatus();</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref>(<ref refid="classControllerStatus_1acd360c44887ebd5ef32a532c29219cd5af0cfd086b78abab59eea7840bb641d9c" kindref="member">ControllerStatus::NotEngaged</ref>);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126" refid="classBaseRobotSystem_1a3e7031f99e64e7c371ee31fbd69f6bf9" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classBaseRobotSystem_1a3e7031f99e64e7c371ee31fbd69f6bf9" kindref="member">abortController</ref>(<ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref><sp/>hardware_type)<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>boost::mutex::scoped_lock<sp/>lock(*thread_mutexes_[hardware_type]);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>active_controllers_[hardware_type]<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136" refid="classBaseRobotSystem_1abad7fac8177f72f932a5ef543408f986" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classBaseRobotSystem_1abad7fac8177f72f932a5ef543408f986" kindref="member">runActiveController</ref>(<ref refid="base__controller__hardware__connector_8h_1ae4dfd42394001deb6e8a0e60c81d6f7a" kindref="member">HardwareType</ref><sp/>hardware_type)<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>lock<sp/>to<sp/>ensure<sp/>active_control<sp/>fcn<sp/>is<sp/>not<sp/>changed</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structAbstractControllerHardwareConnector" kindref="compound">AbstractControllerHardwareConnector</ref><sp/>*active_controller<sp/>=</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>active_controllers_[hardware_type];</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(active_controller<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>boost::mutex::scoped_lock<sp/>lock(*thread_mutexes_[hardware_type]);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>active_controller-&gt;<ref refid="structAbstractControllerHardwareConnector_1a0fcf605e19daef2f9f99d4dc2a23feb4" kindref="member">run</ref>();</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/>std::string<sp/><ref refid="classBaseRobotSystem_1a63c0c5e504f352000c6fb6fce9047dec" kindref="member">getSystemStatus</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/robot_systems/base_robot_system.h"/>
   </compounddef>
 </doxygen>

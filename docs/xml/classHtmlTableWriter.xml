@@ -1,0 +1,250 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classHtmlTableWriter" kind="class" prot="public">
+    <compoundname>HtmlTableWriter</compoundname>
+    <includes refid="html__utils_8h" local="no">html_utils.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classHtmlTableWriter_1a85a93e7daf5715413fa009c4216829c7" prot="private" static="no" mutable="no">
+        <type>std::stringstream</type>
+        <definition>std::stringstream HtmlTableWriter::table_string_stream</definition>
+        <argsstring></argsstring>
+        <name>table_string_stream</name>
+        <briefdescription>
+<para>Html table in string format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="178" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classHtmlTableWriter_1a3a65a634260b7c701194c7b65a89933f" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int HtmlTableWriter::width_</definition>
+        <argsstring></argsstring>
+        <name>width_</name>
+        <briefdescription>
+<para>Text to input for width of cell. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="179" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classHtmlTableWriter_1af4a50be59e6391602f8a9c0cbab376f6" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool HtmlTableWriter::row_ended</definition>
+        <argsstring></argsstring>
+        <name>row_ended</name>
+        <briefdescription>
+<para>Flag to check if row has ended. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="180" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classHtmlTableWriter_1a542c4ae77205c66cc926c85338cfcb19" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>HtmlTableWriter::HtmlTableWriter</definition>
+        <argsstring>(int width=120)</argsstring>
+        <name>HtmlTableWriter</name>
+        <param>
+          <type>int</type>
+          <declname>width</declname>
+          <defval>120</defval>
+        </param>
+        <briefdescription>
+<para>constructor initializes the table header </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The width of each column in the table in px </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="97" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="97" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename DataT</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void HtmlTableWriter::addCell</definition>
+        <argsstring>(const DataT &amp;data, std::string header=&quot;&quot;, std::string bg_color=Colors::white, int colspan=1)</argsstring>
+        <name>addCell</name>
+        <param>
+          <type>const DataT &amp;</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>header</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>bg_color</declname>
+          <defval><ref refid="structColors_1ae818fc85646f9f33693a0bc9828e5305" kindref="member">Colors::white</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>colspan</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>Add a cell to the table. Should be called after beginning a row. Otherwise will throw an exception. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>DataT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of data to add to cell </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value of the data to add </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>header</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>If header is provided it is added along with data to same cell </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bg_color</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Background color of the cell to use (Default white) The color is provided as a hexcode #RGB where R, G, B go from 0 to F </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>colspan</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of columns to use for the cell </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="116" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="116" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="classHtmlTableWriter_1a061b80702f43c5bc4f7e3bc4361a8404" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HtmlTableWriter::beginRow</definition>
+        <argsstring>()</argsstring>
+        <name>beginRow</name>
+        <briefdescription>
+<para>Begin a new row in the table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="135" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="135" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="classHtmlTableWriter_1abfa7dfe2d2a521f2cf170a9d9dd73274" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HtmlTableWriter::addHeader</definition>
+        <argsstring>(std::string header, std::string text_color=Colors::black, int colspan=1)</argsstring>
+        <name>addHeader</name>
+        <param>
+          <type>std::string</type>
+          <declname>header</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>text_color</declname>
+          <defval><ref refid="structColors_1a24947edd14d10c570eb21739b933c70b" kindref="member">Colors::black</ref></defval>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>colspan</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>Add a table header. Should be called after beginning a row. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is similar to a addCell but is bold and is placed at the top of the table</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>header</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Header value to add. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>text_color</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The color of the text in header. Default is black </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="152" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="152" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="function" id="classHtmlTableWriter_1a678402f705f1f52e885db9d127a379dd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string HtmlTableWriter::getTableString</definition>
+        <argsstring>()</argsstring>
+        <name>getTableString</name>
+        <briefdescription>
+<para>Get the html table in string format. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>string of html table </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="170" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="170" bodyend="175"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classHtmlTableWriter_1a63a96456d0a3c632c782dda79d85a154" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void HtmlTableWriter::endRow</definition>
+        <argsstring>()</argsstring>
+        <name>endRow</name>
+        <briefdescription>
+<para>Add row footer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="185" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="185" bodyend="188"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Helper class to write html tables to text format. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" line="91" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/html_utils.h" bodystart="91" bodyend="189"/>
+    <listofallmembers>
+      <member refid="classHtmlTableWriter_1a05a86e751c8c4eaf39cb703ce854dc8e" prot="public" virt="non-virtual"><scope>HtmlTableWriter</scope><name>addCell</name></member>
+      <member refid="classHtmlTableWriter_1abfa7dfe2d2a521f2cf170a9d9dd73274" prot="public" virt="non-virtual"><scope>HtmlTableWriter</scope><name>addHeader</name></member>
+      <member refid="classHtmlTableWriter_1a061b80702f43c5bc4f7e3bc4361a8404" prot="public" virt="non-virtual"><scope>HtmlTableWriter</scope><name>beginRow</name></member>
+      <member refid="classHtmlTableWriter_1a63a96456d0a3c632c782dda79d85a154" prot="private" virt="non-virtual"><scope>HtmlTableWriter</scope><name>endRow</name></member>
+      <member refid="classHtmlTableWriter_1a678402f705f1f52e885db9d127a379dd" prot="public" virt="non-virtual"><scope>HtmlTableWriter</scope><name>getTableString</name></member>
+      <member refid="classHtmlTableWriter_1a542c4ae77205c66cc926c85338cfcb19" prot="public" virt="non-virtual"><scope>HtmlTableWriter</scope><name>HtmlTableWriter</name></member>
+      <member refid="classHtmlTableWriter_1af4a50be59e6391602f8a9c0cbab376f6" prot="private" virt="non-virtual"><scope>HtmlTableWriter</scope><name>row_ended</name></member>
+      <member refid="classHtmlTableWriter_1a85a93e7daf5715413fa009c4216829c7" prot="private" virt="non-virtual"><scope>HtmlTableWriter</scope><name>table_string_stream</name></member>
+      <member refid="classHtmlTableWriter_1a3a65a634260b7c701194c7b65a89933f" prot="private" virt="non-virtual"><scope>HtmlTableWriter</scope><name>width_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

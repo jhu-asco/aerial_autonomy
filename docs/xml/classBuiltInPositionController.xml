@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="82" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="82" bodyend="-1"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="86" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="86" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -43,7 +43,7 @@
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="43" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="43" bodyend="44"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="43" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="43" bodyend="44"/>
       </memberdef>
       <memberdef kind="function" id="classBuiltInPositionController_1a20f19446102441d3ef9fac13c4216691" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type></type>
@@ -56,16 +56,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="49" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="49" bodyend="50"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="49" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="49" bodyend="50"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
-      <memberdef kind="function" id="classBuiltInPositionController_1a797c182616418e13ea42610ae7bed71c" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
-        <type>bool</type>
-        <definition>virtual bool BuiltInPositionController::isConvergedImplementation</definition>
+      <memberdef kind="function" id="classBuiltInPositionController_1ab5de07460052bf10f0b8236cfd49edff" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="classControllerStatus" kindref="compound">ControllerStatus</ref></type>
+        <definition>virtual ControllerStatus BuiltInPositionController::isConvergedImplementation</definition>
         <argsstring>(PositionYaw current_position_yaw, PositionYaw goal)</argsstring>
         <name>isConvergedImplementation</name>
-        <reimplements refid="classController_1ada247bf6a611958743df418250d5b454">isConvergedImplementation</reimplements>
+        <reimplements refid="classController_1a21b30148805b4eddd65d61e330361f11">isConvergedImplementation</reimplements>
         <param>
           <type><ref refid="structPositionYaw" kindref="compound">PositionYaw</ref></type>
           <declname>current_position_yaw</declname>
@@ -92,11 +92,11 @@
 <para>Goal position and yaw</para></parameterdescription>
 </parameteritem>
 </parameterlist>
-<simplesect kind="return"><para>True if converged/False otherwise </para></simplesect>
+<simplesect kind="return"><para>controller status that contains an enum and debug information. </para></simplesect>
 </para>        </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="62" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="62" bodyend="76"/>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="63" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="63" bodyend="80"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -104,49 +104,49 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="380">
+      <node id="607">
         <label>BuiltInPositionController</label>
         <link refid="classBuiltInPositionController"/>
-        <childnode refid="381" relation="public-inheritance">
+        <childnode refid="608" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="381">
+      <node id="608">
         <label>BuiltInController&lt; PositionYaw &gt;</label>
         <link refid="classBuiltInController"/>
-        <childnode refid="382" relation="public-inheritance">
+        <childnode refid="609" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="382">
+      <node id="609">
         <label>Controller&lt; PositionYaw, PositionYaw, PositionYaw &gt;</label>
         <link refid="classController"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="383">
+      <node id="610">
         <label>BuiltInPositionController</label>
         <link refid="classBuiltInPositionController"/>
-        <childnode refid="384" relation="public-inheritance">
+        <childnode refid="611" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="384">
+      <node id="611">
         <label>BuiltInController&lt; PositionYaw &gt;</label>
         <link refid="classBuiltInController"/>
-        <childnode refid="385" relation="public-inheritance">
+        <childnode refid="612" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="385">
+      <node id="612">
         <label>Controller&lt; PositionYaw, PositionYaw, PositionYaw &gt;</label>
         <link refid="classController"/>
       </node>
     </collaborationgraph>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="36" column="1" bodyfile="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="36" bodyend="83"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" line="36" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/controllers/builtin_controller.h" bodystart="36" bodyend="87"/>
     <listofallmembers>
       <member refid="classBuiltInPositionController_1a03e769df6d60a73f4bc83960a49b77eb" prot="public" virt="non-virtual"><scope>BuiltInPositionController</scope><name>BuiltInPositionController</name></member>
       <member refid="classBuiltInPositionController_1a20f19446102441d3ef9fac13c4216691" prot="public" virt="non-virtual"><scope>BuiltInPositionController</scope><name>BuiltInPositionController</name></member>
       <member refid="classBuiltInPositionController_1a81796433fd13a7ffcc83aedb86af8469" prot="private" virt="non-virtual"><scope>BuiltInPositionController</scope><name>config_</name></member>
       <member refid="classController_1a287a48298ec6f08e36ac3d72a2e6de34" prot="public" virt="virtual"><scope>BuiltInPositionController</scope><name>getGoal</name></member>
-      <member refid="classController_1ab25282f175c8eaa2b132b4a80b61f7ae" prot="public" virt="non-virtual"><scope>BuiltInPositionController</scope><name>isConverged</name></member>
-      <member refid="classBuiltInPositionController_1a797c182616418e13ea42610ae7bed71c" prot="protected" virt="virtual"><scope>BuiltInPositionController</scope><name>isConvergedImplementation</name></member>
+      <member refid="classController_1a0ea079c466120794096a49fb768b6ae6" prot="public" virt="non-virtual"><scope>BuiltInPositionController</scope><name>isConverged</name></member>
+      <member refid="classBuiltInPositionController_1ab5de07460052bf10f0b8236cfd49edff" prot="protected" virt="virtual"><scope>BuiltInPositionController</scope><name>isConvergedImplementation</name></member>
       <member refid="classController_1a973e1525b28d50ab77303e2f80c5c706" prot="public" virt="virtual"><scope>BuiltInPositionController</scope><name>run</name></member>
       <member refid="classBuiltInController_1a74df6a6af0ef0c1ed49f50ecb80774e8" prot="protected" virt="virtual"><scope>BuiltInPositionController</scope><name>runImplementation</name></member>
       <member refid="classController_1a172aae7e2475b72fb2eb469ccd198387" prot="public" virt="virtual"><scope>BuiltInPositionController</scope><name>setGoal</name></member>

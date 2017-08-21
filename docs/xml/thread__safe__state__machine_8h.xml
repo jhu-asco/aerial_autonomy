@@ -4,52 +4,78 @@
     <compoundname>thread_safe_state_machine.h</compoundname>
     <includes local="no">boost/msm/back/state_machine.hpp</includes>
     <includes local="no">boost/thread/recursive_mutex.hpp</includes>
+    <includes local="no">typeindex</includes>
+    <includes refid="internal__transition__event_8h" local="no">aerial_autonomy/types/internal_transition_event.h</includes>
+    <includedby refid="pick__place__state__machine_8h" local="no">include/aerial_autonomy/state_machines/pick_place_state_machine.h</includedby>
     <includedby refid="uav__state__machine_8h" local="no">include/aerial_autonomy/state_machines/uav_state_machine.h</includedby>
     <includedby refid="visual__servoing__state__machine_8h" local="no">include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</includedby>
     <incdepgraph>
-      <node id="2790">
+      <node id="5082">
         <label>boost/thread/recursive_mutex.hpp</label>
       </node>
-      <node id="2789">
+      <node id="5081">
         <label>boost/msm/back/state_machine.hpp</label>
       </node>
-      <node id="2788">
+      <node id="5084">
+        <label>aerial_autonomy/types/internal_transition_event.h</label>
+        <link refid="internal__transition__event_8h"/>
+      </node>
+      <node id="5080">
         <label>include/aerial_autonomy/common/thread_safe_state_machine.h</label>
         <link refid="thread_safe_state_machine.h"/>
-        <childnode refid="2789" relation="include">
+        <childnode refid="5081" relation="include">
         </childnode>
-        <childnode refid="2790" relation="include">
+        <childnode refid="5082" relation="include">
         </childnode>
+        <childnode refid="5083" relation="include">
+        </childnode>
+        <childnode refid="5084" relation="include">
+        </childnode>
+      </node>
+      <node id="5083">
+        <label>typeindex</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2793">
+      <node id="5088">
+        <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
+        <link refid="uav__state__machine_8h"/>
+        <childnode refid="5089" relation="include">
+        </childnode>
+      </node>
+      <node id="5089">
         <label>src/system_handler_nodes/uav_system_node.cpp</label>
         <link refid="uav__system__node_8cpp"/>
       </node>
-      <node id="2791">
-        <label>include/aerial_autonomy/common/thread_safe_state_machine.h</label>
-        <link refid="thread_safe_state_machine.h"/>
-        <childnode refid="2792" relation="include">
-        </childnode>
-        <childnode refid="2794" relation="include">
+      <node id="5086">
+        <label>include/aerial_autonomy/state_machines/pick_place_state_machine.h</label>
+        <link refid="pick__place__state__machine_8h"/>
+        <childnode refid="5087" relation="include">
         </childnode>
       </node>
-      <node id="2794">
-        <label>include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</label>
-        <link refid="visual__servoing__state__machine_8h"/>
-        <childnode refid="2795" relation="include">
-        </childnode>
-      </node>
-      <node id="2795">
+      <node id="5091">
         <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
         <link refid="uav__vision__system__node_8cpp"/>
       </node>
-      <node id="2792">
-        <label>include/aerial_autonomy/state_machines/uav_state_machine.h</label>
-        <link refid="uav__state__machine_8h"/>
-        <childnode refid="2793" relation="include">
+      <node id="5085">
+        <label>include/aerial_autonomy/common/thread_safe_state_machine.h</label>
+        <link refid="thread_safe_state_machine.h"/>
+        <childnode refid="5086" relation="include">
         </childnode>
+        <childnode refid="5088" relation="include">
+        </childnode>
+        <childnode refid="5090" relation="include">
+        </childnode>
+      </node>
+      <node id="5090">
+        <label>include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</label>
+        <link refid="visual__servoing__state__machine_8h"/>
+        <childnode refid="5091" relation="include">
+        </childnode>
+      </node>
+      <node id="5087">
+        <label>src/system_handler_nodes/uav_arm_system_node.cpp</label>
+        <link refid="uav__arm__system__node_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine" prot="public">boost::msm::back::thread_safe_state_machine</innerclass>
@@ -65,42 +91,57 @@
 <codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/msm/back/state_machine.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/thread/recursive_mutex.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="5"><highlight class="normal"></highlight></codeline>
-<codeline lineno="9" refid="namespaceboost" refkind="compound"><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">boost<sp/>{</highlight></codeline>
-<codeline lineno="13" refid="namespaceboost_1_1msm" refkind="compound"><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">msm<sp/>{</highlight></codeline>
-<codeline lineno="17" refid="namespaceboost_1_1msm_1_1back" refkind="compound"><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">back<sp/>{</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">A0,<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">A1<sp/>=<sp/>parameter::void_,<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">A2<sp/>=<sp/>parameter::void_,</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">A3<sp/>=<sp/>parameter::void_,<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">A4<sp/>=<sp/>parameter::void_&gt;</highlight></codeline>
-<codeline lineno="24" refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine" kindref="compound">thread_safe_state_machine</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>state_machine&lt;A0,<sp/>A1,<sp/>A2,<sp/>A3,<sp/>A4&gt;<sp/>{</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"></highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/>boost::recursive_mutex</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>process_event_mutex_;<sp/></highlight></codeline>
-<codeline lineno="28"><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="30" refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a5b5a31229aed12a1f7036b8b46de0884" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine" kindref="compound">thread_safe_state_machine&lt;A0, A1, A2, A3, A4&gt;</ref>()</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>state_machine&lt;A0,<sp/>A1,<sp/>A2,<sp/>A3,<sp/>A4&gt;()<sp/>{}</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Expr&gt;</highlight></codeline>
-<codeline lineno="34" refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1ad8d554411680bddd9959406c42407c25" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine" kindref="compound">thread_safe_state_machine&lt;A0, A1, A2, A3, A4&gt;</ref>(Expr<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;expr)</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>state_machine&lt;A0,<sp/>A1,<sp/>A2,<sp/>A3,<sp/>A4&gt;(expr)<sp/>{}</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>all<sp/>state<sp/>machines<sp/>are<sp/>friend<sp/>with<sp/>each<sp/>other<sp/>to<sp/>allow<sp/>embedding<sp/>any<sp/>of</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>them<sp/>in<sp/>another<sp/>fsm</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">&gt;</highlight></codeline>
-<codeline lineno="40" refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a83a2deae1f2169f1234e430beb3b8a95" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a83a2deae1f2169f1234e430beb3b8a95" kindref="member">boost::msm::back::state_machine</ref>;</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">&gt;</highlight></codeline>
-<codeline lineno="43" refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a3306dad625847fa2192b045a7789ca5f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine" kindref="compound">boost::msm::back::thread_safe_state_machine</ref>;</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight></codeline>
-<codeline lineno="56" refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a9f38e619a54ce414c4ef737e8873928d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Event&gt;<sp/>execute_return<sp/><ref refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a9f38e619a54ce414c4ef737e8873928d" kindref="member">process_event</ref>(Event<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;evt)<sp/>{</highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>recursive_mutex::scoped_lock<sp/>lock(process_event_mutex_);</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;process_event_internal(evt,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="60"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="61"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="62"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="63"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>boost::msm::back</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Type<sp/>index</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;typeindex&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Internal<sp/>transition<sp/>event</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="internal__transition__event_8h" kindref="compound">aerial_autonomy/types/internal_transition_event.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">boost<sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">msm<sp/>{</highlight></codeline>
+<codeline lineno="21" refid="namespaceboost_1_1msm_1_1back" refkind="compound"><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">back<sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">A0,<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">A1<sp/>=<sp/>parameter::void_,<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">A2<sp/>=<sp/>parameter::void_,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">A3<sp/>=<sp/>parameter::void_,<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">A4<sp/>=<sp/>parameter::void_&gt;</highlight></codeline>
+<codeline lineno="28" refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine" kindref="compound">thread_safe_state_machine</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>state_machine&lt;A0,<sp/>A1,<sp/>A2,<sp/>A3,<sp/>A4&gt;<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">mutable</highlight><highlight class="normal"><sp/>boost::recursive_mutex<sp/>process_event_mutex_;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>std::type_index<sp/>last_processed_event_index;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="40" refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a5b5a31229aed12a1f7036b8b46de0884" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine" kindref="compound">thread_safe_state_machine&lt;A0, A1, A2, A3, A4&gt;</ref>()</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>state_machine&lt;A0,<sp/>A1,<sp/>A2,<sp/>A3,<sp/>A4&gt;(),</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>last_processed_event_index(</highlight><highlight class="keyword">typeid</highlight><highlight class="normal">(NULL))<sp/>{}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Expr&gt;</highlight></codeline>
+<codeline lineno="45" refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1ad8d554411680bddd9959406c42407c25" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine" kindref="compound">thread_safe_state_machine&lt;A0, A1, A2, A3, A4&gt;</ref>(Expr<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;expr)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>state_machine&lt;A0,<sp/>A1,<sp/>A2,<sp/>A3,<sp/>A4&gt;(expr),</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>last_processed_event_index(</highlight><highlight class="keyword">typeid</highlight><highlight class="normal">(NULL))<sp/>{}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>all<sp/>state<sp/>machines<sp/>are<sp/>friend<sp/>with<sp/>each<sp/>other<sp/>to<sp/>allow<sp/>embedding<sp/>any<sp/>of</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>them<sp/>in<sp/>another<sp/>fsm</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">&gt;</highlight></codeline>
+<codeline lineno="52" refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a83a2deae1f2169f1234e430beb3b8a95" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a83a2deae1f2169f1234e430beb3b8a95" kindref="member">boost::msm::back::state_machine</ref>;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">class</highlight><highlight class="normal">&gt;</highlight></codeline>
+<codeline lineno="55" refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a3306dad625847fa2192b045a7789ca5f" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine" kindref="compound">boost::msm::back::thread_safe_state_machine</ref>;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a9f38e619a54ce414c4ef737e8873928d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Event&gt;<sp/>execute_return<sp/><ref refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1a9f38e619a54ce414c4ef737e8873928d" kindref="member">process_event</ref>(Event<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;evt)<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>recursive_mutex::scoped_lock<sp/>lock(process_event_mutex_);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Store<sp/>the<sp/>event<sp/>if<sp/>it<sp/>is<sp/>not<sp/>internal<sp/>transition<sp/>event</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>std::type_index<sp/>event_index<sp/>=<sp/></highlight><highlight class="keyword">typeid</highlight><highlight class="normal">(Event);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(event_index<sp/>!=<sp/></highlight><highlight class="keyword">typeid</highlight><highlight class="normal">(<ref refid="structInternalTransitionEvent" kindref="compound">InternalTransitionEvent</ref>))</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>last_processed_event_index<sp/>=<sp/>event_index;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;process_event_internal(evt,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82" refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1af16d4dbc9b6cb22000490dbb6b39b16b" refkind="member"><highlight class="normal"><sp/><sp/>std::type_index<sp/><ref refid="classboost_1_1msm_1_1back_1_1thread__safe__state__machine_1af16d4dbc9b6cb22000490dbb6b39b16b" kindref="member">lastProcessedEventIndex</ref>()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>recursive_mutex::scoped_lock<sp/>lock(process_event_mutex_);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>last_processed_event_index;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>boost::msm::back</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/common/thread_safe_state_machine.h"/>
   </compounddef>
 </doxygen>

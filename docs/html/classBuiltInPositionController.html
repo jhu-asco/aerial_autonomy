@@ -128,9 +128,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a973e1525b28d50ab77303e2f80c5c706 inherit pub_methods_classController"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#a973e1525b28d50ab77303e2f80c5c706">run</a> (PositionYawsensor_data, <a class="el" href="structPositionYaw.html">PositionYaw</a> &amp;control)</td></tr>
 <tr class="memdesc:a973e1525b28d50ab77303e2f80c5c706 inherit pub_methods_classController"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the control loop and return control arguments.  <a href="#a973e1525b28d50ab77303e2f80c5c706">More...</a><br/></td></tr>
 <tr class="separator:a973e1525b28d50ab77303e2f80c5c706 inherit pub_methods_classController"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab25282f175c8eaa2b132b4a80b61f7ae inherit pub_methods_classController"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#ab25282f175c8eaa2b132b4a80b61f7ae">isConverged</a> (PositionYawsensor_data)</td></tr>
-<tr class="memdesc:ab25282f175c8eaa2b132b4a80b61f7ae inherit pub_methods_classController"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if controller is converged.  <a href="#ab25282f175c8eaa2b132b4a80b61f7ae">More...</a><br/></td></tr>
-<tr class="separator:ab25282f175c8eaa2b132b4a80b61f7ae inherit pub_methods_classController"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ea079c466120794096a49fb768b6ae6 inherit pub_methods_classController"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classControllerStatus.html">ControllerStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#a0ea079c466120794096a49fb768b6ae6">isConverged</a> (PositionYawsensor_data)</td></tr>
+<tr class="memdesc:a0ea079c466120794096a49fb768b6ae6 inherit pub_methods_classController"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if controller is converged.  <a href="#a0ea079c466120794096a49fb768b6ae6">More...</a><br/></td></tr>
+<tr class="separator:a0ea079c466120794096a49fb768b6ae6 inherit pub_methods_classController"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a172aae7e2475b72fb2eb469ccd198387 inherit pub_methods_classController"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classController.html#a172aae7e2475b72fb2eb469ccd198387">setGoal</a> (PositionYawgoal)</td></tr>
 <tr class="memdesc:a172aae7e2475b72fb2eb469ccd198387 inherit pub_methods_classController"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the goal condition for the controller. Should use internal locking as the run function can be called from a separate thread  <a href="#a172aae7e2475b72fb2eb469ccd198387">More...</a><br/></td></tr>
 <tr class="separator:a172aae7e2475b72fb2eb469ccd198387 inherit pub_methods_classController"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,9 +143,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a797c182616418e13ea42610ae7bed71c"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBuiltInPositionController.html#a797c182616418e13ea42610ae7bed71c">isConvergedImplementation</a> (<a class="el" href="structPositionYaw.html">PositionYaw</a> current_position_yaw, <a class="el" href="structPositionYaw.html">PositionYaw</a> goal)</td></tr>
-<tr class="memdesc:a797c182616418e13ea42610ae7bed71c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if current position yaw is close to Goal position yaw Uses position controller config.  <a href="#a797c182616418e13ea42610ae7bed71c">More...</a><br/></td></tr>
-<tr class="separator:a797c182616418e13ea42610ae7bed71c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5de07460052bf10f0b8236cfd49edff"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classControllerStatus.html">ControllerStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBuiltInPositionController.html#ab5de07460052bf10f0b8236cfd49edff">isConvergedImplementation</a> (<a class="el" href="structPositionYaw.html">PositionYaw</a> current_position_yaw, <a class="el" href="structPositionYaw.html">PositionYaw</a> goal)</td></tr>
+<tr class="memdesc:ab5de07460052bf10f0b8236cfd49edff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if current position yaw is close to Goal position yaw Uses position controller config.  <a href="#ab5de07460052bf10f0b8236cfd49edff">More...</a><br/></td></tr>
+<tr class="separator:ab5de07460052bf10f0b8236cfd49edff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classBuiltInController"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classBuiltInController')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classBuiltInController.html">BuiltInController&lt; PositionYaw &gt;</a></td></tr>
 <tr class="memitem:a74df6a6af0ef0c1ed49f50ecb80774e8 inherit pro_methods_classBuiltInController"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBuiltInController.html#a74df6a6af0ef0c1ed49f50ecb80774e8">runImplementation</a> (<a class="el" href="structPositionYaw.html">PositionYaw</a>, PositionYawgoal, <a class="el" href="structPositionYaw.html">PositionYaw</a> &amp;control)</td></tr>
 <tr class="memdesc:a74df6a6af0ef0c1ed49f50ecb80774e8 inherit pro_methods_classBuiltInController"><td class="mdescLeft">&#160;</td><td class="mdescRight">Run the control loop. Simply returns the goal.  <a href="#a74df6a6af0ef0c1ed49f50ecb80774e8">More...</a><br/></td></tr>
@@ -212,7 +212,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a797c182616418e13ea42610ae7bed71c"></a>
+<a class="anchor" id="ab5de07460052bf10f0b8236cfd49edff"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -220,7 +220,7 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool BuiltInPositionController::isConvergedImplementation </td>
+          <td class="memname">virtual <a class="el" href="classControllerStatus.html">ControllerStatus</a> BuiltInPositionController::isConvergedImplementation </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structPositionYaw.html">PositionYaw</a>&#160;</td>
           <td class="paramname"><em>current_position_yaw</em>, </td>
@@ -252,9 +252,9 @@ Protected Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if converged/False otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>controller status that contains an enum and debug information. </dd></dl>
 
-<p>Implements <a class="el" href="classController.html#ada247bf6a611958743df418250d5b454">Controller&lt; PositionYaw, PositionYaw, PositionYaw &gt;</a>.</p>
+<p>Implements <a class="el" href="classController.html#a21b30148805b4eddd65d61e330361f11">Controller&lt; PositionYaw, PositionYaw, PositionYaw &gt;</a>.</p>
 
 </div>
 </div>

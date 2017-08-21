@@ -16,7 +16,7 @@
 <codeline lineno="7"><highlight class="normal"></highlight></codeline>
 <codeline lineno="8"><highlight class="normal">#<sp/>Project</highlight></codeline>
 <codeline lineno="9"><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal">The<sp/>goal<sp/>of<sp/>the<sp/>project<sp/>is<sp/>to<sp/>create<sp/>a<sp/></highlight><highlight class="keyword">generic</highlight><highlight class="normal"><sp/>state<sp/>machine<sp/></highlight><highlight class="keyword">interface<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>the<sp/>quadrotor<sp/>and<sp/>arm<sp/>to<sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>different<sp/>tasks<sp/>such<sp/>as<sp/>“pick<sp/>and<sp/>place”,<sp/>“screwing<sp/>a<sp/>lightbulb”,<sp/>“AR<sp/>manipulation”,<sp/>etc.<sp/>This<sp/>requires<sp/>different<sp/>types<sp/>of<sp/>controllers,<sp/>estimators<sp/>and<sp/>state<sp/>logic<sp/>based<sp/>on<sp/>the<sp/>task<sp/>at<sp/>hand.<sp/>The<sp/>framework<sp/>consists<sp/>of<sp/>the<sp/>following<sp/><ref refid="uav__system__node_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref><sp/>components:</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">The<sp/>goal<sp/>of<sp/>the<sp/>project<sp/>is<sp/>to<sp/>create<sp/>a<sp/></highlight><highlight class="keyword">generic</highlight><highlight class="normal"><sp/>state<sp/>machine<sp/></highlight><highlight class="keyword">interface<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>the<sp/>quadrotor<sp/>and<sp/>arm<sp/>to<sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>different<sp/>tasks<sp/>such<sp/>as<sp/>“pick<sp/>and<sp/>place”,<sp/>“screwing<sp/>a<sp/>lightbulb”,<sp/>“AR<sp/>manipulation”,<sp/>etc.<sp/>This<sp/>requires<sp/>different<sp/>types<sp/>of<sp/>controllers,<sp/>estimators<sp/>and<sp/>state<sp/>logic<sp/>based<sp/>on<sp/>the<sp/>task<sp/>at<sp/>hand.<sp/>The<sp/>framework<sp/>consists<sp/>of<sp/>the<sp/>following<sp/><ref refid="uav__arm__system__node_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref><sp/>components:</highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight></codeline>
 <codeline lineno="12"><highlight class="normal">1.<sp/>Robot<sp/>System</highlight></codeline>
 <codeline lineno="13"><highlight class="normal"><sp/><sp/>1.<sp/>Controllers</highlight></codeline>
@@ -83,6 +83,6 @@
 <codeline lineno="74"><highlight class="normal">-<sp/>[Classes<sp/>by<sp/>group](markdown/class_groups.md)</highlight></codeline>
 <codeline lineno="75"><highlight class="normal">-<sp/>[Setup<sp/>and<sp/>README](README.md)</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/markdown/background.md"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/markdown/background.md"/>
   </compounddef>
 </doxygen>

@@ -4,496 +4,678 @@
     <compoundname>visual_servoing_states_actions.h</compoundname>
     <includes refid="uav__states__actions_8h" local="no">aerial_autonomy/actions_guards/uav_states_actions.h</includes>
     <includes refid="visual__servoing__functors_8h" local="no">aerial_autonomy/actions_guards/visual_servoing_functors.h</includes>
+    <includedby refid="pick__place__states__actions_8h" local="no">include/aerial_autonomy/actions_guards/pick_place_states_actions.h</includedby>
     <includedby refid="visual__servoing__state__machine_8h" local="no">include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</includedby>
     <incdepgraph>
-      <node id="2636">
+      <node id="4772">
+        <label>boost/mpl/aux_/unwrap.hpp</label>
+      </node>
+      <node id="4730">
         <label>boost/thread/mutex.hpp</label>
       </node>
-      <node id="2660">
-        <label>aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h</label>
-        <link refid="basic__controller__hardware__connectors_8h"/>
-        <childnode refid="2661" relation="include">
-        </childnode>
-        <childnode refid="2663" relation="include">
-        </childnode>
-        <childnode refid="2664" relation="include">
-        </childnode>
-      </node>
-      <node id="2674">
-        <label>aerial_autonomy/actions_guards/visual_servoing_functors.h</label>
-        <link refid="visual__servoing__functors_8h"/>
-        <childnode refid="2626" relation="include">
-        </childnode>
-        <childnode refid="2672" relation="include">
-        </childnode>
-        <childnode refid="2648" relation="include">
-        </childnode>
-        <childnode refid="2628" relation="include">
-        </childnode>
-        <childnode refid="2675" relation="include">
-        </childnode>
-        <childnode refid="2669" relation="include">
-        </childnode>
-        <childnode refid="2637" relation="include">
-        </childnode>
-        <childnode refid="2667" relation="include">
-        </childnode>
-      </node>
-      <node id="2645">
-        <label>aerial_autonomy/types/position_yaw.h</label>
-        <link refid="position__yaw_8h"/>
-        <childnode refid="2646" relation="include">
-        </childnode>
-        <childnode refid="2648" relation="include">
-        </childnode>
-      </node>
-      <node id="2670">
-        <label>aerial_autonomy/actions_guards/manual_control_functors.h</label>
-        <link refid="manual__control__functors_8h"/>
-        <childnode refid="2631" relation="include">
-        </childnode>
-        <childnode refid="2665" relation="include">
-        </childnode>
-        <childnode refid="2666" relation="include">
-        </childnode>
-        <childnode refid="2629" relation="include">
-        </childnode>
-        <childnode refid="2630" relation="include">
-        </childnode>
-        <childnode refid="2667" relation="include">
-        </childnode>
-      </node>
-      <node id="2668">
-        <label>aerial_autonomy/actions_guards/land_functors.h</label>
-        <link refid="land__functors_8h"/>
-        <childnode refid="2626" relation="include">
-        </childnode>
-        <childnode refid="2628" relation="include">
-        </childnode>
-        <childnode refid="2631" relation="include">
-        </childnode>
-        <childnode refid="2669" relation="include">
-        </childnode>
-        <childnode refid="2665" relation="include">
-        </childnode>
-        <childnode refid="2667" relation="include">
-        </childnode>
-      </node>
-      <node id="2672">
-        <label>aerial_autonomy/actions_guards/uav_status_functor.h</label>
-        <link refid="uav__status__functor_8h"/>
-        <childnode refid="2626" relation="include">
-        </childnode>
-        <childnode refid="2631" relation="include">
-        </childnode>
-        <childnode refid="2666" relation="include">
-        </childnode>
-      </node>
-      <node id="2637">
-        <label>glog/logging.h</label>
-      </node>
-      <node id="2654">
-        <label>velocity_controller_config.pb.h</label>
-      </node>
-      <node id="2624">
-        <label>aerial_autonomy/actions_guards/uav_states_actions.h</label>
-        <link refid="uav__states__actions_8h"/>
-        <childnode refid="2625" relation="include">
-        </childnode>
-        <childnode refid="2668" relation="include">
-        </childnode>
-        <childnode refid="2670" relation="include">
-        </childnode>
-        <childnode refid="2671" relation="include">
-        </childnode>
-        <childnode refid="2673" relation="include">
-        </childnode>
-      </node>
-      <node id="2676">
+      <node id="4785">
         <label>aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h</label>
         <link refid="visual__servoing__controller__drone__connector_8h"/>
-        <childnode refid="2634" relation="include">
+        <childnode refid="4728" relation="include">
         </childnode>
-        <childnode refid="2677" relation="include">
+        <childnode refid="4786" relation="include">
         </childnode>
-        <childnode refid="2680" relation="include">
+        <childnode refid="4789" relation="include">
         </childnode>
-        <childnode refid="2645" relation="include">
+        <childnode refid="4742" relation="include">
         </childnode>
-        <childnode refid="2651" relation="include">
+        <childnode refid="4747" relation="include">
         </childnode>
-        <childnode refid="2681" relation="include">
+        <childnode refid="4792" relation="include">
         </childnode>
-        <childnode refid="2662" relation="include">
+        <childnode refid="4758" relation="include">
         </childnode>
-        <childnode refid="2650" relation="include">
-        </childnode>
-      </node>
-      <node id="2628">
-        <label>aerial_autonomy/logic_states/base_state.h</label>
-        <link refid="base__state_8h"/>
-        <childnode refid="2629" relation="include">
-        </childnode>
-        <childnode refid="2630" relation="include">
-        </childnode>
-        <childnode refid="2626" relation="include">
-        </childnode>
-        <childnode refid="2627" relation="include">
+        <childnode refid="4746" relation="include">
         </childnode>
       </node>
-      <node id="2647">
-        <label>cmath</label>
-      </node>
-      <node id="2658">
-        <label>aerial_autonomy/types/joysticks.h</label>
-        <link refid="joysticks_8h"/>
-      </node>
-      <node id="2649">
-        <label>stdexcept</label>
-      </node>
-      <node id="2679">
-        <label>constant_heading_depth_controller_config.pb.h</label>
-      </node>
-      <node id="2635">
-        <label>aerial_autonomy/controllers/base_controller.h</label>
-        <link refid="base__controller_8h"/>
-        <childnode refid="2636" relation="include">
-        </childnode>
-      </node>
-      <node id="2681">
-        <label>uav_vision_system_config.pb.h</label>
-      </node>
-      <node id="2630">
-        <label>boost/msm/front/state_machine_def.hpp</label>
-      </node>
-      <node id="2641">
-        <label>aerial_autonomy/common/iterable_enum.h</label>
-        <link refid="iterable__enum_8h"/>
-      </node>
-      <node id="2626">
-        <label>aerial_autonomy/actions_guards/base_functors.h</label>
-        <link refid="base__functors_8h"/>
-        <childnode refid="2627" relation="include">
-        </childnode>
-      </node>
-      <node id="2623">
-        <label>include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
-        <link refid="visual_servoing_states_actions.h"/>
-        <childnode refid="2624" relation="include">
-        </childnode>
-        <childnode refid="2674" relation="include">
-        </childnode>
-      </node>
-      <node id="2675">
-        <label>aerial_autonomy/robot_systems/uav_vision_system.h</label>
-        <link refid="uav__vision__system_8h"/>
-        <childnode refid="2648" relation="include">
-        </childnode>
-        <childnode refid="2676" relation="include">
-        </childnode>
-        <childnode refid="2677" relation="include">
-        </childnode>
-        <childnode refid="2631" relation="include">
-        </childnode>
-        <childnode refid="2632" relation="include">
-        </childnode>
-        <childnode refid="2650" relation="include">
-        </childnode>
-      </node>
-      <node id="2678">
-        <label>aerial_autonomy/types/velocity_yaw_rate.h</label>
-        <link refid="velocity__yaw__rate_8h"/>
-        <childnode refid="2652" relation="include">
-        </childnode>
-      </node>
-      <node id="2650">
-        <label>tf/tf.h</label>
-      </node>
-      <node id="2643">
-        <label>aerial_autonomy/controllers/basic_controllers.h</label>
-        <link refid="basic__controllers_8h"/>
-        <childnode refid="2644" relation="include">
-        </childnode>
-        <childnode refid="2655" relation="include">
-        </childnode>
-      </node>
-      <node id="2680">
-        <label>aerial_autonomy/trackers/base_tracker.h</label>
-        <link refid="base__tracker_8h"/>
-        <childnode refid="2646" relation="include">
-        </childnode>
-      </node>
-      <node id="2671">
-        <label>aerial_autonomy/actions_guards/position_control_functors.h</label>
-        <link refid="position__control__functors_8h"/>
-        <childnode refid="2626" relation="include">
-        </childnode>
-        <childnode refid="2672" relation="include">
-        </childnode>
-        <childnode refid="2664" relation="include">
-        </childnode>
-        <childnode refid="2628" relation="include">
-        </childnode>
-        <childnode refid="2631" relation="include">
-        </childnode>
-        <childnode refid="2669" relation="include">
-        </childnode>
-        <childnode refid="2666" relation="include">
-        </childnode>
-        <childnode refid="2637" relation="include">
-        </childnode>
-        <childnode refid="2667" relation="include">
-        </childnode>
-      </node>
-      <node id="2644">
-        <label>aerial_autonomy/controllers/builtin_controller.h</label>
-        <link refid="builtin__controller_8h"/>
-        <childnode refid="2635" relation="include">
-        </childnode>
-        <childnode refid="2645" relation="include">
-        </childnode>
-        <childnode refid="2651" relation="include">
-        </childnode>
-        <childnode refid="2653" relation="include">
-        </childnode>
-        <childnode refid="2654" relation="include">
-        </childnode>
-      </node>
-      <node id="2669">
-        <label>aerial_autonomy/types/completed_event.h</label>
-        <link refid="completed__event_8h"/>
-      </node>
-      <node id="2667">
-        <label>parsernode/common.h</label>
-      </node>
-      <node id="2638">
+      <node id="4735">
         <label>aerial_autonomy/common/type_map.h</label>
         <link refid="type__map_8h"/>
-        <childnode refid="2639" relation="include">
+        <childnode refid="4736" relation="include">
         </childnode>
-        <childnode refid="2640" relation="include">
-        </childnode>
-      </node>
-      <node id="2665">
-        <label>aerial_autonomy/types/manual_control_event.h</label>
-        <link refid="manual__control__event_8h"/>
-      </node>
-      <node id="2656">
-        <label>aerial_autonomy/types/empty_goal.h</label>
-        <link refid="empty__goal_8h"/>
-      </node>
-      <node id="2625">
-        <label>aerial_autonomy/actions_guards/hovering_functors.h</label>
-        <link refid="hovering__functors_8h"/>
-        <childnode refid="2626" relation="include">
-        </childnode>
-        <childnode refid="2628" relation="include">
-        </childnode>
-        <childnode refid="2631" relation="include">
-        </childnode>
-        <childnode refid="2665" relation="include">
-        </childnode>
-        <childnode refid="2666" relation="include">
-        </childnode>
-        <childnode refid="2637" relation="include">
-        </childnode>
-        <childnode refid="2667" relation="include">
+        <childnode refid="4737" relation="include">
         </childnode>
       </node>
-      <node id="2664">
-        <label>aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h</label>
-        <link refid="position__controller__drone__connector_8h"/>
-        <childnode refid="2634" relation="include">
-        </childnode>
-        <childnode refid="2645" relation="include">
-        </childnode>
-        <childnode refid="2662" relation="include">
-        </childnode>
+      <node id="4781">
+        <label>boost/mpl/vector.hpp</label>
       </node>
-      <node id="2653">
-        <label>position_controller_config.pb.h</label>
+      <node id="4723">
+        <label>iomanip</label>
       </node>
-      <node id="2651">
-        <label>aerial_autonomy/types/velocity_yaw.h</label>
-        <link refid="velocity__yaw_8h"/>
-        <childnode refid="2652" relation="include">
-        </childnode>
-        <childnode refid="2648" relation="include">
-        </childnode>
+      <node id="4770">
+        <label>boost/mpl/apply.hpp</label>
       </node>
-      <node id="2661">
-        <label>aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h</label>
-        <link refid="builtin__velocity__controller__drone__connector_8h"/>
-        <childnode refid="2634" relation="include">
-        </childnode>
-        <childnode refid="2651" relation="include">
-        </childnode>
-        <childnode refid="2662" relation="include">
-        </childnode>
-      </node>
-      <node id="2652">
+      <node id="4748">
         <label>aerial_autonomy/types/velocity.h</label>
         <link refid="velocity_8h"/>
       </node>
-      <node id="2655">
-        <label>aerial_autonomy/controllers/manual_rpyt_controller.h</label>
-        <link refid="manual__rpyt__controller_8h"/>
-        <childnode refid="2635" relation="include">
+      <node id="4734">
+        <label>glog/logging.h</label>
+      </node>
+      <node id="4740">
+        <label>aerial_autonomy/controllers/basic_controllers.h</label>
+        <link refid="basic__controllers_8h"/>
+        <childnode refid="4741" relation="include">
         </childnode>
-        <childnode refid="2656" relation="include">
-        </childnode>
-        <childnode refid="2657" relation="include">
-        </childnode>
-        <childnode refid="2659" relation="include">
+        <childnode refid="4751" relation="include">
         </childnode>
       </node>
-      <node id="2663">
-        <label>aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h</label>
-        <link refid="manual__rpyt__controller__drone__connector_8h"/>
-        <childnode refid="2634" relation="include">
+      <node id="4752">
+        <label>aerial_autonomy/types/empty_goal.h</label>
+        <link refid="empty__goal_8h"/>
+      </node>
+      <node id="4750">
+        <label>velocity_controller_config.pb.h</label>
+      </node>
+      <node id="4713">
+        <label>aerial_autonomy/actions_guards/hovering_functors.h</label>
+        <link refid="hovering__functors_8h"/>
+        <childnode refid="4714" relation="include">
         </childnode>
-        <childnode refid="2656" relation="include">
+        <childnode refid="4717" relation="include">
         </childnode>
-        <childnode refid="2657" relation="include">
+        <childnode refid="4720" relation="include">
         </childnode>
-        <childnode refid="2659" relation="include">
+        <childnode refid="4761" relation="include">
         </childnode>
-        <childnode refid="2662" relation="include">
+        <childnode refid="4762" relation="include">
+        </childnode>
+        <childnode refid="4763" relation="include">
+        </childnode>
+        <childnode refid="4734" relation="include">
+        </childnode>
+        <childnode refid="4764" relation="include">
         </childnode>
       </node>
-      <node id="2629">
-        <label>boost/msm/front/functor_row.hpp</label>
+      <node id="4744">
+        <label>cmath</label>
       </node>
-      <node id="2657">
-        <label>aerial_autonomy/types/joysticks_yaw.h</label>
-        <link refid="joysticks__yaw_8h"/>
-        <childnode refid="2658" relation="include">
+      <node id="4725">
+        <label>stdexcept</label>
+      </node>
+      <node id="4788">
+        <label>constant_heading_depth_controller_config.pb.h</label>
+      </node>
+      <node id="4782">
+        <label>aerial_autonomy/actions_guards/takeoff_functors.h</label>
+        <link refid="takeoff__functors_8h"/>
+        <childnode refid="4714" relation="include">
+        </childnode>
+        <childnode refid="4717" relation="include">
+        </childnode>
+        <childnode refid="4720" relation="include">
+        </childnode>
+        <childnode refid="4761" relation="include">
+        </childnode>
+        <childnode refid="4763" relation="include">
+        </childnode>
+        <childnode refid="4734" relation="include">
+        </childnode>
+        <childnode refid="4764" relation="include">
         </childnode>
       </node>
-      <node id="2640">
-        <label>unordered_map</label>
+      <node id="4792">
+        <label>uav_vision_system_config.pb.h</label>
       </node>
-      <node id="2634">
+      <node id="4728">
         <label>aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h</label>
         <link refid="base__controller__hardware__connector_8h"/>
-        <childnode refid="2635" relation="include">
+        <childnode refid="4729" relation="include">
         </childnode>
-        <childnode refid="2637" relation="include">
+        <childnode refid="4731" relation="include">
+        </childnode>
+        <childnode refid="4733" relation="include">
+        </childnode>
+        <childnode refid="4734" relation="include">
         </childnode>
       </node>
-      <node id="2648">
+      <node id="4719">
+        <label>boost/msm/front/state_machine_def.hpp</label>
+      </node>
+      <node id="4726">
+        <label>string</label>
+      </node>
+      <node id="4771">
+        <label>boost/mpl/assert.hpp</label>
+      </node>
+      <node id="4753">
+        <label>aerial_autonomy/types/joysticks_yaw.h</label>
+        <link refid="joysticks__yaw_8h"/>
+        <childnode refid="4754" relation="include">
+        </childnode>
+      </node>
+      <node id="4720">
+        <label>aerial_autonomy/robot_systems/uav_system.h</label>
+        <link refid="uav__system_8h"/>
+        <childnode refid="4721" relation="include">
+        </childnode>
+        <childnode refid="4722" relation="include">
+        </childnode>
+        <childnode refid="4727" relation="include">
+        </childnode>
+        <childnode refid="4740" relation="include">
+        </childnode>
+        <childnode refid="4756" relation="include">
+        </childnode>
+        <childnode refid="4723" relation="include">
+        </childnode>
+        <childnode refid="4724" relation="include">
+        </childnode>
+      </node>
+      <node id="4746">
+        <label>tf/tf.h</label>
+      </node>
+      <node id="4773">
+        <label>boost/mpl/begin_end.hpp</label>
+      </node>
+      <node id="4761">
+        <label>aerial_autonomy/types/completed_event.h</label>
+        <link refid="completed__event_8h"/>
+      </node>
+      <node id="4738">
+        <label>aerial_autonomy/common/iterable_enum.h</label>
+        <link refid="iterable__enum_8h"/>
+      </node>
+      <node id="4778">
+        <label>boost/mpl/next_prior.hpp</label>
+      </node>
+      <node id="4757">
+        <label>aerial_autonomy/controller_hardware_connectors/builtin_velocity_controller_drone_connector.h</label>
+        <link refid="builtin__velocity__controller__drone__connector_8h"/>
+        <childnode refid="4728" relation="include">
+        </childnode>
+        <childnode refid="4747" relation="include">
+        </childnode>
+        <childnode refid="4758" relation="include">
+        </childnode>
+      </node>
+      <node id="4745">
         <label>aerial_autonomy/common/math.h</label>
         <link refid="math_8h"/>
-        <childnode refid="2647" relation="include">
+        <childnode refid="4744" relation="include">
         </childnode>
-        <childnode refid="2649" relation="include">
+        <childnode refid="4725" relation="include">
         </childnode>
-        <childnode refid="2650" relation="include">
-        </childnode>
-      </node>
-      <node id="2677">
-        <label>aerial_autonomy/controllers/constant_heading_depth_controller.h</label>
-        <link refid="constant__heading__depth__controller_8h"/>
-        <childnode refid="2635" relation="include">
-        </childnode>
-        <childnode refid="2645" relation="include">
-        </childnode>
-        <childnode refid="2678" relation="include">
-        </childnode>
-        <childnode refid="2679" relation="include">
-        </childnode>
-        <childnode refid="2650" relation="include">
+        <childnode refid="4746" relation="include">
         </childnode>
       </node>
-      <node id="2659">
+      <node id="4727">
+        <label>aerial_autonomy/robot_systems/base_robot_system.h</label>
+        <link refid="base__robot__system_8h"/>
+        <childnode refid="4728" relation="include">
+        </childnode>
+        <childnode refid="4735" relation="include">
+        </childnode>
+        <childnode refid="4738" relation="include">
+        </childnode>
+        <childnode refid="4730" relation="include">
+        </childnode>
+        <childnode refid="4739" relation="include">
+        </childnode>
+      </node>
+      <node id="4764">
+        <label>parsernode/common.h</label>
+      </node>
+      <node id="4731">
+        <label>aerial_autonomy/common/controller_status.h</label>
+        <link refid="controller__status_8h"/>
+        <childnode refid="4726" relation="include">
+        </childnode>
+        <childnode refid="4732" relation="include">
+        </childnode>
+      </node>
+      <node id="4759">
+        <label>aerial_autonomy/controller_hardware_connectors/manual_rpyt_controller_drone_connector.h</label>
+        <link refid="manual__rpyt__controller__drone__connector_8h"/>
+        <childnode refid="4728" relation="include">
+        </childnode>
+        <childnode refid="4752" relation="include">
+        </childnode>
+        <childnode refid="4753" relation="include">
+        </childnode>
+        <childnode refid="4755" relation="include">
+        </childnode>
+        <childnode refid="4758" relation="include">
+        </childnode>
+      </node>
+      <node id="4754">
+        <label>aerial_autonomy/types/joysticks.h</label>
+        <link refid="joysticks_8h"/>
+      </node>
+      <node id="4784">
+        <label>aerial_autonomy/robot_systems/uav_vision_system.h</label>
+        <link refid="uav__vision__system_8h"/>
+        <childnode refid="4722" relation="include">
+        </childnode>
+        <childnode refid="4745" relation="include">
+        </childnode>
+        <childnode refid="4785" relation="include">
+        </childnode>
+        <childnode refid="4786" relation="include">
+        </childnode>
+        <childnode refid="4720" relation="include">
+        </childnode>
+        <childnode refid="4721" relation="include">
+        </childnode>
+        <childnode refid="4746" relation="include">
+        </childnode>
+      </node>
+      <node id="4717">
+        <label>aerial_autonomy/logic_states/base_state.h</label>
+        <link refid="base__state_8h"/>
+        <childnode refid="4718" relation="include">
+        </childnode>
+        <childnode refid="4719" relation="include">
+        </childnode>
+        <childnode refid="4714" relation="include">
+        </childnode>
+        <childnode refid="4715" relation="include">
+        </childnode>
+      </node>
+      <node id="4791">
+        <label>tuple</label>
+      </node>
+      <node id="4766">
+        <label>aerial_autonomy/actions_guards/manual_control_functors.h</label>
+        <link refid="manual__control__functors_8h"/>
+        <childnode refid="4720" relation="include">
+        </childnode>
+        <childnode refid="4762" relation="include">
+        </childnode>
+        <childnode refid="4763" relation="include">
+        </childnode>
+        <childnode refid="4718" relation="include">
+        </childnode>
+        <childnode refid="4719" relation="include">
+        </childnode>
+        <childnode refid="4764" relation="include">
+        </childnode>
+      </node>
+      <node id="4768">
+        <label>aerial_autonomy/actions_guards/shorting_action_sequence.h</label>
+        <link refid="shorting__action__sequence_8h"/>
+        <childnode refid="4714" relation="include">
+        </childnode>
+        <childnode refid="4769" relation="include">
+        </childnode>
+        <childnode refid="4770" relation="include">
+        </childnode>
+        <childnode refid="4771" relation="include">
+        </childnode>
+        <childnode refid="4773" relation="include">
+        </childnode>
+        <childnode refid="4774" relation="include">
+        </childnode>
+        <childnode refid="4775" relation="include">
+        </childnode>
+        <childnode refid="4777" relation="include">
+        </childnode>
+        <childnode refid="4778" relation="include">
+        </childnode>
+        <childnode refid="4781" relation="include">
+        </childnode>
+        <childnode refid="4718" relation="include">
+        </childnode>
+        <childnode refid="4779" relation="include">
+        </childnode>
+      </node>
+      <node id="4787">
+        <label>aerial_autonomy/types/velocity_yaw_rate.h</label>
+        <link refid="velocity__yaw__rate_8h"/>
+        <childnode refid="4748" relation="include">
+        </childnode>
+      </node>
+      <node id="4775">
+        <label>boost/mpl/deref.hpp</label>
+      </node>
+      <node id="4732">
+        <label>vector</label>
+      </node>
+      <node id="4733">
+        <label>aerial_autonomy/controllers/base_controller.h</label>
+        <link refid="base__controller_8h"/>
+        <childnode refid="4729" relation="include">
+        </childnode>
+        <childnode refid="4731" relation="include">
+        </childnode>
+      </node>
+      <node id="4716">
+        <label>aerial_autonomy/types/internal_transition_event.h</label>
+        <link refid="internal__transition__event_8h"/>
+      </node>
+      <node id="4749">
+        <label>position_controller_config.pb.h</label>
+      </node>
+      <node id="4711">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
+        <link refid="visual_servoing_states_actions.h"/>
+        <childnode refid="4712" relation="include">
+        </childnode>
+        <childnode refid="4783" relation="include">
+        </childnode>
+      </node>
+      <node id="4724">
+        <label>sstream</label>
+      </node>
+      <node id="4776">
+        <label>boost/mpl/identity.hpp</label>
+      </node>
+      <node id="4751">
+        <label>aerial_autonomy/controllers/manual_rpyt_controller.h</label>
+        <link refid="manual__rpyt__controller_8h"/>
+        <childnode refid="4733" relation="include">
+        </childnode>
+        <childnode refid="4752" relation="include">
+        </childnode>
+        <childnode refid="4753" relation="include">
+        </childnode>
+        <childnode refid="4755" relation="include">
+        </childnode>
+      </node>
+      <node id="4789">
+        <label>aerial_autonomy/trackers/base_tracker.h</label>
+        <link refid="base__tracker_8h"/>
+        <childnode refid="4790" relation="include">
+        </childnode>
+        <childnode refid="4743" relation="include">
+        </childnode>
+        <childnode refid="4739" relation="include">
+        </childnode>
+        <childnode refid="4791" relation="include">
+        </childnode>
+        <childnode refid="4737" relation="include">
+        </childnode>
+      </node>
+      <node id="4780">
+        <label>boost/utility/value_init.hpp</label>
+      </node>
+      <node id="4783">
+        <label>aerial_autonomy/actions_guards/visual_servoing_functors.h</label>
+        <link refid="visual__servoing__functors_8h"/>
+        <childnode refid="4714" relation="include">
+        </childnode>
+        <childnode refid="4713" relation="include">
+        </childnode>
+        <childnode refid="4768" relation="include">
+        </childnode>
+        <childnode refid="4745" relation="include">
+        </childnode>
+        <childnode refid="4717" relation="include">
+        </childnode>
+        <childnode refid="4784" relation="include">
+        </childnode>
+        <childnode refid="4761" relation="include">
+        </childnode>
+        <childnode refid="4734" relation="include">
+        </childnode>
+        <childnode refid="4764" relation="include">
+        </childnode>
+      </node>
+      <node id="4769">
+        <label>aerial_autonomy/actions_guards/exec_if.h</label>
+        <link refid="exec__if_8h"/>
+        <childnode refid="4770" relation="include">
+        </childnode>
+        <childnode refid="4771" relation="include">
+        </childnode>
+        <childnode refid="4772" relation="include">
+        </childnode>
+        <childnode refid="4773" relation="include">
+        </childnode>
+        <childnode refid="4774" relation="include">
+        </childnode>
+        <childnode refid="4775" relation="include">
+        </childnode>
+        <childnode refid="4776" relation="include">
+        </childnode>
+        <childnode refid="4777" relation="include">
+        </childnode>
+        <childnode refid="4778" relation="include">
+        </childnode>
+        <childnode refid="4779" relation="include">
+        </childnode>
+        <childnode refid="4780" relation="include">
+        </childnode>
+      </node>
+      <node id="4756">
+        <label>aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h</label>
+        <link refid="basic__controller__hardware__connectors_8h"/>
+        <childnode refid="4757" relation="include">
+        </childnode>
+        <childnode refid="4759" relation="include">
+        </childnode>
+        <childnode refid="4760" relation="include">
+        </childnode>
+      </node>
+      <node id="4762">
+        <label>aerial_autonomy/types/manual_control_event.h</label>
+        <link refid="manual__control__event_8h"/>
+      </node>
+      <node id="4718">
+        <label>boost/msm/front/functor_row.hpp</label>
+      </node>
+      <node id="4712">
+        <label>aerial_autonomy/actions_guards/uav_states_actions.h</label>
+        <link refid="uav__states__actions_8h"/>
+        <childnode refid="4713" relation="include">
+        </childnode>
+        <childnode refid="4765" relation="include">
+        </childnode>
+        <childnode refid="4766" relation="include">
+        </childnode>
+        <childnode refid="4767" relation="include">
+        </childnode>
+        <childnode refid="4782" relation="include">
+        </childnode>
+      </node>
+      <node id="4737">
+        <label>unordered_map</label>
+      </node>
+      <node id="4767">
+        <label>aerial_autonomy/actions_guards/position_control_functors.h</label>
+        <link refid="position__control__functors_8h"/>
+        <childnode refid="4714" relation="include">
+        </childnode>
+        <childnode refid="4713" relation="include">
+        </childnode>
+        <childnode refid="4768" relation="include">
+        </childnode>
+        <childnode refid="4760" relation="include">
+        </childnode>
+        <childnode refid="4717" relation="include">
+        </childnode>
+        <childnode refid="4720" relation="include">
+        </childnode>
+        <childnode refid="4763" relation="include">
+        </childnode>
+        <childnode refid="4734" relation="include">
+        </childnode>
+        <childnode refid="4764" relation="include">
+        </childnode>
+      </node>
+      <node id="4765">
+        <label>aerial_autonomy/actions_guards/land_functors.h</label>
+        <link refid="land__functors_8h"/>
+        <childnode refid="4714" relation="include">
+        </childnode>
+        <childnode refid="4717" relation="include">
+        </childnode>
+        <childnode refid="4720" relation="include">
+        </childnode>
+        <childnode refid="4761" relation="include">
+        </childnode>
+        <childnode refid="4762" relation="include">
+        </childnode>
+        <childnode refid="4764" relation="include">
+        </childnode>
+      </node>
+      <node id="4790">
+        <label>aerial_autonomy/trackers/tracking_strategy.h</label>
+        <link refid="tracking__strategy_8h"/>
+        <childnode refid="4743" relation="include">
+        </childnode>
+        <childnode refid="4791" relation="include">
+        </childnode>
+        <childnode refid="4737" relation="include">
+        </childnode>
+      </node>
+      <node id="4742">
+        <label>aerial_autonomy/types/position_yaw.h</label>
+        <link refid="position__yaw_8h"/>
+        <childnode refid="4743" relation="include">
+        </childnode>
+        <childnode refid="4745" relation="include">
+        </childnode>
+      </node>
+      <node id="4714">
+        <label>aerial_autonomy/actions_guards/base_functors.h</label>
+        <link refid="base__functors_8h"/>
+        <childnode refid="4715" relation="include">
+        </childnode>
+        <childnode refid="4716" relation="include">
+        </childnode>
+      </node>
+      <node id="4755">
         <label>aerial_autonomy/types/roll_pitch_yaw_thrust.h</label>
         <link refid="roll__pitch__yaw__thrust_8h"/>
       </node>
-      <node id="2627">
-        <label>type_traits</label>
-      </node>
-      <node id="2646">
+      <node id="4743">
         <label>aerial_autonomy/types/position.h</label>
         <link refid="position_8h"/>
-        <childnode refid="2647" relation="include">
+        <childnode refid="4744" relation="include">
         </childnode>
       </node>
-      <node id="2631">
-        <label>aerial_autonomy/robot_systems/uav_system.h</label>
-        <link refid="uav__system_8h"/>
-        <childnode refid="2632" relation="include">
+      <node id="4760">
+        <label>aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h</label>
+        <link refid="position__controller__drone__connector_8h"/>
+        <childnode refid="4728" relation="include">
         </childnode>
-        <childnode refid="2633" relation="include">
+        <childnode refid="4742" relation="include">
         </childnode>
-        <childnode refid="2643" relation="include">
-        </childnode>
-        <childnode refid="2660" relation="include">
+        <childnode refid="4758" relation="include">
         </childnode>
       </node>
-      <node id="2632">
+      <node id="4747">
+        <label>aerial_autonomy/types/velocity_yaw.h</label>
+        <link refid="velocity__yaw_8h"/>
+        <childnode refid="4748" relation="include">
+        </childnode>
+        <childnode refid="4745" relation="include">
+        </childnode>
+      </node>
+      <node id="4722">
+        <label>aerial_autonomy/common/html_utils.h</label>
+        <link refid="html__utils_8h"/>
+        <childnode refid="4723" relation="include">
+        </childnode>
+        <childnode refid="4724" relation="include">
+        </childnode>
+        <childnode refid="4725" relation="include">
+        </childnode>
+        <childnode refid="4726" relation="include">
+        </childnode>
+      </node>
+      <node id="4715">
+        <label>type_traits</label>
+      </node>
+      <node id="4777">
+        <label>boost/mpl/is_sequence.hpp</label>
+      </node>
+      <node id="4741">
+        <label>aerial_autonomy/controllers/builtin_controller.h</label>
+        <link refid="builtin__controller_8h"/>
+        <childnode refid="4733" relation="include">
+        </childnode>
+        <childnode refid="4742" relation="include">
+        </childnode>
+        <childnode refid="4747" relation="include">
+        </childnode>
+        <childnode refid="4749" relation="include">
+        </childnode>
+        <childnode refid="4750" relation="include">
+        </childnode>
+      </node>
+      <node id="4721">
         <label>uav_system_config.pb.h</label>
       </node>
-      <node id="2662">
+      <node id="4758">
         <label>parsernode/parser.h</label>
       </node>
-      <node id="2666">
+      <node id="4774">
+        <label>boost/mpl/bool.hpp</label>
+      </node>
+      <node id="4729">
+        <label>aerial_autonomy/common/atomic.h</label>
+        <link refid="atomic_8h"/>
+        <childnode refid="4730" relation="include">
+        </childnode>
+      </node>
+      <node id="4763">
         <label>aerial_autonomy/uav_basic_events.h</label>
       </node>
-      <node id="2642">
+      <node id="4739">
         <label>memory</label>
       </node>
-      <node id="2639">
+      <node id="4786">
+        <label>aerial_autonomy/controllers/constant_heading_depth_controller.h</label>
+        <link refid="constant__heading__depth__controller_8h"/>
+        <childnode refid="4733" relation="include">
+        </childnode>
+        <childnode refid="4742" relation="include">
+        </childnode>
+        <childnode refid="4787" relation="include">
+        </childnode>
+        <childnode refid="4788" relation="include">
+        </childnode>
+        <childnode refid="4746" relation="include">
+        </childnode>
+      </node>
+      <node id="4736">
         <label>typeindex</label>
       </node>
-      <node id="2633">
-        <label>aerial_autonomy/robot_systems/base_robot_system.h</label>
-        <link refid="base__robot__system_8h"/>
-        <childnode refid="2634" relation="include">
-        </childnode>
-        <childnode refid="2638" relation="include">
-        </childnode>
-        <childnode refid="2641" relation="include">
-        </childnode>
-        <childnode refid="2636" relation="include">
-        </childnode>
-        <childnode refid="2642" relation="include">
-        </childnode>
-      </node>
-      <node id="2673">
-        <label>aerial_autonomy/actions_guards/takeoff_functors.h</label>
-        <link refid="takeoff__functors_8h"/>
-        <childnode refid="2626" relation="include">
-        </childnode>
-        <childnode refid="2628" relation="include">
-        </childnode>
-        <childnode refid="2631" relation="include">
-        </childnode>
-        <childnode refid="2669" relation="include">
-        </childnode>
-        <childnode refid="2666" relation="include">
-        </childnode>
-        <childnode refid="2637" relation="include">
-        </childnode>
-        <childnode refid="2667" relation="include">
-        </childnode>
+      <node id="4779">
+        <label>boost/type_traits/is_same.hpp</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2682">
-        <label>include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
-        <link refid="visual_servoing_states_actions.h"/>
-        <childnode refid="2683" relation="include">
+      <node id="4795">
+        <label>include/aerial_autonomy/state_machines/pick_place_state_machine.h</label>
+        <link refid="pick__place__state__machine_8h"/>
+        <childnode refid="4796" relation="include">
         </childnode>
       </node>
-      <node id="2683">
-        <label>include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</label>
-        <link refid="visual__servoing__state__machine_8h"/>
-        <childnode refid="2684" relation="include">
+      <node id="4794">
+        <label>include/aerial_autonomy/actions_guards/pick_place_states_actions.h</label>
+        <link refid="pick__place__states__actions_8h"/>
+        <childnode refid="4795" relation="include">
         </childnode>
       </node>
-      <node id="2684">
+      <node id="4798">
         <label>src/system_handler_nodes/uav_vision_system_node.cpp</label>
         <link refid="uav__vision__system__node_8cpp"/>
+      </node>
+      <node id="4793">
+        <label>include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h</label>
+        <link refid="visual_servoing_states_actions.h"/>
+        <childnode refid="4794" relation="include">
+        </childnode>
+        <childnode refid="4797" relation="include">
+        </childnode>
+      </node>
+      <node id="4797">
+        <label>include/aerial_autonomy/state_machines/visual_servoing_state_machine.h</label>
+        <link refid="visual__servoing__state__machine_8h"/>
+        <childnode refid="4798" relation="include">
+        </childnode>
+      </node>
+      <node id="4796">
+        <label>src/system_handler_nodes/uav_arm_system_node.cpp</label>
+        <link refid="uav__arm__system__node_8cpp"/>
       </node>
     </invincdepgraph>
     <innerclass refid="structVisualServoingStatesActions" prot="public">VisualServoingStatesActions</innerclass>
@@ -502,27 +684,28 @@
     <detaileddescription>
     </detaileddescription>
     <programlisting>
-<codeline lineno="1"><highlight class="comment">//<sp/>States<sp/>and<sp/>actions<sp/>corresponding<sp/>to<sp/>basic<sp/>events</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="uav__states__actions_8h" kindref="compound">aerial_autonomy/actions_guards/uav_states_actions.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="visual__servoing__functors_8h" kindref="compound">aerial_autonomy/actions_guards/visual_servoing_functors.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="4"><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
-<codeline lineno="11" refid="structVisualServoingStatesActions" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structVisualServoingStatesActions" kindref="compound">VisualServoingStatesActions</ref><sp/>:<sp/><ref refid="structUAVStatesActions" kindref="compound">UAVStatesActions</ref>&lt;LogicStateMachineT&gt;<sp/>{</highlight></codeline>
-<codeline lineno="12"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Visual<sp/>servoing<sp/>states</highlight></codeline>
-<codeline lineno="16" refid="structVisualServoingStatesActions_1ae2d9c1f6e607afa330760c6cfd16ab51" refkind="member"><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="classBaseState" kindref="compound">VisualServoing</ref><sp/>=<sp/><ref refid="classBaseState" kindref="compound">VisualServoing_&lt;LogicStateMachineT&gt;</ref>;</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"></highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Basic<sp/>transition<sp/>Actions</highlight></codeline>
-<codeline lineno="22"><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structVisualServoingTransitionActionFunctor__" kindref="compound">VisualServoingTransitionAction</ref><sp/>=</highlight></codeline>
-<codeline lineno="23" refid="structVisualServoingStatesActions_1ac739aa6c2f2adebef80daa9d769d81ec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structVisualServoingTransitionActionFunctor__" kindref="compound">VisualServoingTransitionActionFunctor_&lt;LogicStateMachineT&gt;</ref>;</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structVisualServoingTransitionGuardFunctor__" kindref="compound">VisualServoingTransitionGuard</ref><sp/>=</highlight></codeline>
-<codeline lineno="28" refid="structVisualServoingStatesActions_1a869955a85f6cfa9631d7bd4e95be3b96" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structVisualServoingTransitionGuardFunctor__" kindref="compound">VisualServoingTransitionGuardFunctor_&lt;LogicStateMachineT&gt;</ref>;</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structGoHomeTransitionActionFunctor__" kindref="compound">GoHomeTransitionAction</ref><sp/>=</highlight></codeline>
-<codeline lineno="34" refid="structVisualServoingStatesActions_1ac4a0f045842f957324eb6ee5d7680543" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structGoHomeTransitionActionFunctor__" kindref="compound">GoHomeTransitionActionFunctor_&lt;LogicStateMachineT&gt;</ref>;</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structGoHomeTransitionGuardFunctor__" kindref="compound">GoHomeTransitionGuard</ref><sp/>=</highlight></codeline>
-<codeline lineno="39" refid="structVisualServoingStatesActions_1aba25d3f90f757a049e892465d2cc9b12" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structGoHomeTransitionGuardFunctor__" kindref="compound">GoHomeTransitionGuardFunctor_&lt;LogicStateMachineT&gt;</ref>;</highlight></codeline>
-<codeline lineno="40"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="comment">//<sp/>States<sp/>and<sp/>actions<sp/>corresponding<sp/>to<sp/>basic<sp/>events</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="uav__states__actions_8h" kindref="compound">aerial_autonomy/actions_guards/uav_states_actions.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="visual__servoing__functors_8h" kindref="compound">aerial_autonomy/actions_guards/visual_servoing_functors.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>LogicStateMachineT&gt;</highlight></codeline>
+<codeline lineno="12" refid="structVisualServoingStatesActions" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structVisualServoingStatesActions" kindref="compound">VisualServoingStatesActions</ref><sp/>:<sp/><ref refid="structUAVStatesActions" kindref="compound">UAVStatesActions</ref>&lt;LogicStateMachineT&gt;<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Visual<sp/>servoing<sp/>states</highlight></codeline>
+<codeline lineno="17" refid="structVisualServoingStatesActions_1ae2d9c1f6e607afa330760c6cfd16ab51" refkind="member"><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="classBaseState" kindref="compound">VisualServoing</ref><sp/>=<sp/><ref refid="classBaseState" kindref="compound">VisualServoing_&lt;LogicStateMachineT&gt;</ref>;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Basic<sp/>transition<sp/>Actions</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structVisualServoingTransitionActionFunctor__" kindref="compound">VisualServoingTransitionAction</ref><sp/>=</highlight></codeline>
+<codeline lineno="24" refid="structVisualServoingStatesActions_1ac739aa6c2f2adebef80daa9d769d81ec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structVisualServoingTransitionActionFunctor__" kindref="compound">VisualServoingTransitionActionFunctor_&lt;LogicStateMachineT&gt;</ref>;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structVisualServoingTransitionGuardFunctor__" kindref="compound">VisualServoingTransitionGuard</ref><sp/>=</highlight></codeline>
+<codeline lineno="29" refid="structVisualServoingStatesActions_1a869955a85f6cfa9631d7bd4e95be3b96" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structVisualServoingTransitionGuardFunctor__" kindref="compound">VisualServoingTransitionGuardFunctor_&lt;LogicStateMachineT&gt;</ref>;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structGoHomeTransitionActionFunctor__" kindref="compound">GoHomeTransitionAction</ref><sp/>=</highlight></codeline>
+<codeline lineno="35" refid="structVisualServoingStatesActions_1ac4a0f045842f957324eb6ee5d7680543" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structGoHomeTransitionActionFunctor__" kindref="compound">GoHomeTransitionActionFunctor_&lt;LogicStateMachineT&gt;</ref>;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/><ref refid="structGoHomeTransitionGuardFunctor__" kindref="compound">GoHomeTransitionGuard</ref><sp/>=</highlight></codeline>
+<codeline lineno="40" refid="structVisualServoingStatesActions_1aba25d3f90f757a049e892465d2cc9b12" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structGoHomeTransitionGuardFunctor__" kindref="compound">GoHomeTransitionGuardFunctor_&lt;LogicStateMachineT&gt;</ref>;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">};</highlight></codeline>
     </programlisting>
-    <location file="/home/gowtham/indigo_workspace/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h"/>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/actions_guards/visual_servoing_states_actions.h"/>
   </compounddef>
 </doxygen>

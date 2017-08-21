@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classTrackingStrategy.html" title="Defines a strategy for choosing a target to track among a group of tracked targets. " alt="" coords="6,31,127,57"/>
+<area shape="rect" id="node2" href="$classClosestTrackingStrategy.html" title="A tracking strategy that locks on to the closest target when initialized. " alt="" coords="177,5,343,32"/>
+<area shape="rect" id="node3" href="$classSimpleTrackingStrategy.html" title="A strategy that simply returns the first element in the list of tracking vectors Should be used if yo..." alt="" coords="179,56,341,83"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="include/aerial_autonomy/trackers/multi_tracker.h" name="include/aerial_autonomy/trackers/multi_tracker.h">
+<area shape="rect" id="node2" href="$base__tracker_8h.html" title="aerial_autonomy/trackers\l/base_tracker.h" alt="" coords="5,187,173,229"/>
+<area shape="rect" id="node5" href="$closest__tracking__strategy_8h.html" title="aerial_autonomy/trackers\l/closest_tracking_strategy.h" alt="" coords="179,97,365,138"/>
+<area shape="rect" id="node3" href="$position_8h.html" title="aerial_autonomy/types\l/position.h" alt="" coords="69,278,221,319"/>
+<area shape="rect" id="node6" href="$tracking__strategy_8h.html" title="aerial_autonomy/trackers\l/tracking_strategy.h" alt="" coords="197,187,365,229"/>
+</map>

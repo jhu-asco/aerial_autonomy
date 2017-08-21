@@ -1,0 +1,275 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="classUAVArmSystemHandler" kind="class" prot="public">
+    <compoundname>UAVArmSystemHandler</compoundname>
+    <includes refid="uav__arm__system__handler_8h" local="no">uav_arm_system_handler.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class LogicStateMachineT</type>
+      </param>
+      <param>
+        <type>class EventManagerT</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classUAVArmSystemHandler_1a085cd21231e74cee4ffe46f120c82828" prot="private" static="no" mutable="no">
+        <type>ros::NodeHandle</type>
+        <definition>ros::NodeHandle UAVArmSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::nh_uav_</definition>
+        <argsstring></argsstring>
+        <name>nh_uav_</name>
+        <briefdescription>
+<para>Nodehandle for UAV. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" line="102" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVArmSystemHandler_1aaf8bd7d5520a80a298b1765ba55c507c" prot="private" static="no" mutable="no">
+        <type>ros::NodeHandle</type>
+        <definition>ros::NodeHandle UAVArmSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::nh_arm_</definition>
+        <argsstring></argsstring>
+        <name>nh_arm_</name>
+        <briefdescription>
+<para>Nodehandle for Arm. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" line="103" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVArmSystemHandler_1ae51d0992af42ecb04a6c2fbb7aa00b8c" prot="private" static="no" mutable="no">
+        <type>ros::NodeHandle</type>
+        <definition>ros::NodeHandle UAVArmSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::nh_tracker_</definition>
+        <argsstring></argsstring>
+        <name>nh_tracker_</name>
+        <briefdescription>
+<para>Nodehandle for Tracker. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" line="104" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVArmSystemHandler_1acefb24dcda89dced91c96608c176c11b" prot="private" static="no" mutable="no">
+        <type>pluginlib::ClassLoader&lt; parsernode::Parser &gt;</type>
+        <definition>pluginlib::ClassLoader&lt;parsernode::Parser&gt; UAVArmSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::parser_loader_</definition>
+        <argsstring></argsstring>
+        <name>parser_loader_</name>
+        <briefdescription>
+<para>Used to load hardware plugin. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" line="106" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVArmSystemHandler_1a0c6fa223a63d96057f5f5012297dfe15" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; parsernode::Parser &gt;</type>
+        <definition>std::unique_ptr&lt;parsernode::Parser&gt; UAVArmSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::uav_hardware_</definition>
+        <argsstring></argsstring>
+        <name>uav_hardware_</name>
+        <briefdescription>
+<para>Hardware instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" line="107" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVArmSystemHandler_1a866f83ed64ab07a843e2ce54b04e0032" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; ArmParser &gt;</type>
+        <definition>std::unique_ptr&lt;ArmParser&gt; UAVArmSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::arm_hardware_</definition>
+        <argsstring></argsstring>
+        <name>arm_hardware_</name>
+        <briefdescription>
+<para>Arm Hardware instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" line="108" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVArmSystemHandler_1a4ce4016bc192a1c8f2c4ab01e737ea9b" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classBaseTracker" kindref="compound">BaseTracker</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;BaseTracker&gt; UAVArmSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::tracker_</definition>
+        <argsstring></argsstring>
+        <name>tracker_</name>
+        <briefdescription>
+<para>Tracking system. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" line="109" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVArmSystemHandler_1a172894e1a8ea017347044543b1ffc7d1" prot="private" static="no" mutable="no">
+        <type><ref refid="classUAVArmSystem" kindref="compound">UAVArmSystem</ref></type>
+        <definition>UAVArmSystem UAVArmSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::uav_system_</definition>
+        <argsstring></argsstring>
+        <name>uav_system_</name>
+        <briefdescription>
+<para>Contains controllers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" line="110" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVArmSystemHandler_1abff2db8b076985f6e2710a6751a8ae8e" prot="private" static="no" mutable="no">
+        <type><ref refid="classCommonSystemHandler" kindref="compound">CommonSystemHandler</ref>&lt; LogicStateMachineT, EventManagerT, <ref refid="classUAVArmSystem" kindref="compound">UAVArmSystem</ref> &gt;</type>
+        <definition>CommonSystemHandler&lt;LogicStateMachineT, EventManagerT, UAVArmSystem&gt; UAVArmSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::common_handler_</definition>
+        <argsstring></argsstring>
+        <name>common_handler_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Common logic to create state machine and associated connections. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" line="112" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVArmSystemHandler_1ad44316399339082544c775748f504205" prot="private" static="no" mutable="no">
+        <type><ref refid="classAsyncTimer" kindref="compound">AsyncTimer</ref></type>
+        <definition>AsyncTimer UAVArmSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::uav_controller_timer_</definition>
+        <argsstring></argsstring>
+        <name>uav_controller_timer_</name>
+        <briefdescription>
+<para>Timer for running uav controller. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" line="114" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classUAVArmSystemHandler_1abc0d01e888869be80faa7ad8f2f0b591" prot="private" static="no" mutable="no">
+        <type><ref refid="classAsyncTimer" kindref="compound">AsyncTimer</ref></type>
+        <definition>AsyncTimer UAVArmSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::arm_controller_timer_</definition>
+        <argsstring></argsstring>
+        <name>arm_controller_timer_</name>
+        <briefdescription>
+<para>Timer for running arm controller. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" line="115" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classUAVArmSystemHandler_1ac05481acb882266bd9402c0ad1df23c8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>UAVArmSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::UAVArmSystemHandler</definition>
+        <argsstring>(UAVSystemHandlerConfig &amp;config)</argsstring>
+        <name>UAVArmSystemHandler</name>
+        <param>
+          <type>UAVSystemHandlerConfig &amp;</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>nh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeHandle to use for event and command subscription </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Proto configuration parameters </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" line="36" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" bodystart="36" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVArmSystemHandler_1a44cc933735b85a363336ae3e697ea9e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>UAVArmSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::UAVArmSystemHandler</definition>
+        <argsstring>(const UAVArmSystemHandler &amp;)=delete</argsstring>
+        <name>UAVArmSystemHandler</name>
+        <param>
+          <type>const <ref refid="classUAVArmSystemHandler" kindref="compound">UAVArmSystemHandler</ref> &amp;</type>
+        </param>
+        <briefdescription>
+<para>Delete copy constructor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" line="81" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVArmSystemHandler_1afbcb6298a62b811c1d8c65f59b44ebe5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>parsernode::common::quaddata</type>
+        <definition>parsernode::common::quaddata UAVArmSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::getUAVData</definition>
+        <argsstring>()</argsstring>
+        <name>getUAVData</name>
+        <briefdescription>
+<para>Get UAV state. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The UAV state </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" line="87" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" bodystart="87" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="classUAVArmSystemHandler_1a0fb14cd85676559143400f168551a03d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool UAVArmSystemHandler&lt; LogicStateMachineT, EventManagerT &gt;::isConnected</definition>
+        <argsstring>()</argsstring>
+        <name>isConnected</name>
+        <briefdescription>
+<para>Forward common handler connected function for testing is GUI is connected to this node or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if connected </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" line="99" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" bodystart="99" bodyend="99"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Owns all of the autonomous system components and is responsible for thread management. Also owns a common system handler object to handle creation of state machine and connecting it to GUI. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>LogicStateMachineT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Logic state machine to use </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EventManagerT</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event manager to use </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" line="29" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/system_handlers/uav_arm_system_handler.h" bodystart="29" bodyend="116"/>
+    <listofallmembers>
+      <member refid="classUAVArmSystemHandler_1abc0d01e888869be80faa7ad8f2f0b591" prot="private" virt="non-virtual"><scope>UAVArmSystemHandler</scope><name>arm_controller_timer_</name></member>
+      <member refid="classUAVArmSystemHandler_1a866f83ed64ab07a843e2ce54b04e0032" prot="private" virt="non-virtual"><scope>UAVArmSystemHandler</scope><name>arm_hardware_</name></member>
+      <member refid="classUAVArmSystemHandler_1abff2db8b076985f6e2710a6751a8ae8e" prot="private" virt="non-virtual"><scope>UAVArmSystemHandler</scope><name>common_handler_</name></member>
+      <member refid="classUAVArmSystemHandler_1afbcb6298a62b811c1d8c65f59b44ebe5" prot="public" virt="non-virtual"><scope>UAVArmSystemHandler</scope><name>getUAVData</name></member>
+      <member refid="classUAVArmSystemHandler_1a0fb14cd85676559143400f168551a03d" prot="public" virt="non-virtual"><scope>UAVArmSystemHandler</scope><name>isConnected</name></member>
+      <member refid="classUAVArmSystemHandler_1aaf8bd7d5520a80a298b1765ba55c507c" prot="private" virt="non-virtual"><scope>UAVArmSystemHandler</scope><name>nh_arm_</name></member>
+      <member refid="classUAVArmSystemHandler_1ae51d0992af42ecb04a6c2fbb7aa00b8c" prot="private" virt="non-virtual"><scope>UAVArmSystemHandler</scope><name>nh_tracker_</name></member>
+      <member refid="classUAVArmSystemHandler_1a085cd21231e74cee4ffe46f120c82828" prot="private" virt="non-virtual"><scope>UAVArmSystemHandler</scope><name>nh_uav_</name></member>
+      <member refid="classUAVArmSystemHandler_1acefb24dcda89dced91c96608c176c11b" prot="private" virt="non-virtual"><scope>UAVArmSystemHandler</scope><name>parser_loader_</name></member>
+      <member refid="classUAVArmSystemHandler_1a4ce4016bc192a1c8f2c4ab01e737ea9b" prot="private" virt="non-virtual"><scope>UAVArmSystemHandler</scope><name>tracker_</name></member>
+      <member refid="classUAVArmSystemHandler_1ad44316399339082544c775748f504205" prot="private" virt="non-virtual"><scope>UAVArmSystemHandler</scope><name>uav_controller_timer_</name></member>
+      <member refid="classUAVArmSystemHandler_1a0c6fa223a63d96057f5f5012297dfe15" prot="private" virt="non-virtual"><scope>UAVArmSystemHandler</scope><name>uav_hardware_</name></member>
+      <member refid="classUAVArmSystemHandler_1a172894e1a8ea017347044543b1ffc7d1" prot="private" virt="non-virtual"><scope>UAVArmSystemHandler</scope><name>uav_system_</name></member>
+      <member refid="classUAVArmSystemHandler_1ac05481acb882266bd9402c0ad1df23c8" prot="public" virt="non-virtual"><scope>UAVArmSystemHandler</scope><name>UAVArmSystemHandler</name></member>
+      <member refid="classUAVArmSystemHandler_1a44cc933735b85a363336ae3e697ea9e0" prot="public" virt="non-virtual"><scope>UAVArmSystemHandler</scope><name>UAVArmSystemHandler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

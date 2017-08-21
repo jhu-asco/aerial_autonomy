@@ -92,7 +92,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>Check tracking is valid before starting visual servoing *.  
+<p>Check tracking is valid before starting visual servoing.  
  <a href="structVisualServoingTransitionGuardFunctor__.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="visual__servoing__functors_8h_source.html">visual_servoing_functors.h</a>&gt;</code></p>
@@ -113,9 +113,9 @@ Collaboration diagram for VisualServoingTransitionGuardFunctor_&lt; LogicStateMa
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:acf19d404297286c2ed6c5372997c2266"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVisualServoingTransitionGuardFunctor__.html#acf19d404297286c2ed6c5372997c2266">guard</a> (<a class="el" href="classUAVVisionSystem.html">UAVVisionSystem</a> &amp;robot_system_, LogicStateMachineT &amp;)</td></tr>
-<tr class="memdesc:acf19d404297286c2ed6c5372997c2266"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override this run function for different sub classes. This function performs the logic checking for each state.  <a href="#acf19d404297286c2ed6c5372997c2266">More...</a><br/></td></tr>
-<tr class="separator:acf19d404297286c2ed6c5372997c2266"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5c0760d380dc2ff9857eb1ac8866aa2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structVisualServoingTransitionGuardFunctor__.html#ac5c0760d380dc2ff9857eb1ac8866aa2">guard</a> (<a class="el" href="classUAVVisionSystem.html">UAVVisionSystem</a> &amp;robot_system)</td></tr>
+<tr class="memdesc:ac5c0760d380dc2ff9857eb1ac8866aa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override this run function for different sub classes. This function performs the logic checking for each state.  <a href="#ac5c0760d380dc2ff9857eb1ac8866aa2">More...</a><br/></td></tr>
+<tr class="separator:ac5c0760d380dc2ff9857eb1ac8866aa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_structEventAgnosticGuardFunctor"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_structEventAgnosticGuardFunctor')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="structEventAgnosticGuardFunctor.html">EventAgnosticGuardFunctor&lt; UAVVisionSystem, LogicStateMachineT &gt;</a></td></tr>
 <tr class="memitem:a775411c4c4e0815298200f895af3c02b inherit pub_methods_structEventAgnosticGuardFunctor"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structEventAgnosticGuardFunctor.html#a775411c4c4e0815298200f895af3c02b">operator()</a> (EventT const &amp;, FSM &amp;logic_state_machine, SourceState &amp;, TargetState &amp;)</td></tr>
 <tr class="memdesc:a775411c4c4e0815298200f895af3c02b inherit pub_methods_structEventAgnosticGuardFunctor"><td class="mdescLeft">&#160;</td><td class="mdescRight">operator () Internally calls run function  <a href="#a775411c4c4e0815298200f895af3c02b">More...</a><br/></td></tr>
@@ -128,7 +128,7 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><h3>template&lt;class LogicStateMachineT&gt;<br/>
 struct VisualServoingTransitionGuardFunctor_&lt; LogicStateMachineT &gt;</h3>
 
-<p>Check tracking is valid before starting visual servoing *. </p>
+<p>Check tracking is valid before starting visual servoing. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">LogicStateMachineT</td><td>Logic state machine used to process events </td></tr>
@@ -136,7 +136,7 @@ struct VisualServoingTransitionGuardFunctor_&lt; LogicStateMachineT &gt;</h3>
   </dd>
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="acf19d404297286c2ed6c5372997c2266"></a>
+<a class="anchor" id="ac5c0760d380dc2ff9857eb1ac8866aa2"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -149,18 +149,8 @@ template&lt;class LogicStateMachineT &gt; </div>
           <td class="memname">bool <a class="el" href="structVisualServoingTransitionGuardFunctor__.html">VisualServoingTransitionGuardFunctor_</a>&lt; LogicStateMachineT &gt;::guard </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classUAVVisionSystem.html">UAVVisionSystem</a> &amp;&#160;</td>
-          <td class="paramname"><em>robot_system</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>robot_system</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">LogicStateMachineT &amp;&#160;</td>
-          <td class="paramname"><em>logic_state_machine</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -174,12 +164,11 @@ template&lt;class LogicStateMachineT &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">robot_system</td><td>Provides sensor data and allows for controlling hardware </td></tr>
-    <tr><td class="paramname">logic_state_machine</td><td>Backend of logic State Machine. can send events using this. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="structEventAgnosticGuardFunctor.html#ad97196f6a607d199d6dbd56156b8dd8c">EventAgnosticGuardFunctor&lt; UAVVisionSystem, LogicStateMachineT &gt;</a>.</p>
+<p>Implements <a class="el" href="structEventAgnosticGuardFunctor.html#a780ff422dd77c3091f7459159784d54e">EventAgnosticGuardFunctor&lt; UAVVisionSystem, LogicStateMachineT &gt;</a>.</p>
 
 </div>
 </div>

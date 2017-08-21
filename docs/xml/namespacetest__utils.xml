@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="namespacetest__utils" kind="namespace">
+    <compoundname>test_utils</compoundname>
+    <innerclass refid="structtest__utils_1_1WaitUntilResult" prot="public">test_utils::WaitUntilResult</innerclass>
+    <innerclass refid="structtest__utils_1_1BaseTestPubSubs" prot="public">test_utils::BaseTestPubSubs</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="namespacetest__utils_1a77b838c98717cae8ec2134e9e87e2688" prot="public" static="no">
+        <type><ref refid="structtest__utils_1_1WaitUntilResult" kindref="compound">WaitUntilResult</ref>&lt; true &gt;</type>
+        <definition>using test_utils::waitUntilTrue = typedef WaitUntilResult&lt;true&gt;</definition>
+        <argsstring></argsstring>
+        <name>waitUntilTrue</name>
+        <briefdescription>
+<para>Convenience name to wait until input function returns true. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/test_utils.h" line="119" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/test_utils.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="namespacetest__utils_1ad84e57d69a29dbc0fad39edeba69fa49" prot="public" static="no">
+        <type><ref refid="structtest__utils_1_1WaitUntilResult" kindref="compound">WaitUntilResult</ref>&lt; false &gt;</type>
+        <definition>using test_utils::waitUntilFalse = typedef WaitUntilResult&lt;false&gt;</definition>
+        <argsstring></argsstring>
+        <name>waitUntilFalse</name>
+        <briefdescription>
+<para>Convenience name to wait until input function returns false. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/test_utils.h" line="123" column="1" bodyfile="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/test_utils.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/matt/catkin_ws/src/aerial_autonomy/include/aerial_autonomy/tests/test_utils.h" line="7" column="1"/>
+  </compounddef>
+</doxygen>
