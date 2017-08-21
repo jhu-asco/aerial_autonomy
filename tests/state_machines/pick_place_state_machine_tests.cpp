@@ -145,11 +145,10 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
     std::this_thread::sleep_for(std::chrono::milliseconds(time_period));
   }
   // Make sure controllers are aborted
-  ControllerStatus controller_status;
-  ASSERT_FALSE(uav_arm_system->getActiveControllerStatus(HardwareType::Arm,
-                                                         controller_status));
-  ASSERT_FALSE(uav_arm_system->getActiveControllerStatus(HardwareType::UAV,
-                                                         controller_status));
+  ASSERT_EQ(uav_arm_system->getActiveControllerStatus(HardwareType::Arm),
+            ControllerStatus::NotEngaged);
+  ASSERT_EQ(uav_arm_system->getActiveControllerStatus(HardwareType::UAV),
+            ControllerStatus::NotEngaged);
   // Check we are back in Hovering state
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
 }
