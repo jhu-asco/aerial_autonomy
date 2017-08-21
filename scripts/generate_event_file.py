@@ -27,8 +27,19 @@ def create_event(event_name, accumulate_event_map, out_file):
         "    {0} evt;\n"
         "    logic_state_machine.process_event(evt);\n"
         "  }}\n").format(event_name)
-    accumulate_event_map.append(
-        '{{"{0}", generate_{0}<LogicStateMachine>}}'.format(event_name))
+    accumulate_event_name(accumulate_event_map, event_name)
+
+
+def accumulate_event_name(accumulate_event_map, event_name, namespace=None):
+    """
+    Accumulate event name into the map for creating unordered map
+    """
+    if namespace is None:
+        accumulate_event_map.append(
+            '{{"{0}", generate_{0}<LogicStateMachine>}}'.format(event_name))
+    else:
+        accumulate_event_map.append(
+            '{{"{0}", {1}::generate_{0}<LogicStateMachine>}}'.format(event_name, namespace))
 
 
 def create_sub_event_managers(
@@ -110,32 +121,39 @@ def create_event_manager(event_manager_name, accumulate_event_map,
         "  };")
 
 
-def check_event_manager(event_name):
-    event_manager_tuple = event_name.split('/')
-    if len(event_manager_tuple) == 2:
-        return True
-    return False
+def number_of_slashes(event_name):
+    return len(event_name.split('/')) - 1
 
 
 def check_event_name(event_name):
     if '/' in event_name:
-      variable_pattern = re.compile('^[a-zA-Z_]\w*/[a-zA-Z_]\w*')
-      match_obj = variable_pattern.match(event_name)
+        if number_of_slashes(event_name) == 1:
+            variable_pattern = re.compile('^[a-zA-Z_]\w*/[a-zA-Z_]\w*')
+            match_obj = variable_pattern.match(event_name)
+        elif number_of_slashes(event_name) == 2:
+            variable_pattern = re.compile(
+                '^[a-zA-Z_]\w*/[a-zA-Z_]\w*/[a-zA-Z_]\w*')
+            match_obj = variable_pattern.match(event_name)
+        else:
+            match_obj = None
     else:
-      variable_pattern = re.compile('^[a-zA-Z_]\w*')
-      match_obj = variable_pattern.match(event_name)
+        variable_pattern = re.compile('^[a-zA-Z_]\w*')
+        match_obj = variable_pattern.match(event_name)
 
     if match_obj is None or match_obj.group() != event_name:
-      raise Exception("Variable name does not match c++ conventions: {0}".format(event_name))
+        raise Exception(
+            "Variable name does not match c++ conventions: {0}".format(event_name))
 
 
 def create_sub_event_manager(event_name, accumulate_event_manager_classes,
                              accumulate_event_manager_names, out_file):
     event_manager_tuple = event_name.split('/')
-    if len(event_manager_tuple) == 2:
+    # Event name can be a manager from another file or just an event
+    if (len(event_manager_tuple) == 2 or len(event_manager_tuple) == 3):
         print >>out_file, (
             "#include <aerial_autonomy/{0}.h>"
         ).format(event_manager_tuple[0],)
+    if len(event_manager_tuple) == 2:
         accumulate_event_manager_classes.append(
             '::'.join(event_manager_tuple) + '<LogicStateMachine>')
         accumulate_event_manager_names.append(
@@ -181,8 +199,15 @@ if __name__ == "__main__":
     event_manager_name = event_names_list[0][:-1]
     for event_name in event_names_list[1:]:
         event_name = event_name.strip()
-        if not check_event_manager(event_name):
+        if number_of_slashes(event_name) == 0:  # Pure Event
             create_event(event_name, accumulate_event_map, out_file)
+        elif number_of_slashes(event_name) == 2:  # Event from another file
+            event_tuple = event_name.split('/')
+            accumulate_event_name(
+                accumulate_event_map,
+                event_tuple[2],
+                event_tuple[0])
+
     print >>out_file, "\n//Event manager class"
     create_event_manager(event_manager_name, accumulate_event_map,
                          accumulate_event_manager_classes,

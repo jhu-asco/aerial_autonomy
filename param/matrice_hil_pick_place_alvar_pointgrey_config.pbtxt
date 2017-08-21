@@ -1,0 +1,70 @@
+uav_parser_type: "dji_parser/DjiHILParser"
+uav_controller_timer_duration: 20
+
+uav_arm_system_handler_config {
+  arm_controller_timer_duration: 20
+  arm_parser_type: "SimpleArm"
+}
+
+base_config {
+  state_machine_timer_duration: 20
+  status_timer_duration: 50
+}
+
+uav_system_config {
+  minimum_battery_percent: 40
+  minimum_takeoff_height: 0.5
+  landing_height: 0.1
+
+  uav_vision_system_config {
+    tracker_type: "Alvar"
+
+    camera_transform: 0.18
+    camera_transform: 0
+    camera_transform: -0.08
+    camera_transform: 1.9199
+    camera_transform: 0
+    camera_transform: 1.5708
+
+    desired_visual_servoing_distance: 0.5
+    constant_heading_depth_controller_config {
+      radial_gain: 0.3
+      tangential_gain: 0.3
+      yaw_gain: 0.3
+      max_velocity: 1
+      max_yaw_rate: 0.3
+      position_controller_config {
+        goal_position_tolerance: 0.1
+        goal_yaw_tolerance: 0.05
+      }
+    }
+    uav_arm_system_config {
+      arm_goal_transform: -0.10
+      arm_goal_transform: 0.0
+      arm_goal_transform: -0.05
+      arm_goal_transform: 0.0
+      arm_goal_transform: 0.0
+      arm_goal_transform: 0.0
+
+      arm_goal_transform: -0.0
+      arm_goal_transform: 0.0
+      arm_goal_transform: -0.05
+      arm_goal_transform: 0.0
+      arm_goal_transform: 0.0
+      arm_goal_transform: 0.0
+
+      arm_transform: 0.17
+      arm_transform: 0.0
+      arm_transform: -0.109
+      arm_transform: 0.0
+      arm_transform: -1.5707
+      arm_transform: 3.141
+
+      position_controller_config {
+        goal_position_tolerance: 0.05
+        goal_rotation_tolerance: 6
+      }
+    }
+  }
+}
+

@@ -42,9 +42,9 @@ protected:
   * @param sensor_data Current position yaw
   * @param goal Goal position yaw
   *
-  * @return  True if sensor data is close to goal
+  * @return controller status that contains an enum and debug information.
   */
-  virtual bool isConvergedImplementation(PositionYaw sensor_data,
-                                         PositionYaw goal);
+  virtual ControllerStatus isConvergedImplementation(PositionYaw sensor_data,
+                                                     PositionYaw goal);
   VelocityBasedPositionControllerConfig config_; ///< Controller configuration
 };

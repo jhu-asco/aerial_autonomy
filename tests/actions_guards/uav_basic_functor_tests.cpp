@@ -58,16 +58,16 @@ TEST(LandFunctorTests, CallOperatorFunction) {
   LandInternalActionFunctor land_internal_action_functor;
   // Taking off which sets altitude to 0.5
   drone_hardware.takeoff();
-  land_internal_action_functor(InternalTransitionEvent(),
-                               sample_logic_state_machine, dummy_start_state,
-                               dummy_target_state);
+  ASSERT_TRUE(land_internal_action_functor(
+      InternalTransitionEvent(), sample_logic_state_machine, dummy_start_state,
+      dummy_target_state));
   ASSERT_NE(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(Completed)));
   // After landing which sets altitude to 0.0
   drone_hardware.land();
-  land_internal_action_functor(InternalTransitionEvent(),
-                               sample_logic_state_machine, dummy_start_state,
-                               dummy_target_state);
+  ASSERT_FALSE(land_internal_action_functor(
+      InternalTransitionEvent(), sample_logic_state_machine, dummy_start_state,
+      dummy_target_state));
   ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(Completed)));
 }
@@ -79,12 +79,14 @@ TEST(LandFunctorTests, ManualControlInternalActionTest) {
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_event, dummy_start_state, dummy_target_state;
   LandInternalActionFunctor land_internal_action_functor;
-  land_internal_action_functor(dummy_event, sample_logic_state_machine,
-                               dummy_start_state, dummy_target_state);
+  ASSERT_FALSE(
+      land_internal_action_functor(dummy_event, sample_logic_state_machine,
+                                   dummy_start_state, dummy_target_state));
   // Check the same for landed functor
   LandedInternalActionFunctor landed_internal_action_functor;
-  landed_internal_action_functor(dummy_event, sample_logic_state_machine,
-                                 dummy_start_state, dummy_target_state);
+  ASSERT_FALSE(
+      landed_internal_action_functor(dummy_event, sample_logic_state_machine,
+                                     dummy_start_state, dummy_target_state));
   ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(ManualControlEvent)));
 }

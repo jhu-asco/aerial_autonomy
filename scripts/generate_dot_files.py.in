@@ -82,7 +82,8 @@ def generate_dot_files(file_path, out_folder):
 if __name__ == '__main__':
     state_machine_folder = ("${PROJECT_SOURCE_DIR}/include/"
                             "aerial_autonomy/state_machines")
-    state_machine_files = os.listdir(state_machine_folder)
+    list_files = os.listdir(state_machine_folder)
+    state_machine_files = [state_machine_file for state_machine_file in list_files if state_machine_file.endswith('.h')]
     dot_out_folder = "${PROJECT_SOURCE_DIR}/.dot_output"
     if not os.path.exists(dot_out_folder):
         os.mkdir(dot_out_folder)

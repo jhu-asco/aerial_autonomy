@@ -1,15 +1,7 @@
 #pragma once
 
 #include "aerial_autonomy/common/atomic.h"
-
-/**
-* @brief Status of the controller
-*/
-enum class ControllerStatus {
-  Active,    ///< Controller active
-  Completed, ///< Controller completed
-  Critical   ///< Controller is critical and unable to continue
-};
+#include "aerial_autonomy/common/controller_status.h"
 
 /**
 * @brief Base Controller class
@@ -42,9 +34,9 @@ public:
   * @param sensor_data Sensor data to compare against goal for convergence
   * checking
   *
-  * @return true if converged/false otherwise
+  * @return controller status that contains an enum and debug information.
   */
-  bool isConverged(SensorDataType sensor_data) {
+  ControllerStatus isConverged(SensorDataType sensor_data) {
     return isConvergedImplementation(sensor_data, goal_);
   }
   /**
@@ -83,10 +75,10 @@ protected:
   * @param sensor_data Data to be used for checking convergence
   * @param goal This is compared against sensor data
   *
-  * @return true if converged/false otherwise
+  * @return controller status that contains an enum and debug information.
   */
-  virtual bool isConvergedImplementation(SensorDataType sensor_data,
-                                         GoalType goal) = 0;
+  virtual ControllerStatus isConvergedImplementation(SensorDataType sensor_data,
+                                                     GoalType goal) = 0;
 
 private:
   /**

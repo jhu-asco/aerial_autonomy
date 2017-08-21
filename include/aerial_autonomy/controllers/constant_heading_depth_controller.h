@@ -45,9 +45,9 @@ protected:
   * @param sensor_data Current position yaw
   * @param goal Goal position. Yaw inferred from position
   *
-  * @return if converged
+  * @return controller status that contains an enum and debug information.
   */
-  virtual bool isConvergedImplementation(PositionYaw sensor_data,
-                                         Position goal);
+  virtual ControllerStatus isConvergedImplementation(PositionYaw sensor_data,
+                                                     Position goal);
   ConstantHeadingDepthControllerConfig config_; ///< Controller configuration
 };

@@ -92,7 +92,7 @@ TEST_F(StateMachineTests, Takeoff) {
 
 TEST_F(StateMachineTests, TakeoffManualControlAbort) {
   drone_hardware.setBatteryPercent(100);
-  //Takeoff
+  // Takeoff
   logic_state_machine->process_event(be::Takeoff());
   // Disable sdk
   drone_hardware.flowControl(false);

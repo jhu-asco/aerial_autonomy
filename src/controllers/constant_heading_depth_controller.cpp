@@ -22,6 +22,8 @@ bool ConstantHeadingDepthController::runImplementation(
 
   if (desired_vel_tf.length() > config_.max_velocity()) {
     desired_vel_tf *= config_.max_velocity() / desired_vel_tf.length();
+  } else if (desired_vel_tf.length() < config_.min_velocity()) {
+    desired_vel_tf *= config_.min_velocity() / desired_vel_tf.length();
   }
 
   double error_yaw =
@@ -36,22 +38,25 @@ bool ConstantHeadingDepthController::runImplementation(
   return true;
 }
 
-bool ConstantHeadingDepthController::isConvergedImplementation(
+ControllerStatus ConstantHeadingDepthController::isConvergedImplementation(
     PositionYaw sensor_data, Position goal) {
   double error_yaw =
       math::angleWrap(std::atan2(goal.y, goal.x) - sensor_data.yaw);
+  Position error = Position(sensor_data.x, sensor_data.y, sensor_data.z) - goal;
+  ControllerStatus status(ControllerStatus::Active);
+  status << " Error Position, Yaw: " << error.x << error.y << error.z
+         << error_yaw;
   const PositionControllerConfig &position_controller_config =
       config_.position_controller_config();
   const double &tolerance_pos =
       position_controller_config.goal_position_tolerance();
   const double &tolerance_yaw = position_controller_config.goal_yaw_tolerance();
   // Compare
-  if (std::abs(sensor_data.x - goal.x) < tolerance_pos &&
-      std::abs(sensor_data.y - goal.y) < tolerance_pos &&
-      std::abs(sensor_data.z - goal.z) < tolerance_pos &&
+  if (std::abs(error.x) < tolerance_pos && std::abs(error.y) < tolerance_pos &&
+      std::abs(error.z) < tolerance_pos &&
       std::abs(error_yaw) < tolerance_yaw) {
     VLOG(1) << "Reached goal";
-    return true;
+    status.setStatus(ControllerStatus::Completed, "Reached Goal");
   }
-  return false;
+  return status;
 }

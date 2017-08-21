@@ -75,11 +75,13 @@ bool RoiToPositionConverter::roiIsValid() {
   return valid;
 }
 
-bool RoiToPositionConverter::getTrackingVector(Position &pos) {
+bool RoiToPositionConverter::getTrackingVectors(
+    std::unordered_map<uint32_t, Position> &pos) {
+  CHECK(pos.empty()) << "Tracking vector map is not empty";
   if (!trackingIsValid()) {
     return false;
   }
-  pos = object_position_;
+  pos[0] = object_position_;
   return true;
 }
 

@@ -27,18 +27,18 @@ public:
    * @param nh NodeHandle to use for event and command subscription
    * @param config Proto configuration parameters
    */
-  UAVSystemHandler(ros::NodeHandle &nh, UAVSystemHandlerConfig &config)
-      : parser_loader_("parsernode", "parsernode::Parser"),
+  UAVSystemHandler(UAVSystemHandlerConfig &config)
+      : nh_uav_("~uav"), parser_loader_("parsernode", "parsernode::Parser"),
         uav_hardware_(
             parser_loader_.createUnmanagedInstance(config.uav_parser_type())),
         uav_system_(*uav_hardware_, config.uav_system_config()),
-        common_handler_(nh, config.base_config(), uav_system_),
+        common_handler_(config.base_config(), uav_system_),
         uav_controller_timer_(
             std::bind(&UAVSystem::runActiveController, std::ref(uav_system_),
                       HardwareType::UAV),
             std::chrono::milliseconds(config.uav_controller_timer_duration())) {
     // Initialize UAV plugin
-    uav_hardware_->initialize(nh);
+    uav_hardware_->initialize(nh_uav_);
 
     // Get the party started
     common_handler_.startTimers();
@@ -69,6 +69,7 @@ public:
   bool isConnected() { return common_handler_.isConnected(); }
 
 private:
+  ros::NodeHandle nh_uav_; ///< Nodehandle for UAV
   pluginlib::ClassLoader<parsernode::Parser>
       parser_loader_; ///< Used to load hardware plugin
   std::unique_ptr<parsernode::Parser> uav_hardware_; ///< Hardware instance

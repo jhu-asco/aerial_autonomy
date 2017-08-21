@@ -1,5 +1,6 @@
 #pragma once
 #include <aerial_autonomy/common/atomic.h>
+#include <aerial_autonomy/common/controller_status.h>
 #include <aerial_autonomy/controllers/base_controller.h>
 #include <glog/logging.h>
 
@@ -69,7 +70,7 @@ public:
       Controller<SensorDataType, GoalType, ControlType> &controller,
       HardwareType hardware_type)
       : AbstractControllerHardwareConnector(), hardware_type_(hardware_type),
-        controller_(controller), status_(ControllerStatus::Active) {}
+        controller_(controller) {}
 
   /**
    * @brief Extracts sensor data, run controller and send data back to hardware
@@ -78,26 +79,20 @@ public:
     // Get latest sensor data
     // run the controller
     // send the data back to hardware manager
-    SensorDataType sensor_data; // Declare sensor data
-    ControlType control;        // Declare control to send hardware
-    // Extract Sensor data
+    SensorDataType sensor_data;
+    ControlType control;
     if (!extractSensorData(sensor_data)) {
-      setStatus(ControllerStatus::Critical);
+      status_ = ControllerStatus(ControllerStatus::Critical,
+                                 "Cannot extract sensor data");
       return;
     }
-    // Run controller step
     if (!controller_.run(sensor_data, control)) {
-      setStatus(ControllerStatus::Critical);
+      status_ =
+          ControllerStatus(ControllerStatus::Critical, "Cannot run controller");
       return;
     }
-    // Send hardware commands
     sendHardwareCommands(control);
-    // Check if controller converged
-    if (controller_.isConverged(sensor_data)) {
-      setStatus(ControllerStatus::Completed);
-    } else {
-      setStatus(ControllerStatus::Active);
-    }
+    status_ = controller_.isConverged(sensor_data);
   }
   /**
    * @brief Set the goal for controller
@@ -105,7 +100,7 @@ public:
    * @param goal Goal for controller
    */
   void setGoal(GoalType goal) {
-    setStatus(ControllerStatus::Active);
+    status_ = ControllerStatus(ControllerStatus::Active);
     controller_.setGoal(goal);
   }
   /**
@@ -165,10 +160,4 @@ private:
   * @brief Status of the controller
   */
   Atomic<ControllerStatus> status_;
-  /**
-  * @brief Set the status of the controller
-  *
-  * @param status the status of the controller
-  */
-  void setStatus(ControllerStatus status) { status_ = status; }
 };

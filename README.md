@@ -23,6 +23,18 @@ Install protobuf 3.1:
     sudo make install
     sudo ldconfig
 
+Install googletest `release 1.8.0`. This version fixes a bug with `ASSERT_TRUE` as explained [here](https://github.com/google/googletest/issues/429). To install googletest, follow these steps
+
+    git  clone https://github.com/google/googletest.git
+    cd googletest
+    git checkout release-1.8.0
+    mkdir build
+    cd build
+    cmake .. -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON -DBUILD_GMOCK=ON -DBUILD_GTEST=ON
+    make
+    sudo make install
+    sudo ldconfig
+
 ## Running Executables
 The package provides a `uav_system_node` executable which loads a state machine and hardware and waits for event commands from a ROS topic. The `rqt_aerial_autonomy_gui` script
 provides a GUI to generate events for the state machine. The rqt plugin can be loaded along with `rqt_rviz` in the `rqt_gui` framework.
