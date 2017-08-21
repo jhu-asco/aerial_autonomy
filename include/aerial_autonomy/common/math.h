@@ -57,6 +57,12 @@ template <class T> tf::Transform getTransformFromVector(const T &input) {
 * @param input The input vector containing x,y,z, r,p,y
 *
 * @return vector of tf::Transform
+*
+*/
+
+/**
+* \todo (Matt) Add proto for transform and just process a list of the
+* proto transforms here
 */
 template <class T>
 std::vector<tf::Transform> getTransformsFromVector(const T &input) {
