@@ -48,10 +48,12 @@ struct HoveringInternalActionFunctor_
 * @brief Logic to abort if controller status is critical
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
-* @tparam ControllerConnector Controller connector whose status the functor checks
+* @tparam ControllerConnector Controller connector whose status the functor
+* checks
 * @tparam check_completed If false, ignores check on controller completion
 */
-template <class LogicStateMachineT, class ControllerConnector, bool check_completed = true>
+template <class LogicStateMachineT, class ControllerConnector,
+          bool check_completed = true>
 struct ControllerStatusInternalActionFunctor_
     : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
   /**

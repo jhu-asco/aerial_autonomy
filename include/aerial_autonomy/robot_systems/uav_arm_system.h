@@ -27,8 +27,8 @@ public:
                           .grip_timeout()),
         arm_goal_transforms_(
             math::getTransformsFromVector(config_.uav_vision_system_config()
-                                             .uav_arm_system_config()
-                                             .arm_goal_transform())),
+                                              .uav_arm_system_config()
+                                              .arm_goal_transform())),
         arm_transform_(
             math::getTransformFromVector(config_.uav_vision_system_config()
                                              .uav_arm_system_config()

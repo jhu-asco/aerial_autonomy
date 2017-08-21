@@ -58,16 +58,19 @@ template <class T> tf::Transform getTransformFromVector(const T &input) {
 *
 * @return vector of tf::Transform
 */
-template <class T> std::vector<tf::Transform> getTransformsFromVector(const T &input) {
+template <class T>
+std::vector<tf::Transform> getTransformsFromVector(const T &input) {
   if (input.size() % 6 != 0) {
-    throw std::runtime_error("The input does not have a multiple of 6 elements x,y,z, r,p,y");
-  } 
+    throw std::runtime_error(
+        "The input does not have a multiple of 6 elements x,y,z, r,p,y");
+  }
 
-  std::vector<tf::Transform> transforms(input.size()/6);
-  for (int i = 0, j = 0; i < input.size(); i+=6, j++) {
-    transforms.at(j).setOrigin(tf::Vector3(input[i+0], input[i+1], input[i+2]));
+  std::vector<tf::Transform> transforms(input.size() / 6);
+  for (int i = 0, j = 0; i < input.size(); i += 6, j++) {
+    transforms.at(j).setOrigin(
+        tf::Vector3(input[i + 0], input[i + 1], input[i + 2]));
     transforms.at(j).setRotation(
-        tf::createQuaternionFromRPY(input[i+3], input[i+4], input[i+5]));
+        tf::createQuaternionFromRPY(input[i + 3], input[i + 4], input[i + 5]));
   }
   return transforms;
 }

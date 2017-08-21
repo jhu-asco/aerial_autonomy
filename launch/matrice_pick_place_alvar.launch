@@ -31,14 +31,6 @@
     <param name="~uav/app_bundle_id" type="string" value="Welcome to use dji-sdk"/>
     <param name="~uav/enc_key" type="string" value="8667ff1ec3a163d6ef14a7bf6a9fae66210855f309c1876788f61d2195dc58d7"/>
   </node>
-  <!-- Start DUO Camera alvar tracking
-  <include file="$(find ar_track_alvar)/launch/duo_indiv_no_kinect.launch">
-    <arg name="marker_size" value="25" />
-    <arg name="cam_image_topic" value="/duo3d_camera/left/image_raw" />
-    <arg name="cam_info_topic"  value="/duo3d_camera/left/camera_info" />
-    <arg name="output_frame"    value="/duo3d_camera" />
-  </include>
-  <include file="$(find duo3d_ros)/launch/duo.launch"/>-->
   <include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch">
     <arg name="marker_size" value="10" />
     <arg name="cam_image_topic" value="/pointgrey_camera/image_raw" />

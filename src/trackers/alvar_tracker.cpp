@@ -20,7 +20,7 @@ bool AlvarTracker::trackingIsValid() {
 
 void AlvarTracker::markerCallback(
     const ar_track_alvar_msgs::AlvarMarkers &marker_msg) {
-  if(marker_msg.markers.size() == 0)
+  if (marker_msg.markers.size() == 0)
     return;
   last_valid_time_ = ros::Time::now();
   std::unordered_map<uint32_t, Position> object_positions;
