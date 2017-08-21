@@ -31,7 +31,7 @@ ControllerStatus RelativePoseController::isConvergedImplementation(
       abs_error_position.y() < tolerance_pos &&
       abs_error_position.z() < tolerance_pos &&
       rot_diff < config_.goal_rotation_tolerance()) {
-    VLOG(1) << "Reached goal";
+    VLOG_EVERY_N(1, 50) << "Reached goal";
     status.setStatus(ControllerStatus::Completed, "Reached goal");
   }
   return status;
