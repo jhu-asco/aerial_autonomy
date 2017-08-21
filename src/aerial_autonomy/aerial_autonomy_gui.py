@@ -56,7 +56,6 @@ class EventTransmissionGUI(Plugin):
         self.system_status_textbox = QTextEdit()
         self.system_status_textbox.setReadOnly(True)
         self._layout.addWidget(self.system_status_textbox)
-        self._layout.addWidget(QLabel('System Status'))
 
         # Create height slider
         self._layout.addWidget(QLabel('Pose Command Height (m)'))

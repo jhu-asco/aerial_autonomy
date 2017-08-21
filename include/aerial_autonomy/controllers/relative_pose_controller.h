@@ -43,9 +43,9 @@ protected:
   * @param sensor_data Current control pose and tracked pose
   * @param goal Goal relative pose in tracked pose frame
   *
-  * @return True if converged
+  * @return controller status that contains an enum and debug information.
   */
-  virtual bool isConvergedImplementation(
+  virtual ControllerStatus isConvergedImplementation(
       std::tuple<tf::Transform, tf::Transform> sensor_data, tf::Transform goal);
 
 private:
