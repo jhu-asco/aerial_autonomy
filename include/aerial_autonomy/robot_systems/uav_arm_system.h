@@ -25,10 +25,10 @@ public:
         grip_timeout_(config_.uav_vision_system_config()
                           .uav_arm_system_config()
                           .grip_timeout()),
-        arm_goal_transform_(
-            math::getTransformFromVector(config_.uav_vision_system_config()
-                                             .uav_arm_system_config()
-                                             .arm_goal_transform())),
+        arm_goal_transforms_(
+            math::getTransformsFromVector(config_.uav_vision_system_config()
+                                              .uav_arm_system_config()
+                                              .arm_goal_transform())),
         arm_transform_(
             math::getTransformFromVector(config_.uav_vision_system_config()
                                              .uav_arm_system_config()
@@ -64,10 +64,11 @@ public:
 
   /**
    * @brief getter for transfrom from arm to object
+   * @param i Index of arm transform to get
    *
    * @return  transform from arm to object
    */
-  tf::Transform armGoalTransform() { return arm_goal_transform_; }
+  tf::Transform armGoalTransform(int i) { return arm_goal_transforms_.at(i); }
 
 private:
   /**
@@ -75,9 +76,9 @@ private:
   */
   uint32_t grip_timeout_;
   /**
-  * @brief Arm transform in the frame of the UAV
+  * @brief Arm transforms in the frame of the UAV
   */
-  tf::Transform arm_goal_transform_;
+  std::vector<tf::Transform> arm_goal_transforms_;
   /**
   * @brief Arm transform in the frame of the UAV
   */

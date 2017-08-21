@@ -22,6 +22,8 @@ bool ConstantHeadingDepthController::runImplementation(
 
   if (desired_vel_tf.length() > config_.max_velocity()) {
     desired_vel_tf *= config_.max_velocity() / desired_vel_tf.length();
+  } else if (desired_vel_tf.length() < config_.min_velocity()) {
+    desired_vel_tf *= config_.min_velocity() / desired_vel_tf.length();
   }
 
   double error_yaw =

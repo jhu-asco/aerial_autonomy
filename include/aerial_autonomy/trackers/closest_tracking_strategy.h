@@ -10,9 +10,12 @@ class ClosestTrackingStrategy : public TrackingStrategy {
 public:
   /**
   * @brief Constructor
-  * @param max_tracking_retries Number of times to retry tracking before lock is lost
+  * @param max_tracking_retries Number of times to retry tracking before lock is
+  * lost
   */
-  ClosestTrackingStrategy(uint32_t max_tracking_retries = 20) : tracking_locked_(false), max_tracking_retries_(max_tracking_retries), tracking_retries_(0) {}
+  ClosestTrackingStrategy(uint32_t max_tracking_retries = 20)
+      : tracking_locked_(false), max_tracking_retries_(max_tracking_retries),
+        tracking_retries_(0) {}
   /**
   * @brief Initialize the strategy from a group of targets. Locks on to closest
   * target
