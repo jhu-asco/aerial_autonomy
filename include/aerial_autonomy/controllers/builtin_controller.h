@@ -66,12 +66,12 @@ protected:
     ControllerStatus status(ControllerStatus::Active);
     status << "PositionYawDiff: " << position_yaw_diff.x << position_yaw_diff.y
            << position_yaw_diff.z << position_yaw_diff.yaw;
-    const double &tolerance_pos = config_.goal_position_tolerance();
+    const config::Position &tolerance_pos = config_.goal_position_tolerance();
     const double &tolerance_yaw = config_.goal_yaw_tolerance();
     // Compare
-    if (std::abs(position_yaw_diff.x) < tolerance_pos &&
-        std::abs(position_yaw_diff.y) < tolerance_pos &&
-        std::abs(position_yaw_diff.z) < tolerance_pos &&
+    if (std::abs(position_yaw_diff.x) < tolerance_pos.x() &&
+        std::abs(position_yaw_diff.y) < tolerance_pos.y() &&
+        std::abs(position_yaw_diff.z) < tolerance_pos.z() &&
         std::abs(position_yaw_diff.yaw) < tolerance_yaw) {
       VLOG_EVERY_N(1, 50) << "Reached goal";
       status.setStatus(ControllerStatus::Completed, "Reached goal");
@@ -124,12 +124,12 @@ protected:
     status << "Error Velocity, Yaw: " << velocity_yaw_diff.x
            << velocity_yaw_diff.y << velocity_yaw_diff.z
            << velocity_yaw_diff.yaw;
-    const double &tolerance_pos = config_.goal_velocity_tolerance();
+    const config::Velocity &tolerance_vel = config_.goal_velocity_tolerance();
     const double &tolerance_yaw = config_.goal_yaw_tolerance();
     // Compare
-    if (std::abs(velocity_yaw_diff.x) < tolerance_pos &&
-        std::abs(velocity_yaw_diff.y) < tolerance_pos &&
-        std::abs(velocity_yaw_diff.z) < tolerance_pos &&
+    if (std::abs(velocity_yaw_diff.x) < tolerance_vel.vx() &&
+        std::abs(velocity_yaw_diff.y) < tolerance_vel.vy() &&
+        std::abs(velocity_yaw_diff.z) < tolerance_vel.vz() &&
         std::abs(velocity_yaw_diff.yaw) < tolerance_yaw) {
       VLOG_EVERY_N(1, 50) << "Reached goal";
       status.setStatus(ControllerStatus::Completed, "Reached Goal");

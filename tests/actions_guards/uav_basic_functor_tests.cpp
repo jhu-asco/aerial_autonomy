@@ -213,7 +213,13 @@ TEST(PositionControlFunctorTests, Constructor) {
 TEST(PositionControlFunctorTests, TransitionActionTest) {
   QuadSimulator drone_hardware;
   drone_hardware.takeoff();
-  UAVSystem uav_system(drone_hardware);
+  UAVSystemConfig config;
+  auto position_tolerance = config.mutable_position_controller_config()
+                                ->mutable_goal_position_tolerance();
+  position_tolerance->set_x(0.5);
+  position_tolerance->set_y(0.5);
+  position_tolerance->set_z(0.5);
+  UAVSystem uav_system(drone_hardware, config);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   bsa::ReachingGoalSet position_control_transition_action_functor;
@@ -274,7 +280,13 @@ TEST(PositionControlFunctorTests, TransitionGuardTest) {
 TEST(PositionControlFunctorTests, InternalActionTest) {
   QuadSimulator drone_hardware;
   drone_hardware.takeoff();
-  UAVSystem uav_system(drone_hardware);
+  UAVSystemConfig config;
+  auto position_tolerance = config.mutable_position_controller_config()
+                                ->mutable_goal_position_tolerance();
+  position_tolerance->set_x(0.5);
+  position_tolerance->set_y(0.5);
+  position_tolerance->set_z(0.5);
+  UAVSystem uav_system(drone_hardware, config);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   PositionControlInternalActionFunctor position_control_internal_action_functor;

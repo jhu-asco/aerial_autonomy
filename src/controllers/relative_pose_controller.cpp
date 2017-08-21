@@ -4,7 +4,7 @@
 bool RelativePoseController::runImplementation(
     std::tuple<tf::Transform, tf::Transform> sensor_data, tf::Transform goal,
     tf::Transform &control) {
-  control = std::get<1>(sensor_data) * goal; //
+  control = std::get<1>(sensor_data) * goal;
   return true;
 }
 
@@ -26,10 +26,10 @@ ControllerStatus RelativePoseController::isConvergedImplementation(
   status << "Error Position, Rotation: " << abs_error_position.x()
          << abs_error_position.y() << abs_error_position.z() << rot_diff;
 
-  const double &tolerance_pos = config_.goal_position_tolerance();
-  if (abs_error_position.x() < tolerance_pos &&
-      abs_error_position.y() < tolerance_pos &&
-      abs_error_position.z() < tolerance_pos &&
+  const config::Position &tolerance_pos = config_.goal_position_tolerance();
+  if (abs_error_position.x() < tolerance_pos.x() &&
+      abs_error_position.y() < tolerance_pos.y() &&
+      abs_error_position.z() < tolerance_pos.z() &&
       rot_diff < config_.goal_rotation_tolerance()) {
     VLOG_EVERY_N(1, 50) << "Reached goal";
     status.setStatus(ControllerStatus::Completed, "Reached goal");

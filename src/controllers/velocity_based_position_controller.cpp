@@ -27,13 +27,13 @@ ControllerStatus VelocityBasedPositionController::isConvergedImplementation(
          << position_diff.z << position_diff.yaw;
   const PositionControllerConfig &position_controller_config =
       config_.position_controller_config();
-  const double &tolerance_pos =
+  const config::Position &tolerance_pos =
       position_controller_config.goal_position_tolerance();
   const double &tolerance_yaw = position_controller_config.goal_yaw_tolerance();
   // Compare
-  if (std::abs(position_diff.x) < tolerance_pos &&
-      std::abs(position_diff.y) < tolerance_pos &&
-      std::abs(position_diff.z) < tolerance_pos &&
+  if (std::abs(position_diff.x) < tolerance_pos.x() &&
+      std::abs(position_diff.y) < tolerance_pos.y() &&
+      std::abs(position_diff.z) < tolerance_pos.z() &&
       std::abs(position_diff.yaw) < tolerance_yaw) {
     VLOG_EVERY_N(1, 50) << "Reached goal";
     status.setStatus(ControllerStatus::Completed, "Reached goal");

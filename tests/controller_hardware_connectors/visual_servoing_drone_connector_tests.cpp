@@ -17,8 +17,11 @@ public:
   VisualServoingControllerDroneConnectorTests() : goal_tolerance_position(0.1) {
     ConstantHeadingDepthControllerConfig depth_config;
     depth_config.set_radial_gain(2.0);
-    depth_config.mutable_position_controller_config()
-        ->set_goal_position_tolerance(goal_tolerance_position);
+    auto position_tolerance = depth_config.mutable_position_controller_config()
+                                  ->mutable_goal_position_tolerance();
+    position_tolerance->set_x(goal_tolerance_position);
+    position_tolerance->set_y(goal_tolerance_position);
+    position_tolerance->set_z(goal_tolerance_position);
     tf::Transform camera_transform = tf::Transform::getIdentity();
     simple_tracker_.reset(new SimpleTracker(drone_hardware_, camera_transform));
     controller_.reset(new ConstantHeadingDepthController(depth_config));

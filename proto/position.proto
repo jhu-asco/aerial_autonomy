@@ -1,0 +1,18 @@
+syntax = "proto2";
+
+package config;
+
+message Position {
+  /**
+  * @brief X
+  */
+  optional double x = 1 [ default = 0.0 ];
+  /**
+  * @brief Y
+  */
+  optional double y = 2 [ default = 0.0 ];
+  /**
+  * @brief Z
+  */
+  optional double z = 3 [ default = 0.0 ];
+}
