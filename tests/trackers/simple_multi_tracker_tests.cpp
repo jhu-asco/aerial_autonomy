@@ -77,9 +77,9 @@ TEST(ClosestTrackingStrategyTests, ClosestTrackingLostMultipleRetries) {
   auto old_vector = tracking_vectors[0];
   tracking_vectors.erase(0);
   simple_tracker.setTrackingVectors(tracking_vectors);
- 
+
   // Test retries
-  for(int i = 0; i < retries; i++) {
+  for (int i = 0; i < retries; i++) {
     ASSERT_TRUE(simple_tracker.getTrackingVector(tracking_vector));
     ASSERT_EQ(tracking_vector, old_vector);
   }
@@ -113,7 +113,7 @@ TEST(ClosestTrackingStrategyTests, ClosestTrackingLostMultipleRetriesReinit) {
   tracking_vectors.erase(0);
   simple_tracker.setTrackingVectors(tracking_vectors);
   // Test retries
-  for(int i = 0; i < retries; i++) {
+  for (int i = 0; i < retries; i++) {
     ASSERT_TRUE(simple_tracker.getTrackingVector(tracking_vector));
     ASSERT_EQ(tracking_vector, old_vector);
   }

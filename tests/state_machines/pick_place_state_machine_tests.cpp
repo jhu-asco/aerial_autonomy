@@ -137,7 +137,7 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
   // Keep running the controller until its completed or timeout
   int temp_count = 0;
   while (uav_arm_system->getStatus<VisualServoingControllerArmConnector>() ==
-              ControllerStatus::Active &&
+             ControllerStatus::Active &&
          ++temp_count < max_count) {
     uav_arm_system->runActiveController(HardwareType::UAV);
     uav_arm_system->runActiveController(HardwareType::Arm);
@@ -146,8 +146,10 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
   }
   // Make sure controllers are aborted
   ControllerStatus controller_status;
-  ASSERT_FALSE(uav_arm_system->getActiveControllerStatus(HardwareType::Arm, controller_status));
-  ASSERT_FALSE(uav_arm_system->getActiveControllerStatus(HardwareType::UAV, controller_status));
+  ASSERT_FALSE(uav_arm_system->getActiveControllerStatus(HardwareType::Arm,
+                                                         controller_status));
+  ASSERT_FALSE(uav_arm_system->getActiveControllerStatus(HardwareType::UAV,
+                                                         controller_status));
   // Check we are back in Hovering state
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
 }
