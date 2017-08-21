@@ -89,6 +89,37 @@ TEST(TransformTests, StdVectorThrow) {
   ASSERT_THROW(math::getTransformFromVector(input), std::runtime_error);
 }
 
+TEST(TransformsTests, StdVector) {
+  std::vector<double> input = {1.0, 2.0, 3.0, M_PI / 2, -M_PI / 3, M_PI / 4, 0, -1, -2, 0, M_PI, 0};
+  std::vector<tf::Transform> tfs = math::getTransformsFromVector(input);
+  
+  for(unsigned int i = 0; i < tfs.size(); i++) {
+    tf::Transform out = tfs[i];
+    // Check origin
+    tf::Vector3 origin = out.getOrigin();
+    ASSERT_EQ(origin.getX(), input[6*i+0]);
+    ASSERT_EQ(origin.getY(), input[6*i+1]);
+    ASSERT_EQ(origin.getZ(), input[6*i+2]);
+    // Check rpy
+    tf::Matrix3x3 input_basis;
+    input_basis.setEulerYPR(input[6*i+5], input[6*i+4], input[6*i+3]);
+    tf::Matrix3x3 expected_identity = input_basis.transpose() * out.getBasis();
+    tf::Matrix3x3 identity = tf::Matrix3x3::getIdentity();
+    // Check frobenius norm of difference in matrices is close to zero
+    double zero_norm = 0;
+    for (int i = 0; i < 3; ++i) {
+      zero_norm += (expected_identity[i] - identity[i]).length2();
+    }
+    zero_norm = std::sqrt(zero_norm) / 3.0;
+    ASSERT_NEAR(zero_norm, 0.0, 1e-6);
+  }
+}
+
+TEST(TransformsTests, StdVectorThrow) {
+  std::vector<double> input = {1.0, 2.0, 3.0, 0.0, 0.0, 0.0, 0.0};
+  ASSERT_THROW(math::getTransformsFromVector(input), std::runtime_error);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
