@@ -20,11 +20,15 @@ message ConstantHeadingDepthControllerConfig {
   */
   optional double max_velocity = 4 [ default = 1 ];
   /**
+  * @brief Minimum velocity to be commanded in m/s
+  */
+  optional double min_velocity = 5 [ default = 0.0 ];
+  /**
   * @brief Maximum yaw rate to be commanded in rad/s
   */
-  optional double max_yaw_rate = 5 [ default = 0.1 ];
+  optional double max_yaw_rate = 6 [ default = 0.1 ];
   /**
   * @brief Config about position tolerance, yaw tolerance
   */
-  optional PositionControllerConfig position_controller_config = 6;
+  optional PositionControllerConfig position_controller_config = 7;
 }
