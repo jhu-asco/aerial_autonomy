@@ -27,10 +27,11 @@ uav_system_config {
       tangential_gain: 0.3
       yaw_gain: 0.3
       max_velocity: 1
+      min_velocity: 0.1
       max_yaw_rate: 0.3
       position_controller_config {
-        goal_position_tolerance: 0.1
-        goal_yaw_tolerance: 0.05
+        goal_position_tolerance: 0.15
+        goal_yaw_tolerance: 0.1
       }
     }
   }

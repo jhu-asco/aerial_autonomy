@@ -19,15 +19,14 @@ uav_system_config {
   uav_vision_system_config {
     tracker_type: "Alvar"
 
-    camera_transform: 0.20
+    camera_transform: 0.18
     camera_transform: 0
-    camera_transform: -0.07
-    camera_transform: 1.5708
+    camera_transform: -0.08
+    camera_transform: 1.9199
     camera_transform: 0
     camera_transform: 1.5708
 
     desired_visual_servoing_distance: 0.5
-    #desired_visual_servoing_distance: 1.5
     constant_heading_depth_controller_config {
       radial_gain: 0.3
       tangential_gain: 0.3
@@ -41,7 +40,7 @@ uav_system_config {
       }
     }
     uav_arm_system_config {
-      arm_goal_transform: -0.1
+      arm_goal_transform: -0.10
       arm_goal_transform: 0.0
       arm_goal_transform: -0.07
       arm_goal_transform: 0.0
