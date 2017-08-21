@@ -88,6 +88,24 @@ TEST(ConstantHeadingDepthControllerTests, MaxVelocity) {
   ASSERT_NEAR(controls.yaw_rate, 0, 1e-10);
 }
 
+TEST(ConstantHeadingDepthControllerTests, MinVelocity) {
+  ConstantHeadingDepthControllerConfig config;
+  config.set_tangential_gain(1);
+  config.set_radial_gain(0.5);
+  config.set_max_velocity(1);
+  config.set_min_velocity(0.1);
+  ConstantHeadingDepthController controller(config);
+  Position goal(1.9, 0, 0);
+  controller.setGoal(goal);
+  PositionYaw sensor_data(2, 0, 0, std::atan2(goal.y, goal.x));
+  VelocityYawRate controls;
+  controller.run(sensor_data, controls);
+  ASSERT_NEAR(controls.x, 0.1, 1e-10);
+  ASSERT_NEAR(controls.y, 0, 1e-10);
+  ASSERT_NEAR(controls.z, 0., 1e-10);
+  ASSERT_NEAR(controls.yaw_rate, 0, 1e-10);
+}
+
 TEST(ConstantHeadingDepthControllerTests, MaxYawRate) {
   ConstantHeadingDepthControllerConfig config;
   config.set_tangential_gain(1);
