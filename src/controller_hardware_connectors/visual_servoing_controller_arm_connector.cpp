@@ -22,7 +22,9 @@ void VisualServoingControllerArmConnector::sendHardwareCommands(
     tf::Transform pose) {
   Eigen::Affine3d pose_eig;
   tf::transformTFToEigen(pose, pose_eig);
-  arm_hardware_.setEndEffectorPose(pose_eig.matrix());
+  if (!arm_hardware_.setEndEffectorPose(pose_eig.matrix())) {
+    LOG_EVERY_N(WARNING, 50) << "End effector not in workspace";
+  }
 }
 
 bool VisualServoingControllerArmConnector::getTrackingPoseArmFrame(

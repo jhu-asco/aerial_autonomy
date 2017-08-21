@@ -73,7 +73,7 @@ protected:
         std::abs(position_yaw_diff.y) < tolerance_pos.y() &&
         std::abs(position_yaw_diff.z) < tolerance_pos.z() &&
         std::abs(position_yaw_diff.yaw) < tolerance_yaw) {
-      VLOG(1) << "Reached goal";
+      VLOG_EVERY_N(1, 50) << "Reached goal";
       status.setStatus(ControllerStatus::Completed, "Reached goal");
     }
     return status;
@@ -131,7 +131,7 @@ protected:
         std::abs(velocity_yaw_diff.y) < tolerance_vel.vy() &&
         std::abs(velocity_yaw_diff.z) < tolerance_vel.vz() &&
         std::abs(velocity_yaw_diff.yaw) < tolerance_yaw) {
-      VLOG(1) << "Reached goal";
+      VLOG_EVERY_N(1, 50) << "Reached goal";
       status.setStatus(ControllerStatus::Completed, "Reached Goal");
     }
     return status;
