@@ -1,0 +1,18 @@
+syntax = "proto2";
+
+package config;
+
+message Velocity {
+  /**
+  * @brief X component of velocity
+  */
+  optional double vx = 1 [ default = 0.0 ];
+  /**
+  * @brief Y component of velocity
+  */
+  optional double vy = 2 [ default = 0.0 ];
+  /**
+  * @brief Z component of velocity
+  */
+  optional double vz = 3 [ default = 0.0 ];
+}

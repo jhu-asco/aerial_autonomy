@@ -34,7 +34,11 @@ uav_system_config {
       max_velocity: 1
       max_yaw_rate: 0.3
       position_controller_config {
-        goal_position_tolerance: 0.1
+        goal_position_tolerance {
+          x: 0.1
+          y: 0.1
+          z: 0.1
+        }
         goal_yaw_tolerance: 0.05
       }
     }

@@ -48,12 +48,13 @@ ControllerStatus ConstantHeadingDepthController::isConvergedImplementation(
          << error_yaw;
   const PositionControllerConfig &position_controller_config =
       config_.position_controller_config();
-  const double &tolerance_pos =
+  const config::Position &tolerance_pos =
       position_controller_config.goal_position_tolerance();
   const double &tolerance_yaw = position_controller_config.goal_yaw_tolerance();
   // Compare
-  if (std::abs(error.x) < tolerance_pos && std::abs(error.y) < tolerance_pos &&
-      std::abs(error.z) < tolerance_pos &&
+  if (std::abs(error.x) < tolerance_pos.x() &&
+      std::abs(error.y) < tolerance_pos.y() &&
+      std::abs(error.z) < tolerance_pos.z() &&
       std::abs(error_yaw) < tolerance_yaw) {
     VLOG(1) << "Reached goal";
     status.setStatus(ControllerStatus::Completed, "Reached Goal");

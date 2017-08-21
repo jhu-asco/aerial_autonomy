@@ -20,7 +20,11 @@ class VisualServoingControllerArmConnectorTests : public ::testing::Test {
 public:
   VisualServoingControllerArmConnectorTests() : goal_tolerance_position(0.01) {
     PoseControllerConfig controller_config;
-    controller_config.set_goal_position_tolerance(goal_tolerance_position);
+    auto position_tolerance =
+        controller_config.mutable_goal_position_tolerance();
+    position_tolerance->set_x(goal_tolerance_position);
+    position_tolerance->set_y(goal_tolerance_position);
+    position_tolerance->set_z(goal_tolerance_position);
     tf::Transform camera_transform = tf::Transform::getIdentity();
     camera_transform.setBasis(
         tf::Matrix3x3(0, 0, 1, -1, 0, 0, 0, -1, 0)); // Front facing camera

@@ -105,7 +105,13 @@ TEST(UAVSystemTests, runRPYTController) {
 
 TEST(UAVSystemTests, getActiveControllerStatus) {
   QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  UAVSystemConfig config;
+  auto position_tolerance = config.mutable_position_controller_config()
+                                ->mutable_goal_position_tolerance();
+  position_tolerance->set_x(0.5);
+  position_tolerance->set_y(0.5);
+  position_tolerance->set_z(0.5);
+  UAVSystem uav_system(drone_hardware, config);
   PositionYaw position_yaw(1, 1, 1, 1);
   uav_system.setGoal<PositionControllerDroneConnector>(position_yaw);
 

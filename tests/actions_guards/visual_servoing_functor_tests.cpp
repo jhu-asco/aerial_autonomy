@@ -30,6 +30,19 @@ protected:
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
     tf::Transform camera_transform = math::getTransformFromVector(
         uav_vision_system_config->camera_transform());
+    auto position_tolerance = config.mutable_position_controller_config()
+                                  ->mutable_goal_position_tolerance();
+    position_tolerance->set_x(0.5);
+    position_tolerance->set_y(0.5);
+    position_tolerance->set_z(0.5);
+    auto vs_position_tolerance =
+        uav_vision_system_config
+            ->mutable_constant_heading_depth_controller_config()
+            ->mutable_position_controller_config()
+            ->mutable_goal_position_tolerance();
+    vs_position_tolerance->set_x(0.5);
+    vs_position_tolerance->set_y(0.5);
+    vs_position_tolerance->set_z(0.5);
     simple_tracker.reset(new SimpleTracker(drone_hardware, camera_transform));
     uav_system.reset(
         new UAVVisionSystem(*simple_tracker, drone_hardware, config));
