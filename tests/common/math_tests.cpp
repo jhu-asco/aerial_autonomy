@@ -73,15 +73,11 @@ TEST(TransformTests, StdVector) {
   // Check rpy
   tf::Matrix3x3 input_basis;
   input_basis.setEulerYPR(input[5], input[4], input[3]);
-  tf::Matrix3x3 expected_identity = input_basis.transpose() * out.getBasis();
-  tf::Matrix3x3 identity = tf::Matrix3x3::getIdentity();
-  // Check frobenius norm of difference in matrices is close to zero
-  double zero_norm = 0;
   for (int i = 0; i < 3; ++i) {
-    zero_norm += (expected_identity[i] - identity[i]).length2();
+    for (int j = 0; j < 3; ++j) {
+      ASSERT_NEAR(input_basis[i][j], out.getBasis()[i][j], 1e-4);
+    }
   }
-  zero_norm = std::sqrt(zero_norm) / 3.0;
-  ASSERT_NEAR(zero_norm, 0.0, 1e-6);
 }
 
 TEST(TransformTests, StdVectorThrow) {
@@ -90,28 +86,26 @@ TEST(TransformTests, StdVectorThrow) {
 }
 
 TEST(TransformsTests, StdVector) {
-  std::vector<double> input = {1.0, 2.0, 3.0, M_PI / 2, -M_PI / 3, M_PI / 4, 0, -1, -2, 0, M_PI, 0};
+  std::vector<double> input = {1.0, 2.0, 3.0, M_PI / 2, -M_PI / 3, M_PI / 4,
+                               0,   -1,  -2,  0,        M_PI,      0};
   std::vector<tf::Transform> tfs = math::getTransformsFromVector(input);
-  
-  for(unsigned int i = 0; i < tfs.size(); i++) {
+
+  for (unsigned int i = 0; i < tfs.size(); i++) {
     tf::Transform out = tfs[i];
     // Check origin
     tf::Vector3 origin = out.getOrigin();
-    ASSERT_EQ(origin.getX(), input[6*i+0]);
-    ASSERT_EQ(origin.getY(), input[6*i+1]);
-    ASSERT_EQ(origin.getZ(), input[6*i+2]);
+    ASSERT_EQ(origin.getX(), input[6 * i + 0]);
+    ASSERT_EQ(origin.getY(), input[6 * i + 1]);
+    ASSERT_EQ(origin.getZ(), input[6 * i + 2]);
     // Check rpy
     tf::Matrix3x3 input_basis;
-    input_basis.setEulerYPR(input[6*i+5], input[6*i+4], input[6*i+3]);
-    tf::Matrix3x3 expected_identity = input_basis.transpose() * out.getBasis();
-    tf::Matrix3x3 identity = tf::Matrix3x3::getIdentity();
-    // Check frobenius norm of difference in matrices is close to zero
-    double zero_norm = 0;
+    input_basis.setEulerYPR(input[6 * i + 5], input[6 * i + 4],
+                            input[6 * i + 3]);
     for (int i = 0; i < 3; ++i) {
-      zero_norm += (expected_identity[i] - identity[i]).length2();
+      for (int j = 0; j < 3; ++j) {
+        ASSERT_NEAR(input_basis[i][j], out.getBasis()[i][j], 1e-4);
+      }
     }
-    zero_norm = std::sqrt(zero_norm) / 3.0;
-    ASSERT_NEAR(zero_norm, 0.0, 1e-6);
   }
 }
 
