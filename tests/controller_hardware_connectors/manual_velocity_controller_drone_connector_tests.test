@@ -1,4 +1,0 @@
-<launch>
-  <test test-name="ManualVelocityControllerDroneConnectorTests" pkg="aerial_autonomy" type="aerial_autonomy-manual-velocity-controller-drone-connector-test">
-  </test>
-</launch>

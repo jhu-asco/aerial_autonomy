@@ -1,3 +1,0 @@
-<launch>
-  <test name="RPYTControllerVINSConnectorTest" pkg="aerial_autonomy" type="aerial_autonomy-rpyt-controller-vins-connector-test"/>
-</launch>
