@@ -1,0 +1,21 @@
+syntax = "proto2";
+
+message DataStreamConfig {
+  /**
+  * Unique ID to identify the data stream.
+  * The output file will be the same as stream id
+  */
+  required string stream_id = 1;
+  /**
+  * rate limit at which data is logged into buffer stream (Hz)
+  */
+  optional double log_rate = 2 [ default = 10 ];
+  /**
+  * Enable/disable logging
+  */
+  optional bool log_data = 3 [ default = true ];
+  /**
+  * Delimiter to separate data
+  */
+  optional string delimiter = 4 [ default = "," ];
+}
