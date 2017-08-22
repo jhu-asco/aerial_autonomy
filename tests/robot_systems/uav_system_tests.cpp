@@ -163,7 +163,6 @@ TEST(UAVSystemTests, abortController) {
 ///
 
 int main(int argc, char **argv) {
-  ros::init(argc, argv, "uav_system_tests");
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
