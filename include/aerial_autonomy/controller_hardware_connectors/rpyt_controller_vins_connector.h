@@ -35,8 +35,7 @@ public:
     parsernode::Parser &drone_hardware,
     Controller<std::tuple<PositionYaw, VelocityYaw>,PositionYaw,RollPitchYawThrust> &controller)
   :ControllerHardwareConnector(controller, HardwareType::UAV), 
-  drone_hardware_(drone_hardware), 
-  config_(RPYTControllerVINSConnectorConfig()){}
+  drone_hardware_(drone_hardware){}
 
 protected:
   /**
@@ -60,10 +59,6 @@ private:
   * @brief Quad hardware to send commands
   */
   parsernode::Parser &drone_hardware_;
-  /**
-  * @brief Connector configuration 
-  */
-  RPYTControllerVINSConnectorConfig config_;
   /**
   * @brief sensor object to get sensor data 
   */

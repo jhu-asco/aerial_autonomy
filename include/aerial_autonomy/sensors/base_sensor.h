@@ -34,7 +34,7 @@ public:
   void getSensorStatus(SensorStatus &sensor_status){
     sensor_status =  sensor_status_;
   }
-private:
+protected:
   /**
   * @brief variable to store sensor data
   */

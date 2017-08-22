@@ -4,7 +4,7 @@ syntax = "proto2";
 * Uses the position controller config for tolerance
 * in position, yaw
 */
-message ManualVelocityControllerDroneConnectorConfig {
+message PositionSensorConfig {
   /**
   * @ brief timestep to differentiate velocity
   */

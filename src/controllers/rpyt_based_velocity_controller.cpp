@@ -14,7 +14,7 @@ bool RPYTBasedVelocityController::runImplementation(VelocityYaw sensor_data,
   // Acceleration in world frame 
   double acc_x = config_.kp()*velocity_diff.x + config_.ki()*cumulative_error.x;
   double acc_y = config_.kp()*velocity_diff.y + config_.ki()*cumulative_error.y;
-  double acc_z = config_.kp()*velocity_diff.z + config_.ki()*cumulative_error.z;
+  double acc_z = config_.kp()*velocity_diff.z + config_.ki()*cumulative_error.z + 9.81;
 
   // Acceleration in body frame
   Eigen::Vector3d rot_acc;

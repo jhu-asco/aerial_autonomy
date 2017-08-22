@@ -10,7 +10,6 @@
 #include "aerial_autonomy/types/roll_pitch_yaw_thrust.h"
 #include "aerial_autonomy/controllers/rpyt_based_velocity_controller.h"
 #include "aerial_autonomy/sensors/base_sensor.h"
-#include "manual_velocity_controller_drone_connector_config.pb.h"
 
 #include <parsernode/parser.h>
 #include "aerial_autonomy/common/atomic.h"
@@ -34,11 +33,11 @@ public:
   */
   ManualVelocityControllerDroneConnector(
     parsernode::Parser &drone_hardware,
-    Controller<std::tuple<JoysticksYaw,VelocityYaw>, EmptyGoal, RollPitchYawThrust> &controller
-    )
+    Controller<std::tuple<JoysticksYaw,VelocityYaw>, EmptyGoal, RollPitchYawThrust> &controller,
+    Sensor<VelocityYaw> &velocity_sensor)
   : ControllerHardwareConnector(controller, HardwareType::UAV),
   drone_hardware_(drone_hardware),
-  config_(ManualVelocityControllerDroneConnectorConfig()) {}
+  velocity_sensor_(velocity_sensor) {}
 protected:
   /**
    * @brief Extracts joystick commands and current yaw from hardware
@@ -63,15 +62,11 @@ private:
   */
   parsernode::Parser &drone_hardware_;
   /**
-  * @brief Config for controller connector 
-  */
-  ManualVelocityControllerDroneConnectorConfig config_;
-  /**
   * @brief Internal controller to convert velocity commands to rpyt  
   */
   RPYTBasedVelocityController rpyt_vel_ctlr;
   /**
   *  @brief sensor object to get sensor data
   */
-  Sensor<VelocityYaw> velocity_sensor;
+  Sensor<VelocityYaw> velocity_sensor_;
 };

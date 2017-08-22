@@ -10,15 +10,18 @@ TEST(ManualVelocityControllerDroneConnectorTests, Constructor)
 {
   QuadSimulator drone_hardware;
   ManualVelocityController controller;
+  Sensor<VelocityYaw> velocity_sensor;
 
   ASSERT_NO_THROW(new ManualVelocityControllerDroneConnector(
     drone_hardware, 
-    controller));
+    controller,
+    velocity_sensor));
 }
 
 TEST(ManualVelocityControllerDroneConnectorTests, Run){
   QuadSimulator drone_hardware;
   ManualVelocityController controller;
+  Sensor<VelocityYaw> velocity_sensor;
 
   // Set stick commands
   int16_t channels[4] = {0, 0, 0, 0};
@@ -26,7 +29,8 @@ TEST(ManualVelocityControllerDroneConnectorTests, Run){
 
   ManualVelocityControllerDroneConnector connector(
     drone_hardware,
-    controller);
+    controller,
+    velocity_sensor);
 
   connector.setGoal(EmptyGoal());
   connector.run();

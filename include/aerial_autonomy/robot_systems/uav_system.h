@@ -7,7 +7,8 @@
 #include <aerial_autonomy/controllers/basic_controllers.h>
 // Specific ControllerConnectors
 #include <aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h>
-
+//
+#include <aerial_autonomy/sensors/velocity_sensor.h>
 /**
  * @brief Owns, initializes, and facilitates communication between different
  * hardware/software components.
@@ -42,6 +43,10 @@ private:
   * @brief velocity controller using joystick controller connector
   */
   ManualVelocityController manual_velocity_controller_;
+    /**
+  * @brief 
+  */
+  Sensor<VelocityYaw>& velocity_sensor_;
   /**
    * @brief connector for position controller
    */
@@ -67,7 +72,6 @@ private:
   * @brief Flag to specify if home location is specified or not
   */
   bool home_location_specified_;
-
 public:
   /**
    * @brief Constructor with default configuration
@@ -84,10 +88,13 @@ public:
   * @param config The system configuration specifying the parameters such as
   * takeoff height, etc.
   */
-  UAVSystem(parsernode::Parser &drone_hardware, UAVSystemConfig config)
+  UAVSystem(parsernode::Parser &drone_hardware, 
+    UAVSystemConfig config, 
+    Sensor<VelocityYaw> velocity_sensor)
       : BaseRobotSystem(), drone_hardware_(drone_hardware), config_(config),
         builtin_position_controller_(config.position_controller_config()),
         builtin_velocity_controller_(config.velocity_controller_config()),
+        velocity_sensor_(velocity_sensor),
         position_controller_drone_connector_(drone_hardware,
                                              builtin_position_controller_),
         velocity_controller_drone_connector_(drone_hardware,
@@ -95,7 +102,8 @@ public:
         rpyt_controller_drone_connector_(drone_hardware,
                                          manual_rpyt_controller_),
         manual_velocity_controller_drone_connector_(drone_hardware,
-                                          manual_velocity_controller_),
+                                          manual_velocity_controller_, 
+                                          velocity_sensor_),
         home_location_specified_(false) {
     // Add control hardware connector containers
     controller_hardware_connector_container_.setObject(

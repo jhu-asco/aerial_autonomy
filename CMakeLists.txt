@@ -172,7 +172,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/rpyt_based_velocity_controller_config.proto
   proto/rpyt_based_position_controller_config.proto
   proto/rpyt_controller_vins_connector_config.proto
-  proto/manual_velocity_controller_drone_connector_config.proto
+  proto/position_sensor_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -222,6 +222,7 @@ target_link_libraries(aerial_autonomy ${catkin_LIBRARIES})
 ## Declare a C++ executable
 add_executable(uav_system_node src/system_handler_nodes/uav_system_node.cpp)
 add_executable(uav_vision_system_node src/system_handler_nodes/uav_vision_system_node.cpp)
+add_executable(uav_joystick_control_node src/system_handler_nodes/uav_joystick_control_node.cpp)
 add_executable(event_publish_node src/tests/event_publish_node.cpp)
 
 ## Add cmake target dependencies of the executable
@@ -232,6 +233,7 @@ add_executable(event_publish_node src/tests/event_publish_node.cpp)
 
 target_link_libraries(uav_system_node aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 target_link_libraries(uav_vision_system_node aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+target_link_libraries(uav_joystick_control_node aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
 
 #############
