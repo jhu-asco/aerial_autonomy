@@ -9,6 +9,7 @@
 #include "aerial_autonomy/types/joysticks_yaw.h"
 #include "aerial_autonomy/types/roll_pitch_yaw_thrust.h"
 #include "aerial_autonomy/controllers/rpyt_based_velocity_controller.h"
+#include "aerial_autonomy/sensors/base_sensor.h"
 #include "manual_velocity_controller_drone_connector_config.pb.h"
 
 #include <parsernode/parser.h>
@@ -33,22 +34,11 @@ public:
   */
   ManualVelocityControllerDroneConnector(
     parsernode::Parser &drone_hardware,
-    Controller<std::tuple<JoysticksYaw,VelocityYaw>, EmptyGoal, RollPitchYawThrust> &controller)
+    Controller<std::tuple<JoysticksYaw,VelocityYaw>, EmptyGoal, RollPitchYawThrust> &controller
+    )
   : ControllerHardwareConnector(controller, HardwareType::UAV),
   drone_hardware_(drone_hardware),
-  config_(ManualVelocityControllerDroneConnectorConfig()) {
-
-    sensor_sub = nh_.subscribe("/rpyt_vins_connector/pose",1000,
-      &ManualVelocityControllerDroneConnector::sensorCallback,this);
-
-    sensor_tf.setOrigin(tf::Vector3(config_.sensor_tx(), 
-      config_.sensor_ty(), config_.sensor_tz()));
-
-    sensor_tf.setRotation(tf::createQuaternionFromRPY(config_.sensor_r(),
-      config_.sensor_p(),
-      config_.sensor_y()));
-  }
-
+  config_(ManualVelocityControllerDroneConnectorConfig()) {}
 protected:
   /**
    * @brief Extracts joystick commands and current yaw from hardware
@@ -66,12 +56,7 @@ protected:
    * @param controls RPYT command to send to drone
    */
   virtual void sendHardwareCommands(RollPitchYawThrust controls);
-  /**
-  *
-  * @brief Callback function for sensor_sub
-  *
-  */
-  void sensorCallback(const geometry_msgs::PoseStamped::ConstPtr& msg);
+
 private:
   /**
   * @brief Quad hardware to send commands
@@ -86,23 +71,7 @@ private:
   */
   RPYTBasedVelocityController rpyt_vel_ctlr;
   /**
-  *  @brief nodehandle to get sensor data
+  *  @brief sensor object to get sensor data
   */
-  ros::NodeHandle nh_;
-  /**
-  * @brief subscriber to get sensor data from ros
-  */
-  ros::Subscriber sensor_sub;
-  /**
-  * @ brief variable to store velocity data
-  */
-  Atomic<VelocityYaw> vel_sensor_data_;
-  /**
-  * @ brief variable to store last position state
-  */
-  PositionYaw last_pos;
-  /**
-  * @brief Transform of sensor in robot frame
-  */ 
-  tf::Transform sensor_tf;
+  Sensor<VelocityYaw> velocity_sensor;
 };

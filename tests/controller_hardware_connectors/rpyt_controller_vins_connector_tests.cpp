@@ -13,8 +13,32 @@ TEST(RPYTControllerVINSConnectorTests, Constructor)
   ASSERT_NO_THROW(new RPYTControllerVINSConnector(drone_hardware, controller)); 
 }
 
+TEST(RPYTControllerVINSConnectorTests, Run){
+  QuadSimulator drone_hardware;
+  RPYTBasedPositionController controller;
+
+  // Set stick commands
+  int16_t channels[4] = {0, 0, 0, 0};
+  drone_hardware.setRC(channels);
+
+  RPYTControllerVINSConnector connector(
+    drone_hardware,
+    controller);
+
+  PositionYaw goal(0,0,0,0);
+  connector.setGoal(goal);
+  PositionYaw exp_goal = connector.getGoal();
+  connector.run();
+
+  parsernode::common::quaddata quad_data;
+  drone_hardware.getquaddata(quad_data);
+
+  ASSERT_EQ(goal, exp_goal);
+  ASSERT_NEAR(quad_data.rpydata.x, 0.0, 1e-8);
+  ASSERT_NEAR(quad_data.rpydata.y, 0.0, 1e-8);
+}
+
 int main(int argc, char **argv) {
-  ros::init(argc,argv,"rpyt_connector_tets");
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
