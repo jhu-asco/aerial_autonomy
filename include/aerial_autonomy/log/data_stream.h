@@ -23,6 +23,11 @@ public:
   DataStream(std::string path, DataStreamConfig config);
 
   /**
+  * @brief
+  */
+  DataStream(DataStream &&o);
+
+  /**
   * @brief Write the internal buffer to the file stream
   */
   void write();
@@ -62,6 +67,7 @@ public:
 
 private:
   DataStreamConfig config_; ///< Configuration
+  std::string path_;        ///< Data filepath
   std::chrono::time_point<std::chrono::high_resolution_clock>
       last_write_time_; ///< Last time the buffer has been written to
   std::fstream fs_;     ///< File stream that is written to
@@ -70,6 +76,6 @@ private:
                                  /// written to file stream
   std::stringstream data_point_; ///< Stores the current data point while it is
                                  /// written to the DataStream (i.e. while
-  /// streaming_ == true)
+                                 /// streaming_ == true)
   mutable boost::mutex buffer_mutex_; ///< Synchronize access to the buffer
 };

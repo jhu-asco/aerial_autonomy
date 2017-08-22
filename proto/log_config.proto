@@ -1,0 +1,18 @@
+syntax = "proto2";
+
+import "data_stream_config.proto";
+
+message LogConfig {
+  /**
+  * Directory where the files will be logged
+  */
+  optional string directory = 1 [ default = "/tmp" ];
+  /**
+  * Duration between writes to log file (ms)
+  */
+  optional int32 write_duration = 2 [ default = 10 ];
+  /**
+  * Array of data stream configurations.
+  */
+  repeated DataStreamConfig data_stream_configs = 3;
+}

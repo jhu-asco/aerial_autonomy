@@ -39,6 +39,13 @@ TEST_F(AsyncTimerTests, Timing) {
   timer.start();
   std::this_thread::sleep_for(std::chrono::milliseconds(1000));
   ASSERT_GE(this->x, 50);
+  timer.stop();
+  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+  ASSERT_LE(this->x, 60);
+  timer.setDuration(std::chrono::milliseconds(40));
+  timer.start();
+  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+  ASSERT_GE(this->x, 75);
 }
 
 int main(int argc, char **argv) {

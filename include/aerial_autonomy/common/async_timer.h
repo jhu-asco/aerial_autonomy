@@ -27,6 +27,17 @@ public:
    */
   void start();
 
+  /**
+   * @brief Stops running the timer thread
+   */
+  void stop();
+
+  /**
+   * @brief Set the duration of the timer
+   * @param duration The duration to set
+   */
+  void setDuration(std::chrono::duration<double> duration);
+
 private:
   /**
    * @brief The timer loop

@@ -177,6 +177,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/position.proto
   proto/velocity.proto
   proto/data_stream_config.proto
+  proto/log_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -202,6 +203,7 @@ add_library(aerial_autonomy
   src/common/conversions.cpp
   src/common/controller_status.cpp
   src/log/data_stream.cpp
+  src/log/log.cpp
   src/trackers/roi_to_position_converter.cpp
   src/trackers/simple_tracker.cpp
   src/trackers/alvar_tracker.cpp

@@ -3,11 +3,24 @@
 #include <exception>
 
 DataStream::DataStream(std::string path, DataStreamConfig config)
-    : config_(config), streaming_(false) {
+    : config_(config), path_(path), streaming_(false) {
   fs_.open(path, std::fstream::out);
   if (!fs_.is_open()) {
     throw std::runtime_error("Could not open file: " + path);
   }
+}
+
+DataStream::DataStream(DataStream &&o) {
+  config_ = o.config_;
+  last_write_time_ = o.last_write_time_;
+  path_ = o.path_;
+  o.fs_.close();
+
+  fs_.open(path_, std::fstream::out);
+  if (!fs_.is_open()) {
+    throw std::runtime_error("Could not open file: " + path_);
+  }
+  streaming_ = false;
 }
 
 void DataStream::write() {
