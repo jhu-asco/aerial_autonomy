@@ -44,6 +44,9 @@ set(QUAD_SIM_PARSER_LIBS ${QUAD_SIM_PARSER_LIBS} ${TINYXML_LIBRARIES})
 find_package(Eigen3 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
 
+## Add Factory external package
+include_directories(${PROJECT_SOURCE_DIR}/extern)
+
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
@@ -329,6 +332,7 @@ add_rostest_gtest(${PROJECT_NAME}-roi-to-position-converter-test tests/trackers/
 add_rostest_gtest(${PROJECT_NAME}-alvar-tracker-test tests/trackers/alvar_tracker_tests.test tests/trackers/alvar_tracker_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-drone-connector-test tests/controller_hardware_connectors/visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-arm-connector-test tests/controller_hardware_connectors/visual_servoing_arm_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-factory-test tests/fab_tests/factory_test.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
@@ -436,6 +440,9 @@ if(TARGET ${PROJECT_NAME}-simple-multi-tracker-test)
 endif()
 if(TARGET ${PROJECT_NAME}-math-test)
   target_link_libraries(${PROJECT_NAME}-math-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-factory-test)
+  target_link_libraries(${PROJECT_NAME}-factory-test ${Boost_LIBRARIES})
 endif()
 
 ## Add folders to be run by python nosetests
