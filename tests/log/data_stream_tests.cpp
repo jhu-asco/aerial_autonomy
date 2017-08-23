@@ -26,13 +26,12 @@ public:
              std::string::npos) {
         // Skip timestamp
         if (i >= 0) {
-          ASSERT_EQ(std::to_string(data[i]),
-                    data_point.substr(last, next - last));
+          ASSERT_EQ(data[i], std::stod(data_point.substr(last, next - last)));
         }
         last = next + 1;
         i++;
       }
-      ASSERT_EQ(std::to_string(data[i]), data_point.substr(last));
+      ASSERT_EQ(data[i], std::stod(data_point.substr(last)));
     }
     ASSERT_FALSE(std::getline(data_file, data_point));
   }
@@ -123,6 +122,25 @@ TEST_F(DataStreamTest, WriteWhileStreaming) {
 
   std::vector<std::vector<int>> first_point(data.begin(), data.begin() + 1);
   verifyData(first_point);
+}
+
+TEST_F(DataStreamTest, LogDataFalse) {
+  config_.set_log_rate(10);
+  config_.set_log_data(false);
+  std::unique_ptr<DataStream> ds(new DataStream(test_path_, config_));
+  std::vector<std::vector<int>> data = {{10, 8, 3, 2, -1}, {-3, -4, 5, 6}};
+  for (size_t j = 0; j < data.size(); j++) {
+    *ds << DataStream::startl;
+    for (auto i : data[j]) {
+      *ds << i;
+    }
+    *ds << DataStream::endl;
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+  }
+  ds->write();
+  ds.reset();
+
+  verifyData(std::vector<std::vector<int>>());
 }
 
 int main(int argc, char **argv) {

@@ -334,6 +334,7 @@ add_rostest_gtest(${PROJECT_NAME}-alvar-tracker-test tests/trackers/alvar_tracke
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-drone-connector-test tests/controller_hardware_connectors/visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-arm-connector-test tests/controller_hardware_connectors/visual_servoing_arm_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-data-stream-test tests/log/data_stream_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-log-test tests/log/log_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
@@ -444,6 +445,9 @@ if(TARGET ${PROJECT_NAME}-math-test)
 endif()
 if(TARGET ${PROJECT_NAME}-data-stream-test)
   target_link_libraries(${PROJECT_NAME}-data-stream-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-log-test)
+  target_link_libraries(${PROJECT_NAME}-log-test aerial_autonomy)
 endif()
 
 

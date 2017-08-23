@@ -9,7 +9,8 @@
 #include <map>
 
 /**
- * @brief
+ * @brief Manages data log streams and a timer for periodically writing streams
+ * to file
  */
 class Log {
 
@@ -56,7 +57,7 @@ private:
 
   Log()
       : config_(),
-        log_timer_(std::bind(&Log::writeStreams, std::ref(instance())),
+        log_timer_(std::bind(&Log::writeStreams, std::ref(*this)),
                    std::chrono::milliseconds(config_.write_duration())) {}
 
   LogConfig config_;

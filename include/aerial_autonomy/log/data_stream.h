@@ -23,7 +23,8 @@ public:
   DataStream(std::string path, DataStreamConfig config);
 
   /**
-  * @brief
+  * @brief Move operator
+  * @param o Moving DataStream
   */
   DataStream(DataStream &&o);
 
@@ -31,6 +32,18 @@ public:
   * @brief Write the internal buffer to the file stream
   */
   void write();
+
+  /**
+  * @brief Getter for config
+  * @return Configuration
+  */
+  const DataStreamConfig &configuration();
+
+  /**
+  * @brief Get log path
+  * @return The path
+  */
+  std::string path();
 
   /**
   * @brief Stream operator for stream modifiers

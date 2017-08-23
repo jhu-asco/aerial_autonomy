@@ -27,9 +27,14 @@ void DataStream::write() {
   boost::mutex::scoped_lock lock(buffer_mutex_);
 
   fs_ << buffer_.str();
+  fs_.flush();
   buffer_.str(std::string());
   buffer_.clear();
 }
+
+const DataStreamConfig &DataStream::configuration() { return config_; }
+
+std::string DataStream::path() { return path_; }
 
 DataStream &DataStream::operator<<(DataStream &(*func)(DataStream &)) {
   return func(*this);
@@ -39,11 +44,13 @@ DataStream &DataStream::startl(DataStream &ds) {
   if (ds.streaming_) {
     throw std::logic_error("startl called on streaming DataStream");
   }
-  auto now = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double> time_diff = now - ds.last_write_time_;
-  ds.streaming_ = time_diff.count() > 1. / ds.config_.log_rate();
-  if (ds.streaming_) {
-    ds.data_point_ << now.time_since_epoch().count();
+  if (ds.config_.log_data()) {
+    auto now = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> time_diff = now - ds.last_write_time_;
+    ds.streaming_ = time_diff.count() > 1. / ds.config_.log_rate();
+    if (ds.streaming_) {
+      ds.data_point_ << now.time_since_epoch().count();
+    }
   }
   return ds;
 }

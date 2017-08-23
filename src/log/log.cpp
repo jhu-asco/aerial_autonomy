@@ -1,9 +1,17 @@
 #include "aerial_autonomy/log/log.h"
 
+#include <boost/filesystem.hpp>
+
 #include <exception>
 
 void Log::configure(LogConfig config) {
   config_ = config;
+  if (!boost::filesystem::exists(config_.directory())) {
+    if (!boost::filesystem::create_directory(config_.directory())) {
+      throw std::runtime_error("Could not create Log directory: " +
+                               config_.directory());
+    }
+  }
   configureStreams(config_);
 }
 
