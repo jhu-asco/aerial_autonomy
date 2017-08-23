@@ -36,7 +36,8 @@ void AsyncTimer::setDuration(std::chrono::duration<double> duration) {
   if (!running_) {
     timer_duration_ = duration;
   } else {
-    throw std::logic_error(
-        "Cannot set AsyncTimer duration while it is running");
+    stop();
+    timer_duration_ = duration;
+    start();
   }
 }

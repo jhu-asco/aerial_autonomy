@@ -1,3 +1,4 @@
+#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 #include <aerial_autonomy/common/async_timer.h>
@@ -38,14 +39,17 @@ TEST_F(AsyncTimerTests, Timing) {
   ASSERT_EQ(0, this->x);
   timer.start();
   std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-  ASSERT_GE(this->x, 50);
+  ASSERT_GE(this->x, 49);
+  ASSERT_LE(this->x, 51);
   timer.stop();
   std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-  ASSERT_LE(this->x, 60);
+  ASSERT_GE(this->x, 49);
+  ASSERT_LE(this->x, 51);
   timer.setDuration(std::chrono::milliseconds(40));
   timer.start();
   std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-  ASSERT_GE(this->x, 75);
+  ASSERT_GE(this->x, 74);
+  ASSERT_LE(this->x, 76);
 }
 
 int main(int argc, char **argv) {

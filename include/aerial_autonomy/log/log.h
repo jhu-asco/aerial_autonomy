@@ -6,7 +6,7 @@
 #include "log_config.pb.h"
 
 #include <chrono>
-#include <map>
+#include <unordered_map>
 
 /**
  * @brief Manages data log streams and a timer for periodically writing streams
@@ -40,6 +40,12 @@ public:
   */
   DataStream &operator[](std::string id);
 
+  /**
+  * @brief Add a data stream to the log
+  * @param stream_config Configuration of the stream to add
+  */
+  void addDataStream(DataStreamConfig stream_config);
+
   Log(Log const &) = delete;
   void operator=(Log const &) = delete;
 
@@ -61,6 +67,6 @@ private:
                    std::chrono::milliseconds(config_.write_duration())) {}
 
   LogConfig config_;
-  std::map<std::string, DataStream> streams_;
+  std::unordered_map<std::string, DataStream> streams_;
   AsyncTimer log_timer_;
 };

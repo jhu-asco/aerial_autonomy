@@ -28,8 +28,7 @@ void DataStream::write() {
 
   fs_ << buffer_.str();
   fs_.flush();
-  buffer_.str(std::string());
-  buffer_.clear();
+  resetStringstream(buffer_);
 }
 
 const DataStreamConfig &DataStream::configuration() { return config_; }
@@ -38,6 +37,11 @@ std::string DataStream::path() { return path_; }
 
 DataStream &DataStream::operator<<(DataStream &(*func)(DataStream &)) {
   return func(*this);
+}
+
+void DataStream::resetStringstream(std::stringstream &ss) {
+  ss.str(std::string());
+  ss.clear();
 }
 
 DataStream &DataStream::startl(DataStream &ds) {
@@ -62,8 +66,7 @@ DataStream &DataStream::endl(DataStream &ds) {
       ds.buffer_ << ds.data_point_.str() << std::endl;
     }
     ds.last_write_time_ = std::chrono::high_resolution_clock::now();
-    ds.data_point_.clear();
-    ds.data_point_.str(std::string());
+    resetStringstream(ds.data_point_);
     ds.streaming_ = false;
   }
   return ds;

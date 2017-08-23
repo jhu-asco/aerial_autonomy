@@ -4,36 +4,13 @@
 #include <thread>
 
 #include "aerial_autonomy/log/data_stream.h"
+#include "aerial_autonomy/tests/test_utils.h"
 
 class DataStreamTest : public testing::Test {
 public:
   DataStreamTest() : test_path_("/tmp/dstest") {
     std::remove(test_path_.c_str());
     config_.set_delimiter(",");
-  }
-
-  template <typename T> void verifyData(std::vector<std::vector<T>> log) {
-    std::fstream data_file(test_path_, std::fstream::in);
-
-    std::string data_point;
-    for (auto data : log) {
-      ASSERT_TRUE(std::getline(data_file, data_point));
-
-      size_t next = 0;
-      size_t last = 0;
-      int i = -1;
-      while ((next = data_point.find(config_.delimiter(), last)) !=
-             std::string::npos) {
-        // Skip timestamp
-        if (i >= 0) {
-          ASSERT_EQ(data[i], std::stod(data_point.substr(last, next - last)));
-        }
-        last = next + 1;
-        i++;
-      }
-      ASSERT_EQ(data[i], std::stod(data_point.substr(last)));
-    }
-    ASSERT_FALSE(std::getline(data_file, data_point));
   }
 
 protected:
@@ -64,9 +41,8 @@ TEST_F(DataStreamTest, WriteOneLine) {
   }
   *ds << DataStream::endl;
   ds->write();
-  ds.reset();
 
-  verifyData(data);
+  test_utils::verifyFileData(data, ds->path(), config_.delimiter());
 }
 
 TEST_F(DataStreamTest, WriteMultipleLines) {
@@ -82,9 +58,8 @@ TEST_F(DataStreamTest, WriteMultipleLines) {
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
   }
   ds->write();
-  ds.reset();
 
-  verifyData(data);
+  test_utils::verifyFileData(data, ds->path(), config_.delimiter());
 }
 
 TEST_F(DataStreamTest, StreamTooFast) {
@@ -99,10 +74,9 @@ TEST_F(DataStreamTest, StreamTooFast) {
     *ds << DataStream::endl;
   }
   ds->write();
-  ds.reset();
 
   std::vector<std::vector<int>> first_point(data.begin(), data.begin() + 1);
-  verifyData(first_point);
+  test_utils::verifyFileData(first_point, ds->path(), config_.delimiter());
 }
 
 TEST_F(DataStreamTest, WriteWhileStreaming) {
@@ -118,10 +92,9 @@ TEST_F(DataStreamTest, WriteWhileStreaming) {
       *ds << DataStream::endl;
   }
   ds->write();
-  ds.reset();
 
   std::vector<std::vector<int>> first_point(data.begin(), data.begin() + 1);
-  verifyData(first_point);
+  test_utils::verifyFileData(first_point, ds->path(), config_.delimiter());
 }
 
 TEST_F(DataStreamTest, LogDataFalse) {
@@ -138,9 +111,9 @@ TEST_F(DataStreamTest, LogDataFalse) {
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
   }
   ds->write();
-  ds.reset();
 
-  verifyData(std::vector<std::vector<int>>());
+  test_utils::verifyFileData(std::vector<std::vector<int>>(), ds->path(),
+                             config_.delimiter());
 }
 
 int main(int argc, char **argv) {

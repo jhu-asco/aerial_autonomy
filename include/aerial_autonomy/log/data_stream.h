@@ -79,6 +79,12 @@ public:
   static DataStream &endl(DataStream &ds);
 
 private:
+  /**
+  * @brief Reset a string stream
+  * @param ss String stream to reset
+  */
+  static void resetStringstream(std::stringstream &ss);
+
   DataStreamConfig config_; ///< Configuration
   std::string path_;        ///< Data filepath
   std::chrono::time_point<std::chrono::high_resolution_clock>

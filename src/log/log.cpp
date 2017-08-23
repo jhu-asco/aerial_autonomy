@@ -24,18 +24,22 @@ DataStream &Log::operator[](std::string id) {
   return stream->second;
 }
 
+void Log::addDataStream(DataStreamConfig stream_config) {
+  if (streams_.find(stream_config.stream_id()) != streams_.end()) {
+    throw std::runtime_error("Stream ID not unique: " +
+                             stream_config.stream_id());
+  }
+  streams_.emplace(
+      stream_config.stream_id(),
+      DataStream(config_.directory() + "/" + stream_config.stream_id(),
+                 stream_config));
+}
+
 void Log::configureStreams(LogConfig config) {
   log_timer_.stop();
   streams_.clear(); // streams are closed in destructor
   for (auto stream_config : config_.data_stream_configs()) {
-    if (streams_.find(stream_config.stream_id()) != streams_.end()) {
-      throw std::runtime_error("Stream ID not unique: " +
-                               stream_config.stream_id());
-    }
-    streams_.emplace(
-        stream_config.stream_id(),
-        DataStream(config_.directory() + "/" + stream_config.stream_id(),
-                   stream_config));
+    addDataStream(stream_config);
   }
   log_timer_.setDuration(std::chrono::milliseconds(config_.write_duration()));
   log_timer_.start();

@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "aerial_autonomy/log/log.h"
+#include "aerial_autonomy/tests/test_utils.h"
 
 #include <boost/filesystem.hpp>
 
@@ -29,32 +30,6 @@ public:
       Log::instance()[stream_id] << DataStream::endl;
       std::this_thread::sleep_for(std::chrono::milliseconds(log_duration));
     }
-  }
-
-  template <typename T>
-  void verifyData(std::vector<std::vector<T>> log, std::string path,
-                  std::string delimiter) {
-    std::fstream data_file(path, std::fstream::in);
-    ASSERT_TRUE(data_file.is_open());
-
-    std::string data_point;
-    for (auto data : log) {
-      ASSERT_TRUE(std::getline(data_file, data_point));
-
-      size_t next = 0;
-      size_t last = 0;
-      int i = -1;
-      while ((next = data_point.find(delimiter, last)) != std::string::npos) {
-        // Skip timestamp
-        if (i >= 0) {
-          ASSERT_EQ(data[i], std::stod(data_point.substr(last, next - last)));
-        }
-        last = next + 1;
-        i++;
-      }
-      ASSERT_EQ(data[i], std::stod(data_point.substr(last)));
-    }
-    ASSERT_FALSE(std::getline(data_file, data_point));
   }
 
 protected:
@@ -103,10 +78,12 @@ TEST_F(LogTest, Write) {
   writeToStream(data1, "stream1", 30);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(500));
-  verifyData(data0, Log::instance()["stream0"].path(),
-             Log::instance()["stream0"].configuration().delimiter());
-  verifyData(data1, Log::instance()["stream1"].path(),
-             Log::instance()["stream1"].configuration().delimiter());
+  test_utils::verifyFileData(
+      data0, Log::instance()["stream0"].path(),
+      Log::instance()["stream0"].configuration().delimiter());
+  test_utils::verifyFileData(
+      data1, Log::instance()["stream1"].path(),
+      Log::instance()["stream1"].configuration().delimiter());
 }
 
 TEST_F(LogTest, WriteSlowRate) {
@@ -122,18 +99,20 @@ TEST_F(LogTest, WriteSlowRate) {
 
   // Check for no write
   std::this_thread::sleep_for(std::chrono::milliseconds(500));
-  verifyData(std::vector<std::vector<double>>(),
-             Log::instance()["stream0"].path(),
-             Log::instance()["stream0"].configuration().delimiter());
-  verifyData(std::vector<std::vector<double>>(),
-             Log::instance()["stream1"].path(),
-             Log::instance()["stream1"].configuration().delimiter());
+  test_utils::verifyFileData(
+      std::vector<std::vector<double>>(), Log::instance()["stream0"].path(),
+      Log::instance()["stream0"].configuration().delimiter());
+  test_utils::verifyFileData(
+      std::vector<std::vector<double>>(), Log::instance()["stream1"].path(),
+      Log::instance()["stream1"].configuration().delimiter());
   // Wait for write
   std::this_thread::sleep_for(std::chrono::milliseconds(500));
-  verifyData(data0, Log::instance()["stream0"].path(),
-             Log::instance()["stream0"].configuration().delimiter());
-  verifyData(data1, Log::instance()["stream1"].path(),
-             Log::instance()["stream1"].configuration().delimiter());
+  test_utils::verifyFileData(
+      data0, Log::instance()["stream0"].path(),
+      Log::instance()["stream0"].configuration().delimiter());
+  test_utils::verifyFileData(
+      data1, Log::instance()["stream1"].path(),
+      Log::instance()["stream1"].configuration().delimiter());
 }
 
 int main(int argc, char **argv) {
