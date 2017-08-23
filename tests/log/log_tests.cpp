@@ -67,6 +67,17 @@ TEST_F(LogTest, IndexOperator) {
   ASSERT_EQ(ds1.configuration().stream_id(), std::string("stream1"));
 }
 
+TEST_F(LogTest, AddDataStream) {
+  ASSERT_NO_THROW(Log::instance().configure(config_));
+  DataStreamConfig ds_config;
+
+  ds_config.set_stream_id("new_stream");
+  Log::instance().addDataStream(ds_config);
+
+  DataStream &ds0 = Log::instance()[ds_config.stream_id()];
+  ASSERT_EQ(ds0.configuration().stream_id(), ds_config.stream_id());
+}
+
 TEST_F(LogTest, Write) {
   ASSERT_NO_THROW(Log::instance().configure(config_));
   std::vector<std::vector<double>> data0 = {
