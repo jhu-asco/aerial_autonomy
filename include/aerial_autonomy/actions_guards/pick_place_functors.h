@@ -26,7 +26,7 @@ struct PickGuard_
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     if (!success) {
       LOG(WARNING) << "Failed to send grip command!";
-      robot_system.grip(false);
+      robot_system.resetGripper();
       return false;
     }
     VLOG(1) << "Done Gripping!";
@@ -88,8 +88,8 @@ struct VisualServoingArmTransitionActionFunctor_
     VLOG(1) << "Setting Goal for visual servoing arm connector!";
     robot_system.setGoal<VisualServoingControllerArmConnector, tf::Transform>(
         robot_system.armGoalTransform(TransformIndex));
-    // Also ensure the gripper is open before going to pick objects
-    robot_system.grip(false);
+    // Also ensure the gripper is in the right state to grip objects
+    robot_system.resetGripper();
   }
 };
 
