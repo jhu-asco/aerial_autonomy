@@ -59,7 +59,7 @@ TEST_F(LogTest, ConfigureStreamNotUnique) {
 
 TEST_F(LogTest, IndexOperator) {
   ASSERT_NO_THROW(Log::instance().configure(config_));
-  ASSERT_THROW(Log::instance()["bad_name"], std::runtime_error);
+  ASSERT_FALSE(Log::instance()["bad_name"].configuration().log_data());
 
   DataStream &ds0 = Log::instance()["stream0"];
   ASSERT_EQ(ds0.configuration().stream_id(), std::string("stream0"));
