@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+  <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/pick_place_simulator_config.pbtxt" />
+  <param name="event_file" value="$(find aerial_autonomy)/events/pick_place_events" />
+  <arg name="log_level" default="0"/>
+  <arg name="log_dir" default="$(find aerial_autonomy)/logs"/>
+  <node pkg="aerial_autonomy" type="uav_arm_system_node" name="uav_arm_system_node">
+    <remap from="~common/goal_pose_command" to="/rqt_gui/pose_command_combined" />
+    <remap from="~common/event_manager" to="/rqt_gui/event_trigger" />
+    <remap from="~common/system_status" to="/rqt_gui/system_status" />
+    <remap from="~tracker/depth" to="camera_sim/depth_image"/>
+    <remap from="~tracker/roi" to="roi_out"/>
+    <remap from="~tracker/camera_info" to="camera_sim/camera_info"/>
+    <env name="GLOG_log_dir" value="$(arg log_dir)"/>
+    <env name="GLOG_v" value="$(arg log_level)"/>
+    <env name="GLOG_alsologtostderr" value="1"/>
+  </node>
+  <node name="camera_simulator" pkg="quad_simulator_parser" type="camera_simulator_node" output="screen">
+    <param name="world_frame_name" type="string" value="world" />
+    <param name="body_frame_name" type="string" value="quad_sim" />
+    <param name="resource_path" type="string" value="$(find quad_simulator_parser)/ogre_cfg/"/>
+    <param name="model_name" type="string" value="hackerman2.mesh"/>
+  </node>
+  <include file="$(find opencv3_tracking)/launch/opencv3_tracking.launch" />
+</launch>

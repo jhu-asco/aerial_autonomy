@@ -1,5 +1,5 @@
 #include <aerial_autonomy/state_machines/joystick_control_state_machine.h>
-#include <aerial_autonomy/system_handlers/uav_system_handler.h>
+#include <aerial_autonomy/system_handlers/uav_sensor_system_handler.h>
 #include <aerial_autonomy/joystick_control_events.h>
 
 #include <fcntl.h>
@@ -43,10 +43,10 @@ int main(int argc, char **argv) {
     LOG(FATAL) << "Failed to parse config file: " << uav_system_config_filename;
   }
 
-  UAVSystemHandler<JoystickControlStateMachine,
-  joystick_control_events::JoystickControlEventManager<JoystickControlStateMachine>>
-  uav_system_handler(nh, uav_system_config);
-
+  UAVSensorSystemHandler<JoystickControlStateMachine,
+                   joystick_control_events::JoystickControlEventManager
+                   <JoystickControlStateMachine>>
+      uav_system_handler(uav_system_config);
   ros::spin();
 
   return 0;

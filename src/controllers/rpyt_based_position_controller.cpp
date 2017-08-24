@@ -16,7 +16,7 @@ bool RPYTBasedPositionController::runImplementation(
   return true;
 }
 
-bool RPYTBasedPositionController::isConvergedImplementation(
+ControllerStatus RPYTBasedPositionController::isConvergedImplementation(
   std::tuple<PositionYaw, VelocityYaw> sensor_data, PositionYaw goal) {
 
   vel_pos_ctlr.setGoal(goal);

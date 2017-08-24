@@ -23,8 +23,14 @@ protected:
   QuadSimulator drone_hardware;
 
   virtual void SetUp() {
+    UAVSystemConfig config;
+    auto position_tolerance = config.mutable_position_controller_config()
+                                  ->mutable_goal_position_tolerance();
+    position_tolerance->set_x(0.5);
+    position_tolerance->set_y(0.5);
+    position_tolerance->set_z(0.5);
     drone_hardware.setTakeoffAltitude(2.0);
-    uav_system.reset(new UAVSystem(drone_hardware));
+    uav_system.reset(new UAVSystem(drone_hardware, config));
     logic_state_machine.reset(new UAVStateMachine(boost::ref(*uav_system)));
     logic_state_machine->start();
     // Will switch to Landed state from manual control state
@@ -92,7 +98,7 @@ TEST_F(StateMachineTests, Takeoff) {
 
 TEST_F(StateMachineTests, TakeoffManualControlAbort) {
   drone_hardware.setBatteryPercent(100);
-  //Takeoff
+  // Takeoff
   logic_state_machine->process_event(be::Takeoff());
   // Disable sdk
   drone_hardware.flowControl(false);

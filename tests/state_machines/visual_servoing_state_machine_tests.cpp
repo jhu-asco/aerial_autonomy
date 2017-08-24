@@ -34,8 +34,17 @@ public:
         uav_vision_system_config
             ->mutable_constant_heading_depth_controller_config();
     depth_config->set_radial_gain(0.5);
-    depth_config->mutable_position_controller_config()
-        ->set_goal_position_tolerance(goal_tolerance_position);
+    auto position_tolerance = config.mutable_position_controller_config()
+                                  ->mutable_goal_position_tolerance();
+    position_tolerance->set_x(0.5);
+    position_tolerance->set_y(0.5);
+    position_tolerance->set_z(0.5);
+    auto vs_position_tolerance =
+        depth_config->mutable_position_controller_config()
+            ->mutable_goal_position_tolerance();
+    vs_position_tolerance->set_x(goal_tolerance_position);
+    vs_position_tolerance->set_y(goal_tolerance_position);
+    vs_position_tolerance->set_z(goal_tolerance_position);
     tf::Transform camera_transform = math::getTransformFromVector(
         uav_vision_system_config->camera_transform());
     tracker.reset(new SimpleTracker(drone_hardware, camera_transform));
@@ -75,6 +84,9 @@ TEST_F(VisualServoingStateMachineTests, InitialState) {
 
 /// \brief Test Visual servoing related events
 TEST_F(VisualServoingStateMachineTests, VisualServoing) {
+  int time_out = 5000;  // Milliseconds
+  int time_period = 20; // Milliseconds
+  int max_count = time_out / time_period;
   // First takeoff
   GoToHoverFromLanded();
   // Set goal for simple tracker
@@ -88,11 +100,13 @@ TEST_F(VisualServoingStateMachineTests, VisualServoing) {
   ASSERT_EQ(uav_system->getStatus<VisualServoingControllerDroneConnector>(),
             ControllerStatus::Active);
   // Keep running the controller until its completed
+  int temp_count = 0;
   while (uav_system->getStatus<VisualServoingControllerDroneConnector>() ==
-         ControllerStatus::Active) {
+             ControllerStatus::Active &&
+         ++temp_count < max_count) {
     uav_system->runActiveController(HardwareType::UAV);
     logic_state_machine->process_event(InternalTransitionEvent());
-    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+    std::this_thread::sleep_for(std::chrono::milliseconds(time_period));
   }
   // Finally check we are back in hovering
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");

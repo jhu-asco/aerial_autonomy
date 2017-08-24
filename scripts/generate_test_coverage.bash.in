@@ -1,10 +1,19 @@
 #!/bin/bash
-rm -rf ${CMAKE_CURRENT_BINARY_DIR}
-catkin run_tests aerial_autonomy > /dev/null
+rm -rf ${CMAKE_CURRENT_BINARY_DIR}/*
+catkin build aerial_autonomy -j 4 -p 1 > /dev/null
+catkin build aerial_autonomy -j 4 -p 1 --make-args tests > /dev/null
+catkin run_tests aerial_autonomy -j 1 -p 1 > /dev/null
 error=$?
 if [ $error -ne 0 ]
 then
   echo "Catkin BUILD Failed"
+  exit 1
+fi
+catkin_test_results ${CMAKE_CURRENT_BINARY_DIR}
+error=$?
+if [ $error -ne 0 ]
+then
+  echo "Some tests failed!"
   exit 1
 fi
 TEST_COVERAGE_DIR=${CMAKE_CURRENT_SOURCE_DIR}/.test_coverage_info

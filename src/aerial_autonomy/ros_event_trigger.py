@@ -32,6 +32,8 @@ def parse_event_file(event_folder, event_file_name, event_name_list):
                 event_folder,
                 event_name_split[0],
                 event_name_list)
+        elif len(event_name_split) == 3:
+            event_name_list.append(event_name_split[2])
         else:
             event_name_list.append(event_name)
 
@@ -80,16 +82,16 @@ class RosEventTrigger(QObject):
         parse_event_file(event_folder, event_file_name, self.event_names_list)
 
         ## Ros publisher to trigger events based on name
-        self.event_pub = rospy.Publisher('event_trigger',
+        self.event_pub = rospy.Publisher('~event_trigger',
                                          String, queue_size=1)
         ## Ros publisher to trigger pose event
-        self.pose_command_pub = rospy.Publisher('pose_command_combined',
+        self.pose_command_pub = rospy.Publisher('~pose_command_combined',
                                                 PoseStamped, queue_size=1)
         # Define partial callbacks
         statusCallback = partial(self.statusCallback, signal=self.status_signal)
         poseCommandCallback = lambda pose_command : self.pose_command_signal.emit(pose_command)
         # Subscribers for quad arm and state machine updates
-        rospy.Subscriber("system_status", String, statusCallback)
+        rospy.Subscriber("~system_status", String, statusCallback)
 
         # Subscribe to position commands (from Rviz)
         rospy.Subscriber("/move_base_simple/goal", PoseStamped, poseCommandCallback) 

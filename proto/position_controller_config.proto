@@ -1,14 +1,16 @@
 syntax = "proto2";
 
+import "position.proto";
+
 message PositionControllerConfig {
   /**
-  * @brief If UAV is within this distance in x,y, and z
+  * @brief If robot is within this distance in x, y, and z
   * dimensions, the goal is reached.
   */
-  optional double goal_position_tolerance = 1 [ default = 1.0 ];
+  required config.Position goal_position_tolerance = 1;
 
   /**
-  * @brief UAV is within this yaw angle (radians),
+  * @brief Robot is within this yaw angle (radians),
   * the goal is reached.
   */
   optional double goal_yaw_tolerance = 2 [ default = 0.1 ];

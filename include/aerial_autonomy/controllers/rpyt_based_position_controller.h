@@ -48,7 +48,7 @@ protected:
   *
   * @return  True if sensor data is close to goal
   */
-  virtual bool isConvergedImplementation(std::tuple<PositionYaw, VelocityYaw> sensor_data,
+  virtual ControllerStatus isConvergedImplementation(std::tuple<PositionYaw, VelocityYaw> sensor_data,
                                          PositionYaw goal);
   VelocityBasedPositionController vel_pos_ctlr; 
   RPYTBasedVelocityController rpyt_vel_ctlr;

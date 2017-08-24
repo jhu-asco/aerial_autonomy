@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
 
   UAVSystemHandler<UAVStateMachine,
                    uav_basic_events::UAVEventManager<UAVStateMachine>>
-      uav_system_handler(nh, uav_system_config);
+      uav_system_handler(uav_system_config);
 
   ros::spin();
 

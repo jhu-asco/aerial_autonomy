@@ -1,13 +1,17 @@
 #include "aerial_autonomy/trackers/simple_tracker.h"
+#include "aerial_autonomy/trackers/simple_tracking_strategy.h"
 #include <glog/logging.h>
 
 SimpleTracker::SimpleTracker(parsernode::Parser &drone_hardware,
                              tf::Transform camera_transform)
-    : drone_hardware_(drone_hardware), camera_transform_(camera_transform) {
+    : BaseTracker(new SimpleTrackingStrategy()),
+      drone_hardware_(drone_hardware), camera_transform_(camera_transform) {
   tracking_valid_ = true;
 }
 
-bool SimpleTracker::getTrackingVector(Position &p) {
+bool SimpleTracker::getTrackingVectors(
+    std::unordered_map<uint32_t, Position> &p) {
+  CHECK(p.empty()) << "Tracking vector map not empty";
   if (!trackingIsValid()) {
     return false;
   }
@@ -23,9 +27,8 @@ bool SimpleTracker::getTrackingVector(Position &p) {
   tf::Vector3 target_position_camera = camera_transform_.inverse() *
                                        quad_tf_global.inverse() *
                                        target_position_global;
-  p.x = target_position_camera.getX();
-  p.y = target_position_camera.getY();
-  p.z = target_position_camera.getZ();
+  p[0] = Position(target_position_camera.getX(), target_position_camera.getY(),
+                  target_position_camera.getZ());
   return true;
 }
 

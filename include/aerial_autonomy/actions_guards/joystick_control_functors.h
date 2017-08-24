@@ -5,12 +5,13 @@
 #include <aerial_autonomy/types/empty_goal.h>
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
 #include <aerial_autonomy/uav_basic_events.h>
+#include <aerial_autonomy/types/manual_control_event.h>
 #include <glog/logging.h>
 #include <parsernode/common.h>
 
-template<class LogicStateMachineT>
+template<class LogicStateMachineT, class AbortEventT=ManualControlEvent>
 struct JoystickControlInternalActionFunctor_
-: HoveringInternalActionFunctor_<LogicStateMachineT>{
+: HoveringInternalActionFunctor_<LogicStateMachineT, AbortEventT>{
 };
 /**
 *
@@ -21,8 +22,7 @@ struct JoystickControlInternalActionFunctor_
 template<class LogicStateMachineT>
 struct JoystickControlTransitionActionFunctor_
 : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT>{
-  void run(UAVSystem &robot_system, 
-    LogicStateMachineT &){
+  void run(UAVSystem &robot_system){
     LOG(WARNING) << "entering manual velocity mode";
     robot_system.setGoal<ManualVelocityControllerDroneConnector, EmptyGoal>(
       EmptyGoal());

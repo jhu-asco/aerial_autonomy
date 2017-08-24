@@ -63,6 +63,6 @@ public:
   operator T() const { return this->get(); }
 
 private:
-  T data_;
-  mutable boost::mutex mutex_;
+  T data_;                     ///< Data being stored
+  mutable boost::mutex mutex_; ///< Synchronize access to data
 };

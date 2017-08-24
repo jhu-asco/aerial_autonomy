@@ -103,47 +103,29 @@ TEST(UAVSystemTests, runRPYTController) {
   ASSERT_NEAR(sensor_data.omega.z, -0.00314, 1e-3);
 }
 
-TEST(UAVSystemTests, runManualVelocityController) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
-  uav_system.takeOff();
-  
-  // set rc channels
-  int16_t channels[4] = {0, 0, 0, 0};
-  drone_hardware.setRC(channels);
-  drone_hardware.set_delay_send_time(0.02);
-  // set goal
-  uav_system.setGoal<ManualVelocityControllerDroneConnector>(EmptyGoal());
-  // Run 10 iterations
-  for (int i = 0; i < 100; ++i) {
-    uav_system.runActiveController(HardwareType::UAV);
-    std::this_thread::sleep_for(std::chrono::milliseconds(20));
-  }
-  parsernode::common::quaddata sensor_data = uav_system.getUAVData();
-  ASSERT_NEAR(sensor_data.rpydata.x, 0.00, 1e-4);
-  ASSERT_NEAR(sensor_data.rpydata.y, 0.00, 1e-4);
-  // Verify Omegaz
-  ASSERT_NEAR(sensor_data.omega.z, 0.00, 1e-3);
-}
-
-
 TEST(UAVSystemTests, getActiveControllerStatus) {
   QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  UAVSystemConfig config;
+  auto position_tolerance = config.mutable_position_controller_config()
+                                ->mutable_goal_position_tolerance();
+  position_tolerance->set_x(0.5);
+  position_tolerance->set_y(0.5);
+  position_tolerance->set_z(0.5);
+  UAVSystem uav_system(drone_hardware, config);
   PositionYaw position_yaw(1, 1, 1, 1);
   uav_system.setGoal<PositionControllerDroneConnector>(position_yaw);
 
-  ControllerStatus status;
-  ASSERT_TRUE(uav_system.getActiveControllerStatus(HardwareType::UAV, status));
-  ASSERT_EQ(status, ControllerStatus::Active);
+  ASSERT_EQ(uav_system.getActiveControllerStatus(HardwareType::UAV),
+            ControllerStatus::Active);
 
   uav_system.runActiveController(HardwareType::UAV);
   uav_system.runActiveController(HardwareType::UAV);
-  ASSERT_TRUE(uav_system.getActiveControllerStatus(HardwareType::UAV, status));
-  ASSERT_EQ(status, ControllerStatus::Completed);
+  ASSERT_EQ(uav_system.getActiveControllerStatus(HardwareType::UAV), 
+    ControllerStatus::Active);
 
   uav_system.abortController(HardwareType::UAV);
-  ASSERT_FALSE(uav_system.getActiveControllerStatus(HardwareType::UAV, status));
+  ASSERT_EQ(uav_system.getActiveControllerStatus(HardwareType::UAV),
+            ControllerStatus::NotEngaged);
 }
 
 TEST(UAVSystemTests, abortController) {

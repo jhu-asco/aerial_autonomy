@@ -8,7 +8,9 @@ class SampleController : public Controller<int, int, int> {
     control = 0;
     return true;
   }
-  virtual bool isConvergedImplementation(int, int) { return true; }
+  virtual ControllerStatus isConvergedImplementation(int, int) {
+    return ControllerStatus(ControllerStatus::Completed);
+  }
 };
 
 class SampleHardwareController

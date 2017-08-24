@@ -34,8 +34,8 @@ protected:
   * for manual rpyt controller
   * @return True always
   */
-  virtual bool isConvergedImplementation(std::tuple<JoysticksYaw, VelocityYaw> sensor_data, EmptyGoal goal) {
-    return true;
+  virtual ControllerStatus isConvergedImplementation(std::tuple<JoysticksYaw, VelocityYaw> sensor_data, EmptyGoal goal) {
+    return ControllerStatus::Completed;
   }
 
 private:

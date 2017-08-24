@@ -1,5 +1,6 @@
 #include <aerial_autonomy/controllers/rpyt_based_velocity_controller.h>
 #include <Eigen/Dense>
+#include <glog/logging.h>
 
 bool RPYTBasedVelocityController::runImplementation(VelocityYaw sensor_data,
   VelocityYaw goal, 
@@ -43,26 +44,31 @@ bool RPYTBasedVelocityController::runImplementation(VelocityYaw sensor_data,
     std::cout << "RP out of bounds !\n";
   }
 
-  control.y = goal.yaw;
+  control.y = goal.yaw; 
+/*
+  std::cout << "r = " << control.r<<"p = "<< control.p <<
+   "y = " << control.y << "t = " << control.t<<"\n"; 
+*/
 
   return true;
 }
 
-bool RPYTBasedVelocityController::isConvergedImplementation(
+ControllerStatus RPYTBasedVelocityController::isConvergedImplementation(
   VelocityYaw sensor_data, VelocityYaw goal)
 {
+  ControllerStatus status = ControllerStatus::Active;
   VelocityYaw velocity_diff = goal - sensor_data;
   const VelocityControllerConfig &velocity_controller_config =
   config_.velocity_controller_config();
-  const double &tolerance_vel =
+  const config::Velocity tolerance_vel =
   velocity_controller_config.goal_velocity_tolerance();
-  const double &tolerance_yaw = velocity_controller_config.goal_yaw_tolerance();
+  const double tolerance_yaw = velocity_controller_config.goal_yaw_tolerance();
   // Compare
-  if (std::abs(velocity_diff.x) < tolerance_vel &&
-    std::abs(velocity_diff.y) < tolerance_vel &&
-    std::abs(velocity_diff.z) < tolerance_vel &&
+  if (std::abs(velocity_diff.x) < tolerance_vel.vx() &&
+    std::abs(velocity_diff.y) < tolerance_vel.vy() &&
+    std::abs(velocity_diff.z) < tolerance_vel.vz() &&
     std::abs(velocity_diff.yaw) < tolerance_yaw) {
-    return true;
+    status.setStatus(ControllerStatus::Completed);
 }
-return false;
+return status;
 }

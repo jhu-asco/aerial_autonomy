@@ -22,7 +22,8 @@ class JoystickControlStateMachineTests : public ::testing::Test{
 public:
   JoystickControlStateMachineTests(){
     drone_hardware.setTakeoffAltitude(2.0);
-    uav_system.reset(new UAVSystem(drone_hardware));
+    uav_system.reset(new UAVSensorSystem(velocity_sensor, 
+      drone_hardware));
     logic_state_machine.reset(new JoystickControlStateMachine(boost::ref(*uav_system)));
     logic_state_machine->start();
     // Will switch to Landed state from manual control state
@@ -30,8 +31,9 @@ public:
   }
 protected:
   std::unique_ptr<JoystickControlStateMachine> logic_state_machine;
-  std::unique_ptr<UAVSystem> uav_system;
+  std::unique_ptr<UAVSensorSystem> uav_system;
   QuadSimulator drone_hardware;
+  Sensor<VelocityYaw> velocity_sensor;
 
   void GoToHoverFromLanded() {
     drone_hardware.setBatteryPercent(100);

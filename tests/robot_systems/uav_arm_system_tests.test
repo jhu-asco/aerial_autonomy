@@ -1,0 +1,4 @@
+<launch>
+  <test test-name="UAVArmSystemTests" pkg="aerial_autonomy" type="aerial_autonomy-uav-arm-system-test">
+  </test>
+</launch>

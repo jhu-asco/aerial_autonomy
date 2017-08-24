@@ -50,7 +50,7 @@ public:
   *
   * @return  True if sensor data is close to goal
   */
-  virtual bool isConvergedImplementation(VelocityYaw sensor_data,
+  virtual ControllerStatus isConvergedImplementation(VelocityYaw sensor_data,
                                          VelocityYaw goal);
   RPYTBasedVelocityControllerConfig config_; ///< Controller configuration
   VelocityYaw cumulative_error;

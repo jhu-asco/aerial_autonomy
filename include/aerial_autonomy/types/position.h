@@ -27,7 +27,7 @@ struct Position {
   * @brief Returns the norm of the vector
   * @return the norm
   */
-  double norm() {
+  double norm() const {
     return std::sqrt(std::pow(x, 2) + std::pow(y, 2) + std::pow(z, 2));
   }
 

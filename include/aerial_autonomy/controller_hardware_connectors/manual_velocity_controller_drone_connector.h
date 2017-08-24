@@ -68,5 +68,5 @@ private:
   /**
   *  @brief sensor object to get sensor data
   */
-  Sensor<VelocityYaw> velocity_sensor_;
+  Sensor<VelocityYaw> &velocity_sensor_;
 };

@@ -103,19 +103,17 @@ public:
   * @brief Get the status of the active controller
   *
   * @param hardware_type Hardware to get controller for
-  * @param status Returned status
   *
-  * @return True if active controller exists and false otherwise
+  * @return status of the active controller.
+  * If no active controller returns status as not engaged
   */
-  bool getActiveControllerStatus(HardwareType hardware_type,
-                                 ControllerStatus &status) const {
+  ControllerStatus getActiveControllerStatus(HardwareType hardware_type) const {
     auto active_controller = active_controllers_.find(hardware_type);
     if (active_controller != active_controllers_.end() &&
         active_controller->second != nullptr) {
-      status = active_controller->second->getStatus();
-      return true;
+      return active_controller->second->getStatus();
     } else {
-      return false;
+      return ControllerStatus(ControllerStatus::NotEngaged);
     }
   }
 

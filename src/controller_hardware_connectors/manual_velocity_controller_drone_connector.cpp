@@ -11,9 +11,12 @@ bool ManualVelocityControllerDroneConnector::extractSensorData(
    quad_data.servo_in[2], quad_data.servo_in[3],
    quad_data.rpydata.z);
 
-    VelocityYaw vel_sensor_data;
-    velocity_sensor_.getSensorData(vel_sensor_data);
-    sensor_data = std::make_tuple(joy_data, vel_sensor_data); 
+
+
+  VelocityYaw vel_sensor_data;
+  velocity_sensor_.getSensorData(vel_sensor_data);
+ 
+  sensor_data = std::make_tuple(joy_data, vel_sensor_data); 
   return true;
 }
 

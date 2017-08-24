@@ -56,7 +56,6 @@ class EventTransmissionGUI(Plugin):
         self.system_status_textbox = QTextEdit()
         self.system_status_textbox.setReadOnly(True)
         self._layout.addWidget(self.system_status_textbox)
-        self._layout.addWidget(QLabel('System Status'))
 
         # Create height slider
         self._layout.addWidget(QLabel('Pose Command Height (m)'))
@@ -188,4 +187,4 @@ class EventTransmissionGUI(Plugin):
         Generic placeholder function to update text box
         """
         if not sip.isdeleted(text_box):
-            text_box.setText(status)
+            text_box.setHtml(status)

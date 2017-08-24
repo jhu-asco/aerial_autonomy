@@ -2,6 +2,8 @@
 
 #include <ros/ros.h>
 
+// Html utils
+#include <aerial_autonomy/common/html_utils.h>
 // Base Robot system
 #include <aerial_autonomy/robot_systems/base_robot_system.h>
 
@@ -31,40 +33,52 @@ public:
   * to automatically add table lines
   */
   void publishSystemStatus() {
-    ControllerStatus controller_status;
-    std::string controller_status_str;
-    if (robot_system_.getActiveControllerStatus(HardwareType::UAV,
-                                                controller_status)) {
-      switch (controller_status) {
-      case ControllerStatus::Active:
-        controller_status_str = "Active";
-        break;
-      case ControllerStatus::Completed:
-        controller_status_str = "Completed";
-        break;
-      case ControllerStatus::Critical:
-        controller_status_str = "Critical";
-        break;
-      default:
-        controller_status_str = "Unknown controller status!";
-        break;
-      }
-    } else {
-      controller_status_str = "No active controller";
-    }
+    // Get active controller status
+    ControllerStatus uav_controller_status =
+        robot_system_.getActiveControllerStatus(HardwareType::UAV);
+    ControllerStatus arm_controller_status =
+        robot_system_.getActiveControllerStatus(HardwareType::Arm);
     std::string robot_system_status = robot_system_.getSystemStatus();
     std::string current_state_name = pstate(logic_state_machine_);
     std::string no_transition_event_name =
         logic_state_machine_.get_no_transition_event_index().name();
+    std::type_index last_transition_event_index =
+        logic_state_machine_.lastProcessedEventIndex();
+    HtmlDivisionWriter division_writer;
+    division_writer.addHeader("Robot System Status");
+    division_writer.addText(robot_system_status);
+    // Add subheader for uav controller status
+    division_writer.addHeader("UAV Controller Status", 4);
+    division_writer.addText(uav_controller_status.getHtmlStatusString());
+    // Add subheader for arm controller status
+    division_writer.addHeader("Arm Controller Status", 4);
+    division_writer.addText(arm_controller_status.getHtmlStatusString());
+    // add table for logic state machine
+    HtmlTableWriter logic_state_machine_table(190);
+    logic_state_machine_table.beginRow();
+    logic_state_machine_table.addHeader("Logic State Machine Status",
+                                        Colors::blue, 2);
+    logic_state_machine_table.beginRow();
+    logic_state_machine_table.addCell("Current state: ");
+    logic_state_machine_table.addCell(current_state_name);
+    logic_state_machine_table.beginRow();
+    logic_state_machine_table.addCell("Last Event without transition: ");
+    logic_state_machine_table.addCell(no_transition_event_name);
+    logic_state_machine_table.beginRow();
+    logic_state_machine_table.addCell("Last Event: ");
+    if (last_transition_event_index == typeid(be::Abort)) {
+      logic_state_machine_table.addCell(last_transition_event_index.name(), "",
+                                        Colors::red);
+    } else if (last_transition_event_index == typeid(Completed)) {
+      logic_state_machine_table.addCell(last_transition_event_index.name(), "",
+                                        Colors::green);
+    } else {
+      logic_state_machine_table.addCell(last_transition_event_index.name());
+    }
+    // Add table to division
+    division_writer.addText(logic_state_machine_table.getTableString());
     std_msgs::String status;
-    status.data = "Robot System Status:\n" + robot_system_status + "\n";
-    status.data += "\n\n========================\n\n";
-    status.data += "Controller Status: " + controller_status_str;
-    status.data += "\n\n========================\n\n";
-    status.data += "Logic State Machine Status: \n";
-    status.data += "Current state:\t" + current_state_name + "\n";
-    status.data +=
-        "Last event without transition:\t" + no_transition_event_name + "\n";
+    status.data = division_writer.getDivisionText();
     system_status_pub_.publish(status);
   }
 

@@ -2,6 +2,10 @@
 
 #include <boost/msm/back/state_machine.hpp>
 #include <boost/thread/recursive_mutex.hpp>
+// Type index
+#include <typeindex>
+// Internal transition event
+#include <aerial_autonomy/types/internal_transition_event.h>
 
 /**
 * @brief Boost namespace
@@ -23,16 +27,24 @@ template <class A0, class A1 = parameter::void_, class A2 = parameter::void_,
 */
 class thread_safe_state_machine : public state_machine<A0, A1, A2, A3, A4> {
 
-  boost::recursive_mutex
-      process_event_mutex_; ///< Mutex to synchronize process event functions
+  /**
+   * @brief Mutex to synchronize process event functions
+   */
+  mutable boost::recursive_mutex process_event_mutex_;
+  /**
+   * @brief  Last event processed by the state machine
+   */
+  std::type_index last_processed_event_index;
 
 public:
   thread_safe_state_machine<A0, A1, A2, A3, A4>()
-      : state_machine<A0, A1, A2, A3, A4>() {}
+      : state_machine<A0, A1, A2, A3, A4>(),
+        last_processed_event_index(typeid(NULL)) {}
 
   template <class Expr>
   thread_safe_state_machine<A0, A1, A2, A3, A4>(Expr const &expr)
-      : state_machine<A0, A1, A2, A3, A4>(expr) {}
+      : state_machine<A0, A1, A2, A3, A4>(expr),
+        last_processed_event_index(typeid(NULL)) {}
 
   // all state machines are friend with each other to allow embedding any of
   // them in another fsm
@@ -55,7 +67,21 @@ public:
   */
   template <class Event> execute_return process_event(Event const &evt) {
     recursive_mutex::scoped_lock lock(process_event_mutex_);
+    // Store the event if it is not internal transition event
+    std::type_index event_index = typeid(Event);
+    if (event_index != typeid(InternalTransitionEvent))
+      last_processed_event_index = event_index;
     return this->process_event_internal(evt, true);
+  }
+
+  /**
+   * @brief Returns the type index of last processed event after locking
+   *
+   * @return type index of last processed event
+   */
+  std::type_index lastProcessedEventIndex() const {
+    recursive_mutex::scoped_lock lock(process_event_mutex_);
+    return last_processed_event_index;
   }
 };
 }
