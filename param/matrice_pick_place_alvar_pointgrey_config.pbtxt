@@ -42,10 +42,10 @@ uav_system_config {
     desired_visual_servoing_distance: 0.5
     constant_heading_depth_controller_config {
       radial_gain: 0.3
-      tangential_gain: 0.3
+      tangential_gain: 1.0
       yaw_gain: 0.3
       max_velocity: 1
-      min_velocity: 0.1
+      min_velocity: 0.2
       max_yaw_rate: 0.3
       position_controller_config {
         goal_position_tolerance {
