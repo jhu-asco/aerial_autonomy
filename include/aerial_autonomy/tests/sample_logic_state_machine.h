@@ -2,6 +2,7 @@
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/robot_systems/uav_vision_system.h>
+#include <aerial_autonomy/robot_systems/uav_sensor_system.h>
 #include <aerial_autonomy/state_machines/base_state_machine.h>
 #include <aerial_autonomy/types/position_yaw.h>
 #include <type_traits>
@@ -86,3 +87,7 @@ using UAVVisionLogicStateMachine = SampleLogicStateMachine_<UAVVisionSystem>;
 * @brief Sample logic state machine templated on UAV arm system
 */
 using UAVArmLogicStateMachine = SampleLogicStateMachine_<UAVArmSystem>;
+/**
+*
+*/
+using UAVSensorLogicStateMachine = SampleLogicStateMachine_<UAVSensorSystem>;
