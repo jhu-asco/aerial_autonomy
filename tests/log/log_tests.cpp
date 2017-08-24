@@ -90,10 +90,10 @@ TEST_F(LogTest, Write) {
 
   std::this_thread::sleep_for(std::chrono::milliseconds(500));
   test_utils::verifyFileData(
-      data0, Log::instance()["stream0"].path(),
+      data0, Log::instance()["stream0"].path().string(),
       Log::instance()["stream0"].configuration().delimiter());
   test_utils::verifyFileData(
-      data1, Log::instance()["stream1"].path(),
+      data1, Log::instance()["stream1"].path().string(),
       Log::instance()["stream1"].configuration().delimiter());
 }
 
@@ -111,18 +111,20 @@ TEST_F(LogTest, WriteSlowRate) {
   // Check for no write
   std::this_thread::sleep_for(std::chrono::milliseconds(500));
   test_utils::verifyFileData(
-      std::vector<std::vector<double>>(), Log::instance()["stream0"].path(),
+      std::vector<std::vector<double>>(),
+      Log::instance()["stream0"].path().string(),
       Log::instance()["stream0"].configuration().delimiter());
   test_utils::verifyFileData(
-      std::vector<std::vector<double>>(), Log::instance()["stream1"].path(),
+      std::vector<std::vector<double>>(),
+      Log::instance()["stream1"].path().string(),
       Log::instance()["stream1"].configuration().delimiter());
   // Wait for write
   std::this_thread::sleep_for(std::chrono::milliseconds(500));
   test_utils::verifyFileData(
-      data0, Log::instance()["stream0"].path(),
+      data0, Log::instance()["stream0"].path().string(),
       Log::instance()["stream0"].configuration().delimiter());
   test_utils::verifyFileData(
-      data1, Log::instance()["stream1"].path(),
+      data1, Log::instance()["stream1"].path().string(),
       Log::instance()["stream1"].configuration().delimiter());
 }
 

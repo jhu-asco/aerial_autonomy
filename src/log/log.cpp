@@ -29,10 +29,10 @@ void Log::addDataStream(DataStreamConfig stream_config) {
     throw std::runtime_error("Stream ID not unique: " +
                              stream_config.stream_id());
   }
-  streams_.emplace(
-      stream_config.stream_id(),
-      DataStream(config_.directory() + "/" + stream_config.stream_id(),
-                 stream_config));
+  streams_.emplace(stream_config.stream_id(),
+                   DataStream(boost::filesystem::path(config_.directory()) /
+                                  stream_config.stream_id(),
+                              stream_config));
 }
 
 void Log::configureStreams(LogConfig config) {

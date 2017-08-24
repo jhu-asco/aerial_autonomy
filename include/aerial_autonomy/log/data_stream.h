@@ -2,6 +2,7 @@
 
 #include "data_stream_config.pb.h"
 
+#include <boost/filesystem.hpp>
 #include <boost/thread/mutex.hpp>
 #include <chrono>
 #include <fstream>
@@ -20,7 +21,7 @@ public:
   * @param path File path to write to
   * @param config Data stream configuration
   */
-  DataStream(std::string path, DataStreamConfig config);
+  DataStream(boost::filesystem::path path, DataStreamConfig config);
 
   /**
   * @brief Move operator
@@ -43,7 +44,7 @@ public:
   * @brief Get log path
   * @return The path
   */
-  std::string path();
+  boost::filesystem::path path();
 
   /**
   * @brief Stream operator for stream modifiers
@@ -85,8 +86,8 @@ private:
   */
   static void resetStringstream(std::stringstream &ss);
 
-  DataStreamConfig config_; ///< Configuration
-  std::string path_;        ///< Data filepath
+  DataStreamConfig config_;      ///< Configuration
+  boost::filesystem::path path_; ///< Data filepath
   std::chrono::time_point<std::chrono::high_resolution_clock>
       last_write_time_; ///< Last time the buffer has been written to
   std::fstream fs_;     ///< File stream that is written to

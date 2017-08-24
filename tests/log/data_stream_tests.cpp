@@ -42,7 +42,7 @@ TEST_F(DataStreamTest, WriteOneLine) {
   *ds << DataStream::endl;
   ds->write();
 
-  test_utils::verifyFileData(data, ds->path(), config_.delimiter());
+  test_utils::verifyFileData(data, ds->path().string(), config_.delimiter());
 }
 
 TEST_F(DataStreamTest, WriteMultipleLines) {
@@ -59,7 +59,7 @@ TEST_F(DataStreamTest, WriteMultipleLines) {
   }
   ds->write();
 
-  test_utils::verifyFileData(data, ds->path(), config_.delimiter());
+  test_utils::verifyFileData(data, ds->path().string(), config_.delimiter());
 }
 
 TEST_F(DataStreamTest, StreamTooFast) {
@@ -76,7 +76,8 @@ TEST_F(DataStreamTest, StreamTooFast) {
   ds->write();
 
   std::vector<std::vector<int>> first_point(data.begin(), data.begin() + 1);
-  test_utils::verifyFileData(first_point, ds->path(), config_.delimiter());
+  test_utils::verifyFileData(first_point, ds->path().string(),
+                             config_.delimiter());
 }
 
 TEST_F(DataStreamTest, WriteWhileStreaming) {
@@ -94,7 +95,8 @@ TEST_F(DataStreamTest, WriteWhileStreaming) {
   ds->write();
 
   std::vector<std::vector<int>> first_point(data.begin(), data.begin() + 1);
-  test_utils::verifyFileData(first_point, ds->path(), config_.delimiter());
+  test_utils::verifyFileData(first_point, ds->path().string(),
+                             config_.delimiter());
 }
 
 TEST_F(DataStreamTest, LogDataFalse) {
@@ -112,8 +114,8 @@ TEST_F(DataStreamTest, LogDataFalse) {
   }
   ds->write();
 
-  test_utils::verifyFileData(std::vector<std::vector<int>>(), ds->path(),
-                             config_.delimiter());
+  test_utils::verifyFileData(std::vector<std::vector<int>>(),
+                             ds->path().string(), config_.delimiter());
 }
 
 int main(int argc, char **argv) {

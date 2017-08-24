@@ -2,11 +2,11 @@
 
 #include <exception>
 
-DataStream::DataStream(std::string path, DataStreamConfig config)
+DataStream::DataStream(boost::filesystem::path path, DataStreamConfig config)
     : config_(config), path_(path), streaming_(false) {
-  fs_.open(path, std::fstream::out);
+  fs_.open(path.string(), std::fstream::out);
   if (!fs_.is_open()) {
-    throw std::runtime_error("Could not open file: " + path);
+    throw std::runtime_error("Could not open file: " + path.string());
   }
 }
 
@@ -16,9 +16,9 @@ DataStream::DataStream(DataStream &&o) {
   path_ = o.path_;
   o.fs_.close();
 
-  fs_.open(path_, std::fstream::out);
+  fs_.open(path_.string(), std::fstream::out);
   if (!fs_.is_open()) {
-    throw std::runtime_error("Could not open file: " + path_);
+    throw std::runtime_error("Could not open file: " + path_.string());
   }
   streaming_ = false;
 }
@@ -33,7 +33,7 @@ void DataStream::write() {
 
 const DataStreamConfig &DataStream::configuration() { return config_; }
 
-std::string DataStream::path() { return path_; }
+boost::filesystem::path DataStream::path() { return path_; }
 
 DataStream &DataStream::operator<<(DataStream &(*func)(DataStream &)) {
   return func(*this);
