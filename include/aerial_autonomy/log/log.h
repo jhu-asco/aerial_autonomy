@@ -69,4 +69,5 @@ private:
   LogConfig config_;
   std::unordered_map<std::string, DataStream> streams_;
   AsyncTimer log_timer_;
+  boost::filesystem::path directory_;
 };

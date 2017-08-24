@@ -47,7 +47,7 @@ TEST_F(LogTest, Configure) {
 }
 
 TEST_F(LogTest, ConfigureBadPath) {
-  config_.set_directory("");
+  config_.set_directory("/");
   ASSERT_THROW(Log::instance().configure(config_), std::runtime_error);
 }
 

@@ -2,15 +2,25 @@
 
 #include <boost/filesystem.hpp>
 
+#include <ctime>
 #include <exception>
 
 void Log::configure(LogConfig config) {
   config_ = config;
-  if (!boost::filesystem::exists(config_.directory())) {
-    if (!boost::filesystem::create_directory(config_.directory())) {
-      throw std::runtime_error("Could not create Log directory: " +
-                               config_.directory());
+
+  std::time_t t = std::time(nullptr);
+  char time_str[100];
+  if (std::strftime(time_str, sizeof(time_str), "_%y_%m_%d_%H_%M_%S",
+                    std::localtime(&t))) {
+    directory_ = config_.directory() + std::string(time_str);
+    if (!boost::filesystem::exists(directory_)) {
+      if (!boost::filesystem::create_directory(directory_)) {
+        throw std::runtime_error("Could not create Log directory: " +
+                                 directory_.string());
+      }
     }
+  } else {
+    throw std::runtime_error("Log timestamp exceeds string size");
   }
   configureStreams(config_);
 }
@@ -29,10 +39,9 @@ void Log::addDataStream(DataStreamConfig stream_config) {
     throw std::runtime_error("Stream ID not unique: " +
                              stream_config.stream_id());
   }
-  streams_.emplace(stream_config.stream_id(),
-                   DataStream(boost::filesystem::path(config_.directory()) /
-                                  stream_config.stream_id(),
-                              stream_config));
+  streams_.emplace(
+      stream_config.stream_id(),
+      DataStream(directory_ / stream_config.stream_id(), stream_config));
 }
 
 void Log::configureStreams(LogConfig config) {
