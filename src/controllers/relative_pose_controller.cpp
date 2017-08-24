@@ -1,4 +1,5 @@
 #include "aerial_autonomy/controllers/relative_pose_controller.h"
+#include "aerial_autonomy/log/log.h"
 #include <glog/logging.h>
 
 bool RelativePoseController::runImplementation(
@@ -25,6 +26,9 @@ ControllerStatus RelativePoseController::isConvergedImplementation(
   ControllerStatus status(ControllerStatus::Active);
   status << "Error Position, Rotation: " << abs_error_position.x()
          << abs_error_position.y() << abs_error_position.z() << rot_diff;
+  Log::instance()["relative_pose_controller"]
+      << DataStream::startl << abs_error_position.x() << abs_error_position.y()
+      << abs_error_position.z() << rot_diff << DataStream::endl;
 
   const config::Position &tolerance_pos = config_.goal_position_tolerance();
   if (abs_error_position.x() < tolerance_pos.x() &&
