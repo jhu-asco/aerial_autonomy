@@ -14,7 +14,8 @@ bool AlvarTracker::getTrackingVectors(
 bool AlvarTracker::trackingIsValid() {
   bool valid = (ros::Time::now() - last_valid_time_).toSec() < timeout_;
   if (!valid)
-    VLOG(2) << "Alvar has not been updated for " << timeout_ << " seconds";
+    VLOG_EVERY_N(1, 20) << "Alvar has not been updated for " << timeout_
+                        << " seconds";
   return valid;
 }
 
