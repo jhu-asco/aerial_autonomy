@@ -32,6 +32,18 @@ TEST_F(DataStreamTest, DoubleStartl) {
                std::logic_error);
 }
 
+TEST_F(DataStreamTest, DoubleStarth) {
+  DataStream ds(test_path_, config_);
+  ASSERT_THROW(ds << DataStream::starth << DataStream::starth,
+               std::logic_error);
+}
+
+TEST_F(DataStreamTest, DoubleStartlStarth) {
+  DataStream ds(test_path_, config_);
+  ASSERT_THROW(ds << DataStream::startl << DataStream::starth,
+               std::logic_error);
+}
+
 TEST_F(DataStreamTest, WriteOneLine) {
   std::unique_ptr<DataStream> ds(new DataStream(test_path_, config_));
   std::vector<std::vector<int>> data = {{10, 8, 3, 2, -1}};
@@ -42,7 +54,7 @@ TEST_F(DataStreamTest, WriteOneLine) {
   *ds << DataStream::endl;
   ds->write();
 
-  test_utils::verifyFileData(data, ds->path().string(), config_.delimiter());
+  test_utils::verifyFileData(data, ds->path(), config_.delimiter());
 }
 
 TEST_F(DataStreamTest, WriteMultipleLines) {
@@ -59,7 +71,7 @@ TEST_F(DataStreamTest, WriteMultipleLines) {
   }
   ds->write();
 
-  test_utils::verifyFileData(data, ds->path().string(), config_.delimiter());
+  test_utils::verifyFileData(data, ds->path(), config_.delimiter());
 }
 
 TEST_F(DataStreamTest, StreamTooFast) {
@@ -76,8 +88,7 @@ TEST_F(DataStreamTest, StreamTooFast) {
   ds->write();
 
   std::vector<std::vector<int>> first_point(data.begin(), data.begin() + 1);
-  test_utils::verifyFileData(first_point, ds->path().string(),
-                             config_.delimiter());
+  test_utils::verifyFileData(first_point, ds->path(), config_.delimiter());
 }
 
 TEST_F(DataStreamTest, WriteWhileStreaming) {
@@ -95,8 +106,23 @@ TEST_F(DataStreamTest, WriteWhileStreaming) {
   ds->write();
 
   std::vector<std::vector<int>> first_point(data.begin(), data.begin() + 1);
-  test_utils::verifyFileData(first_point, ds->path().string(),
-                             config_.delimiter());
+  test_utils::verifyFileData(first_point, ds->path(), config_.delimiter());
+}
+
+TEST_F(DataStreamTest, WriteHeader) {
+  config_.set_log_rate(10);
+  std::unique_ptr<DataStream> ds(new DataStream(test_path_, config_));
+  std::vector<std::vector<std::string>> data = {{"X", "Y", "Z"}};
+  for (size_t j = 0; j < data.size(); j++) {
+    *ds << DataStream::starth;
+    for (auto i : data[j]) {
+      *ds << i;
+    }
+    *ds << DataStream::endl;
+  }
+  ds->write();
+
+  test_utils::verifyFileData(data, ds->path(), config_.delimiter());
 }
 
 TEST_F(DataStreamTest, LogDataFalse) {
@@ -114,8 +140,8 @@ TEST_F(DataStreamTest, LogDataFalse) {
   }
   ds->write();
 
-  test_utils::verifyFileData(std::vector<std::vector<int>>(),
-                             ds->path().string(), config_.delimiter());
+  test_utils::verifyFileData(std::vector<std::vector<int>>(), ds->path(),
+                             config_.delimiter());
 }
 
 int main(int argc, char **argv) {
