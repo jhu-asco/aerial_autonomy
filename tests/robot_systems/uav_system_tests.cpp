@@ -120,8 +120,7 @@ TEST(UAVSystemTests, getActiveControllerStatus) {
 
   uav_system.runActiveController(HardwareType::UAV);
   uav_system.runActiveController(HardwareType::UAV);
-  ASSERT_EQ(uav_system.getActiveControllerStatus(HardwareType::UAV), 
-    ControllerStatus::Active);
+  ASSERT_TRUE(uav_system.getActiveControllerStatus(HardwareType::UAV));
 
   uav_system.abortController(HardwareType::UAV);
   ASSERT_EQ(uav_system.getActiveControllerStatus(HardwareType::UAV),
