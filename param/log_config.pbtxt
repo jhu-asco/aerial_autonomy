@@ -1,0 +1,22 @@
+directory: "/tmp/aerial_autonomy"
+write_duration: 100
+
+data_stream_configs {
+  stream_id: "velocity_based_position_controller"
+  log_rate: 20
+}
+
+data_stream_configs {
+  stream_id: "builtin_position_controller"
+  log_rate: 20
+}
+
+data_stream_configs {
+  stream_id: "relative_pose_controller"
+  log_rate: 20
+}
+
+data_stream_configs {
+  stream_id: "constant_heading_depth_controller"
+  log_rate: 20
+}

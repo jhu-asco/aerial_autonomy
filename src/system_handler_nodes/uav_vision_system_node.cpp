@@ -1,19 +1,13 @@
+#include <aerial_autonomy/common/proto_utils.h>
+#include <aerial_autonomy/log/log.h>
 #include <aerial_autonomy/state_machines/visual_servoing_state_machine.h>
 #include <aerial_autonomy/system_handlers/uav_vision_system_handler.h>
 #include <aerial_autonomy/uav_basic_events.h>
 
-#include <fcntl.h>
-#include <google/protobuf/io/zero_copy_stream_impl.h>
-#include <google/protobuf/text_format.h>
-
 #include <glog/logging.h>
 
+#include "log_config.pb.h"
 #include "uav_system_handler_config.pb.h"
-
-/**
-* @brief Protobuf namespace
-*/
-using namespace google::protobuf;
 
 /**
  * @brief Loads configutation file and starts system
@@ -32,16 +26,22 @@ int main(int argc, char **argv) {
   if (!nh.getParam("uav_system_config_filename", uav_system_config_filename)) {
     LOG(FATAL) << "ROS param \"uav_system_config_filename\" not found";
   }
+  std::string log_config_filename;
+  if (!nh.getParam("log_config_filename", log_config_filename)) {
+    LOG(FATAL) << "ROS param \"log_config_filename\" not found";
+  }
 
   UAVSystemHandlerConfig uav_system_config;
-  int fd = open(uav_system_config_filename.c_str(), O_RDONLY);
-  if (fd < 0) {
+  if (!proto_utils::loadProtoText(uav_system_config_filename,
+                                  uav_system_config)) {
     LOG(FATAL) << "Failed to open config file: " << uav_system_config_filename;
   }
-  io::FileInputStream fstream(fd);
-  if (!TextFormat::Parse(&fstream, &uav_system_config)) {
-    LOG(FATAL) << "Failed to parse config file: " << uav_system_config_filename;
+
+  LogConfig log_config;
+  if (!proto_utils::loadProtoText(log_config_filename, log_config)) {
+    LOG(FATAL) << "Failed to open log config file: " << log_config_filename;
   }
+  Log::instance().configure(log_config);
 
   UAVVisionSystemHandler<VisualServoingStateMachine,
                          visual_servoing_events::VisualServoingEventManager<
