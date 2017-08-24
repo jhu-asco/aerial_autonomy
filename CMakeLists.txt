@@ -176,6 +176,8 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/velocity_controller_config.proto
   proto/position.proto
   proto/velocity.proto
+  proto/data_stream_config.proto
+  proto/log_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -200,6 +202,8 @@ add_library(aerial_autonomy
   src/common/math.cpp
   src/common/conversions.cpp
   src/common/controller_status.cpp
+  src/log/data_stream.cpp
+  src/log/log.cpp
   src/trackers/roi_to_position_converter.cpp
   src/trackers/simple_tracker.cpp
   src/trackers/alvar_tracker.cpp
@@ -329,6 +333,8 @@ add_rostest_gtest(${PROJECT_NAME}-roi-to-position-converter-test tests/trackers/
 add_rostest_gtest(${PROJECT_NAME}-alvar-tracker-test tests/trackers/alvar_tracker_tests.test tests/trackers/alvar_tracker_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-drone-connector-test tests/controller_hardware_connectors/visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-arm-connector-test tests/controller_hardware_connectors/visual_servoing_arm_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-data-stream-test tests/log/data_stream_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-log-test tests/log/log_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
@@ -437,6 +443,13 @@ endif()
 if(TARGET ${PROJECT_NAME}-math-test)
   target_link_libraries(${PROJECT_NAME}-math-test aerial_autonomy)
 endif()
+if(TARGET ${PROJECT_NAME}-data-stream-test)
+  target_link_libraries(${PROJECT_NAME}-data-stream-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-log-test)
+  target_link_libraries(${PROJECT_NAME}-log-test aerial_autonomy)
+endif()
+
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
