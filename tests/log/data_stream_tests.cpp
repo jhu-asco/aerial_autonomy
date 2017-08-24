@@ -32,6 +32,18 @@ TEST_F(DataStreamTest, DoubleStartl) {
                std::logic_error);
 }
 
+TEST_F(DataStreamTest, DoubleStarth) {
+  DataStream ds(test_path_, config_);
+  ASSERT_THROW(ds << DataStream::starth << DataStream::starth,
+               std::logic_error);
+}
+
+TEST_F(DataStreamTest, DoubleStartlStarth) {
+  DataStream ds(test_path_, config_);
+  ASSERT_THROW(ds << DataStream::startl << DataStream::starth,
+               std::logic_error);
+}
+
 TEST_F(DataStreamTest, WriteOneLine) {
   std::unique_ptr<DataStream> ds(new DataStream(test_path_, config_));
   std::vector<std::vector<int>> data = {{10, 8, 3, 2, -1}};
