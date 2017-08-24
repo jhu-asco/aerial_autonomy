@@ -59,6 +59,17 @@ DataStream &DataStream::startl(DataStream &ds) {
   return ds;
 }
 
+DataStream &DataStream::starth(DataStream &ds) {
+  if (ds.streaming_) {
+    throw std::logic_error("starth called on streaming DataStream");
+  }
+  if (ds.config_.log_data()) {
+    ds.streaming_ = true;
+    ds.data_point_ << "#Time";
+  }
+  return ds;
+}
+
 DataStream &DataStream::endl(DataStream &ds) {
   if (ds.streaming_) {
     {

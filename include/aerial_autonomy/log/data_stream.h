@@ -78,6 +78,12 @@ public:
    * @return Modified DataStream
    */
   static DataStream &endl(DataStream &ds);
+  /**
+   * @brief DataStream modifier which signals the start of a header
+   * @param ds DataStream to modify
+   * @return Modified DataStream
+   */
+  static DataStream &starth(DataStream &ds);
 
 private:
   /**

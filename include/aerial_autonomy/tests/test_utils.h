@@ -1,4 +1,5 @@
 #pragma once
+#include <boost/filesystem.hpp>
 #include <chrono>
 #include <functional>
 #include <gtest/gtest.h>
@@ -12,9 +13,9 @@
 namespace test_utils {
 
 template <typename T>
-void verifyFileData(std::vector<std::vector<T>> log, std::string path,
-                    std::string delimiter) {
-  std::fstream data_file(path, std::fstream::in);
+void verifyFileData(std::vector<std::vector<T>> log,
+                    boost::filesystem::path path, std::string delimiter) {
+  std::fstream data_file(path.string(), std::fstream::in);
   ASSERT_TRUE(data_file.is_open());
 
   std::string data_point;
@@ -33,6 +34,35 @@ void verifyFileData(std::vector<std::vector<T>> log, std::string path,
       i++;
     }
     ASSERT_EQ(data[i], std::stod(data_point.substr(last)));
+  }
+  ASSERT_FALSE(std::getline(data_file, data_point));
+}
+
+template <>
+void verifyFileData<std::string>(std::vector<std::vector<std::string>> log,
+                                 boost::filesystem::path path,
+                                 std::string delimiter) {
+  std::fstream data_file(path.string(), std::fstream::in);
+  ASSERT_TRUE(data_file.is_open());
+
+  std::string data_point;
+  for (auto data : log) {
+    ASSERT_TRUE(std::getline(data_file, data_point));
+
+    size_t next = 0;
+    size_t last = 0;
+    int i = -1;
+    while ((next = data_point.find(delimiter, last)) != std::string::npos) {
+      // Skip timestamp
+      if (i >= 0) {
+        ASSERT_EQ(data[i], data_point.substr(last, next - last));
+      } else {
+        ASSERT_EQ("#Time", data_point.substr(last, next - last));
+      }
+      last = next + 1;
+      i++;
+    }
+    ASSERT_EQ(data[i], data_point.substr(last));
   }
   ASSERT_FALSE(std::getline(data_file, data_point));
 }
