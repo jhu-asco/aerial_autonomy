@@ -109,14 +109,14 @@ TEST(HoveringFunctorTests, CallOperatorFunction) {
                                    sample_logic_state_machine,
                                    dummy_start_state, dummy_target_state);
   ASSERT_NE(sample_logic_state_machine.getProcessEventTypeId(),
-            std::type_index(typeid(be::Land)));
-  // After setting correct altitude
+            std::type_index(typeid(be::Abort)));
+  // Should not land if battery is low
   drone_hardware.setBatteryPercent(20);
   hovering_internal_action_functor(InternalTransitionEvent(),
                                    sample_logic_state_machine,
                                    dummy_start_state, dummy_target_state);
   ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
-            std::type_index(typeid(be::Land)));
+            std::type_index(typeid(be::Abort)));
 }
 TEST(HoveringFunctorTests, ManualControlInternalActionTest) {
   QuadSimulator drone_hardware;

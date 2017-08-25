@@ -159,7 +159,7 @@ TEST_F(VisualServoingTests, LowBatteryCallInternalActionFunction) {
   visual_servoing_internal_action(NULL, *sample_logic_state_machine,
                                   dummy_start_state, dummy_target_state);
   ASSERT_EQ(sample_logic_state_machine->getProcessEventTypeId(),
-            std::type_index(typeid(be::Land)));
+            std::type_index(typeid(be::Abort)));
 }
 
 TEST_F(VisualServoingTests, LostTrackingInternalActionFunction) {

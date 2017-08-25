@@ -20,6 +20,8 @@ struct ArmFoldTransitionActionFunctor_
   void run(ArmSystem &robot_system) {
     VLOG(1) << "Folding Arm!";
     robot_system.foldArm();
+    VLOG(1) << "Ungripping!";
+    robot_system.grip(false);
   }
 };
 

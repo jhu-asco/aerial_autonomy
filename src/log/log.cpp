@@ -1,10 +1,8 @@
 #include "aerial_autonomy/log/log.h"
+#include "aerial_autonomy/common/string_utils.h"
 
 #include <boost/filesystem.hpp>
 #include <glog/logging.h>
-
-#include <ctime>
-#include <exception>
 
 Log::~Log() {
   log_timer_.stop();
@@ -14,22 +12,17 @@ Log::~Log() {
 void Log::configure(LogConfig config) {
   config_ = config;
 
-  std::time_t t = std::time(nullptr);
-  char time_str[100];
-  if (std::strftime(time_str, sizeof(time_str), "_%y_%m_%d_%H_%M_%S",
-                    std::localtime(&t))) {
-    directory_ = config_.directory() + std::string(time_str);
-    if (!boost::filesystem::exists(directory_)) {
-      if (!boost::filesystem::create_directory(directory_)) {
-        throw std::runtime_error("Could not create Log directory: " +
-                                 directory_.string());
-      }
+  directory_ = config_.directory() + string_utils::currentDateTimeString();
+  if (!boost::filesystem::exists(directory_)) {
+    if (!boost::filesystem::create_directory(directory_)) {
+      throw std::runtime_error("Could not create Log directory: " +
+                               directory_.string());
     }
-  } else {
-    throw std::runtime_error("Log timestamp exceeds string size");
   }
   configureStreams(config_);
 }
+
+boost::filesystem::path Log::directory() { return directory_; }
 
 DataStream &Log::operator[](std::string id) {
   boost::recursive_mutex::scoped_lock(streams_mutex_);
