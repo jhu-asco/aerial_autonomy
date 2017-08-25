@@ -46,6 +46,12 @@ public:
   */
   void addDataStream(DataStreamConfig stream_config);
 
+  /**
+  * @brief Get the log directory
+  * @return The path to the log directory
+  */
+  boost::filesystem::path directory();
+
   Log(Log const &) = delete;
   void operator=(Log const &) = delete;
 

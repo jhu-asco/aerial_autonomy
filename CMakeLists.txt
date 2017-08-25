@@ -202,6 +202,7 @@ add_library(aerial_autonomy
   src/common/math.cpp
   src/common/conversions.cpp
   src/common/controller_status.cpp
+  src/common/string_utils.cpp
   src/log/data_stream.cpp
   src/log/log.cpp
   src/trackers/roi_to_position_converter.cpp
