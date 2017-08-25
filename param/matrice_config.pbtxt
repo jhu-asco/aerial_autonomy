@@ -10,4 +10,9 @@ uav_system_config {
   minimum_battery_percent: 40
   minimum_takeoff_height: 0.5
   landing_height: 0.1
+  goal_position_tolerance {
+    x: 0.05
+    y: 0.05
+    z: 0.05
+  }
 }
