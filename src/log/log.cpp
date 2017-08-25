@@ -12,6 +12,7 @@ Log::~Log() {
 void Log::configure(LogConfig config) {
   config_ = config;
 
+  // \todo Matt Add git commit tag to log file
   directory_ = config_.directory() + string_utils::currentDateTimeString();
   if (!boost::filesystem::exists(directory_)) {
     if (!boost::filesystem::create_directory(directory_)) {

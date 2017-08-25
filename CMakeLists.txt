@@ -337,6 +337,7 @@ catkin_add_gtest(${PROJECT_NAME}-visual-servoing-arm-connector-test tests/contro
 catkin_add_gtest(${PROJECT_NAME}-data-stream-test tests/log/data_stream_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-log-test tests/log/log_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-string-utils-test tests/common/string_utils_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-proto-utils-test tests/common/proto_utils_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
@@ -453,6 +454,9 @@ if(TARGET ${PROJECT_NAME}-log-test)
 endif()
 if(TARGET ${PROJECT_NAME}-string-utils-test)
   target_link_libraries(${PROJECT_NAME}-string-utils-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-proto-utils-test)
+  target_link_libraries(${PROJECT_NAME}-proto-utils-test aerial_autonomy)
 endif()
 
 
