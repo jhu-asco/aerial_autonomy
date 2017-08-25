@@ -48,17 +48,16 @@ public:
   * @param grip_action true to grip an object and false to ungrip
   * @return True if command sent successfully, false otherwise
   */
-  bool grip(bool grip_action) {
-    if (grip_action) {
-      //\todo Gowtham Change arm plugins to update gripping strategy
-      int grip_position = 1000;
-      return arm_hardware_.grip(grip_position);
-    } else {
-      //\todo Gowtham Change arm plugins to update gripping strategy
-      int grip_position = 2000;
-      return arm_hardware_.grip(grip_position);
-    }
-  }
+  bool grip(bool grip_action) { return arm_hardware_.grip(grip_action); }
+
+  /**
+   * @brief Reset gripper state for passive grippers. For normal
+   * grippers, it ungrips. This is usually called at the start
+   * of a grasping application
+   *
+   * @return true if the gripper is reset successfully
+   */
+  bool resetGripper() { return arm_hardware_.resetGripper(); }
 
   /**
   * @brief Power the arm on/off
