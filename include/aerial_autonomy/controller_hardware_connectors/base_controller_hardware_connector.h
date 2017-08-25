@@ -141,7 +141,6 @@ protected:
    */
   virtual void sendHardwareCommands(ControlType controls) = 0;
 
-protected:
   /**
   * @brief Type of hardware controlled by the controller
   *

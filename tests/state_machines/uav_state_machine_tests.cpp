@@ -80,8 +80,8 @@ TEST_F(StateMachineTests, LowBatteryAfterTakeoff) {
   logic_state_machine->process_event(InternalTransitionEvent());
   // We switch to Hovering here
   logic_state_machine->process_event(InternalTransitionEvent());
-  // After Hovering if battery is low we go to landing
-  ASSERT_STREQ(pstate(*logic_state_machine), "Landing");
+  // After Hovering if battery is low we stay in hovering
+  ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
 }
 
 TEST_F(StateMachineTests, Takeoff) {
@@ -235,8 +235,8 @@ TEST_F(StateMachineTests, PositionControlLowBattery) {
   drone_hardware.setBatteryPercent(10);
   // Run Internal Transition
   logic_state_machine->process_event(InternalTransitionEvent());
-  // Check if we are landing due to low battery
-  ASSERT_STREQ(pstate(*logic_state_machine), "Landing");
+  // Check if we are aborting due to low battery
+  ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
   // It should also abort the controller:
   uav_system->runActiveController(HardwareType::UAV);
   parsernode::common::quaddata data = uav_system->getUAVData();
