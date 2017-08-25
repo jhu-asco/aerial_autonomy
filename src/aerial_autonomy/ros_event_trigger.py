@@ -91,14 +91,12 @@ class RosEventTrigger(QObject):
         # Define partial callbacks
         statusCallback = partial(
             self.statusCallback, signal=self.status_signal)
-        poseCommandCallback = lambda pose_command: self.pose_command_signal.emit(
-            pose_command)
         # Subscribers for quad arm and state machine updates
         rospy.Subscriber("~system_status", String, statusCallback)
 
         # Subscribe to position commands (from Rviz)
         rospy.Subscriber("/move_base_simple/goal",
-                         PoseStamped, poseCommandCallback)
+                         PoseStamped, self.pose_command_signal.emit)
 
     def statusCallback(self, msg, signal):
         """
