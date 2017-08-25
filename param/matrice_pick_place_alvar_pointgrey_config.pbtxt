@@ -49,24 +49,24 @@ uav_system_config {
       max_yaw_rate: 0.3
       position_controller_config {
         goal_position_tolerance {
-          x: 0.1
-          y: 0.1
-          z: 0.1
+          x: 0.05
+          y: 0.05
+          z: 0.05
         }
-        goal_yaw_tolerance: 0.1
+        goal_yaw_tolerance: 0.08
       }
     }
     uav_arm_system_config {
       arm_goal_transform: -0.10
       arm_goal_transform: 0.0
-      arm_goal_transform: -0.07
+      arm_goal_transform: -0.09
       arm_goal_transform: 0.0
       arm_goal_transform: 0.0
       arm_goal_transform: 0.0
 
       arm_goal_transform: 0.0
       arm_goal_transform: 0.0
-      arm_goal_transform: -0.07
+      arm_goal_transform: -0.09
       arm_goal_transform: 0.0
       arm_goal_transform: 0.0
       arm_goal_transform: 0.0
@@ -81,9 +81,9 @@ uav_system_config {
 
       position_controller_config {
         goal_position_tolerance {
-          x: 0.05
-          y: 0.08
-          z: 0.05
+          x: 0.02
+          y: 0.02
+          z: 0.02
         }
         goal_rotation_tolerance: 6
       }
