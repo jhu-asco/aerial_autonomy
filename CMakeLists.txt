@@ -176,8 +176,6 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/pose_controller_config.proto
   proto/velocity_controller_config.proto
   proto/rpyt_based_velocity_controller_config.proto
-  proto/rpyt_based_position_controller_config.proto
-  proto/rpyt_controller_vins_connector_config.proto
   proto/position_sensor_config.proto
   proto/position.proto
   proto/velocity.proto
@@ -217,14 +215,12 @@ add_library(aerial_autonomy
   src/controllers/velocity_based_position_controller.cpp
   src/controllers/constant_heading_depth_controller.cpp
   src/controllers/rpyt_based_velocity_controller.cpp
-  src/controllers/rpyt_based_position_controller.cpp
   src/controllers/relative_pose_controller.cpp
   src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp
   src/controller_hardware_connectors/visual_servoing_controller_arm_connector.cpp
   src/controller_hardware_connectors/position_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
-  src/controller_hardware_connectors/rpyt_controller_vins_connector.cpp
   src/controller_hardware_connectors/manual_velocity_controller_drone_connector.cpp 
 )
 add_dependencies(aerial_autonomy proto)
@@ -337,9 +333,7 @@ catkin_add_gtest(${PROJECT_NAME}-velocity-based-position-controller-test tests/c
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-controller-test tests/controllers/relative_pose_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-constant-heading-depth-controller-test tests/controllers/constant_heading_depth_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-velocity-controller-test tests/controllers/rpyt_based_velocity_controller_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-rpyt-based-position-controller-test tests/controllers/rpyt_based_position_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-manual-velocity-controller-drone-connector-test tests/controller_hardware_connectors/manual_velocity_controller_drone_connector_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-rpyt-controller-vins-connector-test tests/controller_hardware_connectors/rpyt_controller_vins_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-math-test tests/common/math_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-tracker-test tests/trackers/simple_tracker_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-multi-tracker-test tests/trackers/simple_multi_tracker_tests.cpp)
