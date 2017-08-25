@@ -1,19 +1,22 @@
 #include "aerial_autonomy/log/log.h"
+#include "aerial_autonomy/common/string_utils.h"
 
 #include <boost/filesystem.hpp>
 
-#include <exception>
-
 void Log::configure(LogConfig config) {
   config_ = config;
-  if (!boost::filesystem::exists(config_.directory())) {
-    if (!boost::filesystem::create_directory(config_.directory())) {
+
+  directory_ = config_.directory() + string_utils::currentDateTimeString();
+  if (!boost::filesystem::exists(directory_)) {
+    if (!boost::filesystem::create_directory(directory_)) {
       throw std::runtime_error("Could not create Log directory: " +
-                               config_.directory());
+                               directory_.string());
     }
   }
   configureStreams(config_);
 }
+
+boost::filesystem::path Log::directory() { return directory_; }
 
 DataStream &Log::operator[](std::string id) {
   auto stream = streams_.find(id);
@@ -29,10 +32,9 @@ void Log::addDataStream(DataStreamConfig stream_config) {
     throw std::runtime_error("Stream ID not unique: " +
                              stream_config.stream_id());
   }
-  streams_.emplace(stream_config.stream_id(),
-                   DataStream(boost::filesystem::path(config_.directory()) /
-                                  stream_config.stream_id(),
-                              stream_config));
+  streams_.emplace(
+      stream_config.stream_id(),
+      DataStream(directory_ / stream_config.stream_id(), stream_config));
 }
 
 void Log::configureStreams(LogConfig config) {

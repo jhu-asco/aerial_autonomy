@@ -43,11 +43,11 @@ TEST_F(LogTest, OneInstance) { ASSERT_EQ(&Log::instance(), &Log::instance()); }
 
 TEST_F(LogTest, Configure) {
   ASSERT_NO_THROW(Log::instance().configure(config_));
-  ASSERT_TRUE(boost::filesystem::exists(config_.directory()));
+  ASSERT_TRUE(boost::filesystem::exists(Log::instance().directory()));
 }
 
 TEST_F(LogTest, ConfigureBadPath) {
-  config_.set_directory("");
+  config_.set_directory("/");
   ASSERT_THROW(Log::instance().configure(config_), std::runtime_error);
 }
 
