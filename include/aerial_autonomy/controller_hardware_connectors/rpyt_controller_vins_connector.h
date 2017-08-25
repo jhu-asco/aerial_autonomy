@@ -1,7 +1,4 @@
 #pragma once
-#include "ros/ros.h" 
-#include <geometry_msgs/PoseStamped.h>
-#include <tf/transform_datatypes.h>
 #include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
 #include "aerial_autonomy/types/position_yaw.h"
@@ -9,7 +6,6 @@
 #include "aerial_autonomy/sensors/base_sensor.h"
 #include "rpyt_controller_vins_connector_config.pb.h"
 #include <parsernode/parser.h>
-#include "aerial_autonomy/common/atomic.h"
 
 /**
 *

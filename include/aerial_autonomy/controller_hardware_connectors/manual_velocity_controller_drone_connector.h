@@ -1,18 +1,13 @@
 #pragma once
-#include "ros/ros.h"
-#include <geometry_msgs/PoseStamped.h>
-#include <tf/transform_datatypes.h>
 #include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
 #include "aerial_autonomy/types/empty_goal.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
-#include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/joysticks_yaw.h"
 #include "aerial_autonomy/types/roll_pitch_yaw_thrust.h"
 #include "aerial_autonomy/controllers/rpyt_based_velocity_controller.h"
 #include "aerial_autonomy/sensors/base_sensor.h"
 
 #include <parsernode/parser.h>
-#include "aerial_autonomy/common/atomic.h"
 
 /**
 * @brief Maps Joystick goals to rpythrust commands to quadrotor

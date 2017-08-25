@@ -249,13 +249,11 @@ add_executable(event_publish_node src/tests/event_publish_node.cpp)
 
 ## Specify libraries to link a library or executable target against
 
-target_link_libraries(uav_system_node aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
-target_link_libraries(uav_vision_system_node aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
-target_link_libraries(uav_joystick_control_node aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 target_link_libraries(uav_system_node aerial_autonomy)
 target_link_libraries(uav_vision_system_node aerial_autonomy)
 target_link_libraries(uav_arm_system_node aerial_autonomy)
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
+target_link_libraries(uav_joystick_control_node aerial_autonomy)
 
 #############
 ## Install ##
@@ -398,7 +396,7 @@ if(TARGET ${PROJECT_NAME}-visual-servoing-functor-tests)
   target_link_libraries(${PROJECT_NAME}-visual-servoing-functor-tests aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
 if(TARGET ${PROJECT_NAME}-joystick-control-functor-tests)
-  target_link_libraries(${PROJECT_NAME}-joystick-control-functor-tests aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-joystick-control-functor-tests aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
 if(TARGET ${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test aerial_autonomy)

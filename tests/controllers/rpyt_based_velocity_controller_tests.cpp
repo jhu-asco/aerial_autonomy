@@ -104,7 +104,7 @@ TEST(RPYTBasedVelocityController, Convergence)
     tf.setOrigin(tf::Vector3(0,0,0));
     tf.setRotation(tf::createQuaternionFromRPY(controls.r, controls.p, controls.y));
 
-    tf::Vector3 body_acc = tf::Vector3(0,0,controls.t);
+    tf::Vector3 body_acc = tf::Vector3(0,0,controls.t*config.kt() - 9.81);
     tf::Vector3 global_acc = tf*body_acc;
 
     sensor_data.x = sensor_data.x + global_acc[0]*dt;

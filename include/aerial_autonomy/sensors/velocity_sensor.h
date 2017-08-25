@@ -61,8 +61,6 @@ private:
       abs(global_pos[1]- data.localpos.y) < config_.max_divergence() ||
       abs(global_pos[2] - data.localpos.z) < config_.max_divergence())
     {
-      // ROS_INFO("last_pos = %f %f %f", last_pos.x, last_pos.y, last_pos.z);
-
       bad_data_counter = 0;
     // Differentiate position to get velocity
       VelocityYaw vel_sensor_data;
@@ -90,18 +88,13 @@ private:
       vel_sensor_data.yaw = y;
 
       sensor_data_ = vel_sensor_data;
-
-      //VelocityYaw new_sensor_data = sensor_data_;
-       // ROS_INFO("velocity = %f %f %f", new_sensor_data.x, new_sensor_data.y, new_sensor_data.z);
     }
-    /*
     else
     {
       bad_data_counter++;
       if(bad_data_counter == 100)
         sensor_status_ = INVALID;
     }
-    */
   }
   /**
   * @ config for the position sensor

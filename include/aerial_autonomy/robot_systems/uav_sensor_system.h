@@ -3,17 +3,17 @@
 #include "uav_system_config.pb.h"
 #include "aerial_autonomy/sensors/base_sensor.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
-
+#include "aerial_autonomy/controller_hardware_connectors/manual_velocity_controller_drone_connector.h"
 /**
 * @ brief UAV system with external sensor
 */
 class UAVSensorSystem : public UAVSystem{
 public:
-    UAVSensorSystem(Sensor<VelocityYaw> &velocity_sensor,
+  UAVSensorSystem(Sensor<VelocityYaw> &velocity_sensor,
     parsernode::Parser &drone_hardware) :
-    UAVSensorSystem(velocity_sensor, 
-      drone_hardware,
-      UAVSystemConfig()){}
+  UAVSensorSystem(velocity_sensor, 
+    drone_hardware,
+    UAVSystemConfig()){}
 /**
 * 
 * @brief Constructor
@@ -34,7 +34,16 @@ public:
         // Add hardware controllers to container
     controller_hardware_connector_container_.setObject(
       manual_velocity_controller_drone_connector_);
-  }  
+  }
+
+  bool getSensorStatus(){
+    SensorStatus status;
+    velocity_sensor_.getSensorStatus(status);
+    if(status == SensorStatus::VALID)
+      return true;
+    else
+      return false;
+  } 
 private:
   /**
   * @brief sensor that gives velocity data

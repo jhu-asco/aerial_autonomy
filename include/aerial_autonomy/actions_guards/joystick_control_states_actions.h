@@ -12,9 +12,13 @@ struct JoystickControlStatesActions : UAVStatesActions<LogicStateMachineT>{
   /**
   * @ brief  State when in Joystick control mode 
   */
-  using JoystickControlState = JoystickControl_<LogicStateMachineT>;
+  using JoystickControlState = JoystickControlState_<LogicStateMachineT>;
   /**
   * @ brief Action while transitioning to Joystick control state
   */
   using JoystickControlAction = JoystickControlTransitionActionFunctor_<LogicStateMachineT>;
+  /**
+  * @brief Guard to check while transitioning to joystick control state
+  */
+  using JoystickControlGuard = JoystickControlTransitionGuardFunctor_<LogicStateMachineT>;
 };

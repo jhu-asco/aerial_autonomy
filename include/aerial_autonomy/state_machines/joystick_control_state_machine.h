@@ -115,7 +115,7 @@ public:
             msmf::Row<jcsa::Hovering, be::Land, jcsa::Landing, jcsa::LandingAction,
                       msmf::none>,
             msmf::Row<jcsa::Hovering, jce::JoystickControlEvent, jcsa::JoystickControlState,
-                      jcsa::JoystickControlAction, msmf::none>,
+                      jcsa::JoystickControlAction, jcsa::JoystickControlGuard>,
             msmf::Row<jcsa::Hovering, ManualControlEvent,
                       jcsa::ManualControlState, msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+

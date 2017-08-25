@@ -21,11 +21,11 @@ public:
   /**
   * @brief Constructor 
   */
-  Sensor(){}
+  Sensor():sensor_status_(SensorStatus::VALID){}
   /**
   * @brief gets the latest sensor data
   */
-  void getSensorData(SensorDataT &sensor_data){
+  virtual void getSensorData(SensorDataT &sensor_data){
     sensor_data = sensor_data_;
   };
   /**
@@ -42,5 +42,5 @@ protected:
   /**
   * @brief variable to store the sensor status
   */
-  SensorStatus sensor_status_;
+  Atomic<SensorStatus> sensor_status_;
 };
