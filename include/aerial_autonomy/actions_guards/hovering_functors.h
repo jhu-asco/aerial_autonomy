@@ -35,9 +35,8 @@ struct HoveringInternalActionFunctor_
       return false;
     } else if (data.batterypercent <
                robot_system.getConfiguration().minimum_battery_percent()) {
-      LOG(WARNING) << "Battery too low! " << data.batterypercent
-                   << "\% Landing!";
-      logic_state_machine.process_event(be::Land());
+      LOG_EVERY_N(WARNING, 50) << "Battery too low! " << data.batterypercent;
+      logic_state_machine.process_event(be::Abort());
       return false;
     }
     return true;
@@ -94,6 +93,11 @@ using UAVStatusInternalActionFunctor_ =
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
-template <class LogicStateMachineT>
-using Hovering_ = BaseState<UAVSystem, LogicStateMachineT,
-                            HoveringInternalActionFunctor_<LogicStateMachineT>>;
+template <class LogicStateMachineT> struct Hovering_ : public msmf::state<> {
+  struct internal_transition_table
+      : boost::mpl::vector<
+            msmf::Internal<InternalTransitionEvent,
+                           HoveringInternalActionFunctor_<LogicStateMachineT>,
+                           msmf::none>,
+            msmf::Internal<be::Abort, msmf::none, msmf::none>> {};
+};
