@@ -47,9 +47,8 @@ ControllerStatus ConstantHeadingDepthController::isConvergedImplementation(
   ControllerStatus status(ControllerStatus::Active);
   status << " Error Position, Yaw: " << error.x << error.y << error.z
          << error_yaw;
-  Log::instance()["constant_heading_depth_controller"]
-      << DataStream::startl << error.x << error.y << error.z << error_yaw
-      << DataStream::endl;
+  DATA_LOG("constant_heading_depth_controller")
+      << error.x << error.y << error.z << error_yaw << DataStream::endl;
   const PositionControllerConfig &position_controller_config =
       config_.position_controller_config();
   const config::Position &tolerance_pos =

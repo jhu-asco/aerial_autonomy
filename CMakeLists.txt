@@ -470,3 +470,4 @@ install(FILES plugin.xml
 configure_file(scripts/generate_test_coverage.bash.in ${CMAKE_CURRENT_SOURCE_DIR}/scripts/generate_test_coverage.bash)
 ## Configure script to generate dot files for state machines
 configure_file(scripts/generate_dot_files.py.in ${CMAKE_CURRENT_SOURCE_DIR}/scripts/generate_dot_files.py)
+configure_file(param/log_config.pbtxt.in ${CMAKE_CURRENT_SOURCE_DIR}/param/log_config.pbtxt)

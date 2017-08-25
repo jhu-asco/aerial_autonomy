@@ -26,9 +26,9 @@ ControllerStatus VelocityBasedPositionController::isConvergedImplementation(
   ControllerStatus status(ControllerStatus::Active);
   status << "Error Position, Yaw: " << position_diff.x << position_diff.y
          << position_diff.z << position_diff.yaw;
-  Log::instance()["velocity_based_position_controller"]
-      << DataStream::startl << position_diff.x << position_diff.y
-      << position_diff.z << position_diff.yaw << DataStream::endl;
+  DATA_LOG("velocity_based_position_controller")
+      << position_diff.x << position_diff.y << position_diff.z
+      << position_diff.yaw << DataStream::endl;
   const PositionControllerConfig &position_controller_config =
       config_.position_controller_config();
   const config::Position &tolerance_pos =

@@ -10,6 +10,9 @@
 
 #include <boost/thread/recursive_mutex.hpp>
 
+#define DATA_LOG(stream) (Log::instance()[stream] << DataStream::startl)
+#define DATA_HEADER(stream) (Log::instance()[stream] << DataStream::starth)
+
 /**
  * @brief Manages data log streams and a timer for periodically writing streams
  * to file

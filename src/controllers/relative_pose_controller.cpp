@@ -26,8 +26,8 @@ ControllerStatus RelativePoseController::isConvergedImplementation(
   ControllerStatus status(ControllerStatus::Active);
   status << "Error Position, Rotation: " << abs_error_position.x()
          << abs_error_position.y() << abs_error_position.z() << rot_diff;
-  Log::instance()["relative_pose_controller"]
-      << DataStream::startl << abs_error_position.x() << abs_error_position.y()
+  DATA_LOG("relative_pose_controller")
+      << abs_error_position.x() << abs_error_position.y()
       << abs_error_position.z() << rot_diff << DataStream::endl;
 
   const config::Position &tolerance_pos = config_.goal_position_tolerance();

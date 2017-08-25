@@ -67,9 +67,9 @@ protected:
     ControllerStatus status(ControllerStatus::Active);
     status << "PositionYawDiff: " << position_yaw_diff.x << position_yaw_diff.y
            << position_yaw_diff.z << position_yaw_diff.yaw;
-    Log::instance()["builtin_position_controller"]
-        << DataStream::startl << position_yaw_diff.x << position_yaw_diff.y
-        << position_yaw_diff.z << position_yaw_diff.yaw << DataStream::endl;
+    DATA_LOG("builtin_position_controller")
+        << position_yaw_diff.x << position_yaw_diff.y << position_yaw_diff.z
+        << position_yaw_diff.yaw << DataStream::endl;
     const config::Position &tolerance_pos = config_.goal_position_tolerance();
     const double &tolerance_yaw = config_.goal_yaw_tolerance();
     // Compare
