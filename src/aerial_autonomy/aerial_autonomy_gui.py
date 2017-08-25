@@ -188,3 +188,5 @@ class EventTransmissionGUI(Plugin):
         """
         if not sip.isdeleted(text_box):
             text_box.setHtml(status)
+            doc_size = text_box.document().size()
+            text_box.setFixedHeight(doc_size.height()+10)
