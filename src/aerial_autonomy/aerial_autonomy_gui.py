@@ -196,3 +196,4 @@ class EventTransmissionGUI(Plugin):
             text_box.setHtml(status)
             doc_size = text_box.document().size()
             text_box.setFixedHeight(doc_size.height() + 10)
+            text_box.setFixedWidth(doc_size.width()+6)
