@@ -1,4 +1,4 @@
-#include <aerial_autonomy/state_machines/joystick_control_state_machine.h>
+  #include <aerial_autonomy/state_machines/joystick_control_state_machine.h>
 #include <aerial_autonomy/joystick_control_events.h>
 #include <gtest/gtest.h>
 // Thread stuff
@@ -40,6 +40,7 @@ protected:
     drone_hardware.setBatteryPercent(100);
     logic_state_machine->process_event(be::Takeoff());
     logic_state_machine->process_event(InternalTransitionEvent());
+    velocity_sensor.setSensorStatus(SensorStatus::VALID);
   }  
 };
 

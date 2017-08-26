@@ -37,6 +37,13 @@ public:
     SensorStatus sensor_status = sensor_status_;
     return sensor_status;
   }
+
+  /**
+  * @brief set sensor status
+  */
+  void setSensorStatus(SensorStatus sensor_status){
+    sensor_status_ = sensor_status;
+  }
 protected:
   /**
   * @brief variable to store sensor data
