@@ -1,6 +1,6 @@
 #pragma once
 /**
- * Basic State Machine that handles flying and going to a goal state
+ * Basic State Machine that handles velocity commands from joystick
  *
  * Events:
  *      >>> Without args

@@ -24,6 +24,7 @@ find_package(catkin REQUIRED COMPONENTS
   image_transport
   arm_plugins
   ar_track_alvar_msgs
+  dynamic_reconfigure
 )
 
 include(cmake/add_event_function.cmake)
@@ -115,10 +116,9 @@ catkin_python_setup()
 ##     and list every .cfg file to be processed
 
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
-# generate_dynamic_reconfigure_options(
-#   cfg/DynReconf1.cfg
-#   cfg/DynReconf2.cfg
-# )
+ generate_dynamic_reconfigure_options(
+   cfg/Gains.cfg
+ )
 
 ###################################
 ## catkin specific configuration ##
@@ -169,6 +169,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/uav_arm_system_config.proto
   proto/common_system_handler_config.proto
   proto/uav_system_handler_config.proto
+  proto/uav_sensor_system_handler_config.proto
   proto/uav_arm_system_handler_config.proto
   proto/velocity_based_position_controller_config.proto
   proto/constant_heading_depth_controller_config.proto
@@ -176,7 +177,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/pose_controller_config.proto
   proto/velocity_controller_config.proto
   proto/rpyt_based_velocity_controller_config.proto
-  proto/position_sensor_config.proto
+  proto/velocity_sensor_config.proto
   proto/position.proto
   proto/velocity.proto
 )
@@ -241,7 +242,7 @@ add_executable(event_publish_node src/tests/event_publish_node.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(aerial_autonomy_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(uav_joystick_control_node ${PROJECT_NAME}_gencfg)
 
 ## Specify libraries to link a library or executable target against
 
@@ -330,6 +331,7 @@ add_dependencies(${PROJECT_NAME}-uav-arm-system-handler-test ${${PROJECT_NAME}_E
 catkin_add_gtest(${PROJECT_NAME}-thread-safe-state-machine-test tests/common/thread_safe_state_machine_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-iterable-enum-test tests/common/iterable_enum_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-velocity-based-position-controller-test tests/controllers/velocity_based_position_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-manual-velocity-controller-test tests/controllers/manual_velocity_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-controller-test tests/controllers/relative_pose_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-constant-heading-depth-controller-test tests/controllers/constant_heading_depth_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-velocity-controller-test tests/controllers/rpyt_based_velocity_controller_tests.cpp)

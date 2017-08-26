@@ -21,7 +21,7 @@ public:
   /**
   * @brief Constructor 
   */
-  Sensor():sensor_status_(SensorStatus::VALID){}
+  Sensor():sensor_status_(SensorStatus::INVALID){}
   /**
   * @brief gets the latest sensor data
   */

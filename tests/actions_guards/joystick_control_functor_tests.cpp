@@ -4,6 +4,7 @@
 #include <gtest/gtest.h>
 #include <aerial_autonomy/sensors/base_sensor.h>
 #include <quad_simulator_parser/quad_simulator.h>
+#include "rpyt_based_velocity_controller_config.pb.h"
 #include <typeindex>
 
 /**
@@ -32,7 +33,8 @@ TEST(JoystickControlTests, Constructor)
 TEST(JoystickControlTests, TransitionAction){
   Sensor<VelocityYaw> velocity_sensor;
   QuadSimulator drone_hardware;
-  UAVSensorSystem uav_system(velocity_sensor, drone_hardware);
+  RPYTBasedVelocityControllerConfig config;
+  UAVSensorSystem uav_system(velocity_sensor, drone_hardware, config);
   UAVSensorLogicStateMachine sample_logic_state_machine(uav_system);
   jcsa::JoystickControlAction transition_action_functor;
   int dummy_start_state, dummy_target_state;

@@ -1,14 +1,31 @@
-uav_parser_type: "quad_simulator_parser/QuadSimParser"
-uav_controller_timer_duration: 30
+uav_system_handler_config{
+  uav_parser_type: "quad_simulator_parser/QuadSimParser"
+  uav_controller_timer_duration: 20
 
-base_config {
-  state_machine_timer_duration: 20
-  status_timer_duration: 50
+  base_config {
+    state_machine_timer_duration: 20
+    status_timer_duration: 50
+  }
+
+  uav_system_config {
+    minimum_battery_percent: 40
+    minimum_takeoff_height: 0.5
+    landing_height: 0.1
+  }
 }
 
-uav_system_config {
-  minimum_battery_percent: 40
-  minimum_takeoff_height: 0.5
-  landing_height: 0.1
+rpyt_vel_ctlr_config{
+  kp: 1.0
+  ki: 0.02
+  kt: 0.16
 }
 
+vel_sensor_config{
+  sensor_transform: 0.0
+  sensor_transform: 0.0
+  sensor_transform: 0.0
+  sensor_transform: -1.57
+  sensor_transform: 0.0
+  sensor_transform: 0.0
+
+}

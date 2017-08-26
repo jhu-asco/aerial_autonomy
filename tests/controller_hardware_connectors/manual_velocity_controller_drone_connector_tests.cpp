@@ -3,13 +3,15 @@
 #include <gtest/gtest.h>
 #include <quad_simulator_parser/quad_simulator.h>
 #include <aerial_autonomy/sensors/base_sensor.h>
+#include "rpyt_based_velocity_controller_config.pb.h"
 
 using namespace quad_simulator;
 
 TEST(ManualVelocityControllerDroneConnectorTests, Constructor)
 {
+  RPYTBasedVelocityControllerConfig config;
   QuadSimulator drone_hardware;
-  ManualVelocityController controller;
+  ManualVelocityController controller(config);
   Sensor<VelocityYaw> velocity_sensor;
 
   ASSERT_NO_THROW(new ManualVelocityControllerDroneConnector(
@@ -19,8 +21,9 @@ TEST(ManualVelocityControllerDroneConnectorTests, Constructor)
 }
 
 TEST(ManualVelocityControllerDroneConnectorTests, Run){
+  RPYTBasedVelocityControllerConfig config;
   QuadSimulator drone_hardware;
-  ManualVelocityController controller;
+  ManualVelocityController controller(config);
   Sensor<VelocityYaw> velocity_sensor;
 
   // Set stick commands

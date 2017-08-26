@@ -3,8 +3,9 @@
 #include <geometry_msgs/PoseStamped.h>
 #include "aerial_autonomy/sensors/base_sensor.h"
 #include "aerial_autonomy/types/position_yaw.h"
-#include "position_sensor_config.pb.h"
+#include "velocity_sensor_config.pb.h"
 #include <parsernode/parser.h>
+#include <aerial_autonomy/common/math.h>
 
 /**
 * @brief ros based pose sensor that returns velocity data
@@ -21,22 +22,14 @@ public:
   *
   */
   VelocitySensor(parsernode::Parser &drone_hardware, 
-    ros::NodeHandle nh) : 
-  config_(PositionSensorConfig()),
+    ros::NodeHandle nh,
+    VelocitySensorConfig config) 
+  : config_(config),
   drone_hardware_(drone_hardware),
   nh_(nh)
   {
     pose_sub_ = nh_.subscribe("pose", 1, &VelocitySensor::poseCallback, this);
-    
-    sensor_tf.setOrigin(tf::Vector3(
-      config_.sensor_tx(),
-      config_.sensor_ty(),
-      config_.sensor_tz()));
-
-    sensor_tf.setRotation(tf::createQuaternionFromRPY(
-      config_.sensor_r(),
-      config_.sensor_p(),
-      config_.sensor_y()));
+    sensor_tf = math::getTransformFromVector(config_.sensor_transform()); 
   }
 private:
   /**
@@ -48,7 +41,8 @@ private:
     parsernode::common::quaddata data;
     drone_hardware_.getquaddata(data);
 
-    double dt = config_.dt();
+    // \todo soham get frequency from timestamps
+    double dt = 1.0/config_.sensor_frequency();
 
   // Convert to global frame
     tf::Vector3 pos = tf::Vector3(msg->pose.position.x,
@@ -61,6 +55,7 @@ private:
       abs(global_pos[1]- data.localpos.y) < config_.max_divergence() ||
       abs(global_pos[2] - data.localpos.z) < config_.max_divergence())
     {
+      sensor_status_ = SensorStatus::VALID;
       bad_data_counter = 0;
     // Differentiate position to get velocity
       VelocityYaw vel_sensor_data;
@@ -99,7 +94,7 @@ private:
   /**
   * @ config for the position sensor
   */
-  PositionSensorConfig config_;
+  VelocitySensorConfig config_;
   /**
   * @brief Quad hardware to compare data
   * to check validity

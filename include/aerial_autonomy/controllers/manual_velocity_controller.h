@@ -1,18 +1,26 @@
 #pragma once
 #include "aerial_autonomy/controllers/base_controller.h"
 #include "aerial_autonomy/types/empty_goal.h"
-#include "aerial_autonomy/types/joysticks_yaw.h"
+#include "aerial_autonomy/types/joysticks.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
 #include "aerial_autonomy/types/roll_pitch_yaw_thrust.h"
 #include "aerial_autonomy/controllers/rpyt_based_velocity_controller.h"
+#include "rpyt_based_velocity_controller_config.pb.h"
 
 /**
  * @brief A controller that passes joystick commands to a drone's RPYT
  * controller
  */
 class ManualVelocityController
-: public Controller<std::tuple<JoysticksYaw, VelocityYaw>, EmptyGoal, RollPitchYawThrust> {
+: public Controller<std::tuple<Joysticks, VelocityYaw>, EmptyGoal, RollPitchYawThrust> {
 public:
+  /**
+  * 
+  */
+  ManualVelocityController(RPYTBasedVelocityControllerConfig &rpyt_vel_ctlr_config)
+  : rpyt_vel_ctlr_config_(rpyt_vel_ctlr_config),
+  rpyt_vel_ctlr(rpyt_vel_ctlr_config_){}
+
   /**
    * @brief Destructor
    */
@@ -26,7 +34,7 @@ protected:
    * @param control Velocity to send to hardware
    * return True if successfully converted sensor data to control
    */
-  virtual bool runImplementation(std::tuple<JoysticksYaw, VelocityYaw> sensor_data,
+  virtual bool runImplementation(std::tuple<Joysticks, VelocityYaw> sensor_data,
     EmptyGoal goal,
     RollPitchYawThrust &control);
   /**
@@ -34,7 +42,7 @@ protected:
   * for manual rpyt controller
   * @return True always
   */
-  virtual ControllerStatus isConvergedImplementation(std::tuple<JoysticksYaw, VelocityYaw> sensor_data, EmptyGoal goal) {
+  virtual ControllerStatus isConvergedImplementation(std::tuple<Joysticks, VelocityYaw> sensor_data, EmptyGoal goal) {
     return ControllerStatus::Completed;
   }
 
@@ -52,6 +60,10 @@ private:
   */
   double map(double input, double input_min, double input_max,
    double output_min, double output_max);
+  /**
+  *
+  */
+  RPYTBasedVelocityControllerConfig &rpyt_vel_ctlr_config_;
   /**
   * @brief Internal controller to get rpyt from desired velocity
   */

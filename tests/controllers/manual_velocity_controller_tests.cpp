@@ -1,20 +1,17 @@
 #include "aerial_autonomy/controllers/manual_velocity_controller.h"
+#include "rpyt_based_velocity_controller_config.pb.h"
 #include <gtest/gtest.h>
-
-TEST(ManualVelocityControllerTests, Constructor)
-{
-  ASSERT_NO_THROW(ManualVelocityController());
-}
 
 TEST(ManualVelocityControllerTests, IsConvergedTest)
 {
-  ManualVelocityController controller;
+  RPYTBasedVelocityControllerConfig config;
+  ManualVelocityController controller(config);
   EmptyGoal goal;
   controller.setGoal(goal);
 
-  JoysticksYaw joy_data(0.0, 0.0, 0.0, 0.0, 0.0);
+  Joysticks joy_data(0.0, 0.0, 0.0, 0.0);
   VelocityYaw vel_data(0, 0 ,0, 0.0);
-  std::tuple<JoysticksYaw, VelocityYaw> sensor_data=
+  std::tuple<Joysticks, VelocityYaw> sensor_data=
    std::make_tuple(joy_data, vel_data);
 
    RollPitchYawThrust controls;
@@ -22,7 +19,7 @@ TEST(ManualVelocityControllerTests, IsConvergedTest)
 
   ASSERT_NEAR(controls.y, 0, 1e-4);
   ASSERT_NEAR(controls.p, 0, 1e-4);
-  ASSERT_NEAR(controls.t, 0, 1e-4);
+  ASSERT_NEAR(controls.t, 9.81/config.kt(), 1e-4);
   ASSERT_NEAR(controls.r, 0, 1e-4);
   ASSERT_TRUE(result);
 }

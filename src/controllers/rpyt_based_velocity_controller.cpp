@@ -8,6 +8,9 @@ bool RPYTBasedVelocityController::runImplementation(VelocityYaw sensor_data,
 {
   VelocityYaw velocity_diff = goal - sensor_data;
 
+  std::cout <<" Gains vc = " <<config_.kp()<<" "
+  <<config_.ki()<<" "<<config_.kt()<<"\n"; 
+
   cumulative_error.x += velocity_diff.x*config_.dt();
   cumulative_error.y += velocity_diff.y*config_.dt();
   cumulative_error.z += velocity_diff.z*config_.dt();
@@ -37,13 +40,14 @@ bool RPYTBasedVelocityController::runImplementation(VelocityYaw sensor_data,
   // roll = -asin(body_acc_y) when yaw-compensated
   control.r = -asin(rot_acc[1]);
 
-  // check if roll is within tolerance and compute pitch accordingly
+  // check if roll = 90 and compute pitch accordingly
   if((abs(rot_acc[1] )- 1.0) < config_.tolerance_rp())
     control.p = atan2(rot_acc[0], rot_acc[2]);
   else
   {
+    // if roll is 90, pitch is undefined and is set to zero
     control.p = 0;
-    LOG(WARNING) << "RP out of bounds !\n";
+    LOG(WARNING) << "Desired roll is 90 degrees. Setting pitch to 0\n";
   }
 
   control.y = goal.yaw; 

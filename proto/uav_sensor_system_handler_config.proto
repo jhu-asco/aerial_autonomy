@@ -1,0 +1,20 @@
+syntax = "proto2";
+
+import "uav_system_handler_config.proto";
+import "rpyt_based_velocity_controller_config.proto";
+import "velocity_sensor_config.proto";
+
+message UAVSensorSystemHandlerConfig {
+  /**
+  * 
+  */
+  required RPYTBasedVelocityControllerConfig rpyt_vel_ctlr_config = 1;
+  /**
+  *
+  */
+  required UAVSystemHandlerConfig uav_system_handler_config = 2;
+  /**
+  *
+  */
+  required VelocitySensorConfig vel_sensor_config = 3;
+}

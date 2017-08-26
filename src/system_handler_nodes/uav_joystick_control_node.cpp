@@ -8,7 +8,7 @@
 
 #include <glog/logging.h>
 
-#include "uav_system_handler_config.pb.h"
+#include "uav_sensor_system_handler_config.pb.h"
 
 /**
 * @brief Protobuf namespace
@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
     LOG(FATAL) << "ROS param \"uav_system_config_filename\" not found";
   }
 
-  UAVSystemHandlerConfig uav_system_config;
+  UAVSensorSystemHandlerConfig uav_system_config;
   int fd = open(uav_system_config_filename.c_str(), O_RDONLY);
   if (fd < 0) {
     LOG(FATAL) << "Failed to open config file: " << uav_system_config_filename;

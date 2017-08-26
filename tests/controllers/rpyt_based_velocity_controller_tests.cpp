@@ -2,11 +2,6 @@
 #include <gtest/gtest.h>
 #include <tf/transform_datatypes.h>
 
-TEST(RPYTBasedVelocityConrtrollerTests, Constructor)
-{
-  ASSERT_NO_THROW(RPYTBasedVelocityController());
-}
-
 TEST(RPYTBasedVelocityConrtrollerTests, ControlsInBounds)
 {
   RPYTBasedVelocityControllerConfig config;
@@ -59,7 +54,6 @@ TEST(RPYTBasedVelocityConrtrollerTests, ControlsOutOfBounds)
  double exp_t = sqrt(acc_x*acc_x + acc_y*acc_y + acc_z*acc_z)/config.kt();
  double rot_acc_y = (-acc_x*sin(sensor_data.yaw) + acc_y*cos(sensor_data.yaw))/(config.kt()*controls.t);
 
- std::cout << "Thrust = "<< controls.t <<"\n";
  ASSERT_NEAR(controls.y, goal.yaw,1e-4);
  ASSERT_NEAR(controls.t, exp_t, 1e-4);
  ASSERT_NEAR(controls.r, -asin(rot_acc_y),1e-4);

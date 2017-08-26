@@ -35,7 +35,7 @@ Install googletest `release 1.8.0`. This version fixes a bug with `ASSERT_TRUE` 
     sudo make install
     sudo ldconfig
 
-If faced with an error like "undefined reference to `testing::internal::MakeAndRegisterTestInfo" when running tests, delete build folder, follow the above instructions and rebuild.
+__Note:__If faced with an error like "undefined reference to `testing::internal::MakeAndRegisterTestInfo" when running tests, delete build folder, follow the above instructions and rebuild.
 
 ## Running Executables
 The package provides a `uav_system_node` executable which loads a state machine and hardware and waits for event commands from a ROS topic. The `rqt_aerial_autonomy_gui` script
