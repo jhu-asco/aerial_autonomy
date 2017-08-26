@@ -22,7 +22,7 @@ message RPYTBasedVelocityControllerConfig {
   /**
   * @brief roll, pitch tolerance
   */
-  optional double tolerance_rp = 4 [ default = 0.86 ];
+  optional double tolerance_rp = 4 [ default = 1e-10 ];
   /**
   * @brief timestep for integrating error
   */

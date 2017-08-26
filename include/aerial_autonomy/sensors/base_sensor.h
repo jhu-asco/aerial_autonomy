@@ -25,14 +25,17 @@ public:
   /**
   * @brief gets the latest sensor data
   */
-  virtual void getSensorData(SensorDataT &sensor_data){
-    sensor_data = sensor_data_;
+  SensorDataT getSensorData(){
+    SensorDataT sensor_data = sensor_data_;
+    return sensor_data;
+
   };
   /**
   * @brief gets the current status of the sensor
   */
-  void getSensorStatus(SensorStatus &sensor_status){
-    sensor_status =  sensor_status_;
+  SensorStatus getSensorStatus(){
+    SensorStatus sensor_status = sensor_status_;
+    return sensor_status;
   }
 protected:
   /**

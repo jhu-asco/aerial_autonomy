@@ -26,7 +26,7 @@ public:
   drone_hardware_(drone_hardware),
   nh_(nh)
   {
-    pose_sub_ = nh_.subscribe("pose", 1000, &VelocitySensor::poseCallback, this);
+    pose_sub_ = nh_.subscribe("pose", 1, &VelocitySensor::poseCallback, this);
     
     sensor_tf.setOrigin(tf::Vector3(
       config_.sensor_tx(),

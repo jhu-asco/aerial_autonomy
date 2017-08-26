@@ -17,39 +17,36 @@ bool RPYTBasedVelocityController::runImplementation(VelocityYaw sensor_data,
   double acc_y = config_.kp()*velocity_diff.y + config_.ki()*cumulative_error.y;
   double acc_z = config_.kp()*velocity_diff.z + config_.ki()*cumulative_error.z + 9.81;
 
-  // Acceleration in body frame
+  // Acceleration in gravity aligned yaw-compensated frame
   Eigen::Vector3d rot_acc;
   rot_acc[0] = acc_x*cos(sensor_data.yaw) + acc_y*sin(sensor_data.yaw);
   rot_acc[1] = -acc_x*sin(sensor_data.yaw) + acc_y*cos(sensor_data.yaw);
   rot_acc[2] = acc_z;
 
-  // thrust is magnitude of scaled by kt
+  // thrust is magnitude of acceleration scaled by kt
   control.t = rot_acc.norm()/config_.kt();
 
-  // renormalize acceleration in body frame
+  // normalize acceleration in gravity aligned yaw-compensated frame
   if(control.t > 1e-8)
     rot_acc = (1/(config_.kt()*control.t))*rot_acc;
-  else
+  else{
+    LOG(WARNING) << "Thrust close to zero !!";
     rot_acc = Eigen::Vector3d(0,0,0);
+  }
 
   // roll = -asin(body_acc_y) when yaw-compensated
   control.r = -asin(rot_acc[1]);
 
   // check if roll is within tolerance and compute pitch accordingly
-  if(rot_acc[1] < config_.tolerance_rp())
+  if((abs(rot_acc[1] )- 1.0) < config_.tolerance_rp())
     control.p = atan2(rot_acc[0], rot_acc[2]);
   else
   {
     control.p = 0;
-    std::cout << "RP out of bounds !\n";
+    LOG(WARNING) << "RP out of bounds !\n";
   }
 
   control.y = goal.yaw; 
-/*
-  std::cout << "r = " << control.r<<"p = "<< control.p <<
-   "y = " << control.y << "t = " << control.t<<"\n"; 
-*/
-
   return true;
 }
 

@@ -3,6 +3,7 @@
 #include "uav_system_config.pb.h"
 #include "aerial_autonomy/sensors/base_sensor.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
+#include "aerial_autonomy/controllers/manual_velocity_controller.h"
 #include "aerial_autonomy/controller_hardware_connectors/manual_velocity_controller_drone_connector.h"
 /**
 * @ brief UAV system with external sensor
@@ -36,13 +37,8 @@ public:
       manual_velocity_controller_drone_connector_);
   }
 
-  bool getSensorStatus(){
-    SensorStatus status;
-    velocity_sensor_.getSensorStatus(status);
-    if(status == SensorStatus::VALID)
-      return true;
-    else
-      return false;
+  SensorStatus getSensorStatus(){
+    return velocity_sensor_.getSensorStatus();
   } 
 private:
   /**

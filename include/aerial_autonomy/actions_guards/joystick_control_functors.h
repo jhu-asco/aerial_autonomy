@@ -6,6 +6,7 @@
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
 #include <aerial_autonomy/types/manual_control_event.h>
 #include <aerial_autonomy/controller_hardware_connectors/manual_velocity_controller_drone_connector.h>
+#include <aerial_autonomy/sensors/base_sensor.h>
 #include <glog/logging.h>
 #include <parsernode/common.h>
 
@@ -46,7 +47,7 @@ struct JoystickControlTransitionGuardFunctor_
     : EventAgnosticGuardFunctor<UAVSensorSystem, LogicStateMachineT>{
   bool guard(UAVSensorSystem &robot_system) {
     bool result = false;
-    if(robot_system.getSensorStatus()){
+    if(robot_system.getSensorStatus() == SensorStatus::VALID){
       result = true;
     }
     else{
