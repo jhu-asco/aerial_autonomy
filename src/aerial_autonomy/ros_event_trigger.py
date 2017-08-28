@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """
-@package aerial_autonomy.ros_event_trigger Ros connection between GUI and state machine
+@package aerial_autonomy.ros_event_trigger Ros connection
+between GUI and state machine
 
 @author gowtham
 """
@@ -43,9 +44,9 @@ class RosEventTrigger(QObject):
     Trigger events based on event name. Create event name list
     based on event file
     """
-    ## Send quad sensor/state data as string
+    # Send quad sensor/state data as string
     status_signal = pyqtSignal(str, name='systemStatus')
-    ## Send pose command received from Rviz
+    # Send pose command received from Rviz
     pose_command_signal = pyqtSignal(PoseStamped, name='poseCommand')
 
     def __init__(self, event_file_path):
@@ -72,29 +73,30 @@ class RosEventTrigger(QObject):
         event_line_list = [event_name.strip()
                            for event_name in event_file.read().splitlines()]
         event_file.close()
-        ## Define event manager name
+        # Define event manager name
         self.event_manager_name = event_line_list[0][:-1]
 
-        ## Event names used to create buttons
+        # Event names used to create buttons
         self.event_names_list = []
 
         event_folder, event_file_name = event_file_path.rsplit('/', 1)
         parse_event_file(event_folder, event_file_name, self.event_names_list)
 
-        ## Ros publisher to trigger events based on name
+        # Ros publisher to trigger events based on name
         self.event_pub = rospy.Publisher('~event_trigger',
                                          String, queue_size=1)
-        ## Ros publisher to trigger pose event
+        # Ros publisher to trigger pose event
         self.pose_command_pub = rospy.Publisher('~pose_command_combined',
                                                 PoseStamped, queue_size=1)
         # Define partial callbacks
-        statusCallback = partial(self.statusCallback, signal=self.status_signal)
-        poseCommandCallback = lambda pose_command : self.pose_command_signal.emit(pose_command)
+        statusCallback = partial(
+            self.statusCallback, signal=self.status_signal)
         # Subscribers for quad arm and state machine updates
         rospy.Subscriber("~system_status", String, statusCallback)
 
         # Subscribe to position commands (from Rviz)
-        rospy.Subscriber("/move_base_simple/goal", PoseStamped, poseCommandCallback) 
+        rospy.Subscriber("/move_base_simple/goal",
+                         PoseStamped, self.pose_command_signal.emit)
 
     def statusCallback(self, msg, signal):
         """
@@ -107,7 +109,7 @@ class RosEventTrigger(QObject):
         Publish pose command event for state machine
         """
         if not rospy.is_shutdown():
-            self.pose_command_pub.publish(pose) 
+            self.pose_command_pub.publish(pose)
 
     def triggerEvent(self, event_name):
         """
