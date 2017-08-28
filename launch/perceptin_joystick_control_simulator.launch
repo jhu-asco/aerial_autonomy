@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
- <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/joystick_simulator_config.pb.txt" />
+ <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/joystick_simulator_config.pbtxt" />
   <arg name="log_level" default="0"/>
   <arg name="log_dir" default="$(find aerial_autonomy)/logs"/>
   <node pkg="aerial_autonomy" type="uav_joystick_control_node" name="uav_joystick_node"
@@ -18,5 +18,4 @@
   <node pkg="joy" type="joy_node" name="joy_rc">
     <remap from="/joy" to="/uav_joystick_node/uav/joy"/>
   </node>
-  <!--node pkg="rqt_reconfigure" type="rqt_reconfigure" name="rqt_reconfigure"/-->
 </launch>

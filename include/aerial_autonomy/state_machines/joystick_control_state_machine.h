@@ -49,14 +49,13 @@ struct JoystickControlStateMachineFrontEnd;
 *
 * Used to forward arguments to constructor, and process events
 */
-using JoystickControlStateMachine =
-    boost::msm::back::thread_safe_state_machine<JoystickControlStateMachineFrontEnd>;
+using JoystickControlStateMachine = boost::msm::back::thread_safe_state_machine<
+    JoystickControlStateMachineFrontEnd>;
 
 /**
 * @brief Namespace for basic uav states and actions such as takeoff, land etc
 */
 using jcsa = JoystickControlStatesActions<JoystickControlStateMachine>;
-
 
 /**
 * @brief front-end: define the FSM structure
@@ -106,26 +105,27 @@ public:
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<jcsa::Landed, be::Takeoff, jcsa::TakingOff,
                       jcsa::TakeoffAction, jcsa::TakeoffGuard>,
-            msmf::Row<jcsa::Landed, ManualControlEvent, jcsa::ManualControlState,
-                      msmf::none, msmf::none>,
+            msmf::Row<jcsa::Landed, ManualControlEvent,
+                      jcsa::ManualControlState, msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<jcsa::TakingOff, Completed, jcsa::Hovering, msmf::none,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<jcsa::Hovering, be::Land, jcsa::Landing, jcsa::LandingAction,
-                      msmf::none>,
-            msmf::Row<jcsa::Hovering, jce::JoystickControlEvent, jcsa::JoystickControlState,
-                      jcsa::JoystickControlAction, jcsa::JoystickControlGuard>,
+            msmf::Row<jcsa::Hovering, be::Land, jcsa::Landing,
+                      jcsa::LandingAction, msmf::none>,
+            msmf::Row<jcsa::Hovering, jce::JoystickControlEvent,
+                      jcsa::JoystickControlState, jcsa::JoystickControlAction,
+                      jcsa::JoystickControlGuard>,
             msmf::Row<jcsa::Hovering, ManualControlEvent,
                       jcsa::ManualControlState, msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<jcsa::Landing, Completed, jcsa::Landed, msmf::none,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<jcsa::JoystickControlState, be::Abort, jcsa::Hovering, 
+            msmf::Row<jcsa::JoystickControlState, be::Abort, jcsa::Hovering,
                       jcsa::UAVControllerAbort, msmf::none>,
-            msmf::Row<jcsa::JoystickControlState, ManualControlEvent, jcsa::ManualControlState,
-                      msmf::none, msmf::none>,
+            msmf::Row<jcsa::JoystickControlState, ManualControlEvent,
+                      jcsa::ManualControlState, msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<jcsa::ManualControlState, be::Takeoff, jcsa::Hovering,
                       jcsa::ManualControlSwitchAction,
@@ -145,11 +145,15 @@ public:
 * @brief state names to get name based on state id
 */
 static constexpr std::array<const char *, 6> state_names = {
-    "Landed",       "TakingOff", "Hovering",
-    "Landing",   "JoystickControlState", "ManualControlState"};
+    "Landed",
+    "TakingOff",
+    "Hovering",
+    "Landing",
+    "JoystickControlState",
+    "ManualControlState"};
 /**
 * @brief Get current state name
-* 
+*
 * @param p Logic state machine backend to access current state
 *
 * @return state name

@@ -4,36 +4,30 @@
 /**
 * @brief enum for sensor status
 */
-enum SensorStatus
-{
-  VALID = 0,
-  INVALID = 1
-};
+enum SensorStatus { VALID = 0, INVALID = 1 };
 /**
 * @brief Base class for sensors
 *
-* Subclass provides functionality to update sensor data 
-* and status 
+* Subclass provides functionality to update sensor data
+* and status
 */
-template<class SensorDataT>
-class Sensor{
+template <class SensorDataT> class Sensor {
 public:
   /**
-  * @brief Constructor 
+  * @brief Constructor
   */
-  Sensor():sensor_status_(SensorStatus::INVALID){}
+  Sensor() : sensor_status_(SensorStatus::INVALID) {}
   /**
   * @brief gets the latest sensor data
   */
-  SensorDataT getSensorData(){
+  SensorDataT getSensorData() {
     SensorDataT sensor_data = sensor_data_;
     return sensor_data;
-
   };
   /**
   * @brief gets the current status of the sensor
   */
-  SensorStatus getSensorStatus(){
+  SensorStatus getSensorStatus() {
     SensorStatus sensor_status = sensor_status_;
     return sensor_status;
   }
@@ -41,9 +35,10 @@ public:
   /**
   * @brief set sensor status
   */
-  void setSensorStatus(SensorStatus sensor_status){
+  void setSensorStatus(SensorStatus sensor_status) {
     sensor_status_ = sensor_status;
   }
+
 protected:
   /**
   * @brief variable to store sensor data

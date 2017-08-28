@@ -1,10 +1,10 @@
+#include "rpyt_based_velocity_controller_config.pb.h"
 #include <aerial_autonomy/actions_guards/joystick_control_states_actions.h>
 #include <aerial_autonomy/joystick_control_events.h>
+#include <aerial_autonomy/sensors/base_sensor.h>
 #include <aerial_autonomy/tests/sample_logic_state_machine.h>
 #include <gtest/gtest.h>
-#include <aerial_autonomy/sensors/base_sensor.h>
 #include <quad_simulator_parser/quad_simulator.h>
-#include "rpyt_based_velocity_controller_config.pb.h"
 #include <typeindex>
 
 /**
@@ -23,14 +23,12 @@ using jcsa = JoystickControlStatesActions<UAVSensorLogicStateMachine>;
 */
 namespace jce = joystick_control_events;
 
-
-TEST(JoystickControlTests, Constructor)
-{
+TEST(JoystickControlTests, Constructor) {
   ASSERT_NO_THROW(new jcsa::JoystickControlAction());
   ASSERT_NO_THROW(new jcsa::JoystickControlState());
 }
 
-TEST(JoystickControlTests, TransitionAction){
+TEST(JoystickControlTests, TransitionAction) {
   Sensor<VelocityYaw> velocity_sensor;
   QuadSimulator drone_hardware;
   RPYTBasedVelocityControllerConfig config;
@@ -38,8 +36,9 @@ TEST(JoystickControlTests, TransitionAction){
   UAVSensorLogicStateMachine sample_logic_state_machine(uav_system);
   jcsa::JoystickControlAction transition_action_functor;
   int dummy_start_state, dummy_target_state;
-  transition_action_functor(jce::JoystickControlEvent(), sample_logic_state_machine,
-    dummy_start_state, dummy_target_state);
+  transition_action_functor(jce::JoystickControlEvent(),
+                            sample_logic_state_machine, dummy_start_state,
+                            dummy_target_state);
 }
 
 int main(int argc, char **argv) {

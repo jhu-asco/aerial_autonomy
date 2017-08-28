@@ -14,13 +14,13 @@ uav_system_handler_config{
   }
 }
 
-rpyt_vel_ctlr_config{
+rpyt_velocity_controller_config{
   kp: 1.0
-  ki: 0.02
-  kt: 0.16
+  ki: 0.0
+  kt: 0.15
 }
 
-vel_sensor_config{
+velocity_sensor_config{
   sensor_transform: 0.0
   sensor_transform: 0.0
   sensor_transform: 0.0
@@ -28,4 +28,17 @@ vel_sensor_config{
   sensor_transform: 0.0
   sensor_transform: 0.0
 
+  sensor_frequency: 30.0
 }
+
+manual_velocity_controller_config{
+  max_channel1: 10000
+  max_channel2: 10000
+  max_channel3: 10000
+  max_channel4: 10000
+
+  max_velocity: 1
+  controller_frequency: 30
+}
+
+use_dynamic_reconfigure: true

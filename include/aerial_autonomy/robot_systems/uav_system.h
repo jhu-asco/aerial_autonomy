@@ -63,25 +63,25 @@ private:
   * @brief Flag to specify if home location is specified or not
   */
   bool home_location_specified_;
+
 public:
-      /**
-   * @brief Constructor with default configuration
-   */
+  /**
+*@brief Constructor with default configuration
+*/
   UAVSystem(parsernode::Parser &drone_hardware)
       : UAVSystem(drone_hardware, UAVSystemConfig()) {}
-        /**
-  * @brief Constructor
-  *
-  * UAVSystem requires a drone hardware. It instantiates the connectors,
-  * controllers
-  *
-  * @param drone_hardware input hardware to send commands back
-  * @param config The system configuration specifying the parameters such as
-  * takeoff height, etc.
-  * @param velocity_sensor external velocity sensor
-  */
-  UAVSystem(parsernode::Parser &drone_hardware, 
-    UAVSystemConfig config)
+  /**
+* @brief Constructor
+*
+* UAVSystem requires a drone hardware. It instantiates the connectors,
+* controllers
+*
+* @param drone_hardware input hardware to send commands back
+* @param config The system configuration specifying the parameters such as
+* takeoff height, etc.
+* @param velocity_sensor external velocity sensor
+*/
+  UAVSystem(parsernode::Parser &drone_hardware, UAVSystemConfig config)
       : BaseRobotSystem(), drone_hardware_(drone_hardware), config_(config),
         builtin_position_controller_(config.position_controller_config()),
         builtin_velocity_controller_(config.velocity_controller_config()),

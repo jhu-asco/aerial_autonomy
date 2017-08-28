@@ -1,8 +1,8 @@
 #pragma once
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
+#include <aerial_autonomy/robot_systems/uav_sensor_system.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/robot_systems/uav_vision_system.h>
-#include <aerial_autonomy/robot_systems/uav_sensor_system.h>
 #include <aerial_autonomy/state_machines/base_state_machine.h>
 #include <aerial_autonomy/types/position_yaw.h>
 #include <type_traits>

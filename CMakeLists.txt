@@ -176,6 +176,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/position_controller_config.proto
   proto/pose_controller_config.proto
   proto/velocity_controller_config.proto
+  proto/manual_velocity_controller_config.proto
   proto/rpyt_based_velocity_controller_config.proto
   proto/velocity_sensor_config.proto
   proto/position.proto
