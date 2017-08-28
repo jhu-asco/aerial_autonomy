@@ -26,10 +26,10 @@ ControllerStatus RelativePoseController::isConvergedImplementation(
   ControllerStatus status(ControllerStatus::Active);
   status << "Error Position, Rotation: " << abs_error_position.x()
          << abs_error_position.y() << abs_error_position.z() << rot_diff;
-  tf::Quaternion current_rot = current_pose.getRotation();
-  tf::Vector3 current_trans = current_pose.getOrigin();
-  tf::Quaternion tracked_rot = tracked_pose.getRotation();
-  tf::Vector3 tracked_trans = tracked_pose.getOrigin();
+  const tf::Quaternion &current_rot = current_pose.getRotation();
+  const tf::Vector3 &current_trans = current_pose.getOrigin();
+  const tf::Quaternion &tracked_rot = tracked_pose.getRotation();
+  const tf::Vector3 &tracked_trans = tracked_pose.getOrigin();
   DATA_LOG("relative_pose_controller")
       << abs_error_position.x() << abs_error_position.y()
       << abs_error_position.z() << rot_diff << current_trans.x()
