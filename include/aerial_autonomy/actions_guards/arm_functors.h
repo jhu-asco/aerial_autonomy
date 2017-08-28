@@ -20,8 +20,6 @@ struct ArmFoldTransitionActionFunctor_
   void run(ArmSystem &robot_system) {
     VLOG(1) << "Folding Arm!";
     robot_system.foldArm();
-    VLOG(1) << "Ungripping!";
-    robot_system.grip(false);
   }
 };
 
@@ -64,6 +62,28 @@ struct ArmPoweronTransitionActionFunctor_
   void run(ArmSystem &robot_system) {
     VLOG(1) << "Powering on Arm!";
     robot_system.power(true);
+  }
+};
+
+/**
+* @brief action to grip/ungrip arm
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*
+* @tparam Grip Decides whether to grip/ungrip the gripper on the arm
+*
+*/
+template <class LogicStateMachineT, bool grip>
+struct ArmGripActionFunctor_
+    : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
+  void run(ArmSystem &robot_system) {
+    if (grip) {
+      VLOG(1) << "Gripping!";
+      robot_system.grip(true);
+    } else {
+      VLOG(1) << "UnGripping!";
+      robot_system.grip(false);
+    }
   }
 };
 
