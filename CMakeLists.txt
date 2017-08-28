@@ -337,6 +337,7 @@ catkin_add_gtest(${PROJECT_NAME}-visual-servoing-arm-connector-test tests/contro
 catkin_add_gtest(${PROJECT_NAME}-data-stream-test tests/log/data_stream_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-log-test tests/log/log_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-string-utils-test tests/common/string_utils_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-proto-utils-test tests/common/proto_utils_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
@@ -454,6 +455,9 @@ endif()
 if(TARGET ${PROJECT_NAME}-string-utils-test)
   target_link_libraries(${PROJECT_NAME}-string-utils-test aerial_autonomy)
 endif()
+if(TARGET ${PROJECT_NAME}-proto-utils-test)
+  target_link_libraries(${PROJECT_NAME}-proto-utils-test aerial_autonomy)
+endif()
 
 
 ## Add folders to be run by python nosetests
@@ -466,3 +470,4 @@ install(FILES plugin.xml
 configure_file(scripts/generate_test_coverage.bash.in ${CMAKE_CURRENT_SOURCE_DIR}/scripts/generate_test_coverage.bash)
 ## Configure script to generate dot files for state machines
 configure_file(scripts/generate_dot_files.py.in ${CMAKE_CURRENT_SOURCE_DIR}/scripts/generate_dot_files.py)
+configure_file(param/log_config.pbtxt.in ${CMAKE_CURRENT_SOURCE_DIR}/param/log_config.pbtxt)

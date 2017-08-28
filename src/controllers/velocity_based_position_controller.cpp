@@ -1,5 +1,6 @@
 #include <aerial_autonomy/common/math.h>
 #include <aerial_autonomy/controllers/velocity_based_position_controller.h>
+#include <aerial_autonomy/log/log.h>
 #include <glog/logging.h>
 
 bool VelocityBasedPositionController::runImplementation(PositionYaw sensor_data,
@@ -25,6 +26,9 @@ ControllerStatus VelocityBasedPositionController::isConvergedImplementation(
   ControllerStatus status(ControllerStatus::Active);
   status << "Error Position, Yaw: " << position_diff.x << position_diff.y
          << position_diff.z << position_diff.yaw;
+  DATA_LOG("velocity_based_position_controller")
+      << position_diff.x << position_diff.y << position_diff.z
+      << position_diff.yaw << DataStream::endl;
   const PositionControllerConfig &position_controller_config =
       config_.position_controller_config();
   const config::Position &tolerance_pos =

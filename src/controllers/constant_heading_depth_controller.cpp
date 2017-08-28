@@ -1,5 +1,6 @@
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
 #include "aerial_autonomy/common/math.h"
+#include "aerial_autonomy/log/log.h"
 #include <glog/logging.h>
 
 bool ConstantHeadingDepthController::runImplementation(
@@ -46,6 +47,9 @@ ControllerStatus ConstantHeadingDepthController::isConvergedImplementation(
   ControllerStatus status(ControllerStatus::Active);
   status << " Error Position, Yaw: " << error.x << error.y << error.z
          << error_yaw;
+  DATA_LOG("constant_heading_depth_controller")
+      << error.x << error.y << error.z << error_yaw << sensor_data.x
+      << sensor_data.y << sensor_data.z << sensor_data.yaw << DataStream::endl;
   const PositionControllerConfig &position_controller_config =
       config_.position_controller_config();
   const config::Position &tolerance_pos =

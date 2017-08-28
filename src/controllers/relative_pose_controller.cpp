@@ -1,4 +1,5 @@
 #include "aerial_autonomy/controllers/relative_pose_controller.h"
+#include "aerial_autonomy/log/log.h"
 #include <glog/logging.h>
 
 bool RelativePoseController::runImplementation(
@@ -25,6 +26,18 @@ ControllerStatus RelativePoseController::isConvergedImplementation(
   ControllerStatus status(ControllerStatus::Active);
   status << "Error Position, Rotation: " << abs_error_position.x()
          << abs_error_position.y() << abs_error_position.z() << rot_diff;
+  const tf::Quaternion &current_rot = current_pose.getRotation();
+  const tf::Vector3 &current_trans = current_pose.getOrigin();
+  const tf::Quaternion &tracked_rot = tracked_pose.getRotation();
+  const tf::Vector3 &tracked_trans = tracked_pose.getOrigin();
+  DATA_LOG("relative_pose_controller")
+      << abs_error_position.x() << abs_error_position.y()
+      << abs_error_position.z() << rot_diff << current_trans.x()
+      << current_trans.y() << current_trans.z() << current_rot.w()
+      << current_rot.x() << current_rot.y() << current_rot.z()
+      << tracked_trans.x() << tracked_trans.y() << tracked_trans.z()
+      << tracked_rot.w() << tracked_rot.x() << tracked_rot.y()
+      << tracked_rot.z() << DataStream::endl;
 
   const config::Position &tolerance_pos = config_.goal_position_tolerance();
   if (abs_error_position.x() < tolerance_pos.x() &&

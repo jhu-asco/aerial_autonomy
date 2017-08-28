@@ -7,5 +7,6 @@ doxy_errors.txt
 docs/
 scripts/generate_test_coverage.bash
 scripts/generate_dot_files.py
+param/log_config.pbtxt
 .vscode
 .dot_output/*

@@ -8,6 +8,11 @@
 #include <chrono>
 #include <unordered_map>
 
+#include <boost/thread/recursive_mutex.hpp>
+
+#define DATA_LOG(stream) (Log::instance()[stream] << DataStream::startl)
+#define DATA_HEADER(stream) (Log::instance()[stream] << DataStream::starth)
+
 /**
  * @brief Manages data log streams and a timer for periodically writing streams
  * to file
@@ -26,6 +31,11 @@ public:
     static Log instance;
     return instance;
   }
+
+  /**
+  * @brief Destructor
+  */
+  ~Log();
 
   /**
   * @brief Configure the Log instance
@@ -76,4 +86,5 @@ private:
   std::unordered_map<std::string, DataStream> streams_;
   AsyncTimer log_timer_;
   boost::filesystem::path directory_;
+  boost::recursive_mutex streams_mutex;
 };
