@@ -3,3 +3,5 @@ ArmEventManager:
   PowerOn
   RightAngleFold
   Fold
+  Grip
+  UnGrip

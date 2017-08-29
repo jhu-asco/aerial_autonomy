@@ -65,6 +65,11 @@ struct PickPlaceStatesActions
   */
   using ArmPowerOn = ArmPoweronTransitionActionFunctor_<LogicStateMachineT>;
   /**
+  * @brief Action to grip/ungrip gripper on arm
+  */
+  template <bool grip>
+  using ArmGripAction = ArmGripActionFunctor_<LogicStateMachineT, grip>;
+  /**
   * @brief Action to poweroff arm
   */
   using ArmPowerOff = ArmPoweroffTransitionActionFunctor_<LogicStateMachineT>;
@@ -144,6 +149,9 @@ struct PickPlaceStatesActions
               msmf::Internal<arm_events::PowerOn, ArmPowerOn, msmf::none>,
               msmf::Internal<arm_events::PowerOff, ArmPowerOff, msmf::none>,
               msmf::Internal<arm_events::Fold, ArmFold, msmf::none>,
+              msmf::Internal<arm_events::Grip, ArmGripAction<true>, msmf::none>,
+              msmf::Internal<arm_events::UnGrip, ArmGripAction<false>,
+                             msmf::none>,
               msmf::Internal<uav_basic_events::Abort, msmf::none, msmf::none>,
               msmf::Internal<arm_events::RightAngleFold, ArmRightFold,
                              msmf::none>> {};
