@@ -1,0 +1,34 @@
+syntax = "proto2";
+
+import "velocity_controller_config.proto";
+
+/**
+* Uses the position controller config for tolerance
+* in position, yaw
+*/
+message RPYTBasedVelocityControllerConfig {
+  /**
+  * @brief P Gain to convert velocity error to acceleration 
+  */
+  optional double kp = 1 [ default = 1.0 ];
+  /**
+  * @brief I Gain to convert velocity error to acceleration
+  */
+  optional double ki = 2 [ default = 0.0 ];
+  /**
+  * @brief Gain to convert acceleration to thrust
+  */
+  optional double kt = 3 [ default = 0.16 ];
+  /**
+  * @brief roll, pitch tolerance
+  */
+  optional double tolerance_rp = 4 [ default = 1e-10 ];
+  /**
+  * @brief timestep for integrating error
+  */
+  optional double dt = 5 [default = 0.03];
+  /**
+  * @brief Config about velocity tolerance, yaw tolerance
+  */
+  optional VelocityControllerConfig velocity_controller_config = 6;
+}
