@@ -13,7 +13,7 @@ using namespace quad_simulator;
 /// \brief Test ManualRPYTController
 TEST(ManualRPYTControllerTests, TestMapInputOutOfBounds) {
   ManualRPYTController manual_rpyt_controller;
-  JoysticksYaw input(15000, -15000, 0, 0, 0);
+  JoystickYaw input(15000, -15000, 0, 0, 0);
   RollPitchYawThrust out_controls;
   bool result = manual_rpyt_controller.run(input, out_controls);
   ASSERT_NEAR(out_controls.r, M_PI / 6, 1e-8);
@@ -23,7 +23,7 @@ TEST(ManualRPYTControllerTests, TestMapInputOutOfBounds) {
 
 TEST(ManualRPYTControllerTests, TestYawGreaterThanPi) {
   ManualRPYTController manual_rpyt_controller;
-  JoysticksYaw input(0, 0, 0, 0, 1.5 * M_PI);
+  JoystickYaw input(0, 0, 0, 0, 1.5 * M_PI);
   RollPitchYawThrust out_controls;
   manual_rpyt_controller.run(input, out_controls);
   ASSERT_NEAR(out_controls.y, -0.5 * M_PI, 1e-8);
@@ -31,7 +31,7 @@ TEST(ManualRPYTControllerTests, TestYawGreaterThanPi) {
 
 TEST(ManualRPYTControllerTests, TestYawLessThanNegativePi) {
   ManualRPYTController manual_rpyt_controller;
-  JoysticksYaw input(0, 0, 0, 0, -1.5 * M_PI);
+  JoystickYaw input(0, 0, 0, 0, -1.5 * M_PI);
   RollPitchYawThrust out_controls;
   manual_rpyt_controller.run(input, out_controls);
   ASSERT_NEAR(out_controls.y, 0.5 * M_PI, 1e-8);

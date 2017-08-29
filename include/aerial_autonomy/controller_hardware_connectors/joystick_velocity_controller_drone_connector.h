@@ -2,7 +2,7 @@
 #include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
 #include "aerial_autonomy/sensors/base_sensor.h"
 #include "aerial_autonomy/types/empty_goal.h"
-#include "aerial_autonomy/types/joysticks.h"
+#include "aerial_autonomy/types/joystick.h"
 #include "aerial_autonomy/types/roll_pitch_yaw_thrust.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
 
@@ -12,8 +12,8 @@
 * @brief Maps Joystick goals to velocity goals,
 * used by controller to give rpythrust commands to quadrotor
 */
-class ManualVelocityControllerDroneConnector
-    : public ControllerHardwareConnector<std::tuple<Joysticks, VelocityYaw>,
+class JoystickVelocityControllerDroneConnector
+    : public ControllerHardwareConnector<std::tuple<Joystick, VelocityYaw>,
                                          EmptyGoal, RollPitchYawThrust> {
 public:
   /**
@@ -25,9 +25,9 @@ public:
   * @param drone_hardware Drone hardware used to send commands
   * @param controller Manual velocity controller
   */
-  ManualVelocityControllerDroneConnector(
+  JoystickVelocityControllerDroneConnector(
       parsernode::Parser &drone_hardware,
-      Controller<std::tuple<Joysticks, VelocityYaw>, EmptyGoal,
+      Controller<std::tuple<Joystick, VelocityYaw>, EmptyGoal,
                  RollPitchYawThrust> &controller,
       Sensor<VelocityYaw> &velocity_sensor)
       : ControllerHardwareConnector(controller, HardwareType::UAV),
@@ -45,7 +45,7 @@ protected:
    * @return true if succesfully extracted joystick data
    */
   virtual bool
-  extractSensorData(std::tuple<Joysticks, VelocityYaw> &sensor_data);
+  extractSensorData(std::tuple<Joystick, VelocityYaw> &sensor_data);
 
   /**
    * @brief  Send RPYT commands to hardware

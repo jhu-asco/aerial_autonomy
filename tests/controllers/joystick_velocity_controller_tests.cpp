@@ -1,18 +1,18 @@
-#include "aerial_autonomy/controllers/manual_velocity_controller.h"
-#include "manual_velocity_controller_config.pb.h"
+#include "aerial_autonomy/controllers/joystick_velocity_controller.h"
+#include "joystick_velocity_controller_config.pb.h"
 #include "rpyt_based_velocity_controller_config.pb.h"
 #include <gtest/gtest.h>
 
-TEST(ManualVelocityControllerTests, IsConvergedTest) {
+TEST(JoystickVelocityControllerTests, IsConvergedTest) {
   RPYTBasedVelocityControllerConfig rpyt_config;
-  ManualVelocityControllerConfig manual_config;
-  ManualVelocityController controller(rpyt_config, manual_config);
+  JoystickVelocityControllerConfig joystick_config;
+  JoystickVelocityController controller(rpyt_config, joystick_config);
   EmptyGoal goal;
   controller.setGoal(goal);
 
-  Joysticks joy_data(0.0, 0.0, 0.0, 0.0);
+  Joystick joy_data(0.0, 0.0, 0.0, 0.0);
   VelocityYaw vel_data(0, 0, 0, 0.0);
-  std::tuple<Joysticks, VelocityYaw> sensor_data =
+  std::tuple<Joystick, VelocityYaw> sensor_data =
       std::make_tuple(joy_data, vel_data);
 
   RollPitchYawThrust controls;

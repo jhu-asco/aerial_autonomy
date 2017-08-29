@@ -41,7 +41,7 @@ public:
             velocity_sensor_, *uav_hardware_,
             config.uav_system_handler_config().uav_system_config(),
             rpyt_velocity_controller_config_,
-            config.manual_velocity_controller_config()),
+            config.joystick_velocity_controller_config()),
         common_handler_(config.uav_system_handler_config().base_config(),
                         uav_sensor_system_),
         uav_controller_timer_(

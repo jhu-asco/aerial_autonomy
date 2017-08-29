@@ -1,7 +1,7 @@
 #pragma once
 #include "aerial_autonomy/controllers/base_controller.h"
 #include "aerial_autonomy/types/empty_goal.h"
-#include "aerial_autonomy/types/joysticks_yaw.h"
+#include "aerial_autonomy/types/joystick_yaw.h"
 #include "aerial_autonomy/types/roll_pitch_yaw_thrust.h"
 
 /**
@@ -9,7 +9,7 @@
  * controller
  */
 class ManualRPYTController
-    : public Controller<JoysticksYaw, EmptyGoal, RollPitchYawThrust> {
+    : public Controller<JoystickYaw, EmptyGoal, RollPitchYawThrust> {
 public:
   /**
    * @brief Destructor
@@ -24,14 +24,14 @@ protected:
    * @param control RPYT to send to hardware
    * return True if successfully converted sensor data to control
    */
-  virtual bool runImplementation(JoysticksYaw sensor_data, EmptyGoal goal,
+  virtual bool runImplementation(JoystickYaw sensor_data, EmptyGoal goal,
                                  RollPitchYawThrust &control);
   /**
   * @brief Default implementation since there is no concept of convergence
   * for manual rpyt controller
   * @return controller status that contains an enum and debug information.
   */
-  virtual ControllerStatus isConvergedImplementation(JoysticksYaw, EmptyGoal) {
+  virtual ControllerStatus isConvergedImplementation(JoystickYaw, EmptyGoal) {
     return ControllerStatus(ControllerStatus::Completed);
   }
 

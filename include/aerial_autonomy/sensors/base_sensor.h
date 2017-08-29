@@ -4,7 +4,7 @@
 /**
 * @brief enum for sensor status
 */
-enum SensorStatus { VALID = 0, INVALID = 1 };
+enum class SensorStatus { VALID = 0, INVALID = 1 };
 /**
 * @brief Base class for sensors
 *

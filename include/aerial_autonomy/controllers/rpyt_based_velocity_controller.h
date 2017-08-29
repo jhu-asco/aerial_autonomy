@@ -9,13 +9,25 @@
  */
 
 class RPYTBasedVelocityController
-    : public Controller<VelocityYaw, VelocityYaw, RollPitchYawThrust> {
+: public Controller<VelocityYaw, VelocityYaw, RollPitchYawThrust> {
 public:
   /**
   * @brief Constructor which takes in a config
   */
   RPYTBasedVelocityController(RPYTBasedVelocityControllerConfig &config)
-      : config_(config) {}
+  : config_(config) {}
+
+  /**
+  *
+  * @brief reset cumulative_error
+  *
+  */
+  void resetCumulativeError(){
+    cumulative_error.x = 0.0;
+    cumulative_error.y = 0.0;
+    cumulative_error.z = 0.0;
+    cumulative_error.yaw = 0.0;
+  }
 
 protected:
   /**
@@ -27,7 +39,7 @@ protected:
    * @return true if rpyt command to reach goal is found
    */
   virtual bool runImplementation(VelocityYaw sensor_data, VelocityYaw goal,
-                                 RollPitchYawThrust &control);
+   RollPitchYawThrust &control);
   /**
   * @brief Check if RPYT based velocity controller converged
   *
@@ -37,7 +49,7 @@ protected:
   * @return  True if sensor data is close to goal
   */
   virtual ControllerStatus isConvergedImplementation(VelocityYaw sensor_data,
-                                                     VelocityYaw goal);
+   VelocityYaw goal);
   RPYTBasedVelocityControllerConfig &config_; ///< Controller configuration
   VelocityYaw cumulative_error;
 };

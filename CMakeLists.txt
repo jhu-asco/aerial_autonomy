@@ -176,7 +176,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/position_controller_config.proto
   proto/pose_controller_config.proto
   proto/velocity_controller_config.proto
-  proto/manual_velocity_controller_config.proto
+  proto/joystick_velocity_controller_config.proto
   proto/rpyt_based_velocity_controller_config.proto
   proto/velocity_sensor_config.proto
   proto/position.proto
@@ -213,7 +213,7 @@ add_library(aerial_autonomy
   src/trackers/closest_tracking_strategy.cpp
   src/trackers/simple_tracking_strategy.cpp
   src/controllers/manual_rpyt_controller.cpp
-  src/controllers/manual_velocity_controller.cpp
+  src/controllers/joystick_velocity_controller.cpp
   src/controllers/velocity_based_position_controller.cpp
   src/controllers/constant_heading_depth_controller.cpp
   src/controllers/rpyt_based_velocity_controller.cpp
@@ -223,7 +223,7 @@ add_library(aerial_autonomy
   src/controller_hardware_connectors/position_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
-  src/controller_hardware_connectors/manual_velocity_controller_drone_connector.cpp 
+  src/controller_hardware_connectors/joystick_velocity_controller_drone_connector.cpp 
 )
 add_dependencies(aerial_autonomy proto)
 target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES})
@@ -332,11 +332,11 @@ add_dependencies(${PROJECT_NAME}-uav-arm-system-handler-test ${${PROJECT_NAME}_E
 catkin_add_gtest(${PROJECT_NAME}-thread-safe-state-machine-test tests/common/thread_safe_state_machine_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-iterable-enum-test tests/common/iterable_enum_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-velocity-based-position-controller-test tests/controllers/velocity_based_position_controller_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-manual-velocity-controller-test tests/controllers/manual_velocity_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-joystick-velocity-controller-test tests/controllers/joystick_velocity_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-controller-test tests/controllers/relative_pose_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-constant-heading-depth-controller-test tests/controllers/constant_heading_depth_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-velocity-controller-test tests/controllers/rpyt_based_velocity_controller_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-manual-velocity-controller-drone-connector-test tests/controller_hardware_connectors/manual_velocity_controller_drone_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test tests/controller_hardware_connectors/joystick_velocity_controller_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-math-test tests/common/math_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-tracker-test tests/trackers/simple_tracker_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-multi-tracker-test tests/trackers/simple_multi_tracker_tests.cpp)
@@ -443,11 +443,11 @@ endif()
 if(TARGET ${PROJECT_NAME}-rpyt-based-position-controller-test)
   target_link_libraries(${PROJECT_NAME}-rpyt-based-position-controller-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
-if(TARGET ${PROJECT_NAME}-manual-velocity-controller-test)
-  target_link_libraries(${PROJECT_NAME}-manual-velocity-controller-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+if(TARGET ${PROJECT_NAME}-joystick-velocity-controller-test)
+  target_link_libraries(${PROJECT_NAME}-joystick-velocity-controller-test aerial_autonomy proto ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
-if(TARGET ${PROJECT_NAME}-manual-velocity-controller-drone-connector-test)
-  target_link_libraries(${PROJECT_NAME}-manual-velocity-controller-drone-connector-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+if(TARGET ${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test)
+  target_link_libraries(${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-rpyt-controller-vins-connector-test)
   target_link_libraries(${PROJECT_NAME}-rpyt-controller-vins-connector-test aerial_autonomy proto ${catkin_LIBRARIES} ${QUAD_SIM_PARSER_LIBS} ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})

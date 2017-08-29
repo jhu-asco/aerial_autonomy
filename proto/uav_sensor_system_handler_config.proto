@@ -3,7 +3,7 @@ syntax = "proto2";
 import "uav_system_handler_config.proto";
 import "rpyt_based_velocity_controller_config.proto";
 import "velocity_sensor_config.proto";
-import "manual_velocity_controller_config.proto";
+import "joystick_velocity_controller_config.proto";
 
 message UAVSensorSystemHandlerConfig {
   /**
@@ -13,7 +13,7 @@ message UAVSensorSystemHandlerConfig {
   /**
   * @brief manual velocity controller config
   */
-  required ManualVelocityControllerConfig manual_velocity_controller_config = 2;
+  required JoystickVelocityControllerConfig joystick_velocity_controller_config = 2;
   /**
   * @brief uav system handler config
   */

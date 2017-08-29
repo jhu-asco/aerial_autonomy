@@ -31,7 +31,7 @@ velocity_sensor_config{
   sensor_frequency: 30.0
 }
 
-manual_velocity_controller_config{
+joystick_velocity_controller_config{
   max_channel1: 10000
   max_channel2: 10000
   max_channel3: 10000

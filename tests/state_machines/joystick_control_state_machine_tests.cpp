@@ -56,7 +56,7 @@ TEST_F(JoystickControlStateMachineTests, GoToJoystickControl) {
   // Initialize Joystick Control
   logic_state_machine->process_event(jce::JoystickControlEvent());
   // Check controller status
-  ASSERT_EQ(uav_system->getStatus<ManualVelocityControllerDroneConnector>(),
+  ASSERT_EQ(uav_system->getStatus<JoystickVelocityControllerDroneConnector>(),
             ControllerStatus::Active);
   // Check that current state is Joyctick control state
   ASSERT_STREQ(pstate(*logic_state_machine), "JoystickControlState");
@@ -73,7 +73,7 @@ TEST_F(JoystickControlStateMachineTests, Abort) {
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
 }
 
-TEST_F(JoystickControlStateMachineTests, ManualControlMode) {
+TEST_F(JoystickControlStateMachineTests, JoystickControlMode) {
   // First takeoff
   GoToHoverFromLanded();
   // Initialize Joystick Control

@@ -1,13 +1,13 @@
-#include "aerial_autonomy/controller_hardware_connectors/manual_velocity_controller_drone_connector.h"
+#include "aerial_autonomy/controller_hardware_connectors/joystick_velocity_controller_drone_connector.h"
 
-bool ManualVelocityControllerDroneConnector::extractSensorData(
-    std::tuple<Joysticks, VelocityYaw> &sensor_data) {
+bool JoystickVelocityControllerDroneConnector::extractSensorData(
+    std::tuple<Joystick, VelocityYaw> &sensor_data) {
 
   parsernode::common::quaddata quad_data;
   drone_hardware_.getquaddata(quad_data);
 
-  Joysticks joy_data;
-  joy_data = Joysticks(quad_data.servo_in[0], quad_data.servo_in[1],
+  Joystick joy_data;
+  joy_data = Joystick(quad_data.servo_in[0], quad_data.servo_in[1],
                        quad_data.servo_in[2], quad_data.servo_in[3]);
 
   VelocityYaw vel_sensor_data = velocity_sensor_.getSensorData();
@@ -15,7 +15,7 @@ bool ManualVelocityControllerDroneConnector::extractSensorData(
   return true;
 }
 
-void ManualVelocityControllerDroneConnector::sendHardwareCommands(
+void JoystickVelocityControllerDroneConnector::sendHardwareCommands(
     RollPitchYawThrust controls) {
 
   geometry_msgs::Quaternion rpyt_command;

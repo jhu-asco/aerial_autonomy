@@ -1,7 +1,7 @@
 #pragma once
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
-#include <aerial_autonomy/controller_hardware_connectors/manual_velocity_controller_drone_connector.h>
+#include <aerial_autonomy/controller_hardware_connectors/joystick_velocity_controller_drone_connector.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_sensor_system.h>
 #include <aerial_autonomy/sensors/base_sensor.h>
@@ -32,7 +32,7 @@ struct JoystickControlTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVSensorSystem, LogicStateMachineT> {
   void run(UAVSensorSystem &robot_system) {
     VLOG(1) << "entering joystick control mode";
-    robot_system.setGoal<ManualVelocityControllerDroneConnector, EmptyGoal>(
+    robot_system.setGoal<JoystickVelocityControllerDroneConnector, EmptyGoal>(
         EmptyGoal());
   }
 };

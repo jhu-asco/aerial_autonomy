@@ -4,7 +4,7 @@ syntax = "proto2";
 *Uses values to map joystick values to 
 * velocity goals
 */ 
-message ManualVelocityControllerConfig{
+message JoystickVelocityControllerConfig{
   /**
   * @brief max value for channel 1
   */

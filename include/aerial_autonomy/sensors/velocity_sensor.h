@@ -81,7 +81,7 @@ private:
     } else {
       bad_data_counter++;
       if (bad_data_counter == 100)
-        sensor_status_ = INVALID;
+        sensor_status_ = SensorStatus::INVALID;
     }
   }
   /**
