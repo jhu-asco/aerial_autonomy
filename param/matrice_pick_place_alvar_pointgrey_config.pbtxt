@@ -23,12 +23,6 @@ uav_system_config {
     }
   }
 
-  goal_position_tolerance {
-    x: 0.05
-    y: 0.05
-    z: 0.05
-  }
-
   uav_vision_system_config {
     tracker_type: "Alvar"
 
