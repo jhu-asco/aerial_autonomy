@@ -3,6 +3,12 @@
 
 /**
 * @brief enum for sensor status
+*
+* VALID : Sensor data is consistent with uav data upto 
+* certain degree of precision
+*
+* INVALID : Set if sensor data diverges from uav data
+* for a prolonged period 
 */
 enum class SensorStatus { VALID = 0, INVALID = 1 };
 /**

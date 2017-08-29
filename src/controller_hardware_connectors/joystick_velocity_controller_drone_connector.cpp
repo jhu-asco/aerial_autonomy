@@ -8,7 +8,7 @@ bool JoystickVelocityControllerDroneConnector::extractSensorData(
 
   Joystick joy_data;
   joy_data = Joystick(quad_data.servo_in[0], quad_data.servo_in[1],
-                       quad_data.servo_in[2], quad_data.servo_in[3]);
+                      quad_data.servo_in[2], quad_data.servo_in[3]);
 
   VelocityYaw vel_sensor_data = velocity_sensor_.getSensorData();
   sensor_data = std::make_tuple(joy_data, vel_sensor_data);

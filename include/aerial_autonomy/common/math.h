@@ -19,7 +19,7 @@ namespace math {
  * @param x Angle to wrap
  * @return Wrapped angle
  */
-  double angleWrap(double x);
+double angleWrap(double x);
 
 /**
  * @brief Clip a number to bewteen a min and max value
@@ -28,7 +28,7 @@ namespace math {
  * @param max Maximum value
  * @return Clamped value
  */
-  double clamp(double x, double min, double max);
+double clamp(double x, double min, double max);
 
 /**
 * @brief Generate a tf transform from a vector of xyzrpy
@@ -45,7 +45,7 @@ template <class T> tf::Transform getTransformFromVector(const T &input) {
   } else {
     transform.setOrigin(tf::Vector3(input[0], input[1], input[2]));
     transform.setRotation(
-      tf::createQuaternionFromRPY(input[3], input[4], input[5]));
+        tf::createQuaternionFromRPY(input[3], input[4], input[5]));
   }
   return transform;
 }
@@ -68,15 +68,15 @@ template <class T>
 std::vector<tf::Transform> getTransformsFromVector(const T &input) {
   if (input.size() % 6 != 0) {
     throw std::runtime_error(
-      "The input does not have a multiple of 6 elements x,y,z, r,p,y");
+        "The input does not have a multiple of 6 elements x,y,z, r,p,y");
   }
 
   std::vector<tf::Transform> transforms(input.size() / 6);
   for (int i = 0, j = 0; i < input.size(); i += 6, j++) {
     transforms.at(j).setOrigin(
-      tf::Vector3(input[i + 0], input[i + 1], input[i + 2]));
+        tf::Vector3(input[i + 0], input[i + 1], input[i + 2]));
     transforms.at(j).setRotation(
-      tf::createQuaternionFromRPY(input[i + 3], input[i + 4], input[i + 5]));
+        tf::createQuaternionFromRPY(input[i + 3], input[i + 4], input[i + 5]));
   }
   return transforms;
 }
@@ -91,6 +91,6 @@ std::vector<tf::Transform> getTransformsFromVector(const T &input) {
 *
 * @return Map the input based on input range to output in output range
 */
-double map(double input, double input_min, double input_max,
- double output_min, double output_max);
+double map(double input, double input_min, double input_max, double output_min,
+           double output_max);
 }

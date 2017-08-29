@@ -80,7 +80,7 @@ private:
       sensor_data_ = vel_sensor_data;
     } else {
       bad_data_counter++;
-      if (bad_data_counter == 100)
+      if (bad_data_counter == config_.bad_data_timeout())
         sensor_status_ = SensorStatus::INVALID;
     }
   }

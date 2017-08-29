@@ -24,7 +24,8 @@ public:
       JoystickVelocityControllerConfig &joystick_velocity_controller_config)
       : rpyt_velocity_controller_config_(rpyt_velocity_controller_config),
         rpyt_velocity_controller_(rpyt_velocity_controller_config_),
-        joystick_velocity_controller_config_(joystick_velocity_controller_config) {}
+        joystick_velocity_controller_config_(
+            joystick_velocity_controller_config) {}
 
 protected:
   /**

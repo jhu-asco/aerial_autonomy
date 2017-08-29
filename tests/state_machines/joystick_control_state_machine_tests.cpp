@@ -1,4 +1,4 @@
-#include <aerial_autonomy/joystick_control_events.h>
+  #include <aerial_autonomy/joystick_control_events.h>
 #include <aerial_autonomy/state_machines/joystick_control_state_machine.h>
 #include <gtest/gtest.h>
 // Thread stuff
@@ -84,6 +84,10 @@ TEST_F(JoystickControlStateMachineTests, JoystickControlMode) {
   drone_hardware.flowControl(false);
   logic_state_machine->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "ManualControlState");
+  //Enable SDK
+  drone_hardware.flowControl(true);
+  logic_state_machine->process_event(InternalTransitionEvent());
+  ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
 }
 
 int main(int argc, char **argv) {

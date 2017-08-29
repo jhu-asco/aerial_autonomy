@@ -5,8 +5,8 @@ bool ManualRPYTControllerDroneConnector::extractSensorData(
   parsernode::common::quaddata quad_data;
   drone_hardware_.getquaddata(quad_data);
   sensor_data = JoystickYaw(quad_data.servo_in[0], quad_data.servo_in[1],
-                             quad_data.servo_in[2], quad_data.servo_in[3],
-                             quad_data.rpydata.z);
+                            quad_data.servo_in[2], quad_data.servo_in[3],
+                            quad_data.rpydata.z);
   return true;
 }
 

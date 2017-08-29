@@ -5,6 +5,7 @@
 #include <aerial_autonomy/sensors/base_sensor.h>
 #include <gtest/gtest.h>
 #include <quad_simulator_parser/quad_simulator.h>
+#include <thread>
 
 using namespace quad_simulator;
 
@@ -16,7 +17,7 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Constructor) {
   Sensor<VelocityYaw> velocity_sensor;
 
   ASSERT_NO_THROW(new JoystickVelocityControllerDroneConnector(
-      drone_hardware, controller, velocity_sensor));
+    drone_hardware, controller, velocity_sensor));
 }
 
 TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
@@ -27,20 +28,28 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
   Sensor<VelocityYaw> velocity_sensor;
 
   // Set stick commands
-  int16_t channels[4] = {0, 0, 0, 0};
+  int16_t channels[4] = {100, 100, 100, 0};
   drone_hardware.setRC(channels);
 
   JoystickVelocityControllerDroneConnector connector(drone_hardware, controller,
-                                                   velocity_sensor);
+   velocity_sensor);
 
   connector.setGoal(EmptyGoal());
-  connector.run();
 
-  parsernode::common::quaddata quad_data;
-  drone_hardware.getquaddata(quad_data);
+  for(int i=0; i<100; i++)
+  {
+    connector.run();
+    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+  }
+  ASSERT_EQ(connector.getStatus(), ControllerStatus::Completed);
 
-  ASSERT_NEAR(quad_data.rpydata.x, 0.0, 1e-8);
-  ASSERT_NEAR(quad_data.rpydata.y, 0.0, 1e-8);
+  parsernode::common::quaddata sensor_data;
+  drone_hardware.getquaddata(sensor_data);
+
+  ASSERT_NEAR(sensor_data.servo_in[0], channels[0], 1e-4);
+  ASSERT_NEAR(sensor_data.servo_in[1], channels[1], 1e-4);
+  ASSERT_NEAR(sensor_data.servo_in[2], channels[2] , 1e-4);
+  ASSERT_NEAR(sensor_data.servo_in[3], channels[3] , 1e-4);
 }
 
 int main(int argc, char **argv) {

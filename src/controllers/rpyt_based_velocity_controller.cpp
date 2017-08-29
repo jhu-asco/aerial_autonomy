@@ -56,8 +56,8 @@ RPYTBasedVelocityController::isConvergedImplementation(VelocityYaw sensor_data,
                                                        VelocityYaw goal) {
   ControllerStatus status = ControllerStatus::Active;
   VelocityYaw velocity_diff = goal - sensor_data;
-  status << "Error velocity, yaw: "<< velocity_diff.x << 
-  velocity_diff.y << velocity_diff.z << velocity_diff.yaw;
+  status << "Error velocity, yaw: " << velocity_diff.x << velocity_diff.y
+         << velocity_diff.z << velocity_diff.yaw;
   const VelocityControllerConfig &velocity_controller_config =
       config_.velocity_controller_config();
   const config::Velocity tolerance_vel =

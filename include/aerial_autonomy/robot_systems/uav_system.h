@@ -9,7 +9,6 @@
 #include <aerial_autonomy/controllers/basic_controllers.h>
 // Specific ControllerConnectors
 #include <aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h>
-//
 #include <iomanip>
 #include <sstream>
 

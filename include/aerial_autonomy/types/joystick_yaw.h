@@ -19,7 +19,7 @@ struct JoystickYaw : public Joystick {
   * @param yaw Yaw data
   */
   JoystickYaw(double channel1, double channel2, double channel3,
-               double channel4, double yaw)
+              double channel4, double yaw)
       : Joystick(channel1, channel2, channel3, channel4), yaw(yaw) {}
   double yaw; ///< Yaw data stored internally
 };

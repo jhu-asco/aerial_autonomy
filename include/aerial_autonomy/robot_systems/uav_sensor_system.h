@@ -12,10 +12,9 @@
 */
 class UAVSensorSystem : public UAVSystem {
 public:
-  UAVSensorSystem(Sensor<VelocityYaw> &velocity_sensor,
-                  parsernode::Parser &drone_hardware,
-                  RPYTBasedVelocityControllerConfig &rpyt_velocity_controller_config)
-      // \todo soham create config and add controller configs
+  UAVSensorSystem(
+      Sensor<VelocityYaw> &velocity_sensor, parsernode::Parser &drone_hardware,
+      RPYTBasedVelocityControllerConfig &rpyt_velocity_controller_config)
       : UAVSensorSystem(velocity_sensor, drone_hardware, UAVSystemConfig(),
                         rpyt_velocity_controller_config,
                         JoystickVelocityControllerConfig()) {}
@@ -35,7 +34,7 @@ public:
       : UAVSystem(drone_hardware, config), velocity_sensor_(velocity_sensor),
         rpyt_velocity_controller_config_(rpyt_velocity_controller_config),
         joystick_velocity_controller_(rpyt_velocity_controller_config_,
-                                    joystick_velocity_controller_config),
+                                      joystick_velocity_controller_config),
         joystick_velocity_controller_drone_connector_(
             drone_hardware, joystick_velocity_controller_, velocity_sensor_) {
     // Add hardware controllers to container

@@ -56,7 +56,7 @@ public:
     common_handler_.startTimers();
     uav_controller_timer_.start();
 
-    // Set defualt gains
+    // Set default gains
     aerial_autonomy::GainsConfig default_config;
     default_config.kp = rpyt_velocity_controller_config_.kp();
     default_config.ki = rpyt_velocity_controller_config_.ki();

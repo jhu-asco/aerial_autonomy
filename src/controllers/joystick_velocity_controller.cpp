@@ -9,28 +9,29 @@ bool JoystickVelocityController::runImplementation(
   Joystick joy_sensor_data = std::get<0>(sensor_data);
 
   vel_goal.x = math::map(joy_sensor_data.channel1,
-                   -joystick_velocity_controller_config_.max_channel1(),
-                   joystick_velocity_controller_config_.max_channel1(),
-                   -joystick_velocity_controller_config_.max_velocity(),
-                   joystick_velocity_controller_config_.max_velocity());
+                         -joystick_velocity_controller_config_.max_channel1(),
+                         joystick_velocity_controller_config_.max_channel1(),
+                         -joystick_velocity_controller_config_.max_velocity(),
+                         joystick_velocity_controller_config_.max_velocity());
 
   vel_goal.y = math::map(joy_sensor_data.channel2,
-                   -joystick_velocity_controller_config_.max_channel2(),
-                   joystick_velocity_controller_config_.max_channel2(),
-                   -joystick_velocity_controller_config_.max_velocity(),
-                   joystick_velocity_controller_config_.max_velocity());
+                         -joystick_velocity_controller_config_.max_channel2(),
+                         joystick_velocity_controller_config_.max_channel2(),
+                         -joystick_velocity_controller_config_.max_velocity(),
+                         joystick_velocity_controller_config_.max_velocity());
 
   vel_goal.z = math::map(joy_sensor_data.channel3,
-                   -joystick_velocity_controller_config_.max_channel3(),
-                   joystick_velocity_controller_config_.max_channel3(),
-                   -joystick_velocity_controller_config_.max_velocity(),
-                   joystick_velocity_controller_config_.max_velocity());
+                         -joystick_velocity_controller_config_.max_channel3(),
+                         joystick_velocity_controller_config_.max_channel3(),
+                         -joystick_velocity_controller_config_.max_velocity(),
+                         joystick_velocity_controller_config_.max_velocity());
 
-  double yaw_rate = math::map(joy_sensor_data.channel4,
-                        -joystick_velocity_controller_config_.max_channel4(),
-                        joystick_velocity_controller_config_.max_channel4(),
-                        -joystick_velocity_controller_config_.max_velocity(),
-                        joystick_velocity_controller_config_.max_velocity());
+  double yaw_rate =
+      math::map(joy_sensor_data.channel4,
+                -joystick_velocity_controller_config_.max_channel4(),
+                joystick_velocity_controller_config_.max_channel4(),
+                -joystick_velocity_controller_config_.max_velocity(),
+                joystick_velocity_controller_config_.max_velocity());
 
   double dt = 1.0 / joystick_velocity_controller_config_.controller_frequency();
   VelocityYaw vel_sensor_data = std::get<1>(sensor_data);

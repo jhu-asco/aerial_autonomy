@@ -13,7 +13,8 @@ message UAVSensorSystemHandlerConfig {
   /**
   * @brief manual velocity controller config
   */
-  required JoystickVelocityControllerConfig joystick_velocity_controller_config = 2;
+  required JoystickVelocityControllerConfig
+      joystick_velocity_controller_config = 2;
   /**
   * @brief uav system handler config
   */
