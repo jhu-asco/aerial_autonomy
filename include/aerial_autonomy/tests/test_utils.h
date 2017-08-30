@@ -1,12 +1,14 @@
 #pragma once
 #include <boost/filesystem.hpp>
 #include <chrono>
+#include <fstream>
 #include <functional>
 #include <gtest/gtest.h>
 #include <parsernode/common.h>
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 #include <tf/transform_datatypes.h>
+#include <thread>
 
 #include "aerial_autonomy/types/position_yaw.h"
 

@@ -1,7 +1,7 @@
 syntax = "proto2";
 
 import "velocity_controller_config.proto";
-
+import "uav_system_handler_config.proto";
 /**
 * Uses the position controller config for tolerance
 * in position, yaw
@@ -28,7 +28,11 @@ message RPYTBasedVelocityControllerConfig {
   */
   optional double dt = 5 [default = 0.03];
   /**
+  * @brief maximum allowed thrust
+  */
+  optional double max_thrust = 6 [default = 80]; 
+  /**
   * @brief Config about velocity tolerance, yaw tolerance
   */
-  optional VelocityControllerConfig velocity_controller_config = 6;
+  optional VelocityControllerConfig velocity_controller_config = 7;
 }

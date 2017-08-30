@@ -1,3 +1,4 @@
+#include "aerial_autonomy/log/log.h"
 #include <Eigen/Dense>
 #include <aerial_autonomy/controllers/rpyt_based_velocity_controller.h>
 #include <glog/logging.h>
@@ -35,7 +36,7 @@ bool RPYTBasedVelocityController::runImplementation(
     rot_acc = Eigen::Vector3d(0, 0, 0);
   }
 
-  // roll = -asin(body_acc_y) when yaw-compensated
+  // yaw-compensated y-acceleration is sine of roll
   control.r = -asin(rot_acc[1]);
 
   // check if roll = 90 and compute pitch accordingly
@@ -46,6 +47,9 @@ bool RPYTBasedVelocityController::runImplementation(
     control.p = 0;
     LOG(WARNING) << "Desired roll is 90 degrees. Setting pitch to 0";
   }
+
+  if (control.t >= config_.max_thrust())
+    control.t = config_.max_thrust();
 
   control.y = goal.yaw;
   return true;
@@ -58,6 +62,11 @@ RPYTBasedVelocityController::isConvergedImplementation(VelocityYaw sensor_data,
   VelocityYaw velocity_diff = goal - sensor_data;
   status << "Error velocity, yaw: " << velocity_diff.x << velocity_diff.y
          << velocity_diff.z << velocity_diff.yaw;
+  DATA_LOG("rpyt_based_velocity_controller")
+      << velocity_diff.x << velocity_diff.y << velocity_diff.z
+      << velocity_diff.yaw << sensor_data.x << sensor_data.y << sensor_data.z
+      << sensor_data.yaw << goal.x << goal.y << goal.z << goal.yaw
+      << DataStream::endl;
   const VelocityControllerConfig &velocity_controller_config =
       config_.velocity_controller_config();
   const config::Velocity tolerance_vel =

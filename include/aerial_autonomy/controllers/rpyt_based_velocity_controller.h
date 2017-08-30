@@ -3,9 +3,10 @@
 #include "aerial_autonomy/types/roll_pitch_yaw_thrust.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
 #include "rpyt_based_velocity_controller_config.pb.h"
-
+#include <glog/logging.h>
 /**
- * @brief A velocity controller that takes in rpyt commands
+ * @brief A velocity controller that provides rpyt commands to
+ * achieve desired velocity
  */
 
 class RPYTBasedVelocityController
@@ -15,8 +16,15 @@ public:
   * @brief Constructor which takes in a config
   */
   RPYTBasedVelocityController(RPYTBasedVelocityControllerConfig &config)
-      : config_(config) {}
-
+      : config_(config) {
+    try {
+      assert(config.kp() >= 0.0);
+      assert(config.ki() >= 0.0);
+      assert(config.kt() >= 0.0);
+    } catch (...) {
+      LOG(WARNING) << "Gains set to negative value !";
+    }
+  }
   /**
   *
   * @brief reset cumulative_error
