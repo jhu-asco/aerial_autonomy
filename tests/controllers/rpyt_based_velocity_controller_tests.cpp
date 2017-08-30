@@ -78,30 +78,38 @@ TEST(RPYTBasedVelocityControllerTests, MaxThrust) {
   ASSERT_EQ(controls.t, config.max_thrust());
 }
 
-TEST(RPYTBasedVelocityController, Convergence) {
+TEST(RPYTConvergenceTest, Convergence) {
+
   RPYTBasedVelocityControllerConfig config;
+  config.set_kp(2.0);
+  config.set_ki(0.01);
+
+  auto vel_ctlr_config = config.mutable_velocity_controller_config();
+  auto tolerance = vel_ctlr_config->mutable_goal_velocity_tolerance();
+  tolerance->set_vx(0.01);
+  tolerance->set_vy(0.01);
+  tolerance->set_vz(0.01);
 
   RPYTBasedVelocityController controller(config);
-  VelocityYaw sensor_data(0, 0, 0, 0);
-  VelocityYaw goal(0.1, -0.1, 0.1, 0.0);
 
+  VelocityYaw goal(0.1, 0.1, 0.1, 0);
   controller.setGoal(goal);
-  RollPitchYawThrust controls;
-  double dt = config.dt();
-  int timesteps = 0;
+  auto convergence = [&]() {
 
-  while (((fabs(sensor_data.x - goal.x) > 1e-4) ||
-          (fabs(sensor_data.y - goal.y) > 1e-4) ||
-          (fabs(sensor_data.z - goal.z) > 1e-4) ||
-          (fabs(sensor_data.yaw - goal.yaw) > 1e-4)) &&
-         timesteps < 500) {
+    static VelocityYaw sensor_data;
+
+    RollPitchYawThrust controls;
+    double dt = config.dt();
+
     controller.run(sensor_data, controls);
     tf::Transform tf;
     tf.setOrigin(tf::Vector3(0, 0, 0));
     tf.setRotation(
         tf::createQuaternionFromRPY(controls.r, controls.p, controls.y));
 
-    tf::Vector3 body_acc = tf::Vector3(0, 0, controls.t * config.kt());
+    double ext_z_acc = 0.01;
+    tf::Vector3 body_acc =
+        tf::Vector3(0, 0, controls.t * config.kt() + ext_z_acc);
     tf::Vector3 global_acc = tf * body_acc;
 
     sensor_data.x = sensor_data.x + global_acc[0] * dt;
@@ -109,13 +117,16 @@ TEST(RPYTBasedVelocityController, Convergence) {
     sensor_data.z = sensor_data.z + (global_acc[2] - 9.81) * dt;
     sensor_data.yaw = controls.y;
 
-    timesteps++;
-  }
+    std::cout << "vel = " << sensor_data.x << sensor_data.y << sensor_data.z
+              << "\n";
+    if (controller.isConverged(sensor_data))
+      return true;
 
-  ASSERT_NEAR(sensor_data.x, goal.x, 1e-4);
-  ASSERT_NEAR(sensor_data.y, goal.y, 1e-4);
-  ASSERT_NEAR(sensor_data.z, goal.z, 1e-4);
-  ASSERT_NEAR(sensor_data.yaw, goal.yaw, 1e-4);
+    return false;
+  };
+
+  ASSERT_TRUE(
+      test_utils::waitUntilTrue()(convergence, std::chrono::seconds(50)));
 }
 
 int main(int argc, char **argv) {

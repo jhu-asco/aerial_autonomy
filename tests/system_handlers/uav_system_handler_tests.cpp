@@ -46,6 +46,7 @@ TEST_F(UAVSystemHandlerTests, ProcessEvents) {
   while (!uav_system_handler_->isConnected()) {
   }
   auto armed_true_fun = [=]() {
+    ros::spinOnce();
     return uav_system_handler_->getUAVData().armed;
   };
   // Check takeoff works
@@ -64,6 +65,7 @@ TEST_F(UAVSystemHandlerTests, ProcessPoseCommand) {
   while (!uav_system_handler_->isConnected()) {
   }
   auto armed_true_fun = [=]() {
+    ros::spinOnce();
     return uav_system_handler_->getUAVData().armed;
   };
   // Check pose command works
@@ -75,6 +77,7 @@ TEST_F(UAVSystemHandlerTests, ProcessPoseCommand) {
   publishPoseCommand(pose_command);
   ASSERT_TRUE(test_utils::waitUntilTrue()(
       [=]() {
+        ros::spinOnce();
         return pose_command ==
                getPositionYaw(uav_system_handler_->getUAVData());
       },
@@ -85,7 +88,11 @@ TEST_F(UAVSystemHandlerTests, ReceiveStatus) {
   while (!isStatusConnected())
     ;
   ASSERT_FALSE(test_utils::waitUntilFalse()(
-      [=]() { return status_.empty(); }, std::chrono::seconds(timeout_wait)));
+      [=]() {
+        ros::spinOnce();
+        return status_.empty();
+      },
+      std::chrono::seconds(timeout_wait)));
 }
 
 int main(int argc, char **argv) {
