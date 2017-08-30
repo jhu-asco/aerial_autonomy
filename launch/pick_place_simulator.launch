@@ -2,6 +2,7 @@
 <launch>
   <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/pick_place_simulator_config.pbtxt" />
   <param name="event_file" value="$(find aerial_autonomy)/events/pick_place_events" />
+  <param name="log_config_filename" value="$(find aerial_autonomy)/param/log_config.pbtxt" />
   <arg name="log_level" default="0"/>
   <arg name="log_dir" default="$(find aerial_autonomy)/logs"/>
   <node pkg="aerial_autonomy" type="uav_arm_system_node" name="uav_arm_system_node">
