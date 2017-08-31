@@ -22,3 +22,8 @@ data_stream_configs {
   stream_id: "constant_heading_depth_controller"
   log_rate: 20
 }
+
+data_stream_configs {
+  stream_id: "visual_servoing_controller_drone_connector"
+  log_rate: 20
+}
