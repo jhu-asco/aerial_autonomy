@@ -10,8 +10,10 @@ bool VisualServoingControllerDroneConnector::extractSensorData(
     VLOG(1) << "Cannot Find tracking vector of ROI";
     return false;
   }
-  DATA_LOG("constant_heading_depth_controller_velocity")
+  DATA_LOG("visual_servoing_controller_drone_connector")
       << quad_data.linvel.x << quad_data.linvel.y << quad_data.linvel.z
+      << quad_data.rpydata.x << quad_data.rpydata.y << quad_data.rpydata.z
+      << quad_data.omega.x << quad_data.omega.y << quad_data.omega.z
       << DataStream::endl;
   sensor_data = PositionYaw(tracking_vector, quad_data.rpydata.z);
   return true;
