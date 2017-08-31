@@ -1,5 +1,6 @@
 #pragma once
 #include "aerial_autonomy/controllers/base_controller.h"
+#include "aerial_autonomy/log/log.h"
 #include "aerial_autonomy/types/roll_pitch_yaw_thrust.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
 #include "rpyt_based_velocity_controller_config.pb.h"
@@ -14,6 +15,10 @@ class RPYTBasedVelocityController
 public:
   /**
   * @brief Constructor which takes in a config
+  *
+  * @param config Controller config
+  *
+  * @param controller_timer_duration Timestep in miliseconds
   */
   RPYTBasedVelocityController(RPYTBasedVelocityControllerConfig &config,
                               double controller_timer_duration)
@@ -21,6 +26,16 @@ public:
     CHECK_GE(config_.kp(), 0) << "negative kp ! exiting";
     CHECK_GE(config_.ki(), 0) << "negative ki ! exiting";
     CHECK_GE(config_.kt(), 0) << "negative kt ! exiting";
+
+    DATA_HEADER("rpyt_based_velocity_controller") << "Errorx"
+                                                  << "Errory"
+                                                  << "Errorz"
+                                                  << "Erroryaw"
+                                                  << "Goalvx"
+                                                  << "Goalvy"
+                                                  << "Goalvz"
+                                                  << "Goalvyaw"
+                                                  << DataStream::endl;
   }
   /**
   *

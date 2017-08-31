@@ -8,7 +8,7 @@ bool RPYTBasedVelocityController::runImplementation(
     VelocityYaw sensor_data, VelocityYaw goal, RollPitchYawThrust &control) {
   VelocityYaw velocity_diff = goal - sensor_data;
 
-  double dt = 1.0 / controller_timer_duration_;
+  double dt = controller_timer_duration_ / 1000.0;
   cumulative_error.x += velocity_diff.x * dt;
   cumulative_error.y += velocity_diff.y * dt;
   cumulative_error.z += velocity_diff.z * dt;

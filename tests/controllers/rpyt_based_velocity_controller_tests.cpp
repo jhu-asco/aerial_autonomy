@@ -6,7 +6,7 @@
 
 TEST(RPYTBasedVelocityControllerTests, SetGetGoal) {
   RPYTBasedVelocityControllerConfig config;
-  RPYTBasedVelocityController controller(config, 50);
+  RPYTBasedVelocityController controller(config, 20);
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(0.1, -0.1, 0.1, 0.1);
   controller.setGoal(goal);
@@ -15,8 +15,9 @@ TEST(RPYTBasedVelocityControllerTests, SetGetGoal) {
 }
 
 TEST(RPYTBasedVelocityControllerTests, ControlsInBounds) {
+  double timestep_ms = 20;
   RPYTBasedVelocityControllerConfig config;
-  RPYTBasedVelocityController controller(config, 50);
+  RPYTBasedVelocityController controller(config, timestep_ms);
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(0.1, -0.1, 0.1, 0.1);
   controller.setGoal(goal);
@@ -26,7 +27,7 @@ TEST(RPYTBasedVelocityControllerTests, ControlsInBounds) {
   RollPitchYawThrust controls;
   bool result = controller.run(sensor_data, controls);
 
-  double dt = 0.02;
+  double dt = timestep_ms / 1000.0;
   double acc_x =
       config.kp() * velocity_diff.x + config.ki() * velocity_diff.x * dt;
   double acc_y =
@@ -59,7 +60,7 @@ TEST(RPYTBasedVelocityControllerTests, RollNinety) {
   config.set_kp(1.0);
   config.set_ki(0.0);
 
-  RPYTBasedVelocityController controller(config, 50);
+  RPYTBasedVelocityController controller(config, 20);
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(0.0, 1.1, -9.81, 0.0);
   controller.setGoal(goal);
@@ -71,7 +72,7 @@ TEST(RPYTBasedVelocityControllerTests, RollNinety) {
 
 TEST(RPYTBasedVelocityControllerTests, MaxThrust) {
   RPYTBasedVelocityControllerConfig config;
-  RPYTBasedVelocityController controller(config, 50);
+  RPYTBasedVelocityController controller(config, 20);
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(10.0, 10.0, 10.0, 0.0);
   controller.setGoal(goal);
@@ -86,7 +87,8 @@ TEST(RPYTBasedVelocityControllerTests, MaxRoll) {
   RPYTBasedVelocityControllerConfig config;
   config.set_kp(1.0);
   config.set_ki(0.0);
-  RPYTBasedVelocityController controller(config, 50);
+  config.set_max_rp(1.0);
+  RPYTBasedVelocityController controller(config, 20);
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(0.0, 1.1, -9.81, 0.1);
   controller.setGoal(goal);
@@ -107,7 +109,7 @@ TEST(RPYTConvergenceTest, Convergence) {
   tolerance->set_vy(0.01);
   tolerance->set_vz(0.01);
 
-  RPYTBasedVelocityController controller(config, 50);
+  RPYTBasedVelocityController controller(config, 20);
 
   VelocityYaw sensor_data;
   VelocityYaw goal(1.0, 1.0, 1.0, 0);
