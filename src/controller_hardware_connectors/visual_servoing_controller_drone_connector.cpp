@@ -1,4 +1,5 @@
 #include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h"
+#include "aerial_autonomy/log/log.h"
 
 bool VisualServoingControllerDroneConnector::extractSensorData(
     PositionYaw &sensor_data) {
@@ -9,6 +10,9 @@ bool VisualServoingControllerDroneConnector::extractSensorData(
     VLOG(1) << "Cannot Find tracking vector of ROI";
     return false;
   }
+  DATA_LOG("constant_heading_depth_controller_velocity")
+      << quad_data.linvel.x << quad_data.linvel.y << quad_data.linvel.z
+      << DataStream::endl;
   sensor_data = PositionYaw(tracking_vector, quad_data.rpydata.z);
   return true;
 }

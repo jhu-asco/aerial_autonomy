@@ -36,6 +36,11 @@ bool ConstantHeadingDepthController::runImplementation(
                   config_.max_yaw_rate());
   control = VelocityYawRate(desired_vel_tf.getX(), desired_vel_tf.getY(),
                             desired_vel_tf.getZ(), yaw_rate);
+  DATA_LOG("constant_heading_depth_controller")
+      << tracking_error.getX() << tracking_error.getY() << tracking_error.getZ()
+      << error_yaw << sensor_data.x << sensor_data.y << sensor_data.z
+      << sensor_data.yaw << control.x << control.y << control.z
+      << control.yaw_rate << DataStream::endl;
   return true;
 }
 
@@ -47,9 +52,6 @@ ControllerStatus ConstantHeadingDepthController::isConvergedImplementation(
   ControllerStatus status(ControllerStatus::Active);
   status << " Error Position, Yaw: " << error.x << error.y << error.z
          << error_yaw;
-  DATA_LOG("constant_heading_depth_controller")
-      << error.x << error.y << error.z << error_yaw << sensor_data.x
-      << sensor_data.y << sensor_data.z << sensor_data.yaw << DataStream::endl;
   const PositionControllerConfig &position_controller_config =
       config_.position_controller_config();
   const config::Position &tolerance_pos =
