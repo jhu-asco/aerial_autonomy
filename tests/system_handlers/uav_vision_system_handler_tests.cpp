@@ -55,6 +55,7 @@ TEST_F(UAVVisionSystemHandlerTests, ProcessEvents) {
   while (!uav_system_handler_->isConnected()) {
   }
   auto armed_true_fun = [=]() {
+    ros::spinOnce();
     return uav_system_handler_->getUAVData().armed;
   };
   // Check takeoff works
@@ -73,6 +74,7 @@ TEST_F(UAVVisionSystemHandlerTests, ProcessPoseCommand) {
   while (!uav_system_handler_->isConnected()) {
   }
   auto armed_true_fun = [=]() {
+    ros::spinOnce();
     return uav_system_handler_->getUAVData().armed;
   };
   // Check pose command works
@@ -84,6 +86,7 @@ TEST_F(UAVVisionSystemHandlerTests, ProcessPoseCommand) {
   publishPoseCommand(pose_command);
   ASSERT_TRUE(test_utils::waitUntilTrue()(
       [=]() {
+        ros::spinOnce();
         return pose_command ==
                getPositionYaw(uav_system_handler_->getUAVData());
       },
@@ -94,7 +97,11 @@ TEST_F(UAVVisionSystemHandlerTests, ReceiveStatus) {
   while (!isStatusConnected())
     ;
   ASSERT_FALSE(test_utils::waitUntilFalse()(
-      [=]() { return status_.empty(); }, std::chrono::seconds(timeout_wait)));
+      [=]() {
+        ros::spinOnce();
+        return status_.empty();
+      },
+      std::chrono::seconds(timeout_wait)));
 }
 
 /// \todo Matt Add visual servoing tests

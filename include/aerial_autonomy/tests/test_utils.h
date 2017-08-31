@@ -1,12 +1,14 @@
 #pragma once
 #include <boost/filesystem.hpp>
 #include <chrono>
+#include <fstream>
 #include <functional>
 #include <gtest/gtest.h>
 #include <parsernode/common.h>
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 #include <tf/transform_datatypes.h>
+#include <thread>
 
 #include "aerial_autonomy/types/position_yaw.h"
 
@@ -89,7 +91,6 @@ template <bool done> struct WaitUntilResult {
     auto start = std::chrono::system_clock::now();
     std::chrono::seconds duration(0);
     while (input_function() == !done && duration.count() < timeout.count()) {
-      ros::spinOnce();
       std::this_thread::sleep_for(std::chrono::milliseconds(100));
       duration = std::chrono::duration_cast<std::chrono::seconds>(
           std::chrono::system_clock::now() - start);
