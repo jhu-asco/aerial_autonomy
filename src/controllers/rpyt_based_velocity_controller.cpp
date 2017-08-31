@@ -1,5 +1,6 @@
 #include "aerial_autonomy/log/log.h"
 #include <Eigen/Dense>
+#include <aerial_autonomy/common/math.h>
 #include <aerial_autonomy/controllers/rpyt_based_velocity_controller.h>
 #include <glog/logging.h>
 
@@ -49,8 +50,9 @@ bool RPYTBasedVelocityController::runImplementation(
     LOG(WARNING) << "Desired roll is 90 degrees. Setting pitch to 0";
   }
 
-  if (control.t >= config_.max_thrust())
-    control.t = config_.max_thrust();
+  control.t = math::clamp(control.t, 0, config_.max_thrust());
+  control.r = math::clamp(control.r, -config_.max_rp(), config_.max_rp());
+  control.p = math::clamp(control.p, -config_.max_rp(), config_.max_rp());
 
   control.y = goal.yaw;
   return true;

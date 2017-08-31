@@ -54,11 +54,14 @@ TEST(RPYTBasedVelocityControllerTests, ControlsInBounds) {
   ASSERT_TRUE(result);
 }
 
-TEST(RPYTBasedVelocityControllerTests, RollOutofBounds) {
+TEST(RPYTBasedVelocityControllerTests, RollNinety) {
   RPYTBasedVelocityControllerConfig config;
+  config.set_kp(1.0);
+  config.set_ki(0.0);
+
   RPYTBasedVelocityController controller(config, 50);
   VelocityYaw sensor_data(0, 0, 0, 0);
-  VelocityYaw goal(0.0, 1.1, 0.0, 0.1);
+  VelocityYaw goal(0.0, 1.1, -9.81, 0.0);
   controller.setGoal(goal);
   RollPitchYawThrust controls;
   controller.run(sensor_data, controls);
@@ -78,6 +81,20 @@ TEST(RPYTBasedVelocityControllerTests, MaxThrust) {
   ASSERT_EQ(controls.t, config.max_thrust());
 }
 
+TEST(RPYTBasedVelocityControllerTests, MaxRoll) {
+
+  RPYTBasedVelocityControllerConfig config;
+  config.set_kp(1.0);
+  config.set_ki(0.0);
+  RPYTBasedVelocityController controller(config, 50);
+  VelocityYaw sensor_data(0, 0, 0, 0);
+  VelocityYaw goal(0.0, 1.1, -9.81, 0.1);
+  controller.setGoal(goal);
+  RollPitchYawThrust controls;
+  controller.run(sensor_data, controls);
+
+  ASSERT_EQ(controls.r, -config.max_rp());
+}
 TEST(RPYTConvergenceTest, Convergence) {
 
   RPYTBasedVelocityControllerConfig config;
