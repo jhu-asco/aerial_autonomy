@@ -14,9 +14,13 @@ bool VelocityBasedPositionController::runImplementation(PositionYaw sensor_data,
   double position_norm = position_diff.position().norm();
   double velocity =
       std::min(config_.max_velocity(), config_.position_gain() * position_norm);
-  control = VelocityYaw(velocity * position_diff.x / position_norm,
-                        velocity * position_diff.y / position_norm,
-                        velocity * position_diff.z / position_norm, yaw_cmd);
+  if (position_norm > 1e-8) {
+    control = VelocityYaw(velocity * position_diff.x / position_norm,
+                          velocity * position_diff.y / position_norm,
+                          velocity * position_diff.z / position_norm, yaw_cmd);
+  } else {
+    control = VelocityYaw(0, 0, 0, yaw_cmd);
+  }
   return true;
 }
 

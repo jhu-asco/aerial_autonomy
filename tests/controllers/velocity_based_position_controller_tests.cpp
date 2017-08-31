@@ -41,6 +41,28 @@ TEST(VelocityBasedPositionControllerTests, ControlsOutofBounds) {
   ASSERT_NEAR(controls.yaw, config.max_yaw_rate(), 1e-8);
 }
 
+TEST(VelocityBasedPositionControllerTests, Converged) {
+  VelocityBasedPositionControllerConfig config;
+  auto tolerance = config.mutable_position_controller_config()
+                       ->mutable_goal_position_tolerance();
+  tolerance->set_x(0.1);
+  tolerance->set_y(0.1);
+  tolerance->set_z(0.1);
+
+  VelocityBasedPositionController controller(config);
+  PositionYaw sensor_data(0, 0, 0, 0);
+  PositionYaw goal(0, 0, 0, 0);
+  controller.setGoal(goal);
+  VelocityYaw controls;
+  controller.run(sensor_data, controls);
+
+  ASSERT_NEAR(controls.x, 0, 1e-6);
+  ASSERT_NEAR(controls.y, 0, 1e-6);
+  ASSERT_NEAR(controls.z, 0, 1e-6);
+  ASSERT_NEAR(controls.yaw, 0, 1e-6);
+  ASSERT_TRUE(controller.isConverged(sensor_data));
+}
+
 TEST(VelocityBasedPositionControllerTests, ControlsOutofBoundsNegYaw) {
   VelocityBasedPositionControllerConfig config;
   VelocityBasedPositionController controller(config);

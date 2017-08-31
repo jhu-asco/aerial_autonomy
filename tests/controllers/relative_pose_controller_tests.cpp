@@ -1,6 +1,9 @@
 #include "aerial_autonomy/controllers/relative_pose_controller.h"
+#include "aerial_autonomy/tests/test_utils.h"
 
 #include <gtest/gtest.h>
+
+using namespace test_utils;
 
 class RelativePoseControllerTests : public ::testing::Test {
 public:
@@ -14,14 +17,6 @@ public:
 protected:
   PoseControllerConfig config_;
 };
-
-void assert_tf_near(const tf::Transform &tf1, const tf::Transform &tf2) {
-  ASSERT_NEAR(tf1.getOrigin().x(), tf2.getOrigin().x(), 1e-8);
-  ASSERT_NEAR(tf1.getOrigin().y(), tf2.getOrigin().y(), 1e-8);
-  ASSERT_NEAR(tf1.getOrigin().z(), tf2.getOrigin().z(), 1e-8);
-  ASSERT_NEAR((tf1.getRotation().inverse() * tf2.getRotation()).getAngle(), 0.,
-              1e-8);
-}
 
 TEST_F(RelativePoseControllerTests, Constructor) {
   ASSERT_NO_THROW(new RelativePoseController(config_));
@@ -41,7 +36,7 @@ TEST_F(RelativePoseControllerTests, ConvergedNoOffset) {
   bool result = controller.run(sensor_data, controls);
 
   ASSERT_TRUE(result);
-  assert_tf_near(controls, global_goal);
+  ASSERT_TF_NEAR(controls, global_goal);
   ASSERT_TRUE(controller.isConverged(sensor_data));
 }
 
@@ -60,7 +55,7 @@ TEST_F(RelativePoseControllerTests, NotConvergedNoOffset) {
   bool result = controller.run(sensor_data, controls);
 
   ASSERT_TRUE(result);
-  assert_tf_near(controls, global_goal);
+  ASSERT_TF_NEAR(controls, global_goal);
   ASSERT_FALSE(controller.isConverged(sensor_data));
 }
 
@@ -78,7 +73,7 @@ TEST_F(RelativePoseControllerTests, ConvergedOffset) {
   bool result = controller.run(sensor_data, controls);
 
   ASSERT_TRUE(result);
-  assert_tf_near(controls, global_goal);
+  ASSERT_TF_NEAR(controls, global_goal);
   ASSERT_TRUE(controller.isConverged(sensor_data));
 }
 
@@ -97,7 +92,7 @@ TEST_F(RelativePoseControllerTests, ConvergedWithinTolerance) {
   bool result = controller.run(sensor_data, controls);
 
   ASSERT_TRUE(result);
-  assert_tf_near(controls, global_goal);
+  ASSERT_TF_NEAR(controls, global_goal);
   ASSERT_TRUE(controller.isConverged(sensor_data));
 }
 
@@ -115,7 +110,7 @@ TEST_F(RelativePoseControllerTests, NotConvergedOffset) {
   bool result = controller.run(sensor_data, controls);
 
   ASSERT_TRUE(result);
-  assert_tf_near(controls, global_goal);
+  ASSERT_TF_NEAR(controls, global_goal);
   ASSERT_FALSE(controller.isConverged(sensor_data));
 }
 
