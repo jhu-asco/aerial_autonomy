@@ -6,7 +6,7 @@
 
 TEST(RPYTBasedVelocityControllerTests, SetGetGoal) {
   RPYTBasedVelocityControllerConfig config;
-  RPYTBasedVelocityController controller(config);
+  RPYTBasedVelocityController controller(config, 50);
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(0.1, -0.1, 0.1, 0.1);
   controller.setGoal(goal);
@@ -16,7 +16,7 @@ TEST(RPYTBasedVelocityControllerTests, SetGetGoal) {
 
 TEST(RPYTBasedVelocityControllerTests, ControlsInBounds) {
   RPYTBasedVelocityControllerConfig config;
-  RPYTBasedVelocityController controller(config);
+  RPYTBasedVelocityController controller(config, 50);
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(0.1, -0.1, 0.1, 0.1);
   controller.setGoal(goal);
@@ -26,7 +26,7 @@ TEST(RPYTBasedVelocityControllerTests, ControlsInBounds) {
   RollPitchYawThrust controls;
   bool result = controller.run(sensor_data, controls);
 
-  double dt = config.dt();
+  double dt = 0.02;
   double acc_x =
       config.kp() * velocity_diff.x + config.ki() * velocity_diff.x * dt;
   double acc_y =
@@ -56,7 +56,7 @@ TEST(RPYTBasedVelocityControllerTests, ControlsInBounds) {
 
 TEST(RPYTBasedVelocityControllerTests, RollOutofBounds) {
   RPYTBasedVelocityControllerConfig config;
-  RPYTBasedVelocityController controller(config);
+  RPYTBasedVelocityController controller(config, 50);
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(0.0, 1.1, 0.0, 0.1);
   controller.setGoal(goal);
@@ -68,7 +68,7 @@ TEST(RPYTBasedVelocityControllerTests, RollOutofBounds) {
 
 TEST(RPYTBasedVelocityControllerTests, MaxThrust) {
   RPYTBasedVelocityControllerConfig config;
-  RPYTBasedVelocityController controller(config);
+  RPYTBasedVelocityController controller(config, 50);
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(10.0, 10.0, 10.0, 0.0);
   controller.setGoal(goal);
@@ -81,7 +81,7 @@ TEST(RPYTBasedVelocityControllerTests, MaxThrust) {
 TEST(RPYTConvergenceTest, Convergence) {
 
   RPYTBasedVelocityControllerConfig config;
-  config.set_kp(2.0);
+  config.set_kp(5.0);
   config.set_ki(0.01);
 
   auto vel_ctlr_config = config.mutable_velocity_controller_config();
@@ -90,16 +90,15 @@ TEST(RPYTConvergenceTest, Convergence) {
   tolerance->set_vy(0.01);
   tolerance->set_vz(0.01);
 
-  RPYTBasedVelocityController controller(config);
+  RPYTBasedVelocityController controller(config, 50);
 
-  VelocityYaw goal(0.1, 0.1, 0.1, 0);
+  VelocityYaw sensor_data;
+  VelocityYaw goal(1.0, 1.0, 1.0, 0);
   controller.setGoal(goal);
   auto convergence = [&]() {
 
-    static VelocityYaw sensor_data;
-
     RollPitchYawThrust controls;
-    double dt = config.dt();
+    double dt = 0.02;
 
     controller.run(sensor_data, controls);
     tf::Transform tf;
@@ -107,7 +106,7 @@ TEST(RPYTConvergenceTest, Convergence) {
     tf.setRotation(
         tf::createQuaternionFromRPY(controls.r, controls.p, controls.y));
 
-    double ext_z_acc = 0.01;
+    double ext_z_acc = 0.1;
     tf::Vector3 body_acc =
         tf::Vector3(0, 0, controls.t * config.kt() + ext_z_acc);
     tf::Vector3 global_acc = tf * body_acc;
@@ -117,8 +116,6 @@ TEST(RPYTConvergenceTest, Convergence) {
     sensor_data.z = sensor_data.z + (global_acc[2] - 9.81) * dt;
     sensor_data.yaw = controls.y;
 
-    std::cout << "vel = " << sensor_data.x << sensor_data.y << sensor_data.z
-              << "\n";
     if (controller.isConverged(sensor_data))
       return true;
 

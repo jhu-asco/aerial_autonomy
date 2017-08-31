@@ -15,15 +15,12 @@ public:
   /**
   * @brief Constructor which takes in a config
   */
-  RPYTBasedVelocityController(RPYTBasedVelocityControllerConfig &config)
-      : config_(config) {
-    try {
-      assert(config.kp() >= 0.0);
-      assert(config.ki() >= 0.0);
-      assert(config.kt() >= 0.0);
-    } catch (...) {
-      LOG(WARNING) << "Gains set to negative value !";
-    }
+  RPYTBasedVelocityController(RPYTBasedVelocityControllerConfig &config,
+                              double controller_timer_duration)
+      : config_(config), controller_timer_duration_(controller_timer_duration) {
+    CHECK_GE(config_.kp(), 0) << "negative kp ! exiting";
+    CHECK_GE(config_.ki(), 0) << "negative ki ! exiting";
+    CHECK_GE(config_.kt(), 0) << "negative kt ! exiting";
   }
   /**
   *
@@ -60,4 +57,5 @@ protected:
                                                      VelocityYaw goal);
   RPYTBasedVelocityControllerConfig &config_; ///< Controller configuration
   VelocityYaw cumulative_error;
+  double controller_timer_duration_;
 };
