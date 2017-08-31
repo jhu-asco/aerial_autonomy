@@ -1,0 +1,28 @@
+syntax = "proto2";
+
+/**
+*Uses values to map joystick values to
+* velocity goals
+*/
+message JoystickVelocityControllerConfig {
+  /**
+  * @brief max value for channel 1
+  */
+  optional double max_channel1 = 1 [ default = 10000 ];
+  /**
+  * @brief max value for channel 2
+  */
+  optional double max_channel2 = 2 [ default = 10000 ];
+  /**
+  * @brief max value for channel 3
+  */
+  optional double max_channel3 = 3 [ default = 10000 ];
+  /**
+  * @brief max value for channel 4
+  */
+  optional double max_channel4 = 4 [ default = 10000 ];
+  /**
+  * @brief max velocity
+  */
+  optional double max_velocity = 5 [ default = 1.0 ];
+}
