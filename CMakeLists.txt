@@ -216,6 +216,7 @@ add_library(aerial_autonomy
   src/controllers/velocity_based_position_controller.cpp
   src/controllers/constant_heading_depth_controller.cpp
   src/controllers/relative_pose_controller.cpp
+  src/controllers/velocity_based_relative_pose_controller.cpp
   src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp
   src/controller_hardware_connectors/visual_servoing_controller_arm_connector.cpp
   src/controller_hardware_connectors/position_controller_drone_connector.cpp

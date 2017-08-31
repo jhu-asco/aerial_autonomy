@@ -1,5 +1,7 @@
 #pragma once
 #include "aerial_autonomy/controllers/base_controller.h"
+#include "aerial_autonomy/controllers/velocity_based_position_controller.h"
+#include "aerial_autonomy/types/velocity_yaw.h"
 #include "pose_controller_config.pb.h"
 
 #include <tuple>
@@ -8,34 +10,35 @@
 
 /**
  * @brief A pose controller that keeps a pose relative to some feedback
- * pose
+ * pose using a velocity controller
  */
-class RelativePoseController
+class VelocityBasedRelativePoseController
     : public Controller<std::tuple<tf::Transform, tf::Transform>, tf::Transform,
-                        tf::Transform> {
+                        VelocityYaw> {
 public:
   /**
   * @brief Constructor
   */
-  RelativePoseController(PoseControllerConfig config) : config_(config) {}
+  VelocityBasedRelativePoseController(PoseControllerConfig config)
+      : config_(config) {}
   /**
    * @brief Destructor
    */
-  virtual ~RelativePoseController() {}
+  virtual ~VelocityBasedRelativePoseController() {}
 
 protected:
   /**
-   * @brief Run the control loop.  Uses a pose controller to keep a desired
+   * @brief Run the control loop.  Uses a velocity controller to keep a desired
    * pose relative to a tracked pose.
-   * @param sensor_data Pose of controlled point and pose of tracked
+   * @param sensor_data Pose of controlled point and tracked
    * pose
    * @param goal Goal relative pose in tracked pose frame
-   * @param control Pose command
+   * @param control Velocity command
    * @return True if controller is successful in running
    */
   virtual bool
   runImplementation(std::tuple<tf::Transform, tf::Transform> sensor_data,
-                    tf::Transform goal, tf::Transform &control);
+                    tf::Transform goal, VelocityYaw &control);
   /**
   * @brief Check if controller converged
   *
@@ -52,4 +55,5 @@ private:
   * @brief Config specifies position tolerance
   */
   PoseControllerConfig config_;
+  VelocityBasedPositionController position_controller_;
 };
