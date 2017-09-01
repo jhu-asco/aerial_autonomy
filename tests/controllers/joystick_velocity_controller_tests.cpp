@@ -6,56 +6,42 @@
 #include <tf/tf.h>
 
 TEST(JoystickVelocityControllerTests, ControlInBounds) {
-  double timestep_ms = 20;
+  double dt = 0.02;
   RPYTBasedVelocityControllerConfig rpyt_config;
   JoystickVelocityControllerConfig joystick_config;
-  JoystickVelocityController controller(rpyt_config, joystick_config,
-                                        timestep_ms);
+  JoystickVelocityController controller(rpyt_config, joystick_config, dt);
   controller.setGoal(EmptyGoal());
 
   Joystick joy_data(1000, -1000, 1000, 1000);
   VelocityYaw vel_data;
   std::tuple<Joystick, VelocityYaw> sensor_data =
       std::make_tuple(joy_data, vel_data);
+  double exp_yaw = vel_data.yaw - 0.1 * dt;
 
   RollPitchYawThrust controls;
   bool result = controller.run(sensor_data, controls);
 
-  VelocityYaw vel_goal(0.1, -0.1, 0.1, 0.1);
-  VelocityYaw velocity_diff = vel_goal - vel_data;
+  RollPitchYawThrust exp_controls;
+  RPYTBasedVelocityControllerConfig config;
+  RPYTBasedVelocityController internal_controller(config, dt);
+  VelocityYaw vel_goal(0.1, -0.1, 0.1, exp_yaw);
+  internal_controller.setGoal(vel_goal);
+  internal_controller.run(vel_data, exp_controls);
 
-  double dt = timestep_ms / 1000.0;
-  double acc_x = rpyt_config.kp() * velocity_diff.x +
-                 rpyt_config.ki() * velocity_diff.x * dt;
-  double acc_y = rpyt_config.kp() * velocity_diff.y +
-                 rpyt_config.ki() * velocity_diff.y * dt;
-  double acc_z = rpyt_config.kp() * velocity_diff.z +
-                 rpyt_config.ki() * velocity_diff.z * dt + 9.81;
+  // ASSERT_EQ doesnt work
+  ASSERT_NEAR(controls.r, exp_controls.r, 1e-8);
+  ASSERT_NEAR(controls.p, exp_controls.p, 1e-8);
+  ASSERT_NEAR(controls.y, exp_controls.y, 1e-8);
+  ASSERT_NEAR(controls.t, exp_controls.t, 1e-8);
 
-  double exp_t =
-      sqrt(acc_x * acc_x + acc_y * acc_y + acc_z * acc_z) / rpyt_config.kt();
-
-  double rot_acc_x = (acc_x * cos(vel_data.yaw) + acc_y * sin(vel_data.yaw)) /
-                     (rpyt_config.kt() * controls.t);
-  double rot_acc_y = (-acc_x * sin(vel_data.yaw) + acc_y * cos(vel_data.yaw)) /
-                     (rpyt_config.kt() * controls.t);
-  double rot_acc_z = acc_z / (rpyt_config.kt() * controls.t);
-
-  double exp_yaw = vel_data.yaw - 0.1 * dt;
-
-  ASSERT_NEAR(controls.y, exp_yaw, 1e-4);
-  ASSERT_NEAR(controls.t, exp_t, 1e-4);
-  ASSERT_NEAR(controls.r, -asin(rot_acc_y), 1e-4);
-  ASSERT_NEAR(controls.p, atan2(rot_acc_x, rot_acc_z), 1e-4);
   ASSERT_TRUE(result);
 }
 
 TEST(JoystickVelocityControllerTests, ControlOutOfBounds) {
-  double timestep_ms = 20;
+  double dt = 0.02;
   RPYTBasedVelocityControllerConfig rpyt_config;
   JoystickVelocityControllerConfig joystick_config;
-  JoystickVelocityController controller(rpyt_config, joystick_config,
-                                        timestep_ms);
+  JoystickVelocityController controller(rpyt_config, joystick_config, dt);
   EmptyGoal goal;
   controller.setGoal(goal);
 
@@ -75,7 +61,7 @@ TEST(JoystickVelocityControllerTests, ControlOutOfBounds) {
 }
 
 TEST(JoystickVelocityControllerTests, Convergence) {
-  double timestep_ms = 20.0;
+  double dt = 0.02;
   RPYTBasedVelocityControllerConfig rpyt_config;
   rpyt_config.set_kp(5.0);
   rpyt_config.set_ki(0.01);
@@ -87,9 +73,8 @@ TEST(JoystickVelocityControllerTests, Convergence) {
   tolerance->set_vz(0.01);
 
   JoystickVelocityControllerConfig joystick_config;
-  JoystickVelocityController controller(rpyt_config, joystick_config,
-                                        timestep_ms);
-  Joystick joy_data(10000, 10000, -10000, 10000);
+  JoystickVelocityController controller(rpyt_config, joystick_config, dt);
+  Joystick joy_data(10000, 10000, 10000, 0);
   VelocityYaw vel_data(0, 0, 0, 0);
   std::tuple<Joystick, VelocityYaw> sensor_data =
       std::make_tuple(joy_data, vel_data);
@@ -100,17 +85,16 @@ TEST(JoystickVelocityControllerTests, Convergence) {
 
     RollPitchYawThrust controls;
     controller.run(sensor_data, controls);
-
-    controller.run(sensor_data, controls);
     tf::Transform tf;
     tf.setOrigin(tf::Vector3(0, 0, 0));
     tf.setRotation(
         tf::createQuaternionFromRPY(controls.r, controls.p, controls.y));
 
-    tf::Vector3 body_acc = tf::Vector3(0, 0, controls.t * rpyt_config.kt());
+    double ext_acc_z = 0.1;
+    tf::Vector3 body_acc =
+        tf::Vector3(0, 0, controls.t * rpyt_config.kt() + ext_acc_z);
     tf::Vector3 global_acc = tf * body_acc;
 
-    double dt = timestep_ms / 1000.0;
     VelocityYaw current_data = std::get<1>(sensor_data);
     VelocityYaw new_data;
     new_data.x = current_data.x + global_acc[0] * dt;

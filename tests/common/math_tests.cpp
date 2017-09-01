@@ -115,20 +115,14 @@ TEST(TransformsTests, StdVectorThrow) {
 }
 
 ///
-TEST(MapTests, InBounds) {
-  ASSERT_NEAR(math::map(5, -10, 10, -1, 1), 0.5, 1e-4);
-}
+TEST(MapTests, InBounds) { ASSERT_EQ(math::map(5, -10, 10, -1, 1), 0.5); }
 
-TEST(MapTests, InBoundsNeg) {
-  ASSERT_NEAR(math::map(-5, -10, 10, -1, 1), -0.5, 1e-4);
-}
+TEST(MapTests, InBoundsNeg) { ASSERT_EQ(math::map(-5, -10, 10, -1, 1), -0.5); }
 
-TEST(MapTests, OutOfBoundsMax) {
-  ASSERT_NEAR(math::map(15, -10, 10, -1, 1), 1, 1e-4);
-}
+TEST(MapTests, OutOfBoundsMax) { ASSERT_EQ(math::map(15, -10, 10, -1, 1), 1); }
 
 TEST(MapTests, OutOfBoundsMin) {
-  ASSERT_NEAR(math::map(-15, -10, 10, -1, 1), -1, 1e-4);
+  ASSERT_EQ(math::map(-15, -10, 10, -1, 1), -1);
 }
 
 int main(int argc, char **argv) {

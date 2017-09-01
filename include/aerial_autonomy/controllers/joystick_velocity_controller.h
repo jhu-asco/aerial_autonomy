@@ -25,6 +25,14 @@ public:
   * @param joystick_velocity_controller_config Joystick Velocity
   * Controller config
   *
+  * @param controller_timer_duration in seconds
+  *
+  * @joystick mapppings:
+  * Channel 1 : X-velocity
+  * Channel 2 : Y-velocity
+  * Channel 3 : Z-velocity
+  * Channel 4 : Yaw rate
+  *
   */
   JoystickVelocityController(
       RPYTBasedVelocityControllerConfig &rpyt_velocity_controller_config,
@@ -36,10 +44,10 @@ public:
                                   controller_timer_duration_),
         joystick_velocity_controller_config_(
             joystick_velocity_controller_config) {
-    DATA_HEADER("joystick_velocity_controller") << "Joy1"
-                                                << "Joy2"
-                                                << "Joy3"
-                                                << "Joy4"
+    DATA_HEADER("joystick_velocity_controller") << "Channel1"
+                                                << "Channel2"
+                                                << "Channel3"
+                                                << "Channel4"
                                                 << "velocity_x"
                                                 << "velocity_y"
                                                 << "velocity_z"
@@ -63,17 +71,7 @@ protected:
   */
   virtual ControllerStatus
   isConvergedImplementation(std::tuple<Joystick, VelocityYaw> sensor_data,
-                            EmptyGoal goal) {
-    Joystick joy_data = std::get<0>(sensor_data);
-    VelocityYaw velocity_data = std::get<1>(sensor_data);
-
-    DATA_LOG("joystick_velocity_controller")
-        << joy_data.channel1 << joy_data.channel2 << joy_data.channel3
-        << joy_data.channel4 << velocity_data.x << velocity_data.y
-        << velocity_data.z << velocity_data.yaw << DataStream::endl;
-
-    return rpyt_velocity_controller_.isConverged(velocity_data);
-  }
+                            EmptyGoal goal);
 
 private:
   /**

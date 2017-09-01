@@ -33,12 +33,25 @@ bool JoystickVelocityController::runImplementation(
                 -joystick_velocity_controller_config_.max_velocity(),
                 joystick_velocity_controller_config_.max_velocity());
 
-  double dt = controller_timer_duration_ / 1000.0;
   VelocityYaw vel_sensor_data = std::get<1>(sensor_data);
-  vel_goal.yaw = math::angleWrap(vel_sensor_data.yaw - yaw_rate * dt);
+  vel_goal.yaw = math::angleWrap(vel_sensor_data.yaw -
+                                 yaw_rate * controller_timer_duration_);
 
   rpyt_velocity_controller_.setGoal(vel_goal);
   rpyt_velocity_controller_.run(vel_sensor_data, control);
 
   return true;
+}
+
+ControllerStatus JoystickVelocityController::isConvergedImplementation(
+    std::tuple<Joystick, VelocityYaw> sensor_data, EmptyGoal goal) {
+  Joystick joy_data = std::get<0>(sensor_data);
+  VelocityYaw velocity_data = std::get<1>(sensor_data);
+
+  DATA_LOG("joystick_velocity_controller")
+      << joy_data.channel1 << joy_data.channel2 << joy_data.channel3
+      << joy_data.channel4 << velocity_data.x << velocity_data.y
+      << velocity_data.z << velocity_data.yaw << DataStream::endl;
+
+  return rpyt_velocity_controller_.isConverged(velocity_data);
 }
