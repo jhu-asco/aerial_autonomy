@@ -2,7 +2,7 @@
 #include "aerial_autonomy/controllers/base_controller.h"
 #include "aerial_autonomy/controllers/velocity_based_position_controller.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
-#include "pose_controller_config.pb.h"
+#include "velocity_based_relative_pose_controller_config.pb.h"
 
 #include <tuple>
 
@@ -19,8 +19,11 @@ public:
   /**
   * @brief Constructor
   */
-  VelocityBasedRelativePoseController(PoseControllerConfig config)
-      : config_(config) {}
+  VelocityBasedRelativePoseController(
+      VelocityBasedRelativePoseControllerConfig config)
+      : config_(config),
+        position_controller_(
+            config.velocity_based_position_controller_config()) {}
   /**
    * @brief Destructor
    */
@@ -54,6 +57,6 @@ private:
   /**
   * @brief Config specifies position tolerance
   */
-  PoseControllerConfig config_;
+  VelocityBasedRelativePoseControllerConfig config_;
   VelocityBasedPositionController position_controller_;
 };

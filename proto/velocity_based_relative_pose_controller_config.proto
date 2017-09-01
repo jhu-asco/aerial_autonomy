@@ -1,0 +1,10 @@
+syntax = "proto2";
+
+import "position.proto";
+import "velocity_based_position_controller_config.proto";
+
+message VelocityBasedRelativePoseControllerConfig {
+
+  optional VelocityBasedPositionControllerConfig
+      velocity_based_position_controller_config = 3;
+}

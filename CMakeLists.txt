@@ -170,6 +170,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/uav_system_handler_config.proto
   proto/uav_arm_system_handler_config.proto
   proto/velocity_based_position_controller_config.proto
+  proto/velocity_based_relative_pose_controller_config.proto
   proto/constant_heading_depth_controller_config.proto
   proto/position_controller_config.proto
   proto/pose_controller_config.proto
