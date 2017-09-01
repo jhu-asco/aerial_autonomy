@@ -16,7 +16,8 @@ TEST(JoystickVelocityControllerTests, ControlInBounds) {
   VelocityYaw vel_data(0, 0, 0, 0);
   std::tuple<Joystick, VelocityYaw> sensor_data =
       std::make_tuple(joy_data, vel_data);
-  double exp_yaw = math::angleWrap(vel_data.yaw - 0.05 * dt);
+  double exp_yaw =
+      math::angleWrap(vel_data.yaw - 0.1 * joystick_config.max_yaw_rate() * dt);
 
   RollPitchYawThrust controls;
   bool result = controller.run(sensor_data, controls);
