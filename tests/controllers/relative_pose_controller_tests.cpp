@@ -26,7 +26,7 @@ TEST_F(RelativePoseControllerTests, ConvergedNoOffset) {
   RelativePoseController controller(config_);
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
-  tf::Transform goal(tf::Quaternion(), tf::Vector3(0, 0, 0));
+  tf::Transform goal(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
   tf::Transform global_goal = tracked_pose * goal;
   auto sensor_data = std::make_tuple(current_pose, tracked_pose);
 
@@ -45,7 +45,7 @@ TEST_F(RelativePoseControllerTests, NotConvergedNoOffset) {
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1),
                              tf::Vector3(-1, -1, 2));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
-  tf::Transform goal(tf::Quaternion(), tf::Vector3(0, 0, 0));
+  tf::Transform goal(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
   tf::Transform global_goal = tracked_pose * goal;
   auto sensor_data = std::make_tuple(current_pose, tracked_pose);
 
@@ -63,7 +63,7 @@ TEST_F(RelativePoseControllerTests, ConvergedOffset) {
   RelativePoseController controller(config_);
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(9, 0, -1));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(10, 0, 0));
-  tf::Transform goal(tf::Quaternion(), tf::Vector3(-1, 0, -1));
+  tf::Transform goal(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-1, 0, -1));
   tf::Transform global_goal = tracked_pose * goal;
   auto sensor_data = std::make_tuple(current_pose, tracked_pose);
 
@@ -82,7 +82,7 @@ TEST_F(RelativePoseControllerTests, ConvergedWithinTolerance) {
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(9, 0, -1));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1),
                              tf::Vector3(10.09, .19, 0.09));
-  tf::Transform goal(tf::Quaternion(), tf::Vector3(-1, 0, -1));
+  tf::Transform goal(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-1, 0, -1));
   tf::Transform global_goal = tracked_pose * goal;
   auto sensor_data = std::make_tuple(current_pose, tracked_pose);
 
@@ -100,7 +100,7 @@ TEST_F(RelativePoseControllerTests, NotConvergedOffset) {
   RelativePoseController controller(config_);
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 1, 2));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(10, 0, 0));
-  tf::Transform goal(tf::Quaternion(), tf::Vector3(-1, 0, -1));
+  tf::Transform goal(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-1, 0, -1));
   tf::Transform global_goal = tracked_pose * goal;
   auto sensor_data = std::make_tuple(current_pose, tracked_pose);
 

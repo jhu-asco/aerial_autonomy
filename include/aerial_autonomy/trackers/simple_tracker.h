@@ -1,6 +1,7 @@
 #pragma once
 #include "uav_vision_system_config.pb.h"
 #include <aerial_autonomy/trackers/base_tracker.h>
+#include <aerial_autonomy/types/position.h>
 #include <parsernode/parser.h>
 #include <tf/tf.h>
 
@@ -38,10 +39,17 @@ public:
   void setTrackingIsValid(bool is_valid);
 
   /**
-   * @brief Set the target position in the global frame
+   * @brief Set the target pose in the global frame
    * @param p tf::Transform to set
    */
   void setTargetPoseGlobalFrame(tf::Transform p);
+
+  /**
+   * @brief Set the target postion in the global frame.  Sets rotation to
+   * identity.
+   * @param p tf::Transform to set
+   */
+  void setTargetPositionGlobalFrame(Position p);
 
   /**
    * @brief Get the camera transform stored

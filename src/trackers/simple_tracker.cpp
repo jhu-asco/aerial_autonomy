@@ -5,9 +5,9 @@
 SimpleTracker::SimpleTracker(parsernode::Parser &drone_hardware,
                              tf::Transform camera_transform)
     : BaseTracker(new SimpleTrackingStrategy()),
-      drone_hardware_(drone_hardware), camera_transform_(camera_transform) {
-  tracking_valid_ = true;
-}
+      drone_hardware_(drone_hardware), tracking_valid_(true),
+      target_pose_(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0)),
+      camera_transform_(camera_transform) {}
 
 bool SimpleTracker::getTrackingVectors(
     std::unordered_map<uint32_t, tf::Transform> &p) {
@@ -30,6 +30,11 @@ bool SimpleTracker::getTrackingVectors(
 
 void SimpleTracker::setTargetPoseGlobalFrame(tf::Transform p) {
   target_pose_ = p;
+}
+
+void SimpleTracker::setTargetPositionGlobalFrame(Position p) {
+  target_pose_.setOrigin(tf::Vector3(p.x, p.y, p.z));
+  target_pose_.setRotation(tf::Quaternion(0, 0, 0, 1));
 }
 
 bool SimpleTracker::trackingIsValid() { return tracking_valid_; }

@@ -48,11 +48,10 @@ void RoiToPositionConverter::depthCallback(
   roi_rect = roi_rect_;
   sensor_msgs::CameraInfo camera_info;
   camera_info = camera_info_;
-  tf::Transform object_position;
+  tf::Transform object_pose;
   computeTrackingVector(roi_rect, depth->image, camera_info,
-                        max_object_distance_, foreground_percent_,
-                        object_position);
-  object_position_ = object_position;
+                        max_object_distance_, foreground_percent_, object_pose);
+  object_pose_ = object_pose;
   /// \todo store a flag indicating a position has been computed and return
   /// false in positionIsValid if it has not
 }
@@ -81,7 +80,7 @@ bool RoiToPositionConverter::getTrackingVectors(
   if (!trackingIsValid()) {
     return false;
   }
-  pos[0] = object_position_;
+  pos[0] = object_pose_;
   return true;
 }
 
@@ -132,7 +131,7 @@ void RoiToPositionConverter::computeTrackingVector(
   const double &cy = camera_info.K[5];
   const double &fx = camera_info.K[0];
   const double &fy = camera_info.K[4];
-  pos.setRotation(tf::Quaternion());
+  pos.setRotation(tf::Quaternion(0, 0, 0, 1));
   pos.setOrigin(tf::Vector3(
       object_distance * (object_position_cam(0) - cx) / fx,
       object_distance * (object_position_cam(1) - cy) / fy, object_distance));

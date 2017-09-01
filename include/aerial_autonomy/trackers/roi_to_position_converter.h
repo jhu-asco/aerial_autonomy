@@ -147,9 +147,9 @@ private:
   */
   Atomic<sensor_msgs::RegionOfInterest> roi_rect_;
   /**
-  * @brief tf::Transform of object in camera frame (meters)
+  * @brief Transform of object in camera frame (meters)
   */
-  Atomic<tf::Transform> object_position_;
+  Atomic<tf::Transform> object_pose_;
   /**
   * @brief Max distance of object from camera (meters)
   * \todo Make this a configurable param
