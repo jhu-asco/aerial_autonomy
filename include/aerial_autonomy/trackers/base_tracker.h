@@ -1,8 +1,8 @@
 #pragma once
 #include "aerial_autonomy/trackers/tracking_strategy.h"
-#include "aerial_autonomy/types/position.h"
 
-#include <memory>
+#include <tf/tf.h>
+
 #include <tuple>
 #include <unordered_map>
 
@@ -25,20 +25,20 @@ public:
    * @param pos Returned tracking vector
    * @return True if successful, false otherwise
    */
-  virtual bool getTrackingVector(Position &pos);
+  virtual bool getTrackingVector(tf::Transform &pos);
   /**
    * @brief Get the tracking vector
    * @param pos Returned tracking vector
    * @return True if successful, false otherwise
    */
-  virtual bool getTrackingVector(std::tuple<uint32_t, Position> &pos);
+  virtual bool getTrackingVector(std::tuple<uint32_t, tf::Transform> &pos);
   /**
    * @brief Get the tracking vectors
    * @param pos Returned map of tracking vectors
    * @return True if successful, false otherwise
    */
   virtual bool
-  getTrackingVectors(std::unordered_map<uint32_t, Position> &pos) = 0;
+  getTrackingVectors(std::unordered_map<uint32_t, tf::Transform> &pos) = 0;
   /**
   * @brief Check whether tracking is valid
   * @return True if the tracking is valid, false otherwise

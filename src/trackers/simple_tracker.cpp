@@ -10,7 +10,7 @@ SimpleTracker::SimpleTracker(parsernode::Parser &drone_hardware,
 }
 
 bool SimpleTracker::getTrackingVectors(
-    std::unordered_map<uint32_t, Position> &p) {
+    std::unordered_map<uint32_t, tf::Transform> &p) {
   CHECK(p.empty()) << "Tracking vector map not empty";
   if (!trackingIsValid()) {
     return false;
@@ -22,18 +22,14 @@ bool SimpleTracker::getTrackingVectors(
                                   uav_data.rpydata.z),
       tf::Vector3(uav_data.localpos.x, uav_data.localpos.y,
                   uav_data.localpos.z));
-  tf::Vector3 target_position_global(target_position_.x, target_position_.y,
-                                     target_position_.z);
-  tf::Vector3 target_position_camera = camera_transform_.inverse() *
-                                       quad_tf_global.inverse() *
-                                       target_position_global;
-  p[0] = Position(target_position_camera.getX(), target_position_camera.getY(),
-                  target_position_camera.getZ());
+  tf::Transform target_pose_camera =
+      camera_transform_.inverse() * quad_tf_global.inverse() * target_pose_;
+  p[0] = target_pose_camera;
   return true;
 }
 
-void SimpleTracker::setTargetPositionGlobalFrame(Position p) {
-  target_position_ = p;
+void SimpleTracker::setTargetPoseGlobalFrame(tf::Transform p) {
+  target_pose_ = p;
 }
 
 bool SimpleTracker::trackingIsValid() { return tracking_valid_; }

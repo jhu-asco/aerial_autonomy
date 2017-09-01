@@ -23,7 +23,8 @@ public:
    * @param pos Returned tracking vector
    * @return True if successful, false otherwise
    */
-  virtual bool getTrackingVectors(std::unordered_map<uint32_t, Position> &pos);
+  virtual bool
+  getTrackingVectors(std::unordered_map<uint32_t, tf::Transform> &pos);
   /**
   * @brief Check whether tracking is valid
   * @return True if the tracking is valid, false otherwise
@@ -38,9 +39,9 @@ public:
 
   /**
    * @brief Set the target position in the global frame
-   * @param p Position to set
+   * @param p tf::Transform to set
    */
-  void setTargetPositionGlobalFrame(Position p);
+  void setTargetPoseGlobalFrame(tf::Transform p);
 
   /**
    * @brief Get the camera transform stored
@@ -51,6 +52,6 @@ public:
 private:
   parsernode::Parser &drone_hardware_; ///< UAV Hardware
   bool tracking_valid_;                ///< Flag to specify if tracking is valid
-  Position target_position_;           ///< Goal position to track
+  tf::Transform target_pose_;          ///< Goal position to track
   tf::Transform camera_transform_;     ///< Transform of camera in uav frame
 };
