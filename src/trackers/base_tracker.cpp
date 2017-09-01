@@ -1,7 +1,7 @@
 #include "aerial_autonomy/trackers/base_tracker.h"
 
-bool BaseTracker::getTrackingVector(Position &pos) {
-  std::tuple<uint32_t, Position> pos_tuple;
+bool BaseTracker::getTrackingVector(tf::Transform &pos) {
+  std::tuple<uint32_t, tf::Transform> pos_tuple;
   if (!getTrackingVector(pos_tuple)) {
     return false;
   }
@@ -9,11 +9,11 @@ bool BaseTracker::getTrackingVector(Position &pos) {
   return true;
 }
 
-bool BaseTracker::getTrackingVector(std::tuple<uint32_t, Position> &pos) {
+bool BaseTracker::getTrackingVector(std::tuple<uint32_t, tf::Transform> &pos) {
   if (!trackingIsValid()) {
     return false;
   }
-  std::unordered_map<uint32_t, Position> tracking_vectors;
+  std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
   if (!getTrackingVectors(tracking_vectors)) {
     return false;
   }
@@ -26,7 +26,7 @@ bool BaseTracker::getTrackingVector(std::tuple<uint32_t, Position> &pos) {
 }
 
 bool BaseTracker::initialize() {
-  std::unordered_map<uint32_t, Position> tracking_vectors;
+  std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
   if (!getTrackingVectors(tracking_vectors)) {
     return false;
   }

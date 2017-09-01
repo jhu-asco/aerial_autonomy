@@ -61,17 +61,20 @@ public:
     table_writer.addCell(tracking_valid, "Valid", valid_color);
     table_writer.beginRow();
     table_writer.addCell("Tracking Vectors: ");
-    std::unordered_map<uint32_t, Position> tracking_vectors;
+    std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
     if (tracker_.getTrackingVectors(tracking_vectors)) {
       for (auto tv : tracking_vectors) {
-        tf::Vector3 tv_body_frame =
-            camera_transform_ *
-            tf::Vector3(tv.second.x, tv.second.y, tv.second.z);
+        tf::Transform tv_body_frame = camera_transform_ * tv.second;
         table_writer.beginRow();
         table_writer.addCell(tv.first);
-        table_writer.addCell(tv_body_frame.x());
-        table_writer.addCell(tv_body_frame.y());
-        table_writer.addCell(tv_body_frame.z());
+        table_writer.addCell(tv_body_frame.getOrigin().x());
+        table_writer.addCell(tv_body_frame.getOrigin().y());
+        table_writer.addCell(tv_body_frame.getOrigin().z());
+        double roll, pitch, yaw;
+        tv_body_frame.getBasis().getRPY(roll, pitch, yaw);
+        table_writer.addCell(roll);
+        table_writer.addCell(pitch);
+        table_writer.addCell(yaw);
       }
     }
     status << table_writer.getTableString();

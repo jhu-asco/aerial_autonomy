@@ -3,8 +3,8 @@
 #include <limits>
 
 bool ClosestTrackingStrategy::initialize(
-    const std::unordered_map<uint32_t, Position> &tracking_vectors) {
-  std::tuple<uint32_t, Position> tracking_vector;
+    const std::unordered_map<uint32_t, tf::Transform> &tracking_vectors) {
+  std::tuple<uint32_t, tf::Transform> tracking_vector;
   if (!getClosest(tracking_vectors, tracking_vector)) {
     return false;
   }
@@ -17,8 +17,8 @@ bool ClosestTrackingStrategy::initialize(
 }
 
 bool ClosestTrackingStrategy::getTrackingVector(
-    const std::unordered_map<uint32_t, Position> &tracking_vectors,
-    std::tuple<uint32_t, Position> &tracking_vector) {
+    const std::unordered_map<uint32_t, tf::Transform> &tracking_vectors,
+    std::tuple<uint32_t, tf::Transform> &tracking_vector) {
   if (!tracking_locked_) {
     return false;
   }
@@ -41,16 +41,16 @@ bool ClosestTrackingStrategy::getTrackingVector(
 }
 
 bool ClosestTrackingStrategy::getClosest(
-    const std::unordered_map<uint32_t, Position> &tracking_vectors,
-    std::tuple<uint32_t, Position> &tracking_vector) {
+    const std::unordered_map<uint32_t, tf::Transform> &tracking_vectors,
+    std::tuple<uint32_t, tf::Transform> &tracking_vector) {
   if (tracking_vectors.empty()) {
     return false;
   }
   int closest_id = 0;
   double closest_norm = std::numeric_limits<double>::max();
   for (auto itr : tracking_vectors) {
-    if (itr.second.norm() < closest_norm) {
-      closest_norm = itr.second.norm();
+    if (itr.second.getOrigin().length() < closest_norm) {
+      closest_norm = itr.second.getOrigin().length();
       closest_id = itr.first;
     }
   }
