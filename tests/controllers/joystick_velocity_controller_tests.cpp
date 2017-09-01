@@ -28,7 +28,6 @@ TEST(JoystickVelocityControllerTests, ControlInBounds) {
   internal_controller.setGoal(vel_goal);
   internal_controller.run(vel_data, exp_controls);
 
-  // ASSERT_EQ doesnt work
   ASSERT_NEAR(controls.r, exp_controls.r, 1e-8);
   ASSERT_NEAR(controls.p, exp_controls.p, 1e-8);
   ASSERT_NEAR(controls.y, exp_controls.y, 1e-8);
