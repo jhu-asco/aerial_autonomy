@@ -10,12 +10,14 @@ TEST(SimpleMultiTrackerTests, Constructor) {
 TEST(SimpleMultiTrackerTests, SetTrackingVectors) {
   SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy());
 
-  std::unordered_map<uint32_t, Position> tracking_vectors;
-  tracking_vectors[0] = Position(1, 1, 1);
-  tracking_vectors[1] = Position(1, 1, 3);
+  std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
+  tracking_vectors[0] =
+      tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(1, 1, 1));
+  tracking_vectors[1] =
+      tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(1, 1, 3));
   simple_tracker.setTrackingVectors(tracking_vectors);
 
-  std::unordered_map<uint32_t, Position> tracking_vectors_get;
+  std::unordered_map<uint32_t, tf::Transform> tracking_vectors_get;
   simple_tracker.getTrackingVectors(tracking_vectors_get);
 
   ASSERT_EQ(tracking_vectors_get.size(), tracking_vectors.size());
@@ -28,14 +30,16 @@ TEST(SimpleMultiTrackerTests, SetTrackingVectors) {
 TEST(ClosestTrackingStrategyTests, GetTrackingVectorClosest) {
   SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy());
 
-  std::unordered_map<uint32_t, Position> tracking_vectors;
-  tracking_vectors[0] = Position(1, 1, 1);
-  tracking_vectors[1] = Position(1, 1, 3);
+  std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
+  tracking_vectors[0] =
+      tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(1, 1, 1));
+  tracking_vectors[1] =
+      tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(1, 1, 3));
   simple_tracker.setTrackingVectors(tracking_vectors);
 
   simple_tracker.initialize();
 
-  Position tracking_vector;
+  tf::Transform tracking_vector;
   ASSERT_TRUE(simple_tracker.getTrackingVector(tracking_vector));
   ASSERT_EQ(tracking_vector, tracking_vectors[0]);
 }
@@ -43,13 +47,15 @@ TEST(ClosestTrackingStrategyTests, GetTrackingVectorClosest) {
 TEST(ClosestTrackingStrategyTests, ClosestTrackingLostNoRetries) {
   SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy(0));
 
-  std::unordered_map<uint32_t, Position> tracking_vectors;
-  tracking_vectors[0] = Position(1, 1, 1);
-  tracking_vectors[1] = Position(1, 1, 3);
+  std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
+  tracking_vectors[0] =
+      tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(1, 1, 1));
+  tracking_vectors[1] =
+      tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(1, 1, 3));
   simple_tracker.setTrackingVectors(tracking_vectors);
 
   simple_tracker.initialize();
-  Position tracking_vector;
+  tf::Transform tracking_vector;
   ASSERT_TRUE(simple_tracker.getTrackingVector(tracking_vector));
   ASSERT_EQ(tracking_vector, tracking_vectors[0]);
 
@@ -63,13 +69,15 @@ TEST(ClosestTrackingStrategyTests, ClosestTrackingLostMultipleRetries) {
   int retries = 5;
   SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy(retries));
 
-  std::unordered_map<uint32_t, Position> tracking_vectors;
-  tracking_vectors[0] = Position(1, 1, 1);
-  tracking_vectors[1] = Position(1, 1, 3);
+  std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
+  tracking_vectors[0] =
+      tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(1, 1, 1));
+  tracking_vectors[1] =
+      tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(1, 1, 3));
   simple_tracker.setTrackingVectors(tracking_vectors);
 
   simple_tracker.initialize();
-  Position tracking_vector;
+  tf::Transform tracking_vector;
   ASSERT_TRUE(simple_tracker.getTrackingVector(tracking_vector));
   ASSERT_EQ(tracking_vector, tracking_vectors[0]);
 
@@ -90,20 +98,23 @@ TEST(ClosestTrackingStrategyTests, ClosestTrackingLostMultipleRetriesReinit) {
   int retries = 5;
   SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy(retries));
 
-  std::unordered_map<uint32_t, Position> tracking_vectors;
-  tracking_vectors[0] = Position(1, 1, 1);
-  tracking_vectors[1] = Position(1, 1, 3);
+  std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
+  tracking_vectors[0] =
+      tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(1, 1, 1));
+  tracking_vectors[1] =
+      tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(1, 1, 3));
   simple_tracker.setTrackingVectors(tracking_vectors);
 
   simple_tracker.initialize();
 
   // Get vector
-  Position tracking_vector;
+  tf::Transform tracking_vector;
   ASSERT_TRUE(simple_tracker.getTrackingVector(tracking_vector));
   ASSERT_EQ(tracking_vector, tracking_vectors[0]);
 
   // Reset vector
-  tracking_vectors[0] = Position(1, 1, 2);
+  tracking_vectors[0] =
+      tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(1, 1, 2));
   simple_tracker.setTrackingVectors(tracking_vectors);
   ASSERT_TRUE(simple_tracker.getTrackingVector(tracking_vector));
   ASSERT_EQ(tracking_vector, tracking_vectors[0]);

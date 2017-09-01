@@ -10,14 +10,21 @@ public:
   AlvarTrackerTests()
       : nh_(), alvar_pub_(nh_.advertise<ar_track_alvar_msgs::AlvarMarkers>(
                    "ar_pose_marker", 1)) {}
-  void publishMarkers(std::vector<std::tuple<uint32_t, Position>> markers) {
+  void
+  publishMarkers(std::vector<std::tuple<uint32_t, tf::Transform>> markers) {
     ar_track_alvar_msgs::AlvarMarkers marker_msg;
     marker_msg.markers.resize(markers.size());
     for (unsigned int i = 0; i < markers.size(); i++) {
       marker_msg.markers[i].id = std::get<0>(markers[i]);
-      marker_msg.markers[i].pose.pose.position.x = std::get<1>(markers[i]).x;
-      marker_msg.markers[i].pose.pose.position.y = std::get<1>(markers[i]).y;
-      marker_msg.markers[i].pose.pose.position.z = std::get<1>(markers[i]).z;
+      auto position = std::get<1>(markers[i]).getOrigin();
+      marker_msg.markers[i].pose.pose.position.x = position.x();
+      marker_msg.markers[i].pose.pose.position.y = position.y();
+      marker_msg.markers[i].pose.pose.position.z = position.z();
+      auto rotation = std::get<1>(markers[i]).getRotation();
+      marker_msg.markers[i].pose.pose.orientation.x = rotation.x();
+      marker_msg.markers[i].pose.pose.orientation.y = rotation.y();
+      marker_msg.markers[i].pose.pose.orientation.z = rotation.z();
+      marker_msg.markers[i].pose.pose.orientation.w = rotation.w();
     }
     alvar_pub_.publish(marker_msg);
     std::this_thread::sleep_for(std::chrono::milliseconds(50));
@@ -37,8 +44,8 @@ TEST_F(AlvarTrackerTests, TrackingValidTimeout) {
 
   ASSERT_FALSE(tracker.trackingIsValid());
 
-  std::vector<std::tuple<uint32_t, Position>> markers;
-  markers.push_back(std::make_tuple(0, Position()));
+  std::vector<std::tuple<uint32_t, tf::Transform>> markers;
+  markers.push_back(std::make_tuple(0, tf::Transform()));
   publishMarkers(markers);
   ASSERT_TRUE(tracker.trackingIsValid());
 
@@ -52,20 +59,25 @@ TEST_F(AlvarTrackerTests, GetTrackingVector) {
   AlvarTracker tracker(nh);
   while (!tracker.isConnected()) {
   }
-  Position pos;
+  tf::Transform pos;
 
   ASSERT_FALSE(tracker.getTrackingVector(pos));
 
-  std::vector<std::tuple<uint32_t, Position>> markers;
-  markers.push_back(std::make_tuple(0, Position(0, 2, 3)));
+  std::vector<std::tuple<uint32_t, tf::Transform>> markers;
+  markers.push_back(std::make_tuple(
+      0, tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 2, 3))));
   publishMarkers(markers);
 
   tracker.initialize();
 
   ASSERT_TRUE(tracker.getTrackingVector(pos));
-  ASSERT_NEAR(pos.x, 0, 1e-6);
-  ASSERT_NEAR(pos.y, 2, 1e-6);
-  ASSERT_NEAR(pos.z, 3, 1e-6);
+  ASSERT_NEAR(pos.getOrigin().x(), 0, 1e-6);
+  ASSERT_NEAR(pos.getOrigin().y(), 2, 1e-6);
+  ASSERT_NEAR(pos.getOrigin().z(), 3, 1e-6);
+  ASSERT_NEAR(pos.getRotation().x(), 0, 1e-6);
+  ASSERT_NEAR(pos.getRotation().y(), 0, 1e-6);
+  ASSERT_NEAR(pos.getRotation().z(), 0, 1e-6);
+  ASSERT_NEAR(pos.getRotation().w(), 1, 1e-6);
 }
 
 TEST_F(AlvarTrackerTests, TrackingValidEmpty) {
@@ -73,20 +85,25 @@ TEST_F(AlvarTrackerTests, TrackingValidEmpty) {
   AlvarTracker tracker(nh);
   while (!tracker.isConnected()) {
   }
-  Position pos;
+  tf::Transform pos;
 
   ASSERT_FALSE(tracker.getTrackingVector(pos));
 
-  std::vector<std::tuple<uint32_t, Position>> markers;
-  markers.push_back(std::make_tuple(0, Position(0, 2, 3)));
+  std::vector<std::tuple<uint32_t, tf::Transform>> markers;
+  markers.push_back(std::make_tuple(
+      0, tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 2, 3))));
   publishMarkers(markers);
 
   tracker.initialize();
 
   ASSERT_TRUE(tracker.getTrackingVector(pos));
-  ASSERT_NEAR(pos.x, 0, 1e-6);
-  ASSERT_NEAR(pos.y, 2, 1e-6);
-  ASSERT_NEAR(pos.z, 3, 1e-6);
+  ASSERT_NEAR(pos.getOrigin().x(), 0, 1e-6);
+  ASSERT_NEAR(pos.getOrigin().y(), 2, 1e-6);
+  ASSERT_NEAR(pos.getOrigin().z(), 3, 1e-6);
+  ASSERT_NEAR(pos.getRotation().x(), 0, 1e-6);
+  ASSERT_NEAR(pos.getRotation().y(), 0, 1e-6);
+  ASSERT_NEAR(pos.getRotation().z(), 0, 1e-6);
+  ASSERT_NEAR(pos.getRotation().w(), 1, 1e-6);
 
   markers.clear();
   publishMarkers(markers);

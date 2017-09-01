@@ -22,8 +22,8 @@ public:
   * @param tracking_vectors The vectors to the tracked targets
   * @return True if successful, false otherwise
   */
-  virtual bool
-  initialize(const std::unordered_map<uint32_t, Position> &tracking_vectors);
+  virtual bool initialize(
+      const std::unordered_map<uint32_t, tf::Transform> &tracking_vectors);
   /**
   * @brief Get the tracking vector for the tracked target.
   * @param tracking_vectors The vectors to the tracked targets
@@ -31,8 +31,8 @@ public:
   * @return True if successful, false otherwise
   */
   virtual bool getTrackingVector(
-      const std::unordered_map<uint32_t, Position> &tracking_vectors,
-      std::tuple<uint32_t, Position> &tracking_vector);
+      const std::unordered_map<uint32_t, tf::Transform> &tracking_vectors,
+      std::tuple<uint32_t, tf::Transform> &tracking_vector);
 
 private:
   /**
@@ -41,9 +41,9 @@ private:
   * @param tracking_vector Returned closest target
   * @return True if success, false otherwise
   */
-  bool
-  getClosest(const std::unordered_map<uint32_t, Position> &tracking_vectors,
-             std::tuple<uint32_t, Position> &tracking_vector);
+  bool getClosest(
+      const std::unordered_map<uint32_t, tf::Transform> &tracking_vectors,
+      std::tuple<uint32_t, tf::Transform> &tracking_vector);
 
   /**
   * @brief ID of tracked target
@@ -64,5 +64,5 @@ private:
   /**
   * @brief Last successful tracking vector
   */
-  std::tuple<uint32_t, Position> last_tracking_vector_;
+  std::tuple<uint32_t, tf::Transform> last_tracking_vector_;
 };
