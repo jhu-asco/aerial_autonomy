@@ -3,23 +3,22 @@
 #include <aerial_autonomy/log/log.h>
 #include <glog/logging.h>
 
-bool VelocityBasedPositionController::runImplementation(PositionYaw sensor_data,
-                                                        PositionYaw goal,
-                                                        VelocityYaw &control) {
+bool VelocityBasedPositionController::runImplementation(
+    PositionYaw sensor_data, PositionYaw goal, VelocityYawRate &control) {
   PositionYaw position_diff = goal - sensor_data;
-  auto yaw_cmd = math::angleWrap(
-      sensor_data.yaw + math::clamp(config_.yaw_gain() * position_diff.yaw,
-                                    -config_.max_yaw_rate(),
-                                    config_.max_yaw_rate()));
+  auto yaw_rate_cmd =
+      math::clamp(config_.yaw_gain() * position_diff.yaw,
+                  -config_.max_yaw_rate(), config_.max_yaw_rate());
   double position_norm = position_diff.position().norm();
   double velocity =
       std::min(config_.max_velocity(), config_.position_gain() * position_norm);
   if (position_norm > 1e-8) {
-    control = VelocityYaw(velocity * position_diff.x / position_norm,
-                          velocity * position_diff.y / position_norm,
-                          velocity * position_diff.z / position_norm, yaw_cmd);
+    control = VelocityYawRate(velocity * position_diff.x / position_norm,
+                              velocity * position_diff.y / position_norm,
+                              velocity * position_diff.z / position_norm,
+                              yaw_rate_cmd);
   } else {
-    control = VelocityYaw(0, 0, 0, yaw_cmd);
+    control = VelocityYawRate(0, 0, 0, yaw_rate_cmd);
   }
   return true;
 }
@@ -33,6 +32,8 @@ ControllerStatus VelocityBasedPositionController::isConvergedImplementation(
   DATA_LOG("velocity_based_position_controller")
       << position_diff.x << position_diff.y << position_diff.z
       << position_diff.yaw << DataStream::endl;
+  std::cout << position_diff.x << " " << position_diff.y << " "
+            << position_diff.z << " " << position_diff.yaw << std::endl;
   const PositionControllerConfig &position_controller_config =
       config_.position_controller_config();
   const config::Position &tolerance_pos =

@@ -5,7 +5,7 @@
 
 bool VelocityBasedRelativePoseController::runImplementation(
     std::tuple<tf::Transform, tf::Transform> sensor_data, tf::Transform goal,
-    VelocityYaw &control) {
+    VelocityYawRate &control) {
   tf::Transform current_pose = std::get<0>(sensor_data);
   tf::Transform desired_pose = std::get<1>(sensor_data) * goal;
 
@@ -23,7 +23,14 @@ bool VelocityBasedRelativePoseController::runImplementation(
       current_pose.getOrigin().getZ(), current_yaw);
   position_controller_.setGoal(desired_position_yaw);
 
-  return position_controller_.run(current_position_yaw, control);
+  auto status = position_controller_.run(current_position_yaw, control);
+  DATA_LOG("velocity_based_relative_pose_controller")
+      << desired_pose.getOrigin().getX() << desired_pose.getOrigin().getY()
+      << desired_pose.getOrigin().getZ() << desired_yaw
+      << current_pose.getOrigin().getX() << current_pose.getOrigin().getY()
+      << current_pose.getOrigin().getZ() << current_yaw << control.x
+      << control.y << control.z << control.yaw_rate << DataStream::endl;
+  return status;
 }
 
 ControllerStatus VelocityBasedRelativePoseController::isConvergedImplementation(

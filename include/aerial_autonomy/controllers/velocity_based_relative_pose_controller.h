@@ -14,7 +14,7 @@
  */
 class VelocityBasedRelativePoseController
     : public Controller<std::tuple<tf::Transform, tf::Transform>, tf::Transform,
-                        VelocityYaw> {
+                        VelocityYawRate> {
 public:
   /**
   * @brief Constructor
@@ -41,7 +41,7 @@ protected:
    */
   virtual bool
   runImplementation(std::tuple<tf::Transform, tf::Transform> sensor_data,
-                    tf::Transform goal, VelocityYaw &control);
+                    tf::Transform goal, VelocityYawRate &control);
   /**
   * @brief Check if controller converged
   *

@@ -34,14 +34,14 @@ TEST_F(VelocityBasedRelativePoseControllerTests, ConvergedNoOffset) {
 
   controller.setGoal(goal);
 
-  VelocityYaw controls;
+  VelocityYawRate controls;
   bool result = controller.run(sensor_data, controls);
 
   ASSERT_TRUE(result);
   ASSERT_NEAR(controls.x, 0, 1e-6);
   ASSERT_NEAR(controls.y, 0, 1e-6);
   ASSERT_NEAR(controls.z, 0, 1e-6);
-  ASSERT_NEAR(controls.yaw, 0, 1e-6);
+  ASSERT_NEAR(controls.yaw_rate, 0, 1e-6);
   ASSERT_TRUE(controller.isConverged(sensor_data));
 }
 
@@ -54,14 +54,14 @@ TEST_F(VelocityBasedRelativePoseControllerTests, ConvergedOffset) {
 
   controller.setGoal(goal);
 
-  VelocityYaw controls;
+  VelocityYawRate controls;
   bool result = controller.run(sensor_data, controls);
 
   ASSERT_TRUE(result);
   ASSERT_NEAR(controls.x, 0, 1e-6);
   ASSERT_NEAR(controls.y, 0, 1e-6);
   ASSERT_NEAR(controls.z, 0, 1e-6);
-  ASSERT_NEAR(controls.yaw, 0, 1e-6);
+  ASSERT_NEAR(controls.yaw_rate, 0, 1e-6);
   ASSERT_TRUE(controller.isConverged(sensor_data));
 }
 
@@ -74,14 +74,14 @@ TEST_F(VelocityBasedRelativePoseControllerTests, NotConvergedNoOffset) {
 
   controller.setGoal(goal);
 
-  VelocityYaw controls;
+  VelocityYawRate controls;
   bool result = controller.run(sensor_data, controls);
 
   ASSERT_TRUE(result);
   ASSERT_NEAR(controls.x, 1 * position_gain_, 1e-6);
   ASSERT_NEAR(controls.y, -1 * position_gain_, 1e-6);
   ASSERT_NEAR(controls.z, -2 * position_gain_, 1e-6);
-  ASSERT_NEAR(controls.yaw, 0, 1e-6);
+  ASSERT_NEAR(controls.yaw_rate, 0, 1e-6);
   ASSERT_FALSE(controller.isConverged(sensor_data));
 }
 
@@ -94,14 +94,14 @@ TEST_F(VelocityBasedRelativePoseControllerTests, NotConvergedOffset) {
 
   controller.setGoal(goal);
 
-  VelocityYaw controls;
+  VelocityYawRate controls;
   bool result = controller.run(sensor_data, controls);
 
   ASSERT_TRUE(result);
   ASSERT_NEAR(controls.x, 0 * position_gain_, 1e-6);
   ASSERT_NEAR(controls.y, 2 * position_gain_, 1e-6);
   ASSERT_NEAR(controls.z, 2 * position_gain_, 1e-6);
-  ASSERT_NEAR(controls.yaw, 0, 1e-6);
+  ASSERT_NEAR(controls.yaw_rate, 0, 1e-6);
   ASSERT_FALSE(controller.isConverged(sensor_data));
 }
 
