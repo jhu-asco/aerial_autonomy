@@ -104,10 +104,7 @@ TEST(JoystickVelocityControllerTests, Convergence) {
 
     std::get<1>(sensor_data) = new_data;
 
-    if (controller.isConverged(sensor_data))
-      return true;
-
-    return false;
+    return bool(controller.isConverged(sensor_data));
   };
 
   ASSERT_TRUE(

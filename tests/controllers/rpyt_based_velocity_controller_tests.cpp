@@ -134,10 +134,8 @@ TEST(RPYTConvergenceTest, Convergence) {
     sensor_data.z = sensor_data.z + (global_acc[2] - 9.81) * dt;
     sensor_data.yaw = controls.y;
 
-    if (controller.isConverged(sensor_data))
-      return true;
+    return bool(controller.isConverged(sensor_data));
 
-    return false;
   };
 
   ASSERT_TRUE(
