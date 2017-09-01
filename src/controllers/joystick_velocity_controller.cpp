@@ -26,15 +26,16 @@ bool JoystickVelocityController::runImplementation(
                          -joystick_velocity_controller_config_.max_velocity(),
                          joystick_velocity_controller_config_.max_velocity());
 
+  // Positive stick movement --> Clockwise rotation. Hence, negative sign
   double yaw_rate =
-      math::map(joy_sensor_data.channel4,
+      math::map(-joy_sensor_data.channel4,
                 -joystick_velocity_controller_config_.max_channel4(),
                 joystick_velocity_controller_config_.max_channel4(),
-                -joystick_velocity_controller_config_.max_velocity(),
-                joystick_velocity_controller_config_.max_velocity());
+                -joystick_velocity_controller_config_.max_yaw_rate(),
+                joystick_velocity_controller_config_.max_yaw_rate());
 
   VelocityYaw vel_sensor_data = std::get<1>(sensor_data);
-  vel_goal.yaw = math::angleWrap(vel_sensor_data.yaw -
+  vel_goal.yaw = math::angleWrap(vel_sensor_data.yaw +
                                  yaw_rate * controller_timer_duration_);
 
   rpyt_velocity_controller_.setGoal(vel_goal);

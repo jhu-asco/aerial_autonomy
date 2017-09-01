@@ -27,7 +27,7 @@ public:
   *
   * @param controller_timer_duration in seconds
   *
-  * @joystick mapppings:
+  * @joystick mappings:
   * Channel 1 : X-velocity
   * Channel 2 : Y-velocity
   * Channel 3 : Z-velocity

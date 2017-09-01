@@ -22,7 +22,11 @@ message JoystickVelocityControllerConfig {
   */
   optional double max_channel4 = 4 [ default = 10000 ];
   /**
-  * @brief max velocity
+  * @brief max velocity in m/s
   */
   optional double max_velocity = 5 [ default = 1.0 ];
+  /**
+  * @brief max yaw rate in rad/s
+  */
+  optional double max_yaw_rate = 6 [ default = 0.1 ];
 }
