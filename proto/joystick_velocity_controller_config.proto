@@ -28,5 +28,5 @@ message JoystickVelocityControllerConfig {
   /**
   * @brief max yaw rate in rad/s
   */
-  optional double max_yaw_rate = 6 [ default = 0.1 ];
+  optional double max_yaw_rate = 6 [ default = 0.5 ];
 }
