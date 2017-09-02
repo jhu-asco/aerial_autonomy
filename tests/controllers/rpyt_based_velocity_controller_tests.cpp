@@ -5,8 +5,9 @@
 #include <tf/transform_datatypes.h>
 
 TEST(RPYTBasedVelocityControllerTests, SetGetGoal) {
-  RPYTBasedVelocityControllerConfig config;
-  RPYTBasedVelocityController controller(config, 0.02);
+  Atomic<RPYTBasedVelocityControllerConfig> config_;
+  RPYTBasedVelocityController controller(config_, 0.02);
+  RPYTBasedVelocityControllerConfig config = config_;
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(0.1, -0.1, 0.1, 0.1);
   controller.setGoal(goal);
@@ -16,8 +17,9 @@ TEST(RPYTBasedVelocityControllerTests, SetGetGoal) {
 
 TEST(RPYTBasedVelocityControllerTests, ControlsInBounds) {
   double dt = 0.02;
-  RPYTBasedVelocityControllerConfig config;
-  RPYTBasedVelocityController controller(config, dt);
+  Atomic<RPYTBasedVelocityControllerConfig> config_;
+  RPYTBasedVelocityController controller(config_, dt);
+  RPYTBasedVelocityControllerConfig config = config_;
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(0.1, -0.1, 0.1, 0.1);
   controller.setGoal(goal);
@@ -59,7 +61,9 @@ TEST(RPYTBasedVelocityControllerTests, RollNinety) {
   config.set_kp(1.0);
   config.set_ki(0.0);
 
-  RPYTBasedVelocityController controller(config, 0.02);
+  Atomic<RPYTBasedVelocityControllerConfig> config_;
+  config_ = config;
+  RPYTBasedVelocityController controller(config_, 0.02);
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(0.0, 1.1, -9.81, 0.0);
   controller.setGoal(goal);
@@ -70,8 +74,9 @@ TEST(RPYTBasedVelocityControllerTests, RollNinety) {
 }
 
 TEST(RPYTBasedVelocityControllerTests, MaxThrust) {
-  RPYTBasedVelocityControllerConfig config;
-  RPYTBasedVelocityController controller(config, 0.02);
+  Atomic<RPYTBasedVelocityControllerConfig> config_;
+  RPYTBasedVelocityController controller(config_, 0.02);
+  RPYTBasedVelocityControllerConfig config = config_;
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(10.0, 10.0, 10.0, 0.0);
   controller.setGoal(goal);
@@ -87,7 +92,9 @@ TEST(RPYTBasedVelocityControllerTests, MaxRoll) {
   config.set_kp(1.0);
   config.set_ki(0.0);
   config.set_max_rp(1.0);
-  RPYTBasedVelocityController controller(config, 0.02);
+  Atomic<RPYTBasedVelocityControllerConfig> config_;
+  config_ = config;
+  RPYTBasedVelocityController controller(config_, 0.02);
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(0.0, 1.1, -9.81, 0.1);
   controller.setGoal(goal);
@@ -96,6 +103,7 @@ TEST(RPYTBasedVelocityControllerTests, MaxRoll) {
 
   ASSERT_EQ(controls.r, -config.max_rp());
 }
+
 TEST(RPYTConvergenceTest, Convergence) {
 
   RPYTBasedVelocityControllerConfig config;
@@ -109,7 +117,9 @@ TEST(RPYTConvergenceTest, Convergence) {
   tolerance->set_vz(0.01);
 
   double dt = 0.02;
-  RPYTBasedVelocityController controller(config, dt);
+  Atomic<RPYTBasedVelocityControllerConfig> config_;
+  config_ = config;
+  RPYTBasedVelocityController controller(config_, dt);
 
   VelocityYaw sensor_data;
   VelocityYaw goal(1.0, 1.0, 1.0, 0);

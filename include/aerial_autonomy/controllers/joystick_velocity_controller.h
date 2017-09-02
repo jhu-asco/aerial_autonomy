@@ -35,7 +35,8 @@ public:
   *
   */
   JoystickVelocityController(
-      RPYTBasedVelocityControllerConfig &rpyt_velocity_controller_config,
+      Atomic<RPYTBasedVelocityControllerConfig>
+          &rpyt_velocity_controller_config,
       JoystickVelocityControllerConfig &joystick_velocity_controller_config,
       double controller_timer_duration)
       : controller_timer_duration_(controller_timer_duration),
@@ -81,7 +82,7 @@ private:
   /**
   * @ Config for rpyt velocity controller
   */
-  RPYTBasedVelocityControllerConfig &rpyt_velocity_controller_config_;
+  Atomic<RPYTBasedVelocityControllerConfig> &rpyt_velocity_controller_config_;
   /**
   * @brief Internal controller to get rpyt from desired velocity
   */

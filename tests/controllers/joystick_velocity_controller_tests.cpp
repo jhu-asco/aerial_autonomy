@@ -8,8 +8,10 @@
 TEST(JoystickVelocityControllerTests, ControlInBounds) {
   double dt = 0.02;
   RPYTBasedVelocityControllerConfig rpyt_config;
+  Atomic<RPYTBasedVelocityControllerConfig> rpyt_config_;
+  rpyt_config_ = rpyt_config;
   JoystickVelocityControllerConfig joystick_config;
-  JoystickVelocityController controller(rpyt_config, joystick_config, dt);
+  JoystickVelocityController controller(rpyt_config_, joystick_config, dt);
   controller.setGoal(EmptyGoal());
 
   Joystick joy_data(1000, -1000, 1000, 1000);
@@ -23,7 +25,7 @@ TEST(JoystickVelocityControllerTests, ControlInBounds) {
   bool result = controller.run(sensor_data, controls);
 
   RollPitchYawThrust exp_controls;
-  RPYTBasedVelocityControllerConfig config;
+  Atomic<RPYTBasedVelocityControllerConfig> config;
   RPYTBasedVelocityController internal_controller(config, dt);
   VelocityYaw vel_goal(0.1, -0.1, 0.1, exp_yaw);
   internal_controller.setGoal(vel_goal);
@@ -40,8 +42,10 @@ TEST(JoystickVelocityControllerTests, ControlInBounds) {
 TEST(JoystickVelocityControllerTests, ControlOutOfBounds) {
   double dt = 0.02;
   RPYTBasedVelocityControllerConfig rpyt_config;
+  Atomic<RPYTBasedVelocityControllerConfig> rpyt_config_;
+  rpyt_config_ = rpyt_config;
   JoystickVelocityControllerConfig joystick_config;
-  JoystickVelocityController controller(rpyt_config, joystick_config, dt);
+  JoystickVelocityController controller(rpyt_config_, joystick_config, dt);
   EmptyGoal goal;
   controller.setGoal(goal);
 
@@ -72,8 +76,10 @@ TEST(JoystickVelocityControllerTests, Convergence) {
   tolerance->set_vy(0.01);
   tolerance->set_vz(0.01);
 
+  Atomic<RPYTBasedVelocityControllerConfig> rpyt_config_;
+  rpyt_config_ = rpyt_config;
   JoystickVelocityControllerConfig joystick_config;
-  JoystickVelocityController controller(rpyt_config, joystick_config, dt);
+  JoystickVelocityController controller(rpyt_config_, joystick_config, dt);
   Joystick joy_data(10000, 10000, 10000, 0);
   VelocityYaw vel_data(0, 0, 0, 0);
   std::tuple<Joystick, VelocityYaw> sensor_data =
