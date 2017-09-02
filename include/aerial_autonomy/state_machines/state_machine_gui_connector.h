@@ -6,8 +6,9 @@
 #include <std_msgs/String.h>
 #include <tf_conversions/tf_eigen.h>
 
+#include <aerial_autonomy/VelocityYaw.h>
 #include <aerial_autonomy/types/position_yaw.h>
-
+#include <aerial_autonomy/types/velocity_yaw.h>
 /**
 * @brief Connects a logic state machine to the GUI over a ROS interface
 *
@@ -36,6 +37,9 @@ public:
     pose_command_sub_ =
         nh.subscribe("goal_pose_command", 1,
                      &StateMachineGUIConnector::poseCommandCallback, this);
+    velocity_yaw_command_sub_ = nh.subscribe(
+        "goal_velocity_yaw_command", 1,
+        &StateMachineGUIConnector::velocityYawCommandCallback, this);
   }
 
   /**
@@ -84,9 +88,27 @@ private:
   }
 
   /**
+  * @brief Callback to trigger event for pose command
+  *
+  * @param pose command to send to state machine
+  */
+  void
+  velocityYawCommandCallback(const aerial_autonomy::VelocityYaw &velocity_yaw) {
+    VelocityYaw command(velocity_yaw.vx, velocity_yaw.vy, velocity_yaw.vz,
+                        velocity_yaw.yaw);
+    VLOG(1) << "Received Velocity Yaw command: " << command.x << "\t"
+            << command.y << "\t" << command.z << "\t" << command.yaw;
+    logic_state_machine_.process_event(command);
+  }
+
+  /**
   * @brief pose command subscriber
   */
   ros::Subscriber pose_command_sub_;
+  /**
+  * @brief velocity yaw command subscriber
+  */
+  ros::Subscriber velocity_yaw_command_sub_;
   /**
   * @brief event command subscriber
   */
