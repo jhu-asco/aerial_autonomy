@@ -1,0 +1,17 @@
+syntax = "proto2";
+
+message VelocitySensorConfig {
+  /**
+  * @brief transform between sensor and robot
+  */
+  repeated double sensor_transform = 2;
+  /**
+  * @brief maximum allowed divergence from gps data
+  */
+  optional double max_divergence = 3 [default = 0.5];
+  /**
+  * @brief consecutive timesteps of bad data
+  * after which sensor data goes invalid
+  */
+  optional int32 bad_data_timeout = 4 [default = 100];
+}
