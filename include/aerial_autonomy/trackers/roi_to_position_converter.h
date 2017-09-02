@@ -46,7 +46,7 @@ public:
    * @param pos Returned tracking vectors
    * @return True if successful, false otherwise
    */
-  bool getTrackingVectors(std::unordered_map<uint32_t, Position> &pos);
+  bool getTrackingVectors(std::unordered_map<uint32_t, tf::Transform> &pos);
   /**
    * @brief Get the 3D position of the ROI (in the frame of the
    * camera)
@@ -61,7 +61,8 @@ public:
                                     const cv::Mat &depth,
                                     const sensor_msgs::CameraInfo &cam_info,
                                     double max_distance,
-                                    double foreground_percent, Position &pos);
+                                    double foreground_percent,
+                                    tf::Transform &pos);
   /**
   * @brief Check whether tracking is valid
   * @return True if the tracking is valid, false otherwise
@@ -146,9 +147,9 @@ private:
   */
   Atomic<sensor_msgs::RegionOfInterest> roi_rect_;
   /**
-  * @brief Position of object in camera frame (meters)
+  * @brief Transform of object in camera frame (meters)
   */
-  Atomic<Position> object_position_;
+  Atomic<tf::Transform> object_pose_;
   /**
   * @brief Max distance of object from camera (meters)
   * \todo Make this a configurable param

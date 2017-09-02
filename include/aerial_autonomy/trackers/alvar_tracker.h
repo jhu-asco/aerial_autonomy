@@ -8,7 +8,7 @@
 #include <ros/ros.h>
 
 /**
- * @brief Provides vector to a tracked object based on output from alvar
+ * @brief Provides transform to a tracked object based on output from alvar
  */
 class AlvarTracker : public BaseTracker {
 public:
@@ -26,7 +26,8 @@ public:
    * @param pos Returned tracking vectors
    * @return True if successful, false otherwise
    */
-  virtual bool getTrackingVectors(std::unordered_map<uint32_t, Position> &pos);
+  virtual bool
+  getTrackingVectors(std::unordered_map<uint32_t, tf::Transform> &pos);
   /**
   * @brief Check whether tracking is valid
   * @return True if the tracking is valid, false otherwise
@@ -59,9 +60,9 @@ private:
   */
   Atomic<ros::Time> last_valid_time_;
   /**
-  * @brief Stored tracking position
+  * @brief Stored tracking transforms
   */
-  Atomic<std::unordered_map<uint32_t, Position>> object_positions_;
+  Atomic<std::unordered_map<uint32_t, tf::Transform>> object_poses_;
   /**
   * @brief Timeout for valid update
   */

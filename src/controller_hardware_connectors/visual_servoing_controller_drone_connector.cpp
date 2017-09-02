@@ -30,12 +30,11 @@ void VisualServoingControllerDroneConnector::sendHardwareCommands(
 
 bool VisualServoingControllerDroneConnector::getTrackingVectorGlobalFrame(
     Position &tracking_vector) {
-  Position object_position_cam;
-  if (!tracker_.getTrackingVector(object_position_cam)) {
+  tf::Transform object_pose_cam;
+  if (!tracker_.getTrackingVector(object_pose_cam)) {
     return false;
   }
-  tf::Vector3 object_direction_cam(object_position_cam.x, object_position_cam.y,
-                                   object_position_cam.z);
+  tf::Vector3 object_direction_cam = object_pose_cam.getOrigin();
   // Convert from camera frame to global frame
   tf::Vector3 tracking_vector_tf =
       (getBodyFrameRotation() *
