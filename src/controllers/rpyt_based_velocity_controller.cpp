@@ -8,18 +8,18 @@ bool RPYTBasedVelocityController::runImplementation(
     VelocityYaw sensor_data, VelocityYaw goal, RollPitchYawThrust &control) {
   VelocityYaw velocity_diff = goal - sensor_data;
 
-  double dt = controller_timer_duration_ / 1000.0;
-  cumulative_error.x += velocity_diff.x * dt;
-  cumulative_error.y += velocity_diff.y * dt;
-  cumulative_error.z += velocity_diff.z * dt;
+  RPYTBasedVelocityControllerConfig config = config_;
+  cumulative_error.x += velocity_diff.x * controller_timer_duration_;
+  cumulative_error.y += velocity_diff.y * controller_timer_duration_;
+  cumulative_error.z += velocity_diff.z * controller_timer_duration_;
 
   // Acceleration in world frame
   double acc_x =
-      config_.kp() * velocity_diff.x + config_.ki() * cumulative_error.x;
+      config.kp() * velocity_diff.x + config.ki() * cumulative_error.x;
   double acc_y =
-      config_.kp() * velocity_diff.y + config_.ki() * cumulative_error.y;
+      config.kp() * velocity_diff.y + config.ki() * cumulative_error.y;
   double acc_z =
-      config_.kp() * velocity_diff.z + config_.ki() * cumulative_error.z + 9.81;
+      config.kp() * velocity_diff.z + config.ki() * cumulative_error.z + 9.81;
 
   // Acceleration in gravity aligned yaw-compensated frame
   Eigen::Vector3d rot_acc;
@@ -28,11 +28,11 @@ bool RPYTBasedVelocityController::runImplementation(
   rot_acc[2] = acc_z;
 
   // thrust is magnitude of acceleration scaled by kt
-  control.t = rot_acc.norm() / config_.kt();
+  control.t = rot_acc.norm() / config.kt();
 
   // normalize acceleration in gravity aligned yaw-compensated frame
   if (control.t > 1e-8)
-    rot_acc = (1 / (config_.kt() * control.t)) * rot_acc;
+    rot_acc = (1 / (config.kt() * control.t)) * rot_acc;
   else {
     LOG(WARNING) << "Thrust close to zero !!";
     rot_acc = Eigen::Vector3d(0, 0, 0);
@@ -42,7 +42,7 @@ bool RPYTBasedVelocityController::runImplementation(
   control.r = -asin(rot_acc[1]);
 
   // check if roll = 90 and compute pitch accordingly
-  if ((abs(rot_acc[1]) - 1.0) < config_.tolerance_rp())
+  if ((abs(rot_acc[1]) - 1.0) < config.tolerance_rp())
     control.p = atan2(rot_acc[0], rot_acc[2]);
   else {
     // if roll is 90, pitch is undefined and is set to zero
@@ -50,9 +50,9 @@ bool RPYTBasedVelocityController::runImplementation(
     LOG(WARNING) << "Desired roll is 90 degrees. Setting pitch to 0";
   }
 
-  control.t = math::clamp(control.t, 0, config_.max_thrust());
-  control.r = math::clamp(control.r, -config_.max_rp(), config_.max_rp());
-  control.p = math::clamp(control.p, -config_.max_rp(), config_.max_rp());
+  control.t = math::clamp(control.t, 0, config.max_thrust());
+  control.r = math::clamp(control.r, -config.max_rp(), config.max_rp());
+  control.p = math::clamp(control.p, -config.max_rp(), config.max_rp());
 
   control.y = goal.yaw;
   return true;
@@ -70,8 +70,9 @@ RPYTBasedVelocityController::isConvergedImplementation(VelocityYaw sensor_data,
       << velocity_diff.yaw << sensor_data.x << sensor_data.y << sensor_data.z
       << sensor_data.yaw << goal.x << goal.y << goal.z << goal.yaw
       << DataStream::endl;
+  RPYTBasedVelocityControllerConfig config = config_;
   const VelocityControllerConfig &velocity_controller_config =
-      config_.velocity_controller_config();
+      config.velocity_controller_config();
   const config::Velocity tolerance_vel =
       velocity_controller_config.goal_velocity_tolerance();
   const double tolerance_yaw = velocity_controller_config.goal_yaw_tolerance();

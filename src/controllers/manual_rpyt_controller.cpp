@@ -1,6 +1,6 @@
 #include "aerial_autonomy/controllers/manual_rpyt_controller.h"
 
-bool ManualRPYTController::runImplementation(JoysticksYaw sensor_data,
+bool ManualRPYTController::runImplementation(JoystickYaw sensor_data,
                                              EmptyGoal goal,
                                              RollPitchYawThrust &control) {
   /// \todo(matt): need to pass RC mapping as parameter

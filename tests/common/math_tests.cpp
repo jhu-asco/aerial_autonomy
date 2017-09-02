@@ -114,6 +114,17 @@ TEST(TransformsTests, StdVectorThrow) {
   ASSERT_THROW(math::getTransformsFromVector(input), std::runtime_error);
 }
 
+///
+TEST(MapTests, InBounds) { ASSERT_EQ(math::map(5, -10, 10, -1, 1), 0.5); }
+
+TEST(MapTests, InBoundsNeg) { ASSERT_EQ(math::map(-5, -10, 10, -1, 1), -0.5); }
+
+TEST(MapTests, OutOfBoundsMax) { ASSERT_EQ(math::map(15, -10, 10, -1, 1), 1); }
+
+TEST(MapTests, OutOfBoundsMin) {
+  ASSERT_EQ(math::map(-15, -10, 10, -1, 1), -1);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

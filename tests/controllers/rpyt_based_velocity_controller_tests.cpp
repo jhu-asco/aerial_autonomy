@@ -5,8 +5,9 @@
 #include <tf/transform_datatypes.h>
 
 TEST(RPYTBasedVelocityControllerTests, SetGetGoal) {
-  RPYTBasedVelocityControllerConfig config;
-  RPYTBasedVelocityController controller(config, 20);
+  Atomic<RPYTBasedVelocityControllerConfig> config_;
+  RPYTBasedVelocityController controller(config_, 0.02);
+  RPYTBasedVelocityControllerConfig config = config_;
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(0.1, -0.1, 0.1, 0.1);
   controller.setGoal(goal);
@@ -15,9 +16,10 @@ TEST(RPYTBasedVelocityControllerTests, SetGetGoal) {
 }
 
 TEST(RPYTBasedVelocityControllerTests, ControlsInBounds) {
-  double timestep_ms = 20;
-  RPYTBasedVelocityControllerConfig config;
-  RPYTBasedVelocityController controller(config, timestep_ms);
+  double dt = 0.02;
+  Atomic<RPYTBasedVelocityControllerConfig> config_;
+  RPYTBasedVelocityController controller(config_, dt);
+  RPYTBasedVelocityControllerConfig config = config_;
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(0.1, -0.1, 0.1, 0.1);
   controller.setGoal(goal);
@@ -27,7 +29,51 @@ TEST(RPYTBasedVelocityControllerTests, ControlsInBounds) {
   RollPitchYawThrust controls;
   bool result = controller.run(sensor_data, controls);
 
-  double dt = timestep_ms / 1000.0;
+  double acc_x =
+      config.kp() * velocity_diff.x + config.ki() * velocity_diff.x * dt;
+  double acc_y =
+      config.kp() * velocity_diff.y + config.ki() * velocity_diff.y * dt;
+  double acc_z =
+      config.kp() * velocity_diff.z + config.ki() * velocity_diff.z * dt + 9.81;
+
+  double exp_t =
+      sqrt(acc_x * acc_x + acc_y * acc_y + acc_z * acc_z) / config.kt();
+
+  double rot_acc_x =
+      (acc_x * cos(sensor_data.yaw) + acc_y * sin(sensor_data.yaw)) /
+      (config.kt() * controls.t);
+  double rot_acc_y =
+      (-acc_x * sin(sensor_data.yaw) + acc_y * cos(sensor_data.yaw)) /
+      (config.kt() * controls.t);
+  double rot_acc_z = acc_z / (config.kt() * controls.t);
+
+  ASSERT_EQ(exp_goal, goal);
+  ASSERT_NEAR(controls.y, goal.yaw, 1e-4);
+  ASSERT_NEAR(controls.t, exp_t, 1e-4);
+  ASSERT_NEAR(controls.r, -asin(rot_acc_y), 1e-4);
+  ASSERT_NEAR(controls.p, atan2(rot_acc_x, rot_acc_z), 1e-4);
+
+  ASSERT_TRUE(result);
+}
+
+TEST(RPYTBasedVelocityControllerTests, ChangeConfig) {
+  double dt = 0.02;
+  Atomic<RPYTBasedVelocityControllerConfig> config_;
+  RPYTBasedVelocityController controller(config_, dt);
+  RPYTBasedVelocityControllerConfig config;
+  config.set_kp(5.0);
+  config.set_ki(0.01);
+  config.set_kt(0.2);
+  config_ = config;
+  VelocityYaw sensor_data(0, 0, 0, 0);
+  VelocityYaw goal(0.1, -0.1, 0.1, 0.1);
+  controller.setGoal(goal);
+  VelocityYaw exp_goal = controller.getGoal();
+
+  VelocityYaw velocity_diff = goal - sensor_data;
+  RollPitchYawThrust controls;
+  bool result = controller.run(sensor_data, controls);
+
   double acc_x =
       config.kp() * velocity_diff.x + config.ki() * velocity_diff.x * dt;
   double acc_y =
@@ -60,7 +106,9 @@ TEST(RPYTBasedVelocityControllerTests, RollNinety) {
   config.set_kp(1.0);
   config.set_ki(0.0);
 
-  RPYTBasedVelocityController controller(config, 20);
+  Atomic<RPYTBasedVelocityControllerConfig> config_;
+  config_ = config;
+  RPYTBasedVelocityController controller(config_, 0.02);
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(0.0, 1.1, -9.81, 0.0);
   controller.setGoal(goal);
@@ -71,8 +119,9 @@ TEST(RPYTBasedVelocityControllerTests, RollNinety) {
 }
 
 TEST(RPYTBasedVelocityControllerTests, MaxThrust) {
-  RPYTBasedVelocityControllerConfig config;
-  RPYTBasedVelocityController controller(config, 20);
+  Atomic<RPYTBasedVelocityControllerConfig> config_;
+  RPYTBasedVelocityController controller(config_, 0.02);
+  RPYTBasedVelocityControllerConfig config = config_;
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(10.0, 10.0, 10.0, 0.0);
   controller.setGoal(goal);
@@ -88,7 +137,9 @@ TEST(RPYTBasedVelocityControllerTests, MaxRoll) {
   config.set_kp(1.0);
   config.set_ki(0.0);
   config.set_max_rp(1.0);
-  RPYTBasedVelocityController controller(config, 20);
+  Atomic<RPYTBasedVelocityControllerConfig> config_;
+  config_ = config;
+  RPYTBasedVelocityController controller(config_, 0.02);
   VelocityYaw sensor_data(0, 0, 0, 0);
   VelocityYaw goal(0.0, 1.1, -9.81, 0.1);
   controller.setGoal(goal);
@@ -97,6 +148,7 @@ TEST(RPYTBasedVelocityControllerTests, MaxRoll) {
 
   ASSERT_EQ(controls.r, -config.max_rp());
 }
+
 TEST(RPYTConvergenceTest, Convergence) {
 
   RPYTBasedVelocityControllerConfig config;
@@ -109,7 +161,10 @@ TEST(RPYTConvergenceTest, Convergence) {
   tolerance->set_vy(0.01);
   tolerance->set_vz(0.01);
 
-  RPYTBasedVelocityController controller(config, 20);
+  double dt = 0.02;
+  Atomic<RPYTBasedVelocityControllerConfig> config_;
+  config_ = config;
+  RPYTBasedVelocityController controller(config_, dt);
 
   VelocityYaw sensor_data;
   VelocityYaw goal(1.0, 1.0, 1.0, 0);
@@ -117,7 +172,6 @@ TEST(RPYTConvergenceTest, Convergence) {
   auto convergence = [&]() {
 
     RollPitchYawThrust controls;
-    double dt = 0.02;
 
     controller.run(sensor_data, controls);
     tf::Transform tf;
@@ -135,10 +189,8 @@ TEST(RPYTConvergenceTest, Convergence) {
     sensor_data.z = sensor_data.z + (global_acc[2] - 9.81) * dt;
     sensor_data.yaw = controls.y;
 
-    if (controller.isConverged(sensor_data))
-      return true;
+    return bool(controller.isConverged(sensor_data));
 
-    return false;
   };
 
   ASSERT_TRUE(
