@@ -33,7 +33,17 @@ bool VisualServoingControllerArmConnector::getTrackingPoseArmFrame(
   if (!tracker_.getTrackingVector(object_pose_cam)) {
     return false;
   }
-
+  /**
+  * \todo Matt
+  *
+  *  This will break RoiToPositionConverter since the object rotation will
+  * always be identity.
+  *  The Proper way to do this will require two types of trackers: 1. Position
+  * tracker, 2. Pose tracker.
+  *  We can have two different versions of the connector (one for each tracker
+  * type) subclassed from a common base.
+  *  The subclasses will override this function
+  */
   // Compute object transform in quad frame
   tf::Transform object_tf_body_frame = camera_transform_ * object_pose_cam;
 
