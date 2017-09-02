@@ -41,7 +41,7 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
   Guidance velocity_sensor(drone_hardware);
 
   // Set stick commands
-  int16_t channels[4] = {150, 100, 50, 100};
+  int16_t channels[4] = {150, 100, -150, 0};
   drone_hardware.setRC(channels);
 
   JoystickVelocityControllerDroneConnector connector(drone_hardware, controller,
@@ -59,13 +59,9 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
   parsernode::common::quaddata sensor_data;
   drone_hardware.getquaddata(sensor_data);
 
-  VelocityYaw vel_goal(0.015, 0.01, 0.005,
-                       0.01 * joystick_config.max_yaw_rate() * dt);
-
-  ASSERT_NEAR(sensor_data.linvel.x, vel_goal.x, 1e-3);
-  ASSERT_NEAR(sensor_data.linvel.y, vel_goal.y, 1e-3);
-  ASSERT_NEAR(sensor_data.linvel.z, vel_goal.z, 1e-3);
-  ASSERT_NEAR(sensor_data.rpydata.y, vel_goal.yaw, 1e-3);
+  ASSERT_NEAR(sensor_data.linvel.x, 0.015, 1e-3);
+  ASSERT_NEAR(sensor_data.linvel.y, 0.01, 1e-3);
+  ASSERT_NEAR(sensor_data.linvel.z, -0.015, 1e-3);
 }
 
 int main(int argc, char **argv) {
