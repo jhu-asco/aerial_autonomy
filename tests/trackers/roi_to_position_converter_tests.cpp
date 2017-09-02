@@ -43,7 +43,7 @@ TEST(RoiToPositionConverterTests, ComputeTrackingVector) {
   sensor_msgs::CameraInfo camera_info;
   double max_distance = 3.0;
   double front_percent = 1.0;
-  tf::Transform pos;
+  tf::Transform pose;
 
   roi.x_offset = 1;
   roi.y_offset = 1;
@@ -63,10 +63,10 @@ TEST(RoiToPositionConverterTests, ComputeTrackingVector) {
   camera_info.K[4] = fy;
 
   RoiToPositionConverter::computeTrackingVector(
-      roi, depth, camera_info, max_distance, front_percent, pos);
-  ASSERT_NEAR(pos.getOrigin().x(), (5.5 - cx) / fx, 1e-5);
-  ASSERT_NEAR(pos.getOrigin().y(), (5.5 - cy) / fy, 1e-5);
-  ASSERT_NEAR(pos.getOrigin().z(), 1, 1e-5);
+      roi, depth, camera_info, max_distance, front_percent, pose);
+  ASSERT_NEAR(pose.getOrigin().x(), (5.5 - cx) / fx, 1e-5);
+  ASSERT_NEAR(pose.getOrigin().y(), (5.5 - cy) / fy, 1e-5);
+  ASSERT_NEAR(pose.getOrigin().z(), 1, 1e-5);
 }
 
 TEST(RoiToPositionConverterTests, ComputeTrackingVectorFront) {
@@ -75,7 +75,7 @@ TEST(RoiToPositionConverterTests, ComputeTrackingVectorFront) {
   sensor_msgs::CameraInfo camera_info;
   double max_distance = 3.0;
   double front_percent = 0.25;
-  tf::Transform pos;
+  tf::Transform pose;
 
   roi.x_offset = 0;
   roi.y_offset = 0;
@@ -96,10 +96,10 @@ TEST(RoiToPositionConverterTests, ComputeTrackingVectorFront) {
   camera_info.K[4] = fy;
 
   RoiToPositionConverter::computeTrackingVector(
-      roi, depth, camera_info, max_distance, front_percent, pos);
-  ASSERT_NEAR(pos.getOrigin().x(), 0.5 * (2 - cx) / fx, 1e-5);
-  ASSERT_NEAR(pos.getOrigin().y(), 0.5 * (2 - cy) / fy, 1e-5);
-  ASSERT_NEAR(pos.getOrigin().z(), 0.5, 1e-5);
+      roi, depth, camera_info, max_distance, front_percent, pose);
+  ASSERT_NEAR(pose.getOrigin().x(), 0.5 * (2 - cx) / fx, 1e-5);
+  ASSERT_NEAR(pose.getOrigin().y(), 0.5 * (2 - cy) / fy, 1e-5);
+  ASSERT_NEAR(pose.getOrigin().z(), 0.5, 1e-5);
 }
 
 TEST(RoiToPositionConverterTests, ComputeTrackingVectorMaxDistance) {
@@ -108,7 +108,7 @@ TEST(RoiToPositionConverterTests, ComputeTrackingVectorMaxDistance) {
   sensor_msgs::CameraInfo camera_info;
   double max_distance = 3.0;
   double front_percent = 0.25;
-  tf::Transform pos;
+  tf::Transform pose;
 
   roi.x_offset = 0;
   roi.y_offset = 0;
@@ -128,12 +128,12 @@ TEST(RoiToPositionConverterTests, ComputeTrackingVectorMaxDistance) {
   camera_info.K[4] = fy;
 
   RoiToPositionConverter::computeTrackingVector(
-      roi, depth, camera_info, max_distance, front_percent, pos);
-  ASSERT_NEAR(pos.getOrigin().x(),
+      roi, depth, camera_info, max_distance, front_percent, pose);
+  ASSERT_NEAR(pose.getOrigin().x(),
               max_distance * (roi.x_offset + roi.width / 2. - cx) / fx, 1e-5);
-  ASSERT_NEAR(pos.getOrigin().y(),
+  ASSERT_NEAR(pose.getOrigin().y(),
               max_distance * (roi.y_offset + roi.height / 2. - cy) / fy, 1e-5);
-  ASSERT_NEAR(pos.getOrigin().z(), max_distance, 1e-5);
+  ASSERT_NEAR(pose.getOrigin().z(), max_distance, 1e-5);
 }
 
 TEST_F(RoiToPositionConverterROSTests, TrackingValid) {
