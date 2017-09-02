@@ -37,7 +37,7 @@ public:
   JoystickVelocityController(
       Atomic<RPYTBasedVelocityControllerConfig>
           &rpyt_velocity_controller_config,
-      JoystickVelocityControllerConfig &joystick_velocity_controller_config,
+      JoystickVelocityControllerConfig joystick_velocity_controller_config,
       double controller_timer_duration)
       : controller_timer_duration_(controller_timer_duration),
         rpyt_velocity_controller_config_(rpyt_velocity_controller_config),

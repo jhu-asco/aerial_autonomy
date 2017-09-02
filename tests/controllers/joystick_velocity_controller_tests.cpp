@@ -7,9 +7,7 @@
 
 TEST(JoystickVelocityControllerTests, ControlInBounds) {
   double dt = 0.02;
-  RPYTBasedVelocityControllerConfig rpyt_config;
   Atomic<RPYTBasedVelocityControllerConfig> rpyt_config_;
-  rpyt_config_ = rpyt_config;
   JoystickVelocityControllerConfig joystick_config;
   JoystickVelocityController controller(rpyt_config_, joystick_config, dt);
   controller.setGoal(EmptyGoal());
