@@ -9,6 +9,7 @@ import rospy
 import rospkg
 import os
 from std_msgs.msg import String
+from aerial_autonomy.msg import VelocityYaw
 from geometry_msgs.msg import PoseStamped
 from functools import partial
 from python_qt_binding.QtCore import QObject, pyqtSignal
@@ -88,6 +89,9 @@ class RosEventTrigger(QObject):
         # Ros publisher to trigger pose event
         self.pose_command_pub = rospy.Publisher('~pose_command_combined',
                                                 PoseStamped, queue_size=1)
+        # Ros publisher to trigger pose event
+        self.vel_command_pub = rospy.Publisher('~velocity_yaw_command',
+                                               VelocityYaw, queue_size=1)
         # Define partial callbacks
         statusCallback = partial(
             self.statusCallback, signal=self.status_signal)
@@ -110,6 +114,13 @@ class RosEventTrigger(QObject):
         """
         if not rospy.is_shutdown():
             self.pose_command_pub.publish(pose)
+
+    def triggerVelocityCommand(self, velocity_yaw):
+        """
+        Publish pose command event for state machine
+        """
+        if not rospy.is_shutdown():
+            self.vel_command_pub.publish(velocity_yaw)
 
     def triggerEvent(self, event_name):
         """
