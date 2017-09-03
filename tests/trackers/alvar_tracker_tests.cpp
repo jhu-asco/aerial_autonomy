@@ -3,7 +3,10 @@
 #include <chrono>
 #include <thread>
 
+#include "aerial_autonomy/tests/test_utils.h"
 #include "aerial_autonomy/trackers/alvar_tracker.h"
+
+using namespace test_utils;
 
 class AlvarTrackerTests : public ::testing::Test {
 public:
@@ -59,9 +62,9 @@ TEST_F(AlvarTrackerTests, GetTrackingVector) {
   AlvarTracker tracker(nh);
   while (!tracker.isConnected()) {
   }
-  tf::Transform pos;
+  tf::Transform pose;
 
-  ASSERT_FALSE(tracker.getTrackingVector(pos));
+  ASSERT_FALSE(tracker.getTrackingVector(pose));
 
   std::vector<std::tuple<uint32_t, tf::Transform>> markers;
   markers.push_back(std::make_tuple(
@@ -70,14 +73,9 @@ TEST_F(AlvarTrackerTests, GetTrackingVector) {
 
   tracker.initialize();
 
-  ASSERT_TRUE(tracker.getTrackingVector(pos));
-  ASSERT_NEAR(pos.getOrigin().x(), 0, 1e-6);
-  ASSERT_NEAR(pos.getOrigin().y(), 2, 1e-6);
-  ASSERT_NEAR(pos.getOrigin().z(), 3, 1e-6);
-  ASSERT_NEAR(pos.getRotation().x(), 0, 1e-6);
-  ASSERT_NEAR(pos.getRotation().y(), 0, 1e-6);
-  ASSERT_NEAR(pos.getRotation().z(), 0, 1e-6);
-  ASSERT_NEAR(pos.getRotation().w(), 1, 1e-6);
+  ASSERT_TRUE(tracker.getTrackingVector(pose));
+  ASSERT_TF_NEAR(
+      pose, tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 2, 3)));
 }
 
 TEST_F(AlvarTrackerTests, TrackingValidEmpty) {
@@ -85,9 +83,9 @@ TEST_F(AlvarTrackerTests, TrackingValidEmpty) {
   AlvarTracker tracker(nh);
   while (!tracker.isConnected()) {
   }
-  tf::Transform pos;
+  tf::Transform pose;
 
-  ASSERT_FALSE(tracker.getTrackingVector(pos));
+  ASSERT_FALSE(tracker.getTrackingVector(pose));
 
   std::vector<std::tuple<uint32_t, tf::Transform>> markers;
   markers.push_back(std::make_tuple(
@@ -96,14 +94,9 @@ TEST_F(AlvarTrackerTests, TrackingValidEmpty) {
 
   tracker.initialize();
 
-  ASSERT_TRUE(tracker.getTrackingVector(pos));
-  ASSERT_NEAR(pos.getOrigin().x(), 0, 1e-6);
-  ASSERT_NEAR(pos.getOrigin().y(), 2, 1e-6);
-  ASSERT_NEAR(pos.getOrigin().z(), 3, 1e-6);
-  ASSERT_NEAR(pos.getRotation().x(), 0, 1e-6);
-  ASSERT_NEAR(pos.getRotation().y(), 0, 1e-6);
-  ASSERT_NEAR(pos.getRotation().z(), 0, 1e-6);
-  ASSERT_NEAR(pos.getRotation().w(), 1, 1e-6);
+  ASSERT_TRUE(tracker.getTrackingVector(pose));
+  ASSERT_TF_NEAR(
+      pose, tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 2, 3)));
 
   markers.clear();
   publishMarkers(markers);
