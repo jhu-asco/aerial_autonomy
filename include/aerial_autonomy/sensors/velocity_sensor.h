@@ -16,16 +16,28 @@ public:
   *
   * @brief Constructor
   *
+  * @brief UAV hardware for getting gps data
+  * \todo soham take a GPSSensor instead
+  *
   * @param nodehandle for ros stuff
   *
   * @param Config for velocity sensor
   */
   VelocitySensor(parsernode::Parser &drone_hardware, ros::NodeHandle nh,
                  VelocitySensorConfig config)
-      : config_(config), drone_hardware_(drone_hardware), nh_(nh),
-        first_msg(true), {
+      : config_(config), drone_hardware_(drone_hardware), nh_(nh) {
     pose_sub_ = nh_.subscribe("pose", 1, &VelocitySensor::poseCallback, this);
     sensor_tf = math::getTransformFromVector(config_.sensor_transform());
+    parsernode::common::quaddata data;
+    drone_hardware_.getquaddata(data);
+
+    tf::Vector3 quad_intial_pos =
+        tf::Vector3(data.localpos.x, data.localpos.y, data.localpos.z);
+    tf::Quaternion quad_intial_rot = tf::createQuaternionFromRPY(
+        data.rpydata.r, data.rpydata.p, data.rpydata.y);
+
+    quad_intial_tf.setOrigin(quad_intial_pos);
+    quad_intial_tf.setRotation(quad_intial_rot);
   }
 
 private:
@@ -50,40 +62,43 @@ private:
     sensor_world_tf.setRotation(q_s);
 
     tf::Vector3 global_pos =
-        (sensor_tf * sensor_world_tf * sensor_tf.inverse()).getOrigin();
+        (quad_intial_tf * sensor_tf * sensor_world_tf * sensor_tf.inverse())
+            .getOrigin();
     tf::Quaternion global_q =
-        (sensor_tf * sensor_world_tf * sensor_tf.inverse()).getRotation();
+        (quad_intial_tf * sensor_tf * sensor_world_tf * sensor_tf.inverse())
+            .getRotation();
 
-    if (abs(global_pos[0] - data.localpos.x) < config_.max_divergence() ||
-        abs(global_pos[1] - data.localpos.y) < config_.max_divergence() ||
+    if (abs(global_pos[0] - data.localpos.x) < config_.max_divergence() &&
+        abs(global_pos[1] - data.localpos.y) < config_.max_divergence() &&
         abs(global_pos[2] - data.localpos.z) < config_.max_divergence()) {
-      sensor_status_ = SensorStatus::VALID;
-      bad_data_counter = 0;
-      // Differentiate position to get
-      if (first_msg) {
-        first_msg = false;
+      if (sensor_status_ == SensorStatus::INVALID) {
+        sensor_status_ = SensorStatus::VALID;
         last_msg_time = msg->header.stamp;
+        bad_data_counter = 0;
+        last_pos = global_pos;
+        // Differentiate position to get
       } else {
         ros::Time current_msg_time = msg->header.stamp;
         double dt = (current_msg_time - last_msg_time).toSec();
-        VelocityYaw vel_sensor_data;
+        if (dt < config_.min_timestep())
+          dt = config_.min_timestep();
 
+        VelocityYaw vel_sensor_data;
         vel_sensor_data.x = (global_pos[0] - last_pos.x) / dt;
         vel_sensor_data.y = (global_pos[1] - last_pos.y) / dt;
         vel_sensor_data.z = (global_pos[2] - last_pos.z) / dt;
 
-        last_pos.x = global_pos[0];
-        last_pos.y = global_pos[1];
-        last_pos.z = global_pos[2];
+        last_pos = global_pos;
         last_msg_time = current_msg_time;
+        last_good_data_time = current_msg_time;
 
         vel_sensor_data.yaw = tf::getYaw(global_q);
 
         sensor_data_ = vel_sensor_data;
       }
     } else {
-      bad_data_counter++;
-      if (bad_data_counter == config_.bad_data_timeout())
+      if ((msg->header.stamp - last_good_data_time).toSec() >=
+          config_.bad_data_timeout())
         sensor_status_ = SensorStatus::INVALID;
     }
   }
@@ -109,20 +124,21 @@ private:
   */
   tf::Transform sensor_tf;
   /**
+  * @brief quad's initial transform in world (NED) frame
+  */
+  tf::Transform quad_intial_tf;
+  /**
   * @brief variable to store last pose
   */
-  PositionYaw last_pos;
+  tf::Vector3 last_pos;
   /**
   * @brief time of last msg
   */
   ros::Time last_msg_time;
   /**
-  * @brief flag for first msg
+  * @brief time at which last good data was recieved
+  * Sensor status set to invalid if last good data was more than
+  * 'bad_data_timeout' seconds ago.
   */
-  bool first_msg;
-  /**
-  * @brief counter for bad data.
-  * Sensor status set to invalid if counter goes beyond threshold
-  */
-  int bad_data_counter;
+  ros::Time last_good_data_time;
 };

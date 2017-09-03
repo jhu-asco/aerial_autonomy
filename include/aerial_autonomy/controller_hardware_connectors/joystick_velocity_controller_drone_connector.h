@@ -30,11 +30,7 @@ public:
       parsernode::Parser &drone_hardware,
       Controller<std::tuple<Joystick, VelocityYaw>, EmptyGoal,
                  RollPitchYawThrust> &controller,
-      Sensor<VelocityYaw> &velocity_sensor)
-      : ControllerHardwareConnector(controller, HardwareType::UAV),
-        drone_hardware_(drone_hardware), velocity_sensor_(velocity_sensor) {
-    drone_hardware_.setmode("rpyt_angle");
-  }
+      Sensor<VelocityYaw> &velocity_sensor);
 
 protected:
   /**

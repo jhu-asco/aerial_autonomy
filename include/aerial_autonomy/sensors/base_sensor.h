@@ -22,7 +22,10 @@ public:
   /**
   * @brief Constructor
   */
-  Sensor() : sensor_status_(SensorStatus::INVALID) {}
+  Sensor() {
+    SensorStatus sensor_status = SensorStatus::INVALID;
+    sensor_status_ = sensor_status;
+  }
   /**
   * @brief gets the latest sensor data
   */
@@ -36,12 +39,6 @@ public:
   SensorStatus getSensorStatus() {
     SensorStatus sensor_status = sensor_status_;
     return sensor_status;
-  }
-  /**
-  * @brief set sensor status
-  */
-  void setSensorStatus(SensorStatus sensor_status) {
-    sensor_status_ = sensor_status;
   }
 
 protected:
