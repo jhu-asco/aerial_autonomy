@@ -59,6 +59,15 @@ public:
     return pose_command_sub_.getNumPublishers() > 0;
   }
 
+  /**
+   * @brief Checks if velocity yaw command is connected to a publisher
+   *
+   * @return true if connected
+   */
+  bool isVelocityCommandConnected() {
+    return velocity_yaw_command_sub_.getNumPublishers() > 0;
+  }
+
 private:
   /**
   * @brief Callback to trigger events based on name
