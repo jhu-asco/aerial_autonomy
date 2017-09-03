@@ -45,7 +45,7 @@ public:
 
 protected:
   /**
-   * @brief Extracts pose data from ROI
+   * @brief Extracts pose data from tracker
    *
    * @param sensor_data Current transform of quadrotor in the
    * rotation-compensated frame of the quadrotor
