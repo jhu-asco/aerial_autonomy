@@ -22,12 +22,12 @@ bool JoystickVelocityControllerDroneConnector::extractSensorData(
 
   if (velocity_sensor_.getSensorStatus() == SensorStatus::INVALID) {
     LOG(WARNING) << "Velocity sensor data invalid !";
-    return false;
   } else {
     VelocityYaw vel_sensor_data = velocity_sensor_.getSensorData();
     sensor_data = std::make_tuple(joy_data, vel_sensor_data);
-    return true;
   }
+
+  return bool(velocity_sensor_.getSensorStatus());
 }
 
 void JoystickVelocityControllerDroneConnector::sendHardwareCommands(

@@ -10,7 +10,7 @@
 * INVALID : Set if sensor data diverges from uav data
 * for a prolonged period
 */
-enum class SensorStatus { VALID = 0, INVALID = 1 };
+enum class SensorStatus { INVALID = 0, VALID = 1 };
 /**
 * @brief Base class for sensors
 *
@@ -22,10 +22,7 @@ public:
   /**
   * @brief Constructor
   */
-  Sensor() {
-    SensorStatus sensor_status = SensorStatus::INVALID;
-    sensor_status_ = sensor_status;
-  }
+  Sensor() {}
   /**
   * @brief gets the latest sensor data
   */
@@ -42,6 +39,10 @@ public:
   }
 
 protected:
+  /**
+  * @brief Constructor that takes in sensor status
+  */
+  Sensor(SensorStatus sensor_status) : sensor_status_(sensor_status) {}
   /**
   * @brief variable to store sensor data
   */

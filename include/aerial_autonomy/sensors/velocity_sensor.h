@@ -25,7 +25,8 @@ public:
   */
   VelocitySensor(parsernode::Parser &drone_hardware, ros::NodeHandle nh,
                  VelocitySensorConfig config)
-      : config_(config), drone_hardware_(drone_hardware), nh_(nh) {
+      : Sensor(SensorStatus::INVALID), config_(config),
+        drone_hardware_(drone_hardware), nh_(nh) {
     pose_sub_ = nh_.subscribe("pose", 1, &VelocitySensor::poseCallback, this);
     sensor_tf = math::getTransformFromVector(config_.sensor_transform());
     parsernode::common::quaddata data;
@@ -61,20 +62,16 @@ private:
     sensor_world_tf.setOrigin(pos);
     sensor_world_tf.setRotation(q_s);
 
-    tf::Vector3 global_pos =
-        (quad_intial_tf * sensor_tf * sensor_world_tf * sensor_tf.inverse())
-            .getOrigin();
-    tf::Quaternion global_q =
-        (quad_intial_tf * sensor_tf * sensor_world_tf * sensor_tf.inverse())
-            .getRotation();
+    tf::Transform global_tf =
+        quad_intial_tf * sensor_tf * sensor_world_tf * sensor_tf.inverse();
+    tf::Vector3 global_pos = global_tf.getOrigin();
+    tf::Quaternion global_q = global_tf.getRotation();
 
     if (abs(global_pos[0] - data.localpos.x) < config_.max_divergence() &&
         abs(global_pos[1] - data.localpos.y) < config_.max_divergence() &&
         abs(global_pos[2] - data.localpos.z) < config_.max_divergence()) {
       if (sensor_status_ == SensorStatus::INVALID) {
         sensor_status_ = SensorStatus::VALID;
-        last_msg_time = msg->header.stamp;
-        bad_data_counter = 0;
         last_pos = global_pos;
         // Differentiate position to get
       } else {
@@ -89,15 +86,12 @@ private:
         vel_sensor_data.z = (global_pos[2] - last_pos.z) / dt;
 
         last_pos = global_pos;
-        last_msg_time = current_msg_time;
-        last_good_data_time = current_msg_time;
-
         vel_sensor_data.yaw = tf::getYaw(global_q);
-
         sensor_data_ = vel_sensor_data;
       }
+      last_msg_time = msg->header.stamp;
     } else {
-      if ((msg->header.stamp - last_good_data_time).toSec() >=
+      if ((msg->header.stamp - last_msg_time).toSec() >=
           config_.bad_data_timeout())
         sensor_status_ = SensorStatus::INVALID;
     }
@@ -135,10 +129,4 @@ private:
   * @brief time of last msg
   */
   ros::Time last_msg_time;
-  /**
-  * @brief time at which last good data was recieved
-  * Sensor status set to invalid if last good data was more than
-  * 'bad_data_timeout' seconds ago.
-  */
-  ros::Time last_good_data_time;
 };
