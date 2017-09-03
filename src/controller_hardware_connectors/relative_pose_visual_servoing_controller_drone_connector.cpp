@@ -16,9 +16,7 @@ bool RelativePoseVisualServoingControllerDroneConnector::extractSensorData(
       << quad_data.omega.x << quad_data.omega.y << quad_data.omega.z
       << DataStream::endl;
   // giving transform in rotation-compensated quad frame
-  sensor_data = std::make_tuple(
-      tf::Transform(getBodyFrameRotation(), tf::Vector3(0, 0, 0)),
-      tracking_pose);
+  sensor_data = std::make_tuple(getBodyFrameRotation(), tracking_pose);
   return true;
 }
 
@@ -40,15 +38,16 @@ bool RelativePoseVisualServoingControllerDroneConnector::
   }
   // Convert from camera frame to global frame
   tracking_transform =
-      (tf::Transform(getBodyFrameRotation(), tf::Vector3(0, 0, 0)) *
-       (camera_transform_ * object_pose_cam));
+      getBodyFrameRotation() * camera_transform_ * object_pose_cam;
   return true;
 }
 
-tf::Matrix3x3
+tf::Transform
 RelativePoseVisualServoingControllerDroneConnector::getBodyFrameRotation() {
   parsernode::common::quaddata quad_data;
   drone_hardware_.getquaddata(quad_data);
-  return tf::Matrix3x3(tf::createQuaternionFromRPY(
-      quad_data.rpydata.x, quad_data.rpydata.y, quad_data.rpydata.z));
+  return tf::Transform(tf::createQuaternionFromRPY(quad_data.rpydata.x,
+                                                   quad_data.rpydata.y,
+                                                   quad_data.rpydata.z),
+                       tf::Vector3(0, 0, 0));
 }

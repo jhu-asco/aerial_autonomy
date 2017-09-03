@@ -14,4 +14,9 @@ void transformRPYToTf(double r, double p, double y, tf::Transform &tf) {
   tf.setIdentity();
   tf.setRotation(tf::createQuaternionFromRPY(r, p, y));
 }
+
+void positionYawToTf(const PositionYaw &p, tf::Transform &tf) {
+  tf.setRotation(tf::createQuaternionFromRPY(0, 0, p.yaw));
+  tf.setOrigin(tf::Vector3(p.x, p.y, p.z));
+}
 }

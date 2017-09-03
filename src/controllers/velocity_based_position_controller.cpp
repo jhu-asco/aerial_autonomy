@@ -20,6 +20,10 @@ bool VelocityBasedPositionController::runImplementation(
   } else {
     control = VelocityYawRate(0, 0, 0, yaw_rate_cmd);
   }
+  DATA_LOG("velocity_based_position_controller")
+      << position_diff.x << position_diff.y << position_diff.z
+      << position_diff.yaw << control.x << control.y << control.z
+      << control.yaw_rate << DataStream::endl;
   return true;
 }
 
@@ -29,11 +33,6 @@ ControllerStatus VelocityBasedPositionController::isConvergedImplementation(
   ControllerStatus status(ControllerStatus::Active);
   status << "Error Position, Yaw: " << position_diff.x << position_diff.y
          << position_diff.z << position_diff.yaw;
-  DATA_LOG("velocity_based_position_controller")
-      << position_diff.x << position_diff.y << position_diff.z
-      << position_diff.yaw << DataStream::endl;
-  std::cout << position_diff.x << " " << position_diff.y << " "
-            << position_diff.z << " " << position_diff.yaw << std::endl;
   const PositionControllerConfig &position_controller_config =
       config_.position_controller_config();
   const config::Position &tolerance_pos =

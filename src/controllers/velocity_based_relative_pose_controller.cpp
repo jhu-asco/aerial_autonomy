@@ -1,13 +1,16 @@
 #include "aerial_autonomy/controllers/velocity_based_relative_pose_controller.h"
+#include "aerial_autonomy/common/conversions.h"
 #include "aerial_autonomy/log/log.h"
 
 #include <glog/logging.h>
 
 bool VelocityBasedRelativePoseController::runImplementation(
-    std::tuple<tf::Transform, tf::Transform> sensor_data, tf::Transform goal,
+    std::tuple<tf::Transform, tf::Transform> sensor_data, PositionYaw goal,
     VelocityYawRate &control) {
+  tf::Transform goal_tf;
+  conversions::positionYawToTf(goal, goal_tf);
   tf::Transform current_pose = std::get<0>(sensor_data);
-  tf::Transform desired_pose = std::get<1>(sensor_data) * goal;
+  tf::Transform desired_pose = std::get<1>(sensor_data) * goal_tf;
 
   double current_roll, current_pitch, current_yaw;
   current_pose.getBasis().getRPY(current_roll, current_pitch, current_yaw);
@@ -34,9 +37,11 @@ bool VelocityBasedRelativePoseController::runImplementation(
 }
 
 ControllerStatus VelocityBasedRelativePoseController::isConvergedImplementation(
-    std::tuple<tf::Transform, tf::Transform> sensor_data, tf::Transform goal) {
+    std::tuple<tf::Transform, tf::Transform> sensor_data, PositionYaw goal) {
+  tf::Transform goal_tf;
+  conversions::positionYawToTf(goal, goal_tf);
   tf::Transform current_pose = std::get<0>(sensor_data);
-  tf::Transform desired_pose = std::get<1>(sensor_data) * goal;
+  tf::Transform desired_pose = std::get<1>(sensor_data) * goal_tf;
 
   double current_roll, current_pitch, current_yaw;
   current_pose.getBasis().getRPY(current_roll, current_pitch, current_yaw);

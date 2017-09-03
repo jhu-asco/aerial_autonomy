@@ -10,10 +10,13 @@
 
 /**
  * @brief A pose controller that keeps a pose relative to some feedback
- * pose using a velocity controller
+ * pose using a velocity controller.  Note the only the yaw of the desired pose
+ * is tracked
+ * since a quadrotor is underactuated and cannot arbitrarily control roll/pitch
+ * while hovering
  */
 class VelocityBasedRelativePoseController
-    : public Controller<std::tuple<tf::Transform, tf::Transform>, tf::Transform,
+    : public Controller<std::tuple<tf::Transform, tf::Transform>, PositionYaw,
                         VelocityYawRate> {
 public:
   /**
@@ -35,23 +38,23 @@ protected:
    * pose relative to a tracked pose.
    * @param sensor_data Pose of controlled point and tracked
    * pose
-   * @param goal Goal relative pose in tracked pose frame
+   * @param goal Goal relative position and yaw in tracked pose frame
    * @param control Velocity command
    * @return True if controller is successful in running
    */
   virtual bool
   runImplementation(std::tuple<tf::Transform, tf::Transform> sensor_data,
-                    tf::Transform goal, VelocityYawRate &control);
+                    PositionYaw goal, VelocityYawRate &control);
   /**
   * @brief Check if controller converged
   *
   * @param sensor_data Current control pose and tracked pose
-  * @param goal Goal relative pose in tracked pose frame
+  * @param goal Goal relative position and yaw in tracked pose frame
   *
   * @return controller status that contains an enum and debug information.
   */
   virtual ControllerStatus isConvergedImplementation(
-      std::tuple<tf::Transform, tf::Transform> sensor_data, tf::Transform goal);
+      std::tuple<tf::Transform, tf::Transform> sensor_data, PositionYaw goal);
 
 private:
   /**

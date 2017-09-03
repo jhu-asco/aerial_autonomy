@@ -11,10 +11,12 @@
 
 /**
  * @brief A visual servoing controller that uses a tracker output as feedback
+ * and brings the quadrotor
+ * to a goal pose expressed in the tracked object's coordinate frame
  */
 class RelativePoseVisualServoingControllerDroneConnector
     : public ControllerHardwareConnector<
-          std::tuple<tf::Transform, tf::Transform>, tf::Transform,
+          std::tuple<tf::Transform, tf::Transform>, PositionYaw,
           VelocityYawRate> {
 public:
   /**
@@ -33,9 +35,9 @@ public:
   virtual ~RelativePoseVisualServoingControllerDroneConnector() {}
 
   /**
-   * @brief Get the tracking vector of the tracker in the global
-   * frame
-   * @param tracking_vector Returned tracking vector
+   * @brief Get the tracking pose of the tracker in the rotation-compensated
+   * frame of the quadrotor
+   * @param tracking_vector Returned tracking pose
    * @return True if successful and false otherwise
    */
   bool getTrackingTransformRotationCompensatedQuadFrame(
@@ -45,9 +47,11 @@ protected:
   /**
    * @brief Extracts pose data from ROI
    *
-   * @param sensor_data Position and yaw of object tracked by ROI
+   * @param sensor_data Current transform of quadrotor in the
+   * rotation-compensated frame of the quadrotor
+   * and tracking transform in the rotation-compensated frame of the quadrotor
    *
-   * @return true if able to extract ROI position and yaw
+   * @return true if able to compute transforms
    */
   virtual bool
   extractSensorData(std::tuple<tf::Transform, tf::Transform> &sensor_data);
@@ -64,7 +68,7 @@ private:
    * @brief Get the rotation of the uav body frame
    * @return The rotation transform
    */
-  tf::Matrix3x3 getBodyFrameRotation();
+  tf::Transform getBodyFrameRotation();
 
   /**
   * @brief Quad hardware to send commands

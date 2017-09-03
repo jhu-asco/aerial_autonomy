@@ -29,7 +29,7 @@ TEST_F(VelocityBasedRelativePoseControllerTests, ConvergedNoOffset) {
   VelocityBasedRelativePoseController controller(config_);
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
-  tf::Transform goal(tf::Quaternion(), tf::Vector3(0, 0, 0));
+  PositionYaw goal(0, 0, 0, 0);
   auto sensor_data = std::make_tuple(current_pose, tracked_pose);
 
   controller.setGoal(goal);
@@ -49,7 +49,7 @@ TEST_F(VelocityBasedRelativePoseControllerTests, ConvergedOffset) {
   VelocityBasedRelativePoseController controller(config_);
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-1, 0, 0));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
-  tf::Transform goal(tf::Quaternion(), tf::Vector3(-1, 0, 0));
+  PositionYaw goal(-1, 0, 0, 0);
   auto sensor_data = std::make_tuple(current_pose, tracked_pose);
 
   controller.setGoal(goal);
@@ -69,7 +69,7 @@ TEST_F(VelocityBasedRelativePoseControllerTests, NotConvergedNoOffset) {
   VelocityBasedRelativePoseController controller(config_);
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-1, 1, 2));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
-  tf::Transform goal(tf::Quaternion(), tf::Vector3(0, 0, 0));
+  PositionYaw goal(0, 0, 0, 0);
   auto sensor_data = std::make_tuple(current_pose, tracked_pose);
 
   controller.setGoal(goal);
@@ -89,7 +89,7 @@ TEST_F(VelocityBasedRelativePoseControllerTests, NotConvergedOffset) {
   VelocityBasedRelativePoseController controller(config_);
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-1, 1, 2));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
-  tf::Transform goal(tf::Quaternion(), tf::Vector3(-1, 3, 4));
+  PositionYaw goal(-1, 3, 4, 0);
   auto sensor_data = std::make_tuple(current_pose, tracked_pose);
 
   controller.setGoal(goal);

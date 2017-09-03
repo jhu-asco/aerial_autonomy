@@ -1,6 +1,7 @@
 
 #include <gtest/gtest.h>
 
+#include <aerial_autonomy/common/conversions.h>
 #include <aerial_autonomy/controller_hardware_connectors/relative_pose_visual_servoing_controller_drone_connector.h>
 #include <aerial_autonomy/controllers/velocity_based_relative_pose_controller.h>
 #include <aerial_autonomy/tests/test_utils.h>
@@ -83,8 +84,9 @@ TEST_F(RelativePoseVisualServoingControllerDroneConnectorTests,
   drone_hardware_.setBatteryPercent(60);
   drone_hardware_.takeoff();
   // Set goal
-  tf::Transform goal_relative_pose(tf::createQuaternionFromRPY(0, 0, 0.5),
-                                   tf::Vector3(1, 0, 0));
+  PositionYaw goal_relative_pose(1, 0, 0, 0.5);
+  tf::Transform goal_relative_pose_tf;
+  conversions::positionYawToTf(goal_relative_pose, goal_relative_pose_tf);
   visual_servoing_connector_->setGoal(goal_relative_pose);
   // Run controller until inactive
   while (visual_servoing_connector_->getStatus() == ControllerStatus::Active) {
@@ -99,7 +101,7 @@ TEST_F(RelativePoseVisualServoingControllerDroneConnectorTests,
                                   sensor_data.rpydata.z),
       tf::Vector3(sensor_data.localpos.x, sensor_data.localpos.y,
                   sensor_data.localpos.z));
-  ASSERT_TF_NEAR(quad_transform, tracked_pose * goal_relative_pose,
+  ASSERT_TF_NEAR(quad_transform, tracked_pose * goal_relative_pose_tf,
                  goal_tolerance_yaw_);
   ASSERT_EQ(visual_servoing_connector_->getStatus(),
             ControllerStatus::Completed);
