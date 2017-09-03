@@ -22,6 +22,13 @@ uav_system_config {
       z: 0.05
     }
   }
+  velocity_controller_config {
+    goal_velocity_tolerance {
+      vx: 0.1
+      vy: 0.1
+      vz: 0.1
+    }
+  }
   uav_vision_system_config {
     tracker_type: "Alvar"
 
