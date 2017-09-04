@@ -14,8 +14,8 @@ public:
   * @param tracking_vectors The vectors to the tracked targets
   * @return Always returns true
   */
-  virtual bool
-  initialize(const std::unordered_map<uint32_t, Position> &tracking_vectors);
+  virtual bool initialize(
+      const std::unordered_map<uint32_t, tf::Transform> &tracking_vectors);
   /**
   * @brief Get the first tracking vector
   * @param tracking_vectors The vectors to the tracked targets
@@ -23,6 +23,6 @@ public:
   * @return True if successful, false otherwise
   */
   virtual bool getTrackingVector(
-      const std::unordered_map<uint32_t, Position> &tracking_vectors,
-      std::tuple<uint32_t, Position> &tracking_vector);
+      const std::unordered_map<uint32_t, tf::Transform> &tracking_vectors,
+      std::tuple<uint32_t, tf::Transform> &tracking_vector);
 };

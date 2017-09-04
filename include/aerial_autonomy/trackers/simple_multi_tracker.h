@@ -18,7 +18,8 @@ public:
    * @param pos Returned list of tracking vectors
    * @return True if successful, false otherwise
    */
-  virtual bool getTrackingVectors(std::unordered_map<uint32_t, Position> &pos);
+  virtual bool
+  getTrackingVectors(std::unordered_map<uint32_t, tf::Transform> &pos);
   /**
   * @brief Check whether tracking is valid
   * @return True if the tracking is valid, false otherwise
@@ -29,11 +30,12 @@ public:
   * @brief Set the tracking vectors returned by the tracker
   * @param pos The tracking vectors to set
   */
-  void setTrackingVectors(const std::unordered_map<uint32_t, Position> &pos);
+  void
+  setTrackingVectors(const std::unordered_map<uint32_t, tf::Transform> &pos);
 
 private:
   /**
   * @brief Tracking vectors to return
   */
-  std::unordered_map<uint32_t, Position> tracking_vectors_;
+  std::unordered_map<uint32_t, tf::Transform> tracking_vectors_;
 };

@@ -1,12 +1,14 @@
 #pragma once
 #include <boost/filesystem.hpp>
 #include <chrono>
+#include <fstream>
 #include <functional>
 #include <gtest/gtest.h>
 #include <parsernode/common.h>
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 #include <tf/transform_datatypes.h>
+#include <thread>
 
 #include "aerial_autonomy/types/position_yaw.h"
 
@@ -65,6 +67,14 @@ void verifyFileData<std::string>(std::vector<std::vector<std::string>> log,
     ASSERT_EQ(data[i], data_point.substr(last));
   }
   ASSERT_FALSE(std::getline(data_file, data_point));
+}
+
+void ASSERT_TF_NEAR(const tf::Transform &tf1, const tf::Transform &tf2) {
+  ASSERT_NEAR(tf1.getOrigin().x(), tf2.getOrigin().x(), 1e-8);
+  ASSERT_NEAR(tf1.getOrigin().y(), tf2.getOrigin().y(), 1e-8);
+  ASSERT_NEAR(tf1.getOrigin().z(), tf2.getOrigin().z(), 1e-8);
+  ASSERT_NEAR((tf1.getRotation().inverse() * tf2.getRotation()).getAngle(), 0.,
+              1e-8);
 }
 
 /**
