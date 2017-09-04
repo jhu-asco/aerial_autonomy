@@ -10,7 +10,16 @@
 * INVALID : Set if sensor data diverges from uav data
 * for a prolonged period
 */
-enum class SensorStatus { INVALID = 0, VALID = 1 };
+enum class SensorStatus { INVALID, VALID };
+/**
+* @brief convert sensor status to bool
+*/
+bool sensor_status_to_bool(SensorStatus status) {
+  if (status == SensorStatus::INVALID)
+    return false;
+  else
+    return true;
+}
 /**
 * @brief Base class for sensors
 *

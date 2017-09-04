@@ -16,7 +16,9 @@ message VelocitySensorConfig {
   */
   optional double bad_data_timeout = 4 [default = 0.5];
   /**
-  * @brief minimum timestep in seconds 
+  * @brief minimum allowed time difference (in seconds) 
+  * between 2 consecutive msgs.
+  * timestep is set to this value if it is lower than this value
   */
   optional double min_timestep = 5 [default = 0.02];
 }
