@@ -35,7 +35,8 @@ public:
   virtual ~RelativePoseVisualServoingControllerDroneConnector() {}
 
   /**
-   * @brief Get the tracking pose of the tracker in the rotation-compensated
+   * @brief Get the rotation-compensated tracking pose of the tracker in the
+   * rotation-compensated
    * frame of the quadrotor
    * @param tracking_vector Returned tracking pose
    * @return True if successful and false otherwise

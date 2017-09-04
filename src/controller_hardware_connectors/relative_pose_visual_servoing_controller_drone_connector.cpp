@@ -39,6 +39,10 @@ bool RelativePoseVisualServoingControllerDroneConnector::
   // Convert from camera frame to global frame
   tracking_transform =
       getBodyFrameRotation() * camera_transform_ * object_pose_cam;
+  // Remove roll and pitch components of tracked frame
+  double roll, pitch, yaw;
+  tracking_transform.getBasis().getRPY(roll, pitch, yaw);
+  tracking_transform.getBasis().setRPY(0, 0, yaw);
   return true;
 }
 
