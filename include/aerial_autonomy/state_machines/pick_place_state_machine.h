@@ -133,6 +133,9 @@ public:
             msmf::Row<psa::Hovering, PositionYaw, psa::ReachingGoal,
                       psa::ReachingGoalSet, psa::ReachingGoalGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::Hovering, VelocityYaw, psa::ExecutingVelocityGoal,
+                      psa::SetVelocityGoal, psa::GuardVelocityGoal>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Hovering, pe::Pick, psa::PrePickState,
                       psa::PrePickTransitionAction, psa::PickTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
@@ -159,6 +162,16 @@ public:
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ReachingGoal, be::Land, psa::ArmPreLandingFolding,
                       psa::ArmFold, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::ExecutingVelocityGoal, VelocityYaw,
+                      psa::ExecutingVelocityGoal, psa::SetVelocityGoal,
+                      psa::GuardVelocityGoal>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::ExecutingVelocityGoal, be::Land,
+                      psa::ArmPreLandingFolding, psa::ArmFold, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::ExecutingVelocityGoal, be::Abort, psa::Hovering,
+                      psa::AbortUAVControllerArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PrePickState, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
@@ -197,9 +210,10 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 10> state_names = {
-    "Landed",       "ArmPreTakeoffFolding", "Takingoff",    "Hovering",
-    "PrePickState", "ArmPreLandingFolding", "ReachingGoal", "PickState",
+static constexpr std::array<const char *, 11> state_names = {
+    "Landed",       "ArmPreTakeoffFolding",  "Takingoff",
+    "Hovering",     "PrePickState",          "ArmPreLandingFolding",
+    "ReachingGoal", "ExecutingVelocityGoal", "PickState",
     "Landing",      "ManualControlArmState"};
 /**
 * @brief Get current state name
