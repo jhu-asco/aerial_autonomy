@@ -64,6 +64,27 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
   ASSERT_NEAR(sensor_data.linvel.z, -0.015, 1e-3);
 }
 
+TEST(JoystickVelocityControllerDroneConnector, SensorCritical) {
+  double dt = 0.02;
+  Atomic<RPYTBasedVelocityControllerConfig> rpyt_config;
+  JoystickVelocityControllerConfig joystick_config;
+  QuadSimulator drone_hardware;
+  JoystickVelocityController controller(rpyt_config, joystick_config, dt);
+  Sensor<VelocityYaw> velocity_sensor;
+
+  // Set stick commands
+  int16_t channels[4] = {150, 100, -150, 0};
+  drone_hardware.setRC(channels);
+
+  JoystickVelocityControllerDroneConnector connector(drone_hardware, controller,
+                                                     velocity_sensor);
+
+  connector.setGoal(EmptyGoal());
+  connector.run();
+
+  ASSERT_EQ(connector.getStatus(), ControllerStatus::Critical);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

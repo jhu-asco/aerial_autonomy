@@ -22,7 +22,7 @@ public:
   /**
   * @brief Constructor
   */
-  Sensor() {}
+  Sensor() : sensor_status_(SensorStatus::INVALID) {}
   /**
   * @brief gets the latest sensor data
   */
