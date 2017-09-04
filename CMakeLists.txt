@@ -235,6 +235,7 @@ add_executable(uav_system_node src/system_handler_nodes/uav_system_node.cpp)
 add_executable(uav_vision_system_node src/system_handler_nodes/uav_vision_system_node.cpp)
 add_executable(uav_arm_system_node src/system_handler_nodes/uav_arm_system_node.cpp)
 add_executable(event_publish_node src/tests/event_publish_node.cpp)
+add_dependencies(event_publish_node ${PROJECT_NAME}_generate_messages_cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
