@@ -349,6 +349,7 @@ catkin_add_gtest(${PROJECT_NAME}-data-stream-test tests/log/data_stream_tests.cp
 catkin_add_gtest(${PROJECT_NAME}-log-test tests/log/log_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-string-utils-test tests/common/string_utils_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-proto-utils-test tests/common/proto_utils_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-velocity-sensor-test tests/sensors/velocity_sensor_tests.test tests/sensors/velocity_sensor_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
@@ -481,7 +482,9 @@ endif()
 if(TARGET ${PROJECT_NAME}-proto-utils-test)
   target_link_libraries(${PROJECT_NAME}-proto-utils-test aerial_autonomy)
 endif()
-
+if(TARGET ${PROJECT_NAME}-velocity-sensor-test)
+  target_link_libraries(${PROJECT_NAME}-velocity-sensor-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)

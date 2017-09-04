@@ -1,6 +1,7 @@
 #pragma once
 #include "aerial_autonomy/sensors/base_sensor.h"
 #include "aerial_autonomy/types/position_yaw.h"
+#include "aerial_autonomy/types/velocity_yaw.h"
 #include "velocity_sensor_config.pb.h"
 #include <aerial_autonomy/common/math.h>
 #include <geometry_msgs/PoseStamped.h>
@@ -35,8 +36,7 @@ public:
     tf::Vector3 quad_intial_pos =
         tf::Vector3(data.localpos.x, data.localpos.y, data.localpos.z);
     tf::Quaternion quad_intial_rot = tf::createQuaternionFromRPY(
-        data.rpydata.r, data.rpydata.p, data.rpydata.y);
-
+        data.rpydata.x, data.rpydata.y, data.rpydata.z);
     quad_intial_tf.setOrigin(quad_intial_pos);
     quad_intial_tf.setRotation(quad_intial_rot);
   }
@@ -81,9 +81,9 @@ private:
           dt = config_.min_timestep();
 
         VelocityYaw vel_sensor_data;
-        vel_sensor_data.x = (global_pos[0] - last_pos.x) / dt;
-        vel_sensor_data.y = (global_pos[1] - last_pos.y) / dt;
-        vel_sensor_data.z = (global_pos[2] - last_pos.z) / dt;
+        vel_sensor_data.x = (global_pos[0] - last_pos[0]) / dt;
+        vel_sensor_data.y = (global_pos[1] - last_pos[1]) / dt;
+        vel_sensor_data.z = (global_pos[2] - last_pos[2]) / dt;
 
         last_pos = global_pos;
         vel_sensor_data.yaw = tf::getYaw(global_q);

@@ -18,4 +18,5 @@ message VelocitySensorConfig {
   /**
   * @brief minimum timestep in seconds 
   */
+  optional double min_timestep = 5 [default = 0.02];
 }
