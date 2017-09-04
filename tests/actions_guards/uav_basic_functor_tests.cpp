@@ -445,6 +445,8 @@ TEST(VelocityControlFunctorTests, AbortActionTest) {
   uav_system.setGoal<BuiltInVelocityControllerDroneConnector>(goal);
   uav_control_abort_action_functor(be::Abort(), sample_logic_state_machine,
                                    dummy_start_state, dummy_target_state);
+  ASSERT_EQ(uav_system.getActiveControllerStatus(HardwareType::UAV),
+            ControllerStatus::NotEngaged);
   // Since the controller is aborted, will not run the controller
   uav_system.runActiveController(HardwareType::UAV);
   parsernode::common::quaddata data = uav_system.getUAVData();

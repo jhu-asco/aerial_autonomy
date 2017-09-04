@@ -35,13 +35,12 @@ template <class LogicStateMachineT>
 struct VelocityControlTransitionGuardFunctor_
     : GuardFunctor<VelocityYaw, UAVSystem, LogicStateMachineT> {
   bool guard(const VelocityYaw &goal, UAVSystem &robot_system) {
-    parsernode::common::quaddata data = robot_system.getUAVData();
     const double &tolerance_vel =
         robot_system.getConfiguration().max_goal_velocity();
     bool result = true;
     if (std::abs(goal.x) > tolerance_vel || std::abs(goal.y) > tolerance_vel ||
         std::abs(goal.z) > tolerance_vel) {
-      LOG(WARNING) << "Goal not within velocity tolerance alon x or y or z";
+      LOG(WARNING) << "Goal not within velocity tolerance along x or y or z";
       result = false;
     }
     return result;
