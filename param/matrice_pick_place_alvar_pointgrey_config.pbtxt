@@ -33,13 +33,13 @@ uav_system_config {
     camera_transform: 0
     camera_transform: 1.5794
 
-    desired_visual_servoing_distance: 0.5
+    desired_visual_servoing_distance: 0.45
     constant_heading_depth_controller_config {
-      radial_gain: 0.3
-      tangential_gain: 1.0
+      radial_gain: 0.6
+      tangential_gain: 1.3
       yaw_gain: 0.3
-      max_velocity: 1
-      min_velocity: 0.2
+      max_velocity: 0.2
+      min_velocity: 0.0
       max_yaw_rate: 0.3
       position_controller_config {
         goal_position_tolerance {

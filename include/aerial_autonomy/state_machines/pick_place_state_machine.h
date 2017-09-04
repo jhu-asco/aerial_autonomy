@@ -209,7 +209,7 @@ static constexpr std::array<const char *, 11> state_names = {
     "ArmPreTakeoffFolding",
     "Takingoff",
     "Hovering",
-    "Hovering",
+    "VisualServoing",
     "PrePickState",
     "ArmPreLandingFolding",
     "ReachingGoal",
