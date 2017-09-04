@@ -132,7 +132,7 @@ class EventTransmissionGUI(Plugin):
         ## Labels vx,vy,vz,yaw as an array
         self.velocity_command_labels = []
         self._additional_commands_layout.addWidget(
-            QLabel('velocity Command (m/s), Yaw (deg)'))
+            QLabel('Velocity Command (m/s), Yaw (deg)'))
         for i in range(3):
             self.velocity_sliders.append(
                 self.createSlider(-20.0, 20.0, 0.0, 1.0))
@@ -147,11 +147,11 @@ class EventTransmissionGUI(Plugin):
         ## Velocity command layout
         self.velocity_command_layout = QGridLayout()
         self.velocity_command_container.setLayout(self.velocity_command_layout)
-        for i in range(3):
+        for i, axis_label in enumerate(['x', 'y', 'z']):
             # label to display velocity command from rviz to user
             self.velocity_command_labels.append(
                 QLabel("v{0}: {1:.2f}".format(
-                    i, self.velocity_sliders[i].value() / 10.0)))
+                    axis_label, self.velocity_sliders[i].value() / 10.0)))
             self.velocity_sliders[i].valueChanged.connect(
                 partial(self.updateLabel,
                         header="v"+str(i),
@@ -180,6 +180,7 @@ class EventTransmissionGUI(Plugin):
             self.send_velocity_command_button, 0, 4)
         self._additional_commands_layout.addWidget(
             self.velocity_command_container)
+        self._additional_commands_layout.addStretch()
 
         self._container.addTab(self._status_tab, "StatusBasicCommands")
         self._container.addTab(
