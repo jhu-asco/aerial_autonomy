@@ -169,6 +169,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/uav_system_handler_config.proto
   proto/uav_arm_system_handler_config.proto
   proto/velocity_based_position_controller_config.proto
+  proto/velocity_based_relative_pose_controller_config.proto
   proto/constant_heading_depth_controller_config.proto
   proto/position_controller_config.proto
   proto/pose_controller_config.proto
@@ -215,7 +216,9 @@ add_library(aerial_autonomy
   src/controllers/velocity_based_position_controller.cpp
   src/controllers/constant_heading_depth_controller.cpp
   src/controllers/relative_pose_controller.cpp
+  src/controllers/velocity_based_relative_pose_controller.cpp
   src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp
+  src/controller_hardware_connectors/relative_pose_visual_servoing_controller_drone_connector.cpp
   src/controller_hardware_connectors/visual_servoing_controller_arm_connector.cpp
   src/controller_hardware_connectors/position_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
@@ -329,17 +332,20 @@ catkin_add_gtest(${PROJECT_NAME}-thread-safe-state-machine-test tests/common/thr
 catkin_add_gtest(${PROJECT_NAME}-iterable-enum-test tests/common/iterable_enum_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-velocity-based-position-controller-test tests/controllers/velocity_based_position_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-controller-test tests/controllers/relative_pose_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-velocity-based-relative-pose-controller-test tests/controllers/velocity_based_relative_pose_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-constant-heading-depth-controller-test tests/controllers/constant_heading_depth_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-math-test tests/common/math_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-tracker-test tests/trackers/simple_tracker_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-multi-tracker-test tests/trackers/simple_multi_tracker_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-roi-to-position-converter-test tests/trackers/roi_to_position_converter_tests.test tests/trackers/roi_to_position_converter_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-alvar-tracker-test tests/trackers/alvar_tracker_tests.test tests/trackers/alvar_tracker_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test tests/controller_hardware_connectors/relative_pose_visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-drone-connector-test tests/controller_hardware_connectors/visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-arm-connector-test tests/controller_hardware_connectors/visual_servoing_arm_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-data-stream-test tests/log/data_stream_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-log-test tests/log/log_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-string-utils-test tests/common/string_utils_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-conversions-test tests/common/conversions_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-proto-utils-test tests/common/proto_utils_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
@@ -431,8 +437,14 @@ endif()
 if(TARGET ${PROJECT_NAME}-relative-pose-controller-test)
   target_link_libraries(${PROJECT_NAME}-relative-pose-controller-test aerial_autonomy)
 endif()
+if(TARGET ${PROJECT_NAME}-velocity-based-relative-pose-controller-test)
+  target_link_libraries(${PROJECT_NAME}-velocity-based-relative-pose-controller-test aerial_autonomy)
+endif()
 if(TARGET ${PROJECT_NAME}-constant-heading-depth-controller-test)
   target_link_libraries(${PROJECT_NAME}-constant-heading-depth-controller-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test)
+  target_link_libraries(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
 if(TARGET ${PROJECT_NAME}-visual-servoing-drone-connector-test)
   target_link_libraries(${PROJECT_NAME}-visual-servoing-drone-connector-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
@@ -466,6 +478,9 @@ if(TARGET ${PROJECT_NAME}-string-utils-test)
 endif()
 if(TARGET ${PROJECT_NAME}-proto-utils-test)
   target_link_libraries(${PROJECT_NAME}-proto-utils-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-conversions-test)
+  target_link_libraries(${PROJECT_NAME}-conversions-test aerial_autonomy)
 endif()
 
 
