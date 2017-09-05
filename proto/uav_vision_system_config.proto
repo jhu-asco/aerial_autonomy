@@ -1,5 +1,6 @@
 syntax = "proto2";
 
+import "position_yaw.proto";
 import "constant_heading_depth_controller_config.proto";
 import "velocity_based_relative_pose_controller_config.proto";
 import "uav_arm_system_config.proto";
@@ -18,6 +19,11 @@ message UAVVisionSystemConfig {
   * @brief Desired distance to tracked position in meters
   */
   required double desired_visual_servoing_distance = 2 [ default = 3.0 ];
+
+  /**
+  * @brief Relative pose goals for relative pose visual servoing controller
+  */
+  repeated config.PositionYaw relative_pose_goals = 5;
 
   /**
   * @brief Camera transform in the frame of the UAV (assuming NWU).  Specified

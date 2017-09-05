@@ -16,17 +16,36 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
   */
   using VisualServoing = VisualServoing_<LogicStateMachineT>;
 
+  /**
+  * @brief State when reaching a relative pose visual servoing goal
+  */
+  using RelativePoseVisualServoing =
+      RelativePoseVisualServoing_<LogicStateMachineT>;
+
   // Basic transition Actions
   /**
   * @brief Action to take when starting visual servoing
   */
   using VisualServoingTransitionAction =
       VisualServoingTransitionActionFunctor_<LogicStateMachineT>;
+
+  /**
+  * @brief Action to take when starting relative pose visual servoing
+  */
+  using RelativePoseVisualServoingTransitionAction =
+      RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT, 0>;
+
   /**
   * @brief Check whether visual servoing is feasible currently
   */
   using VisualServoingTransitionGuard =
       VisualServoingTransitionGuardFunctor_<LogicStateMachineT>;
+
+  /**
+  * @brief Check whether relative pose visual servoing is feasible currently
+  */
+  using RelativePoseVisualServoingTransitionGuard =
+      RelativePoseVisualServoingTransitionGuardFunctor_<LogicStateMachineT>;
 
   /**
   * @brief Send the UAV back to home position

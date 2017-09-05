@@ -1,6 +1,6 @@
 #include "aerial_autonomy/controllers/velocity_based_relative_pose_controller.h"
-#include "aerial_autonomy/tests/test_utils.h"
 #include "aerial_autonomy/common/conversions.h"
+#include "aerial_autonomy/tests/test_utils.h"
 
 #include <gtest/gtest.h>
 

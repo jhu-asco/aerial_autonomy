@@ -1,4 +1,5 @@
 #pragma once
+#include "aerial_autonomy/common/conversions.h"
 #include "aerial_autonomy/common/html_utils.h"
 #include "aerial_autonomy/common/math.h"
 #include "aerial_autonomy/controller_hardware_connectors/relative_pose_visual_servoing_controller_drone_connector.h"
@@ -26,6 +27,8 @@ public:
       : UAVSystem(drone_hardware, config),
         camera_transform_(math::getTransformFromVector(
             config_.uav_vision_system_config().camera_transform())),
+        relative_pose_goals_(conversions::protoPositionYawsToPositionYaws(
+            config_.uav_vision_system_config().relative_pose_goals())),
         tracker_(tracker), constant_heading_depth_controller_(
                                config_.uav_vision_system_config()
                                    .constant_heading_depth_controller_config()),
@@ -91,11 +94,18 @@ public:
     return status.str();
   }
 
+  PositionYaw relativePoseGoal(int i) { return relative_pose_goals_.at(i); }
+
 protected:
   /**
   * @brief Camera transform in the frame of the UAV
   */
   tf::Transform camera_transform_;
+
+  /**
+  * @brief UAV transforms in the frame of the tracked object
+  */
+  std::vector<PositionYaw> relative_pose_goals_;
 
 private:
   BaseTracker &tracker_;
