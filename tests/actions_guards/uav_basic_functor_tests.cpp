@@ -35,6 +35,9 @@ using TakeoffInternalActionFunctor =
 // PositionControl
 using PositionControlInternalActionFunctor =
     PositionControlInternalActionFunctor_<UAVLogicStateMachine>;
+// VelocityControl
+using VelocityControlInternalActionFunctor =
+    VelocityControlInternalActionFunctor_<UAVLogicStateMachine>;
 // ManualControl
 using ManualControlInternalActionFunctor =
     ManualControlInternalActionFunctor_<UAVLogicStateMachine>;
@@ -389,6 +392,130 @@ TEST(ManualControlFunctorTests, LeaveManualMode) {
   // Check Land event is triggered
   ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(be::Land)));
+}
+///
+/// \brief Velocity Control tests
+TEST(VelocityControlFunctorTests, Constructor) {
+  ASSERT_NO_THROW(new VelocityControlInternalActionFunctor());
+  ASSERT_NO_THROW(new bsa::SetVelocityGoal());
+  ASSERT_NO_THROW(new bsa::GuardVelocityGoal());
+}
+
+TEST(VelocityControlFunctorTests, TransitionActionTest) {
+  QuadSimulator drone_hardware;
+  drone_hardware.takeoff();
+  UAVSystemConfig config;
+  auto velocity_tolerance = config.mutable_velocity_controller_config()
+                                ->mutable_goal_velocity_tolerance();
+  velocity_tolerance->set_vx(0.1);
+  velocity_tolerance->set_vy(0.1);
+  velocity_tolerance->set_vz(0.1);
+  UAVSystem uav_system(drone_hardware, config);
+  UAVLogicStateMachine sample_logic_state_machine(uav_system);
+  int dummy_start_state, dummy_target_state;
+  bsa::SetVelocityGoal velocity_control_transition_action_functor;
+  VelocityYaw goal(1, 1, 1, 1);
+  velocity_control_transition_action_functor(
+      goal, sample_logic_state_machine, dummy_start_state, dummy_target_state);
+  ASSERT_EQ(uav_system.getStatus<BuiltInVelocityControllerDroneConnector>(),
+            ControllerStatus::Active);
+  VelocityYaw resulting_goal =
+      uav_system
+          .getGoal<BuiltInVelocityControllerDroneConnector, VelocityYaw>();
+  ASSERT_EQ(goal, resulting_goal);
+  uav_system.runActiveController(HardwareType::UAV);
+  ASSERT_EQ(uav_system.getStatus<BuiltInVelocityControllerDroneConnector>(),
+            ControllerStatus::Active);
+  parsernode::common::quaddata data = uav_system.getUAVData();
+  VelocityYaw data_velocity_yaw(data.linvel.x, data.linvel.y, data.linvel.z,
+                                data.rpydata.z);
+  ASSERT_EQ(data_velocity_yaw, goal);
+  uav_system.runActiveController(HardwareType::UAV);
+  ASSERT_EQ(uav_system.getStatus<BuiltInVelocityControllerDroneConnector>(),
+            ControllerStatus::Completed);
+}
+
+TEST(VelocityControlFunctorTests, AbortActionTest) {
+  QuadSimulator drone_hardware;
+  UAVSystem uav_system(drone_hardware);
+  UAVLogicStateMachine sample_logic_state_machine(uav_system);
+  int dummy_start_state, dummy_target_state;
+  bsa::UAVControllerAbort uav_control_abort_action_functor;
+  VelocityYaw goal(1, 1, 1, 1);
+  uav_system.setGoal<BuiltInVelocityControllerDroneConnector>(goal);
+  uav_control_abort_action_functor(be::Abort(), sample_logic_state_machine,
+                                   dummy_start_state, dummy_target_state);
+  ASSERT_EQ(uav_system.getActiveControllerStatus(HardwareType::UAV),
+            ControllerStatus::NotEngaged);
+  // Since the controller is aborted, will not run the controller
+  uav_system.runActiveController(HardwareType::UAV);
+  parsernode::common::quaddata data = uav_system.getUAVData();
+  VelocityYaw data_position_yaw(data.linvel.x, data.linvel.y, data.linvel.z,
+                                data.rpydata.z);
+  ASSERT_NE(data_position_yaw, goal);
+}
+
+TEST(VelocityControlFunctorTests, TransitionGuardTest) {
+  QuadSimulator drone_hardware;
+  UAVSystemConfig config;
+  config.set_max_goal_velocity(2.0);
+  UAVSystem uav_system(drone_hardware, config);
+  UAVLogicStateMachine sample_logic_state_machine(uav_system);
+  int dummy_start_state, dummy_target_state;
+  VelocityYaw goal(1, 1, 1, 1);
+  bsa::GuardVelocityGoal velocity_control_transition_guard_functor;
+  bool result = velocity_control_transition_guard_functor(
+      goal, sample_logic_state_machine, dummy_start_state, dummy_target_state);
+  ASSERT_TRUE(result);
+  goal = VelocityYaw(1, 1, 2.1, 1);
+  result = velocity_control_transition_guard_functor(
+      goal, sample_logic_state_machine, dummy_start_state, dummy_target_state);
+  ASSERT_FALSE(result);
+}
+
+TEST(VelocityControlFunctorTests, InternalActionTest) {
+  QuadSimulator drone_hardware;
+  drone_hardware.takeoff();
+  UAVSystemConfig config;
+  auto velocity_tolerance = config.mutable_velocity_controller_config()
+                                ->mutable_goal_velocity_tolerance();
+  velocity_tolerance->set_vx(0.1);
+  velocity_tolerance->set_vy(0.1);
+  velocity_tolerance->set_vz(0.1);
+  UAVSystem uav_system(drone_hardware, config);
+  UAVLogicStateMachine sample_logic_state_machine(uav_system);
+  int dummy_start_state, dummy_target_state;
+  VelocityControlInternalActionFunctor velocity_control_internal_action_functor;
+  VelocityYaw goal(1, 1, 1, 1);
+  uav_system.setGoal<BuiltInVelocityControllerDroneConnector>(goal);
+  velocity_control_internal_action_functor(
+      InternalTransitionEvent(), sample_logic_state_machine, dummy_start_state,
+      dummy_target_state);
+  ASSERT_NE(sample_logic_state_machine.getProcessEventTypeId(),
+            std::type_index(typeid(Completed)));
+  // After running the active controller once updates quad state
+  uav_system.runActiveController(HardwareType::UAV);
+  // Second time updates controller status
+  uav_system.runActiveController(HardwareType::UAV);
+  velocity_control_internal_action_functor(
+      InternalTransitionEvent(), sample_logic_state_machine, dummy_start_state,
+      dummy_target_state);
+  // Even when the controller is completed, the state will not abort
+  ASSERT_NE(sample_logic_state_machine.getProcessEventTypeId(),
+            std::type_index(typeid(Completed)));
+}
+TEST(VelocityControlFunctorTests, ManualControlInternalActionTest) {
+  QuadSimulator drone_hardware;
+  drone_hardware.flowControl(false);
+  UAVSystem uav_system(drone_hardware);
+  UAVLogicStateMachine sample_logic_state_machine(uav_system);
+  int dummy_event, dummy_start_state, dummy_target_state;
+  VelocityControlInternalActionFunctor velocity_control_internal_action_functor;
+  velocity_control_internal_action_functor(
+      dummy_event, sample_logic_state_machine, dummy_start_state,
+      dummy_target_state);
+  ASSERT_EQ(sample_logic_state_machine.getProcessEventTypeId(),
+            std::type_index(typeid(be::Abort)));
 }
 ///
 

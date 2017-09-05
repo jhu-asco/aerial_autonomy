@@ -46,4 +46,10 @@ message UAVSystemConfig {
   * subclasses of UAVSystemConfig
   */
   oneof subclass { UAVVisionSystemConfig uav_vision_system_config = 8; }
+
+  /**
+  * @brief Sets the max velocity the velocity controller can track
+  * along x, y, z axis.
+  */
+  optional double max_goal_velocity = 9 [ default = 2.0 ];
 }
