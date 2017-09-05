@@ -31,8 +31,8 @@ DataStream &Log::operator[](std::string id) {
   if (stream == streams_.end()) {
     // \todo Matt Find a better way to deal with this...
     // Return a disabled stream if stream does not exist
-    LOG(WARNING) << "DataStream with id \"" << id
-                 << "\" does not exist! Returning disabled stream";
+    LOG_EVERY_N(WARNING, 20) << "DataStream with id \"" << id
+                             << "\" does not exist! Returning disabled stream";
     std::string empty_name("empty");
     auto empty_stream = streams_.find(empty_name);
     if (empty_stream == streams_.end()) {

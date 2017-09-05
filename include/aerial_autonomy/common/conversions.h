@@ -1,5 +1,6 @@
 #pragma once
 
+#include "aerial_autonomy/types/position_yaw.h"
 #include <tf_conversions/tf_eigen.h>
 
 namespace conversions {
@@ -19,4 +20,11 @@ void transformMatrix4dToTf(const Eigen::Matrix4d &e, tf::Transform &tf);
  * @param tf Output tf::Transform
  */
 void transformRPYToTf(double r, double p, double y, tf::Transform &tf);
+
+/**
+ * @brief Convert PositionYaw to tf::Transform
+ * @param p PositionYaw to convert
+ * @param tf The equivalent tf::Transform
+ */
+void positionYawToTf(const PositionYaw &p, tf::Transform &tf);
 }

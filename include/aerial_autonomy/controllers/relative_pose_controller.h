@@ -1,6 +1,5 @@
 #pragma once
 #include "aerial_autonomy/controllers/base_controller.h"
-#include "aerial_autonomy/types/position.h"
 #include "pose_controller_config.pb.h"
 
 #include <tuple>
