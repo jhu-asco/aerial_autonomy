@@ -47,8 +47,8 @@ public:
     simple_tracker_->setTargetPoseGlobalFrame(tracked_pose);
     double roll, pitch, yaw;
     tracked_pose.getBasis().getRPY(roll, pitch, yaw);
-    tf::Transform rot_comp_tracked_pose = tracked_pose;
-    rot_comp_tracked_pose.getBasis().setRPY(0, 0, yaw);
+    tf::Transform gravity_aligned_tracked_pose = tracked_pose;
+    gravity_aligned_tracked_pose.getBasis().setRPY(0, 0, yaw);
     // Fly quadrotor which sets the altitude to 0.5
     drone_hardware_.setBatteryPercent(60);
     drone_hardware_.takeoff();
@@ -70,7 +70,7 @@ public:
         tf::Vector3(sensor_data.localpos.x, sensor_data.localpos.y,
                     sensor_data.localpos.z));
     ASSERT_TF_NEAR(quad_transform,
-                   rot_comp_tracked_pose * goal_relative_pose_tf,
+                   gravity_aligned_tracked_pose * goal_relative_pose_tf,
                    goal_tolerance_yaw_);
     ASSERT_EQ(visual_servoing_connector_->getStatus(),
               ControllerStatus::Completed);
