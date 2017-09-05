@@ -59,16 +59,16 @@ uav_system_config {
       }
     }
     uav_arm_system_config {
-      arm_goal_transform: -0.10
       arm_goal_transform: 0.0
-      arm_goal_transform: -0.05
+      arm_goal_transform: -0.11
+      arm_goal_transform: 0.1
       arm_goal_transform: 0.0
       arm_goal_transform: 0.0
       arm_goal_transform: 0.0
 
       arm_goal_transform: -0.0
-      arm_goal_transform: 0.0
-      arm_goal_transform: -0.05
+      arm_goal_transform: -0.11
+      arm_goal_transform: -0.02
       arm_goal_transform: 0.0
       arm_goal_transform: 0.0
       arm_goal_transform: 0.0
