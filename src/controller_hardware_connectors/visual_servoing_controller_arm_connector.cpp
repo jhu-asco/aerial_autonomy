@@ -29,34 +29,23 @@ void VisualServoingControllerArmConnector::sendHardwareCommands(
 
 bool VisualServoingControllerArmConnector::getTrackingPoseArmFrame(
     tf::Transform &tracking_pose) {
-  Position object_position_cam;
-  if (!tracker_.getTrackingVector(object_position_cam)) {
+  tf::Transform object_pose_cam;
+  if (!tracker_.getTrackingVector(object_pose_cam)) {
     return false;
   }
-
-  // Get drone orientation
-  parsernode::common::quaddata quad_data;
-  drone_hardware_.getquaddata(quad_data);
-  tf::Transform body_rotation;
-  conversions::transformRPYToTf(quad_data.rpydata.x, quad_data.rpydata.y,
-                                quad_data.rpydata.z, body_rotation);
-
-  // Compute object transform in drone frame
-  tf::Transform object_rotation_global_frame;
-  // Since rotation is ambiguous for 2D tracker, assume gravity aligned frame
-  // with same yaw as drone
-  conversions::transformRPYToTf(0, 0, quad_data.rpydata.z,
-                                object_rotation_global_frame);
-  tf::Transform object_rotation_body_frame =
-      body_rotation.inverse() * object_rotation_global_frame;
-
-  tf::Vector3 object_direction_cam(object_position_cam.x, object_position_cam.y,
-                                   object_position_cam.z);
-  tf::Vector3 object_position_body_frame =
-      camera_transform_ * object_direction_cam;
-
-  tf::Transform object_tf_body_frame(object_rotation_body_frame.getRotation(),
-                                     object_position_body_frame);
+  /**
+  * \todo Matt
+  *
+  *  This will break RoiToPositionConverter since the object rotation will
+  * always be identity.
+  *  The Proper way to do this will require two types of trackers: 1. Position
+  * tracker, 2. Pose tracker.
+  *  We can have two different versions of the connector (one for each tracker
+  * type) subclassed from a common base.
+  *  The subclasses will override this function
+  */
+  // Compute object transform in quad frame
+  tf::Transform object_tf_body_frame = camera_transform_ * object_pose_cam;
 
   // Compute object transform in arm frame
   tracking_pose = arm_transform_.inverse() * object_tf_body_frame;

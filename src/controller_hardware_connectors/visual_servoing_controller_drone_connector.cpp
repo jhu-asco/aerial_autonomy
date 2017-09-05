@@ -1,4 +1,5 @@
 #include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h"
+#include "aerial_autonomy/log/log.h"
 
 bool VisualServoingControllerDroneConnector::extractSensorData(
     PositionYaw &sensor_data) {
@@ -9,6 +10,11 @@ bool VisualServoingControllerDroneConnector::extractSensorData(
     VLOG(1) << "Cannot Find tracking vector of ROI";
     return false;
   }
+  DATA_LOG("visual_servoing_controller_drone_connector")
+      << quad_data.linvel.x << quad_data.linvel.y << quad_data.linvel.z
+      << quad_data.rpydata.x << quad_data.rpydata.y << quad_data.rpydata.z
+      << quad_data.omega.x << quad_data.omega.y << quad_data.omega.z
+      << DataStream::endl;
   sensor_data = PositionYaw(tracking_vector, quad_data.rpydata.z);
   return true;
 }
@@ -24,12 +30,11 @@ void VisualServoingControllerDroneConnector::sendHardwareCommands(
 
 bool VisualServoingControllerDroneConnector::getTrackingVectorGlobalFrame(
     Position &tracking_vector) {
-  Position object_position_cam;
-  if (!tracker_.getTrackingVector(object_position_cam)) {
+  tf::Transform object_pose_cam;
+  if (!tracker_.getTrackingVector(object_pose_cam)) {
     return false;
   }
-  tf::Vector3 object_direction_cam(object_position_cam.x, object_position_cam.y,
-                                   object_position_cam.z);
+  tf::Vector3 object_direction_cam = object_pose_cam.getOrigin();
   // Convert from camera frame to global frame
   tf::Vector3 tracking_vector_tf =
       (getBodyFrameRotation() *

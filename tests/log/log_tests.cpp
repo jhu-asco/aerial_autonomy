@@ -99,6 +99,7 @@ TEST_F(LogTest, Write) {
 
 TEST_F(LogTest, WriteSlowRate) {
   config_.set_write_duration(1000);
+  config_.set_directory(test_path_ + "slow");
   ASSERT_NO_THROW(Log::instance().configure(config_));
   std::vector<std::vector<double>> data0 = {
       {8.8, -2.2, 3.5}, {5.6, -90.1, 4}, {3, 4, 5}};

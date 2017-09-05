@@ -48,11 +48,10 @@ void RoiToPositionConverter::depthCallback(
   roi_rect = roi_rect_;
   sensor_msgs::CameraInfo camera_info;
   camera_info = camera_info_;
-  Position object_position;
+  tf::Transform object_pose;
   computeTrackingVector(roi_rect, depth->image, camera_info,
-                        max_object_distance_, foreground_percent_,
-                        object_position);
-  object_position_ = object_position;
+                        max_object_distance_, foreground_percent_, object_pose);
+  object_pose_ = object_pose;
   /// \todo store a flag indicating a position has been computed and return
   /// false in positionIsValid if it has not
 }
@@ -76,19 +75,19 @@ bool RoiToPositionConverter::roiIsValid() {
 }
 
 bool RoiToPositionConverter::getTrackingVectors(
-    std::unordered_map<uint32_t, Position> &pos) {
+    std::unordered_map<uint32_t, tf::Transform> &pos) {
   CHECK(pos.empty()) << "Tracking vector map is not empty";
   if (!trackingIsValid()) {
     return false;
   }
-  pos[0] = object_position_;
+  pos[0] = object_pose_;
   return true;
 }
 
 void RoiToPositionConverter::computeTrackingVector(
     const sensor_msgs::RegionOfInterest &roi_rect, const cv::Mat &depth,
     const sensor_msgs::CameraInfo &camera_info, double max_distance,
-    double front_percent, Position &pos) {
+    double front_percent, tf::Transform &pos) {
   std::vector<Eigen::Vector3d> roi_position_depths;
   for (unsigned int x = roi_rect.x_offset;
        x < roi_rect.x_offset + roi_rect.width; x++) {
@@ -132,9 +131,10 @@ void RoiToPositionConverter::computeTrackingVector(
   const double &cy = camera_info.K[5];
   const double &fx = camera_info.K[0];
   const double &fy = camera_info.K[4];
-  pos.x = object_distance * (object_position_cam(0) - cx) / fx;
-  pos.y = object_distance * (object_position_cam(1) - cy) / fy;
-  pos.z = object_distance;
+  pos.setRotation(tf::Quaternion(0, 0, 0, 1));
+  pos.setOrigin(tf::Vector3(
+      object_distance * (object_position_cam(0) - cx) / fx,
+      object_distance * (object_position_cam(1) - cy) / fy, object_distance));
 }
 
 bool RoiToPositionConverter::compare(Eigen::Vector3d a, Eigen::Vector3d b) {

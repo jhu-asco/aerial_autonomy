@@ -1,6 +1,7 @@
 #pragma once
 #include "uav_vision_system_config.pb.h"
 #include <aerial_autonomy/trackers/base_tracker.h>
+#include <aerial_autonomy/types/position.h>
 #include <parsernode/parser.h>
 #include <tf/tf.h>
 
@@ -23,7 +24,8 @@ public:
    * @param pos Returned tracking vector
    * @return True if successful, false otherwise
    */
-  virtual bool getTrackingVectors(std::unordered_map<uint32_t, Position> &pos);
+  virtual bool
+  getTrackingVectors(std::unordered_map<uint32_t, tf::Transform> &pos);
   /**
   * @brief Check whether tracking is valid
   * @return True if the tracking is valid, false otherwise
@@ -37,8 +39,15 @@ public:
   void setTrackingIsValid(bool is_valid);
 
   /**
-   * @brief Set the target position in the global frame
-   * @param p Position to set
+   * @brief Set the target pose in the global frame
+   * @param p tf::Transform to set
+   */
+  void setTargetPoseGlobalFrame(tf::Transform p);
+
+  /**
+   * @brief Set the target postion in the global frame.  Sets rotation to
+   * identity.
+   * @param p tf::Transform to set
    */
   void setTargetPositionGlobalFrame(Position p);
 
@@ -51,6 +60,6 @@ public:
 private:
   parsernode::Parser &drone_hardware_; ///< UAV Hardware
   bool tracking_valid_;                ///< Flag to specify if tracking is valid
-  Position target_position_;           ///< Goal position to track
+  tf::Transform target_pose_;          ///< Goal position to track
   tf::Transform camera_transform_;     ///< Transform of camera in uav frame
 };

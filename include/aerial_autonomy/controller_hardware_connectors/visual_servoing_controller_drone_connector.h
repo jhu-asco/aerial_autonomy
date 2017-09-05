@@ -33,7 +33,7 @@ public:
   virtual ~VisualServoingControllerDroneConnector() {}
 
   /**
-   * @brief Get the tracking vector of the RoiToPositionConverter in the global
+   * @brief Get the tracking vector of the tracker in the global
    * frame
    * @param tracking_vector Returned tracking vector
    * @return True if successful and false otherwise
