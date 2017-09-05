@@ -1,6 +1,5 @@
 #pragma once
 #include "aerial_autonomy/common/math.h"
-#include "aerial_autonomy/controller_hardware_connectors/relative_pose_visual_servoing_controller_drone_connector.h"
 #include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_arm_connector.h"
 #include "aerial_autonomy/controllers/relative_pose_controller.h"
 #include "aerial_autonomy/robot_systems/arm_system.h"
@@ -37,20 +36,11 @@ public:
         relative_pose_controller_(config_.uav_vision_system_config()
                                       .uav_arm_system_config()
                                       .position_controller_config()),
-        velocity_based_relative_pose_controller_(
-            config_.uav_vision_system_config()
-                .uav_arm_system_config()
-                .velocity_based_relative_pose_controller_config()),
         visual_servoing_arm_connector_(tracker, drone_hardware, arm_hardware,
                                        relative_pose_controller_,
-                                       camera_transform_, arm_transform_),
-        relative_pose_visual_servoing_drone_connector_(
-            tracker, drone_hardware, velocity_based_relative_pose_controller_,
-            camera_transform_) {
+                                       camera_transform_, arm_transform_) {
     controller_hardware_connector_container_.setObject(
         visual_servoing_arm_connector_);
-    controller_hardware_connector_container_.setObject(
-        relative_pose_visual_servoing_drone_connector_);
   }
 
   /**
@@ -98,17 +88,7 @@ private:
   */
   RelativePoseController relative_pose_controller_;
   /**
-  * @brief Moves to a position relative to a tracked position using velocity
-  * commands
-  */
-  VelocityBasedRelativePoseController velocity_based_relative_pose_controller_;
-  /**
   * @brief Connects relative position controller to tracker and arm
   */
   VisualServoingControllerArmConnector visual_servoing_arm_connector_;
-  /**
-  * @brief Connects relative pose controller ot tracker and UAV
-  */
-  RelativePoseVisualServoingControllerDroneConnector
-      relative_pose_visual_servoing_drone_connector_;
 };

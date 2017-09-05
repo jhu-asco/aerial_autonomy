@@ -1,7 +1,6 @@
 syntax = "proto2";
 
 import "pose_controller_config.proto";
-import "velocity_based_relative_pose_controller_config.proto";
 
 message UAVArmSystemConfig {
   /**
@@ -21,11 +20,6 @@ message UAVArmSystemConfig {
   */
   optional PoseControllerConfig position_controller_config = 5;
 
-  /**
-  * @brief Config for UAV controller
-  */
-  optional VelocityBasedRelativePoseControllerConfig
-      velocity_based_relative_pose_controller_config = 6;
 
   /**
   * @brief How much time to spend gripping the object in milliseconds

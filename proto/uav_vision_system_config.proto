@@ -1,11 +1,18 @@
 syntax = "proto2";
 
 import "constant_heading_depth_controller_config.proto";
+import "velocity_based_relative_pose_controller_config.proto";
 import "uav_arm_system_config.proto";
 
 message UAVVisionSystemConfig {
   required ConstantHeadingDepthControllerConfig
       constant_heading_depth_controller_config = 1;
+
+  /**
+  * @brief Config for relative pose UAV controller
+  */
+  optional VelocityBasedRelativePoseControllerConfig
+      velocity_based_relative_pose_controller_config = 6;
 
   /**
   * @brief Desired distance to tracked position in meters
