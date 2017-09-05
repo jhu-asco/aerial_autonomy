@@ -9,6 +9,7 @@ import rospy
 import rospkg
 import os
 from std_msgs.msg import String
+from aerial_autonomy.msg import VelocityYaw
 from geometry_msgs.msg import PoseStamped
 from functools import partial
 from python_qt_binding.QtCore import QObject, pyqtSignal
@@ -44,17 +45,17 @@ class RosEventTrigger(QObject):
     Trigger events based on event name. Create event name list
     based on event file
     """
-    # Send quad sensor/state data as string
+    ## Send quad sensor/state data as string
     status_signal = pyqtSignal(str, name='systemStatus')
-    # Send pose command received from Rviz
+    ## Send pose command received from Rviz
     pose_command_signal = pyqtSignal(PoseStamped, name='poseCommand')
 
     def __init__(self, event_file_path):
-        '''
+        """
         Class that loads an event file from a parameter
         It provides method to triggerEvents using ros publisher
         This class separates the GUI part of plugin from ros interface
-        '''
+        """
         super(RosEventTrigger, self).__init__()
         # Create ros node
         if not event_file_path:
@@ -73,21 +74,22 @@ class RosEventTrigger(QObject):
         event_line_list = [event_name.strip()
                            for event_name in event_file.read().splitlines()]
         event_file.close()
-        # Define event manager name
+        ## Define event manager name
         self.event_manager_name = event_line_list[0][:-1]
 
-        # Event names used to create buttons
+        ## Event names used to create buttons
         self.event_names_list = []
-
         event_folder, event_file_name = event_file_path.rsplit('/', 1)
         parse_event_file(event_folder, event_file_name, self.event_names_list)
-
-        # Ros publisher to trigger events based on name
+        ## Ros publisher to trigger events based on name
         self.event_pub = rospy.Publisher('~event_trigger',
                                          String, queue_size=1)
-        # Ros publisher to trigger pose event
+        ## Ros publisher to trigger pose event
         self.pose_command_pub = rospy.Publisher('~pose_command_combined',
                                                 PoseStamped, queue_size=1)
+        ## Ros publisher to trigger pose event
+        self.vel_command_pub = rospy.Publisher('~velocity_yaw_command',
+                                               VelocityYaw, queue_size=1)
         # Define partial callbacks
         statusCallback = partial(
             self.statusCallback, signal=self.status_signal)
@@ -110,6 +112,13 @@ class RosEventTrigger(QObject):
         """
         if not rospy.is_shutdown():
             self.pose_command_pub.publish(pose)
+
+    def triggerVelocityCommand(self, velocity_yaw):
+        """
+        Publish pose command event for state machine
+        """
+        if not rospy.is_shutdown():
+            self.vel_command_pub.publish(velocity_yaw)
 
     def triggerEvent(self, event_name):
         """

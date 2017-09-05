@@ -5,6 +5,7 @@
 #include <aerial_autonomy/actions_guards/manual_control_functors.h>
 #include <aerial_autonomy/actions_guards/position_control_functors.h>
 #include <aerial_autonomy/actions_guards/takeoff_functors.h>
+#include <aerial_autonomy/actions_guards/velocity_control_functors.h>
 
 /**
 * @brief Class to provide typedefs for all basic uav states and actions
@@ -37,6 +38,10 @@ template <class LogicStateMachineT> struct UAVStatesActions {
   * @brief Manual control state
   */
   using ManualControlState = ManualControlState_<LogicStateMachineT>;
+  /**
+  * @brief Track commanded velocity
+  */
+  using ExecutingVelocityGoal = ExecutingVelocityGoal_<LogicStateMachineT>;
 
   // Basic transition Actions
   /**
@@ -84,4 +89,14 @@ template <class LogicStateMachineT> struct UAVStatesActions {
   */
   using ManualControlSwitchGuard =
       ManualControlSwitchGuard_<LogicStateMachineT>;
+  /**
+  * @brief set velocity controller goal
+  */
+  using SetVelocityGoal =
+      VelocityControlTransitionActionFunctor_<LogicStateMachineT>;
+  /**
+  * @brief Guard to avoid going to velocity goal if too high
+  */
+  using GuardVelocityGoal =
+      VelocityControlTransitionGuardFunctor_<LogicStateMachineT>;
 };

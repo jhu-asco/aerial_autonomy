@@ -74,11 +74,10 @@ catkin_python_setup()
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+ add_message_files(
+   FILES
+   VelocityYaw.msg
+ )
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -95,10 +94,10 @@ catkin_python_setup()
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
+generate_messages(
 #   DEPENDENCIES
 #   std_msgs
-# )
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -236,6 +235,7 @@ add_executable(uav_system_node src/system_handler_nodes/uav_system_node.cpp)
 add_executable(uav_vision_system_node src/system_handler_nodes/uav_vision_system_node.cpp)
 add_executable(uav_arm_system_node src/system_handler_nodes/uav_arm_system_node.cpp)
 add_executable(event_publish_node src/tests/event_publish_node.cpp)
+add_dependencies(event_publish_node ${PROJECT_NAME}_generate_messages_cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -313,7 +313,9 @@ add_rostest_gtest(${PROJECT_NAME}-uav-vision-system-test tests/robot_systems/uav
 add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-event-test tests/state_machines/state_machine_gui_connector_event_tests.test tests/state_machines/state_machine_gui_connector_event_tests.cpp)
 add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-event-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
 add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-pose-test tests/state_machines/state_machine_gui_connector_pose_tests.test tests/state_machines/state_machine_gui_connector_pose_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-velocity-test tests/state_machines/state_machine_gui_connector_velocity_tests.test tests/state_machines/state_machine_gui_connector_velocity_tests.cpp)
 add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-pose-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
+add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-velocity-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
 catkin_add_gtest(${PROJECT_NAME}-async-timer-test tests/common/async_timer_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-atomic-test tests/common/atomic_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-controller-status-test tests/common/controller_status_tests.cpp)
@@ -395,6 +397,9 @@ if(TARGET ${PROJECT_NAME}-state-machine-gui-connector-event-test)
 endif()
 if(TARGET ${PROJECT_NAME}-state-machine-gui-connector-pose-test)
   target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-pose-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-state-machine-gui-connector-velocity-test)
+  target_link_libraries(${PROJECT_NAME}-state-machine-gui-connector-velocity-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-async-timer-test)
   target_link_libraries(${PROJECT_NAME}-async-timer-test aerial_autonomy)

@@ -1,3 +1,4 @@
+#include <aerial_autonomy/VelocityYaw.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <ros/ros.h>
 #include <signal.h>
@@ -23,6 +24,10 @@ public:
     if (event == "PositionYaw") {
       event_pub_ =
           nh_.advertise<geometry_msgs::PoseStamped>("goal_pose_command", 1);
+    } else if (event == "VelocityYaw") {
+      event_pub_ = nh_.advertise<aerial_autonomy::VelocityYaw>(
+          "goal_velocity_yaw_command", 1);
+
     } else {
       event_pub_ = nh_.advertise<std_msgs::String>("event_manager", 1);
     }
@@ -45,6 +50,11 @@ private:
       pose.pose.orientation.y = 0;
       pose.pose.orientation.z = 0;
       event_pub_.publish(pose);
+    } else if (event == "VelocityYaw") {
+      aerial_autonomy::VelocityYaw message;
+      message.vx = message.vy = message.vz = 1.0;
+      message.yaw = M_PI;
+      event_pub_.publish(message);
     } else {
       std_msgs::String event_message;
       event_message.data = event;

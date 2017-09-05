@@ -9,6 +9,7 @@
   <arg name="log_dir" default="$(find aerial_autonomy)/logs"/>
   <node pkg="aerial_autonomy" type="uav_vision_system_node" name="uav_vision_system_node" output="screen">
     <remap from="~common/goal_pose_command" to="/rqt_gui/pose_command_combined" />
+    <remap from="~common/goal_velocity_yaw_command" to="/rqt_gui/velocity_yaw_command" />
     <remap from="~common/event_manager" to="/rqt_gui/event_trigger" />
     <remap from="~common/system_status" to="/rqt_gui/system_status" />
     <remap from="~tracker/ar_pose_marker" to="/ar_pose_marker" />
