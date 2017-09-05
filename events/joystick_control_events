@@ -1,0 +1,3 @@
+JoystickControlEventManager:
+  uav_basic_events/UAVEventManager
+  JoystickControlEvent
