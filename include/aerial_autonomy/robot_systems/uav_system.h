@@ -9,7 +9,6 @@
 #include <aerial_autonomy/controllers/basic_controllers.h>
 // Specific ControllerConnectors
 #include <aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h>
-
 #include <iomanip>
 #include <sstream>
 
@@ -55,12 +54,10 @@ private:
   * @brief connector for rpyt controller
   */
   ManualRPYTControllerDroneConnector rpyt_controller_drone_connector_;
-
   /**
   * @brief Home Location
   */
   PositionYaw home_location_;
-
   /**
   * @brief Flag to specify if home location is specified or not
   */
@@ -68,20 +65,21 @@ private:
 
 public:
   /**
-   * @brief Constructor with default configuration
-   */
+*@brief Constructor with default configuration
+*/
   UAVSystem(parsernode::Parser &drone_hardware)
       : UAVSystem(drone_hardware, UAVSystemConfig()) {}
   /**
-  * @brief Constructor
-  *
-  * UAVSystem requires a drone hardware. It instantiates the connectors,
-  * controllers
-  *
-  * @param drone_hardware input hardware to send commands back
-  * @param config The system configuration specifying the parameters such as
-  * takeoff height, etc.
-  */
+* @brief Constructor
+*
+* UAVSystem requires a drone hardware. It instantiates the connectors,
+* controllers
+*
+* @param drone_hardware input hardware to send commands back
+* @param config The system configuration specifying the parameters such as
+* takeoff height, etc.
+* @param velocity_sensor external velocity sensor
+*/
   UAVSystem(parsernode::Parser &drone_hardware, UAVSystemConfig config)
       : BaseRobotSystem(), drone_hardware_(drone_hardware), config_(config),
         builtin_position_controller_(config.position_controller_config()),
@@ -176,6 +174,11 @@ public:
     table_writer.addCell(data.position_goal.y, "Goal pos y");
     table_writer.addCell(data.position_goal.z, "Goal pos z");
     table_writer.addCell(data.velocity_goal_yaw, "Goal yaw");
+    table_writer.beginRow();
+    table_writer.addCell(data.servo_in[0], "Channel 1");
+    table_writer.addCell(data.servo_in[1], "Channel 2");
+    table_writer.addCell(data.servo_in[2], "Channel 3");
+    table_writer.addCell(data.servo_in[3], "Channel 4");
     table_writer.beginRow();
     table_writer.addCell(data.mass, "Mass");
     table_writer.addCell(data.timestamp, "Timestamp", Colors::white, 2);

@@ -1,0 +1,30 @@
+syntax = "proto2";
+
+import "uav_system_handler_config.proto";
+import "rpyt_based_velocity_controller_config.proto";
+import "velocity_sensor_config.proto";
+import "joystick_velocity_controller_config.proto";
+
+message UAVSensorSystemHandlerConfig {
+  /**
+  * @brief rpyt based velocity controller config 
+  */
+  required RPYTBasedVelocityControllerConfig rpyt_velocity_controller_config = 1;
+  /**
+  * @brief manual velocity controller config
+  */
+  required JoystickVelocityControllerConfig
+      joystick_velocity_controller_config = 2;
+  /**
+  * @brief uav system handler config
+  */
+  required UAVSystemHandlerConfig uav_system_handler_config = 3;
+  /**
+  * @brief velocity sensor config
+  */
+  required VelocitySensorConfig velocity_sensor_config = 4;
+  /**
+  * @brief flag to check if dynamic reconfigure values are to be used
+  */
+optional bool use_dynamic_reconfigure = 5 [default = false];
+}

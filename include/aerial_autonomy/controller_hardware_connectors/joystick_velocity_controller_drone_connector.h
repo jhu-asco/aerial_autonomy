@@ -1,17 +1,20 @@
 #pragma once
 #include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
+#include "aerial_autonomy/sensors/base_sensor.h"
 #include "aerial_autonomy/types/empty_goal.h"
-#include "aerial_autonomy/types/joystick_yaw.h"
+#include "aerial_autonomy/types/joystick.h"
 #include "aerial_autonomy/types/roll_pitch_yaw_thrust.h"
+#include "aerial_autonomy/types/velocity_yaw.h"
 
 #include <parsernode/parser.h>
 
 /**
-* @brief Maps Joystick goals to rpythrust commands to quadrotor
+* @brief Maps Joystick goals to velocity goals,
+* used by controller to give rpythrust commands to quadrotor
 */
-class ManualRPYTControllerDroneConnector
-    : public ControllerHardwareConnector<JoystickYaw, EmptyGoal,
-                                         RollPitchYawThrust> {
+class JoystickVelocityControllerDroneConnector
+    : public ControllerHardwareConnector<std::tuple<Joystick, VelocityYaw>,
+                                         EmptyGoal, RollPitchYawThrust> {
 public:
   /**
   * @brief Constructor
@@ -20,23 +23,29 @@ public:
   * Uses parsernode::Parser::cmdrpythrust function.
   *
   * @param drone_hardware Drone hardware used to send commands
-  * @param controller RpyThrust controller
+  * @param controller Manual velocity controller
   */
-  ManualRPYTControllerDroneConnector(
+  JoystickVelocityControllerDroneConnector(
       parsernode::Parser &drone_hardware,
-      Controller<JoystickYaw, EmptyGoal, RollPitchYawThrust> &controller)
+      Controller<std::tuple<Joystick, VelocityYaw>, EmptyGoal,
+                 RollPitchYawThrust> &controller,
+      Sensor<VelocityYaw> &velocity_sensor)
       : ControllerHardwareConnector(controller, HardwareType::UAV),
-        drone_hardware_(drone_hardware) {}
+        drone_hardware_(drone_hardware), velocity_sensor_(velocity_sensor) {
+    drone_hardware_.setmode("rpyt_angle");
+  }
 
 protected:
   /**
    * @brief Extracts joystick commands and current yaw from hardware
+   * and velocity from sensor
    *
    * @param sensor_data Joystick commands and current yaw
    *
    * @return true if succesfully extracted joystick data
    */
-  virtual bool extractSensorData(JoystickYaw &sensor_data);
+  virtual bool
+  extractSensorData(std::tuple<Joystick, VelocityYaw> &sensor_data);
 
   /**
    * @brief  Send RPYT commands to hardware
@@ -50,4 +59,8 @@ private:
   * @brief Quad hardware to send commands
   */
   parsernode::Parser &drone_hardware_;
+  /**
+  *  @brief sensor object to get sensor data
+  */
+  Sensor<VelocityYaw> &velocity_sensor_;
 };

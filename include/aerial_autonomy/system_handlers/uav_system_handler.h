@@ -39,7 +39,6 @@ public:
             std::chrono::milliseconds(config.uav_controller_timer_duration())) {
     // Initialize UAV plugin
     uav_hardware_->initialize(nh_uav_);
-
     // Get the party started
     common_handler_.startTimers();
     uav_controller_timer_.start();

@@ -18,4 +18,17 @@ double angleWrap(double x) {
 double clamp(double x, double min, double max) {
   return std::min(std::max(x, min), max);
 }
+
+double map(double input, double input_min, double input_max, double output_min,
+           double output_max) {
+  if (input > input_max)
+    return output_max;
+
+  else if (input < input_min)
+    return output_min;
+
+  return (output_min +
+          ((input - input_min) * (output_max - output_min)) /
+              (input_max - input_min));
+}
 }

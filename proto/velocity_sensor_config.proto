@@ -1,0 +1,24 @@
+syntax = "proto2";
+
+/**
+* Uses the position controller config for tolerance
+* in position, yaw
+*/
+message VelocitySensorConfig {
+  /**
+  * @ brief timestep to differentiate velocity
+  */
+  required double sensor_frequency = 1 [default = 30 ];
+  /**
+  * @brief transform between sensor and robot
+  */
+  repeated double sensor_transform = 2;
+  /**
+  * @brief maximum allowed divergence from gps data
+  */
+  optional double max_divergence = 3 [default = 0.5];
+  /**
+  * @brief timeout after which sensor data goes invalid
+  */
+  optional int32 bad_data_timeout = 4 [default = 100];
+}
