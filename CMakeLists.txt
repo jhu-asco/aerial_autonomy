@@ -176,6 +176,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/velocity_controller_config.proto
   proto/rpyt_based_velocity_controller_config.proto
   proto/joystick_velocity_controller_config.proto
+  proto/velocity_sensor_config.proto
   proto/position.proto
   proto/velocity.proto
   proto/data_stream_config.proto
@@ -225,7 +226,9 @@ add_library(aerial_autonomy
   src/controller_hardware_connectors/position_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
+  src/controller_hardware_connectors/joystick_velocity_controller_drone_connector.cpp
 )
+
 add_dependencies(aerial_autonomy proto)
 target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES})
 
@@ -301,6 +304,7 @@ catkin_add_gtest(${PROJECT_NAME}-html-utils-test tests/common/html_utils_tests.c
 catkin_add_gtest(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/position_controller_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/builtin_velocity_controller_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/manual_rpyt_controller_drone_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test tests/controller_hardware_connectors/joystick_velocity_controller_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-uav-system-test tests/robot_systems/uav_system_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-uav-arm-system-test tests/robot_systems/uav_arm_system_tests.test tests/robot_systems/uav_arm_system_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-uav-basic-functor-tests tests/actions_guards/uav_basic_functor_tests.cpp)
@@ -345,6 +349,7 @@ catkin_add_gtest(${PROJECT_NAME}-data-stream-test tests/log/data_stream_tests.cp
 catkin_add_gtest(${PROJECT_NAME}-log-test tests/log/log_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-string-utils-test tests/common/string_utils_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-proto-utils-test tests/common/proto_utils_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-velocity-sensor-test tests/sensors/velocity_sensor_tests.test tests/sensors/velocity_sensor_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
@@ -362,6 +367,9 @@ if(TARGET ${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test)
 endif()
 if(TARGET ${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+endif()
+if(TARGET ${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test)
+  target_link_libraries(${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
 if(TARGET ${PROJECT_NAME}-logic-states-test)
   target_link_libraries(${PROJECT_NAME}-logic-states-test proto ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
@@ -474,7 +482,9 @@ endif()
 if(TARGET ${PROJECT_NAME}-proto-utils-test)
   target_link_libraries(${PROJECT_NAME}-proto-utils-test aerial_autonomy)
 endif()
-
+if(TARGET ${PROJECT_NAME}-velocity-sensor-test)
+  target_link_libraries(${PROJECT_NAME}-velocity-sensor-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)

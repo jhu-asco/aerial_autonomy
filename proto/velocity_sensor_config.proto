@@ -1,0 +1,24 @@
+syntax = "proto2";
+
+message VelocitySensorConfig {
+  /**
+  * @brief transform of sensor in robot's frame
+  */
+  repeated double sensor_transform = 2;
+  /**
+  * @brief maximum allowed divergence from gps data
+  * along each axis in meters
+  */
+  optional double max_divergence = 3 [default = 0.5];
+  /**
+  * @brief period of bad data in seconds after which 
+  *  sensor data goes invalid
+  */
+  optional double bad_data_timeout = 4 [default = 0.5];
+  /**
+  * @brief minimum allowed time difference (in seconds) 
+  * between 2 consecutive msgs.
+  * timestep is set to this value if it is lower than this value
+  */
+  optional double min_timestep = 5 [default = 0.02];
+}

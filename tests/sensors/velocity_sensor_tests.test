@@ -1,0 +1,4 @@
+<launch>
+  <test test-name="VelocitySensorTest" pkg="aerial_autonomy" type="aerial_autonomy-velocity-sensor-test">
+  </test>
+</launch>
