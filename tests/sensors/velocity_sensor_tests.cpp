@@ -126,7 +126,18 @@ TEST_F(VelocitySensorTests, SensorStatusInvalid) {
   drone_hardware.cmdwaypoint(quad_pos);
 
   geometry_msgs::PoseStamped pose;
-  for (int i = 0; i < 40; ++i) {
+  pose.header.stamp = ros::Time::now();
+  pose.pose.position.x = 0.1;
+  pose.pose.position.y = -0.3;
+  pose.pose.position.z = 0.4;
+  pose.pose.orientation.w = 1.0;
+  pose_pub.publish(pose);
+  ros::Duration(0.03).sleep();
+  ros::spinOnce();
+
+  ASSERT_TRUE(sensor_status_to_bool(sensor.getSensorStatus()));
+
+  auto sensor_status_check = [&]() {
     pose.header.stamp = ros::Time::now();
     pose.pose.position.x = 0.1;
     pose.pose.position.y = -0.7;
@@ -134,14 +145,49 @@ TEST_F(VelocitySensorTests, SensorStatusInvalid) {
     pose.pose.orientation.w = 1.0;
     pose_pub.publish(pose);
     ros::Duration(0.03).sleep();
-  }
-
-  auto sensor_status_check = [&]() {
     ros::spinOnce();
     return sensor_status_to_bool(sensor.getSensorStatus());
   };
   ASSERT_FALSE(test_utils::waitUntilFalse()(sensor_status_check,
                                             std::chrono::seconds(20)));
+}
+
+TEST_F(VelocitySensorTests, MinTimestep) {
+  config.set_min_timestep(0.02);
+  VelocitySensor sensor(drone_hardware, nh, config);
+  ros::Time t0 = ros::Time::now();
+  ros::Time t1 = t0 + ros::Duration(0.01);
+  geometry_msgs::PoseStamped pose;
+  pose.header.stamp = t0;
+  pose.pose.position.x = 0.0;
+  pose.pose.position.y = 0.0;
+  pose.pose.position.z = 0.0;
+  pose.pose.orientation.w = 1.0;
+
+  pose_pub.publish(pose);
+  ros::Duration(0.01).sleep();
+  ros::spinOnce();
+
+  pose.header.stamp = t1;
+  pose.pose.position.x = 0.1;
+  pose.pose.position.y = -0.2;
+  pose.pose.position.z = 0.3;
+
+  tf::Quaternion q = tf::createQuaternionFromRPY(0, 0, 0.1);
+  pose.pose.orientation.x = q.x();
+  pose.pose.orientation.y = q.y();
+  pose.pose.orientation.z = q.z();
+  pose.pose.orientation.w = q.w();
+
+  pose_pub.publish(pose);
+  ros::Duration(0.01).sleep();
+  ros::spinOnce();
+
+  VelocityYaw velocity = sensor.getSensorData();
+  ASSERT_NEAR(velocity.x, 0.1 / 0.02, 1e-4);
+  ASSERT_NEAR(velocity.y, -0.2 / 0.02, 1e-4);
+  ASSERT_NEAR(velocity.z, 0.3 / 0.02, 1e-4);
+  ASSERT_NEAR(velocity.yaw, 0.1, 1e-4);
 }
 
 TEST_F(VelocitySensorTests, SensorTF) {
