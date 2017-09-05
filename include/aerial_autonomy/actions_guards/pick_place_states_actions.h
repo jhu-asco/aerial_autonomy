@@ -127,8 +127,6 @@ struct PickPlaceStatesActions
   * working
   */
   using PickTransitionGuard = ArmEnabledGuardFunctor_<LogicStateMachineT>;
-                              //bAnd<typename vsa::VisualServoingTransitionGuard,
-                              //     ArmEnabledGuardFunctor_<LogicStateMachineT>>;
   /**
   * @brief Action to grab an object
   */
