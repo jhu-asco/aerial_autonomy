@@ -133,11 +133,18 @@ public:
             msmf::Row<psa::Hovering, PositionYaw, psa::ReachingGoal,
                       psa::ReachingGoalSet, psa::ReachingGoalGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::Hovering, pe::Pick, psa::VisualServoing,
+                      psa::VisualServoingTransitionAction,
+                      psa::VisualServoingTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Hovering, VelocityYaw, psa::ExecutingVelocityGoal,
                       psa::SetVelocityGoal, psa::GuardVelocityGoal>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, pe::Pick, psa::PrePickState,
+            msmf::Row<psa::VisualServoing, Completed, psa::PrePickState,
                       psa::PrePickTransitionAction, psa::PickTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::VisualServoing, be::Abort, psa::Hovering,
+                      psa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PrePickState, Completed, psa::PickState,
                       psa::PickTransitionAction, msmf::none>,
@@ -210,11 +217,19 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 11> state_names = {
-    "Landed",       "ArmPreTakeoffFolding",  "Takingoff",
-    "Hovering",     "PrePickState",          "ArmPreLandingFolding",
-    "ReachingGoal", "ExecutingVelocityGoal", "PickState",
-    "Landing",      "ManualControlArmState"};
+static constexpr std::array<const char *, 12> state_names = {
+    "Landed",
+    "ArmPreTakeoffFolding",
+    "Takingoff",
+    "Hovering",
+    "VisualServoing",
+    "PrePickState",
+    "ArmPreLandingFolding",
+    "ReachingGoal",
+    "ExecutingVelocityGoal",
+    "PickState",
+    "Landing",
+    "ManualControlArmState"};
 /**
 * @brief Get current state name
 *
