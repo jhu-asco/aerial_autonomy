@@ -1,6 +1,9 @@
 #include "aerial_autonomy/controllers/relative_pose_controller.h"
+#include "aerial_autonomy/tests/test_utils.h"
 
 #include <gtest/gtest.h>
+
+using namespace test_utils;
 
 class RelativePoseControllerTests : public ::testing::Test {
 public:
@@ -15,14 +18,6 @@ protected:
   PoseControllerConfig config_;
 };
 
-void assert_tf_near(const tf::Transform &tf1, const tf::Transform &tf2) {
-  ASSERT_NEAR(tf1.getOrigin().x(), tf2.getOrigin().x(), 1e-8);
-  ASSERT_NEAR(tf1.getOrigin().y(), tf2.getOrigin().y(), 1e-8);
-  ASSERT_NEAR(tf1.getOrigin().z(), tf2.getOrigin().z(), 1e-8);
-  ASSERT_NEAR((tf1.getRotation().inverse() * tf2.getRotation()).getAngle(), 0.,
-              1e-8);
-}
-
 TEST_F(RelativePoseControllerTests, Constructor) {
   ASSERT_NO_THROW(new RelativePoseController(config_));
 }
@@ -31,7 +26,7 @@ TEST_F(RelativePoseControllerTests, ConvergedNoOffset) {
   RelativePoseController controller(config_);
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
-  tf::Transform goal(tf::Quaternion(), tf::Vector3(0, 0, 0));
+  tf::Transform goal(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
   tf::Transform global_goal = tracked_pose * goal;
   auto sensor_data = std::make_tuple(current_pose, tracked_pose);
 
@@ -41,7 +36,7 @@ TEST_F(RelativePoseControllerTests, ConvergedNoOffset) {
   bool result = controller.run(sensor_data, controls);
 
   ASSERT_TRUE(result);
-  assert_tf_near(controls, global_goal);
+  ASSERT_TF_NEAR(controls, global_goal);
   ASSERT_TRUE(controller.isConverged(sensor_data));
 }
 
@@ -50,7 +45,7 @@ TEST_F(RelativePoseControllerTests, NotConvergedNoOffset) {
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1),
                              tf::Vector3(-1, -1, 2));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
-  tf::Transform goal(tf::Quaternion(), tf::Vector3(0, 0, 0));
+  tf::Transform goal(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
   tf::Transform global_goal = tracked_pose * goal;
   auto sensor_data = std::make_tuple(current_pose, tracked_pose);
 
@@ -60,7 +55,7 @@ TEST_F(RelativePoseControllerTests, NotConvergedNoOffset) {
   bool result = controller.run(sensor_data, controls);
 
   ASSERT_TRUE(result);
-  assert_tf_near(controls, global_goal);
+  ASSERT_TF_NEAR(controls, global_goal);
   ASSERT_FALSE(controller.isConverged(sensor_data));
 }
 
@@ -68,7 +63,7 @@ TEST_F(RelativePoseControllerTests, ConvergedOffset) {
   RelativePoseController controller(config_);
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(9, 0, -1));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(10, 0, 0));
-  tf::Transform goal(tf::Quaternion(), tf::Vector3(-1, 0, -1));
+  tf::Transform goal(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-1, 0, -1));
   tf::Transform global_goal = tracked_pose * goal;
   auto sensor_data = std::make_tuple(current_pose, tracked_pose);
 
@@ -78,7 +73,7 @@ TEST_F(RelativePoseControllerTests, ConvergedOffset) {
   bool result = controller.run(sensor_data, controls);
 
   ASSERT_TRUE(result);
-  assert_tf_near(controls, global_goal);
+  ASSERT_TF_NEAR(controls, global_goal);
   ASSERT_TRUE(controller.isConverged(sensor_data));
 }
 
@@ -87,7 +82,7 @@ TEST_F(RelativePoseControllerTests, ConvergedWithinTolerance) {
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(9, 0, -1));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1),
                              tf::Vector3(10.09, .19, 0.09));
-  tf::Transform goal(tf::Quaternion(), tf::Vector3(-1, 0, -1));
+  tf::Transform goal(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-1, 0, -1));
   tf::Transform global_goal = tracked_pose * goal;
   auto sensor_data = std::make_tuple(current_pose, tracked_pose);
 
@@ -97,7 +92,7 @@ TEST_F(RelativePoseControllerTests, ConvergedWithinTolerance) {
   bool result = controller.run(sensor_data, controls);
 
   ASSERT_TRUE(result);
-  assert_tf_near(controls, global_goal);
+  ASSERT_TF_NEAR(controls, global_goal);
   ASSERT_TRUE(controller.isConverged(sensor_data));
 }
 
@@ -105,7 +100,7 @@ TEST_F(RelativePoseControllerTests, NotConvergedOffset) {
   RelativePoseController controller(config_);
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 1, 2));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(10, 0, 0));
-  tf::Transform goal(tf::Quaternion(), tf::Vector3(-1, 0, -1));
+  tf::Transform goal(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-1, 0, -1));
   tf::Transform global_goal = tracked_pose * goal;
   auto sensor_data = std::make_tuple(current_pose, tracked_pose);
 
@@ -115,7 +110,7 @@ TEST_F(RelativePoseControllerTests, NotConvergedOffset) {
   bool result = controller.run(sensor_data, controls);
 
   ASSERT_TRUE(result);
-  assert_tf_near(controls, global_goal);
+  ASSERT_TF_NEAR(controls, global_goal);
   ASSERT_FALSE(controller.isConverged(sensor_data));
 }
 

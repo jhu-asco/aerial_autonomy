@@ -1,14 +1,14 @@
 #pragma once
 #include "aerial_autonomy/controllers/base_controller.h"
 #include "aerial_autonomy/types/position_yaw.h"
-#include "aerial_autonomy/types/velocity_yaw.h"
+#include "aerial_autonomy/types/velocity_yaw_rate.h"
 #include "velocity_based_position_controller_config.pb.h"
 
 /**
  * @brief A position controller that sends velocity commands to the hardware
  */
 class VelocityBasedPositionController
-    : public Controller<PositionYaw, PositionYaw, VelocityYaw> {
+    : public Controller<PositionYaw, PositionYaw, VelocityYawRate> {
 public:
   /**
   * @brief Constructor with default configuration
@@ -35,7 +35,7 @@ protected:
    * @return true if velocity command to reach goal is found
    */
   virtual bool runImplementation(PositionYaw sensor_data, PositionYaw goal,
-                                 VelocityYaw &control);
+                                 VelocityYawRate &control);
   /**
   * @brief Check if velocity based position controller converged
   *
