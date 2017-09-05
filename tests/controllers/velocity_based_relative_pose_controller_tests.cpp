@@ -1,6 +1,7 @@
 #include "aerial_autonomy/controllers/velocity_based_relative_pose_controller.h"
-#include "aerial_autonomy/tests/test_utils.h"
 #include "aerial_autonomy/common/conversions.h"
+#include "aerial_autonomy/common/math.h"
+#include "aerial_autonomy/tests/test_utils.h"
 
 #include <gtest/gtest.h>
 
@@ -46,7 +47,8 @@ public:
     ASSERT_NEAR(controls.x, position_diff.x() * position_gain_, 1e-6);
     ASSERT_NEAR(controls.y, position_diff.y() * position_gain_, 1e-6);
     ASSERT_NEAR(controls.z, position_diff.z() * position_gain_, 1e-6);
-    ASSERT_NEAR(controls.yaw_rate, (goal_yaw - cur_yaw) * yaw_gain_, 1e-6);
+    ASSERT_NEAR(controls.yaw_rate,
+                math::angleWrap(goal_yaw - cur_yaw) * yaw_gain_, 1e-6);
     if (should_converge) {
       ASSERT_TRUE(controller.isConverged(sensor_data));
     } else {
