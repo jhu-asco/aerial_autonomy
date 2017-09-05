@@ -44,11 +44,11 @@ uav_system_config {
 
     desired_visual_servoing_distance: 0.5
     constant_heading_depth_controller_config {
-      radial_gain: 0.3
-      tangential_gain: 1.0
+      radial_gain: 0.6
+      tangential_gain: 1.3
       yaw_gain: 0.3
-      max_velocity: 1
-      min_velocity: 0.2
+      max_velocity: 0.2
+      min_velocity: 0.
       max_yaw_rate: 0.3
       position_controller_config {
         goal_position_tolerance {
@@ -60,16 +60,16 @@ uav_system_config {
       }
     }
     uav_arm_system_config {
-      arm_goal_transform: -0.10
       arm_goal_transform: 0.0
-      arm_goal_transform: -0.1
+      arm_goal_transform: -0.11
+      arm_goal_transform: 0.1
       arm_goal_transform: 0.0
       arm_goal_transform: 0.0
       arm_goal_transform: 0.0
 
-      arm_goal_transform: 0.005
       arm_goal_transform: 0.0
-      arm_goal_transform: -0.1
+      arm_goal_transform: -0.11
+      arm_goal_transform: -0.02
       arm_goal_transform: 0.0
       arm_goal_transform: 0.0
       arm_goal_transform: 0.0
@@ -84,7 +84,7 @@ uav_system_config {
       position_controller_config {
         goal_position_tolerance {
           x: 0.01
-          y: 0.01
+          y: 0.04
           z: 0.01
         }
         goal_rotation_tolerance: 6
