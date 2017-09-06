@@ -33,7 +33,8 @@ public:
    * @param nh NodeHandle to use for event and command subscription
    * @param config Proto configuration parameters
    */
-  UAVArmSystemHandler(UAVSystemHandlerConfig &config)
+  UAVArmSystemHandler(UAVSystemHandlerConfig &config,
+                      const BaseStateMachineConfig &state_machine_config)
       : nh_uav_("~uav"), nh_arm_("~arm"), nh_tracker_("~tracker"),
         parser_loader_("parsernode", "parsernode::Parser"),
         uav_hardware_(
@@ -56,7 +57,8 @@ public:
                 : dynamic_cast<BaseTracker *>(new AlvarTracker(nh_tracker_))),
         uav_system_(*tracker_, *uav_hardware_, *arm_hardware_,
                     config.uav_system_config()),
-        common_handler_(config.base_config(), uav_system_),
+        common_handler_(config.base_config(), uav_system_,
+                        state_machine_config),
         uav_controller_timer_(
             std::bind(&UAVArmSystem::runActiveController, std::ref(uav_system_),
                       HardwareType::UAV),

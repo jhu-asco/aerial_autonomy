@@ -178,8 +178,11 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/velocity.proto
   proto/data_stream_config.proto
   proto/log_config.proto
+  proto/base_state_machine_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
+
+target_link_libraries(proto ${PROTOBUF_LIBRARIES})
 
 ###########
 ## Build ##
@@ -203,6 +206,7 @@ add_library(aerial_autonomy
   src/common/conversions.cpp
   src/common/controller_status.cpp
   src/common/string_utils.cpp
+  src/common/system_handler_node_utils.cpp
   src/log/data_stream.cpp
   src/log/log.cpp
   src/trackers/roi_to_position_converter.cpp
@@ -225,7 +229,7 @@ add_library(aerial_autonomy
   src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
 )
 add_dependencies(aerial_autonomy proto)
-target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES})
 
 
 ## Add cmake target dependencies of the library
