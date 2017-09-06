@@ -78,6 +78,7 @@ private:
   /**
   * @brief Arm transforms in the frame of the UAV
   */
+  // \todo Matt Move to state machine config
   std::vector<tf::Transform> arm_goal_transforms_;
   /**
   * @brief Arm transform in the frame of the UAV

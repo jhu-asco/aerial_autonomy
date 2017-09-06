@@ -133,17 +133,18 @@ public:
             msmf::Row<psa::Hovering, PositionYaw, psa::ReachingGoal,
                       psa::ReachingGoalSet, psa::ReachingGoalGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, pe::Pick, psa::VisualServoing,
-                      psa::VisualServoingTransitionAction,
-                      psa::VisualServoingTransitionGuard>,
+            msmf::Row<psa::Hovering, pe::Pick, psa::RelativePoseVisualServoing,
+                      psa::RelativePoseVisualServoingTransitionAction,
+                      psa::RelativePoseVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Hovering, VelocityYaw, psa::ExecutingVelocityGoal,
                       psa::SetVelocityGoal, psa::GuardVelocityGoal>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::VisualServoing, Completed, psa::PrePickState,
-                      psa::PrePickTransitionAction, psa::PickTransitionGuard>,
+            msmf::Row<psa::RelativePoseVisualServoing, Completed,
+                      psa::PrePickState, psa::PrePickTransitionAction,
+                      psa::PickTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::VisualServoing, be::Abort, psa::Hovering,
+            msmf::Row<psa::RelativePoseVisualServoing, be::Abort, psa::Hovering,
                       psa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PrePickState, Completed, psa::PickState,
@@ -222,7 +223,7 @@ static constexpr std::array<const char *, 12> state_names = {
     "ArmPreTakeoffFolding",
     "Takingoff",
     "Hovering",
-    "VisualServoing",
+    "RelativePoseVisualServoing",
     "PrePickState",
     "ArmPreLandingFolding",
     "ReachingGoal",

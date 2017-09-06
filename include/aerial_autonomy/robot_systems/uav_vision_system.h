@@ -105,6 +105,7 @@ protected:
   /**
   * @brief UAV transforms in the frame of the tracked object
   */
+  // \todo Matt Move to state machine config
   std::vector<PositionYaw> relative_pose_goals_;
 
 private:

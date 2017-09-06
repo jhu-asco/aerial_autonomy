@@ -54,6 +54,27 @@ public:
     position_tolerance->set_x(goal_tolerance_position);
     position_tolerance->set_y(goal_tolerance_position);
     position_tolerance->set_z(goal_tolerance_position);
+
+    auto vel_based_pos_controller_config =
+        uav_vision_system_config
+            ->mutable_velocity_based_relative_pose_controller_config()
+            ->mutable_velocity_based_position_controller_config();
+    vel_based_pos_controller_config->set_position_gain(10.);
+    auto relative_pose_vs_position_tolerance =
+        vel_based_pos_controller_config->mutable_position_controller_config()
+            ->mutable_goal_position_tolerance();
+    vel_based_pos_controller_config->mutable_position_controller_config()
+        ->set_goal_yaw_tolerance(0.1);
+    relative_pose_vs_position_tolerance->set_x(0.1);
+    relative_pose_vs_position_tolerance->set_y(0.1);
+    relative_pose_vs_position_tolerance->set_z(0.1);
+    auto pose_goal = uav_vision_system_config->add_relative_pose_goals();
+    auto pose_goal_position = pose_goal->mutable_position();
+    pose_goal_position->set_x(1);
+    pose_goal_position->set_y(1);
+    pose_goal_position->set_z(2);
+    pose_goal->set_yaw(0);
+
     auto arm_position_tolerance =
         uav_arm_system_config->mutable_position_controller_config()
             ->mutable_goal_position_tolerance();
@@ -133,22 +154,25 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
   // Initialize event to vse::TrackROI
   logic_state_machine->process_event(pe::Pick());
   // Check we are in PrePick state
-  ASSERT_STREQ(pstate(*logic_state_machine), "VisualServoing");
+  ASSERT_STREQ(pstate(*logic_state_machine), "RelativePoseVisualServoing");
   // Check UAV controller is active
-  ASSERT_EQ(uav_arm_system->getStatus<VisualServoingControllerDroneConnector>(),
-            ControllerStatus::Active);
+  ASSERT_EQ(
+      uav_arm_system
+          ->getStatus<RelativePoseVisualServoingControllerDroneConnector>(),
+      ControllerStatus::Active);
   ASSERT_EQ(uav_arm_system->getStatus<VisualServoingControllerArmConnector>(),
             ControllerStatus::NotEngaged);
   // Keep running the controller until its completed or timeout
   auto getUAVStatusRunControllers = [&]() {
     uav_arm_system->runActiveController(HardwareType::UAV);
     logic_state_machine->process_event(InternalTransitionEvent());
-    return uav_arm_system
-               ->getStatus<VisualServoingControllerDroneConnector>() ==
+    return uav_arm_system->getStatus<
+               RelativePoseVisualServoingControllerDroneConnector>() ==
            ControllerStatus::Active;
   };
   ASSERT_FALSE(test_utils::waitUntilFalse()(getUAVStatusRunControllers,
-                                            std::chrono::seconds(5)));
+                                            std::chrono::seconds(5),
+                                            std::chrono::milliseconds(0)));
   // Check we are in Pre-Pick
   ASSERT_STREQ(pstate(*logic_state_machine), "PrePickState");
   ASSERT_EQ(logic_state_machine->lastProcessedEventIndex(), typeid(Completed));
