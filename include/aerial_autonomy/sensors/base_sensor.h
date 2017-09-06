@@ -19,7 +19,7 @@ public:
   /**
   * @brief Default Constructor
   */
-  SensorStatus() : status_(SensorStatus::INVALID) {}
+  SensorStatus() : status_(SensorStatus::Status::INVALID) {}
   /**
   * @brief Constructor that takes in a status
   */
@@ -87,7 +87,9 @@ public:
   *
   * @return true if sensor status is valid
   */
-  explicit operator bool() const { return status_ == SensorStatus::VALID; }
+  explicit operator bool() const {
+    return status_ == SensorStatus::Status::VALID;
+  }
 
 private:
   Status status_;
@@ -103,7 +105,7 @@ public:
   /**
   * @brief Constructor
   */
-  Sensor() : sensor_status_(SensorStatus::INVALID) {}
+  Sensor() : sensor_status_(SensorStatus::Status::INVALID) {}
   /**
   * @brief gets the latest sensor data
   */

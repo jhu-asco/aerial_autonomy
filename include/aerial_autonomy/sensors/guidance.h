@@ -16,7 +16,7 @@ public:
   *
   */
   Guidance(parsernode::Parser &drone_hardware)
-      : Sensor(SensorStatus::VALID), drone_hardware_(drone_hardware) {}
+      : Sensor(SensorStatus::Status::VALID), drone_hardware_(drone_hardware) {}
 
   virtual VelocityYaw getSensorData() {
     parsernode::common::quaddata data;
