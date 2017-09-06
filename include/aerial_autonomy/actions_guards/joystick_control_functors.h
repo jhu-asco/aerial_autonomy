@@ -31,10 +31,10 @@ template <class LogicStateMachineT>
 struct JoystickControlTransitionGuardFunctor_
     : EventAgnosticGuardFunctor<UAVSensorSystem, LogicStateMachineT> {
   bool guard(UAVSensorSystem &robot_system) {
-    if (!sensor_status_to_bool(robot_system.getSensorStatus())) {
+    if (!bool(robot_system.getSensorStatus())) {
       LOG(WARNING) << "Sensor Status INVALID";
     }
-    return sensor_status_to_bool(robot_system.getSensorStatus());
+    return bool(robot_system.getSensorStatus());
   }
 };
 /**

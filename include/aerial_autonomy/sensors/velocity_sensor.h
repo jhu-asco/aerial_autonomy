@@ -68,7 +68,8 @@ private:
         abs(global_pos[1] - data.localpos.y) < config_.max_divergence() &&
         abs(global_pos[2] - data.localpos.z) < config_.max_divergence()) {
       if (sensor_status_ == SensorStatus::INVALID) {
-        sensor_status_ = SensorStatus::VALID;
+        SensorStatus sensor_status(SensorStatus::VALID);
+        sensor_status_ = sensor_status;
         last_pos_ = global_pos;
         // Differentiate position to get
       } else {
@@ -89,8 +90,10 @@ private:
       last_msg_time_ = msg->header.stamp;
     } else {
       if ((msg->header.stamp - last_msg_time_).toSec() >=
-          config_.bad_data_timeout())
-        sensor_status_ = SensorStatus::INVALID;
+          config_.bad_data_timeout()) {
+        SensorStatus sensor_status(SensorStatus::INVALID);
+        sensor_status_ = sensor_status;
+      }
     }
   }
   /**
