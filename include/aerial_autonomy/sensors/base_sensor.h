@@ -15,7 +15,7 @@ public:
   /**
   * @brief Types of Statuses
   */
-  enum Status { INVALID, VALID };
+  enum class Status { INVALID, VALID };
   /**
   * @brief Default Constructor
   */
