@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
     LOG(FATAL) << "ROS param \"log_config_filename\" not found";
   }
 
-  UAVSensorSystemHandlerConfig uav_system_config;
+  UAVSystemHandlerConfig uav_system_config;
   if (!proto_utils::loadProtoText(uav_system_config_filename,
                                   uav_system_config)) {
     LOG(FATAL) << "Failed to open config file: " << uav_system_config_filename;

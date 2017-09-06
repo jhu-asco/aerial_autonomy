@@ -47,7 +47,7 @@ public:
 protected:
   std::unique_ptr<JoystickControlStateMachine> logic_state_machine;
   std::unique_ptr<UAVSensorSystem> uav_system;
-  UAVSensorSystemConfig uav_system_config;
+  UAVSystemConfig uav_system_config;
   QuadSimulator drone_hardware;
   Guidance velocity_sensor;
   Atomic<RPYTBasedVelocityControllerConfig> rpyt_config;

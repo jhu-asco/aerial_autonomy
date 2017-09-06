@@ -2,6 +2,8 @@ syntax = "proto2";
 
 import "uav_vision_system_config.proto";
 
+import "uav_sensor_system_config.proto";
+
 import "position_controller_config.proto";
 
 import "velocity_controller_config.proto";
@@ -45,5 +47,7 @@ message UAVSystemConfig {
   * @brief A crude form of inheritance for proto. Contains a config for
   * subclasses of UAVSystemConfig
   */
-  oneof subclass { UAVVisionSystemConfig uav_vision_system_config = 8; }
+  oneof subclass { 
+  UAVVisionSystemConfig uav_vision_system_config = 8; 
+  UAVSensorSystemConfig uav_sensor_system_config = 9; }
 }

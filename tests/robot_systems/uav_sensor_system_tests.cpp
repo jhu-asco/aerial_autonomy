@@ -14,7 +14,7 @@ using namespace quad_simulator;
 
 /// \brief Test UAV Sensor System
 TEST(UAVSensorSystemTests, Constructor) {
-  UAVSensorSystemConfig uav_system_config;
+  UAVSystemConfig uav_system_config;
   QuadSimulator drone_hardware;
   Guidance sensor(drone_hardware);
   Atomic<RPYTBasedVelocityControllerConfig> rpyt_config;
@@ -23,7 +23,7 @@ TEST(UAVSensorSystemTests, Constructor) {
 }
 
 TEST(UAVSensorSystemTests, runManualVelocityController) {
-  UAVSensorSystemConfig uav_system_config;
+  UAVSystemConfig uav_system_config;
   QuadSimulator drone_hardware;
   Guidance sensor(drone_hardware);
   RPYTBasedVelocityControllerConfig rpyt_config_;
@@ -63,12 +63,12 @@ TEST(UAVSensorSystemTests, runManualVelocityController) {
   // Verify controller status is completed
   ASSERT_TRUE(bool(uav_system.getActiveControllerStatus(HardwareType::UAV)));
 
-  VelocityYaw vel_goal(
-      0.1, 0.1, -0.1,
-      -0.1 *
-          uav_system_config.joystick_velocity_controller_config()
-              .max_yaw_rate() *
-          0.02);
+  VelocityYaw vel_goal(0.1, 0.1, -0.1,
+                       -0.1 *
+                           uav_system_config.uav_sensor_system_config()
+                               .joystick_velocity_controller_config()
+                               .max_yaw_rate() *
+                           0.02);
   parsernode::common::quaddata sensor_data = uav_system.getUAVData();
   ASSERT_NEAR(sensor_data.linvel.x, vel_goal.x, 1e-3);
   ASSERT_NEAR(sensor_data.linvel.y, vel_goal.y, 1e-3);

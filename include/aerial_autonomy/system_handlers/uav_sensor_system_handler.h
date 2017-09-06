@@ -10,7 +10,7 @@
 #include <aerial_autonomy/robot_systems/uav_sensor_system.h>
 #include <aerial_autonomy/system_handlers/common_system_handler.h>
 
-#include "uav_sensor_system_handler_config.pb.h"
+#include "uav_system_handler_config.pb.h"
 #include <aerial_autonomy/sensors/velocity_sensor.h>
 
 /**
@@ -28,27 +28,28 @@ public:
    * @brief Constructor
    * @param config Proto configuration parameters
    */
-  UAVSensorSystemHandler(UAVSensorSystemHandlerConfig &config)
+  UAVSensorSystemHandler(UAVSystemHandlerConfig &config)
       : nh_uav_("~uav"), parser_loader_("parsernode", "parsernode::Parser"),
-        uav_hardware_(parser_loader_.createUnmanagedInstance(
-            config.uav_system_handler_config().uav_parser_type())),
-        velocity_sensor_(*uav_hardware_, nh_uav_,
-                         config.velocity_sensor_config()),
+        uav_hardware_(
+            parser_loader_.createUnmanagedInstance(config.uav_parser_type())),
+        velocity_sensor_(
+            *uav_hardware_, nh_uav_,
+            config.uav_sensor_system_handler_config().velocity_sensor_config()),
         rpyt_velocity_controller_config_(
-            config.uav_sensor_system_config()
+            config.uav_system_config()
+                .uav_sensor_system_config()
                 .rpyt_velocity_controller_config()),
-        uav_sensor_system_(
-            velocity_sensor_, *uav_hardware_, config.uav_sensor_system_config(),
-            rpyt_velocity_controller_config_,
-            config.uav_system_handler_config().uav_controller_timer_duration()),
-        common_handler_(config.uav_system_handler_config().base_config(),
-                        uav_sensor_system_),
+        uav_sensor_system_(velocity_sensor_, *uav_hardware_,
+                           config.uav_system_config(),
+                           rpyt_velocity_controller_config_,
+                           config.uav_controller_timer_duration()),
+        common_handler_(config.base_config(), uav_sensor_system_),
         uav_controller_timer_(
             std::bind(&UAVSensorSystem::runActiveController,
                       std::ref(uav_sensor_system_), HardwareType::UAV),
-            std::chrono::milliseconds(config.uav_system_handler_config()
-                                          .uav_controller_timer_duration())),
-        use_dynamic_reconfigure_(config.use_dynamic_reconfigure()) {
+            std::chrono::milliseconds(config.uav_controller_timer_duration())),
+        use_dynamic_reconfigure_(config.uav_sensor_system_handler_config()
+                                     .use_dynamic_reconfigure()) {
     // Set default dynamic reconfigure gains from config
     aerial_autonomy::GainsConfig default_config;
     RPYTBasedVelocityControllerConfig start_config =

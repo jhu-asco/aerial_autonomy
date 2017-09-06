@@ -6,7 +6,7 @@
 #include "aerial_autonomy/types/velocity_yaw.h"
 #include "joystick_velocity_controller_config.pb.h"
 #include "rpyt_based_velocity_controller_config.pb.h"
-#include "uav_sensor_system_config.pb.h"
+#include "uav_system_config.pb.h"
 /**
 * @ brief UAV system with external velocity sensor
 */
@@ -26,15 +26,16 @@ public:
   */
   UAVSensorSystem(Sensor<VelocityYaw> &velocity_sensor,
                   parsernode::Parser &drone_hardware,
-                  UAVSensorSystemConfig uav_sensor_system_config,
+                  UAVSystemConfig uav_system_config,
                   Atomic<RPYTBasedVelocityControllerConfig>
                       &rpyt_velocity_controller_config,
                   double controller_timer_duration)
-      : UAVSystem(drone_hardware, uav_sensor_system_config.uav_system_config()),
+      : UAVSystem(drone_hardware, uav_system_config),
         velocity_sensor_(velocity_sensor),
         joystick_velocity_controller_(
             rpyt_velocity_controller_config,
-            uav_sensor_system_config.joystick_velocity_controller_config(),
+            uav_system_config.uav_sensor_system_config()
+                .joystick_velocity_controller_config(),
             controller_timer_duration),
         joystick_velocity_controller_drone_connector_(
             drone_hardware, joystick_velocity_controller_, velocity_sensor_) {

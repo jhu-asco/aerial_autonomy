@@ -27,7 +27,7 @@ TEST(JoystickControlTests, Constructor) {
 }
 
 TEST(JoystickControlTests, TransitionGuardInvalidTest) {
-  UAVSensorSystemConfig uav_system_config;
+  UAVSystemConfig uav_system_config;
   QuadSimulator drone_hardware;
   Sensor<VelocityYaw> sensor; // Status INVALID by default
   Atomic<RPYTBasedVelocityControllerConfig> rpyt_config;
@@ -47,7 +47,7 @@ TEST(JoystickControlTests, TransitionGuardInvalidTest) {
 }
 
 TEST(JoystickControlTests, TransitionGuardValidTest) {
-  UAVSensorSystemConfig uav_system_config;
+  UAVSystemConfig uav_system_config;
   QuadSimulator drone_hardware;
   Guidance sensor(drone_hardware); // status VALID by default
   Atomic<RPYTBasedVelocityControllerConfig> rpyt_config;
@@ -66,7 +66,7 @@ TEST(JoystickControlTests, TransitionGuardValidTest) {
 }
 
 TEST(JoystickControlTests, TransitionActionTest) {
-  UAVSensorSystemConfig uav_system_config;
+  UAVSystemConfig uav_system_config;
   QuadSimulator drone_hardware;
   Guidance sensor(drone_hardware);
   Atomic<RPYTBasedVelocityControllerConfig> rpyt_config;
@@ -87,7 +87,7 @@ TEST(JoystickControlTests, TransitionActionTest) {
 }
 
 TEST(JoystickControlTests, ControllerRunTest) {
-  UAVSensorSystemConfig uav_system_config;
+  UAVSystemConfig uav_system_config;
   QuadSimulator drone_hardware;
   Guidance sensor(drone_hardware);
   RPYTBasedVelocityControllerConfig rpyt_config_;
@@ -133,12 +133,12 @@ TEST(JoystickControlTests, ControllerRunTest) {
   // Verify controller status is completed
   ASSERT_TRUE(bool(uav_system.getActiveControllerStatus(HardwareType::UAV)));
 
-  VelocityYaw vel_goal(
-      0.1, 0.1, -0.1,
-      -0.1 *
-          uav_system_config.joystick_velocity_controller_config()
-              .max_yaw_rate() *
-          0.02);
+  VelocityYaw vel_goal(0.1, 0.1, -0.1,
+                       -0.1 *
+                           uav_system_config.uav_sensor_system_config()
+                               .joystick_velocity_controller_config()
+                               .max_yaw_rate() *
+                           0.02);
 
   parsernode::common::quaddata sensor_data = uav_system.getUAVData();
   ASSERT_NEAR(sensor_data.linvel.x, vel_goal.x, 1e-3);

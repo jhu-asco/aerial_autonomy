@@ -1,24 +1,14 @@
 syntax = "proto2";
 
-import "uav_system_handler_config.proto";
 import "velocity_sensor_config.proto";
-import "uav_sensor_system_config.proto";
 
 message UAVSensorSystemHandlerConfig {
   /**
-  * @brief uav sensor system config
-  */
-  required UAVSensorSystemConfig uav_sensor_system_config = 1;
-  /**
-  * @brief uav system handler config
-  */
-  required UAVSystemHandlerConfig uav_system_handler_config = 2;
-  /**
   * @brief velocity sensor config
   */
-  required VelocitySensorConfig velocity_sensor_config = 3;
+  required VelocitySensorConfig velocity_sensor_config = 1;
   /**
   * @brief flag to check if dynamic reconfigure values are to be used
   */
-optional bool use_dynamic_reconfigure = 4 [default = false];
+optional bool use_dynamic_reconfigure = 2 [default = false];
 }
