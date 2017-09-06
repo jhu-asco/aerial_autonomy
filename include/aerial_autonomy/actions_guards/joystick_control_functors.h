@@ -1,21 +1,11 @@
 #pragma once
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
+#include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/controller_hardware_connectors/joystick_velocity_controller_drone_connector.h>
 #include <aerial_autonomy/robot_systems/uav_sensor_system.h>
 #include <aerial_autonomy/sensors/base_sensor.h>
 #include <aerial_autonomy/types/empty_goal.h>
 
-/**
-*
-* @brief Internal functor while in joystick control state
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-* @tparam AbortEventT Event to generate when aborting (Default
-* ManualControlEvent)
-*/
-template <class LogicStateMachineT, class AbortEventT = ManualControlEvent>
-struct JoystickControlInternalActionFunctor_
-    : HoveringInternalActionFunctor_<LogicStateMachineT, AbortEventT> {};
 /**
 *
 * @ brief Action while transitioning to joystick control
@@ -47,6 +37,18 @@ struct JoystickControlTransitionGuardFunctor_
     return sensor_status_to_bool(robot_system.getSensorStatus());
   }
 };
+/**
+ * @brief internal action while performing joystick control
+ *
+* @tparam LogicStateMachineT Logic state machine used to process events
+ */
+template <class LogicStateMachineT>
+using JoystickControlInternalActionFunctor_ =
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        HoveringInternalActionFunctor_<LogicStateMachineT>,
+        ControllerStatusInternalActionFunctor_<
+            LogicStateMachineT, JoystickVelocityControllerDroneConnector>>>;
+
 /**
 *@ brief Joystick control state that uses internal action
 *

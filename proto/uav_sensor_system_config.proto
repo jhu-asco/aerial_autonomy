@@ -1,0 +1,20 @@
+syntax="proto2";
+
+import "rpyt_based_velocity_controller_config.proto";
+import "joystick_velocity_controller_config.proto";
+import "uav_system_config.proto";
+
+message UAVSensorSystemConfig{
+  /**
+  * @brief rpyt based velocity controller config 
+  */
+  required RPYTBasedVelocityControllerConfig rpyt_velocity_controller_config = 1;
+  /**
+  * @brief manual velocity controller config
+  */
+  required JoystickVelocityControllerConfig joystick_velocity_controller_config = 2;
+  /**
+  * @brief uav system config
+  */
+  required UAVSystemConfig uav_system_config = 3;
+}

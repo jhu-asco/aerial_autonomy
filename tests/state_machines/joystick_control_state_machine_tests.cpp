@@ -36,8 +36,7 @@ public:
     rpyt_config = rpyt_config_;
     drone_hardware.setTakeoffAltitude(2.0);
     uav_system.reset(new UAVSensorSystem(velocity_sensor, drone_hardware,
-                                         uav_system_config, rpyt_config,
-                                         joy_config, 0.02));
+                                         uav_system_config, rpyt_config, 0.02));
     logic_state_machine.reset(
         new JoystickControlStateMachine(boost::ref(*uav_system)));
     logic_state_machine->start();
@@ -48,11 +47,10 @@ public:
 protected:
   std::unique_ptr<JoystickControlStateMachine> logic_state_machine;
   std::unique_ptr<UAVSensorSystem> uav_system;
-  UAVSystemConfig uav_system_config;
+  UAVSensorSystemConfig uav_system_config;
   QuadSimulator drone_hardware;
   Guidance velocity_sensor;
   Atomic<RPYTBasedVelocityControllerConfig> rpyt_config;
-  JoystickVelocityControllerConfig joy_config;
 
   void GoToHoverFromLanded() {
     drone_hardware.setBatteryPercent(100);

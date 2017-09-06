@@ -35,12 +35,11 @@ public:
         velocity_sensor_(*uav_hardware_, nh_uav_,
                          config.velocity_sensor_config()),
         rpyt_velocity_controller_config_(
-            config.rpyt_velocity_controller_config()),
+            config.uav_sensor_system_config()
+                .rpyt_velocity_controller_config()),
         uav_sensor_system_(
-            velocity_sensor_, *uav_hardware_,
-            config.uav_system_handler_config().uav_system_config(),
+            velocity_sensor_, *uav_hardware_, config.uav_sensor_system_config(),
             rpyt_velocity_controller_config_,
-            config.joystick_velocity_controller_config(),
             config.uav_system_handler_config().uav_controller_timer_duration()),
         common_handler_(config.uav_system_handler_config().base_config(),
                         uav_sensor_system_),
@@ -49,7 +48,7 @@ public:
                       std::ref(uav_sensor_system_), HardwareType::UAV),
             std::chrono::milliseconds(config.uav_system_handler_config()
                                           .uav_controller_timer_duration())),
-        use_dynamic_reconfigure(config.use_dynamic_reconfigure()) {
+        use_dynamic_reconfigure_(config.use_dynamic_reconfigure()) {
     // Set default dynamic reconfigure gains from config
     aerial_autonomy::GainsConfig default_config;
     RPYTBasedVelocityControllerConfig start_config =
@@ -57,11 +56,11 @@ public:
     default_config.kp = start_config.kp();
     default_config.ki = start_config.ki();
     default_config.kt = start_config.kt();
-    server.setConfigDefault(default_config);
+    server_.setConfigDefault(default_config);
 
-    callbacktype = boost::bind(
+    callbacktype_ = boost::bind(
         &UAVSensorSystemHandler::dynamicReconfigureCallback, this, _1, _2);
-    server.setCallback(callbacktype);
+    server_.setCallback(callbacktype_);
 
     // Initialize UAV plugin
     uav_hardware_->initialize(nh_uav_);
@@ -88,18 +87,18 @@ private:
       common_handler_;              ///< Common logic to create state machine
                                     ///< and associated connections.
   AsyncTimer uav_controller_timer_; ///< Timer for running uav controller
-  bool use_dynamic_reconfigure;     ///< flag to use dynamic reconfigure
-  dynamic_reconfigure::Server<aerial_autonomy::GainsConfig> server;
+  bool use_dynamic_reconfigure_;    ///< flag to use dynamic reconfigure
+  dynamic_reconfigure::Server<aerial_autonomy::GainsConfig> server_;
   ///< dynamic reconfigure server
   dynamic_reconfigure::Server<aerial_autonomy::GainsConfig>::CallbackType
-      callbacktype; ///< dynamic reconfigure callbacktype
+      callbacktype_; ///< dynamic reconfigure callbacktype
 
   /**
   * @brief Callback for dynamic reconfigure
   */
   void dynamicReconfigureCallback(aerial_autonomy::GainsConfig &gains_config,
                                   uint32_t level) {
-    if (use_dynamic_reconfigure) {
+    if (use_dynamic_reconfigure_) {
       RPYTBasedVelocityControllerConfig config;
       config.set_kp(gains_config.kp);
       config.set_ki(gains_config.ki);
