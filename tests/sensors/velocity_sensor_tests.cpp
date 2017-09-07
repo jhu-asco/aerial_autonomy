@@ -48,7 +48,7 @@ TEST_F(VelocitySensorTests, StartingDataValid) {
 
   auto sensor_status_check = [&]() {
     ros::spinOnce();
-    return sensor_status_to_bool(sensor.getSensorStatus());
+    return bool(sensor.getSensorStatus());
   };
 
   ASSERT_TRUE(test_utils::waitUntilTrue()(sensor_status_check,
@@ -74,7 +74,7 @@ TEST_F(VelocitySensorTests, StartingDataInvalid) {
 
   auto sensor_status_check = [&]() {
     ros::spinOnce();
-    return sensor_status_to_bool(sensor.getSensorStatus());
+    return bool(sensor.getSensorStatus());
   };
   ASSERT_FALSE(test_utils::waitUntilFalse()(sensor_status_check,
                                             std::chrono::seconds(20)));
@@ -135,7 +135,7 @@ TEST_F(VelocitySensorTests, SensorStatusInvalid) {
   ros::Duration(0.03).sleep();
   ros::spinOnce();
 
-  ASSERT_TRUE(sensor_status_to_bool(sensor.getSensorStatus()));
+  ASSERT_TRUE(bool(sensor.getSensorStatus()));
 
   auto sensor_status_check = [&]() {
     pose.header.stamp = ros::Time::now();
@@ -146,7 +146,7 @@ TEST_F(VelocitySensorTests, SensorStatusInvalid) {
     pose_pub.publish(pose);
     ros::Duration(0.03).sleep();
     ros::spinOnce();
-    return sensor_status_to_bool(sensor.getSensorStatus());
+    return bool(sensor.getSensorStatus());
   };
   ASSERT_FALSE(test_utils::waitUntilFalse()(sensor_status_check,
                                             std::chrono::seconds(20)));

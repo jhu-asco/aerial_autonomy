@@ -26,7 +26,7 @@ public:
   */
   VelocitySensor(parsernode::Parser &drone_hardware, ros::NodeHandle nh,
                  VelocitySensorConfig config)
-      : Sensor(SensorStatus::INVALID), config_(config),
+      : Sensor(SensorStatus::Status::INVALID), config_(config),
         drone_hardware_(drone_hardware), nh_(nh) {
     pose_sub_ = nh_.subscribe("pose", 1, &VelocitySensor::poseCallback, this);
     sensor_tf_ = math::getTransformFromVector(config_.sensor_transform());
@@ -67,8 +67,9 @@ private:
     if (abs(global_pos[0] - data.localpos.x) < config_.max_divergence() &&
         abs(global_pos[1] - data.localpos.y) < config_.max_divergence() &&
         abs(global_pos[2] - data.localpos.z) < config_.max_divergence()) {
-      if (sensor_status_ == SensorStatus::INVALID) {
-        sensor_status_ = SensorStatus::VALID;
+      if (sensor_status_ == SensorStatus::Status::INVALID) {
+        SensorStatus sensor_status(SensorStatus::Status::VALID);
+        sensor_status_ = sensor_status;
         last_pos_ = global_pos;
         // Differentiate position to get
       } else {
@@ -89,8 +90,10 @@ private:
       last_msg_time_ = msg->header.stamp;
     } else {
       if ((msg->header.stamp - last_msg_time_).toSec() >=
-          config_.bad_data_timeout())
-        sensor_status_ = SensorStatus::INVALID;
+          config_.bad_data_timeout()) {
+        SensorStatus sensor_status(SensorStatus::Status::INVALID);
+        sensor_status_ = sensor_status;
+      }
     }
   }
   /**

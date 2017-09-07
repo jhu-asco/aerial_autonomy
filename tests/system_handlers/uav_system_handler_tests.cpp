@@ -18,6 +18,7 @@ public:
     UAVSystemHandlerConfig uav_system_handler_config;
     uav_system_handler_config.set_uav_parser_type(
         "quad_simulator_parser/QuadSimParser");
+    uav_system_handler_config.set_sensor_type("Guidance");
     uav_system_handler_config.mutable_uav_system_config()
         ->set_minimum_takeoff_height(0.4);
 
@@ -95,6 +96,7 @@ TEST_F(UAVSystemHandlerTests, ReceiveStatus) {
       std::chrono::seconds(timeout_wait)));
 }
 
+TEST_F(UAVSystemHandlerTests, ) {}
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   ros::init(argc, argv, "uav_system_handler_tests");

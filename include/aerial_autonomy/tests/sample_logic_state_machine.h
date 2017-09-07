@@ -1,5 +1,6 @@
 #pragma once
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
+#include <aerial_autonomy/robot_systems/uav_sensor_system.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/robot_systems/uav_vision_system.h>
 #include <aerial_autonomy/state_machines/base_state_machine.h>
@@ -86,3 +87,7 @@ using UAVVisionLogicStateMachine = SampleLogicStateMachine_<UAVVisionSystem>;
 * @brief Sample logic state machine templated on UAV arm system
 */
 using UAVArmLogicStateMachine = SampleLogicStateMachine_<UAVArmSystem>;
+/**
+* @brief Sample logic state machine templated on UAV sensor system
+*/
+using UAVSensorLogicStateMachine = SampleLogicStateMachine_<UAVSensorSystem>;

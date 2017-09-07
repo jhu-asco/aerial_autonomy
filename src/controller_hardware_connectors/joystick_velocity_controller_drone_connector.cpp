@@ -20,7 +20,7 @@ bool JoystickVelocityControllerDroneConnector::extractSensorData(
   Joystick joy_data(quad_data.servo_in[0], quad_data.servo_in[1],
                     quad_data.servo_in[2], quad_data.servo_in[3]);
 
-  if (velocity_sensor_.getSensorStatus() == SensorStatus::INVALID) {
+  if (velocity_sensor_.getSensorStatus() == SensorStatus::Status::INVALID) {
     LOG(WARNING) << "Velocity sensor data invalid !";
   } else {
     VelocityYaw vel_sensor_data = velocity_sensor_.getSensorData();
