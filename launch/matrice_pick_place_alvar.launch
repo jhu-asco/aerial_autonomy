@@ -20,7 +20,7 @@
     <param name="~arm/device_id" value="/dev/ttyACM0" />
     <param name="~arm/baudrate" value="57600" />
     <param name="~arm/link1_length" value="0.255" />
-    <param name="~arm/link2_length" value="0.286" />
+    <param name="~arm/link2_length" value="0.296" />
     <param name="~arm/link_offset" value="0.025" />
     <param name="~arm/velocity_gain" value="1.0" />
     <param name="~arm/max_joint_velocity" value="0.8" />
@@ -35,7 +35,7 @@
     <param name="~uav/enc_key" type="string" value="8667ff1ec3a163d6ef14a7bf6a9fae66210855f309c1876788f61d2195dc58d7"/>
   </node>
   <include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch">
-    <arg name="marker_size" value="9" />
+    <arg name="marker_size" value="7.7" />
     <arg name="cam_image_topic" value="/pointgrey_camera/image_raw" />
     <arg name="cam_info_topic"  value="/pointgrey_camera/camera_info" />
     <arg name="output_frame"    value="/pointgrey_camera" />
