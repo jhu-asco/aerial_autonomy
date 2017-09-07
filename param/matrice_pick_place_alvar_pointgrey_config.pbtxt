@@ -70,10 +70,10 @@ uav_system_config {
     relative_pose_goals {
       position {
         x: 0
-        y: -.40
-        z: .19
+        y: -.63
+        z: 0.22
       }
-      yaw: 0
+      yaw: 1.5708
     }
 
     velocity_based_relative_pose_controller_config {
@@ -84,9 +84,9 @@ uav_system_config {
         max_yaw_rate: 0.3  
         position_controller_config {
           goal_position_tolerance {
-            x: 0.1
-            y: 0.1
-            z: 0.1
+            x: 0.05
+            y: 0.05
+            z: 0.05
           }
           goal_yaw_tolerance: 0.1
         }

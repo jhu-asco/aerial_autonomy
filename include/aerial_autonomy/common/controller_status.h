@@ -110,6 +110,12 @@ public:
   }
 
   /**
+   * @brief Get the internal status of controller status
+   * @return The status
+   */
+  Status status() { return status_; }
+
+  /**
    * @brief Allows for explicit conversion of the class to a boolean variable
    * This is pretty useful to check controller status implies controller
    * convergence or not. For example:
