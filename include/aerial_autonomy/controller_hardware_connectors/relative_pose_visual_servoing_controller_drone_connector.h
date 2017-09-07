@@ -37,6 +37,9 @@ public:
       : ControllerHardwareConnector(controller, HardwareType::UAV),
         drone_hardware_(drone_hardware), tracker_(tracker),
         camera_transform_(camera_transform),
+        // \todo Matt This will become unwieldy when we are tracking multiple
+        // objects, each with different offsets.  This assumes the offset is the
+        // same for all tracked objects
         tracking_offset_transform_(tracking_offset_transform) {}
   /**
    * @brief Destructor
