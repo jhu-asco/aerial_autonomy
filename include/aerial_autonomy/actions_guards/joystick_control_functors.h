@@ -32,7 +32,6 @@ struct JoystickControlTransitionGuardFunctor_
     : EventAgnosticGuardFunctor<UAVSystem, LogicStateMachineT> {
   bool guard(UAVSystem &robot_system) {
     if (!bool(robot_system.getSensorStatus())) {
-      std::cout << "Sensor Status INVALID\n";
       LOG(WARNING) << "Sensor Status INVALID";
     }
     return bool(robot_system.getSensorStatus());
