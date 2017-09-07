@@ -32,6 +32,13 @@ message UAVVisionSystemConfig {
   repeated double camera_transform = 3;
 
   /**
+  * @brief Transform to apply to tracked object before rotation-compensation (to
+  * avoid issues with singularities).  Specified
+  * as x, y, z, roll, pitch, yaw.
+  */
+  repeated double tracking_offset_transform = 7;
+
+  /**
   * @brief Type of tracker to use, e.g. Alvar, ROI
   */
   optional string tracker_type = 4 [ default = "ROI" ];

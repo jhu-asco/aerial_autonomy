@@ -40,7 +40,9 @@ public:
                                          camera_transform_),
         relative_pose_visual_servoing_drone_connector_(
             tracker, drone_hardware, velocity_based_relative_pose_controller_,
-            camera_transform_) {
+            camera_transform_,
+            math::getTransformFromVector(config_.uav_vision_system_config()
+                                             .tracking_offset_transform())) {
     controller_hardware_connector_container_.setObject(
         visual_servoing_drone_connector_);
     controller_hardware_connector_container_.setObject(

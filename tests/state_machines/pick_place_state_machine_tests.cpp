@@ -36,6 +36,9 @@ public:
     for (int i = 0; i < 6; ++i) {
       uav_vision_system_config->add_camera_transform(0.0);
     }
+    for (int i = 0; i < 6; ++i) {
+      uav_vision_system_config->add_tracking_offset_transform(0.0);
+    }
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
     auto uav_arm_system_config =
         uav_vision_system_config->mutable_uav_arm_system_config();
