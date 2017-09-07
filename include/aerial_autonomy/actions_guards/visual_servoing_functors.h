@@ -106,13 +106,11 @@ using RelativePoseVisualServoingInternalActionFunctor_ =
             RelativePoseVisualServoingControllerDroneConnector>>>;
 
 /**
-* @brief Check tracking is valid before starting relative pose visual servoing
+* @brief Check tracking is valid
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
-// \todo Matt reduce duplicate code in this and
-// VisualServoingTransitionGuardFunctior_
 template <class LogicStateMachineT>
-struct RelativePoseVisualServoingTransitionGuardFunctor_
+struct InitializeTrackerGuardFunctor_
     : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {
   bool guard(UAVVisionSystem &robot_system) {
     if (!robot_system.initializeTracker()) {
@@ -136,10 +134,6 @@ template <class LogicStateMachineT>
 struct VisualServoingTransitionGuardFunctor_
     : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {
   bool guard(UAVVisionSystem &robot_system) {
-    if (!robot_system.initializeTracker()) {
-      LOG(WARNING) << "Could not initialize tracking.";
-      return false;
-    }
     Position tracking_vector;
     if (!robot_system.getTrackingVector(tracking_vector)) {
       LOG(WARNING) << "Lost tracking while servoing.";
