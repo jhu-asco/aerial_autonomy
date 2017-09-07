@@ -20,7 +20,7 @@ public:
   *
   * @param controller_timer_duration Timestep in seconds
   */
-  RPYTBasedVelocityController(Atomic<RPYTBasedVelocityControllerConfig> &config,
+  RPYTBasedVelocityController(RPYTBasedVelocityControllerConfig &config,
                               double controller_timer_duration)
       : config_(config), controller_timer_duration_(controller_timer_duration) {
     RPYTBasedVelocityControllerConfig check_config = config_;
@@ -49,6 +49,12 @@ public:
     cumulative_error.z = 0.0;
     cumulative_error.yaw = 0.0;
   }
+  /**
+  *
+  */
+  void updateConfig(RPYTBasedVelocityControllerConfig &config) {
+    config_ = config;
+  }
 
 protected:
   /**
@@ -72,7 +78,7 @@ protected:
   virtual ControllerStatus isConvergedImplementation(VelocityYaw sensor_data,
                                                      VelocityYaw goal);
   Atomic<RPYTBasedVelocityControllerConfig>
-      &config_; ///< Controller configuration
+      config_; ///< Controller configuration
   VelocityYaw cumulative_error;
   double controller_timer_duration_;
 };

@@ -7,6 +7,7 @@
 // Quad Simulator
 #include <quad_simulator_parser/quad_simulator.h>
 // Guidance Sensor
+#include <aerial_autonomy/sensors/base_sensor.h>
 #include <aerial_autonomy/sensors/guidance.h>
 
 /**
@@ -22,21 +23,23 @@ namespace be = uav_basic_events;
 
 class JoystickControlStateMachineTests : public ::testing::Test {
 public:
-  JoystickControlStateMachineTests() : velocity_sensor(drone_hardware) {
-    RPYTBasedVelocityControllerConfig rpyt_config_;
-    rpyt_config_.set_kp(5.0);
-    rpyt_config_.set_ki(0.01);
+  JoystickControlStateMachineTests() {
+    rpyt_config.set_kp(5.0);
+    rpyt_config.set_ki(0.01);
 
-    auto vel_ctlr_config = rpyt_config_.mutable_velocity_controller_config();
+    auto vel_ctlr_config = rpyt_config.mutable_velocity_controller_config();
     auto tolerance = vel_ctlr_config->mutable_goal_velocity_tolerance();
     tolerance->set_vx(1e-4);
     tolerance->set_vy(1e-4);
     tolerance->set_vz(1e-4);
 
-    rpyt_config = rpyt_config_;
     drone_hardware.setTakeoffAltitude(2.0);
-    uav_system.reset(new UAVSensorSystem(velocity_sensor, drone_hardware,
-                                         uav_system_config, rpyt_config, 0.02));
+
+    velocity_sensor =
+        std::shared_ptr<Sensor<VelocityYaw>>(new Guidance(drone_hardware));
+
+    uav_system.reset(new UAVSystem(drone_hardware, uav_system_config,
+                                   velocity_sensor, 0.02));
     logic_state_machine.reset(
         new JoystickControlStateMachine(boost::ref(*uav_system)));
     logic_state_machine->start();
@@ -46,11 +49,11 @@ public:
 
 protected:
   std::unique_ptr<JoystickControlStateMachine> logic_state_machine;
-  std::unique_ptr<UAVSensorSystem> uav_system;
+  std::unique_ptr<UAVSystem> uav_system;
   UAVSystemConfig uav_system_config;
   QuadSimulator drone_hardware;
-  Guidance velocity_sensor;
-  Atomic<RPYTBasedVelocityControllerConfig> rpyt_config;
+  std::shared_ptr<Sensor<VelocityYaw>> velocity_sensor;
+  RPYTBasedVelocityControllerConfig rpyt_config;
 
   void GoToHoverFromLanded() {
     drone_hardware.setBatteryPercent(100);

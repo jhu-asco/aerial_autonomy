@@ -2,7 +2,7 @@
 #include <aerial_autonomy/joystick_control_events.h>
 #include <aerial_autonomy/log/log.h>
 #include <aerial_autonomy/state_machines/joystick_control_state_machine.h>
-#include <aerial_autonomy/system_handlers/uav_sensor_system_handler.h>
+#include <aerial_autonomy/system_handlers/uav_system_handler.h>
 
 #include <glog/logging.h>
 
@@ -44,9 +44,9 @@ int main(int argc, char **argv) {
   }
   Log::instance().configure(log_config);
 
-  UAVSensorSystemHandler<JoystickControlStateMachine,
-                         joystick_control_events::JoystickControlEventManager<
-                             JoystickControlStateMachine>>
+  UAVSystemHandler<JoystickControlStateMachine,
+                   joystick_control_events::JoystickControlEventManager<
+                       JoystickControlStateMachine>>
       uav_system_handler(uav_system_config);
 
   ros::spin();

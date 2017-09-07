@@ -2,7 +2,7 @@
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/controller_hardware_connectors/joystick_velocity_controller_drone_connector.h>
-#include <aerial_autonomy/robot_systems/uav_sensor_system.h>
+#include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/sensors/base_sensor.h>
 #include <aerial_autonomy/types/empty_goal.h>
 
@@ -14,8 +14,8 @@
 */
 template <class LogicStateMachineT>
 struct JoystickControlTransitionActionFunctor_
-    : EventAgnosticActionFunctor<UAVSensorSystem, LogicStateMachineT> {
-  void run(UAVSensorSystem &robot_system) {
+    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+  void run(UAVSystem &robot_system) {
     VLOG(1) << "entering joystick control mode";
     robot_system.setGoal<JoystickVelocityControllerDroneConnector, EmptyGoal>(
         EmptyGoal());
@@ -29,9 +29,10 @@ struct JoystickControlTransitionActionFunctor_
 */
 template <class LogicStateMachineT>
 struct JoystickControlTransitionGuardFunctor_
-    : EventAgnosticGuardFunctor<UAVSensorSystem, LogicStateMachineT> {
-  bool guard(UAVSensorSystem &robot_system) {
+    : EventAgnosticGuardFunctor<UAVSystem, LogicStateMachineT> {
+  bool guard(UAVSystem &robot_system) {
     if (!bool(robot_system.getSensorStatus())) {
+      std::cout << "Sensor Status INVALID\n";
       LOG(WARNING) << "Sensor Status INVALID";
     }
     return bool(robot_system.getSensorStatus());
@@ -56,5 +57,5 @@ using JoystickControlInternalActionFunctor_ =
 */
 template <class LogicStateMachineT>
 using JoystickControlState_ =
-    BaseState<UAVSensorSystem, LogicStateMachineT,
+    BaseState<UAVSystem, LogicStateMachineT,
               JoystickControlInternalActionFunctor_<LogicStateMachineT>>;

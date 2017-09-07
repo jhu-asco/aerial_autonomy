@@ -5,6 +5,7 @@
 #include "aerial_autonomy/types/joystick.h"
 #include "aerial_autonomy/types/roll_pitch_yaw_thrust.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
+#include "rpyt_based_velocity_controller_config.pb.h"
 
 #include <parsernode/parser.h>
 

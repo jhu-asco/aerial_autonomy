@@ -10,6 +10,11 @@ import "velocity_controller_config.proto";
 
 import "velocity_based_position_controller_config.proto";
 
+import "rpyt_based_velocity_controller_config.proto";
+
+import "joystick_velocity_controller_config.proto";
+
+
 message UAVSystemConfig {
   /**
   * @brief Battery percentage required for takeoff
@@ -43,11 +48,15 @@ message UAVSystemConfig {
   optional VelocityBasedPositionControllerConfig
       velocity_based_position_controller_config = 7;
 
+  optional RPYTBasedVelocityControllerConfig rpyt_based_velocity_controller_config = 8;
+
+  optional JoystickVelocityControllerConfig joystick_velocity_controller_config = 9;
+
   /**
   * @brief A crude form of inheritance for proto. Contains a config for
   * subclasses of UAVSystemConfig
   */
   oneof subclass { 
-  UAVVisionSystemConfig uav_vision_system_config = 8; 
-  UAVSensorSystemConfig uav_sensor_system_config = 9; }
+  UAVVisionSystemConfig uav_vision_system_config = 10; 
+  UAVSensorSystemConfig uav_sensor_system_config = 11; }
 }

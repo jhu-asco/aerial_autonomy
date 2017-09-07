@@ -23,7 +23,7 @@
 #include <aerial_autonomy/actions_guards/joystick_control_states_actions.h>
 
 // Robot System used
-#include <aerial_autonomy/robot_systems/uav_sensor_system.h>
+#include <aerial_autonomy/robot_systems/uav_system.h>
 
 // Logging library
 #include <glog/logging.h>
@@ -62,7 +62,7 @@ using jcsa = JoystickControlStatesActions<JoystickControlStateMachine>;
 */
 class JoystickControlStateMachineFrontEnd
     : public msmf::state_machine_def<JoystickControlStateMachineFrontEnd>,
-      public BaseStateMachine<UAVSensorSystem> {
+      public BaseStateMachine<UAVSystem> {
 public:
   /**
   * @brief Action to take on entering state machine
@@ -89,7 +89,7 @@ public:
   * @param uav_system robot system that is stored internally
   * and shared with events
   */
-  JoystickControlStateMachineFrontEnd(UAVSensorSystem &uav_system)
+  JoystickControlStateMachineFrontEnd(UAVSystem &uav_system)
       : BaseStateMachine(uav_system) {}
 
   /**
@@ -138,7 +138,7 @@ public:
   /**
   * @brief Use Inherited no transition function
   */
-  using BaseStateMachine<UAVSensorSystem>::no_transition;
+  using BaseStateMachine<UAVSystem>::no_transition;
 };
 
 /**

@@ -14,7 +14,7 @@ using namespace quad_simulator;
 * @brief Namespace for Joystick states and actions
 * for UAVLogicStateMachine
 */
-using jcsa = JoystickControlStatesActions<UAVSensorLogicStateMachine>;
+using jcsa = JoystickControlStatesActions<UAVLogicStateMachine>;
 
 /**
 * @brief Namesapce for joystick control events
@@ -27,15 +27,11 @@ TEST(JoystickControlTests, Constructor) {
 }
 
 TEST(JoystickControlTests, TransitionGuardInvalidTest) {
-  UAVSystemConfig uav_system_config;
   QuadSimulator drone_hardware;
-  Sensor<VelocityYaw> sensor; // Status INVALID by default
-  Atomic<RPYTBasedVelocityControllerConfig> rpyt_config;
-  JoystickVelocityControllerConfig joy_config;
-  UAVSensorSystem uav_system(sensor, drone_hardware, uav_system_config,
-                             rpyt_config, 0.02);
-
-  UAVSensorLogicStateMachine sample_logic_state_machine(uav_system);
+  UAVSystem uav_system(
+      drone_hardware, UAVSystemConfig(),
+      std::shared_ptr<Sensor<VelocityYaw>>(new Sensor<VelocityYaw>()));
+  UAVLogicStateMachine sample_logic_state_machine(uav_system);
   jcsa::JoystickControlGuard transition_guard_functor;
   int dummy_start_state, dummy_target_state;
 
@@ -47,14 +43,12 @@ TEST(JoystickControlTests, TransitionGuardInvalidTest) {
 }
 
 TEST(JoystickControlTests, TransitionGuardValidTest) {
-  UAVSystemConfig uav_system_config;
   QuadSimulator drone_hardware;
-  Guidance sensor(drone_hardware); // status VALID by default
-  Atomic<RPYTBasedVelocityControllerConfig> rpyt_config;
-  UAVSensorSystem uav_system(sensor, drone_hardware, uav_system_config,
-                             rpyt_config, 0.02);
+  UAVSystem uav_system(
+      drone_hardware, UAVSystemConfig(),
+      std::shared_ptr<Sensor<VelocityYaw>>(new Guidance(drone_hardware)));
 
-  UAVSensorLogicStateMachine sample_logic_state_machine(uav_system);
+  UAVLogicStateMachine sample_logic_state_machine(uav_system);
   jcsa::JoystickControlGuard transition_guard_functor;
   int dummy_start_state, dummy_target_state;
 
@@ -66,14 +60,12 @@ TEST(JoystickControlTests, TransitionGuardValidTest) {
 }
 
 TEST(JoystickControlTests, TransitionActionTest) {
-  UAVSystemConfig uav_system_config;
   QuadSimulator drone_hardware;
-  Guidance sensor(drone_hardware);
-  Atomic<RPYTBasedVelocityControllerConfig> rpyt_config;
-  UAVSensorSystem uav_system(sensor, drone_hardware, uav_system_config,
-                             rpyt_config, 0.02);
+  UAVSystem uav_system(
+      drone_hardware, UAVSystemConfig(),
+      std::shared_ptr<Sensor<VelocityYaw>>(new Guidance(drone_hardware)));
 
-  UAVSensorLogicStateMachine sample_logic_state_machine(uav_system);
+  UAVLogicStateMachine sample_logic_state_machine(uav_system);
   jcsa::JoystickControlAction transition_action_functor;
   int dummy_start_state, dummy_target_state;
 
@@ -87,9 +79,12 @@ TEST(JoystickControlTests, TransitionActionTest) {
 }
 
 TEST(JoystickControlTests, ControllerRunTest) {
-  UAVSystemConfig uav_system_config;
   QuadSimulator drone_hardware;
-  Guidance sensor(drone_hardware);
+  UAVSystemConfig uav_system_config;
+  UAVSystem uav_system(
+      drone_hardware, uav_system_config,
+      std::shared_ptr<Sensor<VelocityYaw>>(new Guidance(drone_hardware)));
+
   RPYTBasedVelocityControllerConfig rpyt_config_;
   rpyt_config_.set_kp(2.0);
   rpyt_config_.set_ki(0.01);
@@ -100,13 +95,9 @@ TEST(JoystickControlTests, ControllerRunTest) {
   tolerance->set_vy(1e-4);
   tolerance->set_vz(1e-4);
 
-  Atomic<RPYTBasedVelocityControllerConfig> rpyt_config;
-  rpyt_config = rpyt_config_;
+  uav_system.updateConfig(rpyt_config_);
 
-  UAVSensorSystem uav_system(sensor, drone_hardware, uav_system_config,
-                             rpyt_config, 0.02);
-
-  UAVSensorLogicStateMachine sample_logic_state_machine(uav_system);
+  UAVLogicStateMachine sample_logic_state_machine(uav_system);
   jcsa::JoystickControlAction transition_action_functor;
   int dummy_start_state, dummy_target_state;
 
@@ -133,12 +124,12 @@ TEST(JoystickControlTests, ControllerRunTest) {
   // Verify controller status is completed
   ASSERT_TRUE(bool(uav_system.getActiveControllerStatus(HardwareType::UAV)));
 
-  VelocityYaw vel_goal(0.1, 0.1, -0.1,
-                       -0.1 *
-                           uav_system_config.uav_sensor_system_config()
-                               .joystick_velocity_controller_config()
-                               .max_yaw_rate() *
-                           0.02);
+  VelocityYaw vel_goal(
+      0.1, 0.1, -0.1,
+      -0.1 *
+          uav_system_config.joystick_velocity_controller_config()
+              .max_yaw_rate() *
+          0.02);
 
   parsernode::common::quaddata sensor_data = uav_system.getUAVData();
   ASSERT_NEAR(sensor_data.linvel.x, vel_goal.x, 1e-3);

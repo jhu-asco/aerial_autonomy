@@ -1,4 +1,5 @@
 #include <aerial_autonomy/robot_systems/uav_system.h>
+#include <aerial_autonomy/sensors/guidance.h>
 //#include <aerial_autonomy/tests/sample_parser.h>
 #include <chrono>
 #include <gtest/gtest.h>
@@ -141,7 +142,13 @@ TEST(UAVSystemTests, abortController) {
   ASSERT_NE(data_position_yaw, position_yaw);
 }
 
-///
+TEST(UAVSystemTests, ExplicitConstructor) {
+  QuadSimulator drone_hardware;
+  ASSERT_NO_THROW(new UAVSystem(
+      drone_hardware, UAVSystemConfig(),
+      std::shared_ptr<Sensor<VelocityYaw>>(new Guidance(drone_hardware)),
+      0.02));
+}
 
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
