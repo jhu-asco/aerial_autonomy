@@ -18,8 +18,7 @@ message UAVArmSystemConfig {
   /**
   * @brief Config for arm controller
   */
-  optional PoseControllerConfig position_controller_config = 5;
-
+  optional PoseControllerConfig position_controller_config = 6;
 
   /**
   * @brief How much time to spend gripping the object in milliseconds

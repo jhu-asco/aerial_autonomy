@@ -122,7 +122,7 @@ TEST_F(VisualServoingTests, InvalidTrackingCallGuardFunction) {
 
 TEST_F(VisualServoingTests, InvalidTrackingRelativePoseGuardFunction) {
   simple_tracker->setTrackingIsValid(false);
-  // Test action functors
+  // Test guard functors
   vsa::RelativePoseVisualServoingTransitionGuard
       visual_servoing_transition_guard;
   int dummy_start_state, dummy_target_state;
