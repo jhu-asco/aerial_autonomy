@@ -5,7 +5,7 @@ uav_system_config {
 
   rpyt_based_velocity_controller_config{
     kp: 1.0
-    ki: 0.01
+    ki: 0.02
     kt: 0.16
 
     max_thrust: 80 
@@ -27,7 +27,7 @@ uav_system_config {
     max_channel4: 10000
 
     max_velocity: 1
-    max_yaw_rate: 0.5
+    max_yaw_rate: 1.0
   }
 }
 

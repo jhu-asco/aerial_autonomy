@@ -85,7 +85,7 @@ public:
   UAVSystem(parsernode::Parser &drone_hardware)
       : UAVSystem(drone_hardware, UAVSystemConfig()) {}
   /**
-  * @brief Constructor that takes in only UAV hardware and
+  * @brief Constructor
   *
   * UAVSystem requires a drone hardware. It instantiates the connectors,
   * controllers
