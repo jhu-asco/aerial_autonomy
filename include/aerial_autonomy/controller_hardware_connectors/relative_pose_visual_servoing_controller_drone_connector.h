@@ -21,14 +21,26 @@ class RelativePoseVisualServoingControllerDroneConnector
 public:
   /**
    * @brief Constructor
+   * @param tracker Tracker to connect to controller
+   * @param drone_hardware UAV hardware to send controller commands t
+   * @param controller Controller to connect to UAV hardware
+   * @param camera_transform Camera transform in UAV frame
+   * @param tracking_offset_transform Additional transform to apply to tracked
+   * object before it is roll/pitch compensated
    */
   RelativePoseVisualServoingControllerDroneConnector(
       BaseTracker &tracker, parsernode::Parser &drone_hardware,
       VelocityBasedRelativePoseController &controller,
-      tf::Transform camera_transform)
+      tf::Transform camera_transform,
+      tf::Transform tracking_offset_transform =
+          tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0)))
       : ControllerHardwareConnector(controller, HardwareType::UAV),
         drone_hardware_(drone_hardware), tracker_(tracker),
-        camera_transform_(camera_transform) {}
+        camera_transform_(camera_transform),
+        // \todo Matt This will become unwieldy when we are tracking multiple
+        // objects, each with different offsets.  This assumes the offset is the
+        // same for all tracked objects
+        tracking_offset_transform_(tracking_offset_transform) {}
   /**
    * @brief Destructor
    */
@@ -83,4 +95,9 @@ private:
   * @brief camera transform with respect to body
   */
   tf::Transform camera_transform_;
+  /**
+  * @brief transform to apply to tracked object in its own frame before
+  * roll/pitch compensation
+  */
+  tf::Transform tracking_offset_transform_;
 };

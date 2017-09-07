@@ -98,15 +98,18 @@ template <bool done> struct WaitUntilResult {
    *
    * @param input_function Logic function
    * @param timeout Timeout in seconds until to stop waiting for function output
+   * @param sleep_time Time to sleep between function calls
    *
    * @return  the output of input function at the end of the function evaluation
    */
-  bool operator()(std::function<bool(void)> const &input_function,
-                  std::chrono::seconds timeout) {
+  bool operator()(
+      std::function<bool(void)> const &input_function,
+      std::chrono::seconds timeout,
+      std::chrono::milliseconds sleep_time = std::chrono::milliseconds(100)) {
     auto start = std::chrono::system_clock::now();
     std::chrono::seconds duration(0);
     while (input_function() == !done && duration.count() < timeout.count()) {
-      std::this_thread::sleep_for(std::chrono::milliseconds(100));
+      std::this_thread::sleep_for(std::chrono::milliseconds(sleep_time));
       duration = std::chrono::duration_cast<std::chrono::seconds>(
           std::chrono::system_clock::now() - start);
     }

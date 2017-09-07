@@ -17,6 +17,7 @@ TEST(UAVVisionSystemTests, Constructor) {
   auto uav_vision_system_config = config.mutable_uav_vision_system_config();
   for (int i = 0; i < 6; ++i) {
     uav_vision_system_config->add_camera_transform(0.0);
+    uav_vision_system_config->add_tracking_offset_transform(0.0);
   }
   ASSERT_NO_THROW(
       new UAVVisionSystem(roi_to_position_converter, drone_hardware, config));

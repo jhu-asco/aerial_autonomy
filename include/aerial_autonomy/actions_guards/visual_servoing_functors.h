@@ -8,6 +8,23 @@
 #include <aerial_autonomy/types/completed_event.h>
 #include <glog/logging.h>
 #include <parsernode/common.h>
+/**
+* @brief Action for initializing relative pose visual servoing
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT, int GoalIndex>
+struct RelativePoseVisualServoingTransitionActionFunctor_
+    : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
+  void run(UAVVisionSystem &robot_system) {
+    VLOG(1) << "Selecting home location";
+    robot_system.setHomeLocation();
+    VLOG(1)
+        << "Setting goal for relative pose visual servoing drone connector!";
+    robot_system.setGoal<RelativePoseVisualServoingControllerDroneConnector,
+                         PositionYaw>(robot_system.relativePoseGoal(GoalIndex));
+  }
+};
 
 /**
 * @brief Empty for now
@@ -76,6 +93,40 @@ using VisualServoingInternalActionFunctor_ =
             LogicStateMachineT, VisualServoingControllerDroneConnector>>>;
 
 /**
+* @brief Logic to check while reaching a visual servoing goal
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+using RelativePoseVisualServoingInternalActionFunctor_ =
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ControllerStatusInternalActionFunctor_<
+            LogicStateMachineT,
+            RelativePoseVisualServoingControllerDroneConnector>>>;
+
+/**
+* @brief Check tracking is valid
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct InitializeTrackerGuardFunctor_
+    : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {
+  bool guard(UAVVisionSystem &robot_system) {
+    if (!robot_system.initializeTracker()) {
+      LOG(WARNING) << "Could not initialize tracking.";
+      return false;
+    }
+    Position tracking_vector;
+    if (!robot_system.getTrackingVector(tracking_vector)) {
+      LOG(WARNING) << "Lost tracking while servoing.";
+      return false;
+    }
+    return true;
+  }
+};
+
+/**
 * @brief Check tracking is valid before starting visual servoing
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
@@ -83,10 +134,6 @@ template <class LogicStateMachineT>
 struct VisualServoingTransitionGuardFunctor_
     : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {
   bool guard(UAVVisionSystem &robot_system) {
-    if (!robot_system.initializeTracker()) {
-      LOG(WARNING) << "Could not initialize tracking.";
-      return false;
-    }
     Position tracking_vector;
     if (!robot_system.getTrackingVector(tracking_vector)) {
       LOG(WARNING) << "Lost tracking while servoing.";
@@ -120,3 +167,13 @@ template <class LogicStateMachineT>
 using VisualServoing_ =
     BaseState<UAVVisionSystem, LogicStateMachineT,
               VisualServoingInternalActionFunctor_<LogicStateMachineT>>;
+
+/**
+* @brief State that uses relative pose control functor to reach a desired goal.
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+using RelativePoseVisualServoing_ = BaseState<
+    UAVVisionSystem, LogicStateMachineT,
+    RelativePoseVisualServoingInternalActionFunctor_<LogicStateMachineT>>;

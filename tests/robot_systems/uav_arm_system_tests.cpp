@@ -18,6 +18,7 @@ TEST(UAVArmSystemTests, Constructor) {
       uav_vision_system_config->mutable_uav_arm_system_config();
   for (int i = 0; i < 6; ++i) {
     uav_vision_system_config->add_camera_transform(0.0);
+    uav_vision_system_config->add_tracking_offset_transform(0.0);
   }
   for (int i = 0; i < 6; ++i) {
     uav_arm_system_config->add_arm_transform(0.0);

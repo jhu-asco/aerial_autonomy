@@ -10,8 +10,8 @@
 
 /**
  * @brief A pose controller that keeps a pose relative to some feedback
- * pose using a velocity controller.  Note the only the yaw of the desired pose
- * is tracked
+ * pose using a velocity controller.
+ * Note 1: Only the yaw of the desired pose is tracked
  * since a quadrotor is underactuated and cannot arbitrarily control roll/pitch
  * while hovering
  */
@@ -37,7 +37,9 @@ protected:
    * @brief Run the control loop.  Uses a velocity controller to keep a desired
    * pose relative to a tracked pose.
    * @param sensor_data Pose of controlled point and tracked
-   * pose
+   * pose.  NOTE: Both poses need to be given in the frame in which the
+   * velocity command is executed
+   *
    * @param goal Goal relative position and yaw in tracked pose frame
    * @param control Velocity command
    * @return True if controller is successful in running
@@ -50,6 +52,8 @@ protected:
   *
   * @param sensor_data Current control pose and tracked pose
   * @param goal Goal relative position and yaw in tracked pose frame
+  * NOTE: Both poses need to be given in the frame in which the
+  * velocity command is executed
   *
   * @return controller status that contains an enum and debug information.
   */

@@ -24,6 +24,9 @@ public:
       uav_system_handler_config.mutable_uav_system_config()
           ->mutable_uav_vision_system_config()
           ->add_camera_transform(0.0);
+      uav_system_handler_config.mutable_uav_system_config()
+          ->mutable_uav_vision_system_config()
+          ->add_tracking_offset_transform(0.0);
     }
 
     uav_system_handler_.reset(
