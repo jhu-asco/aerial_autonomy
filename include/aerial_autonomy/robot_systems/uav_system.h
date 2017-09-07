@@ -9,7 +9,8 @@
 #include <aerial_autonomy/controllers/basic_controllers.h>
 // Specific ControllerConnectors
 #include <aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h>
-
+// Velocity Sensor
+#include <aerial_autonomy/sensors/base_sensor.h>
 #include <iomanip>
 #include <sstream>
 
@@ -30,6 +31,10 @@ protected:
   UAVSystemConfig config_;
 
 private:
+  /**
+  * @brief velocity sensor
+  */
+  std::shared_ptr<Sensor<VelocityYaw>> velocity_sensor_;
   // Controllers
   /**
   * @brief Position Controller
@@ -44,6 +49,10 @@ private:
   */
   ManualRPYTController manual_rpyt_controller_;
   /**
+  * @brief joystick velocity controller
+  */
+  JoystickVelocityController joystick_velocity_controller_;
+  /**
    * @brief connector for position controller
    */
   PositionControllerDroneConnector position_controller_drone_connector_;
@@ -55,12 +64,15 @@ private:
   * @brief connector for rpyt controller
   */
   ManualRPYTControllerDroneConnector rpyt_controller_drone_connector_;
-
+  /**
+  * @brief Joystick Velocity controller
+  */
+  JoystickVelocityControllerDroneConnector
+      joystick_velocity_controller_drone_connector_;
   /**
   * @brief Home Location
   */
   PositionYaw home_location_;
-
   /**
   * @brief Flag to specify if home location is specified or not
   */
@@ -81,17 +93,29 @@ public:
   * @param drone_hardware input hardware to send commands back
   * @param config The system configuration specifying the parameters such as
   * takeoff height, etc.
+  * @param velocity_sensor Velocity Sensor to be used by robot system
+  * @param controller_timer_duration Timestep for controllers
   */
-  UAVSystem(parsernode::Parser &drone_hardware, UAVSystemConfig config)
+  UAVSystem(parsernode::Parser &drone_hardware, UAVSystemConfig config,
+            std::shared_ptr<Sensor<VelocityYaw>> velocity_sensor =
+                std::shared_ptr<Sensor<VelocityYaw>>(new Sensor<VelocityYaw>()),
+            double controller_timer_duration = 0.02)
       : BaseRobotSystem(), drone_hardware_(drone_hardware), config_(config),
+        velocity_sensor_(velocity_sensor),
         builtin_position_controller_(config.position_controller_config()),
         builtin_velocity_controller_(config.velocity_controller_config()),
+        joystick_velocity_controller_(
+            config.rpyt_based_velocity_controller_config(),
+            config.joystick_velocity_controller_config(),
+            controller_timer_duration),
         position_controller_drone_connector_(drone_hardware,
                                              builtin_position_controller_),
         velocity_controller_drone_connector_(drone_hardware,
                                              builtin_velocity_controller_),
         rpyt_controller_drone_connector_(drone_hardware,
                                          manual_rpyt_controller_),
+        joystick_velocity_controller_drone_connector_(
+            drone_hardware, joystick_velocity_controller_, *velocity_sensor),
         home_location_specified_(false) {
     // Add control hardware connector containers
     controller_hardware_connector_container_.setObject(
@@ -100,6 +124,8 @@ public:
         velocity_controller_drone_connector_);
     controller_hardware_connector_container_.setObject(
         rpyt_controller_drone_connector_);
+    controller_hardware_connector_container_.setObject(
+        joystick_velocity_controller_drone_connector_);
   }
   /**
   * @brief Get sensor data from UAV
@@ -111,6 +137,11 @@ public:
     drone_hardware_.getquaddata(data);
     return data;
   }
+
+  /**
+  * @brief Get status of the sensor
+  */
+  SensorStatus getSensorStatus() { return velocity_sensor_->getSensorStatus(); }
 
   /**
   * @brief Public API call to takeoff
@@ -177,6 +208,11 @@ public:
     table_writer.addCell(data.position_goal.z, "Goal pos z");
     table_writer.addCell(data.velocity_goal_yaw, "Goal yaw");
     table_writer.beginRow();
+    table_writer.addCell(data.servo_in[0], "Channel 1");
+    table_writer.addCell(data.servo_in[1], "Channel 2");
+    table_writer.addCell(data.servo_in[2], "Channel 3");
+    table_writer.addCell(data.servo_in[3], "Channel 4");
+    table_writer.beginRow();
     table_writer.addCell(data.mass, "Mass");
     table_writer.addCell(data.timestamp, "Timestamp", Colors::white, 2);
     table_writer.beginRow();
@@ -216,4 +252,13 @@ public:
   * @return Home location (PositionYaw)
   */
   PositionYaw getHomeLocation() { return home_location_; }
+  /**
+  * @brief update the rpyt controller config
+  *
+  * \todo soham make fuction templated and
+  * extend for other controllers
+  */
+  void updateConfig(RPYTBasedVelocityControllerConfig &config) {
+    joystick_velocity_controller_.updateRPYTConfig(config);
+  }
 };

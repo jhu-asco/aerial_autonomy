@@ -35,8 +35,7 @@ public:
   *
   */
   JoystickVelocityController(
-      Atomic<RPYTBasedVelocityControllerConfig>
-          &rpyt_velocity_controller_config,
+      RPYTBasedVelocityControllerConfig rpyt_velocity_controller_config,
       JoystickVelocityControllerConfig joystick_velocity_controller_config,
       double controller_timer_duration)
       : controller_timer_duration_(controller_timer_duration),
@@ -53,6 +52,14 @@ public:
                                                 << "velocity_y"
                                                 << "velocity_z"
                                                 << "Yaw" << DataStream::endl;
+  }
+  /**
+  *
+  * @brief Update RPYT controller config
+  *
+  */
+  void updateRPYTConfig(RPYTBasedVelocityControllerConfig &config) {
+    rpyt_velocity_controller_.updateConfig(config);
   }
 
 protected:
@@ -82,7 +89,7 @@ private:
   /**
   * @ Config for rpyt velocity controller
   */
-  Atomic<RPYTBasedVelocityControllerConfig> &rpyt_velocity_controller_config_;
+  RPYTBasedVelocityControllerConfig rpyt_velocity_controller_config_;
   /**
   * @brief Internal controller to get rpyt from desired velocity
   */
