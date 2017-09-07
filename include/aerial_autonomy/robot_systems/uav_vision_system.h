@@ -1,8 +1,11 @@
 #pragma once
+#include "aerial_autonomy/common/conversions.h"
 #include "aerial_autonomy/common/html_utils.h"
 #include "aerial_autonomy/common/math.h"
+#include "aerial_autonomy/controller_hardware_connectors/relative_pose_visual_servoing_controller_drone_connector.h"
 #include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h"
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
+#include "aerial_autonomy/controllers/velocity_based_relative_pose_controller.h"
 #include "aerial_autonomy/robot_systems/uav_system.h"
 #include "uav_system_config.pb.h"
 
@@ -24,14 +27,26 @@ public:
       : UAVSystem(drone_hardware, config),
         camera_transform_(math::getTransformFromVector(
             config_.uav_vision_system_config().camera_transform())),
+        relative_pose_goals_(conversions::protoPositionYawsToPositionYaws(
+            config_.uav_vision_system_config().relative_pose_goals())),
         tracker_(tracker), constant_heading_depth_controller_(
                                config_.uav_vision_system_config()
                                    .constant_heading_depth_controller_config()),
+        velocity_based_relative_pose_controller_(
+            config_.uav_vision_system_config()
+                .velocity_based_relative_pose_controller_config()),
         visual_servoing_drone_connector_(tracker, drone_hardware_,
                                          constant_heading_depth_controller_,
-                                         camera_transform_) {
+                                         camera_transform_),
+        relative_pose_visual_servoing_drone_connector_(
+            tracker, drone_hardware, velocity_based_relative_pose_controller_,
+            camera_transform_,
+            math::getTransformFromVector(config_.uav_vision_system_config()
+                                             .tracking_offset_transform())) {
     controller_hardware_connector_container_.setObject(
         visual_servoing_drone_connector_);
+    controller_hardware_connector_container_.setObject(
+        relative_pose_visual_servoing_drone_connector_);
   }
 
   /**
@@ -81,11 +96,19 @@ public:
     return status.str();
   }
 
+  PositionYaw relativePoseGoal(int i) { return relative_pose_goals_.at(i); }
+
 protected:
   /**
   * @brief Camera transform in the frame of the UAV
   */
   tf::Transform camera_transform_;
+
+  /**
+  * @brief UAV transforms in the frame of the tracked object
+  */
+  // \todo Matt Move to state machine config
+  std::vector<PositionYaw> relative_pose_goals_;
 
 private:
   BaseTracker &tracker_;
@@ -94,8 +117,18 @@ private:
   */
   ConstantHeadingDepthController constant_heading_depth_controller_;
   /**
+  * @brief Moves to a position relative to a tracked position using velocity
+  * commands
+  */
+  VelocityBasedRelativePoseController velocity_based_relative_pose_controller_;
+  /**
   * @brief Connector for the constant heading depth controller to
   * UAV
   */
   VisualServoingControllerDroneConnector visual_servoing_drone_connector_;
+  /**
+  * @brief Connects relative pose controller ot tracker and UAV
+  */
+  RelativePoseVisualServoingControllerDroneConnector
+      relative_pose_visual_servoing_drone_connector_;
 };

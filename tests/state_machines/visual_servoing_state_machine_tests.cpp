@@ -1,4 +1,5 @@
 #include <aerial_autonomy/state_machines/visual_servoing_state_machine.h>
+#include <aerial_autonomy/tests/test_utils.h>
 #include <aerial_autonomy/trackers/simple_tracker.h>
 #include <gtest/gtest.h>
 // Timer stuff
@@ -28,6 +29,9 @@ public:
     auto uav_vision_system_config = config.mutable_uav_vision_system_config();
     for (int i = 0; i < 6; ++i) {
       uav_vision_system_config->add_camera_transform(0.0);
+    }
+    for (int i = 0; i < 6; ++i) {
+      uav_vision_system_config->add_tracking_offset_transform(0.0);
     }
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
     auto depth_config =
@@ -84,9 +88,6 @@ TEST_F(VisualServoingStateMachineTests, InitialState) {
 
 /// \brief Test Visual servoing related events
 TEST_F(VisualServoingStateMachineTests, VisualServoing) {
-  int time_out = 5000;  // Milliseconds
-  int time_period = 20; // Milliseconds
-  int max_count = time_out / time_period;
   // First takeoff
   GoToHoverFromLanded();
   // Set goal for simple tracker
@@ -100,14 +101,16 @@ TEST_F(VisualServoingStateMachineTests, VisualServoing) {
   ASSERT_EQ(uav_system->getStatus<VisualServoingControllerDroneConnector>(),
             ControllerStatus::Active);
   // Keep running the controller until its completed
-  int temp_count = 0;
-  while (uav_system->getStatus<VisualServoingControllerDroneConnector>() ==
-             ControllerStatus::Active &&
-         ++temp_count < max_count) {
+  auto getUAVStatusRunControllers = [&]() {
     uav_system->runActiveController(HardwareType::UAV);
     logic_state_machine->process_event(InternalTransitionEvent());
-    std::this_thread::sleep_for(std::chrono::milliseconds(time_period));
-  }
+    return uav_system->getStatus<VisualServoingControllerDroneConnector>() ==
+           ControllerStatus::Active;
+  };
+  // Run controllers again
+  ASSERT_FALSE(test_utils::waitUntilFalse()(getUAVStatusRunControllers,
+                                            std::chrono::seconds(5),
+                                            std::chrono::milliseconds(0)));
   // Finally check we are back in hovering
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
 }

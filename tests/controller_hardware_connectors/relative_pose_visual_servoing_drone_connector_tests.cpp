@@ -21,11 +21,17 @@ class RelativePoseVisualServoingControllerDroneConnectorTests
     : public ::testing::Test {
 public:
   RelativePoseVisualServoingControllerDroneConnectorTests()
-      : goal_tolerance_position_(0.01), goal_tolerance_yaw_(0.01) {
+      : goal_tolerance_position_(0.05), goal_tolerance_yaw_(0.05),
+        tracking_offset_transform_(
+            tf::createQuaternionFromRPY(0, M_PI / 3, M_PI / 2),
+            tf::Vector3(0, 0, 0)) {
     VelocityBasedRelativePoseControllerConfig config;
     auto position_controller_config =
         config.mutable_velocity_based_position_controller_config();
-    position_controller_config->set_position_gain(2.0);
+    position_controller_config->set_position_gain(10.0);
+    position_controller_config->set_max_velocity(3.0);
+    position_controller_config->set_yaw_gain(5.0);
+    position_controller_config->set_max_yaw_rate(0.5);
     position_controller_config->mutable_position_controller_config()
         ->set_goal_yaw_tolerance(goal_tolerance_yaw_);
     auto position_tolerance =
@@ -39,15 +45,17 @@ public:
     controller_.reset(new VelocityBasedRelativePoseController(config));
     visual_servoing_connector_.reset(
         new RelativePoseVisualServoingControllerDroneConnector(
-            *simple_tracker_, drone_hardware_, *controller_, camera_transform));
+            *simple_tracker_, drone_hardware_, *controller_, camera_transform,
+            tracking_offset_transform_));
   }
 
   void runUntilConvergence(const tf::Transform &tracked_pose,
                            const PositionYaw &goal_relative_pose) {
     simple_tracker_->setTargetPoseGlobalFrame(tracked_pose);
+    tf::Transform gravity_aligned_tracked_pose =
+        tracked_pose * tracking_offset_transform_;
     double roll, pitch, yaw;
-    tracked_pose.getBasis().getRPY(roll, pitch, yaw);
-    tf::Transform gravity_aligned_tracked_pose = tracked_pose;
+    gravity_aligned_tracked_pose.getBasis().getRPY(roll, pitch, yaw);
     gravity_aligned_tracked_pose.getBasis().setRPY(0, 0, yaw);
     // Fly quadrotor which sets the altitude to 0.5
     drone_hardware_.setBatteryPercent(60);
@@ -57,11 +65,14 @@ public:
     conversions::positionYawToTf(goal_relative_pose, goal_relative_pose_tf);
     visual_servoing_connector_->setGoal(goal_relative_pose);
     // Run controller until inactive
-    while (visual_servoing_connector_->getStatus() ==
-           ControllerStatus::Active) {
+    auto runController = [&]() {
       visual_servoing_connector_->run();
-      std::this_thread::sleep_for(std::chrono::milliseconds(20));
-    }
+      return visual_servoing_connector_->getStatus() ==
+             ControllerStatus::Active;
+    };
+    ASSERT_FALSE(test_utils::waitUntilFalse()(runController,
+                                              std::chrono::seconds(10),
+                                              std::chrono::milliseconds(20)));
     // Check position is the goal position
     parsernode::common::quaddata sensor_data;
     drone_hardware_.getquaddata(sensor_data);
@@ -83,6 +94,7 @@ public:
       visual_servoing_connector_;
   double goal_tolerance_position_;
   double goal_tolerance_yaw_;
+  tf::Transform tracking_offset_transform_;
 };
 
 TEST_F(RelativePoseVisualServoingControllerDroneConnectorTests, Constructor) {}
@@ -101,9 +113,11 @@ TEST_F(RelativePoseVisualServoingControllerDroneConnectorTests,
   // set tracking vector
   tf::Transform goal(tf::createQuaternionFromRPY(0.1, 0.2, 0.3),
                      tf::Vector3(2, 0, 0.5));
-  tf::Transform goal_rot_comp = goal;
-  goal_rot_comp.getBasis().setRPY(0, 0, 0.3);
   simple_tracker_->setTargetPoseGlobalFrame(goal);
+  tf::Transform goal_rot_comp = goal * tracking_offset_transform_;
+  double roll, pitch, yaw;
+  goal_rot_comp.getBasis().getRPY(roll, pitch, yaw);
+  goal_rot_comp.getBasis().setRPY(0, 0, yaw);
   // Get vector
   tf::Transform tracking_vector;
   ASSERT_TRUE(

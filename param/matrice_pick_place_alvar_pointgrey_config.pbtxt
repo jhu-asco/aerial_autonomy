@@ -41,7 +41,15 @@ uav_system_config {
     camera_transform: 0
     camera_transform: 1.5794
 
+    tracking_offset_transform: 0.0
+    tracking_offset_transform: 0.0
+    tracking_offset_transform: 0.0
+    tracking_offset_transform: -1.5708
+    tracking_offset_transform: 0.0
+    tracking_offset_transform: 0.0
+
     desired_visual_servoing_distance: 0.48
+
     constant_heading_depth_controller_config {
       radial_gain: 0.6
       tangential_gain: 1.3

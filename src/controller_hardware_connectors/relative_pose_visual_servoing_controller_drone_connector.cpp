@@ -36,9 +36,9 @@ bool RelativePoseVisualServoingControllerDroneConnector::
   if (!tracker_.getTrackingVector(object_pose_cam)) {
     return false;
   }
-  // Convert from camera frame to global frame
-  tracking_transform =
-      getBodyFrameRotation() * camera_transform_ * object_pose_cam;
+  // Convert tracked frame from camera frame to UAV-centered global frame
+  tracking_transform = getBodyFrameRotation() * camera_transform_ *
+                       object_pose_cam * tracking_offset_transform_;
   // Remove roll and pitch components of tracked frame
   double roll, pitch, yaw;
   tracking_transform.getBasis().getRPY(roll, pitch, yaw);

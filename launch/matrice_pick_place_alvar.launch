@@ -41,4 +41,6 @@
     <arg name="output_frame"    value="/pointgrey_camera" />
   </include>
   <include file="$(find pointgrey_camera_driver)/launch/pointgrey_camera_single_indoors.launch"/>
+  <node pkg="tf" type="static_transform_publisher" name="camera_quad" args="0.18 0 -.08 1.9199 0 1.5708 /camera /quad 100"/> 
+  <node pkg="tf" type="static_transform_publisher" name="arm_quad" args="0.17 0 -.109 0 -1.5708 3.141 /arm /quad 100"/> 
 </launch>

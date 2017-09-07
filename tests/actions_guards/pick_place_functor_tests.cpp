@@ -39,6 +39,9 @@ protected:
     for (int i = 0; i < 6; ++i) {
       uav_vision_system_config->add_camera_transform(0.0);
     }
+    for (int i = 0; i < 6; ++i) {
+      uav_vision_system_config->add_tracking_offset_transform(0.0);
+    }
     // Flipped arm
     // Arm transform xyz(0.2,0,-0.1), rpy(pi,0,0):
     uav_arm_system_config->add_arm_transform(0.2);

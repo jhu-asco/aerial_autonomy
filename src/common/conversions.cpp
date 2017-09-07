@@ -20,4 +20,9 @@ void positionYawToTf(const PositionYaw &p, tf::Transform &tf) {
   tf.setRotation(tf::createQuaternionFromRPY(0, 0, p.yaw));
   tf.setOrigin(tf::Vector3(p.x, p.y, p.z));
 }
+
+PositionYaw protoPositionYawToPositionYaw(config::PositionYaw p) {
+  return PositionYaw(p.position().x(), p.position().y(), p.position().z(),
+                     p.yaw());
+}
 }

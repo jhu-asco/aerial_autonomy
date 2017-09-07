@@ -1,0 +1,16 @@
+syntax = "proto2";
+
+import "position.proto";
+
+package config;
+
+message PositionYaw {
+  /**
+  * @brief X, Y, Z position
+  */
+  required Position position = 1;
+  /**
+  * @brief Yaw
+  */
+  optional double yaw = 2 [ default = 0.0 ];
+}
