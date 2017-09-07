@@ -23,12 +23,6 @@ uav_system_config {
     }
   }
 
-  goal_position_tolerance {
-    x: 0.05
-    y: 0.05
-    z: 0.05
-  }
-
   velocity_controller_config {
     goal_velocity_tolerance {
       vx: 0.1
@@ -81,7 +75,7 @@ uav_system_config {
       yaw: 0
     }
 
-    velocity_based_relative_position_controller_config {
+    velocity_based_relative_pose_controller_config {
       velocity_based_position_controller_config {
         position_gain: 0.3
         yaw_gain: 0.3
