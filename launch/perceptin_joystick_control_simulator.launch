@@ -12,10 +12,14 @@
     <env name="GLOG_v" value="$(arg log_level)"/>
     <env name="GLOG_alsologtostderr" value="1"/>
   </node>
-  <node pkg="perceptin_ros" type="perceptin_simulator" name="perceptin_simulator">
+  <node pkg="perceptin_ros" type="perceptin_simulator" name="perceptin_simulator" output="screen">
     <remap from="/perceptin_pose" to="/uav_joystick_node/uav/pose"/>
   </node>
   <node pkg="joy" type="joy_node" name="joy_rc">
     <remap from="/joy" to="/uav_joystick_node/uav/joy"/>
   </node>
+  <node pkg="tf2_ros" type="static_transform_publisher"
+    name="world_to_sensor_origin" args="0.1 0.0 0.1 0.0 1.57 0.0 world sensor_origin"/>
+    <node pkg="tf2_ros" type="static_transform_publisher"
+    name="quadsim_to_sensor" args="0.1 0.0 0.1 0.0 1.57 0.0 quad_sim sensor"/>
 </launch>

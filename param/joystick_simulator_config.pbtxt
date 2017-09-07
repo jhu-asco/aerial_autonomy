@@ -4,12 +4,20 @@ uav_system_config {
   landing_height: 0.1
 
   rpyt_based_velocity_controller_config{
-    kp: 2.0
-    ki: 0.0
+    kp: 1.0
+    ki: 0.01
     kt: 0.16
 
-    max_thrust: 80
+    max_thrust: 80 
     max_rp: 1.57
+
+    velocity_controller_config{
+      goal_velocity_tolerance{
+        vx: 0.001
+        vy: 0.001
+        vz: 0.001
+      }
+    }
   }
 
   joystick_velocity_controller_config{
@@ -35,11 +43,11 @@ base_config {
 sensor_type: "ROS Sensor"
 
 velocity_sensor_config{
+  sensor_transform: 0.1
   sensor_transform: 0.0
+  sensor_transform: 0.1
   sensor_transform: 0.0
-  sensor_transform: 0.0
-  sensor_transform: -1.57
-  sensor_transform: 0.0
+  sensor_transform: 1.57
   sensor_transform: 0.0
 }
 

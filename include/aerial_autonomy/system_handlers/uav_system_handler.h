@@ -45,7 +45,8 @@ public:
                        : dynamic_cast<Sensor<VelocityYaw> *>(
                              new Sensor<VelocityYaw>()))),
         uav_system_(*uav_hardware_, config.uav_system_config(),
-                    velocity_sensor_, config.uav_controller_timer_duration()),
+                    velocity_sensor_,
+                    config.uav_controller_timer_duration() / 1000.0),
         common_handler_(config.base_config(), uav_system_),
         uav_controller_timer_(
             std::bind(&UAVSystem::runActiveController, std::ref(uav_system_),
