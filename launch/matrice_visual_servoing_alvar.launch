@@ -27,7 +27,7 @@
   </node>
   <!-- Launch alvar tracking for pointgrey camera -->
   <include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch">
-    <arg name="marker_size" value="10" />
+    <arg name="marker_size" value="7.7" />
     <arg name="cam_image_topic" value="/pointgrey_camera/image_raw" />
     <arg name="cam_info_topic"  value="/pointgrey_camera/camera_info" />
     <arg name="output_frame"    value="/pointgrey_camera" />

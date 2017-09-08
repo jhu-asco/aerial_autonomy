@@ -123,8 +123,7 @@ struct PickPlaceStatesActions
       boost::mpl::vector<typename usa::UAVControllerAbort, AbortArmController>>;
   // Guards
   /**
-  * @brief Guard to stop pick place if arm is not powered or vision is not
-  * working
+  * @brief Guard to stop pick place if arm is not powered
   */
   using PickTransitionGuard = ArmEnabledGuardFunctor_<LogicStateMachineT>;
   /**

@@ -17,7 +17,9 @@ public:
   * @param nh ROS node handle for comms
   */
   AlvarTracker(ros::NodeHandle &nh)
-      : BaseTracker(new ClosestTrackingStrategy(25)), nh_(nh),
+      // \todo Matt Add timeout and num_retries as config
+      : BaseTracker(new ClosestTrackingStrategy(25)),
+        nh_(nh),
         alvar_sub_(nh_.subscribe("ar_pose_marker", 1,
                                  &AlvarTracker::markerCallback, this)),
         timeout_(0.5) {}

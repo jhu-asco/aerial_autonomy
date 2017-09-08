@@ -29,12 +29,12 @@ uav_system_config {
   uav_vision_system_config {
     tracker_type: "Alvar"
 
-    camera_transform: 0.18
+    camera_transform: 0.2093
+    camera_transform: 0.0063
+    camera_transform: -0.0836
+    camera_transform: 1.9372
     camera_transform: 0
-    camera_transform: -0.08
-    camera_transform: 1.9199
-    camera_transform: 0
-    camera_transform: 1.5708
+    camera_transform: 1.5794
 
     tracking_offset_transform: 0.0
     tracking_offset_transform: 0.0
