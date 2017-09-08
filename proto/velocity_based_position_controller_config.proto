@@ -27,4 +27,12 @@ message VelocityBasedPositionControllerConfig {
   * @brief Config about position tolerance, yaw tolerance
   */
   optional PositionControllerConfig position_controller_config = 5;
+  /**
+  * @brief Gain on cumulative yaw error
+  */
+  optional double yaw_i_gain = 6 [ default = 0.1 ];
+  /**
+  * @brief Gain on cumulative position error
+  */
+  optional double position_i_gain = 7 [ default = 0.1 ];
 }

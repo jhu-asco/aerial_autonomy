@@ -1,29 +1,49 @@
 #include <aerial_autonomy/common/math.h>
 #include <aerial_autonomy/controllers/velocity_based_position_controller.h>
-#include <aerial_autonomy/log/log.h>
 #include <glog/logging.h>
+
+void VelocityBasedPositionController::resetIntegrator() {
+  cumulative_error = PositionYaw(0, 0, 0, 0);
+}
+
+double VelocityBasedPositionController::backCalculate(
+    double &integrator, const double &p_command, const double &saturation) {
+  double command = p_command + integrator;
+  if (command > saturation) {
+    command = saturation;
+    integrator = saturation - p_command;
+  } else if (command < -saturation) {
+    command = -saturation;
+    integrator = -saturation - p_command;
+  }
+  return command;
+}
 
 bool VelocityBasedPositionController::runImplementation(
     PositionYaw sensor_data, PositionYaw goal, VelocityYawRate &control) {
   PositionYaw position_diff = goal - sensor_data;
-  auto yaw_rate_cmd =
-      math::clamp(config_.yaw_gain() * position_diff.yaw,
-                  -config_.max_yaw_rate(), config_.max_yaw_rate());
-  double position_norm = position_diff.position().norm();
-  double velocity =
-      std::min(config_.max_velocity(), config_.position_gain() * position_norm);
-  if (position_norm > 1e-8) {
-    control = VelocityYawRate(velocity * position_diff.x / position_norm,
-                              velocity * position_diff.y / position_norm,
-                              velocity * position_diff.z / position_norm,
-                              yaw_rate_cmd);
-  } else {
-    control = VelocityYawRate(0, 0, 0, yaw_rate_cmd);
-  }
+  PositionYaw p_position_diff(position_diff.position() *
+                                  config_.position_gain(),
+                              position_diff.yaw * config_.yaw_gain());
+  PositionYaw i_position_diff(position_diff.position() *
+                                  config_.position_i_gain(),
+                              position_diff.yaw * config_.yaw_i_gain());
+  cumulative_error = cumulative_error + i_position_diff * dt;
+
+  control.x = backCalculate(cumulative_error.x, p_position_diff.x,
+                            config_.max_velocity());
+  control.y = backCalculate(cumulative_error.y, p_position_diff.y,
+                            config_.max_velocity());
+  control.z = backCalculate(cumulative_error.z, p_position_diff.z,
+                            config_.max_velocity());
+  control.yaw_rate = backCalculate(cumulative_error.yaw, p_position_diff.yaw,
+                                   config_.max_yaw_rate());
+
   DATA_LOG("velocity_based_position_controller")
       << position_diff.x << position_diff.y << position_diff.z
-      << position_diff.yaw << control.x << control.y << control.z
-      << control.yaw_rate << DataStream::endl;
+      << position_diff.yaw << cumulative_error.x << cumulative_error.y
+      << cumulative_error.z << cumulative_error.yaw << control.x << control.y
+      << control.z << control.yaw_rate << DataStream::endl;
   return true;
 }
 
