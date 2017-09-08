@@ -59,7 +59,9 @@ public:
     server_.setCallback(callbacktype_);
     aerial_autonomy::GainsConfig default_config;
     RPYTBasedVelocityControllerConfig start_config =
-        config.uav_system_config().rpyt_based_velocity_controller_config();
+        config.uav_system_config()
+            .joystick_velocity_controller_config()
+            .rpyt_based_velocity_controller_config();
     default_config.kp = start_config.kp();
     default_config.ki = start_config.ki();
     default_config.kt = start_config.kt();
@@ -112,9 +114,12 @@ private:
   ///< dynamic reconfigure server
   dynamic_reconfigure::Server<aerial_autonomy::GainsConfig>::CallbackType
       callbacktype_; ///< dynamic reconfigure callbacktype
-                     /**
-                     * @brief Callback for dynamic reconfigure
-                     */
+
+  /**
+  * @brief Callback for dynamic reconfigure
+  *
+  * \todo soham create separate class for dynamic reconfigure
+  */
   void dynamicReconfigureCallback(aerial_autonomy::GainsConfig &gains_config,
                                   uint32_t level) {
     if (use_dynamic_reconfigure_) {

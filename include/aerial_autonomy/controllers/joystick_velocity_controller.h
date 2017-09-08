@@ -35,17 +35,16 @@ public:
   *
   */
   JoystickVelocityController(
-      RPYTBasedVelocityControllerConfig rpyt_velocity_controller_config,
       JoystickVelocityControllerConfig joystick_velocity_controller_config,
       double controller_timer_duration)
       : controller_timer_duration_(controller_timer_duration),
-        rpyt_velocity_controller_config_(rpyt_velocity_controller_config),
-        rpyt_velocity_controller_(rpyt_velocity_controller_config_,
-                                  controller_timer_duration_),
         joystick_velocity_controller_config_(
-            joystick_velocity_controller_config) {
+            joystick_velocity_controller_config),
+        rpyt_velocity_controller_(joystick_velocity_controller_config_
+                                      .rpyt_based_velocity_controller_config(),
+                                  controller_timer_duration) {
     DATA_HEADER("joystick_velocity_controller") << "Channel1"
-                                                << "Channel2"
+                                                << "Channel2  "
                                                 << "Channel3"
                                                 << "Channel4"
                                                 << "velocity_x"
@@ -87,15 +86,11 @@ private:
   */
   double controller_timer_duration_;
   /**
-  * @ Config for rpyt velocity controller
-  */
-  RPYTBasedVelocityControllerConfig rpyt_velocity_controller_config_;
+* @brief Controller config for manual velocity controller
+*/
+  JoystickVelocityControllerConfig joystick_velocity_controller_config_;
   /**
   * @brief Internal controller to get rpyt from desired velocity
   */
   RPYTBasedVelocityController rpyt_velocity_controller_;
-  /**
-  * @brief Controller config for manual velocity controller
-  */
-  JoystickVelocityControllerConfig joystick_velocity_controller_config_;
 };

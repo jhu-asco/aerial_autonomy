@@ -105,7 +105,6 @@ public:
         builtin_position_controller_(config.position_controller_config()),
         builtin_velocity_controller_(config.velocity_controller_config()),
         joystick_velocity_controller_(
-            config.rpyt_based_velocity_controller_config(),
             config.joystick_velocity_controller_config(),
             controller_timer_duration),
         position_controller_drone_connector_(drone_hardware,
@@ -141,7 +140,9 @@ public:
   /**
   * @brief Get status of the sensor
   */
-  SensorStatus getSensorStatus() { return velocity_sensor_->getSensorStatus(); }
+  SensorStatus getVelocitySensorStatus() {
+    return velocity_sensor_->getSensorStatus();
+  }
 
   /**
   * @brief Public API call to takeoff

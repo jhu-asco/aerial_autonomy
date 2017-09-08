@@ -20,7 +20,7 @@ public:
   *
   * @param controller_timer_duration Timestep in seconds
   */
-  RPYTBasedVelocityController(RPYTBasedVelocityControllerConfig &config,
+  RPYTBasedVelocityController(RPYTBasedVelocityControllerConfig config,
                               double controller_timer_duration)
       : config_(config), controller_timer_duration_(controller_timer_duration) {
     RPYTBasedVelocityControllerConfig check_config = config_;

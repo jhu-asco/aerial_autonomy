@@ -1,5 +1,6 @@
 syntax = "proto2";
 
+import "rpyt_based_velocity_controller_config.proto";
 /**
 *Uses values to map joystick values to
 * velocity goals
@@ -29,4 +30,8 @@ message JoystickVelocityControllerConfig {
   * @brief max yaw rate in rad/s
   */
   optional double max_yaw_rate = 6 [ default = 0.5 ];
+  /**
+  * @brief rpyt velocity controller config
+  */
+  optional RPYTBasedVelocityControllerConfig rpyt_based_velocity_controller_config = 7;
 }

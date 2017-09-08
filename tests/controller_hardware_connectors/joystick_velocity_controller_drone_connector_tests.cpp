@@ -15,7 +15,7 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Constructor) {
   RPYTBasedVelocityControllerConfig rpyt_config;
   JoystickVelocityControllerConfig joystick_config;
   QuadSimulator drone_hardware;
-  JoystickVelocityController controller(rpyt_config, joystick_config, dt);
+  JoystickVelocityController controller(joystick_config, dt);
   Guidance velocity_sensor(drone_hardware);
 
   ASSERT_NO_THROW(new JoystickVelocityControllerDroneConnector(
@@ -35,7 +35,8 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
   tolerance->set_vz(1e-4);
   JoystickVelocityControllerConfig joystick_config;
   QuadSimulator drone_hardware;
-  JoystickVelocityController controller(rpyt_config_, joystick_config, dt);
+  JoystickVelocityController controller(joystick_config, dt);
+  controller.updateRPYTConfig(rpyt_config_);
   Guidance velocity_sensor(drone_hardware);
 
   // Set stick commands
@@ -64,10 +65,9 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
 
 TEST(JoystickVelocityControllerDroneConnector, SensorCritical) {
   double dt = 0.02;
-  RPYTBasedVelocityControllerConfig rpyt_config;
   JoystickVelocityControllerConfig joystick_config;
   QuadSimulator drone_hardware;
-  JoystickVelocityController controller(rpyt_config, joystick_config, dt);
+  JoystickVelocityController controller(joystick_config, dt);
   Sensor<VelocityYaw> velocity_sensor; // Sensor status is Invalid by default
 
   // Set stick commands

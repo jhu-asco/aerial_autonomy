@@ -9,7 +9,7 @@ TEST(JoystickVelocityControllerTests, ControlInBounds) {
   double dt = 0.02;
   RPYTBasedVelocityControllerConfig rpyt_config_;
   JoystickVelocityControllerConfig joystick_config;
-  JoystickVelocityController controller(rpyt_config_, joystick_config, dt);
+  JoystickVelocityController controller(joystick_config, dt);
   controller.setGoal(EmptyGoal());
 
   Joystick joy_data(1000, -1000, 1000, 1000);
@@ -41,7 +41,7 @@ TEST(JoystickVelocityControllerTests, ControlOutOfBounds) {
   double dt = 0.02;
   RPYTBasedVelocityControllerConfig rpyt_config;
   JoystickVelocityControllerConfig joystick_config;
-  JoystickVelocityController controller(rpyt_config, joystick_config, dt);
+  JoystickVelocityController controller(joystick_config, dt);
   EmptyGoal goal;
   controller.setGoal(goal);
 
@@ -73,7 +73,8 @@ TEST(JoystickVelocityControllerTests, Convergence) {
   tolerance->set_vz(0.01);
 
   JoystickVelocityControllerConfig joystick_config;
-  JoystickVelocityController controller(rpyt_config, joystick_config, dt);
+  JoystickVelocityController controller(joystick_config, dt);
+  controller.updateRPYTConfig(rpyt_config);
   Joystick joy_data(10000, 10000, 10000, 0);
   VelocityYaw vel_data(0, 0, 0, 0);
   std::tuple<Joystick, VelocityYaw> sensor_data =
