@@ -19,6 +19,9 @@ public:
             VelocityBasedPositionControllerConfig()) {}
   /**
   * @brief Constructor which takes a configuration
+  *
+  * @param config specifies the gains on position, yaw and integrator gains etc
+  * @param dt_ specifies the time difference between two runs
   */
   VelocityBasedPositionController(VelocityBasedPositionControllerConfig config,
                                   double dt_ = 0.02)

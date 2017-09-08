@@ -13,6 +13,8 @@ public:
       : position_gain_(0.1), yaw_gain_(0.1) {
     auto vel_controller_config =
         config_.mutable_velocity_based_position_controller_config();
+    vel_controller_config->set_position_i_gain(0.0);
+    vel_controller_config->set_yaw_i_gain(0.0);
     vel_controller_config->set_position_gain(position_gain_);
     vel_controller_config->set_yaw_gain(yaw_gain_);
     auto tolerance = vel_controller_config->mutable_position_controller_config()
