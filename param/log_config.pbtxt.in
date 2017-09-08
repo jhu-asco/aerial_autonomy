@@ -5,25 +5,30 @@ write_duration: 100
 
 data_stream_configs {
   stream_id: "velocity_based_position_controller"
-  log_rate: 20
+  log_rate: 25
 }
 
 data_stream_configs {
   stream_id: "builtin_position_controller"
-  log_rate: 20
+  log_rate: 25
 }
 
 data_stream_configs {
   stream_id: "relative_pose_controller"
-  log_rate: 20
+  log_rate: 25
 }
 
 data_stream_configs {
   stream_id: "constant_heading_depth_controller"
-  log_rate: 20
+  log_rate: 25
 }
 
 data_stream_configs {
   stream_id: "visual_servoing_controller_drone_connector"
-  log_rate: 20
+  log_rate: 25
+}
+
+data_stream_configs {
+  stream_id: "relative_pose_visual_servoing_controller_drone_connector"
+  log_rate: 25
 }
