@@ -16,7 +16,7 @@ message VelocityBasedPositionControllerConfig {
   */
   optional double yaw_gain = 2 [ default = 0.1 ];
   /**
-  * @brief Maximum velocity to be commanded in m/s
+  * @brief Maximum commanded velocity along each axis in m/s
   */
   optional double max_velocity = 3 [ default = 1 ];
   /**

@@ -118,7 +118,8 @@ struct PositionYaw : public Position {
   * @return Scaled position yaw
   */
   PositionYaw operator*(const double &m) const {
-    return PositionYaw(this->x * m, this->y * m, this->z * m, this->yaw * m);
+    return PositionYaw(this->x * m, this->y * m, this->z * m,
+                       math::angleWrap(this->yaw * m));
   }
 
   /**
