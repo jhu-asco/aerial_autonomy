@@ -7,6 +7,8 @@
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/types/completed_event.h>
+#include <aerial_autonomy/types/reset_event.h>
+#include <chrono>
 #include <glog/logging.h>
 #include <thread>
 
@@ -19,18 +21,26 @@
 template <class LogicStateMachineT>
 struct PickGuard_
     : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
-  bool guard(UAVArmSystem &robot_system) {
-    VLOG(1) << "Grip Object";
-    bool success = robot_system.grip(true);
-    // \todo this wait logic should be done on the arm plugin side and we should
-    // be checking a status asynchronously for grip completion
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    if (!success) {
-      LOG(WARNING) << "Failed to send grip command!";
+  bool guard(UAVArmSystem &robot_system) { return true; }
+};
+
+template <class LogicStateMachineT, class StateT>
+struct GrippingInternalActionFunctor_
+    : public StateDependentInternalActionFunctor<UAVArmSystem,
+                                                 LogicStateMachineT, StateT> {
+  bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine,
+           StateT &state) {
+    VLOG(1) << "Gripping Object";
+    if (state.monitorGrip(robot_system.grip(true))) {
+      VLOG(1) << "Done Gripping!";
+      logic_state_machine.process_event(Completed());
+      return false;
+    } else if (state.timeInState() > robot_system.gripTimeout()) {
       robot_system.resetGripper();
+      LOG(WARNING) << "Timeout: Failed to grip!";
+      logic_state_machine.process_event(Reset());
       return false;
     }
-    VLOG(1) << "Done Gripping!";
     return true;
   }
 };
@@ -111,3 +121,67 @@ using PrePickState_ = BaseState<UAVArmSystem, LogicStateMachineT,
 */
 template <class LogicStateMachineT>
 class PickState_ : public RelativePoseVisualServoing_<LogicStateMachineT> {};
+
+/**
+* @brief State that monitors gripping status
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+class Gripping_
+    : public BaseState<UAVArmSystem, LogicStateMachineT,
+                       GrippingInternalActionFunctor_<
+                           LogicStateMachineT, Gripping_<LogicStateMachineT>>> {
+public:
+  /**
+  * @brief Function called when entering the state.  Logs time of entry.
+  * @param e Event which triggered entry
+  * @param fsm State's state machine
+  * @tparam Event Type of event which triggered entry
+  * @tparam FSM State machine type
+  */
+  template <class Event, class FSM> void on_entry(Event const &e, FSM &fsm) {
+    // log start time
+    entry_time_ = std::chrono::high_resolution_clock::now();
+  }
+
+  /**
+  * @brief Check if grip has been successful for the required duration
+  * @param Whether grip is currently successful
+  * @return True if grip is successful for the duration, false otherwise
+  */
+  bool monitorGrip(bool grip_success) {
+    if (grip_success) {
+      if (!gripping_) {
+        // start grip timer
+        gripping_ = true;
+        grip_start_time_ = std::chrono::high_resolution_clock::now();
+      } else {
+        // check grip timer
+        return std::chrono::high_resolution_clock::now() - grip_start_time_ >
+               required_grip_duration_;
+      }
+    } else {
+      if (gripping_) {
+        // stop grip timer
+        gripping_ = false;
+      }
+    }
+    return false;
+  }
+  /**
+  * @brief Get the amount of time spent in the state
+  * @return The amount of time spent in the state
+  */
+  std::chrono::duration<double> timeInState() {
+    return std::chrono::duration<double>(
+        std::chrono::high_resolution_clock::now() - entry_time_);
+  }
+
+private:
+  std::chrono::time_point<std::chrono::high_resolution_clock> grip_start_time_;
+  std::chrono::time_point<std::chrono::high_resolution_clock> entry_time_;
+  std::chrono::milliseconds required_grip_duration_ =
+      std::chrono::milliseconds(2000);
+  bool gripping_ = false;
+};

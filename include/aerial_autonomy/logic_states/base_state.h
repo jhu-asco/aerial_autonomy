@@ -30,6 +30,9 @@ public:
       : boost::mpl::vector<
             msmf::Internal<InternalTransitionEvent, ActionFctr, msmf::none>> {};
 
+  // \todo Matt add virtual reset function that is called by
+  // StateDependentActionTransitionFunctor
+
   /**
    * @brief Destructor
    */

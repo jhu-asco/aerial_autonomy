@@ -131,6 +131,12 @@ struct PickPlaceStatesActions
   * @brief Action to grab an object
   */
   using PickGuard = PickGuard_<LogicStateMachineT>;
+
+  /**
+  * @brief State for monitoring gripping status
+  */
+  using Gripping = Gripping_<LogicStateMachineT>;
+
   // Explicitly defined manual Control state
   /**
   * @brief State that checks arm status along with regular manual control

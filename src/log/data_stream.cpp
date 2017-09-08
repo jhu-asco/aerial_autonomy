@@ -71,6 +71,8 @@ DataStream &DataStream::starth(DataStream &ds) {
 }
 
 DataStream &DataStream::endl(DataStream &ds) {
+  // \todo Matt Make this stuff a public "flush" function for DataStream that
+  // gets called by DataStream::endl
   if (ds.streaming_) {
     {
       boost::mutex::scoped_lock(buffer_mutex_);
