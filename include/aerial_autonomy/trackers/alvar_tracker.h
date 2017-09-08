@@ -17,10 +17,10 @@ public:
   * @param nh ROS node handle for comms
   */
   AlvarTracker(ros::NodeHandle &nh)
-      : BaseTracker(new ClosestTrackingStrategy(20)), nh_(nh),
+      : BaseTracker(new ClosestTrackingStrategy(25)), nh_(nh),
         alvar_sub_(nh_.subscribe("ar_pose_marker", 1,
                                  &AlvarTracker::markerCallback, this)),
-        timeout_(0.2) {}
+        timeout_(0.5) {}
   /**
    * @brief Get the tracking vectors
    * @param pos Returned tracking vectors
