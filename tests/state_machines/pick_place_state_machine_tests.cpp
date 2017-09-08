@@ -35,8 +35,6 @@ public:
     auto uav_vision_system_config = config.mutable_uav_vision_system_config();
     for (int i = 0; i < 6; ++i) {
       uav_vision_system_config->add_camera_transform(0.0);
-    }
-    for (int i = 0; i < 6; ++i) {
       uav_vision_system_config->add_tracking_offset_transform(0.0);
     }
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
@@ -77,6 +75,7 @@ public:
     pose_goal_position->set_y(1);
     pose_goal_position->set_z(2);
     pose_goal->set_yaw(0);
+    uav_vision_system_config->add_relative_pose_goals();
 
     auto arm_position_tolerance =
         uav_arm_system_config->mutable_position_controller_config()
@@ -189,10 +188,76 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
   // Run controllers again
   ASSERT_FALSE(test_utils::waitUntilFalse()(getArmStatusRunControllers,
                                             std::chrono::seconds(5)));
-  // Check we are in Pick
-  ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
+  // Check we are in Gripping
+  ASSERT_STREQ(pstate(*logic_state_machine), "Gripping");
   ASSERT_EQ(logic_state_machine->lastProcessedEventIndex(), typeid(Completed));
 }
+
+TEST_F(PickPlaceStateMachineTests, Gripping) {
+  GoToHoverFromLanded();
+  // Set goal for simple tracker
+  Position roi_goal(2, 0, 0.5);
+  tracker->setTargetPositionGlobalFrame(roi_goal);
+  // Initialize event to vse::TrackROI
+  logic_state_machine->process_event(pe::Pick());
+  // Check we are in PrePick state
+  ASSERT_STREQ(pstate(*logic_state_machine), "RelativePoseVisualServoing");
+  logic_state_machine->process_event(Completed());
+  // Check we are in pre-pick state
+  ASSERT_STREQ(pstate(*logic_state_machine), "PrePickState");
+  logic_state_machine->process_event(Completed());
+  // Check we are in pick state
+  ASSERT_STREQ(pstate(*logic_state_machine), "PickState");
+  logic_state_machine->process_event(Completed());
+  // Check we are in gripping state
+  ASSERT_STREQ(pstate(*logic_state_machine), "Gripping");
+
+  logic_state_machine->process_event(InternalTransitionEvent());
+
+  auto grip = [&]() {
+    logic_state_machine->process_event(InternalTransitionEvent());
+    return pstate(*logic_state_machine) == std::string("Gripping");
+  };
+  ASSERT_FALSE(test_utils::waitUntilFalse()(grip, std::chrono::seconds(5),
+                                            std::chrono::milliseconds(0)));
+  ASSERT_EQ(logic_state_machine->lastProcessedEventIndex(), typeid(Completed));
+  // Check we are in hovering state
+  ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
+}
+
+TEST_F(PickPlaceStateMachineTests, GrippingTimeout) {
+  GoToHoverFromLanded();
+  // Set goal for simple tracker
+  Position roi_goal(2, 0, 0.5);
+  tracker->setTargetPositionGlobalFrame(roi_goal);
+  // Initialize event to vse::TrackROI
+  logic_state_machine->process_event(pe::Pick());
+  // Check we are in PrePick state
+  ASSERT_STREQ(pstate(*logic_state_machine), "RelativePoseVisualServoing");
+  logic_state_machine->process_event(Completed());
+  // Check we are in pre-pick state
+  ASSERT_STREQ(pstate(*logic_state_machine), "PrePickState");
+  logic_state_machine->process_event(Completed());
+  // Check we are in pick state
+  ASSERT_STREQ(pstate(*logic_state_machine), "PickState");
+  logic_state_machine->process_event(Completed());
+  // Check we are in gripping state
+  ASSERT_STREQ(pstate(*logic_state_machine), "Gripping");
+
+  logic_state_machine->process_event(InternalTransitionEvent());
+  arm.sendCmd(ArmParser::Command::POWER_OFF);
+
+  auto grip = [&]() {
+    logic_state_machine->process_event(InternalTransitionEvent());
+    return pstate(*logic_state_machine) == std::string("Gripping");
+  };
+  ASSERT_FALSE(test_utils::waitUntilFalse()(grip, std::chrono::seconds(5),
+                                            std::chrono::milliseconds(0)));
+  ASSERT_EQ(logic_state_machine->lastProcessedEventIndex(), typeid(Completed));
+  // Check we are in hovering state
+  ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
+}
+
 // Abort due to arm not enabled
 TEST_F(PickPlaceStateMachineTests, PrePickPlaceArmAbort) {
   // First takeoff
