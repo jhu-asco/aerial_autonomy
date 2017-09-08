@@ -157,6 +157,7 @@ uav_basic_events
 visual_servoing_events
 pick_place_events
 arm_events
+joystick_control_events
 )
 
 ##############
@@ -242,17 +243,19 @@ target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${PROTOBUF_LIBRA
 add_executable(uav_system_node src/system_handler_nodes/uav_system_node.cpp)
 add_executable(uav_vision_system_node src/system_handler_nodes/uav_vision_system_node.cpp)
 add_executable(uav_arm_system_node src/system_handler_nodes/uav_arm_system_node.cpp)
+add_executable(uav_joystick_control_node src/system_handler_nodes/uav_joystick_control_node.cpp)
 add_executable(event_publish_node src/tests/event_publish_node.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(aerial_autonomy_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(uav_joystick_control_node ${PROJECT_NAME}_gencfg)
 
 ## Specify libraries to link a library or executable target against
 
 target_link_libraries(uav_system_node aerial_autonomy)
 target_link_libraries(uav_vision_system_node aerial_autonomy)
 target_link_libraries(uav_arm_system_node aerial_autonomy)
+target_link_libraries(uav_joystick_control_node aerial_autonomy)
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
 
 #############
@@ -312,10 +315,12 @@ catkin_add_gtest(${PROJECT_NAME}-arm-functor-tests tests/actions_guards/arm_func
 catkin_add_gtest(${PROJECT_NAME}-shorting-action-sequence-tests tests/actions_guards/shorting_action_sequence_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-functor-tests tests/actions_guards/visual_servoing_functor_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-pick-place-functor-tests tests/actions_guards/pick_place_functor_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-joystick-control-functor-tests tests/actions_guards/joystick_control_functor_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-uav-basic-state-machine-test tests/state_machines/uav_state_machine_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-state-machine-test tests/state_machines/visual_servoing_state_machine_tests.cpp)
 add_dependencies(${PROJECT_NAME}-visual-servoing-state-machine-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
 catkin_add_gtest(${PROJECT_NAME}-pick-place-state-machine-test tests/state_machines/pick_place_state_machine_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-joystick-control-state-machine-test tests/state_machines/joystick_control_state_machine_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-arm-system-test tests/robot_systems/arm_system_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-uav-vision-system-test tests/robot_systems/uav_vision_system_tests.test tests/robot_systems/uav_vision_system_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-event-test tests/state_machines/state_machine_gui_connector_event_tests.test tests/state_machines/state_machine_gui_connector_event_tests.cpp)
@@ -359,6 +364,9 @@ endif()
 if(TARGET ${PROJECT_NAME}-pick-place-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-pick-place-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
+if(TARGET ${PROJECT_NAME}-joystick-control-state-machine-test)
+  target_link_libraries(${PROJECT_NAME}-joystick-control-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+endif()
 if(TARGET ${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
@@ -397,6 +405,9 @@ if(TARGET ${PROJECT_NAME}-shorting-action-sequence-tests)
 endif()
 if(TARGET ${PROJECT_NAME}-pick-place-functor-tests)
   target_link_libraries(${PROJECT_NAME}-pick-place-functor-tests aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+endif()
+if(TARGET ${PROJECT_NAME}-joystick-control-functor-tests)
+  target_link_libraries(${PROJECT_NAME}-joystick-control-functor-tests aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
 if(TARGET ${PROJECT_NAME}-visual-servoing-functor-tests)
   target_link_libraries(${PROJECT_NAME}-visual-servoing-functor-tests aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
