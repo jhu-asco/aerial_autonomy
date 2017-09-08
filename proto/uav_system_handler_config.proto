@@ -3,6 +3,7 @@ syntax = "proto2";
 import "uav_system_config.proto";
 import "common_system_handler_config.proto";
 import "uav_arm_system_handler_config.proto";
+import "velocity_sensor_config.proto";
 
 message UAVSystemHandlerConfig {
   /**
@@ -24,12 +25,23 @@ message UAVSystemHandlerConfig {
   * @brief Store parent config options
   */
   optional CommonSystemHandlerConfig base_config = 4;
-
+  /**
+  * @brief type of velocity sensor 
+  */
+  optional string sensor_type = 5 [default = "Guidance"];
+  /**
+  * @brief config for Velocity Sensor
+  */
+  optional VelocitySensorConfig velocity_sensor_config = 6;
+  /**
+  * @brief Flag to use dynamic reconfigure
+  */
+  optional bool use_dynamic_reconfigure = 7 [default = false];
   /**
   * @brief A crude form of inheritance for proto. Contains a config for
   * subclasses of UAVSystemHandlerConfig
   */
   oneof subclass {
-    UAVArmSystemHandlerConfig uav_arm_system_handler_config = 5;
+    UAVArmSystemHandlerConfig uav_arm_system_handler_config = 8;
   }
 }
