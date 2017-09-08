@@ -26,6 +26,12 @@ public:
   VelocityBasedPositionController(VelocityBasedPositionControllerConfig config,
                                   double dt_ = 0.02)
       : config_(config), cumulative_error(0, 0, 0, 0), dt(dt_) {
+
+    position_saturation_gain_ = std::min(config_.integrator_saturation_gain() *
+                                             config_.position_i_gain() * dt,
+                                         1.0);
+    yaw_saturation_gain_ = std::min(
+        config_.integrator_saturation_gain() * config_.yaw_i_gain() * dt, 1.0);
     DATA_HEADER("velocity_based_position_controller") << "x_diff"
                                                       << "y_diff"
                                                       << "z_diff"
@@ -62,7 +68,8 @@ public:
    * @return the command after resetting integrator
    */
   inline double backCalculate(double &integrator, const double &p_command,
-                              const double &saturation);
+                              const double &saturation,
+                              const double &integrator_saturation_gain);
 
   /**
    * @brief Getter for internal cumulative error stored
@@ -95,4 +102,8 @@ protected:
   VelocityBasedPositionControllerConfig config_; ///< Controller configuration
   PositionYaw cumulative_error; ///< Error integrated over multiple runs
   double dt; ///< Time diff between different successive runImplementation calls
+  double position_saturation_gain_; ///< Gain to saturate cumulative position
+                                    /// error in back calculation
+  double yaw_saturation_gain_; ///< Gain to saturate cumulative yaw error in
+                               /// back calculation
 };

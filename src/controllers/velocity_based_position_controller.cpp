@@ -7,14 +7,17 @@ void VelocityBasedPositionController::resetIntegrator() {
 }
 
 double VelocityBasedPositionController::backCalculate(
-    double &integrator, const double &p_command, const double &saturation) {
+    double &integrator, const double &p_command, const double &saturation,
+    const double &integrator_saturation_gain) {
   double command = p_command + integrator;
   if (command > saturation) {
     command = saturation;
-    integrator = saturation - p_command;
+    integrator = integrator_saturation_gain * (saturation - p_command) +
+                 (1.0 - integrator_saturation_gain) * integrator;
   } else if (command < -saturation) {
     command = -saturation;
-    integrator = -saturation - p_command;
+    integrator = integrator_saturation_gain * (-saturation - p_command) +
+                 (1.0 - integrator_saturation_gain) * integrator;
   }
   return command;
 }
@@ -31,13 +34,14 @@ bool VelocityBasedPositionController::runImplementation(
   cumulative_error = cumulative_error + i_position_diff * dt;
 
   control.x = backCalculate(cumulative_error.x, p_position_diff.x,
-                            config_.max_velocity());
+                            config_.max_velocity(), position_saturation_gain_);
   control.y = backCalculate(cumulative_error.y, p_position_diff.y,
-                            config_.max_velocity());
+                            config_.max_velocity(), position_saturation_gain_);
   control.z = backCalculate(cumulative_error.z, p_position_diff.z,
-                            config_.max_velocity());
-  control.yaw_rate = backCalculate(cumulative_error.yaw, p_position_diff.yaw,
-                                   config_.max_yaw_rate());
+                            config_.max_velocity(), position_saturation_gain_);
+  control.yaw_rate =
+      backCalculate(cumulative_error.yaw, p_position_diff.yaw,
+                    config_.max_yaw_rate(), yaw_saturation_gain_);
 
   DATA_LOG("velocity_based_position_controller")
       << position_diff.x << position_diff.y << position_diff.z

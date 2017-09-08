@@ -30,9 +30,13 @@ message VelocityBasedPositionControllerConfig {
   /**
   * @brief Gain on cumulative yaw error
   */
-  optional double yaw_i_gain = 6 [ default = 0.05 ];
+  optional double yaw_i_gain = 6 [ default = 0.01 ];
   /**
   * @brief Gain on cumulative position error
   */
-  optional double position_i_gain = 7 [ default = 0.05 ];
+  optional double position_i_gain = 7 [ default = 0.01 ];
+  /**
+  * @brief Gain on saturating cumulative error in back calculation
+  */
+  optional double integrator_saturation_gain = 8 [ default = 1.0 ];
 }
