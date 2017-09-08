@@ -101,15 +101,15 @@ struct PickPlaceStatesActions
   * @brief Set goal for visual servoing and also arm controller
   */
   using PickTransitionAction = bActionSequence<boost::mpl::vector<
-      typename vsa::VisualServoingTransitionAction,
-      VisualServoingArmTransitionActionFunctor_<LogicStateMachineT, 1>>>;
+      AbortArmController, RelativePoseVisualServoingTransitionActionFunctor_<
+                              LogicStateMachineT, 1>>>;
+  // VisualServoingArmTransitionActionFunctor_<LogicStateMachineT, 1>;
   /**
   * @brief Set goal for visual servoing and also arm controller for positioning
   * arm for pick
   */
-  using PrePickTransitionAction = bActionSequence<boost::mpl::vector<
-      typename vsa::VisualServoingTransitionAction,
-      VisualServoingArmTransitionActionFunctor_<LogicStateMachineT, 0>>>;
+  using PrePickTransitionAction =
+      VisualServoingArmTransitionActionFunctor_<LogicStateMachineT, 0>;
   /**
   * @brief Action to take when starting folding arm before takeoff
   */
