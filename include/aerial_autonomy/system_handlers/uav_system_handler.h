@@ -128,7 +128,7 @@ private:
       config.set_ki(gains_config.ki);
       config.set_kt(gains_config.kt);
 
-      uav_system_.updateConfig(config);
+      uav_system_.updateRPYTVelocityControllerConfig(config);
     } else {
       LOG(WARNING) << " 'Use dynamic reconfigure' flag set to false";
     }

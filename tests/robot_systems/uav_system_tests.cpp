@@ -170,7 +170,7 @@ TEST(UAVSystemTests, runJoystickVelocityController) {
   tolerance->set_vy(1e-4);
   tolerance->set_vz(1e-4);
 
-  uav_system.updateConfig(rpyt_config_);
+  uav_system.updateRPYTVelocityControllerConfig(rpyt_config_);
   uav_system.takeOff();
 
   // set rc channels

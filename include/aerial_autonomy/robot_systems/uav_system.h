@@ -259,7 +259,8 @@ public:
   * \todo soham make fuction templated and
   * extend for other controllers
   */
-  void updateConfig(RPYTBasedVelocityControllerConfig &config) {
+  void updateRPYTVelocityControllerConfig(
+      RPYTBasedVelocityControllerConfig &config) {
     joystick_velocity_controller_.updateRPYTConfig(config);
   }
 };
