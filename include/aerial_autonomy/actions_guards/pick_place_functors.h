@@ -3,6 +3,7 @@
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
 #include <aerial_autonomy/actions_guards/manual_control_functors.h>
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
+#include <aerial_autonomy/actions_guards/visual_servoing_functors.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/types/completed_event.h>
@@ -47,8 +48,8 @@ using PickInternalActionFunctor_ =
         ControllerStatusInternalActionFunctor_<
             LogicStateMachineT, VisualServoingControllerArmConnector>,
         ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, VisualServoingControllerDroneConnector,
-            false>>>;
+            LogicStateMachineT,
+            RelativePoseVisualServoingControllerDroneConnector, false>>>;
 /**
 * @brief Logic to check arm power and manual mode
 *
@@ -99,8 +100,8 @@ struct VisualServoingArmTransitionActionFunctor_
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using PickState_ = BaseState<UAVArmSystem, LogicStateMachineT,
-                             PickInternalActionFunctor_<LogicStateMachineT>>;
+using PrePickState_ = BaseState<UAVArmSystem, LogicStateMachineT,
+                                PickInternalActionFunctor_<LogicStateMachineT>>;
 
 /**
 * @brief State that uses position control functor to reach a desired goal prior
@@ -109,4 +110,4 @@ using PickState_ = BaseState<UAVArmSystem, LogicStateMachineT,
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-class PrePickState_ : public PickState_<LogicStateMachineT> {};
+class PickState_ : public RelativePoseVisualServoing_<LogicStateMachineT> {};
