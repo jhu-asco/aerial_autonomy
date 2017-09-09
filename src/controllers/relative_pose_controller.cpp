@@ -21,18 +21,18 @@ ControllerStatus RelativePoseController::isConvergedImplementation(
   tf::Quaternion goal_quat = goal.getRotation();
   double rot_diff = goal_quat.angleShortestPath(relative_quat);
 
-  tf::Vector3 abs_error_position =
-      (relative_position - goal_position).absolute();
+  tf::Vector3 error_position = relative_position - goal_position;
+  tf::Vector3 abs_error_position = error_position.absolute();
   ControllerStatus status(ControllerStatus::Active);
-  status << "Error Position, Rotation: " << abs_error_position.x()
-         << abs_error_position.y() << abs_error_position.z() << rot_diff;
+  status << "Error Position, Rotation: " << error_position.x()
+         << error_position.y() << error_position.z() << rot_diff;
   const tf::Quaternion &current_rot = current_pose.getRotation();
   const tf::Vector3 &current_trans = current_pose.getOrigin();
   const tf::Quaternion &tracked_rot = tracked_pose.getRotation();
   const tf::Vector3 &tracked_trans = tracked_pose.getOrigin();
   DATA_LOG("relative_pose_controller")
-      << abs_error_position.x() << abs_error_position.y()
-      << abs_error_position.z() << rot_diff << current_trans.x()
+      << error_position.x() << error_position.y()
+      << error_position.z() << rot_diff << current_trans.x()
       << current_trans.y() << current_trans.z() << current_rot.w()
       << current_rot.x() << current_rot.y() << current_rot.z()
       << tracked_trans.x() << tracked_trans.y() << tracked_trans.z()

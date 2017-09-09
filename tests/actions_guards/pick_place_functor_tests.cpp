@@ -113,13 +113,6 @@ TEST_F(PickPlaceFunctorTests, CallPrePickActionFunction) {
                                           dummy_target_state));
   pick_place_transition_action(NULL, *sample_logic_state_machine,
                                dummy_start_state, dummy_target_state);
-  ASSERT_TRUE(uav_arm_system->isHomeLocationSpecified());
-  ASSERT_EQ(uav_arm_system->getHomeLocation(), PositionYaw(0, 0, 0, 0));
-  // Get goal from controllerConnector and check if the goal is what we expect
-  Position goal =
-      uav_arm_system
-          ->getGoal<VisualServoingControllerDroneConnector, Position>();
-  ASSERT_EQ(goal, roi_goal / roi_goal.norm());
   // Arm goal
   tf::Transform arm_goal =
       uav_arm_system
@@ -143,13 +136,6 @@ TEST_F(PickPlaceFunctorTests, CallPickActionFunction) {
                                           dummy_target_state));
   pick_place_transition_action(NULL, *sample_logic_state_machine,
                                dummy_start_state, dummy_target_state);
-  ASSERT_TRUE(uav_arm_system->isHomeLocationSpecified());
-  ASSERT_EQ(uav_arm_system->getHomeLocation(), PositionYaw(0, 0, 0, 0));
-  // Get goal from controllerConnector and check if the goal is what we expect
-  Position goal =
-      uav_arm_system
-          ->getGoal<VisualServoingControllerDroneConnector, Position>();
-  ASSERT_EQ(goal, roi_goal / roi_goal.norm());
   // Arm goal
   tf::Transform arm_goal =
       uav_arm_system
@@ -190,15 +176,8 @@ TEST_F(PickPlaceFunctorTests, CallInternalActionFunction) {
                                dummy_start_state, dummy_target_state);
   // After transition the status should be active
   ControllerStatus status;
-  status = uav_arm_system->getStatus<VisualServoingControllerDroneConnector>();
-  ASSERT_EQ(status, ControllerStatus::Active);
   status = uav_arm_system->getStatus<VisualServoingControllerArmConnector>();
   ASSERT_EQ(status, ControllerStatus::Active);
-  // Get Goal
-  Position goal =
-      uav_arm_system
-          ->getGoal<VisualServoingControllerDroneConnector, Position>();
-  ASSERT_EQ(goal, Position(1, 0, 0));
   // Set quadrotor to the target location
   double desired_yaw = 0.0;
   geometry_msgs::Vector3 desired_position;
@@ -206,11 +185,6 @@ TEST_F(PickPlaceFunctorTests, CallInternalActionFunction) {
   desired_position.y = roi_goal.y;
   desired_position.z = roi_goal.z;
   drone_hardware.cmdwaypoint(desired_position, desired_yaw);
-  // Call controller loop:
-  uav_arm_system->runActiveController(HardwareType::UAV);
-  // Get status
-  status = uav_arm_system->getStatus<VisualServoingControllerDroneConnector>();
-  ASSERT_EQ(status, ControllerStatus::Completed);
   // Set Arm to target location by running arm controller
   uav_arm_system->runActiveController(HardwareType::Arm);
   // Rerun loop to update status
