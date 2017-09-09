@@ -34,8 +34,8 @@ public:
 
     CHECK(config_.position_gain() > 0) << "Gain should be non-negative";
     CHECK(config_.yaw_gain() > 0) << "Gain should be non-negative";
-    CHECK(config_.max_velocity() > 0) << "Gain should be non-negative";
-    CHECK(config_.max_yaw_rate() > 0) << "Gain should be non-negative";
+    CHECK(config_.max_velocity() > 0) << "Max velocity should be non-negative";
+    CHECK(config_.max_yaw_rate() > 0) << "Max yaw rate should be non-negative";
     CHECK(config_.yaw_i_gain() >= 0) << "Gain should be non-negative";
     CHECK(config_.position_i_gain() >= 0) << "Gain should be non-negative";
     CHECK(config_.integrator_saturation_gain() >= 0)
