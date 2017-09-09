@@ -38,11 +38,20 @@ message VelocityBasedPositionControllerConfig {
   /**
   * @brief Gain on saturating cumulative error in back calculation
   * This gain is multiplied by the i gain. When controller
-  * saturates, the actual control value will be saturated value
+  * saturates, the desired control value will be saturated value
   * + (1/gain)*goal_difference_error; So higher the gain,the
   * control value will be closer to the saturation and will
   * respond to quicker as soon as control moves away from
   * saturation.
+  *
+  * A smaller gain will not pull the integrator towards the saturating
+  * value quickly. If the current value of integrator is small and
+  * we use a large saturation gain, the integrator value will quickly
+  * converge to the saturation value which implies it will take
+  * longer to get back to normal integral values based on integration
+  * gains. So for smaller integration gains, you should also use a
+  * smaller saturation gain to ensure we do not quickly saturate
+  * the integrator when we are at the limits.
   */
   optional double integrator_saturation_gain = 8 [ default = 1.0 ];
 }

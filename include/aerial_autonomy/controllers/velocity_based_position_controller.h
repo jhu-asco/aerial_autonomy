@@ -4,6 +4,7 @@
 #include "aerial_autonomy/types/velocity_yaw_rate.h"
 #include "velocity_based_position_controller_config.pb.h"
 #include <aerial_autonomy/log/log.h>
+#include <glog/logging.h>
 
 /**
  * @brief A position controller that sends velocity commands to the hardware
@@ -26,11 +27,21 @@ public:
   VelocityBasedPositionController(VelocityBasedPositionControllerConfig config,
                                   double dt_ = 0.02)
       : config_(config), cumulative_error(0, 0, 0, 0), dt(dt_) {
-
     position_saturation_gain_ =
         config_.integrator_saturation_gain() * config_.position_i_gain() * dt;
     yaw_saturation_gain_ =
         config_.integrator_saturation_gain() * config_.yaw_i_gain() * dt;
+
+    CHECK(config_.position_gain() > 0) << "Gain should be non-negative";
+    CHECK(config_.yaw_gain() > 0) << "Gain should be non-negative";
+    CHECK(config_.max_velocity() > 0) << "Gain should be non-negative";
+    CHECK(config_.max_yaw_rate() > 0) << "Gain should be non-negative";
+    CHECK(config_.yaw_i_gain() >= 0) << "Gain should be non-negative";
+    CHECK(config_.position_i_gain() >= 0) << "Gain should be non-negative";
+    CHECK(config_.integrator_saturation_gain() >= 0)
+        << "Gain should be non-negative";
+    CHECK(dt > 0) << "Dt should be greater than 0";
+
     DATA_HEADER("velocity_based_position_controller") << "x_diff"
                                                       << "y_diff"
                                                       << "z_diff"
