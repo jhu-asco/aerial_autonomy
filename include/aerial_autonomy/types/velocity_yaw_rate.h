@@ -1,5 +1,6 @@
 #pragma once
 #include "aerial_autonomy/types/velocity.h"
+#include <aerial_autonomy/common/math.h>
 
 /**
 * @brief Store velocity and yaw rate
@@ -48,4 +49,22 @@ struct VelocityYawRate : public Velocity {
   * @return True if not same
   */
   bool operator!=(const VelocityYawRate &v) const { return !(*this == v); }
+  /**
+  * @brief Add two velocity and yaw rate entities
+  * @param p VelocityYawRate to add
+  * @return Sum of velocity and yaw rate
+  */
+  VelocityYawRate operator+(const VelocityYawRate &p) const {
+    return VelocityYawRate(this->x + p.x, this->y + p.y, this->z + p.z,
+                           math::angleWrap(this->yaw_rate + p.yaw_rate));
+  }
+  /**
+  * @brief Multiply times a scalar
+  * @param m Multiplier
+  * @return Scaled velocity yaw rate
+  */
+  VelocityYawRate operator*(const double &m) const {
+    return VelocityYawRate(this->x * m, this->y * m, this->z * m,
+                           math::angleWrap(this->yaw_rate * m));
+  }
 };

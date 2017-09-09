@@ -49,6 +49,21 @@ public:
             tracking_offset_transform_));
   }
 
+  static void SetUpTestCase() {
+    // Configure logging
+    LogConfig log_config;
+    log_config.set_directory("/tmp/data");
+    Log::instance().configure(log_config);
+    DataStreamConfig data_config;
+    data_config.set_stream_id(
+        "relative_pose_visual_servoing_controller_drone_connector");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("velocity_based_position_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("velocity_based_relative_pose_controller");
+    Log::instance().addDataStream(data_config);
+  }
+
   void runUntilConvergence(const tf::Transform &tracked_pose,
                            const PositionYaw &goal_relative_pose) {
     simple_tracker_->setTargetPoseGlobalFrame(tracked_pose);

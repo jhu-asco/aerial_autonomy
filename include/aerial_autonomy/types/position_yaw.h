@@ -1,5 +1,6 @@
 #pragma once
 #include "aerial_autonomy/types/position.h"
+#include "aerial_autonomy/types/velocity_yaw_rate.h"
 #include <aerial_autonomy/common/math.h>
 
 /**
@@ -31,6 +32,15 @@ struct PositionYaw : public Position {
   */
   PositionYaw(double x, double y, double z, double yaw)
       : Position(x, y, z), yaw(yaw) {}
+
+  /**
+   * @brief Simplified constructor with x, x, x and yaw
+   *
+   * @param position_value position component (m)
+   * @param yaw yaw component (rad)
+   */
+  PositionYaw(double position_value, double yaw)
+      : Position(position_value, position_value, position_value), yaw(yaw) {}
 
   /**
   * @brief Return position
@@ -76,8 +86,21 @@ struct PositionYaw : public Position {
   PositionYaw operator+(const PositionYaw &p) const {
     Position p1(this->x, this->y, this->z);
     Position p2(p.x, p.y, p.z);
-    return PositionYaw(p1 + p2, this->yaw + p.yaw);
+    return PositionYaw(p1 + p2, math::angleWrap(this->yaw + p.yaw));
   }
+
+  /**
+   * @brief Add velocity yaw rate to position
+   *
+   * @param p velocity yaw rate to add
+   *
+   * @return  updated position yaw
+   */
+  PositionYaw operator+(const VelocityYawRate &p) const {
+    return PositionYaw(x + p.x, y + p.y, z + p.z,
+                       math::angleWrap(yaw + p.yaw_rate));
+  }
+
   /**
   * @brief Subtract two position and yaw entities
   * @param p PositionYaw to subtract
@@ -87,5 +110,41 @@ struct PositionYaw : public Position {
     Position p1(this->x, this->y, this->z);
     Position p2(p.x, p.y, p.z);
     return PositionYaw(p1 - p2, math::angleWrap(this->yaw - p.yaw));
+  }
+
+  /**
+  * @brief Multiply times a scalar
+  * @param m Multiplier
+  * @return Scaled position yaw
+  */
+  PositionYaw operator*(const double &m) const {
+    return PositionYaw(this->x * m, this->y * m, this->z * m,
+                       math::angleWrap(this->yaw * m));
+  }
+
+  /**
+   * @brief create a position from x, y, z members
+   *
+   * @return created position
+   */
+  Position position() const { return Position(x, y, z); }
+
+  /**
+   * @brief Clamp the position yaw between min and max
+   *
+   * @param min Minimum position yaw
+   * @param max Maximum position yaw
+   *
+   */
+  void clamp(const PositionYaw &min, const PositionYaw &max) {
+    x = math::clamp(x, min.x, max.x);
+    y = math::clamp(y, min.y, max.y);
+    z = math::clamp(z, min.z, max.z);
+    yaw = math::clamp(yaw, min.yaw, max.yaw);
+  }
+
+  void clamp(const PositionYaw &max) {
+    PositionYaw min = max * -1.0;
+    clamp(min, max);
   }
 };

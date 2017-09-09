@@ -16,7 +16,7 @@ message VelocityBasedPositionControllerConfig {
   */
   optional double yaw_gain = 2 [ default = 0.1 ];
   /**
-  * @brief Maximum velocity to be commanded in m/s
+  * @brief Maximum commanded velocity along each axis in m/s
   */
   optional double max_velocity = 3 [ default = 1 ];
   /**
@@ -27,4 +27,31 @@ message VelocityBasedPositionControllerConfig {
   * @brief Config about position tolerance, yaw tolerance
   */
   optional PositionControllerConfig position_controller_config = 5;
+  /**
+  * @brief Gain on cumulative yaw error
+  */
+  optional double yaw_i_gain = 6 [ default = 5.0 ];
+  /**
+  * @brief Gain on cumulative position error
+  */
+  optional double position_i_gain = 7 [ default = 5.0 ];
+  /**
+  * @brief Gain on saturating cumulative error in back calculation
+  * This gain is multiplied by the i gain. When controller
+  * saturates, the desired control value will be saturated value
+  * + (1/gain)*goal_difference_error; So higher the gain,the
+  * control value will be closer to the saturation and will
+  * respond to quicker as soon as control moves away from
+  * saturation.
+  *
+  * A smaller gain will not pull the integrator towards the saturating
+  * value quickly. If the current value of integrator is small and
+  * we use a large saturation gain, the integrator value will quickly
+  * converge to the saturation value which implies it will take
+  * longer to get back to normal integral values based on integration
+  * gains. So for smaller integration gains, you should also use a
+  * smaller saturation gain to ensure we do not quickly saturate
+  * the integrator when we are at the limits.
+  */
+  optional double integrator_saturation_gain = 8 [ default = 1.0 ];
 }
