@@ -37,6 +37,10 @@ TEST(VelocityBasedPositionControllerTests, ControlsOutofBounds) {
   double kp = config.position_gain();
   double ki = config.position_i_gain();
   double expected_command_z = error_z * kp + ki * dt * error_z;
+  // First run only updates the integrator but does not use it
+  // in that step
+  controller.run(sensor_data, controls);
+  // Second run uses the integrated value in computing controls
   controller.run(sensor_data, controls);
   ASSERT_NEAR(controls.x, config.max_velocity(), 1e-8);
   ASSERT_NEAR(controls.y, -config.max_velocity(), 1e-8);
@@ -89,18 +93,25 @@ TEST(VelocityBasedPositionControllerTests, WindingTest) {
   VelocityBasedPositionController controller(config, dt);
   PositionYaw sensor_data(0, 0, 0, 0);
   PositionYaw goal(5, -5, 5, 0.5);
-  PositionYaw p_command = (goal - sensor_data) * config.position_gain();
+  PositionYaw goal_diff = (goal - sensor_data);
+  PositionYaw p_command = goal_diff * config.position_gain();
   controller.resetIntegrator();
   controller.setGoal(goal);
   VelocityYawRate controls;
-  controller.run(sensor_data, controls);
+  for (int i = 0; i < 1000; ++i) {
+    controller.run(sensor_data, controls);
+  }
   PositionYaw cumulative_error = controller.getCumulativeError();
-  ASSERT_NEAR(cumulative_error.x, config.max_velocity() - p_command.x, 1e-8);
-  ASSERT_NEAR(cumulative_error.y, -1 * config.max_velocity() - p_command.y,
-              1e-8);
-  ASSERT_NEAR(cumulative_error.z, config.max_velocity() - p_command.z, 1e-8);
-  ASSERT_NEAR(cumulative_error.yaw, config.max_yaw_rate() - p_command.yaw,
-              1e-8);
+  PositionYaw actual_input = p_command + cumulative_error;
+  PositionYaw saturated_input = actual_input;
+  saturated_input.clamp(
+      PositionYaw(config.max_velocity(), config.max_yaw_rate()));
+  PositionYaw diff_input = actual_input - saturated_input;
+  double inv_gain_saturation = (1.0 / config.integrator_saturation_gain());
+  ASSERT_NEAR(diff_input.x, inv_gain_saturation * goal_diff.x, 1e-3);
+  ASSERT_NEAR(diff_input.y, inv_gain_saturation * goal_diff.y, 1e-3);
+  ASSERT_NEAR(diff_input.z, inv_gain_saturation * goal_diff.z, 1e-3);
+  ASSERT_NEAR(diff_input.yaw, inv_gain_saturation * goal_diff.yaw, 1e-3);
 }
 
 TEST(VelocityBasedPositionControllerTests, RunTillConvergenceWithBias) {
@@ -108,8 +119,6 @@ TEST(VelocityBasedPositionControllerTests, RunTillConvergenceWithBias) {
   VelocityBasedPositionControllerConfig config;
   config.set_position_gain(2.0);
   config.set_yaw_gain(2.0);
-  config.set_position_i_gain(1.0);
-  config.set_yaw_i_gain(1.0);
   config.mutable_position_controller_config()->set_goal_yaw_tolerance(0.05);
   auto position_tolerance = config.mutable_position_controller_config()
                                 ->mutable_goal_position_tolerance();

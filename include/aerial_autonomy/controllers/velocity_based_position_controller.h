@@ -27,11 +27,10 @@ public:
                                   double dt_ = 0.02)
       : config_(config), cumulative_error(0, 0, 0, 0), dt(dt_) {
 
-    position_saturation_gain_ = std::min(config_.integrator_saturation_gain() *
-                                             config_.position_i_gain() * dt,
-                                         1.0);
-    yaw_saturation_gain_ = std::min(
-        config_.integrator_saturation_gain() * config_.yaw_i_gain() * dt, 1.0);
+    position_saturation_gain_ =
+        config_.integrator_saturation_gain() * config_.position_i_gain() * dt;
+    yaw_saturation_gain_ =
+        config_.integrator_saturation_gain() * config_.yaw_i_gain() * dt;
     DATA_HEADER("velocity_based_position_controller") << "x_diff"
                                                       << "y_diff"
                                                       << "z_diff"

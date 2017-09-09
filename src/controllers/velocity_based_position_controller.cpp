@@ -10,16 +10,9 @@ double VelocityBasedPositionController::backCalculate(
     double &integrator, const double &p_command, const double &saturation,
     const double &integrator_saturation_gain) {
   double command = p_command + integrator;
-  if (command > saturation) {
-    command = saturation;
-    integrator = integrator_saturation_gain * (saturation - p_command) +
-                 (1.0 - integrator_saturation_gain) * integrator;
-  } else if (command < -saturation) {
-    command = -saturation;
-    integrator = integrator_saturation_gain * (-saturation - p_command) +
-                 (1.0 - integrator_saturation_gain) * integrator;
-  }
-  return command;
+  double command_out = math::clamp(command, -saturation, saturation);
+  integrator += integrator_saturation_gain * (command_out - command);
+  return command_out;
 }
 
 bool VelocityBasedPositionController::runImplementation(
@@ -28,10 +21,6 @@ bool VelocityBasedPositionController::runImplementation(
   PositionYaw p_position_diff(position_diff.position() *
                                   config_.position_gain(),
                               position_diff.yaw * config_.yaw_gain());
-  PositionYaw i_position_diff(position_diff.position() *
-                                  config_.position_i_gain(),
-                              position_diff.yaw * config_.yaw_i_gain());
-  cumulative_error = cumulative_error + i_position_diff * dt;
 
   control.x = backCalculate(cumulative_error.x, p_position_diff.x,
                             config_.max_velocity(), position_saturation_gain_);
@@ -39,9 +28,15 @@ bool VelocityBasedPositionController::runImplementation(
                             config_.max_velocity(), position_saturation_gain_);
   control.z = backCalculate(cumulative_error.z, p_position_diff.z,
                             config_.max_velocity(), position_saturation_gain_);
+
   control.yaw_rate =
       backCalculate(cumulative_error.yaw, p_position_diff.yaw,
                     config_.max_yaw_rate(), yaw_saturation_gain_);
+
+  PositionYaw i_position_diff(position_diff.position() *
+                                  config_.position_i_gain(),
+                              position_diff.yaw * config_.yaw_i_gain());
+  cumulative_error = cumulative_error + i_position_diff * dt;
 
   DATA_LOG("velocity_based_position_controller")
       << position_diff.x << position_diff.y << position_diff.z
