@@ -68,7 +68,7 @@ public:
                       HardwareType::Arm),
             std::chrono::milliseconds(config.uav_arm_system_handler_config()
                                           .arm_controller_timer_duration())),
-        callback_function_(boost::bind(
+        reconfigure_callback_function_(boost::bind(
             &UAVArmSystemHandler::configureVelocityBasedPositionControllerGains,
             this, _1, _2)) {
     // Initialize UAV plugin
@@ -82,7 +82,7 @@ public:
     // Start dynamic reconfigure
     server_.updateConfig(
         uav_system_.getDefaultVelocityBasedPositionControllerConfig());
-    server_.setCallback(callback_function_);
+    server_.setCallback(reconfigure_callback_function_);
   }
 
   /**
@@ -140,11 +140,13 @@ private:
                                     ///< and associated connections.
   AsyncTimer uav_controller_timer_; ///< Timer for running uav controller
   AsyncTimer arm_controller_timer_; ///< Timer for running arm controller
+  ///\todo Find a better way to handle dynamic reconfigure for controllers
   dynamic_reconfigure::Server<
       aerial_autonomy::VelocityBasedPositionControllerDynamicConfig>
       server_; ///< Reconfig server for updating velocity based position
                /// controller gains
   dynamic_reconfigure::Server<
       aerial_autonomy::VelocityBasedPositionControllerDynamicConfig>::
-      CallbackType callback_function_; ///< Callback function for reconfig
+      CallbackType
+          reconfigure_callback_function_; ///< Callback function for reconfig
 };
