@@ -3,6 +3,7 @@
 #include "aerial_autonomy/controllers/velocity_based_position_controller.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
 #include "velocity_based_relative_pose_controller_config.pb.h"
+#include <aerial_autonomy/VelocityBasedPositionControllerDynamicConfig.h>
 
 #include <tuple>
 
@@ -31,6 +32,23 @@ public:
    * @brief Destructor
    */
   virtual ~VelocityBasedRelativePoseController() {}
+
+  /**
+   * @brief Get the default values of gains
+   *
+   * @return dynamic reconfigure with default values
+   */
+  aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
+  getDefaultConfig() const;
+
+  /**
+   * @brief Update internal controller config
+   *
+   * @param dynamic_config reconfigure configure values
+   */
+  void updateConfig(
+      const aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
+          &dynamic_config);
 
 protected:
   /**

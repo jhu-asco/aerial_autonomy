@@ -74,3 +74,14 @@ ControllerStatus VelocityBasedRelativePoseController::isConvergedImplementation(
          << frame_relative_yaw_error;
   return status;
 }
+
+aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
+VelocityBasedRelativePoseController::getDefaultConfig() const {
+  return position_controller_.getDefaultConfig();
+}
+
+void VelocityBasedRelativePoseController::updateConfig(
+    const aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
+        &dynamic_config) {
+  position_controller_.updateConfig(dynamic_config);
+}

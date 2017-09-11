@@ -49,6 +49,17 @@ public:
         relative_pose_visual_servoing_drone_connector_);
   }
 
+  void setVelocityBasedPositionControllerConfig(
+      const aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
+          &config) {
+    velocity_based_relative_pose_controller_.updateConfig(config);
+  }
+
+  aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
+  getDefaultVelocityBasedPositionControllerConfig() const {
+    return velocity_based_relative_pose_controller_.getDefaultConfig();
+  }
+
   /**
   * @brief Get the direction vector of the tracking target in
   * the
