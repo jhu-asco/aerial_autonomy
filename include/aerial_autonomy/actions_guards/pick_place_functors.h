@@ -117,8 +117,8 @@ struct GoToWayPointTransitionActionFunctor_
   void run(UAVArmSystem &robot_system) {
     PositionYaw way_point = robot_system.getWayPoint(Index);
     VLOG(1) << "Going to waypoint " << Index;
-    robot_system.setGoal<PositionControllerDroneConnector, PositionYaw>(
-        way_point);
+    robot_system.setGoal<VelocityBasedPositionControllerDroneConnector,
+                         PositionYaw>(way_point);
   }
 };
 
