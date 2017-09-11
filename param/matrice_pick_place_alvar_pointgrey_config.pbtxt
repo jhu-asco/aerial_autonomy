@@ -12,7 +12,7 @@ base_config {
 }
 
 uav_system_config {
-  minimum_battery_percent: 40
+  minimum_battery_percent: 25
   minimum_takeoff_height: 0.8
   landing_height: 0.1
   position_controller_config {
@@ -91,11 +91,14 @@ uav_system_config {
         yaw_gain: 0.3
         max_velocity: 0.25
         max_yaw_rate: 0.3  
+        yaw_i_gain: 0.01
+        position_i_gain: 0.01
+        integrator_saturation_gain: 0.0
         position_controller_config {
           goal_position_tolerance {
-            x: 0.04
-            y: 0.04
-            z: 0.04
+            x: 0.03
+            y: 0.03
+            z: 0.03
           }
           goal_yaw_tolerance: 0.1
         }
@@ -126,9 +129,9 @@ uav_system_config {
 
       position_controller_config {
         goal_position_tolerance {
-          x: 0.01
-          y: 0.01
-          z: 0.01
+          x: 0.02
+          y: 0.02
+          z: 0.02
         }
         goal_rotation_tolerance: 6
       }
