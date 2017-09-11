@@ -199,13 +199,10 @@ public:
             msmf::Row<psa::ReachingGoal, Completed, psa::Hovering,
                       psa::AbortUAVControllerArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PickState, Completed, psa::Gripping,
-                      psa::AbortUAVArmController, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Gripping, Completed, psa::Hovering, msmf::none,
+            msmf::Row<psa::PickState, Reset, psa::Hovering, msmf::none,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Gripping, Reset, psa::Hovering, msmf::none,
+            msmf::Row<psa::PickState, Completed, psa::Hovering, msmf::none,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ManualControlArmState, be::Takeoff, psa::Hovering,
@@ -236,7 +233,6 @@ static constexpr std::array<const char *, 13> state_names = {
     "ExecutingVelocityGoal",
     "PickState",
     "Landing",
-    "Gripping",
     "ManualControlArmState"};
 /**
 * @brief Get current state name

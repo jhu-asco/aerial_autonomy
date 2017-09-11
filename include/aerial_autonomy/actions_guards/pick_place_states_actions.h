@@ -127,15 +127,6 @@ struct PickPlaceStatesActions
   * working
   */
   using PickTransitionGuard = ArmEnabledGuardFunctor_<LogicStateMachineT>;
-  /**
-  * @brief Action to grab an object
-  */
-  using PickGuard = PickGuard_<LogicStateMachineT>;
-
-  /**
-  * @brief State for monitoring gripping status
-  */
-  using Gripping = Gripping_<LogicStateMachineT>;
 
   // Explicitly defined manual Control state
   /**

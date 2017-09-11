@@ -5,6 +5,7 @@
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_functors.h>
 #include <aerial_autonomy/logic_states/base_state.h>
+#include <aerial_autonomy/logic_states/timed_state.h>
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/types/completed_event.h>
 #include <aerial_autonomy/types/reset_event.h>
@@ -13,17 +14,10 @@
 #include <thread>
 
 /**
-* @brief Logic to grab an object, sleep for few seconds
-* Abort UAV, Arm controllers
-*
+* @brief Checks whether grip command has completed or timed out
 * @tparam LogicStateMachineT Logic state machine used to process events
+* @tparam StateT State which stores gripper timer state
 */
-template <class LogicStateMachineT>
-struct PickGuard_
-    : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
-  bool guard(UAVArmSystem &robot_system) { return true; }
-};
-
 template <class LogicStateMachineT, class StateT>
 struct GrippingInternalActionFunctor_
     : public StateDependentInternalActionFunctor<UAVArmSystem,
@@ -46,12 +40,13 @@ struct GrippingInternalActionFunctor_
 };
 
 /**
-* @brief Logic to check while reaching a visual servoing goal
+* @brief Logic to check while reaching a visual servoing and arm end effector
+* goal
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using PickInternalActionFunctor_ =
+using PrePickInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
@@ -110,41 +105,29 @@ struct VisualServoingArmTransitionActionFunctor_
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using PrePickState_ = BaseState<UAVArmSystem, LogicStateMachineT,
-                                PickInternalActionFunctor_<LogicStateMachineT>>;
+using PrePickState_ =
+    BaseState<UAVArmSystem, LogicStateMachineT,
+              PrePickInternalActionFunctor_<LogicStateMachineT>>;
 
 /**
-* @brief State that uses position control functor to reach a desired goal prior
-* to picking.
+* @brief State that uses position control functor to reach a desired goal for
+* picking and monitors the gripper status
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-class PickState_ : public RelativePoseVisualServoing_<LogicStateMachineT> {};
-
-/**
-* @brief State that monitors gripping status
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-class Gripping_
-    : public BaseState<UAVArmSystem, LogicStateMachineT,
-                       GrippingInternalActionFunctor_<
-                           LogicStateMachineT, Gripping_<LogicStateMachineT>>> {
+class PickState_
+    : public TimedState<
+          UAVArmSystem, LogicStateMachineT,
+          boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+              UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+              ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+              ControllerStatusInternalActionFunctor_<
+                  LogicStateMachineT,
+                  RelativePoseVisualServoingControllerDroneConnector, false>,
+              GrippingInternalActionFunctor_<
+                  LogicStateMachineT, PickState_<LogicStateMachineT>>>>> {
 public:
-  /**
-  * @brief Function called when entering the state.  Logs time of entry.
-  * @param e Event which triggered entry
-  * @param fsm State's state machine
-  * @tparam Event Type of event which triggered entry
-  * @tparam FSM State machine type
-  */
-  template <class Event, class FSM> void on_entry(Event const &e, FSM &fsm) {
-    // log start time
-    entry_time_ = std::chrono::high_resolution_clock::now();
-  }
-
   /**
   * @brief Check if grip has been successful for the required duration
   * @param Whether grip is currently successful
@@ -169,19 +152,10 @@ public:
     }
     return false;
   }
-  /**
-  * @brief Get the amount of time spent in the state
-  * @return The amount of time spent in the state
-  */
-  std::chrono::duration<double> timeInState() {
-    return std::chrono::duration<double>(
-        std::chrono::high_resolution_clock::now() - entry_time_);
-  }
 
 private:
   std::chrono::time_point<std::chrono::high_resolution_clock> grip_start_time_;
-  std::chrono::time_point<std::chrono::high_resolution_clock> entry_time_;
   std::chrono::milliseconds required_grip_duration_ =
-      std::chrono::milliseconds(2000);
+      std::chrono::milliseconds(1000);
   bool gripping_ = false;
 };
