@@ -9,8 +9,8 @@
 /**
  * @class VelocityBasedPositionControllerDroneConnector
  * @brief Manages communication between a drone plugin and a position controller
- * that outputs
- * position commands.
+ * that outputs velocity commands.
+ * \todo Gowtham Add connector tests
  */
 class VelocityBasedPositionControllerDroneConnector
     : public ControllerHardwareConnector<PositionYaw, PositionYaw,
@@ -33,7 +33,8 @@ public:
 
 protected:
   /**
-   * @brief  does not extract any data since nothing is needed
+   * @brief extracts position data from UAV to compute appropriate velocity
+   * commands
    *
    * @param sensor_data Current position and yaw of UAV
    *
@@ -42,9 +43,9 @@ protected:
   virtual bool extractSensorData(PositionYaw &sensor_data);
 
   /**
-   * @brief  Send position commands to hardware
+   * @brief  Send velocity and yawrate commands to hardware
    *
-   * @param controls position command to send to UAV
+   * @param controls velocity and yawrate commands to send to UAV
    */
   virtual void sendHardwareCommands(VelocityYawRate controls);
 
