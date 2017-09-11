@@ -67,3 +67,30 @@ ControllerStatus VelocityBasedPositionController::isConvergedImplementation(
   }
   return status;
 }
+
+aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
+VelocityBasedPositionController::getDefaultConfig() const {
+  VelocityBasedPositionControllerConfig config;
+  aerial_autonomy::VelocityBasedPositionControllerDynamicConfig dynamic_config;
+  dynamic_config.position_gain = config.position_gain();
+  dynamic_config.yaw_gain = config.yaw_gain();
+  dynamic_config.max_velocity = config.max_velocity();
+  dynamic_config.max_yaw_rate = config.max_yaw_rate();
+  dynamic_config.yaw_i_gain = config.yaw_i_gain();
+  dynamic_config.position_i_gain = config.position_i_gain();
+  dynamic_config.integrator_saturation_gain =
+      config.integrator_saturation_gain();
+  return dynamic_config;
+}
+
+void VelocityBasedPositionController::updateConfig(
+    const aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
+        &dynamic_config) {
+  config_.set_yaw_gain(dynamic_config.yaw_gain);
+  config_.set_max_velocity(dynamic_config.max_velocity);
+  config_.set_max_yaw_rate(dynamic_config.max_yaw_rate);
+  config_.set_yaw_i_gain(dynamic_config.yaw_i_gain);
+  config_.set_position_i_gain(dynamic_config.position_i_gain);
+  config_.set_integrator_saturation_gain(
+      dynamic_config.integrator_saturation_gain);
+}

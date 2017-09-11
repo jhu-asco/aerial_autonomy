@@ -3,6 +3,7 @@
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/velocity_yaw_rate.h"
 #include "velocity_based_position_controller_config.pb.h"
+#include <aerial_autonomy/VelocityBasedPositionControllerDynamicConfig.h>
 #include <aerial_autonomy/log/log.h>
 #include <glog/logging.h>
 
@@ -87,6 +88,23 @@ public:
    * @return cumulative position_yaw error multiplied by dt and i gain
    */
   PositionYaw getCumulativeError() const { return cumulative_error; }
+
+  /**
+   * @brief Get the default values of gains
+   *
+   * @return dynamic reconfigure with default values
+   */
+  aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
+  getDefaultConfig() const;
+
+  /**
+   * @brief Update internal controller config
+   *
+   * @param dynamic_config reconfigure configure values
+   */
+  void updateConfig(
+      const aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
+          &dynamic_config);
 
 protected:
   /**
