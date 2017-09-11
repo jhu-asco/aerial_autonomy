@@ -30,6 +30,8 @@ DataStream &Log::operator[](std::string id) {
   auto stream = streams_.find(id);
   if (stream == streams_.end()) {
     // \todo Matt Find a better way to deal with this...
+    // Subclass DataStream to write to VLOG and override flush to send
+    // std::endl;
     // Return a disabled stream if stream does not exist
     LOG_EVERY_N(WARNING, 20) << "DataStream with id \"" << id
                              << "\" does not exist! Returning disabled stream";

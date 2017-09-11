@@ -3,52 +3,63 @@
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
 #include <aerial_autonomy/actions_guards/manual_control_functors.h>
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
+#include <aerial_autonomy/actions_guards/visual_servoing_functors.h>
 #include <aerial_autonomy/logic_states/base_state.h>
+#include <aerial_autonomy/logic_states/timed_state.h>
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/types/completed_event.h>
+#include <aerial_autonomy/types/reset_event.h>
+#include <chrono>
 #include <glog/logging.h>
 #include <thread>
 
+// Forward declaration for GrippingInternalActionFunctor_
+template <class LogicStateMachineT> class PickState_;
+
 /**
-* @brief Logic to grab an object, sleep for few seconds
-* Abort UAV, Arm controllers
-*
+* @brief Checks whether grip command has completed or timed out
 * @tparam LogicStateMachineT Logic state machine used to process events
+* @tparam StateT State which stores gripper timer state
 */
 template <class LogicStateMachineT>
-struct PickGuard_
-    : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
-  bool guard(UAVArmSystem &robot_system) {
-    VLOG(1) << "Grip Object";
-    bool success = robot_system.grip(true);
-    // \todo this wait logic should be done on the arm plugin side and we should
-    // be checking a status asynchronously for grip completion
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    if (!success) {
-      LOG(WARNING) << "Failed to send grip command!";
+struct GrippingInternalActionFunctor_
+    : public StateDependentInternalActionFunctor<
+          UAVArmSystem, LogicStateMachineT, PickState_<LogicStateMachineT>> {
+  bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine,
+           PickState_<LogicStateMachineT> &state) {
+    VLOG(1) << "Gripping Object";
+    if (state.monitorGrip(robot_system.grip(true))) {
+      VLOG(1) << "Done Gripping!";
+      logic_state_machine.process_event(Completed());
+      return false;
+    } else if (state.timeInState() > robot_system.gripTimeout()) {
+      // \todo Matt Put this in its own action functor.  The timeout should be
+      // based on a state config, not a robot_system config
       robot_system.resetGripper();
+      LOG(WARNING) << "Timeout: Failed to grip!";
+      logic_state_machine.process_event(Reset());
       return false;
     }
-    VLOG(1) << "Done Gripping!";
     return true;
   }
 };
 
 /**
-* @brief Logic to check while reaching a visual servoing goal
+* @brief Logic to check while reaching a visual servoing and arm end effector
+* goal
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using PickInternalActionFunctor_ =
+using PrePickInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
             LogicStateMachineT, VisualServoingControllerArmConnector>,
         ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, VisualServoingControllerDroneConnector,
-            false>>>;
+            LogicStateMachineT,
+            RelativePoseVisualServoingControllerDroneConnector, false>>>;
 /**
 * @brief Logic to check arm power and manual mode
 *
@@ -99,14 +110,58 @@ struct VisualServoingArmTransitionActionFunctor_
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using PickState_ = BaseState<UAVArmSystem, LogicStateMachineT,
-                             PickInternalActionFunctor_<LogicStateMachineT>>;
+using PrePickState_ =
+    BaseState<UAVArmSystem, LogicStateMachineT,
+              PrePickInternalActionFunctor_<LogicStateMachineT>>;
 
 /**
-* @brief State that uses position control functor to reach a desired goal prior
-* to picking.
+* @brief State that uses position control functor to reach a desired goal for
+* picking and monitors the gripper status
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-class PrePickState_ : public PickState_<LogicStateMachineT> {};
+class PickState_
+    : public TimedState<
+          UAVArmSystem, LogicStateMachineT,
+          boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+              UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+              ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+              ControllerStatusInternalActionFunctor_<
+                  LogicStateMachineT,
+                  RelativePoseVisualServoingControllerDroneConnector, false>,
+              GrippingInternalActionFunctor_<LogicStateMachineT>>>> {
+public:
+  /**
+  * @brief Check if grip has been successful for the required duration
+  * @param Whether grip is currently successful
+  * @return True if grip is successful for the duration, false otherwise
+  */
+  bool monitorGrip(bool grip_success) {
+    bool grip_duration_success = false;
+    if (grip_success) {
+      if (!gripping_) {
+        // start grip timer
+        gripping_ = true;
+        grip_start_time_ = std::chrono::high_resolution_clock::now();
+      } else {
+        // check grip timer
+        grip_duration_success =
+            std::chrono::high_resolution_clock::now() - grip_start_time_ >
+            required_grip_duration_;
+      }
+    } else {
+      if (gripping_) {
+        // stop grip timer
+        gripping_ = false;
+      }
+    }
+    return grip_duration_success;
+  }
+
+private:
+  std::chrono::time_point<std::chrono::high_resolution_clock> grip_start_time_;
+  std::chrono::milliseconds required_grip_duration_ =
+      std::chrono::milliseconds(1000);
+  bool gripping_ = false;
+};

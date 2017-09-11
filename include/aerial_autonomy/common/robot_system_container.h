@@ -11,6 +11,9 @@ template <class RobotSystemT> class RobotSystemContainer {
   template <class RobotSystemT1, class LogicStateMachineT>
   friend class InternalActionFunctor;
 
+  template <class RobotSystemT1, class LogicStateMachineT, class StateT>
+  friend class StateDependentInternalActionFunctor;
+
   template <class EventT, class RobotSystemT1, class LogicStateMachineT>
   friend class ActionFunctor;
 

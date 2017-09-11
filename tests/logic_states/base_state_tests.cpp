@@ -25,7 +25,7 @@ TEST(BaseStateTests, BaseStateCtor) {
   ASSERT_NO_THROW(BaseStateEmpty());
 }
 
-TEST(BaseStateTests, EmptytFctor) {
+TEST(BaseStateTests, EmptyFctor) {
   EmptyActionFunctor empty_functor;
   EmptyRobotSystem robot_system;
   SampleLogicStateMachine logic_state_machine(robot_system);
@@ -36,7 +36,7 @@ TEST(BaseStateTests, EmptytFctor) {
                                 empty_source_state, empty_target_state));
 }
 
-TEST(BaseStateTests, EmptytGuardFctor) {
+TEST(BaseStateTests, EmptyGuardFctor) {
   EmptyGuardFunctor empty_functor;
   EmptyRobotSystem robot_system;
   SampleLogicStateMachine logic_state_machine(robot_system);
