@@ -80,10 +80,6 @@ public:
     arm_controller_timer_.start();
 
     // Start dynamic reconfigure
-    /// \todo Gowtham Currently the callback fails if uav timer
-    // is not already running. The callback stops the timer and
-    // restarts it. But currently there is no option to check timer
-    // status i.e it is running or not
     server_.updateConfig(
         uav_system_.getDefaultVelocityBasedPositionControllerConfig());
     server_.setCallback(callback_function_);
