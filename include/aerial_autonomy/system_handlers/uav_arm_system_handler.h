@@ -102,9 +102,7 @@ public:
         ControllerStatus::NotEngaged) {
       LOG(WARNING) << "Cannot change config when controller is active";
     } else {
-      uav_controller_timer_.stop();
       uav_system_.setVelocityBasedPositionControllerConfig(config);
-      uav_controller_timer_.start();
     }
   }
 
