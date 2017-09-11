@@ -76,17 +76,15 @@ struct PickPlaceStatesActions
   using ArmPowerOff = ArmPoweroffTransitionActionFunctor_<LogicStateMachineT>;
 
   /**
-  * @brief Action to record point A
-  */
-  using RecordPointA = RecordPointATransitionActionFunctor_<LogicStateMachineT>;
-  /**
   * @brief Send the UAV to waypoint A
   */
-  using GoToPointA = GoToPointATransitionActionFunctor_<LogicStateMachineT>;
+  using GoToPostPickWayPoint =
+      GoToWayPointTransitionActionFunctor_<LogicStateMachineT, 0>;
   /**
   * @brief Check if waypoint A is specified
   */
-  using GoToPointAGuard = GoToPointATransitionGuardFunctor_<LogicStateMachineT>;
+  using PostPickWayPointGuard =
+      GoToWayPointTransitionGuardFunctor_<LogicStateMachineT, 0>;
   /**
   * @brief Action to take when starting folding arm before land
   */
@@ -149,7 +147,7 @@ struct PickPlaceStatesActions
   /**
   * @brief State while going to waypoint A
   */
-  struct ReachingPointA : public usa::ReachingGoal {};
+  struct ReachingPostPickWayPoint : public usa::ReachingGoal {};
 
   // Explicitly defined manual Control state
   /**
@@ -170,8 +168,6 @@ struct PickPlaceStatesActions
               msmf::Internal<arm_events::Fold, ArmFold, msmf::none>,
               msmf::Internal<arm_events::Grip, ArmGripAction<true>, msmf::none>,
               msmf::Internal<arm_events::UnGrip, ArmGripAction<false>,
-                             msmf::none>,
-              msmf::Internal<pick_place_events::RecordPointA, RecordPointA,
                              msmf::none>,
               msmf::Internal<uav_basic_events::Abort, msmf::none, msmf::none>,
               msmf::Internal<arm_events::RightAngleFold, ArmRightFold,

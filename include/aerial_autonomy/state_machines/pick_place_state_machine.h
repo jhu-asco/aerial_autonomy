@@ -202,11 +202,12 @@ public:
             msmf::Row<psa::PickState, Reset, psa::ReachingGoal,
                       psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PickState, Completed, psa::ReachingPointA,
-                      psa::GoToPointA, psa::GoToPointAGuard>,
+            msmf::Row<psa::PickState, Completed, psa::ReachingPostPickWayPoint,
+                      psa::GoToPostPickWayPoint, psa::PostPickWayPointGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingPointA, Completed, psa::ReachingGoal,
-                      psa::UngripGoHome, psa::GoHomeTransitionGuard>,
+            msmf::Row<psa::ReachingPostPickWayPoint, Completed,
+                      psa::ReachingGoal, psa::UngripGoHome,
+                      psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ManualControlArmState, be::Takeoff, psa::Hovering,
                       psa::ManualControlSwitchAction,
@@ -228,7 +229,7 @@ static constexpr std::array<const char *, 13> state_names = {
     "Landed", "ArmPreTakeoffFolding", "Takingoff", "Hovering",
     "RelativePoseVisualServoing", "PrePickState", "ArmPreLandingFolding",
     "ReachingGoal", "ExecutingVelocityGoal", "PickState", "Landing",
-    "ReachingPointA"
+    "ReachingPostPickWayPoint"
     "ManualControlArmState"};
 /**
 * @brief Get current state name

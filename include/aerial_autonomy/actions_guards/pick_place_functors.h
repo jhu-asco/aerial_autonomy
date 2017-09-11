@@ -106,32 +106,19 @@ struct VisualServoingArmTransitionActionFunctor_
 };
 
 /**
- * @brief Set arm goal and set grip to false to start with.
- *
- * @tparam LogicStateMachineT State machine that contains the functor
- */
-template <class LogicStateMachineT>
-struct RecordPointATransitionActionFunctor_
-    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
-  void run(UAVArmSystem &robot_system) {
-    VLOG(1) << "Setting point A";
-    robot_system.setPointA();
-  }
-};
-
-/**
 * @brief Action to reach a pre designated point A
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
+* @tparam Index Which waypoint we are reaching to
 */
-template <class LogicStateMachineT>
-struct GoToPointATransitionActionFunctor_
+template <class LogicStateMachineT, int Index>
+struct GoToWayPointTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
   void run(UAVArmSystem &robot_system) {
-    PositionYaw point_a = robot_system.getPointA();
-    VLOG(1) << "Going to waypoint A";
+    PositionYaw way_point = robot_system.getWayPoint(Index);
+    VLOG(1) << "Going to waypoint " << Index;
     robot_system.setGoal<PositionControllerDroneConnector, PositionYaw>(
-        point_a);
+        way_point);
   }
 };
 
@@ -139,12 +126,18 @@ struct GoToPointATransitionActionFunctor_
 * @brief Guard for waypoint A transition
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
+* @tparam Index which waypoint is it guarding
 */
-template <class LogicStateMachineT>
-struct GoToPointATransitionGuardFunctor_
+template <class LogicStateMachineT, int Index>
+struct GoToWayPointTransitionGuardFunctor_
     : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
   bool guard(UAVArmSystem &robot_system) {
-    return robot_system.isPointASpecified();
+    bool result = robot_system.checkWayPointIndex(Index);
+    if (!result) {
+      LOG(WARNING) << "Index: " << Index
+                   << " not available in waypoint vector in config file";
+    }
+    return result;
   }
 };
 

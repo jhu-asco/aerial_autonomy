@@ -132,6 +132,14 @@ uav_system_config {
         }
         goal_rotation_tolerance: 6
       }
+      way_points {
+        position {
+          x: 0.0
+          y: 0.0
+          z: 0.0
+        }
+        yaw: 0.0
+      }
     }
   }
 }
