@@ -24,6 +24,7 @@ find_package(catkin REQUIRED COMPONENTS
   image_transport
   arm_plugins
   ar_track_alvar_msgs
+  dynamic_reconfigure
 )
 
 include(cmake/add_event_function.cmake)
@@ -114,10 +115,10 @@ generate_messages(
 ##     and list every .cfg file to be processed
 
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
-# generate_dynamic_reconfigure_options(
-#   cfg/DynReconf1.cfg
+generate_dynamic_reconfigure_options(
+  cfg/VelocityBasedPositionControllerDynamic.cfg
 #   cfg/DynReconf2.cfg
-# )
+)
 
 ###################################
 ## catkin specific configuration ##

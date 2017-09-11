@@ -9,11 +9,13 @@
 #include <arm_parsers/generic_arm.h>
 #include <arm_parsers/simple_arm.h>
 
+#include <aerial_autonomy/VelocityBasedPositionControllerDynamicConfig.h>
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/system_handlers/common_system_handler.h>
 #include <aerial_autonomy/trackers/alvar_tracker.h>
 #include <aerial_autonomy/trackers/roi_to_position_converter.h>
+#include <dynamic_reconfigure/server.h>
 
 #include "uav_system_handler_config.pb.h"
 
@@ -65,7 +67,10 @@ public:
             std::bind(&UAVArmSystem::runActiveController, std::ref(uav_system_),
                       HardwareType::Arm),
             std::chrono::milliseconds(config.uav_arm_system_handler_config()
-                                          .arm_controller_timer_duration())) {
+                                          .arm_controller_timer_duration())),
+        callback_function_(boost::bind(
+            &UAVArmSystemHandler::configureVelocityBasedPositionControllerGains,
+            this, _1, _2)) {
     // Initialize UAV plugin
     uav_hardware_->initialize(nh_uav_);
 
@@ -73,6 +78,34 @@ public:
     common_handler_.startTimers();
     uav_controller_timer_.start();
     arm_controller_timer_.start();
+
+    // Start dynamic reconfigure
+    /// \todo Gowtham Currently the callback fails if uav timer
+    // is not already running. The callback stops the timer and
+    // restarts it. But currently there is no option to check timer
+    // status i.e it is running or not
+    server_.updateConfig(
+        uav_system_.getDefaultVelocityBasedPositionControllerConfig());
+    server_.setCallback(callback_function_);
+  }
+
+  /**
+   * @brief Callback function for updating velocity based
+   * position controller gains
+   *
+   * @param config Dynamic config containing new gains
+   */
+  void configureVelocityBasedPositionControllerGains(
+      aerial_autonomy::VelocityBasedPositionControllerDynamicConfig &config,
+      uint32_t) {
+    if (uav_system_.getActiveControllerStatus(HardwareType::UAV) !=
+        ControllerStatus::NotEngaged) {
+      LOG(WARNING) << "Cannot change config when controller is active";
+    } else {
+      uav_controller_timer_.stop();
+      uav_system_.setVelocityBasedPositionControllerConfig(config);
+      uav_controller_timer_.start();
+    }
   }
 
   /**
@@ -113,4 +146,11 @@ private:
                                     ///< and associated connections.
   AsyncTimer uav_controller_timer_; ///< Timer for running uav controller
   AsyncTimer arm_controller_timer_; ///< Timer for running arm controller
+  dynamic_reconfigure::Server<
+      aerial_autonomy::VelocityBasedPositionControllerDynamicConfig>
+      server_; ///< Reconfig server for updating velocity based position
+               /// controller gains
+  dynamic_reconfigure::Server<
+      aerial_autonomy::VelocityBasedPositionControllerDynamicConfig>::
+      CallbackType callback_function_; ///< Callback function for reconfig
 };
