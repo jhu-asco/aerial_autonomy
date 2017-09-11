@@ -148,7 +148,7 @@ public:
                       psa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PrePickState, Completed, psa::PickState,
-                      psa::PickTransitionAction, msmf::none>,
+                      psa::PickTransitionAction, psa::PrePickGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Hovering, vse::GoHome, psa::ReachingGoal,
                       psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,

@@ -35,6 +35,20 @@ struct PickGuard_
   }
 };
 
+template <class LogicStateMachineT>
+struct PrePickGuard_
+    : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
+  bool guard(UAVArmSystem &robot_system) {
+    if (!(bool(robot_system.getStatus<
+               RelativePoseVisualServoingControllerDroneConnector>()) &&
+          bool(robot_system
+                   .getStatus<VisualServoingControllerArmConnector>()))) {
+      LOG(WARNING) << "Both controllers not converged!";
+      return false;
+    }
+    return true;
+  }
+};
 /**
 * @brief Logic to check while reaching a visual servoing goal
 *

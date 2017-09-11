@@ -127,9 +127,13 @@ struct PickPlaceStatesActions
   */
   using PickTransitionGuard = ArmEnabledGuardFunctor_<LogicStateMachineT>;
   /**
-  * @brief Action to grab an object
+  * @brief Guard before grabbing
   */
   using PickGuard = PickGuard_<LogicStateMachineT>;
+  /**
+  * @brief Guard before grabbing an object
+  */
+  using PrePickGuard = PrePickGuard_<LogicStateMachineT>;
   // Explicitly defined manual Control state
   /**
   * @brief State that checks arm status along with regular manual control
