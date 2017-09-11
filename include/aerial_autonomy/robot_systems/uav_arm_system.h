@@ -21,7 +21,7 @@ public:
   UAVArmSystem(BaseTracker &tracker, parsernode::Parser &drone_hardware,
                ArmParser &arm_hardware, UAVSystemConfig config)
       : UAVVisionSystem(tracker, drone_hardware, config),
-        ArmSystem(arm_hardware),
+        ArmSystem(arm_hardware), point_a_specified_(false),
         grip_timeout_(config_.uav_vision_system_config()
                           .uav_arm_system_config()
                           .grip_timeout()),
@@ -70,7 +70,41 @@ public:
    */
   tf::Transform armGoalTransform(int i) { return arm_goal_transforms_.at(i); }
 
+  /**
+   * @brief Save current location as waypoint A
+   */
+  void setPointA() {
+    parsernode::common::quaddata data = getUAVData();
+    point_a_.x = data.localpos.x;
+    point_a_.y = data.localpos.y;
+    point_a_.z = data.localpos.z;
+    point_a_.yaw = data.rpydata.z;
+    point_a_specified_ = true;
+  }
+
+  /**
+  * @brief Check if point A is specified
+  *
+  * @return True if point A is specified
+  */
+  bool isPointASpecified() { return point_a_specified_; }
+
+  /**
+  * @brief Stored waypoint A
+  *
+  * @return Waypoint A
+  */
+  PositionYaw getPointA() { return point_a_; }
+
 private:
+  /**
+  * @brief Whether point A has been initialized
+  */
+  bool point_a_specified_;
+  /**
+  * @brief Waypoint A
+  */
+  PositionYaw point_a_;
   /**
   * @brief Timeout for gripping by arm
   */

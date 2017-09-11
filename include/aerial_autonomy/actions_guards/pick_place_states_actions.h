@@ -5,6 +5,7 @@
 #include <aerial_autonomy/actions_guards/pick_place_functors.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_states_actions.h>
 #include <aerial_autonomy/arm_events.h>
+#include <aerial_autonomy/pick_place_events.h>
 #include <boost/msm/front/euml/operator.hpp>
 #include <boost/msm/front/functor_row.hpp>
 
@@ -73,6 +74,19 @@ struct PickPlaceStatesActions
   * @brief Action to poweroff arm
   */
   using ArmPowerOff = ArmPoweroffTransitionActionFunctor_<LogicStateMachineT>;
+
+  /**
+  * @brief Action to record point A
+  */
+  using RecordPointA = RecordPointATransitionActionFunctor_<LogicStateMachineT>;
+  /**
+  * @brief Send the UAV to waypoint A
+  */
+  using GoToPointA = GoToPointATransitionActionFunctor_<LogicStateMachineT>;
+  /**
+  * @brief Check if waypoint A is specified
+  */
+  using GoToPointAGuard = GoToPointATransitionGuardFunctor_<LogicStateMachineT>;
   /**
   * @brief Action to take when starting folding arm before land
   */
@@ -85,6 +99,12 @@ struct PickPlaceStatesActions
   * @brief Abort arm controller
   */
   using AbortArmController = AbortArmController_<LogicStateMachineT>;
+  /**
+  * @brief Action sequence that ungrips then goes home
+  */
+  using UngripGoHome =
+      bActionSequence<boost::mpl::vector<ArmGripAction<false>,
+                                         typename vsa::GoHomeTransitionAction>>;
   /**
   * @brief Action sequence to abort UAV controller and move arm to right
   * angle
@@ -126,6 +146,11 @@ struct PickPlaceStatesActions
   */
   using PickTransitionGuard = ArmEnabledGuardFunctor_<LogicStateMachineT>;
 
+  /**
+  * @brief State while going to waypoint A
+  */
+  struct ReachingPointA : public usa::ReachingGoal {};
+
   // Explicitly defined manual Control state
   /**
   * @brief State that checks arm status along with regular manual control
@@ -145,6 +170,8 @@ struct PickPlaceStatesActions
               msmf::Internal<arm_events::Fold, ArmFold, msmf::none>,
               msmf::Internal<arm_events::Grip, ArmGripAction<true>, msmf::none>,
               msmf::Internal<arm_events::UnGrip, ArmGripAction<false>,
+                             msmf::none>,
+              msmf::Internal<pick_place_events::RecordPointA, RecordPointA,
                              msmf::none>,
               msmf::Internal<uav_basic_events::Abort, msmf::none, msmf::none>,
               msmf::Internal<arm_events::RightAngleFold, ArmRightFold,

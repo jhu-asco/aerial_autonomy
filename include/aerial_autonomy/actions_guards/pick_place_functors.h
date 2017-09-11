@@ -91,6 +91,7 @@ struct PickTransitionGuardFunctor_
  * @brief Set arm goal and set grip to false to start with.
  *
  * @tparam LogicStateMachineT State machine that contains the functor
+ * @tparam TransformIndex Index of goal transform
  */
 template <class LogicStateMachineT, int TransformIndex>
 struct VisualServoingArmTransitionActionFunctor_
@@ -101,6 +102,49 @@ struct VisualServoingArmTransitionActionFunctor_
         robot_system.armGoalTransform(TransformIndex));
     // Also ensure the gripper is in the right state to grip objects
     robot_system.resetGripper();
+  }
+};
+
+/**
+ * @brief Set arm goal and set grip to false to start with.
+ *
+ * @tparam LogicStateMachineT State machine that contains the functor
+ */
+template <class LogicStateMachineT>
+struct RecordPointATransitionActionFunctor_
+    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  void run(UAVArmSystem &robot_system) {
+    VLOG(1) << "Setting point A";
+    robot_system.setPointA();
+  }
+};
+
+/**
+* @brief Action to reach a pre designated point A
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct GoToPointATransitionActionFunctor_
+    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  void run(UAVArmSystem &robot_system) {
+    PositionYaw point_a = robot_system.getPointA();
+    VLOG(1) << "Going to waypoint A";
+    robot_system.setGoal<PositionControllerDroneConnector, PositionYaw>(
+        point_a);
+  }
+};
+
+/**
+* @brief Guard for waypoint A transition
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct GoToPointATransitionGuardFunctor_
+    : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
+  bool guard(UAVArmSystem &robot_system) {
+    return robot_system.isPointASpecified();
   }
 };
 
