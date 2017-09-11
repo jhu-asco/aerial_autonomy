@@ -13,23 +13,28 @@
 #include <glog/logging.h>
 #include <thread>
 
+// Forward declaration for GrippingInternalActionFunctor_
+template <class LogicStateMachineT> class PickState_;
+
 /**
 * @brief Checks whether grip command has completed or timed out
 * @tparam LogicStateMachineT Logic state machine used to process events
 * @tparam StateT State which stores gripper timer state
 */
-template <class LogicStateMachineT, class StateT>
+template <class LogicStateMachineT>
 struct GrippingInternalActionFunctor_
-    : public StateDependentInternalActionFunctor<UAVArmSystem,
-                                                 LogicStateMachineT, StateT> {
+    : public StateDependentInternalActionFunctor<
+          UAVArmSystem, LogicStateMachineT, PickState_<LogicStateMachineT>> {
   bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine,
-           StateT &state) {
+           PickState_<LogicStateMachineT> &state) {
     VLOG(1) << "Gripping Object";
     if (state.monitorGrip(robot_system.grip(true))) {
       VLOG(1) << "Done Gripping!";
       logic_state_machine.process_event(Completed());
       return false;
     } else if (state.timeInState() > robot_system.gripTimeout()) {
+      // \todo Matt Put this in its own action functor.  The timeout should be
+      // based on a state config, not a robot_system config
       robot_system.resetGripper();
       LOG(WARNING) << "Timeout: Failed to grip!";
       logic_state_machine.process_event(Reset());
@@ -125,8 +130,7 @@ class PickState_
               ControllerStatusInternalActionFunctor_<
                   LogicStateMachineT,
                   RelativePoseVisualServoingControllerDroneConnector, false>,
-              GrippingInternalActionFunctor_<
-                  LogicStateMachineT, PickState_<LogicStateMachineT>>>>> {
+              GrippingInternalActionFunctor_<LogicStateMachineT>>>> {
 public:
   /**
   * @brief Check if grip has been successful for the required duration
@@ -134,6 +138,7 @@ public:
   * @return True if grip is successful for the duration, false otherwise
   */
   bool monitorGrip(bool grip_success) {
+    bool grip_duration_success = false;
     if (grip_success) {
       if (!gripping_) {
         // start grip timer
@@ -141,8 +146,9 @@ public:
         grip_start_time_ = std::chrono::high_resolution_clock::now();
       } else {
         // check grip timer
-        return std::chrono::high_resolution_clock::now() - grip_start_time_ >
-               required_grip_duration_;
+        grip_duration_success =
+            std::chrono::high_resolution_clock::now() - grip_start_time_ >
+            required_grip_duration_;
       }
     } else {
       if (gripping_) {
@@ -150,7 +156,7 @@ public:
         gripping_ = false;
       }
     }
-    return false;
+    return grip_duration_success;
   }
 
 private:

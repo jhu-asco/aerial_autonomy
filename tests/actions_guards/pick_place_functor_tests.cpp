@@ -15,7 +15,7 @@ using namespace quad_simulator;
 */
 using psa = PickPlaceStatesActions<UAVArmLogicStateMachine>;
 
-// Visual Servoing
+// Picking internal actions
 using PrePickInternalAction =
     PrePickInternalActionFunctor_<UAVArmLogicStateMachine>;
 

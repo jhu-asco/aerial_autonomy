@@ -286,6 +286,7 @@ struct StateDependentInternalActionFunctor {
    * @brief operator () Internally calls run function
    * @param logic_state_machine Backend of logic State Machine. can send
    * events using this.
+   * @param state State that the action functor depends on
    */
   template <class EventT, class FSM>
   bool operator()(EventT const &, FSM &logic_state_machine, StateT &state,
