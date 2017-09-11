@@ -23,6 +23,20 @@ uav_system_config {
     }
   }
 
+  velocity_based_position_controller_config {
+    position_gain: 0.9
+    yaw_gain: 0.3
+    max_velocity: 0.25
+    max_yaw_rate: 0.3
+    position_controller_config {
+      goal_position_tolerance {
+        x: 0.04
+        y: 0.04
+        z: 0.04
+      }
+      goal_yaw_tolerance: 0.1
+    }
+  }
   velocity_controller_config {
     goal_velocity_tolerance {
       vx: 0.1
