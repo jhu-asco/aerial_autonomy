@@ -106,7 +106,7 @@ struct VisualServoingArmTransitionActionFunctor_
 };
 
 /**
-* @brief Action to reach a pre designated point A
+* @brief Action to reach a pre designated waypoint
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 * @tparam Index Which waypoint we are reaching to

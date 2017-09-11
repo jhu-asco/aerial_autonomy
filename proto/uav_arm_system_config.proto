@@ -27,7 +27,7 @@ message UAVArmSystemConfig {
   optional uint32 grip_timeout = 7 [ default = 2000 ];
 
   /**
-  * @brief Point where to leave object
+  * @brief List of way points
   */
   repeated config.PositionYaw way_points = 8;
 }
