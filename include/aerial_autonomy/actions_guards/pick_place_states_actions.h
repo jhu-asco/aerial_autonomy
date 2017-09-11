@@ -102,8 +102,7 @@ struct PickPlaceStatesActions
   */
   using PickTransitionAction = bActionSequence<boost::mpl::vector<
       AbortArmController, RelativePoseVisualServoingTransitionActionFunctor_<
-                              LogicStateMachineT, 1>>>;
-  // VisualServoingArmTransitionActionFunctor_<LogicStateMachineT, 1>;
+                              LogicStateMachineT, 1, false>>>;
   /**
   * @brief Set goal for visual servoing and also arm controller for positioning
   * arm for pick
