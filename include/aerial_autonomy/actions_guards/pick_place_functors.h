@@ -45,7 +45,7 @@ struct GrippingInternalActionFunctor_
 };
 
 template <class LogicStateMachineT>
-struct PrePickGuard_
+struct PickTransitionGuardFunctor_
     : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
   bool guard(UAVArmSystem &robot_system) {
     if (!(bool(robot_system.getStatus<
@@ -92,7 +92,7 @@ using ManualControlArmInternalActionFunctor_ =
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-struct PickTransitionGuardFunctor_
+struct PrePickTransitionGuardFunctor_
     : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
   bool guard(UAVArmSystem &robot_system_) {
     Position tracking_vector;

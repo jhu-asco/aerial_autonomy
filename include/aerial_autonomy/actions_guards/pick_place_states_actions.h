@@ -104,11 +104,16 @@ struct PickPlaceStatesActions
       AbortArmController, RelativePoseVisualServoingTransitionActionFunctor_<
                               LogicStateMachineT, 1, false>>>;
   /**
-  * @brief Set goal for visual servoing and also arm controller for positioning
-  * arm for pick
+  * @brief Check tracking is valid and arm is enabled for pre-pick
   */
   using PrePickTransitionAction =
       VisualServoingArmTransitionActionFunctor_<LogicStateMachineT, 0>;
+  /**
+  * @brief
+  */
+  using PrePickTransitionGuard =
+      PrePickTransitionGuardFunctor_<LogicStateMachineT>;
+
   /**
   * @brief Action to take when starting folding arm before takeoff
   */
@@ -124,7 +129,8 @@ struct PickPlaceStatesActions
   /**
   * @brief Guard to stop pick place if arm is not powered
   */
-  using PickTransitionGuard = ArmEnabledGuardFunctor_<LogicStateMachineT>;
+  using PickGuard = bAnd<PickTransitionGuardFunctor_<LogicStateMachineT>,
+                         ArmEnabledGuardFunctor_<LogicStateMachineT>>;
 
   // Explicitly defined manual Control state
   /**

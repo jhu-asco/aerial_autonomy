@@ -142,13 +142,13 @@ public:
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::RelativePoseVisualServoing, Completed,
                       psa::PrePickState, psa::PrePickTransitionAction,
-                      psa::PickTransitionGuard>,
+                      psa::PrePickTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::RelativePoseVisualServoing, be::Abort, psa::Hovering,
                       psa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PrePickState, Completed, psa::PickState,
-                      psa::PickTransitionAction, psa::PickTransitionGuard>,
+                      psa::PickTransitionAction, psa::PickGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Hovering, vse::GoHome, psa::ReachingGoal,
                       psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,
