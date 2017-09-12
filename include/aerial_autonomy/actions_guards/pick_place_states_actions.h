@@ -76,11 +76,6 @@ struct PickPlaceStatesActions
   using ArmPowerOff = ArmPoweroffTransitionActionFunctor_<LogicStateMachineT>;
 
   /**
-  * @brief Send the UAV to waypoint A
-  */
-  using GoToPostPickWayPoint =
-      GoToWayPointTransitionActionFunctor_<LogicStateMachineT, 0>;
-  /**
   * @brief Check if waypoint A is specified
   */
   using PostPickWayPointGuard =
@@ -97,6 +92,13 @@ struct PickPlaceStatesActions
   * @brief Abort arm controller
   */
   using AbortArmController = AbortArmController_<LogicStateMachineT>;
+
+  /**
+  * @brief Send the UAV to waypoint A
+  */
+  using GoToPostPickWayPoint = bActionSequence<boost::mpl::vector<
+      ArmRightFold,
+      GoToWayPointTransitionActionFunctor_<LogicStateMachineT, 0>>>;
   /**
   * @brief Action sequence that ungrips then goes home
   */

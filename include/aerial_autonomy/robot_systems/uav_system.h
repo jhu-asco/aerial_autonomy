@@ -28,6 +28,10 @@ protected:
    * @brief UAV configuration parameters
    */
   UAVSystemConfig config_;
+  /**
+  * @brief Velocity based position controller
+  */
+  VelocityBasedPositionController velocity_based_position_controller_;
 
 private:
   // Controllers
@@ -35,10 +39,6 @@ private:
   * @brief Position Controller
   */
   BuiltInPositionController builtin_position_controller_;
-  /**
-  * @brief Velocity based position controller
-  */
-  VelocityBasedPositionController velocity_based_position_controller_;
   /**
   * @brief  velocity controller
   */
@@ -94,9 +94,9 @@ public:
   */
   UAVSystem(parsernode::Parser &drone_hardware, UAVSystemConfig config)
       : BaseRobotSystem(), drone_hardware_(drone_hardware), config_(config),
-        builtin_position_controller_(config.position_controller_config()),
         velocity_based_position_controller_(
             config.velocity_based_position_controller_config()),
+        builtin_position_controller_(config.position_controller_config()),
         builtin_velocity_controller_(config.velocity_controller_config()),
         position_controller_drone_connector_(drone_hardware,
                                              builtin_position_controller_),

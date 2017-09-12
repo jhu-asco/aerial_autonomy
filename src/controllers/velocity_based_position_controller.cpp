@@ -4,6 +4,7 @@
 
 void VelocityBasedPositionController::resetIntegrator() {
   cumulative_error = PositionYaw(0, 0, 0, 0);
+  std::cout << "Reset integrator!" << std::endl;
 }
 
 double VelocityBasedPositionController::backCalculate(
@@ -13,6 +14,12 @@ double VelocityBasedPositionController::backCalculate(
   double command_out = math::clamp(command, -saturation, saturation);
   integrator += integrator_saturation_gain * (command_out - command);
   return command_out;
+}
+
+void VelocityBasedPositionController::setGoal(PositionYaw goal, bool reset) {
+  Controller<PositionYaw, PositionYaw, VelocityYawRate>::setGoal(goal);
+  if (reset)
+    resetIntegrator();
 }
 
 bool VelocityBasedPositionController::runImplementation(

@@ -133,6 +133,9 @@ public:
             msmf::Row<psa::Hovering, PositionYaw, psa::ReachingGoal,
                       psa::ReachingGoalSet, psa::ReachingGoalGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::Hovering, pe::GoToPointA, psa::ReachingGoal,
+                      psa::GoToPostPickWayPoint, psa::PostPickWayPointGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Hovering, pe::Pick, psa::RelativePoseVisualServoing,
                       psa::RelativePoseVisualServoingTransitionAction,
                       psa::RelativePoseVisualServoingTransitionGuard>,

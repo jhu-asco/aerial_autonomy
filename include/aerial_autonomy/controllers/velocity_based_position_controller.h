@@ -63,12 +63,6 @@ public:
   virtual ~VelocityBasedPositionController() {}
 
   /**
-   * @brief Compute the integrator internally based on
-   * back calculation
-   */
-  void resetIntegrator();
-
-  /**
    * @brief If the command (p_command + integrator) is saturated, the function
    * resets the integrator to ensure p_command + integrator = saturation.
    *
@@ -90,6 +84,13 @@ public:
   PositionYaw getCumulativeError() const { return cumulative_error; }
 
   /**
+   * @brief Set the goal and optionally reset the controller
+   * @param goal The goal to set
+   * @param reset Resets controller integrator if true
+   */
+  virtual void setGoal(PositionYaw goal, bool reset = true);
+
+  /**
    * @brief Get the default values of gains
    *
    * @return dynamic reconfigure with default values
@@ -105,6 +106,12 @@ public:
   void updateConfig(
       const aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
           &dynamic_config);
+
+  /**
+   * @brief Compute the integrator internally based on
+   * back calculation
+   */
+  void resetIntegrator();
 
 protected:
   /**

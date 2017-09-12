@@ -34,6 +34,12 @@ public:
   virtual ~VelocityBasedRelativePoseController() {}
 
   /**
+   * @brief Set the goal
+   * @param goal The goal to set
+   */
+  virtual void setGoal(PositionYaw goal);
+
+  /**
    * @brief Get the default values of gains
    *
    * @return dynamic reconfigure with default values
