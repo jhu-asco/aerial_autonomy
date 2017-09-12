@@ -70,16 +70,15 @@ ControllerStatus VelocityBasedPositionController::isConvergedImplementation(
 
 aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
 VelocityBasedPositionController::getDefaultConfig() const {
-  VelocityBasedPositionControllerConfig config;
   aerial_autonomy::VelocityBasedPositionControllerDynamicConfig dynamic_config;
-  dynamic_config.position_gain = config.position_gain();
-  dynamic_config.yaw_gain = config.yaw_gain();
-  dynamic_config.max_velocity = config.max_velocity();
-  dynamic_config.max_yaw_rate = config.max_yaw_rate();
-  dynamic_config.yaw_i_gain = config.yaw_i_gain();
-  dynamic_config.position_i_gain = config.position_i_gain();
+  dynamic_config.position_gain = config_.position_gain();
+  dynamic_config.yaw_gain = config_.yaw_gain();
+  dynamic_config.max_velocity = config_.max_velocity();
+  dynamic_config.max_yaw_rate = config_.max_yaw_rate();
+  dynamic_config.yaw_i_gain = config_.yaw_i_gain();
+  dynamic_config.position_i_gain = config_.position_i_gain();
   dynamic_config.integrator_saturation_gain =
-      config.integrator_saturation_gain();
+      config_.integrator_saturation_gain();
   return dynamic_config;
 }
 

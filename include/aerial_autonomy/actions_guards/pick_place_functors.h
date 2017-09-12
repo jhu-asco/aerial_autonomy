@@ -44,6 +44,20 @@ struct GrippingInternalActionFunctor_
   }
 };
 
+template <class LogicStateMachineT>
+struct PickTransitionGuardFunctor_
+    : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
+  bool guard(UAVArmSystem &robot_system) {
+    if (!(bool(robot_system.getStatus<
+               RelativePoseVisualServoingControllerDroneConnector>()) &&
+          bool(robot_system
+                   .getStatus<VisualServoingControllerArmConnector>()))) {
+      LOG(WARNING) << "Both controllers not converged!";
+      return false;
+    }
+    return true;
+  }
+};
 /**
 * @brief Logic to check while reaching a visual servoing and arm end effector
 * goal
@@ -78,7 +92,7 @@ using ManualControlArmInternalActionFunctor_ =
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-struct PickTransitionGuardFunctor_
+struct PrePickTransitionGuardFunctor_
     : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
   bool guard(UAVArmSystem &robot_system_) {
     Position tracking_vector;

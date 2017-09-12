@@ -111,7 +111,7 @@ TEST_F(PickPlaceFunctorTests, CallPrePickActionFunction) {
   Position roi_goal(1, 1, 1);
   simple_tracker->setTargetPositionGlobalFrame(roi_goal);
   // Test action functor
-  psa::PickTransitionGuard pick_place_transition_guard;
+  psa::PrePickTransitionGuard pick_place_transition_guard;
   psa::PrePickTransitionAction pick_place_transition_action;
   int dummy_start_state, dummy_target_state;
   ASSERT_FALSE(uav_arm_system->isHomeLocationSpecified());
@@ -134,7 +134,7 @@ TEST_F(PickPlaceFunctorTests, CallPickActionFunction) {
   Position roi_goal(1, 1, 1);
   simple_tracker->setTargetPositionGlobalFrame(roi_goal);
   // Test action functor
-  psa::PickTransitionGuard pick_place_transition_guard;
+  psa::PickGuard pick_place_transition_guard;
   psa::PickTransitionAction pick_place_transition_action;
   int dummy_start_state, dummy_target_state;
   ASSERT_FALSE(uav_arm_system->isHomeLocationSpecified());
@@ -154,7 +154,7 @@ TEST_F(PickPlaceFunctorTests, CallPickActionFunction) {
 TEST_F(PickPlaceFunctorTests, PoweroffCallGuardFunction) {
   // Turn off arm
   uav_arm_system->power(false);
-  psa::PickTransitionGuard pick_place_transition_guard;
+  psa::PrePickTransitionGuard pick_place_transition_guard;
   int dummy_start_state, dummy_target_state;
   bool result = pick_place_transition_guard(
       NULL, *sample_logic_state_machine, dummy_start_state, dummy_target_state);
@@ -175,7 +175,7 @@ TEST_F(PickPlaceFunctorTests, CallPrePickInternalActionFunction) {
   uav_arm_system->power(true);
   // Call action functor
   psa::PrePickTransitionAction pick_place_transition_action;
-  psa::PickTransitionGuard pick_place_transition_guard;
+  psa::PrePickTransitionGuard pick_place_transition_guard;
   int dummy_start_state, dummy_target_state;
   ASSERT_TRUE(pick_place_transition_guard(NULL, *sample_logic_state_machine,
                                           dummy_start_state,

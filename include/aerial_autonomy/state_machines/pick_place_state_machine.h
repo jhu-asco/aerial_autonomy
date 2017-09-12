@@ -142,13 +142,13 @@ public:
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::RelativePoseVisualServoing, Completed,
                       psa::PrePickState, psa::PrePickTransitionAction,
-                      psa::PickTransitionGuard>,
+                      psa::PrePickTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::RelativePoseVisualServoing, be::Abort, psa::Hovering,
                       psa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PrePickState, Completed, psa::PickState,
-                      psa::PickTransitionAction, msmf::none>,
+                      psa::PickTransitionAction, psa::PickGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Hovering, vse::GoHome, psa::ReachingGoal,
                       psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,
@@ -226,10 +226,18 @@ public:
 * @brief state names to get name based on state id
 */
 static constexpr std::array<const char *, 13> state_names = {
-    "Landed", "ArmPreTakeoffFolding", "Takingoff", "Hovering",
-    "RelativePoseVisualServoing", "PrePickState", "ArmPreLandingFolding",
-    "ReachingGoal", "ExecutingVelocityGoal", "PickState", "Landing",
-    "ReachingPostPickWayPoint"
+    "Landed",
+    "ArmPreTakeoffFolding",
+    "Takingoff",
+    "Hovering",
+    "RelativePoseVisualServoing",
+    "PrePickState",
+    "ArmPreLandingFolding",
+    "ReachingGoal",
+    "ExecutingVelocityGoal",
+    "PickState",
+    "Landing",
+    "ReachingPostPickWayPoint",
     "ManualControlArmState"};
 /**
 * @brief Get current state name
