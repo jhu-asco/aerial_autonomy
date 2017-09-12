@@ -199,11 +199,15 @@ public:
             msmf::Row<psa::ReachingGoal, Completed, psa::Hovering,
                       psa::AbortUAVControllerArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PickState, Reset, psa::Hovering, msmf::none,
-                      msmf::none>,
+            msmf::Row<psa::PickState, Reset, psa::ReachingGoal,
+                      psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PickState, Completed, psa::Hovering, msmf::none,
-                      msmf::none>,
+            msmf::Row<psa::PickState, Completed, psa::ReachingPostPickWayPoint,
+                      psa::GoToPostPickWayPoint, psa::PostPickWayPointGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::ReachingPostPickWayPoint, Completed,
+                      psa::ReachingGoal, psa::UngripGoHome,
+                      psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ManualControlArmState, be::Takeoff, psa::Hovering,
                       psa::ManualControlSwitchAction,
@@ -222,17 +226,10 @@ public:
 * @brief state names to get name based on state id
 */
 static constexpr std::array<const char *, 13> state_names = {
-    "Landed",
-    "ArmPreTakeoffFolding",
-    "Takingoff",
-    "Hovering",
-    "RelativePoseVisualServoing",
-    "PrePickState",
-    "ArmPreLandingFolding",
-    "ReachingGoal",
-    "ExecutingVelocityGoal",
-    "PickState",
-    "Landing",
+    "Landed", "ArmPreTakeoffFolding", "Takingoff", "Hovering",
+    "RelativePoseVisualServoing", "PrePickState", "ArmPreLandingFolding",
+    "ReachingGoal", "ExecutingVelocityGoal", "PickState", "Landing",
+    "ReachingPostPickWayPoint"
     "ManualControlArmState"};
 /**
 * @brief Get current state name

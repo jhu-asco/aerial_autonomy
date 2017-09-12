@@ -64,8 +64,8 @@ struct GoHomeTransitionActionFunctor_
   void run(UAVVisionSystem &robot_system) {
     PositionYaw home_location = robot_system.getHomeLocation();
     VLOG(1) << "Going home";
-    robot_system.setGoal<PositionControllerDroneConnector, PositionYaw>(
-        home_location);
+    robot_system.setGoal<VelocityBasedPositionControllerDroneConnector,
+                         PositionYaw>(home_location);
   }
 };
 
