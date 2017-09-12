@@ -91,6 +91,12 @@ public:
   virtual void setGoal(PositionYaw goal, bool reset = true);
 
   /**
+   * @brief Set the goal and reset the controller
+   * @param goal The goal to set
+   */
+  virtual void setGoal(PositionYaw goal);
+
+  /**
    * @brief Get the default values of gains
    *
    * @return dynamic reconfigure with default values
