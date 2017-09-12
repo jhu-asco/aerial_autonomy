@@ -226,10 +226,18 @@ public:
 * @brief state names to get name based on state id
 */
 static constexpr std::array<const char *, 13> state_names = {
-    "Landed", "ArmPreTakeoffFolding", "Takingoff", "Hovering",
-    "RelativePoseVisualServoing", "PrePickState", "ArmPreLandingFolding",
-    "ReachingGoal", "ExecutingVelocityGoal", "PickState", "Landing",
-    "ReachingPostPickWayPoint"
+    "Landed",
+    "ArmPreTakeoffFolding",
+    "Takingoff",
+    "Hovering",
+    "RelativePoseVisualServoing",
+    "PrePickState",
+    "ArmPreLandingFolding",
+    "ReachingGoal",
+    "ExecutingVelocityGoal",
+    "PickState",
+    "Landing",
+    "ReachingPostPickWayPoint",
     "ManualControlArmState"};
 /**
 * @brief Get current state name
