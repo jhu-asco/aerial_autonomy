@@ -36,6 +36,10 @@ private:
   */
   BuiltInPositionController builtin_position_controller_;
   /**
+  * @brief Velocity based position controller
+  */
+  VelocityBasedPositionController velocity_based_position_controller_;
+  /**
   * @brief  velocity controller
   */
   BuiltInVelocityController builtin_velocity_controller_;
@@ -47,6 +51,12 @@ private:
    * @brief connector for position controller
    */
   PositionControllerDroneConnector position_controller_drone_connector_;
+  /**
+   * @brief connector for position controller using velocity and yaw rate
+   * commands
+   */
+  VelocityBasedPositionControllerDroneConnector
+      velocity_based_position_controller_drone_connector_;
   /**
   * @brief connector for velocity controller
   */
@@ -85,9 +95,13 @@ public:
   UAVSystem(parsernode::Parser &drone_hardware, UAVSystemConfig config)
       : BaseRobotSystem(), drone_hardware_(drone_hardware), config_(config),
         builtin_position_controller_(config.position_controller_config()),
+        velocity_based_position_controller_(
+            config.velocity_based_position_controller_config()),
         builtin_velocity_controller_(config.velocity_controller_config()),
         position_controller_drone_connector_(drone_hardware,
                                              builtin_position_controller_),
+        velocity_based_position_controller_drone_connector_(
+            drone_hardware, velocity_based_position_controller_),
         velocity_controller_drone_connector_(drone_hardware,
                                              builtin_velocity_controller_),
         rpyt_controller_drone_connector_(drone_hardware,
@@ -96,6 +110,8 @@ public:
     // Add control hardware connector containers
     controller_hardware_connector_container_.setObject(
         position_controller_drone_connector_);
+    controller_hardware_connector_container_.setObject(
+        velocity_based_position_controller_drone_connector_);
     controller_hardware_connector_container_.setObject(
         velocity_controller_drone_connector_);
     controller_hardware_connector_container_.setObject(

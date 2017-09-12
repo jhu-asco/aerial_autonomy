@@ -20,7 +20,8 @@ template <class LogicStateMachineT>
 struct PositionControlTransitionActionFunctor_
     : ActionFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
   void run(const PositionYaw &goal, UAVSystem &robot_system) {
-    robot_system.setGoal<PositionControllerDroneConnector, PositionYaw>(goal);
+    robot_system.setGoal<VelocityBasedPositionControllerDroneConnector,
+                         PositionYaw>(goal);
   }
 };
 
@@ -72,10 +73,11 @@ struct PositionControlTransitionGuardFunctor_
  */
 template <class LogicStateMachineT>
 using PositionControlInternalActionFunctor_ =
-    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
-        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-        ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, PositionControllerDroneConnector>>>;
+    boost::msm::front::ShortingActionSequence_<
+        boost::mpl::vector<UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+                           ControllerStatusInternalActionFunctor_<
+                               LogicStateMachineT,
+                               VelocityBasedPositionControllerDroneConnector>>>;
 
 /**
 * @brief State that uses position control functor to reach a desired goal.

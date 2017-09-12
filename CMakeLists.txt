@@ -223,6 +223,7 @@ add_library(aerial_autonomy
   src/controller_hardware_connectors/relative_pose_visual_servoing_controller_drone_connector.cpp
   src/controller_hardware_connectors/visual_servoing_controller_arm_connector.cpp
   src/controller_hardware_connectors/position_controller_drone_connector.cpp
+  src/controller_hardware_connectors/velocity_based_position_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
 )

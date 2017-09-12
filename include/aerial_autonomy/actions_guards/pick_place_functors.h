@@ -91,6 +91,7 @@ struct PickTransitionGuardFunctor_
  * @brief Set arm goal and set grip to false to start with.
  *
  * @tparam LogicStateMachineT State machine that contains the functor
+ * @tparam TransformIndex Index of goal transform
  */
 template <class LogicStateMachineT, int TransformIndex>
 struct VisualServoingArmTransitionActionFunctor_
@@ -101,6 +102,42 @@ struct VisualServoingArmTransitionActionFunctor_
         robot_system.armGoalTransform(TransformIndex));
     // Also ensure the gripper is in the right state to grip objects
     robot_system.resetGripper();
+  }
+};
+
+/**
+* @brief Action to reach a pre designated waypoint
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+* @tparam Index Which waypoint we are reaching to
+*/
+template <class LogicStateMachineT, int Index>
+struct GoToWayPointTransitionActionFunctor_
+    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  void run(UAVArmSystem &robot_system) {
+    PositionYaw way_point = robot_system.getWayPoint(Index);
+    VLOG(1) << "Going to waypoint " << Index;
+    robot_system.setGoal<VelocityBasedPositionControllerDroneConnector,
+                         PositionYaw>(way_point);
+  }
+};
+
+/**
+* @brief Guard for waypoint A transition
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+* @tparam Index which waypoint is it guarding
+*/
+template <class LogicStateMachineT, int Index>
+struct GoToWayPointTransitionGuardFunctor_
+    : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
+  bool guard(UAVArmSystem &robot_system) {
+    bool result = robot_system.checkWayPointIndex(Index);
+    if (!result) {
+      LOG(WARNING) << "Index: " << Index
+                   << " not available in waypoint vector in config file";
+    }
+    return result;
   }
 };
 

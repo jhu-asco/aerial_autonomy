@@ -1,6 +1,7 @@
 syntax = "proto2";
 
 import "pose_controller_config.proto";
+import "position_yaw.proto";
 
 message UAVArmSystemConfig {
   /**
@@ -24,4 +25,9 @@ message UAVArmSystemConfig {
   * @brief How much time to spend trying to grip the object in milliseconds
   */
   optional uint32 grip_timeout = 7 [ default = 2000 ];
+
+  /**
+  * @brief List of way points
+  */
+  repeated config.PositionYaw way_points = 8;
 }

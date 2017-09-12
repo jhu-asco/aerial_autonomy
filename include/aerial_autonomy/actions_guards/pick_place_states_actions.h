@@ -5,6 +5,7 @@
 #include <aerial_autonomy/actions_guards/pick_place_functors.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_states_actions.h>
 #include <aerial_autonomy/arm_events.h>
+#include <aerial_autonomy/pick_place_events.h>
 #include <boost/msm/front/euml/operator.hpp>
 #include <boost/msm/front/functor_row.hpp>
 
@@ -73,6 +74,17 @@ struct PickPlaceStatesActions
   * @brief Action to poweroff arm
   */
   using ArmPowerOff = ArmPoweroffTransitionActionFunctor_<LogicStateMachineT>;
+
+  /**
+  * @brief Send the UAV to waypoint A
+  */
+  using GoToPostPickWayPoint =
+      GoToWayPointTransitionActionFunctor_<LogicStateMachineT, 0>;
+  /**
+  * @brief Check if waypoint A is specified
+  */
+  using PostPickWayPointGuard =
+      GoToWayPointTransitionGuardFunctor_<LogicStateMachineT, 0>;
   /**
   * @brief Action to take when starting folding arm before land
   */
@@ -85,6 +97,12 @@ struct PickPlaceStatesActions
   * @brief Abort arm controller
   */
   using AbortArmController = AbortArmController_<LogicStateMachineT>;
+  /**
+  * @brief Action sequence that ungrips then goes home
+  */
+  using UngripGoHome =
+      bActionSequence<boost::mpl::vector<ArmGripAction<false>,
+                                         typename vsa::GoHomeTransitionAction>>;
   /**
   * @brief Action sequence to abort UAV controller and move arm to right
   * angle
@@ -125,6 +143,11 @@ struct PickPlaceStatesActions
   * @brief Guard to stop pick place if arm is not powered
   */
   using PickTransitionGuard = ArmEnabledGuardFunctor_<LogicStateMachineT>;
+
+  /**
+  * @brief State while going to waypoint A
+  */
+  struct ReachingPostPickWayPoint : public usa::ReachingGoal {};
 
   // Explicitly defined manual Control state
   /**
