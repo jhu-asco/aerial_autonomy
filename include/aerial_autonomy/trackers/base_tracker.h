@@ -38,6 +38,9 @@ public:
   * @param pose the output tracking pose
   * @return true if the id is found otherwise false
   */
+  // \todo Matt Make this a specific tracking strategy
+  // Also implement VisionSystem with a way to set tracking strategies
+  // for trackers on the fly (like setGoal in RobotSystem)
   virtual bool getTrackingVector(uint32_t tracked_id, tf::Transform &pose);
   /**
    * @brief Get the tracking vectors

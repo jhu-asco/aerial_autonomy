@@ -29,8 +29,8 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
 };
 
 /**
-* @brief Action for initializing relative pose visual servoing with specific
-* waypoints
+* @brief Action for initializing relative pose visual servoing for specific
+* tracking id
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
