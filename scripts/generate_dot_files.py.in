@@ -62,8 +62,9 @@ def generate_dot_files(file_path, out_folder):
     dot_out = "digraph {0} {{\n".format(file_name_short)
     for transition in transitions:
         match_obj = transition_header_pattern.match(transition)
-        states_actions = match_obj.group(1).split(',')
-        dot_out += '\t"{0}"->"{2}"[label="{1}"];\n'.format(*states_actions[:3])
+        if match_obj:
+            states_actions = match_obj.group(1).split(',')
+            dot_out += '\t"{0}"->"{2}"[label="{1}"];\n'.format(*states_actions[:3])
 
     dot_out += '}'
     dot_file = file(os.path.join(out_folder, file_name_short + '.gv'), 'w')
