@@ -137,7 +137,7 @@ public:
                       psa::GoToPostPickWayPoint, psa::PostPickWayPointGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Hovering, pe::Pick, psa::RelativePoseVisualServoing,
-                      psa::RelativePoseVisualServoingTransitionAction,
+                      psa::RelativePoseVisualServoingWithReset,
                       psa::RelativePoseVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Hovering, VelocityYaw, psa::ExecutingVelocityGoal,
