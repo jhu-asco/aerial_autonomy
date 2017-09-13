@@ -205,8 +205,11 @@ public:
             msmf::Row<psa::PickState, Reset, psa::ReachingGoal,
                       psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PickState, Completed, psa::ReachingPostPickWayPoint,
-                      psa::GoToPostPickWayPoint, psa::PostPickWayPointGuard>,
+            // msmf::Row<psa::PickState, Completed,
+            // psa::ReachingPostPickWayPoint,
+            //          psa::GoToPostPickWayPoint, psa::PostPickWayPointGuard>,
+            msmf::Row<psa::PickState, Completed, psa::ReachingGoal,
+                      psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ReachingPostPickWayPoint, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
