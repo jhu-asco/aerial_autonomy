@@ -147,6 +147,7 @@ struct VisualServoingArmTransitionActionFunctor_
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 * @tparam Index Which waypoint we are reaching to
+* \todo Gowtham test internal action functor
 */
 template <class LogicStateMachineT, int StartIndex, int EndIndex>
 struct GoToWaypointInternalActionFunctor_

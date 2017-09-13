@@ -80,12 +80,12 @@ struct PickPlaceStatesActions
   using ArmPowerOff = ArmPoweroffTransitionActionFunctor_<LogicStateMachineT>;
 
   /**
-  * @brief Check if waypoint A is specified
+  * @brief Check if post pick waypoints are specified in proto config
   */
   using PostPickWaypointGuard =
       WaypointSequenceTransitionGuardFunctor_<LogicStateMachineT, 0, 1>;
   /**
-  * @brief Check if waypoint A is specified
+  * @brief Check if post place waypoints arespecified in proto config
   */
   using PostPlaceWaypointGuard =
       WaypointSequenceTransitionGuardFunctor_<LogicStateMachineT, 2, 3>;

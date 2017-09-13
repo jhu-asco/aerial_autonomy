@@ -133,10 +133,6 @@ public:
             msmf::Row<psa::Hovering, PositionYaw, psa::ReachingGoal,
                       psa::ReachingGoalSet, psa::ReachingGoalGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, pe::GoToPointA,
-                      psa::ReachingPostPickWaypoint, psa::ArmRightFold,
-                      psa::PostPickWaypointGuard>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Hovering, pe::Pick, psa::RelativePoseVisualServoing,
                       psa::RelativePoseVisualServoingTransitionAction,
                       psa::RelativePoseVisualServoingTransitionGuard>,
@@ -224,6 +220,12 @@ public:
                       psa::ReachingPostPlaceWaypoint, psa::ArmGripAction<false>,
                       psa::PostPlaceWaypointGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::ReachingPostPlaceWaypoint, Completed, psa::Hovering,
+                      psa::AbortUAVArmController, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::ReachingPostPlaceWaypoint, be::Abort, psa::Hovering,
+                      psa::AbortUAVArmController, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PlaceState, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
@@ -243,7 +245,7 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 14> state_names = {
+static constexpr std::array<const char *, 15> state_names = {
     "Landed",
     "ArmPreTakeoffFolding",
     "Takingoff",
@@ -257,6 +259,7 @@ static constexpr std::array<const char *, 14> state_names = {
     "Landing",
     "ReachingPostPickWaypoint",
     "PlaceState",
+    "ReachingPostPlaceWaypoint",
     "ManualControlArmState"};
 /**
 * @brief Get current state name
