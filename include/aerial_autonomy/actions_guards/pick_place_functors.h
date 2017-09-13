@@ -78,6 +78,21 @@ using PrePickInternalActionFunctor_ =
         ControllerStatusInternalActionFunctor_<
             LogicStateMachineT,
             RelativePoseVisualServoingControllerDroneConnector, false>>>;
+
+/**
+* @brief Logic to check while placing object
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+using PlaceInternalActionFunctor_ =
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+        ControllerStatusInternalActionFunctor_<
+            LogicStateMachineT,
+            RelativePoseVisualServoingControllerDroneConnector>>>;
+
 /**
 * @brief Logic to check arm power and manual mode
 *
@@ -168,6 +183,15 @@ template <class LogicStateMachineT>
 using PrePickState_ =
     BaseState<UAVArmSystem, LogicStateMachineT,
               PrePickInternalActionFunctor_<LogicStateMachineT>>;
+
+/**
+* @brief State that uses visual servoing to place object.
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+using PlaceState_ = BaseState<UAVArmSystem, LogicStateMachineT,
+                              PlaceInternalActionFunctor_<LogicStateMachineT>>;
 
 /**
 * @brief State that uses position control functor to reach a desired goal for

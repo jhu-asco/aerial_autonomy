@@ -3,4 +3,5 @@ PickPlaceEventManager:
   arm_events/ArmEventManager
   visual_servoing_events/VisualServoingEventManager/GoHome
   Pick
+  Place
   GoToPointA

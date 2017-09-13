@@ -60,6 +60,10 @@ struct PickPlaceStatesActions
   * @brief State while positioning the arm for picking
   */
   using PrePickState = PrePickState_<LogicStateMachineT>;
+  /**
+  * @brief State while positioning the uav for placing
+  */
+  using PlaceState = PlaceState_<LogicStateMachineT>;
   // Transition Actions
   /**
   * @brief Action to poweroff arm
@@ -133,6 +137,19 @@ struct PickPlaceStatesActions
   */
   using PrePickTransitionGuard =
       PrePickTransitionGuardFunctor_<LogicStateMachineT>;
+
+  /**
+  * @brief Action to take when starting placing object.
+  */
+  using PlaceVisualServoingTransitionAction =
+      RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT, 2>;
+
+  /**
+  * @brief Guard to set and check that the id to track is available
+  * before beginning visual servoing
+  */
+  using PlaceVisualServoingTransitionGuard =
+      ExplicitIdVisualServoingGuardFunctor_<LogicStateMachineT, 15>;
 
   /**
   * @brief Action to take when starting folding arm before takeoff

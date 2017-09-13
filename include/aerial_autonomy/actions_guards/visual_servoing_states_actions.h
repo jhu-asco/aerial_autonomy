@@ -40,20 +40,6 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
       RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT, 0>;
 
   /**
-  * @brief Action to take when starting placing object.
-  */
-  using PlaceVisualServoingTransitionAction =
-      RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT, 2,
-                                                         false>;
-
-  /**
-  * @brief Guard to set and check that the id to track is available
-  * before beginning visual servoing
-  */
-  using PlaceVisualServoingTransitionGuard =
-      ExplicitIdVisualServoingGuardFunctor_<LogicStateMachineT, 15>;
-
-  /**
   * @brief Check whether visual servoing is feasible currently
   */
   using VisualServoingTransitionGuard =

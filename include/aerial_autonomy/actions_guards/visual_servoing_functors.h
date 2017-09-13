@@ -36,7 +36,7 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
 */
 template <class LogicStateMachineT, uint32_t MarkerId>
 struct ExplicitIdVisualServoingGuardFunctor_
-    : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
+    : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {
   bool guard(UAVVisionSystem &robot_system) {
     robot_system.setExplicitIdVisualServoing(MarkerId);
     Position tracking_vector;
