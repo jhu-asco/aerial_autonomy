@@ -77,7 +77,7 @@ public:
   *
   * @return Waypoint at index
   */
-  PositionYaw getWayPoint(int index) {
+  PositionYaw getWaypoint(int index) {
     const auto &way_point = config_.uav_vision_system_config()
                                 .uav_arm_system_config()
                                 .way_points()
@@ -94,7 +94,7 @@ public:
    * @return true if index is non-negative and is within the waypoint vector
    * size
    */
-  bool checkWayPointIndex(int index) {
+  bool checkWaypointIndex(int index) {
     return (index >= 0) && (index < config_.uav_vision_system_config()
                                         .uav_arm_system_config()
                                         .way_points()

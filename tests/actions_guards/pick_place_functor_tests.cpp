@@ -1,3 +1,4 @@
+#include "position_yaw.pb.h"
 #include <aerial_autonomy/actions_guards/pick_place_states_actions.h>
 #include <aerial_autonomy/tests/sample_logic_state_machine.h>
 #include <aerial_autonomy/trackers/simple_tracker.h>
@@ -66,6 +67,11 @@ protected:
     uav_arm_system_config->add_arm_goal_transform(0);
     uav_arm_system_config->add_arm_goal_transform(0);
     uav_arm_system_config->add_arm_goal_transform(0);
+    // waypoints
+    setWaypoint(uav_arm_system_config->add_way_points(), 0.1, 0, 0, 0);
+    setWaypoint(uav_arm_system_config->add_way_points(), 0, 0, 0, M_PI / 2.0);
+    setWaypoint(uav_arm_system_config->add_way_points(), 0, -1.0, 0,
+                M_PI / 2.0);
 
     uav_vision_system_config->add_relative_pose_goals();
     auto pose_goal = uav_vision_system_config->add_relative_pose_goals();
@@ -97,6 +103,15 @@ protected:
     sample_logic_state_machine.reset(
         new UAVArmLogicStateMachine(*uav_arm_system));
   }
+
+  void setWaypoint(config::PositionYaw *way_point, double x, double y, double z,
+                   double yaw) {
+    way_point->mutable_position()->set_x(x);
+    way_point->mutable_position()->set_y(y);
+    way_point->mutable_position()->set_z(z);
+    way_point->set_yaw(yaw);
+  }
+
   virtual ~PickPlaceFunctorTests(){};
 };
 /// \brief Test Visual Servoing
@@ -206,6 +221,18 @@ TEST_F(PickPlaceFunctorTests, CallPrePickInternalActionFunction) {
                        dummy_target_state);
   ASSERT_EQ(sample_logic_state_machine->getProcessEventTypeId(),
             std::type_index(typeid(Completed)));
+}
+
+TEST_F(PickPlaceFunctorTests, WaypointSequenceTransitionGuardCheck) {
+  WaypointSequenceTransitionGuardFunctor_<UAVArmLogicStateMachine, 3, 5>
+      guard_false;
+  int dummy_start_state, dummy_target_state;
+  EXPECT_FALSE(guard_false(NULL, *sample_logic_state_machine, dummy_start_state,
+                           dummy_target_state));
+  WaypointSequenceTransitionGuardFunctor_<UAVArmLogicStateMachine, 0, 2>
+      guard_true;
+  EXPECT_TRUE(guard_true(NULL, *sample_logic_state_machine, dummy_start_state,
+                         dummy_target_state));
 }
 
 TEST_F(PickPlaceFunctorTests, ArmFoldInternalPoweroff) {
