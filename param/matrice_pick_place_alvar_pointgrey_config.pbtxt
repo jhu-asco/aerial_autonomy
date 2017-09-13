@@ -173,14 +173,6 @@ uav_system_config {
       }
       way_points {
         position {
-          x: 0.5
-          y: 0.0
-          z: 0.1
-        }
-        yaw: 3.141
-      }
-      way_points {
-        position {
           x: 0.0
           y: 0.0
           z: 0.0
