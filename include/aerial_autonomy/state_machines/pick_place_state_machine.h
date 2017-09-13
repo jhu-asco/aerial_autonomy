@@ -215,6 +215,16 @@ public:
                       psa::ReachingGoal, psa::UngripGoHome,
                       psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::Hovering, pe::Place, psa::PlaceState,
+                      psa::PlaceVisualServoingTransitionAction,
+                      psa::PlaceVisualServoingTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::PlaceState, Completed, psa::ReachingGoal,
+                      psa::UngripGoHome, psa::GoHomeTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::PlaceState, be::Abort, psa::Hovering,
+                      psa::AbortUAVArmController, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ManualControlArmState, be::Takeoff, psa::Hovering,
                       psa::ManualControlSwitchAction,
                       psa::ManualControlSwitchGuard>,
@@ -231,7 +241,7 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 13> state_names = {
+static constexpr std::array<const char *, 14> state_names = {
     "Landed",
     "ArmPreTakeoffFolding",
     "Takingoff",
@@ -244,6 +254,7 @@ static constexpr std::array<const char *, 13> state_names = {
     "PickState",
     "Landing",
     "ReachingPostPickWayPoint",
+    "PlaceState",
     "ManualControlArmState"};
 /**
 * @brief Get current state name

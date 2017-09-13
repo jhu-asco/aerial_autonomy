@@ -31,18 +31,23 @@ void VisualServoingControllerDroneConnector::sendHardwareCommands(
 bool VisualServoingControllerDroneConnector::getTrackingVectorGlobalFrame(
     Position &tracking_vector) {
   tf::Transform object_pose_cam;
-  if (!tracker_.getTrackingVector(object_pose_cam)) {
-    return false;
+  bool result = true;
+  if (use_explicit_id_) {
+    result = tracker_.getTrackingVector(explicit_id_, object_pose_cam);
+  } else {
+    result = tracker_.getTrackingVector(object_pose_cam);
   }
-  tf::Vector3 object_direction_cam = object_pose_cam.getOrigin();
-  // Convert from camera frame to global frame
-  tf::Vector3 tracking_vector_tf =
-      (getBodyFrameRotation() *
-       (camera_transform_.getBasis() * object_direction_cam));
-  tracking_vector.x = tracking_vector_tf.getX();
-  tracking_vector.y = tracking_vector_tf.getY();
-  tracking_vector.z = tracking_vector_tf.getZ();
-  return true;
+  if (result) {
+    tf::Vector3 object_direction_cam = object_pose_cam.getOrigin();
+    // Convert from camera frame to global frame
+    tf::Vector3 tracking_vector_tf =
+        (getBodyFrameRotation() *
+         (camera_transform_.getBasis() * object_direction_cam));
+    tracking_vector.x = tracking_vector_tf.getX();
+    tracking_vector.y = tracking_vector_tf.getY();
+    tracking_vector.z = tracking_vector_tf.getZ();
+  }
+  return result;
 }
 
 tf::Matrix3x3 VisualServoingControllerDroneConnector::getBodyFrameRotation() {

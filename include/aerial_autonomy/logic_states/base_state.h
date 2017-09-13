@@ -30,6 +30,19 @@ public:
       : boost::mpl::vector<
             msmf::Internal<InternalTransitionEvent, ActionFctr, msmf::none>> {};
 
+  template <class FSM> RobotSystemT &getRobotSystem(FSM &logic_state_machine) {
+    static_assert(
+        std::is_convertible<decltype(
+                                logic_state_machine.robot_system_container_()),
+                            RobotSystemT &>::value,
+        "Robot system in logic state machine is not the same as one used in "
+        "action functor");
+    static_assert(
+        std::is_base_of<FSM, LogicStateMachineT>::value,
+        "Template Logic state machine arg is not subclass of provided FSM");
+    return logic_state_machine.robot_system_container_();
+  }
+
   /**
    * @brief Destructor
    */
