@@ -168,15 +168,9 @@ public:
             msmf::Row<psa::ReachingGoal, be::Abort, psa::Hovering,
                       psa::AbortUAVControllerArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingGoal, be::Land, psa::ArmPreLandingFolding,
-                      psa::ArmFold, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ExecutingVelocityGoal, VelocityYaw,
                       psa::ExecutingVelocityGoal, psa::SetVelocityGoal,
                       psa::GuardVelocityGoal>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ExecutingVelocityGoal, be::Land,
-                      psa::ArmPreLandingFolding, psa::ArmFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ExecutingVelocityGoal, be::Abort, psa::Hovering,
                       psa::AbortUAVControllerArmRightFold, msmf::none>,
@@ -184,14 +178,8 @@ public:
             msmf::Row<psa::PrePickState, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PrePickState, be::Land, psa::ArmPreLandingFolding,
-                      psa::AbortUAVControllerArmFold, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PickState, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PickState, be::Land, psa::ArmPreLandingFolding,
-                      psa::AbortUAVControllerArmFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Landing, Completed, psa::Landed, psa::ArmPowerOff,
                       msmf::none>,
