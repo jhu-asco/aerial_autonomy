@@ -238,6 +238,9 @@ template <class LogicStateMachineT, int StartIndex, int EndIndex>
 struct FollowingWaypointSequence_
     : public BaseState<UAVArmSystem, LogicStateMachineT, msmf::none> {
 
+  /**
+   * @brief actions to be taken as internal actions when following waypoints
+   */
   using WaypointActionSequence = boost::msm::front::ShortingActionSequence_<
       boost::mpl::vector<UAVStatusInternalActionFunctor_<LogicStateMachineT>,
                          GoToWaypointInternalActionFunctor_<
@@ -298,7 +301,7 @@ struct FollowingWaypointSequence_
   int getTrackedIndex() { return tracked_index_; }
 
 private:
-  int tracked_index_ = StartIndex;
+  int tracked_index_ = StartIndex; ///< Current tracked index
 };
 
 /**
