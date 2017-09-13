@@ -26,7 +26,8 @@ public:
       tf::Transform camera_transform)
       : ControllerHardwareConnector(controller, HardwareType::UAV),
         drone_hardware_(drone_hardware), tracker_(tracker),
-        camera_transform_(camera_transform) {}
+        camera_transform_(camera_transform), explicit_id_(0),
+        use_explicit_id_(false) {}
   /**
    * @brief Destructor
    */
@@ -39,6 +40,20 @@ public:
    * @return True if successful and false otherwise
    */
   bool getTrackingVectorGlobalFrame(Position &tracking_vector);
+
+  /**
+  * @brief Set the tracker to use the id specified instead of tracking
+  * strategy
+  */
+  void setExplicitId(uint32_t id) {
+    explicit_id_ = id;
+    use_explicit_id_ = true;
+  }
+
+  /**
+  * @brief Remove explicit id and start using tracking strategy
+  */
+  void resetExplicitId() { use_explicit_id_ = false; }
 
 protected:
   /**
@@ -76,4 +91,15 @@ private:
   * @brief camera transform with respect to body
   */
   tf::Transform camera_transform_;
+
+  /**
+  * @brief if use_explicit_id is true will use this id instead
+  * of tracking strategy
+  */
+  uint32_t explicit_id_;
+  /**
+  * @brief flag to specify whether to use the explicit id or
+  * tracking strategy
+  */
+  bool use_explicit_id_;
 };

@@ -110,6 +110,24 @@ public:
 
   PositionYaw relativePoseGoal(int i) { return relative_pose_goals_.at(i); }
 
+  /**
+  * @brief remove any explicit ids specified for visual servoing
+  */
+  void resetExplicitIdVisualServoing() {
+    visual_servoing_drone_connector_.resetExplicitId();
+    relative_pose_visual_servoing_drone_connector_.resetExplicitId();
+  }
+
+  /**
+  * @brief set the id to be used by visual servoing controllers instead
+  * of tracking strategy
+  * @param id to be use
+  */
+  void setExplicitIdVisualServoing(uint32_t id) {
+    visual_servoing_drone_connector_.setExplicitId(id);
+    relative_pose_visual_servoing_drone_connector_.setExplicitId(id);
+  }
+
 protected:
   /**
   * @brief Camera transform in the frame of the UAV

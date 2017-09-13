@@ -26,6 +26,9 @@ template <class RobotSystemT> class RobotSystemContainer {
   template <class RobotSystemT1, class LogicStateMachineT>
   friend class EventAgnosticGuardFunctor;
 
+  template <class RobotSystemT1, class LogicStateMachineT, class ActionFctr>
+  friend class BaseState;
+
 protected:
   /**
   * @brief robot system i.e stored.

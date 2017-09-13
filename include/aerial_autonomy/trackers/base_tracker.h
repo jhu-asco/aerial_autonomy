@@ -33,6 +33,13 @@ public:
    */
   virtual bool getTrackingVector(std::tuple<uint32_t, tf::Transform> &pos);
   /**
+  * @brief Get the tracking pose corresponding to specified id
+  * @param tracked_id id for which tracking vector is required
+  * @param pose the output tracking pose
+  * @return true if the id is found otherwise false
+  */
+  virtual bool getTrackingVector(uint32_t tracked_id, tf::Transform &pose);
+  /**
    * @brief Get the tracking vectors
    * @param pos Returned map of tracking vectors
    * @return True if successful, false otherwise

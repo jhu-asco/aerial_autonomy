@@ -29,6 +29,28 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
 };
 
 /**
+* @brief Action for initializing relative pose visual servoing with specific
+* waypoints
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT, uint32_t MarkerId>
+struct ExplicitIdVisualServoingGuardFunctor_
+    : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
+  bool guard(UAVVisionSystem &robot_system) {
+    robot_system.setExplicitIdVisualServoing(MarkerId);
+    Position tracking_vector;
+    if (!robot_system.getTrackingVector(tracking_vector)) {
+      LOG(WARNING) << "Cannot track Marker Id since id not available: "
+                   << MarkerId;
+      robot_system.resetExplicitIdVisualServoing();
+      return false;
+    }
+    return true;
+  }
+};
+
+/**
 * @brief Empty for now
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
@@ -172,10 +194,20 @@ using VisualServoing_ =
 
 /**
 * @brief State that uses relative pose control functor to reach a desired goal.
+* Also resets any explicit ids set by transition action functor when exiting the
+* state
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using RelativePoseVisualServoing_ = BaseState<
-    UAVVisionSystem, LogicStateMachineT,
-    RelativePoseVisualServoingInternalActionFunctor_<LogicStateMachineT>>;
+struct RelativePoseVisualServoing_
+    : BaseState<UAVVisionSystem, LogicStateMachineT,
+                RelativePoseVisualServoingInternalActionFunctor_<
+                    LogicStateMachineT>> {
+  template <class Event, class FSM>
+  void on_exit(Event const &, FSM &logic_state_machine) {
+    UAVVisionSystem &robot_system = this->getRobotSystem(logic_state_machine);
+    VLOG(1) << "Resetting any explicitly set marker ids";
+    robot_system.resetExplicitIdVisualServoing();
+  }
+};
