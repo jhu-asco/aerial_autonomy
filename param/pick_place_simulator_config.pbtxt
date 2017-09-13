@@ -135,11 +135,20 @@ uav_system_config {
 
       way_points {
         position {
+          x: -1.0
+          y: 0
+          z: 0
+        }
+        yaw: 0.0
+      }
+
+      way_points {
+        position {
           x: 0
           y: 0
           z: 0
         }
-        yaw: 0
+        yaw: 3.14
       }
 
       position_controller_config {

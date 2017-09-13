@@ -85,6 +85,11 @@ struct PickPlaceStatesActions
   using PostPickWaypointGuard =
       WaypointSequenceTransitionGuardFunctor_<LogicStateMachineT, 0, 1>;
   /**
+  * @brief Check if waypoint A is specified
+  */
+  using PostPlaceWaypointGuard =
+      WaypointSequenceTransitionGuardFunctor_<LogicStateMachineT, 2, 3>;
+  /**
   * @brief Action to take when starting folding arm before land
   */
   using ArmFold = ArmFoldTransitionActionFunctor_<LogicStateMachineT>;
@@ -164,10 +169,15 @@ struct PickPlaceStatesActions
                          ArmEnabledGuardFunctor_<LogicStateMachineT>>;
 
   /**
-  * @brief State while going to waypoint A
+  * @brief State for following waypoints after picking object
   */
   using ReachingPostPickWaypoint =
       FollowingWaypointSequence_<LogicStateMachineT, 0, 1>;
+  /**
+  * @brief State for following waypoints after placing object
+  */
+  using ReachingPostPlaceWaypoint =
+      FollowingWaypointSequence_<LogicStateMachineT, 2, 3>;
 
   // Explicitly defined manual Control state
   /**

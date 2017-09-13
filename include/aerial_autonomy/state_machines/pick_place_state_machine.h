@@ -212,16 +212,17 @@ public:
             msmf::Row<psa::ReachingPostPickWaypoint, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingPostPickWaypoint, Completed,
-                      psa::ReachingGoal, psa::UngripGoHome,
-                      psa::GoHomeTransitionGuard>,
+            msmf::Row<psa::ReachingPostPickWaypoint, Completed, psa::PlaceState,
+                      psa::PlaceVisualServoingTransitionAction,
+                      psa::PlaceVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Hovering, pe::Place, psa::PlaceState,
                       psa::PlaceVisualServoingTransitionAction,
                       psa::PlaceVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PlaceState, Completed, psa::ReachingGoal,
-                      psa::UngripGoHome, psa::GoHomeTransitionGuard>,
+            msmf::Row<psa::PlaceState, Completed,
+                      psa::ReachingPostPlaceWaypoint, psa::ArmGripAction<false>,
+                      psa::PostPlaceWaypointGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PlaceState, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
