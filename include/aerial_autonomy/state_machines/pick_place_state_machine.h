@@ -133,8 +133,9 @@ public:
             msmf::Row<psa::Hovering, PositionYaw, psa::ReachingGoal,
                       psa::ReachingGoalSet, psa::ReachingGoalGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, pe::GoToPointA, psa::ReachingGoal,
-                      psa::GoToPostPickWayPoint, psa::PostPickWayPointGuard>,
+            msmf::Row<psa::Hovering, pe::GoToPointA,
+                      psa::ReachingPostPickWaypoint, psa::ArmRightFold,
+                      psa::PostPickWaypointGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Hovering, pe::Pick, psa::RelativePoseVisualServoing,
                       psa::RelativePoseVisualServoingTransitionAction,
@@ -205,13 +206,13 @@ public:
             msmf::Row<psa::PickState, Reset, psa::ReachingGoal,
                       psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PickState, Completed, psa::ReachingPostPickWayPoint,
-                      psa::GoToPostPickWayPoint, psa::PostPickWayPointGuard>,
+            msmf::Row<psa::PickState, Completed, psa::ReachingPostPickWaypoint,
+                      psa::ArmRightFold, psa::PostPickWaypointGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingPostPickWayPoint, be::Abort, psa::Hovering,
+            msmf::Row<psa::ReachingPostPickWaypoint, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingPostPickWayPoint, Completed,
+            msmf::Row<psa::ReachingPostPickWaypoint, Completed,
                       psa::ReachingGoal, psa::UngripGoHome,
                       psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
@@ -253,7 +254,7 @@ static constexpr std::array<const char *, 14> state_names = {
     "ExecutingVelocityGoal",
     "PickState",
     "Landing",
-    "ReachingPostPickWayPoint",
+    "ReachingPostPickWaypoint",
     "PlaceState",
     "ManualControlArmState"};
 /**

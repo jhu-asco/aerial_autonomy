@@ -82,8 +82,8 @@ struct PickPlaceStatesActions
   /**
   * @brief Check if waypoint A is specified
   */
-  using PostPickWayPointGuard =
-      GoToWayPointTransitionGuardFunctor_<LogicStateMachineT, 0>;
+  using PostPickWaypointGuard =
+      WaypointSequenceTransitionGuardFunctor_<LogicStateMachineT, 0, 1>;
   /**
   * @brief Action to take when starting folding arm before land
   */
@@ -97,12 +97,6 @@ struct PickPlaceStatesActions
   */
   using AbortArmController = AbortArmController_<LogicStateMachineT>;
 
-  /**
-  * @brief Send the UAV to waypoint A
-  */
-  using GoToPostPickWayPoint = bActionSequence<boost::mpl::vector<
-      ArmRightFold,
-      GoToWayPointTransitionActionFunctor_<LogicStateMachineT, 0>>>;
   /**
   * @brief Action sequence that ungrips then goes home
   */
@@ -172,7 +166,8 @@ struct PickPlaceStatesActions
   /**
   * @brief State while going to waypoint A
   */
-  struct ReachingPostPickWayPoint : public usa::ReachingGoal {};
+  using ReachingPostPickWaypoint =
+      FollowingWaypointSequence_<LogicStateMachineT, 0, 1>;
 
   // Explicitly defined manual Control state
   /**
