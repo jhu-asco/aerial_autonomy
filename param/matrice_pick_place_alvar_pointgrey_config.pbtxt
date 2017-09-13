@@ -24,13 +24,13 @@ uav_system_config {
   }
 
   velocity_based_position_controller_config {
-    position_gain: 1.2
+    position_gain: 0.7
     yaw_gain: 0.3
-    max_velocity: 0.4
+    max_velocity: 0.25
     max_yaw_rate: 0.3
     yaw_i_gain: 0.01
-    position_i_gain: 0.045
-    integrator_saturation_gain: 0.95
+    position_i_gain: 0.04
+    integrator_saturation_gain: 1.35
     position_controller_config {
       goal_position_tolerance {
         x: 0.04
@@ -103,13 +103,13 @@ uav_system_config {
     }
     velocity_based_relative_pose_controller_config {
       velocity_based_position_controller_config {
-        position_gain: 1.2
+        position_gain: 0.7
         yaw_gain: 0.3
-        max_velocity: 0.4
+        max_velocity: 0.25
         max_yaw_rate: 0.3
         yaw_i_gain: 0.01
-        position_i_gain: 0.045
-        integrator_saturation_gain: 0.95
+        position_i_gain: 0.04
+        integrator_saturation_gain: 1.35
         position_controller_config {
           goal_position_tolerance {
             x: 0.04
@@ -122,7 +122,7 @@ uav_system_config {
     }
 
     uav_arm_system_config {
-      grip_timeout: 10000
+      grip_timeout: 20000
 
       arm_goal_transform: 0.0
       arm_goal_transform: -.1 #-0.093

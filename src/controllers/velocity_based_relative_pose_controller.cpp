@@ -7,7 +7,7 @@
 void VelocityBasedRelativePoseController::setGoal(PositionYaw goal) {
   Controller<std::tuple<tf::Transform, tf::Transform>, PositionYaw,
              VelocityYawRate>::setGoal(goal);
-  position_controller_.resetIntegrator();
+  // position_controller_.resetIntegrator();
 }
 
 bool VelocityBasedRelativePoseController::runImplementation(

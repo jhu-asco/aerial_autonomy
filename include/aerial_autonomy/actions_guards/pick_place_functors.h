@@ -27,8 +27,12 @@ struct GrippingInternalActionFunctor_
           UAVArmSystem, LogicStateMachineT, PickState_<LogicStateMachineT>> {
   bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine,
            PickState_<LogicStateMachineT> &state) {
-    VLOG(1) << "Gripping Object";
-    if (state.monitorGrip(robot_system.grip(true))) {
+    VLOG(1) << "Monitoring grip";
+    bool has_grip = robot_system.grip(true);
+    if (has_grip) {
+      VLOG(1) << "Gripping object";
+    }
+    if (state.monitorGrip(has_grip)) {
       VLOG(1) << "Done Gripping!";
       logic_state_machine.process_event(Completed());
       return false;

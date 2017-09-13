@@ -208,6 +208,9 @@ public:
             msmf::Row<psa::PickState, Completed, psa::ReachingPostPickWayPoint,
                       psa::GoToPostPickWayPoint, psa::PostPickWayPointGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::ReachingPostPickWayPoint, be::Abort, psa::Hovering,
+                      psa::AbortUAVArmController, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ReachingPostPickWayPoint, Completed,
                       psa::ReachingGoal, psa::UngripGoHome,
                       psa::GoHomeTransitionGuard>,
