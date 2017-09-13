@@ -124,7 +124,8 @@ struct VisualServoingArmTransitionActionFunctor_
 };
 
 /**
-* @brief Action to reach a pre designated waypoint
+* @brief Action to reach a relative waypoint specified in NWU frame
+* attached to quadrotor.
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 * @tparam Index Which waypoint we are reaching to
@@ -134,7 +135,13 @@ struct GoToWayPointTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
   void run(UAVArmSystem &robot_system) {
     PositionYaw way_point = robot_system.getWayPoint(Index);
+    parsernode::common::quaddata data = robot_system.getUAVData();
+    way_point.x += data.localpos.x;
+    way_point.y += data.localpos.y;
+    way_point.z += data.localpos.z;
     VLOG(1) << "Going to waypoint " << Index;
+    VLOG(1) << "Waypoint position: " << way_point.x << ", " << way_point.y
+            << ", " << way_point.z;
     robot_system.setGoal<VelocityBasedPositionControllerDroneConnector,
                          PositionYaw>(way_point);
   }
