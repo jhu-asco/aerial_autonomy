@@ -142,6 +142,6 @@ public:
   * @return True if arm enabled
   */
   bool enabled() const {
-    return arm_hardware_.state == ArmParser::ENABLED ? true : false;
+    return arm_hardware_.state() == ArmParser::ENABLED ? true : false;
   }
 };
