@@ -1,0 +1,10 @@
+syntax = "proto2";
+
+import "pose_controller_config.proto";
+
+message ArmSystemConfig {
+  /**
+  * @brief configuration for builtin arm pose controller
+  */
+  optional PoseControllerConfig pose_controller_config = 1;
+}

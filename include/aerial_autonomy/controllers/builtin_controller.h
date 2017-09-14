@@ -165,8 +165,7 @@ public:
   /**
   * @brief Constructor with default configuration
   */
-  BuiltInVelocityController()
-      : BuiltInVelocityController(PoseControllerConfig()) {}
+  BuiltInPoseController() : BuiltInPoseController(PoseControllerConfig()) {}
 
 protected:
   /**
@@ -187,14 +186,14 @@ protected:
     tf::Vector3 error_position = current_position - goal_position;
     // Add optional description:
     ControllerStatus status(ControllerStatus::Active);
-    status << "Error Position, Rotation: " << error_position.x
-           << error_position.y << error_position.z << rot_diff;
+    status << "Error Position, Rotation: " << error_position.x()
+           << error_position.y() << error_position.z() << rot_diff;
     const config::Position &tolerance_pos = config_.goal_position_tolerance();
     const double &tolerance_rot = config_.goal_rotation_tolerance();
     // Compare
-    if (std::abs(error_position.x) < tolerance_pos.x() &&
-        std::abs(error_position.y) < tolerance_pos.y() &&
-        std::abs(error_position.z) < tolerance_pos.z() &&
+    if (std::abs(error_position.x()) < tolerance_pos.x() &&
+        std::abs(error_position.y()) < tolerance_pos.y() &&
+        std::abs(error_position.z()) < tolerance_pos.z() &&
         std::abs(rot_diff) < tolerance_rot) {
       VLOG_EVERY_N(1, 50) << "Reached goal";
       status.setStatus(ControllerStatus::Completed, "Reached Goal");
@@ -204,7 +203,7 @@ protected:
 
 private:
   /**
-  * @brief Configuration specifies velocity tolerance and yaw tolerance
+  * @brief Configuration specifies pose error tolerance
   */
   PoseControllerConfig config_;
 };
