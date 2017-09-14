@@ -137,6 +137,14 @@ public:
                       psa::RelativePoseVisualServoingWithReset,
                       psa::RelativePoseVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::ResetVisualServoing, Completed,
+                      psa::RelativePoseVisualServoing,
+                      psa::RelativePoseVisualServoingWithReset,
+                      psa::RelativePoseVisualServoingTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::ResetVisualServoing, be::Abort, psa::Hovering,
+                      psa::AbortUAVArmController, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Hovering, VelocityYaw, psa::ExecutingVelocityGoal,
                       psa::SetVelocityGoal, psa::GuardVelocityGoal>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
@@ -144,11 +152,18 @@ public:
                       psa::PrePickState, psa::PrePickTransitionAction,
                       psa::PrePickTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::RelativePoseVisualServoing, Reset,
+                      psa::ResetVisualServoing, psa::GoHomeTransitionAction,
+                      psa::GoHomeTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::RelativePoseVisualServoing, be::Abort, psa::Hovering,
                       psa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PrePickState, Completed, psa::PickState,
                       psa::PickTransitionAction, psa::PickGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::PrePickState, Reset, psa::ResetVisualServoing,
+                      psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Hovering, vse::GoHome, psa::ReachingGoal,
                       psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,
@@ -187,7 +202,7 @@ public:
             msmf::Row<psa::ReachingGoal, Completed, psa::Hovering,
                       psa::AbortUAVControllerArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PickState, Reset, psa::ReachingGoal,
+            msmf::Row<psa::PickState, Reset, psa::ResetVisualServoing,
                       psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PickState, Completed, psa::ReachingPostPickWaypoint,
@@ -208,8 +223,8 @@ public:
                       psa::ReachingPostPlaceWaypoint, psa::ArmGripAction<false>,
                       psa::PostPlaceWaypointGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingPostPlaceWaypoint, Completed, psa::Hovering,
-                      psa::AbortUAVArmController, msmf::none>,
+            msmf::Row<psa::ReachingPostPlaceWaypoint, Completed,
+                      psa::ResetVisualServoing, msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ReachingPostPlaceWaypoint, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
@@ -233,11 +248,12 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 15> state_names = {
+static constexpr std::array<const char *, 16> state_names = {
     "Landed",
     "ArmPreTakeoffFolding",
     "Takingoff",
     "Hovering",
+    "ResetVisualServoing",
     "RelativePoseVisualServoing",
     "PrePickState",
     "ArmPreLandingFolding",

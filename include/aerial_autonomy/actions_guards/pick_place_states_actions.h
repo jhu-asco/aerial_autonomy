@@ -183,6 +183,10 @@ struct PickPlaceStatesActions
   */
   using ReachingPostPlaceWaypoint =
       FollowingWaypointSequence_<LogicStateMachineT, 2, 3>;
+  /**
+  * @brief State for resetting visual servoing
+  */
+  struct ResetVisualServoing : ReachingGoal_<LogicStateMachineT> {};
 
   // Explicitly defined manual Control state
   /**
