@@ -31,13 +31,12 @@ ControllerStatus RelativePoseController::isConvergedImplementation(
   const tf::Quaternion &tracked_rot = tracked_pose.getRotation();
   const tf::Vector3 &tracked_trans = tracked_pose.getOrigin();
   DATA_LOG("relative_pose_controller")
-      << error_position.x() << error_position.y()
-      << error_position.z() << rot_diff << current_trans.x()
-      << current_trans.y() << current_trans.z() << current_rot.w()
-      << current_rot.x() << current_rot.y() << current_rot.z()
-      << tracked_trans.x() << tracked_trans.y() << tracked_trans.z()
-      << tracked_rot.w() << tracked_rot.x() << tracked_rot.y()
-      << tracked_rot.z() << DataStream::endl;
+      << error_position.x() << error_position.y() << error_position.z()
+      << rot_diff << current_trans.x() << current_trans.y() << current_trans.z()
+      << current_rot.w() << current_rot.x() << current_rot.y()
+      << current_rot.z() << tracked_trans.x() << tracked_trans.y()
+      << tracked_trans.z() << tracked_rot.w() << tracked_rot.x()
+      << tracked_rot.y() << tracked_rot.z() << DataStream::endl;
 
   const config::Position &tolerance_pos = config_.goal_position_tolerance();
   if (abs_error_position.x() < tolerance_pos.x() &&

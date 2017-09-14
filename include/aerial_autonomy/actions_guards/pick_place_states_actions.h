@@ -83,12 +83,12 @@ struct PickPlaceStatesActions
   * @brief Check if post pick waypoints are specified in proto config
   */
   using PostPickWaypointGuard =
-      WaypointSequenceTransitionGuardFunctor_<LogicStateMachineT, 0, 1>;
+      WaypointSequenceTransitionGuardFunctor_<LogicStateMachineT, 0, 0>;
   /**
   * @brief Check if post place waypoints arespecified in proto config
   */
-  using PostPlaceWaypointGuard =
-      WaypointSequenceTransitionGuardFunctor_<LogicStateMachineT, 2, 3>;
+  // using PostPlaceWaypointGuard =
+  //    WaypointSequenceTransitionGuardFunctor_<LogicStateMachineT, 2, 3>;
   /**
   * @brief Action to take when starting folding arm before land
   */
@@ -108,6 +108,8 @@ struct PickPlaceStatesActions
   using UngripGoHome =
       bActionSequence<boost::mpl::vector<ArmGripAction<false>,
                                          typename vsa::GoHomeTransitionAction>>;
+  using RightArmUngripGoHome =
+      bActionSequence<boost::mpl::vector<UngripGoHome, ArmRightFold>>;
 
   /**
   * @brief Action sequence that ungrips then goes home
@@ -129,7 +131,7 @@ struct PickPlaceStatesActions
 
   using RelativePoseVisualServoingWithReset =
       bActionSequence<boost::mpl::vector<
-          typename vsa::ResetRelativePoseVisualServoing,
+          ArmRightFold, typename vsa::ResetRelativePoseVisualServoing,
           typename vsa::RelativePoseVisualServoingTransitionAction>>;
   /**
   * @brief Set goal for visual servoing and also arm controller

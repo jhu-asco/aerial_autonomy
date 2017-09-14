@@ -37,6 +37,12 @@ bool VelocityBasedPositionController::runImplementation(
                                   config_.position_gain(),
                               position_diff.yaw * config_.yaw_gain());
 
+  PositionYaw i_position_diff(position_diff.position() *
+                                  config_.position_i_gain(),
+                              position_diff.yaw * config_.yaw_i_gain());
+  i_position_diff.z = 0;
+  cumulative_error = cumulative_error + i_position_diff * dt;
+
   control.x = backCalculate(cumulative_error.x, p_position_diff.x,
                             config_.max_velocity(),
                             config_.position_saturation_value());
@@ -52,12 +58,6 @@ bool VelocityBasedPositionController::runImplementation(
   control.yaw_rate =
       backCalculate(cumulative_error.yaw, p_position_diff.yaw,
                     config_.max_yaw_rate(), config_.yaw_saturation_value());
-
-  PositionYaw i_position_diff(position_diff.position() *
-                                  config_.position_i_gain(),
-                              position_diff.yaw * config_.yaw_i_gain());
-  i_position_diff.z = 0;
-  cumulative_error = cumulative_error + i_position_diff * dt;
 
   DATA_LOG("velocity_based_position_controller")
       << position_diff.x << position_diff.y << position_diff.z
