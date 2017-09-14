@@ -223,6 +223,14 @@ public:
                       psa::ReachingPostPlaceWaypoint, psa::ArmGripAction<false>,
                       psa::PostPlaceWaypointGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
+            //        Both the start and end states below check the status of
+            //        the same controller internally
+            //        So after transition, the ResetVisualServoing will try to
+            //        emit Completed event to transition
+            //        into Picking again. \todo Add a state for waiting for
+            //        object and both reachingPostPlaceWaypoint
+            //        and ResetVisualServoing should transition into waiting
+            //        state
             msmf::Row<psa::ReachingPostPlaceWaypoint, Completed,
                       psa::ResetVisualServoing, msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
