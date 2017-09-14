@@ -356,7 +356,8 @@ class PickState_
               ArmStatusInternalActionFunctor_<LogicStateMachineT>,
               ControllerStatusInternalActionFunctor_<
                   LogicStateMachineT,
-                  RelativePoseVisualServoingControllerDroneConnector, false>,
+                  RelativePoseVisualServoingControllerDroneConnector, false,
+                  Reset>,
               GrippingInternalActionFunctor_<LogicStateMachineT>>>> {
 public:
   /**

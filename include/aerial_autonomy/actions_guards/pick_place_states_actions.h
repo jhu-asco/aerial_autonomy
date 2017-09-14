@@ -108,6 +108,12 @@ struct PickPlaceStatesActions
   using UngripGoHome =
       bActionSequence<boost::mpl::vector<ArmGripAction<false>,
                                          typename vsa::GoHomeTransitionAction>>;
+
+  /**
+  * @brief Action sequence that ungrips then goes home
+  */
+  using ArmRightFoldGoHome = bActionSequence<
+      boost::mpl::vector<ArmRightFold, typename vsa::GoHomeTransitionAction>>;
   /**
   * @brief Action sequence to abort UAV controller and move arm to right
   * angle
@@ -145,8 +151,10 @@ struct PickPlaceStatesActions
   /**
   * @brief Action to take when starting placing object.
   */
-  using PlaceVisualServoingTransitionAction =
-      RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT, 2>;
+  using PlaceVisualServoingTransitionAction = bActionSequence<
+      boost::mpl::vector<typename vsa::ResetRelativePoseVisualServoing,
+                         RelativePoseVisualServoingTransitionActionFunctor_<
+                             LogicStateMachineT, 2>>>;
 
   /**
   * @brief Guard to set and check that the id to track is available

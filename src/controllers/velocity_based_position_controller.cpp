@@ -55,9 +55,10 @@ bool VelocityBasedPositionController::runImplementation(
 
   DATA_LOG("velocity_based_position_controller")
       << position_diff.x << position_diff.y << position_diff.z
-      << position_diff.yaw << cumulative_error.x << cumulative_error.y
-      << cumulative_error.z << cumulative_error.yaw << control.x << control.y
-      << control.z << control.yaw_rate << DataStream::endl;
+      << position_diff.yaw << goal.x << goal.y << goal.z << goal.yaw
+      << cumulative_error.x << cumulative_error.y << cumulative_error.z
+      << cumulative_error.yaw << control.x << control.y << control.z
+      << control.yaw_rate << DataStream::endl;
   return true;
 }
 

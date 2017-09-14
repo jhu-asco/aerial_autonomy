@@ -153,17 +153,17 @@ public:
                       psa::PrePickTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::RelativePoseVisualServoing, Reset,
-                      psa::ResetVisualServoing, psa::GoHomeTransitionAction,
+                      psa::ResetVisualServoing, psa::ArmRightFoldGoHome,
                       psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::RelativePoseVisualServoing, be::Abort, psa::Hovering,
                       psa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PrePickState, Completed, psa::PickState,
-                      psa::PickTransitionAction, psa::PickGuard>,
+                      psa::PickTransitionAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PrePickState, Reset, psa::ResetVisualServoing,
-                      psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,
+                      psa::ArmRightFoldGoHome, psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::Hovering, vse::GoHome, psa::ReachingGoal,
                       psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,
@@ -203,7 +203,7 @@ public:
                       psa::AbortUAVControllerArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PickState, Reset, psa::ResetVisualServoing,
-                      psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,
+                      psa::ArmRightFoldGoHome, psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PickState, Completed, psa::ReachingPostPickWaypoint,
                       psa::ArmRightFold, psa::PostPickWaypointGuard>,

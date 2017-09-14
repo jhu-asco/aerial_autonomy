@@ -53,7 +53,7 @@ public:
       const aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
           &config) {
     velocity_based_relative_pose_controller_.updateConfig(config);
-    velocity_based_position_controller_.updateConfig(config);
+    // velocity_based_position_controller_.updateConfig(config);
   }
 
   aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
