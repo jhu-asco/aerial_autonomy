@@ -8,10 +8,14 @@ void VelocityBasedPositionController::resetIntegrator() {
 
 double VelocityBasedPositionController::backCalculate(
     double &integrator, const double &p_command, const double &saturation,
-    const double &integrator_saturation_gain) {
+    const double &integrator_saturation_value) {
   double command = p_command + integrator;
   double command_out = math::clamp(command, -saturation, saturation);
-  integrator += integrator_saturation_gain * (command_out - command);
+  if (command > saturation) {
+    integrator = -integrator_saturation_value;
+  } else if (command < -saturation) {
+    integrator = integrator_saturation_value;
+  }
   return command_out;
 }
 
@@ -34,9 +38,11 @@ bool VelocityBasedPositionController::runImplementation(
                               position_diff.yaw * config_.yaw_gain());
 
   control.x = backCalculate(cumulative_error.x, p_position_diff.x,
-                            config_.max_velocity(), position_saturation_gain_);
+                            config_.max_velocity(),
+                            config_.position_saturation_value());
   control.y = backCalculate(cumulative_error.y, p_position_diff.y,
-                            config_.max_velocity(), position_saturation_gain_);
+                            config_.max_velocity(),
+                            config_.position_saturation_value());
   control.z = math::clamp(p_position_diff.z, -config_.max_velocity(),
                           config_.max_velocity());
   // control.z = backCalculate(cumulative_error.z, p_position_diff.z,
@@ -45,7 +51,7 @@ bool VelocityBasedPositionController::runImplementation(
 
   control.yaw_rate =
       backCalculate(cumulative_error.yaw, p_position_diff.yaw,
-                    config_.max_yaw_rate(), yaw_saturation_gain_);
+                    config_.max_yaw_rate(), config_.yaw_saturation_value());
 
   PositionYaw i_position_diff(position_diff.position() *
                                   config_.position_i_gain(),
@@ -93,8 +99,6 @@ VelocityBasedPositionController::getDefaultConfig() const {
   dynamic_config.max_yaw_rate = config_.max_yaw_rate();
   dynamic_config.yaw_i_gain = config_.yaw_i_gain();
   dynamic_config.position_i_gain = config_.position_i_gain();
-  dynamic_config.integrator_saturation_gain =
-      config_.integrator_saturation_gain();
   return dynamic_config;
 }
 
@@ -106,6 +110,4 @@ void VelocityBasedPositionController::updateConfig(
   config_.set_max_yaw_rate(dynamic_config.max_yaw_rate);
   config_.set_yaw_i_gain(dynamic_config.yaw_i_gain);
   config_.set_position_i_gain(dynamic_config.position_i_gain);
-  config_.set_integrator_saturation_gain(
-      dynamic_config.integrator_saturation_gain);
 }
