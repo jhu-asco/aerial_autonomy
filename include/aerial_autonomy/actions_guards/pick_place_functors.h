@@ -142,6 +142,24 @@ struct VisualServoingArmTransitionActionFunctor_
 };
 
 /**
+ * @brief Set arm goal and set grip to false to start with.
+ *
+ * @tparam LogicStateMachineT State machine that contains the functor
+ * @tparam TransformIndex Index of goal transform
+ */
+template <class LogicStateMachineT, int TransformIndex>
+struct ArmPoseTransitionActionFunctor_
+    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  void run(UAVArmSystem &robot_system) {
+    VLOG(1) << "Setting goal pose for arm!";
+    robot_system.setGoal<BuiltInPoseControllerArmConnector, tf::Transform>(
+        robot_system.armGoalTransform(TransformIndex));
+    // Also ensure the gripper is in the right state to grip objects
+    robot_system.resetGripper();
+  }
+};
+
+/**
 * @brief Action to reach a relative waypoint specified in NWU frame
 * attached to quadrotor.
 *
