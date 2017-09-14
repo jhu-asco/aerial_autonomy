@@ -4,12 +4,6 @@
 
 #include <glog/logging.h>
 
-void VelocityBasedRelativePoseController::setGoal(PositionYaw goal) {
-  Controller<std::tuple<tf::Transform, tf::Transform>, PositionYaw,
-             VelocityYawRate>::setGoal(goal);
-  // position_controller_.resetIntegrator();
-}
-
 bool VelocityBasedRelativePoseController::runImplementation(
     std::tuple<tf::Transform, tf::Transform> sensor_data, PositionYaw goal,
     VelocityYawRate &control) {

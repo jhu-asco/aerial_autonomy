@@ -128,6 +128,10 @@ public:
     relative_pose_visual_servoing_drone_connector_.setExplicitId(id);
   }
 
+  void resetRelativePoseController() {
+    velocity_based_relative_pose_controller_.resetIntegrator();
+  }
+
 protected:
   /**
   * @brief Camera transform in the frame of the UAV

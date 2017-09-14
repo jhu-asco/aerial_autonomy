@@ -13,6 +13,18 @@
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
+template <class LogicStateMachineT>
+struct ResetRelativePoseVisualServoingTransitionActionFunctor_
+    : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
+  void run(UAVVisionSystem &robot_system) {
+    robot_system.resetRelativePoseController();
+  }
+};
+/**
+* @brief Action for initializing relative pose visual servoing
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT, int GoalIndex, bool SetHome = true>
 struct RelativePoseVisualServoingTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
@@ -21,8 +33,8 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
       VLOG(1) << "Selecting home location";
       robot_system.setHomeLocation();
     }
-    VLOG(1)
-        << "Setting goal for relative pose visual servoing drone connector!";
+    VLOG(1) << "Setting goal " << GoalIndex
+            << " for relative pose visual servoing drone connector!";
     robot_system.setGoal<RelativePoseVisualServoingControllerDroneConnector,
                          PositionYaw>(robot_system.relativePoseGoal(GoalIndex));
   }

@@ -39,6 +39,10 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
   using RelativePoseVisualServoingTransitionAction =
       RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT, 0>;
 
+  using ResetRelativePoseVisualServoing =
+      ResetRelativePoseVisualServoingTransitionActionFunctor_<
+          LogicStateMachineT>;
+
   /**
   * @brief Check whether visual servoing is feasible currently
   */

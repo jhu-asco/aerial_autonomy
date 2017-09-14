@@ -33,11 +33,7 @@ public:
    */
   virtual ~VelocityBasedRelativePoseController() {}
 
-  /**
-   * @brief Set the goal
-   * @param goal The goal to set
-   */
-  virtual void setGoal(PositionYaw goal);
+  void resetIntegrator() { position_controller_.resetIntegrator(); }
 
   /**
    * @brief Get the default values of gains

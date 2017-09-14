@@ -23,7 +23,7 @@
     <param name="~arm/link2_length" value="0.296" />
     <param name="~arm/link_offset" value="0.025" />
     <param name="~arm/velocity_gain" value="3.0" />
-    <param name="~arm/max_joint_velocity" value="1.0" />
+    <param name="~arm/max_joint_velocity" value="0.7" />
 
     <!-- Matrice SDK params -->
     <param name="~uav/serial_name" type="string" value="/dev/ttydji"/>
