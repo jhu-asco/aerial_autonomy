@@ -79,7 +79,7 @@ using PrePickInternalActionFunctor_ =
             LogicStateMachineT, BuiltInPoseControllerArmConnector>,
         ControllerStatusInternalActionFunctor_<
             LogicStateMachineT,
-            RelativePoseVisualServoingControllerDroneConnector, false>>>;
+            RelativePoseVisualServoingControllerDroneConnector, false, Reset>>>;
 
 /**
 * @brief Logic to check while placing object
@@ -93,7 +93,7 @@ using PlaceInternalActionFunctor_ =
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
             LogicStateMachineT,
-            RelativePoseVisualServoingControllerDroneConnector>>>;
+            RelativePoseVisualServoingControllerDroneConnector, true, Reset>>>;
 
 /**
 * @brief Logic to check arm power and manual mode

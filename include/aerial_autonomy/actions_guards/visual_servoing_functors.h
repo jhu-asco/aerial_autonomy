@@ -6,6 +6,7 @@
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_vision_system.h>
 #include <aerial_autonomy/types/completed_event.h>
+#include <aerial_autonomy/types/reset_event.h>
 #include <glog/logging.h>
 #include <parsernode/common.h>
 /**
@@ -139,7 +140,7 @@ using RelativePoseVisualServoingInternalActionFunctor_ =
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
             LogicStateMachineT,
-            RelativePoseVisualServoingControllerDroneConnector>>>;
+            RelativePoseVisualServoingControllerDroneConnector, true, Reset>>>;
 
 /**
 * @brief Check tracking is valid
