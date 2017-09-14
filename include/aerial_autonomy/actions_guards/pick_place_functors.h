@@ -57,8 +57,7 @@ struct PickTransitionGuardFunctor_
   bool guard(UAVArmSystem &robot_system) {
     if (!(bool(robot_system.getStatus<
                RelativePoseVisualServoingControllerDroneConnector>()) &&
-          bool(robot_system
-                   .getStatus<VisualServoingControllerArmConnector>()))) {
+          bool(robot_system.getStatus<BuiltInPoseControllerArmConnector>()))) {
       LOG(WARNING) << "Both controllers not converged!";
       return false;
     }
@@ -77,7 +76,7 @@ using PrePickInternalActionFunctor_ =
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, VisualServoingControllerArmConnector>,
+            LogicStateMachineT, BuiltInPoseControllerArmConnector>,
         ControllerStatusInternalActionFunctor_<
             LogicStateMachineT,
             RelativePoseVisualServoingControllerDroneConnector, false>>>;
