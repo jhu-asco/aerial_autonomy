@@ -2,6 +2,7 @@ syntax = "proto2";
 
 import "pose_controller_config.proto";
 import "position_yaw.proto";
+import "arm_system_config.proto";
 
 message UAVArmSystemConfig {
   /**
@@ -32,4 +33,9 @@ message UAVArmSystemConfig {
   * will move 0.1m in north and sets an absolute yaw of 0.
   */
   repeated config.PositionYaw way_points = 8;
+
+  /**
+  * @brief Configuration for arm system
+  */
+  optional ArmSystemConfig arm_system_config = 9;
 }

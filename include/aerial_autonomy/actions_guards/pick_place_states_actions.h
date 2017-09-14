@@ -132,12 +132,12 @@ struct PickPlaceStatesActions
       AbortArmController, RelativePoseVisualServoingTransitionActionFunctor_<
                               LogicStateMachineT, 1, false>>>;
   /**
-  * @brief Check tracking is valid and arm is enabled for pre-pick
+  * @brief Move arm to pre-pick pose
   */
   using PrePickTransitionAction =
-      VisualServoingArmTransitionActionFunctor_<LogicStateMachineT, 0>;
+      ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>;
   /**
-  * @brief
+  * @brief Check tracking is valid and arm is enabled for pre-pick
   */
   using PrePickTransitionGuard =
       PrePickTransitionGuardFunctor_<LogicStateMachineT>;

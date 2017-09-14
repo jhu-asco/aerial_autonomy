@@ -57,8 +57,7 @@ struct PickTransitionGuardFunctor_
   bool guard(UAVArmSystem &robot_system) {
     if (!(bool(robot_system.getStatus<
                RelativePoseVisualServoingControllerDroneConnector>()) &&
-          bool(robot_system
-                   .getStatus<VisualServoingControllerArmConnector>()))) {
+          bool(robot_system.getStatus<BuiltInPoseControllerArmConnector>()))) {
       LOG(WARNING) << "Both controllers not converged!";
       return false;
     }
@@ -77,7 +76,7 @@ using PrePickInternalActionFunctor_ =
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, VisualServoingControllerArmConnector>,
+            LogicStateMachineT, BuiltInPoseControllerArmConnector>,
         ControllerStatusInternalActionFunctor_<
             LogicStateMachineT,
             RelativePoseVisualServoingControllerDroneConnector, false>>>;
@@ -135,6 +134,24 @@ struct VisualServoingArmTransitionActionFunctor_
   void run(UAVArmSystem &robot_system) {
     VLOG(1) << "Setting Goal for visual servoing arm connector!";
     robot_system.setGoal<VisualServoingControllerArmConnector, tf::Transform>(
+        robot_system.armGoalTransform(TransformIndex));
+    // Also ensure the gripper is in the right state to grip objects
+    robot_system.resetGripper();
+  }
+};
+
+/**
+ * @brief Set arm goal and set grip to false to start with.
+ *
+ * @tparam LogicStateMachineT State machine that contains the functor
+ * @tparam TransformIndex Index of goal transform
+ */
+template <class LogicStateMachineT, int TransformIndex>
+struct ArmPoseTransitionActionFunctor_
+    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  void run(UAVArmSystem &robot_system) {
+    VLOG(1) << "Setting goal pose for arm!";
+    robot_system.setGoal<BuiltInPoseControllerArmConnector, tf::Transform>(
         robot_system.armGoalTransform(TransformIndex));
     // Also ensure the gripper is in the right state to grip objects
     robot_system.resetGripper();

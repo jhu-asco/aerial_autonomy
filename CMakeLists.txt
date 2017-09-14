@@ -180,6 +180,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/velocity.proto
   proto/data_stream_config.proto
   proto/log_config.proto
+  proto/arm_system_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -226,6 +227,7 @@ add_library(aerial_autonomy
   src/controller_hardware_connectors/velocity_based_position_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
+  src/controller_hardware_connectors/builtin_pose_controller_arm_connector.cpp
 )
 add_dependencies(aerial_autonomy proto)
 target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES})

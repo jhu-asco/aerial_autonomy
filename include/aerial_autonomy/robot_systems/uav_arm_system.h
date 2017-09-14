@@ -21,7 +21,9 @@ public:
   UAVArmSystem(BaseTracker &tracker, parsernode::Parser &drone_hardware,
                ArmParser &arm_hardware, UAVSystemConfig config)
       : UAVVisionSystem(tracker, drone_hardware, config),
-        ArmSystem(arm_hardware),
+        ArmSystem(arm_hardware, config_.uav_vision_system_config()
+                                    .uav_arm_system_config()
+                                    .arm_system_config()),
         grip_timeout_(config_.uav_vision_system_config()
                           .uav_arm_system_config()
                           .grip_timeout()),
