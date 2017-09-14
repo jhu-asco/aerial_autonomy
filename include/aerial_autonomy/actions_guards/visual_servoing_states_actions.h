@@ -54,7 +54,8 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
   * @brief Check whether relative pose visual servoing is feasible currently
   */
   using RelativePoseVisualServoingTransitionGuard =
-      InitializeTrackerGuardFunctor_<LogicStateMachineT>;
+      bAnd<InitializeTrackerGuardFunctor_<LogicStateMachineT>,
+           ZeroVelocityGuardFunctor_<LogicStateMachineT>>;
 
   /**
   * @brief Send the UAV back to home position
