@@ -3,9 +3,9 @@
 #include "aerial_autonomy/log/log.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
+#include "pose_controller_config.pb.h"
 #include "position_controller_config.pb.h"
 #include "velocity_controller_config.pb.h"
-#include "pose_controller_config.pb.h"
 #include <tf/tf.h>
 
 /**
