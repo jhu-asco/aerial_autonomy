@@ -66,6 +66,24 @@ struct PositionControlTransitionGuardFunctor_
   }
 };
 
+template <class LogicStateMachineT>
+struct ZeroVelocityGuardFunctor_
+    : EventAgnosticGuardFunctor<UAVSystem, LogicStateMachineT> {
+  bool guard(UAVSystem &robot_system) {
+    parsernode::common::quaddata data = robot_system.getUAVData();
+    geometry_msgs::Vector3 current_vel = data.linvel;
+    const double tolerance_vel = .05;
+    bool result = true;
+    if (std::abs(current_vel.x) > tolerance_vel ||
+        std::abs(current_vel.y) > tolerance_vel ||
+        std::abs(current_vel.z) > tolerance_vel) {
+      LOG(WARNING) << "Velocity not within tolerance";
+      result = false;
+    }
+    return result;
+  }
+};
+
 /**
  * @brief internal action while performing position control
  *
