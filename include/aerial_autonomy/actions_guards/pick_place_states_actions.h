@@ -185,12 +185,12 @@ struct PickPlaceStatesActions
   * @brief State for following waypoints after picking object
   */
   using ReachingPostPickWaypoint =
-      FollowingWaypointSequence_<LogicStateMachineT, 0, 1>;
+      FollowingWaypointSequence_<LogicStateMachineT, 0, 0>;
   /**
   * @brief State for following waypoints after placing object
   */
-  using ReachingPostPlaceWaypoint =
-      FollowingWaypointSequence_<LogicStateMachineT, 2, 3>;
+  // using ReachingPostPlaceWaypoint =
+  //    FollowingWaypointSequence_<LogicStateMachineT, 2, 3>;
   /**
   * @brief State for resetting visual servoing
   */

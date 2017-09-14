@@ -211,17 +211,17 @@ public:
             msmf::Row<psa::ReachingPostPickWaypoint, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingPostPickWaypoint, Completed, psa::PlaceState,
-                      psa::PlaceVisualServoingTransitionAction,
-                      psa::PlaceVisualServoingTransitionGuard>,
+            msmf::Row<psa::ReachingPostPickWaypoint, Completed,
+                      psa::ResetVisualServoing, psa::UngripGoHome, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, pe::Place, psa::PlaceState,
-                      psa::PlaceVisualServoingTransitionAction,
-                      psa::PlaceVisualServoingTransitionGuard>,
+            // msmf::Row<psa::Hovering, pe::Place, psa::PlaceState,
+            //          psa::PlaceVisualServoingTransitionAction,
+            //          psa::PlaceVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PlaceState, Completed,
-                      psa::ReachingPostPlaceWaypoint, psa::ArmGripAction<false>,
-                      psa::PostPlaceWaypointGuard>,
+            // msmf::Row<psa::PlaceState, Completed,
+            //          psa::ReachingPostPlaceWaypoint,
+            //          psa::ArmGripAction<false>,
+            //          psa::PostPlaceWaypointGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             //        Both the start and end states below check the status of
             //        the same controller internally
@@ -231,14 +231,15 @@ public:
             //        object and both reachingPostPlaceWaypoint
             //        and ResetVisualServoing should transition into waiting
             //        state
-            msmf::Row<psa::ReachingPostPlaceWaypoint, Completed,
-                      psa::ResetVisualServoing, msmf::none, msmf::none>,
+            // msmf::Row<psa::ReachingPostPlaceWaypoint, Completed,
+            //          psa::ResetVisualServoing, msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingPostPlaceWaypoint, be::Abort, psa::Hovering,
-                      psa::AbortUAVArmController, msmf::none>,
+            // msmf::Row<psa::ReachingPostPlaceWaypoint, be::Abort,
+            // psa::Hovering,
+            //          psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PlaceState, be::Abort, psa::Hovering,
-                      psa::AbortUAVArmController, msmf::none>,
+            // msmf::Row<psa::PlaceState, be::Abort, psa::Hovering,
+            //          psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ManualControlArmState, be::Takeoff, psa::Hovering,
                       psa::ManualControlSwitchAction,
@@ -256,7 +257,7 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 16> state_names = {
+static constexpr std::array<const char *, 14> state_names = {
     "Landed",
     "ArmPreTakeoffFolding",
     "Takingoff",
@@ -270,8 +271,6 @@ static constexpr std::array<const char *, 16> state_names = {
     "PickState",
     "Landing",
     "ReachingPostPickWaypoint",
-    "PlaceState",
-    "ReachingPostPlaceWaypoint",
     "ManualControlArmState"};
 /**
 * @brief Get current state name
