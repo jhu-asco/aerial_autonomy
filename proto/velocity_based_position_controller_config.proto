@@ -53,5 +53,6 @@ message VelocityBasedPositionControllerConfig {
   * smaller saturation gain to ensure we do not quickly saturate
   * the integrator when we are at the limits.
   */
-  optional double integrator_saturation_gain = 8 [ default = 1.0 ];
+  optional double position_saturation_value = 8 [ default = 0.1 ];
+  optional double yaw_saturation_value = 9 [ default = 0.1 ];
 }

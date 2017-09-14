@@ -28,19 +28,16 @@ public:
   VelocityBasedPositionController(VelocityBasedPositionControllerConfig config,
                                   double dt_ = 0.02)
       : config_(config), cumulative_error(0, 0, 0, 0), dt(dt_) {
-    position_saturation_gain_ =
-        config_.integrator_saturation_gain() * config_.position_i_gain() * dt;
-    yaw_saturation_gain_ =
-        config_.integrator_saturation_gain() * config_.yaw_i_gain() * dt;
 
     CHECK(config_.position_gain() > 0) << "Gain should be non-negative";
     CHECK(config_.yaw_gain() > 0) << "Gain should be non-negative";
     CHECK(config_.max_velocity() > 0) << "Max velocity should be non-negative";
     CHECK(config_.max_yaw_rate() > 0) << "Max yaw rate should be non-negative";
     CHECK(config_.yaw_i_gain() >= 0) << "Gain should be non-negative";
-    CHECK(config_.position_i_gain() >= 0) << "Gain should be non-negative";
-    CHECK(config_.integrator_saturation_gain() >= 0)
-        << "Gain should be non-negative";
+    CHECK(config_.position_saturation_value() >= 0)
+        << "Saturation value should be non-negative";
+    CHECK(config_.yaw_saturation_value() >= 0)
+        << "Saturation value should be non-negative";
     CHECK(dt > 0) << "Dt should be greater than 0";
 
     DATA_HEADER("velocity_based_position_controller") << "x_diff"
@@ -147,8 +144,4 @@ protected:
   VelocityBasedPositionControllerConfig config_; ///< Controller configuration
   PositionYaw cumulative_error; ///< Error integrated over multiple runs
   double dt; ///< Time diff between different successive runImplementation calls
-  double position_saturation_gain_; ///< Gain to saturate cumulative position
-                                    /// error in back calculation
-  double yaw_saturation_gain_; ///< Gain to saturate cumulative yaw error in
-                               /// back calculation
 };

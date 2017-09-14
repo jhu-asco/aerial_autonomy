@@ -30,7 +30,8 @@ uav_system_config {
     max_yaw_rate: 0.3
     yaw_i_gain: 0.0
     position_i_gain: 0.0
-    integrator_saturation_gain: 2.1
+    position_saturation_value: 0.0
+    yaw_saturation_value: 0.0
     position_controller_config {
       goal_position_tolerance {
         x: 0.2
@@ -119,7 +120,8 @@ uav_system_config {
         max_yaw_rate: 0.3
         yaw_i_gain: 0.01
         position_i_gain: 0.04
-        integrator_saturation_gain: 2.1
+        position_saturation_value: 0.01
+        yaw_saturation_value: 0.01
         position_controller_config {
           goal_position_tolerance {
             x: 0.04
