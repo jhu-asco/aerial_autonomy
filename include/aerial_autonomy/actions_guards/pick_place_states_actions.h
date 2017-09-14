@@ -129,10 +129,6 @@ struct PickPlaceStatesActions
   using AbortUAVControllerArmFold = bActionSequence<
       boost::mpl::vector<typename usa::UAVControllerAbort, ArmFold>>;
 
-  using RelativePoseVisualServoingWithReset =
-      bActionSequence<boost::mpl::vector<
-          ArmRightFold, typename vsa::ResetRelativePoseVisualServoing,
-          typename vsa::RelativePoseVisualServoingTransitionAction>>;
   /**
   * @brief Set goal for visual servoing and also arm controller
   */
@@ -149,6 +145,12 @@ struct PickPlaceStatesActions
   */
   using PrePickTransitionGuard =
       PrePickTransitionGuardFunctor_<LogicStateMachineT>;
+
+  using RelativePoseVisualServoingWithReset = bActionSequence<
+      boost::mpl::vector<PrePickTransitionAction,
+                         typename vsa::ResetRelativePoseVisualServoing,
+                         RelativePoseVisualServoingTransitionActionFunctor_<
+                             LogicStateMachineT, 1>>>;
 
   /**
   * @brief Action to take when starting placing object.
