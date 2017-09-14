@@ -6,6 +6,7 @@
 #include <aerial_autonomy/actions_guards/visual_servoing_functors.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/logic_states/timed_state.h>
+#include <aerial_autonomy/pick_place_events.h>
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/types/completed_event.h>
 #include <aerial_autonomy/types/reset_event.h>
@@ -19,6 +20,10 @@ template <class LogicStateMachineT> class PickState_;
 // Forward declaration for ReachingWaypointInternalActionFunctor_
 template <class LogicStateMachineT, int StartIndex, int EndIndex>
 struct FollowingWaypointSequence_;
+
+// Forward declaration for WaitingForPickInternalActionFunctor_
+template <class LogicStateMachineT> struct WaitingForPick_;
+
 /**
 * @brief Checks whether grip command has completed or timed out
 * @tparam LogicStateMachineT Logic state machine used to process events
@@ -158,6 +163,19 @@ struct ArmPoseTransitionActionFunctor_
   }
 };
 
+template <class LogicStateMachineT>
+struct WaitingForPickInternalActionFunctor_
+    : StateDependentInternalActionFunctor<UAVArmSystem, LogicStateMachineT,
+                                          WaitingForPick_<LogicStateMachineT>> {
+  bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine,
+           WaitingForPick_<LogicStateMachineT> &state) {
+    if (state.timeInState() > std::chrono::seconds(1)) {
+      logic_state_machine.process_event(pick_place_events::Pick());
+      return false;
+    }
+    return true;
+  }
+};
 /**
 * @brief Action to reach a relative waypoint specified in NWU frame
 * attached to quadrotor.
@@ -341,6 +359,14 @@ template <class LogicStateMachineT>
 using PlaceState_ = BaseState<UAVArmSystem, LogicStateMachineT,
                               PlaceInternalActionFunctor_<LogicStateMachineT>>;
 
+template <class LogicStateMachineT>
+struct WaitingForPick_
+    : public TimedState<
+          UAVArmSystem, LogicStateMachineT,
+          boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+              UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+              ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+              WaitingForPickInternalActionFunctor_<LogicStateMachineT>>>> {};
 /**
 * @brief State that uses position control functor to reach a desired goal for
 * picking and monitors the gripper status

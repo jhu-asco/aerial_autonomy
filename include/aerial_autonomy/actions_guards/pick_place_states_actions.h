@@ -188,6 +188,12 @@ struct PickPlaceStatesActions
   */
   using ReachingPostPickWaypoint =
       FollowingWaypointSequence_<LogicStateMachineT, 0, 0>;
+
+  /**
+   * @brief State to wait for picking
+   */
+  using WaitingForPick = WaitingForPick_<LogicStateMachineT>;
+
   /**
   * @brief State for following waypoints after placing object
   */
