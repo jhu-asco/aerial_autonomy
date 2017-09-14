@@ -134,9 +134,9 @@ uav_system_config {
     uav_arm_system_config {
       grip_timeout: 20000
 
+      arm_goal_transform: -0.2
       arm_goal_transform: 0.0
-      arm_goal_transform: -0.09
-      arm_goal_transform: 0.1
+      arm_goal_transform: 0.47
       arm_goal_transform: 0.0
       arm_goal_transform: 0.0
       arm_goal_transform: 0.0
@@ -165,7 +165,7 @@ uav_system_config {
       }
       way_points {
         position {
-          x: 2.0
+          x: 2.5
           y: 0.0
           z: 0.2
         }
@@ -181,7 +181,7 @@ uav_system_config {
       }
       way_points {
         position {
-          x: -2.0
+          x: -2.5
           y: 0.0
           z: 0.0
         }
@@ -194,6 +194,16 @@ uav_system_config {
           z: 0.0
         }
         yaw: 3.141
+      }
+      arm_system_config {
+        pose_controller_config {
+          goal_position_tolerance {
+            x: 0.02
+            y: 0.02
+            z: 0.02
+          }
+          goal_rotation_tolerance: 6
+        }
       }
     }
   }
