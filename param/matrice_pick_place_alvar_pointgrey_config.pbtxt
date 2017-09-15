@@ -89,7 +89,7 @@ uav_system_config {
       position {
         x: 0
         y: -.7
-        z: 0.245
+        z: 0.235
       }
       yaw: 1.5708
     }
@@ -98,7 +98,7 @@ uav_system_config {
       position {
         x: 0
         y: -.62
-        z: 0.245
+        z: 0.235
       }
       yaw: 1.5708
     }
@@ -115,7 +115,7 @@ uav_system_config {
     velocity_based_relative_pose_controller_config {
       velocity_based_position_controller_config {
         position_gain: 0.7
-        yaw_gain: 0.3
+        yaw_gain: 0.5
         max_velocity: 0.25
         max_yaw_rate: 0.3
         yaw_i_gain: 0.0
@@ -170,6 +170,14 @@ uav_system_config {
           x: 0.0
           y: 0.0
           z: 0.15
+        }
+        yaw: 3.141
+      }
+      way_points {
+        position {
+          x: 0.0
+          y: 0.0
+          z: -0.1
         }
         yaw: 3.141
       }
