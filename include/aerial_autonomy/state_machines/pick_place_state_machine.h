@@ -133,15 +133,18 @@ public:
             msmf::Row<psa::Hovering, PositionYaw, psa::ReachingGoal,
                       psa::ReachingGoalSet, psa::ReachingGoalGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, pe::Pick,
-                      // psa::RelativePoseVisualServoing,
-                      psa::PickState, psa::RelativePoseVisualServoingWithReset,
+            msmf::Row<psa::Hovering, pe::Pick, psa::WaitingForPick, msmf::none,
+                      msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::ResetVisualServoing, Completed, psa::WaitingForPick,
+                      psa::AbortUAVArmController, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::WaitingForPick, pe::Pick, psa::PickState,
+                      psa::RelativePoseVisualServoingWithReset,
                       psa::RelativePoseVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ResetVisualServoing, Completed,
-                      // psa::RelativePoseVisualServoing,
-                      psa::PickState, psa::RelativePoseVisualServoingWithReset,
-                      psa::RelativePoseVisualServoingTransitionGuard>,
+            msmf::Row<psa::WaitingForPick, be::Abort, psa::Hovering,
+                      psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ResetVisualServoing, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
@@ -214,7 +217,8 @@ public:
                       psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ReachingPostPickWaypoint, Completed,
-                      psa::ResetVisualServoing, psa::UngripGoHome, msmf::none>,
+                      psa::ResetVisualServoing, psa::RightArmUngripGoHome,
+                      msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             // msmf::Row<psa::Hovering, pe::Place, psa::PlaceState,
             //          psa::PlaceVisualServoingTransitionAction,
@@ -225,16 +229,9 @@ public:
             //          psa::ArmGripAction<false>,
             //          psa::PostPlaceWaypointGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            //        Both the start and end states below check the status of
-            //        the same controller internally
-            //        So after transition, the ResetVisualServoing will try to
-            //        emit Completed event to transition
-            //        into Picking again. \todo Add a state for waiting for
-            //        object and both reachingPostPlaceWaypoint
-            //        and ResetVisualServoing should transition into waiting
-            //        state
             // msmf::Row<psa::ReachingPostPlaceWaypoint, Completed,
-            //          psa::ResetVisualServoing, msmf::none, msmf::none>,
+            //          psa::WaitingForPick, psa::AbortUAVArmController,
+            //          msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             // msmf::Row<psa::ReachingPostPlaceWaypoint, be::Abort,
             // psa::Hovering,
@@ -259,13 +256,19 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 14> state_names = {
-    "Landed", "ArmPreTakeoffFolding", "Takingoff", "Hovering",
+static constexpr std::array<const char *, 13> state_names = {
+    "Landed",
+    "ArmPreTakeoffFolding",
+    "Takingoff",
+    "Hovering",
     "ResetVisualServoing",
-    //"RelativePoseVisualServoing",
-    //"PrePickState",
-    "ArmPreLandingFolding", "ReachingGoal", "ExecutingVelocityGoal",
-    "PickState", "Landing", "ReachingPostPickWaypoint",
+    "WaitingForPick",
+    "ArmPreLandingFolding",
+    "ReachingGoal",
+    "ExecutingVelocityGoal",
+    "PickState",
+    "Landing",
+    "ReachingPostPickWaypoint",
     "ManualControlArmState"};
 /**
 * @brief Get current state name

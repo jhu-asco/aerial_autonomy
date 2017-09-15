@@ -83,7 +83,7 @@ struct PickPlaceStatesActions
   * @brief Check if post pick waypoints are specified in proto config
   */
   using PostPickWaypointGuard =
-      WaypointSequenceTransitionGuardFunctor_<LogicStateMachineT, 0, 0>;
+      WaypointSequenceTransitionGuardFunctor_<LogicStateMachineT, 0, 1>;
   /**
   * @brief Check if post place waypoints arespecified in proto config
   */
@@ -114,8 +114,9 @@ struct PickPlaceStatesActions
   /**
   * @brief Action sequence that ungrips then goes home
   */
-  using ArmRightFoldGoHome = bActionSequence<
-      boost::mpl::vector<ArmRightFold, typename vsa::GoHomeTransitionAction>>;
+  using ArmRightFoldGoHome =
+      bActionSequence<boost::mpl::vector<AbortArmController, ArmRightFold,
+                                         typename vsa::GoHomeTransitionAction>>;
   /**
   * @brief Action sequence to abort UAV controller and move arm to right
   * angle
@@ -189,7 +190,13 @@ struct PickPlaceStatesActions
   * @brief State for following waypoints after picking object
   */
   using ReachingPostPickWaypoint =
-      FollowingWaypointSequence_<LogicStateMachineT, 0, 0>;
+      FollowingWaypointSequence_<LogicStateMachineT, 0, 1>;
+
+  /**
+   * @brief State to wait for picking
+   */
+  using WaitingForPick = WaitingForPick_<LogicStateMachineT>;
+
   /**
   * @brief State for following waypoints after placing object
   */
