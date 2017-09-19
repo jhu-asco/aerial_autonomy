@@ -2,6 +2,7 @@
 #include <aerial_autonomy/joystick_control_events.h>
 #include <aerial_autonomy/sensors/guidance.h>
 #include <aerial_autonomy/tests/sample_logic_state_machine.h>
+#include <aerial_autonomy/tests/test_utils.h>
 #include <gtest/gtest.h>
 #include <quad_simulator_parser/quad_simulator.h>
 
@@ -100,14 +101,15 @@ TEST(JoystickControlTests, ControllerRunTest) {
             ControllerStatus::Active);
 
   // run controller till it converges
-  while (uav_system.getStatus<JoystickVelocityControllerDroneConnector>() ==
-         ControllerStatus::Active) {
+  auto controller_run = [&]() {
     uav_system.runActiveController(HardwareType::UAV);
-    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    return bool(
+        uav_system.getStatus<JoystickVelocityControllerDroneConnector>());
   };
 
-  // Verify controller status is completed
-  ASSERT_TRUE(bool(uav_system.getActiveControllerStatus(HardwareType::UAV)));
+  ASSERT_TRUE(test_utils::waitUntilTrue()(
+      controller_run, std::chrono::seconds(20), std::chrono::milliseconds(10)));
 
   VelocityYaw vel_goal(
       0.1, 0.1, -0.1,
