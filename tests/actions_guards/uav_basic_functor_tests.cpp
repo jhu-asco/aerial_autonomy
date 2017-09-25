@@ -217,11 +217,6 @@ TEST(PositionControlFunctorTests, TransitionActionTest) {
   QuadSimulator drone_hardware;
   drone_hardware.takeoff();
   UAVSystemConfig config;
-  auto position_tolerance = config.mutable_position_controller_config()
-                                ->mutable_goal_position_tolerance();
-  position_tolerance->set_x(0.5);
-  position_tolerance->set_y(0.5);
-  position_tolerance->set_z(0.5);
   UAVSystem uav_system(drone_hardware, config);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
@@ -229,21 +224,13 @@ TEST(PositionControlFunctorTests, TransitionActionTest) {
   PositionYaw goal(1, 1, 1, 1);
   position_control_transition_action_functor(
       goal, sample_logic_state_machine, dummy_start_state, dummy_target_state);
-  ASSERT_EQ(uav_system.getStatus<PositionControllerDroneConnector>(),
-            ControllerStatus::Active);
+  ASSERT_EQ(
+      uav_system.getStatus<VelocityBasedPositionControllerDroneConnector>(),
+      ControllerStatus::Active);
   PositionYaw resulting_goal =
-      uav_system.getGoal<PositionControllerDroneConnector, PositionYaw>();
+      uav_system.getGoal<VelocityBasedPositionControllerDroneConnector,
+                         PositionYaw>();
   ASSERT_EQ(goal, resulting_goal);
-  uav_system.runActiveController(HardwareType::UAV);
-  ASSERT_EQ(uav_system.getStatus<PositionControllerDroneConnector>(),
-            ControllerStatus::Active);
-  parsernode::common::quaddata data = uav_system.getUAVData();
-  PositionYaw data_position_yaw(data.localpos.x, data.localpos.y,
-                                data.localpos.z, data.rpydata.z);
-  ASSERT_EQ(data_position_yaw, goal);
-  uav_system.runActiveController(HardwareType::UAV);
-  ASSERT_EQ(uav_system.getStatus<PositionControllerDroneConnector>(),
-            ControllerStatus::Completed);
 }
 
 TEST(PositionControlFunctorTests, AbortActionTest) {
@@ -280,30 +267,39 @@ TEST(PositionControlFunctorTests, TransitionGuardTest) {
   ASSERT_FALSE(result);
 }
 
-TEST(PositionControlFunctorTests, InternalActionTest) {
+TEST(PositionControlFunctorTests, PositionControlInternalActionTest) {
   QuadSimulator drone_hardware;
   drone_hardware.takeoff();
   UAVSystemConfig config;
-  auto position_tolerance = config.mutable_position_controller_config()
-                                ->mutable_goal_position_tolerance();
-  position_tolerance->set_x(0.5);
-  position_tolerance->set_y(0.5);
-  position_tolerance->set_z(0.5);
+  auto position_controller_config =
+      config.mutable_velocity_based_position_controller_config()
+          ->mutable_position_controller_config();
+  position_controller_config->mutable_goal_position_tolerance()->set_x(0.1);
+  position_controller_config->mutable_goal_position_tolerance()->set_y(0.1);
+  position_controller_config->mutable_goal_position_tolerance()->set_z(0.1);
+  position_controller_config->set_goal_yaw_tolerance(0.1);
   UAVSystem uav_system(drone_hardware, config);
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   PositionControlInternalActionFunctor position_control_internal_action_functor;
   PositionYaw goal(1, 1, 1, 1);
-  uav_system.setGoal<PositionControllerDroneConnector>(goal);
+  uav_system.setGoal<VelocityBasedPositionControllerDroneConnector>(goal);
   position_control_internal_action_functor(
       InternalTransitionEvent(), sample_logic_state_machine, dummy_start_state,
       dummy_target_state);
   ASSERT_NE(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(Completed)));
-  // After running the active controller once updates quad state
+
+  // Move quad to goal
+  geometry_msgs::Vector3 desired_position;
+  desired_position.x = goal.x;
+  desired_position.y = goal.y;
+  desired_position.z = goal.z;
+  drone_hardware.cmdwaypoint(desired_position, goal.yaw);
+
+  // Update controller status
   uav_system.runActiveController(HardwareType::UAV);
-  // Second time updates controller status
-  uav_system.runActiveController(HardwareType::UAV);
+
   position_control_internal_action_functor(
       InternalTransitionEvent(), sample_logic_state_machine, dummy_start_state,
       dummy_target_state);

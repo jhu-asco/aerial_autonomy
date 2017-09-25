@@ -52,36 +52,6 @@ struct GrippingInternalActionFunctor_
   }
 };
 
-template <class LogicStateMachineT>
-struct PickTransitionGuardFunctor_
-    : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
-  bool guard(UAVArmSystem &robot_system) {
-    if (!(bool(robot_system.getStatus<
-               RelativePoseVisualServoingControllerDroneConnector>()) &&
-          bool(robot_system.getStatus<BuiltInPoseControllerArmConnector>()))) {
-      LOG(WARNING) << "Both controllers not converged!";
-      return false;
-    }
-    return true;
-  }
-};
-/**
-* @brief Logic to check while reaching a visual servoing and arm end effector
-* goal
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-using PrePickInternalActionFunctor_ =
-    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
-        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-        ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, BuiltInPoseControllerArmConnector>,
-        ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT,
-            RelativePoseVisualServoingControllerDroneConnector, false, Reset>>>;
-
 /**
 * @brief Logic to check while placing object
 *
@@ -114,7 +84,7 @@ using ManualControlArmInternalActionFunctor_ =
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-struct PrePickTransitionGuardFunctor_
+struct ArmTrackingGuardFunctor_
     : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
   bool guard(UAVArmSystem &robot_system_) {
     Position tracking_vector;
@@ -335,16 +305,6 @@ struct FollowingWaypointSequence_
 private:
   int tracked_index_ = StartIndex; ///< Current tracked index
 };
-
-/**
-* @brief State that uses position control functor to reach a desired goal.
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-using PrePickState_ =
-    BaseState<UAVArmSystem, LogicStateMachineT,
-              PrePickInternalActionFunctor_<LogicStateMachineT>>;
 
 /**
 * @brief State that uses visual servoing to place object.

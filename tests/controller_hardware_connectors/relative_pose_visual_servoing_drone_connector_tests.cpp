@@ -28,10 +28,10 @@ public:
     VelocityBasedRelativePoseControllerConfig config;
     auto position_controller_config =
         config.mutable_velocity_based_position_controller_config();
-    position_controller_config->set_position_gain(10.0);
-    position_controller_config->set_max_velocity(3.0);
-    position_controller_config->set_yaw_gain(5.0);
-    position_controller_config->set_max_yaw_rate(0.5);
+    position_controller_config->set_position_gain(30.0);
+    position_controller_config->set_max_velocity(5.0);
+    position_controller_config->set_yaw_gain(30.0);
+    position_controller_config->set_max_yaw_rate(1.0);
     position_controller_config->mutable_position_controller_config()
         ->set_goal_yaw_tolerance(goal_tolerance_yaw_);
     auto position_tolerance =
@@ -67,6 +67,7 @@ public:
   void runUntilConvergence(const tf::Transform &tracked_pose,
                            const PositionYaw &goal_relative_pose) {
     simple_tracker_->setTargetPoseGlobalFrame(tracked_pose);
+    simple_tracker_->setTrackingIsValid(true);
     tf::Transform gravity_aligned_tracked_pose =
         tracked_pose * tracking_offset_transform_;
     double roll, pitch, yaw;

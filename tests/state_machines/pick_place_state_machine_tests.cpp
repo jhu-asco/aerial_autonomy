@@ -153,43 +153,46 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
   // Set goal for simple tracker
   Position roi_goal(2, 0, 0.5);
   tracker->setTargetPositionGlobalFrame(roi_goal);
-  // Initialize event to vse::TrackROI
+  // Start Pick
   logic_state_machine->process_event(pe::Pick());
-  // Check we are in PrePick state
-  ASSERT_STREQ(pstate(*logic_state_machine), "RelativePoseVisualServoing");
-  // Check UAV controller is active
+  // Check we are in Pick state
+  ASSERT_STREQ(pstate(*logic_state_machine), "PickState");
+  // Check UAV and arm controllers are active
   ASSERT_EQ(
       uav_arm_system
           ->getStatus<RelativePoseVisualServoingControllerDroneConnector>(),
       ControllerStatus::Active);
-  ASSERT_EQ(uav_arm_system->getStatus<VisualServoingControllerArmConnector>(),
-            ControllerStatus::NotEngaged);
+  ASSERT_EQ(uav_arm_system->getStatus<BuiltInPoseControllerArmConnector>(),
+            ControllerStatus::Active);
   // Keep running the controller until its completed or timeout
-  auto getUAVStatusRunControllers = [&]() {
-    uav_arm_system->runActiveController(HardwareType::UAV);
-    logic_state_machine->process_event(InternalTransitionEvent());
-    return uav_arm_system->getStatus<
-               RelativePoseVisualServoingControllerDroneConnector>() ==
-           ControllerStatus::Active;
-  };
-  ASSERT_FALSE(test_utils::waitUntilFalse()(getUAVStatusRunControllers,
-                                            std::chrono::seconds(5),
-                                            std::chrono::milliseconds(0)));
-  // Check we are in Pre-Pick
-  ASSERT_STREQ(pstate(*logic_state_machine), "PrePickState");
-  ASSERT_EQ(logic_state_machine->lastProcessedEventIndex(), typeid(Completed));
-  auto getArmStatusRunControllers = [&]() {
+  auto getStatusRunControllers = [&]() {
     uav_arm_system->runActiveController(HardwareType::UAV);
     uav_arm_system->runActiveController(HardwareType::Arm);
-    logic_state_machine->process_event(InternalTransitionEvent());
-    return uav_arm_system->getStatus<VisualServoingControllerArmConnector>() ==
-           ControllerStatus::Active;
+    return uav_arm_system->getActiveControllerStatus(HardwareType::UAV) ==
+               ControllerStatus::Active ||
+           uav_arm_system->getActiveControllerStatus(HardwareType::Arm) ==
+               ControllerStatus::Active;
   };
-  // Run controllers again
-  ASSERT_FALSE(test_utils::waitUntilFalse()(getArmStatusRunControllers,
+  ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
+                                            std::chrono::seconds(5),
+                                            std::chrono::milliseconds(0)));
+
+  // Grip object for required duration
+  arm.setGripperStatus(true);
+  logic_state_machine->process_event(InternalTransitionEvent());
+  this_thread::sleep_for(std::chrono::milliseconds(1100));
+  logic_state_machine->process_event(InternalTransitionEvent());
+  // Check we are in Post-Pick
+  ASSERT_STREQ(pstate(*logic_state_machine), "ReachingPostPickWaypoint");
+  ASSERT_EQ(logic_state_machine->lastProcessedEventIndex(), typeid(Completed));
+  // Run controllers through two waypoints
+  ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
                                             std::chrono::seconds(5)));
-  // Check we are in Pick
-  ASSERT_STREQ(pstate(*logic_state_machine), "PickState");
+  logic_state_machine->process_event(InternalTransitionEvent());
+  ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
+                                            std::chrono::seconds(5)));
+  // Check we are in Place
+  ASSERT_STREQ(pstate(*logic_state_machine), "PlaceState");
   ASSERT_EQ(logic_state_machine->lastProcessedEventIndex(), typeid(Completed));
 }
 

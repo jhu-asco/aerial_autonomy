@@ -55,11 +55,6 @@ struct PickPlaceStatesActions
   * @brief State while picking an object
   */
   using PickState = PickState_<LogicStateMachineT>;
-  // PrePickPlace State
-  /**
-  * @brief State while positioning the arm for picking
-  */
-  using PrePickState = PrePickState_<LogicStateMachineT>;
   /**
   * @brief State while positioning the uav for placing
   */
@@ -87,8 +82,8 @@ struct PickPlaceStatesActions
   /**
   * @brief Check if post place waypoints arespecified in proto config
   */
-  // using PostPlaceWaypointGuard =
-  //    WaypointSequenceTransitionGuardFunctor_<LogicStateMachineT, 2, 3>;
+  using PostPlaceWaypointGuard =
+      WaypointSequenceTransitionGuardFunctor_<LogicStateMachineT, 2, 3>;
   /**
   * @brief Action to take when starting folding arm before land
   */
@@ -131,24 +126,17 @@ struct PickPlaceStatesActions
       boost::mpl::vector<typename usa::UAVControllerAbort, ArmFold>>;
 
   /**
-  * @brief Set goal for visual servoing and also arm controller
-  */
-  using PickTransitionAction = bActionSequence<boost::mpl::vector<
-      AbortArmController, RelativePoseVisualServoingTransitionActionFunctor_<
-                              LogicStateMachineT, 1, false>>>;
-  /**
-  * @brief Move arm to pre-pick pose
-  */
-  using PrePickTransitionAction =
-      ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>;
-  /**
   * @brief Check tracking is valid and arm is enabled for pre-pick
   */
-  using PrePickTransitionGuard =
-      PrePickTransitionGuardFunctor_<LogicStateMachineT>;
+  using PickTransitionGuard =
+      bAnd<typename vsa::RelativePoseVisualServoingTransitionGuard,
+           ArmTrackingGuardFunctor_<LogicStateMachineT>>;
 
-  using RelativePoseVisualServoingWithReset = bActionSequence<
-      boost::mpl::vector<PrePickTransitionAction,
+  /**
+  * @brief Move arm to pick pose and move to tracked object
+  */
+  using PickTransitionAction = bActionSequence<
+      boost::mpl::vector<ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>,
                          typename vsa::ResetRelativePoseVisualServoing,
                          RelativePoseVisualServoingTransitionActionFunctor_<
                              LogicStateMachineT, 1>>>;
@@ -179,13 +167,6 @@ struct PickPlaceStatesActions
   */
   using AbortUAVArmController = bActionSequence<
       boost::mpl::vector<typename usa::UAVControllerAbort, AbortArmController>>;
-  // Guards
-  /**
-  * @brief Guard to stop pick place if arm is not powered
-  */
-  using PickGuard = bAnd<PickTransitionGuardFunctor_<LogicStateMachineT>,
-                         ArmEnabledGuardFunctor_<LogicStateMachineT>>;
-
   /**
   * @brief State for following waypoints after picking object
   */
@@ -200,8 +181,8 @@ struct PickPlaceStatesActions
   /**
   * @brief State for following waypoints after placing object
   */
-  // using ReachingPostPlaceWaypoint =
-  //    FollowingWaypointSequence_<LogicStateMachineT, 2, 3>;
+  using ReachingPostPlaceWaypoint =
+      FollowingWaypointSequence_<LogicStateMachineT, 2, 3>;
   /**
   * @brief State for resetting visual servoing
   */

@@ -1,5 +1,6 @@
 #include <aerial_autonomy/actions_guards/visual_servoing_states_actions.h>
 #include <aerial_autonomy/tests/sample_logic_state_machine.h>
+#include <aerial_autonomy/tests/test_utils.h>
 #include <aerial_autonomy/trackers/simple_tracker.h>
 #include <gtest/gtest.h>
 #include <quad_simulator_parser/quad_simulator.h>
@@ -50,6 +51,19 @@ protected:
     vs_position_tolerance->set_x(0.5);
     vs_position_tolerance->set_y(0.5);
     vs_position_tolerance->set_z(0.5);
+
+    auto vel_based_position_controller =
+        config.mutable_velocity_based_position_controller_config()
+            ->mutable_position_controller_config();
+    config.mutable_velocity_based_position_controller_config()
+        ->set_position_gain(5.0);
+    config.mutable_velocity_based_position_controller_config()->set_yaw_gain(1);
+    vel_based_position_controller->mutable_goal_position_tolerance()->set_x(
+        0.1);
+    vel_based_position_controller->mutable_goal_position_tolerance()->set_y(
+        0.1);
+    vel_based_position_controller->mutable_goal_position_tolerance()->set_z(
+        0.1);
 
     auto relative_pose_vs_position_tolerance =
         uav_vision_system_config
@@ -335,10 +349,8 @@ TEST_F(VisualServoingTests, LostTrackingRelativePoseInternalActionFunction) {
   visual_servoing_internal_action(NULL, *sample_logic_state_machine,
                                   dummy_start_state, dummy_target_state);
   ASSERT_EQ(sample_logic_state_machine->getProcessEventTypeId(),
-            std::type_index(typeid(be::Abort)));
+            std::type_index(typeid(Reset)));
 }
-
-// Call GoHome functions
 
 // Call GoHome functions
 TEST_F(VisualServoingTests, CallGoHomeTransitionAction) {
@@ -361,19 +373,20 @@ TEST_F(VisualServoingTests, CallGoHomeTransitionAction) {
   int dummy_start_state, dummy_target_state;
   go_home_transition_action(NULL, *sample_logic_state_machine,
                             dummy_start_state, dummy_target_state);
-  // Run the active controller once
-  uav_system->runActiveController(HardwareType::UAV);
-  // Run the active controller again to update controller status
-  uav_system->runActiveController(HardwareType::UAV);
-  // Get status to verify we are done
-  ControllerStatus status =
-      uav_system->getStatus<PositionControllerDroneConnector>();
-  ASSERT_EQ(status, ControllerStatus::Completed);
+  auto getUAVStatusRunController = [&]() {
+    uav_system->runActiveController(HardwareType::UAV);
+    return uav_system
+               ->getStatus<VelocityBasedPositionControllerDroneConnector>() ==
+           ControllerStatus::Completed;
+  };
+  ASSERT_TRUE(test_utils::waitUntilTrue()(getUAVStatusRunController,
+                                          std::chrono::seconds(5),
+                                          std::chrono::milliseconds(0)));
   // Also check the current position
   auto uav_data = uav_system->getUAVData();
-  ASSERT_EQ(uav_data.localpos.x, desired_home_position.x);
-  ASSERT_EQ(uav_data.localpos.y, desired_home_position.y);
-  ASSERT_EQ(uav_data.localpos.z, desired_home_position.z);
+  ASSERT_NEAR(uav_data.localpos.x, desired_home_position.x, 0.1);
+  ASSERT_NEAR(uav_data.localpos.y, desired_home_position.y, 0.1);
+  ASSERT_NEAR(uav_data.localpos.z, desired_home_position.z, 0.1);
 }
 
 TEST_F(VisualServoingTests, GoHomeTransitionGuard) {

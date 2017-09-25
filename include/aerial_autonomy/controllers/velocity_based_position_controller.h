@@ -88,6 +88,8 @@ public:
    * @brief Set the goal and optionally reset the controller
    * @param goal The goal to set
    * @param reset Resets controller integrator if true
+   * \todo (Matt) Remove reset from setGoal and create separate reset function
+   * in base Controller
    */
   virtual void setGoal(PositionYaw goal, bool reset = true);
 

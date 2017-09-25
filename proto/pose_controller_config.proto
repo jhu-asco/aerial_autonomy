@@ -13,5 +13,5 @@ message PoseControllerConfig {
   * @brief Robot is within this angle (radians),
   * the goal is reached.
   */
-  optional double goal_rotation_tolerance = 2 [ default = 0.1 ];
+  required double goal_rotation_tolerance = 2 [ default = 0.1 ];
 }

@@ -40,7 +40,8 @@ public:
         // \todo Matt This will become unwieldy when we are tracking multiple
         // objects, each with different offsets.  This assumes the offset is the
         // same for all tracked objects
-        tracking_offset_transform_(tracking_offset_transform) {}
+        tracking_offset_transform_(tracking_offset_transform),
+        use_explicit_id_(false) {}
   /**
    * @brief Destructor
    */
