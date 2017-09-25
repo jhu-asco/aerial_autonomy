@@ -116,6 +116,8 @@ public:
             msmf::Row<jcsa::Hovering, jce::JoystickControlEvent,
                       jcsa::JoystickControlState, jcsa::JoystickControlAction,
                       jcsa::JoystickControlGuard>,
+            msmf::Row<jcsa::Hovering, jce::SystemIdEvent, jcsa::SystemIdState,
+                      jcsa::SystemIdStateAction, msmf::none>,
             msmf::Row<jcsa::Hovering, ManualControlEvent,
                       jcsa::ManualControlState, msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
@@ -126,13 +128,24 @@ public:
                       jcsa::UAVControllerAbort, msmf::none>,
             msmf::Row<jcsa::JoystickControlState, ManualControlEvent,
                       jcsa::ManualControlState, msmf::none, msmf::none>,
+            msmf::Row<jcsa::JoystickControlState, jce::SystemIdEvent,
+                      jcsa::SystemIdState, jcsa::SystemIdStateAction,
+                      msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<jcsa::ManualControlState, be::Takeoff, jcsa::Hovering,
                       jcsa::ManualControlSwitchAction,
                       jcsa::ManualControlSwitchGuard>,
             msmf::Row<jcsa::ManualControlState, be::Land, jcsa::Landed,
                       jcsa::ManualControlSwitchAction,
-                      jcsa::ManualControlSwitchGuard>
+                      jcsa::ManualControlSwitchGuard>,
+            msmf::Row<jcsa::ManualControlState, jce::SystemIdEvent,
+                      jcsa::SystemIdState, jcsa::SystemIdStateAction,
+                      msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<jcsa::SystemIdState, be::Abort, jcsa::Hovering,
+                      msmf::none, msmf::none>,
+            msmf::Row<jcsa::SystemIdState, ManualControlEvent,
+                      jcsa::ManualControlState, msmf::none, msmf::none>
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             > {};
   /**
@@ -144,13 +157,14 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 6> state_names = {
+static constexpr std::array<const char *, 7> state_names = {
     "Landed",
     "TakingOff",
     "Hovering",
     "Landing",
     "JoystickControlState",
-    "ManualControlState"};
+    "ManualControlState",
+    "SystemIdState"};
 /**
 * @brief Get current state name
 *

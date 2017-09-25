@@ -106,6 +106,21 @@ TEST_F(JoystickControlStateMachineTests, JoystickControlMode) {
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
 }
 
+TEST_F(JoystickControlStateMachineTests, SystemIdState) {
+  // Set large kt
+  RPYTBasedVelocityControllerConfig old_config;
+  old_config.set_kt(0.5);
+  uav_system->updateRPYTVelocityControllerConfig(old_config);
+  // Takeoff
+  GoToHoverFromLanded();
+  // Go to SystemId state
+  logic_state_machine->process_event(jce::SystemIdEvent());
+  ASSERT_STREQ(pstate(*logic_state_machine), "SystemIdState");
+
+  logic_state_machine->process_event(be::Abort());
+  ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

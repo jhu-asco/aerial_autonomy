@@ -11,6 +11,8 @@
 #include <aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h>
 // Velocity Sensor
 #include <aerial_autonomy/sensors/base_sensor.h>
+// System Id
+#include <gcop/qrotorsystemid.h>
 #include <iomanip>
 #include <sstream>
 
@@ -77,6 +79,10 @@ private:
   * @brief Flag to specify if home location is specified or not
   */
   bool home_location_specified_;
+  /**
+  * @ brief Variable to store measurements for system id
+  */
+  std::vector<gcop::QRotorSystemIDMeasurement> system_id_measurements;
 
 public:
   /**
@@ -262,5 +268,46 @@ public:
   void updateRPYTVelocityControllerConfig(
       RPYTBasedVelocityControllerConfig &config) {
     joystick_velocity_controller_.updateRPYTConfig(config);
+  }
+  /**
+  * @brief get the rpyt controller config
+  */
+  RPYTBasedVelocityControllerConfig getRPYTVelocityControllerConfig() {
+    return joystick_velocity_controller_.getRPYTConfig();
+  }
+  /**
+  * @brief add measurements for system id
+  */
+  void addMeasurement(gcop::QRotorSystemIDMeasurement measurement) {
+    system_id_measurements.push_back(measurement);
+    if (system_id_measurements.size() == 50) {
+      runSystemId();
+      clearMeasurements();
+    }
+  }
+  /**
+  * @brief reset measurements
+  */
+  void clearMeasurements() { system_id_measurements.clear(); }
+  /**
+  * @brief run system id
+  */
+  void runSystemId() {
+    gcop::QRotorIDState init_state;
+    init_state.p = system_id_measurements[0].position;
+    const Eigen::Vector3d &rpy = system_id_measurements[0].rpy;
+
+    gcop::SO3 &so3 = gcop::SO3::Instance();
+    so3.q2g(init_state.R, rpy);
+    init_state.u << 0, 0, rpy(2);
+
+    // Run estimator. \todo add stddevs, offsets
+    gcop::QRotorSystemID system_id;
+    // system_id.EstimateParameters(system_id_measurements, init_state);
+
+    RPYTBasedVelocityControllerConfig config;
+    VLOG(1) << "kt changed to " << system_id.qrotor_gains[0] << "\n";
+    config.set_kt(system_id.qrotor_gains[0]);
+    updateRPYTVelocityControllerConfig(config);
   }
 };

@@ -50,10 +50,17 @@ public:
     cumulative_error.yaw = 0.0;
   }
   /**
-  *
+  * @brief update config
   */
   void updateConfig(RPYTBasedVelocityControllerConfig &config) {
     config_ = config;
+  }
+  /**
+  * @brief get config
+  */
+  RPYTBasedVelocityControllerConfig getConfig() {
+    RPYTBasedVelocityControllerConfig config = config_;
+    return config;
   }
 
 protected:

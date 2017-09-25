@@ -53,12 +53,16 @@ public:
                                                 << "Yaw" << DataStream::endl;
   }
   /**
-  *
   * @brief Update RPYT controller config
-  *
   */
   void updateRPYTConfig(RPYTBasedVelocityControllerConfig &config) {
     rpyt_velocity_controller_.updateConfig(config);
+  }
+  /**
+  * @brief get RPYT controller config
+  */
+  RPYTBasedVelocityControllerConfig getRPYTConfig() {
+    return rpyt_velocity_controller_.getConfig();
   }
 
 protected:

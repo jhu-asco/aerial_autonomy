@@ -34,7 +34,7 @@ find_package(Protobuf 3.1 REQUIRED)
 find_package(Glog REQUIRED)
 
 # Quad simulator parser dependencies
-find_package(GCOP REQUIRED systems)
+find_package(GCOP REQUIRED est systems utils)
 include_directories(${GCOP_INCLUDE_DIRS})
 set(QUAD_SIM_PARSER_LIBS ${QUAD_SIM_PARSER_LIBS} ${GCOP_LIBRARIES})
 
@@ -42,9 +42,12 @@ find_package(TinyXML REQUIRED)
 include_directories(${TINYXML_INCLUDE_DIR})
 set(QUAD_SIM_PARSER_LIBS ${QUAD_SIM_PARSER_LIBS} ${TINYXML_LIBRARIES})
 
+
 find_package(Eigen3 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
 
+find_package(Ceres 1.10 REQUIRED)
+include_directories(${CERES_INLCUDE_DIRS})
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
@@ -231,7 +234,7 @@ add_library(aerial_autonomy
 )
 
 add_dependencies(aerial_autonomy proto)
-target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${GCOP_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES} ${CERES_LIBRARY} ${CERES_LIBRARIES})
 
 
 ## Add cmake target dependencies of the library
@@ -255,7 +258,7 @@ add_dependencies(uav_joystick_control_node ${PROJECT_NAME}_gencfg)
 target_link_libraries(uav_system_node aerial_autonomy)
 target_link_libraries(uav_vision_system_node aerial_autonomy)
 target_link_libraries(uav_arm_system_node aerial_autonomy)
-target_link_libraries(uav_joystick_control_node aerial_autonomy)
+target_link_libraries(uav_joystick_control_node aerial_autonomy ${GCOP_LIBRARIES})
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
 
 #############
@@ -298,10 +301,10 @@ target_link_libraries(event_publish_node ${catkin_LIBRARIES})
 #############
 
 ## Add gtest based cpp test target and link libraries
-catkin_add_gtest(${PROJECT_NAME}-logic-states-test tests/logic_states/base_state_tests.cpp)
+#catkin_add_gtest(${PROJECT_NAME}-logic-states-test tests/logic_states/base_state_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test tests/controller_hardware_connectors/controller_hardware_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-evnt-mngr-test tests/event_manager_tests/event_manager_tests.cpp)
-add_dependencies(${PROJECT_NAME}-evnt-mngr-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
+#catkin_add_gtest(${PROJECT_NAME}-evnt-mngr-test tests/event_manager_tests/event_manager_tests.cpp)
+#add_dependencies(${PROJECT_NAME}-evnt-mngr-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
 catkin_add_gtest(${PROJECT_NAME}-type-map-test tests/common/type_map_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-html-utils-test tests/common/html_utils_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/position_controller_drone_connector_tests.cpp)
@@ -323,10 +326,10 @@ catkin_add_gtest(${PROJECT_NAME}-pick-place-state-machine-test tests/state_machi
 catkin_add_gtest(${PROJECT_NAME}-joystick-control-state-machine-test tests/state_machines/joystick_control_state_machine_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-arm-system-test tests/robot_systems/arm_system_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-uav-vision-system-test tests/robot_systems/uav_vision_system_tests.test tests/robot_systems/uav_vision_system_tests.cpp)
-add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-event-test tests/state_machines/state_machine_gui_connector_event_tests.test tests/state_machines/state_machine_gui_connector_event_tests.cpp)
-add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-event-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
-add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-pose-test tests/state_machines/state_machine_gui_connector_pose_tests.test tests/state_machines/state_machine_gui_connector_pose_tests.cpp)
-add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-pose-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
+#add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-event-test tests/state_machines/state_machine_gui_connector_event_tests.test tests/state_machines/state_machine_gui_connector_event_tests.cpp)
+#add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-event-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
+#add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-pose-test tests/state_machines/state_machine_gui_connector_pose_tests.test tests/state_machines/state_machine_gui_connector_pose_tests.cpp)
+#add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-pose-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
 catkin_add_gtest(${PROJECT_NAME}-async-timer-test tests/common/async_timer_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-atomic-test tests/common/atomic_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-controller-status-test tests/common/controller_status_tests.cpp)
@@ -365,7 +368,7 @@ if(TARGET ${PROJECT_NAME}-pick-place-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-pick-place-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
 if(TARGET ${PROJECT_NAME}-joystick-control-state-machine-test)
-  target_link_libraries(${PROJECT_NAME}-joystick-control-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+  target_link_libraries(${PROJECT_NAME}-joystick-control-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS} ${CERES_LIBRARY} ${CERES_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
