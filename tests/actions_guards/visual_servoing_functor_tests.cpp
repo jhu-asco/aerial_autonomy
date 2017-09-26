@@ -248,6 +248,9 @@ TEST_F(VisualServoingTests, CallRelativePoseInternalActionFunction) {
 }
 
 TEST_F(VisualServoingTests, LowBatteryCallInternalActionFunction) {
+  // Specify a global position
+  Position roi_goal(5, 0, 0.5);
+  simple_tracker->setTargetPositionGlobalFrame(roi_goal);
   // Fly quadrotor which sets the altitude to 0.5
   drone_hardware.setBatteryPercent(60);
   drone_hardware.takeoff();

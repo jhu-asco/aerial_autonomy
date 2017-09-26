@@ -139,7 +139,7 @@ struct PickPlaceStatesActions
       boost::mpl::vector<ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>,
                          typename vsa::ResetRelativePoseVisualServoing,
                          RelativePoseVisualServoingTransitionActionFunctor_<
-                             LogicStateMachineT, 1>>>;
+                             LogicStateMachineT, 0>>>;
 
   /**
   * @brief Action to take when starting placing object.
@@ -147,7 +147,8 @@ struct PickPlaceStatesActions
   using PlaceVisualServoingTransitionAction = bActionSequence<
       boost::mpl::vector<typename vsa::ResetRelativePoseVisualServoing,
                          RelativePoseVisualServoingTransitionActionFunctor_<
-                             LogicStateMachineT, 2>>>;
+                             LogicStateMachineT, 1>>>;
+  // \todo Matt add guard to check if relative pose visual servoing goal exists
 
   /**
   * @brief Guard to set and check that the id to track is available

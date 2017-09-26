@@ -39,7 +39,7 @@ protected:
   std::unique_ptr<SimpleTracker> simple_tracker;
   std::unique_ptr<UAVArmSystem> uav_arm_system;
   std::unique_ptr<UAVArmLogicStateMachine> sample_logic_state_machine;
-  PickPlaceFunctorTests() {
+  PickPlaceFunctorTests() : pose_goal_(1, -1, 1, 0) {
     auto uav_vision_system_config = config.mutable_uav_vision_system_config();
     auto uav_arm_system_config =
         uav_vision_system_config->mutable_uav_arm_system_config();
@@ -71,12 +71,11 @@ protected:
     setWaypoint(uav_arm_system_config->add_way_points(), 0, -1.0, 0,
                 M_PI / 2.0);
 
-    uav_vision_system_config->add_relative_pose_goals();
     auto pose_goal = uav_vision_system_config->add_relative_pose_goals();
-    pose_goal->mutable_position()->set_x(1);
-    pose_goal->mutable_position()->set_y(-1);
-    pose_goal->mutable_position()->set_z(1);
-    pose_goal->set_yaw(0);
+    pose_goal->mutable_position()->set_x(pose_goal_.x);
+    pose_goal->mutable_position()->set_y(pose_goal_.y);
+    pose_goal->mutable_position()->set_z(pose_goal_.z);
+    pose_goal->set_yaw(pose_goal_.yaw);
 
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
     tf::Transform camera_transform = math::getTransformFromVector(
@@ -111,6 +110,9 @@ protected:
   }
 
   virtual ~PickPlaceFunctorTests(){};
+
+protected:
+  PositionYaw pose_goal_;
 };
 /// \brief Test Visual Servoing
 TEST_F(PickPlaceFunctorTests, Constructor) {
@@ -142,7 +144,7 @@ TEST_F(PickPlaceFunctorTests, CallPickActionFunction) {
       uav_arm_system
           ->getGoal<BuiltInPoseControllerArmConnector, tf::Transform>();
   // Check goals
-  ASSERT_EQ(uav_goal, PositionYaw(1, -1, 1, 0));
+  ASSERT_EQ(uav_goal, pose_goal_);
   ASSERT_TF_NEAR(arm_goal, tf::Transform(tf::Quaternion(0, 0, 0, 1),
                                          tf::Vector3(-0.1, 0, 0)));
 }

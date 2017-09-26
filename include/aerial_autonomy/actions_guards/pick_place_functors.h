@@ -128,20 +128,23 @@ struct ArmPoseTransitionActionFunctor_
     robot_system.resetGripper();
   }
 };
+// \todo Matt Add guard for arm pose goal that checks goal index
 
+/**
+* @brief Action functor that attempts to pick
+* @tparam LogicStateMachineT Type of state machine
+*/
 template <class LogicStateMachineT>
 struct WaitingForPickInternalActionFunctor_
     : StateDependentInternalActionFunctor<UAVArmSystem, LogicStateMachineT,
                                           WaitingForPick_<LogicStateMachineT>> {
   bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine,
            WaitingForPick_<LogicStateMachineT> &state) {
-    if (state.timeInState() > std::chrono::seconds(3)) {
-      logic_state_machine.process_event(pick_place_events::Pick());
-      return false;
-    }
-    return true;
+    logic_state_machine.process_event(pick_place_events::Pick());
+    return false;
   }
 };
+
 /**
 * @brief Action to reach a relative waypoint specified in NWU frame
 * attached to quadrotor.
@@ -216,8 +219,7 @@ struct WaypointSequenceTransitionGuardFunctor_
                   robot_system.checkWaypointIndex(EndIndex);
     if (!result) {
       LOG(WARNING) << "StartIndex: " << StartIndex << " or EndIndex "
-                   << EndIndex
-                   << " not available in waypoint vector in config file";
+                   << EndIndex << " not available in waypoint vector in config";
     }
     return result;
   }

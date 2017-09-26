@@ -88,15 +88,6 @@ uav_system_config {
     relative_pose_goals {
       position {
         x: 0
-        y: -.7
-        z: 0.235
-      }
-      yaw: 1.5708
-    }
-
-    relative_pose_goals {
-      position {
-        x: 0
         y: -.62
         z: 0.235
       }
