@@ -309,14 +309,18 @@ public:
     so3.q2g(init_state.R, rpy);
     init_state.u << 0, 0, rpy(2);
 
-    // Run estimator. \todo add stddevs, offsets
+    // Run estimator
     gcop::QRotorSystemID system_id;
     system_id.offsets_timeperiod = 0.5; // Will be a param in class
     system_id.EstimateParameters(system_id_measurements, init_state);
-    RPYTBasedVelocityControllerConfig config;
-    VLOG(1) << "kt changed to " << system_id.qrotor_gains[0] << "\n";
-    config.set_kt(system_id.qrotor_gains[0]);
-    updateRPYTVelocityControllerConfig(config);
+    double threshold = 1.0; // Will be a param in class
+    // Update gain only if residual gains are below a threshold
+    if (system_id.qrotor_gains_residualgain(0, 0) < threshold) {
+      RPYTBasedVelocityControllerConfig config;
+      VLOG(1) << "kt changed to " << system_id.qrotor_gains[0] << "\n";
+      config.set_kt(system_id.qrotor_gains[0]);
+      updateRPYTVelocityControllerConfig(config);
+    }
   }
 
   /**
