@@ -179,7 +179,7 @@ TEST(JoystickControlTests, SystemIdTest) {
   int16_t channels[4] = {100, 50, 25, 100};
   drone_hardware.setRC(channels);
 
-  for (int i = 0; i < 100; ++i) {
+  for (int i = 0; i < 1000; ++i) {
     uav_system.runActiveController(HardwareType::UAV);
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
     systemid_internal_action(dummy_event, sample_logic_state_machine,
@@ -189,8 +189,6 @@ TEST(JoystickControlTests, SystemIdTest) {
   RPYTBasedVelocityControllerConfig new_config =
       uav_system.getRPYTVelocityControllerConfig();
 
-  std::cout << "old kt = " << old_config.kt();
-  std::cout << "new kt = " << new_config.kt();
   ASSERT_NE(new_config.kt(), old_config.kt());
 }
 

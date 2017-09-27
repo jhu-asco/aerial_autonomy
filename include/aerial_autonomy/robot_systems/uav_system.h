@@ -31,6 +31,10 @@ protected:
    * @brief UAV configuration parameters
    */
   UAVSystemConfig config_;
+  /**
+  * @brief Controller timestep
+  */
+  double controller_timer_duration_;
 
 private:
   /**
@@ -107,9 +111,12 @@ public:
                 std::shared_ptr<Sensor<VelocityYaw>>(new Sensor<VelocityYaw>()),
             double controller_timer_duration = 0.02)
       : BaseRobotSystem(), drone_hardware_(drone_hardware), config_(config),
+        controller_timer_duration_(controller_timer_duration),
         velocity_sensor_(velocity_sensor),
         builtin_position_controller_(config.position_controller_config()),
         builtin_velocity_controller_(config.velocity_controller_config()),
+        manual_rpyt_controller_(config.manual_rpyt_controller_config(),
+                                controller_timer_duration),
         joystick_velocity_controller_(
             config.joystick_velocity_controller_config(),
             controller_timer_duration),
@@ -279,6 +286,7 @@ public:
   * @brief add measurements for system id
   */
   void addMeasurement(gcop::QRotorSystemIDMeasurement measurement) {
+
     system_id_measurements.push_back(measurement);
     if (system_id_measurements.size() == 50) {
       runSystemId();
@@ -303,11 +311,16 @@ public:
 
     // Run estimator. \todo add stddevs, offsets
     gcop::QRotorSystemID system_id;
-    // system_id.EstimateParameters(system_id_measurements, init_state);
-
+    system_id.offsets_timeperiod = 0.5; // Will be a param in class
+    system_id.EstimateParameters(system_id_measurements, init_state);
     RPYTBasedVelocityControllerConfig config;
     VLOG(1) << "kt changed to " << system_id.qrotor_gains[0] << "\n";
     config.set_kt(system_id.qrotor_gains[0]);
     updateRPYTVelocityControllerConfig(config);
   }
+
+  /**
+  * @brief returns the controller timestep
+  */
+  double getControllerTimerDuration() { return controller_timer_duration_; }
 };

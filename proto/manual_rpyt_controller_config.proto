@@ -1,0 +1,44 @@
+syntax = "proto2";
+
+/**
+*Uses values to map joystick values to
+* rpyt commands
+*/
+message ManualRPYTControllerConfig {
+  /**
+  * @brief max value for channel 1
+  */
+  optional double max_channel1 = 1 [ default = 10000 ];
+  /**
+  * @brief max value for channel 2
+  */
+  optional double max_channel2 = 2 [ default = 10000 ];
+  /**
+  * @brief max value for channel 3
+  */
+  optional double max_channel3 = 3 [ default = 10000 ];
+  /**
+  * @brief max value for channel 4
+  */
+  optional double max_channel4 = 4 [ default = 10000 ];
+  /**
+  * @brief max roll in radians
+  */
+  optional double max_roll = 5 [ default = 0.5 ];
+    /**
+  * @brief max pitch in radians
+  */
+  optional double max_pitch = 6 [ default = 0.5 ];
+    /**
+  * @brief min thrust 
+  */
+  optional double min_thrust = 7 [ default = 10 ];
+  /**
+  * @brief max thrust 
+  */
+  optional double max_thrust = 8 [ default = 100 ];
+  /**
+  * @brief max yaw rate in rad/s
+  */
+  optional double max_yaw_rate = 9 [ default = 0.5 ];
+}

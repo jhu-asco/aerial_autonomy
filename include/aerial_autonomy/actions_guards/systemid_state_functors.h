@@ -17,7 +17,7 @@ template <class LogicStateMachineT>
 struct SystemIdStateTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system) {
-    std::cout << "Entering system id mode\n";
+    VLOG(1) << "Entering system id mode\n";
     robot_system.setGoal<ManualRPYTControllerDroneConnector>(EmptyGoal());
   }
 };
@@ -39,17 +39,29 @@ struct SystemIdStateInternalActionFunctor_
   bool run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     parsernode::common::quaddata data = robot_system.getUAVData();
 
+    // TODO soham make seperate class for estimators and add this there
     gcop::QRotorSystemIDMeasurement measurement;
+    ManualRPYTControllerConfig rpyt_config =
+        robot_system.getConfiguration().manual_rpyt_controller_config();
+    measurement.t = data.timestamp;
     measurement.position << data.localpos.x, data.localpos.y, data.localpos.z;
     measurement.rpy << data.rpydata.x, data.rpydata.y, data.rpydata.z;
-    measurement.control << math::map(data.servo_in[0], -10000, 10000, -M_PI / 6,
-                                     M_PI / 6),
-        math::map(data.servo_in[1], -10000, 10000, -M_PI / 6, M_PI / 6),
-        math::map(data.servo_in[2], -10000, 10000, 10, 1000),
-        math::angleWrap(
-            data.rpydata.z -
-            math::map(data.servo_in[0], -10000, 10000, -M_PI / 6, M_PI / 6) *
-                0.02);
+    measurement.control << math::map(
+        data.servo_in[0], -rpyt_config.max_channel1(),
+        rpyt_config.max_channel1(), -rpyt_config.max_roll(),
+        rpyt_config.max_roll()),
+        math::map(data.servo_in[1], -rpyt_config.max_channel2(),
+                  rpyt_config.max_channel2(), -rpyt_config.max_pitch(),
+                  rpyt_config.max_pitch()),
+        math::map(data.servo_in[2], -rpyt_config.max_channel3(),
+                  rpyt_config.max_channel3(), rpyt_config.min_thrust(),
+                  rpyt_config.max_thrust()),
+        math::angleWrap(data.rpydata.z -
+                        math::map(data.servo_in[3], -rpyt_config.max_channel4(),
+                                  rpyt_config.max_channel4(),
+                                  -rpyt_config.max_yaw_rate(),
+                                  rpyt_config.max_yaw_rate()) *
+                            robot_system.getControllerTimerDuration());
 
     robot_system.addMeasurement(measurement);
     return true;

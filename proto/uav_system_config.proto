@@ -10,6 +10,7 @@ import "velocity_based_position_controller_config.proto";
 
 import "joystick_velocity_controller_config.proto";
 
+import "manual_rpyt_controller_config.proto";
 
 message UAVSystemConfig {
   /**
@@ -46,11 +47,12 @@ message UAVSystemConfig {
 
   optional JoystickVelocityControllerConfig joystick_velocity_controller_config = 8;
 
+  optional ManualRPYTControllerConfig manual_rpyt_controller_config = 9;
   /**
   * @brief A crude form of inheritance for proto. Contains a config for
   * subclasses of UAVSystemConfig
   */
   oneof subclass { 
-  UAVVisionSystemConfig uav_vision_system_config = 9; 
+  UAVVisionSystemConfig uav_vision_system_config = 10; 
 }
 }
