@@ -35,6 +35,11 @@ struct JoystickControlStatesActions : UAVStatesActions<LogicStateMachineT> {
   using SystemIdStateInternalAction =
       SystemIdStateInternalActionFunctor_<LogicStateMachineT>;
   /**
+  * @brief Guard to check transition into systemid State
+  */
+  using SystemIdStateGuard =
+      SystemIdStateTransitionGuardFunctor_<LogicStateMachineT>;
+  /**
   * @brief System id state
   */
   using SystemIdState = SystemIdState_<LogicStateMachineT>;

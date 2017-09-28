@@ -117,7 +117,7 @@ public:
                       jcsa::JoystickControlState, jcsa::JoystickControlAction,
                       jcsa::JoystickControlGuard>,
             msmf::Row<jcsa::Hovering, jce::SystemIdEvent, jcsa::SystemIdState,
-                      jcsa::SystemIdStateAction, msmf::none>,
+                      jcsa::SystemIdStateAction, jcsa::SystemIdStateGuard>,
             msmf::Row<jcsa::Hovering, ManualControlEvent,
                       jcsa::ManualControlState, msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
@@ -130,7 +130,7 @@ public:
                       jcsa::ManualControlState, msmf::none, msmf::none>,
             msmf::Row<jcsa::JoystickControlState, jce::SystemIdEvent,
                       jcsa::SystemIdState, jcsa::SystemIdStateAction,
-                      msmf::none>,
+                      jcsa::SystemIdStateGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<jcsa::ManualControlState, be::Takeoff, jcsa::Hovering,
                       jcsa::ManualControlSwitchAction,
@@ -140,7 +140,7 @@ public:
                       jcsa::ManualControlSwitchGuard>,
             msmf::Row<jcsa::ManualControlState, jce::SystemIdEvent,
                       jcsa::SystemIdState, jcsa::SystemIdStateAction,
-                      msmf::none>,
+                      jcsa::SystemIdStateGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<jcsa::SystemIdState, be::Abort, jcsa::Hovering,
                       msmf::none, msmf::none>,

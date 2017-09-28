@@ -5,9 +5,10 @@ JoystickVelocityControllerDroneConnector::
         parsernode::Parser &drone_hardware,
         Controller<std::tuple<Joystick, VelocityYaw>, EmptyGoal,
                    RollPitchYawThrust> &controller,
-        Sensor<VelocityYaw> &velocity_sensor)
+        Sensor<std::tuple<VelocityYaw, Position>> &velocity_pose_sensor)
     : ControllerHardwareConnector(controller, HardwareType::UAV),
-      drone_hardware_(drone_hardware), velocity_sensor_(velocity_sensor) {
+      drone_hardware_(drone_hardware),
+      velocity_pose_sensor_(velocity_pose_sensor) {
   drone_hardware_.setmode("rpyt_angle");
 }
 
@@ -20,14 +21,16 @@ bool JoystickVelocityControllerDroneConnector::extractSensorData(
   Joystick joy_data(quad_data.servo_in[0], quad_data.servo_in[1],
                     quad_data.servo_in[2], quad_data.servo_in[3]);
 
-  if (velocity_sensor_.getSensorStatus() == SensorStatus::INVALID) {
+  if (velocity_pose_sensor_.getSensorStatus() == SensorStatus::INVALID) {
     LOG(WARNING) << "Velocity sensor data invalid !";
   } else {
-    VelocityYaw vel_sensor_data = velocity_sensor_.getSensorData();
+    std::tuple<VelocityYaw, Position> vel_pose_sensor_data =
+        velocity_pose_sensor_.getSensorData();
+    VelocityYaw vel_sensor_data = std::get<0>(vel_pose_sensor_data);
     sensor_data = std::make_tuple(joy_data, vel_sensor_data);
   }
 
-  return bool(velocity_sensor_.getSensorStatus());
+  return bool(velocity_pose_sensor_.getSensorStatus());
 }
 
 void JoystickVelocityControllerDroneConnector::sendHardwareCommands(

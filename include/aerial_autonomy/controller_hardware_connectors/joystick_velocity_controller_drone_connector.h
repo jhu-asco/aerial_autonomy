@@ -3,6 +3,7 @@
 #include "aerial_autonomy/sensors/base_sensor.h"
 #include "aerial_autonomy/types/empty_goal.h"
 #include "aerial_autonomy/types/joystick.h"
+#include "aerial_autonomy/types/position.h"
 #include "aerial_autonomy/types/roll_pitch_yaw_thrust.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
 
@@ -30,7 +31,7 @@ public:
       parsernode::Parser &drone_hardware,
       Controller<std::tuple<Joystick, VelocityYaw>, EmptyGoal,
                  RollPitchYawThrust> &controller,
-      Sensor<VelocityYaw> &velocity_sensor);
+      Sensor<std::tuple<VelocityYaw, Position>> &velocity_pose_sensor);
 
 protected:
   /**
@@ -59,5 +60,5 @@ private:
   /**
   *  @brief sensor object to get sensor data
   */
-  Sensor<VelocityYaw> &velocity_sensor_;
+  Sensor<std::tuple<VelocityYaw, Position>> &velocity_pose_sensor_;
 };

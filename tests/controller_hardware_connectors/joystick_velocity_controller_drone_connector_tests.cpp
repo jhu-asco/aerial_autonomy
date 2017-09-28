@@ -68,7 +68,8 @@ TEST(JoystickVelocityControllerDroneConnector, SensorCritical) {
   JoystickVelocityControllerConfig joystick_config;
   QuadSimulator drone_hardware;
   JoystickVelocityController controller(joystick_config, dt);
-  Sensor<VelocityYaw> velocity_sensor; // Sensor status is Invalid by default
+  Sensor<std::tuple<VelocityYaw, Position>>
+      velocity_sensor; // Sensor status is Invalid by default
 
   // Set stick commands
   int16_t channels[4] = {150, 100, -150, 0};

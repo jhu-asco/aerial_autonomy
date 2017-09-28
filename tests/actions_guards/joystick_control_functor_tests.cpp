@@ -34,7 +34,8 @@ TEST(JoystickControlTests, TransitionGuardValidTest) {
   std::cout << "creating uav_system\n";
   UAVSystem uav_system(
       drone_hardware, UAVSystemConfig(),
-      std::shared_ptr<Sensor<VelocityYaw>>(new Guidance(drone_hardware)));
+      std::shared_ptr<Sensor<std::tuple<VelocityYaw, Position>>>(
+          new Guidance(drone_hardware)));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   jcsa::JoystickControlGuard transition_guard_functor;
   int dummy_start_state, dummy_target_state;
@@ -50,7 +51,8 @@ TEST(JoystickControlTests, TransitionActionTest) {
   QuadSimulator drone_hardware;
   UAVSystem uav_system(
       drone_hardware, UAVSystemConfig(),
-      std::shared_ptr<Sensor<VelocityYaw>>(new Guidance(drone_hardware)));
+      std::shared_ptr<Sensor<std::tuple<VelocityYaw, Position>>>(
+          new Guidance(drone_hardware)));
 
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   jcsa::JoystickControlAction transition_action_functor;
@@ -70,7 +72,8 @@ TEST(JoystickControlTests, ControllerRunTest) {
   UAVSystemConfig uav_system_config;
   UAVSystem uav_system(
       drone_hardware, uav_system_config,
-      std::shared_ptr<Sensor<VelocityYaw>>(new Guidance(drone_hardware)));
+      std::shared_ptr<Sensor<std::tuple<VelocityYaw, Position>>>(
+          new Guidance(drone_hardware)));
 
   RPYTBasedVelocityControllerConfig rpyt_config_;
   rpyt_config_.set_kp(2.0);
@@ -130,7 +133,8 @@ TEST(JoystickControlTests, TransitionGuardInvalidTest) {
   QuadSimulator drone_hardware;
   UAVSystem uav_system(
       drone_hardware, UAVSystemConfig(),
-      std::shared_ptr<Sensor<VelocityYaw>>(new Sensor<VelocityYaw>()));
+      std::shared_ptr<Sensor<std::tuple<VelocityYaw, Position>>>(
+          new Sensor<std::tuple<VelocityYaw, Position>>()));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   jcsa::JoystickControlGuard transition_guard_functor;
   int dummy_start_state, dummy_target_state;
@@ -146,7 +150,8 @@ TEST(JoystickControlTests, SystemIdActionTest) {
   QuadSimulator drone_hardware;
   UAVSystem uav_system(
       drone_hardware, UAVSystemConfig(),
-      std::shared_ptr<Sensor<VelocityYaw>>(new Sensor<VelocityYaw>()));
+      std::shared_ptr<Sensor<std::tuple<VelocityYaw, Position>>>(
+          new Sensor<std::tuple<VelocityYaw, Position>>()));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   jcsa::SystemIdStateAction systemid_state_action;
   int dummy_event, dummy_target_state, dummy_start_state;
@@ -161,7 +166,8 @@ TEST(JoystickControlTests, SystemIdTest) {
   QuadSimulator drone_hardware;
   UAVSystem uav_system(
       drone_hardware, UAVSystemConfig(),
-      std::shared_ptr<Sensor<VelocityYaw>>(new Sensor<VelocityYaw>()));
+      std::shared_ptr<Sensor<std::tuple<VelocityYaw, Position>>>(
+          new Sensor<std::tuple<VelocityYaw, Position>>()));
 
   RPYTBasedVelocityControllerConfig old_config;
   old_config.set_kt(0.5);

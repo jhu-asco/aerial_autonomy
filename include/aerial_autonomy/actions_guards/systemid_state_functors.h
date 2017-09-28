@@ -22,6 +22,20 @@ struct SystemIdStateTransitionActionFunctor_
   }
 };
 /**
+* @brief Guard to check if Sensor status is valid before
+* transitioning
+*/
+template <class LogicStateMachineT>
+struct SystemIdStateTransitionGuardFunctor_
+    : EventAgnosticGuardFunctor<UAVSystem, LogicStateMachineT> {
+  bool guard(UAVSystem &robot_system) {
+    if (!bool(robot_system.getVelocityPoseSensorStatus())) {
+      LOG(WARNING) << "Sensor Status INVALID";
+    }
+    return bool(robot_system.getVelocityPoseSensorStatus());
+  }
+};
+/**
 * @brief Internal action functor for system Id state
 * stores the rpyt controls and trajectory for system ID
 *
@@ -43,8 +57,12 @@ struct SystemIdStateInternalActionFunctor_
     gcop::QRotorSystemIDMeasurement measurement;
     ManualRPYTControllerConfig rpyt_config =
         robot_system.getConfiguration().manual_rpyt_controller_config();
+
+    std::tuple<VelocityYaw, Position> sensor_data =
+        robot_system.getVelocityPoseSensorData();
+    Position position_data = std::get<1>(sensor_data);
     measurement.t = data.timestamp;
-    measurement.position << data.localpos.x, data.localpos.y, data.localpos.z;
+    measurement.position << position_data.x, position_data.y, position_data.z;
     measurement.rpy << data.rpydata.x, data.rpydata.y, data.rpydata.z;
     measurement.control << math::map(
         data.servo_in[0], -rpyt_config.max_channel1(),
@@ -67,6 +85,7 @@ struct SystemIdStateInternalActionFunctor_
     return true;
   }
 };
+
 /**
 * @brief Internal action while in systemid state.
 *

@@ -6,7 +6,7 @@
 * @brief sensor object which treats drone velocity
 * data as external sensor data
 */
-class Guidance : public Sensor<VelocityYaw> {
+class Guidance : public Sensor<std::tuple<VelocityYaw, Position>> {
 public:
   /**
   *
@@ -18,17 +18,16 @@ public:
   Guidance(parsernode::Parser &drone_hardware)
       : Sensor(SensorStatus::VALID), drone_hardware_(drone_hardware) {}
 
-  virtual VelocityYaw getSensorData() {
+  virtual std::tuple<VelocityYaw, Position> getSensorData() {
     parsernode::common::quaddata data;
     drone_hardware_.getquaddata(data);
 
-    VelocityYaw sensor_data;
-    sensor_data.x = data.linvel.x;
-    sensor_data.y = data.linvel.y;
-    sensor_data.z = data.linvel.z;
-    sensor_data.yaw = data.rpydata.y;
+    VelocityYaw vel_data(data.linvel.x, data.linvel.y, data.linvel.z,
+                         data.rpydata.z);
 
-    return sensor_data;
+    Position pose_data(data.localpos.x, data.localpos.y, data.localpos.z);
+
+    return std::make_tuple(vel_data, pose_data);
   }
 
 private:

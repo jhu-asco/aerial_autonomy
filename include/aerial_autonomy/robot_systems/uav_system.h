@@ -40,7 +40,8 @@ private:
   /**
   * @brief velocity sensor
   */
-  std::shared_ptr<Sensor<VelocityYaw>> velocity_sensor_;
+  std::shared_ptr<Sensor<std::tuple<VelocityYaw, Position>>>
+      velocity_pose_sensor_;
   // Controllers
   /**
   * @brief Position Controller
@@ -107,12 +108,14 @@ public:
   * @param controller_timer_duration Timestep for controllers
   */
   UAVSystem(parsernode::Parser &drone_hardware, UAVSystemConfig config,
-            std::shared_ptr<Sensor<VelocityYaw>> velocity_sensor =
-                std::shared_ptr<Sensor<VelocityYaw>>(new Sensor<VelocityYaw>()),
+            std::shared_ptr<Sensor<std::tuple<VelocityYaw, Position>>>
+                velocity_pose_sensor =
+                    std::shared_ptr<Sensor<std::tuple<VelocityYaw, Position>>>(
+                        new Sensor<std::tuple<VelocityYaw, Position>>()),
             double controller_timer_duration = 0.02)
       : BaseRobotSystem(), drone_hardware_(drone_hardware), config_(config),
         controller_timer_duration_(controller_timer_duration),
-        velocity_sensor_(velocity_sensor),
+        velocity_pose_sensor_(velocity_pose_sensor),
         builtin_position_controller_(config.position_controller_config()),
         builtin_velocity_controller_(config.velocity_controller_config()),
         manual_rpyt_controller_(config.manual_rpyt_controller_config(),
@@ -127,7 +130,8 @@ public:
         rpyt_controller_drone_connector_(drone_hardware,
                                          manual_rpyt_controller_),
         joystick_velocity_controller_drone_connector_(
-            drone_hardware, joystick_velocity_controller_, *velocity_sensor),
+            drone_hardware, joystick_velocity_controller_,
+            *velocity_pose_sensor),
         home_location_specified_(false) {
     // Add control hardware connector containers
     controller_hardware_connector_container_.setObject(
@@ -153,8 +157,15 @@ public:
   /**
   * @brief Get status of the sensor
   */
-  SensorStatus getVelocitySensorStatus() {
-    return velocity_sensor_->getSensorStatus();
+  SensorStatus getVelocityPoseSensorStatus() {
+    return velocity_pose_sensor_->getSensorStatus();
+  }
+
+  /**
+  * @brief Get data from sensor
+  */
+  std::tuple<VelocityYaw, Position> getVelocityPoseSensorData() {
+    return velocity_pose_sensor_->getSensorData();
   }
 
   /**
@@ -311,9 +322,10 @@ public:
 
     // Run estimator
     gcop::QRotorSystemID system_id;
-    system_id.offsets_timeperiod = 0.5; // Will be a param in class
+    system_id.offsets_timeperiod = 0.5; // \todo Will be a param in class
     system_id.EstimateParameters(system_id_measurements, init_state);
-    double threshold = 1.0; // Will be a param in class
+    double threshold = 1.0; // \todo Will be a param in class
+
     // Update gain only if residual gains are below a threshold
     if (system_id.qrotor_gains_residualgain(0, 0) < threshold) {
       RPYTBasedVelocityControllerConfig config;

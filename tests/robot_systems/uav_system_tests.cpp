@@ -144,10 +144,11 @@ TEST(UAVSystemTests, abortController) {
 
 TEST(UAVSystemTests, ExplicitConstructor) {
   QuadSimulator drone_hardware;
-  ASSERT_NO_THROW(new UAVSystem(
-      drone_hardware, UAVSystemConfig(),
-      std::shared_ptr<Sensor<VelocityYaw>>(new Guidance(drone_hardware)),
-      0.02));
+  ASSERT_NO_THROW(
+      new UAVSystem(drone_hardware, UAVSystemConfig(),
+                    std::shared_ptr<Sensor<std::tuple<VelocityYaw, Position>>>(
+                        new Guidance(drone_hardware)),
+                    0.02));
 }
 
 TEST(UAVSystemTests, runJoystickVelocityController) {
@@ -158,7 +159,9 @@ TEST(UAVSystemTests, runJoystickVelocityController) {
 
   UAVSystem uav_system(
       drone_hardware, uav_system_config,
-      std::shared_ptr<Sensor<VelocityYaw>>(new Guidance(drone_hardware)), 0.02);
+      std::shared_ptr<Sensor<std::tuple<VelocityYaw, Position>>>(
+          new Guidance(drone_hardware)),
+      0.02);
 
   RPYTBasedVelocityControllerConfig rpyt_config_;
   rpyt_config_.set_kp(2.0);

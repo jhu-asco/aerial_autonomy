@@ -36,7 +36,8 @@ public:
     drone_hardware.setTakeoffAltitude(2.0);
 
     velocity_sensor =
-        std::shared_ptr<Sensor<VelocityYaw>>(new Guidance(drone_hardware));
+        std::shared_ptr<Sensor<std::tuple<VelocityYaw, Position>>>(
+            new Guidance(drone_hardware));
 
     uav_system.reset(new UAVSystem(drone_hardware, uav_system_config,
                                    velocity_sensor, 0.02));
@@ -52,7 +53,7 @@ protected:
   std::unique_ptr<UAVSystem> uav_system;
   UAVSystemConfig uav_system_config;
   QuadSimulator drone_hardware;
-  std::shared_ptr<Sensor<VelocityYaw>> velocity_sensor;
+  std::shared_ptr<Sensor<std::tuple<VelocityYaw, Position>>> velocity_sensor;
   RPYTBasedVelocityControllerConfig rpyt_config;
 
   void GoToHoverFromLanded() {
