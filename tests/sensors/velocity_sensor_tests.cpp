@@ -1,5 +1,5 @@
 #include <aerial_autonomy/sensors/base_sensor.h>
-#include <aerial_autonomy/sensors/velocity_sensor.h>
+#include <aerial_autonomy/sensors/velocity_pose_sensor.h>
 #include <aerial_autonomy/tests/test_utils.h>
 #include <aerial_autonomy/types/velocity_yaw.h>
 #include <chrono>
@@ -9,9 +9,9 @@
 #include <ros/ros.h>
 #include <thread>
 
-class VelocitySensorTests : public ::testing::Test {
+class VelocityPoseSensorTests : public ::testing::Test {
 public:
-  VelocitySensorTests() {
+  VelocityPoseSensorTests() {
     pose_pub = nh.advertise<geometry_msgs::PoseStamped>("pose", 1);
     for (int i = 0; i < 6; ++i) {
       config.add_sensor_transform(0.0);
@@ -21,17 +21,17 @@ public:
   ros::NodeHandle nh;
   ros::Publisher pose_pub;
   quad_simulator::QuadSimulator drone_hardware;
-  VelocitySensorConfig config;
+  VelocityPoseSensorConfig config;
 };
 
 using namespace quad_simulator;
 
-TEST_F(VelocitySensorTests, Constructor) {
-  ASSERT_NO_THROW(new VelocitySensor(drone_hardware, nh, config));
+TEST_F(VelocityPoseSensorTests, Constructor) {
+  ASSERT_NO_THROW(new VelocityPoseSensor(drone_hardware, nh, config));
 }
 
-TEST_F(VelocitySensorTests, StartingDataValid) {
-  VelocitySensor sensor(drone_hardware, nh, config);
+TEST_F(VelocityPoseSensorTests, StartingDataValid) {
+  VelocityPoseSensor sensor(drone_hardware, nh, config);
   geometry_msgs::Vector3 quad_pos;
   quad_pos.x = 0.1;
   quad_pos.y = -0.2;
@@ -55,8 +55,8 @@ TEST_F(VelocitySensorTests, StartingDataValid) {
                                           std::chrono::seconds(20)));
 }
 
-TEST_F(VelocitySensorTests, StartingDataInvalid) {
-  VelocitySensor sensor(drone_hardware, nh, config);
+TEST_F(VelocityPoseSensorTests, StartingDataInvalid) {
+  VelocityPoseSensor sensor(drone_hardware, nh, config);
 
   geometry_msgs::Vector3 quad_pos;
   quad_pos.x = 0.1;
@@ -80,8 +80,8 @@ TEST_F(VelocitySensorTests, StartingDataInvalid) {
                                             std::chrono::seconds(20)));
 }
 
-TEST_F(VelocitySensorTests, SensorValue) {
-  VelocitySensor sensor(drone_hardware, nh, config);
+TEST_F(VelocityPoseSensorTests, SensorValue) {
+  VelocityPoseSensor sensor(drone_hardware, nh, config);
   ros::Time t0 = ros::Time::now();
   ros::Time t1 = t0 + ros::Duration(0.03);
   geometry_msgs::PoseStamped pose;
@@ -110,15 +110,16 @@ TEST_F(VelocitySensorTests, SensorValue) {
   ros::Duration(0.01).sleep();
   ros::spinOnce();
 
-  VelocityYaw velocity = sensor.getSensorData();
+  std::tuple<VelocityYaw,Position> data = sensor.getSensorData();
+  VelocityYaw velocity = std::get<0>(data);
   ASSERT_NEAR(velocity.x, 0.1 / 0.03, 1e-4);
   ASSERT_NEAR(velocity.y, -0.2 / 0.03, 1e-4);
   ASSERT_NEAR(velocity.z, 0.3 / 0.03, 1e-4);
   ASSERT_NEAR(velocity.yaw, 0.1, 1e-4);
 }
 
-TEST_F(VelocitySensorTests, SensorStatusInvalid) {
-  VelocitySensor sensor(drone_hardware, nh, config);
+TEST_F(VelocityPoseSensorTests, SensorStatusInvalid) {
+  VelocityPoseSensor sensor(drone_hardware, nh, config);
   geometry_msgs::Vector3 quad_pos;
   quad_pos.x = 0.1;
   quad_pos.y = -0.2;
@@ -152,9 +153,9 @@ TEST_F(VelocitySensorTests, SensorStatusInvalid) {
                                             std::chrono::seconds(20)));
 }
 
-TEST_F(VelocitySensorTests, MinTimestep) {
+TEST_F(VelocityPoseSensorTests, MinTimestep) {
   config.set_min_timestep(0.02);
-  VelocitySensor sensor(drone_hardware, nh, config);
+  VelocityPoseSensor sensor(drone_hardware, nh, config);
   ros::Time t0 = ros::Time::now();
   ros::Time t1 = t0 + ros::Duration(0.01);
   geometry_msgs::PoseStamped pose;
@@ -183,15 +184,16 @@ TEST_F(VelocitySensorTests, MinTimestep) {
   ros::Duration(0.01).sleep();
   ros::spinOnce();
 
-  VelocityYaw velocity = sensor.getSensorData();
+  std::tuple<VelocityYaw,Position> data = sensor.getSensorData();
+  VelocityYaw velocity = std::get<0>(data);
   ASSERT_NEAR(velocity.x, 0.1 / 0.02, 1e-4);
   ASSERT_NEAR(velocity.y, -0.2 / 0.02, 1e-4);
   ASSERT_NEAR(velocity.z, 0.3 / 0.02, 1e-4);
   ASSERT_NEAR(velocity.yaw, 0.1, 1e-4);
 }
 
-TEST_F(VelocitySensorTests, SensorTF) {
-  VelocitySensorConfig new_config;
+TEST_F(VelocityPoseSensorTests, SensorTF) {
+  VelocityPoseSensorConfig new_config;
 
   new_config.add_sensor_transform(0.1);
   new_config.add_sensor_transform(0.0);
@@ -203,7 +205,7 @@ TEST_F(VelocitySensorTests, SensorTF) {
   tf::Transform sensor_tf(tf::createQuaternionFromRPY(-1.57, 0.0, 0.0),
                           tf::Vector3(0.1, 0, 0.1));
 
-  VelocitySensor sensor(drone_hardware, nh, new_config);
+  VelocityPoseSensor sensor(drone_hardware, nh, new_config);
   ros::Time t0 = ros::Time::now();
   ros::Time t1 = t0 + ros::Duration(0.03);
   geometry_msgs::PoseStamped pose;
@@ -230,7 +232,8 @@ TEST_F(VelocitySensorTests, SensorTF) {
   pose.pose.orientation.z = q.z();
   pose.pose.orientation.w = q.w();
 
-  VelocityYaw vel = sensor.getSensorData();
+  std::tuple<VelocityYaw,Position> data = sensor.getSensorData();
+  VelocityYaw vel = std::get<0>(data);
   tf::Vector3 velocity = tf::Vector3(vel.x, vel.y, vel.z);
   tf::Transform sensor_data_tf;
   sensor_data_tf.setOrigin(velocity);

@@ -1,6 +1,6 @@
 syntax = "proto2";
 
-message VelocitySensorConfig {
+message VelocityPoseSensorConfig {
   /**
   * @brief transform of sensor in robot's frame
   */

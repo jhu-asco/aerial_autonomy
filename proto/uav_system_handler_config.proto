@@ -3,7 +3,7 @@ syntax = "proto2";
 import "uav_system_config.proto";
 import "common_system_handler_config.proto";
 import "uav_arm_system_handler_config.proto";
-import "velocity_sensor_config.proto";
+import "velocity_pose_sensor_config.proto";
 
 message UAVSystemHandlerConfig {
   /**
@@ -32,7 +32,7 @@ message UAVSystemHandlerConfig {
   /**
   * @brief config for Velocity Sensor
   */
-  optional VelocitySensorConfig velocity_sensor_config = 6;
+  optional VelocityPoseSensorConfig velocity_sensor_config = 6;
   /**
   * @brief Flag to use dynamic reconfigure
   */

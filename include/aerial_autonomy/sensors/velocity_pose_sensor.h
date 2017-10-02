@@ -3,7 +3,7 @@
 #include "aerial_autonomy/types/position.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/velocity_yaw.h"
-#include "velocity_sensor_config.pb.h"
+#include "velocity_pose_sensor_config.pb.h"
 #include <aerial_autonomy/common/math.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <parsernode/parser.h>
@@ -26,7 +26,7 @@ public:
   * @param Config for velocity sensor
   */
   VelocityPoseSensor(parsernode::Parser &drone_hardware, ros::NodeHandle nh,
-                     VelocitySensorConfig config)
+                     VelocityPoseSensorConfig config)
       : Sensor(SensorStatus::INVALID), config_(config),
         drone_hardware_(drone_hardware), nh_(nh) {
     pose_sub_ =
@@ -99,7 +99,7 @@ private:
   /**
   * @ config for the position sensor
   */
-  VelocitySensorConfig config_;
+  VelocityPoseSensorConfig config_;
   /**
   * @brief Quad hardware to compare data
   * to check validity
