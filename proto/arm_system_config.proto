@@ -6,5 +6,5 @@ message ArmSystemConfig {
   /**
   * @brief configuration for builtin arm pose controller
   */
-  required PoseControllerConfig pose_controller_config = 1;
+  optional PoseControllerConfig pose_controller_config = 1;
 }

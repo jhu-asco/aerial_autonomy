@@ -131,6 +131,7 @@ struct PickPlaceStatesActions
   using PickTransitionGuard =
       bAnd<typename vsa::RelativePoseVisualServoingTransitionGuard,
            ArmTrackingGuardFunctor_<LogicStateMachineT>>;
+  // \todo Check if tracked objetc is in workspace
 
   /**
   * @brief Move arm to pick pose and move to tracked object
