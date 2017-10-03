@@ -12,7 +12,7 @@ bool ManualRPYTController::runImplementation(JoystickYaw sensor_data,
                         config_.max_channel2(), -config_.max_pitch(),
                         config_.max_pitch());
   control.t = math::map(sensor_data.channel3, -config_.max_channel3(),
-                        config_.max_channel3(), -config_.max_thrust(),
+                        config_.max_channel3(), config_.min_thrust(),
                         config_.max_thrust());
 
   double yaw_rate =
