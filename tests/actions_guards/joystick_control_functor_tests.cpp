@@ -126,7 +126,6 @@ TEST(JoystickControlTests, ControllerRunTest) {
   ASSERT_NEAR(sensor_data.linvel.x, vel_goal.x, 1e-3);
   ASSERT_NEAR(sensor_data.linvel.y, vel_goal.y, 1e-3);
   ASSERT_NEAR(sensor_data.linvel.z, vel_goal.z, 1e-3);
-  ASSERT_NEAR(sensor_data.rpydata.z, vel_goal.yaw, 1e-3);
 }
 
 TEST(JoystickControlTests, TransitionGuardInvalidTest) {
@@ -185,7 +184,7 @@ TEST(JoystickControlTests, SystemIdTest) {
   int16_t channels[4] = {100, 50, 25, 100};
   drone_hardware.setRC(channels);
 
-  for (int i = 0; i < 1000; ++i) {
+  for (int i = 0; i < 100; ++i) {
     uav_system.runActiveController(HardwareType::UAV);
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
     systemid_internal_action(dummy_event, sample_logic_state_machine,

@@ -15,9 +15,9 @@ bool ManualRPYTController::runImplementation(JoystickYaw sensor_data,
                         config_.max_channel3(), -config_.max_thrust(),
                         config_.max_thrust());
 
-  double yaw_rate = math::map(sensor_data.channel4, -config_.max_channel4(),
-                              config_.max_channel4(), -config_.max_yaw_rate(),
-                              config_.max_yaw_rate());
+  double yaw_rate =
+      math::map(sensor_data.channel4, -config_.max_channel4(),
+                config_.max_channel4(), -config_.max_yaw(), config_.max_yaw());
 
   control.y =
       math::angleWrap(sensor_data.yaw - yaw_rate * controller_timer_duration_);

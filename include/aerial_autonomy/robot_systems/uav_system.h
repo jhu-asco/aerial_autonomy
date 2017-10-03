@@ -88,6 +88,10 @@ private:
   * @ brief Variable to store measurements for system id
   */
   std::vector<gcop::QRotorSystemIDMeasurement> system_id_measurements;
+  /**
+  * @brief Sytem Id object
+  */
+  gcop::QRotorSystemID system_id;
 
 public:
   /**
@@ -297,7 +301,6 @@ public:
   * @brief add measurements for system id
   */
   void addMeasurement(gcop::QRotorSystemIDMeasurement measurement) {
-
     system_id_measurements.push_back(measurement);
     if (system_id_measurements.size() == 50) {
       runSystemId();
@@ -321,17 +324,18 @@ public:
     init_state.u << 0, 0, rpy(2);
 
     // Run estimator
-    gcop::QRotorSystemID system_id;
     system_id.offsets_timeperiod = 0.5; // \todo Will be a param in class
     system_id.EstimateParameters(system_id_measurements, init_state);
-    double threshold = 1.0; // \todo Will be a param in class
 
-    // Update gain only if residual gains are below a threshold
-    if (system_id.qrotor_gains_residualgain(0, 0) < threshold) {
+    // Update gain only if gain is within bounds
+    if ((system_id.qrotor_gains_lb[0] < system_id.qrotor_gains[0]) &
+        (system_id.qrotor_gains_ub[0] > system_id.qrotor_gains[0])) {
       RPYTBasedVelocityControllerConfig config;
       VLOG(1) << "kt changed to " << system_id.qrotor_gains[0] << "\n";
       config.set_kt(system_id.qrotor_gains[0]);
       updateRPYTVelocityControllerConfig(config);
+    } else {
+      LOG(WARNING) << "Gain out of bounds";
     }
   }
 

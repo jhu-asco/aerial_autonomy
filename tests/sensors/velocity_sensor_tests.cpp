@@ -110,7 +110,7 @@ TEST_F(VelocityPoseSensorTests, SensorValue) {
   ros::Duration(0.01).sleep();
   ros::spinOnce();
 
-  std::tuple<VelocityYaw,Position> data = sensor.getSensorData();
+  std::tuple<VelocityYaw, Position> data = sensor.getSensorData();
   VelocityYaw velocity = std::get<0>(data);
   ASSERT_NEAR(velocity.x, 0.1 / 0.03, 1e-4);
   ASSERT_NEAR(velocity.y, -0.2 / 0.03, 1e-4);
@@ -184,7 +184,7 @@ TEST_F(VelocityPoseSensorTests, MinTimestep) {
   ros::Duration(0.01).sleep();
   ros::spinOnce();
 
-  std::tuple<VelocityYaw,Position> data = sensor.getSensorData();
+  std::tuple<VelocityYaw, Position> data = sensor.getSensorData();
   VelocityYaw velocity = std::get<0>(data);
   ASSERT_NEAR(velocity.x, 0.1 / 0.02, 1e-4);
   ASSERT_NEAR(velocity.y, -0.2 / 0.02, 1e-4);
@@ -232,7 +232,7 @@ TEST_F(VelocityPoseSensorTests, SensorTF) {
   pose.pose.orientation.z = q.z();
   pose.pose.orientation.w = q.w();
 
-  std::tuple<VelocityYaw,Position> data = sensor.getSensorData();
+  std::tuple<VelocityYaw, Position> data = sensor.getSensorData();
   VelocityYaw vel = std::get<0>(data);
   tf::Vector3 velocity = tf::Vector3(vel.x, vel.y, vel.z);
   tf::Transform sensor_data_tf;
