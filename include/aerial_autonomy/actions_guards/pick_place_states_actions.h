@@ -126,7 +126,7 @@ struct PickPlaceStatesActions
       boost::mpl::vector<typename usa::UAVControllerAbort, ArmFold>>;
 
   /**
-  * @brief Check tracking is valid and arm is enabled for pre-pick
+  * @brief Check tracking is valid and arm is enabled for pick
   */
   using PickTransitionGuard =
       bAnd<typename vsa::RelativePoseVisualServoingTransitionGuard,

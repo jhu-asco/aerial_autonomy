@@ -50,14 +50,14 @@ protected:
       uav_vision_system_config->add_tracking_offset_transform(0.0);
     }
     // Flipped arm
-    // Arm transform xyz(0.2,0,-0.1), rpy(pi,0,0):
+    // Arm transform xyz, rpy:
     uav_arm_system_config->add_arm_transform(0.2);
     uav_arm_system_config->add_arm_transform(0);
     uav_arm_system_config->add_arm_transform(-0.1);
     uav_arm_system_config->add_arm_transform(M_PI);
     uav_arm_system_config->add_arm_transform(0);
     uav_arm_system_config->add_arm_transform(0);
-    // Arm goal transform xyz(-0.2,0,0), rpy(0,0,0):
+    // Arm goal transform xyz, rpy:
     // Pick goal
     uav_arm_system_config->add_arm_goal_transform(-0.1);
     uav_arm_system_config->add_arm_goal_transform(0);
@@ -157,23 +157,6 @@ TEST_F(PickPlaceFunctorTests, PoweroffCallGuardFunction) {
   bool result = pick_place_transition_guard(
       NULL, *sample_logic_state_machine, dummy_start_state, dummy_target_state);
   ASSERT_FALSE(result);
-}
-
-// Call Pick Internal Action function after setting the quad to the right
-// target
-// location and Arm to right location
-TEST_F(PickPlaceFunctorTests, CallPickInternalActionFunction) {
-  // Specify a global position
-  Position roi_goal(5, 0, 0.5);
-  simple_tracker->setTargetPositionGlobalFrame(roi_goal);
-  // Fly quadrotor which sets the altitude to 0.5
-  drone_hardware.setBatteryPercent(60);
-  drone_hardware.takeoff();
-  // Power on arm
-  uav_arm_system->power(true);
-
-  // \todo Test gripping internal action
-  // \todo Test waiting for grip internal action
 }
 
 TEST_F(PickPlaceFunctorTests, WaypointSequenceTransitionGuardCheck) {

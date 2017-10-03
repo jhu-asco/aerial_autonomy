@@ -14,7 +14,7 @@ TEST(VelocityBasedPositionControllerTests, ControlsInBounds) {
   VelocityBasedPositionController controller(config);
   PositionYaw sensor_data(0, 0, 0, 0);
   PositionYaw goal(1, -1, 0.5, 0.1);
-  controller.setGoal(goal, false);
+  controller.setGoal(goal, true);
   PositionYaw position_diff = goal - sensor_data;
   VelocityYawRate controls;
   bool result = controller.run(sensor_data, controls);
@@ -31,7 +31,7 @@ TEST(VelocityBasedPositionControllerTests, ControlsOutofBounds) {
   VelocityBasedPositionController controller(config, dt);
   PositionYaw sensor_data(0, 0, 0, 0);
   PositionYaw goal(10, -10, 0.5, 1.5);
-  controller.setGoal(goal, false);
+  controller.setGoal(goal, true);
   VelocityYawRate controls;
   double error_z = goal.z - sensor_data.z;
   double kp = config.position_gain();
@@ -58,7 +58,7 @@ TEST(VelocityBasedPositionControllerTests, Converged) {
   VelocityBasedPositionController controller(config);
   PositionYaw sensor_data(0, 0, 0, 0);
   PositionYaw goal(0, 0, 0, 0);
-  controller.setGoal(goal, false);
+  controller.setGoal(goal, true);
   VelocityYawRate controls;
   controller.run(sensor_data, controls);
 
@@ -74,7 +74,7 @@ TEST(VelocityBasedPositionControllerTests, ControlsOutofBoundsNegYaw) {
   VelocityBasedPositionController controller(config);
   PositionYaw sensor_data(0, 0, 0, 0);
   PositionYaw goal(-10, -10, 10, -1.5);
-  controller.setGoal(goal, false);
+  controller.setGoal(goal, true);
   VelocityYawRate controls;
   controller.run(sensor_data, controls);
   ASSERT_NEAR(controls.x, -config.max_velocity(), 1e-8);
@@ -92,8 +92,7 @@ TEST(VelocityBasedPositionControllerTests, WindingTest) {
   VelocityBasedPositionController controller(config, dt);
   PositionYaw sensor_data(0, 0, 0, 0);
   PositionYaw goal(5, -5, 5, 0.5);
-  controller.resetIntegrator();
-  controller.setGoal(goal, false);
+  controller.setGoal(goal, true);
   VelocityYawRate controls;
   for (int i = 0; i < 1000; ++i) {
     controller.run(sensor_data, controls);
