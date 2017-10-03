@@ -49,6 +49,21 @@ public:
     vs_position_tolerance->set_x(goal_tolerance_position);
     vs_position_tolerance->set_y(goal_tolerance_position);
     vs_position_tolerance->set_z(goal_tolerance_position);
+
+    // Configure position controller
+    auto vel_based_pos_controller_config =
+        config.mutable_velocity_based_position_controller_config();
+    vel_based_pos_controller_config->set_position_gain(50.);
+    vel_based_pos_controller_config->set_yaw_gain(50.);
+    auto vel_based_pos_controller_tol =
+        vel_based_pos_controller_config->mutable_position_controller_config()
+            ->mutable_goal_position_tolerance();
+    vel_based_pos_controller_tol->set_x(0.1);
+    vel_based_pos_controller_tol->set_y(0.1);
+    vel_based_pos_controller_tol->set_z(0.1);
+    vel_based_pos_controller_config->mutable_position_controller_config()
+        ->set_goal_yaw_tolerance(0.1);
+
     tf::Transform camera_transform = math::getTransformFromVector(
         uav_vision_system_config->camera_transform());
     tracker.reset(new SimpleTracker(drone_hardware, camera_transform));
@@ -58,6 +73,17 @@ public:
     logic_state_machine->start();
     // Move to landed state
     logic_state_machine->process_event(InternalTransitionEvent());
+  }
+
+  void runActiveControllerToConvergence() {
+    auto getUAVStatusRunControllers = [&]() {
+      uav_system->runActiveController(HardwareType::UAV);
+      return uav_system->getActiveControllerStatus(HardwareType::UAV) ==
+             ControllerStatus::Completed;
+    };
+    ASSERT_TRUE(test_utils::waitUntilTrue()(getUAVStatusRunControllers,
+                                            std::chrono::seconds(5),
+                                            std::chrono::milliseconds(0)));
   }
 
   ~VisualServoingStateMachineTests() {
@@ -100,17 +126,10 @@ TEST_F(VisualServoingStateMachineTests, VisualServoing) {
   // Check controller status
   ASSERT_EQ(uav_system->getStatus<VisualServoingControllerDroneConnector>(),
             ControllerStatus::Active);
-  // Keep running the controller until its completed
-  auto getUAVStatusRunControllers = [&]() {
-    uav_system->runActiveController(HardwareType::UAV);
-    logic_state_machine->process_event(InternalTransitionEvent());
-    return uav_system->getStatus<VisualServoingControllerDroneConnector>() ==
-           ControllerStatus::Active;
-  };
-  // Run controllers again
-  ASSERT_FALSE(test_utils::waitUntilFalse()(getUAVStatusRunControllers,
-                                            std::chrono::seconds(5),
-                                            std::chrono::milliseconds(0)));
+
+  runActiveControllerToConvergence();
+
+  logic_state_machine->process_event(InternalTransitionEvent());
   // Finally check we are back in hovering
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
 }
@@ -180,14 +199,12 @@ TEST_F(VisualServoingStateMachineTests, GoHome) {
   // Check we are reaching home position
   ASSERT_STREQ(pstate(*logic_state_machine), "ReachingGoal");
   // Run active controller
-  uav_system->runActiveController(HardwareType::UAV);
+  runActiveControllerToConvergence();
   // Check we are at home location
   auto uav_data = uav_system->getUAVData();
-  ASSERT_EQ(uav_data.localpos.x, 0.0);
-  ASSERT_EQ(uav_data.localpos.y, 0.0);
-  ASSERT_EQ(uav_data.localpos.z, 0.5);
-  // Update status
-  uav_system->runActiveController(HardwareType::UAV);
+  ASSERT_NEAR(uav_data.localpos.x, 0.0, 0.1);
+  ASSERT_NEAR(uav_data.localpos.y, 0.0, 0.1);
+  ASSERT_NEAR(uav_data.localpos.z, 0.5, 0.1);
   // Process status to get out of reaching goal state
   logic_state_machine->process_event(InternalTransitionEvent());
   // Check we are back in hovering

@@ -6,7 +6,7 @@
 #include <tf/tf.h>
 
 /**
- * @brief Simple tracker for a given fixed position.
+ * @brief Simple tracker for a set of given fixed positions.
  */
 class SimpleTracker : public BaseTracker {
 public:
@@ -45,9 +45,16 @@ public:
   void setTargetPoseGlobalFrame(tf::Transform p);
 
   /**
+   * @brief Set the target poses in the global frame
+   * @param poses Map of IDs to poses to set
+   */
+  void
+  setTargetPosesGlobalFrame(std::unordered_map<uint32_t, tf::Transform> &poses);
+
+  /**
    * @brief Set the target postion in the global frame.  Sets rotation to
    * identity.
-   * @param p tf::Transform to set
+   * @param p Position to set
    */
   void setTargetPositionGlobalFrame(Position p);
 
@@ -60,6 +67,6 @@ public:
 private:
   parsernode::Parser &drone_hardware_; ///< UAV Hardware
   bool tracking_valid_;                ///< Flag to specify if tracking is valid
-  tf::Transform target_pose_;          ///< Goal position to track
-  tf::Transform camera_transform_;     ///< Transform of camera in uav frame
+  std::unordered_map<uint32_t, tf::Transform> target_poses_; ///< Tracked poses
+  tf::Transform camera_transform_; ///< Transform of camera in uav frame
 };

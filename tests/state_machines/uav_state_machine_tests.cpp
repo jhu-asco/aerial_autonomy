@@ -1,4 +1,5 @@
 #include <aerial_autonomy/state_machines/uav_state_machine.h>
+#include <aerial_autonomy/tests/test_utils.h>
 #include <gtest/gtest.h>
 // Thread stuff
 #include <boost/optional/optional_io.hpp>
@@ -29,6 +30,20 @@ protected:
     position_tolerance->set_x(0.5);
     position_tolerance->set_y(0.5);
     position_tolerance->set_z(0.5);
+
+    auto vel_based_pos_controller_config =
+        config.mutable_velocity_based_position_controller_config();
+    vel_based_pos_controller_config->set_position_gain(20.);
+    vel_based_pos_controller_config->set_yaw_gain(20.);
+    auto vel_based_pos_controller_tol =
+        vel_based_pos_controller_config->mutable_position_controller_config()
+            ->mutable_goal_position_tolerance();
+    vel_based_pos_controller_tol->set_x(0.1);
+    vel_based_pos_controller_tol->set_y(0.1);
+    vel_based_pos_controller_tol->set_z(0.1);
+    vel_based_pos_controller_config->mutable_position_controller_config()
+        ->set_goal_yaw_tolerance(0.1);
+
     drone_hardware.setTakeoffAltitude(2.0);
     uav_system.reset(new UAVSystem(drone_hardware, config));
     logic_state_machine.reset(new UAVStateMachine(boost::ref(*uav_system)));
@@ -47,6 +62,17 @@ protected:
     drone_hardware.setBatteryPercent(100);
     logic_state_machine->process_event(be::Takeoff());
     logic_state_machine->process_event(InternalTransitionEvent());
+  }
+
+  void runActiveControllerToConvergence() {
+    auto getUAVStatusRunControllers = [&]() {
+      uav_system->runActiveController(HardwareType::UAV);
+      return uav_system->getActiveControllerStatus(HardwareType::UAV) ==
+             ControllerStatus::Completed;
+    };
+    ASSERT_TRUE(test_utils::waitUntilTrue()(getUAVStatusRunControllers,
+                                            std::chrono::seconds(5),
+                                            std::chrono::milliseconds(0)));
   }
 };
 
@@ -132,12 +158,8 @@ TEST_F(StateMachineTests, PositionControl) {
   PositionYaw goal(0, 0, 5, 0);
   logic_state_machine->process_event(goal);
   ASSERT_STREQ(pstate(*logic_state_machine), "ReachingGoal");
-  // Run active controller:
-  uav_system->runActiveController(HardwareType::UAV);
-  parsernode::common::quaddata data = uav_system->getUAVData();
-  PositionYaw curr_pose_yaw(data.localpos.x, data.localpos.y, data.localpos.z,
-                            data.rpydata.z);
-  ASSERT_EQ(curr_pose_yaw, goal);
+  // Send UAV to goal:
+  runActiveControllerToConvergence();
   // Verify if we reached the goal
   uav_system->runActiveController(HardwareType::UAV); // Update status
   logic_state_machine->process_event(InternalTransitionEvent());
@@ -153,8 +175,7 @@ TEST_F(StateMachineTests, PositionControlResetActive) {
   PositionYaw goal(0, 0, 5, 0);
   logic_state_machine->process_event(goal);
   // Run active controller:
-  uav_system->runActiveController(HardwareType::UAV);
-  uav_system->runActiveController(HardwareType::UAV); // Update status
+  runActiveControllerToConvergence();
   // Transition to hovering
   logic_state_machine->process_event(InternalTransitionEvent());
   // Now try going to a second goal
@@ -178,7 +199,8 @@ TEST_F(StateMachineTests, PositionControlAbort) {
   logic_state_machine->process_event(be::Abort());
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
   // Once aborted running active controller will not reach goal
-  uav_system->runActiveController(HardwareType::UAV);
+  ASSERT_EQ(uav_system->getActiveControllerStatus(HardwareType::UAV),
+            ControllerStatus::NotEngaged);
   parsernode::common::quaddata data = uav_system->getUAVData();
   PositionYaw curr_pose_yaw(data.localpos.x, data.localpos.y, data.localpos.z,
                             data.rpydata.z);

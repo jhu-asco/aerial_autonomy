@@ -25,6 +25,13 @@ class ArmSystem : public virtual BaseRobotSystem {
 
 public:
   /**
+  * @brief Constructor with default config
+  * @param arm_hardware Arm hardware driver
+  */
+  ArmSystem(ArmParser &arm_hardware)
+      : ArmSystem(arm_hardware, ArmSystemConfig()) {}
+
+  /**
   * @brief Constructor
   *
   * ArmSystem requires an arm hardware. It instantiates the connectors,

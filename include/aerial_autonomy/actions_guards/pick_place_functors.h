@@ -6,6 +6,7 @@
 #include <aerial_autonomy/actions_guards/visual_servoing_functors.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/logic_states/timed_state.h>
+#include <aerial_autonomy/pick_place_events.h>
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/types/completed_event.h>
 #include <aerial_autonomy/types/reset_event.h>
@@ -19,6 +20,10 @@ template <class LogicStateMachineT> class PickState_;
 // Forward declaration for ReachingWaypointInternalActionFunctor_
 template <class LogicStateMachineT, int StartIndex, int EndIndex>
 struct FollowingWaypointSequence_;
+
+// Forward declaration for WaitingForPickInternalActionFunctor_
+template <class LogicStateMachineT> struct WaitingForPick_;
+
 /**
 * @brief Checks whether grip command has completed or timed out
 * @tparam LogicStateMachineT Logic state machine used to process events
@@ -30,11 +35,7 @@ struct GrippingInternalActionFunctor_
           UAVArmSystem, LogicStateMachineT, PickState_<LogicStateMachineT>> {
   bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine,
            PickState_<LogicStateMachineT> &state) {
-    VLOG(1) << "Monitoring grip";
     bool has_grip = robot_system.grip(true);
-    if (has_grip) {
-      VLOG(1) << "Gripping object";
-    }
     if (state.monitorGrip(has_grip)) {
       VLOG(1) << "Done Gripping!";
       logic_state_machine.process_event(Completed());
@@ -50,36 +51,6 @@ struct GrippingInternalActionFunctor_
     return true;
   }
 };
-
-template <class LogicStateMachineT>
-struct PickTransitionGuardFunctor_
-    : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
-  bool guard(UAVArmSystem &robot_system) {
-    if (!(bool(robot_system.getStatus<
-               RelativePoseVisualServoingControllerDroneConnector>()) &&
-          bool(robot_system.getStatus<BuiltInPoseControllerArmConnector>()))) {
-      LOG(WARNING) << "Both controllers not converged!";
-      return false;
-    }
-    return true;
-  }
-};
-/**
-* @brief Logic to check while reaching a visual servoing and arm end effector
-* goal
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-using PrePickInternalActionFunctor_ =
-    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
-        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-        ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, BuiltInPoseControllerArmConnector>,
-        ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT,
-            RelativePoseVisualServoingControllerDroneConnector, false, Reset>>>;
 
 /**
 * @brief Logic to check while placing object
@@ -113,7 +84,7 @@ using ManualControlArmInternalActionFunctor_ =
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-struct PrePickTransitionGuardFunctor_
+struct ArmTrackingGuardFunctor_
     : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
   bool guard(UAVArmSystem &robot_system_) {
     Position tracking_vector;
@@ -155,6 +126,22 @@ struct ArmPoseTransitionActionFunctor_
         robot_system.armGoalTransform(TransformIndex));
     // Also ensure the gripper is in the right state to grip objects
     robot_system.resetGripper();
+  }
+};
+// \todo Matt Add guard for arm pose goal that checks goal index
+
+/**
+* @brief Action functor that attempts to pick
+* @tparam LogicStateMachineT Type of state machine
+*/
+template <class LogicStateMachineT>
+struct WaitingForPickInternalActionFunctor_
+    : StateDependentInternalActionFunctor<UAVArmSystem, LogicStateMachineT,
+                                          WaitingForPick_<LogicStateMachineT>> {
+  bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine,
+           WaitingForPick_<LogicStateMachineT> &state) {
+    logic_state_machine.process_event(pick_place_events::Pick());
+    return false;
   }
 };
 
@@ -232,8 +219,7 @@ struct WaypointSequenceTransitionGuardFunctor_
                   robot_system.checkWaypointIndex(EndIndex);
     if (!result) {
       LOG(WARNING) << "StartIndex: " << StartIndex << " or EndIndex "
-                   << EndIndex
-                   << " not available in waypoint vector in config file";
+                   << EndIndex << " not available in waypoint vector in config";
     }
     return result;
   }
@@ -323,16 +309,6 @@ private:
 };
 
 /**
-* @brief State that uses position control functor to reach a desired goal.
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-using PrePickState_ =
-    BaseState<UAVArmSystem, LogicStateMachineT,
-              PrePickInternalActionFunctor_<LogicStateMachineT>>;
-
-/**
 * @brief State that uses visual servoing to place object.
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
@@ -341,6 +317,14 @@ template <class LogicStateMachineT>
 using PlaceState_ = BaseState<UAVArmSystem, LogicStateMachineT,
                               PlaceInternalActionFunctor_<LogicStateMachineT>>;
 
+template <class LogicStateMachineT>
+struct WaitingForPick_
+    : public TimedState<
+          UAVArmSystem, LogicStateMachineT,
+          boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+              UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+              ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+              WaitingForPickInternalActionFunctor_<LogicStateMachineT>>>> {};
 /**
 * @brief State that uses position control functor to reach a desired goal for
 * picking and monitors the gripper status
@@ -370,6 +354,7 @@ public:
     if (grip_success) {
       if (!gripping_) {
         // start grip timer
+        VLOG(1) << "Gripping object";
         gripping_ = true;
         grip_start_time_ = std::chrono::high_resolution_clock::now();
       } else {
@@ -380,6 +365,7 @@ public:
       }
     } else {
       if (gripping_) {
+        VLOG(1) << "Not gripping object";
         // stop grip timer
         gripping_ = false;
       }

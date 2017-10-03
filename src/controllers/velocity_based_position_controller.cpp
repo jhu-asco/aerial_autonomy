@@ -49,11 +49,9 @@ bool VelocityBasedPositionController::runImplementation(
   control.y = backCalculate(cumulative_error.y, p_position_diff.y,
                             config_.max_velocity(),
                             config_.position_saturation_value());
+  // No integrator on z dynamics
   control.z = math::clamp(p_position_diff.z, -config_.max_velocity(),
                           config_.max_velocity());
-  // control.z = backCalculate(cumulative_error.z, p_position_diff.z,
-  //                          config_.max_velocity(),
-  //                          position_saturation_gain_);
 
   control.yaw_rate =
       backCalculate(cumulative_error.yaw, p_position_diff.yaw,
@@ -80,10 +78,10 @@ ControllerStatus VelocityBasedPositionController::isConvergedImplementation(
       position_controller_config.goal_position_tolerance();
   const double &tolerance_yaw = position_controller_config.goal_yaw_tolerance();
   // Compare
-  if (std::abs(position_diff.x) < tolerance_pos.x() &&
-      std::abs(position_diff.y) < tolerance_pos.y() &&
-      std::abs(position_diff.z) < tolerance_pos.z() &&
-      std::abs(position_diff.yaw) < tolerance_yaw) {
+  if (std::abs(position_diff.x) <= tolerance_pos.x() &&
+      std::abs(position_diff.y) <= tolerance_pos.y() &&
+      std::abs(position_diff.z) <= tolerance_pos.z() &&
+      std::abs(position_diff.yaw) <= tolerance_yaw) {
     VLOG_EVERY_N(1, 50) << "Reached goal";
     status.setStatus(ControllerStatus::Completed, "Reached goal");
   }

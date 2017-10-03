@@ -18,8 +18,23 @@ public:
     UAVSystemHandlerConfig uav_system_handler_config;
     uav_system_handler_config.set_uav_parser_type(
         "quad_simulator_parser/QuadSimParser");
-    uav_system_handler_config.mutable_uav_system_config()
-        ->set_minimum_takeoff_height(0.4);
+    auto uav_config = uav_system_handler_config.mutable_uav_system_config();
+    uav_config->set_minimum_takeoff_height(0.4);
+    // Position controller params
+    auto pos_controller_config =
+        uav_config->mutable_velocity_based_position_controller_config();
+    pos_controller_config->set_position_gain(10.);
+    pos_controller_config->set_yaw_gain(10.);
+    pos_controller_config->set_max_velocity(20.);
+    pos_controller_config->set_max_yaw_rate(5.);
+    auto goal_position_tolerance =
+        pos_controller_config->mutable_position_controller_config()
+            ->mutable_goal_position_tolerance();
+    pos_controller_config->mutable_position_controller_config()
+        ->set_goal_yaw_tolerance(0.1);
+    goal_position_tolerance->set_x(0.1);
+    goal_position_tolerance->set_y(0.1);
+    goal_position_tolerance->set_z(0.1);
 
     uav_system_handler_.reset(
         new UAVSystemHandler<UAVStateMachine, UAVEventManager<UAVStateMachine>>(
@@ -78,8 +93,10 @@ TEST_F(UAVSystemHandlerTests, ProcessPoseCommand) {
   ASSERT_TRUE(test_utils::waitUntilTrue()(
       [=]() {
         ros::spinOnce();
-        return pose_command ==
-               getPositionYaw(uav_system_handler_->getUAVData());
+        return (pose_command -
+                getPositionYaw(uav_system_handler_->getUAVData()))
+                   .position()
+                   .norm() < 0.1;
       },
       std::chrono::seconds(timeout_wait)));
 }
