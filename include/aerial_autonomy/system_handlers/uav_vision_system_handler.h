@@ -34,14 +34,7 @@ public:
         parser_loader_("parsernode", "parsernode::Parser"),
         uav_hardware_(
             parser_loader_.createUnmanagedInstance(config.uav_parser_type())),
-        tracker_(
-            config.uav_system_config()
-                        .uav_vision_system_config()
-                        .tracker_type() == "ROI"
-                ? dynamic_cast<BaseTracker *>(
-                      new RoiToPositionConverter(nh_tracker_))
-                : dynamic_cast<BaseTracker *>(new AlvarTracker(nh_tracker_))),
-        uav_system_(*tracker_, *uav_hardware_, config.uav_system_config()),
+        uav_system_(*uav_hardware_, config.uav_system_config()),
         common_handler_(config.base_config(), uav_system_),
         uav_controller_timer_(
             std::bind(&UAVVisionSystem::runActiveController,
@@ -84,7 +77,6 @@ private:
   pluginlib::ClassLoader<parsernode::Parser>
       parser_loader_; ///< Used to load hardware plugin
   std::unique_ptr<parsernode::Parser> uav_hardware_; ///< Hardware instance
-  std::unique_ptr<BaseTracker> tracker_;             ///< Tracking system
   UAVVisionSystem uav_system_;                       ///< Contains controllers
   CommonSystemHandler<LogicStateMachineT, EventManagerT, UAVVisionSystem>
       common_handler_;              ///< Common logic to create state machine

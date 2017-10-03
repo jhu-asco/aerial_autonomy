@@ -22,16 +22,15 @@ public:
   * @param drone_hardware UAV driver
   * @param config Configuration parameters
   */
-  UAVVisionSystem(BaseTracker &tracker, parsernode::Parser &drone_hardware,
-                  UAVSystemConfig config)
+  UAVVisionSystem(parsernode::Parser &drone_hardware, UAVSystemConfig config)
       : UAVSystem(drone_hardware, config),
         camera_transform_(math::getTransformFromVector(
             config_.uav_vision_system_config().camera_transform())),
         relative_pose_goals_(conversions::protoPositionYawsToPositionYaws(
             config_.uav_vision_system_config().relative_pose_goals())),
-        tracker_(tracker), constant_heading_depth_controller_(
-                               config_.uav_vision_system_config()
-                                   .constant_heading_depth_controller_config()),
+        constant_heading_depth_controller_(
+            config_.uav_vision_system_config()
+                .constant_heading_depth_controller_config()),
         velocity_based_relative_pose_controller_(
             config_.uav_vision_system_config()
                 .velocity_based_relative_pose_controller_config()),
@@ -49,11 +48,12 @@ public:
         relative_pose_visual_servoing_drone_connector_);
   }
 
+  // \todo Find a better way to update controller configurations from dynamic
+  // reconfigure
   void setVelocityBasedPositionControllerConfig(
       const aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
           &config) {
     velocity_based_relative_pose_controller_.updateConfig(config);
-    // velocity_based_position_controller_.updateConfig(config);
   }
 
   aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
@@ -145,7 +145,6 @@ protected:
   std::vector<PositionYaw> relative_pose_goals_;
 
 private:
-  BaseTracker &tracker_;
   /**
   * @brief Track the target position given by the tracker
   */

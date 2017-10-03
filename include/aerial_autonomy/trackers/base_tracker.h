@@ -12,14 +12,19 @@
  */
 class BaseTracker {
 public:
-  BaseTracker(TrackingStrategy *tracking_strategy)
-      : tracking_strategy_(tracking_strategy) {}
+  BaseTracker(std::unique_ptr<TrackingStrategy> tracking_strategy)
+      : tracking_strategy_(std::move(tracking_strategy)) {}
   /**
   * @brief Initialze the tracker.  Can simply return true if the subclass
   * requires no additional initialization.
   * @return True if initialization succeeds, false otherwise
   */
   virtual bool initialize();
+  /**
+  * @brief Set the tracker's tracking strategy
+  * @param The desired tracking strategy
+  */
+  void setTrackingStrategy(std::unique_ptr<TrackingStrategy> tracking_strategy);
   /**
    * @brief Get the tracking vector
    * @param pos Returned tracking vector

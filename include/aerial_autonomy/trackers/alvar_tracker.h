@@ -18,7 +18,8 @@ public:
   */
   AlvarTracker(ros::NodeHandle &nh)
       // \todo Matt Add timeout and num_retries as config
-      : BaseTracker(new ClosestTrackingStrategy(25)),
+      : BaseTracker(std::move(std::unique_ptr<TrackingStrategy>(
+            new ClosestTrackingStrategy(25)))),
         nh_(nh),
         alvar_sub_(nh_.subscribe("ar_pose_marker", 1,
                                  &AlvarTracker::markerCallback, this)),

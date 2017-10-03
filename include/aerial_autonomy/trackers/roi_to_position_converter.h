@@ -30,9 +30,10 @@ public:
   * @param nh Nodehandle for subscribers, publishers
   */
   RoiToPositionConverter(ros::NodeHandle &nh)
-      : BaseTracker(new SimpleTrackingStrategy()), it_(nh),
-        roi_subscriber_(nh.subscribe(
-            "roi", 10, &RoiToPositionConverter::roiCallback, this)),
+      : BaseTracker(std::move(
+            std::unique_ptr<TrackingStrategy>(new SimpleTrackingStrategy()))),
+        it_(nh), roi_subscriber_(nh.subscribe(
+                     "roi", 10, &RoiToPositionConverter::roiCallback, this)),
         camera_info_subscriber_(
             nh.subscribe("camera_info", 1,
                          &RoiToPositionConverter::cameraInfoCallback, this)),
