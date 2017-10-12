@@ -110,7 +110,7 @@ TEST(UAVSystemTests, runRPYTController) {
                 -config_.max_pitch(), config_.max_pitch());
   rpyt.t =
       math::map(channels[2], -config_.max_channel3(), config_.max_channel3(),
-                -config_.max_thrust(), config_.max_thrust());
+                config_.min_thrust(), config_.max_thrust());
 
   parsernode::common::quaddata sensor_data = uav_system.getUAVData();
   ASSERT_NEAR(sensor_data.rpydata.x, rpyt.r, 1e-4);
@@ -165,7 +165,7 @@ TEST(UAVSystemTests, ExplicitConstructor) {
                         new Guidance(drone_hardware)),
                     0.02));
 }
-/*
+
 TEST(UAVSystemTests, runJoystickVelocityController) {
   UAVSystemConfig uav_system_config;
   QuadSimulator drone_hardware;
@@ -210,14 +210,14 @@ TEST(UAVSystemTests, runJoystickVelocityController) {
   ASSERT_TRUE(test_utils::waitUntilTrue()(
       controller_run, std::chrono::seconds(50), std::chrono::milliseconds(10)));
 
-  VelocityYaw vel_goal(0.1, 0.1, -0.1,0);
+  VelocityYaw vel_goal(0.1, 0.1, -0.1, 0);
 
   parsernode::common::quaddata sensor_data = uav_system.getUAVData();
   ASSERT_NEAR(sensor_data.linvel.x, vel_goal.x, 1e-3);
   ASSERT_NEAR(sensor_data.linvel.y, vel_goal.y, 1e-3);
   ASSERT_NEAR(sensor_data.linvel.z, vel_goal.z, 1e-3);
 }
-*/
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

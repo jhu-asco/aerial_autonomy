@@ -77,8 +77,8 @@ struct SystemIdStateInternalActionFunctor_
         math::angleWrap(data.rpydata.z -
                         math::map(data.servo_in[3], -rpyt_config.max_channel4(),
                                   rpyt_config.max_channel4(),
-                                  -rpyt_config.max_yaw(),
-                                  rpyt_config.max_yaw()) *
+                                  -rpyt_config.max_yaw_rate(),
+                                  rpyt_config.max_yaw_rate()) *
                             robot_system.getControllerTimerDuration());
 
     robot_system.addMeasurement(measurement);

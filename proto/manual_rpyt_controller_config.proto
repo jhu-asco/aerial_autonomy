@@ -40,5 +40,5 @@ message ManualRPYTControllerConfig {
   /**
   * @brief max yaw rate in rad/s
   */
-  optional double max_yaw = 9 [ default = 3.14 ];
+  optional double max_yaw_rate = 9 [ default = 3.14 ];
 }

@@ -50,7 +50,7 @@ bool RPYTBasedVelocityController::runImplementation(
     LOG(WARNING) << "Desired roll is 90 degrees. Setting pitch to 0";
   }
 
-  control.t = math::clamp(control.t, 0, config.max_thrust());
+  control.t = math::clamp(control.t, 10, config.max_thrust());
   control.r = math::clamp(control.r, -config.max_rp(), config.max_rp());
   control.p = math::clamp(control.p, -config.max_rp(), config.max_rp());
 
