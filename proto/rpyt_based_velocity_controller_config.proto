@@ -25,13 +25,17 @@ message RPYTBasedVelocityControllerConfig {
   /**
   * @brief maximum allowed thrust
   */
-  optional double max_thrust = 6 [default = 80]; 
+  optional double max_thrust = 6 [default = 80];
+  /**
+  * @brief maximum allowed thrust
+  */
+  optional double min_thrust = 7 [default = 10];
   /**
   * @brief maximum allowed roll, pitch
   */
-    optional double max_rp = 7 [default = 1.57];
+    optional double max_rp = 8 [default = 1.57];
   /**
   * @brief Config about velocity tolerance, yaw tolerance
   */
-  optional VelocityControllerConfig velocity_controller_config = 8;
+  optional VelocityControllerConfig velocity_controller_config = 9;
 }
