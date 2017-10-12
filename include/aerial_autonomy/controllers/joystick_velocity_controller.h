@@ -97,4 +97,8 @@ private:
   * @brief Internal controller to get rpyt from desired velocity
   */
   RPYTBasedVelocityController rpyt_velocity_controller_;
+  /**
+  * @brief Last commanded yaw
+  */
+  double last_yaw = 0;
 };

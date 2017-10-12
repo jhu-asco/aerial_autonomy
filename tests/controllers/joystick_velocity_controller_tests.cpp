@@ -75,7 +75,7 @@ TEST(JoystickVelocityControllerTests, Convergence) {
   JoystickVelocityControllerConfig joystick_config;
   JoystickVelocityController controller(joystick_config, dt);
   controller.updateRPYTConfig(rpyt_config);
-  Joystick joy_data(10000, 10000, 10000, 0);
+  Joystick joy_data(10000, 10000, 10000, 1000);
   VelocityYaw vel_data(0, 0, 0, 0);
   std::tuple<Joystick, VelocityYaw> sensor_data =
       std::make_tuple(joy_data, vel_data);

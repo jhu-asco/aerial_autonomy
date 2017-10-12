@@ -116,7 +116,7 @@ TEST(UAVSystemTests, runRPYTController) {
   ASSERT_NEAR(sensor_data.rpydata.x, rpyt.r, 1e-4);
   ASSERT_NEAR(sensor_data.rpydata.y, rpyt.p, 1e-4);
   // Verify Omegaz
-  ASSERT_NEAR(sensor_data.omega.z, -0.00314, 1e-3);
+  ASSERT_NEAR(sensor_data.omega.z, -0.0314, 1e-3);
 }
 
 TEST(UAVSystemTests, getActiveControllerStatus) {

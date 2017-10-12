@@ -126,6 +126,11 @@ TEST(JoystickControlTests, ControllerRunTest) {
   ASSERT_NEAR(sensor_data.linvel.x, vel_goal.x, 1e-3);
   ASSERT_NEAR(sensor_data.linvel.y, vel_goal.y, 1e-3);
   ASSERT_NEAR(sensor_data.linvel.z, vel_goal.z, 1e-3);
+  ASSERT_NEAR(sensor_data.omega.z,
+              -0.1 *
+                  uav_system_config.joystick_velocity_controller_config()
+                      .max_yaw_rate(),
+              2e-2);
 }
 
 TEST(JoystickControlTests, TransitionGuardInvalidTest) {

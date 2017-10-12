@@ -55,7 +55,11 @@ private:
   */
   ManualRPYTControllerConfig config_;
   /**
-  *
+  * @brief controller timestep
   */
   double controller_timer_duration_;
+  /**
+  * @brief Last commanded yaw
+  */
+  double last_yaw = 0;
 };

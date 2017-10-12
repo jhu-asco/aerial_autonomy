@@ -40,7 +40,7 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
   Guidance velocity_sensor(drone_hardware);
 
   // Set stick commands
-  int16_t channels[4] = {150, 100, -150, 0};
+  int16_t channels[4] = {150, 100, -150, 100};
   drone_hardware.setRC(channels);
 
   JoystickVelocityControllerDroneConnector connector(drone_hardware, controller,
@@ -61,6 +61,7 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
   ASSERT_NEAR(sensor_data.linvel.x, 0.015, 1e-3);
   ASSERT_NEAR(sensor_data.linvel.y, 0.01, 1e-3);
   ASSERT_NEAR(sensor_data.linvel.z, -0.015, 1e-3);
+  ASSERT_NEAR(sensor_data.omega.z, -0.0314, 1e-3);
 }
 
 TEST(JoystickVelocityControllerDroneConnector, SensorCritical) {

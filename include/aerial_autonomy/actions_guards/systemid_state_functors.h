@@ -74,6 +74,8 @@ struct SystemIdStateInternalActionFunctor_
         math::map(data.servo_in[2], -rpyt_config.max_channel3(),
                   rpyt_config.max_channel3(), rpyt_config.min_thrust(),
                   rpyt_config.max_thrust()),
+        // \todo Soham make this commanded_yaw - yaw_rate*timestep in estimator
+        // class
         math::angleWrap(data.rpydata.z -
                         math::map(data.servo_in[3], -rpyt_config.max_channel4(),
                                   rpyt_config.max_channel4(),
