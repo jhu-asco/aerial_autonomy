@@ -17,7 +17,7 @@ uav_system_config {
     max_channel3: 10000
     max_channel4: 10000
 
-    max_velocity: 1
+    max_velocity: 1.0
     max_yaw_rate: 3.14
 
     rpyt_based_velocity_controller_config{
@@ -25,18 +25,26 @@ uav_system_config {
       ki: 0.02
       kt: 0.16
 
+      min_thurst: 10
       max_thrust: 80 
       max_rp: 1.57
-    }
-  }
 
-  manual_rpyt_controller_config{
-    min_thrust: 22.8
+      velocity_controller_config{
+        goal_velocity_tolerance{
+          vx: 0.001
+          vy: 0.001
+          vz: 0.001
+        }
+      }
+    }
+    manual_rpyt_controller_config{
+      min_thrust: 22.8
+    }
   }
 }
 
 
-uav_parser_type: "quad_simulator_parser/QuadSimParser"
+uav_parser_type: "dji_parser/DjiParser"
 
 uav_controller_timer_duration: 20
 
@@ -45,14 +53,14 @@ base_config {
   status_timer_duration: 50
 }
 
-sensor_type: "ROS Sensor"
+sensor_type: "Guidance"
 
 velocity_sensor_config{
-  sensor_transform: 0.1
   sensor_transform: 0.0
-  sensor_transform: 0.1
   sensor_transform: 0.0
-  sensor_transform: 1.57
+  sensor_transform: 0.0
+  sensor_transform: 0.0
+  sensor_transform: 0.0
   sensor_transform: 0.0
 }
 

@@ -26,6 +26,16 @@ public:
       : config_(config), controller_timer_duration_(controller_timer_duration) {
   }
   /**
+  * @brief get last commanded yaw
+  */
+  double getLastCommandedYaw() { return last_yaw; }
+  /**
+  * @brief set last commanded yaw from sensor data
+  */
+  void setLastCommandedYaw(double last_commanded_yaw) {
+    last_yaw = last_commanded_yaw;
+  }
+  /**
    * @brief Destructor
    */
   virtual ~ManualRPYTController() {}

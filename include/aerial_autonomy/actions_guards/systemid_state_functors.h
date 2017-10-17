@@ -19,6 +19,9 @@ struct SystemIdStateTransitionActionFunctor_
   void run(UAVSystem &robot_system) {
     VLOG(1) << "Entering system id mode\n";
     robot_system.setGoal<ManualRPYTControllerDroneConnector>(EmptyGoal());
+    parsernode::common::quaddata data = robot_system.getUAVData();
+    robot_system.setLastCommandedYaw(data.rpydata.z, true);
+    VLOG(1) << "Set Yaw to " << data.rpydata.z << "\n";
   }
 };
 /**
@@ -64,25 +67,24 @@ struct SystemIdStateInternalActionFunctor_
     measurement.t = data.timestamp;
     measurement.position << position_data.x, position_data.y, position_data.z;
     measurement.rpy << data.rpydata.x, data.rpydata.y, data.rpydata.z;
+
     measurement.control << math::map(
-        data.servo_in[0], -rpyt_config.max_channel1(),
-        rpyt_config.max_channel1(), -rpyt_config.max_roll(),
-        rpyt_config.max_roll()),
+        data.servo_in[2], -rpyt_config.max_channel3(),
+        rpyt_config.max_channel3(), rpyt_config.min_thrust(),
+        rpyt_config.max_thrust()),
+        math::map(data.servo_in[0], -rpyt_config.max_channel1(),
+                  rpyt_config.max_channel1(), -rpyt_config.max_roll(),
+                  rpyt_config.max_roll()),
         math::map(data.servo_in[1], -rpyt_config.max_channel2(),
                   rpyt_config.max_channel2(), -rpyt_config.max_pitch(),
                   rpyt_config.max_pitch()),
-        math::map(data.servo_in[2], -rpyt_config.max_channel3(),
-                  rpyt_config.max_channel3(), rpyt_config.min_thrust(),
-                  rpyt_config.max_thrust()),
         // \todo Soham make this commanded_yaw - yaw_rate*timestep in estimator
         // class
-        math::angleWrap(data.rpydata.z -
-                        math::map(data.servo_in[3], -rpyt_config.max_channel4(),
+        math::angleWrap(math::map(data.servo_in[3], -rpyt_config.max_channel4(),
                                   rpyt_config.max_channel4(),
                                   -rpyt_config.max_yaw_rate(),
                                   rpyt_config.max_yaw_rate()) *
-                            robot_system.getControllerTimerDuration());
-
+                        robot_system.getControllerTimerDuration());
     robot_system.addMeasurement(measurement);
     return true;
   }

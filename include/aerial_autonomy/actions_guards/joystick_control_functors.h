@@ -17,6 +17,8 @@ struct JoystickControlTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system) {
     VLOG(1) << "entering joystick control mode";
+    parsernode::common::quaddata data = robot_system.getUAVData();
+    robot_system.setLastCommandedYaw(data.rpydata.z, false);
     robot_system.setGoal<JoystickVelocityControllerDroneConnector, EmptyGoal>(
         EmptyGoal());
   }

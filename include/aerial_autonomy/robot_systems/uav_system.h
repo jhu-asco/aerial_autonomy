@@ -146,6 +146,18 @@ public:
         rpyt_controller_drone_connector_);
     controller_hardware_connector_container_.setObject(
         joystick_velocity_controller_drone_connector_);
+
+    DATA_HEADER("system_id_measurements") << "Timestamp"
+                                          << "PositionX"
+                                          << "PositionY"
+                                          << "PositionZ"
+                                          << "Roll "
+                                          << "Pitch"
+                                          << "Yaw"
+                                          << "CommandedThrust"
+                                          << "CommandedRoll"
+                                          << "CommandedPitch"
+                                          << "CommandedYaw" << DataStream::endl;
   }
   /**
   * @brief Get sensor data from UAV
@@ -298,9 +310,36 @@ public:
     return joystick_velocity_controller_.getRPYTConfig();
   }
   /**
+  * @brief get last commanded yaw
+  */
+  double getLastCommandedYaw() {
+    return manual_rpyt_controller_.getLastCommandedYaw();
+  }
+  /**
+  * @brief set last commanded yaw
+  *
+  * @param manual_controller Flag to check which controller to set for
+  * true: set for velocity-yaw controller
+  * false: set for manual rpyt controller
+  */
+  void setLastCommandedYaw(double last_commanded_yaw,
+                           bool manual_controller = false) {
+    if (manual_controller)
+      manual_rpyt_controller_.setLastCommandedYaw(last_commanded_yaw);
+    else
+      joystick_velocity_controller_.setLastCommandedYaw(last_commanded_yaw);
+  }
+  /**
   * @brief add measurements for system id
   */
   void addMeasurement(gcop::QRotorSystemIDMeasurement measurement) {
+    DATA_LOG("system_id_measurements")
+        << measurement.t << measurement.position[0] << measurement.position[1]
+        << measurement.position[2] << measurement.rpy[0] << measurement.rpy[1]
+        << measurement.rpy[2] << measurement.control[0]
+        << measurement.control[1] << measurement.control[2]
+        << measurement.control[3] << DataStream::endl;
+
     system_id_measurements.push_back(measurement);
     if (system_id_measurements.size() == 50) {
       runSystemId();

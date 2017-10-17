@@ -64,6 +64,12 @@ public:
   RPYTBasedVelocityControllerConfig getRPYTConfig() {
     return rpyt_velocity_controller_.getConfig();
   }
+  /**
+  * @brief set last commanded yaw
+  */
+  void setLastCommandedYaw(double last_commanded_yaw) {
+    last_yaw = last_commanded_yaw;
+  }
 
 protected:
   /**
