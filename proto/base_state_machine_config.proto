@@ -1,3 +1,6 @@
 syntax = "proto2";
+import "uav_state_machine_config.proto";
 
-message BaseStateMachineConfig {}
+message BaseStateMachineConfig {
+  oneof subclass { UAVStateMachineConfig uav_state_machine_config = 1; }
+}

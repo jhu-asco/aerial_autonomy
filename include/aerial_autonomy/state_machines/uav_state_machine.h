@@ -90,10 +90,9 @@ public:
   */
   UAVStateMachineFrontEnd(UAVSystem &uav_system,
                           const BaseStateMachineConfig &state_machine_config)
-      : BaseStateMachine(uav_system, state_machine_config) {}
-
-  UAVStateMachineFrontEnd(UAVSystem &uav_system)
-      : UAVStateMachineFrontEnd(uav_system, BaseStateMachineConfig()){};
+      : BaseStateMachine(uav_system, state_machine_config) {
+    // Store state machine configs
+  }
 
   /**
   * @brief Initial state for state machine
