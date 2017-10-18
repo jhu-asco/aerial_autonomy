@@ -1,4 +1,4 @@
-#include <aerial_autonomy/common/configuration_interface.h>
+#include <aerial_autonomy/common/unordered_heterogenous_map.h>
 #include <gtest/gtest.h>
 
 #define TYPE_INDEX(X) std::type_index(typeid(X))
