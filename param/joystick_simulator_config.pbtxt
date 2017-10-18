@@ -31,7 +31,8 @@ uav_system_config {
   }
 
   manual_rpyt_controller_config{
-    min_thrust: 22.8
+    min_thrust: 10
+    max_thrust: 100
   }
 }
 

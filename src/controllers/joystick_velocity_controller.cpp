@@ -38,7 +38,7 @@ bool JoystickVelocityController::runImplementation(
   vel_goal.yaw =
       math::angleWrap(last_yaw + yaw_rate * controller_timer_duration_);
 
-  last_yaw = vel_goal.yaw;
+  last_yaw_ = vel_goal.yaw;
   rpyt_velocity_controller_.setGoal(vel_goal);
   rpyt_velocity_controller_.run(vel_sensor_data, control);
 

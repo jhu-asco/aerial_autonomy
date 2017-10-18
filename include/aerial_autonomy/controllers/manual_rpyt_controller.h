@@ -28,12 +28,12 @@ public:
   /**
   * @brief get last commanded yaw
   */
-  double getLastCommandedYaw() { return last_yaw; }
+  double getLastCommandedYaw() { return last_yaw_; }
   /**
   * @brief set last commanded yaw from sensor data
   */
   void setLastCommandedYaw(double last_commanded_yaw) {
-    last_yaw = last_commanded_yaw;
+    last_yaw_ = last_commanded_yaw;
   }
   /**
    * @brief Destructor
@@ -71,5 +71,5 @@ private:
   /**
   * @brief Last commanded yaw
   */
-  double last_yaw = 0;
+  double last_yaw_ = 0;
 };

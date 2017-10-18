@@ -68,7 +68,7 @@ public:
   * @brief set last commanded yaw
   */
   void setLastCommandedYaw(double last_commanded_yaw) {
-    last_yaw = last_commanded_yaw;
+    last_yaw_ = last_commanded_yaw;
   }
 
 protected:
@@ -106,5 +106,5 @@ private:
   /**
   * @brief Last commanded yaw
   */
-  double last_yaw = 0;
+  double last_yaw_ = 0;
 };

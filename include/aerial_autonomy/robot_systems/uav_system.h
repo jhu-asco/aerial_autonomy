@@ -311,6 +311,7 @@ public:
   }
   /**
   * @brief get last commanded yaw
+  * /todo soham remove after implementing estimators class
   */
   double getLastCommandedYaw() {
     return manual_rpyt_controller_.getLastCommandedYaw();
@@ -321,6 +322,8 @@ public:
   * @param manual_controller Flag to check which controller to set for
   * true: set for velocity-yaw controller
   * false: set for manual rpyt controller
+  *
+  * \todo soham replace by reset function in controller
   */
   void setLastCommandedYaw(double last_commanded_yaw,
                            bool manual_controller = false) {

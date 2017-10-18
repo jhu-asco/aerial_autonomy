@@ -29,6 +29,10 @@ data_stream_configs {
 }
 
 data_stream_configs {
+  stream_id: "joystick_velocity_controller"
+  log_rate: 20
+}
+data_stream_configs {
   stream_id: "system_id_measurements"
   log_rate: 20
 }

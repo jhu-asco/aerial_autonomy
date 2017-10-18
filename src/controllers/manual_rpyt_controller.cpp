@@ -20,6 +20,6 @@ bool ManualRPYTController::runImplementation(JoystickYaw sensor_data,
                               config_.max_yaw_rate());
 
   control.y = math::angleWrap(last_yaw - yaw_rate * controller_timer_duration_);
-  last_yaw = control.y;
+  last_yaw_ = control.y;
   return true;
 }

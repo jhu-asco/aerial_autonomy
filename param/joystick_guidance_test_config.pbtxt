@@ -25,7 +25,7 @@ uav_system_config {
       ki: 0.02
       kt: 0.16
 
-      min_thurst: 10
+      min_thrust: 10
       max_thrust: 80 
       max_rp: 1.57
 
