@@ -9,7 +9,7 @@
 /**
  * @brief Dummy base class for all the proto configs.
  */
-class CommonBase {};
+class ProtoBase {};
 
 /**
  * @brief Wrapper subclass to wrap any class as
@@ -18,14 +18,14 @@ class CommonBase {};
  *
  * @tparam T type of the object being stored
  */
-template <class T> class CommonBaseWrapper : public CommonBase {
+template <class T> class ProtoBaseWrapper : public ProtoBase {
 public:
   /**
    * @brief Constructor to store the input data
    *
    * @param class object to store
    */
-  CommonBaseWrapper(T input) : input_(input) {}
+  ProtoBaseWrapper(T input) : input_(input) {}
   /**
    * @brief Get a copy of the stored object
    *
@@ -56,12 +56,12 @@ private:
 class ConfigurationInterface {
   /**
    * Stores a map of the config based on the type index of state. The configs
-   * are
-   * encoded as a tuple of the type index of proto config and encoded string
-   * of the proto.
+   * are encoded as a tuple of the type index of proto config and the proto
+   * config
+   * as a wrapped object with a base class as ProtoBase.
    */
   std::unordered_map<std::type_index,
-                     std::tuple<const std::type_info *, CommonBase *>>
+                     std::tuple<const std::type_info *, ProtoBase *>>
       configurations;
 
 public:
@@ -75,7 +75,7 @@ public:
    */
   template <class TargetState, class ProtoConfig>
   void addConfig(ProtoConfig config) {
-    auto config_wrapper = new CommonBaseWrapper<ProtoConfig>(config);
+    auto config_wrapper = new ProtoBaseWrapper<ProtoConfig>(config);
     configurations[typeid(TargetState)] =
         std::make_tuple(&typeid(ProtoConfig), config_wrapper);
   }
@@ -98,8 +98,8 @@ public:
       throw std::runtime_error(
           "Proto config does not match with the type of stored");
     }
-    auto config_wrapper = static_cast<CommonBaseWrapper<ProtoConfig> *>(
-        std::get<1>(config_tuple));
+    auto config_wrapper =
+        static_cast<ProtoBaseWrapper<ProtoConfig> *>(std::get<1>(config_tuple));
     return config_wrapper->getInput();
   }
   /**
@@ -120,8 +120,8 @@ public:
       throw std::runtime_error(
           "Proto config does not match with the type of stored");
     }
-    auto config_wrapper = static_cast<CommonBaseWrapper<ProtoConfig> *>(
-        std::get<1>(config_tuple));
+    auto config_wrapper =
+        static_cast<ProtoBaseWrapper<ProtoConfig> *>(std::get<1>(config_tuple));
     return config_wrapper->getInput();
   }
 };

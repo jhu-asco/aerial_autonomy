@@ -20,19 +20,25 @@
 void createAndConfigureLogConfig(ros::NodeHandle &nh);
 
 /**
- * @brief create state machine config from file name specified in ros param
+ * @brief Load a proto config from a ros param
  *
+ * @tparam ConfigT Type of config to load from file
  * @param nh NodeHandle to get param for config file name
+ * @param config_param_name ros parameter containing file name for proto config
  *
- * @return state machine config
+ * @return Config loaded from the param file
  */
-BaseStateMachineConfig createStateMachineConfig(ros::NodeHandle &nh);
+template <class ConfigT>
+ConfigT loadConfigFromROSParam(ros::NodeHandle &nh,
+                               std::string config_param_name) {
+  std::string config_filename;
+  if (!nh.getParam(config_param_name, config_filename)) {
+    LOG(FATAL) << "ROS param \"" << config_param_name << "\" not found";
+  }
 
-/**
- * @brief create UAV system handler config from ros param
- *
- * @param nh NodeHandle to get param for config file name
- *
- * @return uav system handler config
- */
-UAVSystemHandlerConfig createUAVSystemHandlerConfig(ros::NodeHandle &nh);
+  ConfigT config;
+  if (!proto_utils::loadProtoText(config_filename, config)) {
+    LOG(FATAL) << "Failed to open config file: " << config_filename;
+  }
+  return config;
+}

@@ -21,7 +21,7 @@ TEST(WrapperTests, SaveAndRetrieveObject) {
   Config1 original;
   Config1 retrieved;
   original.i = 5;
-  CommonBaseWrapper<Config1> config1_wrapper(original);
+  ProtoBaseWrapper<Config1> config1_wrapper(original);
   // Retrieve object
   retrieved = config1_wrapper.getInput();
   EXPECT_EQ(retrieved.i, original.i);

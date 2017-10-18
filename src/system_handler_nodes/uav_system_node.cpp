@@ -16,9 +16,11 @@ int main(int argc, char **argv) {
   ros::init(argc, argv, "aerial_autonomy");
   ros::NodeHandle nh;
   createAndConfigureLogConfig(nh);
-  BaseStateMachineConfig state_machine_config = createStateMachineConfig(nh);
-  UAVSystemHandlerConfig uav_system_handler_config =
-      createUAVSystemHandlerConfig(nh);
+  auto state_machine_config = loadConfigFromROSParam<BaseStateMachineConfig>(
+      nh, "state_machine_config_filename");
+  auto uav_system_handler_config =
+      loadConfigFromROSParam<UAVSystemHandlerConfig>(
+          nh, "uav_system_config_filename");
 
   UAVSystemHandler<UAVStateMachine,
                    uav_basic_events::UAVEventManager<UAVStateMachine>>
