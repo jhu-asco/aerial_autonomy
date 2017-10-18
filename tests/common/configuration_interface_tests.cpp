@@ -37,6 +37,7 @@ TEST(ConfigurationInterfaceTests, SaveAndRetrieveConfigs) {
   Config1 config1;
   config1.i = 10;
   Config2 config2;
+  config2.j = 5;
   // Add configs to interface
   configuration_interface.addConfig<TargetState1, Config1>(config1);
   configuration_interface.addConfig<TargetState2, Config2>(config2);
@@ -44,6 +45,10 @@ TEST(ConfigurationInterfaceTests, SaveAndRetrieveConfigs) {
   auto &retrieved_config1 =
       configuration_interface.getConfig<Config1, TargetState1>();
   EXPECT_EQ(retrieved_config1.i, config1.i);
+  auto &retrieved_config2 =
+      configuration_interface.getConfig<Config2, TargetState2>();
+  EXPECT_EQ(retrieved_config1.i, config1.i);
+  EXPECT_EQ(retrieved_config2.j, config2.j);
   // Try changing the retrieved one
   retrieved_config1.i = 2;
   EXPECT_NE(retrieved_config1.i, config1.i);
@@ -56,6 +61,21 @@ TEST(ConfigurationInterfaceTests, SaveAndRetrieveConfigs) {
                std::runtime_error);
   EXPECT_THROW((configuration_interface.getConfig<Config1, TargetState3>()),
                std::runtime_error);
+}
+TEST(ConfigurationInterfaceTests, SaveAndOverwriteConfigs) {
+  ConfigurationInterface configuration_interface;
+  Config1 config1;
+  config1.i = 10;
+  Config1 config1_overwrite;
+  config1.i = 11;
+  configuration_interface.addConfig<TargetState1, Config1>(config1);
+  auto retrieved_config1 =
+      configuration_interface.getConfig<Config1, TargetState1>();
+  EXPECT_EQ(retrieved_config1.i, config1.i);
+  configuration_interface.addConfig<TargetState1, Config1>(config1_overwrite);
+  retrieved_config1 =
+      configuration_interface.getConfig<Config1, TargetState1>();
+  EXPECT_EQ(retrieved_config1.i, config1_overwrite.i);
 }
 ///
 
