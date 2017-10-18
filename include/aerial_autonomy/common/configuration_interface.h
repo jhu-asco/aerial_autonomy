@@ -1,6 +1,7 @@
 #pragma once
 #include <glog/logging.h>
 #include <gtest/gtest_prod.h>
+#include <memory>
 #include <stdexcept>
 #include <tuple>
 #include <typeindex>
@@ -8,19 +9,16 @@
 #include <unordered_map>
 
 /**
- * @brief Class that stores different configuration objects in a typemap
+ * @brief Class that stores different heterogenous objects in a unordered_map
  * and provides access to them.
  *
- * This interface should be used with state machine configs to store
- * different configuration objects used by various states in a state machine.
- *
- * The configuration objects are mapped based on the target state type.
+ * @tparam Key The objects are mapped based on the key type
  */
-class ConfigurationInterface {
+template <class Key> class UnorderedHeterogenousMap {
   /**
-   * @brief Dummy base class for all the proto configs.
+   * @brief Dummy base class for all the value objects
    */
-  class ProtoBase {};
+  class AbstractBase {};
 
   /**
    * @brief Wrapper subclass to wrap any class as
@@ -29,14 +27,14 @@ class ConfigurationInterface {
    *
    * @tparam T type of the object being stored
    */
-  template <class T> class ProtoBaseWrapper : public ProtoBase {
+  template <class T> class AbstractBaseWrapper : public AbstractBase {
   public:
     /**
      * @brief Constructor to store the input data
      *
      * @param class object to store
      */
-    ProtoBaseWrapper(T input) : input_(input) {}
+    AbstractBaseWrapper(T input) : input_(input) {}
     /**
      * @brief Get a copy of the stored object
      *
@@ -56,74 +54,50 @@ class ConfigurationInterface {
   };
   /**
    * Stores a map of the config based on the type index of state. The configs
-   * are encoded as a tuple of the type index of proto config and the proto
-   * config
-   * as a wrapped object with a base class as ProtoBase.
+   * are encoded as a tuple of the type index of value objects and
+   * a wrapped object with a base class as AbstractBase.
    */
-  std::unordered_map<std::type_index,
-                     std::tuple<const std::type_info *, ProtoBase *>>
+  std::unordered_map<
+      Key, std::tuple<const std::type_info *, std::unique_ptr<AbstractBase>>>
       configurations;
-  // Add friend to access proto wrapper
+  // Add friend to access for testing AbstractBaseWrapper
   FRIEND_TEST(WrapperTests, SaveAndRetrieveObject);
 
 public:
   /**
    * @brief add a configuration object into typemap
    *
-   * @tparam TargetState The state of statemachine for which the configuration
-   * is intended
-   * @tparam ProtoConfig the type of configuration object being stored
-   * @param config The configuration object to be stored
+   * @tparam Value the type of configuration object being stored
+   * @param key the value of key used to map the value
+   * @param value The configuration object to be stored
    */
-  template <class TargetState, class ProtoConfig>
-  void addConfig(ProtoConfig config) {
-    auto config_wrapper = new ProtoBaseWrapper<ProtoConfig>(config);
-    configurations[typeid(TargetState)] =
-        std::make_tuple(&typeid(ProtoConfig), config_wrapper);
+  template <class Value> void addConfig(const Key &key, Value value) {
+    std::unique_ptr<AbstractBase> value_wrapper(
+        new AbstractBaseWrapper<Value>(value));
+    configurations[key] =
+        std::make_tuple(&typeid(Value), std::move(value_wrapper));
   }
   /**
    * @brief Get the configuration object stored in typemap
    *
-   * @tparam ProtoConfig The type of configuration object to retrieve
-   * @tparam TargetState The state for which the configuration is intended
+   * @tparam Value The type of configuration object to retrieve
+   * @param key object used to map to the object needed
    *
    * @return A copy of the configuration object stored in typemap
    */
-  template <class ProtoConfig, class TargetState>
-  ProtoConfig getConfig() const {
-    auto it = configurations.find(typeid(TargetState));
+  template <class Value> Value getConfig(const Key &key) const {
+    auto it = configurations.find(key);
     if (it == configurations.end())
       throw std::runtime_error("Cannot find the target state key");
-    auto config_tuple = it->second;
-    if (std::type_index(*std::get<0>(config_tuple)) !=
-        std::type_index(typeid(ProtoConfig))) {
-      throw std::runtime_error(
-          "Proto config does not match with the type of stored");
+    auto &value_tuple = it->second;
+    if (std::type_index(*std::get<0>(value_tuple)) !=
+        std::type_index(typeid(Value))) {
+      throw std::runtime_error("Value does not match with the type of stored");
     }
-    auto config_wrapper =
-        static_cast<ProtoBaseWrapper<ProtoConfig> *>(std::get<1>(config_tuple));
-    return config_wrapper->getInput();
-  }
-  /**
-   * @brief Get a reference to the configuration object stored in typemap
-   *
-   * @tparam ProtoConfig The type of configuration object to retrieve
-   * @tparam TargetState The state for which the configuration is intended
-   *
-   * @return A reference to the configuration object stored in typemap
-   */
-  template <class ProtoConfig, class TargetState> ProtoConfig &getConfig() {
-    auto it = configurations.find(typeid(TargetState));
-    if (it == configurations.end())
-      throw std::runtime_error("Cannot find the target state key");
-    auto config_tuple = it->second;
-    if (std::type_index(*std::get<0>(config_tuple)) !=
-        std::type_index(typeid(ProtoConfig))) {
-      throw std::runtime_error(
-          "Proto config does not match with the type of stored");
-    }
-    auto config_wrapper =
-        static_cast<ProtoBaseWrapper<ProtoConfig> *>(std::get<1>(config_tuple));
-    return config_wrapper->getInput();
+    if (std::get<1>(value_tuple).get() == nullptr)
+      throw std::runtime_error("The value stored is a null ptr");
+    auto value_wrapper = static_cast<AbstractBaseWrapper<Value> *>(
+        std::get<1>(value_tuple).get());
+    return value_wrapper->getInput();
   }
 };
