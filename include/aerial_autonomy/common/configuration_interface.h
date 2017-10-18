@@ -1,48 +1,11 @@
 #pragma once
 #include <glog/logging.h>
+#include <gtest/gtest_prod.h>
 #include <stdexcept>
 #include <tuple>
 #include <typeindex>
 #include <typeinfo>
 #include <unordered_map>
-
-/**
- * @brief Dummy base class for all the proto configs.
- */
-class ProtoBase {};
-
-/**
- * @brief Wrapper subclass to wrap any class as
- * a subclass of common base class. This lets
- * us store these random objects in a typemap
- *
- * @tparam T type of the object being stored
- */
-template <class T> class ProtoBaseWrapper : public ProtoBase {
-public:
-  /**
-   * @brief Constructor to store the input data
-   *
-   * @param class object to store
-   */
-  ProtoBaseWrapper(T input) : input_(input) {}
-  /**
-   * @brief Get a copy of the stored object
-   *
-   * @return copy of stored object
-   */
-  T getInput() const { return input_; }
-  /**
-   * @brief Get a reference to stored object.
-   * Can be used to modify the internally stored object
-   *
-   * @return reference to stored object
-   */
-  T &getInput() { return input_; }
-
-private:
-  T input_; ///< Stored internal class object
-};
 
 /**
  * @brief Class that stores different configuration objects in a typemap
@@ -55,6 +18,43 @@ private:
  */
 class ConfigurationInterface {
   /**
+   * @brief Dummy base class for all the proto configs.
+   */
+  class ProtoBase {};
+
+  /**
+   * @brief Wrapper subclass to wrap any class as
+   * a subclass of common base class. This lets
+   * us store these random objects in a typemap
+   *
+   * @tparam T type of the object being stored
+   */
+  template <class T> class ProtoBaseWrapper : public ProtoBase {
+  public:
+    /**
+     * @brief Constructor to store the input data
+     *
+     * @param class object to store
+     */
+    ProtoBaseWrapper(T input) : input_(input) {}
+    /**
+     * @brief Get a copy of the stored object
+     *
+     * @return copy of stored object
+     */
+    T getInput() const { return input_; }
+    /**
+     * @brief Get a reference to stored object.
+     * Can be used to modify the internally stored object
+     *
+     * @return reference to stored object
+     */
+    T &getInput() { return input_; }
+
+  private:
+    T input_; ///< Stored internal class object
+  };
+  /**
    * Stores a map of the config based on the type index of state. The configs
    * are encoded as a tuple of the type index of proto config and the proto
    * config
@@ -63,6 +63,8 @@ class ConfigurationInterface {
   std::unordered_map<std::type_index,
                      std::tuple<const std::type_info *, ProtoBase *>>
       configurations;
+  // Add friend to access proto wrapper
+  FRIEND_TEST(WrapperTests, SaveAndRetrieveObject);
 
 public:
   /**
