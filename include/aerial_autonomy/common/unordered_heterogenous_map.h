@@ -66,15 +66,15 @@ template <class Key> class UnorderedHeterogenousMap {
       Key, std::tuple<const std::type_info *, std::unique_ptr<AbstractBase>>>
       configurations;
   // Add friend to access for testing AbstractBaseWrapper
-  FRIEND_TEST(WrapperTests, SaveAndRetrieveObject);
+  FRIEND_TEST(WrapperTests, WrapAndRetrieveObject);
 
 public:
   /**
    * @brief Add a key value pair to the map
    *
-   * @tparam Value the type of configuration object being stored
+   * @tparam Value the type of object being stored
    * @param key the value of key used to map the value
-   * @param value The configuration object to be stored
+   * @param value The object to be stored
    */
   template <class Value> void insert(const Key &key, Value value) {
     std::unique_ptr<AbstractBase> value_wrapper(
@@ -82,6 +82,20 @@ public:
     configurations[key] =
         std::make_tuple(&typeid(Value), std::move(value_wrapper));
   }
+
+  /**
+   * @brief Specialized insert function only works with Key = std::type_index
+   * Here the type of the template input is used to store the object. If this
+   * function
+   * is used with any Key type other than type_index, this will throw a linking
+   * error during compilation
+   *
+   * @tparam KeyType type to be used for key
+   * @tparam Value type of object to be stored
+   * @param value object to be stored
+   */
+  template <class KeyType, class Value> void insert(Value value);
+
   /**
    * @brief Get the value for a given key. If the key is not present,
    * throws a runtime_error.
@@ -106,6 +120,22 @@ public:
         std::get<1>(value_tuple).get());
     return value_wrapper->getInput();
   }
+
+  /**
+   * @brief Specialized find function only works with Key = type_index. The
+   * type of the template arg is used to retrieve the object from type map. If
+   * object
+   * does not exist, throws a runtime error.
+   *
+   * If this function is used with any other type of Key, the compiler
+   * will throw a linker error since the function implementation is not defined
+   *
+   * @tparam KeyType type used as key to retrieve an object
+   * @tparam Value type of object to retrieve.
+   *
+   * @return object stored
+   */
+  template <class KeyType, class Value> Value find() const;
 };
 
 /**
@@ -115,3 +145,29 @@ public:
  */
 template <class Key>
 UnorderedHeterogenousMap<Key>::AbstractBase::~AbstractBase() {}
+
+/**
+ * @brief Add a value to the map using the type of template parameter input.
+ *
+ * @tparam KeyType the type used to map the stored object
+ * @tparam Value the type of object being stored
+ * @param value The object to be stored
+ */
+template <>
+template <class KeyType, class Value>
+void UnorderedHeterogenousMap<std::type_index>::insert(Value value) {
+  insert(typeid(KeyType), value);
+}
+/**
+ * @brief Find a value in the map using the key type input
+ *
+ * @tparam KeyType type of class used to find the value in the map
+ * @tparam Value type of value object to be returned
+ *
+ * @return object retrieved from map.
+ */
+template <>
+template <class KeyType, class Value>
+Value UnorderedHeterogenousMap<std::type_index>::find() const {
+  return find<Value>(typeid(KeyType));
+}

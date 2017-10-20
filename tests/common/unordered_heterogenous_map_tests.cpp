@@ -18,7 +18,7 @@ struct TargetState3 {};
 
 /// \brief TEST
 /// All the tests are defined here
-TEST(WrapperTests, SaveAndRetrieveObject) {
+TEST(WrapperTests, WrapAndRetrieveObject) {
   Config1 original;
   Config1 retrieved;
   original.i = 5;
@@ -27,12 +27,6 @@ TEST(WrapperTests, SaveAndRetrieveObject) {
   // Retrieve object
   retrieved = config1_wrapper.getInput();
   EXPECT_EQ(retrieved.i, original.i);
-  /* Modifying
-  Config1 &retrieved_ref = config1_wrapper.getInput();
-  retrieved_ref.i = 10;
-  retrieved = config1_wrapper.getInput();
-  EXPECT_EQ(retrieved.i, retrieved_ref.i);
-  */
 }
 
 TEST(UnorderedHeterogenousMapTests, SaveAndRetrieveConfigs) {
@@ -73,13 +67,31 @@ TEST(UnorderedHeterogenousMapTests, SaveAndOverwriteConfigs) {
   Config1 config1;
   config1.i = 10;
   Config1 config1_overwrite;
-  config1.i = 11;
+  config1_overwrite.i = 11;
   configuration_interface.insert(1, config1);
   auto retrieved_config1 = configuration_interface.find<Config1>(1);
   EXPECT_EQ(retrieved_config1.i, config1.i);
   configuration_interface.insert(1, config1_overwrite);
   retrieved_config1 = configuration_interface.find<Config1>(1);
   EXPECT_EQ(retrieved_config1.i, config1_overwrite.i);
+}
+TEST(UnorderedHeterogenousMapTests, SpecializedInsertFind) {
+  UnorderedHeterogenousMap<std::type_index> configuration_interface;
+  Config1 config1;
+  config1.i = 10;
+  Config1 config2;
+  config2.i = 11;
+  configuration_interface.insert<int>(config1);
+  configuration_interface.insert<double>(config2);
+  auto retrieved_config1 = configuration_interface.find<int, Config1>();
+  auto retrieved_config2 = configuration_interface.find<double, Config1>();
+  EXPECT_EQ(retrieved_config1.i, config1.i);
+  EXPECT_EQ(retrieved_config2.i, config2.i);
+  // Overwriting:
+  config2.i = 15;
+  configuration_interface.insert<int>(config2);
+  auto retrieved_config3 = configuration_interface.find<int, Config1>();
+  EXPECT_EQ(retrieved_config3.i, config2.i);
 }
 ///
 
