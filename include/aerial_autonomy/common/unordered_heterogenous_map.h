@@ -18,7 +18,12 @@ template <class Key> class UnorderedHeterogenousMap {
   /**
    * @brief Dummy base class for all the value objects
    */
-  class AbstractBase {};
+  struct AbstractBase {
+    /**
+     * @brief Pure virtual destructor
+     */
+    virtual ~AbstractBase() = 0;
+  };
 
   /**
    * @brief Wrapper subclass to wrap any class as
@@ -53,9 +58,9 @@ template <class Key> class UnorderedHeterogenousMap {
     T input_; ///< Stored internal class object
   };
   /**
-   * Stores a map of the config based on the type index of state. The configs
-   * are encoded as a tuple of the type index of value objects and
-   * a wrapped object with a base class as AbstractBase.
+   * Stores a map from Key to heterogenous objects. The heterogenous objects
+   * are wrapped inside a container with a common base class. This allows
+   * for extracting objects from the map using the key.
    */
   std::unordered_map<
       Key, std::tuple<const std::type_info *, std::unique_ptr<AbstractBase>>>
@@ -65,27 +70,28 @@ template <class Key> class UnorderedHeterogenousMap {
 
 public:
   /**
-   * @brief add a configuration object into typemap
+   * @brief Add a key value pair to the map
    *
    * @tparam Value the type of configuration object being stored
    * @param key the value of key used to map the value
    * @param value The configuration object to be stored
    */
-  template <class Value> void addConfig(const Key &key, Value value) {
+  template <class Value> void insert(const Key &key, Value value) {
     std::unique_ptr<AbstractBase> value_wrapper(
         new AbstractBaseWrapper<Value>(value));
     configurations[key] =
         std::make_tuple(&typeid(Value), std::move(value_wrapper));
   }
   /**
-   * @brief Get the configuration object stored in typemap
+   * @brief Get the value for a given key. If the key is not present,
+   * throws a runtime_error.
    *
    * @tparam Value The type of configuration object to retrieve
    * @param key object used to map to the object needed
    *
    * @return A copy of the configuration object stored in typemap
    */
-  template <class Value> Value getConfig(const Key &key) const {
+  template <class Value> Value find(const Key &key) const {
     auto it = configurations.find(key);
     if (it == configurations.end())
       throw std::runtime_error("Cannot find the target state key");
@@ -101,3 +107,11 @@ public:
     return value_wrapper->getInput();
   }
 };
+
+/**
+ * @brief Default implementation for the destructor
+ *
+ * @tparam Key The key used for parent Heterogenous map
+ */
+template <class Key>
+UnorderedHeterogenousMap<Key>::AbstractBase::~AbstractBase() {}
