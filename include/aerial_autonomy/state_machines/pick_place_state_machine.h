@@ -100,9 +100,16 @@ public:
   *
   * @param uav_system robot system that is stored internally
   * and shared with events
+  * @param state_machine_config store config variables for state
+  * machine
   */
+  PickPlaceStateMachineFrontEnd(
+      UAVArmSystem &uav_system,
+      const BaseStateMachineConfig &state_machine_config)
+      : BaseStateMachine(uav_system, state_machine_config) {}
+
   PickPlaceStateMachineFrontEnd(UAVArmSystem &uav_system)
-      : BaseStateMachine(uav_system) {}
+      : PickPlaceStateMachineFrontEnd(uav_system, BaseStateMachineConfig()){};
 
   /**
   * @brief Initial state for state machine

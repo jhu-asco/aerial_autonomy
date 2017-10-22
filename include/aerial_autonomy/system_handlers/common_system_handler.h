@@ -34,8 +34,10 @@ public:
    * @param robot_system robot system used to create logic state machine
    */
   CommonSystemHandler(const CommonSystemHandlerConfig &config,
-                      RobotSystemT &robot_system)
-      : nh_("~common"), logic_state_machine_(std::ref(robot_system)),
+                      RobotSystemT &robot_system,
+                      const BaseStateMachineConfig &state_machine_config)
+      : nh_("~common"), logic_state_machine_(std::ref(robot_system),
+                                             std::cref(state_machine_config)),
         state_machine_gui_connector_(nh_, event_manager_, logic_state_machine_),
         system_status_pub_(nh_, robot_system, logic_state_machine_),
         status_timer_(

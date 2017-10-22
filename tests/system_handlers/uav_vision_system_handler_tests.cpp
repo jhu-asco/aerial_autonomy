@@ -16,6 +16,7 @@ public:
   UAVVisionSystemHandlerTests() : BaseTestPubSubs() {
     // Configure system
     UAVSystemHandlerConfig uav_system_handler_config;
+    BaseStateMachineConfig state_machine_config;
     uav_system_handler_config.set_uav_parser_type(
         "quad_simulator_parser/QuadSimParser");
     uav_system_handler_config.mutable_uav_system_config()
@@ -33,7 +34,8 @@ public:
         new UAVVisionSystemHandler<
             VisualServoingStateMachine,
             visual_servoing_events::VisualServoingEventManager<
-                VisualServoingStateMachine>>(uav_system_handler_config));
+                VisualServoingStateMachine>>(uav_system_handler_config,
+                                             state_machine_config));
     ros::spinOnce();
   }
 

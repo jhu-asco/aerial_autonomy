@@ -42,9 +42,35 @@ public:
         last_processed_event_index(typeid(NULL)) {}
 
   template <class Expr>
-  thread_safe_state_machine<A0, A1, A2, A3, A4>(Expr const &expr)
+  thread_safe_state_machine<A0, A1, A2, A3, A4>(
+      Expr const &expr,
+      typename ::boost::enable_if<
+          typename ::boost::proto::is_expr<Expr>::type>::type * = 0)
       : state_machine<A0, A1, A2, A3, A4>(expr),
         last_processed_event_index(typeid(NULL)) {}
+
+#define MSM_CONSTRUCTOR_HELPER_EXECUTE_SUB(z, n, unused) ARG##n t##n
+#define MSM_CONSTRUCTOR_HELPER_EXECUTE(z, n, unused)                           \
+  template <BOOST_PP_ENUM_PARAMS(n, class ARG)>                                \
+  thread_safe_state_machine<A0, A1, A2, A3, A4>(                               \
+      BOOST_PP_ENUM(n, MSM_CONSTRUCTOR_HELPER_EXECUTE_SUB, ~),                 \
+      typename ::boost::disable_if<                                            \
+          typename ::boost::proto::is_expr<ARG0>::type>::type *                \
+      = 0)                                                                     \
+      : state_machine<A0, A1, A2, A3, A4>(BOOST_PP_ENUM_PARAMS(n, t)),         \
+        last_processed_event_index(typeid(NULL)) {}                            \
+  template <class Expr, BOOST_PP_ENUM_PARAMS(n, class ARG)>                    \
+  thread_safe_state_machine<A0, A1, A2, A3, A4>(                               \
+      Expr const &expr,                                                        \
+      BOOST_PP_ENUM(n, MSM_CONSTRUCTOR_HELPER_EXECUTE_SUB, ~),                 \
+      typename ::boost::enable_if<                                             \
+          typename ::boost::proto::is_expr<Expr>::type>::type * = 0)           \
+      : state_machine<A0, A1, A2, A3, A4>(expr, BOOST_PP_ENUM_PARAMS(n, t)) {}
+
+  BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_ADD(BOOST_MSM_CONSTRUCTOR_ARG_SIZE, 1),
+                          MSM_CONSTRUCTOR_HELPER_EXECUTE, ~)
+#undef MSM_CONSTRUCTOR_HELPER_EXECUTE
+#undef MSM_CONSTRUCTOR_HELPER_EXECUTE_SUB
 
   // all state machines are friend with each other to allow embedding any of
   // them in another fsm
