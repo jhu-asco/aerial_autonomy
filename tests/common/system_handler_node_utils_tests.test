@@ -1,0 +1,6 @@
+<launch>
+  <test test-name="system_handler_utils_tests" pkg="aerial_autonomy" type="aerial_autonomy-system-handler-node-utils-test">
+    <param name="log_config_filename" value="$(find aerial_autonomy)/tests/common/log_config.pbtxt"/>
+    <param name="uav_system_handler_config_filename" value="$(find aerial_autonomy)/param/matrice_config.pbtxt"/>
+  </test>
+</launch>

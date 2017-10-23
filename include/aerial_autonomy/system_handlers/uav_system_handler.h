@@ -27,12 +27,14 @@ public:
    * @param nh NodeHandle to use for event and command subscription
    * @param config Proto configuration parameters
    */
-  UAVSystemHandler(UAVSystemHandlerConfig &config)
+  UAVSystemHandler(UAVSystemHandlerConfig &config,
+                   const BaseStateMachineConfig &state_machine_config)
       : nh_uav_("~uav"), parser_loader_("parsernode", "parsernode::Parser"),
         uav_hardware_(
             parser_loader_.createUnmanagedInstance(config.uav_parser_type())),
         uav_system_(*uav_hardware_, config.uav_system_config()),
-        common_handler_(config.base_config(), uav_system_),
+        common_handler_(config.base_config(), uav_system_,
+                        state_machine_config),
         uav_controller_timer_(
             std::bind(&UAVSystem::runActiveController, std::ref(uav_system_),
                       HardwareType::UAV),

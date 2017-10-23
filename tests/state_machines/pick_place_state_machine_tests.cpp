@@ -133,8 +133,8 @@ public:
     tracker_.reset(new SimpleTracker(drone_hardware_, camera_transform));
     uav_arm_system_.reset(
         new UAVArmSystem(*tracker_, drone_hardware_, arm_, config_));
-    logic_state_machine_.reset(
-        new PickPlaceStateMachine(boost::ref(*uav_arm_system_)));
+    logic_state_machine_.reset(new PickPlaceStateMachine(
+        boost::ref(*uav_arm_system_), boost::cref(state_machine_config_)));
     logic_state_machine_->start();
     // Move to landed state
     logic_state_machine_->process_event(InternalTransitionEvent());
@@ -175,6 +175,7 @@ protected:
   QuadSimulator drone_hardware_;
   ArmSimulator arm_;
   UAVSystemConfig config_;
+  BaseStateMachineConfig state_machine_config_;
   std::unique_ptr<SimpleTracker> tracker_;
   std::unique_ptr<UAVArmSystem> uav_arm_system_;
   std::unique_ptr<PickPlaceStateMachine> logic_state_machine_;

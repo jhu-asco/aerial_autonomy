@@ -16,6 +16,8 @@ public:
   UAVSystemHandlerTests() : BaseTestPubSubs() {
     // Configure system
     UAVSystemHandlerConfig uav_system_handler_config;
+    BaseStateMachineConfig state_machine_config;
+    // \todo Add UAV state machine config
     uav_system_handler_config.set_uav_parser_type(
         "quad_simulator_parser/QuadSimParser");
     auto uav_config = uav_system_handler_config.mutable_uav_system_config();
@@ -38,7 +40,7 @@ public:
 
     uav_system_handler_.reset(
         new UAVSystemHandler<UAVStateMachine, UAVEventManager<UAVStateMachine>>(
-            uav_system_handler_config));
+            uav_system_handler_config, state_machine_config));
     ros::spinOnce();
   }
 
