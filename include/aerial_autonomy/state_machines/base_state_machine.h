@@ -12,6 +12,9 @@
 // Robot system container
 #include <aerial_autonomy/common/robot_system_container.h>
 
+// state machine config
+#include "base_state_machine_config.pb.h"
+
 /**
 * @brief Base state machine
 */
@@ -39,6 +42,8 @@ public:
   */
   RobotSystemContainer<RobotSystemT> robot_system_container_;
 
+  const BaseStateMachineConfig &base_state_machine_config_;
+
   /**
   * @brief Returns the index of the event that did not trigger any transition
   * @return The no-transition event index
@@ -48,13 +53,18 @@ public:
   }
 
   /**
-  * @brief Constructor with arguments to store robot system
-  *
-  * @param uav_system robot system that is stored internally
-  * and shared with events
-  */
-  BaseStateMachine(RobotSystemT &robot_system)
-      : robot_system_container_(robot_system) {}
+   * @brief Store robot system and state machine config. robot system
+   * is accessible to actions, guards. state machine config is
+   * read only
+   *
+   * @param robot_system  Provides robot system to actions, guards
+   * @param base_state_machine_config Config for statemachine. Other
+   * statemachines will add their config as subclass inside proto.
+   */
+  BaseStateMachine(RobotSystemT &robot_system,
+                   const BaseStateMachineConfig &base_state_machine_config)
+      : robot_system_container_(robot_system),
+        base_state_machine_config_(base_state_machine_config) {}
 
   /**
   * @brief Print event typeid if no action present for the corresponding event
