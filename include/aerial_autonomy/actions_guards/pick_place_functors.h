@@ -4,6 +4,7 @@
 #include <aerial_autonomy/actions_guards/manual_control_functors.h>
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_functors.h>
+#include <aerial_autonomy/common/conversions.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/logic_states/timed_state.h>
 #include <aerial_autonomy/pick_place_events.h>
@@ -104,8 +105,13 @@ struct VisualServoingArmTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
   void run(UAVArmSystem &robot_system) {
     VLOG(1) << "Setting Goal for visual servoing arm connector!";
+    auto goal =
+        this->state_machine_config_.visual_servoing_state_machine_config()
+            .pick_place_state_machine_config()
+            .arm_goal_transform()
+            .Get(TransformIndex);
     robot_system.setGoal<VisualServoingControllerArmConnector, tf::Transform>(
-        robot_system.armGoalTransform(TransformIndex));
+        conversions::protoTransformToTf(goal));
     // Also ensure the gripper is in the right state to grip objects
     robot_system.resetGripper();
   }
@@ -122,8 +128,13 @@ struct ArmPoseTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
   void run(UAVArmSystem &robot_system) {
     VLOG(1) << "Setting goal pose for arm!";
+    auto goal =
+        this->state_machine_config_.visual_servoing_state_machine_config()
+            .pick_place_state_machine_config()
+            .arm_goal_transform()
+            .Get(TransformIndex);
     robot_system.setGoal<BuiltInPoseControllerArmConnector, tf::Transform>(
-        robot_system.armGoalTransform(TransformIndex));
+        conversions::protoTransformToTf(goal));
     // Also ensure the gripper is in the right state to grip objects
     robot_system.resetGripper();
   }

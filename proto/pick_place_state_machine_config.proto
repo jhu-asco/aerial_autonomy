@@ -1,0 +1,9 @@
+syntax = "proto2";
+
+import "transform.proto";
+message PickPlaceStateMachineConfig {
+  /**
+  * @brief Arm transform in the frame of the tracked object (assuming NWU).
+  */
+  repeated config.Transform arm_goal_transform = 1;
+}

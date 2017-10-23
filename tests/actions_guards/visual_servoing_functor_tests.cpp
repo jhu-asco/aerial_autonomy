@@ -30,14 +30,8 @@ protected:
   std::unique_ptr<UAVVisionLogicStateMachine> sample_logic_state_machine;
   VisualServoingTests() {
     auto uav_vision_system_config = config.mutable_uav_vision_system_config();
-    for (int i = 0; i < 6; ++i) {
-      uav_vision_system_config->add_camera_transform(0.0);
-    }
-    for (int i = 0; i < 6; ++i) {
-      uav_vision_system_config->add_tracking_offset_transform(0.0);
-    }
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
-    tf::Transform camera_transform = math::getTransformFromVector(
+    tf::Transform camera_transform = conversions::protoTransformToTf(
         uav_vision_system_config->camera_transform());
     auto position_tolerance = config.mutable_position_controller_config()
                                   ->mutable_goal_position_tolerance();

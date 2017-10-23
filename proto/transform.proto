@@ -1,0 +1,23 @@
+syntax = "proto2";
+import "position.proto";
+
+package config;
+
+message Transform {
+  /**
+  * @brief X, Y, Z position
+  */
+  required Position position = 1;
+  /**
+  * @brief Roll
+  */
+  optional double roll = 2 [ default = 0.0 ];
+  /**
+  * @brief Pitch
+  */
+  optional double pitch = 3 [ default = 0.0 ];
+  /**
+  * @brief Yaw
+  */
+  optional double yaw = 4 [ default = 0.0 ];
+}

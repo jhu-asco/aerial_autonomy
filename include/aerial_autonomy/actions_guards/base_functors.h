@@ -149,6 +149,9 @@ public:
   virtual ~EventAgnosticActionFunctor() {}
 
 protected:
+  /**
+  * @brief Copy of state machine configuration which can be used in run function
+  */
   BaseStateMachineConfig state_machine_config_;
 };
 

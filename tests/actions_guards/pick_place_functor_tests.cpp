@@ -44,28 +44,26 @@ protected:
     auto uav_vision_system_config = config.mutable_uav_vision_system_config();
     auto uav_arm_system_config =
         uav_vision_system_config->mutable_uav_arm_system_config();
-    for (int i = 0; i < 6; ++i) {
-      uav_vision_system_config->add_camera_transform(0.0);
-    }
-    for (int i = 0; i < 6; ++i) {
-      uav_vision_system_config->add_tracking_offset_transform(0.0);
-    }
-    // Flipped arm
-    // Arm transform xyz, rpy:
-    uav_arm_system_config->add_arm_transform(0.2);
-    uav_arm_system_config->add_arm_transform(0);
-    uav_arm_system_config->add_arm_transform(-0.1);
-    uav_arm_system_config->add_arm_transform(M_PI);
-    uav_arm_system_config->add_arm_transform(0);
-    uav_arm_system_config->add_arm_transform(0);
-    // Arm goal transform xyz, rpy:
+    auto pick_state_machine_config =
+        state_machine_config.mutable_visual_servoing_state_machine_config()
+            ->mutable_pick_place_state_machine_config();
+    // Arm transform
+    auto arm_tf = uav_arm_system_config->mutable_arm_transform();
+    arm_tf->mutable_position()->set_x(0.2);
+    arm_tf->mutable_position()->set_y(0.0);
+    arm_tf->mutable_position()->set_z(-0.1);
+    arm_tf->set_roll(M_PI);
+    arm_tf->set_pitch(0);
+    arm_tf->set_yaw(0);
+    // Arm goal transforms
     // Pick goal
-    uav_arm_system_config->add_arm_goal_transform(-0.1);
-    uav_arm_system_config->add_arm_goal_transform(0);
-    uav_arm_system_config->add_arm_goal_transform(0);
-    uav_arm_system_config->add_arm_goal_transform(0);
-    uav_arm_system_config->add_arm_goal_transform(0);
-    uav_arm_system_config->add_arm_goal_transform(0);
+    auto arm_goal = pick_state_machine_config->add_arm_goal_transform();
+    arm_goal->mutable_position()->set_x(-0.1);
+    arm_goal->mutable_position()->set_y(0.0);
+    arm_goal->mutable_position()->set_z(0.0);
+    arm_goal->set_roll(0);
+    arm_goal->set_pitch(0);
+    arm_goal->set_yaw(0);
     // waypoints
     setWaypoint(uav_arm_system_config->add_way_points(), 0.1, 0, 0, 0);
     setWaypoint(uav_arm_system_config->add_way_points(), 0, 0, 0, M_PI / 2.0);
@@ -81,7 +79,7 @@ protected:
     pose_goal->set_yaw(pose_goal_.yaw);
 
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
-    tf::Transform camera_transform = math::getTransformFromVector(
+    tf::Transform camera_transform = conversions::protoTransformToTf(
         uav_vision_system_config->camera_transform());
     auto depth_config =
         uav_vision_system_config

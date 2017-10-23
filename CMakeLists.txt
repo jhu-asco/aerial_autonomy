@@ -177,6 +177,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/velocity_controller_config.proto
   proto/position.proto
   proto/position_yaw.proto
+  proto/transform.proto
   proto/velocity.proto
   proto/data_stream_config.proto
   proto/log_config.proto
