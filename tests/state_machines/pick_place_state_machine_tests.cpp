@@ -89,14 +89,16 @@ public:
     relative_pose_vs_position_tolerance->set_z(goal_tolerance_position_);
 
     // Relative marker goal for pick
-    auto pose_goal = uav_vision_system_config->add_relative_pose_goals();
+    auto vision_state_machine_config =
+        state_machine_config_.mutable_visual_servoing_state_machine_config();
+    auto pose_goal = vision_state_machine_config->add_relative_pose_goals();
     auto pose_goal_position = pose_goal->mutable_position();
     pose_goal_position->set_x(1);
     pose_goal_position->set_y(1);
     pose_goal_position->set_z(2);
     pose_goal->set_yaw(0);
     // Relative marker goal for place
-    uav_vision_system_config->add_relative_pose_goals();
+    vision_state_machine_config->add_relative_pose_goals();
 
     // Post-pick waypoints
     for (int i = 0; i < 2; i++) {

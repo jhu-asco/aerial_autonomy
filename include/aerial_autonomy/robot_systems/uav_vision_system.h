@@ -27,8 +27,6 @@ public:
       : UAVSystem(drone_hardware, config),
         camera_transform_(math::getTransformFromVector(
             config_.uav_vision_system_config().camera_transform())),
-        relative_pose_goals_(conversions::protoPositionYawsToPositionYaws(
-            config_.uav_vision_system_config().relative_pose_goals())),
         tracker_(tracker), constant_heading_depth_controller_(
                                config_.uav_vision_system_config()
                                    .constant_heading_depth_controller_config()),
@@ -108,8 +106,6 @@ public:
     return status.str();
   }
 
-  PositionYaw relativePoseGoal(int i) { return relative_pose_goals_.at(i); }
-
   /**
   * @brief remove any explicit ids specified for visual servoing
   */
@@ -137,12 +133,6 @@ protected:
   * @brief Camera transform in the frame of the UAV
   */
   tf::Transform camera_transform_;
-
-  /**
-  * @brief UAV transforms in the frame of the tracked object
-  */
-  // \todo Matt Move to state machine config
-  std::vector<PositionYaw> relative_pose_goals_;
 
 private:
   BaseTracker &tracker_;

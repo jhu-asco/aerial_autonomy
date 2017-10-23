@@ -5,6 +5,8 @@
 // Internal Transition Event
 #include <aerial_autonomy/types/internal_transition_event.h>
 
+#include "base_state_machine_config.pb.h"
+
 /**
 * @brief Action Functor for a given event, robot system, state machine
 *
@@ -111,6 +113,7 @@ struct GuardFunctor {
 */
 template <class RobotSystemT, class LogicStateMachineT>
 struct EventAgnosticActionFunctor {
+public:
   /**
     * @brief Override this run function for different sub classes.
     * This function performs the logic checking for each state
@@ -136,6 +139,7 @@ struct EventAgnosticActionFunctor {
     static_assert(
         std::is_base_of<FSM, LogicStateMachineT>::value,
         "Template Logic state machine arg is not subclass of provided FSM");
+    state_machine_config_ = logic_state_machine.base_state_machine_config_;
     run(logic_state_machine.robot_system_container_());
   }
 
@@ -143,6 +147,9 @@ struct EventAgnosticActionFunctor {
   * @brief virtual destructor to get polymorphism
   */
   virtual ~EventAgnosticActionFunctor() {}
+
+protected:
+  BaseStateMachineConfig state_machine_config_;
 };
 
 /**

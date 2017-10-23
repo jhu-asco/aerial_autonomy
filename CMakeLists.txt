@@ -183,6 +183,8 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/arm_system_config.proto
   proto/base_state_machine_config.proto
   proto/uav_state_machine_config.proto
+  proto/visual_servoing_state_machine_config.proto
+  proto/pick_place_state_machine_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 

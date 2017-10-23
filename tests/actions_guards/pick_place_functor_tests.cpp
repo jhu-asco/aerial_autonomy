@@ -36,6 +36,7 @@ protected:
   QuadSimulator drone_hardware;
   UAVSystemConfig config;
   ArmSimulator arm;
+  BaseStateMachineConfig state_machine_config;
   std::unique_ptr<SimpleTracker> simple_tracker;
   std::unique_ptr<UAVArmSystem> uav_arm_system;
   std::unique_ptr<UAVArmLogicStateMachine> sample_logic_state_machine;
@@ -71,7 +72,9 @@ protected:
     setWaypoint(uav_arm_system_config->add_way_points(), 0, -1.0, 0,
                 M_PI / 2.0);
 
-    auto pose_goal = uav_vision_system_config->add_relative_pose_goals();
+    auto vision_state_machine_config =
+        state_machine_config.mutable_visual_servoing_state_machine_config();
+    auto pose_goal = vision_state_machine_config->add_relative_pose_goals();
     pose_goal->mutable_position()->set_x(pose_goal_.x);
     pose_goal->mutable_position()->set_y(pose_goal_.y);
     pose_goal->mutable_position()->set_z(pose_goal_.z);
@@ -98,7 +101,7 @@ protected:
     uav_arm_system.reset(
         new UAVArmSystem(*simple_tracker, drone_hardware, arm, config));
     sample_logic_state_machine.reset(
-        new UAVArmLogicStateMachine(*uav_arm_system));
+        new UAVArmLogicStateMachine(*uav_arm_system, state_machine_config));
   }
 
   void setWaypoint(config::PositionYaw *way_point, double x, double y, double z,

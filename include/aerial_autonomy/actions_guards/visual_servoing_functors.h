@@ -36,8 +36,13 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
     }
     VLOG(1) << "Setting goal " << GoalIndex
             << " for relative pose visual servoing drone connector!";
+    auto goal =
+        this->state_machine_config_.visual_servoing_state_machine_config()
+            .relative_pose_goals()
+            .Get(GoalIndex);
     robot_system.setGoal<RelativePoseVisualServoingControllerDroneConnector,
-                         PositionYaw>(robot_system.relativePoseGoal(GoalIndex));
+                         PositionYaw>(
+        conversions::protoPositionYawToPositionYaw(goal));
   }
 };
 
