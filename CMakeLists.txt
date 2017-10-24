@@ -186,6 +186,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/uav_state_machine_config.proto
   proto/visual_servoing_state_machine_config.proto
   proto/pick_place_state_machine_config.proto
+  proto/following_waypoint_sequence_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -310,7 +311,7 @@ catkin_add_gtest(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test tests/controller_hardwar
 catkin_add_gtest(${PROJECT_NAME}-evnt-mngr-test tests/event_manager_tests/event_manager_tests.cpp)
 add_dependencies(${PROJECT_NAME}-evnt-mngr-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
 catkin_add_gtest(${PROJECT_NAME}-type-map-test tests/common/type_map_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-unordered-heterogenous-map-test tests/common/unordered_heterogenous_map_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-unordered-heterogeneous-map-test tests/common/unordered_heterogeneous_map_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-html-utils-test tests/common/html_utils_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/position_controller_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/builtin_velocity_controller_drone_connector_tests.cpp)
@@ -381,8 +382,8 @@ endif()
 if(TARGET ${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
-if(TARGET ${PROJECT_NAME}-unordered-heterogenous-map-test)
-  target_link_libraries(${PROJECT_NAME}-unordered-heterogenous-map-test ${GLOG_LIBRARIES})
+if(TARGET ${PROJECT_NAME}-unordered-heterogeneous-map-test)
+  target_link_libraries(${PROJECT_NAME}-unordered-heterogeneous-map-test ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-logic-states-test)
   target_link_libraries(${PROJECT_NAME}-logic-states-test proto ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})

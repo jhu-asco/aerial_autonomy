@@ -1,7 +1,6 @@
 syntax = "proto2";
 
 import "pose_controller_config.proto";
-import "position_yaw.proto";
 import "arm_system_config.proto";
 import "transform.proto";
 
@@ -21,13 +20,6 @@ message UAVArmSystemConfig {
   * @brief How much time to spend trying to grip the object in milliseconds
   */
   optional uint32 grip_timeout = 7 [ default = 2000 ];
-
-  /**
-  * @brief List of way points. These are relative waypoints specified
-  * in the NWU frame attached to quadrotor. For example (0.1, 0, 0, 0)
-  * will move 0.1m in north and sets an absolute yaw of 0.
-  */
-  repeated config.PositionYaw way_points = 8;
 
   /**
   * @brief Configuration for arm system

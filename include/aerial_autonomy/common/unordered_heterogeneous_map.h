@@ -14,7 +14,7 @@
  *
  * @tparam Key The objects are mapped based on the key type
  */
-template <class Key> class UnorderedHeterogenousMap {
+template <class Key> class UnorderedHeterogeneousMap {
   /**
    * @brief Dummy base class for all the value objects
    */
@@ -144,7 +144,7 @@ public:
  * @tparam Key The key used for parent Heterogenous map
  */
 template <class Key>
-UnorderedHeterogenousMap<Key>::AbstractBase::~AbstractBase() {}
+UnorderedHeterogeneousMap<Key>::AbstractBase::~AbstractBase() {}
 
 /**
  * @brief Add a value to the map using the type of template parameter input.
@@ -155,7 +155,7 @@ UnorderedHeterogenousMap<Key>::AbstractBase::~AbstractBase() {}
  */
 template <>
 template <class KeyType, class Value>
-void UnorderedHeterogenousMap<std::type_index>::insert(Value value) {
+void UnorderedHeterogeneousMap<std::type_index>::insert(Value value) {
   insert(typeid(KeyType), value);
 }
 /**
@@ -168,6 +168,6 @@ void UnorderedHeterogenousMap<std::type_index>::insert(Value value) {
  */
 template <>
 template <class KeyType, class Value>
-Value UnorderedHeterogenousMap<std::type_index>::find() const {
+Value UnorderedHeterogeneousMap<std::type_index>::find() const {
   return find<Value>(typeid(KeyType));
 }
