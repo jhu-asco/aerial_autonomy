@@ -59,6 +59,11 @@ std::vector<PositionYaw> protoPositionYawsToPositionYaws(const T &proto_ps) {
   return ps;
 }
 
+/**
+* @brief Convert a list proto Transform to a list of tf::Transform
+* @param p Proto Transform list to convert
+* @return Converted tf::Transform list
+*/
 template <class T>
 std::vector<tf::Transform> protoTransformsToTfs(const T &proto_tfs) {
   std::vector<tf::Transform> tfs;

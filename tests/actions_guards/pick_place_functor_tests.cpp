@@ -48,22 +48,12 @@ protected:
         state_machine_config.mutable_visual_servoing_state_machine_config()
             ->mutable_pick_place_state_machine_config();
     // Arm transform
-    auto arm_tf = uav_arm_system_config->mutable_arm_transform();
-    arm_tf->mutable_position()->set_x(0.2);
-    arm_tf->mutable_position()->set_y(0.0);
-    arm_tf->mutable_position()->set_z(-0.1);
-    arm_tf->set_roll(M_PI);
-    arm_tf->set_pitch(0);
-    arm_tf->set_yaw(0);
+    setTransform(uav_arm_system_config->mutable_arm_transform(), 0.2, 0, -0.1,
+                 M_PI, 0, 0);
     // Arm goal transforms
     // Pick goal
-    auto arm_goal = pick_state_machine_config->add_arm_goal_transform();
-    arm_goal->mutable_position()->set_x(-0.1);
-    arm_goal->mutable_position()->set_y(0.0);
-    arm_goal->mutable_position()->set_z(0.0);
-    arm_goal->set_roll(0);
-    arm_goal->set_pitch(0);
-    arm_goal->set_yaw(0);
+    setTransform(pick_state_machine_config->add_arm_goal_transform(), -0.1, 0,
+                 0, 0, 0, 0);
     // waypoints
     setWaypoint(uav_arm_system_config->add_way_points(), 0.1, 0, 0, 0);
     setWaypoint(uav_arm_system_config->add_way_points(), 0, 0, 0, M_PI / 2.0);
@@ -102,6 +92,15 @@ protected:
         new UAVArmLogicStateMachine(*uav_arm_system, state_machine_config));
   }
 
+  void setTransform(config::Transform *tf, double x, double y, double z,
+                    double roll, double pitch, double yaw) {
+    tf->mutable_position()->set_x(x);
+    tf->mutable_position()->set_y(y);
+    tf->mutable_position()->set_z(z);
+    tf->mutable_rotation()->set_r(roll);
+    tf->mutable_rotation()->set_p(pitch);
+    tf->mutable_rotation()->set_y(yaw);
+  }
   void setWaypoint(config::PositionYaw *way_point, double x, double y, double z,
                    double yaw) {
     way_point->mutable_position()->set_x(x);

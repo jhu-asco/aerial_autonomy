@@ -139,6 +139,8 @@ public:
     static_assert(
         std::is_base_of<FSM, LogicStateMachineT>::value,
         "Template Logic state machine arg is not subclass of provided FSM");
+    // \todo (Matt) Pass the config directly to the run function instead to
+    // avoid a copy here (could also just keep a pointer to the config)
     state_machine_config_ = logic_state_machine.base_state_machine_config_;
     run(logic_state_machine.robot_system_container_());
   }
