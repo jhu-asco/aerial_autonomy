@@ -18,7 +18,8 @@ void transformRPYToTf(double r, double p, double y, tf::Transform &tf) {
 
 tf::Transform protoTransformToTf(const config::Transform &tf) {
   return tf::Transform(
-      tf::createQuaternionFromRPY(tf.roll(), tf.pitch(), tf.yaw()),
+      tf::createQuaternionFromRPY(tf.rotation().r(), tf.rotation().p(),
+                                  tf.rotation().y()),
       tf::Vector3(tf.position().x(), tf.position().y(), tf.position().z()));
 }
 
