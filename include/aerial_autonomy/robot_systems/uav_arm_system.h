@@ -1,5 +1,5 @@
 #pragma once
-#include "aerial_autonomy/common/math.h"
+#include "aerial_autonomy/common/conversions.h"
 #include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_arm_connector.h"
 #include "aerial_autonomy/controllers/relative_pose_controller.h"
 #include "aerial_autonomy/robot_systems/arm_system.h"
@@ -27,14 +27,10 @@ public:
         grip_timeout_(config_.uav_vision_system_config()
                           .uav_arm_system_config()
                           .grip_timeout()),
-        arm_goal_transforms_(
-            math::getTransformsFromVector(config_.uav_vision_system_config()
-                                              .uav_arm_system_config()
-                                              .arm_goal_transform())),
         arm_transform_(
-            math::getTransformFromVector(config_.uav_vision_system_config()
-                                             .uav_arm_system_config()
-                                             .arm_transform())),
+            conversions::protoTransformToTf(config_.uav_vision_system_config()
+                                                .uav_arm_system_config()
+                                                .arm_transform())),
         relative_pose_controller_(config_.uav_vision_system_config()
                                       .uav_arm_system_config()
                                       .position_controller_config()),
@@ -63,14 +59,6 @@ public:
    * @return timeout used for gripping
    */
   std::chrono::milliseconds gripTimeout() { return grip_timeout_; }
-
-  /**
-   * @brief getter for transfrom from arm to object
-   * @param i Index of arm transform to get
-   *
-   * @return  transform from arm to object
-   */
-  tf::Transform armGoalTransform(int i) { return arm_goal_transforms_.at(i); }
 
   /**
   * @brief Stored waypoint
@@ -108,11 +96,6 @@ private:
   * @brief Timeout for gripping by arm
   */
   std::chrono::milliseconds grip_timeout_;
-  /**
-  * @brief Arm transforms in the frame of the UAV
-  */
-  // \todo Matt Move to state machine config
-  std::vector<tf::Transform> arm_goal_transforms_;
   /**
   * @brief Arm transform in the frame of the UAV
   */

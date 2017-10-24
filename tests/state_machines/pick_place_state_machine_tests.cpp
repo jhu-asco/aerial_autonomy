@@ -32,20 +32,14 @@ namespace be = uav_basic_events;
 class PickPlaceStateMachineTests : public ::testing::Test {
 public:
   PickPlaceStateMachineTests() : goal_tolerance_position_(0.1) {
+    auto vision_state_machine_config =
+        state_machine_config_.mutable_visual_servoing_state_machine_config();
+    auto pick_state_machine_config =
+        vision_state_machine_config->mutable_pick_place_state_machine_config();
     auto uav_vision_system_config = config_.mutable_uav_vision_system_config();
-    for (int i = 0; i < 6; ++i) {
-      uav_vision_system_config->add_camera_transform(0.0);
-      uav_vision_system_config->add_tracking_offset_transform(0.0);
-    }
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
     auto uav_arm_system_config =
         uav_vision_system_config->mutable_uav_arm_system_config();
-    for (int i = 0; i < 6; ++i) {
-      uav_arm_system_config->add_arm_transform(0);
-    }
-    for (int i = 0; i < 12; ++i) {
-      uav_arm_system_config->add_arm_goal_transform(0);
-    }
     auto depth_config =
         uav_vision_system_config
             ->mutable_constant_heading_depth_controller_config();
@@ -88,15 +82,19 @@ public:
     relative_pose_vs_position_tolerance->set_y(goal_tolerance_position_);
     relative_pose_vs_position_tolerance->set_z(goal_tolerance_position_);
 
+    // Arm goals
+    pick_state_machine_config->add_arm_goal_transform();
+    pick_state_machine_config->add_arm_goal_transform();
+
     // Relative marker goal for pick
-    auto pose_goal = uav_vision_system_config->add_relative_pose_goals();
+    auto pose_goal = vision_state_machine_config->add_relative_pose_goals();
     auto pose_goal_position = pose_goal->mutable_position();
     pose_goal_position->set_x(1);
     pose_goal_position->set_y(1);
     pose_goal_position->set_z(2);
     pose_goal->set_yaw(0);
     // Relative marker goal for place
-    uav_vision_system_config->add_relative_pose_goals();
+    vision_state_machine_config->add_relative_pose_goals();
 
     // Post-pick waypoints
     for (int i = 0; i < 2; i++) {
@@ -128,7 +126,7 @@ public:
     arm_position_tolerance->set_y(goal_tolerance_position_);
     arm_position_tolerance->set_z(goal_tolerance_position_);
 
-    tf::Transform camera_transform = math::getTransformFromVector(
+    tf::Transform camera_transform = conversions::protoTransformToTf(
         uav_vision_system_config->camera_transform());
     tracker_.reset(new SimpleTracker(drone_hardware_, camera_transform));
     uav_arm_system_.reset(

@@ -24,19 +24,14 @@ class VisualServoingTests : public ::testing::Test {
 protected:
   QuadSimulator drone_hardware;
   UAVSystemConfig config;
+  BaseStateMachineConfig state_machine_config;
   std::unique_ptr<SimpleTracker> simple_tracker;
   std::unique_ptr<UAVVisionSystem> uav_system;
   std::unique_ptr<UAVVisionLogicStateMachine> sample_logic_state_machine;
   VisualServoingTests() {
     auto uav_vision_system_config = config.mutable_uav_vision_system_config();
-    for (int i = 0; i < 6; ++i) {
-      uav_vision_system_config->add_camera_transform(0.0);
-    }
-    for (int i = 0; i < 6; ++i) {
-      uav_vision_system_config->add_tracking_offset_transform(0.0);
-    }
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
-    tf::Transform camera_transform = math::getTransformFromVector(
+    tf::Transform camera_transform = conversions::protoTransformToTf(
         uav_vision_system_config->camera_transform());
     auto position_tolerance = config.mutable_position_controller_config()
                                   ->mutable_goal_position_tolerance();
@@ -74,7 +69,9 @@ protected:
     relative_pose_vs_position_tolerance->set_x(0.1);
     relative_pose_vs_position_tolerance->set_y(0.1);
     relative_pose_vs_position_tolerance->set_z(0.1);
-    auto pose_goal = uav_vision_system_config->add_relative_pose_goals();
+    auto pose_goal =
+        state_machine_config.mutable_visual_servoing_state_machine_config()
+            ->add_relative_pose_goals();
     auto pose_goal_position = pose_goal->mutable_position();
     pose_goal_position->set_x(1);
     pose_goal_position->set_y(1);
@@ -85,7 +82,7 @@ protected:
     uav_system.reset(
         new UAVVisionSystem(*simple_tracker, drone_hardware, config));
     sample_logic_state_machine.reset(
-        new UAVVisionLogicStateMachine(*uav_system));
+        new UAVVisionLogicStateMachine(*uav_system, state_machine_config));
   }
   virtual ~VisualServoingTests(){};
 };

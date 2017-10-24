@@ -62,58 +62,6 @@ TEST(ClampTests, Min) {
   ASSERT_EQ(math::clamp(-100, -2, 1), -2);
 }
 
-TEST(TransformTests, StdVector) {
-  std::vector<double> input = {1.0, 2.0, 3.0, M_PI / 2, -M_PI / 3, M_PI / 4};
-  tf::Transform out = math::getTransformFromVector(input);
-  // Check origin
-  tf::Vector3 origin = out.getOrigin();
-  ASSERT_EQ(origin.getX(), input[0]);
-  ASSERT_EQ(origin.getY(), input[1]);
-  ASSERT_EQ(origin.getZ(), input[2]);
-  // Check rpy
-  tf::Matrix3x3 input_basis;
-  input_basis.setEulerYPR(input[5], input[4], input[3]);
-  for (int i = 0; i < 3; ++i) {
-    for (int j = 0; j < 3; ++j) {
-      ASSERT_NEAR(input_basis[i][j], out.getBasis()[i][j], 1e-4);
-    }
-  }
-}
-
-TEST(TransformTests, StdVectorThrow) {
-  std::vector<double> input = {1.0, 2.0, 3.0, 0.0, 0.0};
-  ASSERT_THROW(math::getTransformFromVector(input), std::runtime_error);
-}
-
-TEST(TransformsTests, StdVector) {
-  std::vector<double> input = {1.0, 2.0, 3.0, M_PI / 2, -M_PI / 3, M_PI / 4,
-                               0,   -1,  -2,  0,        M_PI,      0};
-  std::vector<tf::Transform> tfs = math::getTransformsFromVector(input);
-
-  for (unsigned int i = 0; i < tfs.size(); i++) {
-    tf::Transform out = tfs[i];
-    // Check origin
-    tf::Vector3 origin = out.getOrigin();
-    ASSERT_EQ(origin.getX(), input[6 * i + 0]);
-    ASSERT_EQ(origin.getY(), input[6 * i + 1]);
-    ASSERT_EQ(origin.getZ(), input[6 * i + 2]);
-    // Check rpy
-    tf::Matrix3x3 input_basis;
-    input_basis.setEulerYPR(input[6 * i + 5], input[6 * i + 4],
-                            input[6 * i + 3]);
-    for (int i = 0; i < 3; ++i) {
-      for (int j = 0; j < 3; ++j) {
-        ASSERT_NEAR(input_basis[i][j], out.getBasis()[i][j], 1e-4);
-      }
-    }
-  }
-}
-
-TEST(TransformsTests, StdVectorThrow) {
-  std::vector<double> input = {1.0, 2.0, 3.0, 0.0, 0.0, 0.0, 0.0};
-  ASSERT_THROW(math::getTransformsFromVector(input), std::runtime_error);
-}
-
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

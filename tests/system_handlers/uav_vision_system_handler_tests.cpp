@@ -21,14 +21,6 @@ public:
         "quad_simulator_parser/QuadSimParser");
     uav_system_handler_config.mutable_uav_system_config()
         ->set_minimum_takeoff_height(0.4);
-    for (int i = 0; i < 6; ++i) {
-      uav_system_handler_config.mutable_uav_system_config()
-          ->mutable_uav_vision_system_config()
-          ->add_camera_transform(0.0);
-      uav_system_handler_config.mutable_uav_system_config()
-          ->mutable_uav_vision_system_config()
-          ->add_tracking_offset_transform(0.0);
-    }
 
     auto uav_config = uav_system_handler_config.mutable_uav_system_config();
     // Position controller params

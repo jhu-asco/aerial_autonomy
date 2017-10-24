@@ -36,6 +36,7 @@ protected:
   QuadSimulator drone_hardware;
   UAVSystemConfig config;
   ArmSimulator arm;
+  BaseStateMachineConfig state_machine_config;
   std::unique_ptr<SimpleTracker> simple_tracker;
   std::unique_ptr<UAVArmSystem> uav_arm_system;
   std::unique_ptr<UAVArmLogicStateMachine> sample_logic_state_machine;
@@ -43,42 +44,32 @@ protected:
     auto uav_vision_system_config = config.mutable_uav_vision_system_config();
     auto uav_arm_system_config =
         uav_vision_system_config->mutable_uav_arm_system_config();
-    for (int i = 0; i < 6; ++i) {
-      uav_vision_system_config->add_camera_transform(0.0);
-    }
-    for (int i = 0; i < 6; ++i) {
-      uav_vision_system_config->add_tracking_offset_transform(0.0);
-    }
-    // Flipped arm
-    // Arm transform xyz, rpy:
-    uav_arm_system_config->add_arm_transform(0.2);
-    uav_arm_system_config->add_arm_transform(0);
-    uav_arm_system_config->add_arm_transform(-0.1);
-    uav_arm_system_config->add_arm_transform(M_PI);
-    uav_arm_system_config->add_arm_transform(0);
-    uav_arm_system_config->add_arm_transform(0);
-    // Arm goal transform xyz, rpy:
+    auto pick_state_machine_config =
+        state_machine_config.mutable_visual_servoing_state_machine_config()
+            ->mutable_pick_place_state_machine_config();
+    // Arm transform
+    setTransform(uav_arm_system_config->mutable_arm_transform(), 0.2, 0, -0.1,
+                 M_PI, 0, 0);
+    // Arm goal transforms
     // Pick goal
-    uav_arm_system_config->add_arm_goal_transform(-0.1);
-    uav_arm_system_config->add_arm_goal_transform(0);
-    uav_arm_system_config->add_arm_goal_transform(0);
-    uav_arm_system_config->add_arm_goal_transform(0);
-    uav_arm_system_config->add_arm_goal_transform(0);
-    uav_arm_system_config->add_arm_goal_transform(0);
+    setTransform(pick_state_machine_config->add_arm_goal_transform(), -0.1, 0,
+                 0, 0, 0, 0);
     // waypoints
     setWaypoint(uav_arm_system_config->add_way_points(), 0.1, 0, 0, 0);
     setWaypoint(uav_arm_system_config->add_way_points(), 0, 0, 0, M_PI / 2.0);
     setWaypoint(uav_arm_system_config->add_way_points(), 0, -1.0, 0,
                 M_PI / 2.0);
 
-    auto pose_goal = uav_vision_system_config->add_relative_pose_goals();
+    auto vision_state_machine_config =
+        state_machine_config.mutable_visual_servoing_state_machine_config();
+    auto pose_goal = vision_state_machine_config->add_relative_pose_goals();
     pose_goal->mutable_position()->set_x(pose_goal_.x);
     pose_goal->mutable_position()->set_y(pose_goal_.y);
     pose_goal->mutable_position()->set_z(pose_goal_.z);
     pose_goal->set_yaw(pose_goal_.yaw);
 
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
-    tf::Transform camera_transform = math::getTransformFromVector(
+    tf::Transform camera_transform = conversions::protoTransformToTf(
         uav_vision_system_config->camera_transform());
     auto depth_config =
         uav_vision_system_config
@@ -98,9 +89,18 @@ protected:
     uav_arm_system.reset(
         new UAVArmSystem(*simple_tracker, drone_hardware, arm, config));
     sample_logic_state_machine.reset(
-        new UAVArmLogicStateMachine(*uav_arm_system));
+        new UAVArmLogicStateMachine(*uav_arm_system, state_machine_config));
   }
 
+  void setTransform(config::Transform *tf, double x, double y, double z,
+                    double roll, double pitch, double yaw) {
+    tf->mutable_position()->set_x(x);
+    tf->mutable_position()->set_y(y);
+    tf->mutable_position()->set_z(z);
+    tf->mutable_rotation()->set_r(roll);
+    tf->mutable_rotation()->set_p(pitch);
+    tf->mutable_rotation()->set_y(yaw);
+  }
   void setWaypoint(config::PositionYaw *way_point, double x, double y, double z,
                    double yaw) {
     way_point->mutable_position()->set_x(x);

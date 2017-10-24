@@ -176,13 +176,17 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/pose_controller_config.proto
   proto/velocity_controller_config.proto
   proto/position.proto
+  proto/rotation.proto
   proto/position_yaw.proto
+  proto/transform.proto
   proto/velocity.proto
   proto/data_stream_config.proto
   proto/log_config.proto
   proto/arm_system_config.proto
   proto/base_state_machine_config.proto
   proto/uav_state_machine_config.proto
+  proto/visual_servoing_state_machine_config.proto
+  proto/pick_place_state_machine_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 

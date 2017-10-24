@@ -38,6 +38,28 @@ TEST(PositionYawToTf, NegativeYaw) {
                                      tf::Vector3(-1, 2, 50)));
 }
 
+void compareProtoToTf(double x, double y, double z, double roll, double pitch,
+                      double yaw) {
+  config::Transform ptf;
+  ptf.mutable_position()->set_x(x);
+  ptf.mutable_position()->set_y(y);
+  ptf.mutable_position()->set_z(z);
+  ptf.mutable_rotation()->set_r(roll);
+  ptf.mutable_rotation()->set_p(pitch);
+  ptf.mutable_rotation()->set_y(yaw);
+
+  tf::Transform tf = conversions::protoTransformToTf(ptf);
+  ASSERT_TF_NEAR(tf::Transform(tf::createQuaternionFromRPY(roll, pitch, yaw),
+                               tf::Vector3(x, y, z)),
+                 tf);
+}
+
+TEST(ProtoTransformToTfTransform, Zero) { compareProtoToTf(0, 0, 0, 0, 0, 0); }
+
+TEST(ProtoTransformToTfTransform, NonZero) {
+  compareProtoToTf(-3.2, 1, 5, 0.1, 0.5, -1);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

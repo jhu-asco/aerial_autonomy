@@ -27,12 +27,6 @@ class VisualServoingStateMachineTests : public ::testing::Test {
 public:
   VisualServoingStateMachineTests() : goal_tolerance_position(0.5) {
     auto uav_vision_system_config = config.mutable_uav_vision_system_config();
-    for (int i = 0; i < 6; ++i) {
-      uav_vision_system_config->add_camera_transform(0.0);
-    }
-    for (int i = 0; i < 6; ++i) {
-      uav_vision_system_config->add_tracking_offset_transform(0.0);
-    }
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
     auto depth_config =
         uav_vision_system_config
@@ -64,7 +58,7 @@ public:
     vel_based_pos_controller_config->mutable_position_controller_config()
         ->set_goal_yaw_tolerance(0.1);
 
-    tf::Transform camera_transform = math::getTransformFromVector(
+    tf::Transform camera_transform = conversions::protoTransformToTf(
         uav_vision_system_config->camera_transform());
     tracker.reset(new SimpleTracker(drone_hardware, camera_transform));
     uav_system.reset(new UAVVisionSystem(*tracker, drone_hardware, config));

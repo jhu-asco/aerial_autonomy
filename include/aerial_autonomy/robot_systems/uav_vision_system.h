@@ -1,7 +1,6 @@
 #pragma once
 #include "aerial_autonomy/common/conversions.h"
 #include "aerial_autonomy/common/html_utils.h"
-#include "aerial_autonomy/common/math.h"
 #include "aerial_autonomy/controller_hardware_connectors/relative_pose_visual_servoing_controller_drone_connector.h"
 #include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h"
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
@@ -25,10 +24,8 @@ public:
   UAVVisionSystem(BaseTracker &tracker, parsernode::Parser &drone_hardware,
                   UAVSystemConfig config)
       : UAVSystem(drone_hardware, config),
-        camera_transform_(math::getTransformFromVector(
+        camera_transform_(conversions::protoTransformToTf(
             config_.uav_vision_system_config().camera_transform())),
-        relative_pose_goals_(conversions::protoPositionYawsToPositionYaws(
-            config_.uav_vision_system_config().relative_pose_goals())),
         tracker_(tracker), constant_heading_depth_controller_(
                                config_.uav_vision_system_config()
                                    .constant_heading_depth_controller_config()),
@@ -41,8 +38,8 @@ public:
         relative_pose_visual_servoing_drone_connector_(
             tracker, drone_hardware, velocity_based_relative_pose_controller_,
             camera_transform_,
-            math::getTransformFromVector(config_.uav_vision_system_config()
-                                             .tracking_offset_transform())) {
+            conversions::protoTransformToTf(config_.uav_vision_system_config()
+                                                .tracking_offset_transform())) {
     controller_hardware_connector_container_.setObject(
         visual_servoing_drone_connector_);
     controller_hardware_connector_container_.setObject(
@@ -108,8 +105,6 @@ public:
     return status.str();
   }
 
-  PositionYaw relativePoseGoal(int i) { return relative_pose_goals_.at(i); }
-
   /**
   * @brief remove any explicit ids specified for visual servoing
   */
@@ -137,12 +132,6 @@ protected:
   * @brief Camera transform in the frame of the UAV
   */
   tf::Transform camera_transform_;
-
-  /**
-  * @brief UAV transforms in the frame of the tracked object
-  */
-  // \todo Matt Move to state machine config
-  std::vector<PositionYaw> relative_pose_goals_;
 
 private:
   BaseTracker &tracker_;

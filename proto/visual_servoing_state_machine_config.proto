@@ -1,0 +1,15 @@
+syntax = "proto2";
+
+import "position_yaw.proto";
+import "pick_place_state_machine_config.proto";
+
+message VisualServoingStateMachineConfig {
+  /**
+  * @brief Relative pose goals for relative pose visual servoing
+  */
+  repeated config.PositionYaw relative_pose_goals = 1;
+
+  oneof subclass {
+    PickPlaceStateMachineConfig pick_place_state_machine_config = 2;
+  }
+}
