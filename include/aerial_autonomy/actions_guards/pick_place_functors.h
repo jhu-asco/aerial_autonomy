@@ -187,11 +187,14 @@ struct GoToWaypointInternalActionFunctor_
                &state) {
     // Initialize controller
     if (!state.controlInitialized()) {
-      if (!state.setWaypoint(robot_system, state.getTrackedIndex())) {
+      PositionYaw waypoint;
+      if (!state.nextWaypoint(waypoint)) {
         LOG(WARNING) << "Tracked index not available: "
                      << state.getTrackedIndex();
         logic_state_machine.process_event(be::Abort());
         return false;
+      } else {
+        sendLocalWaypoint(robot_system, waypoint);
       }
     }
     // check controller status
@@ -204,11 +207,13 @@ struct GoToWaypointInternalActionFunctor_
         logic_state_machine.process_event(Completed());
         return false;
       } else {
-        tracked_index += 1;
-        if (!state.setWaypoint(robot_system, tracked_index)) {
+        PositionYaw waypoint;
+        if (!state.nextWaypoint(waypoint)) {
           LOG(WARNING) << "Tracked index not available: " << tracked_index;
           logic_state_machine.process_event(be::Abort());
           return false;
+        } else {
+          sendLocalWaypoint(robot_system, waypoint);
         }
       }
     } else if (status == ControllerStatus::Critical) {
@@ -219,6 +224,22 @@ struct GoToWaypointInternalActionFunctor_
       return false;
     }
     return true;
+  }
+
+  /**
+  * @brief Send local waypoint to the robot system
+  * @param robot_system Robot to send waypoint to
+  * @param way_point Waypoint to send
+  */
+  void sendLocalWaypoint(UAVArmSystem &robot_system, PositionYaw way_point) {
+    parsernode::common::quaddata data = robot_system.getUAVData();
+    way_point.x += data.localpos.x;
+    way_point.y += data.localpos.y;
+    way_point.z += data.localpos.z;
+    VLOG(1) << "Waypoint position: " << way_point.x << ", " << way_point.y
+            << ", " << way_point.z;
+    robot_system.setGoal<VelocityBasedPositionControllerDroneConnector,
+                         PositionYaw>(way_point);
   }
 };
 
@@ -263,25 +284,20 @@ struct FollowingWaypointSequence_
    * @param tracked_index waypoint index to set and store
    * @return True if successfully set waypoint, false otherwise
    */
-  bool setWaypoint(UAVArmSystem &robot_system, int tracked_index) {
-    if (tracked_index < 0 || tracked_index >= config_.way_points().size()) {
-      return false;
-    }
-
-    tracked_index_ = tracked_index;
-    PositionYaw way_point = conversions::protoPositionYawToPositionYaw(
-        config_.way_points().Get(tracked_index));
-    parsernode::common::quaddata data = robot_system.getUAVData();
-    way_point.x += data.localpos.x;
-    way_point.y += data.localpos.y;
-    way_point.z += data.localpos.z;
-    VLOG(1) << "Going to waypoint " << tracked_index;
-    VLOG(1) << "Waypoint position: " << way_point.x << ", " << way_point.y
-            << ", " << way_point.z;
-    robot_system.setGoal<VelocityBasedPositionControllerDroneConnector,
-                         PositionYaw>(way_point);
-    if (!control_initialized_)
+  bool nextWaypoint(PositionYaw &next_wp) {
+    if (!control_initialized_) {
       control_initialized_ = true;
+      tracked_index_ = StartIndex;
+    } else {
+      if (tracked_index_ + 1 < 0 ||
+          tracked_index_ + 1 >= config_.way_points().size()) {
+        return false;
+      }
+      tracked_index_++;
+    }
+    next_wp = conversions::protoPositionYawToPositionYaw(
+        config_.way_points().Get(tracked_index_));
+
     return true;
   }
 
