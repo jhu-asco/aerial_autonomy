@@ -4,7 +4,7 @@
   <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/matrice_hil_pick_place_alvar_pointgrey_config.pbtxt" if="$(arg hil)"/>
   <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/matrice_pick_place_alvar_pointgrey_config.pbtxt" unless="$(arg hil)"/>
   <param name="log_config_filename" value="$(find aerial_autonomy)/param/log_config.pbtxt" />
-  <param name="state_machine_config_filename" value="$(find aerial_autonomy)/param/base_state_machine_config.pbtxt" />
+  <param name="state_machine_config_filename" value="$(find aerial_autonomy)/param/pick_place_state_machine_alvar_pointgrey_config.pbtxt" />
   <param name="event_file" value="$(find aerial_autonomy)/events/pick_place_events" />
   <arg name="log_level" default="0"/>
   <arg name="log_dir" default="$(find aerial_autonomy)/logs"/>

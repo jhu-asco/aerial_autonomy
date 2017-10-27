@@ -1,0 +1,84 @@
+visual_servoing_state_machine_config {
+  relative_pose_goals {
+    position {
+      x: 0
+      y: -.62
+      z: 0.235
+    }
+    yaw: 1.5708
+  }
+
+  relative_pose_goals {
+    position {
+      x: 0
+      y: -.9
+      z: 0.08
+    }
+    yaw: 1.5708
+  }
+
+  pick_place_state_machine_config {
+    grip_timeout: 30000
+
+    arm_goal_transform {
+      position {
+        x: -0.2
+        y: 0
+        z: 0.47
+      }
+      rotation {
+        r: 0
+        p: 0
+        y: 0
+      }
+    }
+
+    arm_goal_transform {
+      position {
+        x: 0
+        y: -0.09
+        z: -0.01
+      }
+      rotation {
+        r: 0
+        p: 0
+        y: 0
+      }
+    }
+
+    following_waypoint_sequence_config {
+      way_points {
+        position {
+          x: 1.0
+          y: 0.0
+          z: 0.15
+        }
+        yaw: 3.141
+      }
+      way_points {
+        position {
+          x: 0.0
+          y: 0.0
+          z: 0.0
+        }
+        yaw: 0
+      }
+      way_points {
+        position {
+          x: -1.0
+          y: 0.0
+          z: 0.15
+        }
+        yaw: 0
+      }
+      way_points {
+        position {
+          x: 0.0
+          y: 0.0
+          z: 0.0
+        }
+        yaw: 3.141
+      }
+    }
+  }
+}
