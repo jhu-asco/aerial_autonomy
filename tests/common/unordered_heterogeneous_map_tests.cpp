@@ -1,4 +1,4 @@
-#include <aerial_autonomy/common/unordered_heterogenous_map.h>
+#include <aerial_autonomy/common/unordered_heterogeneous_map.h>
 #include <gtest/gtest.h>
 
 #define TYPE_INDEX(X) std::type_index(typeid(X))
@@ -22,15 +22,15 @@ TEST(WrapperTests, WrapAndRetrieveObject) {
   Config1 original;
   Config1 retrieved;
   original.i = 5;
-  UnorderedHeterogenousMap<std::type_index>::AbstractBaseWrapper<Config1>
+  UnorderedHeterogeneousMap<std::type_index>::AbstractBaseWrapper<Config1>
       config1_wrapper(original);
   // Retrieve object
   retrieved = config1_wrapper.getInput();
   EXPECT_EQ(retrieved.i, original.i);
 }
 
-TEST(UnorderedHeterogenousMapTests, SaveAndRetrieveConfigs) {
-  UnorderedHeterogenousMap<std::type_index> configuration_interface;
+TEST(UnorderedHeterogeneousMapTests, SaveAndRetrieveConfigs) {
+  UnorderedHeterogeneousMap<std::type_index> configuration_interface;
   Config1 config1;
   config1.i = 10;
   Config2 config2;
@@ -62,8 +62,8 @@ TEST(UnorderedHeterogenousMapTests, SaveAndRetrieveConfigs) {
       (configuration_interface.find<Config1>(TYPE_INDEX(TargetState3))),
       std::runtime_error);
 }
-TEST(UnorderedHeterogenousMapTests, SaveAndOverwriteConfigs) {
-  UnorderedHeterogenousMap<int> configuration_interface;
+TEST(UnorderedHeterogeneousMapTests, SaveAndOverwriteConfigs) {
+  UnorderedHeterogeneousMap<int> configuration_interface;
   Config1 config1;
   config1.i = 10;
   Config1 config1_overwrite;
@@ -75,8 +75,8 @@ TEST(UnorderedHeterogenousMapTests, SaveAndOverwriteConfigs) {
   retrieved_config1 = configuration_interface.find<Config1>(1);
   EXPECT_EQ(retrieved_config1.i, config1_overwrite.i);
 }
-TEST(UnorderedHeterogenousMapTests, SpecializedInsertFind) {
-  UnorderedHeterogenousMap<std::type_index> configuration_interface;
+TEST(UnorderedHeterogeneousMapTests, SpecializedInsertFind) {
+  UnorderedHeterogeneousMap<std::type_index> configuration_interface;
   Config1 config1;
   config1.i = 10;
   Config1 config2;

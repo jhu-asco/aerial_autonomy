@@ -185,6 +185,18 @@ struct GoToWaypointInternalActionFunctor_
   bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine,
            FollowingWaypointSequence_<LogicStateMachineT, StartIndex, EndIndex>
                &state) {
+    // Initialize controller
+    if (!state.controlInitialized()) {
+      PositionYaw waypoint;
+      if (!state.nextWaypoint(waypoint)) {
+        LOG(WARNING) << "Tracked index not available: "
+                     << state.getTrackedIndex();
+        logic_state_machine.process_event(be::Abort());
+        return false;
+      } else {
+        sendLocalWaypoint(robot_system, waypoint);
+      }
+    }
     // check controller status
     ControllerStatus status =
         robot_system.getStatus<VelocityBasedPositionControllerDroneConnector>();
@@ -195,13 +207,13 @@ struct GoToWaypointInternalActionFunctor_
         logic_state_machine.process_event(Completed());
         return false;
       } else {
-        tracked_index += 1;
-        if (!robot_system.checkWaypointIndex(tracked_index)) {
+        PositionYaw waypoint;
+        if (!state.nextWaypoint(waypoint)) {
           LOG(WARNING) << "Tracked index not available: " << tracked_index;
           logic_state_machine.process_event(be::Abort());
           return false;
         } else {
-          state.setWaypoint(robot_system, tracked_index);
+          sendLocalWaypoint(robot_system, waypoint);
         }
       }
     } else if (status == ControllerStatus::Critical) {
@@ -213,26 +225,21 @@ struct GoToWaypointInternalActionFunctor_
     }
     return true;
   }
-};
 
-/**
-* @brief Guard for waypoint A transition
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-* @tparam StartIndex starting waypoint index to follow
-* @tparam EndIndex ending waypoint index to follow
-*/
-template <class LogicStateMachineT, int StartIndex, int EndIndex>
-struct WaypointSequenceTransitionGuardFunctor_
-    : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
-  bool guard(UAVArmSystem &robot_system) {
-    bool result = robot_system.checkWaypointIndex(StartIndex) &&
-                  robot_system.checkWaypointIndex(EndIndex);
-    if (!result) {
-      LOG(WARNING) << "StartIndex: " << StartIndex << " or EndIndex "
-                   << EndIndex << " not available in waypoint vector in config";
-    }
-    return result;
+  /**
+  * @brief Send local waypoint to the robot system
+  * @param robot_system Robot to send waypoint to
+  * @param way_point Waypoint to send
+  */
+  void sendLocalWaypoint(UAVArmSystem &robot_system, PositionYaw way_point) {
+    parsernode::common::quaddata data = robot_system.getUAVData();
+    way_point.x += data.localpos.x;
+    way_point.y += data.localpos.y;
+    way_point.z += data.localpos.z;
+    VLOG(1) << "Waypoint position: " << way_point.x << ", " << way_point.y
+            << ", " << way_point.z;
+    robot_system.setGoal<VelocityBasedPositionControllerDroneConnector,
+                         PositionYaw>(way_point);
   }
 };
 
@@ -275,19 +282,23 @@ struct FollowingWaypointSequence_
    *
    * @param robot_system Robot system to set waypoint
    * @param tracked_index waypoint index to set and store
+   * @return True if successfully set waypoint, false otherwise
    */
-  void setWaypoint(UAVArmSystem &robot_system, int tracked_index) {
-    tracked_index_ = tracked_index;
-    PositionYaw way_point = robot_system.getWaypoint(tracked_index);
-    parsernode::common::quaddata data = robot_system.getUAVData();
-    way_point.x += data.localpos.x;
-    way_point.y += data.localpos.y;
-    way_point.z += data.localpos.z;
-    VLOG(1) << "Going to waypoint " << tracked_index;
-    VLOG(1) << "Waypoint position: " << way_point.x << ", " << way_point.y
-            << ", " << way_point.z;
-    robot_system.setGoal<VelocityBasedPositionControllerDroneConnector,
-                         PositionYaw>(way_point);
+  bool nextWaypoint(PositionYaw &next_wp) {
+    if (!control_initialized_) {
+      control_initialized_ = true;
+      tracked_index_ = StartIndex;
+    } else {
+      if (tracked_index_ + 1 < 0 ||
+          tracked_index_ + 1 >= config_.way_points().size()) {
+        return false;
+      }
+      tracked_index_++;
+    }
+    next_wp = conversions::protoPositionYawToPositionYaw(
+        config_.way_points().Get(tracked_index_));
+
+    return true;
   }
 
   /**
@@ -299,12 +310,15 @@ struct FollowingWaypointSequence_
    */
   template <class Event, class FSM>
   void on_entry(Event const &, FSM &logic_state_machine) {
-    UAVArmSystem &robot_system = this->getRobotSystem(logic_state_machine);
-    if (robot_system.checkWaypointIndex(StartIndex)) {
-      setWaypoint(robot_system, StartIndex);
-    } else {
+    config_ = logic_state_machine.configMap()
+                  .find<FollowingWaypointSequence_<LogicStateMachineT,
+                                                   StartIndex, EndIndex>,
+                        FollowingWaypointSequenceConfig>();
+    if (StartIndex >= config_.way_points().size() || StartIndex < 0) {
       LOG(WARNING) << " Starting index not in waypoint vector list";
       logic_state_machine.process_event(be::Abort());
+    } else {
+      tracked_index_ = StartIndex;
     }
   }
 
@@ -315,8 +329,17 @@ struct FollowingWaypointSequence_
    */
   int getTrackedIndex() { return tracked_index_; }
 
+  /**
+  * @brief Whether control has been initialized or not
+  * @return True if initialized, false otherwise
+  */
+  bool controlInitialized() { return control_initialized_; }
+
 private:
-  int tracked_index_ = StartIndex; ///< Current tracked index
+  FollowingWaypointSequenceConfig config_; ///< State config
+  int tracked_index_ = StartIndex;         ///< Current tracked index
+  bool control_initialized_ =
+      false; ///< Flag to indicate if control is initialized
 };
 
 /**

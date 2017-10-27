@@ -15,6 +15,8 @@
 // state machine config
 #include "base_state_machine_config.pb.h"
 
+#include <aerial_autonomy/common/unordered_heterogeneous_map.h>
+
 /**
 * @brief Base state machine
 */
@@ -25,6 +27,11 @@ protected:
   * @brief type index to store the event that did not trigger any transition
   */
   std::type_index no_transition_event_index_ = typeid(NULL);
+
+  /**
+  * @brief Maps states to configurations
+  */
+  UnorderedHeterogeneousMap<std::type_index> config_map_;
 
 public:
   /**
@@ -80,5 +87,13 @@ public:
     no_transition_event_index_ = typeid(e);
     LOG(WARNING) << "Event " << no_transition_event_index_.name()
                  << " triggered no transition";
+  }
+
+  /**
+  * @brief Getter for state configuration map
+  * @return The config map
+  */
+  const UnorderedHeterogeneousMap<std::type_index> &configMap() {
+    return config_map_;
   }
 };

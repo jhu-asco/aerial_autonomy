@@ -22,10 +22,10 @@ protected:
   std::unique_ptr<UAVStateMachine> logic_state_machine;
   std::unique_ptr<UAVSystem> uav_system;
   QuadSimulator drone_hardware;
+  UAVSystemConfig config;
+  BaseStateMachineConfig state_machine_config;
 
   virtual void SetUp() {
-    UAVSystemConfig config;
-    BaseStateMachineConfig state_machine_config;
     auto position_tolerance = config.mutable_position_controller_config()
                                   ->mutable_goal_position_tolerance();
     position_tolerance->set_x(0.5);
@@ -52,6 +52,13 @@ protected:
     logic_state_machine->start();
     // Will switch to Landed state from manual control state
     logic_state_machine->process_event(InternalTransitionEvent());
+
+    LogConfig log_config;
+    log_config.set_directory("/tmp/data");
+    Log::instance().configure(log_config);
+    DataStreamConfig data_config;
+    data_config.set_stream_id("velocity_based_position_controller");
+    Log::instance().addDataStream(data_config);
   }
 
   virtual void TearDown() {

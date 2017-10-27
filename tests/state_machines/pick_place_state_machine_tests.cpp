@@ -96,10 +96,11 @@ public:
     // Relative marker goal for place
     vision_state_machine_config->add_relative_pose_goals();
 
+    auto waypoint_config =
+        pick_state_machine_config->mutable_following_waypoint_sequence_config();
     // Post-pick waypoints
     for (int i = 0; i < 2; i++) {
-      auto pose_goal = uav_vision_system_config->mutable_uav_arm_system_config()
-                           ->add_way_points();
+      auto pose_goal = waypoint_config->add_way_points();
       auto pose_goal_position = pose_goal->mutable_position();
       pose_goal_position->set_x(-i);
       pose_goal_position->set_y(0);
@@ -109,8 +110,7 @@ public:
 
     // Post-place waypoints
     for (int i = 0; i < 2; i++) {
-      auto pose_goal = uav_vision_system_config->mutable_uav_arm_system_config()
-                           ->add_way_points();
+      auto pose_goal = waypoint_config->add_way_points();
       auto pose_goal_position = pose_goal->mutable_position();
       pose_goal_position->set_x(i);
       pose_goal_position->set_y(0);
@@ -289,6 +289,7 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
   ASSERT_STREQ(pstate(*logic_state_machine_), "ReachingPostPickWaypoint");
   ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(Completed));
   // Run controllers through two waypoints
+  logic_state_machine_->process_event(InternalTransitionEvent());
   ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
                                             std::chrono::seconds(5),
                                             std::chrono::milliseconds(0)));
@@ -310,6 +311,7 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
   ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(Completed));
   ASSERT_FALSE(arm_.getGripperValue());
   // Run controllers through two waypoints
+  logic_state_machine_->process_event(InternalTransitionEvent());
   ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
                                             std::chrono::seconds(5),
                                             std::chrono::milliseconds(0)));

@@ -55,10 +55,11 @@ protected:
     setTransform(pick_state_machine_config->add_arm_goal_transform(), -0.1, 0,
                  0, 0, 0, 0);
     // waypoints
-    setWaypoint(uav_arm_system_config->add_way_points(), 0.1, 0, 0, 0);
-    setWaypoint(uav_arm_system_config->add_way_points(), 0, 0, 0, M_PI / 2.0);
-    setWaypoint(uav_arm_system_config->add_way_points(), 0, -1.0, 0,
-                M_PI / 2.0);
+    auto waypoint_config =
+        pick_state_machine_config->mutable_following_waypoint_sequence_config();
+    setWaypoint(waypoint_config->add_way_points(), 0.1, 0, 0, 0);
+    setWaypoint(waypoint_config->add_way_points(), 0, 0, 0, M_PI / 2.0);
+    setWaypoint(waypoint_config->add_way_points(), 0, -1.0, 0, M_PI / 2.0);
 
     auto vision_state_machine_config =
         state_machine_config.mutable_visual_servoing_state_machine_config();
@@ -157,18 +158,6 @@ TEST_F(PickPlaceFunctorTests, PoweroffCallGuardFunction) {
   bool result = pick_place_transition_guard(
       NULL, *sample_logic_state_machine, dummy_start_state, dummy_target_state);
   ASSERT_FALSE(result);
-}
-
-TEST_F(PickPlaceFunctorTests, WaypointSequenceTransitionGuardCheck) {
-  WaypointSequenceTransitionGuardFunctor_<UAVArmLogicStateMachine, 3, 5>
-      guard_false;
-  int dummy_start_state, dummy_target_state;
-  EXPECT_FALSE(guard_false(NULL, *sample_logic_state_machine, dummy_start_state,
-                           dummy_target_state));
-  WaypointSequenceTransitionGuardFunctor_<UAVArmLogicStateMachine, 0, 2>
-      guard_true;
-  EXPECT_TRUE(guard_true(NULL, *sample_logic_state_machine, dummy_start_state,
-                         dummy_target_state));
 }
 
 TEST_F(PickPlaceFunctorTests, ArmFoldInternalPoweroff) {
