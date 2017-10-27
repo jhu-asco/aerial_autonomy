@@ -41,9 +41,7 @@ struct GrippingInternalActionFunctor_
       VLOG(1) << "Done Gripping!";
       logic_state_machine.process_event(Completed());
       return false;
-    } else if (state.timeInState() > robot_system.gripTimeout()) {
-      // \todo Matt Put this in its own action functor.  The timeout should be
-      // based on a state config, not a robot_system config
+    } else if (state.timeInState() > state.gripTimeout()) {
       robot_system.resetGripper();
       LOG(WARNING) << "Timeout: Failed to grip!";
       logic_state_machine.process_event(Reset());
@@ -407,9 +405,34 @@ public:
     return grip_duration_success;
   }
 
+  /**
+   * @brief Function to set the starting waypoint when entering this state
+   *
+   * @tparam Event Event causing the entry of this state
+   * @tparam FSM Logic statemachine back end
+   * @param logic_state_machine state machine that processes events
+   */
+  template <class Event, class FSM>
+  void on_entry(Event const &, FSM &logic_state_machine) {
+    // log start time
+    this->entry_time_ = std::chrono::high_resolution_clock::now();
+    grip_timeout_ = std::chrono::milliseconds(
+        logic_state_machine.configMap()
+            .find<PickState_<LogicStateMachineT>, uint32_t>());
+    VLOG(1) << "Grip timeout in milliseconds: " << grip_timeout_.count();
+  }
+
+  /**
+   * @brief Getter for timeout during gripping
+   *
+   * @return timeout in milliseconds obtained from state machine config
+   */
+  std::chrono::milliseconds gripTimeout() { return grip_timeout_; }
+
 private:
   std::chrono::time_point<std::chrono::high_resolution_clock> grip_start_time_;
   std::chrono::milliseconds required_grip_duration_ =
       std::chrono::milliseconds(1000);
   bool gripping_ = false;
+  std::chrono::milliseconds grip_timeout_ = std::chrono::milliseconds(0);
 };

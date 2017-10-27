@@ -114,6 +114,8 @@ public:
         pick_state_machine_config.following_waypoint_sequence_config());
     config_map_.insert<psa::ReachingPostPlaceWaypoint>(
         pick_state_machine_config.following_waypoint_sequence_config());
+    config_map_.insert<psa::PickState>(
+        pick_state_machine_config.grip_timeout());
   }
 
   PickPlaceStateMachineFrontEnd(UAVArmSystem &uav_system)

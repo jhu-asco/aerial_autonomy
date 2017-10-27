@@ -14,4 +14,8 @@ message PickPlaceStateMachineConfig {
   */
   optional FollowingWaypointSequenceConfig following_waypoint_sequence_config =
       2;
+  /**
+  * @brief How much time to spend trying to grip the object in milliseconds
+  */
+  optional uint32 grip_timeout = 3 [ default = 2000 ];
 }

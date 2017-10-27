@@ -39,6 +39,6 @@ public:
    */
   virtual ~TimedState() {}
 
-private:
+protected:
   std::chrono::time_point<std::chrono::high_resolution_clock> entry_time_;
 };
