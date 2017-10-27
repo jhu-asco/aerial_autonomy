@@ -10,3 +10,4 @@ scripts/generate_dot_files.py
 param/log_config.pbtxt
 .vscode
 .dot_output/*
+*.bag
