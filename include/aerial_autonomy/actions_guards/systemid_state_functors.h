@@ -68,23 +68,25 @@ struct SystemIdStateInternalActionFunctor_
     measurement.position << position_data.x, position_data.y, position_data.z;
     measurement.rpy << data.rpydata.x, data.rpydata.y, data.rpydata.z;
 
-    measurement.control << math::map(
-        data.servo_in[2], -rpyt_config.max_channel3(),
-        rpyt_config.max_channel3(), rpyt_config.min_thrust(),
-        rpyt_config.max_thrust()),
-        math::map(data.servo_in[0], -rpyt_config.max_channel1(),
-                  rpyt_config.max_channel1(), -rpyt_config.max_roll(),
-                  rpyt_config.max_roll()),
-        math::map(data.servo_in[1], -rpyt_config.max_channel2(),
-                  rpyt_config.max_channel2(), -rpyt_config.max_pitch(),
-                  rpyt_config.max_pitch()),
-        // \todo Soham make this commanded_yaw - yaw_rate*timestep in estimator
-        // class
-        math::angleWrap(math::map(data.servo_in[3], -rpyt_config.max_channel4(),
-                                  rpyt_config.max_channel4(),
-                                  -rpyt_config.max_yaw_rate(),
-                                  rpyt_config.max_yaw_rate()) *
-                        robot_system.getControllerTimerDuration());
+    double roll = math::map(data.servo_in[0], -rpyt_config.max_channel1(),
+                            rpyt_config.max_channel1(), -rpyt_config.max_roll(),
+                            rpyt_config.max_roll());
+
+    double pitch = math::map(data.servo_in[1], -rpyt_config.max_channel2(),
+                             rpyt_config.max_channel2(),
+                             -rpyt_config.max_pitch(), rpyt_config.max_pitch());
+
+    double thrust =
+        math::map(data.servo_in[2], -rpyt_config.max_channel3(),
+                  rpyt_config.max_channel3(), rpyt_config.min_thrust(),
+                  rpyt_config.max_thrust());
+
+    double yawdot =
+        math::map(-data.servo_in[3], -rpyt_config.max_channel4(),
+                  rpyt_config.max_channel4(), -rpyt_config.max_yaw_rate(),
+                  rpyt_config.max_yaw_rate());
+
+    measurement.control << thrust, roll, pitch, yawdot;
     robot_system.addMeasurement(measurement);
     return true;
   }
@@ -106,6 +108,17 @@ using SystemIdStateCompleteActionFunctor_ =
 * @tparam LogicStateMachineT Logic State Machine to process events
 */
 template <class LogicStateMachineT>
-using SystemIdState_ =
-    BaseState<UAVSystem, LogicStateMachineT,
-              SystemIdStateCompleteActionFunctor_<LogicStateMachineT>>;
+struct SystemIdState_
+    : public BaseState<
+          UAVSystem, LogicStateMachineT,
+          SystemIdStateInternalActionFunctor_<LogicStateMachineT>> {
+  /**
+  * @brief Function to run system id when exiting from this state
+  */
+  template <class Event, class FSM>
+  void on_exit(Event const &, FSM &logic_state_machine) {
+    VLOG(1) << "Exiting system id state. Estimating Parameters";
+    UAVSystem &robot_system = this->getRobotSystem(logic_state_machine);
+    robot_system.runSystemId();
+  }
+};

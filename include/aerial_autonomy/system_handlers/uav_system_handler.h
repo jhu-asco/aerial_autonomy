@@ -56,18 +56,20 @@ public:
             std::chrono::milliseconds(config.uav_controller_timer_duration())),
         use_dynamic_reconfigure_(config.use_dynamic_reconfigure()) {
     // Set default dynamic reconfigure gains from configurationg
-    callbacktype_ = boost::bind(&UAVSystemHandler::dynamicReconfigureCallback,
-                                this, _1, _2);
-    server_.setCallback(callbacktype_);
-    aerial_autonomy::GainsConfig default_config;
-    RPYTBasedVelocityControllerConfig start_config =
-        config.uav_system_config()
-            .joystick_velocity_controller_config()
-            .rpyt_based_velocity_controller_config();
-    default_config.kp = start_config.kp();
-    default_config.ki = start_config.ki();
-    default_config.kt = start_config.kt();
-    server_.updateConfig(default_config);
+    if (use_dynamic_reconfigure_) {
+      callbacktype_ = boost::bind(&UAVSystemHandler::dynamicReconfigureCallback,
+                                  this, _1, _2);
+      server_.setCallback(callbacktype_);
+      aerial_autonomy::GainsConfig default_config;
+      RPYTBasedVelocityControllerConfig start_config =
+          config.uav_system_config()
+              .joystick_velocity_controller_config()
+              .rpyt_based_velocity_controller_config();
+      default_config.kp = start_config.kp();
+      default_config.ki = start_config.ki();
+      default_config.kt = start_config.kt();
+      server_.updateConfig(default_config);
+    }
     // Initialize UAV plugin
     uav_hardware_->initialize(nh_uav_);
 

@@ -31,7 +31,6 @@ TEST(JoystickControlTests, Constructor) {
 TEST(JoystickControlTests, TransitionGuardValidTest) {
 
   QuadSimulator drone_hardware;
-  std::cout << "creating uav_system\n";
   UAVSystem uav_system(
       drone_hardware, UAVSystemConfig(),
       std::shared_ptr<Sensor<std::tuple<VelocityYaw, Position>>>(
@@ -164,42 +163,6 @@ TEST(JoystickControlTests, SystemIdActionTest) {
 
   ASSERT_EQ(uav_system.getStatus<ManualRPYTControllerDroneConnector>(),
             ControllerStatus::Active);
-}
-
-TEST(JoystickControlTests, SystemIdTest) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(
-      drone_hardware, UAVSystemConfig(),
-      std::shared_ptr<Sensor<std::tuple<VelocityYaw, Position>>>(
-          new Sensor<std::tuple<VelocityYaw, Position>>()));
-
-  RPYTBasedVelocityControllerConfig old_config;
-  old_config.set_kt(0.5);
-  uav_system.updateRPYTVelocityControllerConfig(old_config);
-  UAVLogicStateMachine sample_logic_state_machine(uav_system);
-  jcsa::SystemIdStateAction systemid_state_action;
-  int dummy_event, dummy_target_state, dummy_start_state;
-  systemid_state_action(dummy_event, sample_logic_state_machine,
-                        dummy_start_state, dummy_target_state);
-
-  ASSERT_EQ(uav_system.getStatus<ManualRPYTControllerDroneConnector>(),
-            ControllerStatus::Active);
-
-  jcsa::SystemIdStateInternalAction systemid_internal_action;
-  int16_t channels[4] = {100, 50, 25, 100};
-  drone_hardware.setRC(channels);
-
-  for (int i = 0; i < 100; ++i) {
-    uav_system.runActiveController(HardwareType::UAV);
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    systemid_internal_action(dummy_event, sample_logic_state_machine,
-                             dummy_start_state, dummy_target_state);
-  }
-
-  RPYTBasedVelocityControllerConfig new_config =
-      uav_system.getRPYTVelocityControllerConfig();
-
-  ASSERT_NE(new_config.kt(), old_config.kt());
 }
 
 int main(int argc, char **argv) {

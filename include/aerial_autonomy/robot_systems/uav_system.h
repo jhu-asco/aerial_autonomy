@@ -157,7 +157,8 @@ public:
                                           << "CommandedThrust"
                                           << "CommandedRoll"
                                           << "CommandedPitch"
-                                          << "CommandedYaw" << DataStream::endl;
+                                          << "CommandedYawRate"
+                                          << DataStream::endl;
   }
   /**
   * @brief Get sensor data from UAV
@@ -344,10 +345,6 @@ public:
         << measurement.control[3] << DataStream::endl;
 
     system_id_measurements.push_back(measurement);
-    if (system_id_measurements.size() == 50) {
-      runSystemId();
-      clearMeasurements();
-    }
   }
   /**
   * @brief reset measurements
@@ -357,27 +354,58 @@ public:
   * @brief run system id
   */
   void runSystemId() {
-    gcop::QRotorIDState init_state;
-    init_state.p = system_id_measurements[0].position;
-    const Eigen::Vector3d &rpy = system_id_measurements[0].rpy;
+    if (system_id_measurements.size() <= 101) {
+      // \todo soham make it a parameter
+      LOG(WARNING) << "Too few measurements for system id. Exiting.";
+      return;
+    }
 
-    gcop::SO3 &so3 = gcop::SO3::Instance();
-    so3.q2g(init_state.R, rpy);
-    init_state.u << 0, 0, rpy(2);
+    std::vector<gcop::QRotorSystemIDMeasurement> estimator_measurements;
+    int iterations = system_id_measurements.size() / 100;
+    std::cout << "no of iterations = " << iterations << std::endl;
 
-    // Run estimator
-    system_id.offsets_timeperiod = 0.5; // \todo Will be a param in class
-    system_id.EstimateParameters(system_id_measurements, init_state);
+    for (int k = 0; k < iterations; k++) {
+      gcop::QRotorIDState init_state;
+      init_state.p = system_id_measurements[k * 100].position;
+      const Eigen::Vector3d &rpy = system_id_measurements[k * 100].rpy;
 
-    // Update gain only if gain is within bounds
-    if ((system_id.qrotor_gains_lb[0] < system_id.qrotor_gains[0]) &
-        (system_id.qrotor_gains_ub[0] > system_id.qrotor_gains[0])) {
-      RPYTBasedVelocityControllerConfig config;
-      VLOG(1) << "kt changed to " << system_id.qrotor_gains[0] << "\n";
-      config.set_kt(system_id.qrotor_gains[0]);
-      updateRPYTVelocityControllerConfig(config);
-    } else {
-      LOG(WARNING) << "Gain out of bounds";
+      gcop::SO3 &so3 = gcop::SO3::Instance();
+      so3.q2g(init_state.R, rpy);
+      init_state.u << 0, 0, rpy(2);
+
+      estimator_measurements.resize(100);
+      // \todo soham make both these parameters
+      for (int j = 0; j < 100; j++) {
+        estimator_measurements[j].t = system_id_measurements[k * 100 + j + 1].t;
+        estimator_measurements[j].position =
+            system_id_measurements[k * 100 + j + 1].position;
+        estimator_measurements[j].rpy =
+            system_id_measurements[k * 100 + j + 1].rpy;
+        // convert to rolldot, pitchdot
+        estimator_measurements[j].control
+            << system_id_measurements[k * 100 + j + 1].control[0],
+            (system_id_measurements[k * 100 + j + 1].control[1] -
+             system_id_measurements[k * 100 + j].control[1]) /
+                controller_timer_duration_,
+            (system_id_measurements[k * 100 + j + 1].control[2] -
+             system_id_measurements[k * 100 + j].control[2]) /
+                controller_timer_duration_,
+            system_id_measurements[k * 100 + j + 1].control[3];
+      }
+      // Run estimator
+      system_id.offsets_timeperiod = 0.5; // \todo soham make it a param
+      system_id.EstimateParameters(estimator_measurements, init_state);
+      estimator_measurements.clear();
+      // Update gain only if gain is within bounds
+      if ((system_id.qrotor_gains_lb[0] < system_id.qrotor_gains[0]) &
+          (system_id.qrotor_gains_ub[0] > system_id.qrotor_gains[0])) {
+        RPYTBasedVelocityControllerConfig config;
+        VLOG(1) << "kt changed to " << system_id.qrotor_gains[0] << "\n";
+        config.set_kt(system_id.qrotor_gains[0]);
+        updateRPYTVelocityControllerConfig(config);
+      } else {
+        LOG(WARNING) << "Gain out of bounds";
+      }
     }
   }
 

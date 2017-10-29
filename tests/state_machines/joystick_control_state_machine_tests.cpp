@@ -110,16 +110,31 @@ TEST_F(JoystickControlStateMachineTests, JoystickControlMode) {
 TEST_F(JoystickControlStateMachineTests, SystemIdState) {
   // Set large kt
   RPYTBasedVelocityControllerConfig old_config;
-  old_config.set_kt(0.5);
+  old_config.set_kt(0.2);
   uav_system->updateRPYTVelocityControllerConfig(old_config);
   // Takeoff
   GoToHoverFromLanded();
   // Go to SystemId state
   logic_state_machine->process_event(jce::SystemIdEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "SystemIdState");
+  ASSERT_EQ(uav_system->getStatus<ManualRPYTControllerDroneConnector>(),
+            ControllerStatus::Active);
+
+  for (int i = 0; i < 350; i++) {
+    int16_t channels[4] = {5000, 1500, 2500, 3000};
+    drone_hardware.setRC(channels);
+    uav_system->runActiveController(HardwareType::UAV);
+    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+    logic_state_machine->process_event(InternalTransitionEvent());
+  }
 
   logic_state_machine->process_event(be::Abort());
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
+
+  RPYTBasedVelocityControllerConfig new_config =
+      uav_system->getRPYTVelocityControllerConfig();
+
+  ASSERT_NE(new_config.kt(), old_config.kt());
 }
 
 int main(int argc, char **argv) {
