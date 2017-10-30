@@ -7,6 +7,7 @@
 // Quad Simulator
 #include <quad_simulator_parser/quad_simulator.h>
 // Guidance Sensor
+#include <aerial_autonomy/common/math.h>
 #include <aerial_autonomy/sensors/base_sensor.h>
 #include <aerial_autonomy/sensors/guidance.h>
 
@@ -114,14 +115,16 @@ TEST_F(JoystickControlStateMachineTests, SystemIdState) {
   uav_system->updateRPYTVelocityControllerConfig(old_config);
   // Takeoff
   GoToHoverFromLanded();
+
   // Go to SystemId state
   logic_state_machine->process_event(jce::SystemIdEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "SystemIdState");
   ASSERT_EQ(uav_system->getStatus<ManualRPYTControllerDroneConnector>(),
             ControllerStatus::Active);
 
-  for (int i = 0; i < 350; i++) {
-    int16_t channels[4] = {5000, 1500, 2500, 3000};
+  for (int i = 0; i < 450; i++) {
+    int16_t channels[4] = {int16_t(10 * i), int16_t(10 * i), int16_t(10 * i),
+                           int16_t(-10 * i)};
     drone_hardware.setRC(channels);
     uav_system->runActiveController(HardwareType::UAV);
     std::this_thread::sleep_for(std::chrono::milliseconds(20));
@@ -134,7 +137,7 @@ TEST_F(JoystickControlStateMachineTests, SystemIdState) {
   RPYTBasedVelocityControllerConfig new_config =
       uav_system->getRPYTVelocityControllerConfig();
 
-  ASSERT_NE(new_config.kt(), old_config.kt());
+  ASSERT_NEAR(new_config.kt(), 0.16, 0.05);
 }
 
 int main(int argc, char **argv) {

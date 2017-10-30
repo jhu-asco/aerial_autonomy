@@ -88,10 +88,6 @@ private:
   * @ brief Variable to store measurements for system id
   */
   std::vector<gcop::QRotorSystemIDMeasurement> system_id_measurements;
-  /**
-  * @brief Sytem Id object
-  */
-  gcop::QRotorSystemID system_id;
 
 public:
   /**
@@ -393,6 +389,7 @@ public:
             system_id_measurements[k * 100 + j + 1].control[3];
       }
       // Run estimator
+      gcop::QRotorSystemID system_id;
       system_id.offsets_timeperiod = 0.5; // \todo soham make it a param
       system_id.EstimateParameters(estimator_measurements, init_state);
       estimator_measurements.clear();
