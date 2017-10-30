@@ -1,4 +1,5 @@
 #pragma once
+#include "grip_config.pb.h"
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
 #include <aerial_autonomy/actions_guards/manual_control_functors.h>
@@ -423,10 +424,14 @@ public:
   template <class Event, class FSM>
   void on_entry(Event const &evt, FSM &logic_state_machine) {
     PickBaseState_<LogicStateMachineT>::on_entry(evt, logic_state_machine);
-    grip_timeout_ = std::chrono::milliseconds(
-        logic_state_machine.configMap()
-            .find<PickState_<LogicStateMachineT>, uint32_t>());
+    auto grip_config = logic_state_machine.configMap()
+                           .find<PickState_<LogicStateMachineT>, GripConfig>();
+    grip_timeout_ = std::chrono::milliseconds(grip_config.grip_timeout());
+    required_grip_duration_ =
+        std::chrono::milliseconds(grip_config.grip_duration());
     VLOG(1) << "Grip timeout in milliseconds: " << grip_timeout_.count();
+    VLOG(1) << "Grip duration in milliseconds: "
+            << required_grip_duration_.count();
   }
 
   /**
@@ -439,7 +444,7 @@ public:
 private:
   std::chrono::time_point<std::chrono::high_resolution_clock> grip_start_time_;
   std::chrono::milliseconds required_grip_duration_ =
-      std::chrono::milliseconds(1000);
+      std::chrono::milliseconds(0);
   bool gripping_ = false;
   std::chrono::milliseconds grip_timeout_ = std::chrono::milliseconds(0);
 };

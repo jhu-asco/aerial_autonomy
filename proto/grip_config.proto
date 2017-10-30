@@ -1,0 +1,12 @@
+syntax = "proto2";
+
+message GripConfig {
+  /**
+  * @brief How much time to spend trying to grip the object in milliseconds
+  */
+  optional uint32 grip_timeout = 1 [ default = 2000 ];
+  /**
+  * @brief Gripping should be true for this duration for gripping to succeed
+  */
+  optional uint32 grip_duration = 2 [ default = 1000 ];
+}

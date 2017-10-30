@@ -2,6 +2,7 @@ syntax = "proto2";
 
 import "transform.proto";
 import "following_waypoint_sequence_config.proto";
+import "grip_config.proto";
 
 message PickPlaceStateMachineConfig {
   /**
@@ -15,7 +16,7 @@ message PickPlaceStateMachineConfig {
   optional FollowingWaypointSequenceConfig following_waypoint_sequence_config =
       2;
   /**
-  * @brief How much time to spend trying to grip the object in milliseconds
+  * @brief Config for pickstate
   */
-  optional uint32 grip_timeout = 3 [ default = 2000 ];
+  optional GripConfig grip_config = 3;
 }

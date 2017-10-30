@@ -18,7 +18,9 @@ visual_servoing_state_machine_config {
   }
 
   pick_place_state_machine_config {
-    grip_timeout: 30000
+    grip_config {
+      grip_timeout: 30000
+    }
 
     arm_goal_transform {
       position {
