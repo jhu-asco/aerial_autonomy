@@ -137,8 +137,6 @@ uav_system_config {
       }
     }
     uav_arm_system_config {
-      grip_timeout: 30000
-
       arm_transform {
         position {
           x: 0.17

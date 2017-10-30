@@ -357,6 +357,24 @@ struct WaitingForPick_
               UAVStatusInternalActionFunctor_<LogicStateMachineT>,
               ArmStatusInternalActionFunctor_<LogicStateMachineT>,
               WaitingForPickInternalActionFunctor_<LogicStateMachineT>>>> {};
+
+/**
+ * @brief typedef for base class of pick state which is a timed state
+ * with specified actions. The timed state provides the time from
+ * entry onwards to action functors.
+ *
+ * @tparam LogicStateMachineT Logic state machine used to process events
+ */
+template <class LogicStateMachineT>
+using PickBaseState_ = TimedState<
+    UAVArmSystem, LogicStateMachineT,
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+        ControllerStatusInternalActionFunctor_<
+            LogicStateMachineT,
+            RelativePoseVisualServoingControllerDroneConnector, false, Reset>,
+        GrippingInternalActionFunctor_<LogicStateMachineT>>>>;
 /**
 * @brief State that uses position control functor to reach a desired goal for
 * picking and monitors the gripper status
@@ -364,17 +382,7 @@ struct WaitingForPick_
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-class PickState_
-    : public TimedState<
-          UAVArmSystem, LogicStateMachineT,
-          boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
-              UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-              ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-              ControllerStatusInternalActionFunctor_<
-                  LogicStateMachineT,
-                  RelativePoseVisualServoingControllerDroneConnector, false,
-                  Reset>,
-              GrippingInternalActionFunctor_<LogicStateMachineT>>>> {
+class PickState_ : public PickBaseState_<LogicStateMachineT> {
 public:
   /**
   * @brief Check if grip has been successful for the required duration
@@ -413,9 +421,8 @@ public:
    * @param logic_state_machine state machine that processes events
    */
   template <class Event, class FSM>
-  void on_entry(Event const &, FSM &logic_state_machine) {
-    // log start time
-    this->entry_time_ = std::chrono::high_resolution_clock::now();
+  void on_entry(Event const &evt, FSM &logic_state_machine) {
+    PickBaseState_<LogicStateMachineT>::on_entry(evt, logic_state_machine);
     grip_timeout_ = std::chrono::milliseconds(
         logic_state_machine.configMap()
             .find<PickState_<LogicStateMachineT>, uint32_t>());
