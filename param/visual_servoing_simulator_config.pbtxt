@@ -28,7 +28,7 @@ uav_system_config {
   }
 
   uav_vision_system_config {
-    tracker_type: "Alvar"
+    tracker_type: "ROI"
 
     camera_transform {
       position {

@@ -150,6 +150,7 @@ public:
         rpyt_controller_drone_connector_(*drone_hardware_,
                                          manual_rpyt_controller_),
         home_location_specified_(false) {
+    drone_hardware_->initialize();
     // Add control hardware connector containers
     controller_hardware_connector_container_.setObject(
         position_controller_drone_connector_);
