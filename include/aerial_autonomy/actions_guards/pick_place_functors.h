@@ -1,4 +1,5 @@
 #pragma once
+#include "grip_config.pb.h"
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
 #include <aerial_autonomy/actions_guards/manual_control_functors.h>
@@ -41,9 +42,7 @@ struct GrippingInternalActionFunctor_
       VLOG(1) << "Done Gripping!";
       logic_state_machine.process_event(Completed());
       return false;
-    } else if (state.timeInState() > robot_system.gripTimeout()) {
-      // \todo Matt Put this in its own action functor.  The timeout should be
-      // based on a state config, not a robot_system config
+    } else if (state.timeInState() > state.gripTimeout()) {
       robot_system.resetGripper();
       LOG(WARNING) << "Timeout: Failed to grip!";
       logic_state_machine.process_event(Reset());
@@ -359,6 +358,24 @@ struct WaitingForPick_
               UAVStatusInternalActionFunctor_<LogicStateMachineT>,
               ArmStatusInternalActionFunctor_<LogicStateMachineT>,
               WaitingForPickInternalActionFunctor_<LogicStateMachineT>>>> {};
+
+/**
+ * @brief typedef for base class of pick state which is a timed state
+ * with specified actions. The timed state provides the time from
+ * entry onwards to action functors.
+ *
+ * @tparam LogicStateMachineT Logic state machine used to process events
+ */
+template <class LogicStateMachineT>
+using PickBaseState_ = TimedState<
+    UAVArmSystem, LogicStateMachineT,
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+        ControllerStatusInternalActionFunctor_<
+            LogicStateMachineT,
+            RelativePoseVisualServoingControllerDroneConnector, false, Reset>,
+        GrippingInternalActionFunctor_<LogicStateMachineT>>>>;
 /**
 * @brief State that uses position control functor to reach a desired goal for
 * picking and monitors the gripper status
@@ -366,17 +383,7 @@ struct WaitingForPick_
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-class PickState_
-    : public TimedState<
-          UAVArmSystem, LogicStateMachineT,
-          boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
-              UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-              ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-              ControllerStatusInternalActionFunctor_<
-                  LogicStateMachineT,
-                  RelativePoseVisualServoingControllerDroneConnector, false,
-                  Reset>,
-              GrippingInternalActionFunctor_<LogicStateMachineT>>>> {
+class PickState_ : public PickBaseState_<LogicStateMachineT> {
 public:
   /**
   * @brief Check if grip has been successful for the required duration
@@ -407,9 +414,37 @@ public:
     return grip_duration_success;
   }
 
+  /**
+   * @brief Function to set the starting waypoint when entering this state
+   *
+   * @tparam Event Event causing the entry of this state
+   * @tparam FSM Logic statemachine back end
+   * @param logic_state_machine state machine that processes events
+   */
+  template <class Event, class FSM>
+  void on_entry(Event const &evt, FSM &logic_state_machine) {
+    PickBaseState_<LogicStateMachineT>::on_entry(evt, logic_state_machine);
+    auto grip_config = logic_state_machine.configMap()
+                           .find<PickState_<LogicStateMachineT>, GripConfig>();
+    grip_timeout_ = std::chrono::milliseconds(grip_config.grip_timeout());
+    required_grip_duration_ =
+        std::chrono::milliseconds(grip_config.grip_duration());
+    VLOG(1) << "Grip timeout in milliseconds: " << grip_timeout_.count();
+    VLOG(1) << "Grip duration in milliseconds: "
+            << required_grip_duration_.count();
+  }
+
+  /**
+   * @brief Getter for timeout during gripping
+   *
+   * @return timeout in milliseconds obtained from state machine config
+   */
+  std::chrono::milliseconds gripTimeout() { return grip_timeout_; }
+
 private:
   std::chrono::time_point<std::chrono::high_resolution_clock> grip_start_time_;
   std::chrono::milliseconds required_grip_duration_ =
-      std::chrono::milliseconds(1000);
+      std::chrono::milliseconds(0);
   bool gripping_ = false;
+  std::chrono::milliseconds grip_timeout_ = std::chrono::milliseconds(0);
 };

@@ -53,19 +53,31 @@ uav_system_config {
   uav_vision_system_config {
     tracker_type: "Alvar"
 
-    camera_transform: 0.2093
-    camera_transform: 0.0063
-    camera_transform: -0.0836
-    camera_transform: 1.9372
-    camera_transform: 0
-    camera_transform: 1.5794
+    camera_transform {
+      position {
+        x: 0.2093
+        y: 0.0063
+        z: -0.0836
+      }
+      rotation {
+        r: 1.9372
+        p: 0
+        y: 1.5794
+      }
+    }
 
-    tracking_offset_transform: 0.0
-    tracking_offset_transform: 0.0
-    tracking_offset_transform: 0.0
-    tracking_offset_transform: -1.5708
-    tracking_offset_transform: 0.0
-    tracking_offset_transform: 0.0
+    tracking_offset_transform {
+      position {
+        x: 0
+        y: 0
+        z: 0
+      }
+      rotation {
+        r: -1.5708
+        p: 0
+        y: 0
+      }
+    }
 
     desired_visual_servoing_distance: 0.48
 
@@ -125,28 +137,18 @@ uav_system_config {
       }
     }
     uav_arm_system_config {
-      grip_timeout: 30000
-
-      arm_goal_transform: -0.2
-      arm_goal_transform: 0.0
-      arm_goal_transform: 0.47
-      arm_goal_transform: 0.0
-      arm_goal_transform: 0.0
-      arm_goal_transform: 0.0
-
-      arm_goal_transform: 0.0
-      arm_goal_transform: -.09
-      arm_goal_transform: -0.01
-      arm_goal_transform: 0.0
-      arm_goal_transform: 0.0
-      arm_goal_transform: 0.0
-
-      arm_transform: 0.17
-      arm_transform: 0.0
-      arm_transform: -0.109
-      arm_transform: 0.0
-      arm_transform: -1.5707
-      arm_transform: 3.141
+      arm_transform {
+        position {
+          x: 0.17
+          y: 0
+          z: -0.109
+        }
+        rotation {
+          r: 0
+          p: -1.5707
+          y: 3.141
+        }
+      }
 
       position_controller_config {
         goal_position_tolerance {

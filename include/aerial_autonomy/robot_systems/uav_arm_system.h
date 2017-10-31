@@ -24,9 +24,6 @@ public:
         ArmSystem(arm_hardware, config_.uav_vision_system_config()
                                     .uav_arm_system_config()
                                     .arm_system_config()),
-        grip_timeout_(config_.uav_vision_system_config()
-                          .uav_arm_system_config()
-                          .grip_timeout()),
         arm_transform_(
             conversions::protoTransformToTf(config_.uav_vision_system_config()
                                                 .uav_arm_system_config()
@@ -53,18 +50,7 @@ public:
     return status.str();
   }
 
-  /**
-   * @brief getter for timeout used for gripping
-   *
-   * @return timeout used for gripping
-   */
-  std::chrono::milliseconds gripTimeout() { return grip_timeout_; }
-
 private:
-  /**
-  * @brief Timeout for gripping by arm
-  */
-  std::chrono::milliseconds grip_timeout_;
   /**
   * @brief Arm transform in the frame of the UAV
   */

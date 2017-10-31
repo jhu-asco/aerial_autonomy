@@ -188,6 +188,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/visual_servoing_state_machine_config.proto
   proto/pick_place_state_machine_config.proto
   proto/following_waypoint_sequence_config.proto
+  proto/grip_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 

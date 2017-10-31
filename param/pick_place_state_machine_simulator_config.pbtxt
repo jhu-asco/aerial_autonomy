@@ -1,0 +1,53 @@
+visual_servoing_state_machine_config {
+  relative_pose_goals {
+    position {
+      x: 0
+      y: -.40
+      z: .19
+    }
+    yaw: 1.57
+  }
+
+  relative_pose_goals {
+    position {
+      x: 0
+      y: -.40
+      z: .19
+    }
+    yaw: 1.57
+  }
+
+  pick_place_state_machine_config {
+    arm_goal_transform {
+      position {
+        x: -0.2
+        y: 0
+        z: -0.15
+      }
+      rotation {
+        r: 0
+        p: 0
+        y: 0
+      }
+    }
+    following_waypoint_sequence_config {
+      way_points {
+        position {
+          x: -1.0
+          y: 0
+          z: 0
+        }
+        yaw: 0.0
+      }
+
+      way_points {
+        position {
+          x: 0
+          y: 0
+          z: 0
+        }
+        yaw: 3.14
+      }
+    }
+  }
+}

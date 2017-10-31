@@ -2,6 +2,7 @@ syntax = "proto2";
 
 import "transform.proto";
 import "following_waypoint_sequence_config.proto";
+import "grip_config.proto";
 
 message PickPlaceStateMachineConfig {
   /**
@@ -14,4 +15,8 @@ message PickPlaceStateMachineConfig {
   */
   optional FollowingWaypointSequenceConfig following_waypoint_sequence_config =
       2;
+  /**
+  * @brief Config for pickstate
+  */
+  optional GripConfig grip_config = 3;
 }
