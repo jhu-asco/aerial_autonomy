@@ -17,11 +17,6 @@ message UAVArmSystemConfig {
   optional PoseControllerConfig position_controller_config = 6;
 
   /**
-  * @brief How much time to spend trying to grip the object in milliseconds
-  */
-  optional uint32 grip_timeout = 7 [ default = 2000 ];
-
-  /**
   * @brief Configuration for arm system
   */
   optional ArmSystemConfig arm_system_config = 9;
