@@ -20,18 +20,18 @@ protected:
   using BaseTrackerPtr = std::shared_ptr<BaseTracker>;
 
 public:
-  UAVVisionSystem(UAVSystemConfig config)
-      : UAVVisionSystem(nullptr, nullptr, config) {}
-
   /**
   * @brief Constructor
-  * @param tracker Used to track targets for visual servoing
-  * @param drone_hardware UAV driver
   * @param config Configuration parameters
+  * @param tracker Used to track targets for visual servoing. If provided, will
+  * overwrite
+  * the one in config file
+  * @param drone_hardware UAV driver. If provided, will overwrite the one in
+  * config file
   */
-  UAVVisionSystem(BaseTrackerPtr tracker, ParserPtr drone_hardware,
-                  UAVSystemConfig config)
-      : UAVSystem(drone_hardware, config),
+  UAVVisionSystem(UAVSystemConfig config, BaseTrackerPtr tracker = nullptr,
+                  ParserPtr drone_hardware = nullptr)
+      : UAVSystem(config, drone_hardware),
         camera_transform_(conversions::protoTransformToTf(
             config_.uav_vision_system_config().camera_transform())),
         tracker_(UAVVisionSystem::chooseTracker(tracker, config)),
@@ -55,6 +55,11 @@ public:
         relative_pose_visual_servoing_drone_connector_);
   }
 
+  /**
+   * @brief update the controller config specified
+   *
+   * @param config New config to update for the controller
+   */
   void setVelocityBasedPositionControllerConfig(
       const aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
           &config) {
@@ -143,21 +148,32 @@ protected:
 
   BaseTrackerPtr tracker_; ///< Tracking system
 
+  /**
+   * @brief Choose between user provided tracker and the one in the config file
+   *
+   * @param tracker user provided tracker or null pointer
+   * @param config Configuration file containing a tracker type
+   *
+   * @return the user provided one if it is not nullptr and create the config
+   * specified one if user provided nullptr.
+   */
   static BaseTrackerPtr chooseTracker(BaseTrackerPtr tracker,
                                       UAVSystemConfig &config) {
+    BaseTrackerPtr tracker_pointer;
     if (tracker) {
-      return tracker;
+      tracker_pointer = tracker;
     } else {
       std::string tracker_type =
           config.uav_vision_system_config().tracker_type();
       if (tracker_type == "ROI") {
-        return BaseTrackerPtr(new RoiToPositionConverter());
-      } else if (tracker_type == "ALVAR") {
-        return BaseTrackerPtr(new AlvarTracker());
+        tracker_pointer = BaseTrackerPtr(new RoiToPositionConverter());
+      } else if (tracker_type == "Alvar") {
+        tracker_pointer = BaseTrackerPtr(new AlvarTracker());
+      } else {
+        throw std::runtime_error("Unknown tracker type provided");
       }
     }
-    // TODO Throw error here
-    return nullptr;
+    return tracker_pointer;
   }
 
 private:

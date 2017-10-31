@@ -20,14 +20,10 @@ TEST(UAVArmSystemTests, Constructor) {
   uav_vision_system_config->mutable_tracking_offset_transform();
   uav_arm_system_config->mutable_arm_transform();
   uav_arm_system_config->mutable_position_controller_config();
+  uav_arm_system_config->mutable_arm_system_config()->set_arm_parser_type(
+      "GenericArm");
 
-  QuadSimulator drone_hardware;
-  ros::NodeHandle nh;
-  GenericArm arm(nh);
-  RoiToPositionConverter roi_to_position_converter(nh);
-
-  ASSERT_NO_THROW(
-      new UAVArmSystem(roi_to_position_converter, drone_hardware, arm, config));
+  ASSERT_NO_THROW(new UAVArmSystem(config));
 }
 
 int main(int argc, char **argv) {

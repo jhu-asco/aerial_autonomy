@@ -1,9 +1,7 @@
-uav_parser_type: "dji_parser/DjiParser"
 uav_controller_timer_duration: 20
 
 uav_arm_system_handler_config {
   arm_controller_timer_duration: 20
-  arm_parser_type: "SimpleArm"
 }
 
 base_config {
@@ -12,6 +10,7 @@ base_config {
 }
 
 uav_system_config {
+  uav_parser_type: "dji_parser/DjiParser"
   minimum_battery_percent: 25
   minimum_takeoff_height: 0.8
   landing_height: 0.1
@@ -149,6 +148,7 @@ uav_system_config {
           }
           goal_rotation_tolerance: 6
         }
+        arm_parser_type: "SimpleArm"
       }
     }
   }

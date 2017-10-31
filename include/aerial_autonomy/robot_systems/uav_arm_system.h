@@ -11,21 +11,23 @@
 */
 class UAVArmSystem : public UAVVisionSystem, public ArmSystem {
 public:
-  UAVArmSystem(UAVSystemConfig config)
-      : UAVArmSystem(nullptr, nullptr, nullptr, config) {}
   /**
-  * @brief Constructor
+  * @brief Constructor. If tracker, drone_hardware, arm_hardware are provided,
+  * they will
+  * overwrite the one provided in the configuration file
+  * @param config Configuration parameters
   * @param tracker Used to track targets for visual servoing
   * @param drone_hardware UAV driver
   * @param arm_hardware Manipulator driver
-  * @param config Configuration parameters
   */
-  UAVArmSystem(BaseTrackerPtr tracker, ParserPtr drone_hardware,
-               ArmParserPtr arm_hardware, UAVSystemConfig config)
-      : UAVVisionSystem(tracker, drone_hardware, config),
-        ArmSystem(arm_hardware, config_.uav_vision_system_config()
-                                    .uav_arm_system_config()
-                                    .arm_system_config()),
+  UAVArmSystem(UAVSystemConfig config, BaseTrackerPtr tracker = nullptr,
+               ParserPtr drone_hardware = nullptr,
+               ArmParserPtr arm_hardware = nullptr)
+      : UAVVisionSystem(config, tracker, drone_hardware),
+        ArmSystem(config_.uav_vision_system_config()
+                      .uav_arm_system_config()
+                      .arm_system_config(),
+                  arm_hardware),
         arm_transform_(
             conversions::protoTransformToTf(config_.uav_vision_system_config()
                                                 .uav_arm_system_config()

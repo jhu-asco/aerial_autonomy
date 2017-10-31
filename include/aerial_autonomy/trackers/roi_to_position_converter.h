@@ -28,8 +28,8 @@ public:
   * @brief Constructor
   *
   */
-  RoiToPositionConverter()
-      : BaseTracker(new SimpleTrackingStrategy()), nh_("~tracker"), it_(nh_),
+  RoiToPositionConverter(std::string name_space = "~tracker")
+      : BaseTracker(new SimpleTrackingStrategy()), nh_(name_space), it_(nh_),
         roi_subscriber_(nh_.subscribe(
             "roi", 10, &RoiToPositionConverter::roiCallback, this)),
         camera_info_subscriber_(

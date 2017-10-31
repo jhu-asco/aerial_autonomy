@@ -26,6 +26,9 @@
 */
 class UAVSystem : public virtual BaseRobotSystem {
 protected:
+  /**
+   * @brief typedef for base class of UAV parser
+   */
   using ParserPtr = std::shared_ptr<parsernode::Parser>;
   /**
    * @brief UAV configuration parameters
@@ -83,39 +86,55 @@ private:
   */
   bool home_location_specified_;
 
+  /**
+   * @brief helper function to choose between the argument parser
+   * and the one provided in config. If user provided a parser,
+   * that is used overwriting the one in config file
+   *
+   * @param parser The user provided parser or default null ptr
+   * @param config UAV config containing parser type.
+   *
+   * @return the chosen parser
+   */
   static ParserPtr chooseParser(ParserPtr parser, UAVSystemConfig &config) {
+    ParserPtr uav_parser;
     if (parser) {
-      return parser;
+      uav_parser = parser;
     } else {
       pluginlib::ClassLoader<parsernode::Parser> parser_loader_(
           "parsernode", "parsernode::Parser");
-      return ParserPtr(
+      uav_parser = ParserPtr(
           parser_loader_.createUnmanagedInstance(config.uav_parser_type()));
     }
-    // TODO remove multiple return statements
-    return nullptr;
+    return uav_parser;
   }
 
 public:
   /**
    * @brief Constructor with default configuration
    */
-  UAVSystem() : UAVSystem(nullptr, UAVSystemConfig()) {}
+  UAVSystem() : UAVSystem(UAVSystemConfig()) {}
+
   /**
-   * @brief Constructor with specified configuration
+   * @brief Constructor with hardware but no config
+   *
+   * @param drone_hardware explicitly provided drone hardware
    */
-  UAVSystem(UAVSystemConfig config) : UAVSystem(nullptr, config) {}
+  UAVSystem(ParserPtr drone_hardware)
+      : UAVSystem(UAVSystemConfig(), drone_hardware) {}
   /**
   * @brief Constructor
   *
   * UAVSystem with explicitly provided hardware. It instantiates the connectors,
   * controllers
   *
-  * @param drone_hardware input hardware to send commands back
   * @param config The system configuration specifying the parameters such as
   * takeoff height, etc.
+  *
+  * @param drone_hardware input hardware to send commands back. If this variable
+  * is set, it will overwrite the one given using "uav_parser_type" in config.
   */
-  UAVSystem(ParserPtr drone_hardware, UAVSystemConfig config)
+  UAVSystem(UAVSystemConfig config, ParserPtr drone_hardware = nullptr)
       : BaseRobotSystem(), config_(config),
         drone_hardware_(UAVSystem::chooseParser(drone_hardware, config)),
         velocity_based_position_controller_(

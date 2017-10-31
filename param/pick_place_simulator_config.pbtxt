@@ -1,9 +1,7 @@
-uav_parser_type: "quad_simulator_parser/QuadSimParser"
 uav_controller_timer_duration: 20
 
 uav_arm_system_handler_config {
   arm_controller_timer_duration: 20
-  arm_parser_type: "ArmSimulator"
 }
 
 
@@ -13,6 +11,7 @@ base_config {
 }
 
 uav_system_config {
+  uav_parser_type: "quad_simulator_parser/QuadSimParser"
   minimum_battery_percent: 40
   minimum_takeoff_height: 0.5
   landing_height: 0.1
@@ -136,6 +135,7 @@ uav_system_config {
         }
         goal_rotation_tolerance: 0.05
       }
+      arm_parser_type: "ArmSimulator"
     }
   }
 }

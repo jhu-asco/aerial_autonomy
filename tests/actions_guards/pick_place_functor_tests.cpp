@@ -33,14 +33,14 @@ using ManualControlArmAction =
 
 class PickPlaceFunctorTests : public ::testing::Test {
 protected:
-  QuadSimulator drone_hardware;
+  std::shared_ptr<QuadSimulator> drone_hardware;
   UAVSystemConfig config;
-  ArmSimulator arm;
   BaseStateMachineConfig state_machine_config;
-  std::unique_ptr<SimpleTracker> simple_tracker;
+  std::shared_ptr<SimpleTracker> simple_tracker;
   std::unique_ptr<UAVArmSystem> uav_arm_system;
   std::unique_ptr<UAVArmLogicStateMachine> sample_logic_state_machine;
   PickPlaceFunctorTests() : pose_goal_(1, -1, 1, 0) {
+    drone_hardware.reset(new QuadSimulator);
     auto uav_vision_system_config = config.mutable_uav_vision_system_config();
     auto uav_arm_system_config =
         uav_vision_system_config->mutable_uav_arm_system_config();
@@ -86,9 +86,10 @@ protected:
     arm_position_tolerance->set_x(.1);
     arm_position_tolerance->set_y(.1);
     arm_position_tolerance->set_z(.1);
-    simple_tracker.reset(new SimpleTracker(drone_hardware, camera_transform));
-    uav_arm_system.reset(
-        new UAVArmSystem(*simple_tracker, drone_hardware, arm, config));
+    simple_tracker.reset(new SimpleTracker(*drone_hardware, camera_transform));
+    uav_arm_system.reset(new UAVArmSystem(
+        config, std::dynamic_pointer_cast<BaseTracker>(simple_tracker),
+        std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware)));
     sample_logic_state_machine.reset(
         new UAVArmLogicStateMachine(*uav_arm_system, state_machine_config));
   }
@@ -161,7 +162,7 @@ TEST_F(PickPlaceFunctorTests, PoweroffCallGuardFunction) {
 }
 
 TEST_F(PickPlaceFunctorTests, ArmFoldInternalPoweroff) {
-  drone_hardware.setBatteryPercent(60);
+  drone_hardware->setBatteryPercent(60);
   uav_arm_system->power(false);
   ArmFoldInternalAction arm_fold_internal_action;
   int dummy_start_state, dummy_target_state;
@@ -172,7 +173,7 @@ TEST_F(PickPlaceFunctorTests, ArmFoldInternalPoweroff) {
 }
 
 TEST_F(PickPlaceFunctorTests, ArmFoldInternalCompleted) {
-  drone_hardware.setBatteryPercent(60);
+  drone_hardware->setBatteryPercent(60);
   uav_arm_system->power(true);
   uav_arm_system->foldArm();
   ArmFoldInternalAction arm_fold_internal_action;
@@ -185,9 +186,9 @@ TEST_F(PickPlaceFunctorTests, ArmFoldInternalCompleted) {
 
 TEST_F(PickPlaceFunctorTests, ManualAction) {
   // Fly quadrotor which sets the altitude to 0.5
-  drone_hardware.setBatteryPercent(60);
-  drone_hardware.takeoff();
-  drone_hardware.flowControl(false);
+  drone_hardware->setBatteryPercent(60);
+  drone_hardware->takeoff();
+  drone_hardware->flowControl(false);
   // Check arm is powered off
   ASSERT_FALSE(uav_arm_system->enabled());
   // Call action functor
@@ -201,7 +202,7 @@ TEST_F(PickPlaceFunctorTests, ManualAction) {
   // Turn on arm
   uav_arm_system->power(true);
   // Turn drone flow control on
-  drone_hardware.flowControl(true);
+  drone_hardware->flowControl(true);
   // Rerun action functor
   manual_control_arm_action(NULL, *sample_logic_state_machine,
                             dummy_start_state, dummy_target_state);

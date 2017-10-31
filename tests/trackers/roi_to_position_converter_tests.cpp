@@ -137,8 +137,7 @@ TEST(RoiToPositionConverterTests, ComputeTrackingVectorMaxDistance) {
 }
 
 TEST_F(RoiToPositionConverterROSTests, TrackingValid) {
-  ros::NodeHandle nh;
-  RoiToPositionConverter converter(nh);
+  RoiToPositionConverter converter("");
   while (!converter.isConnected()) {
   }
 
@@ -164,8 +163,7 @@ TEST_F(RoiToPositionConverterROSTests, TrackingValid) {
 }
 
 TEST_F(RoiToPositionConverterROSTests, GetTrackingVector) {
-  ros::NodeHandle nh;
-  RoiToPositionConverter converter(nh);
+  RoiToPositionConverter converter("");
   while (!converter.isConnected()) {
   }
   tf::Transform pose;

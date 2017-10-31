@@ -17,12 +17,11 @@ public:
     // Configure system
     UAVSystemHandlerConfig uav_system_handler_config;
     BaseStateMachineConfig state_machine_config;
-    uav_system_handler_config.set_uav_parser_type(
-        "quad_simulator_parser/QuadSimParser");
     uav_system_handler_config.mutable_uav_system_config()
         ->set_minimum_takeoff_height(0.4);
 
     auto uav_config = uav_system_handler_config.mutable_uav_system_config();
+    uav_config->set_uav_parser_type("quad_simulator_parser/QuadSimParser");
     // Position controller params
     auto pos_controller_config =
         uav_config->mutable_velocity_based_position_controller_config();

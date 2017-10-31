@@ -49,8 +49,9 @@ TEST(LandFunctorTests, Constructor) {
 }
 
 TEST(LandFunctorTests, CallOperatorFunction) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  UAVSystem uav_system(
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   bsa::LandingAction land_transition_action_functor;
   int dummy_start_state, dummy_target_state;
@@ -60,14 +61,14 @@ TEST(LandFunctorTests, CallOperatorFunction) {
   // Internal Action
   LandInternalActionFunctor land_internal_action_functor;
   // Taking off which sets altitude to 0.5
-  drone_hardware.takeoff();
+  drone_hardware->takeoff();
   ASSERT_TRUE(land_internal_action_functor(
       InternalTransitionEvent(), sample_logic_state_machine, dummy_start_state,
       dummy_target_state));
   ASSERT_NE(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(Completed)));
   // After landing which sets altitude to 0.0
-  drone_hardware.land();
+  drone_hardware->land();
   ASSERT_FALSE(land_internal_action_functor(
       InternalTransitionEvent(), sample_logic_state_machine, dummy_start_state,
       dummy_target_state));
@@ -76,9 +77,10 @@ TEST(LandFunctorTests, CallOperatorFunction) {
 }
 
 TEST(LandFunctorTests, ManualControlInternalActionTest) {
-  QuadSimulator drone_hardware;
-  drone_hardware.flowControl(false);
-  UAVSystem uav_system(drone_hardware);
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  drone_hardware->flowControl(false);
+  UAVSystem uav_system(
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_event, dummy_start_state, dummy_target_state;
   LandInternalActionFunctor land_internal_action_functor;
@@ -101,20 +103,21 @@ TEST(HoveringFunctorTests, Constructor) {
 }
 
 TEST(HoveringFunctorTests, CallOperatorFunction) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  UAVSystem uav_system(
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   // Internal Action
   HoveringInternalActionFunctor hovering_internal_action_functor;
-  drone_hardware.setBatteryPercent(60);
+  drone_hardware->setBatteryPercent(60);
   hovering_internal_action_functor(InternalTransitionEvent(),
                                    sample_logic_state_machine,
                                    dummy_start_state, dummy_target_state);
   ASSERT_NE(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(be::Abort)));
   // Should not land if battery is low
-  drone_hardware.setBatteryPercent(20);
+  drone_hardware->setBatteryPercent(20);
   hovering_internal_action_functor(InternalTransitionEvent(),
                                    sample_logic_state_machine,
                                    dummy_start_state, dummy_target_state);
@@ -122,9 +125,10 @@ TEST(HoveringFunctorTests, CallOperatorFunction) {
             std::type_index(typeid(be::Abort)));
 }
 TEST(HoveringFunctorTests, ManualControlInternalActionTest) {
-  QuadSimulator drone_hardware;
-  drone_hardware.flowControl(false);
-  UAVSystem uav_system(drone_hardware);
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  drone_hardware->flowControl(false);
+  UAVSystem uav_system(
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_event, dummy_start_state, dummy_target_state;
   HoveringInternalActionFunctor hovering_internal_action_functor;
@@ -144,8 +148,9 @@ TEST(TakeoffFunctorTests, Constructor) {
 }
 
 TEST(TakeoffFunctorTests, TransitionActionTest) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  UAVSystem uav_system(
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   bsa::TakeoffAction takeoff_transition_action_functor;
@@ -156,8 +161,9 @@ TEST(TakeoffFunctorTests, TransitionActionTest) {
 }
 
 TEST(TakeoffFunctorTests, AbortActionTest) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  UAVSystem uav_system(
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   bsa::TakeoffAbort takeoff_abort_action_functor;
@@ -167,17 +173,18 @@ TEST(TakeoffFunctorTests, AbortActionTest) {
 }
 
 TEST(TakeoffFunctorTests, TransitionGuardTest) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  UAVSystem uav_system(
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   bsa::TakeoffGuard takeoff_transition_guard_functor;
-  drone_hardware.setBatteryPercent(60);
+  drone_hardware->setBatteryPercent(60);
   bool result = takeoff_transition_guard_functor(
       be::Takeoff(), sample_logic_state_machine, dummy_start_state,
       dummy_target_state);
   ASSERT_TRUE(result);
-  drone_hardware.setBatteryPercent(10);
+  drone_hardware->setBatteryPercent(10);
   result = takeoff_transition_guard_functor(
       be::Takeoff(), sample_logic_state_machine, dummy_start_state,
       dummy_target_state);
@@ -185,8 +192,9 @@ TEST(TakeoffFunctorTests, TransitionGuardTest) {
 }
 
 TEST(TakeoffFunctorTests, InternalActionTest) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  UAVSystem uav_system(
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   TakeoffInternalActionFunctor takeoff_internal_action_functor;
@@ -196,7 +204,7 @@ TEST(TakeoffFunctorTests, InternalActionTest) {
   ASSERT_NE(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(Completed)));
   // After setting correct altitude
-  drone_hardware.takeoff();
+  drone_hardware->takeoff();
   takeoff_internal_action_functor(InternalTransitionEvent(),
                                   sample_logic_state_machine, dummy_start_state,
                                   dummy_target_state);
@@ -214,10 +222,10 @@ TEST(PositionControlFunctorTests, Constructor) {
 }
 
 TEST(PositionControlFunctorTests, TransitionActionTest) {
-  QuadSimulator drone_hardware;
-  drone_hardware.takeoff();
-  UAVSystemConfig config;
-  UAVSystem uav_system(drone_hardware, config);
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  drone_hardware->takeoff();
+  UAVSystem uav_system(
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   bsa::ReachingGoalSet position_control_transition_action_functor;
@@ -234,8 +242,9 @@ TEST(PositionControlFunctorTests, TransitionActionTest) {
 }
 
 TEST(PositionControlFunctorTests, AbortActionTest) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  UAVSystem uav_system(
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   bsa::UAVControllerAbort position_control_abort_action_functor;
@@ -252,8 +261,9 @@ TEST(PositionControlFunctorTests, AbortActionTest) {
 }
 
 TEST(PositionControlFunctorTests, TransitionGuardTest) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  UAVSystem uav_system(
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   PositionYaw goal(1, 1, 1, 1);
@@ -268,8 +278,8 @@ TEST(PositionControlFunctorTests, TransitionGuardTest) {
 }
 
 TEST(PositionControlFunctorTests, PositionControlInternalActionTest) {
-  QuadSimulator drone_hardware;
-  drone_hardware.takeoff();
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  drone_hardware->takeoff();
   UAVSystemConfig config;
   auto position_controller_config =
       config.mutable_velocity_based_position_controller_config()
@@ -278,7 +288,8 @@ TEST(PositionControlFunctorTests, PositionControlInternalActionTest) {
   position_controller_config->mutable_goal_position_tolerance()->set_y(0.1);
   position_controller_config->mutable_goal_position_tolerance()->set_z(0.1);
   position_controller_config->set_goal_yaw_tolerance(0.1);
-  UAVSystem uav_system(drone_hardware, config);
+  UAVSystem uav_system(
+      config, std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   PositionControlInternalActionFunctor position_control_internal_action_functor;
@@ -295,7 +306,7 @@ TEST(PositionControlFunctorTests, PositionControlInternalActionTest) {
   desired_position.x = goal.x;
   desired_position.y = goal.y;
   desired_position.z = goal.z;
-  drone_hardware.cmdwaypoint(desired_position, goal.yaw);
+  drone_hardware->cmdwaypoint(desired_position, goal.yaw);
 
   // Update controller status
   uav_system.runActiveController(HardwareType::UAV);
@@ -307,9 +318,10 @@ TEST(PositionControlFunctorTests, PositionControlInternalActionTest) {
             std::type_index(typeid(Completed)));
 }
 TEST(PositionControlFunctorTests, ManualControlInternalActionTest) {
-  QuadSimulator drone_hardware;
-  drone_hardware.flowControl(false);
-  UAVSystem uav_system(drone_hardware);
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  drone_hardware->flowControl(false);
+  UAVSystem uav_system(
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_event, dummy_start_state, dummy_target_state;
   PositionControlInternalActionFunctor position_control_internal_action_functor;
@@ -327,11 +339,12 @@ TEST(ManualControlFunctorTests, Constructor) {
   ASSERT_NO_THROW(new ManualControlInternalActionFunctor());
 }
 TEST(ManualControlFunctorTests, ManualControlAction) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  UAVSystem uav_system(
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   // Disable SDK
-  drone_hardware.flowControl(false);
+  drone_hardware->flowControl(false);
   // Check status in quad data is updated
   parsernode::common::quaddata data = uav_system.getUAVData();
   ASSERT_FALSE(data.rc_sdk_control_switch);
@@ -345,30 +358,32 @@ TEST(ManualControlFunctorTests, ManualControlAction) {
   ASSERT_TRUE(data.rc_sdk_control_switch);
 }
 TEST(ManualControlFunctorTests, ManualControlGuard) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  UAVSystem uav_system(
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   // Disable SDK
-  drone_hardware.flowControl(false);
+  drone_hardware->flowControl(false);
   bsa::ManualControlSwitchGuard guard;
   int dummy_event, dummy_start_state, dummy_target_state;
   // Check guard result
   ASSERT_FALSE(guard(dummy_event, sample_logic_state_machine, dummy_start_state,
                      dummy_target_state));
   // Enable SDK
-  drone_hardware.flowControl(true);
+  drone_hardware->flowControl(true);
   // Check guard result
   ASSERT_TRUE(guard(dummy_event, sample_logic_state_machine, dummy_start_state,
                     dummy_target_state));
   // Set low battery
-  drone_hardware.setBatteryPercent(20);
+  drone_hardware->setBatteryPercent(20);
   // Check guard result
   ASSERT_FALSE(guard(dummy_event, sample_logic_state_machine, dummy_start_state,
                      dummy_target_state));
 }
 TEST(ManualControlFunctorTests, LeaveManualMode) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  UAVSystem uav_system(
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   // Takeoff
   uav_system.takeOff();
@@ -398,15 +413,16 @@ TEST(VelocityControlFunctorTests, Constructor) {
 }
 
 TEST(VelocityControlFunctorTests, TransitionActionTest) {
-  QuadSimulator drone_hardware;
-  drone_hardware.takeoff();
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  drone_hardware->takeoff();
   UAVSystemConfig config;
   auto velocity_tolerance = config.mutable_velocity_controller_config()
                                 ->mutable_goal_velocity_tolerance();
   velocity_tolerance->set_vx(0.1);
   velocity_tolerance->set_vy(0.1);
   velocity_tolerance->set_vz(0.1);
-  UAVSystem uav_system(drone_hardware, config);
+  UAVSystem uav_system(
+      config, std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   bsa::SetVelocityGoal velocity_control_transition_action_functor;
@@ -432,8 +448,9 @@ TEST(VelocityControlFunctorTests, TransitionActionTest) {
 }
 
 TEST(VelocityControlFunctorTests, AbortActionTest) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  UAVSystem uav_system(
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   bsa::UAVControllerAbort uav_control_abort_action_functor;
@@ -452,10 +469,11 @@ TEST(VelocityControlFunctorTests, AbortActionTest) {
 }
 
 TEST(VelocityControlFunctorTests, TransitionGuardTest) {
-  QuadSimulator drone_hardware;
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
   UAVSystemConfig config;
   config.set_max_goal_velocity(2.0);
-  UAVSystem uav_system(drone_hardware, config);
+  UAVSystem uav_system(
+      config, std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   VelocityYaw goal(1, 1, 1, 1);
@@ -470,15 +488,16 @@ TEST(VelocityControlFunctorTests, TransitionGuardTest) {
 }
 
 TEST(VelocityControlFunctorTests, InternalActionTest) {
-  QuadSimulator drone_hardware;
-  drone_hardware.takeoff();
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  drone_hardware->takeoff();
   UAVSystemConfig config;
   auto velocity_tolerance = config.mutable_velocity_controller_config()
                                 ->mutable_goal_velocity_tolerance();
   velocity_tolerance->set_vx(0.1);
   velocity_tolerance->set_vy(0.1);
   velocity_tolerance->set_vz(0.1);
-  UAVSystem uav_system(drone_hardware, config);
+  UAVSystem uav_system(
+      config, std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   VelocityControlInternalActionFunctor velocity_control_internal_action_functor;
@@ -501,9 +520,10 @@ TEST(VelocityControlFunctorTests, InternalActionTest) {
             std::type_index(typeid(Completed)));
 }
 TEST(VelocityControlFunctorTests, ManualControlInternalActionTest) {
-  QuadSimulator drone_hardware;
-  drone_hardware.flowControl(false);
-  UAVSystem uav_system(drone_hardware);
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  drone_hardware->flowControl(false);
+  UAVSystem uav_system(
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_event, dummy_start_state, dummy_target_state;
   VelocityControlInternalActionFunctor velocity_control_internal_action_functor;

@@ -36,9 +36,7 @@ public:
   * @param arm_hardware Arm hardware driver
   */
   ArmSystem(ArmParserPtr arm_hardware)
-      : ArmSystem(arm_hardware, ArmSystemConfig()) {}
-
-  ArmSystem(ArmSystemConfig config) : ArmSystem(nullptr, config) {}
+      : ArmSystem(ArmSystemConfig(), arm_hardware) {}
 
   /**
   * @brief Constructor
@@ -46,9 +44,12 @@ public:
   * ArmSystem requires an arm hardware. It instantiates the connectors,
   * controllers
   *
-  * @param arm_hardware input hardware to send commands back
+  * @param config The configuration file for arm system parameters
+  * @param arm_hardware input hardware to send commands back. If provided,
+  * overwrites the
+  * one in the config file
   */
-  ArmSystem(ArmParserPtr arm_hardware, ArmSystemConfig config)
+  ArmSystem(ArmSystemConfig config, ArmParserPtr arm_hardware = nullptr)
       : BaseRobotSystem(),
         arm_hardware_(ArmSystem::chooseArmHardware(arm_hardware, config)),
         builtin_pose_controller_(config.pose_controller_config()),
@@ -170,25 +171,37 @@ public:
 
 protected:
   /**
-  * @brief Hardware
+  * @brief Hardware driver
   */
   ArmParserPtr arm_hardware_;
+  /**
+   * @brief choose between user provided parser and the one specified in config
+   * file
+   *
+   * @param parser if user provided a parser which is not null, that is chosen.
+   * @param config if user provided null, the one specified in this config is
+   * used.
+   *
+   * @return the chosen parser object
+   */
   static ArmParserPtr chooseArmHardware(ArmParserPtr parser,
                                         ArmSystemConfig &config) {
+    ArmParserPtr arm_parser_pointer;
     if (parser) {
-      return parser;
+      arm_parser_pointer = parser;
     } else {
       std::string arm_parser_type = config.arm_parser_type();
       if (arm_parser_type == "GenericArm") {
-        return ArmParserPtr(new GenericArm());
+        arm_parser_pointer = ArmParserPtr(new GenericArm());
       } else if (arm_parser_type == "SimpleArm") {
-        return ArmParserPtr(new SimpleArm());
-        // TODO Check type and throw error
-      } else if (arm_parser_type == "simulator") {
-        return ArmParserPtr(new ArmSimulator());
+        arm_parser_pointer = ArmParserPtr(new SimpleArm());
+      } else if (arm_parser_type == "ArmSimulator") {
+        arm_parser_pointer = ArmParserPtr(new ArmSimulator());
+      } else {
+        throw std::runtime_error("Unknown arm parser type provided");
       }
     }
-    return nullptr;
+    return arm_parser_pointer;
   }
 
 private:

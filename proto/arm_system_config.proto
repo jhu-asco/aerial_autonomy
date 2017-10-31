@@ -10,5 +10,5 @@ message ArmSystemConfig {
   /**
   * @brief Arm hardware plugin name
   */
-  required string arm_parser_type = 2;
+  required string arm_parser_type = 2 [ default = "ArmSimulator" ];
 }

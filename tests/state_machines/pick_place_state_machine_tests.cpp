@@ -31,7 +31,9 @@ namespace be = uav_basic_events;
 
 class PickPlaceStateMachineTests : public ::testing::Test {
 public:
-  PickPlaceStateMachineTests() : goal_tolerance_position_(0.1) {
+  PickPlaceStateMachineTests()
+      : drone_hardware_(new QuadSimulator), arm_(new ArmSimulator),
+        goal_tolerance_position_(0.1) {
     auto vision_state_machine_config =
         state_machine_config_.mutable_visual_servoing_state_machine_config();
     auto pick_state_machine_config =
@@ -128,9 +130,11 @@ public:
 
     tf::Transform camera_transform = conversions::protoTransformToTf(
         uav_vision_system_config->camera_transform());
-    tracker_.reset(new SimpleTracker(drone_hardware_, camera_transform));
-    uav_arm_system_.reset(
-        new UAVArmSystem(*tracker_, drone_hardware_, arm_, config_));
+    tracker_.reset(new SimpleTracker(*drone_hardware_, camera_transform));
+    uav_arm_system_.reset(new UAVArmSystem(
+        config_, std::dynamic_pointer_cast<BaseTracker>(tracker_),
+        std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware_),
+        std::dynamic_pointer_cast<ArmSimulator>(arm_)));
     logic_state_machine_.reset(new PickPlaceStateMachine(
         boost::ref(*uav_arm_system_), boost::cref(state_machine_config_)));
     logic_state_machine_->start();
@@ -170,11 +174,11 @@ public:
   }
 
 protected:
-  QuadSimulator drone_hardware_;
-  ArmSimulator arm_;
+  std::shared_ptr<QuadSimulator> drone_hardware_;
+  std::shared_ptr<ArmSimulator> arm_;
   UAVSystemConfig config_;
   BaseStateMachineConfig state_machine_config_;
-  std::unique_ptr<SimpleTracker> tracker_;
+  std::shared_ptr<SimpleTracker> tracker_;
   std::unique_ptr<UAVArmSystem> uav_arm_system_;
   std::unique_ptr<PickPlaceStateMachine> logic_state_machine_;
   double goal_tolerance_position_;
@@ -186,7 +190,7 @@ protected:
     logic_state_machine_->process_event(InternalTransitionEvent());
     ASSERT_STRNE(pstate(*logic_state_machine_), "Hovering");
     // Disable SDK
-    drone_hardware_.flowControl(false);
+    drone_hardware_->flowControl(false);
     // Check we are in Hovering
     logic_state_machine_->process_event(InternalTransitionEvent());
     ASSERT_STREQ(pstate(*logic_state_machine_), "Hovering");
@@ -194,7 +198,7 @@ protected:
     logic_state_machine_->process_event(InternalTransitionEvent());
     ASSERT_STREQ(pstate(*logic_state_machine_), "ManualControlArmState");
     // Enable SDK
-    drone_hardware_.flowControl(true);
+    drone_hardware_->flowControl(true);
     // Check we are back in hovering
     logic_state_machine_->process_event(InternalTransitionEvent());
     ASSERT_STREQ(pstate(*logic_state_machine_), "Hovering");
@@ -207,14 +211,14 @@ protected:
     logic_state_machine_->process_event(InternalTransitionEvent());
     ASSERT_STRNE(pstate(*logic_state_machine_), "Hovering");
     // Power off arm
-    arm_.sendCmd(ArmParser::Command::POWER_OFF);
+    arm_->sendCmd(ArmParser::Command::POWER_OFF);
     // Check we are in Hovering
     logic_state_machine_->process_event(InternalTransitionEvent());
     ASSERT_STREQ(pstate(*logic_state_machine_), "Hovering");
   }
 
   void GoToHoverFromLanded() {
-    drone_hardware_.setBatteryPercent(100);
+    drone_hardware_->setBatteryPercent(100);
     logic_state_machine_->process_event(be::Takeoff());
     // Powers on arm and folds it; Starts takeoff
     logic_state_machine_->process_event(InternalTransitionEvent());
@@ -232,7 +236,7 @@ TEST_F(PickPlaceStateMachineTests, InitialState) {
 /// \brief Test Arm folding during landing and takeoff
 TEST_F(PickPlaceStateMachineTests, HoveringandLanding) {
   // Takeoff
-  drone_hardware_.setBatteryPercent(100);
+  drone_hardware_->setBatteryPercent(100);
   logic_state_machine_->process_event(be::Takeoff());
   ASSERT_STREQ(pstate(*logic_state_machine_), "ArmPreTakeoffFolding");
   // Powers on arm and folds it; Starts takeoff
@@ -281,7 +285,7 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
                                             std::chrono::milliseconds(0)));
 
   // Grip object for required duration
-  arm_.setGripperStatus(true);
+  arm_->setGripperStatus(true);
   logic_state_machine_->process_event(InternalTransitionEvent());
   this_thread::sleep_for(std::chrono::milliseconds(1100));
   logic_state_machine_->process_event(InternalTransitionEvent());
@@ -309,7 +313,7 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
   // Check Place completed with ungrip
   ASSERT_STREQ(pstate(*logic_state_machine_), "ReachingPostPlaceWaypoint");
   ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(Completed));
-  ASSERT_FALSE(arm_.getGripperValue());
+  ASSERT_FALSE(arm_->getGripperValue());
   // Run controllers through two waypoints
   logic_state_machine_->process_event(InternalTransitionEvent());
   ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
@@ -355,7 +359,7 @@ TEST_F(PickPlaceStateMachineTests, PickTimeout) {
                                             std::chrono::milliseconds(0)));
 
   // Grip has failed
-  arm_.setGripperStatus(false);
+  arm_->setGripperStatus(false);
 
   auto grip = [&]() {
     logic_state_machine_->process_event(InternalTransitionEvent());
@@ -379,11 +383,11 @@ TEST_F(PickPlaceStateMachineTests, PickWaitForGrip) {
   ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
 
   // Initially not gripping
-  arm_.setGripperStatus(false);
+  arm_->setGripperStatus(false);
   logic_state_machine_->process_event(InternalTransitionEvent());
   this_thread::sleep_for(std::chrono::milliseconds(900));
   // Now gripping
-  arm_.setGripperStatus(true);
+  arm_->setGripperStatus(true);
 
   auto grip = [&]() {
     logic_state_machine_->process_event(InternalTransitionEvent());
@@ -407,11 +411,11 @@ TEST_F(PickPlaceStateMachineTests, PickGripTooLate) {
   ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
 
   // Initially not gripping
-  arm_.setGripperStatus(false);
+  arm_->setGripperStatus(false);
   logic_state_machine_->process_event(InternalTransitionEvent());
   this_thread::sleep_for(std::chrono::milliseconds(1100));
   // Now gripping, but not enough time to complete grip before timeout
-  arm_.setGripperStatus(true);
+  arm_->setGripperStatus(true);
 
   auto grip = [&]() {
     logic_state_machine_->process_event(InternalTransitionEvent());
@@ -461,7 +465,7 @@ TEST_F(PickPlaceStateMachineTests, PlaceManualControlAbort) {
 // Manual control internal actions
 TEST_F(PickPlaceStateMachineTests, PickPlaceManualControlInternalActions) {
   // Disable SDK
-  drone_hardware_.flowControl(false);
+  drone_hardware_->flowControl(false);
   // Move to manual control state
   logic_state_machine_->process_event(InternalTransitionEvent());
   // Check we are in manual control state
@@ -477,13 +481,13 @@ TEST_F(PickPlaceStateMachineTests, PickPlaceManualControlInternalActions) {
   // Check arm is powered on
   ASSERT_TRUE(uav_arm_system_->enabled());
   // Check command status is false
-  ASSERT_FALSE(arm_.getCommandStatus());
+  ASSERT_FALSE(arm_->getCommandStatus());
   // Check we can process fold
   logic_state_machine_->process_event(arm_events::Fold());
-  ASSERT_TRUE(arm_.getCommandStatus());
+  ASSERT_TRUE(arm_->getCommandStatus());
   // Check we can process right fold
   logic_state_machine_->process_event(arm_events::RightAngleFold());
-  ASSERT_TRUE(arm_.getCommandStatus());
+  ASSERT_TRUE(arm_->getCommandStatus());
   // Check we are still in Manual Control State
   ASSERT_STREQ(pstate(*logic_state_machine_), "ManualControlArmState");
 }
