@@ -7,10 +7,13 @@
 // Quad Simulator
 #include <quad_simulator_parser/quad_simulator.h>
 // Guidance Sensor
-#include <aerial_autonomy/common/math.h>
 #include <aerial_autonomy/sensors/base_sensor.h>
 #include <aerial_autonomy/sensors/guidance.h>
-
+// Misc utitlities
+#include <aerial_autonomy/common/math.h>
+#include <aerial_autonomy/tests/test_utils.h>
+#include <geometry_msgs/Vector3.h>
+#include <tf/tf.h>
 /**
 * @brief Namespace for UAV Simulator Hardware
 */
@@ -116,15 +119,32 @@ TEST_F(JoystickControlStateMachineTests, SystemIdState) {
   // Takeoff
   GoToHoverFromLanded();
 
+  ManualRPYTControllerConfig manual_rpyt_config =
+      uav_system->getConfiguration().manual_rpyt_controller_config();
   // Go to SystemId state
   logic_state_machine->process_event(jce::SystemIdEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "SystemIdState");
   ASSERT_EQ(uav_system->getStatus<ManualRPYTControllerDroneConnector>(),
             ControllerStatus::Active);
 
-  for (int i = 0; i < 450; i++) {
-    int16_t channels[4] = {int16_t(10 * i), int16_t(10 * i), int16_t(10 * i),
-                           int16_t(-10 * i)};
+  // Run Manual controller for ~20 seconds
+  for (int i = 0; i < 1050; i++) {
+    double t = math::map(i, 0, 1050, 0, 3.14);
+    // Find RC thrust input s.t. z-component of acc is g
+    double r =
+        math::map(10000 * sin(t), -10000, 10000, -manual_rpyt_config.max_roll(),
+                  manual_rpyt_config.max_roll());
+    double p = math::map(10000 * sin(t), -10000, 10000,
+                         -manual_rpyt_config.max_pitch(),
+                         manual_rpyt_config.max_pitch());
+    tf::Transform rot = tf::Transform(tf::createQuaternionFromRPY(r, p, 0),
+                                      tf::Vector3(0, 0, 0));
+    tf::Vector3 acc_dir = rot * tf::Vector3(0, 0, 1);
+    double thrust = 9.81 / (0.16 * acc_dir[2]);
+    double thrust_rc = math::map(thrust, 10, 100, -10000, 10000);
+
+    int16_t channels[4] = {int16_t(10000 * sin(t)), int16_t(10000 * sin(t)),
+                           int16_t(thrust_rc), int16_t(-10000 * sin(t))};
     drone_hardware.setRC(channels);
     uav_system->runActiveController(HardwareType::UAV);
     std::this_thread::sleep_for(std::chrono::milliseconds(20));
@@ -133,11 +153,41 @@ TEST_F(JoystickControlStateMachineTests, SystemIdState) {
 
   logic_state_machine->process_event(be::Abort());
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
-
   RPYTBasedVelocityControllerConfig new_config =
       uav_system->getRPYTVelocityControllerConfig();
 
-  ASSERT_NEAR(new_config.kt(), 0.16, 0.05);
+  std::cout << "new Kt = " << new_config.kt() << std::endl;
+  ASSERT_NEAR(new_config.kt(), 0.16, 0.005);
+
+  // Run Velocity controller and check if z-velocity is
+  // close to 0 when input is zero
+  RPYTBasedVelocityControllerConfig newest_config;
+  newest_config.set_kp(2.0);
+  newest_config.set_ki(0.01);
+  newest_config.set_kt(new_config.kt());
+  uav_system->updateRPYTVelocityControllerConfig(newest_config);
+
+  geometry_msgs::Vector3 vel;
+  vel.x = 0.0;
+  vel.y = 0.0;
+  vel.z = 0.0;
+  double yaw_rate = 0.0;
+  drone_hardware.cmdvel_yaw_rate_guided(vel, yaw_rate);
+
+  int16_t channels[4] = {0, 0, 0, 0};
+  drone_hardware.setRC(channels);
+  logic_state_machine->process_event(jce::JoystickControlEvent());
+  ASSERT_STREQ(pstate(*logic_state_machine), "JoystickControlState");
+  uav_system->runActiveController(HardwareType::UAV);
+
+  // Run controller for ~10 seconds
+  for (int j = 0; j < 500; j++) {
+    uav_system->runActiveController(HardwareType::UAV);
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
+  }
+
+  parsernode::common::quaddata data = uav_system->getUAVData();
+  ASSERT_NEAR(data.linvel.z, 0.0, 0.05);
 }
 
 int main(int argc, char **argv) {

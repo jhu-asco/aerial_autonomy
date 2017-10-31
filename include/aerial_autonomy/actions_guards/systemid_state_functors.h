@@ -91,7 +91,6 @@ struct SystemIdStateInternalActionFunctor_
     return true;
   }
 };
-
 /**
 * @brief Internal action while in systemid state.
 *
@@ -117,8 +116,16 @@ struct SystemIdState_
   */
   template <class Event, class FSM>
   void on_exit(Event const &, FSM &logic_state_machine) {
-    VLOG(1) << "Exiting system id state. Estimating Parameters";
     UAVSystem &robot_system = this->getRobotSystem(logic_state_machine);
-    robot_system.runSystemId();
+    // Abort controller
+    robot_system.abortController(HardwareType::UAV);
+    // Check if controller is aborted and run system id
+    if (robot_system.getActiveControllerStatus(HardwareType::UAV) ==
+        ControllerStatus::NotEngaged) {
+      VLOG(1) << "Estimating Parameters";
+      robot_system.runSystemId();
+    } else {
+      LOG(WARNING) << "Controller still active. Not running system id";
+    }
   }
 };
