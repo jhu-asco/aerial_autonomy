@@ -6,9 +6,4 @@ message UAVArmSystemHandlerConfig {
   * continously
   */
   optional int32 arm_controller_timer_duration = 1 [ default = 20 ];
-
-  /**
-  * @brief Arm hardware plugin name
-  */
-  required string arm_parser_type = 2;
 }

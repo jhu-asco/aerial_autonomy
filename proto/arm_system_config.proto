@@ -7,4 +7,8 @@ message ArmSystemConfig {
   * @brief configuration for builtin arm pose controller
   */
   optional PoseControllerConfig pose_controller_config = 1;
+  /**
+  * @brief Arm hardware plugin name
+  */
+  required string arm_parser_type = 2;
 }

@@ -6,6 +6,8 @@
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
 #include "aerial_autonomy/controllers/velocity_based_relative_pose_controller.h"
 #include "aerial_autonomy/robot_systems/uav_system.h"
+#include "aerial_autonomy/trackers/alvar_tracker.h"
+#include "aerial_autonomy/trackers/roi_to_position_converter.h"
 #include "uav_system_config.pb.h"
 
 #include <tf/tf.h>
@@ -14,30 +16,37 @@
 * @brief UAV system with a camera and visual sevoing capabilities.
 */
 class UAVVisionSystem : public UAVSystem {
+protected:
+  using BaseTrackerPtr = std::shared_ptr<BaseTracker>;
+
 public:
+  UAVVisionSystem(UAVSystemConfig config)
+      : UAVVisionSystem(nullptr, nullptr, config) {}
+
   /**
   * @brief Constructor
   * @param tracker Used to track targets for visual servoing
   * @param drone_hardware UAV driver
   * @param config Configuration parameters
   */
-  UAVVisionSystem(BaseTracker &tracker, parsernode::Parser &drone_hardware,
+  UAVVisionSystem(BaseTrackerPtr tracker, ParserPtr drone_hardware,
                   UAVSystemConfig config)
       : UAVSystem(drone_hardware, config),
         camera_transform_(conversions::protoTransformToTf(
             config_.uav_vision_system_config().camera_transform())),
-        tracker_(tracker), constant_heading_depth_controller_(
-                               config_.uav_vision_system_config()
-                                   .constant_heading_depth_controller_config()),
+        tracker_(UAVVisionSystem::chooseTracker(tracker, config)),
+        constant_heading_depth_controller_(
+            config_.uav_vision_system_config()
+                .constant_heading_depth_controller_config()),
         velocity_based_relative_pose_controller_(
             config_.uav_vision_system_config()
                 .velocity_based_relative_pose_controller_config()),
-        visual_servoing_drone_connector_(tracker, drone_hardware_,
+        visual_servoing_drone_connector_(*tracker_, *drone_hardware_,
                                          constant_heading_depth_controller_,
                                          camera_transform_),
         relative_pose_visual_servoing_drone_connector_(
-            tracker, drone_hardware, velocity_based_relative_pose_controller_,
-            camera_transform_,
+            *tracker_, *drone_hardware,
+            velocity_based_relative_pose_controller_, camera_transform_,
             conversions::protoTransformToTf(config_.uav_vision_system_config()
                                                 .tracking_offset_transform())) {
     controller_hardware_connector_container_.setObject(
@@ -50,7 +59,6 @@ public:
       const aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
           &config) {
     velocity_based_relative_pose_controller_.updateConfig(config);
-    // velocity_based_position_controller_.updateConfig(config);
   }
 
   aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
@@ -69,7 +77,7 @@ public:
     return visual_servoing_drone_connector_.getTrackingVectorGlobalFrame(pos);
   }
 
-  bool initializeTracker() { return tracker_.initialize(); }
+  bool initializeTracker() { return tracker_->initialize(); }
 
   std::string getSystemStatus() const {
     std::stringstream status;
@@ -79,14 +87,14 @@ public:
     table_writer.addHeader("Tracker Status", Colors::blue);
     table_writer.beginRow();
     std::string tracking_valid =
-        (tracker_.trackingIsValid() ? "True" : "False");
+        (tracker_->trackingIsValid() ? "True" : "False");
     std::string valid_color =
-        (tracker_.trackingIsValid() ? Colors::green : Colors::red);
+        (tracker_->trackingIsValid() ? Colors::green : Colors::red);
     table_writer.addCell(tracking_valid, "Valid", valid_color);
     table_writer.beginRow();
     table_writer.addCell("Tracking Vectors: ");
     std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
-    if (tracker_.getTrackingVectors(tracking_vectors)) {
+    if (tracker_->getTrackingVectors(tracking_vectors)) {
       for (auto tv : tracking_vectors) {
         tf::Transform tv_body_frame = camera_transform_ * tv.second;
         table_writer.beginRow();
@@ -133,8 +141,26 @@ protected:
   */
   tf::Transform camera_transform_;
 
+  BaseTrackerPtr tracker_; ///< Tracking system
+
+  static BaseTrackerPtr chooseTracker(BaseTrackerPtr tracker,
+                                      UAVSystemConfig &config) {
+    if (tracker) {
+      return tracker;
+    } else {
+      std::string tracker_type =
+          config.uav_vision_system_config().tracker_type();
+      if (tracker_type == "ROI") {
+        return BaseTrackerPtr(new RoiToPositionConverter());
+      } else if (tracker_type == "ALVAR") {
+        return BaseTrackerPtr(new AlvarTracker());
+      }
+    }
+    // TODO Throw error here
+    return nullptr;
+  }
+
 private:
-  BaseTracker &tracker_;
   /**
   * @brief Track the target position given by the tracker
   */
