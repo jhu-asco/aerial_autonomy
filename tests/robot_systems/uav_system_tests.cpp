@@ -31,8 +31,9 @@ TEST(UAVSystemTests, Land) {
 }
 
 TEST(UAVSystemTests, EnableSDK) {
-  QuadSimulator *drone_hardware = new QuadSimulator;
-  UAVSystem uav_system{ParserPtr(drone_hardware)};
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  UAVSystem uav_system{
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware)};
   // Disable SDK
   drone_hardware->flowControl(false);
   // Enable SDK
