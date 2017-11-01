@@ -188,6 +188,8 @@ TEST_F(JoystickControlStateMachineTests, SystemIdState) {
 
   parsernode::common::quaddata data = uav_system->getUAVData();
   ASSERT_NEAR(data.linvel.z, 0.0, 0.05);
+  ASSERT_NEAR(data.linvel.x, 0.0, 0.01);
+  ASSERT_NEAR(data.linvel.y, 0.0, 0.01);
 }
 
 int main(int argc, char **argv) {
