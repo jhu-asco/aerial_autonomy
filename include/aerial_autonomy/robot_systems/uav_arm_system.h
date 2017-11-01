@@ -21,7 +21,7 @@ public:
   * @param arm_hardware Manipulator driver
   */
   UAVArmSystem(UAVSystemConfig config, BaseTrackerPtr tracker = nullptr,
-               ParserPtr drone_hardware = nullptr,
+               UAVParserPtr drone_hardware = nullptr,
                ArmParserPtr arm_hardware = nullptr)
       : UAVVisionSystem(config, tracker, drone_hardware),
         ArmSystem(config_.uav_vision_system_config()

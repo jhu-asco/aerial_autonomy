@@ -29,7 +29,7 @@ protected:
   /**
    * @brief typedef for base class of UAV parser
    */
-  using ParserPtr = std::shared_ptr<parsernode::Parser>;
+  using UAVParserPtr = std::shared_ptr<parsernode::Parser>;
   /**
    * @brief UAV configuration parameters
    */
@@ -37,7 +37,7 @@ protected:
   /**
   * @brief Hardware
   */
-  ParserPtr drone_hardware_;
+  UAVParserPtr drone_hardware_;
   /**
   * @brief Velocity based position controller
   */
@@ -96,14 +96,15 @@ private:
    *
    * @return the chosen parser
    */
-  static ParserPtr chooseParser(ParserPtr parser, UAVSystemConfig &config) {
-    ParserPtr uav_parser;
+  static UAVParserPtr chooseParser(UAVParserPtr parser,
+                                   UAVSystemConfig &config) {
+    UAVParserPtr uav_parser;
     if (parser) {
       uav_parser = parser;
     } else {
       pluginlib::ClassLoader<parsernode::Parser> parser_loader_(
           "parsernode", "parsernode::Parser");
-      uav_parser = ParserPtr(
+      uav_parser = UAVParserPtr(
           parser_loader_.createUnmanagedInstance(config.uav_parser_type()));
     }
     return uav_parser;
@@ -120,7 +121,7 @@ public:
    *
    * @param drone_hardware explicitly provided drone hardware
    */
-  UAVSystem(ParserPtr drone_hardware)
+  UAVSystem(UAVParserPtr drone_hardware)
       : UAVSystem(UAVSystemConfig(), drone_hardware) {}
   /**
   * @brief Constructor
@@ -134,7 +135,7 @@ public:
   * @param drone_hardware input hardware to send commands back. If this variable
   * is set, it will overwrite the one given using "uav_parser_type" in config.
   */
-  UAVSystem(UAVSystemConfig config, ParserPtr drone_hardware = nullptr)
+  UAVSystem(UAVSystemConfig config, UAVParserPtr drone_hardware = nullptr)
       : BaseRobotSystem(), config_(config),
         drone_hardware_(UAVSystem::chooseParser(drone_hardware, config)),
         velocity_based_position_controller_(

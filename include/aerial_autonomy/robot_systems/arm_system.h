@@ -198,7 +198,8 @@ protected:
       } else if (arm_parser_type == "ArmSimulator") {
         arm_parser_pointer = ArmParserPtr(new ArmSimulator());
       } else {
-        throw std::runtime_error("Unknown arm parser type provided");
+        throw std::runtime_error("Unknown arm parser type provided: " +
+                                 arm_parser_type);
       }
     }
     return arm_parser_pointer;

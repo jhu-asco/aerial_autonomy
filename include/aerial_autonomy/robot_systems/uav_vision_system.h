@@ -30,7 +30,7 @@ public:
   * config file
   */
   UAVVisionSystem(UAVSystemConfig config, BaseTrackerPtr tracker = nullptr,
-                  ParserPtr drone_hardware = nullptr)
+                  UAVParserPtr drone_hardware = nullptr)
       : UAVSystem(config, drone_hardware),
         camera_transform_(conversions::protoTransformToTf(
             config_.uav_vision_system_config().camera_transform())),
@@ -170,7 +170,8 @@ protected:
       } else if (tracker_type == "Alvar") {
         tracker_pointer = BaseTrackerPtr(new AlvarTracker());
       } else {
-        throw std::runtime_error("Unknown tracker type provided");
+        throw std::runtime_error("Unknown tracker type provided: " +
+                                 tracker_type);
       }
     }
     return tracker_pointer;
