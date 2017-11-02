@@ -78,11 +78,11 @@ TEST(LandFunctorTests, CallOperatorFunction) {
 
 TEST(LandFunctorTests, ManualControlInternalActionTest) {
   std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
-  drone_hardware->flowControl(false);
   UAVSystem uav_system(
       std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_event, dummy_start_state, dummy_target_state;
+  drone_hardware->flowControl(false);
   LandInternalActionFunctor land_internal_action_functor;
   ASSERT_FALSE(
       land_internal_action_functor(dummy_event, sample_logic_state_machine,
@@ -126,11 +126,11 @@ TEST(HoveringFunctorTests, CallOperatorFunction) {
 }
 TEST(HoveringFunctorTests, ManualControlInternalActionTest) {
   std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
-  drone_hardware->flowControl(false);
   UAVSystem uav_system(
       std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_event, dummy_start_state, dummy_target_state;
+  drone_hardware->flowControl(false);
   HoveringInternalActionFunctor hovering_internal_action_functor;
   hovering_internal_action_functor(dummy_event, sample_logic_state_machine,
                                    dummy_start_state, dummy_target_state);
@@ -319,11 +319,11 @@ TEST(PositionControlFunctorTests, PositionControlInternalActionTest) {
 }
 TEST(PositionControlFunctorTests, ManualControlInternalActionTest) {
   std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
-  drone_hardware->flowControl(false);
   UAVSystem uav_system(
       std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_event, dummy_start_state, dummy_target_state;
+  drone_hardware->flowControl(false);
   PositionControlInternalActionFunctor position_control_internal_action_functor;
   position_control_internal_action_functor(
       dummy_event, sample_logic_state_machine, dummy_start_state,
@@ -521,11 +521,11 @@ TEST(VelocityControlFunctorTests, InternalActionTest) {
 }
 TEST(VelocityControlFunctorTests, ManualControlInternalActionTest) {
   std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
-  drone_hardware->flowControl(false);
   UAVSystem uav_system(
       std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_event, dummy_start_state, dummy_target_state;
+  drone_hardware->flowControl(false);
   VelocityControlInternalActionFunctor velocity_control_internal_action_functor;
   velocity_control_internal_action_functor(
       dummy_event, sample_logic_state_machine, dummy_start_state,
