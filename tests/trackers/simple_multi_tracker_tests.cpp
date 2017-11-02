@@ -4,11 +4,13 @@
 #include "aerial_autonomy/trackers/simple_multi_tracker.h"
 
 TEST(SimpleMultiTrackerTests, Constructor) {
-  SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy());
+  SimpleMultiTracker simple_tracker(
+      std::unique_ptr<TrackingStrategy>(new ClosestTrackingStrategy()));
 }
 
 TEST(SimpleMultiTrackerTests, SetTrackingVectors) {
-  SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy());
+  SimpleMultiTracker simple_tracker(
+      std::unique_ptr<TrackingStrategy>(new ClosestTrackingStrategy()));
 
   std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
   tracking_vectors[0] =
@@ -28,7 +30,8 @@ TEST(SimpleMultiTrackerTests, SetTrackingVectors) {
 }
 
 TEST(ClosestTrackingStrategyTests, GetTrackingVectorClosest) {
-  SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy());
+  SimpleMultiTracker simple_tracker(
+      std::unique_ptr<TrackingStrategy>(new ClosestTrackingStrategy()));
 
   std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
   tracking_vectors[0] =
@@ -45,7 +48,8 @@ TEST(ClosestTrackingStrategyTests, GetTrackingVectorClosest) {
 }
 
 TEST(ClosestTrackingStrategyTests, ClosestTrackingLostNoRetries) {
-  SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy(0));
+  SimpleMultiTracker simple_tracker(
+      std::unique_ptr<TrackingStrategy>(new ClosestTrackingStrategy(0)));
 
   std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
   tracking_vectors[0] =
@@ -67,7 +71,8 @@ TEST(ClosestTrackingStrategyTests, ClosestTrackingLostNoRetries) {
 
 TEST(ClosestTrackingStrategyTests, ClosestTrackingLostMultipleRetries) {
   int retries = 5;
-  SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy(retries));
+  SimpleMultiTracker simple_tracker(
+      std::unique_ptr<TrackingStrategy>(new ClosestTrackingStrategy(retries)));
 
   std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
   tracking_vectors[0] =
@@ -96,7 +101,8 @@ TEST(ClosestTrackingStrategyTests, ClosestTrackingLostMultipleRetries) {
 
 TEST(ClosestTrackingStrategyTests, ClosestTrackingLostMultipleRetriesReinit) {
   int retries = 5;
-  SimpleMultiTracker simple_tracker(new ClosestTrackingStrategy(retries));
+  SimpleMultiTracker simple_tracker(
+      std::unique_ptr<TrackingStrategy>(new ClosestTrackingStrategy(retries)));
 
   std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
   tracking_vectors[0] =

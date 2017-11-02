@@ -84,6 +84,15 @@ public:
     return visual_servoing_drone_connector_.getTrackingVectorGlobalFrame(pos);
   }
 
+  /**
+  * @brief Set the tracker's tracking strategy
+  * @param strategy Tracking strategy to set
+  */
+  void
+  setTrackingStrategy(std::unique_ptr<TrackingStrategy> &&tracking_strategy) {
+    tracker_->setTrackingStrategy(std::move(tracking_strategy));
+  }
+
   bool initializeTracker() { return tracker_->initialize(); }
 
   std::string getSystemStatus() const {

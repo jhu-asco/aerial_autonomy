@@ -12,7 +12,7 @@
  */
 class BaseTracker {
 public:
-  BaseTracker(std::unique_ptr<TrackingStrategy> tracking_strategy)
+  BaseTracker(std::unique_ptr<TrackingStrategy> &&tracking_strategy)
       : tracking_strategy_(std::move(tracking_strategy)) {}
   /**
   * @brief Initialze the tracker.  Can simply return true if the subclass
@@ -24,7 +24,8 @@ public:
   * @brief Set the tracker's tracking strategy
   * @param The desired tracking strategy
   */
-  void setTrackingStrategy(std::unique_ptr<TrackingStrategy> tracking_strategy);
+  void
+  setTrackingStrategy(std::unique_ptr<TrackingStrategy> &&tracking_strategy);
   /**
    * @brief Get the tracking vector
    * @param pos Returned tracking vector

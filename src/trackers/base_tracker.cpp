@@ -10,7 +10,7 @@ bool BaseTracker::getTrackingVector(tf::Transform &pose) {
 }
 
 void BaseTracker::setTrackingStrategy(
-    std::unique_ptr<TrackingStrategy> tracking_strategy) {
+    std::unique_ptr<TrackingStrategy> &&tracking_strategy) {
   tracking_strategy_ = std::move(tracking_strategy);
 }
 
