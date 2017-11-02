@@ -100,9 +100,25 @@ public:
   *
   * @param uav_system robot system that is stored internally
   * and shared with events
+  * @param state_machine_config store config variables for state
+  * machine
   */
+  PickPlaceStateMachineFrontEnd(
+      UAVArmSystem &uav_system,
+      const BaseStateMachineConfig &state_machine_config)
+      : BaseStateMachine(uav_system, state_machine_config) {
+    auto pick_state_machine_config =
+        state_machine_config.visual_servoing_state_machine_config()
+            .pick_place_state_machine_config();
+    config_map_.insert<psa::ReachingPostPickWaypoint>(
+        pick_state_machine_config.following_waypoint_sequence_config());
+    config_map_.insert<psa::ReachingPostPlaceWaypoint>(
+        pick_state_machine_config.following_waypoint_sequence_config());
+    config_map_.insert<psa::PickState>(pick_state_machine_config.grip_config());
+  }
+
   PickPlaceStateMachineFrontEnd(UAVArmSystem &uav_system)
-      : BaseStateMachine(uav_system) {}
+      : PickPlaceStateMachineFrontEnd(uav_system, BaseStateMachineConfig()){};
 
   /**
   * @brief Initial state for state machine
@@ -189,7 +205,7 @@ public:
                       psa::ArmRightFoldGoHome, psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PickState, Completed, psa::ReachingPostPickWaypoint,
-                      msmf::none, psa::PostPickWaypointGuard>,
+                      msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ReachingPostPickWaypoint, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
@@ -204,7 +220,7 @@ public:
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PlaceState, Completed,
                       psa::ReachingPostPlaceWaypoint, psa::ArmGripAction<false>,
-                      psa::PostPlaceWaypointGuard>,
+                      msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ReachingPostPlaceWaypoint, Completed,
                       psa::WaitingForPick, psa::AbortUAVArmController,

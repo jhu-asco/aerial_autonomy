@@ -6,21 +6,18 @@
 
 /// \brief Test Arm System
 TEST(ArmSystemTests, Constructor) {
-  ArmSimulator arm;
-  ASSERT_NO_THROW(new ArmSystem(arm));
+  ASSERT_NO_THROW(new ArmSystem(std::shared_ptr<ArmParser>(new ArmSimulator)));
 }
 
 TEST(ArmSystemTests, Power) {
-  ArmSimulator arm;
-  ArmSystem arm_system(arm);
+  ArmSystem arm_system(std::shared_ptr<ArmParser>(new ArmSimulator));
   ASSERT_FALSE(arm_system.enabled());
   arm_system.power(true);
   ASSERT_TRUE(arm_system.enabled());
 }
 
 TEST(ArmSystemTests, Command) {
-  ArmSimulator arm;
-  ArmSystem arm_system(arm);
+  ArmSystem arm_system(std::shared_ptr<ArmParser>(new ArmSimulator));
   arm_system.power(true);
   ASSERT_FALSE(arm_system.getCommandStatus());
   arm_system.rightArm();

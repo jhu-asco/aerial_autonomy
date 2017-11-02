@@ -1,0 +1,22 @@
+syntax = "proto2";
+
+import "transform.proto";
+import "following_waypoint_sequence_config.proto";
+import "grip_config.proto";
+
+message PickPlaceStateMachineConfig {
+  /**
+  * @brief Arm transform in the frame of the tracked object (assuming NWU).
+  */
+  repeated config.Transform arm_goal_transform = 1;
+
+  /**
+  * @brief Config for the FollowingWaypointSequence state
+  */
+  optional FollowingWaypointSequenceConfig following_waypoint_sequence_config =
+      2;
+  /**
+  * @brief Config for pickstate
+  */
+  optional GripConfig grip_config = 3;
+}

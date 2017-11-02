@@ -16,20 +16,12 @@ public:
   UAVVisionSystemHandlerTests() : BaseTestPubSubs() {
     // Configure system
     UAVSystemHandlerConfig uav_system_handler_config;
-    uav_system_handler_config.set_uav_parser_type(
-        "quad_simulator_parser/QuadSimParser");
+    BaseStateMachineConfig state_machine_config;
     uav_system_handler_config.mutable_uav_system_config()
         ->set_minimum_takeoff_height(0.4);
-    for (int i = 0; i < 6; ++i) {
-      uav_system_handler_config.mutable_uav_system_config()
-          ->mutable_uav_vision_system_config()
-          ->add_camera_transform(0.0);
-      uav_system_handler_config.mutable_uav_system_config()
-          ->mutable_uav_vision_system_config()
-          ->add_tracking_offset_transform(0.0);
-    }
 
     auto uav_config = uav_system_handler_config.mutable_uav_system_config();
+    uav_config->set_uav_parser_type("quad_simulator_parser/QuadSimParser");
     // Position controller params
     auto pos_controller_config =
         uav_config->mutable_velocity_based_position_controller_config();
@@ -50,7 +42,8 @@ public:
         new UAVVisionSystemHandler<
             VisualServoingStateMachine,
             visual_servoing_events::VisualServoingEventManager<
-                VisualServoingStateMachine>>(uav_system_handler_config));
+                VisualServoingStateMachine>>(uav_system_handler_config,
+                                             state_machine_config));
     ros::spinOnce();
   }
 

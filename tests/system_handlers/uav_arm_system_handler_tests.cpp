@@ -16,32 +16,15 @@ public:
   UAVArmSystemHandlerTests() : BaseTestPubSubs() {
     // Configure system
     UAVSystemHandlerConfig uav_system_handler_config;
-    uav_system_handler_config.set_uav_parser_type(
-        "quad_simulator_parser/QuadSimParser");
-    uav_system_handler_config.mutable_uav_arm_system_handler_config()
-        ->set_arm_parser_type("ArmSimulator");
+    BaseStateMachineConfig state_machine_config;
     uav_system_handler_config.mutable_uav_system_config()
         ->set_minimum_takeoff_height(0.4);
-    for (int i = 0; i < 6; ++i) {
-      uav_system_handler_config.mutable_uav_system_config()
-          ->mutable_uav_vision_system_config()
-          ->add_camera_transform(0.0);
-      uav_system_handler_config.mutable_uav_system_config()
-          ->mutable_uav_vision_system_config()
-          ->add_tracking_offset_transform(0.0);
-
-      uav_system_handler_config.mutable_uav_system_config()
-          ->mutable_uav_vision_system_config()
-          ->mutable_uav_arm_system_config()
-          ->add_arm_transform(0.0);
-
-      uav_system_handler_config.mutable_uav_system_config()
-          ->mutable_uav_vision_system_config()
-          ->mutable_uav_arm_system_config()
-          ->add_arm_goal_transform(0.0);
-    }
-
     auto uav_config = uav_system_handler_config.mutable_uav_system_config();
+    uav_config->set_uav_parser_type("quad_simulator_parser/QuadSimParser");
+    uav_config->mutable_uav_vision_system_config()
+        ->mutable_uav_arm_system_config()
+        ->mutable_arm_system_config()
+        ->set_arm_parser_type("ArmSimulator");
     // Position controller params
     auto pos_controller_config =
         uav_config->mutable_velocity_based_position_controller_config();
@@ -62,7 +45,7 @@ public:
         new UAVArmSystemHandler<
             PickPlaceStateMachine,
             pick_place_events::PickPlaceEventManager<PickPlaceStateMachine>>(
-            uav_system_handler_config));
+            uav_system_handler_config, state_machine_config));
     ros::spinOnce();
   }
 

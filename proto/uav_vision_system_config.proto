@@ -1,9 +1,9 @@
 syntax = "proto2";
 
-import "position_yaw.proto";
 import "constant_heading_depth_controller_config.proto";
 import "velocity_based_relative_pose_controller_config.proto";
 import "uav_arm_system_config.proto";
+import "transform.proto";
 
 message UAVVisionSystemConfig {
   required ConstantHeadingDepthControllerConfig
@@ -21,22 +21,15 @@ message UAVVisionSystemConfig {
   required double desired_visual_servoing_distance = 2 [ default = 3.0 ];
 
   /**
-  * @brief Relative pose goals for relative pose visual servoing controller
+  * @brief Camera transform in the frame of the UAV (assuming NWU).
   */
-  repeated config.PositionYaw relative_pose_goals = 5;
-
-  /**
-  * @brief Camera transform in the frame of the UAV (assuming NWU).  Specified
-  * as x, y, z, roll, pitch, yaw.
-  */
-  repeated double camera_transform = 3;
+  optional config.Transform camera_transform = 3;
 
   /**
   * @brief Transform to apply to tracked object before rotation-compensation (to
-  * avoid issues with singularities).  Specified
-  * as x, y, z, roll, pitch, yaw.
+  * avoid issues with singularities).
   */
-  repeated double tracking_offset_transform = 7;
+  optional config.Transform tracking_offset_transform = 7;
 
   /**
   * @brief Type of tracker to use, e.g. Alvar, ROI

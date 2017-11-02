@@ -40,8 +40,19 @@ public:
    *
    * @param robot_system provides actions to select controllers, get/set Goals.
    */
+  SampleLogicStateMachine_(
+      RobotSystemT &robot_system,
+      const BaseStateMachineConfig &base_state_machine_config)
+      : BaseStateMachine<RobotSystemT>(robot_system,
+                                       base_state_machine_config) {}
+
+  /**
+   * @brief Constructor that uses a default state machine config
+   *
+   * @param robot_system provides actions to select controllers, get/set Goals.
+   */
   SampleLogicStateMachine_(RobotSystemT &robot_system)
-      : BaseStateMachine<RobotSystemT>(robot_system) {}
+      : SampleLogicStateMachine_(robot_system, BaseStateMachineConfig()) {}
 
   /**
   * @brief Generic process event that stores the event type

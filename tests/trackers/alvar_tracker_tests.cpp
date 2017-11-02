@@ -40,8 +40,7 @@ private:
 };
 
 TEST_F(AlvarTrackerTests, TrackingValidTimeout) {
-  ros::NodeHandle nh;
-  AlvarTracker tracker(nh);
+  AlvarTracker tracker("");
   while (!tracker.isConnected()) {
   }
 
@@ -58,8 +57,7 @@ TEST_F(AlvarTrackerTests, TrackingValidTimeout) {
 }
 
 TEST_F(AlvarTrackerTests, GetTrackingVector) {
-  ros::NodeHandle nh;
-  AlvarTracker tracker(nh);
+  AlvarTracker tracker("");
   while (!tracker.isConnected()) {
   }
   tf::Transform pose;
@@ -79,8 +77,7 @@ TEST_F(AlvarTrackerTests, GetTrackingVector) {
 }
 
 TEST_F(AlvarTrackerTests, TrackingValidEmpty) {
-  ros::NodeHandle nh;
-  AlvarTracker tracker(nh);
+  AlvarTracker tracker("");
   while (!tracker.isConnected()) {
   }
   tf::Transform pose;

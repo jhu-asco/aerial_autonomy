@@ -14,13 +14,12 @@ class AlvarTracker : public BaseTracker {
 public:
   /**
   * @brief Constructor
-  * @param nh ROS node handle for comms
   */
-  AlvarTracker(ros::NodeHandle &nh)
+  AlvarTracker(std::string name_space = "~tracker")
       // \todo Matt Add timeout and num_retries as config
       : BaseTracker(std::move(std::unique_ptr<TrackingStrategy>(
             new ClosestTrackingStrategy(25)))),
-        nh_(nh),
+        nh_(name_space),
         alvar_sub_(nh_.subscribe("ar_pose_marker", 1,
                                  &AlvarTracker::markerCallback, this)),
         timeout_(0.5) {}

@@ -75,16 +75,6 @@ struct PickPlaceStatesActions
   using ArmPowerOff = ArmPoweroffTransitionActionFunctor_<LogicStateMachineT>;
 
   /**
-  * @brief Check if post pick waypoints are specified in proto config
-  */
-  using PostPickWaypointGuard =
-      WaypointSequenceTransitionGuardFunctor_<LogicStateMachineT, 0, 1>;
-  /**
-  * @brief Check if post place waypoints arespecified in proto config
-  */
-  using PostPlaceWaypointGuard =
-      WaypointSequenceTransitionGuardFunctor_<LogicStateMachineT, 2, 3>;
-  /**
   * @brief Action to take when starting folding arm before land
   */
   using ArmFold = ArmFoldTransitionActionFunctor_<LogicStateMachineT>;

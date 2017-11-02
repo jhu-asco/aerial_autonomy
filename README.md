@@ -82,3 +82,19 @@ The documentation is uploaded through `gh-pages` branch. The docs are created in
 The script `scripts/generate_dot_files.py` converts the transition tables in state machines to dot format and also png format. The script automatically runs through all the state machines stored in the `include/aerial_autonomy/state_machines` folder.
 
     Usage: ./generate_dot_files.py
+
+## Hand-eye Calibration
+This section describes how to automatically calibrate a transform from a camera to an arm.
+
+### Data Collection
+Attach an AR tag to the end effector of your arm.
+
+Use `rosbag record /ar_pose_marker /your_end_effector_position` where `/your_end_effector_position` is published by your arm driver and gives the position of the end effector in the arm frame (probably based on forward kinematics). 
+
+Launch ar_track_alvar and move the arm around so that the end effector AR tag is visible in the camera.
+
+Extract the AR marker data from the bag file to a csv: `rostopic echo -b your_data.bag -p --nostr /ar_pose_marker > marker_data.csv`
+
+### Calibration script
+Use the matlab script `scripts/calib/arm_camera_calib.m` along with your_data.bag and marker_data.csv to generate a calibrated transformation.
+It uses non-linear least squares to find the hand-eye transformation.

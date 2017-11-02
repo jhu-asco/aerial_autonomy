@@ -1,9 +1,11 @@
 #pragma once
+#include "grip_config.pb.h"
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
 #include <aerial_autonomy/actions_guards/manual_control_functors.h>
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_functors.h>
+#include <aerial_autonomy/common/conversions.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/logic_states/timed_state.h>
 #include <aerial_autonomy/pick_place_events.h>
@@ -40,9 +42,7 @@ struct GrippingInternalActionFunctor_
       VLOG(1) << "Done Gripping!";
       logic_state_machine.process_event(Completed());
       return false;
-    } else if (state.timeInState() > robot_system.gripTimeout()) {
-      // \todo Matt Put this in its own action functor.  The timeout should be
-      // based on a state config, not a robot_system config
+    } else if (state.timeInState() > state.gripTimeout()) {
       robot_system.resetGripper();
       LOG(WARNING) << "Timeout: Failed to grip!";
       logic_state_machine.process_event(Reset());
@@ -104,8 +104,13 @@ struct VisualServoingArmTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
   void run(UAVArmSystem &robot_system) {
     VLOG(1) << "Setting Goal for visual servoing arm connector!";
+    auto goal =
+        this->state_machine_config_.visual_servoing_state_machine_config()
+            .pick_place_state_machine_config()
+            .arm_goal_transform()
+            .Get(TransformIndex);
     robot_system.setGoal<VisualServoingControllerArmConnector, tf::Transform>(
-        robot_system.armGoalTransform(TransformIndex));
+        conversions::protoTransformToTf(goal));
     // Also ensure the gripper is in the right state to grip objects
     robot_system.resetGripper();
   }
@@ -122,8 +127,13 @@ struct ArmPoseTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
   void run(UAVArmSystem &robot_system) {
     VLOG(1) << "Setting goal pose for arm!";
+    auto goal =
+        this->state_machine_config_.visual_servoing_state_machine_config()
+            .pick_place_state_machine_config()
+            .arm_goal_transform()
+            .Get(TransformIndex);
     robot_system.setGoal<BuiltInPoseControllerArmConnector, tf::Transform>(
-        robot_system.armGoalTransform(TransformIndex));
+        conversions::protoTransformToTf(goal));
     // Also ensure the gripper is in the right state to grip objects
     robot_system.resetGripper();
   }
@@ -174,6 +184,18 @@ struct GoToWaypointInternalActionFunctor_
   bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine,
            FollowingWaypointSequence_<LogicStateMachineT, StartIndex, EndIndex>
                &state) {
+    // Initialize controller
+    if (!state.controlInitialized()) {
+      PositionYaw waypoint;
+      if (!state.nextWaypoint(waypoint)) {
+        LOG(WARNING) << "Tracked index not available: "
+                     << state.getTrackedIndex();
+        logic_state_machine.process_event(be::Abort());
+        return false;
+      } else {
+        sendLocalWaypoint(robot_system, waypoint);
+      }
+    }
     // check controller status
     ControllerStatus status =
         robot_system.getStatus<VelocityBasedPositionControllerDroneConnector>();
@@ -184,13 +206,13 @@ struct GoToWaypointInternalActionFunctor_
         logic_state_machine.process_event(Completed());
         return false;
       } else {
-        tracked_index += 1;
-        if (!robot_system.checkWaypointIndex(tracked_index)) {
+        PositionYaw waypoint;
+        if (!state.nextWaypoint(waypoint)) {
           LOG(WARNING) << "Tracked index not available: " << tracked_index;
           logic_state_machine.process_event(be::Abort());
           return false;
         } else {
-          state.setWaypoint(robot_system, tracked_index);
+          sendLocalWaypoint(robot_system, waypoint);
         }
       }
     } else if (status == ControllerStatus::Critical) {
@@ -202,26 +224,21 @@ struct GoToWaypointInternalActionFunctor_
     }
     return true;
   }
-};
 
-/**
-* @brief Guard for waypoint A transition
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-* @tparam StartIndex starting waypoint index to follow
-* @tparam EndIndex ending waypoint index to follow
-*/
-template <class LogicStateMachineT, int StartIndex, int EndIndex>
-struct WaypointSequenceTransitionGuardFunctor_
-    : EventAgnosticGuardFunctor<UAVArmSystem, LogicStateMachineT> {
-  bool guard(UAVArmSystem &robot_system) {
-    bool result = robot_system.checkWaypointIndex(StartIndex) &&
-                  robot_system.checkWaypointIndex(EndIndex);
-    if (!result) {
-      LOG(WARNING) << "StartIndex: " << StartIndex << " or EndIndex "
-                   << EndIndex << " not available in waypoint vector in config";
-    }
-    return result;
+  /**
+  * @brief Send local waypoint to the robot system
+  * @param robot_system Robot to send waypoint to
+  * @param way_point Waypoint to send
+  */
+  void sendLocalWaypoint(UAVArmSystem &robot_system, PositionYaw way_point) {
+    parsernode::common::quaddata data = robot_system.getUAVData();
+    way_point.x += data.localpos.x;
+    way_point.y += data.localpos.y;
+    way_point.z += data.localpos.z;
+    VLOG(1) << "Waypoint position: " << way_point.x << ", " << way_point.y
+            << ", " << way_point.z;
+    robot_system.setGoal<VelocityBasedPositionControllerDroneConnector,
+                         PositionYaw>(way_point);
   }
 };
 
@@ -264,19 +281,23 @@ struct FollowingWaypointSequence_
    *
    * @param robot_system Robot system to set waypoint
    * @param tracked_index waypoint index to set and store
+   * @return True if successfully set waypoint, false otherwise
    */
-  void setWaypoint(UAVArmSystem &robot_system, int tracked_index) {
-    tracked_index_ = tracked_index;
-    PositionYaw way_point = robot_system.getWaypoint(tracked_index);
-    parsernode::common::quaddata data = robot_system.getUAVData();
-    way_point.x += data.localpos.x;
-    way_point.y += data.localpos.y;
-    way_point.z += data.localpos.z;
-    VLOG(1) << "Going to waypoint " << tracked_index;
-    VLOG(1) << "Waypoint position: " << way_point.x << ", " << way_point.y
-            << ", " << way_point.z;
-    robot_system.setGoal<VelocityBasedPositionControllerDroneConnector,
-                         PositionYaw>(way_point);
+  bool nextWaypoint(PositionYaw &next_wp) {
+    if (!control_initialized_) {
+      control_initialized_ = true;
+      tracked_index_ = StartIndex;
+    } else {
+      if (tracked_index_ + 1 < 0 ||
+          tracked_index_ + 1 >= config_.way_points().size()) {
+        return false;
+      }
+      tracked_index_++;
+    }
+    next_wp = conversions::protoPositionYawToPositionYaw(
+        config_.way_points().Get(tracked_index_));
+
+    return true;
   }
 
   /**
@@ -288,12 +309,15 @@ struct FollowingWaypointSequence_
    */
   template <class Event, class FSM>
   void on_entry(Event const &, FSM &logic_state_machine) {
-    UAVArmSystem &robot_system = this->getRobotSystem(logic_state_machine);
-    if (robot_system.checkWaypointIndex(StartIndex)) {
-      setWaypoint(robot_system, StartIndex);
-    } else {
+    config_ = logic_state_machine.configMap()
+                  .find<FollowingWaypointSequence_<LogicStateMachineT,
+                                                   StartIndex, EndIndex>,
+                        FollowingWaypointSequenceConfig>();
+    if (StartIndex >= config_.way_points().size() || StartIndex < 0) {
       LOG(WARNING) << " Starting index not in waypoint vector list";
       logic_state_machine.process_event(be::Abort());
+    } else {
+      tracked_index_ = StartIndex;
     }
   }
 
@@ -304,8 +328,17 @@ struct FollowingWaypointSequence_
    */
   int getTrackedIndex() { return tracked_index_; }
 
+  /**
+  * @brief Whether control has been initialized or not
+  * @return True if initialized, false otherwise
+  */
+  bool controlInitialized() { return control_initialized_; }
+
 private:
-  int tracked_index_ = StartIndex; ///< Current tracked index
+  FollowingWaypointSequenceConfig config_; ///< State config
+  int tracked_index_ = StartIndex;         ///< Current tracked index
+  bool control_initialized_ =
+      false; ///< Flag to indicate if control is initialized
 };
 
 /**
@@ -325,6 +358,24 @@ struct WaitingForPick_
               UAVStatusInternalActionFunctor_<LogicStateMachineT>,
               ArmStatusInternalActionFunctor_<LogicStateMachineT>,
               WaitingForPickInternalActionFunctor_<LogicStateMachineT>>>> {};
+
+/**
+ * @brief typedef for base class of pick state which is a timed state
+ * with specified actions. The timed state provides the time from
+ * entry onwards to action functors.
+ *
+ * @tparam LogicStateMachineT Logic state machine used to process events
+ */
+template <class LogicStateMachineT>
+using PickBaseState_ = TimedState<
+    UAVArmSystem, LogicStateMachineT,
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+        ControllerStatusInternalActionFunctor_<
+            LogicStateMachineT,
+            RelativePoseVisualServoingControllerDroneConnector, false, Reset>,
+        GrippingInternalActionFunctor_<LogicStateMachineT>>>>;
 /**
 * @brief State that uses position control functor to reach a desired goal for
 * picking and monitors the gripper status
@@ -332,17 +383,7 @@ struct WaitingForPick_
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-class PickState_
-    : public TimedState<
-          UAVArmSystem, LogicStateMachineT,
-          boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
-              UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-              ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-              ControllerStatusInternalActionFunctor_<
-                  LogicStateMachineT,
-                  RelativePoseVisualServoingControllerDroneConnector, false,
-                  Reset>,
-              GrippingInternalActionFunctor_<LogicStateMachineT>>>> {
+class PickState_ : public PickBaseState_<LogicStateMachineT> {
 public:
   /**
   * @brief Check if grip has been successful for the required duration
@@ -373,9 +414,37 @@ public:
     return grip_duration_success;
   }
 
+  /**
+   * @brief Function to set the starting waypoint when entering this state
+   *
+   * @tparam Event Event causing the entry of this state
+   * @tparam FSM Logic statemachine back end
+   * @param logic_state_machine state machine that processes events
+   */
+  template <class Event, class FSM>
+  void on_entry(Event const &evt, FSM &logic_state_machine) {
+    PickBaseState_<LogicStateMachineT>::on_entry(evt, logic_state_machine);
+    auto grip_config = logic_state_machine.configMap()
+                           .find<PickState_<LogicStateMachineT>, GripConfig>();
+    grip_timeout_ = std::chrono::milliseconds(grip_config.grip_timeout());
+    required_grip_duration_ =
+        std::chrono::milliseconds(grip_config.grip_duration());
+    VLOG(1) << "Grip timeout in milliseconds: " << grip_timeout_.count();
+    VLOG(1) << "Grip duration in milliseconds: "
+            << required_grip_duration_.count();
+  }
+
+  /**
+   * @brief Getter for timeout during gripping
+   *
+   * @return timeout in milliseconds obtained from state machine config
+   */
+  std::chrono::milliseconds gripTimeout() { return grip_timeout_; }
+
 private:
   std::chrono::time_point<std::chrono::high_resolution_clock> grip_start_time_;
   std::chrono::milliseconds required_grip_duration_ =
-      std::chrono::milliseconds(1000);
+      std::chrono::milliseconds(0);
   bool gripping_ = false;
+  std::chrono::milliseconds grip_timeout_ = std::chrono::milliseconds(0);
 };

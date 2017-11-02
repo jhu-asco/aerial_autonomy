@@ -1,9 +1,7 @@
-uav_parser_type: "quad_simulator_parser/QuadSimParser"
 uav_controller_timer_duration: 20
 
 uav_arm_system_handler_config {
   arm_controller_timer_duration: 20
-  arm_parser_type: "ArmSimulator"
 }
 
 
@@ -13,6 +11,7 @@ base_config {
 }
 
 uav_system_config {
+  uav_parser_type: "quad_simulator_parser/QuadSimParser"
   minimum_battery_percent: 40
   minimum_takeoff_height: 0.5
   landing_height: 0.1
@@ -52,19 +51,32 @@ uav_system_config {
 
   uav_vision_system_config {
     tracker_type: "ROI"
-    camera_transform: 0
-    camera_transform: 0
-    camera_transform: 0
-    camera_transform: -1.5708
-    camera_transform: 0
-    camera_transform: -1.5708
 
-    tracking_offset_transform: 0.0
-    tracking_offset_transform: 0.0
-    tracking_offset_transform: 0.0
-    tracking_offset_transform: -1.5708
-    tracking_offset_transform: 0.0
-    tracking_offset_transform: 0.0
+    camera_transform {
+      position {
+        x: 0
+        y: 0
+        z: 0
+      }
+      rotation {
+        r: -1.5708
+        p: 0
+        y: -1.5708
+      }
+    }
+
+    tracking_offset_transform {
+      position {
+        x: 0
+        y: 0
+        z: 0
+      }
+      rotation {
+        r: -1.5708
+        p: 0
+        y: 0
+      }
+    }
 
     desired_visual_servoing_distance: 1.0
     constant_heading_depth_controller_config {
@@ -81,23 +93,6 @@ uav_system_config {
         }
         goal_yaw_tolerance: 0.04
       }
-    }
-    relative_pose_goals {
-      position {
-        x: 0
-        y: -.40
-        z: .19
-      }
-      yaw: 1.57
-    }
-
-    relative_pose_goals {
-      position {
-        x: 0
-        y: -.40
-        z: .19
-      }
-      yaw: 1.57
     }
 
     velocity_based_relative_pose_controller_config {
@@ -119,36 +114,17 @@ uav_system_config {
       }
     }
     uav_arm_system_config {
-      arm_goal_transform: -0.2
-      arm_goal_transform: 0.0
-      arm_goal_transform: -0.15
-      arm_goal_transform: 0.0
-      arm_goal_transform: 0.0
-      arm_goal_transform: 0.0
-
-      arm_transform: 0.15
-      arm_transform: 0.0
-      arm_transform: -0.25
-      arm_transform: 3.14159
-      arm_transform: 0.0
-      arm_transform: 0.0
-
-      way_points {
+      arm_transform {
         position {
-          x: -1.0
+          x: 0.15
           y: 0
-          z: 0
+          z: -0.25
         }
-        yaw: 0.0
-      }
-
-      way_points {
-        position {
-          x: 0
-          y: 0
-          z: 0
+        rotation {
+          r: 3.14159
+          p: 0.0
+          y: 0.0
         }
-        yaw: 3.14
       }
 
       position_controller_config {
@@ -159,6 +135,7 @@ uav_system_config {
         }
         goal_rotation_tolerance: 0.05
       }
+      arm_parser_type: "ArmSimulator"
     }
   }
 }

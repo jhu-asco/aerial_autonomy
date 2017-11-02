@@ -10,11 +10,6 @@ message UAVSystemHandlerConfig {
   */
   required UAVSystemConfig uav_system_config = 1;
   /**
-  * @brief Hardware parser plugin name
-  * These are provided by rqt_quadcopter_parsers package
-  */
-  required string uav_parser_type = 2;
-  /**
   * @brief Timestep in milliseconds for timer which runs uav controller
   * continously
   */

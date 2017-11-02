@@ -1,4 +1,3 @@
-uav_parser_type: "quad_simulator_parser/QuadSimParser"
 uav_controller_timer_duration: 20
 
 base_config {
@@ -7,6 +6,7 @@ base_config {
 }
 
 uav_system_config {
+  uav_parser_type: "quad_simulator_parser/QuadSimParser"
   minimum_battery_percent: 40
   minimum_takeoff_height: 0.5
   landing_height: 0.1
@@ -28,19 +28,33 @@ uav_system_config {
   }
 
   uav_vision_system_config {
-    camera_transform: 0
-    camera_transform: 0
-    camera_transform: 0
-    camera_transform: -1.5708
-    camera_transform: 0
-    camera_transform: -1.5708
+    tracker_type: "ROI"
 
-    tracking_offset_transform: 0.0
-    tracking_offset_transform: 0.0
-    tracking_offset_transform: 0.0
-    tracking_offset_transform: -1.5708
-    tracking_offset_transform: 0.0
-    tracking_offset_transform: 0.0
+    camera_transform {
+      position {
+        x: 0
+        y: 0
+        z: 0
+      }
+      rotation {
+        r: -1.5708
+        p: 0
+        y: -1.5708
+      }
+    }
+
+    tracking_offset_transform {
+      position {
+        x: 0
+        y: 0
+        z: 0
+      }
+      rotation {
+        r: -1.5708
+        p: 0
+        y: 0
+      }
+    }
 
     desired_visual_servoing_distance: 1.0
     constant_heading_depth_controller_config {
@@ -58,15 +72,6 @@ uav_system_config {
         goal_yaw_tolerance: 0.04
       }
     }
-    relative_pose_goals {
-      position {
-        x: 0
-        y: -.40
-        z: .19
-      }
-      yaw: 0
-    }
-
     velocity_based_relative_pose_controller_config {
       velocity_based_position_controller_config {
         position_gain: 0.3

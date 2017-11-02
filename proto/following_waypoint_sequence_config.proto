@@ -1,0 +1,12 @@
+syntax = "proto2";
+
+import "position_yaw.proto";
+
+message FollowingWaypointSequenceConfig {
+  /**
+  * @brief List of way points. These are relative waypoints specified
+  * in the NWU frame attached to quadrotor. For example (0.1, 0, 0, 0)
+  * will move 0.1m in north and sets an absolute yaw of 0.
+  */
+  repeated config.PositionYaw way_points = 1;
+}

@@ -52,4 +52,10 @@ message UAVSystemConfig {
   * along x, y, z axis.
   */
   optional double max_goal_velocity = 9 [ default = 2.0 ];
+  /**
+  * @brief Hardware parser plugin name
+  * These are provided by rqt_quadcopter_parsers package
+  */
+  optional string uav_parser_type = 10
+      [ default = "quad_simulator_parser/QuadSimParser" ];
 }
