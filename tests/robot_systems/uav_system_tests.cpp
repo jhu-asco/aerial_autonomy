@@ -9,35 +9,33 @@
 * @brief Namespace for UAV Simulator Hardware
 */
 using namespace quad_simulator;
+using ParserPtr = std::shared_ptr<parsernode::Parser>;
 
 /// \brief Test UAV System
 TEST(UAVSystemTests, Constructor) {
-  QuadSimulator drone_hardware;
-
-  ASSERT_NO_THROW(new UAVSystem(drone_hardware));
+  ASSERT_NO_THROW(new UAVSystem(ParserPtr(new QuadSimulator)));
 }
 
 TEST(UAVSystemTests, Takeoff) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  UAVSystem uav_system{ParserPtr(new QuadSimulator)};
   uav_system.takeOff();
   parsernode::common::quaddata data = uav_system.getUAVData();
   ASSERT_STREQ(data.quadstate.c_str(), "ARMED ENABLE_CONTROL ");
 }
 
 TEST(UAVSystemTests, Land) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  UAVSystem uav_system(ParserPtr(new QuadSimulator));
   uav_system.land();
   parsernode::common::quaddata data = uav_system.getUAVData();
   ASSERT_STREQ(data.quadstate.c_str(), "ENABLE_CONTROL ");
 }
 
 TEST(UAVSystemTests, EnableSDK) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  std::shared_ptr<QuadSimulator> drone_hardware(new QuadSimulator);
+  UAVSystem uav_system{
+      std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware)};
   // Disable SDK
-  drone_hardware.flowControl(false);
+  drone_hardware->flowControl(false);
   // Enable SDK
   uav_system.enableAutonomousMode();
   // Check status is updated in data
@@ -46,8 +44,7 @@ TEST(UAVSystemTests, EnableSDK) {
 }
 
 TEST(UAVSystemTests, SetGetGoal) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  UAVSystem uav_system(ParserPtr(new QuadSimulator));
   PositionYaw position_yaw(1, 1, 1, 1);
   uav_system.setGoal<PositionControllerDroneConnector>(position_yaw);
   PositionYaw goal =
@@ -56,8 +53,7 @@ TEST(UAVSystemTests, SetGetGoal) {
 }
 
 TEST(UAVSystemTests, runActiveController) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  UAVSystem uav_system(ParserPtr(new QuadSimulator));
   uav_system.takeOff();
   PositionYaw position_yaw(1, 1, 1, 1);
   uav_system.setGoal<PositionControllerDroneConnector>(position_yaw);
@@ -69,8 +65,7 @@ TEST(UAVSystemTests, runActiveController) {
 }
 
 TEST(UAVSystemTests, runVelocityController) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  UAVSystem uav_system(ParserPtr(new QuadSimulator));
   uav_system.takeOff();
   VelocityYaw velocity_yaw(1, 1, 1, 1);
   uav_system.setGoal<BuiltInVelocityControllerDroneConnector>(velocity_yaw);
@@ -82,13 +77,13 @@ TEST(UAVSystemTests, runVelocityController) {
 }
 
 TEST(UAVSystemTests, runRPYTController) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  QuadSimulator *drone_hardware = new QuadSimulator;
+  UAVSystem uav_system{ParserPtr(drone_hardware)};
   uav_system.takeOff();
   // set rc channels
   int16_t channels[4] = {100, 50, 25, 100};
-  drone_hardware.setRC(channels);
-  drone_hardware.set_delay_send_time(0.02);
+  drone_hardware->setRC(channels);
+  drone_hardware->set_delay_send_time(0.02);
   // set goal
   uav_system.setGoal<ManualRPYTControllerDroneConnector>(EmptyGoal());
   // Run 10 iterations
@@ -104,14 +99,13 @@ TEST(UAVSystemTests, runRPYTController) {
 }
 
 TEST(UAVSystemTests, getActiveControllerStatus) {
-  QuadSimulator drone_hardware;
   UAVSystemConfig config;
   auto position_tolerance = config.mutable_position_controller_config()
                                 ->mutable_goal_position_tolerance();
   position_tolerance->set_x(0.5);
   position_tolerance->set_y(0.5);
   position_tolerance->set_z(0.5);
-  UAVSystem uav_system(drone_hardware, config);
+  UAVSystem uav_system(config, ParserPtr(new QuadSimulator));
   PositionYaw position_yaw(1, 1, 1, 1);
   uav_system.setGoal<PositionControllerDroneConnector>(position_yaw);
 
@@ -128,8 +122,7 @@ TEST(UAVSystemTests, getActiveControllerStatus) {
 }
 
 TEST(UAVSystemTests, abortController) {
-  QuadSimulator drone_hardware;
-  UAVSystem uav_system(drone_hardware);
+  UAVSystem uav_system(ParserPtr(new QuadSimulator));
   PositionYaw position_yaw(1, 1, 1, 1);
   uav_system.setGoal<PositionControllerDroneConnector>(position_yaw);
   uav_system.abortController(HardwareType::UAV);

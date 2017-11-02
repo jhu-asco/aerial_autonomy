@@ -9,6 +9,12 @@
 #include <aerial_autonomy/controllers/basic_controllers.h>
 // Specific ControllerConnectors
 #include <aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h>
+// Load UAV parser
+#include <pluginlib/class_loader.h>
+// Base class for UAV parsers
+#include <parsernode/parser.h>
+// shared ptr
+#include <memory>
 
 #include <iomanip>
 #include <sstream>
@@ -21,13 +27,17 @@
 class UAVSystem : public virtual BaseRobotSystem {
 protected:
   /**
-  * @brief Hardware
-  */
-  parsernode::Parser &drone_hardware_;
+   * @brief typedef for base class of UAV parser
+   */
+  using UAVParserPtr = std::shared_ptr<parsernode::Parser>;
   /**
    * @brief UAV configuration parameters
    */
   UAVSystemConfig config_;
+  /**
+  * @brief Hardware
+  */
+  UAVParserPtr drone_hardware_;
   /**
   * @brief Velocity based position controller
   */
@@ -76,37 +86,72 @@ private:
   */
   bool home_location_specified_;
 
+  /**
+   * @brief helper function to choose between the argument parser
+   * and the one provided in config. If user provided a parser,
+   * that is used overwriting the one in config file
+   *
+   * @param parser The user provided parser or default null ptr
+   * @param config UAV config containing parser type.
+   *
+   * @return the chosen parser
+   */
+  static UAVParserPtr chooseParser(UAVParserPtr parser,
+                                   UAVSystemConfig &config) {
+    UAVParserPtr uav_parser;
+    if (parser) {
+      uav_parser = parser;
+    } else {
+      pluginlib::ClassLoader<parsernode::Parser> parser_loader_(
+          "parsernode", "parsernode::Parser");
+      uav_parser = UAVParserPtr(
+          parser_loader_.createUnmanagedInstance(config.uav_parser_type()));
+    }
+    return uav_parser;
+  }
+
 public:
   /**
    * @brief Constructor with default configuration
    */
-  UAVSystem(parsernode::Parser &drone_hardware)
-      : UAVSystem(drone_hardware, UAVSystemConfig()) {}
+  UAVSystem() : UAVSystem(UAVSystemConfig()) {}
+
+  /**
+   * @brief Constructor with hardware but no config
+   *
+   * @param drone_hardware explicitly provided drone hardware
+   */
+  UAVSystem(UAVParserPtr drone_hardware)
+      : UAVSystem(UAVSystemConfig(), drone_hardware) {}
   /**
   * @brief Constructor
   *
-  * UAVSystem requires a drone hardware. It instantiates the connectors,
+  * UAVSystem with explicitly provided hardware. It instantiates the connectors,
   * controllers
   *
-  * @param drone_hardware input hardware to send commands back
   * @param config The system configuration specifying the parameters such as
   * takeoff height, etc.
+  *
+  * @param drone_hardware input hardware to send commands back. If this variable
+  * is set, it will overwrite the one given using "uav_parser_type" in config.
   */
-  UAVSystem(parsernode::Parser &drone_hardware, UAVSystemConfig config)
-      : BaseRobotSystem(), drone_hardware_(drone_hardware), config_(config),
+  UAVSystem(UAVSystemConfig config, UAVParserPtr drone_hardware = nullptr)
+      : BaseRobotSystem(), config_(config),
+        drone_hardware_(UAVSystem::chooseParser(drone_hardware, config)),
         velocity_based_position_controller_(
             config.velocity_based_position_controller_config()),
         builtin_position_controller_(config.position_controller_config()),
         builtin_velocity_controller_(config.velocity_controller_config()),
-        position_controller_drone_connector_(drone_hardware,
+        position_controller_drone_connector_(*drone_hardware_,
                                              builtin_position_controller_),
         velocity_based_position_controller_drone_connector_(
-            drone_hardware, velocity_based_position_controller_),
-        velocity_controller_drone_connector_(drone_hardware,
+            *drone_hardware_, velocity_based_position_controller_),
+        velocity_controller_drone_connector_(*drone_hardware_,
                                              builtin_velocity_controller_),
-        rpyt_controller_drone_connector_(drone_hardware,
+        rpyt_controller_drone_connector_(*drone_hardware_,
                                          manual_rpyt_controller_),
         home_location_specified_(false) {
+    drone_hardware_->initialize();
     // Add control hardware connector containers
     controller_hardware_connector_container_.setObject(
         position_controller_drone_connector_);
@@ -124,26 +169,26 @@ public:
   */
   parsernode::common::quaddata getUAVData() const {
     parsernode::common::quaddata data;
-    drone_hardware_.getquaddata(data);
+    drone_hardware_->getquaddata(data);
     return data;
   }
 
   /**
   * @brief Public API call to takeoff
   */
-  void takeOff() { drone_hardware_.takeoff(); }
+  void takeOff() { drone_hardware_->takeoff(); }
 
   /**
   * @brief Public API call to enable Quadcopter SDK.
   * This call is only necessary if Quad goes into manual mode
   * due to rc switching while state machine is running
   */
-  void enableAutonomousMode() { drone_hardware_.flowControl(true); }
+  void enableAutonomousMode() { drone_hardware_->flowControl(true); }
 
   /**
   * @brief Public API call to land
   */
-  void land() { drone_hardware_.land(); }
+  void land() { drone_hardware_->land(); }
 
   /**
   * @brief Provide the current state of UAV system

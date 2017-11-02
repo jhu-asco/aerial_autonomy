@@ -25,7 +25,8 @@ namespace be = uav_basic_events;
 
 class VisualServoingStateMachineTests : public ::testing::Test {
 public:
-  VisualServoingStateMachineTests() : goal_tolerance_position(0.5) {
+  VisualServoingStateMachineTests()
+      : drone_hardware(new QuadSimulator), goal_tolerance_position(0.5) {
     auto uav_vision_system_config = config.mutable_uav_vision_system_config();
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
     auto depth_config =
@@ -60,8 +61,10 @@ public:
 
     tf::Transform camera_transform = conversions::protoTransformToTf(
         uav_vision_system_config->camera_transform());
-    tracker.reset(new SimpleTracker(drone_hardware, camera_transform));
-    uav_system.reset(new UAVVisionSystem(*tracker, drone_hardware, config));
+    tracker.reset(new SimpleTracker(*drone_hardware, camera_transform));
+    uav_system.reset(new UAVVisionSystem(
+        config, std::dynamic_pointer_cast<BaseTracker>(tracker),
+        std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware)));
     logic_state_machine.reset(new VisualServoingStateMachine(
         boost::ref(*uav_system), boost::cref(state_machine_config)));
     logic_state_machine->start();
@@ -87,16 +90,16 @@ public:
   }
 
 protected:
-  QuadSimulator drone_hardware;
+  std::shared_ptr<QuadSimulator> drone_hardware;
   UAVSystemConfig config;
   BaseStateMachineConfig state_machine_config;
-  std::unique_ptr<SimpleTracker> tracker;
+  std::shared_ptr<SimpleTracker> tracker;
   std::unique_ptr<UAVVisionSystem> uav_system;
   std::unique_ptr<VisualServoingStateMachine> logic_state_machine;
   double goal_tolerance_position;
 
   void GoToHoverFromLanded() {
-    drone_hardware.setBatteryPercent(100);
+    drone_hardware->setBatteryPercent(100);
     logic_state_machine->process_event(be::Takeoff());
     logic_state_machine->process_event(InternalTransitionEvent());
   }
@@ -161,7 +164,7 @@ TEST_F(VisualServoingStateMachineTests, VisualServoingManualControlAbort) {
   // Check we are in visual servoing state
   ASSERT_STREQ(pstate(*logic_state_machine), "VisualServoing");
   // Disable SDK
-  drone_hardware.flowControl(false);
+  drone_hardware->flowControl(false);
   // Check we are in Hovering
   logic_state_machine->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
@@ -169,7 +172,7 @@ TEST_F(VisualServoingStateMachineTests, VisualServoingManualControlAbort) {
   logic_state_machine->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "ManualControlState");
   // Enable SDK
-  drone_hardware.flowControl(true);
+  drone_hardware->flowControl(true);
   // CHeck we are back in hovering
   logic_state_machine->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
@@ -188,7 +191,7 @@ TEST_F(VisualServoingStateMachineTests, GoHome) {
   // Send drone somewhere
   geometry_msgs::Vector3 desired_position;
   desired_position.x = desired_position.y = desired_position.z = 3.0;
-  drone_hardware.cmdwaypoint(desired_position);
+  drone_hardware->cmdwaypoint(desired_position);
   // Try getting back to home
   logic_state_machine->process_event(vse::GoHome());
   // Check we are reaching home position

@@ -36,15 +36,17 @@ using ArmFoldInternalActionFunctor =
 
 class ArmFunctorTests : public ::testing::Test {
 protected:
-  ArmSimulator arm_hardware;
+  std::shared_ptr<ArmSimulator> arm_hardware;
   ArmSystem arm_system;
   ArmLogicStateMachine sample_logic_state_machine;
   int dummy_start_state, dummy_target_state;
 
 public:
   ArmFunctorTests()
-      : arm_system(arm_hardware), sample_logic_state_machine(arm_system),
-        dummy_start_state(0), dummy_target_state(0) {}
+      : arm_hardware(new ArmSimulator),
+        arm_system(std::dynamic_pointer_cast<ArmParser>(arm_hardware)),
+        sample_logic_state_machine(arm_system), dummy_start_state(0),
+        dummy_target_state(0) {}
 };
 
 /// \brief Test Arm Status Functor
@@ -134,7 +136,7 @@ TEST_F(ArmFunctorTests, TransitionActionsGrip) {
   arm_grip_functor(ae::Grip(), sample_logic_state_machine, dummy_start_state,
                    dummy_target_state);
   ASSERT_TRUE(arm_system.getCommandStatus());
-  ASSERT_TRUE(arm_hardware.getGripperValue());
+  ASSERT_TRUE(arm_hardware->getGripperValue());
   // If powered off, cannot grip
   arm_system.power(false);
   arm_grip_functor(ae::Grip(), sample_logic_state_machine, dummy_start_state,
@@ -149,13 +151,13 @@ TEST_F(ArmFunctorTests, TransitionActionsUnGrip) {
   arm_ungrip_functor(ae::UnGrip(), sample_logic_state_machine,
                      dummy_start_state, dummy_target_state);
   ASSERT_TRUE(arm_system.getCommandStatus());
-  ASSERT_FALSE(arm_hardware.getGripperValue());
+  ASSERT_FALSE(arm_hardware->getGripperValue());
   // If powered off, cannot grip
   arm_system.power(false);
   arm_ungrip_functor(ae::Grip(), sample_logic_state_machine, dummy_start_state,
                      dummy_target_state);
   ASSERT_FALSE(arm_system.getCommandStatus());
-  ASSERT_FALSE(arm_hardware.getGripperValue());
+  ASSERT_FALSE(arm_hardware->getGripperValue());
 }
 ///
 
