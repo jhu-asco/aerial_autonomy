@@ -225,6 +225,7 @@ add_library(aerial_autonomy
   src/trackers/base_tracker.cpp
   src/trackers/simple_multi_tracker.cpp
   src/trackers/closest_tracking_strategy.cpp
+  src/trackers/id_tracking_strategy.cpp
   src/trackers/simple_tracking_strategy.cpp
   src/controllers/manual_rpyt_controller.cpp
   src/controllers/velocity_based_position_controller.cpp

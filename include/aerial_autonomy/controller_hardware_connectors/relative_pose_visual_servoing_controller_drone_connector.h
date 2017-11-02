@@ -40,8 +40,7 @@ public:
         // \todo Matt This will become unwieldy when we are tracking multiple
         // objects, each with different offsets.  This assumes the offset is the
         // same for all tracked objects
-        tracking_offset_transform_(tracking_offset_transform),
-        use_explicit_id_(false) {}
+        tracking_offset_transform_(tracking_offset_transform) {}
   /**
    * @brief Destructor
    */
@@ -56,20 +55,6 @@ public:
    */
   bool getTrackingTransformRotationCompensatedQuadFrame(
       tf::Transform &tracking_transform);
-
-  /**
-  * @brief Set the tracker to use the id specified instead of tracking
-  * strategy
-  */
-  void setExplicitId(uint32_t id) {
-    explicit_id_ = id;
-    use_explicit_id_ = true;
-  }
-
-  /**
-  * @brief Remove explicit id and start using tracking strategy
-  */
-  void resetExplicitId() { use_explicit_id_ = false; }
 
 protected:
   /**
@@ -115,13 +100,4 @@ private:
   * roll/pitch compensation
   */
   tf::Transform tracking_offset_transform_;
-  /**
-  * @brief if use_explicit_id_ flag is used, will use this id
-  */
-  uint32_t explicit_id_;
-  /**
-  * @brief flag to specify whether to use the explicit id or
-  * or tracking strategy
-  */
-  bool use_explicit_id_;
 };

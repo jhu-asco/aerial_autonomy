@@ -129,24 +129,6 @@ public:
     return status.str();
   }
 
-  /**
-  * @brief remove any explicit ids specified for visual servoing
-  */
-  void resetExplicitIdVisualServoing() {
-    visual_servoing_drone_connector_.resetExplicitId();
-    relative_pose_visual_servoing_drone_connector_.resetExplicitId();
-  }
-
-  /**
-  * @brief set the id to be used by visual servoing controllers instead
-  * of tracking strategy
-  * @param id to be use
-  */
-  void setExplicitIdVisualServoing(uint32_t id) {
-    visual_servoing_drone_connector_.setExplicitId(id);
-    relative_pose_visual_servoing_drone_connector_.setExplicitId(id);
-  }
-
   void resetRelativePoseController() {
     velocity_based_relative_pose_controller_.resetIntegrator();
   }

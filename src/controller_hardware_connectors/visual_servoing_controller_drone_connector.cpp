@@ -32,11 +32,7 @@ bool VisualServoingControllerDroneConnector::getTrackingVectorGlobalFrame(
     Position &tracking_vector) {
   tf::Transform object_pose_cam;
   bool result = true;
-  if (use_explicit_id_) {
-    result = tracker_.getTrackingVector(explicit_id_, object_pose_cam);
-  } else {
-    result = tracker_.getTrackingVector(object_pose_cam);
-  }
+  result = tracker_.getTrackingVector(object_pose_cam);
   if (result) {
     tf::Vector3 object_direction_cam = object_pose_cam.getOrigin();
     // Convert from camera frame to global frame
