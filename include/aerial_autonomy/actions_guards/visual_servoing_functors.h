@@ -64,7 +64,6 @@ struct ExplicitIdVisualServoingGuardFunctor_
     if (!robot_system.getTrackingVector(tracking_vector)) {
       LOG(WARNING) << "Cannot track Marker Id since id not available: "
                    << MarkerId;
-      // TODO matt Reset strategy to original???
       return false;
     }
     return true;
@@ -154,10 +153,12 @@ using RelativePoseVisualServoingInternalActionFunctor_ =
 * @brief Check tracking is valid
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
-template <class LogicStateMachineT>
+template <class LogicStateMachineT, class TrackingStrategy>
 struct InitializeTrackerGuardFunctor_
     : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {
   bool guard(UAVVisionSystem &robot_system) {
+    robot_system.setTrackingStrategy(
+        std::unique_ptr<TrackingStrategy>(new TrackingStrategy()));
     if (!robot_system.initializeTracker()) {
       LOG(WARNING) << "Could not initialize tracking.";
       return false;
