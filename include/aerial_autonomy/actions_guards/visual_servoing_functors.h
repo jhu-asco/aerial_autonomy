@@ -216,13 +216,10 @@ using VisualServoing_ =
 
 /**
 * @brief State that uses relative pose control functor to reach a desired goal.
-* Also resets any explicit ids set by transition action functor when exiting the
-* state
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-struct RelativePoseVisualServoing_
-    : BaseState<UAVVisionSystem, LogicStateMachineT,
-                RelativePoseVisualServoingInternalActionFunctor_<
-                    LogicStateMachineT>> {};
+using RelativePoseVisualServoing_ = BaseState<
+    UAVVisionSystem, LogicStateMachineT,
+    RelativePoseVisualServoingInternalActionFunctor_<LogicStateMachineT>>;

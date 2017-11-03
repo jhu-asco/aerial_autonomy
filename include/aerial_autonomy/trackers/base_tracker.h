@@ -12,6 +12,11 @@
  */
 class BaseTracker {
 public:
+  /**
+  * @brief Constructor
+  * @param tracking_strategy  Strategy used to pick a particular target from a
+  * list of tracked objects
+  */
   BaseTracker(std::unique_ptr<TrackingStrategy> &&tracking_strategy)
       : tracking_strategy_(std::move(tracking_strategy)) {}
   /**

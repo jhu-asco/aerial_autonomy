@@ -180,6 +180,7 @@ TEST(IdTrackingStrategyTests, IdNotFound) {
       tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(1, 1, 1));
   tracking_vectors[1] =
       tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(1, 1, 3));
+  simple_tracker.setTrackingVectors(tracking_vectors);
 
   tf::Transform tracking_vector;
   ASSERT_FALSE(simple_tracker.getTrackingVector(tracking_vector));
