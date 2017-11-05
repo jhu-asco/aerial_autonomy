@@ -55,6 +55,8 @@ public:
         relative_pose_visual_servoing_drone_connector_);
   }
 
+  // \todo Find a better way to update controller configurations from dynamic
+  // reconfigure
   /**
    * @brief update the controller config specified
    *
@@ -80,6 +82,15 @@ public:
   */
   bool getTrackingVector(Position &pos) {
     return visual_servoing_drone_connector_.getTrackingVectorGlobalFrame(pos);
+  }
+
+  /**
+  * @brief Set the tracker's tracking strategy
+  * @param strategy Tracking strategy to set
+  */
+  void
+  setTrackingStrategy(std::unique_ptr<TrackingStrategy> &&tracking_strategy) {
+    tracker_->setTrackingStrategy(std::move(tracking_strategy));
   }
 
   bool initializeTracker() { return tracker_->initialize(); }
@@ -116,24 +127,6 @@ public:
     }
     status << table_writer.getTableString();
     return status.str();
-  }
-
-  /**
-  * @brief remove any explicit ids specified for visual servoing
-  */
-  void resetExplicitIdVisualServoing() {
-    visual_servoing_drone_connector_.resetExplicitId();
-    relative_pose_visual_servoing_drone_connector_.resetExplicitId();
-  }
-
-  /**
-  * @brief set the id to be used by visual servoing controllers instead
-  * of tracking strategy
-  * @param id to be use
-  */
-  void setExplicitIdVisualServoing(uint32_t id) {
-    visual_servoing_drone_connector_.setExplicitId(id);
-    relative_pose_visual_servoing_drone_connector_.setExplicitId(id);
   }
 
   void resetRelativePoseController() {

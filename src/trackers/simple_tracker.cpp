@@ -4,7 +4,8 @@
 
 SimpleTracker::SimpleTracker(parsernode::Parser &drone_hardware,
                              tf::Transform camera_transform)
-    : BaseTracker(new SimpleTrackingStrategy()),
+    : BaseTracker(std::move(
+          std::unique_ptr<TrackingStrategy>(new SimpleTrackingStrategy()))),
       drone_hardware_(drone_hardware), tracking_valid_(true),
       camera_transform_(camera_transform) {}
 

@@ -11,8 +11,8 @@ public:
   * @param tracking_strategy Strategy to use for picking target among a group of
   * tracked objects
   */
-  SimpleMultiTracker(TrackingStrategy *tracking_strategy)
-      : BaseTracker(tracking_strategy) {}
+  SimpleMultiTracker(std::unique_ptr<TrackingStrategy> tracking_strategy)
+      : BaseTracker(std::move(tracking_strategy)) {}
   /**
    * @brief Get the tracking vectors
    * @param pos Returned list of tracking vectors

@@ -13,11 +13,13 @@
 class AlvarTracker : public BaseTracker {
 public:
   /**
-  * @brief Constructor
+  * @brief Constructor.  Use the ClosestTrackingStrategy by default.
+  * @param name_space Namespace of internal ROS node handle
   */
   AlvarTracker(std::string name_space = "~tracker")
       // \todo Matt Add timeout and num_retries as config
-      : BaseTracker(new ClosestTrackingStrategy(25)),
+      : BaseTracker(std::move(std::unique_ptr<TrackingStrategy>(
+            new ClosestTrackingStrategy(default_num_retries_)))),
         nh_(name_space),
         alvar_sub_(nh_.subscribe("ar_pose_marker", 1,
                                  &AlvarTracker::markerCallback, this)),
@@ -68,4 +70,8 @@ private:
   * @brief Timeout for valid update
   */
   const double timeout_;
+  /**
+  * @brief Default number of retries for tracking a locked target
+  */
+  const int default_num_retries_ = 25;
 };

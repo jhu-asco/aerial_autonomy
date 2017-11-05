@@ -34,11 +34,7 @@ bool RelativePoseVisualServoingControllerDroneConnector::
         tf::Transform &tracking_transform) {
   tf::Transform object_pose_cam;
   bool result = true;
-  if (use_explicit_id_) {
-    result = tracker_.getTrackingVector(explicit_id_, object_pose_cam);
-  } else {
-    result = tracker_.getTrackingVector(object_pose_cam);
-  }
+  result = tracker_.getTrackingVector(object_pose_cam);
   if (result) {
     // Convert tracked frame from camera frame to UAV-centered global frame
     tracking_transform = getBodyFrameRotation() * camera_transform_ *

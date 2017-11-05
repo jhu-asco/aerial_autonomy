@@ -9,6 +9,11 @@ bool BaseTracker::getTrackingVector(tf::Transform &pose) {
   return true;
 }
 
+void BaseTracker::setTrackingStrategy(
+    std::unique_ptr<TrackingStrategy> &&tracking_strategy) {
+  tracking_strategy_ = std::move(tracking_strategy);
+}
+
 bool BaseTracker::getTrackingVector(uint32_t tracked_id, tf::Transform &pose) {
   if (!trackingIsValid()) {
     return false;
