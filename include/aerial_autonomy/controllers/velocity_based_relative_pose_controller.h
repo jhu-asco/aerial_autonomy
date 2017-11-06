@@ -33,6 +33,8 @@ public:
    */
   virtual ~VelocityBasedRelativePoseController() {}
 
+  void resetIntegrator() { position_controller_.resetIntegrator(); }
+
   /**
    * @brief Get the default values of gains
    *

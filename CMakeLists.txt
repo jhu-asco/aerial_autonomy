@@ -176,12 +176,19 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/pose_controller_config.proto
   proto/velocity_controller_config.proto
   proto/position.proto
+  proto/rotation.proto
   proto/position_yaw.proto
+  proto/transform.proto
   proto/velocity.proto
   proto/data_stream_config.proto
   proto/log_config.proto
+  proto/arm_system_config.proto
   proto/base_state_machine_config.proto
   proto/uav_state_machine_config.proto
+  proto/visual_servoing_state_machine_config.proto
+  proto/pick_place_state_machine_config.proto
+  proto/following_waypoint_sequence_config.proto
+  proto/grip_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -218,6 +225,7 @@ add_library(aerial_autonomy
   src/trackers/base_tracker.cpp
   src/trackers/simple_multi_tracker.cpp
   src/trackers/closest_tracking_strategy.cpp
+  src/trackers/id_tracking_strategy.cpp
   src/trackers/simple_tracking_strategy.cpp
   src/controllers/manual_rpyt_controller.cpp
   src/controllers/velocity_based_position_controller.cpp
@@ -228,8 +236,10 @@ add_library(aerial_autonomy
   src/controller_hardware_connectors/relative_pose_visual_servoing_controller_drone_connector.cpp
   src/controller_hardware_connectors/visual_servoing_controller_arm_connector.cpp
   src/controller_hardware_connectors/position_controller_drone_connector.cpp
+  src/controller_hardware_connectors/velocity_based_position_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
+  src/controller_hardware_connectors/builtin_pose_controller_arm_connector.cpp
 )
 add_dependencies(aerial_autonomy proto)
 target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES})
@@ -304,7 +314,7 @@ catkin_add_gtest(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test tests/controller_hardwar
 catkin_add_gtest(${PROJECT_NAME}-evnt-mngr-test tests/event_manager_tests/event_manager_tests.cpp)
 add_dependencies(${PROJECT_NAME}-evnt-mngr-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
 catkin_add_gtest(${PROJECT_NAME}-type-map-test tests/common/type_map_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-unordered-heterogenous-map-test tests/common/unordered_heterogenous_map_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-unordered-heterogeneous-map-test tests/common/unordered_heterogeneous_map_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-html-utils-test tests/common/html_utils_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/position_controller_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/builtin_velocity_controller_drone_connector_tests.cpp)
@@ -375,17 +385,17 @@ endif()
 if(TARGET ${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
-if(TARGET ${PROJECT_NAME}-unordered-heterogenous-map-test)
-  target_link_libraries(${PROJECT_NAME}-unordered-heterogenous-map-test ${GLOG_LIBRARIES})
+if(TARGET ${PROJECT_NAME}-unordered-heterogeneous-map-test)
+  target_link_libraries(${PROJECT_NAME}-unordered-heterogeneous-map-test ${GLOG_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-logic-states-test)
-  target_link_libraries(${PROJECT_NAME}-logic-states-test proto ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-logic-states-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-timed-state-test)
-  target_link_libraries(${PROJECT_NAME}-timed-state-test proto ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-timed-state-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-evnt-mngr-test)
-  target_link_libraries(${PROJECT_NAME}-evnt-mngr-test proto ${Boost_LIBRARIES} ${PROTOBUF_LIBRARIES} ${GLOG_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-evnt-mngr-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-uav-system-test)
   target_link_libraries(${PROJECT_NAME}-uav-system-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
@@ -394,7 +404,7 @@ if(TARGET ${PROJECT_NAME}-uav-arm-system-test)
   target_link_libraries(${PROJECT_NAME}-uav-arm-system-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
 if(TARGET ${PROJECT_NAME}-arm-system-test)
-  target_link_libraries(${PROJECT_NAME}-arm-system-test ${catkin_LIBRARIES} ${GCOP_LIBRARIES} ${TINYXML_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-arm-system-test aerial_autonomy ${GCOP_LIBRARIES} ${TINYXML_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-uav-basic-functor-tests)
   target_link_libraries(${PROJECT_NAME}-uav-basic-functor-tests aerial_autonomy ${QUAD_SIM_PARSER_LIBS})

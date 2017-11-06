@@ -20,19 +20,14 @@ TEST(SimpleTrackerTests, TrackingVector) {
   QuadSimulator drone_hardware;
   tf::Transform camera_transform = tf::Transform::getIdentity();
   SimpleTracker simple_tracker(drone_hardware, camera_transform);
-  tf::Transform pose;
-  tf::Transform tracking_vector;
+  tf::Transform pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
+  tf::Transform get_pose;
   // Test tracking is valid
   ASSERT_TRUE(simple_tracker.trackingIsValid());
-  // Test getting tracking vector
-  simple_tracker.getTrackingVector(pose);
-  ASSERT_TF_NEAR(
-      pose, tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0)));
-  // Test setting tracking vector
-  pose = tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(1, 1, 1));
+  // Test setting/getting tracking vector
   simple_tracker.setTargetPoseGlobalFrame(pose);
-  simple_tracker.getTrackingVector(tracking_vector);
-  ASSERT_TF_NEAR(tracking_vector, pose);
+  simple_tracker.getTrackingVector(get_pose);
+  ASSERT_TF_NEAR(pose, get_pose);
 }
 
 TEST(SimpleTrackerTests, TrackingPosition) {

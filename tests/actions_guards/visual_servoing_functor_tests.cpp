@@ -1,5 +1,6 @@
 #include <aerial_autonomy/actions_guards/visual_servoing_states_actions.h>
 #include <aerial_autonomy/tests/sample_logic_state_machine.h>
+#include <aerial_autonomy/tests/test_utils.h>
 #include <aerial_autonomy/trackers/simple_tracker.h>
 #include <gtest/gtest.h>
 #include <quad_simulator_parser/quad_simulator.h>
@@ -21,21 +22,17 @@ using RelativePoseVisualServoingInternalAction =
 
 class VisualServoingTests : public ::testing::Test {
 protected:
-  QuadSimulator drone_hardware;
+  std::shared_ptr<QuadSimulator> drone_hardware;
   UAVSystemConfig config;
-  std::unique_ptr<SimpleTracker> simple_tracker;
+  BaseStateMachineConfig state_machine_config;
+  std::shared_ptr<SimpleTracker> simple_tracker;
   std::unique_ptr<UAVVisionSystem> uav_system;
   std::unique_ptr<UAVVisionLogicStateMachine> sample_logic_state_machine;
   VisualServoingTests() {
+    drone_hardware.reset(new QuadSimulator);
     auto uav_vision_system_config = config.mutable_uav_vision_system_config();
-    for (int i = 0; i < 6; ++i) {
-      uav_vision_system_config->add_camera_transform(0.0);
-    }
-    for (int i = 0; i < 6; ++i) {
-      uav_vision_system_config->add_tracking_offset_transform(0.0);
-    }
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
-    tf::Transform camera_transform = math::getTransformFromVector(
+    tf::Transform camera_transform = conversions::protoTransformToTf(
         uav_vision_system_config->camera_transform());
     auto position_tolerance = config.mutable_position_controller_config()
                                   ->mutable_goal_position_tolerance();
@@ -51,6 +48,19 @@ protected:
     vs_position_tolerance->set_y(0.5);
     vs_position_tolerance->set_z(0.5);
 
+    auto vel_based_position_controller =
+        config.mutable_velocity_based_position_controller_config()
+            ->mutable_position_controller_config();
+    config.mutable_velocity_based_position_controller_config()
+        ->set_position_gain(5.0);
+    config.mutable_velocity_based_position_controller_config()->set_yaw_gain(1);
+    vel_based_position_controller->mutable_goal_position_tolerance()->set_x(
+        0.1);
+    vel_based_position_controller->mutable_goal_position_tolerance()->set_y(
+        0.1);
+    vel_based_position_controller->mutable_goal_position_tolerance()->set_z(
+        0.1);
+
     auto relative_pose_vs_position_tolerance =
         uav_vision_system_config
             ->mutable_velocity_based_relative_pose_controller_config()
@@ -60,18 +70,21 @@ protected:
     relative_pose_vs_position_tolerance->set_x(0.1);
     relative_pose_vs_position_tolerance->set_y(0.1);
     relative_pose_vs_position_tolerance->set_z(0.1);
-    auto pose_goal = uav_vision_system_config->add_relative_pose_goals();
+    auto pose_goal =
+        state_machine_config.mutable_visual_servoing_state_machine_config()
+            ->add_relative_pose_goals();
     auto pose_goal_position = pose_goal->mutable_position();
     pose_goal_position->set_x(1);
     pose_goal_position->set_y(1);
     pose_goal_position->set_z(2);
     pose_goal->set_yaw(0);
 
-    simple_tracker.reset(new SimpleTracker(drone_hardware, camera_transform));
-    uav_system.reset(
-        new UAVVisionSystem(*simple_tracker, drone_hardware, config));
+    simple_tracker.reset(new SimpleTracker(*drone_hardware, camera_transform));
+    uav_system.reset(new UAVVisionSystem(
+        config, std::dynamic_pointer_cast<BaseTracker>(simple_tracker),
+        std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware)));
     sample_logic_state_machine.reset(
-        new UAVVisionLogicStateMachine(*uav_system));
+        new UAVVisionLogicStateMachine(*uav_system, state_machine_config));
   }
   virtual ~VisualServoingTests(){};
 };
@@ -150,8 +163,8 @@ TEST_F(VisualServoingTests, CallInternalActionFunction) {
   Position roi_goal(5, 0, 0.5);
   simple_tracker->setTargetPositionGlobalFrame(roi_goal);
   // Fly quadrotor which sets the altitude to 0.5
-  drone_hardware.setBatteryPercent(60);
-  drone_hardware.takeoff();
+  drone_hardware->setBatteryPercent(60);
+  drone_hardware->takeoff();
   // Call guard
   vsa::VisualServoingTransitionGuard visual_servoing_transition_guard;
   int dummy_start_state, dummy_target_state;
@@ -172,7 +185,7 @@ TEST_F(VisualServoingTests, CallInternalActionFunction) {
   desired_position.x = roi_goal.x - 1.0;
   desired_position.y = roi_goal.y;
   desired_position.z = roi_goal.z;
-  drone_hardware.cmdwaypoint(desired_position, desired_yaw);
+  drone_hardware->cmdwaypoint(desired_position, desired_yaw);
   // Call controller loop:
   uav_system->runActiveController(HardwareType::UAV);
   // Get status
@@ -191,8 +204,8 @@ TEST_F(VisualServoingTests, CallRelativePoseInternalActionFunction) {
   Position roi_goal(5, 0, 0.5);
   simple_tracker->setTargetPositionGlobalFrame(roi_goal);
   // Fly quadrotor which sets the altitude to 0.5
-  drone_hardware.setBatteryPercent(60);
-  drone_hardware.takeoff();
+  drone_hardware->setBatteryPercent(60);
+  drone_hardware->takeoff();
   // Call guard
   vsa::RelativePoseVisualServoingTransitionAction
       visual_servoing_transition_action;
@@ -217,7 +230,7 @@ TEST_F(VisualServoingTests, CallRelativePoseInternalActionFunction) {
   desired_position.x = roi_goal.x + desired_relative_pose.x;
   desired_position.y = roi_goal.y + desired_relative_pose.y;
   desired_position.z = roi_goal.z + desired_relative_pose.z;
-  drone_hardware.cmdwaypoint(desired_position, desired_relative_pose.yaw);
+  drone_hardware->cmdwaypoint(desired_position, desired_relative_pose.yaw);
   // Call controller loop:
   uav_system->runActiveController(HardwareType::UAV);
   // Get status
@@ -234,9 +247,12 @@ TEST_F(VisualServoingTests, CallRelativePoseInternalActionFunction) {
 }
 
 TEST_F(VisualServoingTests, LowBatteryCallInternalActionFunction) {
+  // Specify a global position
+  Position roi_goal(5, 0, 0.5);
+  simple_tracker->setTargetPositionGlobalFrame(roi_goal);
   // Fly quadrotor which sets the altitude to 0.5
-  drone_hardware.setBatteryPercent(60);
-  drone_hardware.takeoff();
+  drone_hardware->setBatteryPercent(60);
+  drone_hardware->takeoff();
   // Call action functor
   vsa::VisualServoingTransitionGuard visual_servoing_transition_guard;
   int dummy_start_state, dummy_target_state;
@@ -251,7 +267,7 @@ TEST_F(VisualServoingTests, LowBatteryCallInternalActionFunction) {
   status = uav_system->getStatus<VisualServoingControllerDroneConnector>();
   ASSERT_EQ(status, ControllerStatus::Active);
   // Set battery voltage to low value
-  drone_hardware.setBatteryPercent(10);
+  drone_hardware->setBatteryPercent(10);
   // Test internal action
   visual_servoing_internal_action(NULL, *sample_logic_state_machine,
                                   dummy_start_state, dummy_target_state);
@@ -261,8 +277,8 @@ TEST_F(VisualServoingTests, LowBatteryCallInternalActionFunction) {
 
 TEST_F(VisualServoingTests, LowBatteryCallRelativePoseInternalActionFunction) {
   // Fly quadrotor which sets the altitude to 0.5
-  drone_hardware.setBatteryPercent(60);
-  drone_hardware.takeoff();
+  drone_hardware->setBatteryPercent(60);
+  drone_hardware->takeoff();
   // Call action functor
   vsa::RelativePoseVisualServoingTransitionAction
       visual_servoing_transition_action;
@@ -280,7 +296,7 @@ TEST_F(VisualServoingTests, LowBatteryCallRelativePoseInternalActionFunction) {
           ->getStatus<RelativePoseVisualServoingControllerDroneConnector>();
   ASSERT_EQ(status, ControllerStatus::Active);
   // Set battery voltage to low value
-  drone_hardware.setBatteryPercent(10);
+  drone_hardware->setBatteryPercent(10);
   // Test internal action
   visual_servoing_internal_action(NULL, *sample_logic_state_machine,
                                   dummy_start_state, dummy_target_state);
@@ -293,8 +309,8 @@ TEST_F(VisualServoingTests, LostTrackingInternalActionFunction) {
   Position roi_goal(5, 0, 0.5);
   simple_tracker->setTargetPositionGlobalFrame(roi_goal);
   // Fly quadrotor which sets the altitude to 0.5
-  drone_hardware.setBatteryPercent(60);
-  drone_hardware.takeoff();
+  drone_hardware->setBatteryPercent(60);
+  drone_hardware->takeoff();
   // Call action functor
   vsa::VisualServoingTransitionGuard visual_servoing_transition_guard;
   int dummy_start_state, dummy_target_state;
@@ -318,8 +334,8 @@ TEST_F(VisualServoingTests, LostTrackingRelativePoseInternalActionFunction) {
   Position roi_goal(5, 0, 0.5);
   simple_tracker->setTargetPositionGlobalFrame(roi_goal);
   // Fly quadrotor which sets the altitude to 0.5
-  drone_hardware.setBatteryPercent(60);
-  drone_hardware.takeoff();
+  drone_hardware->setBatteryPercent(60);
+  drone_hardware->takeoff();
   // Call action functor
   vsa::RelativePoseVisualServoingTransitionAction
       visual_servoing_transition_action;
@@ -335,45 +351,44 @@ TEST_F(VisualServoingTests, LostTrackingRelativePoseInternalActionFunction) {
   visual_servoing_internal_action(NULL, *sample_logic_state_machine,
                                   dummy_start_state, dummy_target_state);
   ASSERT_EQ(sample_logic_state_machine->getProcessEventTypeId(),
-            std::type_index(typeid(be::Abort)));
+            std::type_index(typeid(Reset)));
 }
-
-// Call GoHome functions
 
 // Call GoHome functions
 TEST_F(VisualServoingTests, CallGoHomeTransitionAction) {
   // Takeoff
-  drone_hardware.takeoff();
+  drone_hardware->takeoff();
   // Send to a desired location
   geometry_msgs::Vector3 desired_home_position;
   desired_home_position.x = 1.0;
   desired_home_position.y = 2.0;
   desired_home_position.z = 3.0;
-  drone_hardware.cmdwaypoint(desired_home_position);
+  drone_hardware->cmdwaypoint(desired_home_position);
   // Save home location
   uav_system->setHomeLocation();
   // Go to another location to test going back to home
   geometry_msgs::Vector3 random_location;
   random_location.x = random_location.y = random_location.z = 0;
-  drone_hardware.cmdwaypoint(random_location);
+  drone_hardware->cmdwaypoint(random_location);
   // Call gohome action
   vsa::GoHomeTransitionAction go_home_transition_action;
   int dummy_start_state, dummy_target_state;
   go_home_transition_action(NULL, *sample_logic_state_machine,
                             dummy_start_state, dummy_target_state);
-  // Run the active controller once
-  uav_system->runActiveController(HardwareType::UAV);
-  // Run the active controller again to update controller status
-  uav_system->runActiveController(HardwareType::UAV);
-  // Get status to verify we are done
-  ControllerStatus status =
-      uav_system->getStatus<PositionControllerDroneConnector>();
-  ASSERT_EQ(status, ControllerStatus::Completed);
+  auto getUAVStatusRunController = [&]() {
+    uav_system->runActiveController(HardwareType::UAV);
+    return uav_system
+               ->getStatus<VelocityBasedPositionControllerDroneConnector>() ==
+           ControllerStatus::Completed;
+  };
+  ASSERT_TRUE(test_utils::waitUntilTrue()(getUAVStatusRunController,
+                                          std::chrono::seconds(5),
+                                          std::chrono::milliseconds(0)));
   // Also check the current position
   auto uav_data = uav_system->getUAVData();
-  ASSERT_EQ(uav_data.localpos.x, desired_home_position.x);
-  ASSERT_EQ(uav_data.localpos.y, desired_home_position.y);
-  ASSERT_EQ(uav_data.localpos.z, desired_home_position.z);
+  ASSERT_NEAR(uav_data.localpos.x, desired_home_position.x, 0.1);
+  ASSERT_NEAR(uav_data.localpos.y, desired_home_position.y, 0.1);
+  ASSERT_NEAR(uav_data.localpos.z, desired_home_position.z, 0.1);
 }
 
 TEST_F(VisualServoingTests, GoHomeTransitionGuard) {

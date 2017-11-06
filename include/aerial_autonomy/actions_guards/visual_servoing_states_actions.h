@@ -2,6 +2,7 @@
 // States and actions corresponding to basic events
 #include <aerial_autonomy/actions_guards/uav_states_actions.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_functors.h>
+#include <aerial_autonomy/trackers/closest_tracking_strategy.h>
 #include <boost/msm/front/euml/operator.hpp>
 
 /**
@@ -39,18 +40,25 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
   using RelativePoseVisualServoingTransitionAction =
       RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT, 0>;
 
+  using ResetRelativePoseVisualServoing =
+      ResetRelativePoseVisualServoingTransitionActionFunctor_<
+          LogicStateMachineT>;
+
   /**
   * @brief Check whether visual servoing is feasible currently
   */
   using VisualServoingTransitionGuard =
-      bAnd<InitializeTrackerGuardFunctor_<LogicStateMachineT>,
+      bAnd<InitializeTrackerGuardFunctor_<LogicStateMachineT,
+                                          ClosestTrackingStrategy>,
            VisualServoingTransitionGuardFunctor_<LogicStateMachineT>>;
 
   /**
   * @brief Check whether relative pose visual servoing is feasible currently
   */
+  // \todo Matt check goal index exists
   using RelativePoseVisualServoingTransitionGuard =
-      InitializeTrackerGuardFunctor_<LogicStateMachineT>;
+      InitializeTrackerGuardFunctor_<LogicStateMachineT,
+                                     ClosestTrackingStrategy>;
 
   /**
   * @brief Send the UAV back to home position

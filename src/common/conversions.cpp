@@ -16,6 +16,13 @@ void transformRPYToTf(double r, double p, double y, tf::Transform &tf) {
   tf.setRotation(tf::createQuaternionFromRPY(r, p, y));
 }
 
+tf::Transform protoTransformToTf(const config::Transform &tf) {
+  return tf::Transform(
+      tf::createQuaternionFromRPY(tf.rotation().r(), tf.rotation().p(),
+                                  tf.rotation().y()),
+      tf::Vector3(tf.position().x(), tf.position().y(), tf.position().z()));
+}
+
 void positionYawToTf(const PositionYaw &p, tf::Transform &tf) {
   tf.setRotation(tf::createQuaternionFromRPY(0, 0, p.yaw));
   tf.setOrigin(tf::Vector3(p.x, p.y, p.z));

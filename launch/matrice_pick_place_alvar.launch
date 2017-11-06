@@ -4,7 +4,7 @@
   <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/matrice_hil_pick_place_alvar_pointgrey_config.pbtxt" if="$(arg hil)"/>
   <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/matrice_pick_place_alvar_pointgrey_config.pbtxt" unless="$(arg hil)"/>
   <param name="log_config_filename" value="$(find aerial_autonomy)/param/log_config.pbtxt" />
-  <param name="state_machine_config_filename" value="$(find aerial_autonomy)/param/base_state_machine_config.pbtxt" />
+  <param name="state_machine_config_filename" value="$(find aerial_autonomy)/param/pick_place_state_machine_alvar_pointgrey_config.pbtxt" />
   <param name="event_file" value="$(find aerial_autonomy)/events/pick_place_events" />
   <arg name="log_level" default="0"/>
   <arg name="log_dir" default="$(find aerial_autonomy)/logs"/>
@@ -24,7 +24,7 @@
     <param name="~arm/link2_length" value="0.296" />
     <param name="~arm/link_offset" value="0.025" />
     <param name="~arm/velocity_gain" value="3.0" />
-    <param name="~arm/max_joint_velocity" value="1.8" />
+    <param name="~arm/max_joint_velocity" value="0.7" />
 
     <!-- Matrice SDK params -->
     <param name="~uav/serial_name" type="string" value="/dev/ttydji"/>
@@ -45,4 +45,5 @@
   <!-- TODO Should get these TFs from proto somehow! -->
   <node pkg="tf" type="static_transform_publisher" name="camera_quad" args="0.18 0 -.08 1.5708 0 1.9199 /quad /pointgrey_camera 100"/>
   <node pkg="tf" type="static_transform_publisher" name="arm_quad" args="0.17 0 -.109 3.141 -1.5708 0 /quad /arm 100"/>
+  <node pkg="guidance" type="guidanceNode" name="guidance" args="false" />
 </launch>

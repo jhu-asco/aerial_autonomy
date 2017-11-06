@@ -5,6 +5,7 @@
 #include <aerial_autonomy/actions_guards/pick_place_functors.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_states_actions.h>
 #include <aerial_autonomy/arm_events.h>
+#include <aerial_autonomy/pick_place_events.h>
 #include <boost/msm/front/euml/operator.hpp>
 #include <boost/msm/front/functor_row.hpp>
 
@@ -54,11 +55,10 @@ struct PickPlaceStatesActions
   * @brief State while picking an object
   */
   using PickState = PickState_<LogicStateMachineT>;
-  // PrePickPlace State
   /**
-  * @brief State while positioning the arm for picking
+  * @brief State while positioning the uav for placing
   */
-  using PrePickState = PrePickState_<LogicStateMachineT>;
+  using PlaceState = PlaceState_<LogicStateMachineT>;
   // Transition Actions
   /**
   * @brief Action to poweroff arm
@@ -73,6 +73,7 @@ struct PickPlaceStatesActions
   * @brief Action to poweroff arm
   */
   using ArmPowerOff = ArmPoweroffTransitionActionFunctor_<LogicStateMachineT>;
+
   /**
   * @brief Action to take when starting folding arm before land
   */
@@ -85,6 +86,22 @@ struct PickPlaceStatesActions
   * @brief Abort arm controller
   */
   using AbortArmController = AbortArmController_<LogicStateMachineT>;
+
+  /**
+  * @brief Action sequence that ungrips then goes home
+  */
+  using UngripGoHome =
+      bActionSequence<boost::mpl::vector<ArmGripAction<false>,
+                                         typename vsa::GoHomeTransitionAction>>;
+  using RightArmUngripGoHome =
+      bActionSequence<boost::mpl::vector<UngripGoHome, ArmRightFold>>;
+
+  /**
+  * @brief Action sequence that ungrips then goes home
+  */
+  using ArmRightFoldGoHome =
+      bActionSequence<boost::mpl::vector<AbortArmController, ArmRightFold,
+                                         typename vsa::GoHomeTransitionAction>>;
   /**
   * @brief Action sequence to abort UAV controller and move arm to right
   * angle
@@ -97,18 +114,40 @@ struct PickPlaceStatesActions
   */
   using AbortUAVControllerArmFold = bActionSequence<
       boost::mpl::vector<typename usa::UAVControllerAbort, ArmFold>>;
+
   /**
-  * @brief Set goal for visual servoing and also arm controller
+  * @brief Check tracking is valid and arm is enabled for pick
   */
-  using PickTransitionAction = bActionSequence<boost::mpl::vector<
-      AbortArmController, RelativePoseVisualServoingTransitionActionFunctor_<
-                              LogicStateMachineT, 1, false>>>;
+  using PickTransitionGuard =
+      bAnd<typename vsa::RelativePoseVisualServoingTransitionGuard,
+           ArmTrackingGuardFunctor_<LogicStateMachineT>>;
+  // \todo Check if tracked object is in workspace
+
   /**
-  * @brief Set goal for visual servoing and also arm controller for positioning
-  * arm for pick
+  * @brief Move arm to pick pose and move to tracked object
   */
-  using PrePickTransitionAction =
-      VisualServoingArmTransitionActionFunctor_<LogicStateMachineT, 0>;
+  using PickTransitionAction = bActionSequence<
+      boost::mpl::vector<ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>,
+                         typename vsa::ResetRelativePoseVisualServoing,
+                         RelativePoseVisualServoingTransitionActionFunctor_<
+                             LogicStateMachineT, 0>>>;
+
+  /**
+  * @brief Action to take when starting placing object.
+  */
+  using PlaceVisualServoingTransitionAction = bActionSequence<
+      boost::mpl::vector<typename vsa::ResetRelativePoseVisualServoing,
+                         RelativePoseVisualServoingTransitionActionFunctor_<
+                             LogicStateMachineT, 1>>>;
+  // \todo Matt add guard to check if relative pose visual servoing goal exists
+
+  /**
+  * @brief Guard to set and check that the id to track is available
+  * before beginning visual servoing
+  */
+  using PlaceVisualServoingTransitionGuard =
+      ExplicitIdVisualServoingGuardFunctor_<LogicStateMachineT, 15>;
+
   /**
   * @brief Action to take when starting folding arm before takeoff
   */
@@ -120,11 +159,26 @@ struct PickPlaceStatesActions
   */
   using AbortUAVArmController = bActionSequence<
       boost::mpl::vector<typename usa::UAVControllerAbort, AbortArmController>>;
-  // Guards
   /**
-  * @brief Guard to stop pick place if arm is not powered
+  * @brief State for following waypoints after picking object
   */
-  using PickTransitionGuard = ArmEnabledGuardFunctor_<LogicStateMachineT>;
+  using ReachingPostPickWaypoint =
+      FollowingWaypointSequence_<LogicStateMachineT, 0, 1>;
+
+  /**
+   * @brief State to wait for picking
+   */
+  using WaitingForPick = WaitingForPick_<LogicStateMachineT>;
+
+  /**
+  * @brief State for following waypoints after placing object
+  */
+  using ReachingPostPlaceWaypoint =
+      FollowingWaypointSequence_<LogicStateMachineT, 2, 3>;
+  /**
+  * @brief State for resetting visual servoing
+  */
+  struct ResetVisualServoing : ReachingGoal_<LogicStateMachineT> {};
 
   // Explicitly defined manual Control state
   /**

@@ -1,4 +1,5 @@
 #include <aerial_autonomy/state_machines/uav_state_machine.h>
+#include <aerial_autonomy/tests/test_utils.h>
 #include <gtest/gtest.h>
 // Thread stuff
 #include <boost/optional/optional_io.hpp>
@@ -20,23 +21,46 @@ class StateMachineTests : public ::testing::Test {
 protected:
   std::unique_ptr<UAVStateMachine> logic_state_machine;
   std::unique_ptr<UAVSystem> uav_system;
-  QuadSimulator drone_hardware;
+  std::shared_ptr<QuadSimulator> drone_hardware;
+  UAVSystemConfig config;
+  BaseStateMachineConfig state_machine_config;
 
   virtual void SetUp() {
-    UAVSystemConfig config;
-    BaseStateMachineConfig state_machine_config;
+    drone_hardware.reset(new QuadSimulator);
     auto position_tolerance = config.mutable_position_controller_config()
                                   ->mutable_goal_position_tolerance();
     position_tolerance->set_x(0.5);
     position_tolerance->set_y(0.5);
     position_tolerance->set_z(0.5);
-    drone_hardware.setTakeoffAltitude(2.0);
-    uav_system.reset(new UAVSystem(drone_hardware, config));
+
+    auto vel_based_pos_controller_config =
+        config.mutable_velocity_based_position_controller_config();
+    vel_based_pos_controller_config->set_position_gain(20.);
+    vel_based_pos_controller_config->set_yaw_gain(20.);
+    auto vel_based_pos_controller_tol =
+        vel_based_pos_controller_config->mutable_position_controller_config()
+            ->mutable_goal_position_tolerance();
+    vel_based_pos_controller_tol->set_x(0.1);
+    vel_based_pos_controller_tol->set_y(0.1);
+    vel_based_pos_controller_tol->set_z(0.1);
+    vel_based_pos_controller_config->mutable_position_controller_config()
+        ->set_goal_yaw_tolerance(0.1);
+
+    drone_hardware->setTakeoffAltitude(2.0);
+    uav_system.reset(new UAVSystem(
+        config, std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware)));
     logic_state_machine.reset(new UAVStateMachine(
         boost::ref(*uav_system), boost::cref(state_machine_config)));
     logic_state_machine->start();
     // Will switch to Landed state from manual control state
     logic_state_machine->process_event(InternalTransitionEvent());
+
+    LogConfig log_config;
+    log_config.set_directory("/tmp/data");
+    Log::instance().configure(log_config);
+    DataStreamConfig data_config;
+    data_config.set_stream_id("velocity_based_position_controller");
+    Log::instance().addDataStream(data_config);
   }
 
   virtual void TearDown() {
@@ -46,9 +70,20 @@ protected:
   }
 
   void GoToHoverFromLanded() {
-    drone_hardware.setBatteryPercent(100);
+    drone_hardware->setBatteryPercent(100);
     logic_state_machine->process_event(be::Takeoff());
     logic_state_machine->process_event(InternalTransitionEvent());
+  }
+
+  void runActiveControllerToConvergence() {
+    auto getUAVStatusRunControllers = [&]() {
+      uav_system->runActiveController(HardwareType::UAV);
+      return uav_system->getActiveControllerStatus(HardwareType::UAV) ==
+             ControllerStatus::Completed;
+    };
+    ASSERT_TRUE(test_utils::waitUntilTrue()(getUAVStatusRunControllers,
+                                            std::chrono::seconds(5),
+                                            std::chrono::milliseconds(0)));
   }
 };
 
@@ -68,17 +103,17 @@ TEST_F(StateMachineTests, NoTransitionEvent) {
 
 /// \brief Test Takeoff related events
 TEST_F(StateMachineTests, LowBatteryTakeoff) {
-  drone_hardware.setBatteryPercent(10);
+  drone_hardware->setBatteryPercent(10);
   logic_state_machine->process_event(be::Takeoff());
   // Cannot takeoff
   ASSERT_STREQ(pstate(*logic_state_machine), "Landed");
 }
 
 TEST_F(StateMachineTests, LowBatteryAfterTakeoff) {
-  drone_hardware.setBatteryPercent(100);
+  drone_hardware->setBatteryPercent(100);
   logic_state_machine->process_event(be::Takeoff());
   ASSERT_STREQ(pstate(*logic_state_machine), "TakingOff");
-  drone_hardware.setBatteryPercent(10);
+  drone_hardware->setBatteryPercent(10);
   logic_state_machine->process_event(InternalTransitionEvent());
   // We switch to Hovering here
   logic_state_machine->process_event(InternalTransitionEvent());
@@ -87,7 +122,7 @@ TEST_F(StateMachineTests, LowBatteryAfterTakeoff) {
 }
 
 TEST_F(StateMachineTests, Takeoff) {
-  drone_hardware.setBatteryPercent(100);
+  drone_hardware->setBatteryPercent(100);
   logic_state_machine->process_event(be::Takeoff());
   // Takeoff in process
   ASSERT_STREQ(pstate(*logic_state_machine), "TakingOff");
@@ -99,11 +134,11 @@ TEST_F(StateMachineTests, Takeoff) {
 }
 
 TEST_F(StateMachineTests, TakeoffManualControlAbort) {
-  drone_hardware.setBatteryPercent(100);
+  drone_hardware->setBatteryPercent(100);
   // Takeoff
   logic_state_machine->process_event(be::Takeoff());
   // Disable sdk
-  drone_hardware.flowControl(false);
+  drone_hardware->flowControl(false);
   // While taking off we do not check for manual control event
   logic_state_machine->process_event(InternalTransitionEvent());
   // Check we are in Hovering
@@ -134,12 +169,8 @@ TEST_F(StateMachineTests, PositionControl) {
   PositionYaw goal(0, 0, 5, 0);
   logic_state_machine->process_event(goal);
   ASSERT_STREQ(pstate(*logic_state_machine), "ReachingGoal");
-  // Run active controller:
-  uav_system->runActiveController(HardwareType::UAV);
-  parsernode::common::quaddata data = uav_system->getUAVData();
-  PositionYaw curr_pose_yaw(data.localpos.x, data.localpos.y, data.localpos.z,
-                            data.rpydata.z);
-  ASSERT_EQ(curr_pose_yaw, goal);
+  // Send UAV to goal:
+  runActiveControllerToConvergence();
   // Verify if we reached the goal
   uav_system->runActiveController(HardwareType::UAV); // Update status
   logic_state_machine->process_event(InternalTransitionEvent());
@@ -155,8 +186,7 @@ TEST_F(StateMachineTests, PositionControlResetActive) {
   PositionYaw goal(0, 0, 5, 0);
   logic_state_machine->process_event(goal);
   // Run active controller:
-  uav_system->runActiveController(HardwareType::UAV);
-  uav_system->runActiveController(HardwareType::UAV); // Update status
+  runActiveControllerToConvergence();
   // Transition to hovering
   logic_state_machine->process_event(InternalTransitionEvent());
   // Now try going to a second goal
@@ -180,7 +210,8 @@ TEST_F(StateMachineTests, PositionControlAbort) {
   logic_state_machine->process_event(be::Abort());
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
   // Once aborted running active controller will not reach goal
-  uav_system->runActiveController(HardwareType::UAV);
+  ASSERT_EQ(uav_system->getActiveControllerStatus(HardwareType::UAV),
+            ControllerStatus::NotEngaged);
   parsernode::common::quaddata data = uav_system->getUAVData();
   PositionYaw curr_pose_yaw(data.localpos.x, data.localpos.y, data.localpos.z,
                             data.rpydata.z);
@@ -194,7 +225,7 @@ TEST_F(StateMachineTests, PositionControlManualControlAbort) {
   PositionYaw goal(0, 0, 5, 0);
   logic_state_machine->process_event(goal);
   // Disable sdk
-  drone_hardware.flowControl(false);
+  drone_hardware->flowControl(false);
   // Run Internal Transition
   logic_state_machine->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
@@ -234,7 +265,7 @@ TEST_F(StateMachineTests, PositionControlLowBattery) {
   logic_state_machine->process_event(goal);
   ASSERT_STREQ(pstate(*logic_state_machine), "ReachingGoal");
   // Low battery while reaching goal
-  drone_hardware.setBatteryPercent(10);
+  drone_hardware->setBatteryPercent(10);
   // Run Internal Transition
   logic_state_machine->process_event(InternalTransitionEvent());
   // Check if we are aborting due to low battery
@@ -269,7 +300,7 @@ protected:
 };
 
 TEST_F(MultiThreadStateMachineTests, TakeoffMultiThread) {
-  drone_hardware.setBatteryPercent(100);
+  drone_hardware->setBatteryPercent(100);
   boost::thread t1(boost::bind(
       &MultiThreadStateMachineTests_TakeoffMultiThread_Test::takeoffEventCall,
       this));

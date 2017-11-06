@@ -24,8 +24,9 @@ TEST(SystemHandlerNodeUtilsTests, loadProtoConfigFromROSParam) {
   auto uav_system_handler_config =
       loadConfigFromROSParam<UAVSystemHandlerConfig>(
           nh, "uav_system_handler_config_filename");
-  ASSERT_STREQ(uav_system_handler_config.uav_parser_type().c_str(),
-               "dji_parser/DjiParser");
+  ASSERT_STREQ(
+      uav_system_handler_config.uav_system_config().uav_parser_type().c_str(),
+      "dji_parser/DjiParser");
 }
 
 TEST(SystemHandlerNodeUtilsTests, loadProtoNonExistentParamAndFile) {

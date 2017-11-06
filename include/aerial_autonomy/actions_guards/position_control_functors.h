@@ -20,7 +20,8 @@ template <class LogicStateMachineT>
 struct PositionControlTransitionActionFunctor_
     : ActionFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
   void run(const PositionYaw &goal, UAVSystem &robot_system) {
-    robot_system.setGoal<PositionControllerDroneConnector, PositionYaw>(goal);
+    robot_system.setGoal<VelocityBasedPositionControllerDroneConnector,
+                         PositionYaw>(goal);
   }
 };
 
@@ -65,6 +66,24 @@ struct PositionControlTransitionGuardFunctor_
   }
 };
 
+template <class LogicStateMachineT>
+struct ZeroVelocityGuardFunctor_
+    : EventAgnosticGuardFunctor<UAVSystem, LogicStateMachineT> {
+  bool guard(UAVSystem &robot_system) {
+    parsernode::common::quaddata data = robot_system.getUAVData();
+    geometry_msgs::Vector3 current_vel = data.linvel;
+    const double tolerance_vel = .05;
+    bool result = true;
+    if (std::abs(current_vel.x) > tolerance_vel ||
+        std::abs(current_vel.y) > tolerance_vel ||
+        std::abs(current_vel.z) > tolerance_vel) {
+      LOG(WARNING) << "Velocity not within tolerance";
+      result = false;
+    }
+    return result;
+  }
+};
+
 /**
  * @brief internal action while performing position control
  *
@@ -72,10 +91,11 @@ struct PositionControlTransitionGuardFunctor_
  */
 template <class LogicStateMachineT>
 using PositionControlInternalActionFunctor_ =
-    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
-        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-        ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, PositionControllerDroneConnector>>>;
+    boost::msm::front::ShortingActionSequence_<
+        boost::mpl::vector<UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+                           ControllerStatusInternalActionFunctor_<
+                               LogicStateMachineT,
+                               VelocityBasedPositionControllerDroneConnector>>>;
 
 /**
 * @brief State that uses position control functor to reach a desired goal.

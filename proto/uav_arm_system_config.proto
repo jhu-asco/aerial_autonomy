@@ -1,19 +1,15 @@
 syntax = "proto2";
 
 import "pose_controller_config.proto";
+import "arm_system_config.proto";
+import "transform.proto";
 
 message UAVArmSystemConfig {
-  /**
-  * @brief Arm transform in the frame of the tracked object (assuming NWU).
-  * Specified as x, y, z, roll, pitch, yaw.
-  */
-  repeated double arm_goal_transform = 1;
 
   /**
-  * @brief Arm transform in the frame of the UAV (assuming NWU).  Specified
-  * as x, y, z, roll, pitch, yaw.
+  * @brief Arm transform in the frame of the UAV (assuming NWU).
   */
-  repeated double arm_transform = 3;
+  optional config.Transform arm_transform = 3;
 
   /**
   * @brief Config for arm controller
@@ -21,7 +17,7 @@ message UAVArmSystemConfig {
   optional PoseControllerConfig position_controller_config = 6;
 
   /**
-  * @brief How much time to spend trying to grip the object in milliseconds
+  * @brief Configuration for arm system
   */
-  optional uint32 grip_timeout = 7 [ default = 2000 ];
+  optional ArmSystemConfig arm_system_config = 9;
 }

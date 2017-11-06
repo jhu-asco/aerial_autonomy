@@ -1,9 +1,7 @@
-uav_parser_type: "dji_parser/DjiHILParser"
 uav_controller_timer_duration: 20
 
 uav_arm_system_handler_config {
   arm_controller_timer_duration: 20
-  arm_parser_type: "SimpleArm"
 }
 
 base_config {
@@ -12,6 +10,7 @@ base_config {
 }
 
 uav_system_config {
+  uav_parser_type: "dji_parser/DjiHILParser"
   minimum_battery_percent: 40
   minimum_takeoff_height: 0.5
   landing_height: 0.1
@@ -24,6 +23,24 @@ uav_system_config {
     }
   }
 
+  velocity_based_position_controller_config {
+    position_gain: 0.7
+    yaw_gain: 0.3
+    max_velocity: 0.25
+    max_yaw_rate: 0.3
+    yaw_i_gain: 0.0
+    position_i_gain: 0.0
+    position_saturation_value: 0.0
+    yaw_saturation_value: 0.0
+    position_controller_config {
+      goal_position_tolerance {
+        x: 0.1
+        y: 0.1
+        z: 0.05
+      }
+      goal_yaw_tolerance: 0.2
+    }
+  }
   velocity_controller_config {
     goal_velocity_tolerance {
       vx: 0.1
@@ -35,19 +52,31 @@ uav_system_config {
   uav_vision_system_config {
     tracker_type: "Alvar"
 
-    camera_transform: 0.2093
-    camera_transform: 0.0063
-    camera_transform: -0.0836
-    camera_transform: 1.9372
-    camera_transform: 0
-    camera_transform: 1.5794
+    camera_transform {
+      position {
+        x: 0.2093
+        y: 0.0063
+        z: -0.0836
+      }
+      rotation {
+        r: 1.9372
+        p: 0
+        y: 1.5794
+      }
+    }
 
-    tracking_offset_transform: 0.0
-    tracking_offset_transform: 0.0
-    tracking_offset_transform: 0.0
-    tracking_offset_transform: -1.5708
-    tracking_offset_transform: 0.0
-    tracking_offset_transform: 0.0
+    tracking_offset_transform {
+      position {
+        x: 0
+        y: 0
+        z: 0
+      }
+      rotation {
+        r: -1.5708
+        p: 0
+        y: 0
+      }
+    }
 
     desired_visual_servoing_distance: 0.48
 
@@ -71,57 +100,89 @@ uav_system_config {
     relative_pose_goals {
       position {
         x: 0
-        y: -.63
-        z: 0.22
+        y: -.62
+        z: 0.235
+      }
+      yaw: 1.5708
+    }
+
+    relative_pose_goals {
+      position {
+        x: 0
+        y: -.9
+        z: 0.08
       }
       yaw: 1.5708
     }
 
     velocity_based_relative_pose_controller_config {
       velocity_based_position_controller_config {
-        position_gain: 0.3
-        yaw_gain: 0.3
-        max_velocity: 0.2
-        max_yaw_rate: 0.3  
+        position_gain: 0.7
+        yaw_gain: 0.5
+        max_velocity: 0.25
+        max_yaw_rate: 0.3
+        yaw_i_gain: 0.0
+        position_i_gain: 0.055
+        position_saturation_value: 0.03
+        yaw_saturation_value: 0.0
         position_controller_config {
           goal_position_tolerance {
-            x: 0.05
-            y: 0.05
-            z: 0.05
+            x: 0.04
+            y: 0.04
+            z: 0.04
           }
           goal_yaw_tolerance: 0.1
         }
       }
     }
     uav_arm_system_config {
-      arm_goal_transform: 0.0
-      arm_goal_transform: -0.093
-      arm_goal_transform: 0.1
-      arm_goal_transform: 0.0
-      arm_goal_transform: 0.0
-      arm_goal_transform: 0.0
-
-      arm_goal_transform: 0.0
-      arm_goal_transform: -0.093
-      arm_goal_transform: -0.01
-      arm_goal_transform: 0.0
-      arm_goal_transform: 0.0
-      arm_goal_transform: 0.0
-
-      arm_transform: 0.17
-      arm_transform: 0.0
-      arm_transform: -0.109
-      arm_transform: 0.0
-      arm_transform: -1.5707
-      arm_transform: 3.141
+      arm_transform {
+        position {
+          x: 0.17
+          y: 0
+          z: -0.109
+        }
+        rotation {
+          r: 0
+          p: -1.5707
+          y: 3.141
+        }
+      }
 
       position_controller_config {
         goal_position_tolerance {
-          x: 0.01
-          y: 0.04
-          z: 0.01
+          x: 0.02
+          y: 0.02
+          z: 0.02
         }
         goal_rotation_tolerance: 6
+      }
+      way_points {
+        position {
+          x: 0.0
+          y: 0.0
+          z: 0.15
+        }
+        yaw: 3.141
+      }
+      way_points {
+        position {
+          x: 0.0
+          y: 0.0
+          z: -0.1
+        }
+        yaw: 3.141
+      }
+      arm_system_config {
+        pose_controller_config {
+          goal_position_tolerance {
+            x: 0.02
+            y: 0.02
+            z: 0.02
+          }
+          goal_rotation_tolerance: 6
+        }
+        arm_parser_type: "SimpleArm"
       }
     }
   }

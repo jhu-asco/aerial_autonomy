@@ -9,6 +9,27 @@ bool BaseTracker::getTrackingVector(tf::Transform &pose) {
   return true;
 }
 
+void BaseTracker::setTrackingStrategy(
+    std::unique_ptr<TrackingStrategy> &&tracking_strategy) {
+  tracking_strategy_ = std::move(tracking_strategy);
+}
+
+bool BaseTracker::getTrackingVector(uint32_t tracked_id, tf::Transform &pose) {
+  if (!trackingIsValid()) {
+    return false;
+  }
+  std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
+  if (!getTrackingVectors(tracking_vectors)) {
+    return false;
+  }
+  auto find_id = tracking_vectors.find(tracked_id);
+  if (find_id != tracking_vectors.end()) {
+    pose = find_id->second;
+    return true;
+  }
+  return false;
+}
+
 bool BaseTracker::getTrackingVector(std::tuple<uint32_t, tf::Transform> &pose) {
   if (!trackingIsValid()) {
     return false;

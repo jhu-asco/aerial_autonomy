@@ -1,12 +1,13 @@
 #pragma once
 #include "aerial_autonomy/common/conversions.h"
 #include "aerial_autonomy/common/html_utils.h"
-#include "aerial_autonomy/common/math.h"
 #include "aerial_autonomy/controller_hardware_connectors/relative_pose_visual_servoing_controller_drone_connector.h"
 #include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h"
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
 #include "aerial_autonomy/controllers/velocity_based_relative_pose_controller.h"
 #include "aerial_autonomy/robot_systems/uav_system.h"
+#include "aerial_autonomy/trackers/alvar_tracker.h"
+#include "aerial_autonomy/trackers/roi_to_position_converter.h"
 #include "uav_system_config.pb.h"
 
 #include <tf/tf.h>
@@ -15,40 +16,52 @@
 * @brief UAV system with a camera and visual sevoing capabilities.
 */
 class UAVVisionSystem : public UAVSystem {
+protected:
+  using BaseTrackerPtr = std::shared_ptr<BaseTracker>;
+
 public:
   /**
   * @brief Constructor
-  * @param tracker Used to track targets for visual servoing
-  * @param drone_hardware UAV driver
   * @param config Configuration parameters
+  * @param tracker Used to track targets for visual servoing. If provided, will
+  * overwrite
+  * the one in config file
+  * @param drone_hardware UAV driver. If provided, will overwrite the one in
+  * config file
   */
-  UAVVisionSystem(BaseTracker &tracker, parsernode::Parser &drone_hardware,
-                  UAVSystemConfig config)
-      : UAVSystem(drone_hardware, config),
-        camera_transform_(math::getTransformFromVector(
+  UAVVisionSystem(UAVSystemConfig config, BaseTrackerPtr tracker = nullptr,
+                  UAVParserPtr drone_hardware = nullptr)
+      : UAVSystem(config, drone_hardware),
+        camera_transform_(conversions::protoTransformToTf(
             config_.uav_vision_system_config().camera_transform())),
-        relative_pose_goals_(conversions::protoPositionYawsToPositionYaws(
-            config_.uav_vision_system_config().relative_pose_goals())),
-        tracker_(tracker), constant_heading_depth_controller_(
-                               config_.uav_vision_system_config()
-                                   .constant_heading_depth_controller_config()),
+        tracker_(UAVVisionSystem::chooseTracker(tracker, config)),
+        constant_heading_depth_controller_(
+            config_.uav_vision_system_config()
+                .constant_heading_depth_controller_config()),
         velocity_based_relative_pose_controller_(
             config_.uav_vision_system_config()
                 .velocity_based_relative_pose_controller_config()),
-        visual_servoing_drone_connector_(tracker, drone_hardware_,
+        visual_servoing_drone_connector_(*tracker_, *drone_hardware_,
                                          constant_heading_depth_controller_,
                                          camera_transform_),
         relative_pose_visual_servoing_drone_connector_(
-            tracker, drone_hardware, velocity_based_relative_pose_controller_,
-            camera_transform_,
-            math::getTransformFromVector(config_.uav_vision_system_config()
-                                             .tracking_offset_transform())) {
+            *tracker_, *drone_hardware,
+            velocity_based_relative_pose_controller_, camera_transform_,
+            conversions::protoTransformToTf(config_.uav_vision_system_config()
+                                                .tracking_offset_transform())) {
     controller_hardware_connector_container_.setObject(
         visual_servoing_drone_connector_);
     controller_hardware_connector_container_.setObject(
         relative_pose_visual_servoing_drone_connector_);
   }
 
+  // \todo Find a better way to update controller configurations from dynamic
+  // reconfigure
+  /**
+   * @brief update the controller config specified
+   *
+   * @param config New config to update for the controller
+   */
   void setVelocityBasedPositionControllerConfig(
       const aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
           &config) {
@@ -71,7 +84,16 @@ public:
     return visual_servoing_drone_connector_.getTrackingVectorGlobalFrame(pos);
   }
 
-  bool initializeTracker() { return tracker_.initialize(); }
+  /**
+  * @brief Set the tracker's tracking strategy
+  * @param strategy Tracking strategy to set
+  */
+  void
+  setTrackingStrategy(std::unique_ptr<TrackingStrategy> &&tracking_strategy) {
+    tracker_->setTrackingStrategy(std::move(tracking_strategy));
+  }
+
+  bool initializeTracker() { return tracker_->initialize(); }
 
   std::string getSystemStatus() const {
     std::stringstream status;
@@ -81,14 +103,14 @@ public:
     table_writer.addHeader("Tracker Status", Colors::blue);
     table_writer.beginRow();
     std::string tracking_valid =
-        (tracker_.trackingIsValid() ? "True" : "False");
+        (tracker_->trackingIsValid() ? "True" : "False");
     std::string valid_color =
-        (tracker_.trackingIsValid() ? Colors::green : Colors::red);
+        (tracker_->trackingIsValid() ? Colors::green : Colors::red);
     table_writer.addCell(tracking_valid, "Valid", valid_color);
     table_writer.beginRow();
     table_writer.addCell("Tracking Vectors: ");
     std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
-    if (tracker_.getTrackingVectors(tracking_vectors)) {
+    if (tracker_->getTrackingVectors(tracking_vectors)) {
       for (auto tv : tracking_vectors) {
         tf::Transform tv_body_frame = camera_transform_ * tv.second;
         table_writer.beginRow();
@@ -107,7 +129,9 @@ public:
     return status.str();
   }
 
-  PositionYaw relativePoseGoal(int i) { return relative_pose_goals_.at(i); }
+  void resetRelativePoseController() {
+    velocity_based_relative_pose_controller_.resetIntegrator();
+  }
 
 protected:
   /**
@@ -115,14 +139,38 @@ protected:
   */
   tf::Transform camera_transform_;
 
+  BaseTrackerPtr tracker_; ///< Tracking system
+
   /**
-  * @brief UAV transforms in the frame of the tracked object
-  */
-  // \todo Matt Move to state machine config
-  std::vector<PositionYaw> relative_pose_goals_;
+   * @brief Choose between user provided tracker and the one in the config file
+   *
+   * @param tracker user provided tracker or null pointer
+   * @param config Configuration file containing a tracker type
+   *
+   * @return the user provided one if it is not nullptr and create the config
+   * specified one if user provided nullptr.
+   */
+  static BaseTrackerPtr chooseTracker(BaseTrackerPtr tracker,
+                                      UAVSystemConfig &config) {
+    BaseTrackerPtr tracker_pointer;
+    if (tracker) {
+      tracker_pointer = tracker;
+    } else {
+      std::string tracker_type =
+          config.uav_vision_system_config().tracker_type();
+      if (tracker_type == "ROI") {
+        tracker_pointer = BaseTrackerPtr(new RoiToPositionConverter());
+      } else if (tracker_type == "Alvar") {
+        tracker_pointer = BaseTrackerPtr(new AlvarTracker());
+      } else {
+        throw std::runtime_error("Unknown tracker type provided: " +
+                                 tracker_type);
+      }
+    }
+    return tracker_pointer;
+  }
 
 private:
-  BaseTracker &tracker_;
   /**
   * @brief Track the target position given by the tracker
   */

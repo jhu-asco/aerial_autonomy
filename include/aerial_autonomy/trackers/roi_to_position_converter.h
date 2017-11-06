@@ -27,16 +27,17 @@ public:
   /**
   * @brief Constructor
   *
-  * @param nh Nodehandle for subscribers, publishers
   */
-  RoiToPositionConverter(ros::NodeHandle &nh)
-      : BaseTracker(new SimpleTrackingStrategy()), it_(nh),
-        roi_subscriber_(nh.subscribe(
+  RoiToPositionConverter(std::string name_space = "~tracker")
+      : BaseTracker(std::move(
+            std::unique_ptr<TrackingStrategy>(new SimpleTrackingStrategy()))),
+        nh_(name_space), it_(nh_),
+        roi_subscriber_(nh_.subscribe(
             "roi", 10, &RoiToPositionConverter::roiCallback, this)),
         camera_info_subscriber_(
-            nh.subscribe("camera_info", 1,
-                         &RoiToPositionConverter::cameraInfoCallback, this)),
-        depth_subscriber_(nh.subscribe(
+            nh_.subscribe("camera_info", 1,
+                          &RoiToPositionConverter::cameraInfoCallback, this)),
+        depth_subscriber_(nh_.subscribe(
             "depth", 1, &RoiToPositionConverter::depthCallback, this)),
         image_subscriber_(it_.subscribe(
             "image", 1, &RoiToPositionConverter::imageCallback, this)) {}
@@ -118,6 +119,10 @@ private:
   */
   static bool compare(Eigen::Vector3d a, Eigen::Vector3d b);
 
+  /**
+  * @brief ROS node handle for communication
+  */
+  ros::NodeHandle nh_;
   /**
   * @brief Image transport
   */

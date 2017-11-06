@@ -12,14 +12,25 @@
  */
 class BaseTracker {
 public:
-  BaseTracker(TrackingStrategy *tracking_strategy)
-      : tracking_strategy_(tracking_strategy) {}
+  /**
+  * @brief Constructor
+  * @param tracking_strategy  Strategy used to pick a particular target from a
+  * list of tracked objects
+  */
+  BaseTracker(std::unique_ptr<TrackingStrategy> &&tracking_strategy)
+      : tracking_strategy_(std::move(tracking_strategy)) {}
   /**
   * @brief Initialze the tracker.  Can simply return true if the subclass
   * requires no additional initialization.
   * @return True if initialization succeeds, false otherwise
   */
   virtual bool initialize();
+  /**
+  * @brief Set the tracker's tracking strategy
+  * @param The desired tracking strategy
+  */
+  void
+  setTrackingStrategy(std::unique_ptr<TrackingStrategy> &&tracking_strategy);
   /**
    * @brief Get the tracking vector
    * @param pos Returned tracking vector
@@ -32,6 +43,16 @@ public:
    * @return True if successful, false otherwise
    */
   virtual bool getTrackingVector(std::tuple<uint32_t, tf::Transform> &pos);
+  /**
+  * @brief Get the tracking pose corresponding to specified id
+  * @param tracked_id id for which tracking vector is required
+  * @param pose the output tracking pose
+  * @return true if the id is found otherwise false
+  */
+  // \todo Matt Make this a specific tracking strategy
+  // Also implement VisionSystem with a way to set tracking strategies
+  // for trackers on the fly (like setGoal in RobotSystem)
+  virtual bool getTrackingVector(uint32_t tracked_id, tf::Transform &pose);
   /**
    * @brief Get the tracking vectors
    * @param pos Returned map of tracking vectors

@@ -52,7 +52,7 @@ struct HoveringInternalActionFunctor_
 * @tparam check_completed If false, ignores check on controller completion
 */
 template <class LogicStateMachineT, class ControllerConnector,
-          bool check_completed = true>
+          bool check_completed = true, class AbortEventT = be::Abort>
 struct ControllerStatusInternalActionFunctor_
     : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
   /**
@@ -72,7 +72,7 @@ struct ControllerStatusInternalActionFunctor_
     } else if (status == ControllerStatus::Critical) {
       LOG(WARNING) << "Controller critical for "
                    << typeid(ControllerConnector).name();
-      logic_state_machine.process_event(be::Abort());
+      logic_state_machine.process_event(AbortEventT());
       return false;
     }
     return true;

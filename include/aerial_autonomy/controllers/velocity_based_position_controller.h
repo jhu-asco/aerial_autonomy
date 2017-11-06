@@ -28,25 +28,26 @@ public:
   VelocityBasedPositionController(VelocityBasedPositionControllerConfig config,
                                   double dt_ = 0.02)
       : config_(config), cumulative_error(0, 0, 0, 0), dt(dt_) {
-    position_saturation_gain_ =
-        config_.integrator_saturation_gain() * config_.position_i_gain() * dt;
-    yaw_saturation_gain_ =
-        config_.integrator_saturation_gain() * config_.yaw_i_gain() * dt;
 
     CHECK(config_.position_gain() > 0) << "Gain should be non-negative";
     CHECK(config_.yaw_gain() > 0) << "Gain should be non-negative";
     CHECK(config_.max_velocity() > 0) << "Max velocity should be non-negative";
     CHECK(config_.max_yaw_rate() > 0) << "Max yaw rate should be non-negative";
     CHECK(config_.yaw_i_gain() >= 0) << "Gain should be non-negative";
-    CHECK(config_.position_i_gain() >= 0) << "Gain should be non-negative";
-    CHECK(config_.integrator_saturation_gain() >= 0)
-        << "Gain should be non-negative";
+    CHECK(config_.position_saturation_value() >= 0)
+        << "Saturation value should be non-negative";
+    CHECK(config_.yaw_saturation_value() >= 0)
+        << "Saturation value should be non-negative";
     CHECK(dt > 0) << "Dt should be greater than 0";
 
     DATA_HEADER("velocity_based_position_controller") << "x_diff"
                                                       << "y_diff"
                                                       << "z_diff"
                                                       << "yaw_diff"
+                                                      << "x_goal"
+                                                      << "y_goal"
+                                                      << "z_goal"
+                                                      << "yaw_goal"
                                                       << "xi_diff"
                                                       << "yi_diff"
                                                       << "zi_diff"
@@ -61,12 +62,6 @@ public:
    * @brief Destructor
    */
   virtual ~VelocityBasedPositionController() {}
-
-  /**
-   * @brief Compute the integrator internally based on
-   * back calculation
-   */
-  void resetIntegrator();
 
   /**
    * @brief If the command (p_command + integrator) is saturated, the function
@@ -90,6 +85,21 @@ public:
   PositionYaw getCumulativeError() const { return cumulative_error; }
 
   /**
+   * @brief Set the goal and optionally reset the controller
+   * @param goal The goal to set
+   * @param reset Resets controller integrator if true
+   * \todo (Matt) Remove reset from setGoal and create separate reset function
+   * in base Controller
+   */
+  virtual void setGoal(PositionYaw goal, bool reset = true);
+
+  /**
+   * @brief Set the goal and reset the controller
+   * @param goal The goal to set
+   */
+  virtual void setGoal(PositionYaw goal);
+
+  /**
    * @brief Get the default values of gains
    *
    * @return dynamic reconfigure with default values
@@ -105,6 +115,12 @@ public:
   void updateConfig(
       const aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
           &dynamic_config);
+
+  /**
+   * @brief Compute the integrator internally based on
+   * back calculation
+   */
+  void resetIntegrator();
 
 protected:
   /**
@@ -130,8 +146,4 @@ protected:
   VelocityBasedPositionControllerConfig config_; ///< Controller configuration
   PositionYaw cumulative_error; ///< Error integrated over multiple runs
   double dt; ///< Time diff between different successive runImplementation calls
-  double position_saturation_gain_; ///< Gain to saturate cumulative position
-                                    /// error in back calculation
-  double yaw_saturation_gain_; ///< Gain to saturate cumulative yaw error in
-                               /// back calculation
 };

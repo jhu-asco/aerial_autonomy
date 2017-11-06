@@ -24,7 +24,7 @@ bool VelocityBasedRelativePoseController::runImplementation(
   PositionYaw current_position_yaw(
       current_pose.getOrigin().getX(), current_pose.getOrigin().getY(),
       current_pose.getOrigin().getZ(), current_yaw);
-  position_controller_.setGoal(desired_position_yaw);
+  position_controller_.setGoal(desired_position_yaw, false);
 
   auto status = position_controller_.run(current_position_yaw, control);
   DATA_LOG("velocity_based_relative_pose_controller")
@@ -65,7 +65,7 @@ ControllerStatus VelocityBasedRelativePoseController::isConvergedImplementation(
   PositionYaw current_position_yaw(
       current_pose.getOrigin().getX(), current_pose.getOrigin().getY(),
       current_pose.getOrigin().getZ(), current_yaw);
-  position_controller_.setGoal(desired_position_yaw);
+  position_controller_.setGoal(desired_position_yaw, false);
 
   ControllerStatus status(
       position_controller_.isConverged(current_position_yaw).status());

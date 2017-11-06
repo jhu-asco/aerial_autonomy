@@ -1,0 +1,18 @@
+syntax = "proto2";
+
+package config;
+
+message Rotation {
+  /**
+  * @brief Roll
+  */
+  optional double r = 1 [ default = 0.0 ];
+  /**
+  * @brief Pitch
+  */
+  optional double p = 2 [ default = 0.0 ];
+  /**
+  * @brief Yaw
+  */
+  optional double y = 3 [ default = 0.0 ];
+}
