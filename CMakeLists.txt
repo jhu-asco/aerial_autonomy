@@ -225,6 +225,7 @@ add_library(aerial_autonomy
   src/trackers/alvar_tracker.cpp
   src/trackers/base_tracker.cpp
   src/trackers/simple_multi_tracker.cpp
+  src/trackers/guidance_obstacle_tracker.cpp
   src/trackers/closest_tracking_strategy.cpp
   src/trackers/id_tracking_strategy.cpp
   src/trackers/simple_tracking_strategy.cpp
