@@ -97,24 +97,6 @@ uav_system_config {
       }
     }
 
-    relative_pose_goals {
-      position {
-        x: 0
-        y: -.62
-        z: 0.235
-      }
-      yaw: 1.5708
-    }
-
-    relative_pose_goals {
-      position {
-        x: 0
-        y: -.9
-        z: 0.08
-      }
-      yaw: 1.5708
-    }
-
     velocity_based_relative_pose_controller_config {
       velocity_based_position_controller_config {
         position_gain: 0.7
@@ -157,22 +139,7 @@ uav_system_config {
         }
         goal_rotation_tolerance: 6
       }
-      way_points {
-        position {
-          x: 0.0
-          y: 0.0
-          z: 0.15
-        }
-        yaw: 3.141
-      }
-      way_points {
-        position {
-          x: 0.0
-          y: 0.0
-          z: -0.1
-        }
-        yaw: 3.141
-      }
+
       arm_system_config {
         pose_controller_config {
           goal_position_tolerance {
