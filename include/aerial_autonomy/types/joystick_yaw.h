@@ -4,11 +4,11 @@
 /**
 * @brief Combined joystick and yaw data
 */
-struct JoysticksYaw : public Joystick {
+struct JoystickYaw : public Joystick {
   /**
   * @brief constructor that takes implicitly instantiates joystick and yaw data
   */
-  JoysticksYaw() : Joystick(), yaw(0) {}
+  JoystickYaw() : Joystick(), yaw(0) {}
   /**
   * @brief  Explicitly take in channel, yaw data
   *
@@ -18,8 +18,8 @@ struct JoysticksYaw : public Joystick {
   * @param channel4 Fourth Channel
   * @param yaw Yaw data
   */
-  JoysticksYaw(double channel1, double channel2, double channel3,
-               double channel4, double yaw)
+  JoystickYaw(double channel1, double channel2, double channel3,
+              double channel4, double yaw)
       : Joystick(channel1, channel2, channel3, channel4), yaw(yaw) {}
   double yaw; ///< Yaw data stored internally
 };

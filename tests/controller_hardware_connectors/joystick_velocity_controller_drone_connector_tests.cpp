@@ -58,9 +58,9 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
   drone_hardware.getquaddata(sensor_data);
 
   std::cout << "yaw = " << sensor_data.rpydata.z << std::endl;
-  ASSERT_NEAR(sensor_data.linvel.x, 0.015, 1e-3);
-  ASSERT_NEAR(sensor_data.linvel.y, 0.01, 1e-3);
-  ASSERT_NEAR(sensor_data.linvel.z, -0.015, 1e-3);
+  ASSERT_NEAR(sensor_data.linvel.x, channels[0] / 1e4, 1e-3);
+  ASSERT_NEAR(sensor_data.linvel.y, channels[1] / 1e4, 1e-3);
+  ASSERT_NEAR(sensor_data.linvel.z, channels[2] / 1e4, 1e-3);
 }
 
 int main(int argc, char **argv) {
