@@ -45,7 +45,7 @@ public:
                                          constant_heading_depth_controller_,
                                          camera_transform_),
         relative_pose_visual_servoing_drone_connector_(
-            *tracker_, *drone_hardware,
+            *tracker_, *drone_hardware_,
             velocity_based_relative_pose_controller_, camera_transform_,
             conversions::protoTransformToTf(config_.uav_vision_system_config()
                                                 .tracking_offset_transform())) {
