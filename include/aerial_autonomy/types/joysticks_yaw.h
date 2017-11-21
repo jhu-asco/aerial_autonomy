@@ -1,14 +1,14 @@
 #pragma once
-#include "aerial_autonomy/types/joysticks.h"
+#include "aerial_autonomy/types/joystick.h"
 
 /**
 * @brief Combined joystick and yaw data
 */
-struct JoysticksYaw : public Joysticks {
+struct JoysticksYaw : public Joystick {
   /**
   * @brief constructor that takes implicitly instantiates joystick and yaw data
   */
-  JoysticksYaw() : Joysticks(), yaw(0) {}
+  JoysticksYaw() : Joystick(), yaw(0) {}
   /**
   * @brief  Explicitly take in channel, yaw data
   *
@@ -20,6 +20,6 @@ struct JoysticksYaw : public Joysticks {
   */
   JoysticksYaw(double channel1, double channel2, double channel3,
                double channel4, double yaw)
-      : Joysticks(channel1, channel2, channel3, channel4), yaw(yaw) {}
+      : Joystick(channel1, channel2, channel3, channel4), yaw(yaw) {}
   double yaw; ///< Yaw data stored internally
 };

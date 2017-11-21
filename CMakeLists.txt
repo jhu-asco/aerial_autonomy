@@ -176,6 +176,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/pose_controller_config.proto
   proto/velocity_controller_config.proto
   proto/rpyt_based_velocity_controller_config.proto
+  proto/joystick_velocity_controller_config.proto
   proto/position.proto
   proto/rotation.proto
   proto/position_yaw.proto
@@ -234,6 +235,7 @@ add_library(aerial_autonomy
   src/controllers/relative_pose_controller.cpp
   src/controllers/velocity_based_relative_pose_controller.cpp
   src/controllers/rpyt_based_velocity_controller.cpp
+  src/controllers/joystick_velocity_controller.cpp
   src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp
   src/controller_hardware_connectors/relative_pose_visual_servoing_controller_drone_connector.cpp
   src/controller_hardware_connectors/visual_servoing_controller_arm_connector.cpp
@@ -242,6 +244,7 @@ add_library(aerial_autonomy
   src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_pose_controller_arm_connector.cpp
+  src/controller_hardware_connectors/joystick_velocity_controller_drone_connector.cpp
 )
 add_dependencies(aerial_autonomy proto)
 target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES})
@@ -365,6 +368,7 @@ add_rostest_gtest(${PROJECT_NAME}-alvar-tracker-test tests/trackers/alvar_tracke
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test tests/controller_hardware_connectors/relative_pose_visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-drone-connector-test tests/controller_hardware_connectors/visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-arm-connector-test tests/controller_hardware_connectors/visual_servoing_arm_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test tests/controller_hardware_connectors/joystick_velocity_controller_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-data-stream-test tests/log/data_stream_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-log-test tests/log/log_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-string-utils-test tests/common/string_utils_tests.cpp)
@@ -387,6 +391,9 @@ if(TARGET ${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test)
 endif()
 if(TARGET ${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+endif()
+if(TARGET ${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test)
+  target_link_libraries(${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
 if(TARGET ${PROJECT_NAME}-unordered-heterogeneous-map-test)
   target_link_libraries(${PROJECT_NAME}-unordered-heterogeneous-map-test ${GLOG_LIBRARIES})
