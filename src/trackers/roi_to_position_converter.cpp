@@ -94,7 +94,7 @@ void RoiToPositionConverter::computeTrackingVector(
     for (unsigned int y = roi_rect.y_offset;
          y < roi_rect.y_offset + roi_rect.height; y++) {
       float px_depth = *(depth.ptr<float>(y, x));
-      if (!isnan(px_depth) && px_depth > 0) {
+      if (!std::isnan(px_depth) && px_depth > 0) {
         if (px_depth <= max_distance)
           roi_position_depths.push_back(Eigen::Vector3d(x, y, px_depth));
       }
