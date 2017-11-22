@@ -8,8 +8,19 @@
 
 #include <sensor_msgs/LaserScan.h>
 
+/**
+* @brief This class subscribes to a ROS topic published by the Guidance ROS
+* node.
+* The topic publishes obstacle information, which is then stored by this class.
+*/
 class GuidanceObstacleTracker : public BaseTracker {
 public:
+  /**
+  * @brief Constructor
+  * @param name_space Namespace for internal ROS node
+  * @param msg_timeout Duration of time until an obstacle message becomes old
+  * and invalid
+  */
   GuidanceObstacleTracker(std::string name_space = "~tracker",
                           double msg_timeout = 0.2)
       : BaseTracker(
@@ -38,12 +49,31 @@ public:
   bool isConnected();
 
 private:
+  /**
+  * @brief Callback for receiving obstacle messages from guidance.  Stores
+  * obstacles in a vector for later retrieval
+  * @param obstacle_msg Message containing obstacle information
+  */
   void guidanceCallback(const sensor_msgs::LaserScan &obstacle_msg);
 
+  /**
+  * @brief Nodehandle for subscribing to Guidance node
+  */
   ros::NodeHandle nh_;
+  /**
+  * @brief Subscriber to obstacle message topic
+  */
   ros::Subscriber guidance_obstacle_sub_;
-
+  /**
+  * @brief Obstacle transforms from last received message
+  */
   Atomic<std::vector<tf::Transform>> obstacle_transforms_;
+  /**
+  * @brief Last time subscriber received an obstacle message
+  */
   Atomic<ros::Time> last_obstacle_time_;
+  /**
+  * @brief Time until an obstacle message becomes invalid
+  */
   const double msg_timeout_;
 };
