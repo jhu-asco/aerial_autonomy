@@ -35,7 +35,8 @@ public:
         uav_controller_timer_(
             std::bind(&UAVArmSystem::runActiveController, std::ref(uav_system_),
                       HardwareType::UAV),
-            std::chrono::milliseconds(config.uav_controller_timer_duration())),
+            std::chrono::milliseconds(
+                config.uav_system_config().uav_controller_timer_duration())),
         arm_controller_timer_(
             std::bind(&UAVArmSystem::runActiveController, std::ref(uav_system_),
                       HardwareType::Arm),

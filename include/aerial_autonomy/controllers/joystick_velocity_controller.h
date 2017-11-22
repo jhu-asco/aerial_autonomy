@@ -36,8 +36,7 @@ public:
   JoystickVelocityController(
       JoystickVelocityControllerConfig joystick_velocity_controller_config,
       double controller_timer_duration)
-      : controller_timer_duration_(controller_timer_duration),
-        joystick_velocity_controller_config_(
+      : joystick_velocity_controller_config_(
             joystick_velocity_controller_config),
         rpyt_velocity_controller_(joystick_velocity_controller_config_
                                       .rpyt_based_velocity_controller_config(),
@@ -78,10 +77,6 @@ protected:
       EmptyGoal goal);
 
 private:
-  /**
-  * @brief Controller timestep
-  */
-  double controller_timer_duration_;
   /**
   * @brief Controller config for manual velocity controller
   */

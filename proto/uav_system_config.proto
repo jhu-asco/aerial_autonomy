@@ -8,6 +8,8 @@ import "velocity_controller_config.proto";
 
 import "velocity_based_position_controller_config.proto";
 
+import "joystick_velocity_controller_config.proto";
+
 message UAVSystemConfig {
   /**
   * @brief Battery percentage required for takeoff
@@ -41,6 +43,8 @@ message UAVSystemConfig {
   optional VelocityBasedPositionControllerConfig
       velocity_based_position_controller_config = 7;
 
+  optional JoystickVelocityControllerConfig
+      joystick_velocity_controller_config = 12;
   /**
   * @brief A crude form of inheritance for proto. Contains a config for
   * subclasses of UAVSystemConfig
@@ -58,4 +62,9 @@ message UAVSystemConfig {
   */
   optional string uav_parser_type = 10
       [ default = "quad_simulator_parser/QuadSimParser" ];
+  /**
+  * @brief Timestep in milliseconds for timer which runs uav controller
+  * continously
+  */
+  optional int32 uav_controller_timer_duration = 11 [ default = 20 ];
 }

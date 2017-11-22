@@ -7,8 +7,10 @@
 #include <aerial_autonomy/robot_systems/base_robot_system.h>
 // Controllers
 #include <aerial_autonomy/controllers/basic_controllers.h>
+#include <aerial_autonomy/controllers/joystick_velocity_controller.h>
 // Specific ControllerConnectors
 #include <aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h>
+#include <aerial_autonomy/controller_hardware_connectors/joystick_velocity_controller_drone_connector.h>
 // Load UAV parser
 #include <pluginlib/class_loader.h>
 // Base class for UAV parsers
@@ -58,6 +60,10 @@ private:
   */
   ManualRPYTController manual_rpyt_controller_;
   /**
+  * @brief Velocity controller which takes joystick controls as inputs
+  */
+  JoystickVelocityController joystick_velocity_controller_;
+  /**
    * @brief connector for position controller
    */
   PositionControllerDroneConnector position_controller_drone_connector_;
@@ -75,6 +81,12 @@ private:
   * @brief connector for rpyt controller
   */
   ManualRPYTControllerDroneConnector rpyt_controller_drone_connector_;
+
+  /**
+  * @brief Connector from JoystickVelocityController to drone hardware
+  */
+  JoystickVelocityControllerDroneConnector
+      joystick_velocity_controller_drone_connector_;
 
   /**
   * @brief Home Location
@@ -142,6 +154,9 @@ public:
             config.velocity_based_position_controller_config()),
         builtin_position_controller_(config.position_controller_config()),
         builtin_velocity_controller_(config.velocity_controller_config()),
+        joystick_velocity_controller_(
+            config.joystick_velocity_controller_config(),
+            config.uav_controller_timer_duration()),
         position_controller_drone_connector_(*drone_hardware_,
                                              builtin_position_controller_),
         velocity_based_position_controller_drone_connector_(
@@ -150,6 +165,8 @@ public:
                                              builtin_velocity_controller_),
         rpyt_controller_drone_connector_(*drone_hardware_,
                                          manual_rpyt_controller_),
+        joystick_velocity_controller_drone_connector_(
+            *drone_hardware_, joystick_velocity_controller_),
         home_location_specified_(false) {
     drone_hardware_->initialize();
     // Add control hardware connector containers
