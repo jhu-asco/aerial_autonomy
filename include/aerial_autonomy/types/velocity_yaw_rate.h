@@ -70,7 +70,7 @@ struct VelocityYawRate : public Velocity {
   /**
   * @brief Substract two velocity yaw rate entities
   *
-  * @param v VelocityYawRate to be substracted from current velocity yaw
+  * @param v VelocityYawRate to be substracted from current velocity yaw rate
   *
   * @return Difference between velocity yaw rates
   */

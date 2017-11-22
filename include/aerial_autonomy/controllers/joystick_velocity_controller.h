@@ -58,7 +58,9 @@ public:
 protected:
   /**
    * @brief Run the control loop.  Converts Joystick commands to Velocity.
-   * @param sensor_data Joystick commands to be converted into Velocity.
+   * @param sensor_data Joystick commands to be converted into Velocity yaw
+   * rate.
+   * Also provide current velocity yawrate and current yaw for rpyt controller
    * @param goal Goal is not used here
    * @param control RPYT to send to hardware
    * return True if successfully converted sensor data to control

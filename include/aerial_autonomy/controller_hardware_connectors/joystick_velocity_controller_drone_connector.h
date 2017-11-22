@@ -33,6 +33,14 @@ public:
                  RollPitchYawRateThrust> &controller);
 
 protected:
+  /**
+  * @brief extract sensor data from drone hardware
+  *
+  * @param sensor_data current joystick channels, velocity and yawrate, and
+  * current yaw
+  *
+  * @return  false if there is an error in getting data from hardware
+  */
   virtual bool
   extractSensorData(std::tuple<Joystick, VelocityYawRate, double> &sensor_data);
   /**

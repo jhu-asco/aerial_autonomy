@@ -41,7 +41,7 @@ struct Velocity {
   /**
   * @brief Substract two velocity entities
   *
-  * @param v Velocity to be substracted from current velocity yaw
+  * @param v Velocity to be substracted from current velocity
   *
   * @return Difference between velocities
   */
