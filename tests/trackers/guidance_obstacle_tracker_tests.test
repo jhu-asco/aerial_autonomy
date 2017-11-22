@@ -1,0 +1,4 @@
+
+<launch>
+  <test test-name="GuidanceObstacleTracker" pkg="aerial_autonomy" type="aerial_autonomy-guidance-obstacle-tracker-test" />
+</launch>
