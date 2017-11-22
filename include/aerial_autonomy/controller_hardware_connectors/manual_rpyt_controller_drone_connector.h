@@ -1,8 +1,8 @@
 #pragma once
 #include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
 #include "aerial_autonomy/types/empty_goal.h"
-#include "aerial_autonomy/types/joystick_yaw.h"
-#include "aerial_autonomy/types/roll_pitch_yaw_thrust.h"
+#include "aerial_autonomy/types/joystick.h"
+#include "aerial_autonomy/types/roll_pitch_yawrate_thrust.h"
 
 #include <parsernode/parser.h>
 
@@ -10,8 +10,8 @@
 * @brief Maps Joystick goals to rpythrust commands to quadrotor
 */
 class ManualRPYTControllerDroneConnector
-    : public ControllerHardwareConnector<JoystickYaw, EmptyGoal,
-                                         RollPitchYawThrust> {
+    : public ControllerHardwareConnector<Joystick, EmptyGoal,
+                                         RollPitchYawRateThrust> {
 public:
   /**
   * @brief Constructor
@@ -24,9 +24,11 @@ public:
   */
   ManualRPYTControllerDroneConnector(
       parsernode::Parser &drone_hardware,
-      Controller<JoystickYaw, EmptyGoal, RollPitchYawThrust> &controller)
+      Controller<Joystick, EmptyGoal, RollPitchYawRateThrust> &controller)
       : ControllerHardwareConnector(controller, HardwareType::UAV),
-        drone_hardware_(drone_hardware) {}
+        drone_hardware_(drone_hardware) {
+    drone_hardware_.setmode("rp_angle_yawrate");
+  }
 
 protected:
   /**
@@ -36,14 +38,14 @@ protected:
    *
    * @return true if succesfully extracted joystick data
    */
-  virtual bool extractSensorData(JoystickYaw &sensor_data);
+  virtual bool extractSensorData(Joystick &sensor_data);
 
   /**
    * @brief  Send RPYT commands to hardware
    *
    * @param controls RPYT command to send to drone
    */
-  virtual void sendHardwareCommands(RollPitchYawThrust controls);
+  virtual void sendHardwareCommands(RollPitchYawRateThrust controls);
 
 private:
   /**

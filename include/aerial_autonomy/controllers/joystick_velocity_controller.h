@@ -1,11 +1,10 @@
 #pragma once
 #include "aerial_autonomy/controllers/base_controller.h"
 #include "aerial_autonomy/controllers/rpyt_based_velocity_controller.h"
-#include "aerial_autonomy/log/log.h"
 #include "aerial_autonomy/types/empty_goal.h"
 #include "aerial_autonomy/types/joystick.h"
-#include "aerial_autonomy/types/roll_pitch_yaw_thrust.h"
-#include "aerial_autonomy/types/velocity_yaw.h"
+#include "aerial_autonomy/types/roll_pitch_yawrate_thrust.h"
+#include "aerial_autonomy/types/velocity_yaw_rate.h"
 #include "joystick_velocity_controller_config.pb.h"
 #include "rpyt_based_velocity_controller_config.pb.h"
 
@@ -14,8 +13,8 @@
  * and commands rpythrust to the drone
  */
 class JoystickVelocityController
-    : public Controller<std::tuple<Joystick, VelocityYaw>, EmptyGoal,
-                        RollPitchYawThrust> {
+    : public Controller<std::tuple<Joystick, VelocityYawRate, double>,
+                        EmptyGoal, RollPitchYawRateThrust> {
 public:
   /**
   * @brief Constructor
@@ -42,16 +41,7 @@ public:
             joystick_velocity_controller_config),
         rpyt_velocity_controller_(joystick_velocity_controller_config_
                                       .rpyt_based_velocity_controller_config(),
-                                  controller_timer_duration) {
-    DATA_HEADER("joystick_velocity_controller") << "Channel1"
-                                                << "Channel2  "
-                                                << "Channel3"
-                                                << "Channel4"
-                                                << "velocity_x"
-                                                << "velocity_y"
-                                                << "velocity_z"
-                                                << "Yaw" << DataStream::endl;
-  }
+                                  controller_timer_duration) {}
   /**
   * @brief Update RPYT controller config
   */
@@ -64,12 +54,6 @@ public:
   RPYTBasedVelocityControllerConfig getRPYTConfig() {
     return rpyt_velocity_controller_.getConfig();
   }
-  /**
-  * @brief set last commanded yaw
-  */
-  void setLastCommandedYaw(double last_commanded_yaw) {
-    last_yaw_ = last_commanded_yaw;
-  }
 
 protected:
   /**
@@ -79,16 +63,17 @@ protected:
    * @param control RPYT to send to hardware
    * return True if successfully converted sensor data to control
    */
-  virtual bool runImplementation(std::tuple<Joystick, VelocityYaw> sensor_data,
-                                 EmptyGoal goal, RollPitchYawThrust &control);
+  virtual bool
+  runImplementation(std::tuple<Joystick, VelocityYawRate, double> sensor_data,
+                    EmptyGoal goal, RollPitchYawRateThrust &control);
   /**
   * @brief Converges when the internal controller converges
   *
   * @return Completed when controller converges
   */
-  virtual ControllerStatus
-  isConvergedImplementation(std::tuple<Joystick, VelocityYaw> sensor_data,
-                            EmptyGoal goal);
+  virtual ControllerStatus isConvergedImplementation(
+      std::tuple<Joystick, VelocityYawRate, double> sensor_data,
+      EmptyGoal goal);
 
 private:
   /**
@@ -96,15 +81,19 @@ private:
   */
   double controller_timer_duration_;
   /**
-* @brief Controller config for manual velocity controller
-*/
+  * @brief Controller config for manual velocity controller
+  */
   JoystickVelocityControllerConfig joystick_velocity_controller_config_;
   /**
   * @brief Internal controller to get rpyt from desired velocity
   */
   RPYTBasedVelocityController rpyt_velocity_controller_;
   /**
-  * @brief Last commanded yaw
-  */
-  double last_yaw_ = 0;
+   * @brief convert joystick channels to velocity yaw rate
+   *
+   * @param joystick user provided channel information
+   *
+   * @return velocity and yaw rate obtained from joystick
+   */
+  VelocityYawRate convertJoystickToVelocityYawRate(const Joystick joystick);
 };
