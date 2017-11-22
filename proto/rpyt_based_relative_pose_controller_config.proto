@@ -1,0 +1,12 @@
+syntax = "proto2";
+
+import "velocity_based_relative_pose_controller_config.proto";
+import "rpyt_based_velocity_controller_config.proto";
+
+message RPYTBasedRelativePoseControllerConfig {
+
+  optional VelocityBasedRelativePoseControllerConfig
+      velocity_based_relative_pose_controller_config = 1;
+  optional RPYTBasedVelocityControllerConfig
+      rpyt_based_velocity_controller_config = 2;
+}

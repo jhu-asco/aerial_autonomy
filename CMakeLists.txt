@@ -176,6 +176,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/pose_controller_config.proto
   proto/velocity_controller_config.proto
   proto/rpyt_based_velocity_controller_config.proto
+  proto/rpyt_based_relative_pose_controller_config.proto
   proto/joystick_velocity_controller_config.proto
   proto/position.proto
   proto/rotation.proto
@@ -235,6 +236,7 @@ add_library(aerial_autonomy
   src/controllers/relative_pose_controller.cpp
   src/controllers/velocity_based_relative_pose_controller.cpp
   src/controllers/rpyt_based_velocity_controller.cpp
+  src/controllers/rpyt_based_relative_pose_controller.cpp
   src/controllers/joystick_velocity_controller.cpp
   src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp
   src/controller_hardware_connectors/relative_pose_visual_servoing_controller_drone_connector.cpp
