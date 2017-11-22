@@ -6,9 +6,7 @@ JoystickVelocityControllerDroneConnector::
         Controller<std::tuple<Joystick, VelocityYawRate, double>, EmptyGoal,
                    RollPitchYawRateThrust> &controller)
     : ControllerHardwareConnector(controller, HardwareType::UAV),
-      drone_hardware_(drone_hardware) {
-  drone_hardware_.setmode("rp_angle_yawrate");
-}
+      drone_hardware_(drone_hardware) {}
 
 bool JoystickVelocityControllerDroneConnector::extractSensorData(
     std::tuple<Joystick, VelocityYawRate, double> &sensor_data) {
@@ -34,5 +32,5 @@ void JoystickVelocityControllerDroneConnector::sendHardwareCommands(
   rpyt_command.y = controls.p;
   rpyt_command.z = controls.y;
   rpyt_command.w = controls.t;
-  drone_hardware_.cmdrpythrust(rpyt_command, true);
+  drone_hardware_.cmdrpyawratethrust(rpyt_command);
 }

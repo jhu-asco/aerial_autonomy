@@ -16,5 +16,5 @@ void ManualRPYTControllerDroneConnector::sendHardwareCommands(
   rpyt_command.y = controls.p;
   rpyt_command.z = controls.y;
   rpyt_command.w = controls.t;
-  drone_hardware_.cmdrpythrust(rpyt_command, true);
+  drone_hardware_.cmdrpyawratethrust(rpyt_command);
 }

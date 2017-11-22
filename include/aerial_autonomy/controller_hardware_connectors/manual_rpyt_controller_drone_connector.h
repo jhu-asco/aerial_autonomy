@@ -26,9 +26,7 @@ public:
       parsernode::Parser &drone_hardware,
       Controller<Joystick, EmptyGoal, RollPitchYawRateThrust> &controller)
       : ControllerHardwareConnector(controller, HardwareType::UAV),
-        drone_hardware_(drone_hardware) {
-    drone_hardware_.setmode("rp_angle_yawrate");
-  }
+        drone_hardware_(drone_hardware) {}
 
 protected:
   /**
