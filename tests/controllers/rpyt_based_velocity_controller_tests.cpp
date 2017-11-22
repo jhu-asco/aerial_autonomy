@@ -7,10 +7,9 @@
 TEST(RPYTBasedVelocityControllerTests, SetGetGoal) {
   RPYTBasedVelocityControllerConfig config_;
   RPYTBasedVelocityController controller(config_, 0.02);
-  VelocityYaw sensor_data(0, 0, 0, 0);
-  VelocityYaw goal(0.1, -0.1, 0.1, 0.1);
+  VelocityYawRate goal(0.1, -0.1, 0.1, 0.1);
   controller.setGoal(goal);
-  VelocityYaw exp_goal = controller.getGoal();
+  VelocityYawRate exp_goal = controller.getGoal();
   ASSERT_EQ(exp_goal, goal);
 }
 
@@ -18,13 +17,13 @@ TEST(RPYTBasedVelocityControllerTests, ControlsInBounds) {
   double dt = 0.02;
   RPYTBasedVelocityControllerConfig config;
   RPYTBasedVelocityController controller(config, dt);
-  VelocityYaw sensor_data(0, 0, 0, 0);
-  VelocityYaw goal(0.1, -0.1, 0.1, 0.1);
+  auto sensor_data = std::make_tuple(VelocityYawRate(0, 0, 0, 0), 0.0);
+  double yaw = std::get<1>(sensor_data);
+  VelocityYawRate goal(0.1, -0.1, 0.1, 0.1);
   controller.setGoal(goal);
-  VelocityYaw exp_goal = controller.getGoal();
 
-  VelocityYaw velocity_diff = goal - sensor_data;
-  RollPitchYawThrust controls;
+  VelocityYawRate velocity_diff = goal - std::get<0>(sensor_data);
+  RollPitchYawRateThrust controls;
   bool result = controller.run(sensor_data, controls);
 
   double acc_x =
@@ -38,15 +37,12 @@ TEST(RPYTBasedVelocityControllerTests, ControlsInBounds) {
       sqrt(acc_x * acc_x + acc_y * acc_y + acc_z * acc_z) / config.kt();
 
   double rot_acc_x =
-      (acc_x * cos(sensor_data.yaw) + acc_y * sin(sensor_data.yaw)) /
-      (config.kt() * controls.t);
+      (acc_x * cos(yaw) + acc_y * sin(yaw)) / (config.kt() * controls.t);
   double rot_acc_y =
-      (-acc_x * sin(sensor_data.yaw) + acc_y * cos(sensor_data.yaw)) /
-      (config.kt() * controls.t);
+      (-acc_x * sin(yaw) + acc_y * cos(yaw)) / (config.kt() * controls.t);
   double rot_acc_z = acc_z / (config.kt() * controls.t);
 
-  ASSERT_EQ(exp_goal, goal);
-  ASSERT_NEAR(controls.y, goal.yaw, 1e-4);
+  ASSERT_NEAR(controls.y, goal.yaw_rate, 1e-4);
   ASSERT_NEAR(controls.t, exp_t, 1e-4);
   ASSERT_NEAR(controls.r, -asin(rot_acc_y), 1e-4);
   ASSERT_NEAR(controls.p, atan2(rot_acc_x, rot_acc_z), 1e-4);
@@ -66,13 +62,13 @@ TEST(RPYTBasedVelocityControllerTests, ChangeConfig) {
 
   controller.updateConfig(config);
 
-  VelocityYaw sensor_data(0, 0, 0, 0);
-  VelocityYaw goal(0.1, -0.1, 0.1, 0.1);
+  auto sensor_data = std::make_tuple(VelocityYawRate(0, 0, 0, 0), 0.0);
+  double yaw = std::get<1>(sensor_data);
+  VelocityYawRate goal(0.1, -0.1, 0.1, 0.1);
   controller.setGoal(goal);
-  VelocityYaw exp_goal = controller.getGoal();
 
-  VelocityYaw velocity_diff = goal - sensor_data;
-  RollPitchYawThrust controls;
+  VelocityYawRate velocity_diff = goal - std::get<0>(sensor_data);
+  RollPitchYawRateThrust controls;
   bool result = controller.run(sensor_data, controls);
 
   double acc_x =
@@ -86,15 +82,12 @@ TEST(RPYTBasedVelocityControllerTests, ChangeConfig) {
       sqrt(acc_x * acc_x + acc_y * acc_y + acc_z * acc_z) / config.kt();
 
   double rot_acc_x =
-      (acc_x * cos(sensor_data.yaw) + acc_y * sin(sensor_data.yaw)) /
-      (config.kt() * controls.t);
+      (acc_x * cos(yaw) + acc_y * sin(yaw)) / (config.kt() * controls.t);
   double rot_acc_y =
-      (-acc_x * sin(sensor_data.yaw) + acc_y * cos(sensor_data.yaw)) /
-      (config.kt() * controls.t);
+      (-acc_x * sin(yaw) + acc_y * cos(yaw)) / (config.kt() * controls.t);
   double rot_acc_z = acc_z / (config.kt() * controls.t);
 
-  ASSERT_EQ(exp_goal, goal);
-  ASSERT_NEAR(controls.y, goal.yaw, 1e-4);
+  ASSERT_NEAR(controls.y, goal.yaw_rate, 1e-4);
   ASSERT_NEAR(controls.t, exp_t, 1e-4);
   ASSERT_NEAR(controls.r, -asin(rot_acc_y), 1e-4);
   ASSERT_NEAR(controls.p, atan2(rot_acc_x, rot_acc_z), 1e-4);
@@ -108,10 +101,10 @@ TEST(RPYTBasedVelocityControllerTests, RollNinety) {
   config.set_ki(0.0);
 
   RPYTBasedVelocityController controller(config, 0.02);
-  VelocityYaw sensor_data(0, 0, 0, 0);
-  VelocityYaw goal(0.0, 1.1, -9.81, 0.0);
+  auto sensor_data = std::make_tuple(VelocityYawRate(0, 0, 0, 0), 0.0);
+  VelocityYawRate goal(0.0, 1.1, -9.81, 0.0);
   controller.setGoal(goal);
-  RollPitchYawThrust controls;
+  RollPitchYawRateThrust controls;
   controller.run(sensor_data, controls);
 
   ASSERT_EQ(controls.p, 0);
@@ -120,10 +113,10 @@ TEST(RPYTBasedVelocityControllerTests, RollNinety) {
 TEST(RPYTBasedVelocityControllerTests, MaxThrust) {
   RPYTBasedVelocityControllerConfig config;
   RPYTBasedVelocityController controller(config, 0.02);
-  VelocityYaw sensor_data(0, 0, 0, 0);
-  VelocityYaw goal(10.0, 10.0, 10.0, 0.0);
+  auto sensor_data = std::make_tuple(VelocityYawRate(0, 0, 0, 0), 0.0);
+  VelocityYawRate goal(10.0, 10.0, 10.0, 0.0);
   controller.setGoal(goal);
-  RollPitchYawThrust controls;
+  RollPitchYawRateThrust controls;
   controller.run(sensor_data, controls);
 
   ASSERT_EQ(controls.t, config.max_thrust());
@@ -137,10 +130,10 @@ TEST(RPYTBasedVelocityControllerTests, MaxRoll) {
   config.set_max_rp(1.0);
 
   RPYTBasedVelocityController controller(config, 0.02);
-  VelocityYaw sensor_data(0, 0, 0, 0);
-  VelocityYaw goal(0.0, 1.1, -9.81, 0.1);
+  auto sensor_data = std::make_tuple(VelocityYawRate(0, 0, 0, 0), 0.0);
+  VelocityYawRate goal(0.0, 1.1, -9.81, 0.1);
   controller.setGoal(goal);
-  RollPitchYawThrust controls;
+  RollPitchYawRateThrust controls;
   controller.run(sensor_data, controls);
 
   ASSERT_EQ(controls.r, -config.max_rp());
@@ -162,12 +155,14 @@ TEST(RPYTConvergenceTest, Convergence) {
 
   RPYTBasedVelocityController controller(config, dt);
 
-  VelocityYaw sensor_data;
-  VelocityYaw goal(1.0, 1.0, 1.0, 0);
+  auto sensor_data = std::make_tuple(VelocityYawRate(0, 0, 0, 0), 0.0);
+  auto &velocity_yaw_rate = std::get<0>(sensor_data);
+  double &yaw = std::get<1>(sensor_data);
+  VelocityYawRate goal(1.0, 1.0, 1.0, 0);
   controller.setGoal(goal);
   auto convergence = [&]() {
 
-    RollPitchYawThrust controls;
+    RollPitchYawRateThrust controls;
 
     controller.run(sensor_data, controls);
     tf::Transform tf;
@@ -180,10 +175,11 @@ TEST(RPYTConvergenceTest, Convergence) {
         tf::Vector3(0, 0, controls.t * config.kt() + ext_z_acc);
     tf::Vector3 global_acc = tf * body_acc;
 
-    sensor_data.x = sensor_data.x + global_acc[0] * dt;
-    sensor_data.y = sensor_data.y + global_acc[1] * dt;
-    sensor_data.z = sensor_data.z + (global_acc[2] - 9.81) * dt;
-    sensor_data.yaw = controls.y;
+    velocity_yaw_rate.x = velocity_yaw_rate.x + global_acc[0] * dt;
+    velocity_yaw_rate.y = velocity_yaw_rate.y + global_acc[1] * dt;
+    velocity_yaw_rate.z = velocity_yaw_rate.z + (global_acc[2] - 9.81) * dt;
+    velocity_yaw_rate.yaw_rate = controls.y;
+    yaw = yaw + controls.y * dt;
 
     return bool(controller.isConverged(sensor_data));
 
