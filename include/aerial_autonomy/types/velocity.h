@@ -38,4 +38,14 @@ struct Velocity {
   * @return  True if two vectors are not equal
   */
   bool operator!=(const Velocity &v) const { return !(*this == v); }
+  /**
+  * @brief Substract two velocity entities
+  *
+  * @param v Velocity to be substracted from current velocity
+  *
+  * @return Difference between velocities
+  */
+  Velocity operator-(const Velocity &v) const {
+    return Velocity(this->x - v.x, this->y - v.y, this->z - v.z);
+  }
 };

@@ -1,8 +1,8 @@
 #pragma once
 #include "aerial_autonomy/controllers/base_controller.h"
 #include "aerial_autonomy/log/log.h"
-#include "aerial_autonomy/types/roll_pitch_yaw_thrust.h"
-#include "aerial_autonomy/types/velocity_yaw.h"
+#include "aerial_autonomy/types/roll_pitch_yawrate_thrust.h"
+#include "aerial_autonomy/types/velocity_yaw_rate.h"
 #include "rpyt_based_velocity_controller_config.pb.h"
 #include <glog/logging.h>
 /**
@@ -11,7 +11,8 @@
  */
 
 class RPYTBasedVelocityController
-    : public Controller<VelocityYaw, VelocityYaw, RollPitchYawThrust> {
+    : public Controller<std::tuple<VelocityYawRate, double>, VelocityYawRate,
+                        RollPitchYawRateThrust> {
 public:
   /**
   * @brief Constructor which takes in a config
@@ -31,11 +32,12 @@ public:
     DATA_HEADER("rpyt_based_velocity_controller") << "Errorx"
                                                   << "Errory"
                                                   << "Errorz"
-                                                  << "Erroryaw"
+                                                  << "Erroryawrate"
+                                                  << "Yaw"
                                                   << "Goalvx"
                                                   << "Goalvy"
                                                   << "Goalvz"
-                                                  << "Goalvyaw"
+                                                  << "Goalvyawrate"
                                                   << DataStream::endl;
   }
   /**
@@ -47,7 +49,7 @@ public:
     cumulative_error.x = 0.0;
     cumulative_error.y = 0.0;
     cumulative_error.z = 0.0;
-    cumulative_error.yaw = 0.0;
+    cumulative_error.yaw_rate = 0.0;
   }
   /**
   * @brief update config
@@ -67,13 +69,14 @@ protected:
   /**
    * @brief Run the control loop.  Uses a rpyt controller to achieve the
    * desired velocity.
-   * @param sensor_data Current velocity
+   * @param sensor_data Current velocity, yaw_rate, yaw
    * @param goal Goal velocity
    * @param control RPYT command to send to hardware
    * @return true if rpyt command to reach goal is found
    */
-  virtual bool runImplementation(VelocityYaw sensor_data, VelocityYaw goal,
-                                 RollPitchYawThrust &control);
+  virtual bool
+  runImplementation(std::tuple<VelocityYawRate, double> sensor_data,
+                    VelocityYawRate goal, RollPitchYawRateThrust &control);
   /**
   * @brief Check if RPYT based velocity controller converged
   *
@@ -82,10 +85,11 @@ protected:
   *
   * @return  True if sensor data is close to goal
   */
-  virtual ControllerStatus isConvergedImplementation(VelocityYaw sensor_data,
-                                                     VelocityYaw goal);
+  virtual ControllerStatus
+  isConvergedImplementation(std::tuple<VelocityYawRate, double> sensor_data,
+                            VelocityYawRate goal);
   Atomic<RPYTBasedVelocityControllerConfig>
       config_; ///< Controller configuration
-  VelocityYaw cumulative_error;
+  VelocityYawRate cumulative_error;
   double controller_timer_duration_;
 };
