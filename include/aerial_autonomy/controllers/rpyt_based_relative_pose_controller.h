@@ -12,7 +12,7 @@
 
 /**
  * @brief A pose controller that keeps a pose relative to some feedback
- * pose using a velocity controller.
+ * pose using a velocity controller and a rpyt controller.
  * Note 1: Only the yaw of the desired pose is tracked
  * since a quadrotor is underactuated and cannot arbitrarily control roll/pitch
  * while hovering
@@ -29,7 +29,8 @@ public:
                                   double controller_timer_duration)
       : config_(config),
         velocity_based_relative_pose_controller_(
-            config.velocity_based_relative_pose_controller_config()),
+            config.velocity_based_relative_pose_controller_config(),
+            controller_timer_duration),
         rpyt_based_velocity_controller_(
             config.rpyt_based_velocity_controller_config(),
             controller_timer_duration) {}

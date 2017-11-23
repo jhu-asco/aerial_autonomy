@@ -3,6 +3,8 @@
 #include <string>
 // Vector for debug info
 #include <vector>
+// Html utils
+#include <aerial_autonomy/common/html_utils.h>
 
 /**
 * @brief Status of the controller
@@ -22,8 +24,16 @@ public:
 private:
   Status status_;                  ///< Current status
   std::string status_description_; ///< Description for status if any
-  std::string debug_header;        ///< Header for debug info
-  std::vector<double> debug_info; ///< Debug data associated with current status
+  std::string debug_header_;       ///< Header for debug info
+  std::vector<double>
+      debug_info_; ///< Debug data associated with current status
+                   /**
+                   * @brief Debug information from other statuses that gets added when combining
+                   * multiple status together. The tuple contains, status, status description,
+                   * debug header and debug info in the specified order.
+                   */
+  std::vector<std::tuple<Status, std::string, std::string, std::vector<double>>>
+      additional_debug_info_;
 
   /**
    * @brief An overload for comparing against an enum
@@ -79,6 +89,18 @@ private:
   friend ControllerStatus &operator<<(ControllerStatus &cs,
                                       const std::string &data);
 
+  /**
+  * @brief Helper function to add status, status description, debug header and
+  * debug data to html table
+  *
+  * @param debug_tuple        status, status description, debug header and debug
+  * data
+  * @param html_table_writer  Table to add status and debug data
+  */
+  void addDebugInfo(const std::tuple<Status, std::string, std::string,
+                                     std::vector<double>> &debug_tuple,
+                    HtmlTableWriter &html_table_writer);
+
 public:
   /**
    * @brief Constructor with default status as not engaged and short message
@@ -127,4 +149,13 @@ public:
   explicit operator bool() const {
     return status_ == ControllerStatus::Completed;
   }
+  /**
+  * @brief Merge two status together. Add the debug info, header into
+  * additional_debug_info tuple
+  *
+  * @param rhs_status merge this status into the current status
+  *
+  * @return current status with updated debug info and data
+  */
+  ControllerStatus &operator+=(const ControllerStatus &rhs_status);
 };

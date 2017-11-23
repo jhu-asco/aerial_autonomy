@@ -26,8 +26,16 @@ bool RPYTBasedRelativePoseController::runImplementation(
 ControllerStatus RPYTBasedRelativePoseController::isConvergedImplementation(
     std::tuple<tf::Transform, tf::Transform, VelocityYawRate> sensor_data,
     PositionYaw goal) {
-  // TODO use status from rpyt_based velocity controller also
+  tf::Transform current_transform = std::get<0>(sensor_data);
   auto transform_tuple =
-      std::make_tuple(std::get<0>(sensor_data), std::get<1>(sensor_data));
-  return velocity_based_relative_pose_controller_.isConverged(transform_tuple);
+      std::make_tuple(current_transform, std::get<1>(sensor_data));
+  double current_yaw = tf::getYaw(current_transform.getRotation());
+  auto velocity_yawrate_yaw_tuple =
+      std::make_tuple(std::get<2>(sensor_data), current_yaw);
+  ControllerStatus overall_status(ControllerStatus::Completed);
+  overall_status +=
+      velocity_based_relative_pose_controller_.isConverged(transform_tuple);
+  overall_status +=
+      rpyt_based_velocity_controller_.isConverged(velocity_yawrate_yaw_tuple);
+  return overall_status;
 }
