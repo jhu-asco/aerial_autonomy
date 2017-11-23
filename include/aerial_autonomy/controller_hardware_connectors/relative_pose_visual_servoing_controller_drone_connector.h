@@ -1,9 +1,10 @@
 #pragma once
 #include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
+#include "aerial_autonomy/controller_hardware_connectors/base_relative_pose_visual_servoing_connector.h"
 #include "aerial_autonomy/controllers/velocity_based_relative_pose_controller.h"
 #include "aerial_autonomy/trackers/base_tracker.h"
 #include "aerial_autonomy/types/velocity_yaw_rate.h"
-#include "uav_vision_system_config.pb.h"
+//#include "uav_vision_system_config.pb.h"
 
 #include <parsernode/parser.h>
 
@@ -17,7 +18,8 @@
 class RelativePoseVisualServoingControllerDroneConnector
     : public ControllerHardwareConnector<
           std::tuple<tf::Transform, tf::Transform>, PositionYaw,
-          VelocityYawRate> {
+          VelocityYawRate>,
+      public BaseRelativePoseVisualServoingConnector {
 public:
   /**
    * @brief Constructor
@@ -32,29 +34,15 @@ public:
       BaseTracker &tracker, parsernode::Parser &drone_hardware,
       VelocityBasedRelativePoseController &controller,
       tf::Transform camera_transform,
-      tf::Transform tracking_offset_transform =
-          tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0)))
+      tf::Transform tracking_offset_transform = tf::Transform::getIdentity())
       : ControllerHardwareConnector(controller, HardwareType::UAV),
-        drone_hardware_(drone_hardware), tracker_(tracker),
-        camera_transform_(camera_transform),
-        // \todo Matt This will become unwieldy when we are tracking multiple
-        // objects, each with different offsets.  This assumes the offset is the
-        // same for all tracked objects
-        tracking_offset_transform_(tracking_offset_transform) {}
+        BaseRelativePoseVisualServoingConnector(tracker, drone_hardware,
+                                                camera_transform,
+                                                tracking_offset_transform) {}
   /**
    * @brief Destructor
    */
   virtual ~RelativePoseVisualServoingControllerDroneConnector() {}
-
-  /**
-   * @brief Get the rotation-compensated tracking pose of the tracker in the
-   * rotation-compensated
-   * frame of the quadrotor
-   * @param tracking_vector Returned tracking pose
-   * @return True if successful and false otherwise
-   */
-  bool getTrackingTransformRotationCompensatedQuadFrame(
-      tf::Transform &tracking_transform);
 
 protected:
   /**
@@ -75,29 +63,4 @@ protected:
    * @param controls velocity command to send to UAV
    */
   virtual void sendHardwareCommands(VelocityYawRate controls);
-
-private:
-  /**
-   * @brief Get the rotation of the uav body frame
-   * @return The rotation transform
-   */
-  tf::Transform getBodyFrameRotation();
-
-  /**
-  * @brief Quad hardware to send commands
-  */
-  parsernode::Parser &drone_hardware_;
-  /**
-  * @brief Tracks whatever we are servoing to
-  */
-  BaseTracker &tracker_;
-  /**
-  * @brief camera transform with respect to body
-  */
-  tf::Transform camera_transform_;
-  /**
-  * @brief transform to apply to tracked object in its own frame before
-  * roll/pitch compensation
-  */
-  tf::Transform tracking_offset_transform_;
 };
