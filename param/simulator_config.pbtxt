@@ -21,4 +21,13 @@ uav_system_config {
       vz: 0.1
     }
   }
+  velocity_based_position_controller_config {
+    position_controller_config {
+      goal_position_tolerance {
+        x: 0.05
+        y: 0.05
+        z: 0.05
+      }
+    }
+  }
 }
