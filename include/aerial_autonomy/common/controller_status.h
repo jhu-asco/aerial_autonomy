@@ -5,6 +5,7 @@
 #include <vector>
 // Html utils
 #include <aerial_autonomy/common/html_utils.h>
+#include <tuple>
 
 /**
 * @brief Status of the controller
