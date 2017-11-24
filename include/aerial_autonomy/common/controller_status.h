@@ -20,20 +20,27 @@ public:
     Critical,  ///< Controller is critical and unable to continue
     NotEngaged ///< This status is used when no controller is engaged
   };
+  /**
+  * @brief Tuple of controller status, description, debug header, debug info
+  */
+  using DebugInfo =
+      std::tuple<Status, std::string, std::string, std::vector<double>>;
 
 private:
   Status status_;                  ///< Current status
   std::string status_description_; ///< Description for status if any
   std::string debug_header_;       ///< Header for debug info
-  std::vector<double>
-      debug_info_; ///< Debug data associated with current status
-                   /**
-                   * @brief Debug information from other statuses that gets added when combining
-                   * multiple status together. The tuple contains, status, status description,
-                   * debug header and debug info in the specified order.
-                   */
-  std::vector<std::tuple<Status, std::string, std::string, std::vector<double>>>
-      additional_debug_info_;
+
+  /**
+  * @brief Debug data associated with current status
+  */
+  std::vector<double> debug_info_;
+  /**
+   * @brief Debug information from other statuses that gets added when combining
+   * multiple status together. The tuple contains, status, status description,
+   * debug header and debug info in the specified order.
+   */
+  std::vector<DebugInfo> additional_debug_info_;
 
   /**
    * @brief An overload for comparing against an enum
@@ -97,8 +104,7 @@ private:
   * data
   * @param html_table_writer  Table to add status and debug data
   */
-  void addDebugInfo(const std::tuple<Status, std::string, std::string,
-                                     std::vector<double>> &debug_tuple,
+  void addDebugInfo(const DebugInfo &debug_tuple,
                     HtmlTableWriter &html_table_writer);
 
 public:

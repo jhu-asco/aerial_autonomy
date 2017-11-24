@@ -69,7 +69,7 @@ public:
     bool result = controller.run(sensor_data, controls);
     // Get acceleration vector using rpyt commands
     tf::Transform rotation;
-    transformRPYToTf(controls.r, controls.p, controls.y, rotation);
+    transformRPYToTf(controls.r, controls.p, cur_yaw, rotation);
     tf::Vector3 current_acceleration =
         (rotation * tf::Vector3(0, 0, 1)) * (controls.t * thrust_gain_) +
         tf::Vector3(0, 0, -9.81);
@@ -82,10 +82,9 @@ public:
 
     ASSERT_TRUE(result);
     for (int i = 0; i < 3; ++i) {
-      if (std::abs(desired_acceleration_direction[i]) > 1e-6 &&
-          std::abs(current_acceleration[i]) > 1e-6) {
-        ASSERT_FALSE(std::signbit(desired_acceleration_direction[i] *
-                                  current_acceleration[i]));
+      if (desired_acceleration_direction.length() > 1e-6 &&
+          current_acceleration.length() > 1e-6) {
+        checkVectors(desired_acceleration_direction, current_acceleration);
       }
     }
     ASSERT_NEAR(controls.y, math::angleWrap(goal_yaw - cur_yaw) * yaw_gain_,
@@ -94,6 +93,14 @@ public:
       ASSERT_TRUE(controller.isConverged(sensor_data));
     } else {
       ASSERT_FALSE(controller.isConverged(sensor_data));
+    }
+  }
+
+  void checkVectors(tf::Vector3 vector1, tf::Vector3 vector2) {
+    tf::Vector3 vector1_normalized = vector1.normalize();
+    tf::Vector3 vector2_normalized = vector2.normalize();
+    for (int i = 0; i < 3; ++i) {
+      ASSERT_NEAR(vector1_normalized[i], vector2_normalized[i], 1e-6);
     }
   }
 
