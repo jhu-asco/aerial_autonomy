@@ -31,10 +31,14 @@ public:
     auto position_controller_config =
         velocity_relative_pose_config
             ->mutable_velocity_based_position_controller_config();
-    position_controller_config->set_position_gain(30.0);
-    position_controller_config->set_max_velocity(5.0);
-    position_controller_config->set_yaw_gain(30.0);
+    position_controller_config->set_position_gain(1.0);
+    position_controller_config->set_max_velocity(1.0);
+    position_controller_config->set_yaw_gain(1.0);
     position_controller_config->set_max_yaw_rate(1.0);
+    position_controller_config->set_yaw_i_gain(0.0);
+    position_controller_config->set_position_i_gain(0.0);
+    position_controller_config->set_position_saturation_value(0.0);
+    position_controller_config->set_yaw_saturation_value(0.0);
     position_controller_config->mutable_position_controller_config()
         ->set_goal_yaw_tolerance(goal_tolerance_yaw_);
     auto position_tolerance =
@@ -139,11 +143,8 @@ TEST_F(RPYTRelativePoseVisualConnectorTests, CriticalRun) {
   ASSERT_EQ(visual_servoing_connector_->getStatus(),
             ControllerStatus::Critical);
 }
-/*
-TODO Find gains etc to make sure this converges!!
-May be have to set some tolerances
-TEST_F(RPYTRelativePoseVisualConnectorTests,
-       RunUntilConvergence) {
+
+TEST_F(RPYTRelativePoseVisualConnectorTests, RunUntilConvergence) {
   // set tracking goal
   tf::Transform tracked_pose(tf::createQuaternionFromRPY(0, 0, -0.1),
                              tf::Vector3(2, -0.5, 0.5));
@@ -159,7 +160,6 @@ TEST_F(RPYTRelativePoseVisualConnectorTests,
   PositionYaw goal_relative_pose(1, -1.5, 2, 0.5);
   runUntilConvergence(tracked_pose, goal_relative_pose);
 }
-*/
 
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
