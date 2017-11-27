@@ -43,6 +43,12 @@ template <class LogicStateMachineT> struct UAVStatesActions {
   */
   using ExecutingVelocityGoal = ExecutingVelocityGoal_<LogicStateMachineT>;
 
+  /**
+  * @brief State for running joystick velocity controller
+  */
+  using RunningJoystickVelocityController =
+      RunningJoystickVelocityController_<LogicStateMachineT>;
+
   // Basic transition Actions
   /**
   * @brief Action to take when taking off
@@ -94,6 +100,11 @@ template <class LogicStateMachineT> struct UAVStatesActions {
   */
   using SetVelocityGoal =
       VelocityControlTransitionActionFunctor_<LogicStateMachineT>;
+  /**
+  * @brief start joystick velocity controller
+  */
+  using StartJoystickVelocityController =
+      JoystickVelocityControlTransitionActionFunctor_<LogicStateMachineT>;
   /**
   * @brief Guard to avoid going to velocity goal if too high
   */

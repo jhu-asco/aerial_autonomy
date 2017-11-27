@@ -1,4 +1,3 @@
-uav_controller_timer_duration: 20
 
 base_config {
   state_machine_timer_duration: 20
@@ -7,6 +6,7 @@ base_config {
 
 uav_system_config {
   uav_parser_type: "dji_parser/DjiParser"
+  uav_controller_timer_duration: 20
   minimum_battery_percent: 40
   minimum_takeoff_height: 0.5
   landing_height: 0.1
@@ -24,4 +24,32 @@ uav_system_config {
       vz: 0.1
     }
   }
+  joystick_velocity_controller_config{
+    max_channel1: 10000
+    max_channel2: 10000
+    max_channel3: 10000
+    max_channel4: 10000
+
+    max_velocity: 1.0
+    max_yaw_rate: 3.14
+
+    rpyt_based_velocity_controller_config{
+      kp: 3.0
+      ki: 0.1
+      kt: 0.16
+
+      min_thrust: 10
+      max_thrust: 100
+      max_rp: 1.57
+
+      velocity_controller_config{
+        goal_velocity_tolerance{
+          vx: 0.001
+          vy: 0.001
+          vz: 0.001
+        }
+      }
+    }
+  }
+
 }

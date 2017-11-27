@@ -178,6 +178,8 @@ public:
         velocity_controller_drone_connector_);
     controller_hardware_connector_container_.setObject(
         rpyt_controller_drone_connector_);
+    controller_hardware_connector_container_.setObject(
+        joystick_velocity_controller_drone_connector_);
   }
   /**
   * @brief Get sensor data from UAV

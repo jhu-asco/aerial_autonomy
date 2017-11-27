@@ -2,3 +2,4 @@ UAVEventManager:
   Land
   Takeoff
   Abort
+  Joystick
