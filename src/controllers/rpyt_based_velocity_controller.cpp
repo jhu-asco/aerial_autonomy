@@ -67,7 +67,8 @@ ControllerStatus RPYTBasedVelocityController::isConvergedImplementation(
   VelocityYawRate velocity_yawrate_diff = goal - velocity_yawrate;
   status << "Error velocity, yaw rate: " << velocity_yawrate_diff.x
          << velocity_yawrate_diff.y << velocity_yawrate_diff.z
-         << velocity_yawrate_diff.yaw_rate;
+         << velocity_yawrate_diff.yaw_rate << goal.x << goal.y << goal.z
+         << goal.yaw_rate;
   DATA_LOG("rpyt_based_velocity_controller")
       << velocity_yawrate_diff.x << velocity_yawrate_diff.y
       << velocity_yawrate_diff.z << velocity_yawrate.x << velocity_yawrate.y
