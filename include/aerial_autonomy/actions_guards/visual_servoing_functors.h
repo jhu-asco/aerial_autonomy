@@ -42,8 +42,7 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
         this->state_machine_config_.visual_servoing_state_machine_config()
             .relative_pose_goals()
             .Get(GoalIndex);
-    robot_system.setGoal<RelativePoseVisualServoingControllerDroneConnector,
-                         PositionYaw>(
+    robot_system.setGoal<RPYTRelativePoseVisualServoingConnector, PositionYaw>(
         conversions::protoPositionYawToPositionYaw(goal));
   }
 };
@@ -146,8 +145,8 @@ using RelativePoseVisualServoingInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT,
-            RelativePoseVisualServoingControllerDroneConnector, true, Reset>>>;
+            LogicStateMachineT, RPYTRelativePoseVisualServoingConnector, true,
+            Reset>>>;
 
 /**
 * @brief Check tracking is valid
