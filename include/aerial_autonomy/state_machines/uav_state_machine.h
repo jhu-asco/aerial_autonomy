@@ -121,6 +121,9 @@ public:
                       msmf::none>,
             msmf::Row<usa::Hovering, ManualControlEvent,
                       usa::ManualControlState, msmf::none, msmf::none>,
+            msmf::Row<usa::Hovering, be::Joystick,
+                      usa::RunningJoystickVelocityController,
+                      usa::StartJoystickVelocityController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::ReachingGoal, be::Abort, usa::Hovering,
                       usa::UAVControllerAbort, msmf::none>,
@@ -145,9 +148,10 @@ public:
                       usa::ManualControlSwitchGuard>,
             msmf::Row<usa::ManualControlState, be::Land, usa::Landed,
                       usa::ManualControlSwitchAction,
-                      usa::ManualControlSwitchGuard>
+                      usa::ManualControlSwitchGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            > {};
+            msmf::Row<usa::RunningJoystickVelocityController, be::Abort,
+                      usa::Hovering, usa::UAVControllerAbort, msmf::none>> {};
   /**
   * @brief Use Inherited no transition function
   */
@@ -157,14 +161,15 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 7> state_names = {
+static constexpr std::array<const char *, 8> state_names = {
     "Landed",
     "TakingOff",
     "Hovering",
     "ReachingGoal",
     "ExecutingVelocityGoal",
     "Landing",
-    "ManualControlState"};
+    "ManualControlState",
+    "RunningJoystickVelocityController"};
 /**
 * @brief Get current state name
 *
