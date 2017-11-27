@@ -2,6 +2,8 @@
 // Ostream
 #include <iostream>
 
+#include <tuple>
+
 ControllerStatus::ControllerStatus(ControllerStatus::Status status,
                                    std::string status_description)
     : status_(status), status_description_(status_description),
