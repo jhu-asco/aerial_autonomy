@@ -19,7 +19,9 @@ message RPYTBasedVelocityControllerConfig {
   */
   optional double kt = 3 [ default = 0.16 ];
   /**
-  * @brief roll, pitch tolerance
+  * @brief roll, pitch tolerance for singularities.
+  * If roll is close to 90 by more than this tolerance
+  * sets pitch to 0
   */
   optional double tolerance_rp = 4 [ default = 1e-10 ];
   /**

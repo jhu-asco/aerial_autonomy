@@ -24,10 +24,10 @@ public:
   * @brief Constructor
   */
   VelocityBasedRelativePoseController(
-      VelocityBasedRelativePoseControllerConfig config)
+      VelocityBasedRelativePoseControllerConfig config, double dt = 0.02)
       : config_(config),
-        position_controller_(
-            config.velocity_based_position_controller_config()) {}
+        position_controller_(config.velocity_based_position_controller_config(),
+                             dt) {}
   /**
    * @brief Destructor
    */
