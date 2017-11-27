@@ -239,7 +239,9 @@ add_library(aerial_autonomy
   src/controllers/rpyt_based_relative_pose_controller.cpp
   src/controllers/joystick_velocity_controller.cpp
   src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp
+  src/controller_hardware_connectors/base_relative_pose_visual_servoing_connector.cpp
   src/controller_hardware_connectors/relative_pose_visual_servoing_controller_drone_connector.cpp
+  src/controller_hardware_connectors/rpyt_relative_pose_visual_servoing_connector.cpp
   src/controller_hardware_connectors/visual_servoing_controller_arm_connector.cpp
   src/controller_hardware_connectors/position_controller_drone_connector.cpp
   src/controller_hardware_connectors/velocity_based_position_controller_drone_connector.cpp
@@ -369,6 +371,7 @@ catkin_add_gtest(${PROJECT_NAME}-simple-multi-tracker-test tests/trackers/simple
 add_rostest_gtest(${PROJECT_NAME}-roi-to-position-converter-test tests/trackers/roi_to_position_converter_tests.test tests/trackers/roi_to_position_converter_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-alvar-tracker-test tests/trackers/alvar_tracker_tests.test tests/trackers/alvar_tracker_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test tests/controller_hardware_connectors/relative_pose_visual_servoing_drone_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-rpyt-relative-pose-visual-servoing-connector-test tests/controller_hardware_connectors/rpyt_relative_pose_visual_servoing_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-drone-connector-test tests/controller_hardware_connectors/visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-arm-connector-test tests/controller_hardware_connectors/visual_servoing_arm_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test tests/controller_hardware_connectors/joystick_velocity_controller_drone_connector_tests.cpp)
@@ -490,6 +493,9 @@ if(TARGET ${PROJECT_NAME}-constant-heading-depth-controller-test)
 endif()
 if(TARGET ${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test)
   target_link_libraries(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+endif()
+if(TARGET ${PROJECT_NAME}-rpyt-relative-pose-visual-servoing-connector-test)
+  target_link_libraries(${PROJECT_NAME}-rpyt-relative-pose-visual-servoing-connector-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
 if(TARGET ${PROJECT_NAME}-visual-servoing-drone-connector-test)
   target_link_libraries(${PROJECT_NAME}-visual-servoing-drone-connector-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})

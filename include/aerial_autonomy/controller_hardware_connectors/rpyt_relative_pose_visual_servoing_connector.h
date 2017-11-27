@@ -1,8 +1,10 @@
 #pragma once
 #include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
 #include "aerial_autonomy/controller_hardware_connectors/base_relative_pose_visual_servoing_connector.h"
-#include "aerial_autonomy/controllers/velocity_based_relative_pose_controller.h"
+#include "aerial_autonomy/controllers/rpyt_based_relative_pose_controller.h"
 #include "aerial_autonomy/trackers/base_tracker.h"
+#include "aerial_autonomy/types/position_yaw.h"
+#include "aerial_autonomy/types/roll_pitch_yawrate_thrust.h"
 #include "aerial_autonomy/types/velocity_yaw_rate.h"
 
 #include <parsernode/parser.h>
@@ -14,10 +16,10 @@
  * and brings the quadrotor
  * to a goal pose expressed in the tracked object's coordinate frame
  */
-class RelativePoseVisualServoingControllerDroneConnector
+class RPYTRelativePoseVisualServoingConnector
     : public ControllerHardwareConnector<
-          std::tuple<tf::Transform, tf::Transform>, PositionYaw,
-          VelocityYawRate>,
+          std::tuple<tf::Transform, tf::Transform, VelocityYawRate>,
+          PositionYaw, RollPitchYawRateThrust>,
       public BaseRelativePoseVisualServoingConnector {
 public:
   /**
@@ -29,9 +31,9 @@ public:
    * @param tracking_offset_transform Additional transform to apply to tracked
    * object before it is roll/pitch compensated
    */
-  RelativePoseVisualServoingControllerDroneConnector(
+  RPYTRelativePoseVisualServoingConnector(
       BaseTracker &tracker, parsernode::Parser &drone_hardware,
-      VelocityBasedRelativePoseController &controller,
+      RPYTBasedRelativePoseController &controller,
       tf::Transform camera_transform,
       tf::Transform tracking_offset_transform = tf::Transform::getIdentity())
       : ControllerHardwareConnector(controller, HardwareType::UAV),
@@ -41,25 +43,26 @@ public:
   /**
    * @brief Destructor
    */
-  virtual ~RelativePoseVisualServoingControllerDroneConnector() {}
+  virtual ~RPYTRelativePoseVisualServoingConnector() {}
 
 protected:
   /**
    * @brief Extracts pose data from tracker
    *
    * @param sensor_data Current transform of quadrotor in the
-   * rotation-compensated frame of the quadrotor
-   * and tracking transform in the rotation-compensated frame of the quadrotor
+   * rotation-compensated frame of the quadrotor; tracking transform in the
+   * rotation-compensated frame of the quadrotor; current velocity and
+   * yawrate of the UAV
    *
    * @return true if able to compute transforms
    */
-  virtual bool
-  extractSensorData(std::tuple<tf::Transform, tf::Transform> &sensor_data);
+  virtual bool extractSensorData(
+      std::tuple<tf::Transform, tf::Transform, VelocityYawRate> &sensor_data);
 
   /**
    * @brief Send velocity commands to hardware
    *
-   * @param controls velocity command to send to UAV
+   * @param controls roll, pitch, yawrate, thrust to send to UAV
    */
-  virtual void sendHardwareCommands(VelocityYawRate controls);
+  virtual void sendHardwareCommands(RollPitchYawRateThrust controls);
 };
