@@ -4,8 +4,7 @@ bool BaseRelativePoseVisualServoingConnector::
     getTrackingTransformRotationCompensatedQuadFrame(
         tf::Transform &tracking_transform) {
   tf::Transform object_pose_cam;
-  bool result = true;
-  result = tracker_.getTrackingVector(object_pose_cam);
+  bool result = tracker_.getTrackingVector(object_pose_cam);
   if (result) {
     // Convert tracked frame from camera frame to UAV-centered global frame
     tracking_transform = getBodyFrameRotation() * camera_transform_ *
