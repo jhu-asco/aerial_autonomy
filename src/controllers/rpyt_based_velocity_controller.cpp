@@ -63,17 +63,16 @@ ControllerStatus RPYTBasedVelocityController::isConvergedImplementation(
     std::tuple<VelocityYawRate, double> sensor_data, VelocityYawRate goal) {
   ControllerStatus status = ControllerStatus::Active;
   VelocityYawRate velocity_yawrate = std::get<0>(sensor_data);
-  double yaw = std::get<1>(sensor_data);
   VelocityYawRate velocity_yawrate_diff = goal - velocity_yawrate;
   status << "Error velocity, yaw rate: " << velocity_yawrate_diff.x
          << velocity_yawrate_diff.y << velocity_yawrate_diff.z
-         << velocity_yawrate_diff.yaw_rate << goal.x << goal.y << goal.z
-         << goal.yaw_rate;
+         << velocity_yawrate_diff.yaw_rate;
   DATA_LOG("rpyt_based_velocity_controller")
       << velocity_yawrate_diff.x << velocity_yawrate_diff.y
-      << velocity_yawrate_diff.z << velocity_yawrate.x << velocity_yawrate.y
-      << velocity_yawrate.z << velocity_yawrate.yaw_rate << yaw << goal.x
-      << goal.y << goal.z << goal.yaw_rate << DataStream::endl;
+      << velocity_yawrate_diff.z << velocity_yawrate_diff.yaw_rate
+      << velocity_yawrate.x << velocity_yawrate.y << velocity_yawrate.z
+      << velocity_yawrate.yaw_rate << goal.x << goal.y << goal.z
+      << goal.yaw_rate << DataStream::endl;
   RPYTBasedVelocityControllerConfig config = config_;
   const VelocityControllerConfig &velocity_controller_config =
       config.velocity_controller_config();
