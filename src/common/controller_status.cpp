@@ -2,6 +2,8 @@
 // Ostream
 #include <iostream>
 
+#include <tuple>
+
 ControllerStatus::ControllerStatus(ControllerStatus::Status status,
                                    std::string status_description)
     : status_(status), status_description_(status_description),
@@ -19,8 +21,7 @@ std::string ControllerStatus::getHtmlStatusString() {
 }
 
 void ControllerStatus::addDebugInfo(
-    const std::tuple<ControllerStatus::Status, std::string, std::string,
-                     std::vector<double>> &debug_tuple,
+    const ControllerStatus::DebugInfo &debug_tuple,
     HtmlTableWriter &html_table_writer) {
   const auto &status = std::get<0>(debug_tuple);
   const auto &status_description = std::get<1>(debug_tuple);
@@ -63,10 +64,13 @@ operator+=(const ControllerStatus &rhs_status) {
   //   critical, result status is active
   // - If both rhs status and lhs status are complete, resulting
   //   status is complete too.
-  if (rhs_status.status_ == ControllerStatus::Critical) {
+  if (rhs_status.status_ == ControllerStatus::Critical ||
+      status_ == ControllerStatus::Critical) {
     status_ = ControllerStatus::Critical;
-  } else if (rhs_status.status_ != ControllerStatus::Completed &&
-             status_ != ControllerStatus::Critical) {
+  } else if (rhs_status.status_ == ControllerStatus::Completed &&
+             status_ == ControllerStatus::Completed) {
+    status_ = ControllerStatus::Completed;
+  } else {
     status_ = ControllerStatus::Active;
   }
   additional_debug_info_.push_back(

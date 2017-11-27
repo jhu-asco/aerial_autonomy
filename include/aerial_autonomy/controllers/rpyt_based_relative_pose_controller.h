@@ -46,8 +46,9 @@ public:
 
 protected:
   /**
-   * @brief Run the control loop.  Uses a velocity controller to keep a desired
-   * pose relative to a tracked pose.
+   * @brief Run the control loop.  Uses a velocity based relative pose
+   * controller combined with a rpyt based velocity controller to track
+   * a desired pose relative to a tracked pose.
    * @param sensor_data Pose of controlled point and tracked
    * pose, along with current velocity and yawrate.
    * NOTE: Both poses need to be given in the frame in which the
