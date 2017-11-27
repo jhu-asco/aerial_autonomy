@@ -63,6 +63,7 @@ protected:
 
     auto relative_pose_vs_position_tolerance =
         uav_vision_system_config
+            ->mutable_rpyt_based_relative_pose_controller_config()
             ->mutable_velocity_based_relative_pose_controller_config()
             ->mutable_velocity_based_position_controller_config()
             ->mutable_position_controller_config()
@@ -215,14 +216,11 @@ TEST_F(VisualServoingTests, CallRelativePoseInternalActionFunction) {
                                     dummy_start_state, dummy_target_state);
   // After transition the status should be active
   ControllerStatus status;
-  status =
-      uav_system
-          ->getStatus<RelativePoseVisualServoingControllerDroneConnector>();
+  status = uav_system->getStatus<RPYTRelativePoseVisualServoingConnector>();
   ASSERT_EQ(status, ControllerStatus::Active);
   // Get Goal
   Position goal =
-      uav_system->getGoal<RelativePoseVisualServoingControllerDroneConnector,
-                          Position>();
+      uav_system->getGoal<RPYTRelativePoseVisualServoingConnector, Position>();
   PositionYaw desired_relative_pose(1, 1, 2, 0.0);
   ASSERT_EQ(goal, desired_relative_pose);
   // Set quadrotor to the target location
@@ -234,9 +232,7 @@ TEST_F(VisualServoingTests, CallRelativePoseInternalActionFunction) {
   // Call controller loop:
   uav_system->runActiveController(HardwareType::UAV);
   // Get status
-  status =
-      uav_system
-          ->getStatus<RelativePoseVisualServoingControllerDroneConnector>();
+  status = uav_system->getStatus<RPYTRelativePoseVisualServoingConnector>();
   ASSERT_EQ(status, ControllerStatus::Completed);
   // Call internal action functor
   RelativePoseVisualServoingInternalAction visual_servoing_internal_action;
@@ -291,9 +287,7 @@ TEST_F(VisualServoingTests, LowBatteryCallRelativePoseInternalActionFunction) {
                                   dummy_start_state, dummy_target_state);
   // Check status of controller
   ControllerStatus status;
-  status =
-      uav_system
-          ->getStatus<RelativePoseVisualServoingControllerDroneConnector>();
+  status = uav_system->getStatus<RPYTRelativePoseVisualServoingConnector>();
   ASSERT_EQ(status, ControllerStatus::Active);
   // Set battery voltage to low value
   drone_hardware->setBatteryPercent(10);

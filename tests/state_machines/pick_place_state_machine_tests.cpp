@@ -69,12 +69,29 @@ public:
     goal_position_tolerance->set_z(goal_tolerance_position_);
 
     // Relative visual servoing controller params
+    auto rpyt_based_vel_controller_config =
+        uav_vision_system_config
+            ->mutable_rpyt_based_relative_pose_controller_config()
+            ->mutable_rpyt_based_velocity_controller_config()
+            ->mutable_velocity_controller_config();
+    rpyt_based_vel_controller_config->mutable_goal_velocity_tolerance()->set_vx(
+        0.1);
+    rpyt_based_vel_controller_config->mutable_goal_velocity_tolerance()->set_vy(
+        0.1);
+    rpyt_based_vel_controller_config->mutable_goal_velocity_tolerance()->set_vz(
+        0.1);
     auto vel_based_vs_controller_config =
         uav_vision_system_config
+            ->mutable_rpyt_based_relative_pose_controller_config()
             ->mutable_velocity_based_relative_pose_controller_config()
             ->mutable_velocity_based_position_controller_config();
-    vel_based_vs_controller_config->set_position_gain(10.);
+    vel_based_vs_controller_config->set_position_gain(1.);
+    vel_based_vs_controller_config->set_yaw_gain(1.);
     vel_based_vs_controller_config->set_max_velocity(10.);
+    vel_based_vs_controller_config->set_yaw_i_gain(0.0);
+    vel_based_vs_controller_config->set_position_i_gain(0.0);
+    vel_based_vs_controller_config->set_position_saturation_value(0.0);
+    vel_based_vs_controller_config->set_yaw_saturation_value(0.0);
     auto relative_pose_vs_position_tolerance =
         vel_based_vs_controller_config->mutable_position_controller_config()
             ->mutable_goal_position_tolerance();
@@ -158,10 +175,11 @@ public:
     log_config.set_directory("/tmp/data");
     Log::instance().configure(log_config);
     DataStreamConfig data_config;
-    data_config.set_stream_id(
-        "relative_pose_visual_servoing_controller_drone_connector");
+    data_config.set_stream_id("rpyt_based_velocity_controller");
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("velocity_based_position_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("rpyt_relative_pose_visual_servoing_connector");
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("velocity_based_relative_pose_controller");
     Log::instance().addDataStream(data_config);
@@ -266,8 +284,7 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
   ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
   // Check UAV and arm controllers are active
   ASSERT_EQ(
-      uav_arm_system_
-          ->getStatus<RelativePoseVisualServoingControllerDroneConnector>(),
+      uav_arm_system_->getStatus<RPYTRelativePoseVisualServoingConnector>(),
       ControllerStatus::Active);
   ASSERT_EQ(uav_arm_system_->getStatus<BuiltInPoseControllerArmConnector>(),
             ControllerStatus::Active);
@@ -340,8 +357,7 @@ TEST_F(PickPlaceStateMachineTests, PickTimeout) {
   ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
   // Check UAV and arm controllers are active
   ASSERT_EQ(
-      uav_arm_system_
-          ->getStatus<RelativePoseVisualServoingControllerDroneConnector>(),
+      uav_arm_system_->getStatus<RPYTRelativePoseVisualServoingConnector>(),
       ControllerStatus::Active);
   ASSERT_EQ(uav_arm_system_->getStatus<BuiltInPoseControllerArmConnector>(),
             ControllerStatus::Active);
