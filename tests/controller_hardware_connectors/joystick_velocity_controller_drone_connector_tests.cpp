@@ -23,8 +23,10 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Constructor) {
 TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
   double dt = 0.02;
   RPYTBasedVelocityControllerConfig rpyt_config_;
-  rpyt_config_.set_kp(2.0);
-  rpyt_config_.set_ki(0.01);
+  rpyt_config_.set_kp_xy(2.0);
+  rpyt_config_.set_kp_z(2.0);
+  rpyt_config_.set_ki_xy(0.01);
+  rpyt_config_.set_ki_z(0.01);
   auto vel_ctlr_config = rpyt_config_.mutable_velocity_controller_config();
   auto tolerance = vel_ctlr_config->mutable_goal_velocity_tolerance();
 

@@ -9,11 +9,19 @@ message RPYTBasedVelocityControllerConfig {
   /**
   * @brief P Gain to convert velocity error to acceleration 
   */
-  optional double kp = 1 [ default = 1.0 ];
+  optional double kp_xy = 1 [ default = 1.0 ];
+  /**
+  * @brief P Gain to convert velocity error to acceleration
+  */
+  optional double kp_z = 10 [ default = 1.0 ];
   /**
   * @brief I Gain to convert velocity error to acceleration
   */
-  optional double ki = 2 [ default = 0.0 ];
+  optional double ki_xy = 2 [ default = 0.0 ];
+  /**
+  * @brief I Gain to convert velocity error to acceleration
+  */
+  optional double ki_z = 11 [ default = 0.0 ];
   /**
   * @brief Gain to convert acceleration to thrust
   */

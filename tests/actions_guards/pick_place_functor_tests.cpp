@@ -139,8 +139,9 @@ TEST_F(PickPlaceFunctorTests, CallPickActionFunction) {
                                dummy_start_state, dummy_target_state);
   ASSERT_TRUE(uav_arm_system->isHomeLocationSpecified());
   // UAV goal
-  PositionYaw uav_goal = uav_arm_system->getGoal<
-      RelativePoseVisualServoingControllerDroneConnector, PositionYaw>();
+  PositionYaw uav_goal =
+      uav_arm_system
+          ->getGoal<RPYTRelativePoseVisualServoingConnector, PositionYaw>();
   // Arm goal
   tf::Transform arm_goal =
       uav_arm_system

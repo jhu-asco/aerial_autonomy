@@ -27,11 +27,11 @@ TEST(RPYTBasedVelocityControllerTests, ControlsInBounds) {
   bool result = controller.run(sensor_data, controls);
 
   double acc_x =
-      config.kp() * velocity_diff.x + config.ki() * velocity_diff.x * dt;
+      config.kp_xy() * velocity_diff.x + config.ki_xy() * velocity_diff.x * dt;
   double acc_y =
-      config.kp() * velocity_diff.y + config.ki() * velocity_diff.y * dt;
-  double acc_z =
-      config.kp() * velocity_diff.z + config.ki() * velocity_diff.z * dt + 9.81;
+      config.kp_xy() * velocity_diff.y + config.ki_xy() * velocity_diff.y * dt;
+  double acc_z = config.kp_z() * velocity_diff.z +
+                 config.ki_z() * velocity_diff.z * dt + 9.81;
 
   double exp_t =
       sqrt(acc_x * acc_x + acc_y * acc_y + acc_z * acc_z) / config.kt();
@@ -56,8 +56,10 @@ TEST(RPYTBasedVelocityControllerTests, ChangeConfig) {
   RPYTBasedVelocityController controller(old_config, dt);
 
   RPYTBasedVelocityControllerConfig config;
-  config.set_kp(5.0);
-  config.set_ki(0.01);
+  config.set_kp_xy(5.0);
+  config.set_kp_z(5.0);
+  config.set_ki_xy(0.01);
+  config.set_ki_z(0.01);
   config.set_kt(0.2);
 
   controller.updateConfig(config);
@@ -72,11 +74,11 @@ TEST(RPYTBasedVelocityControllerTests, ChangeConfig) {
   bool result = controller.run(sensor_data, controls);
 
   double acc_x =
-      config.kp() * velocity_diff.x + config.ki() * velocity_diff.x * dt;
+      config.kp_xy() * velocity_diff.x + config.ki_xy() * velocity_diff.x * dt;
   double acc_y =
-      config.kp() * velocity_diff.y + config.ki() * velocity_diff.y * dt;
-  double acc_z =
-      config.kp() * velocity_diff.z + config.ki() * velocity_diff.z * dt + 9.81;
+      config.kp_xy() * velocity_diff.y + config.ki_xy() * velocity_diff.y * dt;
+  double acc_z = config.kp_z() * velocity_diff.z +
+                 config.ki_z() * velocity_diff.z * dt + 9.81;
 
   double exp_t =
       sqrt(acc_x * acc_x + acc_y * acc_y + acc_z * acc_z) / config.kt();
@@ -97,8 +99,10 @@ TEST(RPYTBasedVelocityControllerTests, ChangeConfig) {
 
 TEST(RPYTBasedVelocityControllerTests, RollNinety) {
   RPYTBasedVelocityControllerConfig config;
-  config.set_kp(1.0);
-  config.set_ki(0.0);
+  config.set_kp_xy(1.0);
+  config.set_kp_z(1.0);
+  config.set_ki_xy(0.0);
+  config.set_ki_z(0.0);
 
   RPYTBasedVelocityController controller(config, 0.02);
   auto sensor_data = std::make_tuple(VelocityYawRate(0, 0, 0, 0), 0.0);
@@ -125,8 +129,10 @@ TEST(RPYTBasedVelocityControllerTests, MaxThrust) {
 TEST(RPYTBasedVelocityControllerTests, MaxRoll) {
 
   RPYTBasedVelocityControllerConfig config;
-  config.set_kp(1.0);
-  config.set_ki(0.0);
+  config.set_kp_xy(1.0);
+  config.set_kp_z(1.0);
+  config.set_ki_xy(0.0);
+  config.set_ki_z(0.0);
   config.set_max_rp(1.0);
 
   RPYTBasedVelocityController controller(config, 0.02);
@@ -142,8 +148,10 @@ TEST(RPYTBasedVelocityControllerTests, MaxRoll) {
 TEST(RPYTConvergenceTest, Convergence) {
 
   RPYTBasedVelocityControllerConfig config;
-  config.set_kp(5.0);
-  config.set_ki(0.01);
+  config.set_kp_xy(5.0);
+  config.set_kp_z(5.0);
+  config.set_ki_xy(0.01);
+  config.set_ki_z(0.01);
 
   auto vel_ctlr_config = config.mutable_velocity_controller_config();
   auto tolerance = vel_ctlr_config->mutable_goal_velocity_tolerance();

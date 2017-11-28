@@ -34,8 +34,10 @@ uav_system_config {
     max_yaw_rate: 3.14
 
     rpyt_based_velocity_controller_config{
-      kp: 3.0
-      ki: 0.1
+      kp_xy: 3.0
+      kp_z: 3.0
+      ki_xy: 0.1
+      ki_z: 0.1
       kt: 0.16
 
       min_thrust: 10
