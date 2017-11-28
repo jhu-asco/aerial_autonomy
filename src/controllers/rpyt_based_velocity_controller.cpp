@@ -14,12 +14,12 @@ bool RPYTBasedVelocityController::runImplementation(
 
   RPYTBasedVelocityControllerConfig config = config_;
   // Acceleration in world frame
-  double acc_x =
-      config.kp() * velocity_yawrate_diff.x + config.ki() * cumulative_error.x;
-  double acc_y =
-      config.kp() * velocity_yawrate_diff.y + config.ki() * cumulative_error.y;
-  double acc_z = config.kp() * velocity_yawrate_diff.z +
-                 config.ki() * cumulative_error.z + 9.81;
+  double acc_x = config.kp_xy() * velocity_yawrate_diff.x +
+                 config.ki_xy() * cumulative_error.x;
+  double acc_y = config.kp_xy() * velocity_yawrate_diff.y +
+                 config.ki_xy() * cumulative_error.y;
+  double acc_z = config.kp_z() * velocity_yawrate_diff.z +
+                 config.ki_z() * cumulative_error.z + 9.81;
 
   // Acceleration in gravity aligned yaw-compensated frame
   Eigen::Vector3d rot_acc;

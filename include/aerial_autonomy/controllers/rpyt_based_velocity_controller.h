@@ -25,8 +25,10 @@ public:
                               double controller_timer_duration)
       : config_(config), controller_timer_duration_(controller_timer_duration) {
     RPYTBasedVelocityControllerConfig check_config = config_;
-    CHECK_GE(check_config.kp(), 0) << "negative kp ! exiting";
-    CHECK_GE(check_config.ki(), 0) << "negative ki ! exiting";
+    CHECK_GE(check_config.kp_xy(), 0) << "negative kp_xy ! exiting";
+    CHECK_GE(check_config.kp_z(), 0) << "negative kp_z ! exiting";
+    CHECK_GE(check_config.ki_xy(), 0) << "negative ki_xy ! exiting";
+    CHECK_GE(check_config.ki_z(), 0) << "negative ki_z ! exiting";
     CHECK_GE(check_config.kt(), 0) << "negative kt ! exiting";
 
     DATA_HEADER("rpyt_based_velocity_controller") << "Errorx"
