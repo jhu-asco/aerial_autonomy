@@ -71,6 +71,15 @@ protected:
     relative_pose_vs_position_tolerance->set_x(0.1);
     relative_pose_vs_position_tolerance->set_y(0.1);
     relative_pose_vs_position_tolerance->set_z(0.1);
+    auto relative_pose_vs_velocity_tolerance =
+        uav_vision_system_config
+            ->mutable_rpyt_based_relative_pose_controller_config()
+            ->mutable_rpyt_based_velocity_controller_config()
+            ->mutable_velocity_controller_config()
+            ->mutable_goal_velocity_tolerance();
+    relative_pose_vs_velocity_tolerance->set_vx(0.1);
+    relative_pose_vs_velocity_tolerance->set_vy(0.1);
+    relative_pose_vs_velocity_tolerance->set_vz(0.1);
     auto pose_goal =
         state_machine_config.mutable_visual_servoing_state_machine_config()
             ->add_relative_pose_goals();
@@ -87,6 +96,23 @@ protected:
     sample_logic_state_machine.reset(
         new UAVVisionLogicStateMachine(*uav_system, state_machine_config));
   }
+
+  static void SetUpTestCase() {
+    // Configure logging
+    LogConfig log_config;
+    log_config.set_directory("/tmp/data");
+    Log::instance().configure(log_config);
+    DataStreamConfig data_config;
+    data_config.set_stream_id("rpyt_based_velocity_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("velocity_based_position_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("rpyt_relative_pose_visual_servoing_connector");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("velocity_based_relative_pose_controller");
+    Log::instance().addDataStream(data_config);
+  }
+
   virtual ~VisualServoingTests(){};
 };
 /// \brief Test Visual Servoing
