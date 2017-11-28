@@ -192,6 +192,7 @@ struct EventAgnosticGuardFunctor {
     static_assert(
         std::is_base_of<FSM, LogicStateMachineT>::value,
         "Template Logic state machine arg is not subclass of provided FSM");
+    state_machine_config_ = logic_state_machine.base_state_machine_config_;
     return guard(logic_state_machine.robot_system_container_());
   }
 
@@ -199,6 +200,12 @@ struct EventAgnosticGuardFunctor {
   * @brief virtual destructor to get polymorphism
   */
   virtual ~EventAgnosticGuardFunctor() {}
+
+protected:
+  /**
+  * @brief Copy of state machine configuration which can be used in run function
+  */
+  BaseStateMachineConfig state_machine_config_;
 };
 
 /**

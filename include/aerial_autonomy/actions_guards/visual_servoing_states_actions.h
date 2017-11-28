@@ -57,8 +57,9 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
   */
   // \todo Matt check goal index exists
   using RelativePoseVisualServoingTransitionGuard =
-      InitializeTrackerGuardFunctor_<LogicStateMachineT,
-                                     ClosestTrackingStrategy>;
+      bAnd<InitializeTrackerGuardFunctor_<LogicStateMachineT,
+                                          ClosestTrackingStrategy>,
+           CheckGoalIndex_<LogicStateMachineT, 0>>;
 
   /**
   * @brief Send the UAV back to home position

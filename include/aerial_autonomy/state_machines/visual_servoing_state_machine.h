@@ -129,8 +129,8 @@ public:
                       vsa::ReachingGoalSet, vsa::ReachingGoalGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::Hovering, vse::TrackROI, vsa::VisualServoing,
-                      vsa::VisualServoingTransitionAction,
-                      vsa::VisualServoingTransitionGuard>,
+                      vsa::RelativePoseVisualServoingTransitionAction,
+                      vsa::RelativePoseVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::Hovering, vse::GoHome, vsa::ReachingGoal,
                       vsa::GoHomeTransitionAction, vsa::GoHomeTransitionGuard>,

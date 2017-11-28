@@ -47,6 +47,21 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
   }
 };
 
+template <class LogicStateMachineT, int GoalIndex>
+struct CheckGoalIndex_
+    : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {
+  bool guard(UAVVisionSystem &robot_system) {
+    int goals_size =
+        this->state_machine_config_.visual_servoing_state_machine_config()
+            .relative_pose_goals()
+            .size();
+    if (GoalIndex >= goals_size) {
+      return false;
+    }
+    return true;
+  }
+};
+
 /**
 * @brief Action for initializing relative pose visual servoing for specific
 * tracking id
