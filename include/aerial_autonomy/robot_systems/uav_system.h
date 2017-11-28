@@ -156,7 +156,7 @@ public:
         builtin_velocity_controller_(config.velocity_controller_config()),
         joystick_velocity_controller_(
             config.joystick_velocity_controller_config(),
-            config.uav_controller_timer_duration()),
+            config.uav_controller_timer_duration() / 1000.0),
         position_controller_drone_connector_(*drone_hardware_,
                                              builtin_position_controller_),
         velocity_based_position_controller_drone_connector_(
