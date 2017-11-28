@@ -148,7 +148,7 @@ using VisualServoingInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, VisualServoingControllerDroneConnector>>>;
+            LogicStateMachineT, RPYTRelativePoseVisualServoingConnector>>>;
 
 /**
 * @brief Logic to check while reaching a visual servoing goal
