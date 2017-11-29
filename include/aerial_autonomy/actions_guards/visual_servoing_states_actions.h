@@ -25,7 +25,7 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
   * @brief State when reaching a relative pose visual servoing goal
   */
   using RelativePoseVisualServoing =
-      RelativePoseVisualServoing_<LogicStateMachineT>;
+      RelativePoseVisualServoing_<LogicStateMachineT, be::Abort>;
 
   // Basic transition Actions
   /**

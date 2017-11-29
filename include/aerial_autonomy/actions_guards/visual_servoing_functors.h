@@ -148,20 +148,20 @@ using VisualServoingInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, RPYTRelativePoseVisualServoingConnector>>>;
+            LogicStateMachineT, VisualServoingControllerDroneConnector>>>;
 
 /**
 * @brief Logic to check while reaching a visual servoing goal
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
-template <class LogicStateMachineT>
+template <class LogicStateMachineT, class AbortEventT>
 using RelativePoseVisualServoingInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
             LogicStateMachineT, RPYTRelativePoseVisualServoingConnector, true,
-            Reset>>>;
+            AbortEventT>>>;
 
 /**
 * @brief Check tracking is valid
@@ -219,7 +219,7 @@ struct VisualServoingTransitionGuardFunctor_
 };
 
 /**
-* @brief State that uses position control functor to reach a desired goal.
+* @brief State that uses visual servoing to reach a desired goal.
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
@@ -233,7 +233,8 @@ using VisualServoing_ =
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
-template <class LogicStateMachineT>
-using RelativePoseVisualServoing_ = BaseState<
-    UAVVisionSystem, LogicStateMachineT,
-    RelativePoseVisualServoingInternalActionFunctor_<LogicStateMachineT>>;
+template <class LogicStateMachineT, class AbortEventT>
+using RelativePoseVisualServoing_ =
+    BaseState<UAVVisionSystem, LogicStateMachineT,
+              RelativePoseVisualServoingInternalActionFunctor_<
+                  LogicStateMachineT, AbortEventT>>;

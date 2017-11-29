@@ -59,6 +59,11 @@ struct PickPlaceStatesActions
   * @brief State while positioning the uav for placing
   */
   using PlaceState = PlaceState_<LogicStateMachineT>;
+  /**
+  * @brief State when reaching a relative pose visual servoing goal
+  */
+  using RelativePoseVisualServoing =
+      RelativePoseVisualServoing_<LogicStateMachineT, Reset>;
   // Transition Actions
   /**
   * @brief Action to poweroff arm
