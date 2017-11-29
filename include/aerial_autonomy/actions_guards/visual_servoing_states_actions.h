@@ -55,7 +55,6 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
   /**
   * @brief Check whether relative pose visual servoing is feasible currently
   */
-  // \todo Matt check goal index exists
   using RelativePoseVisualServoingTransitionGuard =
       bAnd<InitializeTrackerGuardFunctor_<LogicStateMachineT,
                                           ClosestTrackingStrategy>,

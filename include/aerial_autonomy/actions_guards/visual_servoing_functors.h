@@ -154,6 +154,7 @@ using VisualServoingInternalActionFunctor_ =
 * @brief Logic to check while reaching a visual servoing goal
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
+* @tparam AbortEventT Event to send when controller is critical
 */
 template <class LogicStateMachineT, class AbortEventT>
 using RelativePoseVisualServoingInternalActionFunctor_ =
@@ -232,6 +233,7 @@ using VisualServoing_ =
 * @brief State that uses relative pose control functor to reach a desired goal.
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
+* @tparam AbortEventT Event to send when controller is critical
 */
 template <class LogicStateMachineT, class AbortEventT>
 using RelativePoseVisualServoing_ =
