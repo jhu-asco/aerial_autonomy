@@ -129,7 +129,7 @@ TEST(VelocityBasedPositionControllerTests, RunTillConvergenceWithBias) {
     return bool(controller.isConverged(sensor_data));
   };
   ASSERT_TRUE(test_utils::waitUntilTrue()(
-      runController, std::chrono::seconds(3), std::chrono::milliseconds(1)));
+      runController, std::chrono::seconds(3), std::chrono::milliseconds(0)));
 }
 
 int main(int argc, char **argv) {
