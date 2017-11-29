@@ -30,6 +30,7 @@ protected:
   std::unique_ptr<UAVVisionLogicStateMachine> sample_logic_state_machine;
   VisualServoingTests() {
     drone_hardware.reset(new QuadSimulator);
+    drone_hardware->usePerfectTime();
     auto uav_vision_system_config = config.mutable_uav_vision_system_config();
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
     tf::Transform camera_transform = conversions::protoTransformToTf(

@@ -83,6 +83,7 @@ TEST(ManualRPYTControllerDroneConnectorTests, Run) {
 
 TEST(ManualRPYTControllerDroneConnectorTests, RunConstantAcceleration) {
   QuadSimulator drone_hardware;
+  drone_hardware.usePerfectTime();
   drone_hardware.takeoff();
   drone_hardware.set_delay_send_time(0.02);
 
@@ -103,7 +104,6 @@ TEST(ManualRPYTControllerDroneConnectorTests, RunConstantAcceleration) {
   drone_hardware.getquaddata(first_data);
   for (int i = 0; i < 50; ++i) {
     manual_rpyt_controller_connector.run();
-    std::this_thread::sleep_for(std::chrono::milliseconds(20));
   }
   drone_hardware.getquaddata(second_data);
   ASSERT_NEAR(second_data.localpos.x, first_data.localpos.x, 1e-4);
@@ -111,7 +111,6 @@ TEST(ManualRPYTControllerDroneConnectorTests, RunConstantAcceleration) {
   // for 1 more second
   for (int i = 0; i < 50; ++i) {
     manual_rpyt_controller_connector.run();
-    std::this_thread::sleep_for(std::chrono::milliseconds(20));
   }
   drone_hardware.getquaddata(third_data);
   ASSERT_NEAR(third_data.localpos.x, first_data.localpos.x, 1e-4);
