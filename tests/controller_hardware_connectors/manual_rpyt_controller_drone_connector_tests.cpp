@@ -51,6 +51,7 @@ TEST(ManualRPYTControllerDroneConnectorTests, Constructor) {
 
 TEST(ManualRPYTControllerDroneConnectorTests, Run) {
   QuadSimulator drone_hardware;
+  drone_hardware.usePerfectTime();
   drone_hardware.takeoff();
   drone_hardware.set_delay_send_time(0.02);
 
@@ -70,7 +71,6 @@ TEST(ManualRPYTControllerDroneConnectorTests, Run) {
   parsernode::common::quaddata sensor_data;
   for (int i = 0; i < 100; ++i) {
     manual_rpyt_controller_connector.run();
-    std::this_thread::sleep_for(std::chrono::milliseconds(20));
   }
   ASSERT_EQ(manual_rpyt_controller_connector.getStatus(),
             ControllerStatus::Completed);

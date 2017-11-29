@@ -64,6 +64,7 @@ public:
         new RPYTRelativePoseVisualServoingConnector(
             *simple_tracker_, drone_hardware_, *controller_, camera_transform,
             tracking_offset_transform_));
+    drone_hardware_.usePerfectTime();
   }
 
   static void SetUpTestCase() {
@@ -104,9 +105,8 @@ public:
       return visual_servoing_connector_->getStatus() ==
              ControllerStatus::Active;
     };
-    ASSERT_FALSE(test_utils::waitUntilFalse()(runController,
-                                              std::chrono::seconds(10),
-                                              std::chrono::milliseconds(20)));
+    ASSERT_FALSE(test_utils::waitUntilFalse()(
+        runController, std::chrono::seconds(1), std::chrono::milliseconds(0)));
     // Check position is the goal position
     parsernode::common::quaddata sensor_data;
     drone_hardware_.getquaddata(sensor_data);

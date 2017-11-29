@@ -5,6 +5,7 @@
 #include "aerial_autonomy/common/atomic.h"
 
 #include <ar_track_alvar_msgs/AlvarMarkers.h>
+#include <chrono>
 #include <ros/ros.h>
 
 /**
@@ -16,14 +17,15 @@ public:
   * @brief Constructor.  Use the ClosestTrackingStrategy by default.
   * @param name_space Namespace of internal ROS node handle
   */
-  AlvarTracker(std::string name_space = "~tracker")
-      // \todo Matt Add timeout and num_retries as config
+  AlvarTracker(
+      std::string name_space = "~tracker",
+      std::chrono::duration<double> timeout = std::chrono::milliseconds(500))
       : BaseTracker(std::move(std::unique_ptr<TrackingStrategy>(
             new ClosestTrackingStrategy(default_num_retries_)))),
         nh_(name_space),
         alvar_sub_(nh_.subscribe("ar_pose_marker", 1,
                                  &AlvarTracker::markerCallback, this)),
-        timeout_(0.5) {}
+        timeout_(timeout) {}
   /**
    * @brief Get the tracking vectors
    * @param pos Returned tracking vectors
@@ -69,7 +71,7 @@ private:
   /**
   * @brief Timeout for valid update
   */
-  const double timeout_;
+  const std::chrono::duration<double> timeout_;
   /**
   * @brief Default number of retries for tracking a locked target
   */
