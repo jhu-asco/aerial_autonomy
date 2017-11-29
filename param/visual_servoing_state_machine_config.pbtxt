@@ -2,9 +2,9 @@ visual_servoing_state_machine_config {
     relative_pose_goals {
       position {
         x: 0
-        y: -.40
-        z: .19
+        y: -1.0
+        z: .235
       }
-      yaw: 0
+      yaw: 1.5708
     }
 }

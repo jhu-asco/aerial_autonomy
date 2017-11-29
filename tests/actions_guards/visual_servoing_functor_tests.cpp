@@ -17,8 +17,8 @@ using VisualServoingInternalAction =
     VisualServoingInternalActionFunctor_<UAVVisionLogicStateMachine>;
 
 using RelativePoseVisualServoingInternalAction =
-    RelativePoseVisualServoingInternalActionFunctor_<
-        UAVVisionLogicStateMachine>;
+    RelativePoseVisualServoingInternalActionFunctor_<UAVVisionLogicStateMachine,
+                                                     be::Abort>;
 
 class VisualServoingTests : public ::testing::Test {
 protected:
@@ -371,7 +371,7 @@ TEST_F(VisualServoingTests, LostTrackingRelativePoseInternalActionFunction) {
   visual_servoing_internal_action(NULL, *sample_logic_state_machine,
                                   dummy_start_state, dummy_target_state);
   ASSERT_EQ(sample_logic_state_machine->getProcessEventTypeId(),
-            std::type_index(typeid(Reset)));
+            std::type_index(typeid(be::Abort)));
 }
 
 // Call GoHome functions

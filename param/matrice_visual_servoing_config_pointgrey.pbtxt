@@ -1,4 +1,3 @@
-uav_controller_timer_duration: 20
 
 base_config {
   state_machine_timer_duration: 20
@@ -7,6 +6,7 @@ base_config {
 
 uav_system_config {
   uav_parser_type: "dji_parser/DjiParser"
+  uav_controller_timer_duration: 20
   minimum_battery_percent: 20
   minimum_takeoff_height: 0.5
   landing_height: 0.1
@@ -56,7 +56,7 @@ uav_system_config {
       }
     }
 
-    desired_visual_servoing_distance: 0.5
+    desired_visual_servoing_distance: 1.0
 
     constant_heading_depth_controller_config {
       radial_gain: 0.3
@@ -78,10 +78,14 @@ uav_system_config {
     rpyt_based_relative_pose_controller_config {
       velocity_based_relative_pose_controller_config {
         velocity_based_position_controller_config {
-          position_gain: 0.3
+          position_gain: 1.0
           yaw_gain: 0.3
-          max_velocity: 0.2
+          max_velocity: 0.75
           max_yaw_rate: 0.3
+          position_i_gain: 0
+          yaw_i_gain: 0
+          position_saturation_value: 0
+          yaw_saturation_value: 0
           position_controller_config {
             goal_position_tolerance {
               x: 0.1
@@ -93,11 +97,18 @@ uav_system_config {
         }
       }
       rpyt_based_velocity_controller_config {
-        kp_xy: 3.0
-        kp_z: 3.0
+        kp_xy: 2.0
+        kp_z: 2.0
         ki_xy: 0.1
-        ki_z: 0.1
-        kt: 0.2
+        ki_z: 0.5
+        kt: 0.21
+        velocity_controller_config {
+          goal_velocity_tolerance {
+            vx: 0.1
+            vy: 0.1
+            vz: 0.1
+          }
+        }
       }
     }
   }
