@@ -35,6 +35,7 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
   tolerance->set_vz(1e-3);
   JoystickVelocityControllerConfig joystick_config;
   QuadSimulator drone_hardware;
+  drone_hardware.usePerfectTime();
   JoystickVelocityController controller(joystick_config, dt);
   controller.updateRPYTConfig(rpyt_config_);
 
@@ -49,12 +50,11 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
 
   auto controller_run = [&] {
     connector.run();
-    std::this_thread::sleep_for(std::chrono::milliseconds(10));
     return (connector.getStatus() == ControllerStatus::Completed);
   };
 
   ASSERT_TRUE(test_utils::waitUntilTrue()(
-      controller_run, std::chrono::seconds(20), std::chrono::milliseconds(10)));
+      controller_run, std::chrono::seconds(1), std::chrono::milliseconds(0)));
 
   parsernode::common::quaddata sensor_data;
   drone_hardware.getquaddata(sensor_data);

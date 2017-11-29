@@ -33,11 +33,12 @@ class PickPlaceStateMachineTests : public ::testing::Test {
 public:
   PickPlaceStateMachineTests()
       : drone_hardware_(new QuadSimulator), arm_(new ArmSimulator),
-        goal_tolerance_position_(0.1) {
+        goal_tolerance_position_(0.1), grip_timeout_(1000), grip_duration_(10) {
     auto vision_state_machine_config =
         state_machine_config_.mutable_visual_servoing_state_machine_config();
     auto pick_state_machine_config =
         vision_state_machine_config->mutable_pick_place_state_machine_config();
+    auto grip_config = pick_state_machine_config->mutable_grip_config();
     auto uav_vision_system_config = config_.mutable_uav_vision_system_config();
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
     auto uav_arm_system_config =
@@ -51,6 +52,9 @@ public:
     position_tolerance->set_x(goal_tolerance_position_);
     position_tolerance->set_y(goal_tolerance_position_);
     position_tolerance->set_z(goal_tolerance_position_);
+    // Grip parameters
+    grip_config->set_grip_timeout(grip_timeout_);
+    grip_config->set_grip_duration(grip_duration_);
 
     // Position controller params
     auto pos_controller_config =
@@ -174,6 +178,8 @@ public:
     targets[15] =
         tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-3, 0, 0.5));
     tracker_->setTargetPosesGlobalFrame(targets);
+    // Use simulated time for drone hardware
+    drone_hardware_->usePerfectTime();
   }
 
   static void SetUpTestCase() {
@@ -207,6 +213,8 @@ protected:
   std::unique_ptr<UAVArmSystem> uav_arm_system_;
   std::unique_ptr<PickPlaceStateMachine> logic_state_machine_;
   double goal_tolerance_position_;
+  uint32_t grip_timeout_;
+  uint32_t grip_duration_;
 
   template <class EventT> void testManualControlAbort() {
     // First takeoff
@@ -305,12 +313,12 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
                ControllerStatus::Active;
   };
   ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                            std::chrono::seconds(10),
+                                            std::chrono::seconds(1),
                                             std::chrono::milliseconds(0)));
   // Grip object for required duration
   arm_->setGripperStatus(true);
   logic_state_machine_->process_event(InternalTransitionEvent());
-  this_thread::sleep_for(std::chrono::milliseconds(1100));
+  this_thread::sleep_for(std::chrono::milliseconds(grip_duration_ + 2));
   logic_state_machine_->process_event(InternalTransitionEvent());
   // Check we are in Post-Pick
   ASSERT_STREQ(pstate(*logic_state_machine_), "ReachingPostPickWaypoint");
@@ -318,11 +326,11 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
   // Run controllers through two waypoints
   logic_state_machine_->process_event(InternalTransitionEvent());
   ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                            std::chrono::seconds(10),
+                                            std::chrono::seconds(1),
                                             std::chrono::milliseconds(0)));
   logic_state_machine_->process_event(InternalTransitionEvent());
   ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                            std::chrono::seconds(10),
+                                            std::chrono::seconds(1),
                                             std::chrono::milliseconds(0)));
   logic_state_machine_->process_event(InternalTransitionEvent());
   // Check we are in Place
@@ -330,7 +338,7 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
   ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(Completed));
   // Place the object
   ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                            std::chrono::seconds(10),
+                                            std::chrono::seconds(1),
                                             std::chrono::milliseconds(0)));
   logic_state_machine_->process_event(InternalTransitionEvent());
   // Check Place completed with ungrip
@@ -340,11 +348,11 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
   // Run controllers through two waypoints
   logic_state_machine_->process_event(InternalTransitionEvent());
   ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                            std::chrono::seconds(10),
+                                            std::chrono::seconds(1),
                                             std::chrono::milliseconds(0)));
   logic_state_machine_->process_event(InternalTransitionEvent());
   ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                            std::chrono::seconds(10),
+                                            std::chrono::seconds(1),
                                             std::chrono::milliseconds(0)));
   logic_state_machine_->process_event(InternalTransitionEvent());
   // Check we are back to waiting for pick
@@ -376,7 +384,7 @@ TEST_F(PickPlaceStateMachineTests, PickTimeout) {
                ControllerStatus::Active;
   };
   ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                            std::chrono::seconds(10),
+                                            std::chrono::seconds(1),
                                             std::chrono::milliseconds(0)));
 
   // Grip has failed
@@ -386,8 +394,9 @@ TEST_F(PickPlaceStateMachineTests, PickTimeout) {
     logic_state_machine_->process_event(InternalTransitionEvent());
     return pstate(*logic_state_machine_) == std::string("PickState");
   };
-  ASSERT_FALSE(test_utils::waitUntilFalse()(grip, std::chrono::seconds(21),
-                                            std::chrono::milliseconds(20)));
+  ASSERT_FALSE(test_utils::waitUntilFalse()(
+      grip, std::chrono::milliseconds(grip_timeout_ + 2),
+      std::chrono::milliseconds(0)));
   // Check we are resetting
   ASSERT_STREQ(pstate(*logic_state_machine_), "ResetVisualServoing");
   ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(Reset));
@@ -406,7 +415,7 @@ TEST_F(PickPlaceStateMachineTests, PickWaitForGrip) {
   // Initially not gripping
   arm_->setGripperStatus(false);
   logic_state_machine_->process_event(InternalTransitionEvent());
-  this_thread::sleep_for(std::chrono::milliseconds(900));
+  this_thread::sleep_for(std::chrono::milliseconds(grip_duration_ - 2));
   // Now gripping
   arm_->setGripperStatus(true);
 
@@ -414,7 +423,7 @@ TEST_F(PickPlaceStateMachineTests, PickWaitForGrip) {
     logic_state_machine_->process_event(InternalTransitionEvent());
     return pstate(*logic_state_machine_) == std::string("PickState");
   };
-  ASSERT_FALSE(test_utils::waitUntilFalse()(grip, std::chrono::seconds(10),
+  ASSERT_FALSE(test_utils::waitUntilFalse()(grip, std::chrono::seconds(1),
                                             std::chrono::milliseconds(0)));
   ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(Completed));
   // Check we are in hovering state
@@ -434,7 +443,8 @@ TEST_F(PickPlaceStateMachineTests, PickGripTooLate) {
   // Initially not gripping
   arm_->setGripperStatus(false);
   logic_state_machine_->process_event(InternalTransitionEvent());
-  this_thread::sleep_for(std::chrono::milliseconds(19100));
+  this_thread::sleep_for(
+      std::chrono::milliseconds(grip_timeout_ - grip_duration_ + 2));
   // Now gripping, but not enough time to complete grip before timeout
   arm_->setGripperStatus(true);
 
@@ -442,8 +452,9 @@ TEST_F(PickPlaceStateMachineTests, PickGripTooLate) {
     logic_state_machine_->process_event(InternalTransitionEvent());
     return pstate(*logic_state_machine_) == std::string("PickState");
   };
-  ASSERT_FALSE(test_utils::waitUntilFalse()(grip, std::chrono::seconds(1),
-                                            std::chrono::milliseconds(0)));
+  ASSERT_FALSE(test_utils::waitUntilFalse()(
+      grip, std::chrono::milliseconds(grip_duration_),
+      std::chrono::milliseconds(0)));
   ASSERT_STREQ(pstate(*logic_state_machine_), "ResetVisualServoing");
   ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(Reset));
 }

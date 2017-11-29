@@ -193,8 +193,8 @@ TEST(RPYTConvergenceTest, Convergence) {
 
   };
 
-  ASSERT_TRUE(
-      test_utils::waitUntilTrue()(convergence, std::chrono::seconds(50)));
+  ASSERT_TRUE(test_utils::waitUntilTrue()(convergence, std::chrono::seconds(1),
+                                          std::chrono::milliseconds(0)));
 }
 
 int main(int argc, char **argv) {

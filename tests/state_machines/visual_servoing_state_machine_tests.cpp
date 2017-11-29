@@ -118,6 +118,7 @@ public:
     logic_state_machine->start();
     // Move to landed state
     logic_state_machine->process_event(InternalTransitionEvent());
+    drone_hardware->usePerfectTime();
   }
 
   void runActiveControllerToConvergence() {
@@ -127,7 +128,7 @@ public:
              ControllerStatus::Completed;
     };
     ASSERT_TRUE(test_utils::waitUntilTrue()(getUAVStatusRunControllers,
-                                            std::chrono::seconds(5),
+                                            std::chrono::seconds(1),
                                             std::chrono::milliseconds(0)));
   }
 
