@@ -101,5 +101,5 @@ protected:
   Atomic<RPYTBasedVelocityControllerConfig>
       config_; ///< Controller configuration
   VelocityYawRate cumulative_error;
-  std::chrono::duration<double> controller_timer_duration_;
+  const std::chrono::duration<double> controller_timer_duration_;
 };

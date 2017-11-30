@@ -148,6 +148,6 @@ protected:
                                                      PositionYaw goal);
   VelocityBasedPositionControllerConfig config_; ///< Controller configuration
   PositionYaw cumulative_error_; ///< Error integrated over multiple runs
-  std::chrono::duration<double>
+  const std::chrono::duration<double>
       dt_; ///< Time diff between different successive runImplementation calls
 };
