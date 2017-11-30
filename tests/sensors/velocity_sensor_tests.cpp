@@ -60,6 +60,7 @@ TEST_F(VelocitySensorTests, Timeout) {
   odom_pub.publish(odom_msg);
   ros::Duration(0.01).sleep();
   ros::spinOnce();
+  ASSERT_FALSE(sensor_status_to_bool(sensor.getSensorStatus()));
 
   ros::Duration(1.0).sleep();
   ASSERT_FALSE(sensor_status_to_bool(sensor.getSensorStatus()));

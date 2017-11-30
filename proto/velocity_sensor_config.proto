@@ -7,8 +7,8 @@ message VelocitySensorConfig {
   */
   optional config.Transform sensor_transform = 1;
   /**
-  * @brief maximum allowed divergence from gps data
-  * along each axis in meters
+  * @brief time from last msg after which sensor 
+  * becomes invalid
   */
   optional double timeout = 2 [default = 0.5];
 }
