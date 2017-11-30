@@ -41,7 +41,7 @@ public:
         rpyt_based_relative_pose_controller_(
             config_.uav_vision_system_config()
                 .rpyt_based_relative_pose_controller_config(),
-            config_.uav_controller_timer_duration() / 1000.0),
+            std::chrono::milliseconds(config_.uav_controller_timer_duration())),
         visual_servoing_drone_connector_(*tracker_, *drone_hardware_,
                                          constant_heading_depth_controller_,
                                          camera_transform_),

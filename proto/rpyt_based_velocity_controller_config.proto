@@ -2,8 +2,7 @@ syntax = "proto2";
 
 import "velocity_controller_config.proto";
 /**
-* Uses the position controller config for tolerance
-* in position, yaw
+* Configuration for velocity controller that gives rpyt commands
 */
 message RPYTBasedVelocityControllerConfig {
   /**
@@ -43,7 +42,7 @@ message RPYTBasedVelocityControllerConfig {
   /**
   * @brief maximum allowed roll, pitch
   */
-    optional double max_rp = 8 [default = 1.57];
+  optional double max_rp = 8 [ default = 1.57 ];
   /**
   * @brief Config about velocity tolerance, yaw tolerance
   */

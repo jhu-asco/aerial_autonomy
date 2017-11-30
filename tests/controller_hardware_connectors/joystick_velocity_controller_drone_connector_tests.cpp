@@ -10,7 +10,7 @@
 using namespace quad_simulator;
 
 TEST(JoystickVelocityControllerDroneConnectorTests, Constructor) {
-  double dt = 0.02;
+  std::chrono::duration<double> dt = std::chrono::milliseconds(20);
   RPYTBasedVelocityControllerConfig rpyt_config;
   JoystickVelocityControllerConfig joystick_config;
   QuadSimulator drone_hardware;
@@ -21,7 +21,7 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Constructor) {
 }
 
 TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
-  double dt = 0.02;
+  std::chrono::duration<double> dt = std::chrono::milliseconds(20);
   RPYTBasedVelocityControllerConfig rpyt_config_;
   rpyt_config_.set_kp_xy(2.0);
   rpyt_config_.set_kp_z(2.0);

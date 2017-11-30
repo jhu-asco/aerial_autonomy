@@ -26,7 +26,7 @@ TEST(VelocityBasedPositionControllerTests, ControlsInBounds) {
 }
 
 TEST(VelocityBasedPositionControllerTests, ControlsOutofBounds) {
-  double dt = 0.02;
+  std::chrono::duration<double> dt = std::chrono::milliseconds(20);
   VelocityBasedPositionControllerConfig config;
   VelocityBasedPositionController controller(config, dt);
   PositionYaw sensor_data(0, 0, 0, 0);
@@ -83,7 +83,7 @@ TEST(VelocityBasedPositionControllerTests, ControlsOutofBoundsNegYaw) {
   ASSERT_NEAR(controls.yaw_rate, -config.max_yaw_rate(), 1e-8);
 }
 TEST(VelocityBasedPositionControllerTests, WindingTest) {
-  double dt = 0.01;
+  std::chrono::duration<double> dt = std::chrono::milliseconds(10);
   VelocityBasedPositionControllerConfig config;
   config.set_max_velocity(0.2);
   config.set_max_yaw_rate(0.2);
@@ -107,7 +107,7 @@ TEST(VelocityBasedPositionControllerTests, WindingTest) {
 }
 
 TEST(VelocityBasedPositionControllerTests, RunTillConvergenceWithBias) {
-  double dt = 0.01;
+  std::chrono::duration<double> dt = std::chrono::milliseconds(10);
   VelocityBasedPositionControllerConfig config;
   config.set_position_gain(2.0);
   config.set_yaw_gain(2.0);
@@ -125,7 +125,7 @@ TEST(VelocityBasedPositionControllerTests, RunTillConvergenceWithBias) {
   auto runController = [&]() {
     VelocityYawRate controls;
     controller.run(sensor_data, controls);
-    sensor_data = sensor_data + (bias + controls) * dt;
+    sensor_data = sensor_data + (bias + controls) * dt.count();
     return bool(controller.isConverged(sensor_data));
   };
   ASSERT_TRUE(test_utils::waitUntilTrue()(
