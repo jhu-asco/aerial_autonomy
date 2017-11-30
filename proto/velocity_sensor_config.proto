@@ -1,0 +1,14 @@
+syntax = "proto2";
+import "transform.proto";
+
+message VelocitySensorConfig {
+  /**
+  * @brief transform of sensor in robot's frame
+  */
+  optional config.Transform sensor_transform = 1;
+  /**
+  * @brief time from last msg after which sensor 
+  * becomes invalid
+  */
+  optional double timeout = 2 [default = 0.5];
+}
