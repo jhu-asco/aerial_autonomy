@@ -10,10 +10,10 @@ ThrustGainEstimator::ThrustGainEstimator(double thrust_gain_initial,
                                          double max_thrust_gain,
                                          double min_thrust_gain)
     : thrust_gain_(thrust_gain_initial), mixing_gain_(mixing_gain),
-      buffer_size_(buffer_size), gravity_magnitude_(9.81),
+      delay_buffer_size_(buffer_size), gravity_magnitude_(9.81),
       thrust_command_tolerance_(1e-2), max_thrust_gain_(max_thrust_gain),
       min_thrust_gain_(min_thrust_gain) {
-  CHECK_GE(buffer_size_, 1) << "Buffer size should be atleast 1";
+  CHECK_GE(delay_buffer_size_, 1) << "Buffer size should be atleast 1";
   CHECK_GT(mixing_gain_, 0) << "Mixing gain should be between 0 and 1";
   CHECK_LT(mixing_gain_, 1) << "Mixing gain should be between 0 and 1";
   CHECK_GE(thrust_gain_initial, min_thrust_gain_)
@@ -52,7 +52,7 @@ int ThrustGainEstimator::getQueueSize() { return thrust_command_queue_.size(); }
 
 void ThrustGainEstimator::addSensorData(double roll, double pitch,
                                         double body_z_acc) {
-  if (thrust_command_queue_.size() == buffer_size_) {
+  if (thrust_command_queue_.size() == delay_buffer_size_) {
     double thrust_gain_estimated = processSensorThrustPair(
         roll, pitch, body_z_acc, thrust_command_queue_.front());
     thrust_gain_ = mixing_gain_ * thrust_gain_estimated +
@@ -68,7 +68,7 @@ void ThrustGainEstimator::addSensorData(double roll, double pitch,
 }
 
 void ThrustGainEstimator::addThrustCommand(double thrust_command) {
-  if (thrust_command_queue_.size() == buffer_size_) {
+  if (thrust_command_queue_.size() == delay_buffer_size_) {
     thrust_command_queue_.pop();
   }
   thrust_command_queue_.push(thrust_command);

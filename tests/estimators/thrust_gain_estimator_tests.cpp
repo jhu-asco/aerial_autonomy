@@ -57,10 +57,10 @@ TEST(ThrustGainEstimatorTests, processSensorThrustPair90Pitch) {
   double body_z_acc = thrust_command * thrust_gain;
   ASSERT_NEAR(thrust_gain_estimator.processSensorThrustPair(
                   M_PI / 2.0, 0, body_z_acc, thrust_command),
-              0.16, 1e-8);
+              thrust_gain, 1e-8);
   ASSERT_NEAR(thrust_gain_estimator.processSensorThrustPair(
                   0, M_PI / 2.0, body_z_acc, thrust_command),
-              0.16, 1e-8);
+              thrust_gain, 1e-8);
 }
 
 TEST(ThrustGainEstimatorTests, addThrustCommand) {

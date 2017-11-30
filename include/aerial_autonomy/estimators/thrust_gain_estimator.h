@@ -112,7 +112,7 @@ private:
   std::queue<double> thrust_command_queue_;
   double thrust_gain_;
   double mixing_gain_;
-  unsigned int buffer_size_;
+  unsigned int delay_buffer_size_;
   const double gravity_magnitude_;
   const double thrust_command_tolerance_;
   const double max_thrust_gain_;
