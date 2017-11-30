@@ -53,6 +53,7 @@ TEST_F(VelocitySensorTests, SensorTF) {
 TEST_F(VelocitySensorTests, Timeout) {
   VelocitySensor sensor(config);
   nav_msgs::Odometry odom_msg;
+  odom_msg.header.stamp = ros::Time::now();
   odom_msg.twist.twist.linear.x = 0.1;
   odom_msg.twist.twist.linear.y = -0.2;
   odom_msg.twist.twist.linear.z = 0.3;
@@ -60,7 +61,7 @@ TEST_F(VelocitySensorTests, Timeout) {
   odom_pub.publish(odom_msg);
   ros::Duration(0.01).sleep();
   ros::spinOnce();
-  ASSERT_FALSE(sensor_status_to_bool(sensor.getSensorStatus()));
+  ASSERT_TRUE(sensor_status_to_bool(sensor.getSensorStatus()));
 
   ros::Duration(1.0).sleep();
   ASSERT_FALSE(sensor_status_to_bool(sensor.getSensorStatus()));
