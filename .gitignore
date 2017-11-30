@@ -11,3 +11,8 @@ param/log_config.pbtxt
 .vscode
 .dot_output/*
 *.bag
+*.config
+*.includes
+*.creator
+*.creator.user
+*.files
