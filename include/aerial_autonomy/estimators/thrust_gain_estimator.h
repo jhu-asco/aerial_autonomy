@@ -25,7 +25,8 @@ public:
   ThrustGainEstimator(
       ThrustGainEstimatorConfig config = ThrustGainEstimatorConfig())
       : ThrustGainEstimator(config.kt(), config.mixing_gain(),
-                            config.buffer_size()) {}
+                            config.buffer_size(), config.kt_max(),
+                            config.kt_min()) {}
 
   /**
    * @brief Estimates thrust gain given current roll, pitch, body z acceleration
@@ -52,7 +53,9 @@ public:
    *                    step is used to process the sensor data.
    */
   ThrustGainEstimator(double thrust_gain_initial, double mixing_gain = 0.1,
-                      unsigned int buffer_size = 1);
+                      unsigned int buffer_size = 1,
+                      double max_thrust_gain = 0.25,
+                      double min_thrust_gain = 0.1);
   /**
    * @brief reset internal thrust gain to a specified value
    * This is to reset the estimator in case of failue in learning. If the
@@ -112,4 +115,6 @@ private:
   unsigned int buffer_size_;
   const double gravity_magnitude_;
   const double thrust_command_tolerance_;
+  const double max_thrust_gain_;
+  const double min_thrust_gain_;
 };

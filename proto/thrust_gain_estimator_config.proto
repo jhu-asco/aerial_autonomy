@@ -20,4 +20,12 @@ message ThrustGainEstimatorConfig {
   * @brief Maximum commanded velocity along each axis in m/s
   */
   optional uint32 buffer_size = 3 [ default = 1 ];
+  /**
+  * @brief Maximum thrust gain
+  */
+  optional double kt_max = 4 [ default = 0.25 ];
+  /**
+  * @brief Minimum thrust gain
+  */
+  optional double kt_min = 5 [ default = 0.1 ];
 }
