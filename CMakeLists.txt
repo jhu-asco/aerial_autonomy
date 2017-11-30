@@ -193,6 +193,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/pick_place_state_machine_config.proto
   proto/following_waypoint_sequence_config.proto
   proto/grip_config.proto
+  proto/thrust_gain_estimator_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -240,6 +241,7 @@ add_library(aerial_autonomy
   src/controllers/rpyt_based_position_controller.cpp
   src/controllers/rpyt_based_relative_pose_controller.cpp
   src/controllers/joystick_velocity_controller.cpp
+  src/estimators/thrust_gain_estimator.cpp
   src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp
   src/controller_hardware_connectors/base_relative_pose_visual_servoing_connector.cpp
   src/controller_hardware_connectors/relative_pose_visual_servoing_controller_drone_connector.cpp
@@ -363,6 +365,7 @@ add_dependencies(${PROJECT_NAME}-uav-arm-system-handler-test ${${PROJECT_NAME}_E
 catkin_add_gtest(${PROJECT_NAME}-thread-safe-state-machine-test tests/common/thread_safe_state_machine_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-iterable-enum-test tests/common/iterable_enum_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-velocity-based-position-controller-test tests/controllers/velocity_based_position_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-thrust-gain-estimator-test tests/estimators/thrust_gain_estimator_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-controller-test tests/controllers/relative_pose_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-velocity-based-relative-pose-controller-test tests/controllers/velocity_based_relative_pose_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-relative-pose-controller-test tests/controllers/rpyt_based_relative_pose_controller_tests.cpp)
@@ -480,6 +483,9 @@ if(TARGET ${PROJECT_NAME}-uav-vision-system-test)
 endif()
 if(TARGET ${PROJECT_NAME}-velocity-based-position-controller-test)
   target_link_libraries(${PROJECT_NAME}-velocity-based-position-controller-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-thrust-gain-estimator-test)
+  target_link_libraries(${PROJECT_NAME}-thrust-gain-estimator-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-relative-pose-controller-test)
   target_link_libraries(${PROJECT_NAME}-relative-pose-controller-test aerial_autonomy)

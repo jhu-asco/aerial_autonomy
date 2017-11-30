@@ -1,0 +1,34 @@
+syntax = "proto2";
+
+/**
+* Settings for thrust gain estimator
+*/
+message ThrustGainEstimatorConfig {
+  /**
+  * @brief Initial guess of thrust gain
+  */
+  optional double kt = 1 [ default = 0.16 ];
+  /**
+  * @brief Gain to update the internal thrust gain based on
+  * estimated thrust gain. If the mixing gain is close to 1, the internal gain
+  * will follow the estimated thrust gain closely. The mixing gain has to
+  * be between 0 and 1
+  */
+  optional double mixing_gain = 2 [ default = 0.1 ];
+  /**
+  * @brief Number of time steps delay between
+  * commanded thrust and sensor data being received.
+  * For example, if the sensor is being received 0.2 seconds after
+  * thrust command and the controller is running at 50 Hz, then
+  * buffer size is 10.
+  */
+  optional uint32 buffer_size = 3 [ default = 1 ];
+  /**
+  * @brief Maximum thrust gain
+  */
+  optional double kt_max = 4 [ default = 0.25 ];
+  /**
+  * @brief Minimum thrust gain
+  */
+  optional double kt_min = 5 [ default = 0.1 ];
+}
