@@ -40,7 +40,8 @@ private:
 };
 
 TEST_F(AlvarTrackerTests, TrackingValidTimeout) {
-  AlvarTracker tracker("");
+  std::chrono::duration<double> timeout = std::chrono::milliseconds(10);
+  AlvarTracker tracker("", timeout);
   while (!tracker.isConnected()) {
   }
 
@@ -51,8 +52,7 @@ TEST_F(AlvarTrackerTests, TrackingValidTimeout) {
   publishMarkers(markers);
   ASSERT_TRUE(tracker.trackingIsValid());
 
-  /// \todo Matt This should depend on the configured ROI timeout
-  std::this_thread::sleep_for(std::chrono::milliseconds(700));
+  std::this_thread::sleep_for(timeout + std::chrono::milliseconds(10));
   ASSERT_FALSE(tracker.trackingIsValid());
 }
 
@@ -77,7 +77,8 @@ TEST_F(AlvarTrackerTests, GetTrackingVector) {
 }
 
 TEST_F(AlvarTrackerTests, TrackingValidEmpty) {
-  AlvarTracker tracker("");
+  std::chrono::duration<double> timeout = std::chrono::milliseconds(60);
+  AlvarTracker tracker("", timeout);
   while (!tracker.isConnected()) {
   }
   tf::Transform pose;
@@ -100,8 +101,7 @@ TEST_F(AlvarTrackerTests, TrackingValidEmpty) {
   // Should still be valid until the timeout hits
   ASSERT_TRUE(tracker.trackingIsValid());
 
-  /// \todo Matt This should depend on the configured ROI timeout
-  std::this_thread::sleep_for(std::chrono::milliseconds(700));
+  std::this_thread::sleep_for(timeout + std::chrono::milliseconds(10));
   publishMarkers(markers);
   ASSERT_FALSE(tracker.trackingIsValid());
 }

@@ -9,17 +9,27 @@ message RPYTBasedVelocityControllerConfig {
   /**
   * @brief P Gain to convert velocity error to acceleration 
   */
-  optional double kp = 1 [ default = 1.0 ];
+  optional double kp_xy = 1 [ default = 1.0 ];
+  /**
+  * @brief P Gain to convert velocity error to acceleration
+  */
+  optional double kp_z = 10 [ default = 1.0 ];
   /**
   * @brief I Gain to convert velocity error to acceleration
   */
-  optional double ki = 2 [ default = 0.0 ];
+  optional double ki_xy = 2 [ default = 0.0 ];
+  /**
+  * @brief I Gain to convert velocity error to acceleration
+  */
+  optional double ki_z = 11 [ default = 0.0 ];
   /**
   * @brief Gain to convert acceleration to thrust
   */
   optional double kt = 3 [ default = 0.16 ];
   /**
-  * @brief roll, pitch tolerance
+  * @brief roll, pitch tolerance for singularities.
+  * If roll is close to 90 by more than this tolerance
+  * sets pitch to 0
   */
   optional double tolerance_rp = 4 [ default = 1e-10 ];
   /**

@@ -67,4 +67,15 @@ struct VelocityYawRate : public Velocity {
     return VelocityYawRate(this->x * m, this->y * m, this->z * m,
                            math::angleWrap(this->yaw_rate * m));
   }
+  /**
+  * @brief Substract two velocity yaw rate entities
+  *
+  * @param v VelocityYawRate to be substracted from current velocity yaw rate
+  *
+  * @return Difference between velocity yaw rates
+  */
+  VelocityYawRate operator-(const VelocityYawRate &v) const {
+    return VelocityYawRate(this->x - v.x, this->y - v.y, this->z - v.z,
+                           this->yaw_rate - v.yaw_rate);
+  }
 };

@@ -27,6 +27,7 @@ protected:
 
   virtual void SetUp() {
     drone_hardware.reset(new QuadSimulator);
+    drone_hardware->usePerfectTime();
     auto position_tolerance = config.mutable_position_controller_config()
                                   ->mutable_goal_position_tolerance();
     position_tolerance->set_x(0.5);

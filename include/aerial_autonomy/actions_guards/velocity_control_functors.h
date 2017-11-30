@@ -26,6 +26,20 @@ struct VelocityControlTransitionActionFunctor_
 };
 
 /**
+* @brief Transition action to switch on joystick velocity controller
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct JoystickVelocityControlTransitionActionFunctor_
+    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+  void run(UAVSystem &robot_system) {
+    robot_system.setGoal<JoystickVelocityControllerDroneConnector, EmptyGoal>(
+        EmptyGoal());
+  }
+};
+
+/**
 * @brief Guard function to check the goal velocity is within tolerance before
 * initializing the velocity controller
 *
@@ -62,6 +76,20 @@ using VelocityControlInternalActionFunctor_ =
             false>>>;
 
 /**
+ * @brief internal action while performing velocity control. Only
+ * checks for critical state and does not abort on completed
+ *
+* @tparam LogicStateMachineT Logic state machine used to process events
+ */
+template <class LogicStateMachineT>
+using JoystickVelocityControlInternalActionFunctor_ =
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ControllerStatusInternalActionFunctor_<
+            LogicStateMachineT, JoystickVelocityControllerDroneConnector,
+            false>>>;
+
+/**
 * @brief State that uses velocity control functor to track commanded velocity
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
@@ -70,3 +98,12 @@ template <class LogicStateMachineT>
 using ExecutingVelocityGoal_ =
     BaseState<UAVSystem, LogicStateMachineT,
               VelocityControlInternalActionFunctor_<LogicStateMachineT>>;
+/**
+* @brief State that uses velocity control functor to track commanded velocity
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+using RunningJoystickVelocityController_ = BaseState<
+    UAVSystem, LogicStateMachineT,
+    JoystickVelocityControlInternalActionFunctor_<LogicStateMachineT>>;

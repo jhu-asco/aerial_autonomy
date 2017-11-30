@@ -32,3 +32,13 @@ data_stream_configs {
   stream_id: "relative_pose_visual_servoing_controller_drone_connector"
   log_rate: 25
 }
+
+data_stream_configs {
+  stream_id: "rpyt_based_velocity_controller"
+  log_rate: 25
+}
+
+data_stream_configs {
+  stream_id: "rpyt_relative_pose_visual_servoing_connector"
+  log_rate: 25
+}

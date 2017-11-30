@@ -17,7 +17,7 @@ TEST(UAVEventManagerTest, InstantiateManager) {
 TEST(UAVEventManagerTest, CheckEventSet) {
   UAVEventManager<SampleLogicStateMachine> event_manager;
   std::set<std::string> event_set = event_manager.getEventSet();
-  std::set<std::string> expected_set{"Land", "Takeoff", "Abort"};
+  std::set<std::string> expected_set{"Land", "Takeoff", "Abort", "Joystick"};
   ASSERT_EQ(event_set, expected_set);
 }
 TEST(UAVEventManagerTest, TriggerWrongEvent) {
@@ -58,8 +58,8 @@ TEST(VisualServoingEventManagerTest, TriggerUAVEvent) {
 TEST(VisualServoingEventManagerTest, CheckEventSet) {
   VisualServoingEventManager<SampleLogicStateMachine> event_manager;
   std::set<std::string> event_set = event_manager.getEventSet();
-  std::set<std::string> expected_set{"Land", "Takeoff", "Abort", "TrackROI",
-                                     "GoHome"};
+  std::set<std::string> expected_set{"Land",     "Takeoff",  "Abort",
+                                     "Joystick", "TrackROI", "GoHome"};
   ASSERT_TRUE(event_set == expected_set);
 }
 }
@@ -96,8 +96,9 @@ TEST(PickPlaceEventManagerTest, CheckEventSet) {
   PickPlaceEventManager<SampleLogicStateMachine> event_manager;
   std::set<std::string> event_set = event_manager.getEventSet();
   std::set<std::string> expected_set{
-      "Land",     "Takeoff", "Abort", "Pick",           "Place", "GoHome",
-      "PowerOff", "PowerOn", "Fold",  "RightAngleFold", "Grip",  "UnGrip"};
+      "Land",           "Takeoff", "Abort",    "Joystick", "Pick",
+      "Place",          "GoHome",  "PowerOff", "PowerOn",  "Fold",
+      "RightAngleFold", "Grip",    "UnGrip"};
   ASSERT_TRUE(event_set == expected_set);
 }
 }

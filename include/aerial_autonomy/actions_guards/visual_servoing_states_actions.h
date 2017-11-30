@@ -25,7 +25,7 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
   * @brief State when reaching a relative pose visual servoing goal
   */
   using RelativePoseVisualServoing =
-      RelativePoseVisualServoing_<LogicStateMachineT>;
+      RelativePoseVisualServoing_<LogicStateMachineT, be::Abort>;
 
   // Basic transition Actions
   /**
@@ -55,10 +55,10 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
   /**
   * @brief Check whether relative pose visual servoing is feasible currently
   */
-  // \todo Matt check goal index exists
   using RelativePoseVisualServoingTransitionGuard =
-      InitializeTrackerGuardFunctor_<LogicStateMachineT,
-                                     ClosestTrackingStrategy>;
+      bAnd<InitializeTrackerGuardFunctor_<LogicStateMachineT,
+                                          ClosestTrackingStrategy>,
+           CheckGoalIndex_<LogicStateMachineT, 0>>;
 
   /**
   * @brief Send the UAV back to home position

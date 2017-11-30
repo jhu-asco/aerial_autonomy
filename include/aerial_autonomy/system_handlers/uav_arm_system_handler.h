@@ -35,42 +35,18 @@ public:
         uav_controller_timer_(
             std::bind(&UAVArmSystem::runActiveController, std::ref(uav_system_),
                       HardwareType::UAV),
-            std::chrono::milliseconds(config.uav_controller_timer_duration())),
+            std::chrono::milliseconds(
+                config.uav_system_config().uav_controller_timer_duration())),
         arm_controller_timer_(
             std::bind(&UAVArmSystem::runActiveController, std::ref(uav_system_),
                       HardwareType::Arm),
             std::chrono::milliseconds(config.uav_arm_system_handler_config()
-                                          .arm_controller_timer_duration())),
-        reconfigure_callback_function_(boost::bind(
-            &UAVArmSystemHandler::configureVelocityBasedPositionControllerGains,
-            this, _1, _2)) {
+                                          .arm_controller_timer_duration())) {
 
     // Get the party started
     common_handler_.startTimers();
     uav_controller_timer_.start();
     arm_controller_timer_.start();
-
-    // Start dynamic reconfigure
-    server_.updateConfig(
-        uav_system_.getDefaultVelocityBasedPositionControllerConfig());
-    server_.setCallback(reconfigure_callback_function_);
-  }
-
-  /**
-   * @brief Callback function for updating velocity based
-   * position controller gains
-   *
-   * @param config Dynamic config containing new gains
-   */
-  void configureVelocityBasedPositionControllerGains(
-      aerial_autonomy::VelocityBasedPositionControllerDynamicConfig &config,
-      uint32_t) {
-    if (uav_system_.getActiveControllerStatus(HardwareType::UAV) !=
-        ControllerStatus::NotEngaged) {
-      LOG(WARNING) << "Cannot change config when controller is active";
-    } else {
-      uav_system_.setVelocityBasedPositionControllerConfig(config);
-    }
   }
 
   /**
@@ -99,13 +75,4 @@ private:
                                     ///< and associated connections.
   AsyncTimer uav_controller_timer_; ///< Timer for running uav controller
   AsyncTimer arm_controller_timer_; ///< Timer for running arm controller
-  ///\todo Find a better way to handle dynamic reconfigure for controllers
-  dynamic_reconfigure::Server<
-      aerial_autonomy::VelocityBasedPositionControllerDynamicConfig>
-      server_; ///< Reconfig server for updating velocity based position
-               /// controller gains
-  dynamic_reconfigure::Server<
-      aerial_autonomy::VelocityBasedPositionControllerDynamicConfig>::
-      CallbackType
-          reconfigure_callback_function_; ///< Callback function for reconfig
 };

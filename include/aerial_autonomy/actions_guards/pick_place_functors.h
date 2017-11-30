@@ -63,8 +63,8 @@ using PlaceInternalActionFunctor_ =
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT,
-            RelativePoseVisualServoingControllerDroneConnector, true, Reset>>>;
+            LogicStateMachineT, RPYTRelativePoseVisualServoingConnector, true,
+            Reset>>>;
 
 /**
 * @brief Logic to check arm power and manual mode
@@ -367,15 +367,15 @@ struct WaitingForPick_
  * @tparam LogicStateMachineT Logic state machine used to process events
  */
 template <class LogicStateMachineT>
-using PickBaseState_ = TimedState<
-    UAVArmSystem, LogicStateMachineT,
-    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
-        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-        ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT,
-            RelativePoseVisualServoingControllerDroneConnector, false, Reset>,
-        GrippingInternalActionFunctor_<LogicStateMachineT>>>>;
+using PickBaseState_ =
+    TimedState<UAVArmSystem, LogicStateMachineT,
+               boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+                   UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+                   ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+                   ControllerStatusInternalActionFunctor_<
+                       LogicStateMachineT,
+                       RPYTRelativePoseVisualServoingConnector, false, Reset>,
+                   GrippingInternalActionFunctor_<LogicStateMachineT>>>>;
 /**
 * @brief State that uses position control functor to reach a desired goal for
 * picking and monitors the gripper status

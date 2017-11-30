@@ -1,10 +1,10 @@
 #pragma once
 #include "aerial_autonomy/common/conversions.h"
 #include "aerial_autonomy/common/html_utils.h"
-#include "aerial_autonomy/controller_hardware_connectors/relative_pose_visual_servoing_controller_drone_connector.h"
+#include "aerial_autonomy/controller_hardware_connectors/rpyt_relative_pose_visual_servoing_connector.h"
 #include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h"
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
-#include "aerial_autonomy/controllers/velocity_based_relative_pose_controller.h"
+#include "aerial_autonomy/controllers/rpyt_based_relative_pose_controller.h"
 #include "aerial_autonomy/robot_systems/uav_system.h"
 #include "aerial_autonomy/trackers/alvar_tracker.h"
 #include "aerial_autonomy/trackers/roi_to_position_converter.h"
@@ -38,39 +38,22 @@ public:
         constant_heading_depth_controller_(
             config_.uav_vision_system_config()
                 .constant_heading_depth_controller_config()),
-        velocity_based_relative_pose_controller_(
+        rpyt_based_relative_pose_controller_(
             config_.uav_vision_system_config()
-                .velocity_based_relative_pose_controller_config()),
+                .rpyt_based_relative_pose_controller_config(),
+            config_.uav_controller_timer_duration() / 1000.0),
         visual_servoing_drone_connector_(*tracker_, *drone_hardware_,
                                          constant_heading_depth_controller_,
                                          camera_transform_),
         relative_pose_visual_servoing_drone_connector_(
-            *tracker_, *drone_hardware_,
-            velocity_based_relative_pose_controller_, camera_transform_,
+            *tracker_, *drone_hardware_, rpyt_based_relative_pose_controller_,
+            camera_transform_,
             conversions::protoTransformToTf(config_.uav_vision_system_config()
                                                 .tracking_offset_transform())) {
     controller_hardware_connector_container_.setObject(
         visual_servoing_drone_connector_);
     controller_hardware_connector_container_.setObject(
         relative_pose_visual_servoing_drone_connector_);
-  }
-
-  // \todo Find a better way to update controller configurations from dynamic
-  // reconfigure
-  /**
-   * @brief update the controller config specified
-   *
-   * @param config New config to update for the controller
-   */
-  void setVelocityBasedPositionControllerConfig(
-      const aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
-          &config) {
-    velocity_based_relative_pose_controller_.updateConfig(config);
-  }
-
-  aerial_autonomy::VelocityBasedPositionControllerDynamicConfig
-  getDefaultVelocityBasedPositionControllerConfig() const {
-    return velocity_based_relative_pose_controller_.getDefaultConfig();
   }
 
   /**
@@ -130,7 +113,7 @@ public:
   }
 
   void resetRelativePoseController() {
-    velocity_based_relative_pose_controller_.resetIntegrator();
+    rpyt_based_relative_pose_controller_.resetIntegrator();
   }
 
 protected:
@@ -176,10 +159,9 @@ private:
   */
   ConstantHeadingDepthController constant_heading_depth_controller_;
   /**
-  * @brief Moves to a position relative to a tracked position using velocity
-  * commands
+  * @brief Controller to mantain a relative pose with respect to the object
   */
-  VelocityBasedRelativePoseController velocity_based_relative_pose_controller_;
+  RPYTBasedRelativePoseController rpyt_based_relative_pose_controller_;
   /**
   * @brief Connector for the constant heading depth controller to
   * UAV
@@ -188,6 +170,6 @@ private:
   /**
   * @brief Connects relative pose controller ot tracker and UAV
   */
-  RelativePoseVisualServoingControllerDroneConnector
+  RPYTRelativePoseVisualServoingConnector
       relative_pose_visual_servoing_drone_connector_;
 };

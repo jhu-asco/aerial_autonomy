@@ -13,28 +13,29 @@ using namespace quad_simulator;
 /// \brief Test ManualRPYTController
 TEST(ManualRPYTControllerTests, TestMapInputOutOfBounds) {
   ManualRPYTController manual_rpyt_controller;
-  JoysticksYaw input(15000, -15000, 0, 0, 0);
-  RollPitchYawThrust out_controls;
+  Joystick input(15000, -15000, 0, 0);
+  RollPitchYawRateThrust out_controls;
   bool result = manual_rpyt_controller.run(input, out_controls);
   ASSERT_NEAR(out_controls.r, M_PI / 6, 1e-8);
   ASSERT_NEAR(out_controls.p, -M_PI / 6, 1e-8);
+  ASSERT_NEAR(out_controls.y, 0, 1e-8);
   ASSERT_TRUE(result);
 }
 
 TEST(ManualRPYTControllerTests, TestYawGreaterThanPi) {
   ManualRPYTController manual_rpyt_controller;
-  JoysticksYaw input(0, 0, 0, 0, 1.5 * M_PI);
-  RollPitchYawThrust out_controls;
+  Joystick input(0, 0, 0, 15000);
+  RollPitchYawRateThrust out_controls;
   manual_rpyt_controller.run(input, out_controls);
-  ASSERT_NEAR(out_controls.y, -0.5 * M_PI, 1e-8);
+  ASSERT_NEAR(out_controls.y, M_PI, 1e-8);
 }
 
 TEST(ManualRPYTControllerTests, TestYawLessThanNegativePi) {
   ManualRPYTController manual_rpyt_controller;
-  JoysticksYaw input(0, 0, 0, 0, -1.5 * M_PI);
-  RollPitchYawThrust out_controls;
+  Joystick input(0, 0, 0, -15000);
+  RollPitchYawRateThrust out_controls;
   manual_rpyt_controller.run(input, out_controls);
-  ASSERT_NEAR(out_controls.y, 0.5 * M_PI, 1e-8);
+  ASSERT_NEAR(out_controls.y, -M_PI, 1e-8);
 }
 ///
 
@@ -50,6 +51,7 @@ TEST(ManualRPYTControllerDroneConnectorTests, Constructor) {
 
 TEST(ManualRPYTControllerDroneConnectorTests, Run) {
   QuadSimulator drone_hardware;
+  drone_hardware.usePerfectTime();
   drone_hardware.takeoff();
   drone_hardware.set_delay_send_time(0.02);
 
@@ -69,7 +71,6 @@ TEST(ManualRPYTControllerDroneConnectorTests, Run) {
   parsernode::common::quaddata sensor_data;
   for (int i = 0; i < 100; ++i) {
     manual_rpyt_controller_connector.run();
-    std::this_thread::sleep_for(std::chrono::milliseconds(20));
   }
   ASSERT_EQ(manual_rpyt_controller_connector.getStatus(),
             ControllerStatus::Completed);
@@ -77,11 +78,12 @@ TEST(ManualRPYTControllerDroneConnectorTests, Run) {
   ASSERT_NEAR(sensor_data.rpydata.x, 0.00523599, 1e-4);
   ASSERT_NEAR(sensor_data.rpydata.y, 0.00261799, 1e-4);
   // Verify Omegaz
-  ASSERT_NEAR(sensor_data.omega.z, -0.00314, 1e-3);
+  ASSERT_NEAR(sensor_data.omega.z, M_PI / 100.0, 1e-3);
 }
 
 TEST(ManualRPYTControllerDroneConnectorTests, RunConstantAcceleration) {
   QuadSimulator drone_hardware;
+  drone_hardware.usePerfectTime();
   drone_hardware.takeoff();
   drone_hardware.set_delay_send_time(0.02);
 
@@ -102,7 +104,6 @@ TEST(ManualRPYTControllerDroneConnectorTests, RunConstantAcceleration) {
   drone_hardware.getquaddata(first_data);
   for (int i = 0; i < 50; ++i) {
     manual_rpyt_controller_connector.run();
-    std::this_thread::sleep_for(std::chrono::milliseconds(20));
   }
   drone_hardware.getquaddata(second_data);
   ASSERT_NEAR(second_data.localpos.x, first_data.localpos.x, 1e-4);
@@ -110,7 +111,6 @@ TEST(ManualRPYTControllerDroneConnectorTests, RunConstantAcceleration) {
   // for 1 more second
   for (int i = 0; i < 50; ++i) {
     manual_rpyt_controller_connector.run();
-    std::this_thread::sleep_for(std::chrono::milliseconds(20));
   }
   drone_hardware.getquaddata(third_data);
   ASSERT_NEAR(third_data.localpos.x, first_data.localpos.x, 1e-4);

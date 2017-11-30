@@ -78,6 +78,7 @@ TEST(UAVSystemTests, runVelocityController) {
 
 TEST(UAVSystemTests, runRPYTController) {
   QuadSimulator *drone_hardware = new QuadSimulator;
+  drone_hardware->usePerfectTime();
   UAVSystem uav_system{ParserPtr(drone_hardware)};
   uav_system.takeOff();
   // set rc channels
@@ -89,13 +90,12 @@ TEST(UAVSystemTests, runRPYTController) {
   // Run 10 iterations
   for (int i = 0; i < 100; ++i) {
     uav_system.runActiveController(HardwareType::UAV);
-    std::this_thread::sleep_for(std::chrono::milliseconds(20));
   }
   parsernode::common::quaddata sensor_data = uav_system.getUAVData();
   ASSERT_NEAR(sensor_data.rpydata.x, 0.00523599, 1e-4);
   ASSERT_NEAR(sensor_data.rpydata.y, 0.00261799, 1e-4);
   // Verify Omegaz
-  ASSERT_NEAR(sensor_data.omega.z, -0.00314, 1e-3);
+  ASSERT_NEAR(sensor_data.omega.z, M_PI / 100, 1e-3);
 }
 
 TEST(UAVSystemTests, getActiveControllerStatus) {

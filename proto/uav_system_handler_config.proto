@@ -9,11 +9,6 @@ message UAVSystemHandlerConfig {
   * @brief robot system configuration
   */
   required UAVSystemConfig uav_system_config = 1;
-  /**
-  * @brief Timestep in milliseconds for timer which runs uav controller
-  * continously
-  */
-  optional int32 uav_controller_timer_duration = 3 [ default = 20 ];
 
   /**
   * @brief Store parent config options

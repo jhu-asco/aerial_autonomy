@@ -79,11 +79,26 @@ public:
   *
   * @return True if sending command is successful
   */
-  virtual bool cmdrpythrust(geometry_msgs::Quaternion &rpytmsg,
-                            bool sendyaw = false) {
+  virtual bool cmdrpythrust(geometry_msgs::Quaternion &rpytmsg) {
     quad_data.rpydata.x = rpytmsg.x;
     quad_data.rpydata.y = rpytmsg.y;
     quad_data.rpydata.z = rpytmsg.z;
+    return true;
+  }
+  /**
+  * @brief Command the euler angles of the quad and the thrust.
+  *
+  * @param rpytmsg Msg format is (x,y,z,w) -> (roll, pitch, yaw, thrust).
+  * The thrust value will be adjusted based on whethere there is thrust bias or
+  * not.
+  * @param sendyaw True to control the yaw/ False to ignore yaw command
+  *
+  * @return True if sending command is successful
+  */
+  virtual bool cmdrpyawratethrust(geometry_msgs::Quaternion &rpytmsg) {
+    quad_data.rpydata.x = rpytmsg.x;
+    quad_data.rpydata.y = rpytmsg.y;
+    quad_data.omega.z = rpytmsg.z;
     return true;
   }
   /**
@@ -94,9 +109,24 @@ public:
   *
   * @return True if sending command is successful
   */
-  virtual bool cmdvelguided(geometry_msgs::Vector3 &vel_cmd, double &yaw_ang) {
+  virtual bool cmdvel_yaw_angle_guided(geometry_msgs::Vector3 &vel_cmd,
+                                       double &yaw_ang) {
     quad_data.linvel = vel_cmd;
     quad_data.rpydata.z = yaw_ang;
+    return true;
+  }
+  /**
+  * @brief Command velocity and yawrate to UAV
+  *
+  * @param vel_cmd Velocity vector (m/s)
+  * @param yaw_rate Yaw rate (rad/s)
+  *
+  * @return True if sending command is successful
+  */
+  virtual bool cmdvel_yaw_rate_guided(geometry_msgs::Vector3 &vel_cmd,
+                                      double &yaw_rate) {
+    quad_data.linvel = vel_cmd;
+    quad_data.omega.z = yaw_rate;
     return true;
   }
   /**
@@ -127,12 +157,6 @@ public:
   * @param yaw Yaw angle (rad)
   */
   virtual void reset_attitude(double roll, double pitch, double yaw) {}
-  /**
-  * @brief Set UAV controller mode such position controlling, rpyt etc
-  *
-  * @param mode This version does not support any modes
-  */
-  virtual void setmode(std::string mode) {}
 
   // PluginLib initialization function
   /**

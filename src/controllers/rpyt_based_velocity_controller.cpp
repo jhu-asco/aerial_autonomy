@@ -5,26 +5,26 @@
 #include <glog/logging.h>
 
 bool RPYTBasedVelocityController::runImplementation(
-    VelocityYaw sensor_data, VelocityYaw goal, RollPitchYawThrust &control) {
-  VelocityYaw velocity_diff = goal - sensor_data;
+    std::tuple<VelocityYawRate, double> sensor_data, VelocityYawRate goal,
+    RollPitchYawRateThrust &control) {
+  double yaw = std::get<1>(sensor_data);
+  VelocityYawRate velocity_yawrate_diff = goal - std::get<0>(sensor_data);
+  cumulative_error =
+      cumulative_error + velocity_yawrate_diff * controller_timer_duration_;
 
   RPYTBasedVelocityControllerConfig config = config_;
-  cumulative_error.x += velocity_diff.x * controller_timer_duration_;
-  cumulative_error.y += velocity_diff.y * controller_timer_duration_;
-  cumulative_error.z += velocity_diff.z * controller_timer_duration_;
-
   // Acceleration in world frame
-  double acc_x =
-      config.kp() * velocity_diff.x + config.ki() * cumulative_error.x;
-  double acc_y =
-      config.kp() * velocity_diff.y + config.ki() * cumulative_error.y;
-  double acc_z =
-      config.kp() * velocity_diff.z + config.ki() * cumulative_error.z + 9.81;
+  double acc_x = config.kp_xy() * velocity_yawrate_diff.x +
+                 config.ki_xy() * cumulative_error.x;
+  double acc_y = config.kp_xy() * velocity_yawrate_diff.y +
+                 config.ki_xy() * cumulative_error.y;
+  double acc_z = config.kp_z() * velocity_yawrate_diff.z +
+                 config.ki_z() * cumulative_error.z + 9.81;
 
   // Acceleration in gravity aligned yaw-compensated frame
   Eigen::Vector3d rot_acc;
-  rot_acc[0] = acc_x * cos(sensor_data.yaw) + acc_y * sin(sensor_data.yaw);
-  rot_acc[1] = -acc_x * sin(sensor_data.yaw) + acc_y * cos(sensor_data.yaw);
+  rot_acc[0] = acc_x * cos(yaw) + acc_y * sin(yaw);
+  rot_acc[1] = -acc_x * sin(yaw) + acc_y * cos(yaw);
   rot_acc[2] = acc_z;
 
   // thrust is magnitude of acceleration scaled by kt
@@ -54,33 +54,37 @@ bool RPYTBasedVelocityController::runImplementation(
   control.r = math::clamp(control.r, -config.max_rp(), config.max_rp());
   control.p = math::clamp(control.p, -config.max_rp(), config.max_rp());
 
-  control.y = goal.yaw;
+  control.y = goal.yaw_rate;
+  ///\todo  Add cumulative error to yaw rate (integrator)
   return true;
 }
 
-ControllerStatus
-RPYTBasedVelocityController::isConvergedImplementation(VelocityYaw sensor_data,
-                                                       VelocityYaw goal) {
+ControllerStatus RPYTBasedVelocityController::isConvergedImplementation(
+    std::tuple<VelocityYawRate, double> sensor_data, VelocityYawRate goal) {
   ControllerStatus status = ControllerStatus::Active;
-  VelocityYaw velocity_diff = goal - sensor_data;
-  status << "Error velocity, yaw: " << velocity_diff.x << velocity_diff.y
-         << velocity_diff.z << velocity_diff.yaw;
+  VelocityYawRate velocity_yawrate = std::get<0>(sensor_data);
+  VelocityYawRate velocity_yawrate_diff = goal - velocity_yawrate;
+  status << "Error velocity, yaw rate: " << velocity_yawrate_diff.x
+         << velocity_yawrate_diff.y << velocity_yawrate_diff.z
+         << velocity_yawrate_diff.yaw_rate;
   DATA_LOG("rpyt_based_velocity_controller")
-      << velocity_diff.x << velocity_diff.y << velocity_diff.z
-      << velocity_diff.yaw << sensor_data.x << sensor_data.y << sensor_data.z
-      << sensor_data.yaw << goal.x << goal.y << goal.z << goal.yaw
-      << DataStream::endl;
+      << velocity_yawrate_diff.x << velocity_yawrate_diff.y
+      << velocity_yawrate_diff.z << velocity_yawrate_diff.yaw_rate
+      << velocity_yawrate.x << velocity_yawrate.y << velocity_yawrate.z
+      << velocity_yawrate.yaw_rate << goal.x << goal.y << goal.z
+      << goal.yaw_rate << DataStream::endl;
   RPYTBasedVelocityControllerConfig config = config_;
   const VelocityControllerConfig &velocity_controller_config =
       config.velocity_controller_config();
   const config::Velocity tolerance_vel =
       velocity_controller_config.goal_velocity_tolerance();
-  const double tolerance_yaw = velocity_controller_config.goal_yaw_tolerance();
+  const double tolerance_yaw_rate =
+      velocity_controller_config.goal_yaw_rate_tolerance();
   // Compare
-  if (std::abs(velocity_diff.x) < tolerance_vel.vx() &&
-      std::abs(velocity_diff.y) < tolerance_vel.vy() &&
-      std::abs(velocity_diff.z) < tolerance_vel.vz() &&
-      std::abs(velocity_diff.yaw) < tolerance_yaw) {
+  if (std::abs(velocity_yawrate_diff.x) < tolerance_vel.vx() &&
+      std::abs(velocity_yawrate_diff.y) < tolerance_vel.vy() &&
+      std::abs(velocity_yawrate_diff.z) < tolerance_vel.vz() &&
+      std::abs(velocity_yawrate_diff.yaw_rate) < tolerance_yaw_rate) {
     status.setStatus(ControllerStatus::Completed);
   }
   return status;

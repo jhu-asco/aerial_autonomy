@@ -102,16 +102,15 @@ template <bool done> struct WaitUntilResult {
    *
    * @return  the output of input function at the end of the function evaluation
    */
-  bool operator()(
-      std::function<bool(void)> const &input_function,
-      std::chrono::seconds timeout,
-      std::chrono::milliseconds sleep_time = std::chrono::milliseconds(100)) {
+  bool operator()(std::function<bool(void)> const &input_function,
+                  std::chrono::duration<double> timeout,
+                  std::chrono::duration<double> sleep_time =
+                      std::chrono::milliseconds(100)) {
     auto start = std::chrono::system_clock::now();
-    std::chrono::seconds duration(0);
+    std::chrono::duration<double> duration(0);
     while (input_function() == !done && duration.count() < timeout.count()) {
-      std::this_thread::sleep_for(std::chrono::milliseconds(sleep_time));
-      duration = std::chrono::duration_cast<std::chrono::seconds>(
-          std::chrono::system_clock::now() - start);
+      std::this_thread::sleep_for(sleep_time);
+      duration = std::chrono::system_clock::now() - start;
     }
     return input_function();
   }

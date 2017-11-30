@@ -26,7 +26,8 @@ namespace be = uav_basic_events;
 class VisualServoingStateMachineTests : public ::testing::Test {
 public:
   VisualServoingStateMachineTests()
-      : drone_hardware(new QuadSimulator), goal_tolerance_position(0.5) {
+      : drone_hardware(new QuadSimulator), goal_tolerance_position_(0.5) {
+    drone_hardware->usePerfectTime();
     auto uav_vision_system_config = config.mutable_uav_vision_system_config();
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
     auto depth_config =
@@ -41,9 +42,9 @@ public:
     auto vs_position_tolerance =
         depth_config->mutable_position_controller_config()
             ->mutable_goal_position_tolerance();
-    vs_position_tolerance->set_x(goal_tolerance_position);
-    vs_position_tolerance->set_y(goal_tolerance_position);
-    vs_position_tolerance->set_z(goal_tolerance_position);
+    vs_position_tolerance->set_x(goal_tolerance_position_);
+    vs_position_tolerance->set_y(goal_tolerance_position_);
+    vs_position_tolerance->set_z(goal_tolerance_position_);
 
     // Configure position controller
     auto vel_based_pos_controller_config =
@@ -59,6 +60,53 @@ public:
     vel_based_pos_controller_config->mutable_position_controller_config()
         ->set_goal_yaw_tolerance(0.1);
 
+    // Configure relative pose controller
+    auto vel_controller_config =
+        uav_vision_system_config
+            ->mutable_rpyt_based_relative_pose_controller_config()
+            ->mutable_rpyt_based_velocity_controller_config()
+            ->mutable_velocity_controller_config();
+    vel_controller_config->mutable_goal_velocity_tolerance()->set_vx(0.1);
+    vel_controller_config->mutable_goal_velocity_tolerance()->set_vy(0.1);
+    vel_controller_config->mutable_goal_velocity_tolerance()->set_vz(0.1);
+    auto rpyt_based_vel_controller_config =
+        uav_vision_system_config
+            ->mutable_rpyt_based_relative_pose_controller_config()
+            ->mutable_rpyt_based_velocity_controller_config();
+    rpyt_based_vel_controller_config->set_kp_xy(2.0);
+    rpyt_based_vel_controller_config->set_ki_xy(0);
+    rpyt_based_vel_controller_config->set_kp_z(2.0);
+    rpyt_based_vel_controller_config->set_ki_z(0);
+    auto vel_based_vs_controller_config =
+        uav_vision_system_config
+            ->mutable_rpyt_based_relative_pose_controller_config()
+            ->mutable_velocity_based_relative_pose_controller_config()
+            ->mutable_velocity_based_position_controller_config();
+    vel_based_vs_controller_config->set_position_gain(0.5);
+    vel_based_vs_controller_config->set_yaw_gain(0.5);
+    vel_based_vs_controller_config->set_max_velocity(5.);
+    vel_based_vs_controller_config->set_yaw_i_gain(0.0);
+    vel_based_vs_controller_config->set_position_i_gain(0.0);
+    vel_based_vs_controller_config->set_position_saturation_value(0.0);
+    vel_based_vs_controller_config->set_yaw_saturation_value(0.0);
+    auto relative_pose_vs_position_tolerance =
+        vel_based_vs_controller_config->mutable_position_controller_config()
+            ->mutable_goal_position_tolerance();
+    vel_based_vs_controller_config->mutable_position_controller_config()
+        ->set_goal_yaw_tolerance(0.1);
+    relative_pose_vs_position_tolerance->set_x(goal_tolerance_position_);
+    relative_pose_vs_position_tolerance->set_y(goal_tolerance_position_);
+    relative_pose_vs_position_tolerance->set_z(goal_tolerance_position_);
+    // Add pose goal
+    auto pose_goal =
+        state_machine_config.mutable_visual_servoing_state_machine_config()
+            ->add_relative_pose_goals();
+    auto pose_goal_position = pose_goal->mutable_position();
+    pose_goal_position->set_x(-1);
+    pose_goal_position->set_y(0);
+    pose_goal_position->set_z(0);
+    pose_goal->set_yaw(0);
+
     tf::Transform camera_transform = conversions::protoTransformToTf(
         uav_vision_system_config->camera_transform());
     tracker.reset(new SimpleTracker(*drone_hardware, camera_transform));
@@ -70,6 +118,7 @@ public:
     logic_state_machine->start();
     // Move to landed state
     logic_state_machine->process_event(InternalTransitionEvent());
+    drone_hardware->usePerfectTime();
   }
 
   void runActiveControllerToConvergence() {
@@ -79,8 +128,24 @@ public:
              ControllerStatus::Completed;
     };
     ASSERT_TRUE(test_utils::waitUntilTrue()(getUAVStatusRunControllers,
-                                            std::chrono::seconds(5),
+                                            std::chrono::seconds(1),
                                             std::chrono::milliseconds(0)));
+  }
+
+  static void SetUpTestCase() {
+    // Configure logging
+    LogConfig log_config;
+    log_config.set_directory("/tmp/data");
+    Log::instance().configure(log_config);
+    DataStreamConfig data_config;
+    data_config.set_stream_id("rpyt_based_velocity_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("velocity_based_position_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("rpyt_relative_pose_visual_servoing_connector");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("velocity_based_relative_pose_controller");
+    Log::instance().addDataStream(data_config);
   }
 
   ~VisualServoingStateMachineTests() {
@@ -96,7 +161,7 @@ protected:
   std::shared_ptr<SimpleTracker> tracker;
   std::unique_ptr<UAVVisionSystem> uav_system;
   std::unique_ptr<VisualServoingStateMachine> logic_state_machine;
-  double goal_tolerance_position;
+  double goal_tolerance_position_;
 
   void GoToHoverFromLanded() {
     drone_hardware->setBatteryPercent(100);
@@ -122,7 +187,7 @@ TEST_F(VisualServoingStateMachineTests, VisualServoing) {
   // Check we are in visual servoing state
   ASSERT_STREQ(pstate(*logic_state_machine), "VisualServoing");
   // Check controller status
-  ASSERT_EQ(uav_system->getStatus<VisualServoingControllerDroneConnector>(),
+  ASSERT_EQ(uav_system->getStatus<RPYTRelativePoseVisualServoingConnector>(),
             ControllerStatus::Active);
 
   runActiveControllerToConvergence();

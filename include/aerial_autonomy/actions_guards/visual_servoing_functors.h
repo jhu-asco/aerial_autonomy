@@ -42,9 +42,23 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
         this->state_machine_config_.visual_servoing_state_machine_config()
             .relative_pose_goals()
             .Get(GoalIndex);
-    robot_system.setGoal<RelativePoseVisualServoingControllerDroneConnector,
-                         PositionYaw>(
+    robot_system.setGoal<RPYTRelativePoseVisualServoingConnector, PositionYaw>(
         conversions::protoPositionYawToPositionYaw(goal));
+  }
+};
+
+template <class LogicStateMachineT, int GoalIndex>
+struct CheckGoalIndex_
+    : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {
+  bool guard(UAVVisionSystem &robot_system) {
+    int goals_size =
+        this->state_machine_config_.visual_servoing_state_machine_config()
+            .relative_pose_goals()
+            .size();
+    if (GoalIndex >= goals_size) {
+      return false;
+    }
+    return true;
   }
 };
 
@@ -140,14 +154,15 @@ using VisualServoingInternalActionFunctor_ =
 * @brief Logic to check while reaching a visual servoing goal
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
+* @tparam AbortEventT Event to send when controller is critical
 */
-template <class LogicStateMachineT>
+template <class LogicStateMachineT, class AbortEventT>
 using RelativePoseVisualServoingInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT,
-            RelativePoseVisualServoingControllerDroneConnector, true, Reset>>>;
+            LogicStateMachineT, RPYTRelativePoseVisualServoingConnector, true,
+            AbortEventT>>>;
 
 /**
 * @brief Check tracking is valid
@@ -205,7 +220,7 @@ struct VisualServoingTransitionGuardFunctor_
 };
 
 /**
-* @brief State that uses position control functor to reach a desired goal.
+* @brief State that uses visual servoing to reach a desired goal.
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
@@ -218,8 +233,10 @@ using VisualServoing_ =
 * @brief State that uses relative pose control functor to reach a desired goal.
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
+* @tparam AbortEventT Event to send when controller is critical
 */
-template <class LogicStateMachineT>
-using RelativePoseVisualServoing_ = BaseState<
-    UAVVisionSystem, LogicStateMachineT,
-    RelativePoseVisualServoingInternalActionFunctor_<LogicStateMachineT>>;
+template <class LogicStateMachineT, class AbortEventT>
+using RelativePoseVisualServoing_ =
+    BaseState<UAVVisionSystem, LogicStateMachineT,
+              RelativePoseVisualServoingInternalActionFunctor_<
+                  LogicStateMachineT, AbortEventT>>;

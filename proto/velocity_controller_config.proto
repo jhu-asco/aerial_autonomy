@@ -10,8 +10,15 @@ message VelocityControllerConfig {
   required config.Velocity goal_velocity_tolerance = 1;
 
   /**
-  * @brief UAV is within this yaw (radians),
+  * @brief UAV is within this yaw (radians/sec),
   * the goal is reached.
   */
   optional double goal_yaw_tolerance = 2 [ default = 0.1 ];
+
+  /**
+  * @brief UAV is within this yaw rate (radians/sec),
+  * the goal is reached. One of yaw/yaw rate is used based
+  * on the output of the controller
+  */
+  optional double goal_yaw_rate_tolerance = 3 [ default = 0.1 ];
 }

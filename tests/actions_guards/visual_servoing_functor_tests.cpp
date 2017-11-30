@@ -17,8 +17,8 @@ using VisualServoingInternalAction =
     VisualServoingInternalActionFunctor_<UAVVisionLogicStateMachine>;
 
 using RelativePoseVisualServoingInternalAction =
-    RelativePoseVisualServoingInternalActionFunctor_<
-        UAVVisionLogicStateMachine>;
+    RelativePoseVisualServoingInternalActionFunctor_<UAVVisionLogicStateMachine,
+                                                     be::Abort>;
 
 class VisualServoingTests : public ::testing::Test {
 protected:
@@ -30,6 +30,7 @@ protected:
   std::unique_ptr<UAVVisionLogicStateMachine> sample_logic_state_machine;
   VisualServoingTests() {
     drone_hardware.reset(new QuadSimulator);
+    drone_hardware->usePerfectTime();
     auto uav_vision_system_config = config.mutable_uav_vision_system_config();
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
     tf::Transform camera_transform = conversions::protoTransformToTf(
@@ -63,6 +64,7 @@ protected:
 
     auto relative_pose_vs_position_tolerance =
         uav_vision_system_config
+            ->mutable_rpyt_based_relative_pose_controller_config()
             ->mutable_velocity_based_relative_pose_controller_config()
             ->mutable_velocity_based_position_controller_config()
             ->mutable_position_controller_config()
@@ -70,6 +72,15 @@ protected:
     relative_pose_vs_position_tolerance->set_x(0.1);
     relative_pose_vs_position_tolerance->set_y(0.1);
     relative_pose_vs_position_tolerance->set_z(0.1);
+    auto relative_pose_vs_velocity_tolerance =
+        uav_vision_system_config
+            ->mutable_rpyt_based_relative_pose_controller_config()
+            ->mutable_rpyt_based_velocity_controller_config()
+            ->mutable_velocity_controller_config()
+            ->mutable_goal_velocity_tolerance();
+    relative_pose_vs_velocity_tolerance->set_vx(0.1);
+    relative_pose_vs_velocity_tolerance->set_vy(0.1);
+    relative_pose_vs_velocity_tolerance->set_vz(0.1);
     auto pose_goal =
         state_machine_config.mutable_visual_servoing_state_machine_config()
             ->add_relative_pose_goals();
@@ -86,6 +97,23 @@ protected:
     sample_logic_state_machine.reset(
         new UAVVisionLogicStateMachine(*uav_system, state_machine_config));
   }
+
+  static void SetUpTestCase() {
+    // Configure logging
+    LogConfig log_config;
+    log_config.set_directory("/tmp/data");
+    Log::instance().configure(log_config);
+    DataStreamConfig data_config;
+    data_config.set_stream_id("rpyt_based_velocity_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("velocity_based_position_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("rpyt_relative_pose_visual_servoing_connector");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("velocity_based_relative_pose_controller");
+    Log::instance().addDataStream(data_config);
+  }
+
   virtual ~VisualServoingTests(){};
 };
 /// \brief Test Visual Servoing
@@ -215,14 +243,11 @@ TEST_F(VisualServoingTests, CallRelativePoseInternalActionFunction) {
                                     dummy_start_state, dummy_target_state);
   // After transition the status should be active
   ControllerStatus status;
-  status =
-      uav_system
-          ->getStatus<RelativePoseVisualServoingControllerDroneConnector>();
+  status = uav_system->getStatus<RPYTRelativePoseVisualServoingConnector>();
   ASSERT_EQ(status, ControllerStatus::Active);
   // Get Goal
   Position goal =
-      uav_system->getGoal<RelativePoseVisualServoingControllerDroneConnector,
-                          Position>();
+      uav_system->getGoal<RPYTRelativePoseVisualServoingConnector, Position>();
   PositionYaw desired_relative_pose(1, 1, 2, 0.0);
   ASSERT_EQ(goal, desired_relative_pose);
   // Set quadrotor to the target location
@@ -234,9 +259,7 @@ TEST_F(VisualServoingTests, CallRelativePoseInternalActionFunction) {
   // Call controller loop:
   uav_system->runActiveController(HardwareType::UAV);
   // Get status
-  status =
-      uav_system
-          ->getStatus<RelativePoseVisualServoingControllerDroneConnector>();
+  status = uav_system->getStatus<RPYTRelativePoseVisualServoingConnector>();
   ASSERT_EQ(status, ControllerStatus::Completed);
   // Call internal action functor
   RelativePoseVisualServoingInternalAction visual_servoing_internal_action;
@@ -291,9 +314,7 @@ TEST_F(VisualServoingTests, LowBatteryCallRelativePoseInternalActionFunction) {
                                   dummy_start_state, dummy_target_state);
   // Check status of controller
   ControllerStatus status;
-  status =
-      uav_system
-          ->getStatus<RelativePoseVisualServoingControllerDroneConnector>();
+  status = uav_system->getStatus<RPYTRelativePoseVisualServoingConnector>();
   ASSERT_EQ(status, ControllerStatus::Active);
   // Set battery voltage to low value
   drone_hardware->setBatteryPercent(10);
@@ -351,7 +372,7 @@ TEST_F(VisualServoingTests, LostTrackingRelativePoseInternalActionFunction) {
   visual_servoing_internal_action(NULL, *sample_logic_state_machine,
                                   dummy_start_state, dummy_target_state);
   ASSERT_EQ(sample_logic_state_machine->getProcessEventTypeId(),
-            std::type_index(typeid(Reset)));
+            std::type_index(typeid(be::Abort)));
 }
 
 // Call GoHome functions
