@@ -8,9 +8,11 @@
 // Controllers
 #include <aerial_autonomy/controllers/basic_controllers.h>
 #include <aerial_autonomy/controllers/joystick_velocity_controller.h>
+#include <aerial_autonomy/controllers/rpyt_based_position_controller.h>
 // Specific ControllerConnectors
 #include <aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h>
 #include <aerial_autonomy/controller_hardware_connectors/joystick_velocity_controller_drone_connector.h>
+#include <aerial_autonomy/controller_hardware_connectors/rpyt_based_position_controller_drone_connector.h>
 // Load UAV parser
 #include <pluginlib/class_loader.h>
 // Base class for UAV parsers
@@ -41,9 +43,9 @@ protected:
   */
   UAVParserPtr drone_hardware_;
   /**
-  * @brief Velocity based position controller
+  * @brief RPYT based position controller
   */
-  VelocityBasedPositionController velocity_based_position_controller_;
+  RPYTBasedPositionController rpyt_based_position_controller_;
 
 private:
   // Controllers
@@ -68,11 +70,11 @@ private:
    */
   PositionControllerDroneConnector position_controller_drone_connector_;
   /**
-   * @brief connector for position controller using velocity and yaw rate
+   * @brief connector for position controller using rpyt
    * commands
    */
-  VelocityBasedPositionControllerDroneConnector
-      velocity_based_position_controller_drone_connector_;
+  RPYTBasedPositionControllerDroneConnector
+      rpyt_based_position_controller_drone_connector_;
   /**
   * @brief connector for velocity controller
   */
@@ -150,8 +152,9 @@ public:
   UAVSystem(UAVSystemConfig config, UAVParserPtr drone_hardware = nullptr)
       : BaseRobotSystem(), config_(config),
         drone_hardware_(UAVSystem::chooseParser(drone_hardware, config)),
-        velocity_based_position_controller_(
-            config.velocity_based_position_controller_config()),
+        rpyt_based_position_controller_(
+            config.rpyt_based_position_controller_config(),
+            std::chrono::milliseconds(config.uav_controller_timer_duration())),
         builtin_position_controller_(config.position_controller_config()),
         builtin_velocity_controller_(config.velocity_controller_config()),
         joystick_velocity_controller_(
@@ -159,8 +162,8 @@ public:
             std::chrono::milliseconds(config.uav_controller_timer_duration())),
         position_controller_drone_connector_(*drone_hardware_,
                                              builtin_position_controller_),
-        velocity_based_position_controller_drone_connector_(
-            *drone_hardware_, velocity_based_position_controller_),
+        rpyt_based_position_controller_drone_connector_(
+            *drone_hardware_, rpyt_based_position_controller_),
         velocity_controller_drone_connector_(*drone_hardware_,
                                              builtin_velocity_controller_),
         rpyt_controller_drone_connector_(*drone_hardware_,
@@ -173,7 +176,7 @@ public:
     controller_hardware_connector_container_.setObject(
         position_controller_drone_connector_);
     controller_hardware_connector_container_.setObject(
-        velocity_based_position_controller_drone_connector_);
+        rpyt_based_position_controller_drone_connector_);
     controller_hardware_connector_container_.setObject(
         velocity_controller_drone_connector_);
     controller_hardware_connector_container_.setObject(

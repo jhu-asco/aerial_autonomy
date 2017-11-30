@@ -58,7 +58,8 @@ public:
 
     // Position controller params
     auto pos_controller_config =
-        config_.mutable_velocity_based_position_controller_config();
+        config_.mutable_rpyt_based_position_controller_config()
+            ->mutable_velocity_based_position_controller_config();
     pos_controller_config->set_position_gain(10.);
     pos_controller_config->set_yaw_gain(10.);
     pos_controller_config->set_max_velocity(20.);
@@ -71,6 +72,14 @@ public:
     goal_position_tolerance->set_x(goal_tolerance_position_);
     goal_position_tolerance->set_y(goal_tolerance_position_);
     goal_position_tolerance->set_z(goal_tolerance_position_);
+    auto rpyt_vel_controller_tol =
+        config_.mutable_rpyt_based_position_controller_config()
+            ->mutable_rpyt_based_velocity_controller_config()
+            ->mutable_velocity_controller_config()
+            ->mutable_goal_velocity_tolerance();
+    rpyt_vel_controller_tol->set_vx(0.1);
+    rpyt_vel_controller_tol->set_vy(0.1);
+    rpyt_vel_controller_tol->set_vz(0.1);
 
     // Relative visual servoing controller params
     auto vel_controller_config =

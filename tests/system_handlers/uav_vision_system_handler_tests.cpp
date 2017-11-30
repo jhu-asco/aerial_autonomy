@@ -24,7 +24,8 @@ public:
     uav_config->set_uav_parser_type("quad_simulator_parser/QuadSimParser");
     // Position controller params
     auto pos_controller_config =
-        uav_config->mutable_velocity_based_position_controller_config();
+        uav_config->mutable_rpyt_based_position_controller_config()
+            ->mutable_velocity_based_position_controller_config();
     pos_controller_config->set_position_gain(10.);
     pos_controller_config->set_yaw_gain(10.);
     pos_controller_config->set_max_velocity(20.);
@@ -37,6 +38,14 @@ public:
     goal_position_tolerance->set_x(0.1);
     goal_position_tolerance->set_y(0.1);
     goal_position_tolerance->set_z(0.1);
+    auto rpyt_vel_controller_tol =
+        uav_config->mutable_rpyt_based_position_controller_config()
+            ->mutable_rpyt_based_velocity_controller_config()
+            ->mutable_velocity_controller_config()
+            ->mutable_goal_velocity_tolerance();
+    rpyt_vel_controller_tol->set_vx(0.1);
+    rpyt_vel_controller_tol->set_vy(0.1);
+    rpyt_vel_controller_tol->set_vz(0.1);
 
     uav_system_handler_.reset(
         new UAVVisionSystemHandler<

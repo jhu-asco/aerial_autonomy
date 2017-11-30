@@ -232,12 +232,11 @@ TEST(PositionControlFunctorTests, TransitionActionTest) {
   PositionYaw goal(1, 1, 1, 1);
   position_control_transition_action_functor(
       goal, sample_logic_state_machine, dummy_start_state, dummy_target_state);
-  ASSERT_EQ(
-      uav_system.getStatus<VelocityBasedPositionControllerDroneConnector>(),
-      ControllerStatus::Active);
+  ASSERT_EQ(uav_system.getStatus<RPYTBasedPositionControllerDroneConnector>(),
+            ControllerStatus::Active);
   PositionYaw resulting_goal =
-      uav_system.getGoal<VelocityBasedPositionControllerDroneConnector,
-                         PositionYaw>();
+      uav_system
+          .getGoal<RPYTBasedPositionControllerDroneConnector, PositionYaw>();
   ASSERT_EQ(goal, resulting_goal);
 }
 
@@ -282,19 +281,29 @@ TEST(PositionControlFunctorTests, PositionControlInternalActionTest) {
   drone_hardware->takeoff();
   UAVSystemConfig config;
   auto position_controller_config =
-      config.mutable_velocity_based_position_controller_config()
+      config.mutable_rpyt_based_position_controller_config()
+          ->mutable_velocity_based_position_controller_config()
           ->mutable_position_controller_config();
   position_controller_config->mutable_goal_position_tolerance()->set_x(0.1);
   position_controller_config->mutable_goal_position_tolerance()->set_y(0.1);
   position_controller_config->mutable_goal_position_tolerance()->set_z(0.1);
   position_controller_config->set_goal_yaw_tolerance(0.1);
+  auto rpyt_vel_controller_tol =
+      config.mutable_rpyt_based_position_controller_config()
+          ->mutable_rpyt_based_velocity_controller_config()
+          ->mutable_velocity_controller_config()
+          ->mutable_goal_velocity_tolerance();
+  rpyt_vel_controller_tol->set_vx(0.1);
+  rpyt_vel_controller_tol->set_vy(0.1);
+  rpyt_vel_controller_tol->set_vz(0.1);
+
   UAVSystem uav_system(
       config, std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware));
   UAVLogicStateMachine sample_logic_state_machine(uav_system);
   int dummy_start_state, dummy_target_state;
   PositionControlInternalActionFunctor position_control_internal_action_functor;
   PositionYaw goal(1, 1, 1, 1);
-  uav_system.setGoal<VelocityBasedPositionControllerDroneConnector>(goal);
+  uav_system.setGoal<RPYTBasedPositionControllerDroneConnector>(goal);
   position_control_internal_action_functor(
       InternalTransitionEvent(), sample_logic_state_machine, dummy_start_state,
       dummy_target_state);

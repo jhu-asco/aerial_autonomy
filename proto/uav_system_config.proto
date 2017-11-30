@@ -8,6 +8,8 @@ import "velocity_controller_config.proto";
 
 import "velocity_based_position_controller_config.proto";
 
+import "rpyt_based_position_controller_config.proto";
+
 import "joystick_velocity_controller_config.proto";
 
 message UAVSystemConfig {
@@ -40,8 +42,8 @@ message UAVSystemConfig {
 
   optional VelocityControllerConfig velocity_controller_config = 6;
 
-  optional VelocityBasedPositionControllerConfig
-      velocity_based_position_controller_config = 7;
+  optional RPYTBasedPositionControllerConfig
+      rpyt_based_position_controller_config = 7;
 
   optional JoystickVelocityControllerConfig
       joystick_velocity_controller_config = 12;
