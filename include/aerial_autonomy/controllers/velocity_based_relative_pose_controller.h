@@ -24,7 +24,8 @@ public:
   * @brief Constructor
   */
   VelocityBasedRelativePoseController(
-      VelocityBasedRelativePoseControllerConfig config, double dt = 0.02)
+      VelocityBasedRelativePoseControllerConfig config,
+      std::chrono::duration<double> dt = std::chrono::milliseconds(20))
       : config_(config),
         position_controller_(config.velocity_based_position_controller_config(),
                              dt) {}

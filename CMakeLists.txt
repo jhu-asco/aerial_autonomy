@@ -177,6 +177,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/velocity_controller_config.proto
   proto/rpyt_based_velocity_controller_config.proto
   proto/rpyt_based_relative_pose_controller_config.proto
+  proto/rpyt_based_position_controller_config.proto
   proto/joystick_velocity_controller_config.proto
   proto/position.proto
   proto/rotation.proto
@@ -236,6 +237,7 @@ add_library(aerial_autonomy
   src/controllers/relative_pose_controller.cpp
   src/controllers/velocity_based_relative_pose_controller.cpp
   src/controllers/rpyt_based_velocity_controller.cpp
+  src/controllers/rpyt_based_position_controller.cpp
   src/controllers/rpyt_based_relative_pose_controller.cpp
   src/controllers/joystick_velocity_controller.cpp
   src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp
@@ -364,6 +366,7 @@ catkin_add_gtest(${PROJECT_NAME}-relative-pose-controller-test tests/controllers
 catkin_add_gtest(${PROJECT_NAME}-velocity-based-relative-pose-controller-test tests/controllers/velocity_based_relative_pose_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-relative-pose-controller-test tests/controllers/rpyt_based_relative_pose_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-velocity-controller-test tests/controllers/rpyt_based_velocity_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-rpyt-based-position-controller-test tests/controllers/rpyt_based_position_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-constant-heading-depth-controller-test tests/controllers/constant_heading_depth_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-math-test tests/common/math_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-tracker-test tests/trackers/simple_tracker_tests.cpp)
@@ -484,6 +487,9 @@ if(TARGET ${PROJECT_NAME}-velocity-based-relative-pose-controller-test)
 endif()
 if(TARGET ${PROJECT_NAME}-rpyt-based-relative-pose-controller-test)
   target_link_libraries(${PROJECT_NAME}-rpyt-based-relative-pose-controller-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-rpyt-based-position-controller-test)
+  target_link_libraries(${PROJECT_NAME}-rpyt-based-position-controller-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-rpyt-based-velocity-controller-test)
   target_link_libraries(${PROJECT_NAME}-rpyt-based-velocity-controller-test aerial_autonomy)

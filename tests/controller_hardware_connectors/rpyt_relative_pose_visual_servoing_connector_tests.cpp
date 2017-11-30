@@ -59,7 +59,8 @@ public:
     goal_velocity_tolerance->set_vz(goal_tolerance_velocity_);
     tf::Transform camera_transform = tf::Transform::getIdentity();
     simple_tracker_.reset(new SimpleTracker(drone_hardware_, camera_transform));
-    controller_.reset(new RPYTBasedRelativePoseController(config, 0.02));
+    controller_.reset(new RPYTBasedRelativePoseController(
+        config, std::chrono::milliseconds(20)));
     visual_servoing_connector_.reset(
         new RPYTRelativePoseVisualServoingConnector(
             *simple_tracker_, drone_hardware_, *controller_, camera_transform,

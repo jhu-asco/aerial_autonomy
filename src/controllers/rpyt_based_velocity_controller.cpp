@@ -9,8 +9,8 @@ bool RPYTBasedVelocityController::runImplementation(
     RollPitchYawRateThrust &control) {
   double yaw = std::get<1>(sensor_data);
   VelocityYawRate velocity_yawrate_diff = goal - std::get<0>(sensor_data);
-  cumulative_error =
-      cumulative_error + velocity_yawrate_diff * controller_timer_duration_;
+  cumulative_error = cumulative_error +
+                     velocity_yawrate_diff * controller_timer_duration_.count();
 
   RPYTBasedVelocityControllerConfig config = config_;
   // Acceleration in world frame

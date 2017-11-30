@@ -7,6 +7,8 @@
 #include <aerial_autonomy/log/log.h>
 #include <glog/logging.h>
 
+#include <chrono>
+
 /**
  * @brief A position controller that sends velocity commands to the hardware
  */
@@ -25,9 +27,10 @@ public:
   * @param config specifies the gains on position, yaw and integrator gains etc
   * @param dt_ specifies the time difference between two runs
   */
-  VelocityBasedPositionController(VelocityBasedPositionControllerConfig config,
-                                  double dt_ = 0.02)
-      : config_(config), cumulative_error(0, 0, 0, 0), dt(dt_) {
+  VelocityBasedPositionController(
+      VelocityBasedPositionControllerConfig config,
+      std::chrono::duration<double> dt = std::chrono::milliseconds(20))
+      : config_(config), cumulative_error_(0, 0, 0, 0), dt_(dt) {
 
     CHECK(config_.position_gain() > 0) << "Gain should be non-negative";
     CHECK(config_.yaw_gain() > 0) << "Gain should be non-negative";
@@ -38,7 +41,7 @@ public:
         << "Saturation value should be non-negative";
     CHECK(config_.yaw_saturation_value() >= 0)
         << "Saturation value should be non-negative";
-    CHECK(dt > 0) << "Dt should be greater than 0";
+    CHECK(dt_.count() > 0) << "Dt should be greater than 0";
 
     DATA_HEADER("velocity_based_position_controller") << "x_diff"
                                                       << "y_diff"
@@ -82,7 +85,7 @@ public:
    *
    * @return cumulative position_yaw error multiplied by dt and i gain
    */
-  PositionYaw getCumulativeError() const { return cumulative_error; }
+  PositionYaw getCumulativeError() const { return cumulative_error_; }
 
   /**
    * @brief Set the goal and optionally reset the controller
@@ -144,6 +147,7 @@ protected:
   virtual ControllerStatus isConvergedImplementation(PositionYaw sensor_data,
                                                      PositionYaw goal);
   VelocityBasedPositionControllerConfig config_; ///< Controller configuration
-  PositionYaw cumulative_error; ///< Error integrated over multiple runs
-  double dt; ///< Time diff between different successive runImplementation calls
+  PositionYaw cumulative_error_; ///< Error integrated over multiple runs
+  const std::chrono::duration<double>
+      dt_; ///< Time diff between different successive runImplementation calls
 };
