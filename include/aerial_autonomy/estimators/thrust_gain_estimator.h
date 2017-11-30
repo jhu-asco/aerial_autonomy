@@ -72,6 +72,11 @@ public:
    * Otherwise waits for enough
    * thrust commands to be filled up.
    *
+   * Note: the estimator takes into account delay between thrust and
+   * acceleration measurements by using a buffer. The buffer size
+   * multiplied by the controller frequency should be equal to the sensor
+   * delay
+   *
    * @param roll current roll in radians under Euler ZYX convention
    * @param pitch current pitch in radians under Euler ZYX convention
    * @param body_z_acc Current body z acceleration in meters per second square
