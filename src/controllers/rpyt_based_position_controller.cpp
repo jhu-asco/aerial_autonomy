@@ -19,7 +19,8 @@ ControllerStatus RPYTBasedPositionController::isConvergedImplementation(
     std::tuple<VelocityYawRate, PositionYaw> sensor_data, PositionYaw goal) {
   auto velocity = std::get<0>(sensor_data);
   auto position = std::get<1>(sensor_data);
-  auto controller_status = rpyt_velocity_controller_.isConverged(
+  ControllerStatus controller_status(ControllerStatus::Completed);
+  controller_status += rpyt_velocity_controller_.isConverged(
       std::make_tuple(velocity, position.yaw));
   controller_status += position_controller_.isConverged(position);
   return controller_status;
