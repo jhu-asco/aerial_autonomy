@@ -43,8 +43,9 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
   // Set stick commands
   int16_t channels[4] = {150, 100, -150, 100};
   drone_hardware.setRC(channels);
+  drone_hardware.set_delay_send_time(0.02);
 
-  ThrustGainEstimator thrust_gain_estimator;
+  ThrustGainEstimator thrust_gain_estimator(0.2, 0.1);
   JoystickVelocityControllerDroneConnector connector(drone_hardware, controller,
                                                      thrust_gain_estimator);
 
@@ -57,6 +58,7 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
 
   ASSERT_TRUE(test_utils::waitUntilTrue()(
       controller_run, std::chrono::seconds(1), std::chrono::milliseconds(0)));
+  ASSERT_NEAR(thrust_gain_estimator.getThrustGain(), 0.16, 1e-4);
 
   parsernode::common::quaddata sensor_data;
   drone_hardware.getquaddata(sensor_data);
