@@ -1,0 +1,21 @@
+syntax = "proto2";
+
+import "rpyt_based_velocity_controller_config.proto";
+import "velocity_based_position_controller_config.proto";
+
+/**
+* Configuration for position controller that gives rpyt commands
+*/
+message RPYTBasedPositionControllerConfig {
+  /**
+  * @brief Config for velocity controller
+  */
+  optional RPYTBasedVelocityControllerConfig
+      rpyt_based_velocity_controller_config = 1;
+  /**
+  * @brief Config for position controller that gives comands to velocity
+  * controller
+  */
+  optional VelocityBasedPositionControllerConfig
+      velocity_based_position_controller_config = 2;
+}
