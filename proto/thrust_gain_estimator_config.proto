@@ -1,0 +1,23 @@
+syntax = "proto2";
+
+/**
+* Settings for thrust gain estimator
+*/
+message ThrustGainEstimatorConfig {
+  /**
+  * @brief Initial guess of thrust gain
+  */
+  optional double kt = 1 [ default = 0.16 ];
+  /**
+  * @brief Gain to update the internal thrust gain based on
+  * estimated thrust gain. If the mixing gain is close to 1, the internal gain
+  * will
+  * follow the estimated thrust gain closely. The mixing gain has to be between
+  * 0
+  */
+  optional double mixing_gain = 2 [ default = 0.1 ];
+  /**
+  * @brief Maximum commanded velocity along each axis in m/s
+  */
+  optional uint32 buffer_size = 3 [ default = 1 ];
+}
