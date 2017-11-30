@@ -8,7 +8,9 @@
 TEST(ThrustGainEstimatorTests, Constructor) {
   ASSERT_NO_THROW(ThrustGainEstimator(0.16, 0.1));
   ASSERT_DEATH(ThrustGainEstimator(-1, 0.5),
-               "Thrust gain should be greater than 0");
+               "Thrust gain should be greater than or equal to minimum: 0.1");
+  ASSERT_DEATH(ThrustGainEstimator(5, 0.5),
+               "Thrust gain should be less than or equal to maximum: 0.25");
   ASSERT_DEATH(ThrustGainEstimator(0.16, -0.5),
                "Mixing gain should be between 0 and 1");
   ASSERT_DEATH(ThrustGainEstimator(0.16, 1.5),
@@ -20,8 +22,12 @@ TEST(ThrustGainEstimatorTests, Constructor) {
 TEST(ThrustGainEstimatorTests, resetThrustGain) {
   ThrustGainEstimator thrust_gain_estimator(0.16);
   ASSERT_EQ(thrust_gain_estimator.getThrustGain(), 0.16);
-  thrust_gain_estimator.resetThrustGain(0.5);
-  ASSERT_EQ(thrust_gain_estimator.getThrustGain(), 0.5);
+  thrust_gain_estimator.resetThrustGain(0.2);
+  ASSERT_EQ(thrust_gain_estimator.getThrustGain(), 0.2);
+  ASSERT_DEATH(thrust_gain_estimator.resetThrustGain(0);
+               , "Thrust gain should be greater than or equal to minimum: 0.1");
+  ASSERT_DEATH(thrust_gain_estimator.resetThrustGain(5);
+               , "Thrust gain should be less than or equal to maximum: 0.25");
 }
 
 TEST(ThrustGainEstimatorTests, processSensorThrustPairZeroRollPitch) {
