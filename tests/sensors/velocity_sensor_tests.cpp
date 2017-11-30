@@ -50,6 +50,21 @@ TEST_F(VelocitySensorTests, SensorTF) {
   ASSERT_NEAR(sensor_vel.z, actual_vel[2], 1e-4);
 }
 
+TEST_F(VelocitySensorTests, Timeout) {
+  VelocitySensor sensor(config);
+  nav_msgs::Odometry odom_msg;
+  odom_msg.twist.twist.linear.x = 0.1;
+  odom_msg.twist.twist.linear.y = -0.2;
+  odom_msg.twist.twist.linear.z = 0.3;
+
+  odom_pub.publish(odom_msg);
+  ros::Duration(0.01).sleep();
+  ros::spinOnce();
+
+  ros::Duration(1.0).sleep();
+  ASSERT_FALSE(sensor_status_to_bool(sensor.getSensorStatus()));
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   ros::init(argc, argv, "velocity_sensor_tests");

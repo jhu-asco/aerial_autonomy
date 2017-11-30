@@ -5,10 +5,10 @@ message VelocitySensorConfig {
   /**
   * @brief transform of sensor in robot's frame
   */
-  optional config.Transform sensor_transform = 2;
+  optional config.Transform sensor_transform = 1;
   /**
   * @brief maximum allowed divergence from gps data
   * along each axis in meters
   */
-  optional double max_divergence = 3 [default = 0.5];
+  optional double timeout = 2 [default = 0.5];
 }

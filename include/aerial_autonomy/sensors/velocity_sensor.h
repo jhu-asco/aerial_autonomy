@@ -23,12 +23,34 @@ public:
     sensor_world_tf_ =
         conversions::protoTransformToTf(config_.sensor_transform());
   }
+  /**
+  * @brief gives sensor data
+  */
+  Velocity getSensorData() {
+    Velocity sensor_data = sensor_data_;
+    return sensor_data;
+  }
+  /**
+  * @brief gives sensor status
+  */
+  SensorStatus getSensorStatus() {
+    SensorStatus sensor_status;
+    ros::Time last_msg_time = last_msg_time_;
+    if ((ros::Time::now() - last_msg_time).toSec() > config_.timeout())
+      sensor_status = SensorStatus::INVALID;
+    else
+      sensor_status = SensorStatus::VALID;
+
+    return sensor_status;
+  }
 
 private:
   /**
   * @brief callback for pose sensor
   */
   void odomCallback(const nav_msgs::Odometry::ConstPtr msg) {
+    ros::Time last_msg_time = msg->header.stamp;
+    last_msg_time_ = last_msg_time;
     tf::Vector3 global_vel =
         sensor_world_tf_ * tf::Vector3(msg->twist.twist.linear.x,
                                        msg->twist.twist.linear.y,
@@ -52,4 +74,12 @@ private:
   * @brief sensor's origin in world frame
   */
   tf::Transform sensor_world_tf_;
+  /**
+  * @brief time of last msg recieved
+  */
+  Atomic<ros::Time> last_msg_time_;
+  /**
+  * @brief variable to store sensor data
+  */
+  Atomic<Velocity> sensor_data_;
 };

@@ -31,33 +31,13 @@ public:
   /**
   * @brief Constructor
   */
-  Sensor() : sensor_status_(SensorStatus::INVALID) {}
+  Sensor() {}
   /**
   * @brief gets the latest sensor data
   */
-  virtual SensorDataT getSensorData() {
-    SensorDataT sensor_data = sensor_data_;
-    return sensor_data;
-  };
+  virtual SensorDataT getSensorData() = 0;
   /**
   * @brief gets the current status of the sensor
   */
-  SensorStatus getSensorStatus() {
-    SensorStatus sensor_status = sensor_status_;
-    return sensor_status;
-  }
-
-protected:
-  /**
-  * @brief Constructor that takes in sensor status
-  */
-  Sensor(SensorStatus sensor_status) : sensor_status_(sensor_status) {}
-  /**
-  * @brief variable to store sensor data
-  */
-  Atomic<SensorDataT> sensor_data_;
-  /**
-  * @brief variable to store the sensor status
-  */
-  Atomic<SensorStatus> sensor_status_;
+  virtual SensorStatus getSensorStatus() = 0;
 };
