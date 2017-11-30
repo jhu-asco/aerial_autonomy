@@ -8,6 +8,8 @@
 // Controllers
 #include <aerial_autonomy/controllers/basic_controllers.h>
 #include <aerial_autonomy/controllers/joystick_velocity_controller.h>
+// Estimators
+#include <aerial_autonomy/estimators/thrust_gain_estimator.h>
 // Specific ControllerConnectors
 #include <aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h>
 #include <aerial_autonomy/controller_hardware_connectors/joystick_velocity_controller_drone_connector.h>
@@ -63,6 +65,10 @@ private:
   * @brief Velocity controller which takes joystick controls as inputs
   */
   JoystickVelocityController joystick_velocity_controller_;
+  /**
+  * @brief Thrust gain estimator
+  */
+  ThrustGainEstimator thrust_gain_estimator_;
   /**
    * @brief connector for position controller
    */
@@ -157,6 +163,7 @@ public:
         joystick_velocity_controller_(
             config.joystick_velocity_controller_config(),
             std::chrono::milliseconds(config.uav_controller_timer_duration())),
+        thrust_gain_estimator_(config.thrust_estimator_config()),
         position_controller_drone_connector_(*drone_hardware_,
                                              builtin_position_controller_),
         velocity_based_position_controller_drone_connector_(
@@ -166,7 +173,8 @@ public:
         rpyt_controller_drone_connector_(*drone_hardware_,
                                          manual_rpyt_controller_),
         joystick_velocity_controller_drone_connector_(
-            *drone_hardware_, joystick_velocity_controller_),
+            *drone_hardware_, joystick_velocity_controller_,
+            thrust_gain_estimator_),
         home_location_specified_(false) {
     drone_hardware_->initialize();
     // Add control hardware connector containers

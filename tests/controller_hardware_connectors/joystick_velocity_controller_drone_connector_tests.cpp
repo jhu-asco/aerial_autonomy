@@ -15,9 +15,10 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Constructor) {
   JoystickVelocityControllerConfig joystick_config;
   QuadSimulator drone_hardware;
   JoystickVelocityController controller(joystick_config, dt);
+  ThrustGainEstimator thrust_gain_estimator;
 
-  ASSERT_NO_THROW(
-      new JoystickVelocityControllerDroneConnector(drone_hardware, controller));
+  ASSERT_NO_THROW(new JoystickVelocityControllerDroneConnector(
+      drone_hardware, controller, thrust_gain_estimator));
 }
 
 TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
@@ -43,8 +44,9 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
   int16_t channels[4] = {150, 100, -150, 100};
   drone_hardware.setRC(channels);
 
-  JoystickVelocityControllerDroneConnector connector(drone_hardware,
-                                                     controller);
+  ThrustGainEstimator thrust_gain_estimator;
+  JoystickVelocityControllerDroneConnector connector(drone_hardware, controller,
+                                                     thrust_gain_estimator);
 
   connector.setGoal(EmptyGoal());
 

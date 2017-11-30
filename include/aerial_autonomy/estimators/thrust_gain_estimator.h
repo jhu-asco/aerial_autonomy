@@ -1,11 +1,32 @@
 #pragma once
+#include "thrust_gain_estimator_config.pb.h"
 #include <queue>
+
 /**
  * @brief Estimates the thrust gain given body acceleration, roll, pitch and
  * commanded thrust
  */
 class ThrustGainEstimator {
 public:
+  /**
+   * @brief Estimates thrust gain given current roll, pitch, body z acceleration
+   * and thrust commands
+   *
+   * Usage:
+   *      ThrustGainEstimator thrust_gain_estimator();
+   *      thrust_gain_estimator.addSensorData(current_roll, current_pitch,
+   * current_body_z_acc);
+   *      thrust_gain_estimator.addThrustCommand();
+   *      double updated_gain = thrust_gain_estimator.getThrustGain();
+   *
+   * @param thrust_estimator_config specify settings for estimator i.e
+   *      the initial thrust gain, buffer size, mixing gain.
+   */
+  ThrustGainEstimator(
+      ThrustGainEstimatorConfig config = ThrustGainEstimatorConfig())
+      : ThrustGainEstimator(config.kt(), config.mixing_gain(),
+                            config.buffer_size()) {}
+
   /**
    * @brief Estimates thrust gain given current roll, pitch, body z acceleration
    * and thrust commands
