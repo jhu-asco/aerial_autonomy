@@ -1,0 +1,14 @@
+syntax = "proto2";
+import "transform.proto";
+
+message VelocitySensorConfig {
+  /**
+  * @brief transform of sensor in robot's frame
+  */
+  optional config.Transform sensor_transform = 2;
+  /**
+  * @brief maximum allowed divergence from gps data
+  * along each axis in meters
+  */
+  optional double max_divergence = 3 [default = 0.5];
+}
