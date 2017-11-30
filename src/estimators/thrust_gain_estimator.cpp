@@ -1,5 +1,6 @@
 #include <aerial_autonomy/common/math.h>
 #include <aerial_autonomy/estimators/thrust_gain_estimator.h>
+#include <aerial_autonomy/log/log.h>
 #include <glog/logging.h>
 #include <math.h>
 
@@ -21,6 +22,11 @@ ThrustGainEstimator::ThrustGainEstimator(double thrust_gain_initial,
   CHECK_LE(thrust_gain_initial, max_thrust_gain_)
       << "Thrust gain should be less than or equal to maximum: "
       << max_thrust_gain_;
+  DATA_HEADER("thrust_gain_estimator") << "roll"
+                                       << "pitch"
+                                       << "body_z_acc"
+                                       << "thrust_command"
+                                       << "thrust_gain";
 }
 
 void ThrustGainEstimator::resetThrustGain(double thrust_gain) {
@@ -53,6 +59,9 @@ void ThrustGainEstimator::addSensorData(double roll, double pitch,
                    (1 - mixing_gain_) * thrust_gain_;
     thrust_gain_ =
         math::clamp(thrust_gain_, min_thrust_gain_, max_thrust_gain_);
+    DATA_LOG("thrust_gain_estimator") << roll << pitch << body_z_acc
+                                      << thrust_command_queue_.front()
+                                      << thrust_gain_;
   } else {
     VLOG(2) << "Waiting for thrust commands to fill up the buffer";
   }
