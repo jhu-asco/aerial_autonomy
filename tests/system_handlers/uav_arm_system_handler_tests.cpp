@@ -29,9 +29,9 @@ public:
     auto pos_controller_config =
         uav_config->mutable_rpyt_based_position_controller_config()
             ->mutable_velocity_based_position_controller_config();
-    pos_controller_config->set_position_gain(10.);
-    pos_controller_config->set_yaw_gain(10.);
-    pos_controller_config->set_max_velocity(20.);
+    pos_controller_config->set_position_gain(1.);
+    pos_controller_config->set_yaw_gain(1.);
+    pos_controller_config->set_max_velocity(2.);
     pos_controller_config->set_max_yaw_rate(5.);
     auto goal_position_tolerance =
         pos_controller_config->mutable_position_controller_config()

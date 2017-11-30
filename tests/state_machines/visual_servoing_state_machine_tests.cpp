@@ -50,7 +50,8 @@ public:
     auto vel_based_position_controller =
         config.mutable_rpyt_based_position_controller_config()
             ->mutable_velocity_based_position_controller_config();
-    vel_based_position_controller->set_position_gain(5.0);
+    vel_based_position_controller->set_position_gain(1.0);
+    vel_based_position_controller->set_max_velocity(1.0);
     vel_based_position_controller->set_yaw_gain(1);
     auto vel_position_controller_tol =
         vel_based_position_controller->mutable_position_controller_config()
