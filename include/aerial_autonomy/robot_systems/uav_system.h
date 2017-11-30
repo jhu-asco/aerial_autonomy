@@ -163,7 +163,7 @@ public:
         joystick_velocity_controller_(
             config.joystick_velocity_controller_config(),
             std::chrono::milliseconds(config.uav_controller_timer_duration())),
-        thrust_gain_estimator_(config.thrust_estimator_config()),
+        thrust_gain_estimator_(config.thrust_gain_estimator_config()),
         position_controller_drone_connector_(*drone_hardware_,
                                              builtin_position_controller_),
         velocity_based_position_controller_drone_connector_(

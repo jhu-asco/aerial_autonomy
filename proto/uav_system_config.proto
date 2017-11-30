@@ -73,5 +73,5 @@ message UAVSystemConfig {
   /**
   * @brief Thrust estimator config
   */
-  optional ThrustGainEstimatorConfig thrust_estimator_config = 13;
+  optional ThrustGainEstimatorConfig thrust_gain_estimator_config = 13;
 }

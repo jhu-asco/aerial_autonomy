@@ -26,7 +26,7 @@ ThrustGainEstimator::ThrustGainEstimator(double thrust_gain_initial,
                                        << "pitch"
                                        << "body_z_acc"
                                        << "thrust_command"
-                                       << "thrust_gain";
+                                       << "thrust_gain" << DataStream::endl;
 }
 
 void ThrustGainEstimator::resetThrustGain(double thrust_gain) {
@@ -61,7 +61,7 @@ void ThrustGainEstimator::addSensorData(double roll, double pitch,
         math::clamp(thrust_gain_, min_thrust_gain_, max_thrust_gain_);
     DATA_LOG("thrust_gain_estimator") << roll << pitch << body_z_acc
                                       << thrust_command_queue_.front()
-                                      << thrust_gain_;
+                                      << thrust_gain_ << DataStream::endl;
   } else {
     VLOG(2) << "Waiting for thrust commands to fill up the buffer";
   }
