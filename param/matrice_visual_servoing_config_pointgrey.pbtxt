@@ -67,6 +67,11 @@ uav_system_config {
     }
   }
 
+  thrust_gain_estimator_config {
+    kt: 0.18
+    buffer_size: 10
+  }
+
   uav_vision_system_config {
     tracker_type: "Alvar"
 

@@ -10,6 +10,12 @@ JoystickVelocityControllerDroneConnector::
       thrust_gain_estimator_(thrust_gain_estimator),
       private_reference_controller_(controller) {}
 
+void JoystickVelocityControllerDroneConnector::setGoal(EmptyGoal goal) {
+  BaseClass::setGoal(goal);
+  VLOG(1) << "Clearing thrust estimator buffer";
+  thrust_gain_estimator_.clearBuffer();
+}
+
 bool JoystickVelocityControllerDroneConnector::extractSensorData(
     std::tuple<Joystick, VelocityYawRate, double> &sensor_data) {
 

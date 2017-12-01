@@ -75,3 +75,8 @@ void ThrustGainEstimator::addThrustCommand(double thrust_command) {
 }
 
 double ThrustGainEstimator::getThrustGain() { return thrust_gain_; }
+
+void ThrustGainEstimator::clearBuffer() {
+  std::queue<double> empty;
+  thrust_command_queue_.swap(empty);
+}
