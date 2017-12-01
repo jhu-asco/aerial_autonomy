@@ -47,18 +47,26 @@ public:
     vs_position_tolerance->set_z(goal_tolerance_position_);
 
     // Configure position controller
-    auto vel_based_pos_controller_config =
-        config.mutable_velocity_based_position_controller_config();
-    vel_based_pos_controller_config->set_position_gain(50.);
-    vel_based_pos_controller_config->set_yaw_gain(50.);
-    auto vel_based_pos_controller_tol =
-        vel_based_pos_controller_config->mutable_position_controller_config()
+    auto vel_based_position_controller =
+        config.mutable_rpyt_based_position_controller_config()
+            ->mutable_velocity_based_position_controller_config();
+    vel_based_position_controller->set_position_gain(1.0);
+    vel_based_position_controller->set_max_velocity(1.0);
+    vel_based_position_controller->set_yaw_gain(1);
+    auto vel_position_controller_tol =
+        vel_based_position_controller->mutable_position_controller_config()
             ->mutable_goal_position_tolerance();
-    vel_based_pos_controller_tol->set_x(0.1);
-    vel_based_pos_controller_tol->set_y(0.1);
-    vel_based_pos_controller_tol->set_z(0.1);
-    vel_based_pos_controller_config->mutable_position_controller_config()
-        ->set_goal_yaw_tolerance(0.1);
+    vel_position_controller_tol->set_x(0.1);
+    vel_position_controller_tol->set_y(0.1);
+    vel_position_controller_tol->set_z(0.1);
+    auto rpyt_vel_controller_tol =
+        config.mutable_rpyt_based_position_controller_config()
+            ->mutable_rpyt_based_velocity_controller_config()
+            ->mutable_velocity_controller_config()
+            ->mutable_goal_velocity_tolerance();
+    rpyt_vel_controller_tol->set_vx(0.1);
+    rpyt_vel_controller_tol->set_vy(0.1);
+    rpyt_vel_controller_tol->set_vz(0.1);
 
     // Configure relative pose controller
     auto vel_controller_config =
