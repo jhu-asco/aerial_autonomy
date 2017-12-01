@@ -18,11 +18,6 @@ class JoystickVelocityControllerDroneConnector
     : public ControllerHardwareConnector<
           std::tuple<Joystick, VelocityYawRate, double>, EmptyGoal,
           RollPitchYawRateThrust> {
-private:
-  using BaseClass =
-      ControllerHardwareConnector<std::tuple<Joystick, VelocityYawRate, double>,
-                                  EmptyGoal, RollPitchYawRateThrust>;
-
 public:
   /**
   * @brief Constructor
@@ -65,6 +60,12 @@ protected:
   virtual void sendHardwareCommands(RollPitchYawRateThrust controls);
 
 private:
+  /**
+   * @brief Base class typedef to simplify code
+   */
+  using BaseClass =
+      ControllerHardwareConnector<std::tuple<Joystick, VelocityYawRate, double>,
+                                  EmptyGoal, RollPitchYawRateThrust>;
   /**
   * @brief Quad hardware to send commands
   */
