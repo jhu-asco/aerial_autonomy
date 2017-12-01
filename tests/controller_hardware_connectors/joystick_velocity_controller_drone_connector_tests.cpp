@@ -15,9 +15,10 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Constructor) {
   JoystickVelocityControllerConfig joystick_config;
   QuadSimulator drone_hardware;
   JoystickVelocityController controller(joystick_config, dt);
-
-  ASSERT_NO_THROW(
-      new JoystickVelocityControllerDroneConnector(drone_hardware, controller));
+  VelocitySensorConfig vel_config;
+  std::shared_ptr<Sensor<Velocity>> sensor;
+  ASSERT_NO_THROW(new JoystickVelocityControllerDroneConnector(
+      drone_hardware, controller, sensor));
 }
 
 TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
@@ -36,6 +37,8 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
   JoystickVelocityControllerConfig joystick_config;
   QuadSimulator drone_hardware;
   drone_hardware.usePerfectTime();
+  VelocitySensorConfig vel_config;
+  std::shared_ptr<Sensor<Velocity>> sensor;
   JoystickVelocityController controller(joystick_config, dt);
   controller.updateRPYTConfig(rpyt_config_);
 
@@ -43,8 +46,8 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
   int16_t channels[4] = {150, 100, -150, 100};
   drone_hardware.setRC(channels);
 
-  JoystickVelocityControllerDroneConnector connector(drone_hardware,
-                                                     controller);
+  JoystickVelocityControllerDroneConnector connector(drone_hardware, controller,
+                                                     sensor);
 
   connector.setGoal(EmptyGoal());
 

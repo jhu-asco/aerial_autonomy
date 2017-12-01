@@ -11,6 +11,9 @@
 // Specific ControllerConnectors
 #include <aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h>
 #include <aerial_autonomy/controller_hardware_connectors/joystick_velocity_controller_drone_connector.h>
+// Sensors
+#include <aerial_autonomy/sensors/guidance.h>
+#include <aerial_autonomy/sensors/velocity_sensor.h>
 // Load UAV parser
 #include <pluginlib/class_loader.h>
 // Base class for UAV parsers
@@ -64,8 +67,13 @@ private:
   */
   JoystickVelocityController joystick_velocity_controller_;
   /**
+* @brief Velocity Sensor
+*/
+  std::shared_ptr<Sensor<Velocity>> velocity_sensor_;
+  /**
    * @brief connector for position controller
    */
+
   PositionControllerDroneConnector position_controller_drone_connector_;
   /**
    * @brief connector for position controller using velocity and yaw rate
@@ -97,7 +105,6 @@ private:
   * @brief Flag to specify if home location is specified or not
   */
   bool home_location_specified_;
-
   /**
    * @brief helper function to choose between the argument parser
    * and the one provided in config. If user provided a parser,
@@ -158,6 +165,12 @@ public:
             config.joystick_velocity_controller_config(),
             config.uav_controller_timer_duration() / 1000.0),
         // \todo Matt Use chrono::duration above
+        velocity_sensor_(
+            config.sensor_type() == "ROS Sensor"
+                ? dynamic_cast<Sensor<Velocity> *>(
+                      new VelocitySensor(config.velocity_sensor_config()))
+                : dynamic_cast<Sensor<Velocity> *>(
+                      new Guidance(*drone_hardware_))),
         position_controller_drone_connector_(*drone_hardware_,
                                              builtin_position_controller_),
         velocity_based_position_controller_drone_connector_(
@@ -167,7 +180,7 @@ public:
         rpyt_controller_drone_connector_(*drone_hardware_,
                                          manual_rpyt_controller_),
         joystick_velocity_controller_drone_connector_(
-            *drone_hardware_, joystick_velocity_controller_),
+            *drone_hardware_, joystick_velocity_controller_, velocity_sensor_),
         home_location_specified_(false) {
     drone_hardware_->initialize();
     // Add control hardware connector containers

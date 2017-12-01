@@ -10,6 +10,8 @@ import "velocity_based_position_controller_config.proto";
 
 import "joystick_velocity_controller_config.proto";
 
+import "velocity_sensor_config.proto";
+
 message UAVSystemConfig {
   /**
   * @brief Battery percentage required for takeoff
@@ -67,4 +69,12 @@ message UAVSystemConfig {
   * continously
   */
   optional int32 uav_controller_timer_duration = 11 [ default = 20 ];
+  /**
+  * @brief Velocity Sensor config
+  */
+  optional VelocitySensorConfig velocity_sensor_config = 13;
+  /**
+  *
+  */
+  optional string sensor_type = 14[default = "guidance"];
 }

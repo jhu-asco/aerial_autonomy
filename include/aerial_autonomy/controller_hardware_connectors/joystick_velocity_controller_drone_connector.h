@@ -1,11 +1,11 @@
 #pragma once
 #include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
+#include "aerial_autonomy/sensors/velocity_sensor.h"
 #include "aerial_autonomy/types/empty_goal.h"
 #include "aerial_autonomy/types/joystick.h"
 #include "aerial_autonomy/types/position.h"
 #include "aerial_autonomy/types/roll_pitch_yawrate_thrust.h"
 #include "aerial_autonomy/types/velocity_yaw_rate.h"
-
 #include <parsernode/parser.h>
 
 /**
@@ -30,7 +30,8 @@ public:
   JoystickVelocityControllerDroneConnector(
       parsernode::Parser &drone_hardware,
       Controller<std::tuple<Joystick, VelocityYawRate, double>, EmptyGoal,
-                 RollPitchYawRateThrust> &controller);
+                 RollPitchYawRateThrust> &controller,
+      std::shared_ptr<Sensor<Velocity>> velocity_sensor);
 
 protected:
   /**
@@ -55,4 +56,8 @@ private:
   * @brief Quad hardware to send commands
   */
   parsernode::Parser &drone_hardware_;
+  /**
+  * @brief sensor for velocity data
+  */
+  std::shared_ptr<Sensor<Velocity>> velocity_sensor_;
 };
