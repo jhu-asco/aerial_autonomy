@@ -14,7 +14,8 @@ class RPYTBasedPositionControllerDroneConnectorTests : public ::testing::Test {
 public:
   RPYTBasedPositionControllerDroneConnectorTests()
       : goal_tolerance_position_(0.05), goal_tolerance_velocity_(0.05),
-        goal_tolerance_yaw_(0.05), goal_tolerance_yaw_rate_(0.05) {
+        goal_tolerance_yaw_(0.05), goal_tolerance_yaw_rate_(0.05),
+        thrust_gain_estimator_(0.18) {
     RPYTBasedPositionControllerConfig config;
     auto position_controller_config =
         config.mutable_velocity_based_position_controller_config();
@@ -47,7 +48,7 @@ public:
     controller_.reset(
         new RPYTBasedPositionController(config, std::chrono::milliseconds(20)));
     controller_connector_.reset(new RPYTBasedPositionControllerDroneConnector(
-        drone_hardware_, *controller_));
+        drone_hardware_, *controller_, thrust_gain_estimator_));
     drone_hardware_.usePerfectTime();
   }
 
@@ -61,10 +62,13 @@ public:
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("rpyt_based_velocity_controller");
     Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("thrust_gain_estimator");
+    Log::instance().addDataStream(data_config);
   }
 
   void runUntilConvergence(const PositionYaw &initial_state,
-                           const PositionYaw &goal) {
+                           const PositionYaw &goal,
+                           bool check_thrust_gain = true) {
     // Fly quadrotor which sets the altitude to 0.5
     drone_hardware_.setBatteryPercent(60);
     drone_hardware_.takeoff();
@@ -91,6 +95,9 @@ public:
                                  tf::Vector3(goal.x, goal.y, goal.z));
     ASSERT_TF_NEAR(quad_transform, goal_transform, goal_tolerance_yaw_);
     ASSERT_EQ(controller_connector_->getStatus(), ControllerStatus::Completed);
+    if (check_thrust_gain) {
+      ASSERT_NEAR(thrust_gain_estimator_.getThrustGain(), 0.16, 1e-4);
+    }
   }
 
   QuadSimulator drone_hardware_;
@@ -102,10 +109,12 @@ public:
   double goal_tolerance_velocity_;
   double goal_tolerance_yaw_;
   double goal_tolerance_yaw_rate_;
+
+  ThrustGainEstimator thrust_gain_estimator_;
 };
 
 TEST_F(RPYTBasedPositionControllerDroneConnectorTests, GoalIsStart) {
-  runUntilConvergence(PositionYaw(0, 0, 0, 0), PositionYaw(0, 0, 0, 0));
+  runUntilConvergence(PositionYaw(0, 0, 0, 0), PositionYaw(0, 0, 0, 0), false);
 }
 
 TEST_F(RPYTBasedPositionControllerDroneConnectorTests,

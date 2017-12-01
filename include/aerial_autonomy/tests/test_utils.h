@@ -108,11 +108,13 @@ template <bool done> struct WaitUntilResult {
                       std::chrono::milliseconds(100)) {
     auto start = std::chrono::system_clock::now();
     std::chrono::duration<double> duration(0);
-    while (input_function() == !done && duration.count() < timeout.count()) {
+    bool result;
+    while ((result = input_function()) == !done &&
+           duration.count() < timeout.count()) {
       std::this_thread::sleep_for(sleep_time);
       duration = std::chrono::system_clock::now() - start;
     }
-    return input_function();
+    return result;
   }
 };
 /**

@@ -24,7 +24,8 @@ public:
         goal_tolerance_yaw_(0.05), goal_tolerance_yaw_rate_(0.05),
         tracking_offset_transform_(
             tf::createQuaternionFromRPY(0, M_PI / 3, M_PI / 2),
-            tf::Vector3(0, 0, 0)) {
+            tf::Vector3(0, 0, 0)),
+        thrust_gain_estimator_(0.18) {
     RPYTBasedRelativePoseControllerConfig config;
     auto velocity_relative_pose_config =
         config.mutable_velocity_based_relative_pose_controller_config();
@@ -63,7 +64,8 @@ public:
         config, std::chrono::milliseconds(20)));
     visual_servoing_connector_.reset(
         new RPYTRelativePoseVisualServoingConnector(
-            *simple_tracker_, drone_hardware_, *controller_, camera_transform,
+            *simple_tracker_, drone_hardware_, *controller_,
+            thrust_gain_estimator_, camera_transform,
             tracking_offset_transform_));
     drone_hardware_.usePerfectTime();
   }
@@ -81,6 +83,8 @@ public:
     data_config.set_stream_id("rpyt_based_velocity_controller");
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("velocity_based_relative_pose_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("thrust_gain_estimator");
     Log::instance().addDataStream(data_config);
   }
 
@@ -120,6 +124,7 @@ public:
                    goal_tolerance_yaw_);
     ASSERT_EQ(visual_servoing_connector_->getStatus(),
               ControllerStatus::Completed);
+    ASSERT_NEAR(thrust_gain_estimator_.getThrustGain(), 0.16, 1e-4);
   }
 
   QuadSimulator drone_hardware_;
@@ -132,6 +137,7 @@ public:
   double goal_tolerance_yaw_;
   double goal_tolerance_yaw_rate_;
   tf::Transform tracking_offset_transform_;
+  ThrustGainEstimator thrust_gain_estimator_;
 };
 
 TEST_F(RPYTRelativePoseVisualConnectorTests, Constructor) {}
