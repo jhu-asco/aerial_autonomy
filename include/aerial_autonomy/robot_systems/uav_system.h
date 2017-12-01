@@ -48,6 +48,10 @@ protected:
   * @brief RPYT based position controller
   */
   RPYTBasedPositionController rpyt_based_position_controller_;
+  /**
+  * @brief Thrust gain estimator
+  */
+  ThrustGainEstimator thrust_gain_estimator_;
 
 private:
   // Controllers
@@ -67,10 +71,6 @@ private:
   * @brief Velocity controller which takes joystick controls as inputs
   */
   JoystickVelocityController joystick_velocity_controller_;
-  /**
-  * @brief Thrust gain estimator
-  */
-  ThrustGainEstimator thrust_gain_estimator_;
   /**
    * @brief connector for position controller
    */
@@ -161,16 +161,17 @@ public:
         rpyt_based_position_controller_(
             config.rpyt_based_position_controller_config(),
             std::chrono::milliseconds(config.uav_controller_timer_duration())),
+        thrust_gain_estimator_(config.thrust_gain_estimator_config()),
         builtin_position_controller_(config.position_controller_config()),
         builtin_velocity_controller_(config.velocity_controller_config()),
         joystick_velocity_controller_(
             config.joystick_velocity_controller_config(),
             std::chrono::milliseconds(config.uav_controller_timer_duration())),
-        thrust_gain_estimator_(config.thrust_gain_estimator_config()),
         position_controller_drone_connector_(*drone_hardware_,
                                              builtin_position_controller_),
         rpyt_based_position_controller_drone_connector_(
-            *drone_hardware_, rpyt_based_position_controller_),
+            *drone_hardware_, rpyt_based_position_controller_,
+            thrust_gain_estimator_),
         velocity_controller_drone_connector_(*drone_hardware_,
                                              builtin_velocity_controller_),
         rpyt_controller_drone_connector_(*drone_hardware_,

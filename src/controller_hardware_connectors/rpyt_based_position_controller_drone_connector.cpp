@@ -9,6 +9,11 @@ bool RPYTBasedPositionControllerDroneConnector::extractSensorData(
   VelocityYawRate velocity_yawrate(data.linvel.x, data.linvel.y, data.linvel.z,
                                    data.omega.z);
   sensor_data = std::make_tuple(velocity_yawrate, position_yaw);
+  thrust_gain_estimator_.addSensorData(data.rpydata.x, data.rpydata.y,
+                                       data.linacc.z);
+  auto rpyt_controller_config = private_reference_controller_.getRPYTConfig();
+  rpyt_controller_config.set_kt(thrust_gain_estimator_.getThrustGain());
+  private_reference_controller_.updateRPYTConfig(rpyt_controller_config);
   return true;
 }
 
@@ -19,5 +24,12 @@ void RPYTBasedPositionControllerDroneConnector::sendHardwareCommands(
   rpyt_msg.y = controls.p;
   rpyt_msg.z = controls.y;
   rpyt_msg.w = controls.t;
+  thrust_gain_estimator_.addThrustCommand(controls.t);
   drone_hardware_.cmdrpyawratethrust(rpyt_msg);
+}
+
+void RPYTBasedPositionControllerDroneConnector::setGoal(PositionYaw goal) {
+  BaseClass::setGoal(goal);
+  VLOG(1) << "Clearing thrust estimator buffer";
+  thrust_gain_estimator_.clearBuffer();
 }
