@@ -27,6 +27,46 @@ uav_system_config {
     }
   }
 
+  rpyt_based_position_controller_config {
+    velocity_based_position_controller_config {
+      position_gain: 0.7
+      yaw_gain: 0.3
+      max_velocity: 1.0
+      position_i_gain: 0.0
+      yaw_i_gain: 0.0
+      position_saturation_value: 0.0
+      yaw_saturation_value: 0.0
+
+      position_controller_config {
+        goal_position_tolerance {
+          x: 0.1
+          y: 0.1
+          z: 0.1
+        }
+      }
+    }
+
+    rpyt_based_velocity_controller_config{
+      kp_xy: 2.0
+      ki_xy: 0.0
+      kp_z: 2.0
+      ki_z: 0.2
+      kt: 0.21
+
+      min_thrust: 10
+      max_thrust: 100
+      max_rp: 1.57
+
+      velocity_controller_config{
+        goal_velocity_tolerance{
+          vx: 0.1
+          vy: 0.1
+          vz: 0.1
+        }
+      }
+    }
+  }
+
   thrust_gain_estimator_config {
     kt: 0.18
     buffer_size: 10

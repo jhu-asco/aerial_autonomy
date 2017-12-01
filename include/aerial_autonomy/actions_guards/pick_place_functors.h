@@ -198,7 +198,7 @@ struct GoToWaypointInternalActionFunctor_
     }
     // check controller status
     ControllerStatus status =
-        robot_system.getStatus<VelocityBasedPositionControllerDroneConnector>();
+        robot_system.getStatus<RPYTBasedPositionControllerDroneConnector>();
     int tracked_index = state.getTrackedIndex();
     if (status == ControllerStatus::Completed) {
       VLOG(1) << "Reached goal for tracked index: " << tracked_index;
@@ -216,9 +216,8 @@ struct GoToWaypointInternalActionFunctor_
         }
       }
     } else if (status == ControllerStatus::Critical) {
-      LOG(WARNING)
-          << "Controller critical for "
-          << typeid(VelocityBasedPositionControllerDroneConnector).name();
+      LOG(WARNING) << "Controller critical for "
+                   << typeid(RPYTBasedPositionControllerDroneConnector).name();
       logic_state_machine.process_event(be::Abort());
       return false;
     }
@@ -237,7 +236,7 @@ struct GoToWaypointInternalActionFunctor_
     way_point.z += data.localpos.z;
     VLOG(1) << "Waypoint position: " << way_point.x << ", " << way_point.y
             << ", " << way_point.z;
-    robot_system.setGoal<VelocityBasedPositionControllerDroneConnector,
+    robot_system.setGoal<RPYTBasedPositionControllerDroneConnector,
                          PositionYaw>(way_point);
   }
 };

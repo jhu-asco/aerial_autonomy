@@ -35,7 +35,8 @@ protected:
     position_tolerance->set_z(0.5);
 
     auto vel_based_pos_controller_config =
-        config.mutable_velocity_based_position_controller_config();
+        config.mutable_rpyt_based_position_controller_config()
+            ->mutable_velocity_based_position_controller_config();
     vel_based_pos_controller_config->set_position_gain(20.);
     vel_based_pos_controller_config->set_yaw_gain(20.);
     auto vel_based_pos_controller_tol =
@@ -46,6 +47,14 @@ protected:
     vel_based_pos_controller_tol->set_z(0.1);
     vel_based_pos_controller_config->mutable_position_controller_config()
         ->set_goal_yaw_tolerance(0.1);
+    auto rpyt_vel_controller_tol =
+        config.mutable_rpyt_based_position_controller_config()
+            ->mutable_rpyt_based_velocity_controller_config()
+            ->mutable_velocity_controller_config()
+            ->mutable_goal_velocity_tolerance();
+    rpyt_vel_controller_tol->set_vx(0.1);
+    rpyt_vel_controller_tol->set_vy(0.1);
+    rpyt_vel_controller_tol->set_vz(0.1);
 
     drone_hardware->setTakeoffAltitude(2.0);
     uav_system.reset(new UAVSystem(
