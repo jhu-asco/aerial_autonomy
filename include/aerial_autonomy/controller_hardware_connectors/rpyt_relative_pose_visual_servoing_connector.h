@@ -2,6 +2,7 @@
 #include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
 #include "aerial_autonomy/controller_hardware_connectors/base_relative_pose_visual_servoing_connector.h"
 #include "aerial_autonomy/controllers/rpyt_based_relative_pose_controller.h"
+#include "aerial_autonomy/estimators/thrust_gain_estimator.h"
 #include "aerial_autonomy/trackers/base_tracker.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/roll_pitch_yawrate_thrust.h"
@@ -34,16 +35,25 @@ public:
   RPYTRelativePoseVisualServoingConnector(
       BaseTracker &tracker, parsernode::Parser &drone_hardware,
       RPYTBasedRelativePoseController &controller,
+      ThrustGainEstimator &thrust_gain_estimator,
       tf::Transform camera_transform,
       tf::Transform tracking_offset_transform = tf::Transform::getIdentity())
       : ControllerHardwareConnector(controller, HardwareType::UAV),
         BaseRelativePoseVisualServoingConnector(tracker, drone_hardware,
                                                 camera_transform,
-                                                tracking_offset_transform) {}
+                                                tracking_offset_transform),
+        thrust_gain_estimator_(thrust_gain_estimator),
+        private_reference_controller_(controller) {}
   /**
    * @brief Destructor
    */
   virtual ~RPYTRelativePoseVisualServoingConnector() {}
+  /**
+   * @brief set goal to controller and clear estimator buffer
+   *
+   * @param goal empty goal
+   */
+  void setGoal(PositionYaw goal);
 
 protected:
   /**
@@ -65,4 +75,14 @@ protected:
    * @param controls roll, pitch, yawrate, thrust to send to UAV
    */
   virtual void sendHardwareCommands(RollPitchYawRateThrust controls);
+
+private:
+  /**
+   * @brief Base class typedef to simplify code
+   */
+  using BaseClass = ControllerHardwareConnector<
+      std::tuple<tf::Transform, tf::Transform, VelocityYawRate>, PositionYaw,
+      RollPitchYawRateThrust>;
+  ThrustGainEstimator &thrust_gain_estimator_;
+  RPYTBasedRelativePoseController &private_reference_controller_;
 };

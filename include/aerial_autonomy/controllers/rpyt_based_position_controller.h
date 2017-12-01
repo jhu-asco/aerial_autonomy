@@ -25,6 +25,18 @@ public:
             controller_timer_duration),
         position_controller_(config.velocity_based_position_controller_config(),
                              controller_timer_duration) {}
+  /**
+  * @brief Update RPYT controller config
+  */
+  void updateRPYTConfig(RPYTBasedVelocityControllerConfig &config) {
+    rpyt_velocity_controller_.updateConfig(config);
+  }
+  /**
+  * @brief get RPYT controller config
+  */
+  RPYTBasedVelocityControllerConfig getRPYTConfig() {
+    return rpyt_velocity_controller_.getConfig();
+  }
 
 protected:
   /**
