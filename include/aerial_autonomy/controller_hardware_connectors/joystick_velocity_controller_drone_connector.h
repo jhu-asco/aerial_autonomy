@@ -34,6 +34,13 @@ public:
       JoystickVelocityController &controller,
       ThrustGainEstimator &thrust_gain_estimator);
 
+  /**
+   * @brief set goal to controller and clear estimator buffer
+   *
+   * @param goal empty goal
+   */
+  void setGoal(EmptyGoal goal);
+
 protected:
   /**
   * @brief extract sensor data from drone hardware
@@ -53,6 +60,12 @@ protected:
   virtual void sendHardwareCommands(RollPitchYawRateThrust controls);
 
 private:
+  /**
+   * @brief Base class typedef to simplify code
+   */
+  using BaseClass =
+      ControllerHardwareConnector<std::tuple<Joystick, VelocityYawRate, double>,
+                                  EmptyGoal, RollPitchYawRateThrust>;
   /**
   * @brief Quad hardware to send commands
   */
