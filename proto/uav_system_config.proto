@@ -10,6 +10,8 @@ import "velocity_based_position_controller_config.proto";
 
 import "joystick_velocity_controller_config.proto";
 
+import "thrust_gain_estimator_config.proto";
+
 message UAVSystemConfig {
   /**
   * @brief Battery percentage required for takeoff
@@ -67,4 +69,9 @@ message UAVSystemConfig {
   * continously
   */
   optional int32 uav_controller_timer_duration = 11 [ default = 20 ];
+
+  /**
+  * @brief Thrust estimator config
+  */
+  optional ThrustGainEstimatorConfig thrust_gain_estimator_config = 13;
 }

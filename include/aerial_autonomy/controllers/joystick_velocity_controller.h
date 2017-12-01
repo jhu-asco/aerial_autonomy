@@ -24,7 +24,7 @@ public:
   * @param joystick_velocity_controller_config Joystick Velocity
   * Controller config
   *
-  * @param controller_timer_duration in seconds
+  * @param controller_timer_duration Duration of the control loop
   *
   * @joystick mappings:
   * Channel 1 : X-velocity
@@ -35,7 +35,7 @@ public:
   */
   JoystickVelocityController(
       JoystickVelocityControllerConfig joystick_velocity_controller_config,
-      double controller_timer_duration)
+      std::chrono::duration<double> controller_timer_duration)
       : joystick_velocity_controller_config_(
             joystick_velocity_controller_config),
         rpyt_velocity_controller_(joystick_velocity_controller_config_

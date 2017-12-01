@@ -42,3 +42,8 @@ data_stream_configs {
   stream_id: "rpyt_relative_pose_visual_servoing_connector"
   log_rate: 25
 }
+
+data_stream_configs {
+  stream_id: "thrust_gain_estimator"
+  log_rate: 25
+}

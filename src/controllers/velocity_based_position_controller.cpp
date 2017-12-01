@@ -3,7 +3,7 @@
 #include <glog/logging.h>
 
 void VelocityBasedPositionController::resetIntegrator() {
-  cumulative_error = PositionYaw(0, 0, 0, 0);
+  cumulative_error_ = PositionYaw(0, 0, 0, 0);
 }
 
 double VelocityBasedPositionController::backCalculate(
@@ -41,12 +41,12 @@ bool VelocityBasedPositionController::runImplementation(
                                   config_.position_i_gain(),
                               position_diff.yaw * config_.yaw_i_gain());
   i_position_diff.z = 0;
-  cumulative_error = cumulative_error + i_position_diff * dt;
+  cumulative_error_ = cumulative_error_ + i_position_diff * dt_.count();
 
-  control.x = backCalculate(cumulative_error.x, p_position_diff.x,
+  control.x = backCalculate(cumulative_error_.x, p_position_diff.x,
                             config_.max_velocity(),
                             config_.position_saturation_value());
-  control.y = backCalculate(cumulative_error.y, p_position_diff.y,
+  control.y = backCalculate(cumulative_error_.y, p_position_diff.y,
                             config_.max_velocity(),
                             config_.position_saturation_value());
   // No integrator on z dynamics
@@ -54,14 +54,14 @@ bool VelocityBasedPositionController::runImplementation(
                           config_.max_velocity());
 
   control.yaw_rate =
-      backCalculate(cumulative_error.yaw, p_position_diff.yaw,
+      backCalculate(cumulative_error_.yaw, p_position_diff.yaw,
                     config_.max_yaw_rate(), config_.yaw_saturation_value());
 
   DATA_LOG("velocity_based_position_controller")
       << position_diff.x << position_diff.y << position_diff.z
       << position_diff.yaw << goal.x << goal.y << goal.z << goal.yaw
-      << cumulative_error.x << cumulative_error.y << cumulative_error.z
-      << cumulative_error.yaw << control.x << control.y << control.z
+      << cumulative_error_.x << cumulative_error_.y << cumulative_error_.z
+      << cumulative_error_.yaw << control.x << control.y << control.z
       << control.yaw_rate << DataStream::endl;
   return true;
 }

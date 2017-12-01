@@ -1,5 +1,7 @@
 #pragma once
 #include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
+#include "aerial_autonomy/controllers/joystick_velocity_controller.h"
+#include "aerial_autonomy/estimators/thrust_gain_estimator.h"
 #include "aerial_autonomy/types/empty_goal.h"
 #include "aerial_autonomy/types/joystick.h"
 #include "aerial_autonomy/types/position.h"
@@ -29,8 +31,15 @@ public:
   */
   JoystickVelocityControllerDroneConnector(
       parsernode::Parser &drone_hardware,
-      Controller<std::tuple<Joystick, VelocityYawRate, double>, EmptyGoal,
-                 RollPitchYawRateThrust> &controller);
+      JoystickVelocityController &controller,
+      ThrustGainEstimator &thrust_gain_estimator);
+
+  /**
+   * @brief set goal to controller and clear estimator buffer
+   *
+   * @param goal empty goal
+   */
+  void setGoal(EmptyGoal goal);
 
 protected:
   /**
@@ -52,7 +61,15 @@ protected:
 
 private:
   /**
+   * @brief Base class typedef to simplify code
+   */
+  using BaseClass =
+      ControllerHardwareConnector<std::tuple<Joystick, VelocityYawRate, double>,
+                                  EmptyGoal, RollPitchYawRateThrust>;
+  /**
   * @brief Quad hardware to send commands
   */
   parsernode::Parser &drone_hardware_;
+  ThrustGainEstimator &thrust_gain_estimator_;
+  JoystickVelocityController &private_reference_controller_;
 };

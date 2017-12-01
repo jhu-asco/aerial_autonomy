@@ -49,7 +49,8 @@ public:
                      const tf::Transform &tracked_pose,
                      const VelocityYawRate &current_velocity_yawrate,
                      const PositionYaw &goal, bool should_converge) {
-    RPYTBasedRelativePoseController controller(config_, 0.02);
+    RPYTBasedRelativePoseController controller(config_,
+                                               std::chrono::milliseconds(20));
     tf::Transform goal_tf;
     positionYawToTf(goal, goal_tf);
     auto sensor_data =
@@ -112,11 +113,13 @@ protected:
 };
 
 TEST_F(RPYTBasedRelativePoseControllerTests, Constructor) {
-  ASSERT_NO_THROW(new RPYTBasedRelativePoseController(config_, 0.02));
+  ASSERT_NO_THROW(new RPYTBasedRelativePoseController(
+      config_, std::chrono::milliseconds(20)));
 }
 
 TEST_F(RPYTBasedRelativePoseControllerTests, ConvergedNoOffset) {
-  RPYTBasedRelativePoseController controller(config_, 0.02);
+  RPYTBasedRelativePoseController controller(config_,
+                                             std::chrono::milliseconds(20));
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
   VelocityYawRate current_velocity_yawrate(0, 0, 0, 0);
@@ -126,7 +129,8 @@ TEST_F(RPYTBasedRelativePoseControllerTests, ConvergedNoOffset) {
 }
 
 TEST_F(RPYTBasedRelativePoseControllerTests, ConvergedOffset) {
-  RPYTBasedRelativePoseController controller(config_, 0.02);
+  RPYTBasedRelativePoseController controller(config_,
+                                             std::chrono::milliseconds(20));
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-1, 0, 0));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
   VelocityYawRate current_velocity_yawrate(0, 0, 0, 0);
@@ -137,7 +141,8 @@ TEST_F(RPYTBasedRelativePoseControllerTests, ConvergedOffset) {
 
 TEST_F(RPYTBasedRelativePoseControllerTests,
        PositionConvergedVelocityNotConverged) {
-  RPYTBasedRelativePoseController controller(config_, 0.02);
+  RPYTBasedRelativePoseController controller(config_,
+                                             std::chrono::milliseconds(20));
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-1, 0, 0));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
   VelocityYawRate current_velocity_yawrate(1, 2, 3, 0);
@@ -148,7 +153,8 @@ TEST_F(RPYTBasedRelativePoseControllerTests,
 
 TEST_F(RPYTBasedRelativePoseControllerTests,
        PositionNotConvergedVelocityConverged) {
-  RPYTBasedRelativePoseController controller(config_, 0.02);
+  RPYTBasedRelativePoseController controller(config_,
+                                             std::chrono::milliseconds(20));
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
   PositionYaw goal(-1, 0, 0, 0);
@@ -161,7 +167,8 @@ TEST_F(RPYTBasedRelativePoseControllerTests,
 }
 
 TEST_F(RPYTBasedRelativePoseControllerTests, NotConvergedNoOffset) {
-  RPYTBasedRelativePoseController controller(config_, 0.02);
+  RPYTBasedRelativePoseController controller(config_,
+                                             std::chrono::milliseconds(20));
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-1, 1, 2));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
   VelocityYawRate current_velocity_yawrate(0, 0, 0, 0);
@@ -171,7 +178,8 @@ TEST_F(RPYTBasedRelativePoseControllerTests, NotConvergedNoOffset) {
 }
 
 TEST_F(RPYTBasedRelativePoseControllerTests, NotConvergedOffset) {
-  RPYTBasedRelativePoseController controller(config_, 0.02);
+  RPYTBasedRelativePoseController controller(config_,
+                                             std::chrono::milliseconds(20));
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-1, 1, 2));
   tf::Transform tracked_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0));
   VelocityYawRate current_velocity_yawrate(0, 0, 0, 0);
@@ -181,7 +189,8 @@ TEST_F(RPYTBasedRelativePoseControllerTests, NotConvergedOffset) {
 }
 
 TEST_F(RPYTBasedRelativePoseControllerTests, NotConvergedOffsetYaw) {
-  RPYTBasedRelativePoseController controller(config_, 0.02);
+  RPYTBasedRelativePoseController controller(config_,
+                                             std::chrono::milliseconds(20));
   tf::Transform current_pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-1, 1, 2));
   tf::Transform tracked_pose(tf::createQuaternionFromRPY(0, 0, 0.1),
                              tf::Vector3(0, 0, 0));
@@ -192,7 +201,8 @@ TEST_F(RPYTBasedRelativePoseControllerTests, NotConvergedOffsetYaw) {
 }
 
 TEST_F(RPYTBasedRelativePoseControllerTests, ConvergedOffsetYaw) {
-  RPYTBasedRelativePoseController controller(config_, 0.02);
+  RPYTBasedRelativePoseController controller(config_,
+                                             std::chrono::milliseconds(20));
   double tracked_yaw = 0.1;
   tf::Transform current_pose(
       tf::createQuaternionFromRPY(0, 0, tracked_yaw),
@@ -206,7 +216,8 @@ TEST_F(RPYTBasedRelativePoseControllerTests, ConvergedOffsetYaw) {
 }
 
 TEST_F(RPYTBasedRelativePoseControllerTests, ConvergedGoalOffsetYaw) {
-  RPYTBasedRelativePoseController controller(config_, 0.02);
+  RPYTBasedRelativePoseController controller(config_,
+                                             std::chrono::milliseconds(20));
   double tracked_yaw = 0.1;
   tf::Transform current_pose(
       tf::createQuaternionFromRPY(0, 0, 0.2),
@@ -222,7 +233,8 @@ TEST_F(RPYTBasedRelativePoseControllerTests, ConvergedGoalOffsetYaw) {
 
 TEST_F(RPYTBasedRelativePoseControllerTests,
        ConvergedGoalOffsetYawNonzeroTrackedRollPitch) {
-  RPYTBasedRelativePoseController controller(config_, 0.02);
+  RPYTBasedRelativePoseController controller(config_,
+                                             std::chrono::milliseconds(20));
   double tracked_yaw = 0.1;
   tf::Transform current_pose(tf::createQuaternionFromRPY(0, 0, 0.2),
                              tf::Vector3(0, 0, 0));
@@ -237,7 +249,8 @@ TEST_F(RPYTBasedRelativePoseControllerTests,
 
 TEST_F(RPYTBasedRelativePoseControllerTests,
        ConvergedGoalOffsetYawNonzeroTrackedAndCurrentRollPitch) {
-  RPYTBasedRelativePoseController controller(config_, 0.02);
+  RPYTBasedRelativePoseController controller(config_,
+                                             std::chrono::milliseconds(20));
   double tracked_yaw = 0.1;
   tf::Transform current_pose(tf::createQuaternionFromRPY(-0.3, 0.2, 0.2),
                              tf::Vector3(0, 0, 0));

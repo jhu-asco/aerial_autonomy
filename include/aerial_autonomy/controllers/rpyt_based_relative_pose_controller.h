@@ -25,8 +25,9 @@ public:
   /**
   * @brief Constructor
   */
-  RPYTBasedRelativePoseController(RPYTBasedRelativePoseControllerConfig config,
-                                  double controller_timer_duration)
+  RPYTBasedRelativePoseController(
+      RPYTBasedRelativePoseControllerConfig config,
+      std::chrono::duration<double> controller_timer_duration)
       : config_(config),
         velocity_based_relative_pose_controller_(
             config.velocity_based_relative_pose_controller_config(),

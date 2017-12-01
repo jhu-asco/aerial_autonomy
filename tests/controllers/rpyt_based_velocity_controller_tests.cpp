@@ -6,7 +6,8 @@
 
 TEST(RPYTBasedVelocityControllerTests, SetGetGoal) {
   RPYTBasedVelocityControllerConfig config_;
-  RPYTBasedVelocityController controller(config_, 0.02);
+  RPYTBasedVelocityController controller(config_,
+                                         std::chrono::milliseconds(20));
   VelocityYawRate goal(0.1, -0.1, 0.1, 0.1);
   controller.setGoal(goal);
   VelocityYawRate exp_goal = controller.getGoal();
@@ -14,7 +15,7 @@ TEST(RPYTBasedVelocityControllerTests, SetGetGoal) {
 }
 
 TEST(RPYTBasedVelocityControllerTests, ControlsInBounds) {
-  double dt = 0.02;
+  std::chrono::duration<double> dt = std::chrono::milliseconds(20);
   RPYTBasedVelocityControllerConfig config;
   RPYTBasedVelocityController controller(config, dt);
   auto sensor_data = std::make_tuple(VelocityYawRate(0, 0, 0, 0), 0.0);
@@ -26,12 +27,12 @@ TEST(RPYTBasedVelocityControllerTests, ControlsInBounds) {
   RollPitchYawRateThrust controls;
   bool result = controller.run(sensor_data, controls);
 
-  double acc_x =
-      config.kp_xy() * velocity_diff.x + config.ki_xy() * velocity_diff.x * dt;
-  double acc_y =
-      config.kp_xy() * velocity_diff.y + config.ki_xy() * velocity_diff.y * dt;
+  double acc_x = config.kp_xy() * velocity_diff.x +
+                 config.ki_xy() * velocity_diff.x * dt.count();
+  double acc_y = config.kp_xy() * velocity_diff.y +
+                 config.ki_xy() * velocity_diff.y * dt.count();
   double acc_z = config.kp_z() * velocity_diff.z +
-                 config.ki_z() * velocity_diff.z * dt + 9.81;
+                 config.ki_z() * velocity_diff.z * dt.count() + 9.81;
 
   double exp_t =
       sqrt(acc_x * acc_x + acc_y * acc_y + acc_z * acc_z) / config.kt();
@@ -51,7 +52,7 @@ TEST(RPYTBasedVelocityControllerTests, ControlsInBounds) {
 }
 
 TEST(RPYTBasedVelocityControllerTests, ChangeConfig) {
-  double dt = 0.02;
+  std::chrono::duration<double> dt = std::chrono::milliseconds(20);
   RPYTBasedVelocityControllerConfig old_config;
   RPYTBasedVelocityController controller(old_config, dt);
 
@@ -73,12 +74,12 @@ TEST(RPYTBasedVelocityControllerTests, ChangeConfig) {
   RollPitchYawRateThrust controls;
   bool result = controller.run(sensor_data, controls);
 
-  double acc_x =
-      config.kp_xy() * velocity_diff.x + config.ki_xy() * velocity_diff.x * dt;
-  double acc_y =
-      config.kp_xy() * velocity_diff.y + config.ki_xy() * velocity_diff.y * dt;
+  double acc_x = config.kp_xy() * velocity_diff.x +
+                 config.ki_xy() * velocity_diff.x * dt.count();
+  double acc_y = config.kp_xy() * velocity_diff.y +
+                 config.ki_xy() * velocity_diff.y * dt.count();
   double acc_z = config.kp_z() * velocity_diff.z +
-                 config.ki_z() * velocity_diff.z * dt + 9.81;
+                 config.ki_z() * velocity_diff.z * dt.count() + 9.81;
 
   double exp_t =
       sqrt(acc_x * acc_x + acc_y * acc_y + acc_z * acc_z) / config.kt();
@@ -104,7 +105,7 @@ TEST(RPYTBasedVelocityControllerTests, RollNinety) {
   config.set_ki_xy(0.0);
   config.set_ki_z(0.0);
 
-  RPYTBasedVelocityController controller(config, 0.02);
+  RPYTBasedVelocityController controller(config, std::chrono::milliseconds(20));
   auto sensor_data = std::make_tuple(VelocityYawRate(0, 0, 0, 0), 0.0);
   VelocityYawRate goal(0.0, 1.1, -9.81, 0.0);
   controller.setGoal(goal);
@@ -116,7 +117,7 @@ TEST(RPYTBasedVelocityControllerTests, RollNinety) {
 
 TEST(RPYTBasedVelocityControllerTests, MaxThrust) {
   RPYTBasedVelocityControllerConfig config;
-  RPYTBasedVelocityController controller(config, 0.02);
+  RPYTBasedVelocityController controller(config, std::chrono::milliseconds(20));
   auto sensor_data = std::make_tuple(VelocityYawRate(0, 0, 0, 0), 0.0);
   VelocityYawRate goal(10.0, 10.0, 10.0, 0.0);
   controller.setGoal(goal);
@@ -135,7 +136,7 @@ TEST(RPYTBasedVelocityControllerTests, MaxRoll) {
   config.set_ki_z(0.0);
   config.set_max_rp(1.0);
 
-  RPYTBasedVelocityController controller(config, 0.02);
+  RPYTBasedVelocityController controller(config, std::chrono::milliseconds(20));
   auto sensor_data = std::make_tuple(VelocityYawRate(0, 0, 0, 0), 0.0);
   VelocityYawRate goal(0.0, 1.1, -9.81, 0.1);
   controller.setGoal(goal);
@@ -159,7 +160,7 @@ TEST(RPYTConvergenceTest, Convergence) {
   tolerance->set_vy(0.01);
   tolerance->set_vz(0.01);
 
-  double dt = 0.02;
+  std::chrono::duration<double> dt = std::chrono::milliseconds(20);
 
   RPYTBasedVelocityController controller(config, dt);
 
@@ -183,11 +184,12 @@ TEST(RPYTConvergenceTest, Convergence) {
         tf::Vector3(0, 0, controls.t * config.kt() + ext_z_acc);
     tf::Vector3 global_acc = tf * body_acc;
 
-    velocity_yaw_rate.x = velocity_yaw_rate.x + global_acc[0] * dt;
-    velocity_yaw_rate.y = velocity_yaw_rate.y + global_acc[1] * dt;
-    velocity_yaw_rate.z = velocity_yaw_rate.z + (global_acc[2] - 9.81) * dt;
+    velocity_yaw_rate.x = velocity_yaw_rate.x + global_acc[0] * dt.count();
+    velocity_yaw_rate.y = velocity_yaw_rate.y + global_acc[1] * dt.count();
+    velocity_yaw_rate.z =
+        velocity_yaw_rate.z + (global_acc[2] - 9.81) * dt.count();
     velocity_yaw_rate.yaw_rate = controls.y;
-    yaw = yaw + controls.y * dt;
+    yaw = yaw + controls.y * dt.count();
 
     return bool(controller.isConverged(sensor_data));
 

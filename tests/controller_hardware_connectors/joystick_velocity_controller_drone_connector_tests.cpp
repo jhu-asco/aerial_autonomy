@@ -10,18 +10,19 @@
 using namespace quad_simulator;
 
 TEST(JoystickVelocityControllerDroneConnectorTests, Constructor) {
-  double dt = 0.02;
+  std::chrono::duration<double> dt = std::chrono::milliseconds(20);
   RPYTBasedVelocityControllerConfig rpyt_config;
   JoystickVelocityControllerConfig joystick_config;
   QuadSimulator drone_hardware;
   JoystickVelocityController controller(joystick_config, dt);
+  ThrustGainEstimator thrust_gain_estimator;
 
-  ASSERT_NO_THROW(
-      new JoystickVelocityControllerDroneConnector(drone_hardware, controller));
+  ASSERT_NO_THROW(new JoystickVelocityControllerDroneConnector(
+      drone_hardware, controller, thrust_gain_estimator));
 }
 
 TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
-  double dt = 0.02;
+  std::chrono::duration<double> dt = std::chrono::milliseconds(20);
   RPYTBasedVelocityControllerConfig rpyt_config_;
   rpyt_config_.set_kp_xy(2.0);
   rpyt_config_.set_kp_z(2.0);
@@ -42,9 +43,11 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
   // Set stick commands
   int16_t channels[4] = {150, 100, -150, 100};
   drone_hardware.setRC(channels);
+  drone_hardware.set_delay_send_time(0.02);
 
-  JoystickVelocityControllerDroneConnector connector(drone_hardware,
-                                                     controller);
+  ThrustGainEstimator thrust_gain_estimator(0.2, 0.1);
+  JoystickVelocityControllerDroneConnector connector(drone_hardware, controller,
+                                                     thrust_gain_estimator);
 
   connector.setGoal(EmptyGoal());
 
@@ -55,6 +58,7 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
 
   ASSERT_TRUE(test_utils::waitUntilTrue()(
       controller_run, std::chrono::seconds(1), std::chrono::milliseconds(0)));
+  ASSERT_NEAR(thrust_gain_estimator.getThrustGain(), 0.16, 1e-4);
 
   parsernode::common::quaddata sensor_data;
   drone_hardware.getquaddata(sensor_data);
