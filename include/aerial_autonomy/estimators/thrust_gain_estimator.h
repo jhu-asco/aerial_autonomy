@@ -113,6 +113,13 @@ public:
    */
   int getQueueSize();
 
+  /**
+   * @brief Clear internal buffer of thrust commands. Should be called if
+   * estimator
+   * is stopped and is restarting after a time.
+   */
+  void clearBuffer();
+
 private:
   std::queue<double> thrust_command_queue_;
   double thrust_gain_;

@@ -18,6 +18,11 @@ class JoystickVelocityControllerDroneConnector
     : public ControllerHardwareConnector<
           std::tuple<Joystick, VelocityYawRate, double>, EmptyGoal,
           RollPitchYawRateThrust> {
+private:
+  using BaseClass =
+      ControllerHardwareConnector<std::tuple<Joystick, VelocityYawRate, double>,
+                                  EmptyGoal, RollPitchYawRateThrust>;
+
 public:
   /**
   * @brief Constructor
@@ -33,6 +38,13 @@ public:
       parsernode::Parser &drone_hardware,
       JoystickVelocityController &controller,
       ThrustGainEstimator &thrust_gain_estimator);
+
+  /**
+   * @brief set goal to controller and clear estimator buffer
+   *
+   * @param goal empty goal
+   */
+  void setGoal(EmptyGoal goal);
 
 protected:
   /**
