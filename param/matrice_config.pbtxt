@@ -7,7 +7,7 @@ base_config {
 uav_system_config {
   uav_parser_type: "dji_parser/DjiParser"
   uav_controller_timer_duration: 20
-  minimum_battery_percent: 40
+  minimum_battery_percent: 20
   minimum_takeoff_height: 0.5
   landing_height: 0.1
   position_controller_config {
@@ -46,7 +46,7 @@ uav_system_config {
 
     rpyt_based_velocity_controller_config{
       kp_xy: 2.0
-      ki_xy: 0.0
+      ki_xy: 0.1
       kp_z: 2.0
       ki_z: 0.0
       kt: 0.21
@@ -76,7 +76,7 @@ uav_system_config {
 
     rpyt_based_velocity_controller_config{
       kp_xy: 2.0
-      ki_xy: 0.0
+      ki_xy: 0.1
       kp_z: 2.0
       ki_z: 0.0
       kt: 0.21
