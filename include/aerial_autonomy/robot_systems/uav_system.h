@@ -171,6 +171,7 @@ public:
                       new VelocitySensor(config.velocity_sensor_config()))
                 : dynamic_cast<Sensor<Velocity> *>(
                       new Guidance(*drone_hardware_))),
+        // \todo Soham use a function to choose Sensor
         position_controller_drone_connector_(*drone_hardware_,
                                              builtin_position_controller_),
         velocity_based_position_controller_drone_connector_(
