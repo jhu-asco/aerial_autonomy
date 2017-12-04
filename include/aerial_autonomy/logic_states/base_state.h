@@ -18,6 +18,8 @@
 // Static asserts
 #include <type_traits>
 
+#include <glog/logging.h>
+
 namespace msmf = boost::msm::front;
 
 template <class RobotSystemT, class LogicStateMachineT, class ActionFctr>
