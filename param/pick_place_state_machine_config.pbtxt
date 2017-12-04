@@ -3,7 +3,7 @@ visual_servoing_state_machine_config {
     position {
       x: 0
       y: -.62
-      z: 0.245
+      z: 0.255
     }
     yaw: 1.5708
   }
@@ -53,9 +53,9 @@ visual_servoing_state_machine_config {
         position {
           x: 1.0
           y: 0.0
-          z: 0.15
+          z: 0.4
         }
-        yaw: 3.141
+        yaw: 0
       }
       way_points {
         position {
