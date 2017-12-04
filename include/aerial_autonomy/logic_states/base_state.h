@@ -42,6 +42,14 @@ public:
         "Template Logic state machine arg is not subclass of provided FSM");
     return logic_state_machine.robot_system_container_();
   }
+  template <class Event, class FSM>
+  void on_entry(Event const &, FSM &logic_state_machine) {
+    VLOG(2) << "Entering: " << typeid(*this).name();
+  }
+  template <class Event, class FSM>
+  void on_exit(Event const &, FSM &logic_state_machine) {
+    VLOG(2) << "Exiting: " << typeid(*this).name();
+  }
 
   /**
    * @brief Destructor

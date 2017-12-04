@@ -43,7 +43,24 @@ public:
                                                 camera_transform,
                                                 tracking_offset_transform),
         thrust_gain_estimator_(thrust_gain_estimator),
-        private_reference_controller_(controller) {}
+        private_reference_controller_(controller) {
+    DATA_HEADER("rpyt_relative_pose_visual_servoing_connector")
+        << "vel_x"
+        << "vel_y"
+        << "vel_z"
+        << "roll"
+        << "pitch"
+        << "yaw"
+        << "omega_x"
+        << "omega_y"
+        << "omega_z"
+        << "tracking_x"
+        << "tracking_y"
+        << "tracking_z"
+        << "tracking_r"
+        << "tracking_p"
+        << "tracking_y" << DataStream::endl;
+  }
   /**
    * @brief Destructor
    */

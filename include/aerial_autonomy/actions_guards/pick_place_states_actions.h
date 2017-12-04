@@ -108,11 +108,25 @@ struct PickPlaceStatesActions
       bActionSequence<boost::mpl::vector<AbortArmController, ArmRightFold,
                                          typename vsa::GoHomeTransitionAction>>;
   /**
+  * @brief Action sequence that folds to right angle and aborts arm controller
+  */
+  using AbortArmControllerRightFold =
+      bActionSequence<boost::mpl::vector<AbortArmController, ArmRightFold>>;
+
+  /**
   * @brief Action sequence to abort UAV controller and move arm to right
   * angle
   */
   using AbortUAVControllerArmRightFold = bActionSequence<
       boost::mpl::vector<typename usa::UAVControllerAbort, ArmRightFold>>;
+  /**
+  * @brief Action sequence to abort UAV and arm controllers and move arm to
+  * right
+  * angle
+  */
+  using AbortUAVArmControllerArmRightFold =
+      bActionSequence<boost::mpl::vector<typename usa::UAVControllerAbort,
+                                         AbortArmController, ArmRightFold>>;
   /**
   * @brief Action sequence to abort UAV controller and move arm to right
   * angle

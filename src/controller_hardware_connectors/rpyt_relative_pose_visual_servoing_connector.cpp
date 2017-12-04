@@ -13,11 +13,15 @@ bool RPYTRelativePoseVisualServoingConnector::extractSensorData(
   VelocityYawRate current_velocity_yawrate(
       quad_data.linvel.x, quad_data.linvel.y, quad_data.linvel.z,
       quad_data.omega.z);
+  auto tracking_origin = tracking_pose.getOrigin();
+  double tracking_r, tracking_p, tracking_y;
+  tracking_pose.getBasis().getRPY(tracking_r, tracking_p, tracking_y);
   DATA_LOG("rpyt_relative_pose_visual_servoing_connector")
       << quad_data.linvel.x << quad_data.linvel.y << quad_data.linvel.z
       << quad_data.rpydata.x << quad_data.rpydata.y << quad_data.rpydata.z
       << quad_data.omega.x << quad_data.omega.y << quad_data.omega.z
-      << DataStream::endl;
+      << tracking_origin.x() << tracking_origin.y() << tracking_origin.z()
+      << tracking_r << tracking_p << tracking_y << DataStream::endl;
   // giving transform in rotation-compensated quad frame
   sensor_data = std::make_tuple(getBodyFrameRotation(), tracking_pose,
                                 current_velocity_yawrate);

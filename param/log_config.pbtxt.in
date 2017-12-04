@@ -47,3 +47,8 @@ data_stream_configs {
   stream_id: "thrust_gain_estimator"
   log_rate: 25
 }
+
+data_stream_configs {
+  stream_id: "velocity_based_relative_pose_controller"
+  log_rate: 25
+}
