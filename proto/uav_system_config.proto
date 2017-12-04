@@ -76,5 +76,5 @@ message UAVSystemConfig {
   /**
   *
   */
-  optional string sensor_type = 14[default = "guidance"];
+  optional string sensor_type = 14[default = "Guidance"];
 }

@@ -128,6 +128,29 @@ private:
     }
     return uav_parser;
   }
+  /**
+   *
+   *
+   */
+  static std::shared_ptr<Sensor<Velocity>>
+  chooseSensor(std::shared_ptr<Sensor<Velocity>> sensor,
+               UAVParserPtr drone_hardware, UAVSystemConfig &config) {
+    std::shared_ptr<Sensor<Velocity>> velocity_sensor;
+    if (sensor)
+      velocity_sensor = sensor;
+    else {
+      if (config.sensor_type() == "ROS Sensor") {
+        velocity_sensor.reset(
+            new VelocitySensor(config.velocity_sensor_config()));
+      } else if (config.sensor_type() == "Guidance") {
+        velocity_sensor.reset(new Guidance(*drone_hardware));
+      } else {
+        throw std::runtime_error("Invalid sensor type");
+      }
+    }
+
+    return velocity_sensor;
+  }
 
 public:
   /**
@@ -154,7 +177,8 @@ public:
   * @param drone_hardware input hardware to send commands back. If this variable
   * is set, it will overwrite the one given using "uav_parser_type" in config.
   */
-  UAVSystem(UAVSystemConfig config, UAVParserPtr drone_hardware = nullptr)
+  UAVSystem(UAVSystemConfig config, UAVParserPtr drone_hardware = nullptr,
+            std::shared_ptr<Sensor<Velocity>> velocity_sensor = nullptr)
       : BaseRobotSystem(), config_(config),
         drone_hardware_(UAVSystem::chooseParser(drone_hardware, config)),
         velocity_based_position_controller_(
@@ -166,12 +190,7 @@ public:
             config.uav_controller_timer_duration() / 1000.0),
         // \todo Matt Use chrono::duration above
         velocity_sensor_(
-            config.sensor_type() == "ROS Sensor"
-                ? dynamic_cast<Sensor<Velocity> *>(
-                      new VelocitySensor(config.velocity_sensor_config()))
-                : dynamic_cast<Sensor<Velocity> *>(
-                      new Guidance(*drone_hardware_))),
-        // \todo Soham use a function to choose Sensor
+            UAVSystem::chooseSensor(velocity_sensor, drone_hardware_, config)),
         position_controller_drone_connector_(*drone_hardware_,
                                              builtin_position_controller_),
         velocity_based_position_controller_drone_connector_(
