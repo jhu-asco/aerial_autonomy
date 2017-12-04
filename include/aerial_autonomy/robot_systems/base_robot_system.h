@@ -96,6 +96,12 @@ public:
     const ControllerHardwareConnectorT *controller_hardware_connector =
         controller_hardware_connector_container_
             .getObject<ControllerHardwareConnectorT>();
+    auto active_controller = active_controllers_.find(
+        controller_hardware_connector->getHardwareType());
+    if (active_controller == active_controllers_.end() ||
+        controller_hardware_connector != active_controller->second) {
+      return ControllerStatus::NotEngaged;
+    }
     return controller_hardware_connector->getStatus();
   }
 

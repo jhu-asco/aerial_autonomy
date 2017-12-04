@@ -220,6 +220,11 @@ struct GoToWaypointInternalActionFunctor_
                    << typeid(RPYTBasedPositionControllerDroneConnector).name();
       logic_state_machine.process_event(be::Abort());
       return false;
+    } else if (status == ControllerStatus::NotEngaged) {
+      LOG(WARNING) << "Controller not engaged for "
+                   << typeid(RPYTBasedPositionControllerDroneConnector).name();
+      logic_state_machine.process_event(be::Abort());
+      return false;
     }
     return true;
   }
@@ -285,7 +290,6 @@ struct FollowingWaypointSequence_
   bool nextWaypoint(PositionYaw &next_wp) {
     if (!control_initialized_) {
       control_initialized_ = true;
-      tracked_index_ = StartIndex;
     } else {
       if (tracked_index_ + 1 < 0 ||
           tracked_index_ + 1 >= config_.way_points().size()) {
@@ -317,6 +321,7 @@ struct FollowingWaypointSequence_
       logic_state_machine.process_event(be::Abort());
     } else {
       tracked_index_ = StartIndex;
+      control_initialized_ = false;
     }
   }
 
