@@ -47,4 +47,8 @@ message RPYTBasedVelocityControllerConfig {
   * @brief Config about velocity tolerance, yaw tolerance
   */
   optional VelocityControllerConfig velocity_controller_config = 9;
+  /**
+  * @brief Max acceleration allowed before compensating for gravity
+  */
+  optional double max_acc_norm = 12 [ default = 0.5 ];
 }
