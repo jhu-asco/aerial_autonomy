@@ -4,9 +4,10 @@ JoystickVelocityControllerDroneConnector::
     JoystickVelocityControllerDroneConnector(
         parsernode::Parser &drone_hardware,
         Controller<std::tuple<Joystick, VelocityYawRate, double>, EmptyGoal,
-                   RollPitchYawRateThrust> &controller)
+                   RollPitchYawRateThrust> &controller,
+        std::shared_ptr<Sensor<Velocity>> velocity_sensor)
     : ControllerHardwareConnector(controller, HardwareType::UAV),
-      drone_hardware_(drone_hardware) {}
+      drone_hardware_(drone_hardware), velocity_sensor_(velocity_sensor) {}
 
 bool JoystickVelocityControllerDroneConnector::extractSensorData(
     std::tuple<Joystick, VelocityYawRate, double> &sensor_data) {
