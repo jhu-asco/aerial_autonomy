@@ -129,7 +129,12 @@ private:
     return uav_parser;
   }
   /**
+   * @brief function to choose type of sensor to use from config.
+   * If user provides a sensor it overwrites this.
    *
+   * @param sensor User provided parser
+   * @param drone_hardware For sensors that require drone hardware
+   * @param config UAV confif containing sensor type
    *
    */
   static std::shared_ptr<Sensor<Velocity>>
