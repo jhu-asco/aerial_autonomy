@@ -40,12 +40,14 @@ public:
         vision_state_machine_config->mutable_pick_place_state_machine_config();
     auto grip_config = pick_state_machine_config->mutable_grip_config();
     // Configure place groups
+    uint32_t dest1 = 15;
+    uint32_t dest2 = 16;
     auto place_group1 = pick_state_machine_config->add_place_groups();
-    place_group1->set_destination_id(15);
+    place_group1->set_destination_id(dest1);
     place_group1->add_object_ids(0);
     place_group1->add_object_ids(1);
     auto place_group2 = pick_state_machine_config->add_place_groups();
-    place_group2->set_destination_id(16);
+    place_group2->set_destination_id(dest2);
     place_group2->add_object_ids(2);
     place_group2->add_object_ids(3);
 
@@ -161,9 +163,9 @@ public:
     for (int i = 0; i < 2; i++) {
       auto pose_goal = waypoint_config->add_way_points();
       auto pose_goal_position = pose_goal->mutable_position();
-      pose_goal_position->set_x(i);
+      pose_goal_position->set_x(2);
       pose_goal_position->set_y(0);
-      pose_goal_position->set_z(1);
+      pose_goal_position->set_z(0.5);
       pose_goal->set_yaw(M_PI);
     }
 
@@ -189,22 +191,21 @@ public:
     logic_state_machine_->process_event(InternalTransitionEvent());
 
     // Targets used in pick place
-    std::unordered_map<uint32_t, tf::Transform> targets;
     // Target objects
-    targets[0] =
+    targets_[0] =
         tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(2, 0, 0.5));
-    targets[1] =
+    targets_[1] =
         tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(3, 0, 0.5));
-    targets[2] =
+    targets_[2] =
         tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(4, 0, 0.5));
-    targets[3] =
+    targets_[3] =
         tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(5, 0, 0.5));
     // Place goals
-    targets[15] =
+    targets_[dest1] =
         tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-3, 0, 0.5));
-    targets[16] =
+    targets_[dest2] =
         tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-3, 0, 1.5));
-    tracker_->setTargetPosesGlobalFrame(targets);
+    tracker_->setTargetPosesGlobalFrame(targets_);
     // Use simulated time for drone hardware
     drone_hardware_->usePerfectTime();
   }
@@ -244,6 +245,7 @@ protected:
   double goal_tolerance_position_;
   uint32_t grip_timeout_;
   uint32_t grip_duration_;
+  std::unordered_map<uint32_t, tf::Transform> targets_;
 
   template <class EventT> void testManualControlAbort() {
     // First takeoff
@@ -287,6 +289,78 @@ protected:
     // Completes takeoff and goes to hovering
     logic_state_machine_->process_event(InternalTransitionEvent());
   }
+
+  void PickPlace(uint32_t expected_place_target) {
+    // Check we are waiting for pick
+    ASSERT_STREQ(pstate(*logic_state_machine_), "WaitingForPick");
+    // Check in PickState
+    logic_state_machine_->process_event(InternalTransitionEvent());
+    ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
+    // Check UAV and arm controllers are active
+    ASSERT_EQ(
+        uav_arm_system_->getStatus<RPYTRelativePoseVisualServoingConnector>(),
+        ControllerStatus::Active);
+    ASSERT_EQ(uav_arm_system_->getStatus<BuiltInPoseControllerArmConnector>(),
+              ControllerStatus::Active);
+    // Keep running the controller until its completed or timeout
+    auto getStatusRunControllers = [&]() {
+      uav_arm_system_->runActiveController(HardwareType::UAV);
+      uav_arm_system_->runActiveController(HardwareType::Arm);
+      return uav_arm_system_->getActiveControllerStatus(HardwareType::UAV) ==
+                 ControllerStatus::Active ||
+             uav_arm_system_->getActiveControllerStatus(HardwareType::Arm) ==
+                 ControllerStatus::Active;
+    };
+    ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
+                                              std::chrono::seconds(1),
+                                              std::chrono::milliseconds(0)));
+    // Grip object for required duration
+    arm_->setGripperStatus(true);
+    logic_state_machine_->process_event(InternalTransitionEvent());
+    this_thread::sleep_for(std::chrono::milliseconds(grip_duration_ + 2));
+    logic_state_machine_->process_event(InternalTransitionEvent());
+    // Check we are in Post-Pick
+    ASSERT_STREQ(pstate(*logic_state_machine_), "ReachingPostPickWaypoint");
+    ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(),
+              typeid(ObjectId));
+    // Run controllers through one waypoint
+    logic_state_machine_->process_event(InternalTransitionEvent());
+    ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
+                                              std::chrono::seconds(1),
+                                              std::chrono::milliseconds(0)));
+    logic_state_machine_->process_event(InternalTransitionEvent());
+    // Check we are in Place
+    ASSERT_STREQ(pstate(*logic_state_machine_), "PlaceState");
+    ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(),
+              typeid(ObjectId));
+    // Place the object in the correct spot
+    uint32_t actual_place_target;
+    ASSERT_TRUE(uav_arm_system_->getTrackingVectorId(actual_place_target));
+    ASSERT_EQ(actual_place_target, expected_place_target);
+    ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
+                                              std::chrono::seconds(1),
+                                              std::chrono::milliseconds(0)));
+    logic_state_machine_->process_event(InternalTransitionEvent());
+    // Check Place completed with ungrip
+    ASSERT_STREQ(pstate(*logic_state_machine_), "ReachingPostPlaceWaypoint");
+    ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(),
+              typeid(Completed));
+    ASSERT_FALSE(arm_->getGripperValue());
+    // Run controllers through two waypoints
+    logic_state_machine_->process_event(InternalTransitionEvent());
+    ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
+                                              std::chrono::seconds(1),
+                                              std::chrono::milliseconds(0)));
+    logic_state_machine_->process_event(InternalTransitionEvent());
+    ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
+                                              std::chrono::seconds(1),
+                                              std::chrono::milliseconds(0)));
+    logic_state_machine_->process_event(InternalTransitionEvent());
+    // Check we are back to waiting for pick
+    ASSERT_STREQ(pstate(*logic_state_machine_), "WaitingForPick");
+    ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(),
+              typeid(Completed));
+  }
 };
 
 TEST_F(PickPlaceStateMachineTests, InitialState) {
@@ -318,71 +392,19 @@ TEST_F(PickPlaceStateMachineTests, HoveringandLanding) {
 /// \brief Test Pick Place
 // Try full pick-and-place
 TEST_F(PickPlaceStateMachineTests, PickPlace) {
+  auto pick_state_machine_config =
+      state_machine_config_.visual_servoing_state_machine_config()
+          .pick_place_state_machine_config();
   GoToHoverFromLanded();
   // Start Pick
   logic_state_machine_->process_event(pe::Pick());
-  // Check we are waiting for pick
-  ASSERT_STREQ(pstate(*logic_state_machine_), "WaitingForPick");
-  // Check in PickState
-  logic_state_machine_->process_event(InternalTransitionEvent());
-  ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
-  // Check UAV and arm controllers are active
-  ASSERT_EQ(
-      uav_arm_system_->getStatus<RPYTRelativePoseVisualServoingConnector>(),
-      ControllerStatus::Active);
-  ASSERT_EQ(uav_arm_system_->getStatus<BuiltInPoseControllerArmConnector>(),
-            ControllerStatus::Active);
-  // Keep running the controller until its completed or timeout
-  auto getStatusRunControllers = [&]() {
-    uav_arm_system_->runActiveController(HardwareType::UAV);
-    uav_arm_system_->runActiveController(HardwareType::Arm);
-    return uav_arm_system_->getActiveControllerStatus(HardwareType::UAV) ==
-               ControllerStatus::Active ||
-           uav_arm_system_->getActiveControllerStatus(HardwareType::Arm) ==
-               ControllerStatus::Active;
-  };
-  ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                            std::chrono::seconds(1),
-                                            std::chrono::milliseconds(0)));
-  // Grip object for required duration
-  arm_->setGripperStatus(true);
-  logic_state_machine_->process_event(InternalTransitionEvent());
-  this_thread::sleep_for(std::chrono::milliseconds(grip_duration_ + 2));
-  logic_state_machine_->process_event(InternalTransitionEvent());
-  // Check we are in Post-Pick
-  ASSERT_STREQ(pstate(*logic_state_machine_), "ReachingPostPickWaypoint");
-  ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(ObjectId));
-  // Run controllers through one waypoint
-  logic_state_machine_->process_event(InternalTransitionEvent());
-  ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                            std::chrono::seconds(1),
-                                            std::chrono::milliseconds(0)));
-  logic_state_machine_->process_event(InternalTransitionEvent());
-  // Check we are in Place
-  ASSERT_STREQ(pstate(*logic_state_machine_), "PlaceState");
-  ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(ObjectId));
-  // Place the object
-  ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                            std::chrono::seconds(1),
-                                            std::chrono::milliseconds(0)));
-  logic_state_machine_->process_event(InternalTransitionEvent());
-  // Check Place completed with ungrip
-  ASSERT_STREQ(pstate(*logic_state_machine_), "ReachingPostPlaceWaypoint");
-  ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(Completed));
-  ASSERT_FALSE(arm_->getGripperValue());
-  // Run controllers through two waypoints
-  logic_state_machine_->process_event(InternalTransitionEvent());
-  ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                            std::chrono::seconds(1),
-                                            std::chrono::milliseconds(0)));
-  logic_state_machine_->process_event(InternalTransitionEvent());
-  ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                            std::chrono::seconds(1),
-                                            std::chrono::milliseconds(0)));
-  logic_state_machine_->process_event(InternalTransitionEvent());
-  // Check we are back to waiting for pick
-  ASSERT_STREQ(pstate(*logic_state_machine_), "WaitingForPick");
-  ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(Completed));
+  PickPlace(pick_state_machine_config.place_groups().Get(0).destination_id());
+  // Remove targets for first destination
+  targets_.erase(0);
+  targets_.erase(1);
+  tracker_->setTargetPosesGlobalFrame(targets_);
+  // Repeat pick place for other targets
+  PickPlace(pick_state_machine_config.place_groups().Get(1).destination_id());
 }
 TEST_F(PickPlaceStateMachineTests, PickTimeout) {
   GoToHoverFromLanded();
