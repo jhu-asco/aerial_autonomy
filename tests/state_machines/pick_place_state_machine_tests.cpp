@@ -39,6 +39,16 @@ public:
     auto pick_state_machine_config =
         vision_state_machine_config->mutable_pick_place_state_machine_config();
     auto grip_config = pick_state_machine_config->mutable_grip_config();
+    // Configure place groups
+    auto place_group1 = pick_state_machine_config->add_place_groups();
+    place_group1->set_destination_id(15);
+    place_group1->add_object_ids(0);
+    place_group1->add_object_ids(1);
+    auto place_group2 = pick_state_machine_config->add_place_groups();
+    place_group2->set_destination_id(16);
+    place_group2->add_object_ids(2);
+    place_group2->add_object_ids(3);
+
     auto uav_vision_system_config = config_.mutable_uav_vision_system_config();
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
     auto uav_arm_system_config =
@@ -180,12 +190,20 @@ public:
 
     // Targets used in pick place
     std::unordered_map<uint32_t, tf::Transform> targets;
-    // Target object
+    // Target objects
     targets[0] =
         tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(2, 0, 0.5));
-    // Place goal
+    targets[1] =
+        tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(3, 0, 0.5));
+    targets[2] =
+        tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(4, 0, 0.5));
+    targets[3] =
+        tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(5, 0, 0.5));
+    // Place goals
     targets[15] =
         tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-3, 0, 0.5));
+    targets[16] =
+        tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(-3, 0, 1.5));
     tracker_->setTargetPosesGlobalFrame(targets);
     // Use simulated time for drone hardware
     drone_hardware_->usePerfectTime();
@@ -204,6 +222,8 @@ public:
     data_config.set_stream_id("rpyt_relative_pose_visual_servoing_connector");
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("velocity_based_relative_pose_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("thrust_gain_estimator");
     Log::instance().addDataStream(data_config);
   }
 
@@ -331,12 +351,8 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
   logic_state_machine_->process_event(InternalTransitionEvent());
   // Check we are in Post-Pick
   ASSERT_STREQ(pstate(*logic_state_machine_), "ReachingPostPickWaypoint");
-  ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(Completed));
-  // Run controllers through two waypoints
-  logic_state_machine_->process_event(InternalTransitionEvent());
-  ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                            std::chrono::seconds(1),
-                                            std::chrono::milliseconds(0)));
+  ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(ObjectId));
+  // Run controllers through one waypoint
   logic_state_machine_->process_event(InternalTransitionEvent());
   ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
                                             std::chrono::seconds(1),
@@ -344,7 +360,7 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
   logic_state_machine_->process_event(InternalTransitionEvent());
   // Check we are in Place
   ASSERT_STREQ(pstate(*logic_state_machine_), "PlaceState");
-  ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(Completed));
+  ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(ObjectId));
   // Place the object
   ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
                                             std::chrono::seconds(1),
@@ -434,7 +450,7 @@ TEST_F(PickPlaceStateMachineTests, PickWaitForGrip) {
   };
   ASSERT_FALSE(test_utils::waitUntilFalse()(grip, std::chrono::seconds(1),
                                             std::chrono::milliseconds(0)));
-  ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(Completed));
+  ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(ObjectId));
   // Check we are in hovering state
   ASSERT_STREQ(pstate(*logic_state_machine_), "ReachingPostPickWaypoint");
 }
@@ -473,10 +489,6 @@ TEST_F(PickPlaceStateMachineTests, PickArmAbort) {
   testArmOffAbort<pe::Pick>();
 }
 
-TEST_F(PickPlaceStateMachineTests, PlaceArmAbort) {
-  testArmOffAbort<pe::Place>();
-}
-
 // Abort due to tracking becoming invalid
 TEST_F(PickPlaceStateMachineTests, PickPlaceInvalidTrackingAbort) {
   // First takeoff
@@ -499,9 +511,6 @@ TEST_F(PickPlaceStateMachineTests, PickPlaceInvalidTrackingAbort) {
 // Manual rc abort
 TEST_F(PickPlaceStateMachineTests, PickManualControlAbort) {
   testManualControlAbort<pe::Pick>();
-}
-TEST_F(PickPlaceStateMachineTests, PlaceManualControlAbort) {
-  testManualControlAbort<pe::Place>();
 }
 // Manual control internal actions
 TEST_F(PickPlaceStateMachineTests, PickPlaceManualControlInternalActions) {

@@ -193,6 +193,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/pick_place_state_machine_config.proto
   proto/following_waypoint_sequence_config.proto
   proto/grip_config.proto
+  proto/place_group.proto
   proto/thrust_gain_estimator_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})

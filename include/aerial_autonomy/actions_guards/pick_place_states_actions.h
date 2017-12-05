@@ -162,17 +162,10 @@ struct PickPlaceStatesActions
 
   /**
   * @brief Guard to set and check that the id to track is available
-  * before beginning visual servoing to drop-off A
+  * before beginning visual servoing
   */
-  using PlaceVisualServoingTransitionGuardA =
-      ExplicitIdVisualServoingGuardFunctor_<LogicStateMachineT, 15>;
-
-  /**
-  * @brief Guard to set and check that the id to track is available
-  * before beginning visual servoing to drop-off B
-  */
-  using PlaceVisualServoingTransitionGuardB =
-      ExplicitIdVisualServoingGuardFunctor_<LogicStateMachineT, 16>;
+  using PlaceVisualServoingTransitionGuard =
+      EventIdVisualServoingGuardFunctor_<LogicStateMachineT>;
 
   /**
   * @brief Action to take when starting folding arm before takeoff
@@ -186,15 +179,12 @@ struct PickPlaceStatesActions
   using AbortUAVArmController = bActionSequence<
       boost::mpl::vector<typename usa::UAVControllerAbort, AbortArmController>>;
   /**
-  * @brief State for following waypoints after picking object of type A
+  * @brief State for following waypoints after picking object
   */
-  class ReachingPostPickWaypointA
-      : public FollowingWaypointSequence_<LogicStateMachineT, 0, 0> {};
-  /**
-  * @brief State for following waypoints after picking object of type B
-  */
-  class ReachingPostPickWaypointB
-      : public FollowingWaypointSequence_<LogicStateMachineT, 0, 0> {};
+  using ReachingPostPickWaypoint =
+      ReachingPostPickWaypoint_<LogicStateMachineT, 0, 0>;
+  using ReachingPostPickWaypointBase =
+      FollowingWaypointSequence_<LogicStateMachineT, 0, 0, ObjectId>;
 
   /**
    * @brief State to wait for picking

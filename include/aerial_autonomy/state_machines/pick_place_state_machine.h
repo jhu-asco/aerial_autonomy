@@ -110,9 +110,7 @@ public:
     auto pick_state_machine_config =
         state_machine_config.visual_servoing_state_machine_config()
             .pick_place_state_machine_config();
-    config_map_.insert<psa::ReachingPostPickWaypointA>(
-        pick_state_machine_config.following_waypoint_sequence_config());
-    config_map_.insert<psa::ReachingPostPickWaypointB>(
+    config_map_.insert<psa::ReachingPostPickWaypointBase>(
         pick_state_machine_config.following_waypoint_sequence_config());
     config_map_.insert<psa::ReachingPostPlaceWaypoint>(
         pick_state_machine_config.following_waypoint_sequence_config());
@@ -206,29 +204,15 @@ public:
             msmf::Row<psa::PickState, Reset, psa::ResetVisualServoing,
                       psa::ArmRightFoldGoHome, psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PickState, PickedA, psa::ReachingPostPickWaypointA,
+            msmf::Row<psa::PickState, ObjectId, psa::ReachingPostPickWaypoint,
                       psa::AbortUAVArmControllerArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PickState, PickedB, psa::ReachingPostPickWaypointB,
-                      psa::AbortUAVArmControllerArmRightFold, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingPostPickWaypointA, be::Abort, psa::Hovering,
+            msmf::Row<psa::ReachingPostPickWaypoint, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingPostPickWaypointB, be::Abort, psa::Hovering,
-                      psa::AbortUAVArmController, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingPostPickWaypointA, Completed,
-                      psa::PlaceState, psa::PlaceVisualServoingTransitionAction,
-                      psa::PlaceVisualServoingTransitionGuardA>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingPostPickWaypointB, Completed,
-                      psa::PlaceState, psa::PlaceVisualServoingTransitionAction,
-                      psa::PlaceVisualServoingTransitionGuardB>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, pe::Place, psa::PlaceState,
+            msmf::Row<psa::ReachingPostPickWaypoint, ObjectId, psa::PlaceState,
                       psa::PlaceVisualServoingTransitionAction,
-                      psa::PlaceVisualServoingTransitionGuardA>,
+                      psa::PlaceVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PlaceState, Completed,
                       psa::ReachingPostPlaceWaypoint, psa::ArmGripAction<false>,
