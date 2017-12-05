@@ -205,7 +205,7 @@ public:
                       psa::ArmRightFoldGoHome, psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PickState, Completed, psa::ReachingPostPickWaypoint,
-                      msmf::none, msmf::none>,
+                      psa::AbortUAVArmControllerArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ReachingPostPickWaypoint, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,

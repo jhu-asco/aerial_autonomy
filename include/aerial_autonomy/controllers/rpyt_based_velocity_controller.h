@@ -48,6 +48,9 @@ public:
                                                   << "Goalvy"
                                                   << "Goalvz"
                                                   << "Goalvyawrate"
+                                                  << "World_acc_x"
+                                                  << "World_acc_y"
+                                                  << "World_acc_z"
                                                   << DataStream::endl;
   }
   /**
