@@ -7,13 +7,13 @@ TEST(UAVVisionSystemTests, Constructor) {
   UAVSystemConfig config;
   config.mutable_uav_vision_system_config()->set_tracker_type("ROI");
   auto ar_marker_direction_estimator_config =
-      config.mutable_uav_vision -
-      system_config()->mutable_ar_marker_direction_estimator_config();
+      config.mutable_uav_vision_system_config()
+          ->mutable_ar_marker_direction_estimator_config();
   for (int i = 0; i < 6; ++i) {
-    ar_marker_direction_estimator_config.mutable_process_noise_stdev()->Add(
+    ar_marker_direction_estimator_config->mutable_process_noise_stdev()->Add(
         1e-2);
-    ar_marker_direction_estimator_config.mutable_meas_noise_stdev()->Add(1e-2);
-    ar_marker_direction_estimator_config.mutable_init_state_stdev()->Add(1e-2);
+    ar_marker_direction_estimator_config->mutable_meas_noise_stdev()->Add(1e-2);
+    ar_marker_direction_estimator_config->mutable_init_state_stdev()->Add(1e-2);
   }
   config.set_uav_parser_type("quad_simulator_parser/QuadSimParser");
   ASSERT_NO_THROW(new UAVVisionSystem(config));
