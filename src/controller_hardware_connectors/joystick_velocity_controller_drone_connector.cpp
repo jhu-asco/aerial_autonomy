@@ -18,11 +18,14 @@ bool JoystickVelocityControllerDroneConnector::extractSensorData(
   Joystick joy_data(quad_data.servo_in[0], quad_data.servo_in[1],
                     quad_data.servo_in[2], quad_data.servo_in[3]);
 
-  VelocityYawRate vel_data(quad_data.linvel.x, quad_data.linvel.y,
-                           quad_data.linvel.z, quad_data.omega.z);
-
-  sensor_data = std::make_tuple(joy_data, vel_data, quad_data.rpydata.z);
-  return true;
+  bool sensor_status =
+      sensor_status_to_bool(velocity_sensor_->getSensorStatus());
+  if (sensor_status) {
+    Velocity velocity_sensor_data = velocity_sensor_->getSensorData();
+    VelocityYawRate vel_data(velocity_sensor_data, quad_data.omega.z);
+    sensor_data = std::make_tuple(joy_data, vel_data, quad_data.rpydata.z);
+  }
+  return sensor_status;
 }
 
 void JoystickVelocityControllerDroneConnector::sendHardwareCommands(
