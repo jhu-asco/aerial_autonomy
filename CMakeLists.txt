@@ -193,6 +193,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/following_waypoint_sequence_config.proto
   proto/grip_config.proto
   proto/velocity_sensor_config.proto
+  proto/joystick_velocity_controller_drone_connector_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 

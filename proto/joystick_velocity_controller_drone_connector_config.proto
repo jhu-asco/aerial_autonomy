@@ -1,0 +1,8 @@
+syntax = "proto2";
+
+message JoystickVelocityControllerDroneConnectorConfig{
+  /**
+  * @brief max allowed divergence of sensor data from quad data
+  */
+  optional double max_divergence = 1[default = 0.5];
+}

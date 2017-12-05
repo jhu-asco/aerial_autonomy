@@ -6,6 +6,7 @@
 #include "aerial_autonomy/types/position.h"
 #include "aerial_autonomy/types/roll_pitch_yawrate_thrust.h"
 #include "aerial_autonomy/types/velocity_yaw_rate.h"
+#include "joystick_velocity_controller_drone_connector_config.pb.h"
 #include <parsernode/parser.h>
 
 /**
@@ -31,7 +32,9 @@ public:
       parsernode::Parser &drone_hardware,
       Controller<std::tuple<Joystick, VelocityYawRate, double>, EmptyGoal,
                  RollPitchYawRateThrust> &controller,
-      std::shared_ptr<Sensor<Velocity>> velocity_sensor);
+      std::shared_ptr<Sensor<Velocity>> velocity_sensor,
+      JoystickVelocityControllerDroneConnectorConfig config =
+          JoystickVelocityControllerDroneConnectorConfig());
 
 protected:
   /**
@@ -60,4 +63,8 @@ private:
   * @brief sensor for velocity data
   */
   std::shared_ptr<Sensor<Velocity>> velocity_sensor_;
+  /**
+  * @brief connector config
+  */
+  JoystickVelocityControllerDroneConnectorConfig config_;
 };
