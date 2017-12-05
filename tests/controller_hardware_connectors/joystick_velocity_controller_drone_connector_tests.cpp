@@ -100,6 +100,41 @@ TEST_F(ROSSensorTests, Constructor) {
       drone_hardware, controller, sensor));
 }
 
+TEST_F(ROSSensorTests, SensorStatus) {
+  double dt = 0.02;
+  RPYTBasedVelocityControllerConfig rpyt_config;
+  JoystickVelocityControllerConfig joystick_config;
+  QuadSimulator drone_hardware;
+  JoystickVelocityController controller(joystick_config, dt);
+  vel_config.set_timeout(0.5);
+  std::shared_ptr<Sensor<Velocity>> sensor;
+  sensor.reset(new VelocitySensor(vel_config));
+
+  int16_t channels[4] = {1500, 1000, -1500, 1000};
+  drone_hardware.setRC(channels);
+
+  JoystickVelocityControllerDroneConnector connector(drone_hardware, controller,
+                                                     sensor);
+
+  connector.setGoal(EmptyGoal());
+  nav_msgs::Odometry odom_msg;
+  odom_msg.header.stamp = ros::Time::now();
+  odom_msg.twist.twist.linear.x = 0.1;
+  odom_msg.twist.twist.linear.y = -0.2;
+  odom_msg.twist.twist.linear.z = 0.3;
+
+  odom_pub.publish(odom_msg);
+  ros::Duration(0.01).sleep();
+  ros::spinOnce();
+  connector.run();
+  ASSERT_TRUE(connector.getStatus() == ControllerStatus::Active);
+
+  // Sleep for time which is more than the timeout
+  ros::Duration(1.0).sleep();
+  connector.run();
+  ASSERT_FALSE(connector.getStatus() == ControllerStatus::Active);
+}
+
 TEST_F(ROSSensorTests, Run) {
   double dt = 0.02;
   RPYTBasedVelocityControllerConfig rpyt_config_;
