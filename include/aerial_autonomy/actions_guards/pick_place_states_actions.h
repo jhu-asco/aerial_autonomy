@@ -152,7 +152,7 @@ struct PickPlaceStatesActions
                              LogicStateMachineT, 0>>>;
 
   /**
-  * @brief Action to take when starting placing object.
+  * @brief Action to take when starting placing object at either drop-off.
   */
   using PlaceVisualServoingTransitionAction = bActionSequence<
       boost::mpl::vector<typename vsa::ResetRelativePoseVisualServoing,
@@ -162,10 +162,17 @@ struct PickPlaceStatesActions
 
   /**
   * @brief Guard to set and check that the id to track is available
-  * before beginning visual servoing
+  * before beginning visual servoing to drop-off A
   */
-  using PlaceVisualServoingTransitionGuard =
+  using PlaceVisualServoingTransitionGuardA =
       ExplicitIdVisualServoingGuardFunctor_<LogicStateMachineT, 15>;
+
+  /**
+  * @brief Guard to set and check that the id to track is available
+  * before beginning visual servoing to drop-off B
+  */
+  using PlaceVisualServoingTransitionGuardB =
+      ExplicitIdVisualServoingGuardFunctor_<LogicStateMachineT, 16>;
 
   /**
   * @brief Action to take when starting folding arm before takeoff
@@ -179,10 +186,15 @@ struct PickPlaceStatesActions
   using AbortUAVArmController = bActionSequence<
       boost::mpl::vector<typename usa::UAVControllerAbort, AbortArmController>>;
   /**
-  * @brief State for following waypoints after picking object
+  * @brief State for following waypoints after picking object of type A
   */
-  using ReachingPostPickWaypoint =
-      FollowingWaypointSequence_<LogicStateMachineT, 0, 0>;
+  class ReachingPostPickWaypointA
+      : public FollowingWaypointSequence_<LogicStateMachineT, 0, 0> {};
+  /**
+  * @brief State for following waypoints after picking object of type B
+  */
+  class ReachingPostPickWaypointB
+      : public FollowingWaypointSequence_<LogicStateMachineT, 0, 0> {};
 
   /**
    * @brief State to wait for picking

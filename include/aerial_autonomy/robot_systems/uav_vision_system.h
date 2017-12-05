@@ -68,6 +68,20 @@ public:
   }
 
   /**
+  * @brief Get the ID of the current tracked target
+  * @param id Returned ID
+  * @return True if successful, false otherwise
+  */
+  bool getTrackingVectorId(uint32_t &id) {
+    std::tuple<uint32_t, tf::Transform> tracking_vec;
+    bool valid = tracker_->getTrackingVector(tracking_vec);
+    if (valid) {
+      id = std::get<0>(tracking_vec);
+    }
+    return valid;
+  }
+
+  /**
   * @brief Set the tracker's tracking strategy
   * @param strategy Tracking strategy to set
   */

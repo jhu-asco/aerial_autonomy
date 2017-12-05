@@ -9,4 +9,12 @@ message GripConfig {
   * @brief Gripping should be true for this duration for gripping to succeed
   */
   optional uint32 grip_duration = 2 [ default = 1000 ];
+  /**
+  * @brief List of item IDs in group A
+  */
+  repeated uint32 group_a_ids = 3;
+  /**
+  * @brief List of item IDs in group A
+  */
+  repeated uint32 group_b_ids = 4;
 }

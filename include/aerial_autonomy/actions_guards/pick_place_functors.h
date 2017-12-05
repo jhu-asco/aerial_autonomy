@@ -6,11 +6,14 @@
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_functors.h>
 #include <aerial_autonomy/common/conversions.h>
+#include <aerial_autonomy/common/proto_utils.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/logic_states/timed_state.h>
 #include <aerial_autonomy/pick_place_events.h>
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/types/completed_event.h>
+#include <aerial_autonomy/types/picked_a.h>
+#include <aerial_autonomy/types/picked_b.h>
 #include <aerial_autonomy/types/reset_event.h>
 #include <chrono>
 #include <glog/logging.h>
@@ -40,7 +43,26 @@ struct GrippingInternalActionFunctor_
     bool has_grip = robot_system.grip(true);
     if (state.monitorGrip(has_grip)) {
       VLOG(1) << "Done Gripping!";
-      logic_state_machine.process_event(Completed());
+      uint32_t tracked_id;
+      if (robot_system.getTrackingVectorId(tracked_id)) {
+        if (proto_utils::contains(state.gripConfig().group_a_ids(),
+                                  static_cast<unsigned int>(tracked_id))) {
+          VLOG(1) << "Picked object in group A";
+          logic_state_machine.process_event(PickedA());
+        } else if (proto_utils::contains(
+                       state.gripConfig().group_b_ids(),
+                       static_cast<unsigned int>(tracked_id))) {
+          VLOG(1) << "Picked object in group B";
+          logic_state_machine.process_event(PickedB());
+        } else {
+          LOG(WARNING) << "Object ID " << tracked_id
+                       << " is not part of either object group!";
+          logic_state_machine.process_event(Reset());
+        }
+      } else {
+        LOG(WARNING) << "Could not retrieve object ID!";
+        logic_state_machine.process_event(Reset());
+      }
       return false;
     } else if (state.timeInState() > state.gripTimeout()) {
       robot_system.resetGripper();
@@ -428,11 +450,11 @@ public:
   template <class Event, class FSM>
   void on_entry(Event const &evt, FSM &logic_state_machine) {
     PickBaseState_<LogicStateMachineT>::on_entry(evt, logic_state_machine);
-    auto grip_config = logic_state_machine.configMap()
-                           .find<PickState_<LogicStateMachineT>, GripConfig>();
-    grip_timeout_ = std::chrono::milliseconds(grip_config.grip_timeout());
+    grip_config_ = logic_state_machine.configMap()
+                       .find<PickState_<LogicStateMachineT>, GripConfig>();
+    grip_timeout_ = std::chrono::milliseconds(grip_config_.grip_timeout());
     required_grip_duration_ =
-        std::chrono::milliseconds(grip_config.grip_duration());
+        std::chrono::milliseconds(grip_config_.grip_duration());
     VLOG(1) << "Grip timeout in milliseconds: " << grip_timeout_.count();
     VLOG(1) << "Grip duration in milliseconds: "
             << required_grip_duration_.count();
@@ -445,10 +467,17 @@ public:
    */
   std::chrono::milliseconds gripTimeout() { return grip_timeout_; }
 
+  /**
+   * @brief Getter for grip config
+   * @return The state config
+   */
+  const GripConfig &gripConfig() const { return grip_config_; }
+
 private:
   std::chrono::time_point<std::chrono::high_resolution_clock> grip_start_time_;
   std::chrono::milliseconds required_grip_duration_ =
       std::chrono::milliseconds(0);
   bool gripping_ = false;
+  GripConfig grip_config_;
   std::chrono::milliseconds grip_timeout_ = std::chrono::milliseconds(0);
 };
