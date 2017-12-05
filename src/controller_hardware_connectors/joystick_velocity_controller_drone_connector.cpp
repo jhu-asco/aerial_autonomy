@@ -22,6 +22,12 @@ bool JoystickVelocityControllerDroneConnector::extractSensorData(
       sensor_status_to_bool(velocity_sensor_->getSensorStatus());
   if (sensor_status) {
     Velocity velocity_sensor_data = velocity_sensor_->getSensorData();
+    if (abs(velocity_sensor_data.x - quad_data.linvel.x) > 0.5 &&
+        abs(velocity_sensor_data.y - quad_data.linvel.y) > 0.5 &&
+        abs(velocity_sensor_data.z - quad_data.linvel.z) > 0.5) {
+      LOG(WARNING) << "Sensor deviates from quad data. Aborting Controller";
+      return false;
+    }
     VelocityYawRate vel_data(velocity_sensor_data, quad_data.omega.z);
     sensor_data = std::make_tuple(joy_data, vel_data, quad_data.rpydata.z);
   }
