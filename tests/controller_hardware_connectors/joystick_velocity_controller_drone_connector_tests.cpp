@@ -132,7 +132,7 @@ TEST_F(ROSSensorTests, SensorStatus) {
   // Sleep for time which is more than the timeout
   ros::Duration(1.0).sleep();
   connector.run();
-  ASSERT_FALSE(connector.getStatus() == ControllerStatus::Active);
+  ASSERT_TRUE(connector.getStatus() == ControllerStatus::Critical);
 }
 
 TEST_F(ROSSensorTests, Run) {
