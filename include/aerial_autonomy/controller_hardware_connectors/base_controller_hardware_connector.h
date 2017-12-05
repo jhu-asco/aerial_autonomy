@@ -99,7 +99,7 @@ public:
    *
    * @param goal Goal for controller
    */
-  void setGoal(GoalType goal) {
+  virtual void setGoal(GoalType goal) {
     status_ = ControllerStatus(ControllerStatus::Active);
     controller_.setGoal(goal);
   }

@@ -177,6 +177,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/velocity_controller_config.proto
   proto/rpyt_based_velocity_controller_config.proto
   proto/rpyt_based_relative_pose_controller_config.proto
+  proto/rpyt_based_position_controller_config.proto
   proto/joystick_velocity_controller_config.proto
   proto/position.proto
   proto/rotation.proto
@@ -194,6 +195,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/grip_config.proto
   proto/velocity_sensor_config.proto
   proto/joystick_velocity_controller_drone_connector_config.proto
+  proto/thrust_gain_estimator_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -238,8 +240,10 @@ add_library(aerial_autonomy
   src/controllers/relative_pose_controller.cpp
   src/controllers/velocity_based_relative_pose_controller.cpp
   src/controllers/rpyt_based_velocity_controller.cpp
+  src/controllers/rpyt_based_position_controller.cpp
   src/controllers/rpyt_based_relative_pose_controller.cpp
   src/controllers/joystick_velocity_controller.cpp
+  src/estimators/thrust_gain_estimator.cpp
   src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp
   src/controller_hardware_connectors/base_relative_pose_visual_servoing_connector.cpp
   src/controller_hardware_connectors/relative_pose_visual_servoing_controller_drone_connector.cpp
@@ -247,6 +251,7 @@ add_library(aerial_autonomy
   src/controller_hardware_connectors/visual_servoing_controller_arm_connector.cpp
   src/controller_hardware_connectors/position_controller_drone_connector.cpp
   src/controller_hardware_connectors/velocity_based_position_controller_drone_connector.cpp
+  src/controller_hardware_connectors/rpyt_based_position_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_pose_controller_arm_connector.cpp
@@ -362,10 +367,12 @@ add_dependencies(${PROJECT_NAME}-uav-arm-system-handler-test ${${PROJECT_NAME}_E
 catkin_add_gtest(${PROJECT_NAME}-thread-safe-state-machine-test tests/common/thread_safe_state_machine_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-iterable-enum-test tests/common/iterable_enum_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-velocity-based-position-controller-test tests/controllers/velocity_based_position_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-thrust-gain-estimator-test tests/estimators/thrust_gain_estimator_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-controller-test tests/controllers/relative_pose_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-velocity-based-relative-pose-controller-test tests/controllers/velocity_based_relative_pose_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-relative-pose-controller-test tests/controllers/rpyt_based_relative_pose_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-velocity-controller-test tests/controllers/rpyt_based_velocity_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-rpyt-based-position-controller-test tests/controllers/rpyt_based_position_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-constant-heading-depth-controller-test tests/controllers/constant_heading_depth_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-math-test tests/common/math_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-tracker-test tests/trackers/simple_tracker_tests.cpp)
@@ -374,6 +381,7 @@ add_rostest_gtest(${PROJECT_NAME}-roi-to-position-converter-test tests/trackers/
 add_rostest_gtest(${PROJECT_NAME}-alvar-tracker-test tests/trackers/alvar_tracker_tests.test tests/trackers/alvar_tracker_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test tests/controller_hardware_connectors/relative_pose_visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-relative-pose-visual-servoing-connector-test tests/controller_hardware_connectors/rpyt_relative_pose_visual_servoing_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-rpyt-based-position-controller-drone-connector-test tests/controller_hardware_connectors/rpyt_based_position_controller_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-drone-connector-test tests/controller_hardware_connectors/visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-arm-connector-test tests/controller_hardware_connectors/visual_servoing_arm_connector_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test tests/controller_hardware_connectors/joystick_velocity_controller_drone_connector_tests.test tests/controller_hardware_connectors/joystick_velocity_controller_drone_connector_tests.cpp)
@@ -479,6 +487,9 @@ endif()
 if(TARGET ${PROJECT_NAME}-velocity-based-position-controller-test)
   target_link_libraries(${PROJECT_NAME}-velocity-based-position-controller-test aerial_autonomy)
 endif()
+if(TARGET ${PROJECT_NAME}-thrust-gain-estimator-test)
+  target_link_libraries(${PROJECT_NAME}-thrust-gain-estimator-test aerial_autonomy)
+endif()
 if(TARGET ${PROJECT_NAME}-relative-pose-controller-test)
   target_link_libraries(${PROJECT_NAME}-relative-pose-controller-test aerial_autonomy)
 endif()
@@ -487,6 +498,12 @@ if(TARGET ${PROJECT_NAME}-velocity-based-relative-pose-controller-test)
 endif()
 if(TARGET ${PROJECT_NAME}-rpyt-based-relative-pose-controller-test)
   target_link_libraries(${PROJECT_NAME}-rpyt-based-relative-pose-controller-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-rpyt-based-position-controller-test)
+  target_link_libraries(${PROJECT_NAME}-rpyt-based-position-controller-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-rpyt-based-position-controller-drone-connector-test)
+  target_link_libraries(${PROJECT_NAME}-rpyt-based-position-controller-drone-connector-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
 if(TARGET ${PROJECT_NAME}-rpyt-based-velocity-controller-test)
   target_link_libraries(${PROJECT_NAME}-rpyt-based-velocity-controller-test aerial_autonomy)

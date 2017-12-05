@@ -25,8 +25,9 @@ public:
   /**
   * @brief Constructor
   */
-  RPYTBasedRelativePoseController(RPYTBasedRelativePoseControllerConfig config,
-                                  double controller_timer_duration)
+  RPYTBasedRelativePoseController(
+      RPYTBasedRelativePoseControllerConfig config,
+      std::chrono::duration<double> controller_timer_duration)
       : config_(config),
         velocity_based_relative_pose_controller_(
             config.velocity_based_relative_pose_controller_config(),
@@ -42,6 +43,18 @@ public:
   void resetIntegrator() {
     velocity_based_relative_pose_controller_.resetIntegrator();
     rpyt_based_velocity_controller_.resetCumulativeError();
+  }
+  /**
+  * @brief Update RPYT controller config
+  */
+  void updateRPYTConfig(RPYTBasedVelocityControllerConfig &config) {
+    rpyt_based_velocity_controller_.updateConfig(config);
+  }
+  /**
+  * @brief get RPYT controller config
+  */
+  RPYTBasedVelocityControllerConfig getRPYTConfig() {
+    return rpyt_based_velocity_controller_.getConfig();
   }
 
 protected:

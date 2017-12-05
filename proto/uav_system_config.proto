@@ -6,13 +6,15 @@ import "position_controller_config.proto";
 
 import "velocity_controller_config.proto";
 
-import "velocity_based_position_controller_config.proto";
+import "rpyt_based_position_controller_config.proto";
 
 import "joystick_velocity_controller_config.proto";
 
 import "joystick_velocity_controller_drone_connector_config.proto";
 
 import "velocity_sensor_config.proto";
+
+import "thrust_gain_estimator_config.proto";
 
 message UAVSystemConfig {
   /**
@@ -44,8 +46,8 @@ message UAVSystemConfig {
 
   optional VelocityControllerConfig velocity_controller_config = 6;
 
-  optional VelocityBasedPositionControllerConfig
-      velocity_based_position_controller_config = 7;
+  optional RPYTBasedPositionControllerConfig
+      rpyt_based_position_controller_config = 7;
 
   optional JoystickVelocityControllerConfig
       joystick_velocity_controller_config = 12;
@@ -78,9 +80,14 @@ message UAVSystemConfig {
   /**
   * @brief Velocity Sensor config
   */
-  optional VelocitySensorConfig velocity_sensor_config = 13;
+  optional VelocitySensorConfig velocity_sensor_config = 16;
   /**
   *
   */
   optional string sensor_type = 14[default = "Guidance"];
+
+  /**
+  * @brief Thrust estimator config
+  */
+  optional ThrustGainEstimatorConfig thrust_gain_estimator_config = 13;
 }

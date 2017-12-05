@@ -11,18 +11,20 @@
 using namespace quad_simulator;
 
 TEST(JoystickVelocityControllerDroneConnectorTests, Constructor) {
-  double dt = 0.02;
+  std::chrono::duration<double> dt = std::chrono::milliseconds(20);
   RPYTBasedVelocityControllerConfig rpyt_config;
   JoystickVelocityControllerConfig joystick_config;
   QuadSimulator drone_hardware;
   JoystickVelocityController controller(joystick_config, dt);
+  ThrustGainEstimator thrust_gain_estimator;
   std::shared_ptr<Sensor<Velocity>> sensor;
+
   ASSERT_NO_THROW(new JoystickVelocityControllerDroneConnector(
-      drone_hardware, controller, sensor));
+      drone_hardware, controller, thrust_gain_estimator, sensor));
 }
 
 TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
-  double dt = 0.02;
+  std::chrono::duration<double> dt = std::chrono::milliseconds(20);
   RPYTBasedVelocityControllerConfig rpyt_config_;
   rpyt_config_.set_kp_xy(2.0);
   rpyt_config_.set_kp_z(2.0);
@@ -45,9 +47,11 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
   // Set stick commands
   int16_t channels[4] = {150, 100, -150, 100};
   drone_hardware.setRC(channels);
+  drone_hardware.set_delay_send_time(0.02);
 
-  JoystickVelocityControllerDroneConnector connector(drone_hardware, controller,
-                                                     sensor);
+  ThrustGainEstimator thrust_gain_estimator(0.2, 0.1);
+  JoystickVelocityControllerDroneConnector connector(
+      drone_hardware, controller, thrust_gain_estimator, sensor);
 
   connector.setGoal(EmptyGoal());
 
@@ -58,11 +62,11 @@ TEST(JoystickVelocityControllerDroneConnectorTests, Run) {
 
   ASSERT_TRUE(test_utils::waitUntilTrue()(
       controller_run, std::chrono::seconds(1), std::chrono::milliseconds(0)));
+  ASSERT_NEAR(thrust_gain_estimator.getThrustGain(), 0.16, 1e-4);
 
   parsernode::common::quaddata sensor_data;
   drone_hardware.getquaddata(sensor_data);
 
-  std::cout << "yaw = " << sensor_data.rpydata.z << std::endl;
   ASSERT_NEAR(sensor_data.linvel.x, channels[0] / 1e4, 1e-3);
   ASSERT_NEAR(sensor_data.linvel.y, channels[1] / 1e4, 1e-3);
   ASSERT_NEAR(sensor_data.linvel.z, channels[2] / 1e4, 1e-3);
@@ -89,19 +93,20 @@ public:
 };
 
 TEST_F(ROSSensorTests, Constructor) {
-  double dt = 0.02;
+  std::chrono::duration<double> dt = std::chrono::milliseconds(20);
   RPYTBasedVelocityControllerConfig rpyt_config;
   JoystickVelocityControllerConfig joystick_config;
   QuadSimulator drone_hardware;
   JoystickVelocityController controller(joystick_config, dt);
+  ThrustGainEstimator thrust_gain_estimator;
   std::shared_ptr<Sensor<Velocity>> sensor;
   sensor.reset(new VelocitySensor(vel_config));
   ASSERT_NO_THROW(new JoystickVelocityControllerDroneConnector(
-      drone_hardware, controller, sensor));
+      drone_hardware, controller, thrust_gain_estimator, sensor));
 }
 
 TEST_F(ROSSensorTests, SensorStatus) {
-  double dt = 0.02;
+  std::chrono::duration<double> dt = std::chrono::milliseconds(20);
   RPYTBasedVelocityControllerConfig rpyt_config;
   JoystickVelocityControllerConfig joystick_config;
   QuadSimulator drone_hardware;
@@ -113,8 +118,9 @@ TEST_F(ROSSensorTests, SensorStatus) {
   int16_t channels[4] = {1500, 1000, -1500, 1000};
   drone_hardware.setRC(channels);
 
-  JoystickVelocityControllerDroneConnector connector(drone_hardware, controller,
-                                                     sensor);
+  ThrustGainEstimator thrust_gain_estimator(0.2, 0.1);
+  JoystickVelocityControllerDroneConnector connector(
+      drone_hardware, controller, thrust_gain_estimator, sensor);
 
   connector.setGoal(EmptyGoal());
   nav_msgs::Odometry odom_msg;
@@ -136,7 +142,7 @@ TEST_F(ROSSensorTests, SensorStatus) {
 }
 
 TEST_F(ROSSensorTests, Divergence) {
-  double dt = 0.02;
+  std::chrono::duration<double> dt = std::chrono::milliseconds(20);
   RPYTBasedVelocityControllerConfig rpyt_config;
   JoystickVelocityControllerConfig joystick_config;
   QuadSimulator drone_hardware;
@@ -148,8 +154,9 @@ TEST_F(ROSSensorTests, Divergence) {
   int16_t channels[4] = {1500, 1000, -1500, 1000};
   drone_hardware.setRC(channels);
 
-  JoystickVelocityControllerDroneConnector connector(drone_hardware, controller,
-                                                     sensor);
+  ThrustGainEstimator thrust_gain_estimator(0.2, 0.1);
+  JoystickVelocityControllerDroneConnector connector(
+      drone_hardware, controller, thrust_gain_estimator, sensor);
 
   connector.setGoal(EmptyGoal());
   nav_msgs::Odometry odom_msg;
@@ -178,7 +185,7 @@ TEST_F(ROSSensorTests, Divergence) {
 }
 
 TEST_F(ROSSensorTests, Run) {
-  double dt = 0.02;
+  std::chrono::duration<double> dt = std::chrono::milliseconds(20);
   RPYTBasedVelocityControllerConfig rpyt_config_;
   rpyt_config_.set_kp_xy(2.0);
   rpyt_config_.set_kp_z(2.0);
@@ -202,8 +209,9 @@ TEST_F(ROSSensorTests, Run) {
   int16_t channels[4] = {1500, 1000, -1500, 1000};
   drone_hardware.setRC(channels);
 
-  JoystickVelocityControllerDroneConnector connector(drone_hardware, controller,
-                                                     sensor);
+  ThrustGainEstimator thrust_gain_estimator(0.2, 0.1);
+  JoystickVelocityControllerDroneConnector connector(
+      drone_hardware, controller, thrust_gain_estimator, sensor);
 
   connector.setGoal(EmptyGoal());
 

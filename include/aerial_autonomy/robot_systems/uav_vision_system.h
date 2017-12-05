@@ -41,13 +41,13 @@ public:
         rpyt_based_relative_pose_controller_(
             config_.uav_vision_system_config()
                 .rpyt_based_relative_pose_controller_config(),
-            config_.uav_controller_timer_duration() / 1000.0),
+            std::chrono::milliseconds(config_.uav_controller_timer_duration())),
         visual_servoing_drone_connector_(*tracker_, *drone_hardware_,
                                          constant_heading_depth_controller_,
                                          camera_transform_),
         relative_pose_visual_servoing_drone_connector_(
             *tracker_, *drone_hardware_, rpyt_based_relative_pose_controller_,
-            camera_transform_,
+            thrust_gain_estimator_, camera_transform_,
             conversions::protoTransformToTf(config_.uav_vision_system_config()
                                                 .tracking_offset_transform())) {
     controller_hardware_connector_container_.setObject(

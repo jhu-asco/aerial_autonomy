@@ -9,23 +9,31 @@ bool RPYTBasedVelocityController::runImplementation(
     RollPitchYawRateThrust &control) {
   double yaw = std::get<1>(sensor_data);
   VelocityYawRate velocity_yawrate_diff = goal - std::get<0>(sensor_data);
-  cumulative_error =
-      cumulative_error + velocity_yawrate_diff * controller_timer_duration_;
+  cumulative_error = cumulative_error +
+                     velocity_yawrate_diff * controller_timer_duration_.count();
 
   RPYTBasedVelocityControllerConfig config = config_;
   // Acceleration in world frame
-  double acc_x = config.kp_xy() * velocity_yawrate_diff.x +
+  Eigen::Vector3d world_acc;
+  world_acc(0) = config.kp_xy() * velocity_yawrate_diff.x +
                  config.ki_xy() * cumulative_error.x;
-  double acc_y = config.kp_xy() * velocity_yawrate_diff.y +
+  world_acc(1) = config.kp_xy() * velocity_yawrate_diff.y +
                  config.ki_xy() * cumulative_error.y;
-  double acc_z = config.kp_z() * velocity_yawrate_diff.z +
-                 config.ki_z() * cumulative_error.z + 9.81;
+  world_acc(2) = config.kp_z() * velocity_yawrate_diff.z +
+                 config.ki_z() * cumulative_error.z;
+  // Limit acceleration magnitude
+  double acc_norm = world_acc.norm();
+  if (acc_norm > config.max_acc_norm()) {
+    world_acc *= (config.max_acc_norm() / acc_norm);
+  }
+  // Compensate for gravity after limiting the residual
+  world_acc(2) += 9.81;
 
   // Acceleration in gravity aligned yaw-compensated frame
   Eigen::Vector3d rot_acc;
-  rot_acc[0] = acc_x * cos(yaw) + acc_y * sin(yaw);
-  rot_acc[1] = -acc_x * sin(yaw) + acc_y * cos(yaw);
-  rot_acc[2] = acc_z;
+  rot_acc[0] = world_acc(0) * cos(yaw) + world_acc(1) * sin(yaw);
+  rot_acc[1] = -world_acc(0) * sin(yaw) + world_acc(1) * cos(yaw);
+  rot_acc[2] = world_acc(2);
 
   // thrust is magnitude of acceleration scaled by kt
   control.t = rot_acc.norm() / config.kt();

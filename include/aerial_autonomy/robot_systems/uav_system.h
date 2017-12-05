@@ -8,10 +8,14 @@
 // Controllers
 #include <aerial_autonomy/controllers/basic_controllers.h>
 #include <aerial_autonomy/controllers/joystick_velocity_controller.h>
+#include <aerial_autonomy/controllers/rpyt_based_position_controller.h>
+// Estimators
+#include <aerial_autonomy/estimators/thrust_gain_estimator.h>
 // Specific ControllerConnectors
 #include <aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h>
 #include <aerial_autonomy/controller_hardware_connectors/joystick_velocity_controller_drone_connector.h>
 // Sensors
+#include <aerial_autonomy/controller_hardware_connectors/rpyt_based_position_controller_drone_connector.h>
 #include <aerial_autonomy/sensors/guidance.h>
 #include <aerial_autonomy/sensors/velocity_sensor.h>
 // Load UAV parser
@@ -44,9 +48,13 @@ protected:
   */
   UAVParserPtr drone_hardware_;
   /**
-  * @brief Velocity based position controller
+  * @brief RPYT based position controller
   */
-  VelocityBasedPositionController velocity_based_position_controller_;
+  RPYTBasedPositionController rpyt_based_position_controller_;
+  /**
+  * @brief Thrust gain estimator
+  */
+  ThrustGainEstimator thrust_gain_estimator_;
 
 private:
   // Controllers
@@ -76,11 +84,11 @@ private:
 
   PositionControllerDroneConnector position_controller_drone_connector_;
   /**
-   * @brief connector for position controller using velocity and yaw rate
+   * @brief connector for position controller using rpyt
    * commands
    */
-  VelocityBasedPositionControllerDroneConnector
-      velocity_based_position_controller_drone_connector_;
+  RPYTBasedPositionControllerDroneConnector
+      rpyt_based_position_controller_drone_connector_;
   /**
   * @brief connector for velocity controller
   */
@@ -186,26 +194,29 @@ public:
             std::shared_ptr<Sensor<Velocity>> velocity_sensor = nullptr)
       : BaseRobotSystem(), config_(config),
         drone_hardware_(UAVSystem::chooseParser(drone_hardware, config)),
-        velocity_based_position_controller_(
-            config.velocity_based_position_controller_config()),
+        rpyt_based_position_controller_(
+            config.rpyt_based_position_controller_config(),
+            std::chrono::milliseconds(config.uav_controller_timer_duration())),
+        thrust_gain_estimator_(config.thrust_gain_estimator_config()),
         builtin_position_controller_(config.position_controller_config()),
         builtin_velocity_controller_(config.velocity_controller_config()),
         joystick_velocity_controller_(
             config.joystick_velocity_controller_config(),
-            config.uav_controller_timer_duration() / 1000.0),
-        // \todo Matt Use chrono::duration above
+            std::chrono::milliseconds(config.uav_controller_timer_duration())),
         velocity_sensor_(
             UAVSystem::chooseSensor(velocity_sensor, drone_hardware_, config)),
         position_controller_drone_connector_(*drone_hardware_,
                                              builtin_position_controller_),
-        velocity_based_position_controller_drone_connector_(
-            *drone_hardware_, velocity_based_position_controller_),
+        rpyt_based_position_controller_drone_connector_(
+            *drone_hardware_, rpyt_based_position_controller_,
+            thrust_gain_estimator_),
         velocity_controller_drone_connector_(*drone_hardware_,
                                              builtin_velocity_controller_),
         rpyt_controller_drone_connector_(*drone_hardware_,
                                          manual_rpyt_controller_),
         joystick_velocity_controller_drone_connector_(
-            *drone_hardware_, joystick_velocity_controller_, velocity_sensor_,
+            *drone_hardware_, joystick_velocity_controller_,
+            thrust_gain_estimator_, velocity_sensor_,
             config.joystick_velocity_controller_drone_connector_config()),
         home_location_specified_(false) {
     drone_hardware_->initialize();
@@ -213,7 +224,7 @@ public:
     controller_hardware_connector_container_.setObject(
         position_controller_drone_connector_);
     controller_hardware_connector_container_.setObject(
-        velocity_based_position_controller_drone_connector_);
+        rpyt_based_position_controller_drone_connector_);
     controller_hardware_connector_container_.setObject(
         velocity_controller_drone_connector_);
     controller_hardware_connector_container_.setObject(

@@ -4,13 +4,21 @@
 JoystickVelocityControllerDroneConnector::
     JoystickVelocityControllerDroneConnector(
         parsernode::Parser &drone_hardware,
-        Controller<std::tuple<Joystick, VelocityYawRate, double>, EmptyGoal,
-                   RollPitchYawRateThrust> &controller,
+        JoystickVelocityController &controller,
+        ThrustGainEstimator &thrust_gain_estimator,
         std::shared_ptr<Sensor<Velocity>> velocity_sensor,
         JoystickVelocityControllerDroneConnectorConfig config)
     : ControllerHardwareConnector(controller, HardwareType::UAV),
-      drone_hardware_(drone_hardware), velocity_sensor_(velocity_sensor),
-      config_(config) {}
+      drone_hardware_(drone_hardware),
+      thrust_gain_estimator_(thrust_gain_estimator),
+      private_reference_controller_(controller),
+      velocity_sensor_(velocity_sensor), config_(config) {}
+
+void JoystickVelocityControllerDroneConnector::setGoal(EmptyGoal goal) {
+  BaseClass::setGoal(goal);
+  VLOG(1) << "Clearing thrust estimator buffer";
+  thrust_gain_estimator_.clearBuffer();
+}
 
 bool JoystickVelocityControllerDroneConnector::extractSensorData(
     std::tuple<Joystick, VelocityYawRate, double> &sensor_data) {
@@ -23,6 +31,7 @@ bool JoystickVelocityControllerDroneConnector::extractSensorData(
 
   bool sensor_status =
       sensor_status_to_bool(velocity_sensor_->getSensorStatus());
+
   if (sensor_status) {
     Velocity velocity_sensor_data = velocity_sensor_->getSensorData();
     if (abs(velocity_sensor_data.x - quad_data.linvel.x) >
@@ -36,6 +45,11 @@ bool JoystickVelocityControllerDroneConnector::extractSensorData(
     }
     VelocityYawRate vel_data(velocity_sensor_data, quad_data.omega.z);
     sensor_data = std::make_tuple(joy_data, vel_data, quad_data.rpydata.z);
+    thrust_gain_estimator_.addSensorData(
+        quad_data.rpydata.x, quad_data.rpydata.y, quad_data.linacc.z);
+    auto rpyt_controller_config = private_reference_controller_.getRPYTConfig();
+    rpyt_controller_config.set_kt(thrust_gain_estimator_.getThrustGain());
+    private_reference_controller_.updateRPYTConfig(rpyt_controller_config);
   }
   return sensor_status;
 }
@@ -48,5 +62,6 @@ void JoystickVelocityControllerDroneConnector::sendHardwareCommands(
   rpyt_command.y = controls.p;
   rpyt_command.z = controls.y;
   rpyt_command.w = controls.t;
+  thrust_gain_estimator_.addThrustCommand(controls.t);
   drone_hardware_.cmdrpyawratethrust(rpyt_command);
 }

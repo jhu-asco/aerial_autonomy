@@ -5,11 +5,13 @@
 #include "aerial_autonomy/types/velocity_yaw_rate.h"
 #include "rpyt_based_velocity_controller_config.pb.h"
 #include <glog/logging.h>
+
+#include <chrono>
+
 /**
  * @brief A velocity controller that provides rpyt commands to
  * achieve desired velocity
  */
-
 class RPYTBasedVelocityController
     : public Controller<std::tuple<VelocityYawRate, double>, VelocityYawRate,
                         RollPitchYawRateThrust> {
@@ -21,8 +23,9 @@ public:
   *
   * @param controller_timer_duration Timestep in seconds
   */
-  RPYTBasedVelocityController(RPYTBasedVelocityControllerConfig config,
-                              double controller_timer_duration)
+  RPYTBasedVelocityController(
+      RPYTBasedVelocityControllerConfig config,
+      std::chrono::duration<double> controller_timer_duration)
       : config_(config), controller_timer_duration_(controller_timer_duration) {
     RPYTBasedVelocityControllerConfig check_config = config_;
     CHECK_GE(check_config.kp_xy(), 0) << "negative kp_xy ! exiting";
@@ -30,6 +33,8 @@ public:
     CHECK_GE(check_config.ki_xy(), 0) << "negative ki_xy ! exiting";
     CHECK_GE(check_config.ki_z(), 0) << "negative ki_z ! exiting";
     CHECK_GE(check_config.kt(), 0) << "negative kt ! exiting";
+    CHECK_GE(controller_timer_duration_.count(), 0)
+        << "negative controller rate ! exiting";
 
     DATA_HEADER("rpyt_based_velocity_controller") << "Errorx"
                                                   << "Errory"
@@ -96,5 +101,5 @@ protected:
   Atomic<RPYTBasedVelocityControllerConfig>
       config_; ///< Controller configuration
   VelocityYawRate cumulative_error;
-  double controller_timer_duration_;
+  const std::chrono::duration<double> controller_timer_duration_;
 };
