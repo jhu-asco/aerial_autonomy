@@ -1,0 +1,11 @@
+syntax = "proto2";
+
+/**
+* Settings for  estimator estimating
+* the direction of ar marker
+*/
+message ARMarkerDirectionEstimatorConfig {
+  repeated double process_noise_stdev = 1;
+  repeated double meas_noise_stdev = 2;
+  repeated double init_state_stdev = 3;
+}
