@@ -5,6 +5,7 @@
 #include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h"
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
 #include "aerial_autonomy/controllers/rpyt_based_relative_pose_controller.h"
+#include "aerial_autonomy/estimators/ar_marker_direction_estimator.h"
 #include "aerial_autonomy/robot_systems/uav_system.h"
 #include "aerial_autonomy/trackers/alvar_tracker.h"
 #include "aerial_autonomy/trackers/roi_to_position_converter.h"
@@ -45,9 +46,14 @@ public:
         visual_servoing_drone_connector_(*tracker_, *drone_hardware_,
                                          constant_heading_depth_controller_,
                                          camera_transform_),
+        ar_marker_direction_estimator_(
+            config_.uav_vision_system_config()
+                .ar_marker_direction_estimator_config(),
+            std::chrono::milliseconds(config_.uav_controller_timer_duration())),
         relative_pose_visual_servoing_drone_connector_(
             *tracker_, *drone_hardware_, rpyt_based_relative_pose_controller_,
-            thrust_gain_estimator_, camera_transform_,
+            thrust_gain_estimator_, ar_marker_direction_estimator_,
+            camera_transform_,
             conversions::protoTransformToTf(config_.uav_vision_system_config()
                                                 .tracking_offset_transform())) {
     controller_hardware_connector_container_.setObject(
@@ -167,6 +173,10 @@ private:
   * UAV
   */
   VisualServoingControllerDroneConnector visual_servoing_drone_connector_;
+  /**
+  * @brief Estimator for global marker direction and global velocity
+  */
+  ARMarkerDirectionEstimator ar_marker_direction_estimator_;
   /**
   * @brief Connects relative pose controller ot tracker and UAV
   */

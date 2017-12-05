@@ -1,5 +1,6 @@
 #pragma once
 #include "ar_marker_direction_estimator_config.pb.h"
+#include <chrono>
 #include <glog/logging.h>
 #include <opencv2/video/tracking.hpp>
 #include <tf/tf.h>
@@ -20,6 +21,7 @@ private:
   ARMarkerDirectionEstimatorConfig config_;
   cv::KalmanFilter filter_;
   const double zero_tolerance_;
+  bool initial_state_initialized_;
   template <class T> void setCovarianceMatrix(cv::Mat &matrix, T stdev_vector) {
     matrix = cv::Mat_<double>::zeros(6, 6);
     CHECK_EQ(stdev_vector.size(), 6)
@@ -43,7 +45,7 @@ public:
   * predict
   */
   ARMarkerDirectionEstimator(ARMarkerDirectionEstimatorConfig config,
-                             double propagation_step);
+                             std::chrono::duration<double> propagation_step);
   /**
   * @brief Perform a single prediction and a correction using the provided
   * measurements
@@ -134,4 +136,12 @@ public:
                        filter_.statePre.at<double>(4),
                        filter_.statePre.at<double>(5));
   }
+
+  /**
+  * @brief Set the initial state initialized flag to false
+  * i.e the filter will reset the initial state using the
+  * next available measurement instead of predicting
+  * and correcting
+  */
+  void resetState() { initial_state_initialized_ = false; }
 };

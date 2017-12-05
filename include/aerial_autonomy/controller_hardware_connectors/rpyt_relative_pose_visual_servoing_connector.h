@@ -2,6 +2,7 @@
 #include "aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h"
 #include "aerial_autonomy/controller_hardware_connectors/base_relative_pose_visual_servoing_connector.h"
 #include "aerial_autonomy/controllers/rpyt_based_relative_pose_controller.h"
+#include "aerial_autonomy/estimators/ar_marker_direction_estimator.h"
 #include "aerial_autonomy/estimators/thrust_gain_estimator.h"
 #include "aerial_autonomy/trackers/base_tracker.h"
 #include "aerial_autonomy/types/position_yaw.h"
@@ -36,6 +37,7 @@ public:
       BaseTracker &tracker, parsernode::Parser &drone_hardware,
       RPYTBasedRelativePoseController &controller,
       ThrustGainEstimator &thrust_gain_estimator,
+      ARMarkerDirectionEstimator &ar_marker_direction_estimator,
       tf::Transform camera_transform,
       tf::Transform tracking_offset_transform = tf::Transform::getIdentity())
       : ControllerHardwareConnector(controller, HardwareType::UAV),
@@ -43,6 +45,7 @@ public:
                                                 camera_transform,
                                                 tracking_offset_transform),
         thrust_gain_estimator_(thrust_gain_estimator),
+        ar_marker_direction_estimator_(ar_marker_direction_estimator),
         private_reference_controller_(controller) {
     DATA_HEADER("rpyt_relative_pose_visual_servoing_connector")
         << "vel_x"
@@ -101,5 +104,6 @@ private:
       std::tuple<tf::Transform, tf::Transform, VelocityYawRate>, PositionYaw,
       RollPitchYawRateThrust>;
   ThrustGainEstimator &thrust_gain_estimator_;
+  ARMarkerDirectionEstimator &ar_marker_direction_estimator_;
   RPYTBasedRelativePoseController &private_reference_controller_;
 };

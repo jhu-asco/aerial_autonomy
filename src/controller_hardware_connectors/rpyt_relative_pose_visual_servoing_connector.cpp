@@ -10,8 +10,16 @@ bool RPYTRelativePoseVisualServoingConnector::extractSensorData(
     VLOG(1) << "Invalid tracking vector";
     return false;
   }
-  VelocityYawRate current_velocity_yawrate(
-      quad_data.linvel.x, quad_data.linvel.y, quad_data.linvel.z,
+  // Estimator
+  ar_marker_direction_estimator_.estimate(
+      tracking_pose.getOrigin(),
+      tf::Vector3(quad_data.linvel.x, quad_data.linvel.y, quad_data.linvel.z));
+  ///\todo Check estimator health
+  tf::Vector3 estimated_marker_direction =
+      ar_marker_direction_estimator_.getMarkerDirection();
+  tf::Vector3 estimated_velocity = ar_marker_direction_estimator_.getVelocity();
+  VelocityYawRate estimated_velocity_yawrate(
+      estimated_velocity.x(), estimated_velocity.y(), estimated_velocity.z(),
       quad_data.omega.z);
   auto tracking_origin = tracking_pose.getOrigin();
   double tracking_r, tracking_p, tracking_y;
@@ -22,9 +30,13 @@ bool RPYTRelativePoseVisualServoingConnector::extractSensorData(
       << quad_data.omega.x << quad_data.omega.y << quad_data.omega.z
       << tracking_origin.x() << tracking_origin.y() << tracking_origin.z()
       << tracking_r << tracking_p << tracking_y << DataStream::endl;
+  // Update tracking pose to use estimated marker direction instead
+  // of measured direction
+  tf::Transform estimated_pose(tracking_pose.getRotation(),
+                               estimated_marker_direction);
   // giving transform in rotation-compensated quad frame
-  sensor_data = std::make_tuple(getBodyFrameRotation(), tracking_pose,
-                                current_velocity_yawrate);
+  sensor_data = std::make_tuple(getBodyFrameRotation(), estimated_pose,
+                                estimated_velocity_yawrate);
   thrust_gain_estimator_.addSensorData(quad_data.rpydata.x, quad_data.rpydata.y,
                                        quad_data.linacc.z);
   auto rpyt_controller_config = private_reference_controller_.getRPYTConfig();
@@ -48,4 +60,6 @@ void RPYTRelativePoseVisualServoingConnector::setGoal(PositionYaw goal) {
   BaseClass::setGoal(goal);
   VLOG(1) << "Clearing thrust estimator buffer";
   thrust_gain_estimator_.clearBuffer();
+  VLOG(1) << "Clearing initial state from kalman filter";
+  ar_marker_direction_estimator_.resetState();
 }

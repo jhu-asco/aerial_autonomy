@@ -4,6 +4,7 @@ import "constant_heading_depth_controller_config.proto";
 import "rpyt_based_relative_pose_controller_config.proto";
 import "uav_arm_system_config.proto";
 import "transform.proto";
+import "ar_marker_direction_estimator_config.proto";
 
 message UAVVisionSystemConfig {
   required ConstantHeadingDepthControllerConfig
@@ -41,4 +42,7 @@ message UAVVisionSystemConfig {
   * subclasses of UAVVisionSystemConfig
   */
   oneof subclass { UAVArmSystemConfig uav_arm_system_config = 8; }
+
+  optional ARMarkerDirectionEstimatorConfig
+      ar_marker_direction_estimator_config = 9;
 }
