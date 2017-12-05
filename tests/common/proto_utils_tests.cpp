@@ -43,6 +43,39 @@ TEST(ProtoUtils, LoadProtoFromText) {
   ASSERT_EQ(p_load.x(), p.x());
 }
 
+TEST(Contains, Empty) {
+  google::protobuf::RepeatedField<int> list = {};
+  ASSERT_FALSE(proto_utils::contains(list, 0));
+}
+
+TEST(Contains, SizeOne) {
+  google::protobuf::RepeatedField<int> list;
+  list.Add(0);
+  ASSERT_TRUE(proto_utils::contains(list, 0));
+  ASSERT_FALSE(proto_utils::contains(list, 1));
+}
+
+TEST(Contains, General) {
+  google::protobuf::RepeatedField<int> list;
+  list.Add(4);
+  list.Add(0);
+  list.Add(-1);
+  list.Add(3);
+  list.Add(5);
+  list.Add(5);
+  list.Add(8);
+  list.Add(10);
+  ASSERT_TRUE(proto_utils::contains(list, 4));
+  ASSERT_TRUE(proto_utils::contains(list, 0));
+  ASSERT_TRUE(proto_utils::contains(list, -1));
+  ASSERT_TRUE(proto_utils::contains(list, 3));
+  ASSERT_TRUE(proto_utils::contains(list, 5));
+  ASSERT_TRUE(proto_utils::contains(list, 8));
+  ASSERT_TRUE(proto_utils::contains(list, 10));
+  ASSERT_FALSE(proto_utils::contains(list, 1));
+  ASSERT_FALSE(proto_utils::contains(list, -2));
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
