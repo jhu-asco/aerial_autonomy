@@ -1,13 +1,16 @@
 #include "aerial_autonomy/controller_hardware_connectors/joystick_velocity_controller_drone_connector.h"
+#include "joystick_velocity_controller_drone_connector_config.pb.h"
 
 JoystickVelocityControllerDroneConnector::
     JoystickVelocityControllerDroneConnector(
         parsernode::Parser &drone_hardware,
         Controller<std::tuple<Joystick, VelocityYawRate, double>, EmptyGoal,
                    RollPitchYawRateThrust> &controller,
-        std::shared_ptr<Sensor<Velocity>> velocity_sensor)
+        std::shared_ptr<Sensor<Velocity>> velocity_sensor,
+        JoystickVelocityControllerDroneConnectorConfig config)
     : ControllerHardwareConnector(controller, HardwareType::UAV),
-      drone_hardware_(drone_hardware), velocity_sensor_(velocity_sensor) {}
+      drone_hardware_(drone_hardware), velocity_sensor_(velocity_sensor),
+      config_(config) {}
 
 bool JoystickVelocityControllerDroneConnector::extractSensorData(
     std::tuple<Joystick, VelocityYawRate, double> &sensor_data) {
@@ -22,6 +25,15 @@ bool JoystickVelocityControllerDroneConnector::extractSensorData(
       sensor_status_to_bool(velocity_sensor_->getSensorStatus());
   if (sensor_status) {
     Velocity velocity_sensor_data = velocity_sensor_->getSensorData();
+    if (abs(velocity_sensor_data.x - quad_data.linvel.x) >
+            config_.max_divergence() &&
+        abs(velocity_sensor_data.y - quad_data.linvel.y) >
+            config_.max_divergence() &&
+        abs(velocity_sensor_data.z - quad_data.linvel.z) >
+            config_.max_divergence()) {
+      LOG(WARNING) << "Sensor deviates from quad data. Aborting Controller";
+      return false;
+    }
     VelocityYawRate vel_data(velocity_sensor_data, quad_data.omega.z);
     sensor_data = std::make_tuple(joy_data, vel_data, quad_data.rpydata.z);
   }

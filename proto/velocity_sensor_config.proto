@@ -11,4 +11,5 @@ message VelocitySensorConfig {
   * becomes invalid
   */
   optional double timeout = 2 [default = 0.5];
+
 }

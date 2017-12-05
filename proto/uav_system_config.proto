@@ -10,6 +10,8 @@ import "velocity_based_position_controller_config.proto";
 
 import "joystick_velocity_controller_config.proto";
 
+import "joystick_velocity_controller_drone_connector_config.proto";
+
 import "velocity_sensor_config.proto";
 
 message UAVSystemConfig {
@@ -47,6 +49,10 @@ message UAVSystemConfig {
 
   optional JoystickVelocityControllerConfig
       joystick_velocity_controller_config = 12;
+  /**
+  * @brief joystick drone connector config
+  */
+  optional JoystickVelocityControllerDroneConnectorConfig joystick_velocity_controller_drone_connector_config = 15;
   /**
   * @brief A crude form of inheritance for proto. Contains a config for
   * subclasses of UAVSystemConfig

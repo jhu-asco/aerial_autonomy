@@ -205,7 +205,8 @@ public:
         rpyt_controller_drone_connector_(*drone_hardware_,
                                          manual_rpyt_controller_),
         joystick_velocity_controller_drone_connector_(
-            *drone_hardware_, joystick_velocity_controller_, velocity_sensor_),
+            *drone_hardware_, joystick_velocity_controller_, velocity_sensor_,
+            config.joystick_velocity_controller_drone_connector_config()),
         home_location_specified_(false) {
     drone_hardware_->initialize();
     // Add control hardware connector containers
