@@ -102,7 +102,7 @@ TEST_F(UAVSystemHandlerTests, ProcessPoseCommand) {
   ASSERT_TRUE(test_utils::waitUntilTrue()(armed_true_fun,
                                           std::chrono::seconds(timeout_wait)));
   ASSERT_EQ(uav_system_handler_->getUAVData().localpos.z, 0.5);
-  PositionYaw pose_command(1, 2, 3, 0);
+  PositionYaw pose_command(1, 1, 1, 0);
   publishPoseCommand(pose_command);
   ASSERT_TRUE(test_utils::waitUntilTrue()(
       [=]() {
