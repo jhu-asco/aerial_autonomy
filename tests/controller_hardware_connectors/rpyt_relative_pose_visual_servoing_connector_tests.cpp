@@ -62,17 +62,8 @@ public:
     simple_tracker_.reset(new SimpleTracker(drone_hardware_, camera_transform));
     controller_.reset(new RPYTBasedRelativePoseController(
         config, std::chrono::milliseconds(20)));
-    ARMarkerDirectionEstimatorConfig ar_marker_direction_estimator_config;
-    for (int i = 0; i < 6; ++i) {
-      ar_marker_direction_estimator_config.mutable_process_noise_stdev()->Add(
-          1e-2);
-      ar_marker_direction_estimator_config.mutable_meas_noise_stdev()->Add(
-          1e-2);
-      ar_marker_direction_estimator_config.mutable_init_state_stdev()->Add(
-          1e-2);
-    }
     ar_marker_direction_estimator_.reset(new ARMarkerDirectionEstimator(
-        ar_marker_direction_estimator_config, std::chrono::milliseconds(20)));
+        ARMarkerDirectionEstimatorConfig(), std::chrono::milliseconds(20)));
     visual_servoing_connector_.reset(
         new RPYTRelativePoseVisualServoingConnector(
             *simple_tracker_, drone_hardware_, *controller_,

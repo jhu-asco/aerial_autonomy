@@ -17,9 +17,18 @@ ARMarkerDirectionEstimator::ARMarkerDirectionEstimator(
   filter_.transitionMatrix(cv::Rect(3, 3, 3, 3)) = cv::Mat_<double>::eye(3, 3);
   // Measurement matrix
   filter_.measurementMatrix = cv::Mat_<double>::eye(6, 6);
+  // Check stdeviation vectors
+  checkStdVector(config_.marker_process_stdev());
+  checkStdVector(config_.velocity_process_stdev());
+  checkStdVector(config_.marker_meas_stdev());
+  checkStdVector(config_.velocity_meas_stdev());
+  checkStdVector(config_.marker_initial_stdev());
+  checkStdVector(config_.velocity_initial_stdev());
   // Noise matrices
-  setCovarianceMatrix(filter_.processNoiseCov, config_.process_noise_stdev());
-  setCovarianceMatrix(filter_.measurementNoiseCov, config_.meas_noise_stdev());
+  setCovarianceMatrix(filter_.processNoiseCov, config_.marker_process_stdev(),
+                      config_.velocity_process_stdev());
+  setCovarianceMatrix(filter_.measurementNoiseCov, config_.marker_meas_stdev(),
+                      config_.velocity_meas_stdev());
   // Set initial state
   initializeState(tf::Vector3(0, 0, 0), tf::Vector3(0, 0, 0));
   DATA_HEADER("ar_marker_direction_estimator") << "Measured_Marker_x"
@@ -48,7 +57,8 @@ void ARMarkerDirectionEstimator::initializeState(tf::Vector3 marker_direction,
   filter_.statePre =
       (cv::Mat_<double>(6, 1) << marker_direction.x(), marker_direction.y(),
        marker_direction.z(), velocity.x(), velocity.y(), velocity.z());
-  setCovarianceMatrix(filter_.errorCovPost, config_.init_state_stdev());
+  setCovarianceMatrix(filter_.errorCovPost, config_.marker_initial_stdev(),
+                      config_.velocity_initial_stdev());
   filter_.statePre.copyTo(filter_.statePost);
   initial_state_initialized_ = true;
 }

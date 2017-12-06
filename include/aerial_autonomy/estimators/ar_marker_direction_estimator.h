@@ -18,19 +18,35 @@
 class ARMarkerDirectionEstimator {
 
 private:
+  using StdVector3 = ARMarkerDirectionEstimatorConfig_StdVector3;
   ARMarkerDirectionEstimatorConfig config_;
   cv::KalmanFilter filter_;
   const double zero_tolerance_;
   bool initial_state_initialized_;
-  template <class T> void setCovarianceMatrix(cv::Mat &matrix, T stdev_vector) {
+  void setCovarianceMatrix(cv::Mat &matrix, StdVector3 marker_stdev_vector,
+                           StdVector3 velocity_stdev_vector) {
     matrix = cv::Mat_<double>::zeros(6, 6);
-    CHECK_EQ(stdev_vector.size(), 6)
-        << "Process noise vector should be of size 6";
-    for (int i = 0; i < 6; ++i) {
-      CHECK_GE(stdev_vector[i], zero_tolerance_)
-          << "Stdev should be atleast greater than tolerance";
-      matrix.at<double>(i, i) = (stdev_vector[i] * stdev_vector[i]);
-    }
+    matrix.at<double>(0, 0) =
+        (marker_stdev_vector.x() * marker_stdev_vector.x());
+    matrix.at<double>(1, 1) =
+        (marker_stdev_vector.y() * marker_stdev_vector.y());
+    matrix.at<double>(2, 2) =
+        (marker_stdev_vector.z() * marker_stdev_vector.z());
+    matrix.at<double>(3, 3) =
+        (velocity_stdev_vector.x() * velocity_stdev_vector.x());
+    matrix.at<double>(4, 4) =
+        (velocity_stdev_vector.y() * velocity_stdev_vector.y());
+    matrix.at<double>(5, 5) =
+        (velocity_stdev_vector.z() * velocity_stdev_vector.z());
+  }
+
+  void checkStdVector(StdVector3 vec) {
+    CHECK_GT(vec.x(), zero_tolerance_)
+        << "Stdev vector should be greater than zero tolerance";
+    CHECK_GT(vec.y(), zero_tolerance_)
+        << "Stdev vector should be greater than zero tolerance";
+    CHECK_GT(vec.z(), zero_tolerance_)
+        << "Stdev vector should be greater than zero tolerance";
   }
 
 public:

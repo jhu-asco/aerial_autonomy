@@ -10,14 +10,6 @@ using namespace test_utils;
 
 class ARMarkerDirectionEstimatorTests : public ::testing::Test {
 public:
-  ARMarkerDirectionEstimatorTests() {
-    for (int i = 0; i < 6; ++i) {
-      config_.mutable_process_noise_stdev()->Add(1e-2);
-      config_.mutable_meas_noise_stdev()->Add(1e-2);
-      config_.mutable_init_state_stdev()->Add(1e-2);
-    }
-  }
-
   static void SetUpTestCase() {
     // Configure logging
     LogConfig log_config;
@@ -35,22 +27,17 @@ protected:
 TEST_F(ARMarkerDirectionEstimatorTests, Constructor) {
   ASSERT_NO_THROW(
       ARMarkerDirectionEstimator(config_, std::chrono::milliseconds(20)));
-  config_.mutable_process_noise_stdev()->Add(1e-2);
+  config_.mutable_marker_process_stdev()->set_x(-1);
   ASSERT_DEATH(
       ARMarkerDirectionEstimator(config_, std::chrono::milliseconds(20)),
-      "Process noise vector should be of size 6");
-  config_.mutable_process_noise_stdev()->RemoveLast();
-  config_.mutable_init_state_stdev()->Set(0, -1);
-  ASSERT_DEATH(
-      ARMarkerDirectionEstimator(config_, std::chrono::milliseconds(20)),
-      "Stdev should be atleast greater than tolerance");
+      "Stdev vector should be greater than zero tolerance");
 }
 
 TEST_F(ARMarkerDirectionEstimatorTests, initializeState) {
   tf::Vector3 initial_marker_direction(1, 0, 0);
   tf::Vector3 initial_velocity(0, 1, 0);
-  config_.mutable_init_state_stdev()->Set(0, 1);
-  config_.mutable_init_state_stdev()->Set(3, 2);
+  config_.mutable_marker_initial_stdev()->set_x(1);
+  config_.mutable_velocity_initial_stdev()->set_x(2);
   ARMarkerDirectionEstimator estimator(config_, std::chrono::milliseconds(20));
   estimator.initializeState(initial_marker_direction, initial_velocity);
   ASSERT_TF_VEC_NEAR(estimator.getMarkerDirection(), initial_marker_direction);
@@ -88,9 +75,9 @@ TEST_F(ARMarkerDirectionEstimatorTests, correctState) {
   double t = 0;
   double dt = 0.02;
   // High process noise for velocity so that it relies on measured values
-  for (int i = 3; i < 6; ++i) {
-    config_.mutable_process_noise_stdev()->Set(i, 1e-1);
-  }
+  config_.mutable_velocity_process_stdev()->set_x(1e-1);
+  config_.mutable_velocity_process_stdev()->set_y(1e-1);
+  config_.mutable_velocity_process_stdev()->set_z(1e-1);
   ARMarkerDirectionEstimator estimator(config_,
                                        std::chrono::duration<double>(dt));
   estimator.initializeState(tf::Vector3(0, 0, 0), tf::Vector3(0, 0, 0));
