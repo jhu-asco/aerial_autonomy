@@ -338,10 +338,6 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
                                             std::chrono::seconds(1),
                                             std::chrono::milliseconds(0)));
   logic_state_machine_->process_event(InternalTransitionEvent());
-  ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                            std::chrono::seconds(1),
-                                            std::chrono::milliseconds(0)));
-  logic_state_machine_->process_event(InternalTransitionEvent());
   // Check we are in Place
   ASSERT_STREQ(pstate(*logic_state_machine_), "PlaceState");
   ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(Completed));

@@ -62,11 +62,13 @@ public:
     simple_tracker_.reset(new SimpleTracker(drone_hardware_, camera_transform));
     controller_.reset(new RPYTBasedRelativePoseController(
         config, std::chrono::milliseconds(20)));
+    tracking_vector_estimator_.reset(new TrackingVectorEstimator(
+        TrackingVectorEstimatorConfig(), std::chrono::milliseconds(20)));
     visual_servoing_connector_.reset(
         new RPYTRelativePoseVisualServoingConnector(
             *simple_tracker_, drone_hardware_, *controller_,
-            thrust_gain_estimator_, camera_transform,
-            tracking_offset_transform_));
+            thrust_gain_estimator_, *tracking_vector_estimator_,
+            camera_transform, tracking_offset_transform_));
     drone_hardware_.usePerfectTime();
   }
 
@@ -85,6 +87,8 @@ public:
     data_config.set_stream_id("velocity_based_relative_pose_controller");
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("thrust_gain_estimator");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("tracking_vector_estimator");
     Log::instance().addDataStream(data_config);
   }
 
@@ -132,6 +136,7 @@ public:
   std::unique_ptr<SimpleTracker> simple_tracker_;
   std::unique_ptr<RPYTRelativePoseVisualServoingConnector>
       visual_servoing_connector_;
+  std::unique_ptr<TrackingVectorEstimator> tracking_vector_estimator_;
   double goal_tolerance_position_;
   double goal_tolerance_velocity_;
   double goal_tolerance_yaw_;
@@ -166,6 +171,19 @@ TEST_F(RPYTRelativePoseVisualConnectorTests,
                              tf::Vector3(2, -0.5, 0.5));
   PositionYaw goal_relative_pose(1, -1.5, 2, 0.5);
   runUntilConvergence(tracked_pose, goal_relative_pose);
+}
+
+TEST_F(RPYTRelativePoseVisualConnectorTests, TestViewingAngle) {
+  tf::Transform object_pose_cam(tf::createQuaternionFromRPY(M_PI / 2, 0, 0),
+                                tf::Vector3(1, 0, 0));
+  ASSERT_NEAR(visual_servoing_connector_->getViewingAngle(object_pose_cam),
+              M_PI / 2, 1e-8);
+  object_pose_cam.setOrigin(tf::Vector3(0, 0, 1));
+  ASSERT_NEAR(visual_servoing_connector_->getViewingAngle(object_pose_cam), 0,
+              1e-8);
+  object_pose_cam.setOrigin(tf::Vector3(0, 1, 1));
+  ASSERT_NEAR(visual_servoing_connector_->getViewingAngle(object_pose_cam),
+              M_PI / 4, 1e-8);
 }
 
 int main(int argc, char **argv) {

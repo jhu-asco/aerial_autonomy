@@ -45,6 +45,8 @@ void DataStream::resetStringstream(std::stringstream &ss) {
 }
 
 DataStream &DataStream::startl(DataStream &ds) {
+  ///\todo Matt add a separate flag to enforce startl should
+  /// be accompained by endl
   if (ds.streaming_) {
     throw std::logic_error("startl called on streaming DataStream");
   }
