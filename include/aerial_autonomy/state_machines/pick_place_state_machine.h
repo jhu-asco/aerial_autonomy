@@ -67,6 +67,15 @@ using psa = PickPlaceStatesActions<PickPlaceStateMachine>;
 
 /**
 * @brief front-end: define the FSM structure
+*
+* This state machine defines the logic for a multi-destination
+* pick-and-place task.  After taking off, the robot waits
+* until it sees an object.  When it sees an object, it will attempt to pick it
+* up.
+* If it fails to pick up the object it returns to home and tries again.
+* If it succeeds, the robot will take the object to a configured destination
+* based on the ID of the object it picked.  The robot will then move back to
+* the starting point and wait until it sees another object.
 */
 class PickPlaceStateMachineFrontEnd
     : public msmf::state_machine_def<PickPlaceStateMachineFrontEnd>,

@@ -65,7 +65,7 @@ struct CheckGoalIndex_
 };
 
 /**
-* @brief Action for initializing relative pose visual servoing for specific
+* @brief Guard for initializing relative pose visual servoing for specific
 * tracking id
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
@@ -87,7 +87,7 @@ struct ExplicitIdVisualServoingGuardFunctor_
 };
 
 /**
-* @brief Action for initializing relative pose visual servoing for specific
+* @brief Guard for initializing relative pose visual servoing for specific
 * tracking id based on event
 *
 * @tparam LogicStateMachineT Logic state machine used to process events

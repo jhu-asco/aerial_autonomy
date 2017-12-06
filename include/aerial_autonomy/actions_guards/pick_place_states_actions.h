@@ -183,6 +183,10 @@ struct PickPlaceStatesActions
   */
   using ReachingPostPickWaypoint =
       ReachingPostPickWaypoint_<LogicStateMachineT, 0, 0>;
+  /**
+  * @brief Base state for following waypoints after picking object.
+  *  Used for setting state config
+  */
   using ReachingPostPickWaypointBase =
       FollowingWaypointSequence_<LogicStateMachineT, 0, 0, ObjectId>;
 
