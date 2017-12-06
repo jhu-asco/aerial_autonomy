@@ -1,9 +1,9 @@
-#include <aerial_autonomy/estimators/ar_marker_direction_estimator.h>
+#include <aerial_autonomy/estimators/tracking_vector_estimator.h>
 #include <aerial_autonomy/log/log.h>
 #include <glog/logging.h>
 
-ARMarkerDirectionEstimator::ARMarkerDirectionEstimator(
-    ARMarkerDirectionEstimatorConfig config,
+TrackingVectorEstimator::TrackingVectorEstimator(
+    TrackingVectorEstimatorConfig config,
     std::chrono::duration<double> propagation_step)
     : config_(config), filter_(6, 6, 0, CV_64F), zero_tolerance_(1e-6),
       initial_state_initialized_(false) {
@@ -31,29 +31,28 @@ ARMarkerDirectionEstimator::ARMarkerDirectionEstimator(
                       config_.velocity_meas_stdev());
   // Set initial state
   initializeState(tf::Vector3(0, 0, 0), tf::Vector3(0, 0, 0));
-  DATA_HEADER("ar_marker_direction_estimator") << "Measured_Marker_x"
-                                               << "Measured_Marker_y"
-                                               << "Measured_Marker_z"
-                                               << "Measured_Velocity_x"
-                                               << "Measured_Velocity_y"
-                                               << "Measured_Velocity_z"
-                                               << "Marker_x"
-                                               << "Marker_y"
-                                               << "Marker_z"
-                                               << "Velocity_x"
-                                               << "Velocity_y"
-                                               << "Velocity_z"
-                                               << "Noise_x"
-                                               << "Noise_y"
-                                               << "Noise_z"
-                                               << "Noise_vx"
-                                               << "Noise_vy"
-                                               << "Noise_vz"
-                                               << DataStream::endl;
+  DATA_HEADER("tracking_vector_estimator") << "Measured_Marker_x"
+                                           << "Measured_Marker_y"
+                                           << "Measured_Marker_z"
+                                           << "Measured_Velocity_x"
+                                           << "Measured_Velocity_y"
+                                           << "Measured_Velocity_z"
+                                           << "Marker_x"
+                                           << "Marker_y"
+                                           << "Marker_z"
+                                           << "Velocity_x"
+                                           << "Velocity_y"
+                                           << "Velocity_z"
+                                           << "Noise_x"
+                                           << "Noise_y"
+                                           << "Noise_z"
+                                           << "Noise_vx"
+                                           << "Noise_vy"
+                                           << "Noise_vz" << DataStream::endl;
 }
 
-void ARMarkerDirectionEstimator::initializeState(tf::Vector3 marker_direction,
-                                                 tf::Vector3 velocity) {
+void TrackingVectorEstimator::initializeState(tf::Vector3 marker_direction,
+                                              tf::Vector3 velocity) {
   filter_.statePre =
       (cv::Mat_<double>(6, 1) << marker_direction.x(), marker_direction.y(),
        marker_direction.z(), velocity.x(), velocity.y(), velocity.z());
@@ -63,8 +62,8 @@ void ARMarkerDirectionEstimator::initializeState(tf::Vector3 marker_direction,
   initial_state_initialized_ = true;
 }
 
-void ARMarkerDirectionEstimator::estimate(tf::Vector3 marker_direction,
-                                          tf::Vector3 velocity) {
+void TrackingVectorEstimator::estimate(tf::Vector3 marker_direction,
+                                       tf::Vector3 velocity) {
   if (!initial_state_initialized_) {
     initializeState(marker_direction, velocity);
     return;
@@ -78,7 +77,7 @@ void ARMarkerDirectionEstimator::estimate(tf::Vector3 marker_direction,
   tf::Vector3 marker_noise = getMarkerNoise();
   tf::Vector3 velocity_noise = getVelocityNoise();
   auto state = filter_.statePost;
-  auto &data_stream = Log::instance()["ar_marker_direction_estimator"];
+  auto &data_stream = Log::instance()["tracking_vector_estimator"];
   data_stream << DataStream::startl;
   for (int i = 0; i < 6; ++i) {
     data_stream << measurement.at<double>(i);

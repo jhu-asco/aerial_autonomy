@@ -1,5 +1,5 @@
 #pragma once
-#include "ar_marker_direction_estimator_config.pb.h"
+#include "tracking_vector_estimator_config.pb.h"
 #include <chrono>
 #include <glog/logging.h>
 #include <opencv2/video/tracking.hpp>
@@ -15,11 +15,11 @@
 * direction and velocity in global frame given the measurements of the same.
 *
 */
-class ARMarkerDirectionEstimator {
+class TrackingVectorEstimator {
 
 private:
-  using StdVector3 = ARMarkerDirectionEstimatorConfig_StdVector3;
-  ARMarkerDirectionEstimatorConfig config_;
+  using StdVector3 = TrackingVectorEstimatorConfig_StdVector3;
+  TrackingVectorEstimatorConfig config_;
   cv::KalmanFilter filter_;
   const double zero_tolerance_;
   bool initial_state_initialized_;
@@ -60,8 +60,8 @@ public:
   * @param propagation_step The time difference between x_{k+1}, x_{k} in
   * predict
   */
-  ARMarkerDirectionEstimator(ARMarkerDirectionEstimatorConfig config,
-                             std::chrono::duration<double> propagation_step);
+  TrackingVectorEstimator(TrackingVectorEstimatorConfig config,
+                          std::chrono::duration<double> propagation_step);
   /**
   * @brief Perform a single prediction and a correction using the provided
   * measurements

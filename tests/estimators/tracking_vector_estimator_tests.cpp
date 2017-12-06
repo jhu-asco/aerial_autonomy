@@ -1,4 +1,4 @@
-#include <aerial_autonomy/estimators/ar_marker_direction_estimator.h>
+#include <aerial_autonomy/estimators/tracking_vector_estimator.h>
 #include <aerial_autonomy/log/log.h>
 #include <aerial_autonomy/tests/test_utils.h>
 #include <glog/logging.h>
@@ -8,7 +8,7 @@
 
 using namespace test_utils;
 
-class ARMarkerDirectionEstimatorTests : public ::testing::Test {
+class TrackingVectorEstimatorTests : public ::testing::Test {
 public:
   static void SetUpTestCase() {
     // Configure logging
@@ -16,29 +16,28 @@ public:
     log_config.set_directory("/tmp/data");
     Log::instance().configure(log_config);
     DataStreamConfig data_config;
-    data_config.set_stream_id("ar_marker_direction_estimator");
+    data_config.set_stream_id("tracking_vector_estimator");
     Log::instance().addDataStream(data_config);
   }
 
 protected:
-  ARMarkerDirectionEstimatorConfig config_;
+  TrackingVectorEstimatorConfig config_;
 };
 
-TEST_F(ARMarkerDirectionEstimatorTests, Constructor) {
+TEST_F(TrackingVectorEstimatorTests, Constructor) {
   ASSERT_NO_THROW(
-      ARMarkerDirectionEstimator(config_, std::chrono::milliseconds(20)));
+      TrackingVectorEstimator(config_, std::chrono::milliseconds(20)));
   config_.mutable_marker_process_stdev()->set_x(-1);
-  ASSERT_DEATH(
-      ARMarkerDirectionEstimator(config_, std::chrono::milliseconds(20)),
-      "Stdev vector should be greater than zero tolerance");
+  ASSERT_DEATH(TrackingVectorEstimator(config_, std::chrono::milliseconds(20)),
+               "Stdev vector should be greater than zero tolerance");
 }
 
-TEST_F(ARMarkerDirectionEstimatorTests, initializeState) {
+TEST_F(TrackingVectorEstimatorTests, initializeState) {
   tf::Vector3 initial_marker_direction(1, 0, 0);
   tf::Vector3 initial_velocity(0, 1, 0);
   config_.mutable_marker_initial_stdev()->set_x(1);
   config_.mutable_velocity_initial_stdev()->set_x(2);
-  ARMarkerDirectionEstimator estimator(config_, std::chrono::milliseconds(20));
+  TrackingVectorEstimator estimator(config_, std::chrono::milliseconds(20));
   estimator.initializeState(initial_marker_direction, initial_velocity);
   ASSERT_TF_VEC_NEAR(estimator.getMarkerDirection(), initial_marker_direction);
   ASSERT_TF_VEC_NEAR(estimator.getVelocity(), initial_velocity);
@@ -46,12 +45,11 @@ TEST_F(ARMarkerDirectionEstimatorTests, initializeState) {
   ASSERT_TF_VEC_NEAR(estimator.getVelocityNoise(), tf::Vector3(2, 1e-2, 1e-2));
 }
 
-TEST_F(ARMarkerDirectionEstimatorTests, predictState) {
+TEST_F(TrackingVectorEstimatorTests, predictState) {
   double dt = 0.02;
   tf::Vector3 initial_marker_direction(1, 0, 0);
   tf::Vector3 initial_velocity(0, 1, 0);
-  ARMarkerDirectionEstimator estimator(config_,
-                                       std::chrono::duration<double>(dt));
+  TrackingVectorEstimator estimator(config_, std::chrono::duration<double>(dt));
   estimator.initializeState(initial_marker_direction, initial_velocity);
   tf::Vector3 initial_marker_noise = estimator.getMarkerNoise();
   tf::Vector3 initial_velocity_noise = estimator.getVelocityNoise();
@@ -69,7 +67,7 @@ TEST_F(ARMarkerDirectionEstimatorTests, predictState) {
   }
 }
 
-TEST_F(ARMarkerDirectionEstimatorTests, correctState) {
+TEST_F(TrackingVectorEstimatorTests, correctState) {
   // Simulate Quad moving in a circle with the marker in the center
   double tol = 1e-2;
   double t = 0;
@@ -78,8 +76,7 @@ TEST_F(ARMarkerDirectionEstimatorTests, correctState) {
   config_.mutable_velocity_process_stdev()->set_x(1e-1);
   config_.mutable_velocity_process_stdev()->set_y(1e-1);
   config_.mutable_velocity_process_stdev()->set_z(1e-1);
-  ARMarkerDirectionEstimator estimator(config_,
-                                       std::chrono::duration<double>(dt));
+  TrackingVectorEstimator estimator(config_, std::chrono::duration<double>(dt));
   estimator.initializeState(tf::Vector3(0, 0, 0), tf::Vector3(0, 0, 0));
   auto runEstimator = [&]() {
     t += dt;

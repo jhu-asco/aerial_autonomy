@@ -11,13 +11,13 @@ bool RPYTRelativePoseVisualServoingConnector::extractSensorData(
     return false;
   }
   // Estimator
-  ar_marker_direction_estimator_.estimate(
+  tracking_vector_estimator_.estimate(
       tracking_pose.getOrigin(),
       tf::Vector3(quad_data.linvel.x, quad_data.linvel.y, quad_data.linvel.z));
   ///\todo Check estimator health
   tf::Vector3 estimated_marker_direction =
-      ar_marker_direction_estimator_.getMarkerDirection();
-  tf::Vector3 estimated_velocity = ar_marker_direction_estimator_.getVelocity();
+      tracking_vector_estimator_.getMarkerDirection();
+  tf::Vector3 estimated_velocity = tracking_vector_estimator_.getVelocity();
   VelocityYawRate estimated_velocity_yawrate(
       estimated_velocity.x(), estimated_velocity.y(), estimated_velocity.z(),
       quad_data.omega.z);
@@ -61,5 +61,5 @@ void RPYTRelativePoseVisualServoingConnector::setGoal(PositionYaw goal) {
   VLOG(1) << "Clearing thrust estimator buffer";
   thrust_gain_estimator_.clearBuffer();
   VLOG(1) << "Clearing initial state from kalman filter";
-  ar_marker_direction_estimator_.resetState();
+  tracking_vector_estimator_.resetState();
 }

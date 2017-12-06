@@ -4,7 +4,7 @@ syntax = "proto2";
 * Settings for  estimator estimating
 * the direction of ar marker
 */
-message ARMarkerDirectionEstimatorConfig {
+message TrackingVectorEstimatorConfig {
   /**
   * @brief Standard deviation vector with default
   * value as 1e-2
