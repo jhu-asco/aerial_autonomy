@@ -135,10 +135,11 @@ TEST_F(RelativePoseVisualServoingControllerDroneConnectorTests,
   goal_rot_comp.getBasis().getRPY(roll, pitch, yaw);
   goal_rot_comp.getBasis().setRPY(0, 0, yaw);
   // Get vector
-  tf::Transform tracking_vector;
-  ASSERT_TRUE(
+  tf::Transform object_pose_cam;
+  ASSERT_TRUE(simple_tracker_->getTrackingVector(object_pose_cam));
+  tf::Transform tracking_vector =
       visual_servoing_connector_
-          ->getTrackingTransformRotationCompensatedQuadFrame(tracking_vector));
+          ->getTrackingTransformRotationCompensatedQuadFrame(object_pose_cam);
   ASSERT_TF_NEAR(tracking_vector, goal_rot_comp, 1e-6);
 }
 
