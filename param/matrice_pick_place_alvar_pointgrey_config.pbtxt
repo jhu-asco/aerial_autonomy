@@ -148,7 +148,7 @@ uav_system_config {
       }
       rpyt_based_velocity_controller_config {
         kp_xy: 4.0
-        kp_z: 4.0
+        kp_z: 5.0
         ki_xy: 0.5
         ki_z: 0.0
         kt: 0.18
