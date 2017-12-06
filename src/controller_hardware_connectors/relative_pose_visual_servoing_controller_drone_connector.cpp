@@ -5,11 +5,13 @@ bool RelativePoseVisualServoingControllerDroneConnector::extractSensorData(
     std::tuple<tf::Transform, tf::Transform> &sensor_data) {
   parsernode::common::quaddata quad_data;
   drone_hardware_.getquaddata(quad_data);
-  tf::Transform tracking_pose;
-  if (!getTrackingTransformRotationCompensatedQuadFrame(tracking_pose)) {
+  tf::Transform object_pose_cam;
+  if (!tracker_.getTrackingVector(object_pose_cam)) {
     VLOG(1) << "Invalid tracking vector";
     return false;
   }
+  tf::Transform tracking_pose =
+      getTrackingTransformRotationCompensatedQuadFrame(object_pose_cam);
   DATA_LOG("relative_pose_visual_servoing_controller_drone_connector")
       << quad_data.linvel.x << quad_data.linvel.y << quad_data.linvel.z
       << quad_data.rpydata.x << quad_data.rpydata.y << quad_data.rpydata.z
