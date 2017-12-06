@@ -6,11 +6,13 @@
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_functors.h>
 #include <aerial_autonomy/common/conversions.h>
+#include <aerial_autonomy/common/proto_utils.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/logic_states/timed_state.h>
 #include <aerial_autonomy/pick_place_events.h>
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/types/completed_event.h>
+#include <aerial_autonomy/types/object_id.h>
 #include <aerial_autonomy/types/reset_event.h>
 #include <chrono>
 #include <glog/logging.h>
@@ -20,7 +22,8 @@
 template <class LogicStateMachineT> class PickState_;
 
 // Forward declaration for ReachingWaypointInternalActionFunctor_
-template <class LogicStateMachineT, int StartIndex, int EndIndex>
+template <class LogicStateMachineT, int StartIndex, int EndIndex,
+          class CompletedEvent>
 struct FollowingWaypointSequence_;
 
 // Forward declaration for WaitingForPickInternalActionFunctor_
@@ -40,7 +43,15 @@ struct GrippingInternalActionFunctor_
     bool has_grip = robot_system.grip(true);
     if (state.monitorGrip(has_grip)) {
       VLOG(1) << "Done Gripping!";
-      logic_state_machine.process_event(Completed());
+      uint32_t tracked_id;
+      if (robot_system.getTrackingVectorId(tracked_id)) {
+        ObjectId id_event(tracked_id);
+        VLOG(1) << "Picked object with ID " << tracked_id;
+        logic_state_machine.process_event(id_event);
+      } else {
+        LOG(WARNING) << "Could not retrieve object ID!";
+        logic_state_machine.process_event(Reset());
+      }
       return false;
     } else if (state.timeInState() > state.gripTimeout()) {
       robot_system.resetGripper();
@@ -163,12 +174,10 @@ struct WaitingForPickInternalActionFunctor_
 * @tparam Index Which waypoint we are reaching to
 * \todo Gowtham test internal action functor
 */
-template <class LogicStateMachineT, int StartIndex, int EndIndex>
+template <class LogicStateMachineT, int StartIndex, int EndIndex, class StateT>
 struct GoToWaypointInternalActionFunctor_
-    : StateDependentInternalActionFunctor<
-          UAVArmSystem, LogicStateMachineT,
-          FollowingWaypointSequence_<LogicStateMachineT, StartIndex,
-                                     EndIndex>> {
+    : StateDependentInternalActionFunctor<UAVArmSystem, LogicStateMachineT,
+                                          StateT> {
   /**
    * @brief Specific run implementation for the internal action. The internal
    * action checks for the waypoint reaching status and updates the tracked
@@ -182,8 +191,7 @@ struct GoToWaypointInternalActionFunctor_
    * @return false if it processed any events. True otherwise.
    */
   bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine,
-           FollowingWaypointSequence_<LogicStateMachineT, StartIndex, EndIndex>
-               &state) {
+           StateT &state) {
     // Initialize controller
     if (!state.controlInitialized()) {
       PositionYaw waypoint;
@@ -203,7 +211,7 @@ struct GoToWaypointInternalActionFunctor_
     if (status == ControllerStatus::Completed) {
       VLOG(1) << "Reached goal for tracked index: " << tracked_index;
       if (tracked_index == EndIndex) {
-        logic_state_machine.process_event(Completed());
+        logic_state_machine.process_event(state.completedEvent());
         return false;
       } else {
         PositionYaw waypoint;
@@ -259,17 +267,21 @@ struct GoToWaypointInternalActionFunctor_
  * uav_arm_system_config
  * @tparam EndIndex ending index of relative waypoints in uav_arm_system_config
  */
-template <class LogicStateMachineT, int StartIndex, int EndIndex>
+template <class LogicStateMachineT, int StartIndex, int EndIndex,
+          class CompletedEvent = Completed>
 struct FollowingWaypointSequence_
     : public BaseState<UAVArmSystem, LogicStateMachineT, msmf::none> {
 
   /**
    * @brief actions to be taken as internal actions when following waypoints
    */
-  using WaypointActionSequence = boost::msm::front::ShortingActionSequence_<
-      boost::mpl::vector<UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-                         GoToWaypointInternalActionFunctor_<
-                             LogicStateMachineT, StartIndex, EndIndex>>>;
+  using WaypointActionSequence =
+      boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+          UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+          GoToWaypointInternalActionFunctor_<
+              LogicStateMachineT, StartIndex, EndIndex,
+              FollowingWaypointSequence_<LogicStateMachineT, StartIndex,
+                                         EndIndex, CompletedEvent>>>>;
 
   /**
    * @brief Internal actions, events and guards are listed here
@@ -278,6 +290,13 @@ struct FollowingWaypointSequence_
       : boost::mpl::vector<msmf::Internal<InternalTransitionEvent,
                                           WaypointActionSequence, msmf::none>> {
   };
+
+  /**
+  * @brief Return the event that should be used when the waypoint sequence is
+  * complete
+  * @return The completed event
+  */
+  virtual CompletedEvent completedEvent() { return CompletedEvent(); }
 
   /**
    * @brief set specified waypoint to robot system and store the
@@ -304,6 +323,18 @@ struct FollowingWaypointSequence_
   }
 
   /**
+   * @brief Get state configuration from the state machine
+   * @return state config
+   */
+  template <class FSM>
+  FollowingWaypointSequenceConfig getConfig(FSM &logic_state_machine) {
+    return logic_state_machine.configMap()
+        .find<FollowingWaypointSequence_<LogicStateMachineT, StartIndex,
+                                         EndIndex, CompletedEvent>,
+              FollowingWaypointSequenceConfig>();
+  }
+
+  /**
    * @brief Function to set the starting waypoint when entering this state
    *
    * @tparam Event Event causing the entry of this state
@@ -311,11 +342,10 @@ struct FollowingWaypointSequence_
    * @param logic_state_machine state machine that processes events
    */
   template <class Event, class FSM>
-  void on_entry(Event const &, FSM &logic_state_machine) {
-    config_ = logic_state_machine.configMap()
-                  .find<FollowingWaypointSequence_<LogicStateMachineT,
-                                                   StartIndex, EndIndex>,
-                        FollowingWaypointSequenceConfig>();
+  void on_entry(Event const &e, FSM &logic_state_machine) {
+    BaseState<UAVArmSystem, LogicStateMachineT, msmf::none>::on_entry(
+        e, logic_state_machine);
+    config_ = this->getConfig(logic_state_machine);
     if (StartIndex >= config_.way_points().size() || StartIndex < 0) {
       LOG(WARNING) << " Starting index not in waypoint vector list";
       logic_state_machine.process_event(be::Abort());
@@ -343,6 +373,45 @@ private:
   int tracked_index_ = StartIndex;         ///< Current tracked index
   bool control_initialized_ =
       false; ///< Flag to indicate if control is initialized
+};
+
+/**
+ * @brief State when reaching the post pick waypoint.  Stores the picked object
+ * id so that it can be sent to the next state
+ * @tparam LogicStateMachineT logic state machine to process events
+ * @tparam StartIndex starting index of relative waypoints in
+ * uav_arm_system_config
+ * @tparam EndIndex ending index of relative waypoints in uav_arm_system_config
+ */
+template <class LogicStateMachineT, int StartIndex, int EndIndex>
+struct ReachingPostPickWaypoint_
+    : public FollowingWaypointSequence_<LogicStateMachineT, StartIndex,
+                                        EndIndex, ObjectId> {
+
+  /**
+  * @brief Return the event that should be used when the waypoint sequence is
+  * complete
+  * @return The stored object id event
+  */
+  ObjectId completedEvent() { return object_id_; }
+
+  /**
+   * @brief Function to set the starting waypoint and to store picked object id
+   * when entering this state
+   *
+   * @tparam FSM Logic statemachine back end
+   * @param e event triggering transition
+   * @param logic_state_machine state machine that processes events
+   */
+  template <class FSM>
+  void on_entry(ObjectId const &e, FSM &logic_state_machine) {
+    FollowingWaypointSequence_<LogicStateMachineT, StartIndex, EndIndex,
+                               ObjectId>::on_entry(e, logic_state_machine);
+    object_id_ = e;
+  }
+
+private:
+  ObjectId object_id_;
 };
 
 /**
@@ -428,11 +497,11 @@ public:
   template <class Event, class FSM>
   void on_entry(Event const &evt, FSM &logic_state_machine) {
     PickBaseState_<LogicStateMachineT>::on_entry(evt, logic_state_machine);
-    auto grip_config = logic_state_machine.configMap()
-                           .find<PickState_<LogicStateMachineT>, GripConfig>();
-    grip_timeout_ = std::chrono::milliseconds(grip_config.grip_timeout());
+    grip_config_ = logic_state_machine.configMap()
+                       .find<PickState_<LogicStateMachineT>, GripConfig>();
+    grip_timeout_ = std::chrono::milliseconds(grip_config_.grip_timeout());
     required_grip_duration_ =
-        std::chrono::milliseconds(grip_config.grip_duration());
+        std::chrono::milliseconds(grip_config_.grip_duration());
     VLOG(1) << "Grip timeout in milliseconds: " << grip_timeout_.count();
     VLOG(1) << "Grip duration in milliseconds: "
             << required_grip_duration_.count();
@@ -445,10 +514,17 @@ public:
    */
   std::chrono::milliseconds gripTimeout() { return grip_timeout_; }
 
+  /**
+   * @brief Getter for grip config
+   * @return The state config
+   */
+  const GripConfig &gripConfig() const { return grip_config_; }
+
 private:
   std::chrono::time_point<std::chrono::high_resolution_clock> grip_start_time_;
   std::chrono::milliseconds required_grip_duration_ =
       std::chrono::milliseconds(0);
   bool gripping_ = false;
+  GripConfig grip_config_;
   std::chrono::milliseconds grip_timeout_ = std::chrono::milliseconds(0);
 };

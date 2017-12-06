@@ -67,6 +67,15 @@ using psa = PickPlaceStatesActions<PickPlaceStateMachine>;
 
 /**
 * @brief front-end: define the FSM structure
+*
+* This state machine defines the logic for a multi-destination
+* pick-and-place task.  After taking off, the robot waits
+* until it sees an object.  When it sees an object, it will attempt to pick it
+* up.
+* If it fails to pick up the object it returns to home and tries again.
+* If it succeeds, the robot will take the object to a configured destination
+* based on the ID of the object it picked.  The robot will then move back to
+* the starting point and wait until it sees another object.
 */
 class PickPlaceStateMachineFrontEnd
     : public msmf::state_machine_def<PickPlaceStateMachineFrontEnd>,
@@ -110,7 +119,7 @@ public:
     auto pick_state_machine_config =
         state_machine_config.visual_servoing_state_machine_config()
             .pick_place_state_machine_config();
-    config_map_.insert<psa::ReachingPostPickWaypoint>(
+    config_map_.insert<psa::ReachingPostPickWaypointBase>(
         pick_state_machine_config.following_waypoint_sequence_config());
     config_map_.insert<psa::ReachingPostPlaceWaypoint>(
         pick_state_machine_config.following_waypoint_sequence_config());
@@ -204,17 +213,13 @@ public:
             msmf::Row<psa::PickState, Reset, psa::ResetVisualServoing,
                       psa::ArmRightFoldGoHome, psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PickState, Completed, psa::ReachingPostPickWaypoint,
+            msmf::Row<psa::PickState, ObjectId, psa::ReachingPostPickWaypoint,
                       psa::AbortUAVArmControllerArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ReachingPostPickWaypoint, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingPostPickWaypoint, Completed, psa::PlaceState,
-                      psa::PlaceVisualServoingTransitionAction,
-                      psa::PlaceVisualServoingTransitionGuard>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, pe::Place, psa::PlaceState,
+            msmf::Row<psa::ReachingPostPickWaypoint, ObjectId, psa::PlaceState,
                       psa::PlaceVisualServoingTransitionAction,
                       psa::PlaceVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
