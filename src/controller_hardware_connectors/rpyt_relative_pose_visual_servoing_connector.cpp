@@ -5,12 +5,14 @@ bool RPYTRelativePoseVisualServoingConnector::extractSensorData(
     std::tuple<tf::Transform, tf::Transform, VelocityYawRate> &sensor_data) {
   parsernode::common::quaddata quad_data;
   drone_hardware_.getquaddata(quad_data);
-  tf::Transform tracking_pose;
+  tf::Transform object_pose_cam;
   ///\todo Figure out what to do when the tracking pose is repeated
-  if (!getTrackingTransformRotationCompensatedQuadFrame(tracking_pose)) {
+  if (!tracker_.getTrackingVector(object_pose_cam)) {
     VLOG(1) << "Invalid tracking vector";
     return false;
   }
+  tf::Transform tracking_pose =
+      getTrackingTransformRotationCompensatedQuadFrame(object_pose_cam);
   // Estimator
   tracking_vector_estimator_.estimate(
       tracking_pose.getOrigin(),
@@ -30,7 +32,9 @@ bool RPYTRelativePoseVisualServoingConnector::extractSensorData(
       << quad_data.rpydata.x << quad_data.rpydata.y << quad_data.rpydata.z
       << quad_data.omega.x << quad_data.omega.y << quad_data.omega.z
       << tracking_origin.x() << tracking_origin.y() << tracking_origin.z()
-      << tracking_r << tracking_p << tracking_y << DataStream::endl;
+      << tracking_r << tracking_p << tracking_y
+      << getViewingAngle(object_pose_cam) << tracking_origin.length()
+      << DataStream::endl;
   // Update tracking pose to use estimated marker direction instead
   // of measured direction
   tf::Transform estimated_pose(tracking_pose.getRotation(),
@@ -63,4 +67,10 @@ void RPYTRelativePoseVisualServoingConnector::setGoal(PositionYaw goal) {
   thrust_gain_estimator_.clearBuffer();
   VLOG(1) << "Clearing initial state from kalman filter";
   tracking_vector_estimator_.resetState();
+}
+
+double RPYTRelativePoseVisualServoingConnector::getViewingAngle(
+    tf::Transform object_pose_cam) const {
+  tf::Vector3 z_vec = camera_transform_.getBasis().getColumn(2);
+  return z_vec.angle(object_pose_cam.getOrigin());
 }

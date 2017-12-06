@@ -173,6 +173,19 @@ TEST_F(RPYTRelativePoseVisualConnectorTests,
   runUntilConvergence(tracked_pose, goal_relative_pose);
 }
 
+TEST_F(RPYTRelativePoseVisualConnectorTests, TestViewingAngle) {
+  tf::Transform object_pose_cam(tf::createQuaternionFromRPY(M_PI / 2, 0, 0),
+                                tf::Vector3(1, 0, 0));
+  ASSERT_NEAR(visual_servoing_connector_->getViewingAngle(object_pose_cam),
+              M_PI / 2, 1e-8);
+  object_pose_cam.setOrigin(tf::Vector3(0, 0, 1));
+  ASSERT_NEAR(visual_servoing_connector_->getViewingAngle(object_pose_cam), 0,
+              1e-8);
+  object_pose_cam.setOrigin(tf::Vector3(0, 1, 1));
+  ASSERT_NEAR(visual_servoing_connector_->getViewingAngle(object_pose_cam),
+              M_PI / 4, 1e-8);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

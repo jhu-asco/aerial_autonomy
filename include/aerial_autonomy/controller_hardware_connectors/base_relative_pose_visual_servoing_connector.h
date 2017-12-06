@@ -38,11 +38,11 @@ public:
    * @brief Get the rotation-compensated tracking pose of the tracker in the
    * rotation-compensated
    * frame of the quadrotor
-   * @param tracking_vector Returned tracking pose
-   * @return True if successful and false otherwise
+   * @param obect_pose_cam Transform of the object in the camera's frame
+   * @return Returned tracking pose in rotation compensated frame
    */
-  bool getTrackingTransformRotationCompensatedQuadFrame(
-      tf::Transform &tracking_transform);
+  tf::Transform getTrackingTransformRotationCompensatedQuadFrame(
+      tf::Transform object_pose_cam);
 
 protected:
   /**
