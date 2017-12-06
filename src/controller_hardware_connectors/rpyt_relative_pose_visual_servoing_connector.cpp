@@ -6,6 +6,7 @@ bool RPYTRelativePoseVisualServoingConnector::extractSensorData(
   parsernode::common::quaddata quad_data;
   drone_hardware_.getquaddata(quad_data);
   tf::Transform tracking_pose;
+  ///\todo Figure out what to do when the tracking pose is repeated
   if (!getTrackingTransformRotationCompensatedQuadFrame(tracking_pose)) {
     VLOG(1) << "Invalid tracking vector";
     return false;
