@@ -25,6 +25,7 @@ void AlvarTracker::markerCallback(
   if (marker_msg.markers.size() == 0)
     return;
   last_valid_time_ = ros::Time::now();
+  last_tracking_time_ = std::chrono::high_resolution_clock::now();
   std::unordered_map<uint32_t, tf::Transform> object_poses;
   for (unsigned int i = 0; i < marker_msg.markers.size(); i++) {
     auto marker_pose = marker_msg.markers[i].pose.pose;
@@ -39,3 +40,8 @@ void AlvarTracker::markerCallback(
 }
 
 bool AlvarTracker::isConnected() { return alvar_sub_.getNumPublishers() > 0; }
+
+std::chrono::time_point<std::chrono::high_resolution_clock>
+AlvarTracker::getTrackingTime() {
+  return last_tracking_time_;
+}

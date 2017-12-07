@@ -76,6 +76,12 @@ public:
   */
   bool isConnected();
 
+  /**
+  * @brief Get the time stamp of the current tracking vectors
+  */
+  virtual std::chrono::time_point<std::chrono::high_resolution_clock>
+  getTrackingTime();
+
 private:
   /**
   * @brief Check whether the system has valid camera info
@@ -170,4 +176,9 @@ private:
   * @brief last time ROI was updated
   */
   Atomic<ros::Time> last_roi_update_time_;
+  /**
+  * @brief Last time we received a non-empty Alvar message
+  */
+  Atomic<std::chrono::time_point<std::chrono::high_resolution_clock>>
+      last_tracking_time_;
 };
