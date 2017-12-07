@@ -40,6 +40,12 @@ public:
   virtual bool trackingIsValid();
 
   /**
+  * @brief Get the time stamp of the current tracking vectors
+  */
+  virtual std::chrono::time_point<std::chrono::high_resolution_clock>
+  getTrackingTime();
+
+  /**
   * @brief Check if subscriber is connected
   * @return True if connected, false otherwise
   */
@@ -64,6 +70,11 @@ private:
   * @brief Last time we received a non-empty Alvar message
   */
   Atomic<ros::Time> last_valid_time_;
+  /**
+  * @brief Last time we received a non-empty Alvar message
+  */
+  Atomic<std::chrono::time_point<std::chrono::high_resolution_clock>>
+      last_tracking_time_;
   /**
   * @brief Stored tracking transforms
   */
