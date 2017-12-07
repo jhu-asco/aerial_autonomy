@@ -23,21 +23,14 @@ private:
   cv::KalmanFilter filter_;
   const double zero_tolerance_;
   bool initial_state_initialized_;
-  void setCovarianceMatrix(cv::Mat &matrix, StdVector3 marker_stdev_vector,
-                           StdVector3 velocity_stdev_vector) {
-    matrix = cv::Mat_<double>::zeros(6, 6);
+  void setCovarianceMatrix(cv::Mat &matrix, StdVector3 marker_stdev_vector) {
+    matrix = cv::Mat_<double>::zeros(3, 3);
     matrix.at<double>(0, 0) =
         (marker_stdev_vector.x() * marker_stdev_vector.x());
     matrix.at<double>(1, 1) =
         (marker_stdev_vector.y() * marker_stdev_vector.y());
     matrix.at<double>(2, 2) =
         (marker_stdev_vector.z() * marker_stdev_vector.z());
-    matrix.at<double>(3, 3) =
-        (velocity_stdev_vector.x() * velocity_stdev_vector.x());
-    matrix.at<double>(4, 4) =
-        (velocity_stdev_vector.y() * velocity_stdev_vector.y());
-    matrix.at<double>(5, 5) =
-        (velocity_stdev_vector.z() * velocity_stdev_vector.z());
   }
 
   void checkStdVector(StdVector3 vec) {
@@ -63,26 +56,26 @@ public:
   TrackingVectorEstimator(TrackingVectorEstimatorConfig config,
                           std::chrono::duration<double> propagation_step);
   /**
-  * @brief Perform a single prediction and a correction using the provided
+  * @brief Perform a single correction using the provided
   * measurements
   *
   * @param marker_direction Measured marker direction in global frame
-  * @param velocity Measured velocity in global frame
   */
-  void estimate(tf::Vector3 marker_direction, tf::Vector3 velocity);
+  void correct(tf::Vector3 marker_direction);
   /**
-  * @brief Initialize the state of the filter by setting the marker direction,
-  * velocity
+  * @brief Initialize the state of the filter by setting the marker direction
   * and noise levels to initial state stdev from config.
   *
   * @param marker_direction Marker direction to reset to
-  * @param velocity Velocity to reset to
   */
-  void initializeState(tf::Vector3 marker_direction, tf::Vector3 velocity);
+  void initializeState(tf::Vector3 marker_direction);
   /**
   * @brief Helper function to move the internal filter state forward by dt
+  *
+  * @param velocity The control used to predict the marker direction at next
+  * step
   */
-  void predict() { filter_.predict(); }
+  void predict(tf::Vector3 velocity);
   /**
   * @brief Get the estimated marker direction by the filter
   *
@@ -93,18 +86,6 @@ public:
                        filter_.statePost.at<double>(1),
                        filter_.statePost.at<double>(2));
   }
-
-  /**
-  * @brief Get the estimated velocity by the filter
-  *
-  * @return estimated velocity in global frame
-  */
-  tf::Vector3 getVelocity() {
-    return tf::Vector3(filter_.statePost.at<double>(3),
-                       filter_.statePost.at<double>(4),
-                       filter_.statePost.at<double>(5));
-  }
-
   /**
   * @brief The noise level in estimating marker direction
   *
@@ -114,17 +95,6 @@ public:
     return tf::Vector3(sqrt(filter_.errorCovPost.at<double>(0, 0)),
                        sqrt(filter_.errorCovPost.at<double>(1, 1)),
                        sqrt(filter_.errorCovPost.at<double>(2, 2)));
-  }
-
-  /**
-  * @brief The noise level in estimating velocity vector
-  *
-  * @return the sqrt(diag(Covariance_velocity_vector))
-  */
-  tf::Vector3 getVelocityNoise() {
-    return tf::Vector3(sqrt(filter_.errorCovPost.at<double>(3, 3)),
-                       sqrt(filter_.errorCovPost.at<double>(4, 4)),
-                       sqrt(filter_.errorCovPost.at<double>(5, 5)));
   }
   /**
   * @brief Helper function to get the predicted (pre-correction) marker
@@ -138,19 +108,6 @@ public:
     return tf::Vector3(filter_.statePre.at<double>(0),
                        filter_.statePre.at<double>(1),
                        filter_.statePre.at<double>(2));
-  }
-  /**
-  * @brief Helper function to get predicted velocity (pre-correction) from
-  * filter
-  *
-  * Note: This function does not call predict on the filter.
-  *
-  * @return velocity vector before correction
-  */
-  tf::Vector3 getPredictedVelocity() {
-    return tf::Vector3(filter_.statePre.at<double>(3),
-                       filter_.statePre.at<double>(4),
-                       filter_.statePre.at<double>(5));
   }
 
   /**
