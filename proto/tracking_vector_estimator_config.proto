@@ -15,9 +15,7 @@ message TrackingVectorEstimatorConfig {
     optional double z = 3 [ default = 1e-2 ];
   }
   optional StdVector3 marker_process_stdev = 1;
-  optional StdVector3 velocity_process_stdev = 2;
-  optional StdVector3 marker_meas_stdev = 3;
-  optional StdVector3 velocity_meas_stdev = 4;
-  optional StdVector3 marker_initial_stdev = 5;
-  optional StdVector3 velocity_initial_stdev = 6;
+  optional StdVector3 marker_meas_stdev = 2;
+  optional StdVector3 marker_dilation_stdev = 3;
+  optional StdVector3 marker_initial_stdev = 4;
 }

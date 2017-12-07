@@ -3,6 +3,7 @@
 
 #include <tf/tf.h>
 
+#include <chrono>
 #include <tuple>
 #include <unordered_map>
 
@@ -55,6 +56,16 @@ public:
   * @return True if the tracking is valid, false otherwise
   */
   virtual bool trackingIsValid() = 0;
+
+  /**
+  * @brief Get the time stamp of the current tracking vectors
+  */
+  // \todo Matt Remove this function and add time stamps to information stored
+  // with tracking vector
+  virtual std::chrono::time_point<std::chrono::high_resolution_clock>
+  getTrackingTime() {
+    return std::chrono::high_resolution_clock::now();
+  }
 
 private:
   /**

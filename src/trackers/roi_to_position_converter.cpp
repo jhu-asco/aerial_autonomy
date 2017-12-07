@@ -9,9 +9,15 @@ bool RoiToPositionConverter::isConnected() {
          depth_subscriber_.getNumPublishers() > 0;
 }
 
+std::chrono::time_point<std::chrono::high_resolution_clock>
+RoiToPositionConverter::getTrackingTime() {
+  return last_tracking_time_;
+}
+
 void RoiToPositionConverter::roiCallback(
     const sensor_msgs::RegionOfInterest &roi_msg) {
   last_roi_update_time_ = ros::Time::now();
+  last_tracking_time_ = std::chrono::high_resolution_clock::now();
   roi_rect_ = roi_msg;
 }
 
