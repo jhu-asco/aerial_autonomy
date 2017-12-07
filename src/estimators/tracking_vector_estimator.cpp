@@ -18,9 +18,17 @@ TrackingVectorEstimator::TrackingVectorEstimator(
   checkStdVector(config_.marker_process_stdev());
   checkStdVector(config_.marker_meas_stdev());
   checkStdVector(config_.marker_initial_stdev());
+  checkStdVector(config_.marker_dilation_stdev());
   // Noise matrices
   setCovarianceMatrix(filter_.processNoiseCov, config_.marker_process_stdev());
   setCovarianceMatrix(filter_.measurementNoiseCov, config_.marker_meas_stdev());
+  // Save variables
+  marker_dilation_stdev_ = tf::Vector3(config_.marker_dilation_stdev().x(),
+                                       config_.marker_dilation_stdev().y(),
+                                       config_.marker_dilation_stdev().z());
+  marker_meas_stdev_ = tf::Vector3(config_.marker_meas_stdev().x(),
+                                   config_.marker_meas_stdev().y(),
+                                   config_.marker_meas_stdev().z());
   // Set initial state
   initializeState(tf::Vector3(0, 0, 0));
   DATA_HEADER("tracking_vector_estimator") << "Measured_Marker_x"
@@ -29,6 +37,9 @@ TrackingVectorEstimator::TrackingVectorEstimator(
                                            << "Marker_x"
                                            << "Marker_y"
                                            << "Marker_z"
+                                           << "Meas_noise_x"
+                                           << "Meas_noise_y"
+                                           << "Meas_noise_z"
                                            << "Noise_x"
                                            << "Noise_y"
                                            << "Noise_z" << DataStream::endl;
@@ -50,7 +61,22 @@ void TrackingVectorEstimator::predict(tf::Vector3 velocity) {
   filter_.predict(control);
 }
 
-void TrackingVectorEstimator::correct(tf::Vector3 marker_direction) {
+void TrackingVectorEstimator::setMeasurementCovariance(
+    cv::Mat &covariance_mat,
+    std::chrono::time_point<std::chrono::high_resolution_clock>
+        marker_time_stamp) {
+  double dt = std::chrono::duration<double>(
+                  std::chrono::high_resolution_clock::now() - marker_time_stamp)
+                  .count();
+  tf::Vector3 current_meas_stdev =
+      marker_meas_stdev_ + dt * marker_dilation_stdev_;
+  setCovarianceMatrix(covariance_mat, current_meas_stdev);
+}
+
+void TrackingVectorEstimator::correct(
+    tf::Vector3 marker_direction,
+    std::chrono::time_point<std::chrono::high_resolution_clock>
+        marker_time_stamp) {
   if (!initial_state_initialized_) {
     initializeState(marker_direction);
     return;
@@ -58,6 +84,7 @@ void TrackingVectorEstimator::correct(tf::Vector3 marker_direction) {
   cv::Mat_<double> measurement =
       (cv::Mat_<double>(3, 1) << marker_direction.x(), marker_direction.y(),
        marker_direction.z());
+  setMeasurementCovariance(filter_.measurementNoiseCov, marker_time_stamp);
   filter_.correct(measurement);
   // Log data
   tf::Vector3 marker_noise = getMarkerNoise();
@@ -69,6 +96,9 @@ void TrackingVectorEstimator::correct(tf::Vector3 marker_direction) {
   }
   for (int i = 0; i < 3; ++i) {
     data_stream << state.at<double>(i);
+  }
+  for (int i = 0; i < 3; ++i) {
+    data_stream << sqrt(filter_.measurementNoiseCov.at<double>(i, i));
   }
   for (int i = 0; i < 3; ++i) {
     data_stream << marker_noise[i];

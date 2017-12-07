@@ -23,7 +23,10 @@ private:
   cv::KalmanFilter filter_;
   const double zero_tolerance_;
   bool initial_state_initialized_;
-  void setCovarianceMatrix(cv::Mat &matrix, StdVector3 marker_stdev_vector) {
+  tf::Vector3 marker_meas_stdev_;
+  tf::Vector3 marker_dilation_stdev_;
+  template <class T>
+  void setCovarianceMatrix(cv::Mat &matrix, T marker_stdev_vector) {
     matrix = cv::Mat_<double>::zeros(3, 3);
     matrix.at<double>(0, 0) =
         (marker_stdev_vector.x() * marker_stdev_vector.x());
@@ -61,7 +64,9 @@ public:
   *
   * @param marker_direction Measured marker direction in global frame
   */
-  void correct(tf::Vector3 marker_direction);
+  void correct(tf::Vector3 marker_direction,
+               std::chrono::time_point<std::chrono::high_resolution_clock>
+                   marker_time_stamp);
   /**
   * @brief Initialize the state of the filter by setting the marker direction
   * and noise levels to initial state stdev from config.
@@ -117,4 +122,16 @@ public:
   * and correcting
   */
   void resetState() { initial_state_initialized_ = false; }
+
+  /**
+  * @brief Set the measurement covariance to the specified matrix
+  *
+  * @param covariance_mat the matrix to set to
+  * @param marker_time_stamp the time stamp when the marker message has been
+  * received
+  */
+  void setMeasurementCovariance(
+      cv::Mat &covariance_mat,
+      std::chrono::time_point<std::chrono::high_resolution_clock>
+          marker_time_stamp);
 };

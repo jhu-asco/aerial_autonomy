@@ -19,7 +19,8 @@ bool RPYTRelativePoseVisualServoingConnector::extractSensorData(
   // Estimator
   tracking_vector_estimator_.predict(
       tf::Vector3(quad_data.linvel.x, quad_data.linvel.y, quad_data.linvel.z));
-  tracking_vector_estimator_.correct(tracking_pose.getOrigin());
+  tracking_vector_estimator_.correct(tracking_pose.getOrigin(),
+                                     std::chrono::high_resolution_clock::now());
   ///\todo Check estimator health
   tf::Vector3 estimated_marker_direction =
       tracking_vector_estimator_.getMarkerDirection();

@@ -41,6 +41,29 @@ TEST_F(TrackingVectorEstimatorTests, initializeState) {
   ASSERT_TF_VEC_NEAR(estimator.getMarkerNoise(), tf::Vector3(1, 1e-2, 1e-2));
 }
 
+TEST_F(TrackingVectorEstimatorTests, testMeasurementCovariance) {
+  TrackingVectorEstimator estimator(config_, std::chrono::milliseconds(20));
+  int seconds_offset = 100;
+  auto marker_time_stamp = std::chrono::high_resolution_clock::now() -
+                           std::chrono::seconds(seconds_offset);
+  cv::Mat measurement_covariance_matrix;
+  estimator.setMeasurementCovariance(measurement_covariance_matrix,
+                                     marker_time_stamp);
+  tf::Vector3 marker_meas_stdev(config_.marker_meas_stdev().x(),
+                                config_.marker_meas_stdev().y(),
+                                config_.marker_meas_stdev().z());
+  tf::Vector3 marker_dilation_stdev(config_.marker_dilation_stdev().x(),
+                                    config_.marker_dilation_stdev().y(),
+                                    config_.marker_dilation_stdev().z());
+  for (int i = 0; i < 3; ++i) {
+    double expected_stdev =
+        seconds_offset * marker_dilation_stdev[i] + marker_meas_stdev[i];
+    double expected_covariance = expected_stdev * expected_stdev;
+    ASSERT_NEAR(measurement_covariance_matrix.at<double>(i, i),
+                expected_covariance, 1e-4);
+  }
+}
+
 TEST_F(TrackingVectorEstimatorTests, predictState) {
   double dt = 0.02;
   tf::Vector3 initial_marker_direction(1, 0, 0);
@@ -73,7 +96,8 @@ TEST_F(TrackingVectorEstimatorTests, correctState) {
     tf::Vector3 quad_vel(-sin(t), cos(t), 0);
     tf::Vector3 marker_direction = marker_pos - quad_pos;
     estimator.predict(quad_vel);
-    estimator.correct(marker_direction);
+    estimator.correct(marker_direction,
+                      std::chrono::high_resolution_clock::now());
     tf::Vector3 estimated_marker_direction = estimator.getMarkerDirection();
     tf::Vector3 error_marker_direction =
         estimated_marker_direction - marker_direction;
