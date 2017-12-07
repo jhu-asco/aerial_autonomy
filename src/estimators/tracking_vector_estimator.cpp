@@ -68,7 +68,10 @@ void TrackingVectorEstimator::setMeasurementCovariance(
   double dt = std::chrono::duration<double>(
                   std::chrono::high_resolution_clock::now() - marker_time_stamp)
                   .count();
-  dt = std::max(dt, 0.0);
+  if (dt < 0) {
+    LOG(WARNING) << "dt negative: " << dt;
+    dt = 0;
+  }
   tf::Vector3 current_meas_stdev =
       marker_meas_stdev_ + dt * marker_dilation_stdev_;
   setCovarianceMatrix(covariance_mat, current_meas_stdev);
