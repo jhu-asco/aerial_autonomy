@@ -60,6 +60,8 @@ public:
   /**
   * @brief Get the time stamp of the current tracking vectors
   */
+  // \todo Matt Remove this function and add time stamps to information stored
+  // with tracking vector
   virtual std::chrono::time_point<std::chrono::high_resolution_clock>
   getTrackingTime() {
     return std::chrono::high_resolution_clock::now();
