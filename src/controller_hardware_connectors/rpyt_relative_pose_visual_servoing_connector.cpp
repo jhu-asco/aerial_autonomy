@@ -5,6 +5,9 @@ bool RPYTRelativePoseVisualServoingConnector::extractSensorData(
     std::tuple<tf::Transform, tf::Transform, VelocityYawRate> &sensor_data) {
   parsernode::common::quaddata quad_data;
   drone_hardware_.getquaddata(quad_data);
+  VelocityYawRate current_velocity_yawrate(
+      quad_data.linvel.x, quad_data.linvel.y, quad_data.linvel.z,
+      quad_data.omega.z);
   tf::Transform object_pose_cam;
   ///\todo Figure out what to do when the tracking pose is repeated
   if (!tracker_.getTrackingVector(object_pose_cam)) {
@@ -14,16 +17,13 @@ bool RPYTRelativePoseVisualServoingConnector::extractSensorData(
   tf::Transform tracking_pose =
       getTrackingTransformRotationCompensatedQuadFrame(object_pose_cam);
   // Estimator
-  tracking_vector_estimator_.estimate(
-      tracking_pose.getOrigin(),
+  tracking_vector_estimator_.predict(
       tf::Vector3(quad_data.linvel.x, quad_data.linvel.y, quad_data.linvel.z));
+  tracking_vector_estimator_.correct(tracking_pose.getOrigin(),
+                                     std::chrono::high_resolution_clock::now());
   ///\todo Check estimator health
   tf::Vector3 estimated_marker_direction =
       tracking_vector_estimator_.getMarkerDirection();
-  tf::Vector3 estimated_velocity = tracking_vector_estimator_.getVelocity();
-  VelocityYawRate estimated_velocity_yawrate(
-      estimated_velocity.x(), estimated_velocity.y(), estimated_velocity.z(),
-      quad_data.omega.z);
   auto tracking_origin = tracking_pose.getOrigin();
   double tracking_r, tracking_p, tracking_y;
   tracking_pose.getBasis().getRPY(tracking_r, tracking_p, tracking_y);
@@ -41,7 +41,7 @@ bool RPYTRelativePoseVisualServoingConnector::extractSensorData(
                                estimated_marker_direction);
   // giving transform in rotation-compensated quad frame
   sensor_data = std::make_tuple(getBodyFrameRotation(), estimated_pose,
-                                estimated_velocity_yawrate);
+                                current_velocity_yawrate);
   thrust_gain_estimator_.addSensorData(quad_data.rpydata.x, quad_data.rpydata.y,
                                        quad_data.linacc.z);
   auto rpyt_controller_config = private_reference_controller_.getRPYTConfig();

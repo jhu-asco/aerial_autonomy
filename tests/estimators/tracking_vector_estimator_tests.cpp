@@ -34,36 +34,51 @@ TEST_F(TrackingVectorEstimatorTests, Constructor) {
 
 TEST_F(TrackingVectorEstimatorTests, initializeState) {
   tf::Vector3 initial_marker_direction(1, 0, 0);
-  tf::Vector3 initial_velocity(0, 1, 0);
   config_.mutable_marker_initial_stdev()->set_x(1);
-  config_.mutable_velocity_initial_stdev()->set_x(2);
   TrackingVectorEstimator estimator(config_, std::chrono::milliseconds(20));
-  estimator.initializeState(initial_marker_direction, initial_velocity);
+  estimator.initializeState(initial_marker_direction);
   ASSERT_TF_VEC_NEAR(estimator.getMarkerDirection(), initial_marker_direction);
-  ASSERT_TF_VEC_NEAR(estimator.getVelocity(), initial_velocity);
   ASSERT_TF_VEC_NEAR(estimator.getMarkerNoise(), tf::Vector3(1, 1e-2, 1e-2));
-  ASSERT_TF_VEC_NEAR(estimator.getVelocityNoise(), tf::Vector3(2, 1e-2, 1e-2));
+}
+
+TEST_F(TrackingVectorEstimatorTests, testMeasurementCovariance) {
+  TrackingVectorEstimator estimator(config_, std::chrono::milliseconds(20));
+  int seconds_offset = 100;
+  auto marker_time_stamp = std::chrono::high_resolution_clock::now() -
+                           std::chrono::seconds(seconds_offset);
+  cv::Mat measurement_covariance_matrix;
+  estimator.setMeasurementCovariance(measurement_covariance_matrix,
+                                     marker_time_stamp);
+  tf::Vector3 marker_meas_stdev(config_.marker_meas_stdev().x(),
+                                config_.marker_meas_stdev().y(),
+                                config_.marker_meas_stdev().z());
+  tf::Vector3 marker_dilation_stdev(config_.marker_dilation_stdev().x(),
+                                    config_.marker_dilation_stdev().y(),
+                                    config_.marker_dilation_stdev().z());
+  for (int i = 0; i < 3; ++i) {
+    double expected_stdev =
+        seconds_offset * marker_dilation_stdev[i] + marker_meas_stdev[i];
+    double expected_covariance = expected_stdev * expected_stdev;
+    ASSERT_NEAR(measurement_covariance_matrix.at<double>(i, i),
+                expected_covariance, 1e-4);
+  }
 }
 
 TEST_F(TrackingVectorEstimatorTests, predictState) {
   double dt = 0.02;
   tf::Vector3 initial_marker_direction(1, 0, 0);
-  tf::Vector3 initial_velocity(0, 1, 0);
+  tf::Vector3 velocity(0, 1, 0);
   TrackingVectorEstimator estimator(config_, std::chrono::duration<double>(dt));
-  estimator.initializeState(initial_marker_direction, initial_velocity);
+  estimator.initializeState(initial_marker_direction);
   tf::Vector3 initial_marker_noise = estimator.getMarkerNoise();
-  tf::Vector3 initial_velocity_noise = estimator.getVelocityNoise();
-  estimator.predict();
+  estimator.predict(velocity);
   tf::Vector3 expected_marker_direction =
-      initial_marker_direction - initial_velocity * dt;
-  ASSERT_TF_VEC_NEAR(estimator.getPredictedVelocity(), initial_velocity);
+      initial_marker_direction - velocity * dt;
   ASSERT_TF_VEC_NEAR(estimator.getPredictedMarkerDirection(),
                      expected_marker_direction);
   tf::Vector3 marker_noise = estimator.getMarkerNoise();
-  tf::Vector3 velocity_noise = estimator.getVelocityNoise();
   for (int i = 0; i < 3; ++i) {
     ASSERT_GT(marker_noise[i], initial_marker_noise[i]);
-    ASSERT_GT(velocity_noise[i], initial_velocity_noise[i]);
   }
 }
 
@@ -72,25 +87,25 @@ TEST_F(TrackingVectorEstimatorTests, correctState) {
   double tol = 1e-2;
   double t = 0;
   double dt = 0.02;
-  // High process noise for velocity so that it relies on measured values
-  config_.mutable_velocity_process_stdev()->set_x(1e-1);
-  config_.mutable_velocity_process_stdev()->set_y(1e-1);
-  config_.mutable_velocity_process_stdev()->set_z(1e-1);
   TrackingVectorEstimator estimator(config_, std::chrono::duration<double>(dt));
-  estimator.initializeState(tf::Vector3(0, 0, 0), tf::Vector3(0, 0, 0));
+  estimator.initializeState(tf::Vector3(0, 0, 0));
   auto runEstimator = [&]() {
     t += dt;
     tf::Vector3 quad_pos(cos(t), sin(t), 0);
     tf::Vector3 marker_pos(0, 0, 0);
     tf::Vector3 quad_vel(-sin(t), cos(t), 0);
     tf::Vector3 marker_direction = marker_pos - quad_pos;
-    estimator.estimate(marker_direction, quad_vel);
-    tf::Vector3 estimated__vel = estimator.getVelocity();
-    tf::Vector3 estimated__marker_direction = estimator.getMarkerDirection();
-    tf::Vector3 error_vel = estimated__vel - quad_vel;
+    estimator.predict(quad_vel);
+    estimator.correct(marker_direction,
+                      std::chrono::high_resolution_clock::now());
+    tf::Vector3 estimated_marker_direction = estimator.getMarkerDirection();
     tf::Vector3 error_marker_direction =
-        estimated__marker_direction - marker_direction;
-    if (error_vel.length() < tol && error_marker_direction.length() < tol)
+        estimated_marker_direction - marker_direction;
+    LOG(INFO) << marker_direction.x() << ", " << marker_direction.y() << ", "
+              << marker_direction.z() << ", " << estimated_marker_direction.x()
+              << ", " << estimated_marker_direction.y() << ", "
+              << estimated_marker_direction.z();
+    if (error_marker_direction.length() < tol)
       return true;
     return false;
   };
