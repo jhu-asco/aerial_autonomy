@@ -124,13 +124,46 @@ uav_system_config {
       }
     }
 
+    tracking_vector_estimator_config {
+      marker_process_stdev {
+        x: .0001
+        y: .0001
+        z: .0001
+      }
+      velocity_process_stdev {
+        x: .02
+        y: .02
+        z: .02
+      }
+      marker_meas_stdev {
+        x: .005
+        y: .005
+        z: .005
+      }
+      velocity_meas_stdev {
+        x: .05
+        y: .05
+        z: .05
+      }
+      marker_initial_stdev {
+        x: .05
+        y: .05
+        z: .05
+      }
+      velocity_initial_stdev {
+        x: .1
+        y: .1
+        z: .1
+      }
+    }
+
     rpyt_based_relative_pose_controller_config {
       velocity_based_relative_pose_controller_config {
         velocity_based_position_controller_config {
           position_gain: 1.0
           z_gain: 1.0
           yaw_gain: 0.6
-          max_velocity: 0.5
+          max_velocity: 0.3
           max_yaw_rate: 0.3
           position_i_gain: 0
           yaw_i_gain: 0

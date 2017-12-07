@@ -40,7 +40,7 @@ struct GrippingInternalActionFunctor_
           UAVArmSystem, LogicStateMachineT, PickState_<LogicStateMachineT>> {
   bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine,
            PickState_<LogicStateMachineT> &state) {
-    bool has_grip = robot_system.grip(true);
+    bool has_grip = robot_system.gripStatus();
     if (state.monitorGrip(has_grip)) {
       VLOG(1) << "Done Gripping!";
       uint32_t tracked_id;
@@ -432,6 +432,31 @@ struct WaitingForPick_
               ArmStatusInternalActionFunctor_<LogicStateMachineT>,
               WaitingForPickInternalActionFunctor_<LogicStateMachineT>>>> {};
 
+template <class LogicStateMachineT>
+struct PickControllerStatusCheck_
+    : InternalActionFunctor<UAVArmSystem, LogicStateMachineT> {
+
+  bool run(UAVArmSystem &robot_system,
+           LogicStateMachineT &logic_state_machine) {
+    ControllerStatus status =
+        robot_system.getStatus<RPYTRelativePoseVisualServoingConnector>();
+    bool grip_status = robot_system.gripStatus();
+    if (status == ControllerStatus::Critical && grip_status) {
+      robot_system.abortController(HardwareType::UAV);
+      VLOG(1)
+          << "Controller critical while gripping is true! Aborting Controller!";
+    } else if ((status == ControllerStatus::Critical ||
+                status == ControllerStatus::NotEngaged) &&
+               !grip_status) {
+      logic_state_machine.process_event(Reset());
+      VLOG(1) << "Gripping failed and no controller engaged or controller "
+                 "critical. So resetting!";
+      return false;
+    }
+    return true;
+  }
+};
+
 /**
  * @brief typedef for base class of pick state which is a timed state
  * with specified actions. The timed state provides the time from
@@ -445,9 +470,7 @@ using PickBaseState_ =
                boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
                    UAVStatusInternalActionFunctor_<LogicStateMachineT>,
                    ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-                   ControllerStatusInternalActionFunctor_<
-                       LogicStateMachineT,
-                       RPYTRelativePoseVisualServoingConnector, false, Reset>,
+                   PickControllerStatusCheck_<LogicStateMachineT>,
                    GrippingInternalActionFunctor_<LogicStateMachineT>>>>;
 /**
 * @brief State that uses position control functor to reach a desired goal for

@@ -40,8 +40,12 @@ bool RPYTRelativePoseVisualServoingConnector::extractSensorData(
   tf::Transform estimated_pose(tracking_pose.getRotation(),
                                estimated_marker_direction);
   // giving transform in rotation-compensated quad frame
-  sensor_data = std::make_tuple(getBodyFrameRotation(), estimated_pose,
-                                estimated_velocity_yawrate);
+  // sensor_data = std::make_tuple(getBodyFrameRotation(), estimated_pose,
+  //                              estimated_velocity_yawrate);
+  sensor_data =
+      std::make_tuple(getBodyFrameRotation(), tracking_pose,
+                      VelocityYawRate(quad_data.linvel.x, quad_data.linvel.y,
+                                      quad_data.linvel.z, quad_data.omega.z));
   thrust_gain_estimator_.addSensorData(quad_data.rpydata.x, quad_data.rpydata.y,
                                        quad_data.linacc.z);
   auto rpyt_controller_config = private_reference_controller_.getRPYTConfig();

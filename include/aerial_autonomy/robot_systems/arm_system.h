@@ -75,6 +75,12 @@ public:
   bool grip(bool grip_action) { return arm_hardware_->grip(grip_action); }
 
   /**
+  * @brief Get the grip status of the arm
+  * @return True if grip is successful, false otherwise
+  */
+  bool gripStatus() { return arm_hardware_->gripStatus(); }
+
+  /**
    * @brief Reset gripper state for passive grippers. For normal
    * grippers, it ungrips. This is usually called at the start
    * of a grasping application

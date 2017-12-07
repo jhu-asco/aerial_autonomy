@@ -19,7 +19,7 @@
     <env name="GLOG_alsologtostderr" value="1"/>
  
     <param name="~arm/device_id" value="/dev/ttyACM0" />
-    <param name="~arm/baudrate" value="57600" />
+    <param name="~arm/baudrate" value="115200" />
     <param name="~arm/link1_length" value="0.255" />
     <param name="~arm/link2_length" value="0.296" />
     <param name="~arm/link_offset" value="0.025" />
