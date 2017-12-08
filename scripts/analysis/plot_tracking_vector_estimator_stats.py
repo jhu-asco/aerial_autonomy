@@ -14,14 +14,15 @@ data = np.genfromtxt(
         args.directory,
         'tracking_vector_estimator'),
     delimiter=',', names=True)
-state_labels = ['Marker_x', 'Marker_y', 'Marker_z', 'Velocity_x', 'Velocity_y', 'Velocity_z']
-noise_labels = ['Noise_x', 'Noise_y', 'Noise_z', 'Noise_vx', 'Noise_vy', 'Noise_vz']
-meas_labels = ['Measured_Marker_x', 'Measured_Marker_y', 'Measured_Marker_y', 'Measured_Velocity_x', 'Measured_Velocity_y', 'Measured_Velocity_z']
+state_labels = ['Marker_x', 'Marker_y', 'Marker_z']
+noise_labels = ['Noise_x', 'Noise_y', 'Noise_z']
+meas_labels = ['Measured_Marker_x', 'Measured_Marker_y', 'Measured_Marker_y']
+meas_noise_labels = ['Meas_noise_x', 'Meas_noise_y', 'Meas_noise_z']
 ts = (data['Time'] - data['Time'][0]) / 1e9
 plt.figure(1)
-for i in range(6):
+for i in range(3):
   plt.subplot(2, 3, i+1)
-  plt.plot(ts, data[meas_labels[i]])
+  plt.errorbar(ts, data[meas_labels[i]], yerr=data[meas_noise_labels[i]])
   plt.errorbar(ts, data[state_labels[i]], yerr=data[noise_labels[i]])
   plt.ylabel(state_labels[i])
   plt.xlabel('Time (seconds)')
