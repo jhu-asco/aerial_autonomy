@@ -523,6 +523,7 @@ public:
     grip_config_ = logic_state_machine.configMap()
                        .find<PickState_<LogicStateMachineT>, GripConfig>();
     grip_timeout_ = std::chrono::milliseconds(grip_config_.grip_timeout());
+    gripping_ = false;
     required_grip_duration_ =
         std::chrono::milliseconds(grip_config_.grip_duration());
     VLOG(1) << "Grip timeout in milliseconds: " << grip_timeout_.count();
