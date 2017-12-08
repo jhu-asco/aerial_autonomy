@@ -1,6 +1,6 @@
 
 uav_arm_system_handler_config {
-  arm_controller_timer_duration: 20
+  arm_controller_timer_duration: 50
 }
 
 base_config {
@@ -126,34 +126,24 @@ uav_system_config {
 
     tracking_vector_estimator_config {
       marker_process_stdev {
-        x: .0001
-        y: .0001
-        z: .0001
-      }
-      velocity_process_stdev {
-        x: .02
-        y: .02
-        z: .02
+        x: .001
+        y: .001
+        z: .001
       }
       marker_meas_stdev {
         x: .005
         y: .005
         z: .005
       }
-      velocity_meas_stdev {
-        x: .05
-        y: .05
-        z: .05
-      }
       marker_initial_stdev {
         x: .05
         y: .05
         z: .05
       }
-      velocity_initial_stdev {
-        x: .1
-        y: .1
-        z: .1
+      marker_dilation_stdev {
+        x: 1.0
+        y: 1.0
+        z: 1.0
       }
     }
 

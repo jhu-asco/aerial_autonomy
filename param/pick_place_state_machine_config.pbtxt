@@ -2,7 +2,7 @@ visual_servoing_state_machine_config {
   relative_pose_goals {
     position {
       x: 0
-      y: -.6
+      y: -.59
       z: 0.255
     }
     yaw: 1.5708
@@ -11,7 +11,7 @@ visual_servoing_state_machine_config {
   relative_pose_goals {
     position {
       x: 0
-      y: -.85
+      y: -.87
       z: 0.05
     }
     yaw: 1.5708
@@ -33,6 +33,8 @@ visual_servoing_state_machine_config {
       object_ids: 2
       object_ids: 3
       object_ids: 16
+      object_ids: 4
+      object_ids: 7
     }
 
     arm_goal_transform {
@@ -82,7 +84,7 @@ visual_servoing_state_machine_config {
         position {
           x: -1.5
           y: 0.0
-          z: 0.15
+          z: 0.1
         }
         yaw: 0
       }
