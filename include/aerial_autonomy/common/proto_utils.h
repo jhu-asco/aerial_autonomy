@@ -2,9 +2,26 @@
 
 #include <fcntl.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
+#include <google/protobuf/repeated_field.h>
 #include <google/protobuf/text_format.h>
 
 namespace proto_utils {
+
+/**
+* @brief Check if a proto repeated contains a value
+* @param list List to check for x
+* @param x Item to check for in list
+* @return True if list contains x, false otherwise
+*/
+template <typename T>
+bool contains(const google::protobuf::RepeatedField<T> &list, T x) {
+  for (auto y : list) {
+    if (y == x) {
+      return true;
+    }
+  }
+  return false;
+}
 
 /**
 * @brief Load a protobuf text file

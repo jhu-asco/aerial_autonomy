@@ -14,6 +14,7 @@
     <env name="GLOG_v" value="$(arg log_level)"/>
     <env name="GLOG_alsologtostderr" value="1"/>
     <!-- Matrice SDK params -->
+    <param name="~uav/use_guidance_pos" type="bool" value="true"/>
     <param name="~uav/serial_name" type="string" value="/dev/ttydji"/>
     <param name="~uav/baud_rate" type="int" value="230400"/>
     <param name="~uav/app_id" type="int" value="1024052"/>
@@ -22,4 +23,5 @@
     <param name="~uav/app_bundle_id" type="string" value="Welcome to use dji-sdk"/>
     <param name="~uav/enc_key" type="string" value="8667ff1ec3a163d6ef14a7bf6a9fae66210855f309c1876788f61d2195dc58d7"/>
   </node>
+  <node pkg="guidance" type="guidanceNode" name="guidance" args="false" />
 </launch>

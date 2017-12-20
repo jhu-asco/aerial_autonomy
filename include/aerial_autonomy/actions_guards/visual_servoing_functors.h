@@ -3,10 +3,12 @@
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/common/math.h>
+#include <aerial_autonomy/common/proto_utils.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_vision_system.h>
 #include <aerial_autonomy/trackers/id_tracking_strategy.h>
 #include <aerial_autonomy/types/completed_event.h>
+#include <aerial_autonomy/types/object_id.h>
 #include <aerial_autonomy/types/reset_event.h>
 #include <glog/logging.h>
 #include <parsernode/common.h>
@@ -63,7 +65,7 @@ struct CheckGoalIndex_
 };
 
 /**
-* @brief Action for initializing relative pose visual servoing for specific
+* @brief Guard for initializing relative pose visual servoing for specific
 * tracking id
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
@@ -81,6 +83,39 @@ struct ExplicitIdVisualServoingGuardFunctor_
       return false;
     }
     return true;
+  }
+};
+
+/**
+* @brief Guard for initializing relative pose visual servoing for specific
+* tracking id based on event
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct EventIdVisualServoingGuardFunctor_
+    : public GuardFunctor<ObjectId, UAVVisionSystem, LogicStateMachineT> {
+  bool guard(ObjectId const &event, UAVVisionSystem &robot_system) {
+    auto pick_place_config =
+        this->state_machine_config_.visual_servoing_state_machine_config()
+            .pick_place_state_machine_config();
+    for (auto place_group : pick_place_config.place_groups()) {
+      if (proto_utils::contains(place_group.object_ids(), event.id)) {
+        robot_system.setTrackingStrategy(std::unique_ptr<TrackingStrategy>(
+            new IdTrackingStrategy(place_group.destination_id())));
+        Position tracking_vector;
+        if (!robot_system.getTrackingVector(tracking_vector)) {
+          LOG(WARNING) << "Cannot track Marker Id since id not available: "
+                       << place_group.destination_id();
+          return false;
+        }
+        VLOG(2) << "Setting tracking id to " << place_group.destination_id();
+        return true;
+      }
+    }
+    LOG(WARNING) << "Could not find ID " << event.id
+                 << " in configured place groups";
+    return false;
   }
 };
 

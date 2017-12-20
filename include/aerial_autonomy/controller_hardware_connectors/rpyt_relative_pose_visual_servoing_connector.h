@@ -3,6 +3,7 @@
 #include "aerial_autonomy/controller_hardware_connectors/base_relative_pose_visual_servoing_connector.h"
 #include "aerial_autonomy/controllers/rpyt_based_relative_pose_controller.h"
 #include "aerial_autonomy/estimators/thrust_gain_estimator.h"
+#include "aerial_autonomy/estimators/tracking_vector_estimator.h"
 #include "aerial_autonomy/trackers/base_tracker.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/roll_pitch_yawrate_thrust.h"
@@ -36,6 +37,7 @@ public:
       BaseTracker &tracker, parsernode::Parser &drone_hardware,
       RPYTBasedRelativePoseController &controller,
       ThrustGainEstimator &thrust_gain_estimator,
+      TrackingVectorEstimator &tracking_vector_estimator,
       tf::Transform camera_transform,
       tf::Transform tracking_offset_transform = tf::Transform::getIdentity())
       : ControllerHardwareConnector(controller, HardwareType::UAV),
@@ -43,7 +45,27 @@ public:
                                                 camera_transform,
                                                 tracking_offset_transform),
         thrust_gain_estimator_(thrust_gain_estimator),
-        private_reference_controller_(controller) {}
+        tracking_vector_estimator_(tracking_vector_estimator),
+        private_reference_controller_(controller) {
+    DATA_HEADER("rpyt_relative_pose_visual_servoing_connector")
+        << "vel_x"
+        << "vel_y"
+        << "vel_z"
+        << "roll"
+        << "pitch"
+        << "yaw"
+        << "omega_x"
+        << "omega_y"
+        << "omega_z"
+        << "tracking_x"
+        << "tracking_y"
+        << "tracking_z"
+        << "tracking_r"
+        << "tracking_p"
+        << "tracking_y"
+        << "Viewing_angle"
+        << "Tracking_length" << DataStream::endl;
+  }
   /**
    * @brief Destructor
    */
@@ -54,6 +76,14 @@ public:
    * @param goal empty goal
    */
   void setGoal(PositionYaw goal);
+  /**
+  * @brief Get the angle between camera z and the marker center
+  *
+  * @param object_pose_cam the transform of marker in camera frame
+  *
+  * @return angle in radians
+  */
+  double getViewingAngle(tf::Transform object_pose_cam) const;
 
 protected:
   /**
@@ -84,5 +114,6 @@ private:
       std::tuple<tf::Transform, tf::Transform, VelocityYawRate>, PositionYaw,
       RollPitchYawRateThrust>;
   ThrustGainEstimator &thrust_gain_estimator_;
+  TrackingVectorEstimator &tracking_vector_estimator_;
   RPYTBasedRelativePoseController &private_reference_controller_;
 };

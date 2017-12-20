@@ -14,6 +14,8 @@ data = np.genfromtxt(
         args.directory,
         'rpyt_based_velocity_controller'),
     delimiter=',', names=True)
+world_acc = np.stack((data['World_acc_x'], data['World_acc_y'], data['World_acc_z']-9.81))
+world_acc_norm = np.linalg.norm(world_acc, axis=0)
 # 0 for x, 1 for y  2 for z and 3 for yaw
 ts = (data['Time'] - data['Time'][0]) / 1e9
 error_names = ['Errorx', 'Errory', 'Errorz', 'Erroryawrate']
@@ -30,4 +32,8 @@ for plot_axis in range(4):
   plt.legend(['Desired '+signal_names[plot_axis], signal_names[plot_axis]])
   plt.ylabel(control_names[plot_axis])
   plt.xlabel('Time (seconds)')
+plt.figure(5)
+plt.plot(ts, world_acc_norm)
+plt.xlabel('Time (seconds)')
+plt.ylabel('World acceleration Norm(m/ss)')
 plt.show()

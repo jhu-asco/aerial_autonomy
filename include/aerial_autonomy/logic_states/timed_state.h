@@ -21,6 +21,7 @@ public:
   * @tparam FSM State machine type
   */
   template <class Event, class FSM> void on_entry(Event const &e, FSM &fsm) {
+    BaseState<RobotSystemT, LogicStateMachineT, ActionFctr>::on_entry(e, fsm);
     // log start time
     entry_time_ = std::chrono::high_resolution_clock::now();
   }

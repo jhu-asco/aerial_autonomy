@@ -1,0 +1,12 @@
+syntax = "proto2";
+
+message PlaceGroup {
+  /**
+  * @brief Id of destination for placing objects
+  */
+  required uint32 destination_id = 1;
+  /**
+  * @brief IDs of objects that should be placed at the specified destination
+  */
+  repeated uint32 object_ids = 2;
+}

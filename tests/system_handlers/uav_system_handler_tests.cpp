@@ -26,6 +26,7 @@ public:
         uav_config->mutable_rpyt_based_position_controller_config()
             ->mutable_velocity_based_position_controller_config();
     pos_controller_config->set_position_gain(1.);
+    pos_controller_config->set_z_gain(1.);
     pos_controller_config->set_yaw_gain(1.);
     pos_controller_config->set_max_velocity(2.);
     pos_controller_config->set_max_yaw_rate(5.);
@@ -45,6 +46,9 @@ public:
     rpyt_vel_controller_tol->set_vx(0.1);
     rpyt_vel_controller_tol->set_vy(0.1);
     rpyt_vel_controller_tol->set_vz(0.1);
+    uav_config->mutable_rpyt_based_position_controller_config()
+        ->mutable_rpyt_based_velocity_controller_config()
+        ->set_max_acc_norm(10.);
 
     uav_system_handler_.reset(
         new UAVSystemHandler<UAVStateMachine, UAVEventManager<UAVStateMachine>>(
@@ -98,7 +102,7 @@ TEST_F(UAVSystemHandlerTests, ProcessPoseCommand) {
   ASSERT_TRUE(test_utils::waitUntilTrue()(armed_true_fun,
                                           std::chrono::seconds(timeout_wait)));
   ASSERT_EQ(uav_system_handler_->getUAVData().localpos.z, 0.5);
-  PositionYaw pose_command(1, 2, 3, 0);
+  PositionYaw pose_command(1, 1, 1, 0);
   publishPoseCommand(pose_command);
   ASSERT_TRUE(test_utils::waitUntilTrue()(
       [=]() {

@@ -8,9 +8,13 @@ import "position_controller_config.proto";
 */
 message VelocityBasedPositionControllerConfig {
   /**
-  * @brief Gain to convert position error to velocity
+  * @brief Gain to convert x,y position error to velocity
   */
   optional double position_gain = 1 [ default = 0.1 ];
+  /**
+  * @brief Gain to convert z position error to velocity
+  */
+  optional double z_gain = 10 [ default = 0.1 ];
   /**
   * @brief Gain to convert yaw error to yaw rate
   */

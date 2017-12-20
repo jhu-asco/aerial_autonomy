@@ -3,6 +3,7 @@ syntax = "proto2";
 import "transform.proto";
 import "following_waypoint_sequence_config.proto";
 import "grip_config.proto";
+import "place_group.proto";
 
 message PickPlaceStateMachineConfig {
   /**
@@ -19,4 +20,9 @@ message PickPlaceStateMachineConfig {
   * @brief Config for pickstate
   */
   optional GripConfig grip_config = 3;
+
+  /**
+  * @brief Config for place groupings
+  */
+  repeated PlaceGroup place_groups = 4;
 }

@@ -108,11 +108,25 @@ struct PickPlaceStatesActions
       bActionSequence<boost::mpl::vector<AbortArmController, ArmRightFold,
                                          typename vsa::GoHomeTransitionAction>>;
   /**
+  * @brief Action sequence that folds to right angle and aborts arm controller
+  */
+  using AbortArmControllerRightFold =
+      bActionSequence<boost::mpl::vector<AbortArmController, ArmRightFold>>;
+
+  /**
   * @brief Action sequence to abort UAV controller and move arm to right
   * angle
   */
   using AbortUAVControllerArmRightFold = bActionSequence<
       boost::mpl::vector<typename usa::UAVControllerAbort, ArmRightFold>>;
+  /**
+  * @brief Action sequence to abort UAV and arm controllers and move arm to
+  * right
+  * angle
+  */
+  using AbortUAVArmControllerArmRightFold =
+      bActionSequence<boost::mpl::vector<typename usa::UAVControllerAbort,
+                                         AbortArmController, ArmRightFold>>;
   /**
   * @brief Action sequence to abort UAV controller and move arm to right
   * angle
@@ -138,7 +152,7 @@ struct PickPlaceStatesActions
                              LogicStateMachineT, 0>>>;
 
   /**
-  * @brief Action to take when starting placing object.
+  * @brief Action to take when starting placing object at either drop-off.
   */
   using PlaceVisualServoingTransitionAction = bActionSequence<
       boost::mpl::vector<typename vsa::ResetRelativePoseVisualServoing,
@@ -151,7 +165,7 @@ struct PickPlaceStatesActions
   * before beginning visual servoing
   */
   using PlaceVisualServoingTransitionGuard =
-      ExplicitIdVisualServoingGuardFunctor_<LogicStateMachineT, 15>;
+      EventIdVisualServoingGuardFunctor_<LogicStateMachineT>;
 
   /**
   * @brief Action to take when starting folding arm before takeoff
@@ -168,7 +182,13 @@ struct PickPlaceStatesActions
   * @brief State for following waypoints after picking object
   */
   using ReachingPostPickWaypoint =
-      FollowingWaypointSequence_<LogicStateMachineT, 0, 1>;
+      ReachingPostPickWaypoint_<LogicStateMachineT, 0, 0>;
+  /**
+  * @brief Base state for following waypoints after picking object.
+  *  Used for setting state config
+  */
+  using ReachingPostPickWaypointBase =
+      FollowingWaypointSequence_<LogicStateMachineT, 0, 0, ObjectId>;
 
   /**
    * @brief State to wait for picking

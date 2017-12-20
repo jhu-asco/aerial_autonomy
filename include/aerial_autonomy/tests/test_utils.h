@@ -70,6 +70,20 @@ void verifyFileData<std::string>(std::vector<std::vector<std::string>> log,
 }
 
 /**
+* @brief Assert that two tf vector3 are close to each other
+*
+* @param vec1 First vector
+* @param vec2 second vector
+* @param tol comparision tolerance
+*/
+void ASSERT_TF_VEC_NEAR(const tf::Vector3 vec1, const tf::Vector3 &vec2,
+                        double tol = 1e-8) {
+  ASSERT_NEAR(vec1.x(), vec2.x(), tol);
+  ASSERT_NEAR(vec1.y(), vec2.y(), tol);
+  ASSERT_NEAR(vec1.z(), vec2.z(), tol);
+}
+
+/**
  * @brief Assert that two tf::Transforms are close to each other
  * @param tf1 First transform
  * @param tf2 Second transform
@@ -77,9 +91,7 @@ void verifyFileData<std::string>(std::vector<std::vector<std::string>> log,
  */
 void ASSERT_TF_NEAR(const tf::Transform &tf1, const tf::Transform &tf2,
                     double tol = 1e-8) {
-  ASSERT_NEAR(tf1.getOrigin().x(), tf2.getOrigin().x(), tol);
-  ASSERT_NEAR(tf1.getOrigin().y(), tf2.getOrigin().y(), tol);
-  ASSERT_NEAR(tf1.getOrigin().z(), tf2.getOrigin().z(), tol);
+  ASSERT_TF_VEC_NEAR(tf1.getOrigin(), tf2.getOrigin(), tol);
   ASSERT_NEAR((tf1.getRotation().inverse() * tf2.getRotation()).getAngle(), 0.,
               tol);
 }

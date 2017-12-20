@@ -3,6 +3,7 @@
 
 #include <tf/tf.h>
 
+#include <chrono>
 #include <tuple>
 #include <unordered_map>
 
@@ -44,16 +45,6 @@ public:
    */
   virtual bool getTrackingVector(std::tuple<uint32_t, tf::Transform> &pos);
   /**
-  * @brief Get the tracking pose corresponding to specified id
-  * @param tracked_id id for which tracking vector is required
-  * @param pose the output tracking pose
-  * @return true if the id is found otherwise false
-  */
-  // \todo Matt Make this a specific tracking strategy
-  // Also implement VisionSystem with a way to set tracking strategies
-  // for trackers on the fly (like setGoal in RobotSystem)
-  virtual bool getTrackingVector(uint32_t tracked_id, tf::Transform &pose);
-  /**
    * @brief Get the tracking vectors
    * @param pos Returned map of tracking vectors
    * @return True if successful, false otherwise
@@ -65,6 +56,16 @@ public:
   * @return True if the tracking is valid, false otherwise
   */
   virtual bool trackingIsValid() = 0;
+
+  /**
+  * @brief Get the time stamp of the current tracking vectors
+  */
+  // \todo Matt Remove this function and add time stamps to information stored
+  // with tracking vector
+  virtual std::chrono::time_point<std::chrono::high_resolution_clock>
+  getTrackingTime() {
+    return std::chrono::high_resolution_clock::now();
+  }
 
 private:
   /**

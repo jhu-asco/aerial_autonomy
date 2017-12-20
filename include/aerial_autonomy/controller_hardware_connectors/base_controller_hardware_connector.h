@@ -115,7 +115,7 @@ public:
   *
   * @return return the type of hardware used by the controller
   */
-  HardwareType getHardwareType() { return hardware_type_; }
+  HardwareType getHardwareType() const { return hardware_type_; }
 
   /**
   * @brief Provide the status of the controller

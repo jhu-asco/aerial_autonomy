@@ -33,8 +33,9 @@ void VelocityBasedPositionController::setGoal(PositionYaw goal, bool reset) {
 bool VelocityBasedPositionController::runImplementation(
     PositionYaw sensor_data, PositionYaw goal, VelocityYawRate &control) {
   PositionYaw position_diff = goal - sensor_data;
-  PositionYaw p_position_diff(position_diff.position() *
-                                  config_.position_gain(),
+  PositionYaw p_position_diff(position_diff.x * config_.position_gain(),
+                              position_diff.y * config_.position_gain(),
+                              position_diff.z * config_.z_gain(),
                               position_diff.yaw * config_.yaw_gain());
 
   PositionYaw i_position_diff(position_diff.position() *

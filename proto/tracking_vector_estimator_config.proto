@@ -1,0 +1,21 @@
+syntax = "proto2";
+
+/**
+* Settings for  estimator estimating
+* the direction of ar marker
+*/
+message TrackingVectorEstimatorConfig {
+  /**
+  * @brief Standard deviation vector with default
+  * value as 1e-2
+  */
+  message StdVector3 {
+    optional double x = 1 [ default = 1e-2 ];
+    optional double y = 2 [ default = 1e-2 ];
+    optional double z = 3 [ default = 1e-2 ];
+  }
+  optional StdVector3 marker_process_stdev = 1;
+  optional StdVector3 marker_meas_stdev = 2;
+  optional StdVector3 marker_dilation_stdev = 3;
+  optional StdVector3 marker_initial_stdev = 4;
+}
