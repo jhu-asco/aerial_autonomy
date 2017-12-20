@@ -2,7 +2,7 @@ visual_servoing_state_machine_config {
   relative_pose_goals {
     position {
       x: 0
-      y: -.59
+      y: -.595
       z: 0.255
     }
     yaw: 1.5708
@@ -11,8 +11,8 @@ visual_servoing_state_machine_config {
   relative_pose_goals {
     position {
       x: 0
-      y: -.87
-      z: 0.05
+      y: -.867
+      z: 0.055
     }
     yaw: 1.5708
   }
@@ -26,13 +26,12 @@ visual_servoing_state_machine_config {
       destination_id: 15
       object_ids: 0
       object_ids: 1
+      object_ids: 16
     }
 
     place_groups {
       destination_id: 18
       object_ids: 2
-      object_ids: 3
-      object_ids: 16
       object_ids: 4
       object_ids: 7
     }
@@ -82,9 +81,9 @@ visual_servoing_state_machine_config {
       }
       way_points {
         position {
-          x: -1.5
+          x: -1.7
           y: 0.0
-          z: 0.1
+          z: 0.08
         }
         yaw: 0
       }
