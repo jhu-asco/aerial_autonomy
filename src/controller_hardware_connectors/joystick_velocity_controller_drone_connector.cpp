@@ -43,6 +43,10 @@ bool JoystickVelocityControllerDroneConnector::extractSensorData(
       LOG(WARNING) << "Sensor deviates from quad data. Aborting Controller";
       return false;
     }
+    DATA_LOG("velocity_sensor_measurements")
+        << velocity_sensor_data.x << velocity_sensor_data.y
+        << velocity_sensor_data.z << quad_data.linvel.x << quad_data.linvel.y
+        << quad_data.linvel.z << DataStream::endl;
     VelocityYawRate vel_data(velocity_sensor_data, quad_data.omega.z);
     sensor_data = std::make_tuple(joy_data, vel_data, quad_data.rpydata.z);
     thrust_gain_estimator_.addSensorData(
