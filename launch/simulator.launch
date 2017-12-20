@@ -14,4 +14,8 @@
     <env name="GLOG_v" value="$(arg log_level)"/>
     <env name="GLOG_alsologtostderr" value="1"/>
   </node>
+  <node pkg="joy" type="joy_node" name="rc_joy">
+    <remap from="/joy" to="/uav_system_node/uav/joy"/>
+  </node>
+  <include file="$(find quad_simulator_parser)/launch/camera_simulator.launch"/>
 </launch>

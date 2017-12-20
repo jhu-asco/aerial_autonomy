@@ -18,10 +18,12 @@ public:
   * @param Config for velocity sensor
   */
   VelocitySensor(VelocitySensorConfig config) : config_(config) {
+    VLOG(2) << "Initialzing ROS Sensor";
     odom_sub_ = nh_.subscribe("/velocity_sensor/odometry", 1,
                               &VelocitySensor::odomCallback, this);
     sensor_world_tf_ =
         conversions::protoTransformToTf(config_.sensor_transform());
+    last_msg_time_ = ros::Time::now();
   }
   /**
   * @brief gives sensor data

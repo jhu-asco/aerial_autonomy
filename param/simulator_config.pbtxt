@@ -91,8 +91,27 @@ uav_system_config {
       }
     }
   }
+  joystick_velocity_controller_drone_connector_config{
+    max_divergence: 1.0
+  }
   thrust_gain_estimator_config {
     kt: 0.18
     buffer_size: 10
   }
+  velocity_sensor_config{
+    sensor_transform{
+      position{
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      }
+      rotation{
+        r: 0.0
+        p: 0.0
+        y: 0.0
+      }
+    }
+    timeout: 500.0
+  }
+  sensor_type: "ROS Sensor"
 }
