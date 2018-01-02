@@ -46,14 +46,9 @@ public:
         visual_servoing_drone_connector_(*tracker_, *drone_hardware_,
                                          constant_heading_depth_controller_,
                                          camera_transform_),
-        tracking_vector_estimator_(
-            config_.uav_vision_system_config()
-                .tracking_vector_estimator_config(),
-            std::chrono::milliseconds(config_.uav_controller_timer_duration())),
         relative_pose_visual_servoing_drone_connector_(
             *tracker_, *drone_hardware_, rpyt_based_relative_pose_controller_,
-            thrust_gain_estimator_, tracking_vector_estimator_,
-            camera_transform_,
+            thrust_gain_estimator_, camera_transform_,
             conversions::protoTransformToTf(config_.uav_vision_system_config()
                                                 .tracking_offset_transform())) {
     controller_hardware_connector_container_.setObject(
@@ -187,10 +182,6 @@ private:
   * UAV
   */
   VisualServoingControllerDroneConnector visual_servoing_drone_connector_;
-  /**
-  * @brief Estimator for global marker direction and global velocity
-  */
-  TrackingVectorEstimator tracking_vector_estimator_;
   /**
   * @brief Connects relative pose controller ot tracker and UAV
   */
