@@ -423,6 +423,10 @@ template <class LogicStateMachineT>
 using PlaceState_ = BaseState<UAVArmSystem, LogicStateMachineT,
                               PlaceInternalActionFunctor_<LogicStateMachineT>>;
 
+/**
+* @brief State where robot waits for an object to appear before transitioning
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 struct WaitingForPick_
     : public TimedState<
@@ -432,6 +436,11 @@ struct WaitingForPick_
               ArmStatusInternalActionFunctor_<LogicStateMachineT>,
               WaitingForPickInternalActionFunctor_<LogicStateMachineT>>>> {};
 
+/**
+* @brief Internal action functor for picking.  Resets only
+* when the manipulator is not already gripping
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 struct PickControllerStatusCheck_
     : InternalActionFunctor<UAVArmSystem, LogicStateMachineT> {
