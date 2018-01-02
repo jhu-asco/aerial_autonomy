@@ -2,7 +2,7 @@ visual_servoing_state_machine_config {
   relative_pose_goals {
     position {
       x: 0
-      y: -.62
+      y: -.595
       z: 0.255
     }
     yaw: 1.5708
@@ -11,8 +11,8 @@ visual_servoing_state_machine_config {
   relative_pose_goals {
     position {
       x: 0
-      y: -.9
-      z: 0.08
+      y: -.867
+      z: 0.055
     }
     yaw: 1.5708
   }
@@ -20,6 +20,20 @@ visual_servoing_state_machine_config {
   pick_place_state_machine_config {
     grip_config {
       grip_timeout: 30000
+    }
+
+    place_groups {
+      destination_id: 15
+      object_ids: 0
+      object_ids: 1
+      object_ids: 16
+    }
+
+    place_groups {
+      destination_id: 18
+      object_ids: 2
+      object_ids: 4
+      object_ids: 7
     }
 
     arm_goal_transform {
@@ -67,9 +81,9 @@ visual_servoing_state_machine_config {
       }
       way_points {
         position {
-          x: -1.0
+          x: -1.7
           y: 0.0
-          z: 0.15
+          z: 0.08
         }
         yaw: 0
       }
