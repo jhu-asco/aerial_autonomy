@@ -1,0 +1,50 @@
+syntax = "proto2";
+/**
+* Configuration for higher level mpc controller
+*/
+message MPCHigherLevelControllerConfig {
+  /**
+  * End time
+  */
+  optional double te = 1 [default = 5.0];
+  /**
+  * Number of shooting steps
+  */
+  optional int32 numsteps = 2 [default = 50];
+  /**
+  * Weight for cost on x-snap
+  */
+  optional double qxx = 3 [default = 1.0];
+  /**
+  * Weight for cost on y-snap
+  */
+  optional double qyy = 4 [default = 1.0];
+  /**
+  * Weight for cost on z-snap
+  */
+  optional double qzz = 5 [default = 1.0];
+  /**
+  * Weight for cost on yaw-acceleration
+  */
+  optional double qgg = 6 [default = 1.0];
+  /**
+  * Max velocity
+  */
+  optional double max_vel = 7 [default = 1.0];
+  /**
+  * Max yaw
+  */
+  optional double max_yaw = 11 [default = 1.57];
+  /**
+  * Max yaw rate
+  */
+  optional double max_yaw_rate = 8 [default = 1.0];
+  /**
+  * Goal Position Tolerance
+  */
+  optional double goal_position_tolerance = 9 [default = 0.05];
+  /**
+  * Velocity Position Tolerance
+  */
+  optional double goal_velocity_tolerance = 10 [default = 0.05];
+}
