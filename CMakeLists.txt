@@ -45,6 +45,8 @@ set(QUAD_SIM_PARSER_LIBS ${QUAD_SIM_PARSER_LIBS} ${TINYXML_LIBRARIES})
 find_package(Eigen3 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
 
+find_package(ACADO REQUIRED)
+include_directories(${ACADO_INCLUDE_DIRS})
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
@@ -179,6 +181,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/rpyt_based_relative_pose_controller_config.proto
   proto/rpyt_based_position_controller_config.proto
   proto/joystick_velocity_controller_config.proto
+  proto/mpc_higher_level_controller_config.proto
   proto/position.proto
   proto/rotation.proto
   proto/position_yaw.proto
@@ -243,6 +246,7 @@ add_library(aerial_autonomy
   src/controllers/rpyt_based_position_controller.cpp
   src/controllers/rpyt_based_relative_pose_controller.cpp
   src/controllers/joystick_velocity_controller.cpp
+  src/controllers/mpc_higher_level_controller.cpp
   src/estimators/thrust_gain_estimator.cpp
   src/estimators/tracking_vector_estimator.cpp
   src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp
@@ -259,7 +263,7 @@ add_library(aerial_autonomy
   src/controller_hardware_connectors/joystick_velocity_controller_drone_connector.cpp
 )
 add_dependencies(aerial_autonomy proto)
-target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES} ${ACADO_SHARED_LIBRARIES})
 
 
 ## Add cmake target dependencies of the library
@@ -376,6 +380,7 @@ catkin_add_gtest(${PROJECT_NAME}-rpyt-based-relative-pose-controller-test tests/
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-velocity-controller-test tests/controllers/rpyt_based_velocity_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-position-controller-test tests/controllers/rpyt_based_position_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-constant-heading-depth-controller-test tests/controllers/constant_heading_depth_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-mpc-higher-level-controller-test tests/controllers/mpc_higher_level_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-math-test tests/common/math_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-tracker-test tests/trackers/simple_tracker_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-multi-tracker-test tests/trackers/simple_multi_tracker_tests.cpp)
@@ -514,6 +519,9 @@ if(TARGET ${PROJECT_NAME}-rpyt-based-velocity-controller-test)
 endif()
 if(TARGET ${PROJECT_NAME}-constant-heading-depth-controller-test)
   target_link_libraries(${PROJECT_NAME}-constant-heading-depth-controller-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-mpc-higher-level-controller-test)
+  target_link_libraries(${PROJECT_NAME}-mpc-higher-level-controller-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test)
   target_link_libraries(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
