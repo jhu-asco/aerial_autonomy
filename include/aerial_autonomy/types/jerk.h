@@ -16,13 +16,14 @@ struct Jerk {
   double x; ///< x component in m
   double y; ///< y component in m
   double z; ///< z component in m
-            /**
-             * @brief Check if two jerk vectors are the same
-             *
-             * @param j The vector against which the current vector is compared.
-             *
-             * @return True if vectors are equal
-             */
+
+  /**
+   * @brief Check if two jerk vectors are the same
+   *
+   * @param j The vector against which the current vector is compared.
+   *
+   * @return True if vectors are equal
+   */
   bool operator==(const Jerk &j) const {
     return (x == j.x && y == j.y && z == j.z);
   }

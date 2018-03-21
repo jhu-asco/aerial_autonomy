@@ -15,6 +15,6 @@ struct QuadFlatSpaceControls {
   */
   QuadFlatSpaceControls(Snap snap, double yaw_acceleration)
       : s(snap), ga2(yaw_acceleration) {}
-  Snap s;     // snap
-  double ga2; // yaw acceleration
+  Snap s;     ///< snap
+  double ga2; ///< yaw acceleration
 };

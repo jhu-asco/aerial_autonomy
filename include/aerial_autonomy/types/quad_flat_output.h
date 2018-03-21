@@ -24,8 +24,8 @@ struct QuadFlatOutput {
                  Acceleration acceleration, Jerk jerk)
       : p(position_yaw), v(velocity_yaw_rate), a(acceleration), j(jerk) {}
 
-  PositionYaw p;
-  VelocityYawRate v;
-  Acceleration a;
-  Jerk j;
+  PositionYaw p;     ///< position
+  VelocityYawRate v; ///< velocity
+  Acceleration a;    ///< Acceleration
+  Jerk j;            ///< Jerk
 };

@@ -8,7 +8,7 @@
 
 struct Obstacle {
   /**
-  * @brief
+  * @brief Explicit Constructor
   */
   Obstacle(double cx, double cy, double cz, double radius)
       : x(cx), y(cy), z(cz), r(radius) {}
@@ -17,8 +17,8 @@ struct Obstacle {
   */
   Obstacle(Position center, double radius)
       : x(center.x), y(center.y), z(center.z), r(radius) {}
-  double x; // X co-ordinate of center
-  double y; // Y co-ordinate of center
-  double z; // Z co-ordinate of center
-  double r; // radius
+  double x; ///< X co-ordinate of center
+  double y; ///< Y co-ordinate of center
+  double z; ///< Z co-ordinate of center
+  double r; ///< radius
 };

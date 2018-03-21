@@ -79,30 +79,21 @@ protected:
       std::tuple<PositionYaw, std::vector<Obstacle>> sensor_data,
       Position goal);
 
-private:
-  /**
-  * Controller config
-  */
-  MPCHigherLevelControllerConfig config_;
-  /**
-  * States are quad position and upto 3rd derivative,
-  * yaw and yaw rate
-  */
-  ACADO::DifferentialState x0, y0, z0, x1, y1, z1, x2, y2, z2, x3, y3, z3, ga0,
-      ga1;
-  /**
-  * Controls are snap and angular acceleration around world z-axis
-  */
-  ACADO::Control x4, y4, z4, ga2;
-  /**
-  * Dynamics
-  */
-  ACADO::Grid time_grid_; // time grid
-  ACADO::DMatrix Q_;
-  ACADO::OCP ocp_; // Optimal Control Problem
+  MPCHigherLevelControllerConfig config_; ///< Controller config
+  ACADO::DifferentialState x0, y0, z0;    ///< Position
+  ACADO::DifferentialState x1, y1, z1;    ///< Velocity
+  ACADO::DifferentialState x2, y2, z2;    ///< Acceleration
+  ACADO::DifferentialState x3, y3, z3;    ///< Jerk
+  ACADO::DifferentialState ga0, ga1;      ///< Yaw and Yaw-rate
+  ACADO::Control x4, y4, z4;              ///< Snap
+  ACADO::Control ga2;                     ///< yaw acceleration
+  ACADO::Grid time_grid_;                 ///< time grid
+  ACADO::DMatrix Q_;                      ///< Cost Weight Matrix
+  ACADO::OCP ocp_;                        ///< Optimal Control Problem
   std::unique_ptr<ACADO::OptimizationAlgorithm>
-      algorithm_;                                     // Optimzation algorithm
-  ACADO::VariablesGrid states_;                       // state trajectory
-  ACADO::VariablesGrid controls_;                     // state controls
-  std::tuple<Position, VelocityYawRate> final_state_; // end state of trajectory
+      algorithm_;                 ///< Optimzation algorithm
+  ACADO::VariablesGrid states_;   ///< state trajectory
+  ACADO::VariablesGrid controls_; ///< state controls
+  std::tuple<Position, VelocityYawRate>
+      final_state_; ///< end state of trajectory
 };

@@ -15,13 +15,14 @@ struct Snap {
   double x; ///< x component in m
   double y; ///< y component in m
   double z; ///< z component in m
-            /**
-             * @brief Check if two vectors are the same
-             *
-             * @param s The vector against which the current vector is compared.
-             *
-             * @return True if vectors are equal
-             */
+
+  /**
+   * @brief Check if two vectors are the same
+   *
+   * @param s The vector against which the current vector is compared.
+   *
+   * @return True if vectors are equal
+   */
   bool operator==(const Snap &s) const {
     return (x == s.x && y == s.y && z == s.z);
   }

@@ -15,12 +15,13 @@ template <class T> struct Trajectory {
   */
   Trajectory(double timestep, double start_time = 0.0)
       : dt(timestep), ts(start_time) {}
-  std::vector<T> trajectory; // array of states
-  double dt;                 // timestep
-  double ts;                 // start time
-                             /**
-                             * @brief returns horizon length in terms of time
-                             */
+  std::vector<T> trajectory; ///< array of states
+  double dt;                 ///< timestep
+  double ts;                 ///< start time
+
+  /**
+   * @brief returns horizon length in terms of time
+   */
   double horizon() { return (ts + double(trajectory.size()) * dt); }
   /**
   * @brief set Value at given time
