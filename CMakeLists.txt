@@ -277,6 +277,7 @@ target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${GLOG_LIBRARIES
 # add_dependencies(aerial_autonomy ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
+add_executable(joystick_uav_node src/system_handler_nodes/joystick_uav_node.cpp)
 add_executable(uav_system_node src/system_handler_nodes/uav_system_node.cpp)
 add_executable(uav_vision_system_node src/system_handler_nodes/uav_vision_system_node.cpp)
 add_executable(uav_arm_system_node src/system_handler_nodes/uav_arm_system_node.cpp)
@@ -289,6 +290,7 @@ add_dependencies(event_publish_node ${PROJECT_NAME}_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
 
+target_link_libraries(joystick_uav_node aerial_autonomy)
 target_link_libraries(uav_system_node aerial_autonomy)
 target_link_libraries(uav_vision_system_node aerial_autonomy)
 target_link_libraries(uav_arm_system_node aerial_autonomy)
