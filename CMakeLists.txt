@@ -235,6 +235,7 @@ add_library(aerial_autonomy
   src/common/system_handler_node_utils.cpp
   src/log/data_stream.cpp
   src/log/log.cpp
+  src/log/mocap_logger.cpp
   src/trackers/roi_to_position_converter.cpp
   src/trackers/simple_tracker.cpp
   src/trackers/alvar_tracker.cpp
