@@ -25,6 +25,12 @@ struct PickPlaceStatesActions
    */
   template <class Sequence>
   using bActionSequence = boost::msm::front::ActionSequence_<Sequence>;
+  /**
+   * @brief Logical and functor between two guard functions
+   *
+   * @tparam G1 First guard functor
+   * @tparam G2 Second guard functor
+   */
   template <class G1, class G2>
   using bAnd = boost::msm::front::euml::And_<G1, G2>;
 
@@ -98,6 +104,10 @@ struct PickPlaceStatesActions
   using UngripGoHome =
       bActionSequence<boost::mpl::vector<ArmGripAction<false>,
                                          typename vsa::GoHomeTransitionAction>>;
+  /**
+   * @brief Action sequence to ungrip object and go to home location and
+   * fold the arm to rightangle
+   */
   using RightArmUngripGoHome =
       bActionSequence<boost::mpl::vector<UngripGoHome, ArmRightFold>>;
 

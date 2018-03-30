@@ -34,6 +34,9 @@ public:
    */
   virtual ~VelocityBasedRelativePoseController() {}
 
+  /**
+   * @brief Reset the internal position controller integrator
+   */
   void resetIntegrator() { position_controller_.resetIntegrator(); }
 
   /**
@@ -86,5 +89,9 @@ private:
   * @brief Config specifies position tolerance
   */
   VelocityBasedRelativePoseControllerConfig config_;
+  /**
+   * @brief Internal velocity based position controller to get to the relative
+   * pose
+   */
   VelocityBasedPositionController position_controller_;
 };

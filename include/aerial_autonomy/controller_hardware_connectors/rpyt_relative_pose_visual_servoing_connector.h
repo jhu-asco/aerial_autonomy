@@ -110,6 +110,13 @@ private:
   using BaseClass = ControllerHardwareConnector<
       std::tuple<tf::Transform, tf::Transform, VelocityYawRate>, PositionYaw,
       RollPitchYawRateThrust>;
+  /**
+   * @brief Estimator for finding the gain between joystick thrust command and
+   * the acceleration in body z direction
+   */
   ThrustGainEstimator &thrust_gain_estimator_;
+  /**
+   * @brief Internal reference to controller that is connected by this class
+   */
   RPYTBasedRelativePoseController &private_reference_controller_;
 };

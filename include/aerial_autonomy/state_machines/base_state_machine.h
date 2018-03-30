@@ -49,6 +49,10 @@ public:
   */
   RobotSystemContainer<RobotSystemT> robot_system_container_;
 
+  /**
+   * @brief config that store statemachine related configs. Also contains
+   * other statemachine configs embedded inside
+   */
   const BaseStateMachineConfig &base_state_machine_config_;
 
   /**

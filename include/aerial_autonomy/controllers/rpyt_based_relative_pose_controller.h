@@ -40,6 +40,10 @@ public:
    */
   virtual ~RPYTBasedRelativePoseController() {}
 
+  /**
+   * @brief Reset the integrator and cumulative error for
+   * velocity based pose conroller, rpyt based velocity conroller
+   */
   void resetIntegrator() {
     velocity_based_relative_pose_controller_.resetIntegrator();
     rpyt_based_velocity_controller_.resetCumulativeError();
@@ -94,6 +98,12 @@ private:
    * @brief Config that stores velocity based relative pose controller config
    */
   RPYTBasedRelativePoseControllerConfig config_;
+  /**
+   * @brief Controller achieves a relative pose by commanding velocities
+   */
   VelocityBasedRelativePoseController velocity_based_relative_pose_controller_;
+  /**
+   * @brief Controller that achieves a velocity by specifying desired rpyt
+   */
   RPYTBasedVelocityController rpyt_based_velocity_controller_;
 };

@@ -18,13 +18,43 @@
 class TrackingVectorEstimator {
 
 private:
+  /**
+   * @brief Stdeviation vector with default value as 1e-2
+   */
   using StdVector3 = TrackingVectorEstimatorConfig_StdVector3;
+  /**
+   * @brief Config to specify marker stdev
+   */
   TrackingVectorEstimatorConfig config_;
+  /**
+   * @brief filter to find marker direction
+   */
   cv::KalmanFilter filter_;
+  /**
+   * @brief small value to ensure stdeviation is greater than 0
+   */
   const double zero_tolerance_;
+  /**
+   * @brief Flag to check if the state of KF is initialized or not
+   */
   bool initial_state_initialized_;
+  /**
+   * @brief Stdeviation of marker vector measurements
+   */
   tf::Vector3 marker_meas_stdev_;
+  /**
+   * @brief Stdeviation of marker measurements are increased the
+   * older the measurements are. This is necessary since the
+   * marker measurements are not removed after consuming them once.
+   */
   tf::Vector3 marker_dilation_stdev_;
+  /**
+   * @brief Create a opencv matrix given a diagonal vector
+   *
+   * @tparam T The type of vector
+   * @param matrix matrix to create
+   * @param marker_stdev_vector diagonal vector of the matrix
+   */
   template <class T>
   void setCovarianceMatrix(cv::Mat &matrix, T marker_stdev_vector) {
     matrix = cv::Mat_<double>::zeros(3, 3);
@@ -36,6 +66,11 @@ private:
         (marker_stdev_vector.z() * marker_stdev_vector.z());
   }
 
+  /**
+   * @brief Check if the elements of vector are greater than zero tolerance
+   *
+   * @param vec input vector
+   */
   void checkStdVector(StdVector3 vec) {
     CHECK_GT(vec.x(), zero_tolerance_)
         << "Stdev vector should be greater than zero tolerance";

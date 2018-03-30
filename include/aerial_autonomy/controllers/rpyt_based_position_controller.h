@@ -17,6 +17,18 @@ class RPYTBasedPositionController
     : public Controller<std::tuple<VelocityYawRate, PositionYaw>, PositionYaw,
                         RollPitchYawRateThrust> {
 public:
+  /**
+   * @brief Constructor
+   *
+   * Instantiates a rpyt based velocity controller and a
+   * velocity based position controller.
+   *
+   * @param config A config containing position based vel controller and
+   * velocity
+   *               based position controller
+   * @param controller_timer_duration The time difference between calls for
+   * internal controllers
+   */
   RPYTBasedPositionController(
       RPYTBasedPositionControllerConfig config,
       std::chrono::duration<double> controller_timer_duration)
@@ -62,6 +74,13 @@ protected:
       std::tuple<VelocityYawRate, PositionYaw> sensor_data, PositionYaw goal);
 
 private:
+  /**
+   * @brief Controller that specifies rpyt commands to achieve a desired
+   * velocity
+   */
   RPYTBasedVelocityController rpyt_velocity_controller_;
+  /**
+   * @brief Controller that specifies desired velocity to achieve a position
+   */
   VelocityBasedPositionController position_controller_;
 };
