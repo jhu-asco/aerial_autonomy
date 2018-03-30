@@ -45,6 +45,8 @@ set(QUAD_SIM_PARSER_LIBS ${QUAD_SIM_PARSER_LIBS} ${TINYXML_LIBRARIES})
 find_package(Eigen3 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
 
+find_package(ACADO REQUIRED)
+include_directories(${ACADO_INCLUDE_DIRS})
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
@@ -196,6 +198,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/place_group.proto
   proto/thrust_gain_estimator_config.proto
   proto/tracking_vector_estimator_config.proto
+  proto/acado_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -224,6 +227,7 @@ add_library(aerial_autonomy
   src/common/controller_status.cpp
   src/common/string_utils.cpp
   src/common/system_handler_node_utils.cpp
+  src/common/acado_higher_level_controller.cpp
   src/log/data_stream.cpp
   src/log/log.cpp
   src/trackers/roi_to_position_converter.cpp
@@ -259,7 +263,7 @@ add_library(aerial_autonomy
   src/controller_hardware_connectors/joystick_velocity_controller_drone_connector.cpp
 )
 add_dependencies(aerial_autonomy proto)
-target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES} ${ACADO_SHARED_LIBRARIES})
 
 
 ## Add cmake target dependencies of the library
@@ -392,6 +396,7 @@ catkin_add_gtest(${PROJECT_NAME}-log-test tests/log/log_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-string-utils-test tests/common/string_utils_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-conversions-test tests/common/conversions_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-proto-utils-test tests/common/proto_utils_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-acado-higher-level-controller-tests tests/common/acado_higher_level_controller_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
@@ -559,6 +564,9 @@ if(TARGET ${PROJECT_NAME}-proto-utils-test)
 endif()
 if(TARGET ${PROJECT_NAME}-conversions-test)
   target_link_libraries(${PROJECT_NAME}-conversions-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-acado-higher-level-controller-tests)
+  target_link_libraries(${PROJECT_NAME}-acado-higher-level-controller-tests aerial_autonomy)
 endif()
 
 

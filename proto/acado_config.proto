@@ -1,0 +1,44 @@
+syntax = "proto2";
+
+message AcadoConfig {
+  /**
+  * @brief Time horizon of the resulting trajectory
+  */
+  optional double time_horizon = 1 [default = 5.0];
+  /**
+  * Number of shooting steps
+  */
+  optional int32 num_steps = 2 [default = 50];
+  /**
+  * Weight of x-snap in cost
+  */
+  optional double qxx = 3 [default = 1.0];
+  /**
+  * Weight of y-snap in cost
+  */
+  optional double qyy = 4 [default = 1.0];
+  /**
+  * Weight of z-snap in cost
+  */
+  optional double qzz = 5 [default = 1.0];
+  /**
+  * Weight of yaw-acceleration in cost
+  */
+  optional double qgg = 6 [default = 1.0];
+  /**
+  * Max allowed velocity
+  */
+  optional double max_vel = 7 [default = 1.0];
+  /**
+  * Max allowed yaw
+  */
+  optional double max_yaw = 8 [default = 1.0];
+  /**
+  * Max allowed yaw rate
+  */
+  optional double max_yaw_rate = 9 [default = 1.0];
+  /**
+  * Radius of sphere enveloping the quad
+  */
+  optional double quad_radius = 10 [default = 0.6];
+}
