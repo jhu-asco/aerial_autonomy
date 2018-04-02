@@ -76,6 +76,10 @@ public:
   }
 
 protected:
+  /**
+   * @brief Internal nodehandle to ensure the ros topics are namespaced under
+   * common
+   */
   ros::NodeHandle nh_;
   LogicStateMachineT
       logic_state_machine_;     ///< State machine that gets run by the system

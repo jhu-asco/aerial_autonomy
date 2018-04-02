@@ -32,22 +32,21 @@ public:
       : boost::mpl::vector<
             msmf::Internal<InternalTransitionEvent, ActionFctr, msmf::none>> {};
 
-  template <class FSM> RobotSystemT &getRobotSystem(FSM &logic_state_machine) {
-    static_assert(
-        std::is_convertible<decltype(
-                                logic_state_machine.robot_system_container_()),
-                            RobotSystemT &>::value,
-        "Robot system in logic state machine is not the same as one used in "
-        "action functor");
-    static_assert(
-        std::is_base_of<FSM, LogicStateMachineT>::value,
-        "Template Logic state machine arg is not subclass of provided FSM");
-    return logic_state_machine.robot_system_container_();
-  }
-  template <class Event, class FSM>
-  void on_entry(Event const &, FSM &logic_state_machine) {
+  /**
+   * @brief Log function to show that the state machine entered a specific state
+   *
+   * @tparam Event The event triggering the entry
+   * @tparam FSM The statemachine associated with the state
+   */
+  template <class Event, class FSM> void on_entry(Event const &, FSM &) {
     VLOG(2) << "Entering: " << typeid(*this).name();
   }
+  /**
+   * @brief Log function to show that the state machine exited a specific state
+   *
+   * @tparam Event The event triggering the exit
+   * @tparam FSM The statemachine associated with the state
+   */
   template <class Event, class FSM>
   void on_exit(Event const &, FSM &logic_state_machine) {
     VLOG(2) << "Exiting: " << typeid(*this).name();

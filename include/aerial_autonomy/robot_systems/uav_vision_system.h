@@ -18,6 +18,9 @@
 */
 class UAVVisionSystem : public UAVSystem {
 protected:
+  /**
+   * @brief typedef for abstract base tracker
+   */
   using BaseTrackerPtr = std::shared_ptr<BaseTracker>;
 
 public:
@@ -91,6 +94,12 @@ public:
     tracker_->setTrackingStrategy(std::move(tracking_strategy));
   }
 
+  /**
+   * @brief Initialize the internal tracker.
+   * Usually called before tracking begins.
+   *
+   * @return True if initialization succeeded
+   */
   bool initializeTracker() { return tracker_->initialize(); }
 
   std::string getSystemStatus() const {
@@ -127,6 +136,9 @@ public:
     return status.str();
   }
 
+  /**
+   * @brief reset the integrator of internal relative pose controller
+   */
   void resetRelativePoseController() {
     rpyt_based_relative_pose_controller_.resetIntegrator();
   }

@@ -126,6 +126,12 @@ public:
     config_map_.insert<psa::PickState>(pick_state_machine_config.grip_config());
   }
 
+  /**
+   * @brief Alternative constructor with default state machine config
+   *
+   * @param uav_system robot system that is stored internally and shared with
+   * events
+   */
   PickPlaceStateMachineFrontEnd(UAVArmSystem &uav_system)
       : PickPlaceStateMachineFrontEnd(uav_system, BaseStateMachineConfig()){};
 

@@ -66,6 +66,11 @@ struct PositionControlTransitionGuardFunctor_
   }
 };
 
+/**
+ * @brief Check the velocity along xyz axes are above 0.05 m/s
+ *
+ * @tparam LogicStateMachineT Logic state machine used to process events
+ */
 template <class LogicStateMachineT>
 struct ZeroVelocityGuardFunctor_
     : EventAgnosticGuardFunctor<UAVSystem, LogicStateMachineT> {

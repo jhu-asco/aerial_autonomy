@@ -12,8 +12,21 @@
 
 #include "aerial_autonomy/types/position_yaw.h"
 
+/**
+ * @brief Namespace for helperfunctions that reduce code duplication
+ * during testing
+ */
 namespace test_utils {
 
+/**
+ * @brief Check if data provided is the same the one stored in the
+ * file
+ *
+ * @tparam T The type of element stored by the log
+ * @param log vector data specifying the data to be stored
+ * @param path The file path where data is compared to
+ * @param delimiter the delimiter used in the file
+ */
 template <typename T>
 void verifyFileData(std::vector<std::vector<T>> log,
                     boost::filesystem::path path, std::string delimiter) {
@@ -40,6 +53,13 @@ void verifyFileData(std::vector<std::vector<T>> log,
   ASSERT_FALSE(std::getline(data_file, data_point));
 }
 
+/**
+ * @brief Specialized version of verifyFileData for string data being stored
+ *
+ * @param log vector data specifying the data to be stored
+ * @param path The file path where data is compared to
+ * @param delimiter the delimiter used in the file
+ */
 template <>
 void verifyFileData<std::string>(std::vector<std::vector<std::string>> log,
                                  boost::filesystem::path path,
@@ -193,7 +213,7 @@ struct BaseTestPubSubs {
   bool isStatusConnected() { return status_subscriber_.getNumPublishers() > 0; }
 
 protected:
-  std::string status_;
+  std::string status_;                ///< string status received from UAV
   ros::NodeHandle nh_send_;           ///< Send events
   ros::NodeHandle nh_receive_status_; ///< Receive status
   ros::Publisher event_pub_;          ///< Event publisher

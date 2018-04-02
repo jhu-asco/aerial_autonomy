@@ -28,6 +28,10 @@
 */
 class ArmSystem : public virtual BaseRobotSystem {
 protected:
+  /**
+   * @brief Typedef for arm parser that provides a generic interface
+   * to different arm hardware
+   */
   using ArmParserPtr = std::shared_ptr<ArmParser>;
 
 public:
