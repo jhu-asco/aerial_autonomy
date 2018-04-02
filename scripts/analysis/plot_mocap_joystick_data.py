@@ -12,7 +12,7 @@ def quat2RPY(qx, qy, qz, qw):
     rpy_out = np.empty((N, 3))
     for i in range(N):
         rpy_out[i] = tf.euler_from_quaternion(
-            np.array([qx, qy, qz, qw]), 'rzyx')
+            np.array([qx[i], qy[i], qz[i], qw[i]]), 'rzyx')
     return rpy_out
 
 
