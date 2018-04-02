@@ -1,0 +1,51 @@
+#!/usr/bin/env python2
+import numpy as np
+import matplotlib.pyplot as plt
+import argparse
+import sys
+import os
+import tf.transformations as tf
+
+
+def quat2RPY(qx, qy, qz, qw):
+    N = len(qx)
+    rpy_out = np.empty((N, 3))
+    for i in range(N):
+        rpy_out[i] = tf.euler_from_quaternion(
+            np.array([qx, qy, qz, qw]), 'rzyx')
+    return rpy_out
+
+
+parser = argparse.ArgumentParser(
+    prog='plot_quad_data')
+parser.add_argument('directory', type=str, help='Data directory')
+args = parser.parse_args()
+mocap_data = np.genfromtxt(os.path.join(args.directory, 'mocap_logger'),
+                           delimiter=',', names=True)
+mocap_rpy = quat2RPY(mocap_data['Qx'], mocap_data['Qy'], mocap_data['Qz'],
+                     mocap_data['Qw'])
+mocap_ts = (mocap_data['Time'] - mocap_data['Time'][0]) / 1e9
+rpyt_data = np.genfromtxt(os.path.join(args.directory,
+                                       'manual_rpyt_controller'),
+                          delimiter=',', names=True)
+rpyt_ts = (rpyt_data['Time'] - rpyt_data['Time'][0]) / 1e9
+labels = ['X', 'Y', 'Z']
+plt.figure(1)
+for i, label in enumerate(labels):
+    plt.subplot(3, 2, i + 1)
+    plt.plot(mocap_ts, mocap_data[label])
+    plt.ylabel(label)
+rpy_labels = ['Roll', 'Pitch', 'Yaw']
+for i, label in enumerate(rpy_labels):
+    plt.subplot(3, 2, i + 4)
+    plt.plot(mocap_ts, mocap_rpy[:, i])
+    plt.plot(rpyt_ts, rpyt_data[rpy_labels[i] + '_cmd'])
+    plt.legend(['Measured', 'Commanded'])
+    plt.ylabel(label)
+    plt.xlabel('Time(seconds)')
+
+plt.figure(2)
+plt.plot(rpyt_ts, rpyt_data['Thrust_cmd'])
+plt.ylabel('Thrust cmd')
+plt.xlabel('Time(seconds)')
+plt.show()
