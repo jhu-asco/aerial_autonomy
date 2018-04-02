@@ -121,7 +121,7 @@ using ManualControlState_ =
               ManualControlInternalActionFunctor_<LogicStateMachineT>>;
 
 /**
-* @brief State that uses velocity control functor to track commanded velocity
+* @brief State that commands rpyt messages based on joystick
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
