@@ -247,9 +247,10 @@ public:
     table_writer.addCell(data.rpydata.y * (180 / M_PI), "Pitch");
     table_writer.addCell(data.rpydata.z * (180 / M_PI), "Yaw");
     table_writer.beginRow();
-    table_writer.addCell(data.magdata.x, "Mag x");
-    table_writer.addCell(data.magdata.y, "Mag y");
-    table_writer.addCell(data.magdata.z, "Mag z");
+    table_writer.addCell(data.servo_in[0], "RC");
+    table_writer.addCell(data.servo_in[1]);
+    table_writer.addCell(data.servo_in[2]);
+    table_writer.addCell(data.servo_in[3]);
     table_writer.beginRow();
     table_writer.addCell(data.linacc.x, "Acc x");
     table_writer.addCell(data.linacc.y, "Acc y");

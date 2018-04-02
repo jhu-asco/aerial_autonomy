@@ -1,5 +1,10 @@
 #include "aerial_autonomy/controllers/manual_rpyt_controller.h"
 #include "aerial_autonomy/common/math.h"
+#include "aerial_autonomy/log/log.h"
+
+ManualRPYTController::ManualRPYTController() {
+  DATA_HEADER("manual_rpyt_controller")<< "Roll_cmd" << "Pitch_cmd" << "Yaw_cmd" << "Thrust_cmd" << DataStream::endl;
+}
 
 bool ManualRPYTController::runImplementation(Joystick sensor_data,
                                              EmptyGoal goal,
@@ -12,6 +17,8 @@ bool ManualRPYTController::runImplementation(Joystick sensor_data,
   control.t = math::map(sensor_data.channel3, -10000, 10000, 10, 100);
 
   control.y = math::map(sensor_data.channel4, -10000, 10000, -M_PI, M_PI);
+
+  DATA_LOG("manual_rpyt_controller") << control.r << control.p << control.y << control.t << DataStream::endl;
 
   return true;
 }
