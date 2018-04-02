@@ -50,8 +50,8 @@ public:
   RobotSystemContainer<RobotSystemT> robot_system_container_;
 
   /**
-   * @brief config that store statemachine related configs. Also contains
-   * other statemachine configs embedded inside
+   * @brief config that store state machine related configs. Also contains
+   * other state machine configs embedded inside
    */
   const BaseStateMachineConfig &base_state_machine_config_;
 
@@ -69,8 +69,8 @@ public:
    * read only
    *
    * @param robot_system  Provides robot system to actions, guards
-   * @param base_state_machine_config Config for statemachine. Other
-   * statemachines will add their config as subclass inside proto.
+   * @param base_state_machine_config Config for state machine. Other
+   * state machines will add their config as subclass inside proto.
    */
   BaseStateMachine(RobotSystemT &robot_system,
                    const BaseStateMachineConfig &base_state_machine_config)

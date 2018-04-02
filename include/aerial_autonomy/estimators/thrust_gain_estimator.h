@@ -137,8 +137,7 @@ private:
   double mixing_gain_;
   /**
    * @brief Assuming quad command is at 50 Hz, the buffer size is delay between
-   * when
-   * command is sent and sensor measurements are received
+   * when command is sent and sensor measurements are received
    */
   unsigned int delay_buffer_size_;
   /**
@@ -146,7 +145,7 @@ private:
    */
   const double gravity_magnitude_;
   /**
-   * @brief Clip the minimum thrust command
+   * @brief Minimum thrust command allowed
    */
   const double thrust_command_tolerance_;
   /**

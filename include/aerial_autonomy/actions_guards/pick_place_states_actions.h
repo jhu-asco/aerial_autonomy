@@ -106,7 +106,7 @@ struct PickPlaceStatesActions
                                          typename vsa::GoHomeTransitionAction>>;
   /**
    * @brief Action sequence to ungrip object and go to home location and
-   * fold the arm to rightangle
+   * fold the arm to right angle
    */
   using RightArmUngripGoHome =
       bActionSequence<boost::mpl::vector<UngripGoHome, ArmRightFold>>;

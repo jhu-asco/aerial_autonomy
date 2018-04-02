@@ -24,8 +24,7 @@ public:
    * velocity based position controller.
    *
    * @param config A config containing position based vel controller and
-   * velocity
-   *               based position controller
+   * velocity based position controller
    * @param controller_timer_duration The time difference between calls for
    * internal controllers
    */

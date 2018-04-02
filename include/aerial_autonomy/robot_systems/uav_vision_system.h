@@ -95,8 +95,8 @@ public:
   }
 
   /**
-   * @brief Initialize the internal tracker usually called before tracking
-   * begins
+   * @brief Initialize the internal tracker.
+   * Usually called before tracking begins.
    *
    * @return True if initialization succeeded
    */
