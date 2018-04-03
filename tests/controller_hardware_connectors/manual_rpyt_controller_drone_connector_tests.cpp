@@ -24,7 +24,7 @@ TEST(ManualRPYTControllerTests, TestMapInputOutOfBounds) {
 
 TEST(ManualRPYTControllerTests, TestYawGreaterThanPi) {
   ManualRPYTController manual_rpyt_controller;
-  Joystick input(0, 0, 0, 15000);
+  Joystick input(0, 0, 0, -15000);
   RollPitchYawRateThrust out_controls;
   manual_rpyt_controller.run(input, out_controls);
   ASSERT_NEAR(out_controls.y, M_PI, 1e-8);
@@ -32,7 +32,7 @@ TEST(ManualRPYTControllerTests, TestYawGreaterThanPi) {
 
 TEST(ManualRPYTControllerTests, TestYawLessThanNegativePi) {
   ManualRPYTController manual_rpyt_controller;
-  Joystick input(0, 0, 0, -15000);
+  Joystick input(0, 0, 0, 15000);
   RollPitchYawRateThrust out_controls;
   manual_rpyt_controller.run(input, out_controls);
   ASSERT_NEAR(out_controls.y, -M_PI, 1e-8);
@@ -78,7 +78,7 @@ TEST(ManualRPYTControllerDroneConnectorTests, Run) {
   ASSERT_NEAR(sensor_data.rpydata.x, 0.00523599, 1e-4);
   ASSERT_NEAR(sensor_data.rpydata.y, 0.00261799, 1e-4);
   // Verify Omegaz
-  ASSERT_NEAR(sensor_data.omega.z, M_PI / 100.0, 1e-3);
+  ASSERT_NEAR(sensor_data.omega.z, -M_PI / 100.0, 1e-3);
 }
 
 TEST(ManualRPYTControllerDroneConnectorTests, RunConstantAcceleration) {
