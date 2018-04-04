@@ -42,6 +42,10 @@ TEST(AcadoHigherLevelControllerTests, Solve) {
   bool result = mpc_controller.solve(sensor_data, goal, state_traj);
 
   ASSERT_TRUE(result);
+
+  bool check = mpc_controller.checkTrajectoryFeasibility(state_traj,
+                                                         obstacle_list, goal);
+  ASSERT_TRUE(check);
 }
 
 int main(int argc, char **argv) {

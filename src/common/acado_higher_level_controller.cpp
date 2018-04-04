@@ -44,10 +44,48 @@ AcadoHigherLevelController::AcadoHigherLevelController(AcadoConfig config)
   ocp_.subjectTo(-config_.max_yaw_rate() <= ga1 <= config_.max_yaw_rate());
 }
 
+bool AcadoHigherLevelController::checkTrajectoryFeasibility(
+    const Trajectory<QuadFlatOutput> &trajectory,
+    const std::vector<Obstacle> &obstacle_list, QuadFlatOutput goal) {
+  double qr = config_.quad_radius();
+  for (int t = 0; t < int(trajectory.trajectory.size()); t++) {
+    double x = trajectory.trajectory[t].p.x;
+    double y = trajectory.trajectory[t].p.y;
+    double z = trajectory.trajectory[t].p.z;
+    double yaw = trajectory.trajectory[t].p.yaw;
+
+    double vx = trajectory.trajectory[t].v.x;
+    double vy = trajectory.trajectory[t].v.y;
+    double vz = trajectory.trajectory[t].v.z;
+    double yaw_rate = trajectory.trajectory[t].v.yaw_rate;
+
+    if (abs(vx) > config_.max_vel() || abs(vy) > config_.max_vel() ||
+        abs(vz) > config_.max_vel() || abs(yaw_rate) > config_.max_yaw_rate() ||
+        abs(yaw) > config_.max_yaw()) {
+      std::cout << "limit execeeded" << std::endl;
+      return false;
+    }
+
+    for (int o = 0; o < int(obstacle_list.size()); o++) {
+      double ox = obstacle_list[o].x;
+      double oy = obstacle_list[o].y;
+      double oz = obstacle_list[o].z;
+      double ora = obstacle_list[o].r;
+
+      if (((x - ox) * (x - ox) + (y - oy) * (y - oy) + (z - oz) * (z - oz)) <
+          (qr + ora) * (qr + ora)) {
+        std::cout << "obstacle hit" << std::endl;
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 bool AcadoHigherLevelController::solve(
     const std::tuple<QuadFlatOutput, std::vector<Obstacle>> &sensor_data,
     QuadFlatOutput goal, Trajectory<QuadFlatOutput> &control) {
-  setInitialandGoalState(std::get<0>(sensor_data), goal);
+  setInitialAndGoalState(std::get<0>(sensor_data), goal);
 
   algorithm_.reset(new ACADO::OptimizationAlgorithm(ocp_));
   algorithm_->set(ACADO::MAX_NUM_QP_ITERATIONS, 200);
@@ -70,30 +108,32 @@ bool AcadoHigherLevelController::solve(
   algorithm_->getDifferentialStates(xi);
   algorithm_->getControls(ui);
   std::vector<Obstacle> obstacle_list = std::get<1>(sensor_data);
-  double qr = config_.quad_radius();
-  for (int i = 0; i < int(obstacle_list.size()); i++) {
-    double ox = obstacle_list[i].x;
-    double oy = obstacle_list[i].y;
-    double oz = obstacle_list[i].z;
-    double ora = obstacle_list[i].r;
-    ocp_.subjectTo((x0 - ox) * (x0 - ox) + (y0 - oy) * (y0 - oy) +
-                       (z0 - oz) * (z0 - oz) >=
-                   (ora + qr) * (ora + qr));
+  if (obstacle_list.size() > 0) {
+    double qr = config_.quad_radius();
+    for (int i = 0; i < int(obstacle_list.size()); i++) {
+      double ox = obstacle_list[i].x;
+      double oy = obstacle_list[i].y;
+      double oz = obstacle_list[i].z;
+      double ora = obstacle_list[i].r;
+      ocp_.subjectTo((x0 - ox) * (x0 - ox) + (y0 - oy) * (y0 - oy) +
+                         (z0 - oz) * (z0 - oz) >=
+                     (ora + qr) * (ora + qr));
+    }
+
+    algorithm_.reset(new ACADO::OptimizationAlgorithm(ocp_));
+    algorithm_->set(ACADO::MAX_NUM_QP_ITERATIONS, 200);
+    algorithm_->set(ACADO::INFEASIBLE_QP_HANDLING, ACADO::IQH_STOP);
+    algorithm_->set(ACADO::INTEGRATOR_TYPE, ACADO::INT_RK45);
+    algorithm_->set(ACADO::DISCRETIZATION_TYPE, ACADO::COLLOCATION);
+    algorithm_->set(ACADO::HESSIAN_APPROXIMATION, ACADO::GAUSS_NEWTON);
+    algorithm_->set(ACADO::KKT_TOLERANCE, 1e-3);
+
+    algorithm_->initializeDifferentialStates(xi);
+    algorithm_->initializeControls(ui);
+
+    if (!algorithm_->solve())
+      return false;
   }
-
-  algorithm_.reset(new ACADO::OptimizationAlgorithm(ocp_));
-  algorithm_->set(ACADO::MAX_NUM_QP_ITERATIONS, 200);
-  algorithm_->set(ACADO::INFEASIBLE_QP_HANDLING, ACADO::IQH_STOP);
-  algorithm_->set(ACADO::INTEGRATOR_TYPE, ACADO::INT_RK45);
-  algorithm_->set(ACADO::DISCRETIZATION_TYPE, ACADO::COLLOCATION);
-  algorithm_->set(ACADO::HESSIAN_APPROXIMATION, ACADO::GAUSS_NEWTON);
-  algorithm_->set(ACADO::KKT_TOLERANCE, 1e-3);
-
-  algorithm_->initializeDifferentialStates(xi);
-  algorithm_->initializeControls(ui);
-
-  if (!algorithm_->solve())
-    return false;
 
   algorithm_->getDifferentialStates(xi);
   algorithm_->getControls(ui);
@@ -111,7 +151,7 @@ bool AcadoHigherLevelController::solve(
   return true;
 }
 
-void AcadoHigherLevelController::setInitialandGoalState(QuadFlatOutput initial,
+void AcadoHigherLevelController::setInitialAndGoalState(QuadFlatOutput initial,
                                                         QuadFlatOutput goal) {
   ocp_.subjectTo(ACADO::AT_START, x0 == initial.p.x);
   ocp_.subjectTo(ACADO::AT_START, y0 == initial.p.y);

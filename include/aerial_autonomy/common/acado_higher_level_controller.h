@@ -10,7 +10,7 @@
 #include "aerial_autonomy/types/quad_flat_output.h"
 #include "aerial_autonomy/types/trajectory.h"
 /**
-* Class of Acado-Related functions for
+* Class of Acado-Related functions for solving optimal control problems
 */
 class AcadoHigherLevelController {
 public:
@@ -33,7 +33,6 @@ public:
   *
   * @returns True if optimization is succesful
   */
-
   bool
   solve(const std::tuple<QuadFlatOutput, std::vector<Obstacle>> &sensor_data,
         QuadFlatOutput goal, Trajectory<QuadFlatOutput> &control);
@@ -43,6 +42,13 @@ public:
   */
   ~AcadoHigherLevelController() { clearAllStaticCounters(); }
 
+  /**
+  * @brief check if trajectory reaches goal and doesn't violate constraints
+  */
+  bool checkTrajectoryFeasibility(const Trajectory<QuadFlatOutput> &trajectory,
+                                  const std::vector<Obstacle> &obstacle_list,
+                                  QuadFlatOutput goal);
+
 private:
   /**
   * @brief Set initial state
@@ -50,7 +56,7 @@ private:
   * @param intial Intial State
   * @param goal Desired Final State
   */
-  void setInitialandGoalState(QuadFlatOutput initial, QuadFlatOutput goal);
+  void setInitialAndGoalState(QuadFlatOutput initial, QuadFlatOutput goal);
   AcadoConfig config_; ///< Acado Config
   ACADO::OCP ocp_;     ///< Optimal Control Problem
   ACADO::DifferentialState x0, y0, z0, x1, y1, z1, x2, y2, z2, x3, y3, z3, ga0,
