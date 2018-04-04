@@ -41,4 +41,12 @@ message AcadoConfig {
   * Radius of sphere enveloping the quad
   */
   optional double quad_radius = 10 [default = 0.6];
+  /**
+  * Whether optimization has terminal constraint
+  */
+  optional bool terminal_constraint = 11 [default = true];
+  /**
+  * Allowed error between desired goal and end point of trajectory
+  */
+  optional double tolerance = 12 [default = 0.001];
 }

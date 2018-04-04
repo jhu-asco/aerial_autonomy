@@ -23,19 +23,7 @@ AcadoHigherLevelController::AcadoHigherLevelController(AcadoConfig config)
   f << dot(ga0) == ga1;
   f << dot(ga1) == ga2;
 
-  ACADO::DMatrix Q(4, 4);
-  Q.setIdentity();
-  Q(0, 0) = config_.qxx();
-  Q(1, 1) = config_.qyy();
-  Q(2, 2) = config_.qzz();
-  Q(3, 3) = config_.qgg();
-  ACADO::DVector offset(4);
-  offset.setAll(0.0);
-  ACADO::Function eta;
-  eta << x4 << y4 << z4 << ga2;
-
   ocp_.subjectTo(f);
-  ocp_.minimizeLSQ(Q, eta, offset);
 
   ocp_.subjectTo(-config_.max_yaw() <= ga0 <= config_.max_yaw());
   ocp_.subjectTo(-config_.max_vel() <= x1 <= config_.max_vel());
@@ -48,7 +36,7 @@ bool AcadoHigherLevelController::checkTrajectoryFeasibility(
     const Trajectory<QuadFlatOutput> &trajectory,
     const std::vector<Obstacle> &obstacle_list, QuadFlatOutput goal) {
   double qr = config_.quad_radius();
-  for (int t = 0; t < int(trajectory.trajectory.size()); t++) {
+  for (int t = 0; t < int(trajectory.trajectory.size() - 2); t++) {
     double x = trajectory.trajectory[t].p.x;
     double y = trajectory.trajectory[t].p.y;
     double z = trajectory.trajectory[t].p.z;
@@ -61,10 +49,8 @@ bool AcadoHigherLevelController::checkTrajectoryFeasibility(
 
     if (abs(vx) > config_.max_vel() || abs(vy) > config_.max_vel() ||
         abs(vz) > config_.max_vel() || abs(yaw_rate) > config_.max_yaw_rate() ||
-        abs(yaw) > config_.max_yaw()) {
-      std::cout << "limit execeeded" << std::endl;
+        abs(yaw) > config_.max_yaw())
       return false;
-    }
 
     for (int o = 0; o < int(obstacle_list.size()); o++) {
       double ox = obstacle_list[o].x;
@@ -73,20 +59,31 @@ bool AcadoHigherLevelController::checkTrajectoryFeasibility(
       double ora = obstacle_list[o].r;
 
       if (((x - ox) * (x - ox) + (y - oy) * (y - oy) + (z - oz) * (z - oz)) <
-          (qr + ora) * (qr + ora)) {
-        std::cout << "obstacle hit" << std::endl;
+          (qr + ora) * (qr + ora))
         return false;
-      }
     }
   }
+  double e = config_.tolerance();
+  QuadFlatOutput error = goal - final_state_;
+  if (config_.terminal_constraint())
+    if (abs(error.p.x) > e || abs(error.p.y) > e || abs(error.p.z) > e ||
+        abs(error.p.yaw) > e || abs(error.v.x) > e || abs(error.v.y) > e ||
+        abs(error.v.z) > e || abs(error.v.yaw_rate) > e || abs(error.a.x) > e ||
+        abs(error.a.y) > e || abs(error.a.z) > e || abs(error.j.x) > e ||
+        abs(error.j.y) > e || abs(error.j.z) > e) {
+      return false;
+    }
+
   return true;
 }
 
 bool AcadoHigherLevelController::solve(
     const std::tuple<QuadFlatOutput, std::vector<Obstacle>> &sensor_data,
-    QuadFlatOutput goal, Trajectory<QuadFlatOutput> &control) {
-  setInitialAndGoalState(std::get<0>(sensor_data), goal);
-
+    const Trajectory<QuadFlatOutput> &goal,
+    Trajectory<QuadFlatOutput> &control) {
+  setInitialAndGoalConditions(std::get<0>(sensor_data), goal);
+  std::unique_ptr<ACADO::OptimizationAlgorithm>
+      algorithm_; ///< Optimization Algorithm
   algorithm_.reset(new ACADO::OptimizationAlgorithm(ocp_));
   algorithm_->set(ACADO::MAX_NUM_QP_ITERATIONS, 200);
   algorithm_->set(ACADO::INFEASIBLE_QP_HANDLING, ACADO::IQH_STOP);
@@ -95,7 +92,7 @@ bool AcadoHigherLevelController::solve(
   algorithm_->set(ACADO::HESSIAN_APPROXIMATION, ACADO::GAUSS_NEWTON);
   algorithm_->set(ACADO::KKT_TOLERANCE, 1e-5);
 
-  ACADO::Grid timeGrid(0.0, config_.time_horizon(), config_.num_steps());
+  ACADO::Grid timeGrid(0.0, config_.time_horizon(), config_.num_steps() + 1);
   ACADO::VariablesGrid xi(14, timeGrid);
   ACADO::VariablesGrid ui(4, timeGrid);
 
@@ -148,11 +145,17 @@ bool AcadoHigherLevelController::solve(
     double time = config_.time_horizon() / double(config_.num_steps()) * t;
     control.setAtTime(state, time);
   }
+  int t = config_.num_steps();
+  final_state_ = QuadFlatOutput(
+      PositionYaw(xi(t, 0), xi(t, 1), xi(t, 2), xi(t, 12)),
+      VelocityYawRate(xi(t, 3), xi(t, 4), xi(t, 5), xi(t, 13)),
+      Acceleration(xi(t, 6), xi(t, 7), xi(t, 8)),
+      Jerk(xi(t, 9), xi(t, 10), xi(t, 11)), Snap(0.0, 0.0, 0.0), 0.0);
   return true;
 }
 
-void AcadoHigherLevelController::setInitialAndGoalState(QuadFlatOutput initial,
-                                                        QuadFlatOutput goal) {
+void AcadoHigherLevelController::setInitialAndGoalConditions(
+    QuadFlatOutput initial, const Trajectory<QuadFlatOutput> &goal) {
   ocp_.subjectTo(ACADO::AT_START, x0 == initial.p.x);
   ocp_.subjectTo(ACADO::AT_START, y0 == initial.p.y);
   ocp_.subjectTo(ACADO::AT_START, z0 == initial.p.z);
@@ -171,20 +174,38 @@ void AcadoHigherLevelController::setInitialAndGoalState(QuadFlatOutput initial,
   ocp_.subjectTo(ACADO::AT_START, y3 == 0.0);
   ocp_.subjectTo(ACADO::AT_START, z3 == 0.0);
 
-  ocp_.subjectTo(ACADO::AT_END, x0 == goal.p.x);
-  ocp_.subjectTo(ACADO::AT_END, y0 == goal.p.y);
-  ocp_.subjectTo(ACADO::AT_END, z0 == goal.p.z);
+  if (config_.terminal_constraint()) {
+    QuadFlatOutput final_state = goal.trajectory[0];
+    ocp_.subjectTo(ACADO::AT_END, x0 == final_state.p.x);
+    ocp_.subjectTo(ACADO::AT_END, y0 == final_state.p.y);
+    ocp_.subjectTo(ACADO::AT_END, z0 == final_state.p.z);
 
-  ocp_.subjectTo(ACADO::AT_END, x1 == 0.0);
-  ocp_.subjectTo(ACADO::AT_END, y1 == 0.0);
-  ocp_.subjectTo(ACADO::AT_END, z1 == 0.0);
-  ocp_.subjectTo(ACADO::AT_END, ga1 == 0.0);
+    ocp_.subjectTo(ACADO::AT_END, x1 == 0.0);
+    ocp_.subjectTo(ACADO::AT_END, y1 == 0.0);
+    ocp_.subjectTo(ACADO::AT_END, z1 == 0.0);
+    ocp_.subjectTo(ACADO::AT_END, ga1 == 0.0);
 
-  ocp_.subjectTo(ACADO::AT_END, x2 == 0.0);
-  ocp_.subjectTo(ACADO::AT_END, y2 == 0.0);
-  ocp_.subjectTo(ACADO::AT_END, z2 == 0.0);
+    ocp_.subjectTo(ACADO::AT_END, x2 == 0.0);
+    ocp_.subjectTo(ACADO::AT_END, y2 == 0.0);
+    ocp_.subjectTo(ACADO::AT_END, z2 == 0.0);
 
-  ocp_.subjectTo(ACADO::AT_END, x3 == 0.0);
-  ocp_.subjectTo(ACADO::AT_END, y3 == 0.0);
-  ocp_.subjectTo(ACADO::AT_END, z3 == 0.0);
+    ocp_.subjectTo(ACADO::AT_END, x3 == 0.0);
+    ocp_.subjectTo(ACADO::AT_END, y3 == 0.0);
+    ocp_.subjectTo(ACADO::AT_END, z3 == 0.0);
+
+    /* Add cost only for control effort */
+    ACADO::DMatrix Q(4, 4);
+    Q.setIdentity();
+    Q(0, 0) = config_.qxx();
+    Q(1, 1) = config_.qyy();
+    Q(2, 2) = config_.qzz();
+    Q(3, 3) = config_.qgg();
+    ACADO::DVector offset(4);
+    offset.setAll(0.0);
+    ACADO::Function eta;
+    eta << x4 << y4 << z4 << ga2;
+    ocp_.minimizeLSQ(Q, eta, offset);
+  } else {
+    // \todo Add cost for deviation from reference trajectory
+  }
 }

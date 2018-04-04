@@ -33,11 +33,31 @@ struct QuadFlatOutput {
   Jerk j;            ///< Jerk
   Snap s;            ///< Snap
   double ga2;        ///< yaw-acceleration
-                     /**
-                     * @brief Add two states
-                     * @param x State to add
-                     * @return Sum of two states
-                     */
+
+  /**
+  * @brief Compare two states
+  *
+  * @param State to compare with
+  * @return True if two states are equal
+  */
+  bool operator==(const QuadFlatOutput &x) const {
+    return (this->p == x.p && this->v == x.v && this->a == x.a &&
+            this->j == x.j && this->s == x.s && this->ga2 == x.ga2);
+  }
+
+  /**
+  * @brief Compare two states
+  *
+  * @param State to compare with
+  * @return True if two states are not equal
+  */
+  bool operator!=(const QuadFlatOutput &x) const { return !(*this == x); }
+
+  /**
+  * @brief Add two states
+  * @param x State to add
+  * @return Sum of two states
+  */
   QuadFlatOutput operator+(const QuadFlatOutput &x) const {
     return QuadFlatOutput(this->p + x.p, this->v + x.v, this->a + x.a,
                           this->j + x.j, this->s + x.s, this->ga2 + x.ga2);
