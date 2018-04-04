@@ -79,8 +79,7 @@ bool AcadoHigherLevelController::checkTrajectoryFeasibility(
 
 bool AcadoHigherLevelController::solve(
     const std::tuple<QuadFlatOutput, std::vector<Obstacle>> &sensor_data,
-    const Trajectory<QuadFlatOutput> &goal,
-    Trajectory<QuadFlatOutput> &control) {
+    Trajectory<QuadFlatOutput> &goal, Trajectory<QuadFlatOutput> &control) {
   setInitialAndGoalConditions(std::get<0>(sensor_data), goal);
   std::unique_ptr<ACADO::OptimizationAlgorithm>
       algorithm_; ///< Optimization Algorithm
@@ -155,7 +154,7 @@ bool AcadoHigherLevelController::solve(
 }
 
 void AcadoHigherLevelController::setInitialAndGoalConditions(
-    QuadFlatOutput initial, const Trajectory<QuadFlatOutput> &goal) {
+    QuadFlatOutput initial, Trajectory<QuadFlatOutput> &goal) {
   ocp_.subjectTo(ACADO::AT_START, x0 == initial.p.x);
   ocp_.subjectTo(ACADO::AT_START, y0 == initial.p.y);
   ocp_.subjectTo(ACADO::AT_START, z0 == initial.p.z);
@@ -175,7 +174,8 @@ void AcadoHigherLevelController::setInitialAndGoalConditions(
   ocp_.subjectTo(ACADO::AT_START, z3 == 0.0);
 
   if (config_.terminal_constraint()) {
-    QuadFlatOutput final_state = goal.trajectory[0];
+    double h = goal.horizon();
+    QuadFlatOutput final_state = goal.getAtTime(h);
     ocp_.subjectTo(ACADO::AT_END, x0 == final_state.p.x);
     ocp_.subjectTo(ACADO::AT_END, y0 == final_state.p.y);
     ocp_.subjectTo(ACADO::AT_END, z0 == final_state.p.z);
@@ -207,5 +207,7 @@ void AcadoHigherLevelController::setInitialAndGoalConditions(
     ocp_.minimizeLSQ(Q, eta, offset);
   } else {
     // \todo Add cost for deviation from reference trajectory
+    LOG(WARNING)
+        << "Functionality for taking reference trajectory not implemented yet";
   }
 }
