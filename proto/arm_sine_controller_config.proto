@@ -1,0 +1,25 @@
+syntax = "proto2";
+
+/**
+* Set amplitude, phase, frequency for each joint
+*/
+message ArmSineControllerConfig {
+  message SineProperties {
+    /**
+    * @brief amplitude of sine in natural units
+    */
+    optional double amplitude = 1 [ default = 0.0 ];
+    /**
+    * @brief frequency of sine in Hz
+    */
+    optional double frequency = 2 [ default = 0.0 ];
+    /**
+    * @brief Phase of sine in radians
+    */
+    optional double phase = 3 [ default = 0.0 ];
+  }
+  /**
+  * @brief sine properties for each joint
+  */
+  repeated SineProperties joint_config = 1;
+}
