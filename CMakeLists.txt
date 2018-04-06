@@ -269,6 +269,7 @@ add_library(aerial_autonomy
   src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_pose_controller_arm_connector.cpp
   src/controller_hardware_connectors/joystick_velocity_controller_drone_connector.cpp
+  src/controller_hardware_connectors/arm_sine_controller_connector.cpp
 )
 add_dependencies(aerial_autonomy proto)
 target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBS})
