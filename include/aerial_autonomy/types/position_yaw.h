@@ -143,6 +143,11 @@ struct PositionYaw : public Position {
     yaw = math::clamp(yaw, min.yaw, max.yaw);
   }
 
+  /**
+   * @brief Simplified clamp function with min = -max
+   *
+   * @param min Minimum position yaw
+   */
   void clamp(const PositionYaw &max) {
     PositionYaw min = max * -1.0;
     clamp(min, max);

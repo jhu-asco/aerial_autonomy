@@ -12,6 +12,12 @@
 */
 template <class LogicStateMachineT>
 struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
+  /**
+   * @brief Logical and functor between two guard functions
+   *
+   * @tparam G1 First guard functor
+   * @tparam G2 Second guard functor
+   */
   template <class G1, class G2>
   using bAnd = boost::msm::front::euml::And_<G1, G2>;
 
@@ -40,6 +46,9 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
   using RelativePoseVisualServoingTransitionAction =
       RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT, 0>;
 
+  /**
+  * @brief Action for initializing relative pose visual servoing
+  */
   using ResetRelativePoseVisualServoing =
       ResetRelativePoseVisualServoingTransitionActionFunctor_<
           LogicStateMachineT>;

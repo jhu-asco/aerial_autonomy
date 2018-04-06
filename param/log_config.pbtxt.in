@@ -57,3 +57,13 @@ data_stream_configs {
   stream_id: "tracking_vector_estimator"
   log_rate: 25
 }
+
+data_stream_configs {
+  stream_id: "manual_rpyt_controller"
+  log_rate: 50
+}
+
+data_stream_configs {
+  stream_id: "mocap_logger"
+  log_rate: 50
+}
