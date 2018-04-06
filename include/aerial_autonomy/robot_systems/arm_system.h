@@ -83,11 +83,6 @@ public:
   }
 
   /**
-  * @brief Set the start time for arm sine controller
-  */
-  void setZeroTimeSineController() { arm_sine_controller_.setZeroTime(); }
-
-  /**
   * @brief Public API call to grip/ungrip an object
   *
   * @param grip_action true to grip an object and false to ungrip

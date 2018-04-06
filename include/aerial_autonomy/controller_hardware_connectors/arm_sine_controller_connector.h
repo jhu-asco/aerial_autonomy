@@ -12,6 +12,13 @@
 class ArmSineControllerConnector
     : public ControllerHardwareConnector<EmptySensor, EmptyGoal,
                                          std::vector<double>> {
+
+  /**
+  * @brief  typedef for parent class
+  */
+  using BaseConnector =
+      ControllerHardwareConnector<EmptySensor, EmptyGoal, std::vector<double>>;
+
 public:
   /**
    * @brief Constructor
@@ -19,11 +26,20 @@ public:
   ArmSineControllerConnector(ArmParser &arm_hardware,
                              ArmSineController &controller)
       : ControllerHardwareConnector(controller, HardwareType::Arm),
-        arm_hardware_(arm_hardware) {}
+        arm_hardware_(arm_hardware), private_ref_controller_(controller) {}
   /**
    * @brief Destructor
    */
   virtual ~ArmSineControllerConnector() {}
+  /**
+   * @brief Set the goal for controller
+   *
+   * @param goal Goal for controller
+   */
+  virtual void setGoal(EmptyGoal goal) {
+    private_ref_controller_.setZeroTime();
+    BaseConnector::setGoal(goal);
+  }
 
 protected:
   /**
@@ -47,4 +63,5 @@ private:
   * @brief Arm hardware to send commands
   */
   ArmParser &arm_hardware_;
+  ArmSineController &private_ref_controller_;
 };
