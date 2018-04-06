@@ -42,7 +42,7 @@ public:
 
 protected:
   /**
-   * @brief Run the control loop.  Converts Joystick commands to RPYT.
+   * @brief Move arm in sinusoid manner
    * @param sensor_data Joystick commands to be converted into RPYT.
    * @param goal Goal is not used here
    * @param control RPYT to send to hardware
