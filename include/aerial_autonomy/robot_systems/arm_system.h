@@ -76,6 +76,18 @@ public:
   }
 
   /**
+  * @brief Public API call to get joint angles
+  */
+  std::vector<double> getJointAngles() {
+    return arm_hardware_->getJointAngles();
+  }
+
+  /**
+  * @brief Set the start time for arm sine controller
+  */
+  void setZeroTimeSineController() { arm_sine_controller_.setZeroTime(); }
+
+  /**
   * @brief Public API call to grip/ungrip an object
   *
   * @param grip_action true to grip an object and false to ungrip
