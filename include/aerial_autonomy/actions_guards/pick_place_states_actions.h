@@ -2,6 +2,7 @@
 /// States and actions corresponding to pick and place application
 /// using visual servoing.
 #include <aerial_autonomy/actions_guards/arm_functors.h>
+#include <aerial_autonomy/actions_guards/arm_states_actions.h>
 #include <aerial_autonomy/actions_guards/pick_place_functors.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_states_actions.h>
 #include <aerial_autonomy/arm_events.h>
@@ -15,9 +16,8 @@
 * @tparam LogicStateMachineT The backend of logic state machine
 */
 template <class LogicStateMachineT>
-struct PickPlaceStatesActions
-    : VisualServoingStatesActions<LogicStateMachineT> {
-
+struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
+                                ArmStatesActions<LogicStateMachineT> {
   /**
    * @brief  Action sequence to chain multiple actions together
    *
@@ -42,12 +42,12 @@ struct PickPlaceStatesActions
    * @brief namespace for states and actions for basic uav actions
    */
   using usa = UAVStatesActions<LogicStateMachineT>;
+  /**
+   * @brief namespace for states and actions for arm functors
+   */
+  using asa = ArmStatesActions<LogicStateMachineT>;
 
   // Pre takeoff, land states
-  /**
-  * @brief State for folding arm
-  */
-  using ArmFolding = ArmFolding_<LogicStateMachineT>;
   /**
   * @brief State before takeoff
   */
@@ -72,77 +72,48 @@ struct PickPlaceStatesActions
       RelativePoseVisualServoing_<LogicStateMachineT, Reset>;
   // Transition Actions
   /**
-  * @brief Action to poweroff arm
-  */
-  using ArmPowerOn = ArmPoweronTransitionActionFunctor_<LogicStateMachineT>;
-  /**
-  * @brief Action to grip/ungrip gripper on arm
-  */
-  template <bool grip>
-  using ArmGripAction = ArmGripActionFunctor_<LogicStateMachineT, grip>;
-  /**
-  * @brief Action to poweroff arm
-  */
-  using ArmPowerOff = ArmPoweroffTransitionActionFunctor_<LogicStateMachineT>;
-
-  /**
-  * @brief Action to take when starting folding arm before land
-  */
-  using ArmFold = ArmFoldTransitionActionFunctor_<LogicStateMachineT>;
-  /**
-  * @brief Action to fold arm into right angle configuration
-  */
-  using ArmRightFold = ArmRightFoldTransitionActionFunctor_<LogicStateMachineT>;
-  /**
-  * @brief Abort arm controller
-  */
-  using AbortArmController = AbortArmController_<LogicStateMachineT>;
-
-  /**
   * @brief Action sequence that ungrips then goes home
   */
-  using UngripGoHome =
-      bActionSequence<boost::mpl::vector<ArmGripAction<false>,
-                                         typename vsa::GoHomeTransitionAction>>;
+  using UngripGoHome = bActionSequence<
+      boost::mpl::vector<ArmGripActionFunctor_<LogicStateMachineT, false>,
+                         typename vsa::GoHomeTransitionAction>>;
   /**
    * @brief Action sequence to ungrip object and go to home location and
    * fold the arm to right angle
    */
-  using RightArmUngripGoHome =
-      bActionSequence<boost::mpl::vector<UngripGoHome, ArmRightFold>>;
+  using RightArmUngripGoHome = bActionSequence<
+      boost::mpl::vector<UngripGoHome, typename asa::ArmRightFold>>;
 
   /**
   * @brief Action sequence that ungrips then goes home
   */
   using ArmRightFoldGoHome =
-      bActionSequence<boost::mpl::vector<AbortArmController, ArmRightFold,
+      bActionSequence<boost::mpl::vector<typename asa::AbortArmController,
+                                         typename asa::ArmRightFold,
                                          typename vsa::GoHomeTransitionAction>>;
-  /**
-  * @brief Action sequence that folds to right angle and aborts arm controller
-  */
-  using AbortArmControllerRightFold =
-      bActionSequence<boost::mpl::vector<AbortArmController, ArmRightFold>>;
 
   /**
   * @brief Action sequence to abort UAV controller and move arm to right
   * angle
   */
-  using AbortUAVControllerArmRightFold = bActionSequence<
-      boost::mpl::vector<typename usa::UAVControllerAbort, ArmRightFold>>;
+  using AbortUAVControllerArmRightFold =
+      bActionSequence<boost::mpl::vector<typename usa::UAVControllerAbort,
+                                         typename asa::ArmRightFold>>;
   /**
   * @brief Action sequence to abort UAV and arm controllers and move arm to
-  * right
-  * angle
+  * right angle
   */
   using AbortUAVArmControllerArmRightFold =
       bActionSequence<boost::mpl::vector<typename usa::UAVControllerAbort,
-                                         AbortArmController, ArmRightFold>>;
+                                         typename asa::AbortArmController,
+                                         typename asa::ArmRightFold>>;
   /**
   * @brief Action sequence to abort UAV controller and move arm to right
   * angle
   */
-  using AbortUAVControllerArmFold = bActionSequence<
-      boost::mpl::vector<typename usa::UAVControllerAbort, ArmFold>>;
+  using AbortUAVControllerArmFold =
+      bActionSequence<boost::mpl::vector<typename usa::UAVControllerAbort,
+                                         typename asa::ArmFold>>;
 
   /**
   * @brief Check tracking is valid and arm is enabled for pick
@@ -178,16 +149,12 @@ struct PickPlaceStatesActions
       EventIdVisualServoingGuardFunctor_<LogicStateMachineT>;
 
   /**
-  * @brief Action to take when starting folding arm before takeoff
-  */
-  using ArmPowerOnFold =
-      bActionSequence<boost::mpl::vector<ArmPowerOn, ArmFold>>;
-  /**
   * @brief Action sequence to abort UAV controller and arm controller
   * angle
   */
-  using AbortUAVArmController = bActionSequence<
-      boost::mpl::vector<typename usa::UAVControllerAbort, AbortArmController>>;
+  using AbortUAVArmController =
+      bActionSequence<boost::mpl::vector<typename usa::UAVControllerAbort,
+                                         typename asa::AbortArmController>>;
   /**
   * @brief State for following waypoints after picking object
   */
@@ -214,29 +181,4 @@ struct PickPlaceStatesActions
   * @brief State for resetting visual servoing
   */
   struct ResetVisualServoing : ReachingGoal_<LogicStateMachineT> {};
-
-  // Explicitly defined manual Control state
-  /**
-  * @brief State that checks arm status along with regular manual control
-  * state
-  *
-  * @tparam LogicStateMachineT Logic state machine used to process events
-  */
-  struct ManualControlArmState : public msmf::state<> {
-    struct internal_transition_table
-        : boost::mpl::vector<
-              msmf::Internal<
-                  InternalTransitionEvent,
-                  ManualControlArmInternalActionFunctor_<LogicStateMachineT>,
-                  msmf::none>,
-              msmf::Internal<arm_events::PowerOn, ArmPowerOn, msmf::none>,
-              msmf::Internal<arm_events::PowerOff, ArmPowerOff, msmf::none>,
-              msmf::Internal<arm_events::Fold, ArmFold, msmf::none>,
-              msmf::Internal<arm_events::Grip, ArmGripAction<true>, msmf::none>,
-              msmf::Internal<arm_events::UnGrip, ArmGripAction<false>,
-                             msmf::none>,
-              msmf::Internal<uav_basic_events::Abort, msmf::none, msmf::none>,
-              msmf::Internal<arm_events::RightAngleFold, ArmRightFold,
-                             msmf::none>> {};
-  };
 };

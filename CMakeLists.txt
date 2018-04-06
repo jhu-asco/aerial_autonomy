@@ -166,6 +166,7 @@ uav_basic_events
 visual_servoing_events
 pick_place_events
 arm_events
+uav_arm_sysid_events
 )
 
 ##############
@@ -278,13 +279,14 @@ target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${GLOG_LIBRARIES
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(aerial_autonomy ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(aerial_autonomy ${${PROJECT_NAME}_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
 add_executable(joystick_uav_node src/system_handler_nodes/joystick_uav_node.cpp)
 add_executable(uav_system_node src/system_handler_nodes/uav_system_node.cpp)
 add_executable(uav_vision_system_node src/system_handler_nodes/uav_vision_system_node.cpp)
 add_executable(uav_arm_system_node src/system_handler_nodes/uav_arm_system_node.cpp)
+add_executable(uav_arm_sysid_node src/system_handler_nodes/uav_arm_sysid_node.cpp)
 add_executable(event_publish_node src/tests/event_publish_node.cpp)
 add_dependencies(event_publish_node ${PROJECT_NAME}_generate_messages_cpp)
 
@@ -298,6 +300,7 @@ target_link_libraries(joystick_uav_node aerial_autonomy)
 target_link_libraries(uav_system_node aerial_autonomy)
 target_link_libraries(uav_vision_system_node aerial_autonomy)
 target_link_libraries(uav_arm_system_node aerial_autonomy)
+target_link_libraries(uav_arm_sysid_node aerial_autonomy)
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
 
 #############
@@ -363,6 +366,7 @@ catkin_add_gtest(${PROJECT_NAME}-joystick-state-machine-test tests/state_machine
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-state-machine-test tests/state_machines/visual_servoing_state_machine_tests.cpp)
 add_dependencies(${PROJECT_NAME}-visual-servoing-state-machine-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
 catkin_add_gtest(${PROJECT_NAME}-pick-place-state-machine-test tests/state_machines/pick_place_state_machine_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-uav-arm-sysid-state-machine-test tests/state_machines/uav_arm_sysid_state_machine_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-arm-system-test tests/robot_systems/arm_system_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-system-handler-node-utils-test tests/common/system_handler_node_utils_tests.test tests/common/system_handler_node_utils_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-uav-vision-system-test tests/robot_systems/uav_vision_system_tests.test tests/robot_systems/uav_vision_system_tests.cpp)
@@ -420,6 +424,9 @@ if(TARGET ${PROJECT_NAME}-visual-servoing-state-machine-test)
 endif()
 if(TARGET ${PROJECT_NAME}-pick-place-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-pick-place-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+endif()
+if(TARGET ${PROJECT_NAME}-uav-arm-sysid-state-machine-test)
+  target_link_libraries(${PROJECT_NAME}-uav-arm-sysid-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
 if(TARGET ${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
