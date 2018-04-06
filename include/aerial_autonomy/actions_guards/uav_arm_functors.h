@@ -3,6 +3,7 @@
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
 #include <aerial_autonomy/actions_guards/manual_control_functors.h>
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
+#include <aerial_autonomy/robot_systems/uav_arm_system.h>
 
 /**
 * @brief Logic to check arm power and manual mode
@@ -48,7 +49,7 @@ using JoystickRPYTArmSineControlInternalActionFunctor_ =
 */
 template <class LogicStateMachineT>
 using RunningJoystickRPYTArmSineController_ = BaseState<
-    UAVSystem, LogicStateMachineT,
+    UAVArmSystem, LogicStateMachineT,
     JoystickRPYTArmSineControlInternalActionFunctor_<LogicStateMachineT>>;
 
 /**
@@ -58,5 +59,5 @@ using RunningJoystickRPYTArmSineController_ = BaseState<
 */
 template <class LogicStateMachineT>
 using RunningArmSineController_ =
-    BaseState<UAVSystem, LogicStateMachineT,
+    BaseState<UAVArmSystem, LogicStateMachineT,
               ArmSineControlInternalActionFunctor_<LogicStateMachineT>>;

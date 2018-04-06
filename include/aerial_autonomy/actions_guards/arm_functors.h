@@ -128,7 +128,6 @@ struct ArmSineTransitionFunctor_
     : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
   void run(ArmSystem &robot_system) {
     VLOG(1) << "Setting Goal for arm sine controller connector!";
-    robot_system.setZeroTimeSineController();
     robot_system.setGoal<ArmSineControllerConnector>(EmptyGoal());
   }
 };
