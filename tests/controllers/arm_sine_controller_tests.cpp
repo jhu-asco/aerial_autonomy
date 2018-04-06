@@ -74,14 +74,15 @@ TEST_F(ArmSineControllerTests, CheckZeroFreq) {
 
 TEST_F(ArmSineControllerTests, CheckPeriod) {
   std::vector<double> amp = {1, 1};
-  std::vector<double> freq = {1.0, 10.0};
+  std::vector<double> freq = {1.0, 2.0};
   std::vector<double> phase = {M_PI / 2.0, 0};
   auto config = createJointConfig(amp, freq, phase);
   ArmSineController controller(config);
   controller.setZeroTime();
-  std::this_thread::sleep_for(std::chrono::duration<double>(0.1));
+  std::this_thread::sleep_for(std::chrono::duration<double>(0.5));
   auto result1 = runController(controller);
-  std::this_thread::sleep_for(std::chrono::duration<double>(0.9));
+  controller.setZeroTime();
+  std::this_thread::sleep_for(std::chrono::duration<double>(1.0));
   auto result2 = runController(controller);
   // Check sizes
   ASSERT_TRUE(result1.second);
