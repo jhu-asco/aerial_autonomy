@@ -100,6 +100,9 @@ public:
             msmf::Row<usa::Hovering, ue::ArmOscillate,
                       usa::RunningArmSineController,
                       usa::ArmSineTransitionFunctor, msmf::none>,
+            msmf::Row<usa::Hovering, be::Joystick,
+                      usa::RunningJoystickRPYTController,
+                      usa::StartJoystickRPYTController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::ManualControlArmState, be::Takeoff, usa::Hovering,
                       usa::ManualControlSwitchAction,
@@ -115,6 +118,10 @@ public:
                       usa::AbortArmControllerArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::RunningJoystickRPYTArmSineController, be::Abort,
+                      usa::Hovering, usa::AbortUAVArmControllerArmRightFold,
+                      msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<usa::RunningJoystickRPYTController, be::Abort,
                       usa::Hovering, usa::UAVControllerAbort, msmf::none>> {};
   /**
   * @brief Use Inherited no transition function
@@ -126,7 +133,11 @@ public:
 * @brief state names to get name based on state id
 */
 static constexpr std::array<const char *, 8> state_names = {
-    "Landed", "Hovering", "RunningArmSineController", "ManualControlArmState",
+    "Landed",
+    "Hovering",
+    "ManualControlArmState",
+    "RunningArmSineController",
+    "RunningJoystickRPYTArmSineController",
     "RunningJoystickRPYTController"};
 /**
 * @brief Get current state name
