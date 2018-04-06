@@ -79,7 +79,8 @@ bool AcadoHigherLevelController::checkTrajectoryFeasibility(
 
 bool AcadoHigherLevelController::solve(
     const std::tuple<QuadFlatOutput, std::vector<Obstacle>> &sensor_data,
-    Trajectory<QuadFlatOutput> &goal, Trajectory<QuadFlatOutput> &control) {
+    const Trajectory<QuadFlatOutput> &goal,
+    Trajectory<QuadFlatOutput> &control) {
   setInitialAndGoalConditions(std::get<0>(sensor_data), goal);
   std::unique_ptr<ACADO::OptimizationAlgorithm>
       algorithm_; ///< Optimization Algorithm
@@ -154,7 +155,7 @@ bool AcadoHigherLevelController::solve(
 }
 
 void AcadoHigherLevelController::setInitialAndGoalConditions(
-    QuadFlatOutput initial, Trajectory<QuadFlatOutput> &goal) {
+    QuadFlatOutput initial, const Trajectory<QuadFlatOutput> &goal) {
   ocp_.subjectTo(ACADO::AT_START, x0 == initial.p.x);
   ocp_.subjectTo(ACADO::AT_START, y0 == initial.p.y);
   ocp_.subjectTo(ACADO::AT_START, z0 == initial.p.z);

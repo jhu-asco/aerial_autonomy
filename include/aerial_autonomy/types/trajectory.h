@@ -22,7 +22,7 @@ template <class T> struct Trajectory {
   /**
    * @brief returns horizon length in terms of time
    */
-  double horizon() { return (ts + double(trajectory.size()) * dt); }
+  double horizon() const { return (ts + double(trajectory.size()) * dt); }
   /**
   * @brief set Value at given time
   * Truncates it to the nearest time less than or
@@ -44,7 +44,7 @@ template <class T> struct Trajectory {
   * returns final state if queried for
   * time beyond horizon
   */
-  T getAtTime(double t) {
+  T getAtTime(double t) const {
     int i = int((t - ts) / dt);
     if (i < 0)
       return trajectory[0];

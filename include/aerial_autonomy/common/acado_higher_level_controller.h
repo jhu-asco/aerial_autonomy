@@ -36,7 +36,8 @@ public:
   */
   bool
   solve(const std::tuple<QuadFlatOutput, std::vector<Obstacle>> &sensor_data,
-        Trajectory<QuadFlatOutput> &goal, Trajectory<QuadFlatOutput> &control);
+        const Trajectory<QuadFlatOutput> &goal,
+        Trajectory<QuadFlatOutput> &control);
   /**
   * @brief Deconstructor Calls a ACADO-based function
   * to clear static counters interally created by ACADO
@@ -58,7 +59,7 @@ private:
   * @param goal Desired Final State
   */
   void setInitialAndGoalConditions(QuadFlatOutput initial,
-                                   Trajectory<QuadFlatOutput> &goal);
+                                   const Trajectory<QuadFlatOutput> &goal);
   AcadoConfig config_; ///< Acado Config
   ACADO::OCP ocp_;     ///< Optimal Control Problem
   ACADO::DifferentialState x0, y0, z0, x1, y1, z1, x2, y2, z2, x3, y3, z3, ga0,
