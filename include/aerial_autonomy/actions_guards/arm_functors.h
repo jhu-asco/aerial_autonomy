@@ -119,6 +119,21 @@ struct AbortArmController_
 };
 
 /**
+ * @brief Move arm in sinusoidal manner
+ *
+ * @tparam LogicStateMachineT State machine that contains the functor
+ */
+template <class LogicStateMachineT>
+struct ArmSineTransitionFunctor_
+    : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
+  void run(ArmSystem &robot_system) {
+    VLOG(1) << "Setting Goal for arm sine controller connector!";
+    robot_system.setZeroTimeSineController();
+    robot_system.setGoal<ArmSineControllerConnector>(EmptyGoal());
+  }
+};
+
+/**
 * @brief action for checking arm status.
 *
 * Aborts if arm did not power on.
