@@ -43,13 +43,10 @@ public:
 protected:
   /**
    * @brief Move arm in sinusoid manner
-   * @param sensor_data Joystick commands to be converted into RPYT.
-   * @param goal Goal is not used here
    * @param control RPYT to send to hardware
    * return True if successfully converted sensor data to control
    */
-  virtual bool runImplementation(EmptySensor sensor_data, EmptyGoal goal,
-                                 JointAngles &control);
+  virtual bool runImplementation(EmptySensor, EmptyGoal, JointAngles &control);
   /**
   * @brief Default implementation since there is no concept of convergence
   * @return controller status that contains an enum and debug information.
