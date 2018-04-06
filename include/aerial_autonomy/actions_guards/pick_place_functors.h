@@ -78,17 +78,6 @@ using PlaceInternalActionFunctor_ =
             Reset>>>;
 
 /**
-* @brief Logic to check arm power and manual mode
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-using ManualControlArmInternalActionFunctor_ =
-    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
-        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-        ManualControlInternalActionFunctor_<LogicStateMachineT>>>;
-
-/**
 * @brief Check tracking is valid before starting visual servoing and arm is
 * enabled before picking objects
 *

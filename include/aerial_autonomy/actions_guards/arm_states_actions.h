@@ -1,6 +1,7 @@
 #pragma once
 /// States and actions corresponding to arm system
 #include <aerial_autonomy/actions_guards/arm_functors.h>
+#include <aerial_autonomy/actions_guards/uav_arm_functors.h>
 #include <aerial_autonomy/arm_events.h>
 /**
 * @brief Class to provide typedefs for all basic uav states and actions
@@ -19,6 +20,10 @@ template <class LogicStateMachineT> struct ArmStatesActions {
   * @brief State for folding arm
   */
   using ArmFolding = ArmFolding_<LogicStateMachineT>;
+  /**
+  * @brief Landing state
+  */
+  using ArmStatus = ArmStatus_<LogicStateMachineT>;
   /**
   * @brief Action to poweroff arm
   */

@@ -194,6 +194,15 @@ using ArmFolding_ =
     BaseState<ArmSystem, LogicStateMachineT,
               ArmFoldInternalActionFunctor_<LogicStateMachineT>>;
 /**
+* @brief State that checks arm internal status
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+using ArmStatus_ =
+    BaseState<ArmSystem, LogicStateMachineT,
+              ArmStatusInternalActionFunctor_<LogicStateMachineT>>;
+/**
 * @brief Same state as above. Used to distinguish between landing and takeoff
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
