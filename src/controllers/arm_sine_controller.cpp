@@ -21,8 +21,7 @@ std::chrono::duration<double> ArmSineController::duration() {
       std::chrono::high_resolution_clock::now() - t0_);
 }
 
-bool ArmSineController::runImplementation(EmptySensor sensor_data,
-                                          EmptyGoal goal,
+bool ArmSineController::runImplementation(EmptySensor, EmptyGoal,
                                           JointAngles &control) {
   auto joint_config = config_.joint_config();
   Log::instance()["arm_sine_controller"] << DataStream::startl;
