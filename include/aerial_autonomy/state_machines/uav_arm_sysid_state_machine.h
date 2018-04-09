@@ -110,6 +110,9 @@ public:
             msmf::Row<usa::ManualControlArmState, be::Land, usa::Landed,
                       usa::ManualControlSwitchAction,
                       usa::ManualControlSwitchGuard>,
+            msmf::Row<usa::ManualControlArmState, ue::ArmOscillate,
+                      usa::ArmStatus, usa::ArmSineTransitionFunctor,
+                      msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::RunningArmSineController, be::Joystick,
                       usa::RunningJoystickRPYTArmSineController,
