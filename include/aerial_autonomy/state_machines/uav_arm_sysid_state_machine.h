@@ -114,6 +114,9 @@ public:
                       usa::ArmStatus, usa::ArmSineTransitionFunctor,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<usa::ArmStatus, be::Abort, usa::Hovering,
+                      usa::AbortArmControllerArmRightFold, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::RunningArmSineController, be::Joystick,
                       usa::RunningJoystickRPYTArmSineController,
                       usa::StartJoystickRPYTController, msmf::none>,
@@ -135,10 +138,11 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 8> state_names = {
+static constexpr std::array<const char *, 7> state_names = {
     "Landed",
     "Hovering",
     "ManualControlArmState",
+    "ArmStatus",
     "RunningArmSineController",
     "RunningJoystickRPYTArmSineController",
     "RunningJoystickRPYTController"};

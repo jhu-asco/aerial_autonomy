@@ -11,8 +11,9 @@ ArmSineControllerConnector::ArmSineControllerConnector(
   Log::instance()["arm_sine_controller_connector"] << DataStream::starth;
   int N = joint_angles.size();
   for (int i = 0; i < N; ++i) {
-    std::string header = "Jad_" + std::to_string(i);
-    Log::instance()["arm_sine_controller_connector"] << header;
+    std::string ja_header = "Ja_" + std::to_string(i);
+    std::string jv_header = "Jv_" + std::to_string(i);
+    Log::instance()["arm_sine_controller_connector"] << ja_header << jv_header;
   }
   Log::instance()["arm_sine_controller_connector"] << DataStream::endl;
 }

@@ -67,3 +67,13 @@ data_stream_configs {
   stream_id: "mocap_logger"
   log_rate: 50
 }
+
+data_stream_configs {
+  stream_id: "arm_sine_controller_connector"
+  log_rate: 20
+}
+
+data_stream_configs {
+  stream_id: "arm_sine_controller"
+  log_rate: 20
+}
