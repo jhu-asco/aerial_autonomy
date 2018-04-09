@@ -10,8 +10,7 @@
 */
 class QuadHigherLevelController
     : public Controller<std::tuple<QuadFlatOutput, std::vector<Obstacle>>,
-                        Trajectory<QuadFlatOutput>,
-                        Trajectory<QuadFlatOutput>> {
+                        QuadFlatOutput, Trajectory<QuadFlatOutput>> {
 public:
   /**
   * @brief Constructor
@@ -33,7 +32,7 @@ public:
   */
   virtual bool runImplementation(
       std::tuple<QuadFlatOutput, std::vector<Obstacle>> sensor_data,
-      Trajectory<QuadFlatOutput> goal, Trajectory<QuadFlatOutput> &control);
+      QuadFlatOutput goal, Trajectory<QuadFlatOutput> &control);
   /**
   * @brief Checks if trajectory has converged to the desired goal
   *
@@ -42,7 +41,7 @@ public:
   */
   virtual ControllerStatus isConvergedImplementation(
       std::tuple<QuadFlatOutput, std::vector<Obstacle>> sensor_data,
-      Trajectory<QuadFlatOutput> goal);
+      QuadFlatOutput goal);
 
 private:
   AcadoConfig config_;         ///< Config for acado controller
