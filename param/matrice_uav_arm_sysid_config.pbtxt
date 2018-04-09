@@ -54,14 +54,14 @@ uav_system_config {
         arm_parser_type: "SimpleArm"
         arm_sine_controller_config {
           joint_config {
-            amplitude: 0.7
-            frequency: 0.5
-            phase: -0.7
+            amplitude: 1.0
+            frequency: 0.2
+            phase: -1.0
           }
           joint_config {
-            amplitude: 1.0
-            frequency: 0.5
-            phase: 0.2
+            amplitude: 2.0
+            frequency: 0.1
+            phase: 0.3
           }
         }
       }

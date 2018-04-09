@@ -35,5 +35,5 @@
     <param name="~uav/app_bundle_id" type="string" value="Welcome to use dji-sdk"/>
     <param name="~uav/enc_key" type="string" value="8667ff1ec3a163d6ef14a7bf6a9fae66210855f309c1876788f61d2195dc58d7"/>
   </node>
-  <!--<include file="$(find ros_vrpn_client)/launch/matrice.launch"/>-->
+  <include file="$(find ros_vrpn_client)/launch/matrice.launch" unless="$(arg hil)"/>
 </launch>
