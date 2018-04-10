@@ -258,6 +258,7 @@ add_library(aerial_autonomy
   src/controllers/rpyt_based_position_controller.cpp
   src/controllers/rpyt_based_relative_pose_controller.cpp
   src/controllers/joystick_velocity_controller.cpp
+  src/controllers/quad_higher_level_controller.cpp
   src/estimators/thrust_gain_estimator.cpp
   src/estimators/tracking_vector_estimator.cpp
   src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp
@@ -395,6 +396,7 @@ catkin_add_gtest(${PROJECT_NAME}-rpyt-based-relative-pose-controller-test tests/
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-velocity-controller-test tests/controllers/rpyt_based_velocity_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-position-controller-test tests/controllers/rpyt_based_position_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-constant-heading-depth-controller-test tests/controllers/constant_heading_depth_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-quad-higher-level-controller-test tests/controllers/quad_higher_level_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-math-test tests/common/math_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-tracker-test tests/trackers/simple_tracker_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-multi-tracker-test tests/trackers/simple_multi_tracker_tests.cpp)
@@ -537,6 +539,9 @@ if(TARGET ${PROJECT_NAME}-rpyt-based-velocity-controller-test)
 endif()
 if(TARGET ${PROJECT_NAME}-constant-heading-depth-controller-test)
   target_link_libraries(${PROJECT_NAME}-constant-heading-depth-controller-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-quad-higher-level-controller-test)
+  target_link_libraries(${PROJECT_NAME}-quad-higher-level-controller-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
 if(TARGET ${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test)
   target_link_libraries(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
