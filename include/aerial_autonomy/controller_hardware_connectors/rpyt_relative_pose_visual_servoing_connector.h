@@ -3,7 +3,6 @@
 #include "aerial_autonomy/controller_hardware_connectors/base_relative_pose_visual_servoing_connector.h"
 #include "aerial_autonomy/controllers/rpyt_based_relative_pose_controller.h"
 #include "aerial_autonomy/estimators/thrust_gain_estimator.h"
-#include "aerial_autonomy/estimators/tracking_vector_estimator.h"
 #include "aerial_autonomy/trackers/base_tracker.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/roll_pitch_yawrate_thrust.h"
@@ -37,7 +36,6 @@ public:
       BaseTracker &tracker, parsernode::Parser &drone_hardware,
       RPYTBasedRelativePoseController &controller,
       ThrustGainEstimator &thrust_gain_estimator,
-      TrackingVectorEstimator &tracking_vector_estimator,
       tf::Transform camera_transform,
       tf::Transform tracking_offset_transform = tf::Transform::getIdentity())
       : ControllerHardwareConnector(controller, HardwareType::UAV),
@@ -45,7 +43,6 @@ public:
                                                 camera_transform,
                                                 tracking_offset_transform),
         thrust_gain_estimator_(thrust_gain_estimator),
-        tracking_vector_estimator_(tracking_vector_estimator),
         private_reference_controller_(controller) {
     DATA_HEADER("rpyt_relative_pose_visual_servoing_connector")
         << "vel_x"
@@ -113,7 +110,13 @@ private:
   using BaseClass = ControllerHardwareConnector<
       std::tuple<tf::Transform, tf::Transform, VelocityYawRate>, PositionYaw,
       RollPitchYawRateThrust>;
+  /**
+   * @brief Estimator for finding the gain between joystick thrust command and
+   * the acceleration in body z direction
+   */
   ThrustGainEstimator &thrust_gain_estimator_;
-  TrackingVectorEstimator &tracking_vector_estimator_;
+  /**
+   * @brief Internal reference to controller that is connected by this class
+   */
   RPYTBasedRelativePoseController &private_reference_controller_;
 };

@@ -40,7 +40,7 @@ struct GrippingInternalActionFunctor_
           UAVArmSystem, LogicStateMachineT, PickState_<LogicStateMachineT>> {
   bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine,
            PickState_<LogicStateMachineT> &state) {
-    bool has_grip = robot_system.grip(true);
+    bool has_grip = robot_system.gripStatus();
     if (state.monitorGrip(has_grip)) {
       VLOG(1) << "Done Gripping!";
       uint32_t tracked_id;
@@ -76,17 +76,6 @@ using PlaceInternalActionFunctor_ =
         ControllerStatusInternalActionFunctor_<
             LogicStateMachineT, RPYTRelativePoseVisualServoingConnector, true,
             Reset>>>;
-
-/**
-* @brief Logic to check arm power and manual mode
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-using ManualControlArmInternalActionFunctor_ =
-    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
-        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-        ManualControlInternalActionFunctor_<LogicStateMachineT>>>;
 
 /**
 * @brief Check tracking is valid before starting visual servoing and arm is
@@ -411,6 +400,9 @@ struct ReachingPostPickWaypoint_
   }
 
 private:
+  /**
+   * @brief id of the package that was picked up
+   */
   ObjectId object_id_;
 };
 
@@ -423,6 +415,10 @@ template <class LogicStateMachineT>
 using PlaceState_ = BaseState<UAVArmSystem, LogicStateMachineT,
                               PlaceInternalActionFunctor_<LogicStateMachineT>>;
 
+/**
+* @brief State where robot waits for an object to appear before transitioning
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 struct WaitingForPick_
     : public TimedState<
@@ -431,6 +427,36 @@ struct WaitingForPick_
               UAVStatusInternalActionFunctor_<LogicStateMachineT>,
               ArmStatusInternalActionFunctor_<LogicStateMachineT>,
               WaitingForPickInternalActionFunctor_<LogicStateMachineT>>>> {};
+
+/**
+* @brief Internal action functor for picking.  Resets only
+* when the manipulator is not already gripping
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct PickControllerStatusCheck_
+    : InternalActionFunctor<UAVArmSystem, LogicStateMachineT> {
+
+  bool run(UAVArmSystem &robot_system,
+           LogicStateMachineT &logic_state_machine) {
+    ControllerStatus status =
+        robot_system.getStatus<RPYTRelativePoseVisualServoingConnector>();
+    bool grip_status = robot_system.gripStatus();
+    if (status == ControllerStatus::Critical && grip_status) {
+      robot_system.abortController(HardwareType::UAV);
+      VLOG(1)
+          << "Controller critical while gripping is true! Aborting Controller!";
+    } else if ((status == ControllerStatus::Critical ||
+                status == ControllerStatus::NotEngaged) &&
+               !grip_status) {
+      logic_state_machine.process_event(Reset());
+      VLOG(1) << "Gripping failed and no controller engaged or controller "
+                 "critical. So resetting!";
+      return false;
+    }
+    return true;
+  }
+};
 
 /**
  * @brief typedef for base class of pick state which is a timed state
@@ -445,9 +471,7 @@ using PickBaseState_ =
                boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
                    UAVStatusInternalActionFunctor_<LogicStateMachineT>,
                    ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-                   ControllerStatusInternalActionFunctor_<
-                       LogicStateMachineT,
-                       RPYTRelativePoseVisualServoingConnector, false, Reset>,
+                   PickControllerStatusCheck_<LogicStateMachineT>,
                    GrippingInternalActionFunctor_<LogicStateMachineT>>>>;
 /**
 * @brief State that uses position control functor to reach a desired goal for
@@ -500,6 +524,7 @@ public:
     grip_config_ = logic_state_machine.configMap()
                        .find<PickState_<LogicStateMachineT>, GripConfig>();
     grip_timeout_ = std::chrono::milliseconds(grip_config_.grip_timeout());
+    gripping_ = false;
     required_grip_duration_ =
         std::chrono::milliseconds(grip_config_.grip_duration());
     VLOG(1) << "Grip timeout in milliseconds: " << grip_timeout_.count();
@@ -521,10 +546,25 @@ public:
   const GripConfig &gripConfig() const { return grip_config_; }
 
 private:
+  /**
+   * @brief Time when gripping started
+   */
   std::chrono::time_point<std::chrono::high_resolution_clock> grip_start_time_;
+  /**
+   * @brief How long to grip before grip succeeds
+   */
   std::chrono::milliseconds required_grip_duration_ =
       std::chrono::milliseconds(0);
+  /**
+   * @brief Flag to indicate whether gripping is active or not
+   */
   bool gripping_ = false;
+  /**
+   * @brief Config specifying the grip settings such as duration
+   */
   GripConfig grip_config_;
+  /**
+   * @brief Time after which grip automatically fails
+   */
   std::chrono::milliseconds grip_timeout_ = std::chrono::milliseconds(0);
 };

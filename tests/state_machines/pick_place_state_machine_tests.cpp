@@ -527,6 +527,34 @@ TEST_F(PickPlaceStateMachineTests, PickPlaceInvalidTrackingAbort) {
     uav_arm_system_->runActiveController(HardwareType::Arm);
   }
   // Check we are resetting
+  arm_->setGripperStatus(false);
+  logic_state_machine_->process_event(InternalTransitionEvent());
+  ASSERT_STREQ(pstate(*logic_state_machine_), "ResetVisualServoing");
+}
+// Abort due to tracking becoming invalid
+TEST_F(PickPlaceStateMachineTests, PickPlaceInvalidTrackingGripping) {
+  // First takeoff
+  GoToHoverFromLanded();
+  logic_state_machine_->process_event(pe::Pick());
+  logic_state_machine_->process_event(InternalTransitionEvent());
+  // Check we are in pick state
+  ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
+  // Set tracker to invalid
+  tracker_->setTrackingIsValid(false);
+  // Run active controllers
+  for (int i = 0; i < 2; ++i) {
+    uav_arm_system_->runActiveController(HardwareType::UAV);
+    uav_arm_system_->runActiveController(HardwareType::Arm);
+  }
+  // Check we are continuing to pick and controller is aborted
+  arm_->setGripperStatus(true);
+  logic_state_machine_->process_event(InternalTransitionEvent());
+  ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
+  ASSERT_EQ(ControllerStatus::NotEngaged,
+            uav_arm_system_->getActiveControllerStatus(HardwareType::UAV));
+
+  // If gripping becomes false, should now abort
+  arm_->setGripperStatus(false);
   logic_state_machine_->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine_), "ResetVisualServoing");
 }

@@ -5,6 +5,7 @@
 // Base robot system
 #include <aerial_autonomy/robot_systems/base_robot_system.h>
 
+#include <aerial_autonomy/controller_hardware_connectors/arm_sine_controller_connector.h>
 #include <aerial_autonomy/controller_hardware_connectors/builtin_pose_controller_arm_connector.h>
 #include <aerial_autonomy/controllers/builtin_controller.h>
 
@@ -28,6 +29,10 @@
 */
 class ArmSystem : public virtual BaseRobotSystem {
 protected:
+  /**
+   * @brief Typedef for arm parser that provides a generic interface
+   * to different arm hardware
+   */
   using ArmParserPtr = std::shared_ptr<ArmParser>;
 
 public:
@@ -52,11 +57,15 @@ public:
   ArmSystem(ArmSystemConfig config, ArmParserPtr arm_hardware = nullptr)
       : BaseRobotSystem(),
         arm_hardware_(ArmSystem::chooseArmHardware(arm_hardware, config)),
+        arm_sine_controller_(config.arm_sine_controller_config()),
+        arm_sine_controller_connector_(*arm_hardware_, arm_sine_controller_),
         builtin_pose_controller_(config.pose_controller_config()),
         builtin_pose_controller_arm_connector_(*arm_hardware_,
                                                builtin_pose_controller_) {
     controller_hardware_connector_container_.setObject(
         builtin_pose_controller_arm_connector_);
+    controller_hardware_connector_container_.setObject(
+        arm_sine_controller_connector_);
   }
 
   /**
@@ -67,12 +76,25 @@ public:
   }
 
   /**
+  * @brief Public API call to get joint angles
+  */
+  std::vector<double> getJointAngles() {
+    return arm_hardware_->getJointAngles();
+  }
+
+  /**
   * @brief Public API call to grip/ungrip an object
   *
   * @param grip_action true to grip an object and false to ungrip
   * @return True if command sent successfully, false otherwise
   */
   bool grip(bool grip_action) { return arm_hardware_->grip(grip_action); }
+
+  /**
+  * @brief Get the grip status of the arm
+  * @return True if grip is successful, false otherwise
+  */
+  bool gripStatus() { return arm_hardware_->gripStatus(); }
 
   /**
    * @brief Reset gripper state for passive grippers. For normal
@@ -206,6 +228,14 @@ protected:
   }
 
 private:
+  /**
+  * @brief Controls the arm in a sinusoid manner
+  */
+  ArmSineController arm_sine_controller_;
+  /**
+  * @brief Connects the arm controller to the arm hardware
+  */
+  ArmSineControllerConnector arm_sine_controller_connector_;
   /**
   * @brief Controls the arm pose
   */

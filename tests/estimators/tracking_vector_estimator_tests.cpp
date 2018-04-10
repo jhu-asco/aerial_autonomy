@@ -43,7 +43,7 @@ TEST_F(TrackingVectorEstimatorTests, initializeState) {
 
 TEST_F(TrackingVectorEstimatorTests, testMeasurementCovariance) {
   TrackingVectorEstimator estimator(config_, std::chrono::milliseconds(20));
-  int seconds_offset = 100;
+  int seconds_offset = 1;
   auto marker_time_stamp = std::chrono::high_resolution_clock::now() -
                            std::chrono::seconds(seconds_offset);
   cv::Mat measurement_covariance_matrix;

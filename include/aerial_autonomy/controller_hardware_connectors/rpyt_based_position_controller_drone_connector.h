@@ -68,6 +68,13 @@ private:
   * @brief Quad hardware to send commands
   */
   parsernode::Parser &drone_hardware_;
+  /**
+   * @brief Estimator for finding the gain between joystick thrust command and
+   * the acceleration in body z direction
+   */
   ThrustGainEstimator &thrust_gain_estimator_;
+  /**
+   * @brief Internal reference to controller that is connected by this class
+   */
   RPYTBasedPositionController &private_reference_controller_;
 };

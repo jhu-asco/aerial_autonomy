@@ -119,6 +119,20 @@ struct AbortArmController_
 };
 
 /**
+ * @brief Move arm in sinusoidal manner
+ *
+ * @tparam LogicStateMachineT State machine that contains the functor
+ */
+template <class LogicStateMachineT>
+struct ArmSineTransitionFunctor_
+    : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
+  void run(ArmSystem &robot_system) {
+    VLOG(1) << "Setting Goal for arm sine controller connector!";
+    robot_system.setGoal<ArmSineControllerConnector>(EmptyGoal());
+  }
+};
+
+/**
 * @brief action for checking arm status.
 *
 * Aborts if arm did not power on.
@@ -178,6 +192,15 @@ template <class LogicStateMachineT>
 using ArmFolding_ =
     BaseState<ArmSystem, LogicStateMachineT,
               ArmFoldInternalActionFunctor_<LogicStateMachineT>>;
+/**
+* @brief State that checks arm internal status
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+using ArmStatus_ =
+    BaseState<ArmSystem, LogicStateMachineT,
+              ArmStatusInternalActionFunctor_<LogicStateMachineT>>;
 /**
 * @brief Same state as above. Used to distinguish between landing and takeoff
 *

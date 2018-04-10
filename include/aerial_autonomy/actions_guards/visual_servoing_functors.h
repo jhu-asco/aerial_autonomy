@@ -49,6 +49,13 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
   }
 };
 
+/**
+ * @brief Check the goal index commanded is available in the stored goal
+ * arrays
+ *
+ * @tparam LogicStateMachineT Logic state machine used to process events
+ * @tparam GoalIndex Waypoint index being commanded
+ */
 template <class LogicStateMachineT, int GoalIndex>
 struct CheckGoalIndex_
     : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {

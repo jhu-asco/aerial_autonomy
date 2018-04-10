@@ -49,6 +49,16 @@ public:
       : state_machine<A0, A1, A2, A3, A4>(expr),
         last_processed_event_index(typeid(NULL)) {}
 
+/**
+ * @brief Function that adds multiple arguments to backend state
+ * machine
+ *
+ * @param z Recursive argument
+ * @param n The number of constructor arguments
+ * @param  unused argument
+ *
+ * @return Constructor with multiple arguments
+ */
 #define MSM_CONSTRUCTOR_HELPER_EXECUTE_SUB(z, n, unused) ARG##n t##n
 #define MSM_CONSTRUCTOR_HELPER_EXECUTE(z, n, unused)                           \
   template <BOOST_PP_ENUM_PARAMS(n, class ARG)>                                \
@@ -67,6 +77,9 @@ public:
           typename ::boost::proto::is_expr<Expr>::type>::type * = 0)           \
       : state_machine<A0, A1, A2, A3, A4>(expr, BOOST_PP_ENUM_PARAMS(n, t)) {}
 
+  /**
+   * @brief Macro expands to a sequence to specified CONTRUCTOR ARG SIZE
+   */
   BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_ADD(BOOST_MSM_CONSTRUCTOR_ARG_SIZE, 1),
                           MSM_CONSTRUCTOR_HELPER_EXECUTE, ~)
 #undef MSM_CONSTRUCTOR_HELPER_EXECUTE
@@ -74,6 +87,15 @@ public:
 
   // all state machines are friend with each other to allow embedding any of
   // them in another fsm
+  /**
+   * @brief Create friend for backend state machine to use private members
+   *
+   * @tparam class template parameters for the parent class
+   * @tparam class template parameters for the parent class
+   * @tparam class template parameters for the parent class
+   * @tparam class template parameters for the parent class
+   * @tparam class template parameters for the parent class
+   */
   template <class, class, class, class, class>
   friend class boost::msm::back::state_machine;
 

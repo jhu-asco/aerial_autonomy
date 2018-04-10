@@ -62,13 +62,11 @@ public:
     simple_tracker_.reset(new SimpleTracker(drone_hardware_, camera_transform));
     controller_.reset(new RPYTBasedRelativePoseController(
         config, std::chrono::milliseconds(20)));
-    tracking_vector_estimator_.reset(new TrackingVectorEstimator(
-        TrackingVectorEstimatorConfig(), std::chrono::milliseconds(20)));
     visual_servoing_connector_.reset(
         new RPYTRelativePoseVisualServoingConnector(
             *simple_tracker_, drone_hardware_, *controller_,
-            thrust_gain_estimator_, *tracking_vector_estimator_,
-            camera_transform, tracking_offset_transform_));
+            thrust_gain_estimator_, camera_transform,
+            tracking_offset_transform_));
     drone_hardware_.usePerfectTime();
   }
 
@@ -136,7 +134,6 @@ public:
   std::unique_ptr<SimpleTracker> simple_tracker_;
   std::unique_ptr<RPYTRelativePoseVisualServoingConnector>
       visual_servoing_connector_;
-  std::unique_ptr<TrackingVectorEstimator> tracking_vector_estimator_;
   double goal_tolerance_position_;
   double goal_tolerance_velocity_;
   double goal_tolerance_yaw_;

@@ -121,12 +121,39 @@ public:
   void clearBuffer();
 
 private:
+  /**
+   * @brief Queue to store thrust commands to account for delay
+   */
   std::queue<double> thrust_command_queue_;
+  /**
+   * @brief The gain when multiplied should match the z acceleration in body
+   * frame
+   */
   double thrust_gain_;
+  /**
+   * @brief Filtering gain used for filtering thrust gain. Should be between 0
+   * and 1
+   */
   double mixing_gain_;
+  /**
+   * @brief Assuming quad command is at 50 Hz, the buffer size is delay between
+   * when command is sent and sensor measurements are received
+   */
   unsigned int delay_buffer_size_;
+  /**
+   * @brief Magnitude of gravity is 9.81
+   */
   const double gravity_magnitude_;
+  /**
+   * @brief Minimum thrust command allowed
+   */
   const double thrust_command_tolerance_;
+  /**
+   * @brief Clip max thrust gain to this value
+   */
   const double max_thrust_gain_;
+  /**
+   * @brief Clip min thrust gain to this value
+   */
   const double min_thrust_gain_;
 };

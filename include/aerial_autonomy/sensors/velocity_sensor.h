@@ -3,9 +3,9 @@
 #include "aerial_autonomy/types/velocity.h"
 #include "velocity_sensor_config.pb.h"
 #include <aerial_autonomy/common/conversions.h>
+#include <glog/logging.h>
 #include <nav_msgs/Odometry.h>
 #include <ros/ros.h>
-
 /**
 * @brief ros based velocity sensor
 */

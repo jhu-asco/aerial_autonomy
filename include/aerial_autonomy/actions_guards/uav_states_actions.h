@@ -49,6 +49,12 @@ template <class LogicStateMachineT> struct UAVStatesActions {
   using RunningJoystickVelocityController =
       RunningJoystickVelocityController_<LogicStateMachineT>;
 
+  /**
+  * @brief State for running joystick rpyt controller
+  */
+  using RunningJoystickRPYTController =
+      RunningJoystickRPYTController_<LogicStateMachineT>;
+
   // Basic transition Actions
   /**
   * @brief Action to take when taking off
@@ -105,6 +111,11 @@ template <class LogicStateMachineT> struct UAVStatesActions {
   */
   using StartJoystickVelocityController =
       JoystickVelocityControlTransitionActionFunctor_<LogicStateMachineT>;
+  /**
+   * @brief start joystick rpyt controller
+   */
+  using StartJoystickRPYTController =
+      JoystickRPYTControlActionFunctor_<LogicStateMachineT>;
   /**
   * @brief Guard to avoid going to velocity goal if too high
   */

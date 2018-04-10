@@ -71,6 +71,9 @@ void TrackingVectorEstimator::setMeasurementCovariance(
   if (dt < 0) {
     LOG(WARNING) << "dt negative: " << dt;
     dt = 0;
+  } else if (dt > 1.0) {
+    LOG(WARNING) << "dt too high: " << dt;
+    dt = 1.0;
   }
   tf::Vector3 current_meas_stdev =
       marker_meas_stdev_ + dt * marker_dilation_stdev_;
