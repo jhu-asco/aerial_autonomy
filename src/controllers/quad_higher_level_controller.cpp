@@ -24,7 +24,7 @@ ControllerStatus QuadHigherLevelController::isConvergedImplementation(
     std::tuple<QuadFlatOutput, std::vector<Obstacle>> sensor_data,
     QuadFlatOutput goal) {
   ControllerStatus result = ControllerStatus::Active;
-  QuadFlatOutput error = goal - final_state_;
+  QuadFlatOutput error = goal - std::get<0>(sensor_data);
   double e = config_.tolerance();
   if (abs(error.p.x) < e && abs(error.p.y) < e && abs(error.p.z) < e &&
       abs(error.p.yaw) < e && abs(error.v.x) < e && abs(error.v.y) < e &&

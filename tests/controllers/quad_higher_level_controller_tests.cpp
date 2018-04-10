@@ -54,6 +54,7 @@ TEST(QuadHigherLevelControllerTests, ControllerRun) {
   bool result = controller.run(sensor_data, state_traj);
   ASSERT_TRUE(result);
 
+  sensor_data = make_tuple(goal, obstacle_list);
   ControllerStatus check = controller.isConverged(sensor_data);
   ASSERT_TRUE(bool(check));
 }
