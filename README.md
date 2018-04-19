@@ -35,6 +35,27 @@ Install googletest `release 1.8.0`. This version fixes a bug with `ASSERT_TRUE` 
     sudo make install
     sudo ldconfig
 
+Run the following in your ROS workspace src folder to setup UAV hardware drivers
+
+    git clone -b hydro-devel https://git.lcsr.jhu.edu/ggarime1/rqt_quadcopter_parsers.git
+    git clone -b 3.2.3 https://github.com/jhu-asco/Onboard-SDK-ROS.git
+
+### Optional: Manipulator packages
+Optionally, to install drivers related to aerial manipulation, run the following in your ROS src folder
+
+    git clone https://git.lcsr.jhu.edu/mshecke1/arm_plugins.git
+    git clone https://git.lcsr.jhu.edu/ggarime1/controllers.git
+    git clone https://git.lcsr.jhu.edu/ggarime1/dynamixelsdk.git
+
+Install our GCOP (Geometric Control, Optimization, and Planning) package
+
+    git clone https://github.com/jhu-asco/gcop.git
+    cd gcop
+    mkdir build
+    cd build
+    cmake ..
+    sudo make install
+
 ## Running Executables
 The package provides a `uav_system_node` executable which loads a state machine and hardware and waits for event commands from a ROS topic. The `rqt_aerial_autonomy_gui` script
 provides a GUI to generate events for the state machine. The rqt plugin can be loaded along with `rqt_rviz` in the `rqt_gui` framework.
