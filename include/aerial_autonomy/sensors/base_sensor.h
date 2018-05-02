@@ -14,12 +14,7 @@ enum class SensorStatus { INVALID, VALID };
 /**
 * @brief convert sensor status to bool
 */
-bool sensor_status_to_bool(SensorStatus status) {
-  if (status == SensorStatus::INVALID)
-    return false;
-  else
-    return true;
-}
+bool sensor_status_to_bool(SensorStatus status);
 /**
 * @brief Base class for sensors
 *

@@ -204,6 +204,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/following_waypoint_sequence_config.proto
   proto/grip_config.proto
   proto/velocity_sensor_config.proto
+  proto/odom_sensor_config.proto
   proto/joystick_velocity_controller_drone_connector_config.proto
   proto/place_group.proto
   proto/thrust_gain_estimator_config.proto
@@ -268,11 +269,13 @@ add_library(aerial_autonomy
   src/controller_hardware_connectors/position_controller_drone_connector.cpp
   src/controller_hardware_connectors/velocity_based_position_controller_drone_connector.cpp
   src/controller_hardware_connectors/rpyt_based_position_controller_drone_connector.cpp
+  src/controller_hardware_connectors/rpyt_based_odom_sensor_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
   src/controller_hardware_connectors/builtin_pose_controller_arm_connector.cpp
   src/controller_hardware_connectors/joystick_velocity_controller_drone_connector.cpp
   src/controller_hardware_connectors/arm_sine_controller_connector.cpp
+  src/sensors/base_sensor.cpp
 )
 add_dependencies(aerial_autonomy proto)
 target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBS})
@@ -416,6 +419,7 @@ catkin_add_gtest(${PROJECT_NAME}-string-utils-test tests/common/string_utils_tes
 catkin_add_gtest(${PROJECT_NAME}-conversions-test tests/common/conversions_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-proto-utils-test tests/common/proto_utils_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-velocity-sensor-test tests/sensors/velocity_sensor_tests.test tests/sensors/velocity_sensor_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-odom-sensor-test tests/sensors/odom_sensor_tests.test tests/sensors/odom_sensor_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
@@ -595,6 +599,9 @@ if(TARGET ${PROJECT_NAME}-conversions-test)
 endif()
 if(TARGET ${PROJECT_NAME}-velocity-sensor-test)
   target_link_libraries(${PROJECT_NAME}-velocity-sensor-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+endif()
+if(TARGET ${PROJECT_NAME}-odom-sensor-test)
+  target_link_libraries(${PROJECT_NAME}-odom-sensor-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
 
 ## Add folders to be run by python nosetests
