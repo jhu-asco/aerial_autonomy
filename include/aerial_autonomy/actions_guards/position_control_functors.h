@@ -8,6 +8,7 @@
 #include <aerial_autonomy/uav_basic_events.h>
 #include <glog/logging.h>
 #include <parsernode/common.h>
+#include <aerial_autonomy/controller_hardware_connectors/rpyt_based_odom_sensor_controller_drone_connector.h>
 
 namespace be = uav_basic_events;
 
@@ -16,12 +17,12 @@ namespace be = uav_basic_events;
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
-template <class LogicStateMachineT>
+template <class LogicStateMachineT,class DroneConnectorT = RPYTBasedPositionControllerDroneConnector>
 struct PositionControlTransitionActionFunctor_
     : ActionFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
   void run(const PositionYaw &goal, UAVSystem &robot_system) {
     robot_system
-        .setGoal<RPYTBasedPositionControllerDroneConnector, PositionYaw>(goal);
+        .setGoal<DroneConnectorT, PositionYaw>(goal);
   }
 };
 
@@ -94,12 +95,12 @@ struct ZeroVelocityGuardFunctor_
  *
 * @tparam LogicStateMachineT Logic state machine used to process events
  */
-template <class LogicStateMachineT>
+template <class LogicStateMachineT, class DroneConnectorT>
 using PositionControlInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, RPYTBasedPositionControllerDroneConnector>>>;
+            LogicStateMachineT, DroneConnectorT>>>;
 
 /**
 * @brief State that uses position control functor to reach a desired goal.
@@ -109,4 +110,5 @@ using PositionControlInternalActionFunctor_ =
 template <class LogicStateMachineT>
 using ReachingGoal_ =
     BaseState<UAVSystem, LogicStateMachineT,
-              PositionControlInternalActionFunctor_<LogicStateMachineT>>;
+              PositionControlInternalActionFunctor_<LogicStateMachineT,
+                                                    RPYTBasedOdomSensorControllerDroneConnector>>;

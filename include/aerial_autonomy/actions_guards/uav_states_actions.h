@@ -76,7 +76,7 @@ template <class LogicStateMachineT> struct UAVStatesActions {
   * @brief set goal action when transitioning
   */
   using ReachingGoalSet =
-      PositionControlTransitionActionFunctor_<LogicStateMachineT>;
+      PositionControlTransitionActionFunctor_<LogicStateMachineT, RPYTBasedOdomSensorControllerDroneConnector>;
   /**
   * @brief Guard to avoid going to goal if goal is not correct
   */

@@ -16,8 +16,10 @@
 #include <aerial_autonomy/controller_hardware_connectors/joystick_velocity_controller_drone_connector.h>
 // Sensors
 #include <aerial_autonomy/controller_hardware_connectors/rpyt_based_position_controller_drone_connector.h>
+#include <aerial_autonomy/controller_hardware_connectors/rpyt_based_odom_sensor_controller_drone_connector.h>
 #include <aerial_autonomy/sensors/guidance.h>
 #include <aerial_autonomy/sensors/velocity_sensor.h>
+#include <aerial_autonomy/sensors/odom_sensor.h>
 // Load UAV parser
 #include <pluginlib/class_loader.h>
 // Base class for UAV parsers
@@ -78,6 +80,7 @@ private:
 * @brief Velocity Sensor
 */
   std::shared_ptr<Sensor<Velocity>> velocity_sensor_;
+  OdomSensor odom_sensor_;
   /**
    * @brief connector for position controller
    */
@@ -89,6 +92,8 @@ private:
    */
   RPYTBasedPositionControllerDroneConnector
       rpyt_based_position_controller_drone_connector_;
+  RPYTBasedOdomSensorControllerDroneConnector
+      rpyt_based_odom_sensor_controller_drone_connector_;
   /**
   * @brief connector for velocity controller
   */
@@ -205,11 +210,15 @@ public:
             std::chrono::milliseconds(config.uav_controller_timer_duration())),
         velocity_sensor_(
             UAVSystem::chooseSensor(velocity_sensor, drone_hardware_, config)),
+        odom_sensor_(config.odomsensor()),
         position_controller_drone_connector_(*drone_hardware_,
                                              builtin_position_controller_),
         rpyt_based_position_controller_drone_connector_(
             *drone_hardware_, rpyt_based_position_controller_,
             thrust_gain_estimator_),
+        rpyt_based_odom_sensor_controller_drone_connector_(
+            *drone_hardware_, rpyt_based_position_controller_,
+            thrust_gain_estimator_, odom_sensor_),
         velocity_controller_drone_connector_(*drone_hardware_,
                                              builtin_velocity_controller_),
         rpyt_controller_drone_connector_(*drone_hardware_,
@@ -231,6 +240,8 @@ public:
         rpyt_controller_drone_connector_);
     controller_hardware_connector_container_.setObject(
         joystick_velocity_controller_drone_connector_);
+    controller_hardware_connector_container_.setObject(
+        rpyt_based_odom_sensor_controller_drone_connector_);
   }
   /**
   * @brief Get sensor data from UAV

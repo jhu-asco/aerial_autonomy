@@ -22,7 +22,7 @@ public:
     VLOG(2) << "Initialzing ROS Sensor";
     odom_sub_ = nh_.subscribe("/vins_estimator/odometry", 1,
                               &OdomSensor::odom_pose_Callback, this);
-    sensor_world_tf_ =
+    sensor_quad_tf_ =
         conversions::protoTransformToTf(config_.sensor_transform());
     last_msg_time_ = ros::Time::now();
   }
@@ -59,10 +59,6 @@ private:
     tf::Vector3 rate(msg->twist.twist.angular.x,
                      msg->twist.twist.angular.y,
                      msg->twist.twist.angular.z);
-    //Don't use the displacement of the world orign, just the rotation.
-    tf::Transform noOrigin(sensor_world_tf_.getRotation());
-    velocity = noOrigin * velocity;
-    rate = noOrigin * rate;
     //Set the result
     VelocityYawRate vyr(velocity.getX(),
                         velocity.getY(),
@@ -77,7 +73,7 @@ private:
                                msg->pose.pose.orientation.z,
                                msg->pose.pose.orientation.w);
     tf::Transform pyTransform(orientation,position);
-    pyTransform = sensor_world_tf_ * pyTransform;
+    pyTransform = pyTransform * sensor_quad_tf_;
     //Set the result
     PositionYaw py(pyTransform.getOrigin().getX(),
                    pyTransform.getOrigin().getY(),
@@ -101,7 +97,7 @@ private:
   /**
   * @brief sensor's origin in world frame
   */
-  tf::Transform sensor_world_tf_;
+  tf::Transform sensor_quad_tf_;
   /**
   * @brief time of last msg recieved
   */
