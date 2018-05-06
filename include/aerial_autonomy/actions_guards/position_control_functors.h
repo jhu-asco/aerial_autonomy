@@ -141,33 +141,9 @@ using PositionControlInternalActionFunctor_ =
         ControllerStatusInternalActionFunctor_<
             LogicStateMachineT, DroneConnectorT>>>;
 
-/**
-* @brief State that uses position control functor to reach a desired goal.
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
+
 template <class LogicStateMachineT>
 using ReachingGoal_ =
-    BaseState<UAVSystem, LogicStateMachineT,
-              PositionControlInternalActionFunctor_<LogicStateMachineT,
-                                                    RPYTBasedOdomSensorControllerDroneConnector>>;
-template <class LogicStateMachineT>
-using ReachingGoal1_ =
-    BaseState<UAVSystem, LogicStateMachineT,
-              PositionControlInternalActionFunctor_<LogicStateMachineT,
-                                                    RPYTBasedOdomSensorControllerDroneConnector>>;
-template <class LogicStateMachineT>
-using ReachingGoal2_ =
-    BaseState<UAVSystem, LogicStateMachineT,
-              PositionControlInternalActionFunctor_<LogicStateMachineT,
-                                                    RPYTBasedOdomSensorControllerDroneConnector>>;
-template <class LogicStateMachineT>
-using ReachingGoal3_ =
-    BaseState<UAVSystem, LogicStateMachineT,
-              PositionControlInternalActionFunctor_<LogicStateMachineT,
-                                                    RPYTBasedOdomSensorControllerDroneConnector>>;
-template <class LogicStateMachineT>
-using ReachingGoal4_ =
     BaseState<UAVSystem, LogicStateMachineT,
               PositionControlInternalActionFunctor_<LogicStateMachineT,
                                                     RPYTBasedOdomSensorControllerDroneConnector>>;

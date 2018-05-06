@@ -4,6 +4,7 @@
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/common/math.h>
 #include <aerial_autonomy/common/proto_utils.h>
+#include <aerial_autonomy/visual_servoing_events.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_vision_system.h>
 #include <aerial_autonomy/trackers/id_tracking_strategy.h>
@@ -282,3 +283,58 @@ using RelativePoseVisualServoing_ =
     BaseState<UAVVisionSystem, LogicStateMachineT,
               RelativePoseVisualServoingInternalActionFunctor_<
                   LogicStateMachineT, AbortEventT>>;
+
+template <class LogicStateMachineT>
+struct CheckObjectInternalActionFunctor_
+    : InternalActionFunctor<UAVVisionSystem, LogicStateMachineT> {
+  /**
+  * @brief check if controller status is critical and abort;
+  * similarly if controller status is completed raise completed
+  *
+  * @param robot_system robot system to get sensor data
+  * @param logic_state_machine logic state machine to trigger events
+  */
+  bool run(UAVVisionSystem &robot_system, LogicStateMachineT &logic_state_machine) {
+    // Check status of controller
+    Position tracking_vector;
+    if (robot_system.getTrackingVector(tracking_vector)) {
+      logic_state_machine.process_event(visual_servoing_events::TrackROI());
+      return false;
+    }
+    return true;
+  }
+};
+
+template <class LogicStateMachineT, class DroneConnectorT>
+using SearchingInternalActionFunctor_ =
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+      CheckObjectInternalActionFunctor_<LogicStateMachineT>,
+        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+          ControllerStatusInternalActionFunctor_<
+            LogicStateMachineT, DroneConnectorT>>>;
+
+/**
+* @brief State that uses position control functor to reach a desired goal.
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+using ReachingGoal1_ =
+    BaseState<UAVVisionSystem, LogicStateMachineT,
+              SearchingInternalActionFunctor_<LogicStateMachineT,
+                                                    RPYTBasedOdomSensorControllerDroneConnector>>;
+template <class LogicStateMachineT>
+using ReachingGoal2_ =
+    BaseState<UAVVisionSystem, LogicStateMachineT,
+              SearchingInternalActionFunctor_<LogicStateMachineT,
+                                                    RPYTBasedOdomSensorControllerDroneConnector>>;
+template <class LogicStateMachineT>
+using ReachingGoal3_ =
+    BaseState<UAVVisionSystem, LogicStateMachineT,
+              SearchingInternalActionFunctor_<LogicStateMachineT,
+                                                    RPYTBasedOdomSensorControllerDroneConnector>>;
+template <class LogicStateMachineT>
+using ReachingGoal4_ =
+    BaseState<UAVVisionSystem, LogicStateMachineT,
+              SearchingInternalActionFunctor_<LogicStateMachineT,
+                                                    RPYTBasedOdomSensorControllerDroneConnector>>;
