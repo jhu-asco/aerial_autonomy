@@ -19,7 +19,7 @@ PositionYaw goal3(-1.0,1.0,1.0,3.14);
 PositionYaw goal4(-1.0,0.0,1.0,-1.57);
 
 
-template <class LogicStateMachineT>
+template <class LogicStateMachineT,class DroneConnectorT = RPYTBasedPositionControllerDroneConnector>
 struct PositionControlTransitionActionGoal1Functor
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system) {
@@ -27,7 +27,7 @@ struct PositionControlTransitionActionGoal1Functor
         .setGoal<DroneConnectorT, PositionYaw>(goal1);
   }
 };
-template <class LogicStateMachineT>
+template <class LogicStateMachineT,class DroneConnectorT = RPYTBasedPositionControllerDroneConnector>
 struct PositionControlTransitionActionGoal2Functor
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system) {
@@ -35,7 +35,7 @@ struct PositionControlTransitionActionGoal2Functor
         .setGoal<DroneConnectorT, PositionYaw>(goal2);
   }
 };
-template <class LogicStateMachineT>
+template <class LogicStateMachineT,class DroneConnectorT = RPYTBasedPositionControllerDroneConnector>
 struct PositionControlTransitionActionGoal3Functor
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system) {
@@ -43,7 +43,7 @@ struct PositionControlTransitionActionGoal3Functor
         .setGoal<DroneConnectorT, PositionYaw>(goal3);
   }
 };
-template <class LogicStateMachineT>
+template <class LogicStateMachineT,class DroneConnectorT = RPYTBasedPositionControllerDroneConnector>
 struct PositionControlTransitionActionGoal4Functor
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system) {
@@ -151,3 +151,24 @@ using ReachingGoal_ =
     BaseState<UAVSystem, LogicStateMachineT,
               PositionControlInternalActionFunctor_<LogicStateMachineT,
                                                     RPYTBasedOdomSensorControllerDroneConnector>>;
+template <class LogicStateMachineT>
+using ReachingGoal1_ =
+    BaseState<UAVSystem, LogicStateMachineT,
+              PositionControlInternalActionFunctor_<LogicStateMachineT,
+                                                    RPYTBasedOdomSensorControllerDroneConnector>>;
+template <class LogicStateMachineT>
+using ReachingGoal2_ =
+    BaseState<UAVSystem, LogicStateMachineT,
+              PositionControlInternalActionFunctor_<LogicStateMachineT,
+                                                    RPYTBasedOdomSensorControllerDroneConnector>>;
+template <class LogicStateMachineT>
+using ReachingGoal3_ =
+    BaseState<UAVSystem, LogicStateMachineT,
+              PositionControlInternalActionFunctor_<LogicStateMachineT,
+                                                    RPYTBasedOdomSensorControllerDroneConnector>>;
+template <class LogicStateMachineT>
+using ReachingGoal4_ =
+    BaseState<UAVSystem, LogicStateMachineT,
+              PositionControlInternalActionFunctor_<LogicStateMachineT,
+                                                    RPYTBasedOdomSensorControllerDroneConnector>>;
+

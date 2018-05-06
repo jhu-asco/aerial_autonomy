@@ -244,6 +244,7 @@ add_library(aerial_autonomy
   src/trackers/roi_to_position_converter.cpp
   src/trackers/simple_tracker.cpp
   src/trackers/alvar_tracker.cpp
+  src/trackers/KLT_tracker.cpp
   src/trackers/base_tracker.cpp
   src/trackers/simple_multi_tracker.cpp
   src/trackers/closest_tracking_strategy.cpp

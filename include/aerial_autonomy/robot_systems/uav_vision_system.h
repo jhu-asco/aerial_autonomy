@@ -8,6 +8,7 @@
 #include "aerial_autonomy/estimators/tracking_vector_estimator.h"
 #include "aerial_autonomy/robot_systems/uav_system.h"
 #include "aerial_autonomy/trackers/alvar_tracker.h"
+#include "aerial_autonomy/trackers/KLT_tracker.h"
 #include "aerial_autonomy/trackers/roi_to_position_converter.h"
 #include "uav_system_config.pb.h"
 
@@ -172,6 +173,8 @@ protected:
         tracker_pointer = BaseTrackerPtr(new RoiToPositionConverter());
       } else if (tracker_type == "Alvar") {
         tracker_pointer = BaseTrackerPtr(new AlvarTracker());
+      } else if (tracker_type == "KLT") {
+        tracker_pointer = BaseTrackerPtr(new KLTTracker());
       } else {
         throw std::runtime_error("Unknown tracker type provided: " +
                                  tracker_type);

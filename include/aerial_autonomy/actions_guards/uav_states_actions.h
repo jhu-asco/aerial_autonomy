@@ -26,6 +26,12 @@ template <class LogicStateMachineT> struct UAVStatesActions {
   * @brief Reaching goal state
   */
   using ReachingGoal = ReachingGoal_<LogicStateMachineT>;
+  using ReachingGoal1 = ReachingGoal1_<LogicStateMachineT>;
+  using ReachingGoal2 = ReachingGoal2_<LogicStateMachineT>;
+  using ReachingGoal3 = ReachingGoal3_<LogicStateMachineT>;
+  using ReachingGoal4 = ReachingGoal4_<LogicStateMachineT>;
+
+
   /**
   * @brief Hovering state
   */
@@ -56,6 +62,11 @@ template <class LogicStateMachineT> struct UAVStatesActions {
       RunningJoystickRPYTController_<LogicStateMachineT>;
 
   // Basic transition Actions
+  using ReachingGoalSet1 = PositionControlTransitionActionGoal1Functor<LogicStateMachineT>;
+  using ReachingGoalSet2 = PositionControlTransitionActionGoal2Functor<LogicStateMachineT>;
+  using ReachingGoalSet3 = PositionControlTransitionActionGoal3Functor<LogicStateMachineT>;
+  using ReachingGoalSet4 = PositionControlTransitionActionGoal4Functor<LogicStateMachineT>;
+
   /**
   * @brief Action to take when taking off
   */

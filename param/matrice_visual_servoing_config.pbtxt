@@ -29,7 +29,7 @@ uav_system_config {
   }
 
   uav_vision_system_config {
-    tracker_type: "Alvar"
+    tracker_type: "KLT"
 
     camera_transform {
       position {
@@ -51,7 +51,7 @@ uav_system_config {
         z: 0
       }
       rotation {
-        r: -1.5708
+        r: 0
         p: 0
         y: 0
       }

@@ -22,10 +22,10 @@
 
 // Actions and guards used
 #include <aerial_autonomy/actions_guards/uav_states_actions.h>
-
+#include <aerial_autonomy/actions_guards/visual_servoing_states_actions.h>
+#include <aerial_autonomy/visual_servoing_events.h>
 // Robot System used
-#include <aerial_autonomy/robot_systems/uav_system.h>
-
+#include <aerial_autonomy/robot_systems/uav_vision_system.h>
 // Logging library
 #include <glog/logging.h>
 
@@ -37,6 +37,7 @@
 
 namespace msmf = boost::msm::front;
 namespace be = uav_basic_events;
+namespace vse = visual_servoing_events;
 
 // Forward Declaration
 struct UAVStateMachineFrontEnd;
@@ -53,13 +54,13 @@ using UAVStateMachine =
 * @brief Namespace for basic uav states and actions such as takeoff, land etc
 */
 using usa = UAVStatesActions<UAVStateMachine>;
-
+using vsa = VisualServoingStatesActions<UAVStateMachine>;
 /**
 * @brief front-end: define the FSM structure
 */
 class UAVStateMachineFrontEnd
     : public msmf::state_machine_def<UAVStateMachineFrontEnd>,
-      public BaseStateMachine<UAVSystem> {
+      public BaseStateMachine<UAVVisionSystem> {
 public:
   /**
   * @brief Action to take on entering state machine
@@ -88,7 +89,7 @@ public:
   * @param state_machine_config store config variables for state
   * machine
   */
-  UAVStateMachineFrontEnd(UAVSystem &uav_system,
+  UAVStateMachineFrontEnd(UAVVisionSystem &uav_system,
                           const BaseStateMachineConfig &state_machine_config)
       : BaseStateMachine(uav_system, state_machine_config) {
     // Store state machine configs
@@ -113,8 +114,8 @@ public:
             msmf::Row<usa::TakingOff, Completed, usa::Hovering, msmf::none,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<usa::Hovering, Search, usa::ReachingGoal1,
-                      usa::ReachingGoalSet1, usa::ReachingGoalGuard>,
+            msmf::Row<usa::Hovering, be::Search, usa::ReachingGoal1,
+                      usa::ReachingGoalSet1, msmf::none>,
             msmf::Row<usa::Hovering, PositionYaw, usa::ReachingGoal,
                       usa::ReachingGoalSet, usa::ReachingGoalGuard>,
             msmf::Row<usa::Hovering, VelocityYaw, usa::ExecutingVelocityGoal,
@@ -133,21 +134,38 @@ public:
                       usa::ReachingGoalLand, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::ReachingGoal1, Completed, usa::ReachingGoal2,
-                      usa::ReachingGoalSet2, usa::ReachingGoalGuard>,
-            msmf::Row<usa::ReachingGoal1, vse::TrackROI , vsa::VisualServoing,
-                      vsa::VisualServoingTransitionAction, vsa::VisualServoingTransitionGuard>,
+                      usa::ReachingGoalSet2, msmf::none>,
+            msmf::Row<usa::ReachingGoal1, vse::TrackROI , vsa::RelativePoseVisualServoing,
+                      vsa::RelativePoseVisualServoingTransitionAction, vsa::RelativePoseVisualServoingTransitionGuard>,
             msmf::Row<usa::ReachingGoal2, Completed, usa::ReachingGoal3,
-                      usa::ReachingGoalSet3, usa::ReachingGoalGuard>,
-            msmf::Row<usa::ReachingGoal2, vse::TrackROI , vsa::VisualServoing,
-                      vsa::VisualServoingTransitionAction, vsa::VisualServoingTransitionGuard>,
+                      usa::ReachingGoalSet3, msmf::none>,
+            msmf::Row<usa::ReachingGoal2, vse::TrackROI , vsa::RelativePoseVisualServoing,
+                      vsa::RelativePoseVisualServoingTransitionAction, vsa::RelativePoseVisualServoingTransitionGuard>,
             msmf::Row<usa::ReachingGoal3, Completed, usa::ReachingGoal4,
-                      usa::ReachingGoalSet4, usa::ReachingGoalGuard>,
-            msmf::Row<usa::ReachingGoal3, vse::TrackROI , vsa::VisualServoing,
-                      vsa::VisualServoingTransitionAction, vsa::VisualServoingTransitionGuard>,
+                      usa::ReachingGoalSet4, msmf::none>,
+            msmf::Row<usa::ReachingGoal3, vse::TrackROI , vsa::RelativePoseVisualServoing,
+                      vsa::RelativePoseVisualServoingTransitionAction, vsa::RelativePoseVisualServoingTransitionGuard>,
             msmf::Row<usa::ReachingGoal4, Completed, usa::ReachingGoal1,
-                      usa::ReachingGoalSet1, usa::ReachingGoalGuard>,
-            msmf::Row<usa::ReachingGoal4, vse::TrackROI , vsa::VisualServoing,
-                      vsa::VisualServoingTransitionAction, vsa::VisualServoingTransitionGuard>,
+                      usa::ReachingGoalSet1, msmf::none>,
+            msmf::Row<usa::ReachingGoal4, vse::TrackROI , vsa::RelativePoseVisualServoing,
+                      vsa::RelativePoseVisualServoingTransitionAction, vsa::RelativePoseVisualServoingTransitionGuard>,
+
+            msmf::Row<usa::ReachingGoal1, be::Abort, usa::Hovering,
+                      usa::UAVControllerAbort, msmf::none>,
+            msmf::Row<usa::ReachingGoal1, be::Land, usa::Landing,
+                      usa::ReachingGoalLand, msmf::none>,
+            msmf::Row<usa::ReachingGoal2, be::Abort, usa::Hovering,
+                      usa::UAVControllerAbort, msmf::none>,
+            msmf::Row<usa::ReachingGoal2, be::Land, usa::Landing,
+                      usa::ReachingGoalLand, msmf::none>,
+            msmf::Row<usa::ReachingGoal3, be::Abort, usa::Hovering,
+                      usa::UAVControllerAbort, msmf::none>,
+            msmf::Row<usa::ReachingGoal3, be::Land, usa::Landing,
+                      usa::ReachingGoalLand, msmf::none>,
+            msmf::Row<usa::ReachingGoal4, be::Abort, usa::Hovering,
+                      usa::UAVControllerAbort, msmf::none>,
+            msmf::Row<usa::ReachingGoal4, be::Land, usa::Landing,
+                      usa::ReachingGoalLand, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::ExecutingVelocityGoal, VelocityYaw,
                       usa::ExecutingVelocityGoal, usa::SetVelocityGoal,
@@ -170,17 +188,19 @@ public:
                       usa::ManualControlSwitchGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::RunningJoystickVelocityController, be::Abort,
-                      usa::Hovering, usa::UAVControllerAbort, msmf::none>> {};
+                      usa::Hovering, usa::UAVControllerAbort, msmf::none>,
+            msmf::Row<vsa::RelativePoseVisualServoing, be::Abort, usa::Hovering,
+                      usa::UAVControllerAbort, msmf::none>> {};
   /**
   * @brief Use Inherited no transition function
   */
-  using BaseStateMachine<UAVSystem>::no_transition;
+  using BaseStateMachine<UAVVisionSystem>::no_transition;
 };
 
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 8> state_names = {
+static constexpr std::array<const char *, 13> state_names = {
     "Landed",
     "TakingOff",
     "Hovering",
@@ -189,11 +209,11 @@ static constexpr std::array<const char *, 8> state_names = {
     "ReachingGoal2",
     "ReachingGoal3",
     "ReachingGoal4",
-    "VisualServoing",
     "ExecutingVelocityGoal",
     "Landing",
     "ManualControlState",
-    "RunningJoystickVelocityController"};
+    "RunningJoystickVelocityController",
+    "VisualServoing"};
 /**
 * @brief Get current state name
 *

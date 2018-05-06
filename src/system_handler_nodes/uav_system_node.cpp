@@ -1,7 +1,7 @@
 #include <aerial_autonomy/common/system_handler_node_utils.h>
 #include <aerial_autonomy/state_machines/uav_state_machine.h>
-#include <aerial_autonomy/system_handlers/uav_system_handler.h>
-#include <aerial_autonomy/uav_basic_events.h>
+#include <aerial_autonomy/system_handlers/uav_vision_system_handler.h>
+#include <aerial_autonomy/visual_servoing_events.h>
 
 /**
  * @brief Loads configutation file and starts system
@@ -22,8 +22,8 @@ int main(int argc, char **argv) {
       loadConfigFromROSParam<UAVSystemHandlerConfig>(
           nh, "uav_system_config_filename");
 
-  UAVSystemHandler<UAVStateMachine,
-                   uav_basic_events::UAVEventManager<UAVStateMachine>>
+  UAVVisionSystemHandler<UAVStateMachine,
+                   visual_servoing_events::VisualServoingEventManager<UAVStateMachine>>
       uav_system_handler(uav_system_handler_config, state_machine_config);
 
   ros::spin();
