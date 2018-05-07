@@ -28,5 +28,5 @@
   </node>
   <!-- Launch mesh_localize tracking for pointgrey camera -->
   <include file="$(find mesh_localize)/launch/localize_cheezit_ogre.launch"/>  
-  <include file="$(find vins_estimator)/launch/vn_100.launch"/>
+  <!--include file="$(find vins_estimator)/launch/vn_100.launch"/-->
 </launch>
