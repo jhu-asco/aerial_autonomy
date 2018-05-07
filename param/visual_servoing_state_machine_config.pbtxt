@@ -1,7 +1,7 @@
 visual_servoing_state_machine_config {
     relative_pose_goals {
       position {
-        x: -0.5
+        x: -0.8
         y: 0
         z: 0
       }
