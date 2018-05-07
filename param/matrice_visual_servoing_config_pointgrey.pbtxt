@@ -5,7 +5,7 @@ base_config {
 }
 
 uav_system_config {
-  uav_parser_type: "dji_parser/DjiParser"
+  uav_parser_type: "dji_parser/DjiHILParser"
   uav_controller_timer_duration: 20
   minimum_battery_percent: 20
   minimum_takeoff_height: 0.5
@@ -44,6 +44,7 @@ uav_system_config {
           y: 0.1
           z: 0.1
         }
+        goal_yaw_tolerance: 0.3
       }
     }
 
@@ -74,18 +75,18 @@ uav_system_config {
   }
 
   uav_vision_system_config {
-    tracker_type: "Alvar"
+    tracker_type: "KLT"
 
     camera_transform {
       position {
-        x: 0.2093
-        y: 0.0063
-        z: -0.0836
+        x: 0.10
+        y: 0
+        z: 0
       }
       rotation {
-        r: 1.9372
-        p: 0
-        y: 1.5794
+        r: 0
+        p: -1.5708
+        y: 3.1416
       }
     }
 
@@ -96,7 +97,7 @@ uav_system_config {
         z: 0
       }
       rotation {
-        r: -1.5708
+        r: 3.14
         p: 0
         y: 0
       }

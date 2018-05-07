@@ -189,8 +189,8 @@ public:
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::RunningJoystickVelocityController, be::Abort,
                       usa::Hovering, usa::UAVControllerAbort, msmf::none>,
-            msmf::Row<vsa::RelativePoseVisualServoing, be::Abort, usa::Hovering,
-                      usa::UAVControllerAbort, msmf::none>> {};
+            msmf::Row<vsa::RelativePoseVisualServoing, be::Abort, vsa::ReachingGoal1,
+                      usa::ReachingGoalSet1, msmf::none>> {};
   /**
   * @brief Use Inherited no transition function
   */

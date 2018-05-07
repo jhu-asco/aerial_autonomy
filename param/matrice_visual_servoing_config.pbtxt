@@ -33,14 +33,14 @@ uav_system_config {
 
     camera_transform {
       position {
-        x: 0.11
+        x: 0.10
         y: 0
-        z: -0.03
+        z: 0
       }
       rotation {
-        r: -2.094
-        p: 0
-        y: -1.5708
+        r: 0
+        p: -1.5708
+        y: 3.1416
       }
     }
 

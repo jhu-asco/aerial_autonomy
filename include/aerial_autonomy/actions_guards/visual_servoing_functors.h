@@ -319,22 +319,26 @@ using SearchingInternalActionFunctor_ =
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using ReachingGoal1_ =
+class ReachingGoal1_ : public
     BaseState<UAVVisionSystem, LogicStateMachineT,
               SearchingInternalActionFunctor_<LogicStateMachineT,
-                                                    RPYTBasedOdomSensorControllerDroneConnector>>;
+                                                    RPYTBasedOdomSensorControllerDroneConnector>>
+                                                    {};
 template <class LogicStateMachineT>
-using ReachingGoal2_ =
+class ReachingGoal2_ : public
     BaseState<UAVVisionSystem, LogicStateMachineT,
               SearchingInternalActionFunctor_<LogicStateMachineT,
-                                                    RPYTBasedOdomSensorControllerDroneConnector>>;
+                                                    RPYTBasedOdomSensorControllerDroneConnector>>
+                                                    {};
 template <class LogicStateMachineT>
-using ReachingGoal3_ =
+class ReachingGoal3_ : public
     BaseState<UAVVisionSystem, LogicStateMachineT,
               SearchingInternalActionFunctor_<LogicStateMachineT,
-                                                    RPYTBasedOdomSensorControllerDroneConnector>>;
+                                                    RPYTBasedOdomSensorControllerDroneConnector>>
+                                                    {};
 template <class LogicStateMachineT>
-using ReachingGoal4_ =
+class ReachingGoal4_ : public
     BaseState<UAVVisionSystem, LogicStateMachineT,
               SearchingInternalActionFunctor_<LogicStateMachineT,
-                                                    RPYTBasedOdomSensorControllerDroneConnector>>;
+                                                    RPYTBasedOdomSensorControllerDroneConnector>>
+                                                    {};

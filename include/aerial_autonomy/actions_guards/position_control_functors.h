@@ -13,10 +13,10 @@
 namespace be = uav_basic_events;
 
 // Goals for search pattern (x,y,z,yaw)
-PositionYaw goal1(0.0,0.0,1.0,0.0);
-PositionYaw goal2(0.0,1.0,1.0,1.57);
-PositionYaw goal3(-1.0,1.0,1.0,3.14);
-PositionYaw goal4(-1.0,0.0,1.0,-1.57);
+PositionYaw goal1(0.0,0.0,1.0,0);
+PositionYaw goal2(0.0,1.0,1.0,0);
+PositionYaw goal3(-0.5,1.0,1.0,0);
+PositionYaw goal4(-0.5,0.0,1.0,0);
 
 
 template <class LogicStateMachineT,class DroneConnectorT = RPYTBasedPositionControllerDroneConnector>

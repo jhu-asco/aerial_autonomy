@@ -19,7 +19,7 @@ public:
  */
  KLTTracker(
      std::string name_space = "~tracker",
-     std::chrono::duration<double> timeout = std::chrono::milliseconds(500))
+     std::chrono::duration<double> timeout = std::chrono::milliseconds(1000))
      : BaseTracker(std::move(std::unique_ptr<TrackingStrategy>(
            new IdTrackingStrategy(0)))),
        nh_(name_space),
