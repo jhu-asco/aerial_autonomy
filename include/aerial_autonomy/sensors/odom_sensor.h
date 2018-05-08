@@ -6,7 +6,7 @@
 #include <aerial_autonomy/common/conversions.h>
 #include <glog/logging.h>
 #include <nav_msgs/Odometry.h>
-#include <geometry_msgs/PoseStamped.h>
+#include <geometry_msgs/TransformStamped.h>
 #include <ros/ros.h>
 /**
 * @brief ros based velocity sensor
@@ -21,11 +21,12 @@ public:
   */
   OdomSensor(OdomSensorConfig config) : config_(config) {
     VLOG(2) << "Initialzing ROS Sensor";
-    odom_sub_ = nh_.subscribe("/vrpn_client/vins/pose", 1,
+    odom_sub_ = nh_.subscribe("/vrpn_client/matrice/pose", 1,
                               &OdomSensor::odom_pose_Callback, this);
     sensor_quad_tf_ =
         conversions::protoTransformToTf(config_.sensor_transform());
     last_msg_time_ = ros::Time::now();
+    sensor_data_ = std::make_tuple(VelocityYawRate(),PositionYaw());
   }
   /**
   * @brief gives sensor data
@@ -51,16 +52,15 @@ private:
   /**
   * @brief callback for pose sensor
   */
-  void odom_pose_Callback(const geometry_msgs::PoseStamped::ConstPtr msg) {
-    last_msg_time_ = msg->header.stamp;
+  void odom_pose_Callback(const geometry_msgs::TransformStamped::ConstPtr msg) {
     //Transform the position-yaw
-    tf::Vector3 position(msg->pose.position.x,
-                        msg->pose.position.y,
-                        msg->pose.position.z);
-    tf::Quaternion orientation(msg->pose.orientation.x,
-                               msg->pose.orientation.y,
-                               msg->pose.orientation.z,
-                               msg->pose.orientation.w);
+    tf::Vector3 position(msg->transform.translation.x,
+                        msg->transform.translation.y,
+                        msg->transform.translation.z);
+    tf::Quaternion orientation(msg->transform.rotation.x,
+                               msg->transform.rotation.y,
+                               msg->transform.rotation.z,
+                               msg->transform.rotation.w);
     tf::Transform pyTransform(orientation,position);
     pyTransform = pyTransform * sensor_quad_tf_;
     //Set the result
@@ -71,7 +71,7 @@ private:
     //Find the difference velocity
     std::tuple<VelocityYawRate,PositionYaw> sensor_data = sensor_data_;
     PositionYaw deltaPosYaw = py - std::get<1>(sensor_data);
-    double deltaT = (ros::Time::now() - last_msg_time_).toSec();
+    double deltaT = (msg->header.stamp - last_msg_time_).toSec();
     deltaPosYaw = deltaPosYaw * (1/deltaT);
     VelocityYawRate vyr(deltaPosYaw.x,
                         deltaPosYaw.y,
@@ -81,6 +81,7 @@ private:
     vyr = vyr * alpha + std::get<0>(sensor_data) * (1 - alpha);
     //set the tuple to the sensor_data_
     sensor_data_ = std::make_tuple(vyr,py);
+    last_msg_time_ = msg->header.stamp;
   }
   /**
   * @brief sensor config

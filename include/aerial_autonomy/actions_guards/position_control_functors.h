@@ -13,16 +13,17 @@
 namespace be = uav_basic_events;
 
 // Goals for search pattern (x,y,z,yaw)
-PositionYaw goal1(0.0,0.0,1.0,0);
-PositionYaw goal2(0.0,1.0,1.0,0);
-PositionYaw goal3(-0.5,1.0,1.0,0);
-PositionYaw goal4(-0.5,0.0,1.0,0);
+PositionYaw goal1(-0.3,2.5,1.0,0);
+PositionYaw goal2(0.3,2.5,1.0,0);
+PositionYaw goal3(0.3,0.0,1.0,-1.57);
+PositionYaw goal4(-0.3,0.0,1.0,-1.57);
 
 
 template <class LogicStateMachineT,class DroneConnectorT = RPYTBasedPositionControllerDroneConnector>
 struct PositionControlTransitionActionGoal1Functor
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system) {
+    robot_system.abortController(HardwareType::UAV);
     robot_system
         .setGoal<DroneConnectorT, PositionYaw>(goal1);
   }
@@ -31,6 +32,7 @@ template <class LogicStateMachineT,class DroneConnectorT = RPYTBasedPositionCont
 struct PositionControlTransitionActionGoal2Functor
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system) {
+    robot_system.abortController(HardwareType::UAV);
     robot_system
         .setGoal<DroneConnectorT, PositionYaw>(goal2);
   }
@@ -39,6 +41,7 @@ template <class LogicStateMachineT,class DroneConnectorT = RPYTBasedPositionCont
 struct PositionControlTransitionActionGoal3Functor
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system) {
+    robot_system.abortController(HardwareType::UAV);
     robot_system
         .setGoal<DroneConnectorT, PositionYaw>(goal3);
   }
@@ -47,6 +50,7 @@ template <class LogicStateMachineT,class DroneConnectorT = RPYTBasedPositionCont
 struct PositionControlTransitionActionGoal4Functor
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system) {
+    robot_system.abortController(HardwareType::UAV);
     robot_system
         .setGoal<DroneConnectorT, PositionYaw>(goal4);
   }
@@ -60,6 +64,7 @@ template <class LogicStateMachineT,class DroneConnectorT = RPYTBasedPositionCont
 struct PositionControlTransitionActionFunctor_
     : ActionFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
   void run(const PositionYaw &goal, UAVSystem &robot_system) {
+    robot_system.abortController(HardwareType::UAV);
     robot_system
         .setGoal<DroneConnectorT, PositionYaw>(goal);
   }

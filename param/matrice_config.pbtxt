@@ -122,7 +122,7 @@ uav_system_config {
   odomsensor{
     sensor_transform{
       position{
-        x: -0.06
+        x: 0.0
         y: 0.0
         z: 0.0
       }

@@ -4,6 +4,16 @@ directory: "${PROJECT_SOURCE_DIR}/logs/data"
 write_duration: 100
 
 data_stream_configs {
+  stream_id: "rpyt_based_odom_sensor_controller_drone_connector_controls"
+  log_rate: 25
+}
+
+data_stream_configs {
+  stream_id: "rpyt_based_odom_sensor_controller_drone_connector"
+  log_rate: 25
+}
+
+data_stream_configs {
   stream_id: "velocity_based_position_controller"
   log_rate: 25
 }

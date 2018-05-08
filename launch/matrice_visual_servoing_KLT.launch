@@ -13,7 +13,7 @@
     <remap from="~common/goal_velocity_yaw_command" to="/rqt_gui/velocity_yaw_command" />
     <remap from="~common/event_manager" to="/rqt_gui/event_trigger" />
     <remap from="~common/system_status" to="/rqt_gui/system_status" />
-    <!--remap from="~tracker/ar_pose_marker" to="/ar_pose_marker" /-->
+    <remap from="~tracker/ar_pose_marker" to="/ar_pose_marker" />
     <env name="GLOG_log_dir" value="$(arg log_dir)"/>
     <env name="GLOG_v" value="$(arg log_level)"/>
     <env name="GLOG_alsologtostderr" value="1"/>
@@ -28,5 +28,24 @@
   </node>
   <!-- Launch mesh_localize tracking for pointgrey camera -->
   <include file="$(find mesh_localize)/launch/localize_cheezit_ogre.launch"/>  
-  <!--include file="$(find vins_estimator)/launch/vn_100.launch"/-->
+  <include file="$(find ros_vrpn_client)/launch/matrice.launch"/>
+  <include file="$(find pointgrey_camera_driver)/launch/camera.launch" />
+  <group ns="camera/camera_nodelet">
+    <param name="auto_gain" value="false" />
+    <param name="auto_shutter" value="false" />
+    <param name="shutter_speed" value="0.016" />
+    <param name="enable_trigger" value="false" />
+    <param name="trigger_polarity" value="1" />
+    <!--param name="video_mode" value="format7_mode1" /-->
+    <param name="frame_rate" value="30" />
+    <param name="gain" value="10" />
+  </group>
+  <node pkg="tf" type="static_transform_publisher" name="quad_camera_publisher" args="0.10 0 0 1.57 0 1.57 quad camera 100" />
+  <include file="$(find ar_track_alvar)/launch/pr2_indiv_no_kinect.launch">
+    <arg name="marker_size" value="7.7" />
+    <arg name="cam_image_topic" value="/camera/image_raw" />
+    <arg name="cam_info_topic"  value="/camera/camera_info" />
+    <arg name="output_frame"    value="/camera" />
+  </include>
+
 </launch>

@@ -308,10 +308,10 @@ struct CheckObjectInternalActionFunctor_
 template <class LogicStateMachineT, class DroneConnectorT>
 using SearchingInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
-      CheckObjectInternalActionFunctor_<LogicStateMachineT>,
-        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-          ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, DroneConnectorT>>>;
+      UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ControllerStatusInternalActionFunctor_<
+          LogicStateMachineT, DroneConnectorT>,
+        CheckObjectInternalActionFunctor_<LogicStateMachineT>>>;
 
 /**
 * @brief State that uses position control functor to reach a desired goal.

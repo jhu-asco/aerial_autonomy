@@ -2,6 +2,7 @@
 #include <aerial_autonomy/common/atomic.h>
 #include <aerial_autonomy/common/controller_status.h>
 #include <aerial_autonomy/controllers/base_controller.h>
+#include <boost/thread/mutex.hpp>
 #include <glog/logging.h>
 
 /**
@@ -76,6 +77,7 @@ public:
    * @brief Extracts sensor data, run controller and send data back to hardware
    */
   virtual void run() {
+    boost::mutex::scoped_lock(set_goal_mutex_);
     // Get latest sensor data
     // run the controller
     // send the data back to hardware manager
@@ -100,7 +102,9 @@ public:
    * @param goal Goal for controller
    */
   virtual void setGoal(GoalType goal) {
+    boost::mutex::scoped_lock(set_goal_mutex_);
     status_ = ControllerStatus(ControllerStatus::Active);
+    VLOG(2) << "Set goal";
     controller_.setGoal(goal);
   }
   /**
@@ -159,4 +163,5 @@ private:
   * @brief Status of the controller
   */
   Atomic<ControllerStatus> status_;
+  boost::mutex set_goal_mutex_;
 };
