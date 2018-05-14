@@ -16,9 +16,9 @@ struct LandTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system) {
     /// \todo Have to abort all hardware controllers not just UAV.
-    // Need to iterate through enum class HardwareType
+    // Need to iterate through enum class ControllerGroup
     VLOG(1) << "Aborting UAV Controllers";
-    robot_system.abortController(HardwareType::UAV);
+    robot_system.abortController(ControllerGroup::UAV);
     VLOG(1) << "Landing";
     robot_system.land();
   }

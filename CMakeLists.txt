@@ -236,9 +236,9 @@ include_directories(
 )
 
 set(ARM_SRC
-  src/controller_hardware_connectors/arm_sine_controller_connector.cpp
-  src/controller_hardware_connectors/builtin_pose_controller_arm_connector.cpp
-  src/controller_hardware_connectors/visual_servoing_controller_arm_connector.cpp
+  src/controller_connectors/arm_sine_controller_connector.cpp
+  src/controller_connectors/builtin_pose_controller_arm_connector.cpp
+  src/controller_connectors/visual_servoing_controller_arm_connector.cpp
 )
 
 set(SRC
@@ -271,16 +271,16 @@ set(SRC
   src/controllers/arm_sine_controller.cpp
   src/estimators/thrust_gain_estimator.cpp
   src/estimators/tracking_vector_estimator.cpp
-  src/controller_hardware_connectors/visual_servoing_controller_drone_connector.cpp
-  src/controller_hardware_connectors/base_relative_pose_visual_servoing_connector.cpp
-  src/controller_hardware_connectors/relative_pose_visual_servoing_controller_drone_connector.cpp
-  src/controller_hardware_connectors/rpyt_relative_pose_visual_servoing_connector.cpp
-  src/controller_hardware_connectors/position_controller_drone_connector.cpp
-  src/controller_hardware_connectors/velocity_based_position_controller_drone_connector.cpp
-  src/controller_hardware_connectors/rpyt_based_position_controller_drone_connector.cpp
-  src/controller_hardware_connectors/builtin_velocity_controller_drone_connector.cpp
-  src/controller_hardware_connectors/manual_rpyt_controller_drone_connector.cpp
-  src/controller_hardware_connectors/joystick_velocity_controller_drone_connector.cpp
+  src/controller_connectors/visual_servoing_controller_drone_connector.cpp
+  src/controller_connectors/base_relative_pose_visual_servoing_connector.cpp
+  src/controller_connectors/relative_pose_visual_servoing_controller_drone_connector.cpp
+  src/controller_connectors/rpyt_relative_pose_visual_servoing_connector.cpp
+  src/controller_connectors/position_controller_drone_connector.cpp
+  src/controller_connectors/velocity_based_position_controller_drone_connector.cpp
+  src/controller_connectors/rpyt_based_position_controller_drone_connector.cpp
+  src/controller_connectors/builtin_velocity_controller_drone_connector.cpp
+  src/controller_connectors/manual_rpyt_controller_drone_connector.cpp
+  src/controller_connectors/joystick_velocity_controller_drone_connector.cpp
 )
 
 if (arm_plugins_FOUND)
@@ -369,15 +369,15 @@ endif ()
 ## Add gtest based cpp test target and link libraries
 catkin_add_gtest(${PROJECT_NAME}-logic-states-test tests/logic_states/base_state_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-timed-state-test tests/logic_states/timed_state_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test tests/controller_hardware_connectors/controller_hardware_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test tests/controller_connectors/controller_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-evnt-mngr-test tests/event_manager_tests/event_manager_tests.cpp)
 add_dependencies(${PROJECT_NAME}-evnt-mngr-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
 catkin_add_gtest(${PROJECT_NAME}-type-map-test tests/common/type_map_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-unordered-heterogeneous-map-test tests/common/unordered_heterogeneous_map_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-html-utils-test tests/common/html_utils_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/position_controller_drone_connector_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/builtin_velocity_controller_drone_connector_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test tests/controller_hardware_connectors/manual_rpyt_controller_drone_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test tests/controller_connectors/position_controller_drone_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test tests/controller_connectors/builtin_velocity_controller_drone_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test tests/controller_connectors/manual_rpyt_controller_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-uav-system-test tests/robot_systems/uav_system_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-uav-basic-functor-tests tests/actions_guards/uav_basic_functor_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-shorting-action-sequence-tests tests/actions_guards/shorting_action_sequence_tests.cpp)
@@ -417,11 +417,11 @@ catkin_add_gtest(${PROJECT_NAME}-simple-tracker-test tests/trackers/simple_track
 catkin_add_gtest(${PROJECT_NAME}-simple-multi-tracker-test tests/trackers/simple_multi_tracker_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-roi-to-position-converter-test tests/trackers/roi_to_position_converter_tests.test tests/trackers/roi_to_position_converter_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-alvar-tracker-test tests/trackers/alvar_tracker_tests.test tests/trackers/alvar_tracker_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test tests/controller_hardware_connectors/relative_pose_visual_servoing_drone_connector_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-rpyt-relative-pose-visual-servoing-connector-test tests/controller_hardware_connectors/rpyt_relative_pose_visual_servoing_connector_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-rpyt-based-position-controller-drone-connector-test tests/controller_hardware_connectors/rpyt_based_position_controller_drone_connector_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-visual-servoing-drone-connector-test tests/controller_hardware_connectors/visual_servoing_drone_connector_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test tests/controller_hardware_connectors/joystick_velocity_controller_drone_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test tests/controller_connectors/relative_pose_visual_servoing_drone_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-rpyt-relative-pose-visual-servoing-connector-test tests/controller_connectors/rpyt_relative_pose_visual_servoing_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-rpyt-based-position-controller-drone-connector-test tests/controller_connectors/rpyt_based_position_controller_drone_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-visual-servoing-drone-connector-test tests/controller_connectors/visual_servoing_drone_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test tests/controller_connectors/joystick_velocity_controller_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-data-stream-test tests/log/data_stream_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-log-test tests/log/log_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-string-utils-test tests/common/string_utils_tests.cpp)
@@ -585,7 +585,7 @@ if (arm_plugins_FOUND)
   add_rostest_gtest(${PROJECT_NAME}-uav-arm-system-handler-test tests/system_handlers/uav_arm_system_handler_tests.test tests/system_handlers/uav_arm_system_handler_tests.cpp)
   add_dependencies(${PROJECT_NAME}-uav-arm-system-handler-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
   add_rostest_gtest(${PROJECT_NAME}-uav-arm-system-test tests/robot_systems/uav_arm_system_tests.test tests/robot_systems/uav_arm_system_tests.cpp)
-  catkin_add_gtest(${PROJECT_NAME}-visual-servoing-arm-connector-test tests/controller_hardware_connectors/visual_servoing_arm_connector_tests.cpp)
+  catkin_add_gtest(${PROJECT_NAME}-visual-servoing-arm-connector-test tests/controller_connectors/visual_servoing_arm_connector_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-arm-functor-tests tests/actions_guards/arm_functor_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-uav-arm-sysid-state-machine-test tests/state_machines/uav_arm_sysid_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-arm-system-test tests/robot_systems/arm_system_tests.cpp)

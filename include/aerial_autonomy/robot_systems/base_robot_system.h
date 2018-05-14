@@ -1,6 +1,6 @@
 #pragma once
 
-#include <aerial_autonomy/controller_hardware_connectors/base_controller_hardware_connector.h>
+#include <aerial_autonomy/controller_connectors/base_controller_connector.h>
 // Store type_map
 #include <aerial_autonomy/common/type_map.h>
 // Iterable Enum
@@ -17,22 +17,20 @@ class BaseRobotSystem {
 
 protected:
   /**
-   * @brief Container to store and retrieve controller-hardware-connectors
+   * @brief Container to store and retrieve controller-connectors
    */
-  TypeMap<AbstractControllerHardwareConnector>
-      controller_hardware_connector_container_;
+  TypeMap<AbstractControllerConnector> controller_connector_container_;
 
 private:
   /**
-  * @brief Map to store active controller based on hardware type
+  * @brief Map to store active controller based on controller group
   */
-  std::map<HardwareType, AbstractControllerHardwareConnector *>
-      active_controllers_;
+  std::map<ControllerGroup, AbstractControllerConnector *> active_controllers_;
   /**
   * @brief Map to lock and swap the active controller for a given
-  * hardware type
+  * controller group
   */
-  std::map<HardwareType, std::unique_ptr<boost::mutex>> thread_mutexes_;
+  std::map<ControllerGroup, std::unique_ptr<boost::mutex>> thread_mutexes_;
 
 public:
   /**
@@ -40,10 +38,25 @@ public:
   */
   BaseRobotSystem() {
     // Initialize active controller map
-    for (auto hardware_type : IterableEnum<HardwareType>()) {
-      active_controllers_[hardware_type] = nullptr;
-      thread_mutexes_[hardware_type] =
+    for (auto controller_group : IterableEnum<ControllerGroup>()) {
+      active_controllers_[controller_group] = nullptr;
+      thread_mutexes_[controller_group] =
           std::unique_ptr<boost::mutex>(new boost::mutex);
+    }
+  }
+
+  void activateControllerConnector(
+      AbstractControllerConnector *controller_connector) {
+    ControllerGroup controller_group =
+        controller_connector->getControllerGroup();
+    if (active_controllers_[controller_group] != controller_connector) {
+      boost::mutex::scoped_lock lock(*thread_mutexes_[controller_group]);
+      active_controllers_[controller_group] = controller_connector;
+    }
+    AbstractControllerConnector *dependent_connector =
+        controller_connector->getDependentConnector();
+    if (dependent_connector != nullptr) {
+      activateControllerConnector(dependent_connector);
     }
   }
 
@@ -51,70 +64,60 @@ public:
   * @brief sets goal to the connector and swaps the active
   * connector with the specified connector type.
   *
-  * @tparam ControllerHardwareConnectorT type of connector to use
+  * @tparam ControllerConnectorT type of connector to use
   * @tparam GoalT Type of Goal to set to connector
   * @param goal Goal to set to connector
   */
-  template <class ControllerHardwareConnectorT, class GoalT>
-  void setGoal(GoalT goal) {
-    ControllerHardwareConnectorT *controller_hardware_connector =
-        controller_hardware_connector_container_
-            .getObject<ControllerHardwareConnectorT>();
-    controller_hardware_connector->setGoal(goal);
-    HardwareType hardware_type =
-        controller_hardware_connector->getHardwareType();
-    if (active_controllers_[hardware_type] != controller_hardware_connector) {
-      boost::mutex::scoped_lock lock(*thread_mutexes_[hardware_type]);
-      active_controllers_[hardware_type] = controller_hardware_connector;
-    }
+  template <class ControllerConnectorT, class GoalT> void setGoal(GoalT goal) {
+    ControllerConnectorT *controller_connector =
+        controller_connector_container_.getObject<ControllerConnectorT>();
+    controller_connector->setGoal(goal);
+    activateControllerConnector(controller_connector);
   }
   /**
   * @brief Get the goal from connector.
   *
-  * @tparam ControllerHardwareConnectorT Type of connector to use
+  * @tparam ControllerConnectorT Type of connector to use
   * @tparam GoalT Type of Goal to get
   *
   * @return goal of GoalT type
   */
-  template <class ControllerHardwareConnectorT, class GoalT>
-  GoalT getGoal() const {
-    const ControllerHardwareConnectorT *controller_hardware_connector =
-        controller_hardware_connector_container_
-            .getObject<ControllerHardwareConnectorT>();
-    return controller_hardware_connector->getGoal();
+  template <class ControllerConnectorT, class GoalT> GoalT getGoal() const {
+    const ControllerConnectorT *controller_connector =
+        controller_connector_container_.getObject<ControllerConnectorT>();
+    return controller_connector->getGoal();
   }
 
   /**
   * @brief Get the status of a controller
   *
-  * @tparam ControllerHardwareConnectorT Type of connector
+  * @tparam ControllerConnectorT Type of connector
   *
   * @return Status is active/completed/critical
   */
-  template <class ControllerHardwareConnectorT>
-  ControllerStatus getStatus() const {
-    const ControllerHardwareConnectorT *controller_hardware_connector =
-        controller_hardware_connector_container_
-            .getObject<ControllerHardwareConnectorT>();
-    auto active_controller = active_controllers_.find(
-        controller_hardware_connector->getHardwareType());
+  template <class ControllerConnectorT> ControllerStatus getStatus() const {
+    const ControllerConnectorT *controller_connector =
+        controller_connector_container_.getObject<ControllerConnectorT>();
+    auto active_controller =
+        active_controllers_.find(controller_connector->getControllerGroup());
     if (active_controller == active_controllers_.end() ||
-        controller_hardware_connector != active_controller->second) {
+        controller_connector != active_controller->second) {
       return ControllerStatus::NotEngaged;
     }
-    return controller_hardware_connector->getStatus();
+    return controller_connector->getStatus();
   }
 
   /**
   * @brief Get the status of the active controller
   *
-  * @param hardware_type Hardware to get controller for
+  * @param controller_group  controller group to get controller for
   *
   * @return status of the active controller.
   * If no active controller returns status as not engaged
   */
-  ControllerStatus getActiveControllerStatus(HardwareType hardware_type) const {
-    auto active_controller = active_controllers_.find(hardware_type);
+  ControllerStatus
+  getActiveControllerStatus(ControllerGroup controller_group) const {
+    auto active_controller = active_controllers_.find(controller_group);
     if (active_controller != active_controllers_.end() &&
         active_controller->second != nullptr) {
       return active_controller->second->getStatus();
@@ -124,27 +127,27 @@ public:
   }
 
   /**
-  * @brief Remove active controller for given hardware type
+  * @brief Remove active controller for given controller group
   *
-  * @param hardware_type Type of hardware for which active controller is
+  * @param controller_group group for which active controller is
   * switched off
   */
-  void abortController(HardwareType hardware_type) {
-    boost::mutex::scoped_lock lock(*thread_mutexes_[hardware_type]);
-    active_controllers_[hardware_type] = nullptr;
+  void abortController(ControllerGroup controller_group) {
+    boost::mutex::scoped_lock lock(*thread_mutexes_[controller_group]);
+    active_controllers_[controller_group] = nullptr;
   }
 
   /**
-  * @brief Run active controller stored for a given hardware type
+  * @brief Run active controller stored for a given controller group
   *
-  * @param hardware_type Type of hardware for which active controller is run
+  * @param controller_group group for which active controller is run
   */
-  void runActiveController(HardwareType hardware_type) {
+  void runActiveController(ControllerGroup controller_group) {
     // lock to ensure active_control fcn is not changed
-    AbstractControllerHardwareConnector *active_controller =
-        active_controllers_[hardware_type];
+    AbstractControllerConnector *active_controller =
+        active_controllers_[controller_group];
     if (active_controller != nullptr) {
-      boost::mutex::scoped_lock lock(*thread_mutexes_[hardware_type]);
+      boost::mutex::scoped_lock lock(*thread_mutexes_[controller_group]);
       active_controller->run();
     }
   }

@@ -44,14 +44,14 @@ TEST(ArmSystemTests, JointAngles) {
   arm_system.power(true);
   // Choose sine controller
   arm_system.setGoal<ArmSineControllerConnector>(EmptyGoal());
-  arm_system.runActiveController(HardwareType::Arm);
+  arm_system.runActiveController(ControllerGroup::Arm);
   auto joint_angles = arm_system.getJointAngles();
   ASSERT_EQ(joint_angles.size(), 2);
   ASSERT_NEAR(joint_angles[0], 1.0, 1e-2);
   ASSERT_NEAR(joint_angles[1], 0.0, 1e-2);
   arm_system.setGoal<ArmSineControllerConnector>(EmptyGoal());
   std::this_thread::sleep_for(std::chrono::duration<double>(1.0));
-  arm_system.runActiveController(HardwareType::Arm);
+  arm_system.runActiveController(ControllerGroup::Arm);
   joint_angles = arm_system.getJointAngles();
   ASSERT_NEAR(joint_angles[0], 1.0, 1e-2);
   ASSERT_NEAR(joint_angles[1], 0.0, 1e-2);
