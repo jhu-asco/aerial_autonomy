@@ -25,7 +25,8 @@ private:
   /**
   * @brief Map to store active controller based on controller group
   */
-  std::map<ControllerGroup, AbstractControllerConnector *> active_controllers_;
+  std::map<ControllerGroup, AbstractControllerConnector *const>
+      active_controllers_;
   /**
   * @brief Map to lock and swap the active controller for a given
   * controller group
@@ -39,19 +40,20 @@ public:
   BaseRobotSystem() {
     // Initialize active controller map
     for (auto controller_group : IterableEnum<ControllerGroup>()) {
-      active_controllers_[controller_group] = nullptr;
+      active_controllers_.emplace(controller_group, nullptr);
       thread_mutexes_[controller_group] =
           std::unique_ptr<boost::mutex>(new boost::mutex);
     }
   }
 
   void activateControllerConnector(
-      AbstractControllerConnector *controller_connector) {
+      AbstractControllerConnector *const controller_connector) {
     ControllerGroup controller_group =
         controller_connector->getControllerGroup();
     if (active_controllers_[controller_group] != controller_connector) {
       boost::mutex::scoped_lock lock(*thread_mutexes_[controller_group]);
-      active_controllers_[controller_group] = controller_connector;
+      active_controllers_.erase(controller_group);
+      active_controllers_.emplace(controller_group, controller_connector);
     }
     AbstractControllerConnector *dependent_connector =
         controller_connector->getDependentConnector();
@@ -134,7 +136,8 @@ public:
   */
   void abortController(ControllerGroup controller_group) {
     boost::mutex::scoped_lock lock(*thread_mutexes_[controller_group]);
-    active_controllers_[controller_group] = nullptr;
+    active_controllers_.erase(controller_group);
+    active_controllers_.emplace(controller_group, nullptr);
   }
 
   /**
@@ -144,7 +147,7 @@ public:
   */
   void runActiveController(ControllerGroup controller_group) {
     // lock to ensure active_control fcn is not changed
-    AbstractControllerConnector *active_controller =
+    AbstractControllerConnector *const active_controller =
         active_controllers_[controller_group];
     if (active_controller != nullptr) {
       boost::mutex::scoped_lock lock(*thread_mutexes_[controller_group]);
