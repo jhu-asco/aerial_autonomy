@@ -7,9 +7,9 @@ The doxygen documentation to the project can be found [here](https://jhu-asco.gi
 ## Setup
 Run the setup script in scripts/setup/setup.sh to configure Git hooks.  
 
-Install the following dependencies (lcov, protobuf, doxygen, doxypy, coverxygen, google-glog, class-loader). On Ubuntu 14.04 run the following line in a terminal
+Install the following dependencies (lcov, protobuf, doxygen, doxypy, coverxygen, google-glog, class-loader). On Ubuntu 14.04 run the following line in a terminal (replacing indigo with your ROS version)
 
-    sudo apt-get install lcov protobuf-compiler libprotobuf-dev doxygen doxypy libgoogle-glog-dev ros-indigo-class-loader autoconf
+    sudo apt-get install lcov protobuf-compiler libprotobuf-dev doxygen doxypy libgoogle-glog-dev ros-indigo-class-loader ros-indigo-ar-track-alvar-msgs autoconf
     sudo pip install coverxygen
 
 Install protobuf 3.1:
