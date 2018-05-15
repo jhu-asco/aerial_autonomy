@@ -256,6 +256,7 @@ set(SRC
   src/trackers/alvar_tracker.cpp
   src/trackers/base_tracker.cpp
   src/trackers/simple_multi_tracker.cpp
+  src/trackers/guidance_obstacle_tracker.cpp
   src/trackers/closest_tracking_strategy.cpp
   src/trackers/id_tracking_strategy.cpp
   src/trackers/simple_tracking_strategy.cpp
@@ -417,6 +418,7 @@ catkin_add_gtest(${PROJECT_NAME}-simple-tracker-test tests/trackers/simple_track
 catkin_add_gtest(${PROJECT_NAME}-simple-multi-tracker-test tests/trackers/simple_multi_tracker_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-roi-to-position-converter-test tests/trackers/roi_to_position_converter_tests.test tests/trackers/roi_to_position_converter_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-alvar-tracker-test tests/trackers/alvar_tracker_tests.test tests/trackers/alvar_tracker_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-guidance-obstacle-tracker-test tests/trackers/guidance_obstacle_tracker_tests.test tests/trackers/guidance_obstacle_tracker_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test tests/controller_hardware_connectors/relative_pose_visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-relative-pose-visual-servoing-connector-test tests/controller_hardware_connectors/rpyt_relative_pose_visual_servoing_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-position-controller-drone-connector-test tests/controller_hardware_connectors/rpyt_based_position_controller_drone_connector_tests.cpp)
@@ -546,6 +548,9 @@ if(TARGET ${PROJECT_NAME}-visual-servoing-drone-connector-test)
 endif()
 if(TARGET ${PROJECT_NAME}-roi-to-position-converter-test)
   target_link_libraries(${PROJECT_NAME}-roi-to-position-converter-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-guidance-obstacle-tracker-test)
+  target_link_libraries(${PROJECT_NAME}-guidance-obstacle-tracker-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-system-handler-node-utils-test)
   target_link_libraries(${PROJECT_NAME}-system-handler-node-utils-test aerial_autonomy)
