@@ -57,7 +57,7 @@ find_package(OpenCV OPTIONAL_COMPONENTS tracking)
 if (OpenCV_VERSION_MAJOR EQUAL "3")
   message(STATUS "OpenCV3 version requires tracking module to be included")
   if (NOT OpenCV_tracking_FOUND)
-    message(FATAL_ERROR "Opecv3 Tracking Module not found")
+    message(FATAL_ERROR "Opencv3 Tracking Module not found")
   endif()
 endif ()
 
