@@ -25,8 +25,7 @@ private:
   /**
   * @brief Map to store active controller based on controller group
   */
-  std::map<ControllerGroup, AbstractControllerConnector *const>
-      active_controllers_;
+  std::map<ControllerGroup, AbstractControllerConnector *> active_controllers_;
   /**
   * @brief Map to lock and swap the active controller for a given
   * controller group
@@ -47,13 +46,12 @@ public:
   }
 
   void activateControllerConnector(
-      AbstractControllerConnector *const controller_connector) {
+      AbstractControllerConnector *controller_connector) {
     ControllerGroup controller_group =
         controller_connector->getControllerGroup();
     if (active_controllers_[controller_group] != controller_connector) {
       boost::mutex::scoped_lock lock(*thread_mutexes_[controller_group]);
-      active_controllers_.erase(controller_group);
-      active_controllers_.emplace(controller_group, controller_connector);
+      active_controllers_[controller_group] = controller_connector;
     }
     AbstractControllerConnector *dependent_connector =
         controller_connector->getDependentConnector();
@@ -136,8 +134,7 @@ public:
   */
   void abortController(ControllerGroup controller_group) {
     boost::mutex::scoped_lock lock(*thread_mutexes_[controller_group]);
-    active_controllers_.erase(controller_group);
-    active_controllers_.emplace(controller_group, nullptr);
+    active_controllers_[controller_group] = nullptr;
   }
 
   /**
