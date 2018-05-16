@@ -73,6 +73,7 @@ public:
         controller_connector_container_.getObject<ControllerConnectorT>();
     controller_connector->setGoal(goal);
     activateControllerConnector(controller_connector);
+    runActiveController(controller_connector->getControllerGroup());
   }
   /**
   * @brief Get the goal from connector.
