@@ -45,21 +45,6 @@ public:
     }
   }
 
-  void activateControllerConnector(
-      AbstractControllerConnector *controller_connector) {
-    ControllerGroup controller_group =
-        controller_connector->getControllerGroup();
-    if (active_controllers_[controller_group] != controller_connector) {
-      boost::mutex::scoped_lock lock(*thread_mutexes_[controller_group]);
-      active_controllers_[controller_group] = controller_connector;
-    }
-    AbstractControllerConnector *dependent_connector =
-        controller_connector->getDependentConnector();
-    if (dependent_connector != nullptr) {
-      activateControllerConnector(dependent_connector);
-    }
-  }
-
   /**
   * @brief sets goal to the connector and swaps the active
   * connector with the specified connector type.
@@ -72,8 +57,12 @@ public:
     ControllerConnectorT *controller_connector =
         controller_connector_container_.getObject<ControllerConnectorT>();
     controller_connector->setGoal(goal);
-    activateControllerConnector(controller_connector);
-    runActiveController(controller_connector->getControllerGroup());
+    ControllerGroup controller_group =
+        controller_connector->getControllerGroup();
+    if (active_controllers_[controller_group] != controller_connector) {
+      boost::mutex::scoped_lock lock(*thread_mutexes_[controller_group]);
+      active_controllers_[controller_group] = controller_connector;
+    }
   }
   /**
   * @brief Get the goal from connector.
