@@ -30,7 +30,7 @@ public:
                         state_machine_config),
         uav_controller_timer_(
             std::bind(&UAVVisionSystem::runActiveController,
-                      std::ref(uav_system_), HardwareType::UAV),
+                      std::ref(uav_system_), ControllerGroup::UAV),
             std::chrono::milliseconds(
                 config.uav_system_config().uav_controller_timer_duration())) {
 

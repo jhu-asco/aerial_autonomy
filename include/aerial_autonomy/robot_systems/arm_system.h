@@ -5,8 +5,8 @@
 // Base robot system
 #include <aerial_autonomy/robot_systems/base_robot_system.h>
 
-#include <aerial_autonomy/controller_hardware_connectors/arm_sine_controller_connector.h>
-#include <aerial_autonomy/controller_hardware_connectors/builtin_pose_controller_arm_connector.h>
+#include <aerial_autonomy/controller_connectors/arm_sine_controller_connector.h>
+#include <aerial_autonomy/controller_connectors/builtin_pose_controller_arm_connector.h>
 #include <aerial_autonomy/controllers/builtin_controller.h>
 
 // Arm hardware
@@ -62,10 +62,9 @@ public:
         builtin_pose_controller_(config.pose_controller_config()),
         builtin_pose_controller_arm_connector_(*arm_hardware_,
                                                builtin_pose_controller_) {
-    controller_hardware_connector_container_.setObject(
+    controller_connector_container_.setObject(
         builtin_pose_controller_arm_connector_);
-    controller_hardware_connector_container_.setObject(
-        arm_sine_controller_connector_);
+    controller_connector_container_.setObject(arm_sine_controller_connector_);
   }
 
   /**

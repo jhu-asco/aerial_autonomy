@@ -1,6 +1,6 @@
 #pragma once
 #include "aerial_autonomy/common/conversions.h"
-#include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_arm_connector.h"
+#include "aerial_autonomy/controller_connectors/visual_servoing_controller_arm_connector.h"
 #include "aerial_autonomy/controllers/relative_pose_controller.h"
 #include "aerial_autonomy/robot_systems/arm_system.h"
 #include "aerial_autonomy/robot_systems/uav_vision_system.h"
@@ -38,8 +38,7 @@ public:
         visual_servoing_arm_connector_(
             *tracker_, *drone_hardware_, *arm_hardware_,
             relative_pose_controller_, camera_transform_, arm_transform_) {
-    controller_hardware_connector_container_.setObject(
-        visual_servoing_arm_connector_);
+    controller_connector_container_.setObject(visual_servoing_arm_connector_);
   }
 
   /**

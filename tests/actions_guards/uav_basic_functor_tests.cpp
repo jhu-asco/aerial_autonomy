@@ -252,7 +252,7 @@ TEST(PositionControlFunctorTests, AbortActionTest) {
   position_control_abort_action_functor(be::Abort(), sample_logic_state_machine,
                                         dummy_start_state, dummy_target_state);
   // Since the controller is aborted, will not run the controller
-  uav_system.runActiveController(HardwareType::UAV);
+  uav_system.runActiveController(ControllerGroup::UAV);
   parsernode::common::quaddata data = uav_system.getUAVData();
   PositionYaw data_position_yaw(data.localpos.x, data.localpos.y,
                                 data.localpos.z, data.rpydata.z);
@@ -318,7 +318,7 @@ TEST(PositionControlFunctorTests, PositionControlInternalActionTest) {
   drone_hardware->cmdwaypoint(desired_position, goal.yaw);
 
   // Update controller status
-  uav_system.runActiveController(HardwareType::UAV);
+  uav_system.runActiveController(ControllerGroup::UAV);
 
   position_control_internal_action_functor(
       InternalTransitionEvent(), sample_logic_state_machine, dummy_start_state,
@@ -444,14 +444,14 @@ TEST(VelocityControlFunctorTests, TransitionActionTest) {
       uav_system
           .getGoal<BuiltInVelocityControllerDroneConnector, VelocityYaw>();
   ASSERT_EQ(goal, resulting_goal);
-  uav_system.runActiveController(HardwareType::UAV);
+  uav_system.runActiveController(ControllerGroup::UAV);
   ASSERT_EQ(uav_system.getStatus<BuiltInVelocityControllerDroneConnector>(),
             ControllerStatus::Active);
   parsernode::common::quaddata data = uav_system.getUAVData();
   VelocityYaw data_velocity_yaw(data.linvel.x, data.linvel.y, data.linvel.z,
                                 data.rpydata.z);
   ASSERT_EQ(data_velocity_yaw, goal);
-  uav_system.runActiveController(HardwareType::UAV);
+  uav_system.runActiveController(ControllerGroup::UAV);
   ASSERT_EQ(uav_system.getStatus<BuiltInVelocityControllerDroneConnector>(),
             ControllerStatus::Completed);
 }
@@ -467,10 +467,10 @@ TEST(VelocityControlFunctorTests, AbortActionTest) {
   uav_system.setGoal<BuiltInVelocityControllerDroneConnector>(goal);
   uav_control_abort_action_functor(be::Abort(), sample_logic_state_machine,
                                    dummy_start_state, dummy_target_state);
-  ASSERT_EQ(uav_system.getActiveControllerStatus(HardwareType::UAV),
+  ASSERT_EQ(uav_system.getActiveControllerStatus(ControllerGroup::UAV),
             ControllerStatus::NotEngaged);
   // Since the controller is aborted, will not run the controller
-  uav_system.runActiveController(HardwareType::UAV);
+  uav_system.runActiveController(ControllerGroup::UAV);
   parsernode::common::quaddata data = uav_system.getUAVData();
   VelocityYaw data_position_yaw(data.linvel.x, data.linvel.y, data.linvel.z,
                                 data.rpydata.z);
@@ -518,9 +518,9 @@ TEST(VelocityControlFunctorTests, InternalActionTest) {
   ASSERT_NE(sample_logic_state_machine.getProcessEventTypeId(),
             std::type_index(typeid(Completed)));
   // After running the active controller once updates quad state
-  uav_system.runActiveController(HardwareType::UAV);
+  uav_system.runActiveController(ControllerGroup::UAV);
   // Second time updates controller status
-  uav_system.runActiveController(HardwareType::UAV);
+  uav_system.runActiveController(ControllerGroup::UAV);
   velocity_control_internal_action_functor(
       InternalTransitionEvent(), sample_logic_state_machine, dummy_start_state,
       dummy_target_state);

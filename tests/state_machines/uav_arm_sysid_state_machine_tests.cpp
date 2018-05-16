@@ -152,7 +152,7 @@ TEST_F(StateMachineTests, JoystickControl) {
   logic_state_machine->process_event(be::Joystick());
   ASSERT_STREQ(pstate(*logic_state_machine), "RunningJoystickRPYTController");
   auto altitude_check = [&]() {
-    uav_arm_system->runActiveController(HardwareType::UAV);
+    uav_arm_system->runActiveController(ControllerGroup::UAV);
     auto quad_data = uav_arm_system->getUAVData();
     // Takeoff altitude is 2.0
     return (quad_data.localpos.z > 3.0);
@@ -171,7 +171,7 @@ TEST_F(StateMachineTests, JoystickControlAbort) {
   logic_state_machine->process_event(be::Abort());
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
   // Check controller is actually aborted
-  ASSERT_EQ(uav_arm_system->getActiveControllerStatus(HardwareType::UAV),
+  ASSERT_EQ(uav_arm_system->getActiveControllerStatus(ControllerGroup::UAV),
             ControllerStatus::NotEngaged);
 }
 
@@ -189,7 +189,7 @@ TEST_F(StateMachineTests, JoystickControlManualControlAbort) {
   logic_state_machine->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "ManualControlArmState");
   // Check controller is actually aborted
-  ASSERT_EQ(uav_arm_system->getActiveControllerStatus(HardwareType::UAV),
+  ASSERT_EQ(uav_arm_system->getActiveControllerStatus(ControllerGroup::UAV),
             ControllerStatus::NotEngaged);
 }
 
@@ -206,7 +206,7 @@ TEST_F(StateMachineTests, JoystickControlLowBattery) {
   // Check if we are aborting due to low battery
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
   // Check controller is actually aborted
-  ASSERT_EQ(uav_arm_system->getActiveControllerStatus(HardwareType::UAV),
+  ASSERT_EQ(uav_arm_system->getActiveControllerStatus(ControllerGroup::UAV),
             ControllerStatus::NotEngaged);
 }
 //\todo Gowtham Add tests specific to arm sine controller transitions

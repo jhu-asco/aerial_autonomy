@@ -443,7 +443,7 @@ struct PickControllerStatusCheck_
         robot_system.getStatus<RPYTRelativePoseVisualServoingConnector>();
     bool grip_status = robot_system.gripStatus();
     if (status == ControllerStatus::Critical && grip_status) {
-      robot_system.abortController(HardwareType::UAV);
+      robot_system.abortController(ControllerGroup::UAV);
       VLOG(1)
           << "Controller critical while gripping is true! Aborting Controller!";
     } else if ((status == ControllerStatus::Critical ||

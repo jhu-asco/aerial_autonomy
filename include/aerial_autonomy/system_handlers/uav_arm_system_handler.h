@@ -34,12 +34,12 @@ public:
                         state_machine_config),
         uav_controller_timer_(
             std::bind(&UAVArmSystem::runActiveController, std::ref(uav_system_),
-                      HardwareType::UAV),
+                      ControllerGroup::UAV),
             std::chrono::milliseconds(
                 config.uav_system_config().uav_controller_timer_duration())),
         arm_controller_timer_(
             std::bind(&UAVArmSystem::runActiveController, std::ref(uav_system_),
-                      HardwareType::Arm),
+                      ControllerGroup::Arm),
             std::chrono::milliseconds(config.uav_arm_system_handler_config()
                                           .arm_controller_timer_duration())) {
 

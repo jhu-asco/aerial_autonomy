@@ -57,7 +57,7 @@ TEST(UAVSystemTests, runActiveController) {
   uav_system.takeOff();
   PositionYaw position_yaw(1, 1, 1, 1);
   uav_system.setGoal<PositionControllerDroneConnector>(position_yaw);
-  uav_system.runActiveController(HardwareType::UAV);
+  uav_system.runActiveController(ControllerGroup::UAV);
   parsernode::common::quaddata data = uav_system.getUAVData();
   PositionYaw data_position_yaw(data.localpos.x, data.localpos.y,
                                 data.localpos.z, data.rpydata.z);
@@ -69,7 +69,7 @@ TEST(UAVSystemTests, runVelocityController) {
   uav_system.takeOff();
   VelocityYaw velocity_yaw(1, 1, 1, 1);
   uav_system.setGoal<BuiltInVelocityControllerDroneConnector>(velocity_yaw);
-  uav_system.runActiveController(HardwareType::UAV);
+  uav_system.runActiveController(ControllerGroup::UAV);
   parsernode::common::quaddata data = uav_system.getUAVData();
   VelocityYaw data_velocity_yaw(data.linvel.x, data.linvel.y, data.linvel.z,
                                 data.rpydata.z);
@@ -89,7 +89,7 @@ TEST(UAVSystemTests, runRPYTController) {
   uav_system.setGoal<ManualRPYTControllerDroneConnector>(EmptyGoal());
   // Run 10 iterations
   for (int i = 0; i < 100; ++i) {
-    uav_system.runActiveController(HardwareType::UAV);
+    uav_system.runActiveController(ControllerGroup::UAV);
   }
   parsernode::common::quaddata sensor_data = uav_system.getUAVData();
   ASSERT_NEAR(sensor_data.rpydata.x, 0.00523599, 1e-4);
@@ -109,15 +109,15 @@ TEST(UAVSystemTests, getActiveControllerStatus) {
   PositionYaw position_yaw(1, 1, 1, 1);
   uav_system.setGoal<PositionControllerDroneConnector>(position_yaw);
 
-  ASSERT_EQ(uav_system.getActiveControllerStatus(HardwareType::UAV),
+  ASSERT_EQ(uav_system.getActiveControllerStatus(ControllerGroup::UAV),
             ControllerStatus::Active);
 
-  uav_system.runActiveController(HardwareType::UAV);
-  uav_system.runActiveController(HardwareType::UAV);
-  ASSERT_TRUE(uav_system.getActiveControllerStatus(HardwareType::UAV));
+  uav_system.runActiveController(ControllerGroup::UAV);
+  uav_system.runActiveController(ControllerGroup::UAV);
+  ASSERT_TRUE(uav_system.getActiveControllerStatus(ControllerGroup::UAV));
 
-  uav_system.abortController(HardwareType::UAV);
-  ASSERT_EQ(uav_system.getActiveControllerStatus(HardwareType::UAV),
+  uav_system.abortController(ControllerGroup::UAV);
+  ASSERT_EQ(uav_system.getActiveControllerStatus(ControllerGroup::UAV),
             ControllerStatus::NotEngaged);
 }
 
@@ -125,9 +125,9 @@ TEST(UAVSystemTests, abortController) {
   UAVSystem uav_system(ParserPtr(new QuadSimulator));
   PositionYaw position_yaw(1, 1, 1, 1);
   uav_system.setGoal<PositionControllerDroneConnector>(position_yaw);
-  uav_system.abortController(HardwareType::UAV);
+  uav_system.abortController(ControllerGroup::UAV);
   // Once aborted will not run position controller
-  uav_system.runActiveController(HardwareType::UAV);
+  uav_system.runActiveController(ControllerGroup::UAV);
   parsernode::common::quaddata data = uav_system.getUAVData();
   PositionYaw data_position_yaw(data.localpos.x, data.localpos.y,
                                 data.localpos.z, data.rpydata.z);
