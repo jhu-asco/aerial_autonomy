@@ -49,6 +49,7 @@ public:
       AbstractControllerConnector *controller_connector) {
     ControllerGroup controller_group =
         controller_connector->getControllerGroup();
+    controller_connector->initialize();
     if (active_controllers_[controller_group] != controller_connector) {
       boost::mutex::scoped_lock lock(*thread_mutexes_[controller_group]);
       active_controllers_[controller_group] = controller_connector;
@@ -73,7 +74,6 @@ public:
         controller_connector_container_.getObject<ControllerConnectorT>();
     controller_connector->setGoal(goal);
     activateControllerConnector(controller_connector);
-    runActiveController(controller_connector->getControllerGroup());
   }
   /**
   * @brief Get the goal from connector.

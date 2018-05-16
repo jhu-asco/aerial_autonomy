@@ -41,6 +41,13 @@ public:
     return;
   }
 
+  virtual void initialize() {
+    // Set the goal of the low level controller by running the controller and
+    // sending output
+    // to low level connector
+    run();
+  }
+
   virtual bool extractSensorData(int &sensor_data) {
     sensor_data = 0;
     return true;
@@ -78,7 +85,6 @@ TEST(SampleRobotSystemTest, DependentConnectorActivation) {
   highlevel_controller_connector.setGoal(5);
   SampleRobotSystem robot_system;
   robot_system.activateControllerConnector(&highlevel_controller_connector);
-  robot_system.runActiveController(ControllerGroup::Arm);
   robot_system.runActiveController(ControllerGroup::UAV);
   ASSERT_EQ(lowlevel_controller_connector.getGoal(), controller2.control_);
   ASSERT_EQ(controller1.control_, controller2.control_ + 1);

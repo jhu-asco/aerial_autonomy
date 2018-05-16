@@ -38,7 +38,14 @@ public:
   virtual AbstractControllerConnector *getDependentConnector() {
     return nullptr;
   }
-
+  /**
+  * @brief Connector specific initialization that happens before the connector
+  * is activated
+  *
+  * Ensure the dependent connector's goals have been set if present
+  *
+  */
+  virtual void initialize() {}
   /**
   * @brief Return the type of hardware (ControllerGroup) used by the controller
   *
