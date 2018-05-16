@@ -47,6 +47,10 @@ public:
 
   void activateControllerConnector(
       AbstractControllerConnector *controller_connector) {
+    if (controller_connector == nullptr) {
+      throw std::runtime_error(
+          "null pointer provided for activating controller connector");
+    }
     ControllerGroup controller_group =
         controller_connector->getControllerGroup();
     controller_connector->initialize();

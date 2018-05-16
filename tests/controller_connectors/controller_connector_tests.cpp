@@ -38,7 +38,6 @@ public:
         lowlevel_connector_(lowlevel_connector) {}
   virtual void sendControllerCommands(int control) {
     lowlevel_connector_.setGoal(control);
-    return;
   }
 
   virtual void initialize() {
