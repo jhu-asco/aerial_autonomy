@@ -5,6 +5,8 @@
 #include "aerial_autonomy/controllers/mpc_controller.h"
 #include "aerial_autonomy/estimators/state_estimator.h"
 
+#include <chrono>
+
 /**
 * @brief Generic Controller connector for MPC controllers
 *
@@ -44,7 +46,8 @@ public:
       ControllerGroup group)
       : BaseConnector(controller, group),
         constraint_generator_(constraint_generator),
-        state_estimator_(state_estimator) {}
+        state_estimator_(state_estimator),
+        t_state_estimate_(std::chrono::high_resolution_clock::now()) {}
 
   /**
   * @brief extract the initial state and dynamic constraints
@@ -55,6 +58,7 @@ public:
   */
   virtual bool extractSensorData(MPCInputs<StateT> &mpc_inputs) {
     mpc_inputs.initial_state = state_estimator_.getState();
+    t_state_estimate_ = std::chrono::high_resolution_clock::now();
     mpc_inputs.constraints = constraint_generator_.generateConstraints();
     return (state_estimator_.getStatus() && constraint_generator_.getStatus());
   }
@@ -75,8 +79,10 @@ public:
   void
   sendControllerCommands(ReferenceTrajectory<StateT, ControlT> trajectory) {
     StateT current_state_estimate = state_estimator_.getState();
-    ControlT control =
-        control_selector_->selectControl(trajectory, current_state_estimate);
+    auto dt_optimization = std::chrono::duration<double>(
+        std::chrono::high_resolution_clock::now() - t_state_estimate_);
+    ControlT control = control_selector_->selectControl(
+        trajectory, current_state_estimate, dt_optimization);
     state_estimator_.propagate(control);
     sendCommandsToHardware(control);
   }
@@ -87,4 +93,5 @@ private:
       &state_estimator_; ///< Estimate current state
   std::unique_ptr<AbstractControlSelector<StateT, ControlT>>
       control_selector_; ///< Control selector
+  std::chrono::time_point<std::chrono::high_resolution_clock> t_state_estimate_;
 };

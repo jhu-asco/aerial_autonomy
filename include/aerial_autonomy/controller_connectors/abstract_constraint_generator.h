@@ -4,7 +4,8 @@
 /**
 * @brief Generates obstacles based on sensor data
 */
-struct AbstractConstraintGenerator {
+class AbstractConstraintGenerator {
+public:
   /**
   * @brief Generate constraint vector that contains all
   * the dynamics constraints that should be handled
