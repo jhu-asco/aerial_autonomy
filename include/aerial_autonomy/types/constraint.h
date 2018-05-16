@@ -37,7 +37,7 @@ struct Constraint {
   */
   tf::Transform transform;
   /**
-  * @brief The lenght of the obstacle along the body x, y, z axes
+  * @brief The length of the obstacle along the body x, y, z axes
   */
   tf::Vector3 scale;
 };

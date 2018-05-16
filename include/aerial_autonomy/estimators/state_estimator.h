@@ -1,5 +1,4 @@
 #pragma once
-#include <chrono>
 
 /**
 * @brief Estimate the state of the robot
@@ -8,16 +7,12 @@
 * @tparam ControlT  The control type used to propagate the estimator
 */
 template <class StateT, class ControlT> struct AbstractStateEstimator {
-
   /**
-  * @brief Run estimator loop. Propagates the estimator loop
+  * @brief Run estimator loop. Propagates the estimator state using controls
   *
-  * @param t Current time
   * @param control Current control
   */
-  virtual void propagate(std::chrono::duration<double> t,
-                         const ControlT &control) = 0;
-
+  virtual void propagate(const ControlT &control) = 0;
   /**
   * @brief Get the current estimate of state
   *

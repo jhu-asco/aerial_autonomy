@@ -16,11 +16,11 @@ struct QuadState {
   /**
   * @brief The derivative of roll, pitch, yaw
   */
-  tf::Vector3 rpydot;
+  tf::Vector3 rpy_dot;
   /**
   * @brief The desired roll, pitch, yaw
   */
-  tf::Vector3 rpyd;
+  tf::Vector3 rpy_desired;
   /**
   * @brief The gain between thrust command and body z acceleration
   */

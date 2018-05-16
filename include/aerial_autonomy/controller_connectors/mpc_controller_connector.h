@@ -5,8 +5,6 @@
 #include "aerial_autonomy/controllers/mpc_controller.h"
 #include "aerial_autonomy/estimators/state_estimator.h"
 
-#include <chrono>
-
 /**
 * @brief Generic Controller connector for MPC controllers
 *
@@ -46,8 +44,7 @@ public:
       ControllerGroup group)
       : BaseConnector(controller, group),
         constraint_generator_(constraint_generator),
-        state_estimator_(state_estimator),
-        t0_(std::chrono::high_resolution_clock::now()) {}
+        state_estimator_(state_estimator) {}
 
   /**
   * @brief extract the initial state and dynamic constraints
@@ -80,9 +77,7 @@ public:
     StateT current_state_estimate = state_estimator_.getState();
     ControlT control =
         control_selector_->selectControl(trajectory, current_state_estimate);
-    auto relative_time = std::chrono::duration<double>(
-        std::chrono::high_resolution_clock::now() - t0_);
-    state_estimator_.propagate(relative_time, control);
+    state_estimator_.propagate(control);
     sendCommandsToHardware(control);
   }
 
@@ -90,8 +85,6 @@ private:
   AbstractConstraintGenerator &constraint_generator_; ///< Generates constraints
   AbstractStateEstimator<StateT, ControlT>
       &state_estimator_; ///< Estimate current state
-  std::chrono::time_point<std::chrono::high_resolution_clock>
-      t0_; ///< Zero time
   std::unique_ptr<AbstractControlSelector<StateT, ControlT>>
       control_selector_; ///< Control selector
 };

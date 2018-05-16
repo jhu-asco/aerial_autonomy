@@ -4,10 +4,10 @@
 #include "aerial_autonomy/types/reference_trajectory.h"
 
 /**
-* @brief Generic MPC Controller.
+* @brief Generic MPC controller.
 *
-* Specifies the sensordata, Goal and Control for the controller. Other
-* MPC Controllers should be a subclass of this Abstract MPC Controller.
+* Specifies the sensordata, goal and control for the controller. Other
+* MPC controllers should be a subclass of this Abstract MPC Controller.
 *
 *
 * @tparam StateT The state type used in MPC optimization

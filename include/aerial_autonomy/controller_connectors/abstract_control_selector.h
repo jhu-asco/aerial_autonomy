@@ -19,5 +19,5 @@ template <class StateT, class ControlT> struct AbstractControlSelector {
   */
   virtual ControlT
   selectControl(const ReferenceTrajectory<StateT, ControlT> &trajectory,
-                StateT current_state) = 0;
+                const StateT &current_state) = 0;
 };
