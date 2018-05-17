@@ -1,5 +1,7 @@
 #pragma once
 
+#include "aerial_autonomy/types/acceleration.h"
+#include "aerial_autonomy/types/jerk.h"
 #include "aerial_autonomy/types/position.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/velocity.h"
@@ -34,25 +36,13 @@ void transformRPYToTf(double r, double p, double y, tf::Transform &tf);
 void positionYawToTf(const PositionYaw &p, tf::Transform &tf);
 
 /**
- * @brief Convert Position to tf::Vector3
+ * @brief Convert T to Eigen::Vector3d
  * @param p Position to convert
- * @return tf The equivalent tf::Vector3
+ * @return The equivalent Eigen::Vector3d
  */
-tf::Vector3 positionToTf(const Position &p);
-
-/**
- * @brief Convert Velocity to tf::Vector3
- * @param v Velocity to convert
- * @return tf The equivalent tf::Vector3
- */
-tf::Vector3 velocityToTf(const Velocity &v);
-
-/**
- * @brief Convert Acceleration to tf::Vector3
- * @param a Acceleration to convert
- * @return tf The equivalent tf::Vector3
- */
-tf::Vector3 accelerationToTf(const Acceleration &a);
+template <class T> Eigen::Vector3d toEigen(const T &p) {
+  return Eigen::Vector3d(p.x, p.y, p.z);
+}
 
 /**
  * @brief Convert config::Transform to tf::Transform
@@ -94,5 +84,18 @@ std::vector<tf::Transform> protoTransformsToTfs(const T &proto_tfs) {
     tfs.push_back(protoTransformToTf(proto_tf));
   }
   return tfs;
+}
+
+/**
+* @brief Convert a list to an Eigen vector
+* @param p Proto list to convert
+* @return Converted Eigen vector
+*/
+template <class T> Eigen::VectorXd vectorProtoToEigen(const T &xs) {
+  Eigen::VectorXd v;
+  for (auto x : xs) {
+    v << x;
+  }
+  return v;
 }
 }

@@ -20,4 +20,39 @@ message QrotorBacksteppingControllerConfig {
   * @brief D Gain to convert velocity error to acceleration
   */
   optional double kd_z = 4 [ default = 1.0 ];
+  /**
+  * @brief Gain for achieving desired jerk
+  */
+  optional double k1 = 5 [ default = 1.0 ];
+  /**
+  * @brief Gain for achieving desired snap
+  */
+  optional double k2 = 6 [ default = 1.0 ];
+
+  /**
+  * @brief Inertial matrix X
+  */
+  optional double jx = 7 [ default = 1.0 ];
+  /**
+  * @brief Inertial matrix Y
+  */
+  optional double jy = 8 [ default = 1.0 ];
+  /**
+  * @brief Inertial matrix Z
+  */
+  optional double jz = 9 [ default = 1.0 ];
+
+  /**
+  * @brief Mass
+  */
+  optional double mass = 10 [ default = 1.0 ];
+  /**
+  * @brief Acceleration due to gravity (in case we also want to fly on Mars)
+  */
+  optional double acc_gravity = 11 [ default = 9.81 ];
+  /**
+  * @brief Minimum thrust command before allowing torque computation
+  * If too small, torque command could be massive
+  */
+  optional double thrust_eps = 12 [ default = 1e-2 ];
 }

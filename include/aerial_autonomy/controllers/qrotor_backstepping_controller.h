@@ -1,10 +1,14 @@
 #pragma once
 
 #include "aerial_autonomy/controllers/base_controller.h"
+#include "aerial_autonomy/types/particle_state.h"
 #include "aerial_autonomy/types/qrotor_bs_control.h"
 #include "aerial_autonomy/types/qrotor_bs_state.h"
 #include "aerial_autonomy/types/reference_trajectory.h"
+#include "aerial_autonomy/types/snap.h"
 #include "qrotor_backstepping_controller_config.pb.h"
+
+#include <Eigen/Dense>
 
 /**
  * @brief A trajectory-tracking backstepping controller for a quadrotor.
@@ -23,6 +27,7 @@ public:
   QrotorBacksteppingController(QrotorBacksteppingControllerConfig config)
       : config_(config) {
     // TODO compute P from Q
+    P_ = Eigen::MatrixXd::Identity(6, 6);
   }
 
 protected:
@@ -49,10 +54,18 @@ protected:
   isConvergedImplementation(QrotorBSState sensor_data,
                             ReferenceTrajectory<ParticleState, Snap> goal);
 
+  /**
+  * @brief Gets current goal and derivatives from the reference
+  * @param ref Reference trajectory
+  * @return Current goal
+  */
   std::tuple<ParticleState, Snap>
-  getGoalFromReference(const ReferenceTrajectory<ParticleState, Snap> &);
+  getGoalFromReference(const ReferenceTrajectory<ParticleState, Snap> &ref);
   /**
   * @brief Controller config
   */
   QrotorBacksteppingControllerConfig config_;
+
+private:
+  Eigen::Matrix<double, 6, 6> P_;
 };

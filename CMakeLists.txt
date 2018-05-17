@@ -39,6 +39,7 @@ include(cmake/add_event_function.cmake)
 find_package(Boost REQUIRED COMPONENTS system)
 find_package(Protobuf 3.1 REQUIRED) 
 find_package(Glog REQUIRED)
+find_package(LAPACK)
 
 # Quad simulator parser dependencies
 find_package(GCOP REQUIRED systems)
@@ -215,6 +216,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/thrust_gain_estimator_config.proto
   proto/tracking_vector_estimator_config.proto
   proto/arm_sine_controller_config.proto
+  proto/qrotor_backstepping_controller_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -269,6 +271,7 @@ set(SRC
   src/controllers/rpyt_based_relative_pose_controller.cpp
   src/controllers/joystick_velocity_controller.cpp
   src/controllers/arm_sine_controller.cpp
+  src/controllers/qrotor_backstepping_controller.cpp
   src/estimators/thrust_gain_estimator.cpp
   src/estimators/tracking_vector_estimator.cpp
   src/controller_connectors/mpc_controller_drone_connector.cpp
