@@ -26,6 +26,27 @@ public:
   virtual ControllerStatus getStatus() const = 0;
 
   /**
+  * @brief Adds another connector to be dependent on the current connector. If
+  * the current connector is active, the dependent connector also gets active.
+  * It is assumed that the current connector will configure the dependent
+  * connector so that activation is possible.
+  *
+  * The user should be CAREFUL to avoid any loops in dependent connectors
+  *
+  * @return the pointer to dependent connector
+  */
+  virtual AbstractControllerConnector *getDependentConnector() {
+    return nullptr;
+  }
+  /**
+  * @brief Connector specific initialization that happens before the connector
+  * is activated
+  *
+  * Ensure the dependent connector's goals have been set if present
+  *
+  */
+  virtual void initialize() {}
+  /**
   * @brief Return the type of hardware (ControllerGroup) used by the controller
   *
   * @return return the type of hardware used by the controller
