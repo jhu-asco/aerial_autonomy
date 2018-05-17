@@ -43,4 +43,11 @@ double clamp(double x, double min, double max);
 */
 double map(double input, double input_min, double input_max, double output_min,
            double output_max);
+
+/**
+ * @brief The hat operator. Computes a skew symmetric matrix from a vector
+ * @param v The vector to convert to a skew-symmetric matrix
+ * @return The skew-symmetric matric
+ */
+tf::Matrix3x3 hat(const tf::Vector3 &v);
 }

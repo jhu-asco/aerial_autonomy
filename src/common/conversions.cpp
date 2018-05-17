@@ -32,4 +32,16 @@ PositionYaw protoPositionYawToPositionYaw(config::PositionYaw p) {
   return PositionYaw(p.position().x(), p.position().y(), p.position().z(),
                      p.yaw());
 }
+
+tf::Vector3 positionToTf(const Position &p) {
+  return tf::Vector3(p.x, p.y, p.z);
+}
+
+tf::Vector3 velocityToTf(const Velocity &v) {
+  return tf::Vector3(v.vx, v.vy, v.vz);
+}
+
+tf::Vector3 accelerationToTf(const Acceleration &a) {
+  return tf::Vector3(a.ax, a.ay, a.az);
+}
 }

@@ -1,0 +1,23 @@
+syntax = "proto2";
+
+/**
+* Configuration for the QrotorBacksteppingController
+*/
+message QrotorBacksteppingControllerConfig {
+  /**
+  * @brief P Gain to convert position error to acceleration
+  */
+  optional double kp_xy = 1 [ default = 1.0 ];
+  /**
+  * @brief P Gain to convert position error to acceleration
+  */
+  optional double kp_z = 2 [ default = 1.0 ];
+  /**
+  * @brief D Gain to convert velocity error to acceleration
+  */
+  optional double kd_xy = 3 [ default = 1.0 ];
+  /**
+  * @brief D Gain to convert velocity error to acceleration
+  */
+  optional double kd_z = 4 [ default = 1.0 ];
+}

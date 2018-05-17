@@ -1,6 +1,8 @@
 #pragma once
 
+#include "aerial_autonomy/types/position.h"
 #include "aerial_autonomy/types/position_yaw.h"
+#include "aerial_autonomy/types/velocity.h"
 #include <tf_conversions/tf_eigen.h>
 
 #include "position_yaw.pb.h"
@@ -30,6 +32,27 @@ void transformRPYToTf(double r, double p, double y, tf::Transform &tf);
  * @param tf The equivalent tf::Transform
  */
 void positionYawToTf(const PositionYaw &p, tf::Transform &tf);
+
+/**
+ * @brief Convert Position to tf::Vector3
+ * @param p Position to convert
+ * @return tf The equivalent tf::Vector3
+ */
+tf::Vector3 positionToTf(const Position &p);
+
+/**
+ * @brief Convert Velocity to tf::Vector3
+ * @param v Velocity to convert
+ * @return tf The equivalent tf::Vector3
+ */
+tf::Vector3 velocityToTf(const Velocity &v);
+
+/**
+ * @brief Convert Acceleration to tf::Vector3
+ * @param a Acceleration to convert
+ * @return tf The equivalent tf::Vector3
+ */
+tf::Vector3 accelerationToTf(const Acceleration &a);
 
 /**
  * @brief Convert config::Transform to tf::Transform
