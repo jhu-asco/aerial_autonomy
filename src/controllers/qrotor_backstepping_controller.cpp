@@ -6,33 +6,37 @@
 
 std::tuple<ParticleState, Snap>
 QrotorBacksteppingController::getGoalFromReference(
-    const ReferenceTrajectory<ParticleState, Snap> &ref) {
-  return std::tuple<ParticleState, Snap>(ref.states.at(0), ref.controls.at(0));
+    double t, const ReferenceTrajectory<ParticleState, Snap> &ref) {
+  return ref.atTime(t);
 }
 
 bool QrotorBacksteppingController::runImplementation(
-    QrotorBSState sensor_data, ReferenceTrajectory<ParticleState, Snap> goal,
-    QrotorBSControl &control) {
-  std::tuple<ParticleState, Snap> current_ref = getGoalFromReference(goal);
+    std::tuple<double, QrotorBSState> sensor_data,
+    ReferenceTrajectory<ParticleState, Snap> goal, QrotorBSControl &control) {
+  auto current_state = std::get<1>(sensor_data);
+  double current_time = std::get<0>(sensor_data);
+
+  std::tuple<ParticleState, Snap> current_ref =
+      getGoalFromReference(current_time, goal);
   auto desired_state = std::get<0>(current_ref);
   Eigen::Vector3d snap_d = conversions::toEigen(std::get<1>(current_ref));
 
   // A bunch of conversions and definitions
   Eigen::Matrix3d R;
-  tf::matrixTFToEigen(sensor_data.pose.getBasis(), R);
-  double thrust = sensor_data.thrust;
-  double thrust_dot = sensor_data.thrust_dot;
+  tf::matrixTFToEigen(current_state.pose.getBasis(), R);
+  double thrust = current_state.thrust;
+  double thrust_dot = current_state.thrust_dot;
 
   Eigen::Vector3d p;
-  tf::vectorTFToEigen(sensor_data.pose.getOrigin(), p);
+  tf::vectorTFToEigen(current_state.pose.getOrigin(), p);
   Eigen::Vector3d p_d = conversions::toEigen(desired_state.p);
   Eigen::Vector3d v;
-  tf::vectorTFToEigen(sensor_data.v, v);
+  tf::vectorTFToEigen(current_state.v, v);
   Eigen::Vector3d v_d = conversions::toEigen(desired_state.v);
   Eigen::Vector3d acc_d = conversions::toEigen(desired_state.a);
   Eigen::Vector3d jerk_d = conversions::toEigen(desired_state.j);
   Eigen::Vector3d w;
-  tf::vectorTFToEigen(sensor_data.w, w);
+  tf::vectorTFToEigen(current_state.w, w);
 
   Eigen::Vector3d f = m_ * ag_;
   Eigen::Vector3d g = R * e_ * thrust;
@@ -51,7 +55,7 @@ bool QrotorBacksteppingController::runImplementation(
   x_d_ddot.tail<3>() = jerk_d;
 
   Eigen::Matrix3d w_hat;
-  tf::Matrix3x3 w_hat_tf = math::hat(sensor_data.w);
+  tf::Matrix3x3 w_hat_tf = math::hat(current_state.w);
   tf::matrixTFToEigen(w_hat_tf, w_hat);
 
   // The actual controller computations
@@ -88,7 +92,8 @@ bool QrotorBacksteppingController::runImplementation(
 }
 
 ControllerStatus QrotorBacksteppingController::isConvergedImplementation(
-    QrotorBSState sensor_data, ReferenceTrajectory<ParticleState, Snap> goal) {
+    std::tuple<double, QrotorBSState> sensor_data,
+    ReferenceTrajectory<ParticleState, Snap> goal) {
   ControllerStatus controller_status(ControllerStatus::Completed);
   return controller_status;
 }

@@ -1,4 +1,6 @@
 #pragma once
+#include <algorithm>
+#include <stdexcept>
 #include <vector>
 
 /**
@@ -21,4 +23,23 @@ template <class StateT, class ControlT> struct ReferenceTrajectory {
   * 1 less than states.
   */
   std::vector<ControlT> controls;
+
+  /**
+  * @brief Gets the trajectory information at the specified time using linear
+  * interpolation
+  * @param t Time
+  * @return Trajectory state and control
+  */
+  std::tuple<StateT, ControlT> atTime(double t) const {
+    if (t < ts.front() || t > ts.back()) {
+      throw std::out_of_range("Accessed reference trajectory out of bounds");
+    }
+    auto closest_t = std::lower_bound(ts.begin(), ts.end(), t);
+
+    int i = closest_t - ts.begin();
+    double weight = (t - ts.at(i - 1)) / (ts.at(i) - ts.at(i - 1));
+    return std::tuple<StateT, ControlT>(
+        states.at(i) * weight + states.at(i - 1) * (1 - weight),
+        controls.at(i) * weight + controls.at(i - 1) * (1 - weight));
+  }
 };

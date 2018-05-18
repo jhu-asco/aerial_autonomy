@@ -18,8 +18,8 @@
  * external disturbances", American Control Conference, 2013>
  */
 class QrotorBacksteppingController
-    : public Controller<QrotorBSState, std::tuple<ParticleState, Snap>,
-                        QrotorBSControl> {
+    : public Controller<std::tuple<double, QrotorBSState>,
+                        std::tuple<ParticleState, Snap>, QrotorBSControl> {
 public:
   using Vector6d = Eigen::Matrix<double, 6, 1>;
   using Matrix63d = Eigen::Matrix<double, 6, 3>;
@@ -65,19 +65,20 @@ protected:
    * @param control Controls
    * @return true if command to reach goal is found
    */
-  bool runImplementation(QrotorBSState sensor_data,
+  bool runImplementation(std::tuple<double, QrotorBSState> sensor_data,
                          ReferenceTrajectory<ParticleState, Snap> goal,
                          QrotorBSControl &control);
   /**
   * @brief Check if controller has converged (reached the end of the reference)
   *
-  * @param sensor_data Current qrotor state
+  * @param sensor_data Current qrotor state and time relative to trajectory
+  * origin
   * @param goal Reference trajectory
   *
   * @return Controller status
   */
   ControllerStatus
-  isConvergedImplementation(QrotorBSState sensor_data,
+  isConvergedImplementation(std::tuple<double, QrotorBSState> sensor_data,
                             ReferenceTrajectory<ParticleState, Snap> goal);
 
   /**
@@ -86,7 +87,8 @@ protected:
   * @return Current goal
   */
   std::tuple<ParticleState, Snap>
-  getGoalFromReference(const ReferenceTrajectory<ParticleState, Snap> &ref);
+  getGoalFromReference(double current_time,
+                       const ReferenceTrajectory<ParticleState, Snap> &ref);
   /**
   * @brief Controller config
   */
