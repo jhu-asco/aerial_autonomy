@@ -55,4 +55,14 @@ struct Jerk {
   Jerk operator-(const Jerk &j) const {
     return Jerk(this->x - j.x, this->y - j.y, this->z - j.z);
   }
+  /**
+  * @brief Scale Jerk
+  *
+  * @param m Multiplier
+  *
+  * @return Scaled Jerk
+  */
+  Jerk operator*(const double &m) const {
+    return Jerk(this->x * m, this->y * m, this->z * m);
+  }
 };

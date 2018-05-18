@@ -55,4 +55,14 @@ struct Snap {
   Snap operator-(const Snap &s) const {
     return Snap(this->x - s.x, this->y - s.y, this->z - s.z);
   }
+  /**
+  * @brief Scale a Snap
+  *
+  * @param m Multiplier
+  *
+  * @return Scaled Snap
+  */
+  Snap operator*(const double &m) const {
+    return Snap(this->x * m, this->y * m, this->z * m);
+  }
 };

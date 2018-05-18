@@ -48,4 +48,25 @@ struct Velocity {
   Velocity operator-(const Velocity &v) const {
     return Velocity(this->x - v.x, this->y - v.y, this->z - v.z);
   }
+  /**
+  * @brief Add two velocity entities
+  *
+  * @param v Velocity to be added to current velocity
+  *
+  * @return Sum of velocities
+  */
+  Velocity operator+(const Velocity &v) const {
+    return Velocity(this->x + v.x, this->y + v.y, this->z + v.z);
+  }
+
+  /**
+  * @brief Scale a velocity
+  *
+  * @param m Multiplier
+  *
+  * @return Scaled velocity
+  */
+  Velocity operator*(const double &m) const {
+    return Velocity(this->x * m, this->y * m, this->z * m);
+  }
 };
