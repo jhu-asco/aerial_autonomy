@@ -49,6 +49,13 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
   }
 };
 
+/**
+ * @brief Check the goal index commanded is available in the stored goal
+ * arrays
+ *
+ * @tparam LogicStateMachineT Logic state machine used to process events
+ * @tparam GoalIndex Waypoint index being commanded
+ */
 template <class LogicStateMachineT, int GoalIndex>
 struct CheckGoalIndex_
     : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {
@@ -140,7 +147,7 @@ struct VisualServoingAbortActionFunctor_
     : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
   void run(UAVVisionSystem &robot_system) {
     LOG(WARNING) << "Aborting visual servoing controller";
-    robot_system.abortController(HardwareType::UAV);
+    robot_system.abortController(ControllerGroup::UAV);
   }
 };
 

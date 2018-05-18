@@ -103,6 +103,12 @@ protected:
                             VelocityYawRate goal);
   Atomic<RPYTBasedVelocityControllerConfig>
       config_; ///< Controller configuration
+               /**
+                * @brief Accumulated error in velocity and yaw rate for integral action
+                */
   VelocityYawRate cumulative_error;
+  /**
+   * @brief The timestep used for integrating cumulative error
+   */
   const std::chrono::duration<double> controller_timer_duration_;
 };

@@ -65,7 +65,12 @@ template <class Key> class UnorderedHeterogeneousMap {
   std::unordered_map<
       Key, std::tuple<const std::type_info *, std::unique_ptr<AbstractBase>>>
       configurations;
-  // Add friend to access for testing AbstractBaseWrapper
+  /**
+   * @brief Add friend to access for testing AbstractBaseWrapper
+   *
+   * @param WrapperTests Test module that uses abstract base wrapper
+   * @param WrapAndRetrieveObject Test function that uses abstract base wrapper
+   */
   FRIEND_TEST(WrapperTests, WrapAndRetrieveObject);
 
 public:

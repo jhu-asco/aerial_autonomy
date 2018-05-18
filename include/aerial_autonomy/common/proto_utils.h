@@ -5,6 +5,10 @@
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/text_format.h>
 
+/**
+ * @brief Namespace for functions that operate/manipulate
+ * google protobuf files
+ */
 namespace proto_utils {
 
 /**

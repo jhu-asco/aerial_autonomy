@@ -12,6 +12,10 @@ class ManualRPYTController
     : public Controller<Joystick, EmptyGoal, RollPitchYawRateThrust> {
 public:
   /**
+  * @brief Constructor
+  */
+  ManualRPYTController();
+  /**
    * @brief Destructor
    */
   virtual ~ManualRPYTController() {}

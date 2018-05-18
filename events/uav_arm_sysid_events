@@ -1,0 +1,5 @@
+UAVArmSysIDEventManager:
+  uav_basic_events/UAVEventManager/Abort
+  uav_basic_events/UAVEventManager/Joystick
+  arm_events/ArmEventManager
+  ArmOscillate

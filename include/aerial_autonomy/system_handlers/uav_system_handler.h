@@ -3,6 +3,7 @@
 #include <ros/ros.h>
 
 #include <aerial_autonomy/actions_guards/base_functors.h>
+#include <aerial_autonomy/log/mocap_logger.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/system_handlers/common_system_handler.h>
 
@@ -30,7 +31,7 @@ public:
                         state_machine_config),
         uav_controller_timer_(
             std::bind(&UAVSystem::runActiveController, std::ref(uav_system_),
-                      HardwareType::UAV),
+                      ControllerGroup::UAV),
             std::chrono::milliseconds(
                 config.uav_system_config().uav_controller_timer_duration())) {
     // Get the party started
@@ -63,4 +64,5 @@ private:
       common_handler_;              ///< Common logic to create state machine
                                     ///< and associated connections.
   AsyncTimer uav_controller_timer_; ///< Timer for running uav controller
+  MocapLogger mocap_logger_;        ///< Logger for mocap poses
 };

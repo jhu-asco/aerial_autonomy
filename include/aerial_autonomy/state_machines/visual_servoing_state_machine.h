@@ -101,6 +101,12 @@ public:
       const BaseStateMachineConfig &state_machine_config)
       : BaseStateMachine(uav_system, state_machine_config) {}
 
+  /**
+   * @brief Alternative constructor with default state machine config
+   *
+   * @param uav_system robot system that is stored internally
+   * and shared with events
+   */
   VisualServoingStateMachineFrontEnd(UAVVisionSystem &uav_system)
       : VisualServoingStateMachineFrontEnd(uav_system,
                                            BaseStateMachineConfig()){};

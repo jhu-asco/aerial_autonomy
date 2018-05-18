@@ -223,7 +223,7 @@ TEST_F(VisualServoingTests, CallInternalActionFunction) {
   desired_position.z = roi_goal.z;
   drone_hardware->cmdwaypoint(desired_position, desired_yaw);
   // Call controller loop:
-  uav_system->runActiveController(HardwareType::UAV);
+  uav_system->runActiveController(ControllerGroup::UAV);
   // Get status
   status = uav_system->getStatus<VisualServoingControllerDroneConnector>();
   ASSERT_EQ(status, ControllerStatus::Completed);
@@ -265,7 +265,7 @@ TEST_F(VisualServoingTests, CallRelativePoseInternalActionFunction) {
   desired_position.z = roi_goal.z + desired_relative_pose.z;
   drone_hardware->cmdwaypoint(desired_position, desired_relative_pose.yaw);
   // Call controller loop:
-  uav_system->runActiveController(HardwareType::UAV);
+  uav_system->runActiveController(ControllerGroup::UAV);
   // Get status
   status = uav_system->getStatus<RPYTRelativePoseVisualServoingConnector>();
   ASSERT_EQ(status, ControllerStatus::Completed);
@@ -349,7 +349,7 @@ TEST_F(VisualServoingTests, LostTrackingInternalActionFunction) {
   // Make tracking invalid
   simple_tracker->setTrackingIsValid(false);
   // Run controller to update controller status
-  uav_system->runActiveController(HardwareType::UAV);
+  uav_system->runActiveController(ControllerGroup::UAV);
   // Test internal action
   VisualServoingInternalAction visual_servoing_internal_action;
   visual_servoing_internal_action(NULL, *sample_logic_state_machine,
@@ -374,7 +374,7 @@ TEST_F(VisualServoingTests, LostTrackingRelativePoseInternalActionFunction) {
   // Make tracking invalid
   simple_tracker->setTrackingIsValid(false);
   // Run controller to update controller status
-  uav_system->runActiveController(HardwareType::UAV);
+  uav_system->runActiveController(ControllerGroup::UAV);
   // Test internal action
   RelativePoseVisualServoingInternalAction visual_servoing_internal_action;
   visual_servoing_internal_action(NULL, *sample_logic_state_machine,
@@ -405,7 +405,7 @@ TEST_F(VisualServoingTests, CallGoHomeTransitionAction) {
   go_home_transition_action(NULL, *sample_logic_state_machine,
                             dummy_start_state, dummy_target_state);
   auto getUAVStatusRunController = [&]() {
-    uav_system->runActiveController(HardwareType::UAV);
+    uav_system->runActiveController(ControllerGroup::UAV);
     return uav_system->getStatus<RPYTBasedPositionControllerDroneConnector>() ==
            ControllerStatus::Completed;
   };

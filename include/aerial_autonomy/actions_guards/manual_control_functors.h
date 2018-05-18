@@ -1,5 +1,6 @@
 #pragma once
 
+#include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
 
 #include <aerial_autonomy/types/manual_control_event.h>
@@ -51,6 +52,20 @@ struct ManualControlSwitchGuard_
 };
 
 /**
+* @brief Transition action to switch on joystick rpyt controller
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct JoystickRPYTControlActionFunctor_
+    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+  void run(UAVSystem &robot_system) {
+    robot_system.setGoal<ManualRPYTControllerDroneConnector, EmptyGoal>(
+        EmptyGoal());
+  }
+};
+
+/**
 * @brief Check if hardware is allowing to switch sdk mode
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
@@ -83,6 +98,19 @@ struct ManualControlInternalActionFunctor_
 };
 
 /**
+ * @brief internal action while performing joystick based rpyt control. Only
+ * checks for critical state and does not abort on completed
+ *
+* @tparam LogicStateMachineT Logic state machine used to process events
+ */
+template <class LogicStateMachineT>
+using JoystickRPYTControlInternalActionFunctor_ =
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ControllerStatusInternalActionFunctor_<
+            LogicStateMachineT, ManualRPYTControllerDroneConnector, false>>>;
+
+/**
 * @brief State that uses internal action for switching out of sdk mode
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
@@ -91,3 +119,13 @@ template <class LogicStateMachineT>
 using ManualControlState_ =
     BaseState<UAVSystem, LogicStateMachineT,
               ManualControlInternalActionFunctor_<LogicStateMachineT>>;
+
+/**
+* @brief State that commands rpyt messages based on joystick
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+using RunningJoystickRPYTController_ =
+    BaseState<UAVSystem, LogicStateMachineT,
+              JoystickRPYTControlInternalActionFunctor_<LogicStateMachineT>>;

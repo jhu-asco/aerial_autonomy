@@ -78,17 +78,6 @@ using PlaceInternalActionFunctor_ =
             Reset>>>;
 
 /**
-* @brief Logic to check arm power and manual mode
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-using ManualControlArmInternalActionFunctor_ =
-    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
-        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-        ManualControlInternalActionFunctor_<LogicStateMachineT>>>;
-
-/**
 * @brief Check tracking is valid before starting visual servoing and arm is
 * enabled before picking objects
 *
@@ -411,6 +400,9 @@ struct ReachingPostPickWaypoint_
   }
 
 private:
+  /**
+   * @brief id of the package that was picked up
+   */
   ObjectId object_id_;
 };
 
@@ -451,7 +443,7 @@ struct PickControllerStatusCheck_
         robot_system.getStatus<RPYTRelativePoseVisualServoingConnector>();
     bool grip_status = robot_system.gripStatus();
     if (status == ControllerStatus::Critical && grip_status) {
-      robot_system.abortController(HardwareType::UAV);
+      robot_system.abortController(ControllerGroup::UAV);
       VLOG(1)
           << "Controller critical while gripping is true! Aborting Controller!";
     } else if ((status == ControllerStatus::Critical ||
@@ -554,10 +546,25 @@ public:
   const GripConfig &gripConfig() const { return grip_config_; }
 
 private:
+  /**
+   * @brief Time when gripping started
+   */
   std::chrono::time_point<std::chrono::high_resolution_clock> grip_start_time_;
+  /**
+   * @brief How long to grip before grip succeeds
+   */
   std::chrono::milliseconds required_grip_duration_ =
       std::chrono::milliseconds(0);
+  /**
+   * @brief Flag to indicate whether gripping is active or not
+   */
   bool gripping_ = false;
+  /**
+   * @brief Config specifying the grip settings such as duration
+   */
   GripConfig grip_config_;
+  /**
+   * @brief Time after which grip automatically fails
+   */
   std::chrono::milliseconds grip_timeout_ = std::chrono::milliseconds(0);
 };

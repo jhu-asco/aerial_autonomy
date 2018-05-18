@@ -1,6 +1,7 @@
 syntax = "proto2";
 
 import "pose_controller_config.proto";
+import "arm_sine_controller_config.proto";
 
 message ArmSystemConfig {
   /**
@@ -11,4 +12,8 @@ message ArmSystemConfig {
   * @brief Arm hardware plugin name
   */
   required string arm_parser_type = 2 [ default = "ArmSimulator" ];
+  /**
+  * @brief configuration for moving arm in a sinusoid format
+  */
+  optional ArmSineControllerConfig arm_sine_controller_config = 3;
 }

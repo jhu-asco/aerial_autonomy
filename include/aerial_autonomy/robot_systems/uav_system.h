@@ -12,10 +12,13 @@
 // Estimators
 #include <aerial_autonomy/estimators/thrust_gain_estimator.h>
 // Specific ControllerConnectors
-#include <aerial_autonomy/controller_hardware_connectors/basic_controller_hardware_connectors.h>
-#include <aerial_autonomy/controller_hardware_connectors/joystick_velocity_controller_drone_connector.h>
+#include <aerial_autonomy/controller_connectors/basic_controller_connectors.h>
+#include <aerial_autonomy/controller_connectors/joystick_velocity_controller_drone_connector.h>
 // Sensors
-#include <aerial_autonomy/controller_hardware_connectors/rpyt_based_position_controller_drone_connector.h>
+#include <aerial_autonomy/controller_connectors/basic_controller_connectors.h>
+#include <aerial_autonomy/controller_connectors/joystick_velocity_controller_drone_connector.h>
+#include <aerial_autonomy/controller_connectors/rpyt_based_position_controller_drone_connector.h>
+#include <aerial_autonomy/controller_connectors/rpyt_based_position_controller_drone_connector.h>
 #include <aerial_autonomy/sensors/guidance.h>
 #include <aerial_autonomy/sensors/velocity_sensor.h>
 // Load UAV parser
@@ -220,15 +223,14 @@ public:
         home_location_specified_(false) {
     drone_hardware_->initialize();
     // Add control hardware connector containers
-    controller_hardware_connector_container_.setObject(
+    controller_connector_container_.setObject(
         position_controller_drone_connector_);
-    controller_hardware_connector_container_.setObject(
+    controller_connector_container_.setObject(
         rpyt_based_position_controller_drone_connector_);
-    controller_hardware_connector_container_.setObject(
+    controller_connector_container_.setObject(
         velocity_controller_drone_connector_);
-    controller_hardware_connector_container_.setObject(
-        rpyt_controller_drone_connector_);
-    controller_hardware_connector_container_.setObject(
+    controller_connector_container_.setObject(rpyt_controller_drone_connector_);
+    controller_connector_container_.setObject(
         joystick_velocity_controller_drone_connector_);
   }
   /**

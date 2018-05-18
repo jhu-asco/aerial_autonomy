@@ -1,8 +1,8 @@
 #pragma once
 #include "aerial_autonomy/common/conversions.h"
 #include "aerial_autonomy/common/html_utils.h"
-#include "aerial_autonomy/controller_hardware_connectors/rpyt_relative_pose_visual_servoing_connector.h"
-#include "aerial_autonomy/controller_hardware_connectors/visual_servoing_controller_drone_connector.h"
+#include "aerial_autonomy/controller_connectors/rpyt_relative_pose_visual_servoing_connector.h"
+#include "aerial_autonomy/controller_connectors/visual_servoing_controller_drone_connector.h"
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
 #include "aerial_autonomy/controllers/rpyt_based_relative_pose_controller.h"
 #include "aerial_autonomy/estimators/tracking_vector_estimator.h"
@@ -18,6 +18,9 @@
 */
 class UAVVisionSystem : public UAVSystem {
 protected:
+  /**
+   * @brief typedef for abstract base tracker
+   */
   using BaseTrackerPtr = std::shared_ptr<BaseTracker>;
 
 public:
@@ -51,9 +54,8 @@ public:
             thrust_gain_estimator_, camera_transform_,
             conversions::protoTransformToTf(config_.uav_vision_system_config()
                                                 .tracking_offset_transform())) {
-    controller_hardware_connector_container_.setObject(
-        visual_servoing_drone_connector_);
-    controller_hardware_connector_container_.setObject(
+    controller_connector_container_.setObject(visual_servoing_drone_connector_);
+    controller_connector_container_.setObject(
         relative_pose_visual_servoing_drone_connector_);
   }
 
@@ -91,6 +93,12 @@ public:
     tracker_->setTrackingStrategy(std::move(tracking_strategy));
   }
 
+  /**
+   * @brief Initialize the internal tracker.
+   * Usually called before tracking begins.
+   *
+   * @return True if initialization succeeded
+   */
   bool initializeTracker() { return tracker_->initialize(); }
 
   std::string getSystemStatus() const {
@@ -127,6 +135,9 @@ public:
     return status.str();
   }
 
+  /**
+   * @brief reset the integrator of internal relative pose controller
+   */
   void resetRelativePoseController() {
     rpyt_based_relative_pose_controller_.resetIntegrator();
   }
