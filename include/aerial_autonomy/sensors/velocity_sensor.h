@@ -19,10 +19,8 @@ public:
   */
   VelocitySensor(VelocitySensorConfig config) : config_(config) {
     VLOG(2) << "Initialzing ROS Sensor";
-    odom_sub_ = nh_.subscribe("/velocity_sensor/odometry", 1,
-                              &VelocitySensor::odomCallback, this);
-    sensor_world_tf_ =
-        conversions::protoTransformToTf(config_.sensor_transform());
+    odom_sub_ =
+        nh_.subscribe(config.topic(), 1, &VelocitySensor::odomCallback, this);
     last_msg_time_ = ros::Time::now();
   }
   /**
@@ -53,11 +51,9 @@ private:
   void odomCallback(const nav_msgs::Odometry::ConstPtr msg) {
     ros::Time last_msg_time = msg->header.stamp;
     last_msg_time_ = last_msg_time;
-    tf::Vector3 global_vel =
-        sensor_world_tf_ * tf::Vector3(msg->twist.twist.linear.x,
-                                       msg->twist.twist.linear.y,
-                                       msg->twist.twist.linear.z);
-    Velocity vel_sensor_data(global_vel[0], global_vel[1], global_vel[2]);
+    Velocity vel_sensor_data(msg->twist.twist.linear.x,
+                             msg->twist.twist.linear.y,
+                             msg->twist.twist.linear.z);
     sensor_data_ = vel_sensor_data;
   }
   /**
@@ -72,10 +68,6 @@ private:
   * @brief Subscriber for odometry topic
   */
   ros::Subscriber odom_sub_;
-  /**
-  * @brief sensor's origin in world frame
-  */
-  tf::Transform sensor_world_tf_;
   /**
   * @brief time of last msg recieved
   */
