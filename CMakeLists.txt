@@ -39,7 +39,7 @@ include(cmake/add_event_function.cmake)
 find_package(Boost REQUIRED COMPONENTS system)
 find_package(Protobuf 3.1 REQUIRED) 
 find_package(Glog REQUIRED)
-find_package(LAPACK)
+find_package(Armadillo REQUIRED)
 
 # Quad simulator parser dependencies
 find_package(GCOP REQUIRED systems)
@@ -297,7 +297,7 @@ add_library(aerial_autonomy
   ${SRC}
 )
 add_dependencies(aerial_autonomy proto)
-target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBS})
+target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBS} ${ARMADILLO_LIBRARY})
 
 
 ## Add cmake target dependencies of the library

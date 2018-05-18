@@ -5,6 +5,7 @@
 #include "aerial_autonomy/types/position.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/velocity.h"
+#include <armadillo>
 #include <tf_conversions/tf_eigen.h>
 
 #include "position_yaw.pb.h"
@@ -43,6 +44,20 @@ void positionYawToTf(const PositionYaw &p, tf::Transform &tf);
 template <class T> Eigen::Vector3d toEigen(const T &p) {
   return Eigen::Vector3d(p.x, p.y, p.z);
 }
+
+/**
+ * @brief Convert an Eigen::MatrixXd to an arma::mat
+ * @param m Eigen matrix
+ * @return arma matrix
+ */
+arma::mat eigenToArma(const Eigen::MatrixXd &m);
+
+/**
+ * @brief Convert an arma::mat to a Eigen::MatrixXd
+ * @param m arma matrix
+ * @return Eigen matrix
+ */
+Eigen::MatrixXd armaToEigen(const arma::mat &m);
 
 /**
  * @brief Convert config::Transform to tf::Transform

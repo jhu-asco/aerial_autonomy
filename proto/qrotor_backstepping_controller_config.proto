@@ -55,4 +55,29 @@ message QrotorBacksteppingControllerConfig {
   * If too small, torque command could be massive
   */
   optional double thrust_eps = 12 [ default = 1e-2 ];
+
+  /**
+  * @brief Lyapunov function derivative weight matrix X
+  */
+  optional double qx = 13 [ default = 1.0 ];
+  /**
+  * @brief Lyapunov function derivative weight matrix Y
+  */
+  optional double qy = 14 [ default = 1.0 ];
+  /**
+  * @brief Lyapunov function derivative weight matrix Z
+  */
+  optional double qz = 15 [ default = 1.0 ];
+  /**
+  * @brief Lyapunov function derivative weight matrix VX
+  */
+  optional double qvx = 16 [ default = 1.0 ];
+  /**
+  * @brief Lyapunov function derivative weight matrix VY
+  */
+  optional double qvy = 17 [ default = 1.0 ];
+  /**
+  * @brief Lyapunov function derivative weight matrix VZ
+  */
+  optional double qvz = 18 [ default = 1.0 ];
 }

@@ -32,4 +32,14 @@ PositionYaw protoPositionYawToPositionYaw(config::PositionYaw p) {
   return PositionYaw(p.position().x(), p.position().y(), p.position().z(),
                      p.yaw());
 }
+
+arma::mat eigenToArma(const Eigen::MatrixXd &m) {
+  return arma::mat(m.data(), m.rows(), m.cols());
+}
+
+Eigen::MatrixXd armaToEigen(const arma::mat &m) {
+  Eigen::MatrixXd m_eig(m.n_rows, m.n_cols);
+  std::memcpy(m_eig.data(), m.memptr(), sizeof(double) * m.n_rows * m.n_cols);
+  return m_eig;
+}
 }

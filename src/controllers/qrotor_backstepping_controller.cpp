@@ -4,11 +4,6 @@
 
 #include <tf_conversions/tf_eigen.h>
 
-using Matrix63d = Eigen::Matrix<double, 6, 3>;
-using Matrix36d = Eigen::Matrix<double, 3, 6>;
-using Matrix6d = Eigen::Matrix<double, 6, 6>;
-using Vector6d = Eigen::Matrix<double, 6, 1>;
-
 std::tuple<ParticleState, Snap>
 QrotorBacksteppingController::getGoalFromReference(
     const ReferenceTrajectory<ParticleState, Snap> &ref) {
@@ -23,23 +18,6 @@ bool QrotorBacksteppingController::runImplementation(
   Eigen::Vector3d snap_d = conversions::toEigen(std::get<1>(current_ref));
 
   // A bunch of conversions and definitions
-  Eigen::Matrix3d J =
-      Eigen::Vector3d(config_.jx(), config_.jy(), config_.jz()).asDiagonal();
-  double m = config_.mass();
-  Eigen::Vector3d e(0, 0, 1); // thrust vector in body-frame
-  Eigen::Vector3d ag = Eigen::Vector3d(0, 0, -config_.acc_gravity());
-  Eigen::Vector3d kp(config_.kp_xy(), config_.kp_xy(), config_.kp_z());
-  Eigen::Vector3d kd(config_.kd_xy(), config_.kd_xy(), config_.kd_z());
-  Matrix36d K;
-  K.leftCols<3>() = kp.asDiagonal();
-  K.rightCols<3>() = kd.asDiagonal();
-
-  Matrix6d A = Eigen::MatrixXd::Zero(6, 6);
-  A.topRightCorner<3, 3>() = Eigen::MatrixXd::Identity(3, 3);
-
-  Matrix63d B = Eigen::MatrixXd::Zero(6, 3);
-  B.bottomLeftCorner<3, 3>() = (1. / m) * Eigen::MatrixXd::Identity(3, 3);
-
   Eigen::Matrix3d R;
   tf::matrixTFToEigen(sensor_data.pose.getBasis(), R);
   double thrust = sensor_data.thrust;
@@ -56,13 +34,13 @@ bool QrotorBacksteppingController::runImplementation(
   Eigen::Vector3d w;
   tf::vectorTFToEigen(sensor_data.w, w);
 
-  Eigen::Vector3d f = m * ag;
-  Eigen::Vector3d g = R * e * thrust;
+  Eigen::Vector3d f = m_ * ag_;
+  Eigen::Vector3d g = R * e_ * thrust;
 
   Vector6d x, x_dot;
   x.head<3>() = p;
   x.tail<3>() = v;
-  x_dot = A * x + B * (f + g);
+  x_dot = A_ * x + B_ * (f + g);
 
   Vector6d x_d, x_d_dot, x_d_ddot;
   x_d.head<3>() = p_d;
@@ -80,32 +58,32 @@ bool QrotorBacksteppingController::runImplementation(
   auto z0 = x - x_d;
   auto z0_dot = x_dot - x_d_dot;
 
-  Eigen::Vector3d g_d = m * acc_d - K * z0 - f;
+  Eigen::Vector3d g_d = m_ * acc_d - K_ * z0 - f;
   Eigen::Vector3d z1 = g - g_d;
-  Eigen::Vector3d g_d_dot = m * jerk_d - K * z0_dot;
-  Eigen::Vector3d g_dot = R * (w_hat * e * thrust + e * thrust_dot);
+  Eigen::Vector3d g_d_dot = m_ * jerk_d - K_ * z0_dot;
+  Eigen::Vector3d g_dot = R * (w_hat * e_ * thrust + e_ * thrust_dot);
   auto z1_dot = g_dot - g_d_dot;
 
-  auto x_ddot = A * x_dot + B * g_dot;
-  auto g_d_ddot = m * snap_d - K * (x_ddot - x_d_ddot);
+  auto x_ddot = A_ * x_dot + B_ * g_dot;
+  auto g_d_ddot = m_ * snap_d - K_ * (x_ddot - x_d_ddot);
 
-  Eigen::Vector3d a_d = g_d_dot - B.transpose() * P_ * z0 - config_.k1() * z1;
+  Eigen::Vector3d a_d = g_d_dot - B_.transpose() * P_ * z0 - config_.k1() * z1;
   Eigen::Vector3d a_d_dot =
-      g_d_ddot - B.transpose() * P_ * z0_dot - config_.k1() * z1_dot;
+      g_d_ddot - B_.transpose() * P_ * z0_dot - config_.k1() * z1_dot;
   auto z2 = g_dot - a_d;
 
   Eigen::Vector3d b_d = a_d_dot - z1 - config_.k2() * z2;
 
-  auto snap_cmd = R.transpose() * b_d - thrust * w_hat * w_hat * e -
-                  2.0 * thrust_dot * w_hat * e;
+  auto snap_cmd = R.transpose() * b_d - thrust * w_hat * w_hat * e_ -
+                  2.0 * thrust_dot * w_hat * e_;
 
   if (fabs(thrust) > config_.thrust_eps()) {
-    tf::vectorEigenToTF(J * (e.cross(snap_cmd) / thrust) - (J * w).cross(w),
+    tf::vectorEigenToTF(J_ * (e_.cross(snap_cmd) / thrust) - (J_ * w).cross(w),
                         control.torque);
   } else {
     control.torque = tf::Vector3(0, 0, 0);
   }
-  control.thrust_ddot = e.dot(snap_cmd);
+  control.thrust_ddot = e_.dot(snap_cmd);
   return true;
 }
 
