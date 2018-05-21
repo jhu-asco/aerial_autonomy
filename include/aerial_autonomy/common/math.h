@@ -50,7 +50,7 @@ double map(double input, double input_min, double input_max, double output_min,
  * @param v The vector to convert to a skew-symmetric matrix
  * @return The skew-symmetric matric
  */
-tf::Matrix3x3 hat(const tf::Vector3 &v);
+Eigen::Matrix3d hat(const Eigen::Vector3d &v);
 
 /**
   * @brief Solve the Sylvester equation AX + XB + C = 0

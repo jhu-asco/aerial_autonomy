@@ -34,14 +34,14 @@ public:
     pos_tolerance->set_z(0.05);
   }
 
-  void testConvergence(QrotorBSState x0) {
+  void testConvergence(QrotorBacksteppingState x0) {
     ReferenceTrajectory<ParticleState, Snap> ref;
     ref.ts.push_back(0);
     ref.states.push_back(ParticleState());
     ref.controls.push_back(Snap());
     QrotorBacksteppingController controller(config_);
 
-    auto sensor_data = std::make_tuple(0.0, x0);
+    auto sensor_data = std::make_pair(0.0, x0);
     double &time = std::get<0>(sensor_data);
     auto &qrotor_state = std::get<1>(sensor_data);
     qrotor_state.thrust = config_.mass() * config_.acc_gravity();
@@ -51,7 +51,7 @@ public:
     controller.setGoal(ref);
 
     auto convergence = [&]() {
-      QrotorBSControl controls;
+      QrotorBacksteppingControl controls;
       controller.run(sensor_data, controls);
 
       qrotor_state.thrust_dot += controls.thrust_ddot * dt.count();
@@ -90,7 +90,7 @@ TEST_F(QrotorBacksteppingControllerTests, Constructor) {
 }
 
 TEST_F(QrotorBacksteppingControllerTests, Convergence) {
-  QrotorBSState qrotor_state;
+  QrotorBacksteppingState qrotor_state;
   qrotor_state.pose.setOrigin(tf::Vector3(3, -3, 1));
   testConvergence(qrotor_state);
 
@@ -112,12 +112,12 @@ TEST_F(QrotorBacksteppingControllerTests, SmallThrust) {
 
   controller.setGoal(ref);
 
-  auto sensor_data = std::make_tuple(0.0, QrotorBSState());
+  auto sensor_data = std::make_pair(0.0, QrotorBacksteppingState());
   auto &qrotor_state = std::get<1>(sensor_data);
   qrotor_state.thrust = 0;
   qrotor_state.pose.setOrigin(tf::Vector3(3, 2, 1));
 
-  QrotorBSControl controls;
+  QrotorBacksteppingControl controls;
   controller.run(sensor_data, controls);
 
   ASSERT_EQ(controls.torque.x(), 0);

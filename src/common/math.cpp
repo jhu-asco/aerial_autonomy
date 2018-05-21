@@ -33,8 +33,10 @@ double map(double input, double input_min, double input_max, double output_min,
               (input_max - input_min));
 }
 
-tf::Matrix3x3 hat(const tf::Vector3 &v) {
-  return tf::Matrix3x3(0, -v.z(), v.y(), v.z(), 0, -v.x(), -v.y(), v.x(), 0);
+Eigen::Matrix3d hat(const Eigen::Vector3d &v) {
+  Eigen::Matrix3d v_hat;
+  v_hat << 0, -v.z(), v.y(), v.z(), 0, -v.x(), -v.y(), v.x(), 0;
+  return v_hat;
 }
 
 Eigen::MatrixXd sylvester(const Eigen::MatrixXd &A, const Eigen::MatrixXd &B,

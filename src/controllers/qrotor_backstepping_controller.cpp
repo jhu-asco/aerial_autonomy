@@ -4,21 +4,22 @@
 
 #include <tf_conversions/tf_eigen.h>
 
-std::tuple<ParticleState, Snap>
+std::pair<ParticleState, Snap>
 QrotorBacksteppingController::getGoalFromReference(
     double t, const ReferenceTrajectory<ParticleState, Snap> &ref) {
   return ref.atTime(t);
 }
 
 bool QrotorBacksteppingController::runImplementation(
-    std::tuple<double, QrotorBSState> sensor_data,
-    ReferenceTrajectory<ParticleState, Snap> goal, QrotorBSControl &control) {
-  auto current_state = std::get<1>(sensor_data);
+    std::pair<double, QrotorBacksteppingState> sensor_data,
+    ReferenceTrajectory<ParticleState, Snap> goal,
+    QrotorBacksteppingControl &control) {
+  QrotorBacksteppingState current_state = std::get<1>(sensor_data);
   double current_time = std::get<0>(sensor_data);
 
-  std::tuple<ParticleState, Snap> current_ref =
+  std::pair<ParticleState, Snap> current_ref =
       getGoalFromReference(current_time, goal);
-  auto desired_state = std::get<0>(current_ref);
+  ParticleState desired_state = std::get<0>(current_ref);
   Eigen::Vector3d snap_d = conversions::toEigen(std::get<1>(current_ref));
 
   // A bunch of conversions and definitions
@@ -54,9 +55,9 @@ bool QrotorBacksteppingController::runImplementation(
   x_d_ddot.head<3>() = acc_d;
   x_d_ddot.tail<3>() = jerk_d;
 
-  Eigen::Matrix3d w_hat;
-  tf::Matrix3x3 w_hat_tf = math::hat(current_state.w);
-  tf::matrixTFToEigen(w_hat_tf, w_hat);
+  Eigen::Vector3d w_eig;
+  tf::vectorTFToEigen(current_state.w, w_eig);
+  Eigen::Matrix3d w_hat = math::hat(w_eig);
 
   // The actual controller computations
   auto z0 = x - x_d;
@@ -92,16 +93,16 @@ bool QrotorBacksteppingController::runImplementation(
 }
 
 ControllerStatus QrotorBacksteppingController::isConvergedImplementation(
-    std::tuple<double, QrotorBSState> sensor_data,
+    std::pair<double, QrotorBacksteppingState> sensor_data,
     ReferenceTrajectory<ParticleState, Snap> goal) {
   ControllerStatus controller_status = ControllerStatus::Active;
 
   double current_time = std::get<0>(sensor_data);
-  QrotorBSState current_state = std::get<1>(sensor_data);
+  QrotorBacksteppingState current_state = std::get<1>(sensor_data);
 
-  std::tuple<ParticleState, Snap> current_ref =
+  std::pair<ParticleState, Snap> current_ref =
       getGoalFromReference(current_time, goal);
-  auto current_goal = std::get<0>(current_ref);
+  ParticleState current_goal = std::get<0>(current_ref);
 
   const config::Velocity tolerance_vel = config_.goal_velocity_tolerance();
   const config::Position tolerance_pos = config_.goal_position_tolerance();

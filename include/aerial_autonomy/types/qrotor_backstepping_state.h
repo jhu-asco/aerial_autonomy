@@ -5,11 +5,11 @@
  * @brief State of a quadrotor system with additional dynamic
  * compensation state variables for use with a backstepping controller
  */
-struct QrotorBSState {
+struct QrotorBacksteppingState {
   /**
   * @brief Default constructor
   */
-  QrotorBSState()
+  QrotorBacksteppingState()
       : pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0)), v(0, 0, 0),
         w(0, 0, 0), thrust(0), thrust_dot(0) {}
   /**

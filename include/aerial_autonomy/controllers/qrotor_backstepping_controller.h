@@ -3,8 +3,8 @@
 #include "aerial_autonomy/common/math.h"
 #include "aerial_autonomy/controllers/base_controller.h"
 #include "aerial_autonomy/types/particle_state.h"
-#include "aerial_autonomy/types/qrotor_bs_control.h"
-#include "aerial_autonomy/types/qrotor_bs_state.h"
+#include "aerial_autonomy/types/qrotor_backstepping_control.h"
+#include "aerial_autonomy/types/qrotor_backstepping_state.h"
 #include "aerial_autonomy/types/reference_trajectory.h"
 #include "aerial_autonomy/types/snap.h"
 #include "qrotor_backstepping_controller_config.pb.h"
@@ -18,9 +18,9 @@
  * external disturbances", American Control Conference, 2013>
  */
 class QrotorBacksteppingController
-    : public Controller<std::tuple<double, QrotorBSState>,
+    : public Controller<std::pair<double, QrotorBacksteppingState>,
                         ReferenceTrajectory<ParticleState, Snap>,
-                        QrotorBSControl> {
+                        QrotorBacksteppingControl> {
 public:
   using Vector6d = Eigen::Matrix<double, 6, 1>;
   using Matrix63d = Eigen::Matrix<double, 6, 3>;
@@ -66,9 +66,9 @@ protected:
    * @param control Controls
    * @return true if command to reach goal is found
    */
-  bool runImplementation(std::tuple<double, QrotorBSState> sensor_data,
+  bool runImplementation(std::pair<double, QrotorBacksteppingState> sensor_data,
                          ReferenceTrajectory<ParticleState, Snap> goal,
-                         QrotorBSControl &control);
+                         QrotorBacksteppingControl &control);
   /**
   * @brief Check if controller has converged (reached the end of the reference)
   *
@@ -78,16 +78,16 @@ protected:
   *
   * @return Controller status
   */
-  ControllerStatus
-  isConvergedImplementation(std::tuple<double, QrotorBSState> sensor_data,
-                            ReferenceTrajectory<ParticleState, Snap> goal);
+  ControllerStatus isConvergedImplementation(
+      std::pair<double, QrotorBacksteppingState> sensor_data,
+      ReferenceTrajectory<ParticleState, Snap> goal);
 
   /**
   * @brief Gets current goal and derivatives from the reference
   * @param ref Reference trajectory
   * @return Current goal
   */
-  std::tuple<ParticleState, Snap>
+  std::pair<ParticleState, Snap>
   getGoalFromReference(double current_time,
                        const ReferenceTrajectory<ParticleState, Snap> &ref);
   /**
@@ -96,13 +96,40 @@ protected:
   QrotorBacksteppingControllerConfig config_;
 
 private:
+  /**
+  * @brief State-independent second-order dynamics
+  */
   Matrix6d A_;
-  Matrix6d P_;
-  Matrix36d K_;
+  /**
+  * @brief Control matrix
+  */
   Matrix63d B_;
+  /**
+  * @brief Lyapunov function weights
+  */
+  Matrix6d P_;
+  /**
+  * @brief Gains for PD controller of second-order dynamics
+  */
+  Matrix36d K_;
+  /**
+  * @brief Mass
+  */
   double m_;
-  Eigen::Vector3d e_; // thrust vector in body-frame
+  /**
+  * @brief Thrust direction vector in body-frame
+  */
+  Eigen::Vector3d e_;
+  /**
+  * @brief Acceleration due to gravity
+  */
   Eigen::Vector3d ag_;
+  /**
+  * @brief Rotational inertia matrix
+  */
   Eigen::Matrix3d J_;
+  /**
+  * @brief Weight matrix for Lyapunov function time derivative
+  */
   Matrix6d Q_;
 };

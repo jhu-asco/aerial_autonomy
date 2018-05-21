@@ -4,7 +4,7 @@
 /**
  * @brief Controls for a quadrotor given by a backstepping controller
  */
-struct QrotorBSControl {
+struct QrotorBacksteppingControl {
   /**
   * @brief Second time dertivative of thrust
   */
