@@ -1,5 +1,7 @@
 #include "aerial_autonomy/common/conversions.h"
 
+#include <tf_conversions/tf_eigen.h>
+
 /**
  * @brief Namespace for converting eign to tf matrices
  */

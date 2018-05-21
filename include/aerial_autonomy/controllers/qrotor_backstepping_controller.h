@@ -19,7 +19,8 @@
  */
 class QrotorBacksteppingController
     : public Controller<std::tuple<double, QrotorBSState>,
-                        std::tuple<ParticleState, Snap>, QrotorBSControl> {
+                        ReferenceTrajectory<ParticleState, Snap>,
+                        QrotorBSControl> {
 public:
   using Vector6d = Eigen::Matrix<double, 6, 1>;
   using Matrix63d = Eigen::Matrix<double, 6, 3>;

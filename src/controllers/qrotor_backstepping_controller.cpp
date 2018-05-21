@@ -94,6 +94,34 @@ bool QrotorBacksteppingController::runImplementation(
 ControllerStatus QrotorBacksteppingController::isConvergedImplementation(
     std::tuple<double, QrotorBSState> sensor_data,
     ReferenceTrajectory<ParticleState, Snap> goal) {
-  ControllerStatus controller_status(ControllerStatus::Completed);
+  ControllerStatus controller_status = ControllerStatus::Active;
+
+  double current_time = std::get<0>(sensor_data);
+  QrotorBSState current_state = std::get<1>(sensor_data);
+
+  std::tuple<ParticleState, Snap> current_ref =
+      getGoalFromReference(current_time, goal);
+  auto current_goal = std::get<0>(current_ref);
+
+  const config::Velocity tolerance_vel = config_.goal_velocity_tolerance();
+  const config::Position tolerance_pos = config_.goal_position_tolerance();
+
+  Velocity current_velocity(current_state.v.x(), current_state.v.y(),
+                            current_state.v.z());
+  tf::Vector3 current_pos_tf = current_state.pose.getOrigin();
+  Position current_position(current_pos_tf.x(), current_pos_tf.y(),
+                            current_pos_tf.z());
+
+  Velocity velocity_diff = current_goal.v - current_velocity;
+  Position position_diff = current_goal.p - current_position;
+
+  if (std::abs(velocity_diff.x) < tolerance_vel.vx() &&
+      std::abs(velocity_diff.y) < tolerance_vel.vy() &&
+      std::abs(velocity_diff.z) < tolerance_vel.vz() &&
+      std::abs(position_diff.x) < tolerance_pos.x() &&
+      std::abs(position_diff.y) < tolerance_pos.y() &&
+      std::abs(position_diff.z) < tolerance_pos.z()) {
+    controller_status.setStatus(ControllerStatus::Completed);
+  }
   return controller_status;
 }

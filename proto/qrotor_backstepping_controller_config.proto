@@ -1,5 +1,8 @@
 syntax = "proto2";
 
+import "velocity.proto";
+import "position.proto";
+
 /**
 * Configuration for the QrotorBacksteppingController
 */
@@ -80,4 +83,12 @@ message QrotorBacksteppingControllerConfig {
   * @brief Lyapunov function derivative weight matrix VZ
   */
   optional double qvz = 18 [ default = 1.0 ];
+  /**
+  * @brief Goal position tolerance
+  */
+  optional config.Position goal_position_tolerance = 19;
+  /**
+  * @brief Goal velocity tolerance
+  */
+  optional config.Velocity goal_velocity_tolerance = 20;
 }

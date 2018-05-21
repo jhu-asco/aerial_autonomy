@@ -5,10 +5,25 @@
 #include "aerial_autonomy/types/position.h"
 #include "aerial_autonomy/types/velocity.h"
 
+/**
+* @brief State of 3D 4th order particle system
+*/
 struct ParticleState {
+  /**
+  * @brief Position
+  */
   Position p;
+  /**
+  * @brief Velocity
+  */
   Velocity v;
+  /**
+  * @brief Acceleration
+  */
   Acceleration a;
+  /**
+  * @brief Jerk
+  */
   Jerk j;
 
   /**

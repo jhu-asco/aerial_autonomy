@@ -6,7 +6,6 @@
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/velocity.h"
 #include <armadillo>
-#include <tf_conversions/tf_eigen.h>
 
 #include "position_yaw.pb.h"
 #include "transform.pb.h"

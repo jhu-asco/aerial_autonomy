@@ -31,15 +31,19 @@ template <class StateT, class ControlT> struct ReferenceTrajectory {
   * @return Trajectory state and control
   */
   std::tuple<StateT, ControlT> atTime(double t) const {
-    if (t < ts.front() || t > ts.back()) {
+    if (ts.empty() || t < ts.front() || t > ts.back()) {
       throw std::out_of_range("Accessed reference trajectory out of bounds");
     }
     auto closest_t = std::lower_bound(ts.begin(), ts.end(), t);
-
     int i = closest_t - ts.begin();
-    double weight = (t - ts.at(i - 1)) / (ts.at(i) - ts.at(i - 1));
-    return std::tuple<StateT, ControlT>(
-        states.at(i) * weight + states.at(i - 1) * (1 - weight),
-        controls.at(i) * weight + controls.at(i - 1) * (1 - weight));
+
+    if (*closest_t == t) {
+      return std::tuple<StateT, ControlT>(states.at(i), controls.at(i));
+    } else {
+      double weight = (t - ts.at(i - 1)) / (ts.at(i) - ts.at(i - 1));
+      return std::tuple<StateT, ControlT>(
+          states.at(i) * weight + states.at(i - 1) * (1 - weight),
+          controls.at(i) * weight + controls.at(i - 1) * (1 - weight));
+    }
   }
 };
