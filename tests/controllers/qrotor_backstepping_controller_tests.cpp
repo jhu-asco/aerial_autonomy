@@ -49,7 +49,9 @@ public:
 
     auto convergence = [&]() {
       QrotorBacksteppingControl controls;
-      controller.run(sensor_data, controls);
+      if(!controller.run(sensor_data, controls)) {
+        return false;
+      }
 
       qrotor_state.thrust_dot += controls.thrust_ddot * dt.count();
       qrotor_state.thrust += qrotor_state.thrust_dot * dt.count();
@@ -173,6 +175,17 @@ TEST_F(QrotorBacksteppingControllerTests, SmallThrust) {
 
   ASSERT_NE(controls.torque.x(), 0);
   ASSERT_NE(controls.torque.y(), 0);
+}
+
+TEST_F(QrotorBacksteppingControllerTests, ReferenceTooShort) {
+  ReferenceTrajectory<ParticleState, Snap> ref;
+  QrotorBacksteppingController controller(config_);
+
+  controller.setGoal(ref);
+  auto sensor_data = std::make_pair(0.0, QrotorBacksteppingState());
+
+  QrotorBacksteppingControl controls;
+  ASSERT_FALSE(controller.run(sensor_data, controls));
 }
 
 int main(int argc, char **argv) {

@@ -3,6 +3,7 @@
 #include "aerial_autonomy/common/math.h"
 
 #include <tf_conversions/tf_eigen.h>
+#include <glog/logging.h>
 
 std::pair<ParticleState, Snap>
 QrotorBacksteppingController::getGoalFromReference(
@@ -17,8 +18,14 @@ bool QrotorBacksteppingController::runImplementation(
   QrotorBacksteppingState current_state = std::get<1>(sensor_data);
   double current_time = std::get<0>(sensor_data);
 
-  std::pair<ParticleState, Snap> current_ref =
-      getGoalFromReference(current_time, goal);
+  std::pair<ParticleState, Snap> current_ref;
+  try {
+    current_ref = getGoalFromReference(current_time, goal);
+  } catch (std::logic_error e){
+    LOG(WARNING) << e.what() << std::endl;
+    return false;
+  }
+
   ParticleState desired_state = std::get<0>(current_ref);
   Eigen::Vector3d snap_d = conversions::toEigen(std::get<1>(current_ref));
 

@@ -1,6 +1,9 @@
 #include "aerial_autonomy/common/math.h"
+#include "aerial_autonomy/tests/test_utils.h"
 
 #include <gtest/gtest.h>
+
+using namespace test_utils;
 
 TEST(AngleWrapTests, Zero) { ASSERT_NEAR(0, math::angleWrap(0), 1e-10); }
 
@@ -75,18 +78,17 @@ TEST(MapTests, OutOfBoundsMin) {
 TEST(HatTests, HatIsCrossProduct) {
   Eigen::Vector3d v(3, -1, 2);
   Eigen::Matrix3d v_hat = math::hat(v); 
-  ASSERT_NEAR(v.dot(v_hat * v), 0, 1e-6);
+  Eigen::Vector3d v_hat_v = v_hat * v;
+  ASSERT_VEC_NEAR(v_hat_v, Eigen::Vector3d(0, 0, 0), 1e-6);
 
   Eigen::Vector3d v2(-5, -4, -6);
   Eigen::Matrix3d v2_hat = math::hat(v2); 
-  ASSERT_NEAR(v2.dot(v2_hat * v2), 0, 1e-6);
+  Eigen::Vector3d v2_hat_v2 = v2_hat * v2;
+  ASSERT_VEC_NEAR(v2_hat_v2, Eigen::Vector3d(0, 0, 0), 1e-6);
 
   Eigen::Vector3d v_hat_v2 =  v_hat * v2;
   Eigen::Vector3d v_cross_v2 = v.cross(v2);
-
-  ASSERT_NEAR(v_hat_v2(0), v_cross_v2(0), 1e-6);
-  ASSERT_NEAR(v_hat_v2(1), v_cross_v2(1), 1e-6);
-  ASSERT_NEAR(v_hat_v2(2), v_cross_v2(2), 1e-6);
+  ASSERT_VEC_NEAR(v_hat_v2, v_cross_v2, 1e-6);
 }
 
 int main(int argc, char **argv) {
