@@ -116,6 +116,7 @@ ControllerStatus QrotorBacksteppingController::isConvergedImplementation(
   Velocity velocity_diff = current_goal.v - current_velocity;
   Position position_diff = current_goal.p - current_position;
 
+  // TODO: use common vector3 interface to compare two vectors
   if (std::abs(velocity_diff.x) < tolerance_vel.vx() &&
       std::abs(velocity_diff.y) < tolerance_vel.vy() &&
       std::abs(velocity_diff.z) < tolerance_vel.vz() &&

@@ -46,7 +46,9 @@ public:
     B_ = Eigen::MatrixXd::Zero(6, 3);
     B_.bottomLeftCorner<3, 3>() = (1. / m_) * Eigen::MatrixXd::Identity(3, 3);
 
-    J_ = Eigen::Vector3d(config_.jx(), config_.jy(), config_.jz()).asDiagonal();
+    J_ << config_.jxx(), config_.jxy(), config_.jxz(),
+          config_.jyx(), config_.jyy(), config_.jyz(),
+          config_.jzx(), config_.jzy(), config_.jzz();
 
     Vector6d Qvec;
     Qvec << config_.qx(), config_.qy(), config_.qz(), config_.qvx(),
@@ -125,7 +127,7 @@ private:
   */
   Eigen::Vector3d ag_;
   /**
-  * @brief Rotational inertia matrix
+  * @brief Moment of inertia matrix
   */
   Eigen::Matrix3d J_;
   /**

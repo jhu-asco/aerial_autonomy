@@ -3,6 +3,7 @@
 #include "qrotor_backstepping_controller_config.pb.h"
 
 #include <chrono>
+#include <cmath>
 #include <gcop/hrotor.h>
 #include <tf_conversions/tf_eigen.h>
 
@@ -14,19 +15,19 @@ class QrotorBacksteppingControllerTests : public ::testing::Test {
 public:
   QrotorBacksteppingControllerTests() : sys() {
     config_.set_mass(sys.m);
-    config_.set_jx(sys.J(0));
-    config_.set_jy(sys.J(1));
-    config_.set_jz(sys.J(2));
+    config_.set_jxx(sys.J(0));
+    config_.set_jyy(sys.J(1));
+    config_.set_jzz(sys.J(2));
     config_.set_k2(0.1);
     config_.set_k1(0.1);
-    config_.set_kp_xy(0.1);
-    config_.set_kp_z(0.1);
-    config_.set_kd_xy(0.05);
-    config_.set_kd_z(0.05);
+    config_.set_kp_xy(0.4);
+    config_.set_kp_z(0.4);
+    config_.set_kd_xy(0.2);
+    config_.set_kd_z(0.2);
     auto vel_tolerance = config_.mutable_goal_velocity_tolerance();
-    vel_tolerance->set_vx(0.01);
-    vel_tolerance->set_vy(0.01);
-    vel_tolerance->set_vz(0.01);
+    vel_tolerance->set_vx(0.05);
+    vel_tolerance->set_vy(0.05);
+    vel_tolerance->set_vz(0.05);
 
     auto pos_tolerance = config_.mutable_goal_position_tolerance();
     pos_tolerance->set_x(0.05);
@@ -34,11 +35,7 @@ public:
     pos_tolerance->set_z(0.05);
   }
 
-  void testConvergence(QrotorBacksteppingState x0) {
-    ReferenceTrajectory<ParticleState, Snap> ref;
-    ref.ts.push_back(0);
-    ref.states.push_back(ParticleState());
-    ref.controls.push_back(Snap());
+  void testConvergence(ReferenceTrajectory<ParticleState, Snap> ref, QrotorBacksteppingState x0) {
     QrotorBacksteppingController controller(config_);
 
     auto sensor_data = std::make_pair(0.0, x0);
@@ -67,6 +64,7 @@ public:
       Eigen::Vector4d controls_eig(controls.torque.x(), controls.torque.y(),
                                    controls.torque.z(), qrotor_state.thrust);
       sys.Step(xb, time, xa, controls_eig, dt.count());
+      time += dt.count();
 
       tf::matrixEigenToTF(xb.R, qrotor_state.pose.getBasis());
       tf::vectorEigenToTF(xb.p, qrotor_state.pose.getOrigin());
@@ -77,7 +75,7 @@ public:
     };
 
     ASSERT_TRUE(test_utils::waitUntilTrue()(
-        convergence, std::chrono::seconds(1), std::chrono::milliseconds(0)));
+        convergence, std::chrono::seconds(2), std::chrono::milliseconds(0)));
   }
 
 protected:
@@ -90,17 +88,64 @@ TEST_F(QrotorBacksteppingControllerTests, Constructor) {
 }
 
 TEST_F(QrotorBacksteppingControllerTests, Convergence) {
+  ReferenceTrajectory<ParticleState, Snap> ref;
+  for(double t = 0; t < 200; t+= 0.05) {
+    ref.ts.push_back(t);
+    ref.states.push_back(ParticleState());
+    ref.controls.push_back(Snap());
+  }
+
   QrotorBacksteppingState qrotor_state;
   qrotor_state.pose.setOrigin(tf::Vector3(3, -3, 1));
-  testConvergence(qrotor_state);
+  testConvergence(ref, qrotor_state);
 
   // Non-zero linear velocity
   qrotor_state.v = tf::Vector3(1, 1, -1);
-  testConvergence(qrotor_state);
+  testConvergence(ref, qrotor_state);
 
   // Non-zero angular velocity
   qrotor_state.w = tf::Vector3(M_PI / 6, -M_PI / 4, 0);
-  testConvergence(qrotor_state);
+  testConvergence(ref, qrotor_state);
+}
+
+TEST_F(QrotorBacksteppingControllerTests, ConvergenceSpiral) {
+  ReferenceTrajectory<ParticleState, Snap> ref;
+  double w_xy = 2 * M_PI * 0.2;
+  double w_z = 2 * M_PI * 0.2;
+  for(double t = 0; t < 200; t+= 0.05) {
+    ref.ts.push_back(t);
+    ParticleState desired_state;
+    desired_state.p.x = cos(w_xy * t);
+    desired_state.p.y = sin(w_xy * t);
+    desired_state.p.z = sin(w_z * t) + 3;
+    desired_state.v.x = w_xy * -sin(w_xy * t);
+    desired_state.v.y = w_xy * cos(w_xy * t);
+    desired_state.v.z = w_z * cos(w_z * t);
+    desired_state.a.x = std::pow(w_xy, 2) * -cos(w_xy * t);
+    desired_state.a.y = std::pow(w_xy, 2) * -sin(w_xy * t);
+    desired_state.a.z = std::pow(w_z, 2) * -sin(w_z * t);
+    desired_state.j.x = std::pow(w_xy, 3) * sin(w_xy * t);
+    desired_state.j.y = std::pow(w_xy, 3) * -cos(w_xy * t);
+    desired_state.j.z = std::pow(w_z, 3) * -cos(w_z * t);
+
+    Snap desired_control(std::pow(w_xy, 4) * cos(w_xy * t), 
+                         std::pow(w_xy, 4) * sin(w_xy * t),
+                         std::pow(w_z, 4) * sin(w_z * t));
+
+    ref.states.push_back(desired_state);
+    ref.controls.push_back(desired_control);
+  }
+
+  QrotorBacksteppingState qrotor_state;
+  testConvergence(ref, qrotor_state);
+
+  // Non-zero linear velocity
+  qrotor_state.v = tf::Vector3(1, 1, -1);
+  testConvergence(ref, qrotor_state);
+
+  // Non-zero angular velocity
+  qrotor_state.w = tf::Vector3(M_PI / 6, -M_PI / 4, 0);
+  testConvergence(ref, qrotor_state);
 }
 
 TEST_F(QrotorBacksteppingControllerTests, SmallThrust) {
@@ -132,6 +177,8 @@ TEST_F(QrotorBacksteppingControllerTests, SmallThrust) {
 
 // TODO Matt: add test for actual trajectory tracking once trajectory generation
 // is implemented
+
+
 
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
