@@ -175,11 +175,6 @@ TEST_F(QrotorBacksteppingControllerTests, SmallThrust) {
   ASSERT_NE(controls.torque.y(), 0);
 }
 
-// TODO Matt: add test for actual trajectory tracking once trajectory generation
-// is implemented
-
-
-
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
