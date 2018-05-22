@@ -1,5 +1,6 @@
 #include "aerial_autonomy/controller_connectors/builtin_pose_controller_arm_connector.h"
 #include "aerial_autonomy/common/conversions.h"
+#include <tf_conversions/tf_eigen.h>
 
 bool BuiltInPoseControllerArmConnector::extractSensorData(
     tf::Transform &sensor_data) {

@@ -1,5 +1,6 @@
 #include "aerial_autonomy/controller_connectors/visual_servoing_controller_arm_connector.h"
 #include "aerial_autonomy/common/conversions.h"
+#include <tf_conversions/tf_eigen.h>
 
 bool VisualServoingControllerArmConnector::extractSensorData(
     std::tuple<tf::Transform, tf::Transform> &sensor_data) {

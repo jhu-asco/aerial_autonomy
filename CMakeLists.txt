@@ -39,6 +39,7 @@ include(cmake/add_event_function.cmake)
 find_package(Boost REQUIRED COMPONENTS system)
 find_package(Protobuf 3.1 REQUIRED) 
 find_package(Glog REQUIRED)
+find_package(Armadillo REQUIRED)
 
 # Quad simulator parser dependencies
 find_package(GCOP REQUIRED systems)
@@ -216,6 +217,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/tracking_vector_estimator_config.proto
   proto/velocity_sensor_config.proto
   proto/arm_sine_controller_config.proto
+  proto/qrotor_backstepping_controller_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -270,6 +272,7 @@ set(SRC
   src/controllers/rpyt_based_relative_pose_controller.cpp
   src/controllers/joystick_velocity_controller.cpp
   src/controllers/arm_sine_controller.cpp
+  src/controllers/qrotor_backstepping_controller.cpp
   src/estimators/thrust_gain_estimator.cpp
   src/estimators/tracking_vector_estimator.cpp
   src/controller_connectors/mpc_controller_drone_connector.cpp
@@ -295,7 +298,7 @@ add_library(aerial_autonomy
   ${SRC}
 )
 add_dependencies(aerial_autonomy proto)
-target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBS})
+target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBS} ${ARMADILLO_LIBRARY})
 
 
 ## Add cmake target dependencies of the library
@@ -430,6 +433,8 @@ catkin_add_gtest(${PROJECT_NAME}-log-test tests/log/log_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-string-utils-test tests/common/string_utils_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-conversions-test tests/common/conversions_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-proto-utils-test tests/common/proto_utils_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-reference-trajectory-test tests/types/reference_trajectory_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-qrotor-backstepping-controller-test tests/controllers/qrotor_backstepping_controller_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
@@ -538,6 +543,9 @@ endif()
 if(TARGET ${PROJECT_NAME}-constant-heading-depth-controller-test)
   target_link_libraries(${PROJECT_NAME}-constant-heading-depth-controller-test aerial_autonomy)
 endif()
+if(TARGET ${PROJECT_NAME}-qrotor-backstepping-controller-test)
+  target_link_libraries(${PROJECT_NAME}-qrotor-backstepping-controller-test aerial_autonomy ${GCOP_LIBRARIES} ${TINYXML_LIBRARIES})
+endif()
 if(TARGET ${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test)
   target_link_libraries(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
@@ -582,6 +590,9 @@ if(TARGET ${PROJECT_NAME}-conversions-test)
 endif()
 if(TARGET ${PROJECT_NAME}-velocity-sensor-test)
   target_link_libraries(${PROJECT_NAME}-velocity-sensor-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+endif()
+if(TARGET ${PROJECT_NAME}-reference-trajectory-test)
+  target_link_libraries(${PROJECT_NAME}-reference-trajectory-test aerial_autonomy)
 endif()
 
 if (arm_plugins_FOUND)
