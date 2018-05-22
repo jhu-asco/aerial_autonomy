@@ -87,8 +87,10 @@ TEST(HatTests, HatIsCrossProduct) {
   ASSERT_VEC_NEAR(v2_hat_v2, Eigen::Vector3d(0, 0, 0), 1e-6);
 
   Eigen::Vector3d v_hat_v2 =  v_hat * v2;
+  Eigen::Vector3d m_v2_hat_v =  -v2_hat * v;
   Eigen::Vector3d v_cross_v2 = v.cross(v2);
   ASSERT_VEC_NEAR(v_hat_v2, v_cross_v2, 1e-6);
+  ASSERT_VEC_NEAR(v_hat_v2, m_v2_hat_v, 1e-6);
 }
 
 int main(int argc, char **argv) {
