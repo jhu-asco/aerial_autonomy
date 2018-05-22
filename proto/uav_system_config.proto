@@ -12,6 +12,8 @@ import "joystick_velocity_controller_config.proto";
 
 import "thrust_gain_estimator_config.proto";
 
+import "velocity_sensor_config.proto";
+
 message UAVSystemConfig {
   /**
   * @brief Battery percentage required for takeoff
@@ -74,4 +76,12 @@ message UAVSystemConfig {
   * @brief Thrust estimator config
   */
   optional ThrustGainEstimatorConfig thrust_gain_estimator_config = 13;
+  /**
+  * @brief String to choose sensor type
+  */
+  optional string sensor_type = 14 [default = "Guidance"];
+  /**
+  * @brief Velocity sensor config
+  */
+  optional VelocitySensorConfig velocity_sensor_config = 15;
 }

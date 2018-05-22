@@ -14,7 +14,13 @@
 // Specific ControllerConnectors
 #include <aerial_autonomy/controller_connectors/basic_controller_connectors.h>
 #include <aerial_autonomy/controller_connectors/joystick_velocity_controller_drone_connector.h>
+// Sensors
+#include <aerial_autonomy/controller_connectors/basic_controller_connectors.h>
+#include <aerial_autonomy/controller_connectors/joystick_velocity_controller_drone_connector.h>
 #include <aerial_autonomy/controller_connectors/rpyt_based_position_controller_drone_connector.h>
+#include <aerial_autonomy/controller_connectors/rpyt_based_position_controller_drone_connector.h>
+#include <aerial_autonomy/sensors/guidance.h>
+#include <aerial_autonomy/sensors/velocity_sensor.h>
 // Load UAV parser
 #include <pluginlib/class_loader.h>
 // Base class for UAV parsers
@@ -72,8 +78,13 @@ private:
   */
   JoystickVelocityController joystick_velocity_controller_;
   /**
+* @brief Velocity Sensor
+*/
+  std::shared_ptr<Sensor<Velocity>> velocity_sensor_;
+  /**
    * @brief connector for position controller
    */
+
   PositionControllerDroneConnector position_controller_drone_connector_;
   /**
    * @brief connector for position controller using rpyt
@@ -105,7 +116,6 @@ private:
   * @brief Flag to specify if home location is specified or not
   */
   bool home_location_specified_;
-
   /**
    * @brief helper function to choose between the argument parser
    * and the one provided in config. If user provided a parser,
@@ -128,6 +138,34 @@ private:
           parser_loader_.createUnmanagedInstance(config.uav_parser_type()));
     }
     return uav_parser;
+  }
+  /**
+   * @brief function to choose type of sensor to use from config.
+   * If user provides a sensor it overwrites this.
+   *
+   * @param sensor User provided parser
+   * @param drone_hardware For sensors that require drone hardware
+   * @param config UAV confif containing sensor type
+   *
+   */
+  static std::shared_ptr<Sensor<Velocity>>
+  chooseSensor(std::shared_ptr<Sensor<Velocity>> sensor,
+               UAVParserPtr drone_hardware, UAVSystemConfig &config) {
+    std::shared_ptr<Sensor<Velocity>> velocity_sensor;
+    if (sensor)
+      velocity_sensor = sensor;
+    else {
+      if (config.sensor_type() == "ROS Sensor") {
+        velocity_sensor.reset(
+            new VelocitySensor(config.velocity_sensor_config()));
+      } else if (config.sensor_type() == "Guidance") {
+        velocity_sensor.reset(new Guidance(*drone_hardware));
+      } else {
+        throw std::runtime_error("Invalid sensor type");
+      }
+    }
+
+    return velocity_sensor;
   }
 
 public:
@@ -155,7 +193,8 @@ public:
   * @param drone_hardware input hardware to send commands back. If this variable
   * is set, it will overwrite the one given using "uav_parser_type" in config.
   */
-  UAVSystem(UAVSystemConfig config, UAVParserPtr drone_hardware = nullptr)
+  UAVSystem(UAVSystemConfig config, UAVParserPtr drone_hardware = nullptr,
+            std::shared_ptr<Sensor<Velocity>> velocity_sensor = nullptr)
       : BaseRobotSystem(), config_(config),
         drone_hardware_(UAVSystem::chooseParser(drone_hardware, config)),
         rpyt_based_position_controller_(
@@ -167,6 +206,8 @@ public:
         joystick_velocity_controller_(
             config.joystick_velocity_controller_config(),
             std::chrono::milliseconds(config.uav_controller_timer_duration())),
+        velocity_sensor_(
+            UAVSystem::chooseSensor(velocity_sensor, drone_hardware_, config)),
         position_controller_drone_connector_(*drone_hardware_,
                                              builtin_position_controller_),
         rpyt_based_position_controller_drone_connector_(

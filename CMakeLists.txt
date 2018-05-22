@@ -215,6 +215,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/place_group.proto
   proto/thrust_gain_estimator_config.proto
   proto/tracking_vector_estimator_config.proto
+  proto/velocity_sensor_config.proto
   proto/arm_sine_controller_config.proto
   proto/qrotor_backstepping_controller_config.proto
 )
@@ -421,6 +422,7 @@ catkin_add_gtest(${PROJECT_NAME}-simple-tracker-test tests/trackers/simple_track
 catkin_add_gtest(${PROJECT_NAME}-simple-multi-tracker-test tests/trackers/simple_multi_tracker_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-roi-to-position-converter-test tests/trackers/roi_to_position_converter_tests.test tests/trackers/roi_to_position_converter_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-alvar-tracker-test tests/trackers/alvar_tracker_tests.test tests/trackers/alvar_tracker_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-velocity-sensor-test tests/sensors/velocity_sensor_tests.test tests/sensors/velocity_sensor_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test tests/controller_connectors/relative_pose_visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-relative-pose-visual-servoing-connector-test tests/controller_connectors/rpyt_relative_pose_visual_servoing_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-position-controller-drone-connector-test tests/controller_connectors/rpyt_based_position_controller_drone_connector_tests.cpp)
@@ -585,6 +587,9 @@ if(TARGET ${PROJECT_NAME}-proto-utils-test)
 endif()
 if(TARGET ${PROJECT_NAME}-conversions-test)
   target_link_libraries(${PROJECT_NAME}-conversions-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-velocity-sensor-test)
+  target_link_libraries(${PROJECT_NAME}-velocity-sensor-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
 if(TARGET ${PROJECT_NAME}-reference-trajectory-test)
   target_link_libraries(${PROJECT_NAME}-reference-trajectory-test aerial_autonomy)
