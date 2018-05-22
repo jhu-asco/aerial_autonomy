@@ -75,7 +75,7 @@ public:
     };
 
     ASSERT_TRUE(test_utils::waitUntilTrue()(
-        convergence, std::chrono::seconds(2), std::chrono::milliseconds(0)));
+        convergence, std::chrono::seconds(5), std::chrono::milliseconds(0)));
   }
 
 protected:
