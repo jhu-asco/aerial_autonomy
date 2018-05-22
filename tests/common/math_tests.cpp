@@ -72,6 +72,23 @@ TEST(MapTests, OutOfBoundsMin) {
   ASSERT_EQ(math::map(-15, -10, 10, -1, 1), -1);
 }
 
+TEST(HatTests, HatIsCrossProduct) {
+  Eigen::Vector3d v(3, -1, 2);
+  Eigen::Matrix3d v_hat = math::hat(v); 
+  ASSERT_NEAR(v.dot(v_hat * v), 0, 1e-6);
+
+  Eigen::Vector3d v2(-5, -4, -6);
+  Eigen::Matrix3d v2_hat = math::hat(v2); 
+  ASSERT_NEAR(v2.dot(v2_hat * v2), 0, 1e-6);
+
+  Eigen::Vector3d v_hat_v2 =  v_hat * v2;
+  Eigen::Vector3d v_cross_v2 = v.cross(v2);
+
+  ASSERT_NEAR(v_hat_v2(0), v_cross_v2(0), 1e-6);
+  ASSERT_NEAR(v_hat_v2(1), v_cross_v2(1), 1e-6);
+  ASSERT_NEAR(v_hat_v2(2), v_cross_v2(2), 1e-6);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
