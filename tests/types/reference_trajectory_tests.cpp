@@ -1,8 +1,8 @@
-#include <aerial_autonomy/types/reference_trajectory.h>
+#include <aerial_autonomy/types/discrete_reference_trajectory_interpolate.h>
 #include <gtest/gtest.h>
 
-TEST(ReferenceTrajectory, TimeTooSmall) {
-  ReferenceTrajectory<double, double> ref;
+TEST(DiscreteReferenceTrajectoryInterpolate, TimeTooSmall) {
+  DiscreteReferenceTrajectoryInterpolate<double, double> ref;
   ref.ts = {0, 1, 2, 3, 4, 5};
   ref.states = {0, 1, 2, 3, 4, 5};
   ref.controls = {0, 1, 2, 3, 4, 5};
@@ -10,8 +10,8 @@ TEST(ReferenceTrajectory, TimeTooSmall) {
   ASSERT_THROW(ref.atTime(-1), std::out_of_range);
 }
 
-TEST(ReferenceTrajectory, TimeTooLarge) {
-  ReferenceTrajectory<double, double> ref;
+TEST(DiscreteReferenceTrajectoryInterpolate, TimeTooLarge) {
+  DiscreteReferenceTrajectoryInterpolate<double, double> ref;
   ref.ts = {0, 1, 2, 3, 4, 5};
   ref.states = {0, 1, 2, 3, 4, 5};
   ref.controls = {0, 1, 2, 3, 4, 5};
@@ -19,8 +19,8 @@ TEST(ReferenceTrajectory, TimeTooLarge) {
   ASSERT_THROW(ref.atTime(5.1), std::out_of_range);
 }
 
-TEST(ReferenceTrajectory, TimeInMiddle) {
-  ReferenceTrajectory<double, double> ref;
+TEST(DiscreteReferenceTrajectoryInterpolate, TimeInMiddle) {
+  DiscreteReferenceTrajectoryInterpolate<double, double> ref;
   ref.ts = {0, 1, 2, 3, 4, 5};
   ref.states = {0, 1, 2, 3, 4, 5};
   ref.controls = {0, 1, 2, 3, 4, 5};

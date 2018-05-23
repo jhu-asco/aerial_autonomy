@@ -75,7 +75,7 @@ TEST_F(TrackingVectorEstimatorTests, predictState) {
   tf::Vector3 expected_marker_direction =
       initial_marker_direction - velocity * dt;
   ASSERT_VEC_NEAR(estimator.getPredictedMarkerDirection(),
-                     expected_marker_direction);
+                  expected_marker_direction);
   tf::Vector3 marker_noise = estimator.getMarkerNoise();
   for (int i = 0; i < 3; ++i) {
     ASSERT_GT(marker_noise[i], initial_marker_noise[i]);

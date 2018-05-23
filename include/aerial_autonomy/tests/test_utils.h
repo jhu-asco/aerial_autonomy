@@ -97,8 +97,7 @@ void verifyFileData<std::string>(std::vector<std::vector<std::string>> log,
 * @param tol comparision tolerance
 */
 template <class T>
-void ASSERT_VEC_NEAR(const T vec1, const T &vec2,
-                        double tol = 1e-8) {
+void ASSERT_VEC_NEAR(const T vec1, const T &vec2, double tol = 1e-8) {
   ASSERT_NEAR(vec1.x(), vec2.x(), tol);
   ASSERT_NEAR(vec1.y(), vec2.y(), tol);
   ASSERT_NEAR(vec1.z(), vec2.z(), tol);
