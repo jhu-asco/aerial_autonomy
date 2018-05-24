@@ -1,4 +1,6 @@
+#include <aerial_autonomy/types/discrete_reference_trajectory_closest.h>
 #include <aerial_autonomy/types/discrete_reference_trajectory_interpolate.h>
+#include <aerial_autonomy/types/waypoint.h>
 #include <gtest/gtest.h>
 
 TEST(DiscreteReferenceTrajectoryInterpolate, TimeTooSmall) {
@@ -32,6 +34,37 @@ TEST(DiscreteReferenceTrajectoryInterpolate, TimeInMiddle) {
   ref_t = ref.atTime(3.1);
   ASSERT_NEAR(std::get<0>(ref_t), 3.1, 1e-6);
   ASSERT_NEAR(std::get<1>(ref_t), 3.1, 1e-6);
+}
+
+TEST(DiscreteReferenceTrajectoryClosest, ClosestBefore) {
+  DiscreteReferenceTrajectoryClosest<double, double> ref;
+  ref.ts = {0, 1, 2, 3, 4, 5};
+  ref.states = {0, 1, 2, 3, 4, 5};
+  ref.controls = {0, 1, 2, 3, 4, 5};
+  auto ref_t = ref.atTime(4.1);
+  ASSERT_EQ(std::get<0>(ref_t), 4);
+  ASSERT_EQ(std::get<1>(ref_t), 4);
+}
+
+TEST(DiscreteReferenceTrajectoryClosest, ClosestAfter) {
+  DiscreteReferenceTrajectoryClosest<double, double> ref;
+  ref.ts = {0, 1, 2, 3, 4, 5};
+  ref.states = {0, 1, 2, 3, 4, 5};
+  ref.controls = {0, 1, 2, 3, 4, 5};
+  auto ref_t = ref.atTime(3.9);
+  ASSERT_EQ(std::get<0>(ref_t), 4);
+  ASSERT_EQ(std::get<1>(ref_t), 4);
+}
+
+TEST(Waypoint, Get) {
+  Waypoint<double, double> ref(1, 2);
+  auto ref_t = ref.atTime(0);
+  ASSERT_EQ(std::get<0>(ref_t), 1);
+  ASSERT_EQ(std::get<1>(ref_t), 2);
+
+  ref_t = ref.atTime(12);
+  ASSERT_EQ(std::get<0>(ref_t), 1);
+  ASSERT_EQ(std::get<1>(ref_t), 2);
 }
 
 int main(int argc, char **argv) {
