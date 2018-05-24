@@ -33,6 +33,9 @@ public:
       return std::pair<StateT, ControlT>(this->states.at(i),
                                          this->controls.at(i));
     } else {
+      if(std::fabs(this->ts.at(i) - this->ts.at(i - 1)) < 1e-7) {
+        throw std::logic_error("Times are too close together");
+      }
       double weight =
           (t - this->ts.at(i - 1)) / (this->ts.at(i) - this->ts.at(i - 1));
       return std::pair<StateT, ControlT>(
