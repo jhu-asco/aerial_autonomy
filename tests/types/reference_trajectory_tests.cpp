@@ -37,10 +37,20 @@ TEST(DiscreteReferenceTrajectoryInterpolate, TimeInMiddle) {
 }
 TEST(DiscreteReferenceTrajectoryInterpolate, TimeDiffTooSmall) {
   DiscreteReferenceTrajectoryInterpolate<double, double> ref;
-  ref.ts = {0, 1, 1+1e-8, 2, 4, 5};
+  ref.ts = {0, 1, 1 + 1e-8, 2, 4, 5};
   ref.states = {0, 1, 2, 3, 4, 5};
   ref.controls = {0, 1, 2, 3, 4, 5};
-  ASSERT_THROW(ref.atTime(1+1e-9), std::logic_error);
+  ASSERT_THROW(ref.atTime(1 + 1e-9), std::logic_error);
+}
+
+TEST(DiscreteReferenceTrajectoryInterpolate, TimeAtStart) {
+  DiscreteReferenceTrajectoryInterpolate<double, double> ref;
+  ref.ts = {0, 1, 2, 4, 5};
+  ref.states = {0, 1, 2, 3, 4, 5};
+  ref.controls = {0, 1, 2, 3, 4, 5};
+  auto ref_t = ref.atTime(0);
+  ASSERT_NEAR(std::get<0>(ref_t), 0, 1e-6);
+  ASSERT_NEAR(std::get<1>(ref_t), 0, 1e-6);
 }
 
 TEST(DiscreteReferenceTrajectoryClosest, ClosestBefore) {

@@ -29,11 +29,11 @@ public:
     auto closest_t = std::lower_bound(this->ts.begin(), this->ts.end(), t);
     int i = closest_t - this->ts.begin();
 
-    if (*closest_t == t) {
-      return std::pair<StateT, ControlT>(this->states.at(i),
-                                         this->controls.at(i));
+    if (i == 0) {
+      return std::pair<StateT, ControlT>(this->states.at(0),
+                                         this->controls.at(0));
     } else {
-      if(std::fabs(this->ts.at(i) - this->ts.at(i - 1)) < 1e-7) {
+      if (std::fabs(this->ts.at(i) - this->ts.at(i - 1)) < 1e-7) {
         throw std::logic_error("Times are too close together");
       }
       double weight =

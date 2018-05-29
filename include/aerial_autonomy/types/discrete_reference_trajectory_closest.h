@@ -17,7 +17,8 @@ struct DiscreteReferenceTrajectoryClosest
     : public DiscreteReferenceTrajectory<StateT, ControlT> {
 public:
   /**
-  * @brief Gets the trajectory information at the closest time to the specified time
+  * @brief Gets the trajectory information at the closest time to the specified
+  * time
   * @param t Time
   * @return Trajectory state and control
   */
