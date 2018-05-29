@@ -2,8 +2,8 @@
 #include "aerial_autonomy/common/conversions.h"
 #include "aerial_autonomy/common/math.h"
 
-#include <tf_conversions/tf_eigen.h>
 #include <glog/logging.h>
+#include <tf_conversions/tf_eigen.h>
 
 std::pair<ParticleState, Snap>
 QrotorBacksteppingController::getGoalFromReference(
@@ -21,7 +21,7 @@ bool QrotorBacksteppingController::runImplementation(
   std::pair<ParticleState, Snap> current_ref;
   try {
     current_ref = getGoalFromReference(current_time, goal);
-  } catch (std::logic_error e){
+  } catch (std::logic_error e) {
     LOG(WARNING) << e.what() << std::endl;
     return false;
   }

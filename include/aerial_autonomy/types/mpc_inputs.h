@@ -1,4 +1,5 @@
 #pragma once
+#include "constraint.h"
 #include <vector>
 
 /**
