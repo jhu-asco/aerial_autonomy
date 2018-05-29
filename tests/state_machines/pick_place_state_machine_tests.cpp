@@ -304,11 +304,11 @@ protected:
               ControllerStatus::Active);
     // Keep running the controller until its completed or timeout
     auto getStatusRunControllers = [&]() {
-      uav_arm_system_->runActiveController(HardwareType::UAV);
-      uav_arm_system_->runActiveController(HardwareType::Arm);
-      return uav_arm_system_->getActiveControllerStatus(HardwareType::UAV) ==
+      uav_arm_system_->runActiveController(ControllerGroup::UAV);
+      uav_arm_system_->runActiveController(ControllerGroup::Arm);
+      return uav_arm_system_->getActiveControllerStatus(ControllerGroup::UAV) ==
                  ControllerStatus::Active ||
-             uav_arm_system_->getActiveControllerStatus(HardwareType::Arm) ==
+             uav_arm_system_->getActiveControllerStatus(ControllerGroup::Arm) ==
                  ControllerStatus::Active;
     };
     ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
@@ -423,11 +423,11 @@ TEST_F(PickPlaceStateMachineTests, PickTimeout) {
             ControllerStatus::Active);
   // Keep running the controller until its completed or timeout
   auto getStatusRunControllers = [&]() {
-    uav_arm_system_->runActiveController(HardwareType::UAV);
-    uav_arm_system_->runActiveController(HardwareType::Arm);
-    return uav_arm_system_->getActiveControllerStatus(HardwareType::UAV) ==
+    uav_arm_system_->runActiveController(ControllerGroup::UAV);
+    uav_arm_system_->runActiveController(ControllerGroup::Arm);
+    return uav_arm_system_->getActiveControllerStatus(ControllerGroup::UAV) ==
                ControllerStatus::Active ||
-           uav_arm_system_->getActiveControllerStatus(HardwareType::Arm) ==
+           uav_arm_system_->getActiveControllerStatus(ControllerGroup::Arm) ==
                ControllerStatus::Active;
   };
   ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
@@ -523,8 +523,8 @@ TEST_F(PickPlaceStateMachineTests, PickPlaceInvalidTrackingAbort) {
   tracker_->setTrackingIsValid(false);
   // Run active controllers
   for (int i = 0; i < 2; ++i) {
-    uav_arm_system_->runActiveController(HardwareType::UAV);
-    uav_arm_system_->runActiveController(HardwareType::Arm);
+    uav_arm_system_->runActiveController(ControllerGroup::UAV);
+    uav_arm_system_->runActiveController(ControllerGroup::Arm);
   }
   // Check we are resetting
   arm_->setGripperStatus(false);
@@ -543,15 +543,15 @@ TEST_F(PickPlaceStateMachineTests, PickPlaceInvalidTrackingGripping) {
   tracker_->setTrackingIsValid(false);
   // Run active controllers
   for (int i = 0; i < 2; ++i) {
-    uav_arm_system_->runActiveController(HardwareType::UAV);
-    uav_arm_system_->runActiveController(HardwareType::Arm);
+    uav_arm_system_->runActiveController(ControllerGroup::UAV);
+    uav_arm_system_->runActiveController(ControllerGroup::Arm);
   }
   // Check we are continuing to pick and controller is aborted
   arm_->setGripperStatus(true);
   logic_state_machine_->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
   ASSERT_EQ(ControllerStatus::NotEngaged,
-            uav_arm_system_->getActiveControllerStatus(HardwareType::UAV));
+            uav_arm_system_->getActiveControllerStatus(ControllerGroup::UAV));
 
   // If gripping becomes false, should now abort
   arm_->setGripperStatus(false);

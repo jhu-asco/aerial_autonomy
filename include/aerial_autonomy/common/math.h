@@ -4,6 +4,7 @@
 * @brief Define Math constants such as pi, e etc.
 */
 #define _USE_MATH_DEFINES
+#include <Eigen/Dense>
 #include <cmath>
 #include <stdexcept>
 #include <tf/tf.h>
@@ -43,4 +44,21 @@ double clamp(double x, double min, double max);
 */
 double map(double input, double input_min, double input_max, double output_min,
            double output_max);
+
+/**
+ * @brief The hat operator. Computes a skew symmetric matrix from a vector
+ * @param v The vector to convert to a skew-symmetric matrix
+ * @return The skew-symmetric matric
+ */
+Eigen::Matrix3d hat(const Eigen::Vector3d &v);
+
+/**
+  * @brief Solve the Sylvester equation AX + XB + C = 0
+  * @param A A
+  * @param B B
+  * @param C C
+  * @return X
+  */
+Eigen::MatrixXd sylvester(const Eigen::MatrixXd &A, const Eigen::MatrixXd &B,
+                          const Eigen::MatrixXd &C);
 }

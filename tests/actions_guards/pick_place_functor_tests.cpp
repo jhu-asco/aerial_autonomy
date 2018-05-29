@@ -19,6 +19,11 @@ using namespace quad_simulator;
 using namespace test_utils;
 
 /**
+* @brief Sample logic state machine templated on UAV arm system
+*/
+using UAVArmLogicStateMachine = SampleLogicStateMachine_<UAVArmSystem>;
+
+/**
 * @brief Namespace for basic uav states and actions such as takeoff, land etc
 */
 using psa = PickPlaceStatesActions<UAVArmLogicStateMachine>;

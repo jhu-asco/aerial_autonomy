@@ -131,8 +131,8 @@ public:
 
   void runActiveControllerToConvergence() {
     auto getUAVStatusRunControllers = [&]() {
-      uav_system->runActiveController(HardwareType::UAV);
-      return uav_system->getActiveControllerStatus(HardwareType::UAV) ==
+      uav_system->runActiveController(ControllerGroup::UAV);
+      return uav_system->getActiveControllerStatus(ControllerGroup::UAV) ==
              ControllerStatus::Completed;
     };
     ASSERT_TRUE(test_utils::waitUntilTrue()(getUAVStatusRunControllers,

@@ -1,0 +1,118 @@
+syntax = "proto2";
+
+import "velocity.proto";
+import "position.proto";
+
+/**
+* Configuration for the QrotorBacksteppingController
+*/
+message QrotorBacksteppingControllerConfig {
+  /**
+  * @brief P Gain to convert position error to acceleration
+  */
+  optional double kp_xy = 1 [ default = 1.0 ];
+  /**
+  * @brief P Gain to convert position error to acceleration
+  */
+  optional double kp_z = 2 [ default = 1.0 ];
+  /**
+  * @brief D Gain to convert velocity error to acceleration
+  */
+  optional double kd_xy = 3 [ default = 1.0 ];
+  /**
+  * @brief D Gain to convert velocity error to acceleration
+  */
+  optional double kd_z = 4 [ default = 1.0 ];
+  /**
+  * @brief Gain for achieving desired jerk
+  */
+  optional double k1 = 5 [ default = 1.0 ];
+  /**
+  * @brief Gain for achieving desired snap
+  */
+  optional double k2 = 6 [ default = 1.0 ];
+
+  /**
+  * @brief Inertial matrix XX
+  */
+  optional double jxx = 7 [ default = 1.0 ];
+  /**
+  * @brief Inertial matrix XY
+  */
+  optional double jxy = 8 [ default = .0 ];
+  /**
+  * @brief Inertial matrix XZ
+  */
+  optional double jxz = 9 [ default = .0 ];
+  /**
+  * @brief Inertial matrix YX
+  */
+  optional double jyx = 10 [ default = .0 ];
+  /**
+  * @brief Inertial matrix YY
+  */
+  optional double jyy = 11 [ default = 1.0 ];
+  /**
+  * @brief Inertial matrix YZ
+  */
+  optional double jyz = 12 [ default = .0 ];
+  /**
+  * @brief Inertial matrix ZX
+  */
+  optional double jzx = 13 [ default = .0 ];
+  /**
+  * @brief Inertial matrix ZY
+  */
+  optional double jzy = 14 [ default = .0 ];
+  /**
+  * @brief Inertial matrix ZZ
+  */
+  optional double jzz = 15 [ default = 1.0 ];
+
+  /**
+  * @brief Mass
+  */
+  optional double mass = 16 [ default = 1.0 ];
+  /**
+  * @brief Acceleration due to gravity (in case we also want to fly on Mars)
+  */
+  optional double acc_gravity = 17 [ default = 9.81 ];
+  /**
+  * @brief Minimum thrust command before allowing torque computation
+  * If too small, torque command could be massive
+  */
+  optional double thrust_eps = 18 [ default = 1e-2 ];
+
+  /**
+  * @brief Lyapunov function derivative weight matrix X
+  */
+  optional double qx = 19 [ default = 1.0 ];
+  /**
+  * @brief Lyapunov function derivative weight matrix Y
+  */
+  optional double qy = 20 [ default = 1.0 ];
+  /**
+  * @brief Lyapunov function derivative weight matrix Z
+  */
+  optional double qz = 21 [ default = 1.0 ];
+  /**
+  * @brief Lyapunov function derivative weight matrix VX
+  */
+  optional double qvx = 22 [ default = 1.0 ];
+  /**
+  * @brief Lyapunov function derivative weight matrix VY
+  */
+  optional double qvy = 23 [ default = 1.0 ];
+  /**
+  * @brief Lyapunov function derivative weight matrix VZ
+  */
+  optional double qvz = 24 [ default = 1.0 ];
+  /**
+  * @brief Goal position tolerance
+  */
+  optional config.Position goal_position_tolerance = 25;
+  /**
+  * @brief Goal velocity tolerance
+  */
+  optional config.Velocity goal_velocity_tolerance = 26;
+}

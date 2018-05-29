@@ -37,8 +37,8 @@ TEST_F(TrackingVectorEstimatorTests, initializeState) {
   config_.mutable_marker_initial_stdev()->set_x(1);
   TrackingVectorEstimator estimator(config_, std::chrono::milliseconds(20));
   estimator.initializeState(initial_marker_direction);
-  ASSERT_TF_VEC_NEAR(estimator.getMarkerDirection(), initial_marker_direction);
-  ASSERT_TF_VEC_NEAR(estimator.getMarkerNoise(), tf::Vector3(1, 1e-2, 1e-2));
+  ASSERT_VEC_NEAR(estimator.getMarkerDirection(), initial_marker_direction);
+  ASSERT_VEC_NEAR(estimator.getMarkerNoise(), tf::Vector3(1, 1e-2, 1e-2));
 }
 
 TEST_F(TrackingVectorEstimatorTests, testMeasurementCovariance) {
@@ -74,8 +74,8 @@ TEST_F(TrackingVectorEstimatorTests, predictState) {
   estimator.predict(velocity);
   tf::Vector3 expected_marker_direction =
       initial_marker_direction - velocity * dt;
-  ASSERT_TF_VEC_NEAR(estimator.getPredictedMarkerDirection(),
-                     expected_marker_direction);
+  ASSERT_VEC_NEAR(estimator.getPredictedMarkerDirection(),
+                  expected_marker_direction);
   tf::Vector3 marker_noise = estimator.getMarkerNoise();
   for (int i = 0; i < 3; ++i) {
     ASSERT_GT(marker_noise[i], initial_marker_noise[i]);

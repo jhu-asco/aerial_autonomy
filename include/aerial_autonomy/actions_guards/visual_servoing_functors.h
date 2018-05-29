@@ -147,7 +147,7 @@ struct VisualServoingAbortActionFunctor_
     : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
   void run(UAVVisionSystem &robot_system) {
     LOG(WARNING) << "Aborting visual servoing controller";
-    robot_system.abortController(HardwareType::UAV);
+    robot_system.abortController(ControllerGroup::UAV);
   }
 };
 

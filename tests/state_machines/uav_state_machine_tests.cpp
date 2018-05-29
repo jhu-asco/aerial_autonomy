@@ -87,8 +87,8 @@ protected:
 
   void runActiveControllerToConvergence() {
     auto getUAVStatusRunControllers = [&]() {
-      uav_system->runActiveController(HardwareType::UAV);
-      return uav_system->getActiveControllerStatus(HardwareType::UAV) ==
+      uav_system->runActiveController(ControllerGroup::UAV);
+      return uav_system->getActiveControllerStatus(ControllerGroup::UAV) ==
              ControllerStatus::Completed;
     };
     ASSERT_TRUE(test_utils::waitUntilTrue()(getUAVStatusRunControllers,
@@ -182,7 +182,7 @@ TEST_F(StateMachineTests, PositionControl) {
   // Send UAV to goal:
   runActiveControllerToConvergence();
   // Verify if we reached the goal
-  uav_system->runActiveController(HardwareType::UAV); // Update status
+  uav_system->runActiveController(ControllerGroup::UAV); // Update status
   logic_state_machine->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
 }
@@ -220,7 +220,7 @@ TEST_F(StateMachineTests, PositionControlAbort) {
   logic_state_machine->process_event(be::Abort());
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
   // Once aborted running active controller will not reach goal
-  ASSERT_EQ(uav_system->getActiveControllerStatus(HardwareType::UAV),
+  ASSERT_EQ(uav_system->getActiveControllerStatus(ControllerGroup::UAV),
             ControllerStatus::NotEngaged);
   parsernode::common::quaddata data = uav_system->getUAVData();
   PositionYaw curr_pose_yaw(data.localpos.x, data.localpos.y, data.localpos.z,
@@ -242,7 +242,7 @@ TEST_F(StateMachineTests, PositionControlManualControlAbort) {
   logic_state_machine->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine), "ManualControlState");
   // Once aborted running active controller will not reach goal
-  uav_system->runActiveController(HardwareType::UAV);
+  uav_system->runActiveController(ControllerGroup::UAV);
   parsernode::common::quaddata data = uav_system->getUAVData();
   PositionYaw curr_pose_yaw(data.localpos.x, data.localpos.y, data.localpos.z,
                             data.rpydata.z);
@@ -260,7 +260,7 @@ TEST_F(StateMachineTests, PositionControlLand) {
   logic_state_machine->process_event(be::Land());
   ASSERT_STREQ(pstate(*logic_state_machine), "Landing");
   // It should also abort the controller:
-  uav_system->runActiveController(HardwareType::UAV);
+  uav_system->runActiveController(ControllerGroup::UAV);
   parsernode::common::quaddata data = uav_system->getUAVData();
   PositionYaw curr_pose_yaw(data.localpos.x, data.localpos.y, data.localpos.z,
                             data.rpydata.z);
@@ -281,7 +281,7 @@ TEST_F(StateMachineTests, PositionControlLowBattery) {
   // Check if we are aborting due to low battery
   ASSERT_STREQ(pstate(*logic_state_machine), "Hovering");
   // It should also abort the controller:
-  uav_system->runActiveController(HardwareType::UAV);
+  uav_system->runActiveController(ControllerGroup::UAV);
   parsernode::common::quaddata data = uav_system->getUAVData();
   PositionYaw curr_pose_yaw(data.localpos.x, data.localpos.y, data.localpos.z,
                             data.rpydata.z);

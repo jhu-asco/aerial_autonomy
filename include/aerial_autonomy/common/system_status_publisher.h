@@ -4,6 +4,8 @@
 
 // Html utils
 #include <aerial_autonomy/common/html_utils.h>
+// controller group
+#include <aerial_autonomy/types/controller_groups.h>
 // Base Robot system
 #include <aerial_autonomy/robot_systems/base_robot_system.h>
 
@@ -35,9 +37,9 @@ public:
   void publishSystemStatus() {
     // Get active controller status
     ControllerStatus uav_controller_status =
-        robot_system_.getActiveControllerStatus(HardwareType::UAV);
+        robot_system_.getActiveControllerStatus(ControllerGroup::UAV);
     ControllerStatus arm_controller_status =
-        robot_system_.getActiveControllerStatus(HardwareType::Arm);
+        robot_system_.getActiveControllerStatus(ControllerGroup::Arm);
     std::string robot_system_status = robot_system_.getSystemStatus();
     std::string current_state_name = pstate(logic_state_machine_);
     std::string no_transition_event_name =

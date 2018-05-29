@@ -2,7 +2,7 @@
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
-#include <aerial_autonomy/controller_hardware_connectors/position_controller_drone_connector.h>
+#include <aerial_autonomy/controller_connectors/position_controller_drone_connector.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/uav_basic_events.h>
@@ -35,7 +35,7 @@ struct UAVControllerAbortActionFunctor_
     : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
   void run(UAVSystem &robot_system) {
     LOG(WARNING) << "Aborting UAV Controller";
-    robot_system.abortController(HardwareType::UAV);
+    robot_system.abortController(ControllerGroup::UAV);
   }
 };
 

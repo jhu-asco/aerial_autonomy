@@ -31,7 +31,7 @@ public:
                         state_machine_config),
         uav_controller_timer_(
             std::bind(&UAVSystem::runActiveController, std::ref(uav_system_),
-                      HardwareType::UAV),
+                      ControllerGroup::UAV),
             std::chrono::milliseconds(
                 config.uav_system_config().uav_controller_timer_duration())) {
     // Get the party started

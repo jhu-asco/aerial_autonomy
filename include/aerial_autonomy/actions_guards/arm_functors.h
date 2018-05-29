@@ -114,7 +114,7 @@ struct AbortArmController_
     : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
   void run(ArmSystem &robot_system) {
     LOG(WARNING) << "Aborting arm controller";
-    robot_system.abortController(HardwareType::Arm);
+    robot_system.abortController(ControllerGroup::Arm);
   }
 };
 

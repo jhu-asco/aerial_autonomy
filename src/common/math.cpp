@@ -1,7 +1,8 @@
 #include "aerial_autonomy/common/math.h"
+#include "aerial_autonomy/common/conversions.h"
 
 #include <algorithm>
-
+#include <armadillo>
 /**
 * @brief Math namespace to separate math functions from
 * system functions if exist
@@ -30,5 +31,22 @@ double map(double input, double input_min, double input_max, double output_min,
   return (output_min +
           ((input - input_min) * (output_max - output_min)) /
               (input_max - input_min));
+}
+
+Eigen::Matrix3d hat(const Eigen::Vector3d &v) {
+  Eigen::Matrix3d v_hat;
+  v_hat << 0, -v.z(), v.y(), v.z(), 0, -v.x(), -v.y(), v.x(), 0;
+  return v_hat;
+}
+
+Eigen::MatrixXd sylvester(const Eigen::MatrixXd &A, const Eigen::MatrixXd &B,
+                          const Eigen::MatrixXd &C) {
+  arma::mat A_arma = conversions::eigenToArma(A);
+  arma::mat B_arma = conversions::eigenToArma(B);
+  arma::mat C_arma = conversions::eigenToArma(C);
+
+  arma::mat X_arma = arma::syl(A_arma, B_arma, C_arma);
+
+  return conversions::armaToEigen(X_arma);
 }
 }
