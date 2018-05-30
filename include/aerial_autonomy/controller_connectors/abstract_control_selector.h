@@ -1,5 +1,5 @@
 #pragma once
-#include "aerial_autonomy/types/reference_trajectory.h"
+#include "aerial_autonomy/types/discrete_reference_trajectory_closest.h"
 #include <chrono>
 
 /**
@@ -21,8 +21,7 @@ public:
   *
   * @return the control to be applied
   */
-  virtual ControlT
-  selectControl(const ReferenceTrajectory<StateT, ControlT> &trajectory,
-                const StateT &current_state,
-                std::chrono::duration<double> dt) = 0;
+  virtual ControlT selectControl(
+      const DiscreteReferenceTrajectoryClosest<StateT, ControlT> &trajectory,
+      const StateT &current_state, std::chrono::duration<double> dt) = 0;
 };

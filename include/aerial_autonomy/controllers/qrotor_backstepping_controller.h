@@ -10,6 +10,7 @@
 #include "qrotor_backstepping_controller_config.pb.h"
 
 #include <Eigen/Dense>
+#include <memory>
 
 /**
  * @brief A trajectory-tracking backstepping controller for a quadrotor.
@@ -18,9 +19,10 @@
  * external disturbances", American Control Conference, 2013>
  */
 class QrotorBacksteppingController
-    : public Controller<std::pair<double, QrotorBacksteppingState>,
-                        ReferenceTrajectory<ParticleState, Snap>,
-                        QrotorBacksteppingControl> {
+    : public Controller<
+          std::pair<double, QrotorBacksteppingState>,
+          std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>>,
+          QrotorBacksteppingControl> {
 public:
   using Vector6d = Eigen::Matrix<double, 6, 1>;
   using Matrix63d = Eigen::Matrix<double, 6, 3>;
@@ -46,9 +48,9 @@ public:
     B_ = Eigen::MatrixXd::Zero(6, 3);
     B_.bottomLeftCorner<3, 3>() = (1. / m_) * Eigen::MatrixXd::Identity(3, 3);
 
-    J_ << config_.jxx(), config_.jxy(), config_.jxz(),
-          config_.jyx(), config_.jyy(), config_.jyz(),
-          config_.jzx(), config_.jzy(), config_.jzz();
+    J_ << config_.jxx(), config_.jxy(), config_.jxz(), config_.jyx(),
+        config_.jyy(), config_.jyz(), config_.jzx(), config_.jzy(),
+        config_.jzz();
 
     Vector6d Qvec;
     Qvec << config_.qx(), config_.qy(), config_.qz(), config_.qvx(),
@@ -68,9 +70,10 @@ protected:
    * @param control Controls
    * @return true if command to reach goal is found
    */
-  bool runImplementation(std::pair<double, QrotorBacksteppingState> sensor_data,
-                         ReferenceTrajectory<ParticleState, Snap> goal,
-                         QrotorBacksteppingControl &control);
+  bool runImplementation(
+      std::pair<double, QrotorBacksteppingState> sensor_data,
+      std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal,
+      QrotorBacksteppingControl &control);
   /**
   * @brief Check if controller has converged (reached the end of the reference)
   *
@@ -82,7 +85,7 @@ protected:
   */
   ControllerStatus isConvergedImplementation(
       std::pair<double, QrotorBacksteppingState> sensor_data,
-      ReferenceTrajectory<ParticleState, Snap> goal);
+      std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal);
 
   /**
   * @brief Gets current goal and derivatives from the reference

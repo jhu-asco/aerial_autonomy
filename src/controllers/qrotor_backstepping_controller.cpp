@@ -2,8 +2,8 @@
 #include "aerial_autonomy/common/conversions.h"
 #include "aerial_autonomy/common/math.h"
 
-#include <tf_conversions/tf_eigen.h>
 #include <glog/logging.h>
+#include <tf_conversions/tf_eigen.h>
 
 std::pair<ParticleState, Snap>
 QrotorBacksteppingController::getGoalFromReference(
@@ -13,15 +13,15 @@ QrotorBacksteppingController::getGoalFromReference(
 
 bool QrotorBacksteppingController::runImplementation(
     std::pair<double, QrotorBacksteppingState> sensor_data,
-    ReferenceTrajectory<ParticleState, Snap> goal,
+    std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal,
     QrotorBacksteppingControl &control) {
   QrotorBacksteppingState current_state = std::get<1>(sensor_data);
   double current_time = std::get<0>(sensor_data);
 
   std::pair<ParticleState, Snap> current_ref;
   try {
-    current_ref = getGoalFromReference(current_time, goal);
-  } catch (std::logic_error e){
+    current_ref = getGoalFromReference(current_time, *goal);
+  } catch (std::logic_error e) {
     LOG(WARNING) << e.what() << std::endl;
     return false;
   }
@@ -101,14 +101,14 @@ bool QrotorBacksteppingController::runImplementation(
 
 ControllerStatus QrotorBacksteppingController::isConvergedImplementation(
     std::pair<double, QrotorBacksteppingState> sensor_data,
-    ReferenceTrajectory<ParticleState, Snap> goal) {
+    std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal) {
   ControllerStatus controller_status = ControllerStatus::Active;
 
   double current_time = std::get<0>(sensor_data);
   QrotorBacksteppingState current_state = std::get<1>(sensor_data);
 
   std::pair<ParticleState, Snap> current_ref =
-      getGoalFromReference(current_time, goal);
+      getGoalFromReference(current_time, *goal);
   ParticleState current_goal = std::get<0>(current_ref);
 
   const config::Velocity tolerance_vel = config_.goal_velocity_tolerance();
