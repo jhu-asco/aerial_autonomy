@@ -11,6 +11,7 @@
 #include <gcop/airm_residual_network_model.h>
 #include <gcop/casadi_system.h>
 #include <gcop/ddp.h>
+#include <gcop/loop_timer.h>
 #include <gcop/lqcost.h>
 
 #include <glog/logging.h>
@@ -18,16 +19,20 @@
 #include <memory>
 
 class DDPAirmMPCController
-    : public AbstractMPCController<
-          std::pair<QuadState, ArmState>,
-          std::pair<RollPitchYawThrust, std::vector<double>>> {
+    : public AbstractMPCController<Eigen::VectorXd, Eigen::VectorXd> {
 public:
-  using ControlType = std::pair<RollPitchYawThrust, std::vector<double>>;
-  using StateType = std::pair<QuadState, ArmState>;
-  DDPAirmMPCController(AirmMPCControllerConfig config);
-  bool runImplementation(MPCInputs<StateType> sensor_data,
-                         ReferenceTrajectory<StateType, ControlType> goal,
+  using ControlType = Eigen::VectorXd;
+  using StateType = Eigen::VectorXd;
+  using GoalType = ReferenceTrajectoryPtr<StateType, ControlType>;
+  DDPAirmMPCController(AirmMPCControllerConfig config,
+                       double controller_duration);
+  void resetControls();
+
+protected:
+  bool runImplementation(MPCInputs<StateType> sensor_data, GoalType goal,
                          ControlType &control);
+  ControllerStatus isConvergedImplementation(MPCInputs<StateType> sensor_data,
+                                             GoalType);
 
 private:
   AirmMPCControllerConfig config_;
@@ -37,5 +42,11 @@ private:
   Eigen::VectorXd xf_;
   std::vector<Eigen::VectorXd> xs_;
   std::vector<Eigen::VectorXd> us_;
+  std::vector<Eigen::VectorXd> xds_;
+  std::vector<Eigen::VectorXd> uds_;
+  Eigen::VectorXd kt_;
   std::vector<double> ts_;
+  int look_ahead_index_shift_;
+  LoopTimer loop_timer_;
+  int control_timer_shift_;
 };

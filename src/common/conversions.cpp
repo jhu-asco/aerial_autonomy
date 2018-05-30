@@ -13,6 +13,12 @@ void transformMatrix4dToTf(const Eigen::Matrix4d &e, tf::Transform &tf) {
   tf::transformEigenToTF(e_affine, tf);
 }
 
+Eigen::Vector3d transformTfToRPY(const tf::Transform &tf) {
+  double r, p, y;
+  tf.getBasis().getEulerYPR(y, p, r);
+  return Eigen::Vector3d(r, p, y);
+}
+
 void transformRPYToTf(double r, double p, double y, tf::Transform &tf) {
   tf.setIdentity();
   tf.setRotation(tf::createQuaternionFromRPY(r, p, y));

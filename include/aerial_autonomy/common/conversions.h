@@ -20,6 +20,15 @@ namespace conversions {
 void transformMatrix4dToTf(const Eigen::Matrix4d &e, tf::Transform &tf);
 
 /**
+* @brief Conver transform into roll pitch yaw in body zyx format
+*
+* @param tf Transform from which rpy is extracted
+*
+* @returns rpy roll pitch yaw vector
+*/
+Eigen::Vector3d transformTfToRPY(const tf::Transform &tf);
+
+/**
  * @brief Convert roll, pitch, yaw Euler angles to a tf::Transform
  * @param r Roll
  * @param p Pitch

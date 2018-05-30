@@ -16,5 +16,4 @@
 template <class StateT, class ControlT>
 class AbstractMPCController
     : public Controller<MPCInputs<StateT>,
-                        ReferenceTrajectory<StateT, ControlT>,
-                        ReferenceTrajectory<StateT, ControlT>> {};
+                        ReferenceTrajectoryPtr<StateT, ControlT>, ControlT> {};

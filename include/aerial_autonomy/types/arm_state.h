@@ -6,10 +6,6 @@
 */
 struct ArmState {
   /**
-  * @brief Time corresponding to arm state
-  */
-  double t;
-  /**
   * @brief Joint angles in rad
   */
   std::vector<double> joint_angles;

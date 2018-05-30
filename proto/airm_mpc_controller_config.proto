@@ -9,4 +9,12 @@ message AirmMPCControllerConfig {
   optional double default_thrust_gain = 5 [ default = 0.15 ];
   optional double max_joint_velocity = 6 [ default = 0.7 ];
   optional uint32 n_layers = 7 [ default = 3 ];
+  /**
+  * @brief Goal position tolerance
+  */
+  optional double goal_position_tolerance = 8 [ default = 0.05 ];
+  /**
+  * @brief Goal velocity tolerance
+  */
+  optional double goal_velocity_tolerance = 9 [ default = 0.05 ];
 }

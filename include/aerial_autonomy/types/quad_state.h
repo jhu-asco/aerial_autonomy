@@ -6,10 +6,6 @@
 */
 struct QuadState {
   /**
-  * @brief The time when the quad state was generated
-  */
-  double t;
-  /**
   * @brief The pose of quadrotor
   */
   tf::Transform pose;

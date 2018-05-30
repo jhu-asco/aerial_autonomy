@@ -40,4 +40,13 @@ message DDPMPCControllerConfig {
   * @brief DDP regularization constant
   */
   optional double mu = 9 [ default = 1e-3 ];
+  /**
+  * @brief Look ahead time for the control should be less than tf
+  */
+  optional double look_ahead_time = 10 [ default = 0.2 ];
+  /**
+  * @brief If ddp cost is greater than this, the algorithm
+  * has been assumed to have failed
+  */
+  optional double min_cost = 11 [ default = 10.0 ];
 }

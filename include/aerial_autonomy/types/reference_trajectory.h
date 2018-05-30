@@ -1,5 +1,6 @@
 #pragma once
 #include <algorithm>
+#include <memory>
 #include <stdexcept>
 #include <vector>
 
@@ -47,3 +48,7 @@ template <class StateT, class ControlT> struct ReferenceTrajectory {
     }
   }
 };
+
+template <class StateT, class ControlT>
+using ReferenceTrajectoryPtr =
+    std::shared_ptr<ReferenceTrajectory<StateT, ControlT>>;

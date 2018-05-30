@@ -284,7 +284,6 @@ set(SRC
   src/controllers/qrotor_backstepping_controller.cpp
   src/estimators/thrust_gain_estimator.cpp
   src/estimators/tracking_vector_estimator.cpp
-  src/controller_connectors/mpc_controller_drone_connector.cpp
   src/controller_connectors/mpc_controller_airm_connector.cpp
   src/controller_connectors/visual_servoing_controller_drone_connector.cpp
   src/controller_connectors/base_relative_pose_visual_servoing_connector.cpp

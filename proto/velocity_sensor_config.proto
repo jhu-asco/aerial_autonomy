@@ -1,5 +1,4 @@
 syntax = "proto2";
-import "transform.proto";
 
 message VelocitySensorConfig {
   /**
