@@ -1,5 +1,6 @@
 #include "aerial_autonomy/controllers/qrotor_backstepping_controller.h"
 #include "aerial_autonomy/tests/test_utils.h"
+#include "aerial_autonomy/types/discrete_reference_trajectory_interpolate.h"
 #include "qrotor_backstepping_controller_config.pb.h"
 
 #include <chrono>
@@ -35,8 +36,9 @@ public:
     pos_tolerance->set_z(0.05);
   }
 
-  void testConvergence(ReferenceTrajectory<ParticleState, Snap> ref,
-                       QrotorBacksteppingState x0) {
+  void testConvergence(
+      const shared_ptr<ReferenceTrajectory<ParticleState, Snap>> &ref,
+      QrotorBacksteppingState x0) {
     QrotorBacksteppingController controller(config_);
 
     auto sensor_data = std::make_pair(0.0, x0);
@@ -91,11 +93,12 @@ TEST_F(QrotorBacksteppingControllerTests, Constructor) {
 }
 
 TEST_F(QrotorBacksteppingControllerTests, Convergence) {
-  ReferenceTrajectory<ParticleState, Snap> ref;
+  shared_ptr<DiscreteReferenceTrajectoryInterpolate<ParticleState, Snap>> ref(
+      new DiscreteReferenceTrajectoryInterpolate<ParticleState, Snap>());
   for (double t = 0; t < 200; t += 0.05) {
-    ref.ts.push_back(t);
-    ref.states.push_back(ParticleState());
-    ref.controls.push_back(Snap());
+    ref->ts.push_back(t);
+    ref->states.push_back(ParticleState());
+    ref->controls.push_back(Snap());
   }
 
   QrotorBacksteppingState qrotor_state;
@@ -112,11 +115,12 @@ TEST_F(QrotorBacksteppingControllerTests, Convergence) {
 }
 
 TEST_F(QrotorBacksteppingControllerTests, ConvergenceSpiral) {
-  ReferenceTrajectory<ParticleState, Snap> ref;
+  shared_ptr<DiscreteReferenceTrajectoryInterpolate<ParticleState, Snap>> ref(
+      new DiscreteReferenceTrajectoryInterpolate<ParticleState, Snap>());
   double w_xy = 2 * M_PI * 0.2;
   double w_z = 2 * M_PI * 0.2;
   for (double t = 0; t < 200; t += 0.05) {
-    ref.ts.push_back(t);
+    ref->ts.push_back(t);
     ParticleState desired_state;
     desired_state.p.x = cos(w_xy * t);
     desired_state.p.y = sin(w_xy * t);
@@ -135,8 +139,8 @@ TEST_F(QrotorBacksteppingControllerTests, ConvergenceSpiral) {
                          std::pow(w_xy, 4) * sin(w_xy * t),
                          std::pow(w_z, 4) * sin(w_z * t));
 
-    ref.states.push_back(desired_state);
-    ref.controls.push_back(desired_control);
+    ref->states.push_back(desired_state);
+    ref->controls.push_back(desired_control);
   }
 
   QrotorBacksteppingState qrotor_state;
@@ -152,10 +156,11 @@ TEST_F(QrotorBacksteppingControllerTests, ConvergenceSpiral) {
 }
 
 TEST_F(QrotorBacksteppingControllerTests, SmallThrust) {
-  ReferenceTrajectory<ParticleState, Snap> ref;
-  ref.ts.push_back(0);
-  ref.states.push_back(ParticleState());
-  ref.controls.push_back(Snap());
+  shared_ptr<DiscreteReferenceTrajectoryInterpolate<ParticleState, Snap>> ref(
+      new DiscreteReferenceTrajectoryInterpolate<ParticleState, Snap>());
+  ref->ts.push_back(0);
+  ref->states.push_back(ParticleState());
+  ref->controls.push_back(Snap());
   QrotorBacksteppingController controller(config_);
 
   controller.setGoal(ref);
@@ -179,7 +184,8 @@ TEST_F(QrotorBacksteppingControllerTests, SmallThrust) {
 }
 
 TEST_F(QrotorBacksteppingControllerTests, ReferenceTooShort) {
-  ReferenceTrajectory<ParticleState, Snap> ref;
+  shared_ptr<DiscreteReferenceTrajectoryInterpolate<ParticleState, Snap>> ref(
+      new DiscreteReferenceTrajectoryInterpolate<ParticleState, Snap>());
   QrotorBacksteppingController controller(config_);
 
   controller.setGoal(ref);

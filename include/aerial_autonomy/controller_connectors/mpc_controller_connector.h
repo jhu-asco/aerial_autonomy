@@ -15,16 +15,17 @@
 */
 template <class StateT, class ControlT>
 class MPCControllerConnector
-    : public ControllerConnector<MPCInputs<StateT>,
-                                 ReferenceTrajectory<StateT, ControlT>,
-                                 ReferenceTrajectory<StateT, ControlT>> {
+    : public ControllerConnector<
+          MPCInputs<StateT>,
+          DiscreteReferenceTrajectoryClosest<StateT, ControlT>,
+          DiscreteReferenceTrajectoryClosest<StateT, ControlT>> {
   /**
   * @brief Parent controller connector
   */
   using BaseConnector =
       ControllerConnector<MPCInputs<StateT>,
-                          ReferenceTrajectory<StateT, ControlT>,
-                          ReferenceTrajectory<StateT, ControlT>>;
+                          DiscreteReferenceTrajectoryClosest<StateT, ControlT>,
+                          DiscreteReferenceTrajectoryClosest<StateT, ControlT>>;
 
 public:
   /**
@@ -76,8 +77,8 @@ public:
   *
   * @param trajectory The reference trajectory obtained from MPC optimization
   */
-  void
-  sendControllerCommands(ReferenceTrajectory<StateT, ControlT> trajectory) {
+  void sendControllerCommands(
+      DiscreteReferenceTrajectoryClosest<StateT, ControlT> trajectory) {
     StateT current_state_estimate = state_estimator_.getState();
     auto dt_optimization = std::chrono::duration<double>(
         std::chrono::high_resolution_clock::now() - t_state_estimate_);

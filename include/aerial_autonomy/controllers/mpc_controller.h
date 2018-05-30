@@ -1,7 +1,7 @@
 #pragma once
 #include "aerial_autonomy/controllers/base_controller.h"
+#include "aerial_autonomy/types/discrete_reference_trajectory_closest.h"
 #include "aerial_autonomy/types/mpc_inputs.h"
-#include "aerial_autonomy/types/reference_trajectory.h"
 
 /**
 * @brief Generic MPC controller.
@@ -16,5 +16,6 @@
 template <class StateT, class ControlT>
 class AbstractMPCController
     : public Controller<MPCInputs<StateT>,
-                        ReferenceTrajectory<StateT, ControlT>,
-                        ReferenceTrajectory<StateT, ControlT>> {};
+                        DiscreteReferenceTrajectoryClosest<StateT, ControlT>,
+                        DiscreteReferenceTrajectoryClosest<StateT, ControlT>> {
+};
