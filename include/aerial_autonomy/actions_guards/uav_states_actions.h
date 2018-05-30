@@ -57,11 +57,6 @@ template <class LogicStateMachineT> struct UAVStatesActions {
       RunningJoystickRPYTController_<LogicStateMachineT>;
 
   // Basic transition Actions
-  using ReachingGoalSet1 = PositionControlTransitionActionGoal1Functor<LogicStateMachineT,RPYTBasedOdomSensorControllerDroneConnector>;
-  using ReachingGoalSet2 = PositionControlTransitionActionGoal2Functor<LogicStateMachineT,RPYTBasedOdomSensorControllerDroneConnector>;
-  using ReachingGoalSet3 = PositionControlTransitionActionGoal3Functor<LogicStateMachineT,RPYTBasedOdomSensorControllerDroneConnector>;
-  using ReachingGoalSet4 = PositionControlTransitionActionGoal4Functor<LogicStateMachineT,RPYTBasedOdomSensorControllerDroneConnector>;
-
   /**
   * @brief Action to take when taking off
   */

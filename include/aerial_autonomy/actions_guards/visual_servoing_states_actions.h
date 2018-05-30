@@ -21,11 +21,6 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
   template <class G1, class G2>
   using bAnd = boost::msm::front::euml::And_<G1, G2>;
 
-  using ReachingGoal1 = ReachingGoal1_<LogicStateMachineT>;
-  using ReachingGoal2 = ReachingGoal2_<LogicStateMachineT>;
-  using ReachingGoal3 = ReachingGoal3_<LogicStateMachineT>;
-  using ReachingGoal4 = ReachingGoal4_<LogicStateMachineT>;
-
   // Visual servoing states
   /**
   * @brief State when reaching a visual servoing goal

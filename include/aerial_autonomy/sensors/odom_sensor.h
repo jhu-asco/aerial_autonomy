@@ -6,7 +6,6 @@
 #include <aerial_autonomy/common/conversions.h>
 #include <glog/logging.h>
 #include <nav_msgs/Odometry.h>
-#include <geometry_msgs/TransformStamped.h>
 #include <ros/ros.h>
 /**
 * @brief ros based velocity sensor
@@ -21,7 +20,7 @@ public:
   */
   OdomSensor(OdomSensorConfig config) : config_(config) {
     VLOG(2) << "Initialzing ROS Sensor";
-    odom_sub_ = nh_.subscribe("/vrpn_client/matrice/pose", 1,
+    odom_sub_ = nh_.subscribe("/vins_estimator/odometry", 1,
                               &OdomSensor::odom_pose_Callback, this);
     sensor_quad_tf_ =
         conversions::protoTransformToTf(config_.sensor_transform());
@@ -52,15 +51,26 @@ private:
   /**
   * @brief callback for pose sensor
   */
-  void odom_pose_Callback(const geometry_msgs::TransformStamped::ConstPtr msg) {
+  void odom_pose_Callback(const nav_msgs::Odometry::ConstPtr msg) {
+    //Transform the velocity
+    tf::Vector3 velocity(msg->twist.twist.linear.x,
+                        msg->twist.twist.linear.y,
+                        msg->twist.twist.linear.z);
+    tf::Vector3 rate(msg->twist.twist.angular.x,
+                    msg->twist.twist.angular.y,
+                    msg->twist.twist.angular.z);
+    VelocityYawRate vyr(velocity.getX(),
+                        velocity.getY(),
+                        velocity.getZ(),
+                        rate.getZ());//TODO: Does this need transforming?
     //Transform the position-yaw
-    tf::Vector3 position(msg->transform.translation.x,
-                        msg->transform.translation.y,
-                        msg->transform.translation.z);
-    tf::Quaternion orientation(msg->transform.rotation.x,
-                               msg->transform.rotation.y,
-                               msg->transform.rotation.z,
-                               msg->transform.rotation.w);
+    tf::Vector3 position(msg->pose.pose.position.x,
+                        msg->pose.pose.position.y,
+                        msg->pose.pose.position.z);
+    tf::Quaternion orientation(msg->pose.pose.orientation.x,
+                               msg->pose.pose.orientation.y,
+                               msg->pose.pose.orientation.z,
+                               msg->pose.pose.orientation.w);
     tf::Transform pyTransform(orientation,position);
     pyTransform = pyTransform * sensor_quad_tf_;
     //Set the result
@@ -68,17 +78,6 @@ private:
                    pyTransform.getOrigin().getY(),
                    pyTransform.getOrigin().getZ(),
                    tf::getYaw(pyTransform.getRotation()));
-    //Find the difference velocity
-    std::tuple<VelocityYawRate,PositionYaw> sensor_data = sensor_data_;
-    PositionYaw deltaPosYaw = py - std::get<1>(sensor_data);
-    double deltaT = (msg->header.stamp - last_msg_time_).toSec();
-    deltaPosYaw = deltaPosYaw * (1/deltaT);
-    VelocityYawRate vyr(deltaPosYaw.x,
-                        deltaPosYaw.y,
-                        deltaPosYaw.z,
-                        deltaPosYaw.yaw);
-    //Filter the velocity with the last velocity
-    vyr = vyr * alpha + std::get<0>(sensor_data) * (1 - alpha);
     //set the tuple to the sensor_data_
     sensor_data_ = std::make_tuple(vyr,py);
     last_msg_time_ = msg->header.stamp;
@@ -108,5 +107,4 @@ private:
   */
   Atomic<std::tuple<VelocityYawRate, PositionYaw>> sensor_data_;
 
-  double alpha = 0.5;
 };
