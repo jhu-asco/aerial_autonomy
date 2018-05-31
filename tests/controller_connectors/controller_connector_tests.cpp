@@ -74,6 +74,23 @@ TEST(BaseControllerConnectorTests, EmptyRunFunction) {
   controller_connector.setGoal(2);
   ASSERT_NO_THROW(controller_connector.run());
 }
+TEST(BaseControllerConnectorTests, DefaultStatus) {
+  SampleController controller;
+  LowlevelSampleControllerConnector controller_connector(controller);
+  ASSERT_EQ(controller_connector.getStatus(), ControllerStatus::NotEngaged);
+}
+TEST(BaseControllerConnectorTests, Disengage) {
+  SampleController controller;
+  LowlevelSampleControllerConnector controller_connector(controller);
+  controller_connector.setGoal(2);
+  ASSERT_EQ(controller_connector.getStatus(), ControllerStatus::Active);
+  controller_connector.disengage();
+  ASSERT_EQ(controller_connector.getStatus(), ControllerStatus::NotEngaged);
+  // Running controller will not change status when disengaged
+  controller_connector.run();
+  ASSERT_EQ(controller_connector.getStatus(), ControllerStatus::NotEngaged);
+}
+
 ///
 /// \brief TEST Sample robot system
 TEST(SampleRobotSystemTest, DependentConnectorActivation) {
@@ -103,6 +120,30 @@ TEST(SampleRobotSystemTest, DependentConnectorSetGoal) {
   // Check dependent controller
   robot_system.runActiveController(ControllerGroup::UAV);
   ASSERT_EQ(controller1.control_, controller2.control_ + 1);
+}
+TEST(SampleRobotSystemTest, DependentConnectorAbort) {
+  SampleController controller1, controller2;
+  LowlevelSampleControllerConnector lowlevel_controller_connector(controller1);
+  SampleControllerConnector highlevel_controller_connector(
+      controller2, lowlevel_controller_connector);
+  SampleRobotSystem robot_system;
+  robot_system.addControllerConnector(highlevel_controller_connector);
+  robot_system.addControllerConnector(lowlevel_controller_connector);
+  robot_system.setGoal<SampleControllerConnector>(5);
+  // Verify they are active
+  ASSERT_EQ(lowlevel_controller_connector.getStatus(),
+            ControllerStatus::Active);
+  ASSERT_EQ(highlevel_controller_connector.getStatus(),
+            ControllerStatus::Completed);
+  // Abort
+  robot_system.abortController(ControllerGroup::Arm);
+  ASSERT_EQ(lowlevel_controller_connector.getStatus(),
+            ControllerStatus::NotEngaged);
+  ASSERT_EQ(highlevel_controller_connector.getStatus(),
+            ControllerStatus::NotEngaged);
+  // Running controller does not change the control
+  robot_system.runActiveController(ControllerGroup::UAV);
+  ASSERT_EQ(controller1.control_, 0);
 }
 ///
 
