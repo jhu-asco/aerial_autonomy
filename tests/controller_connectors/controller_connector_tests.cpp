@@ -142,6 +142,9 @@ TEST(SampleRobotSystemTest, DependentConnectorAbort) {
   ASSERT_EQ(highlevel_controller_connector.getStatus(),
             ControllerStatus::NotEngaged);
   // Running controller does not change the control
+  // Since UAV group is dependent on Arm controller group
+  // i.e high level controller, the UAV controller is also
+  // aborted.
   robot_system.runActiveController(ControllerGroup::UAV);
   ASSERT_EQ(controller1.control_, 0);
 }
