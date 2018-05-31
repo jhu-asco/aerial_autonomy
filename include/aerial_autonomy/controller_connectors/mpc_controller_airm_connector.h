@@ -5,15 +5,12 @@
 #include "aerial_autonomy/types/arm_state.h"
 #include "aerial_autonomy/types/quad_state.h"
 #include "aerial_autonomy/types/roll_pitch_yaw_thrust.h"
-#include <arm_parsers/arm_parser.h>
-#include <parsernode/parser.h>
-
 #include <Eigen/Dense>
+#include <arm_parsers/arm_parser.h>
 #include <chrono>
-
+#include <parsernode/parser.h>
 #include <queue>
 #include <tf/tf.h>
-///\todo Add config with sensor parameters, clipping rpydot, v
 
 /**
 * @brief Controller connector for generic MPC Controller for Quadrotor and arm

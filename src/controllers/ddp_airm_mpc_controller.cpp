@@ -154,3 +154,35 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   loop_timer_.loop_end();
   return true;
 }
+
+void DDPAirmMPCController::getTrajectory(
+    gcop_comm::CtrlTraj &control_trajectory) {
+  control_trajectory.N = us_.size();
+  for (unsigned int i = 0; i < (control_trajectory.N + 1); ++i) {
+    const auto &x = xs_[i];
+    gcop_comm::State state;
+    state.basepose.translation.x = x[0];
+    state.basepose.translation.y = x[1];
+    state.basepose.translation.z = x[2];
+    tf::Quaternion quat = tf::createQuaternionFromRPY(x[3], x[4], x[5]);
+    tf::quaternionTFToMsg(quat, state.basepose.rotation);
+    state.basetwist.linear.x = x[6];
+    state.basetwist.linear.y = x[7];
+    state.basetwist.linear.z = x[8];
+    for (int j = 0; j < 4; ++j) {
+      state.statevector.push_back(x[15 + j]);
+    }
+    control_trajectory.statemsg.push_back(state);
+    if (i < control_trajectory.N) {
+      gcop_comm::Ctrl control;
+      control.ctrlvec[0] = us_[i][0]; // thrust
+      for (int j = 0; j < 3; ++j) {
+        control.ctrlvec[j + 1] = x[12 + j];
+      }
+      // Desired joint angles
+      control.ctrlvec[4] = x[19];
+      control.ctrlvec[4] = x[20];
+      control_trajectory.ctrl.push_back(control);
+    }
+  }
+}

@@ -24,6 +24,7 @@ find_package(catkin REQUIRED COMPONENTS
   image_transport
   ar_track_alvar_msgs
   dynamic_reconfigure
+  gcop_comm
 )
 
 find_package(arm_plugins)

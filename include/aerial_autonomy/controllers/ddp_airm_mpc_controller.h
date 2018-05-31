@@ -13,6 +13,7 @@
 #include <gcop/ddp.h>
 #include <gcop/loop_timer.h>
 #include <gcop/lqcost.h>
+#include <gcop_comm/CtrlTraj.h>
 
 #include <glog/logging.h>
 
@@ -27,6 +28,10 @@ public:
   DDPAirmMPCController(AirmMPCControllerConfig config,
                        double controller_duration);
   void resetControls();
+
+  void getTrajectory(gcop_comm::CtrlTraj &control_trajectory);
+
+  void getDesiredTrajectory(gcop_comm::CtrlTraj &desired_trajectory);
 
 protected:
   bool runImplementation(MPCInputs<StateType> sensor_data, GoalType goal,
