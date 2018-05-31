@@ -1,4 +1,5 @@
 #include "aerial_autonomy/controllers/ddp_airm_mpc_controller.h"
+#include "aerial_autonomy/common/atomic.h"
 #include <gcop/load_eigen_matrix.h>
 
 DDPAirmMPCController::DDPAirmMPCController(AirmMPCControllerConfig config,
@@ -83,6 +84,7 @@ void DDPAirmMPCController::resetControls() {
 
 ControllerStatus DDPAirmMPCController::isConvergedImplementation(
     MPCInputs<StateType> sensor_data, GoalType) {
+  boost::mutex::scoped_lock lock(copy_mutex_);
   ControllerStatus controller_status = ControllerStatus::Active;
   Eigen::Vector3d error_position =
       sensor_data.initial_state.segment<3>(0) - xds_.at(0).segment<3>(0);
@@ -106,6 +108,7 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
                                              GoalType goal,
                                              ControlType &control) {
   loop_timer_.loop_start();
+  boost::mutex::scoped_lock lock(copy_mutex_);
   auto &ddp_config = config_.ddp_config();
   int max_iters = ddp_config.max_iters();
   int N = ddp_config.n();
@@ -155,34 +158,16 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   return true;
 }
 
-void DDPAirmMPCController::getTrajectory(
-    gcop_comm::CtrlTraj &control_trajectory) {
-  control_trajectory.N = us_.size();
-  for (unsigned int i = 0; i < (control_trajectory.N + 1); ++i) {
-    const auto &x = xs_[i];
-    gcop_comm::State state;
-    state.basepose.translation.x = x[0];
-    state.basepose.translation.y = x[1];
-    state.basepose.translation.z = x[2];
-    tf::Quaternion quat = tf::createQuaternionFromRPY(x[3], x[4], x[5]);
-    tf::quaternionTFToMsg(quat, state.basepose.rotation);
-    state.basetwist.linear.x = x[6];
-    state.basetwist.linear.y = x[7];
-    state.basetwist.linear.z = x[8];
-    for (int j = 0; j < 4; ++j) {
-      state.statevector.push_back(x[15 + j]);
-    }
-    control_trajectory.statemsg.push_back(state);
-    if (i < control_trajectory.N) {
-      gcop_comm::Ctrl control;
-      control.ctrlvec[0] = us_[i][0]; // thrust
-      for (int j = 0; j < 3; ++j) {
-        control.ctrlvec[j + 1] = x[12 + j];
-      }
-      // Desired joint angles
-      control.ctrlvec[4] = x[19];
-      control.ctrlvec[4] = x[20];
-      control_trajectory.ctrl.push_back(control);
-    }
-  }
+void DDPAirmMPCController::getTrajectory(std::vector<StateType> &xs,
+                                         std::vector<ControlType> &us) const {
+  boost::mutex::scoped_lock lock(copy_mutex_);
+  xs = xs_;
+  us = us_;
+}
+
+void DDPAirmMPCController::getDesiredTrajectory(
+    std::vector<StateType> &xds, std::vector<ControlType> &uds) const {
+  boost::mutex::scoped_lock lock(copy_mutex_);
+  xds = xds_;
+  uds = uds_;
 }

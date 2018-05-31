@@ -13,7 +13,6 @@
 #include <gcop/ddp.h>
 #include <gcop/loop_timer.h>
 #include <gcop/lqcost.h>
-#include <gcop_comm/CtrlTraj.h>
 
 #include <glog/logging.h>
 
@@ -29,9 +28,11 @@ public:
                        double controller_duration);
   void resetControls();
 
-  void getTrajectory(gcop_comm::CtrlTraj &control_trajectory);
+  void getTrajectory(std::vector<StateType> &xs,
+                     std::vector<ControlType> &us) const;
 
-  void getDesiredTrajectory(gcop_comm::CtrlTraj &desired_trajectory);
+  void getDesiredTrajectory(std::vector<StateType> &xds,
+                            std::vector<ControlType> &uds) const;
 
 protected:
   bool runImplementation(MPCInputs<StateType> sensor_data, GoalType goal,
@@ -45,13 +46,14 @@ private:
   std::unique_ptr<gcop::Ddp<Eigen::VectorXd>> ddp_;
   std::unique_ptr<gcop::LqCost<Eigen::VectorXd>> cost_;
   Eigen::VectorXd xf_;
-  std::vector<Eigen::VectorXd> xs_;
-  std::vector<Eigen::VectorXd> us_;
-  std::vector<Eigen::VectorXd> xds_;
-  std::vector<Eigen::VectorXd> uds_;
+  std::vector<StateType> xs_;
+  std::vector<ControlType> us_;
+  std::vector<StateType> xds_;
+  std::vector<ControlType> uds_;
   Eigen::VectorXd kt_;
   std::vector<double> ts_;
   int look_ahead_index_shift_;
   LoopTimer loop_timer_;
   int control_timer_shift_;
+  mutable boost::mutex copy_mutex_; ///< Synchronize access to data
 };

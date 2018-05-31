@@ -14,7 +14,7 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
       pose_sensor_(pose_sensor), thrust_gain_estimator_(thrust_gain_estimator),
       joint_angle_commands_(2), previous_measurements_(8),
       previous_measurement_time_(std::chrono::high_resolution_clock::now()),
-      delay_buffer_size_(delay_buffer_size) {
+      delay_buffer_size_(delay_buffer_size), private_controller_(controller) {
   clearCommandBuffers();
 }
 
@@ -106,4 +106,14 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
                                        quad_data.linacc.z);
   params.resize(1, thrust_gain_estimator_.getThrustGain());
   return true;
+}
+
+void MPCControllerAirmConnector::getTrajectory(
+    std::vector<StateType> &xs, std::vector<ControlType> &us) const {
+  private_controller_.getTrajectory(xs, us);
+}
+
+void MPCControllerAirmConnector::getDesiredTrajectory(
+    std::vector<StateType> &xds, std::vector<ControlType> &uds) const {
+  private_controller_.getDesiredTrajectory(xds, uds);
 }

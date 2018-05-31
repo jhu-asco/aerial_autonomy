@@ -31,8 +31,6 @@ public:
   * @brief Constructor.
   *
   * Initializes start time
-  * \todo Gowtham create control selector based on proto strategy
-  *
   * @param controller The MPC Controller to use
   * @param constraint_generator The constraint generator to use
   * @param state_estimator state estimator that finds the state of robot
@@ -79,6 +77,12 @@ public:
     BaseConnector::setGoal(goal);
     t_goal_ = std::chrono::high_resolution_clock::now();
   }
+
+  virtual void getTrajectory(std::vector<StateT> &xs,
+                             std::vector<ControlT> &us) const = 0;
+
+  virtual void getDesiredTrajectory(std::vector<StateT> &xds,
+                                    std::vector<ControlT> &uds) const = 0;
 
 private:
   AbstractConstraintGenerator &constraint_generator_; ///< Generates constraints

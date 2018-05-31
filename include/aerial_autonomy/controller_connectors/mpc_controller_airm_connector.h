@@ -55,6 +55,12 @@ public:
   bool estimateStateAndParameters(Eigen::VectorXd &current_state,
                                   Eigen::VectorXd &params);
 
+  void getTrajectory(std::vector<StateType> &xs,
+                     std::vector<ControlType> &us) const;
+
+  void getDesiredTrajectory(std::vector<StateType> &xds,
+                            std::vector<ControlType> &uds) const;
+
 protected:
   void clearCommandBuffers();
 
@@ -74,4 +80,8 @@ private:
   std::queue<Eigen::Vector3d> rpy_command_buffer_; ///< Rpy command buffer
   Eigen::Vector2d previous_joint_commands_;        ///< Previous joint commands
   int delay_buffer_size_; ///< Size of rpy command buffer
+  AbstractMPCController<StateType, ControlType>
+      &private_controller_; ///< Private ref
+  boost::mutex
+      copy_mutex_; ///< Mutex for copying states and reference trajectories
 };

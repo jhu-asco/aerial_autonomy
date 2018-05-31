@@ -16,4 +16,10 @@
 template <class StateT, class ControlT>
 class AbstractMPCController
     : public Controller<MPCInputs<StateT>,
-                        ReferenceTrajectoryPtr<StateT, ControlT>, ControlT> {};
+                        ReferenceTrajectoryPtr<StateT, ControlT>, ControlT> {
+public:
+  virtual void getTrajectory(std::vector<StateT> &xs,
+                             std::vector<ControlT> &us) const = 0;
+  virtual void getDesiredTrajectory(std::vector<StateT> &xds,
+                                    std::vector<ControlT> &uds) const = 0;
+};

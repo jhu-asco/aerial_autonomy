@@ -228,6 +228,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/qrotor_backstepping_controller_config.proto
   proto/ddp_mpc_controller_config.proto
   proto/airm_mpc_controller_config.proto
+  proto/mpc_visualizer_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -261,6 +262,7 @@ set(SRC
   src/common/controller_status.cpp
   src/common/string_utils.cpp
   src/common/system_handler_node_utils.cpp
+  src/common/mpc_trajectory_visualizer.cpp
   src/log/data_stream.cpp
   src/log/log.cpp
   src/log/mocap_logger.cpp
