@@ -76,10 +76,10 @@ public:
   template <class ControllerConnectorT, class GoalT> void setGoal(GoalT goal) {
     ControllerConnectorT *controller_connector =
         controller_connector_container_.getObject<ControllerConnectorT>();
-    ControllerGroup controller_group =
-        controller_connector->getControllerGroup();
-    abortController(controller_group);
     if(controller_connector != nullptr) {
+      ControllerGroup controller_group =
+          controller_connector->getControllerGroup();
+      abortController(controller_group);
       controller_connector->setGoal(goal);
     }
     activateControllerConnector(controller_connector);
