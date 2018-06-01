@@ -229,6 +229,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/ddp_mpc_controller_config.proto
   proto/airm_mpc_controller_config.proto
   proto/mpc_visualizer_config.proto
+  proto/spiral_reference_trajectory_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -274,6 +275,7 @@ set(SRC
   src/trackers/closest_tracking_strategy.cpp
   src/trackers/id_tracking_strategy.cpp
   src/trackers/simple_tracking_strategy.cpp
+  src/types/spiral_reference_trajectory.cpp
   src/controllers/manual_rpyt_controller.cpp
   src/controllers/velocity_based_position_controller.cpp
   src/controllers/constant_heading_depth_controller.cpp
