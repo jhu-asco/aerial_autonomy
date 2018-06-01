@@ -13,9 +13,9 @@ public:
                             ArmSineControllerConfig arm_config,
                             Eigen::Vector3d current_position,
                             double current_yaw, double kt);
-  std::pair<StateT, ControlT> atTime(double t);
+  std::pair<StateT, ControlT> atTime(double t) const;
   void getRP(double &roll, double &pitch, double yaw,
-             Eigen::Vector3d acceleration_vector);
+             Eigen::Vector3d acceleration_vector) const;
 
 private:
   SpiralReferenceTrajectoryConfig config_;

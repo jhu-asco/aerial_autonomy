@@ -8,10 +8,14 @@ SpiralReferenceTrajectory::SpiralReferenceTrajectory(
       current_position_(current_position), current_yaw_(current_yaw), kt_(kt) {
   const auto &joint_config_vec = arm_config_.joint_config();
   CHECK(joint_config_vec.size() == 2) << "There should be two joints";
+  CHECK(kt > 0) << "Thrust gain cannot be less than 0";
+  CHECK(config.frequency_z() > 0)
+      << "Z frequency cannot be 0 which implies z amplitude is infinity";
 }
 
-void SpiralReferenceTrajectory::getRP(double &roll, double &pitch, double yaw,
-                                      Eigen::Vector3d acceleration_vector) {
+void SpiralReferenceTrajectory::getRP(
+    double &roll, double &pitch, double yaw,
+    Eigen::Vector3d acceleration_vector) const {
   Eigen::Vector3d unit_vec = acceleration_vector.normalized();
   double s_yaw = sin(yaw);
   double c_yaw = cos(yaw);
@@ -32,7 +36,7 @@ void SpiralReferenceTrajectory::getRP(double &roll, double &pitch, double yaw,
 }
 
 std::pair<Eigen::VectorXd, Eigen::VectorXd>
-SpiralReferenceTrajectory::atTime(double t) {
+SpiralReferenceTrajectory::atTime(double t) const {
   // State: position, rpy, velocity, rpydot, rpyd, ja, jv, jad
   // Controls: thrust, rpyd_dot, jad_dot;
   Eigen::VectorXd x(21);
@@ -45,7 +49,10 @@ SpiralReferenceTrajectory::atTime(double t) {
   const double frequency_z = config_.frequency_z();
   const double frequency_yaw = config_.frequency_yaw();
   const double amplitude_yaw = config_.amplitude_yaw();
-  double sign = std::fmod(t * frequency_z, 2.0) < 1.0 ? 1.0 : -1.0;
+  double amplitude_z = velocity_z / frequency_z;
+  double z_rem = std::fmod(t * frequency_z, 2.0);
+  double sign = z_rem < 1.0 ? 1.0 : -1.0;
+  double dist_z = z_rem < 1.0 ? z_rem : (2.0 - z_rem);
   double angle = omega * t + phase;
   double omega_yaw = 2 * M_PI * frequency_yaw;
   double angle_yaw = omega_yaw * t;
@@ -57,7 +64,7 @@ SpiralReferenceTrajectory::atTime(double t) {
   // Position
   x[0] = current_position_[0] + rx * sin(angle);
   x[1] = current_position_[1] + ry * cos(angle);
-  x[2] = current_position_[2] + signed_velocity_z * t;
+  x[2] = current_position_[2] + amplitude_z * dist_z;
   // Rpy
   getRP(x[3], x[4], yaw, acceleration_vector);
   x[5] = yaw;

@@ -5,12 +5,6 @@ import "velocity.proto";
 */
 
 message SpiralReferenceTrajectoryConfig {
-  /*enum TrajectoryClass {
-    Circle=0;
-    StraightLine=2;
-  }*/
-  // Default is the first value i.e circle
-  // optional TrajectoryClass trajectory_class = 1;
   optional double frequency = 1 [ default = 0.1 ];
   optional double phase = 2 [ default = 0 ];
   optional double radiusx = 3 [ default = 0.1 ];
@@ -19,7 +13,4 @@ message SpiralReferenceTrajectoryConfig {
   optional double frequency_z = 6 [ default = 0.1 ];
   optional double frequency_yaw = 7 [ default = 0 ];
   optional double amplitude_yaw = 8 [ default = 0 ];
-  /*optional config.Position end_point = 8;
-  optional config.Velocity linear_velocity = 9;
-  */
 }
