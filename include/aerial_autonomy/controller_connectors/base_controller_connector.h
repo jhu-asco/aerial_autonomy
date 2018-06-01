@@ -26,6 +26,12 @@ public:
   virtual ControllerStatus getStatus() const = 0;
 
   /**
+   * @brief disengage the connector i.e perform any cleaning
+   * up necessary at the end of the connector run
+   */
+  virtual void disengage() = 0;
+
+  /**
   * @brief Adds another connector to be dependent on the current connector. If
   * the current connector is active, the dependent connector also gets active.
   * It is assumed that the current connector will configure the dependent
@@ -87,7 +93,7 @@ public:
       Controller<SensorDataType, GoalType, ControlType> &controller,
       ControllerGroup controller_group)
       : AbstractControllerConnector(), controller_group_(controller_group),
-        controller_(controller) {}
+        controller_(controller), status_(ControllerStatus::NotEngaged) {}
 
   /**
    * @brief Extracts sensor data, run controller and send data back to hardware
@@ -96,6 +102,10 @@ public:
     // Get latest sensor data
     // run the controller
     // send the data back to hardware manager
+    // Do not run the controller if connector is not engaged
+    if (status_ == ControllerStatus::NotEngaged) {
+      return;
+    }
     SensorDataType sensor_data;
     ControlType control;
     if (!extractSensorData(sensor_data)) {
@@ -140,6 +150,11 @@ public:
   * @return The status of the controller
   */
   ControllerStatus getStatus() const { return status_; }
+
+  /**
+   * @brief disengage the connector i.e set status to not engaged
+   */
+  void disengage() { status_ = ControllerStatus::NotEngaged; }
 
 protected:
   /**

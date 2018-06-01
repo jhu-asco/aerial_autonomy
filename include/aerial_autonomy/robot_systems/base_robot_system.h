@@ -51,9 +51,9 @@ public:
       throw std::runtime_error(
           "null pointer provided for activating controller connector");
     }
+    controller_connector->initialize();
     ControllerGroup controller_group =
         controller_connector->getControllerGroup();
-    controller_connector->initialize();
     if (active_controllers_[controller_group] != controller_connector) {
       boost::mutex::scoped_lock lock(*thread_mutexes_[controller_group]);
       active_controllers_[controller_group] = controller_connector;
@@ -76,7 +76,12 @@ public:
   template <class ControllerConnectorT, class GoalT> void setGoal(GoalT goal) {
     ControllerConnectorT *controller_connector =
         controller_connector_container_.getObject<ControllerConnectorT>();
-    controller_connector->setGoal(goal);
+    if(controller_connector != nullptr) {
+      ControllerGroup controller_group =
+          controller_connector->getControllerGroup();
+      abortController(controller_group);
+      controller_connector->setGoal(goal);
+    }
     activateControllerConnector(controller_connector);
   }
   /**
@@ -138,8 +143,23 @@ public:
   * switched off
   */
   void abortController(ControllerGroup controller_group) {
-    boost::mutex::scoped_lock lock(*thread_mutexes_[controller_group]);
-    active_controllers_[controller_group] = nullptr;
+    AbstractControllerConnector *const active_controller =
+        active_controllers_[controller_group];
+    if (active_controller != nullptr) {
+      // Disengage the controller
+      {
+        boost::mutex::scoped_lock lock(*thread_mutexes_[controller_group]);
+        active_controller->disengage();
+        active_controllers_[controller_group] = nullptr;
+      }
+      AbstractControllerConnector *dependent_connector =
+          active_controller->getDependentConnector();
+      if (dependent_connector != nullptr) {
+        ControllerGroup dependent_group =
+            dependent_connector->getControllerGroup();
+        abortController(dependent_group);
+      }
+    }
   }
 
   /**
