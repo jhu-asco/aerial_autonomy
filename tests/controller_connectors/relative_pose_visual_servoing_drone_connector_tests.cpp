@@ -116,6 +116,7 @@ public:
 TEST_F(RelativePoseVisualServoingControllerDroneConnectorTests, Constructor) {}
 
 TEST_F(RelativePoseVisualServoingControllerDroneConnectorTests, CriticalRun) {
+  visual_servoing_connector_->setGoal(PositionYaw());
   // make tracking invalid:
   simple_tracker_->setTrackingIsValid(false);
   // Run connector

@@ -49,6 +49,7 @@ public:
 TEST_F(VisualServoingControllerArmConnectorTests, Constructor) {}
 
 TEST_F(VisualServoingControllerArmConnectorTests, CriticalRun) {
+  visual_servoing_connector_->setGoal(tf::Transform());
   // make tracking invalid:
   simple_tracker_->setTrackingIsValid(false);
   // Run connector

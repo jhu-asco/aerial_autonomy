@@ -145,6 +145,7 @@ public:
 TEST_F(RPYTRelativePoseVisualConnectorTests, Constructor) {}
 
 TEST_F(RPYTRelativePoseVisualConnectorTests, CriticalRun) {
+  visual_servoing_connector_->setGoal(PositionYaw());
   // make tracking invalid:
   simple_tracker_->setTrackingIsValid(false);
   // Run connector
