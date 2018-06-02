@@ -276,6 +276,7 @@ set(SRC
   src/trackers/id_tracking_strategy.cpp
   src/trackers/simple_tracking_strategy.cpp
   src/types/spiral_reference_trajectory.cpp
+  src/types/sensor_status.cpp
   src/controllers/manual_rpyt_controller.cpp
   src/controllers/velocity_based_position_controller.cpp
   src/controllers/constant_heading_depth_controller.cpp
@@ -300,6 +301,7 @@ set(SRC
   src/controller_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_connectors/manual_rpyt_controller_drone_connector.cpp
   src/controller_connectors/joystick_velocity_controller_drone_connector.cpp
+  src/sensors/mocap_sensor.cpp
 )
 
 if (casadi_FOUND)
