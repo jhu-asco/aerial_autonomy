@@ -2,24 +2,35 @@
 #include "aerial_autonomy/common/atomic.h"
 #include <gcop/load_eigen_matrix.h>
 
+void DDPAirmMPCController::loadQuadParameters(Eigen::Vector3d &kp_rpy,
+                                              Eigen::Vector3d &kd_rpy,
+                                              Eigen::VectorXd &p,
+                                              std::string folder_path) {
+  Eigen::Vector2d kp_rp =
+      gcop::loadEigenMatrix(folder_path + "/rpy_gains_kp_0");
+  kp_rpy[0] = kp_rp[0];
+  kp_rpy[1] = kp_rp[1];
+  kp_rpy[2] = 0;
+  kd_rpy = gcop::loadEigenMatrix(folder_path + "/rpy_gains_kd_0");
+  p << config_.default_thrust_gain();
+}
+
+void DDPAirmMPCController::loadArmParameters(Eigen::Vector2d &kp_ja,
+                                             Eigen::Vector2d &kd_ja,
+                                             std::string folder_path) {
+  kp_ja = gcop::loadEigenMatrix(folder_path + "/joint_gains_kp_0");
+  kd_ja = gcop::loadEigenMatrix(folder_path + "/joint_gains_kd_0");
+}
+
 DDPAirmMPCController::DDPAirmMPCController(AirmMPCControllerConfig config,
                                            double controller_duration)
     : config_(config), kt_(1) {
   // Instantiate system
   std::string folder_path = config.weights_folder();
-  Eigen::Vector2d kp_rp =
-      gcop::loadEigenMatrix(folder_path + "/rpy_gains_kp_0");
-  Eigen::Vector3d kp_rpy;
-  kp_rpy[0] = kp_rp[0];
-  kp_rpy[1] = kp_rp[1];
-  kp_rpy[2] = 0;
-  Eigen::Vector3d kd_rpy =
-      gcop::loadEigenMatrix(folder_path + "/rpy_gains_kd_0");
-  Eigen::Vector2d kp_ja =
-      gcop::loadEigenMatrix(folder_path + "/joint_gains_kp_0");
-  Eigen::Vector2d kd_ja =
-      gcop::loadEigenMatrix(folder_path + "/joint_gains_kd_0");
-  kt_ << config.default_thrust_gain();
+  Eigen::Vector3d kp_rpy, kd_rpy;
+  Eigen::Vector2d kp_ja, kd_ja;
+  loadQuadParameters(kp_rpy, kd_rpy, kt_, folder_path);
+  loadArmParameters(kp_ja, kd_ja, folder_path);
   if (config.use_residual_dynamics()) {
     sys_.reset(new gcop::AirmResidualNetworkModel(
         kt_, kp_rpy, kd_rpy, kp_ja, kd_ja, config.max_joint_velocity(),
@@ -59,8 +70,9 @@ DDPAirmMPCController::DDPAirmMPCController(AirmMPCControllerConfig config,
   uds_.resize(N);
   cost_->SetReference(&xds_, &uds_);
   // Times
-  for (int k = 0; k <= N; ++k)
+  for (int k = 0; k <= N; ++k) {
     ts_.push_back(k * h);
+  }
   // states
   xs_.resize(N + 1);
   resetControls(); // Set controls to default values

@@ -34,6 +34,12 @@ public:
   void getDesiredTrajectory(std::vector<StateType> &xds,
                             std::vector<ControlType> &uds) const;
 
+  void loadQuadParameters(Eigen::Vector3d &kp_rpy, Eigen::Vector3d &kd_rpy,
+                          Eigen::VectorXd &p, std::string folder_path);
+
+  void loadArmParameters(Eigen::Vector2d &kp_ja, Eigen::Vector2d &kd_ja,
+                         std::string folder_path);
+
 protected:
   bool runImplementation(MPCInputs<StateType> sensor_data, GoalType goal,
                          ControlType &control);
@@ -45,7 +51,7 @@ private:
   std::unique_ptr<gcop::CasadiSystem<>> sys_;
   std::unique_ptr<gcop::Ddp<Eigen::VectorXd>> ddp_;
   std::unique_ptr<gcop::LqCost<Eigen::VectorXd>> cost_;
-  Eigen::VectorXd xf_;
+  Eigen::VectorXd xf_; ///< Not being used since xds and uds are used
   std::vector<StateType> xs_;
   std::vector<ControlType> us_;
   std::vector<StateType> xds_;
