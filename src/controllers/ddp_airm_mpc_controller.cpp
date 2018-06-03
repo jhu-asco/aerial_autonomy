@@ -39,6 +39,7 @@ DDPAirmMPCController::DDPAirmMPCController(AirmMPCControllerConfig config,
     sys_.reset(new gcop::AerialManipulationFeedforwardSystem(
         kt_, kp_rpy, kd_rpy, kp_ja, kd_ja, config.max_joint_velocity(), true));
   }
+  VLOG(1) << "Instantiating Step function";
   sys_->instantiateStepFunction();
   // cost
   auto ddp_config = config_.ddp_config();
@@ -54,18 +55,25 @@ DDPAirmMPCController::DDPAirmMPCController(AirmMPCControllerConfig config,
   CHECK(look_ahead_index_shift_ < N)
       << "Look ahead time should be less than trajectory end time";
   VLOG(1) << "Manifold size: " << (sys_->X.n);
+  xf_.resize(21);
+  xf_.setZero();
   cost_.reset(new gcop::LqCost<Eigen::VectorXd>(*sys_, tf, xf_));
-  cost_->Q = (conversions::vectorProtoToEigen(ddp_config.q())).asDiagonal();
-  CHECK(cost_->Q.rows() == sys_->X.n)
+  VLOG(1) << "Created cost function";
+  CHECK(ddp_config.q_size() == sys_->X.n)
       << "Cost dimension should be same as system state size";
-  cost_->Qf = (conversions::vectorProtoToEigen(ddp_config.qf())).asDiagonal();
-  CHECK(cost_->Qf.rows() == sys_->X.n)
-      << "Cost dimension should be same as system state size";
-  cost_->R = (conversions::vectorProtoToEigen(ddp_config.r())).asDiagonal();
-  CHECK(cost_->R.rows() == sys_->U.n)
+  CHECK(ddp_config.qf_size() == sys_->X.n)
+      << "Final Cost dimension should be same as system state size";
+  CHECK(ddp_config.r_size() == sys_->U.n)
       << "Control cost dimension should be same as system control size";
+  cost_->Q =
+      (conversions::vectorProtoToEigen(*ddp_config.mutable_q())).asDiagonal();
+  cost_->Qf =
+      (conversions::vectorProtoToEigen(*ddp_config.mutable_qf())).asDiagonal();
+  cost_->R =
+      (conversions::vectorProtoToEigen(*ddp_config.mutable_r())).asDiagonal();
   cost_->UpdateGains();
   // References:
+  VLOG(1) << "Trajectory length: " << N;
   xds_.resize(N + 1);
   uds_.resize(N);
   cost_->SetReference(&xds_, &uds_);
@@ -74,13 +82,17 @@ DDPAirmMPCController::DDPAirmMPCController(AirmMPCControllerConfig config,
     ts_.push_back(k * h);
   }
   // states
-  xs_.resize(N + 1);
+  Eigen::VectorXd default_state(21);
+  default_state.setZero();
+  xs_.resize(N + 1, default_state);
   resetControls(); // Set controls to default values
   // Ddp
+  VLOG(1) << "Creating ddp";
   ddp_.reset(
       new gcop::Ddp<Eigen::VectorXd>(*sys_, *cost_, ts_, xs_, us_, &kt_));
   ddp_->mu = config.ddp_config().mu();
   ddp_->debug = config.ddp_config().debug();
+  VLOG(1) << "Done setting up ddp";
 }
 
 void DDPAirmMPCController::resetControls() {
@@ -116,9 +128,22 @@ ControllerStatus DDPAirmMPCController::isConvergedImplementation(
   return controller_status;
 }
 
+void DDPAirmMPCController::rotateControls(int shift_length) {
+  int N = us_.size();
+  // Rotate controls by control timer shift
+  // in proto file (Default 50 Hz)
+  for (int i = 0; i < N - shift_length; ++i) {
+    us_[i] = us_[i + shift_length];
+  }
+  for (int i = N - shift_length; i < N; ++i) {
+    us_[i] = us_[N - 1];
+  }
+}
+
 bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
                                              GoalType goal,
                                              ControlType &control) {
+  bool result = true;
   loop_timer_.loop_start();
   boost::mutex::scoped_lock lock(copy_mutex_);
   auto &ddp_config = config_.ddp_config();
@@ -127,34 +152,32 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   double h = ddp_config.h();
   double t0 = sensor_data.time_since_goal;
   // Get MPC Reference from high level reference trajectory
-  for (int i = 0; i < N; ++i) {
+  for (int i = 0; i <= N; ++i) {
     double t = t0 + i * h;
     std::pair<StateType, ControlType> state_control_pair = goal->atTime(t);
     xds_.at(i) = state_control_pair.first;
-    uds_.at(i) = state_control_pair.second;
+    if (i < N) {
+      uds_.at(i) = state_control_pair.second;
+    }
   }
   // Start state
   xs_.at(0) = sensor_data.initial_state;
   // Parameters
   kt_[0] = sensor_data.parameters[0]; // copy kt
-  // Rotate controls by control timer shift
-  // in proto file (Default 50 Hz)
-  for (int i = 0; i < N - control_timer_shift_; ++i) {
-    us_[i] = us_[i + control_timer_shift_];
-  }
-  for (int i = N - control_timer_shift_; i < N; ++i) {
-    us_[i] = us_[N - 1];
-  }
+  rotateControls(control_timer_shift_);
   // Update states based on controls
   ddp_->Update();
   double J = 1e6; // Assume start cost is some large value
   // Run MPC Iterations
   for (int i = 0; i < max_iters; ++i) {
     ddp_->Iterate();
+    VLOG(3) << "DDP_J: " << (ddp_->J);
     // Check for convergence
     if (std::abs(ddp_->J - J) < ddp_config.min_cost_decrease()) {
+      VLOG(3) << "Converged";
       break;
     }
+    J = ddp_->J;
   }
   VLOG(3) << "DDP_J: " << (ddp_->J);
   VLOG(3) << "xf: " << xs_.back().transpose();
@@ -162,12 +185,12 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   if (ddp_->J > ddp_config.min_cost()) {
     LOG(WARNING) << "Failed to get a reasonable trajectory using Ddp. J: "
                  << (ddp_->J);
-    return false;
+    result = false;
   }
   // Get Control to return
   control = us_[look_ahead_index_shift_];
   loop_timer_.loop_end();
-  return true;
+  return result;
 }
 
 void DDPAirmMPCController::getTrajectory(std::vector<StateType> &xs,

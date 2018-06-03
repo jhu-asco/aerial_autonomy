@@ -115,9 +115,10 @@ std::vector<tf::Transform> protoTransformsToTfs(const T &proto_tfs) {
 * @return Converted Eigen vector
 */
 template <class T> Eigen::VectorXd vectorProtoToEigen(const T &xs) {
-  Eigen::VectorXd v;
-  for (auto x : xs) {
-    v << x;
+  int N = xs.size();
+  Eigen::VectorXd v(N);
+  for (int i = 0; i < N; ++i) {
+    v[i] = xs.Get(i);
   }
   return v;
 }

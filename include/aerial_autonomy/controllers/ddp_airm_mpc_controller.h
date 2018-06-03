@@ -17,6 +17,9 @@
 #include <glog/logging.h>
 
 #include <memory>
+///\todo Add initialize part to connector which basically runs the controller
+/// once but does not send
+/// commands to quad
 
 class DDPAirmMPCController
     : public AbstractMPCController<Eigen::VectorXd, Eigen::VectorXd> {
@@ -39,6 +42,8 @@ public:
 
   void loadArmParameters(Eigen::Vector2d &kp_ja, Eigen::Vector2d &kd_ja,
                          std::string folder_path);
+
+  void rotateControls(int shift_length);
 
 protected:
   bool runImplementation(MPCInputs<StateType> sensor_data, GoalType goal,

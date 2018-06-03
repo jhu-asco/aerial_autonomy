@@ -3,7 +3,8 @@ project(aerial_autonomy)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(CMAKE_CXX_FLAGS "-g -Werror -Wall -std=c++11 --coverage ${CMAKE_CXX_FLAGS}")
-add_definitions(-DBOOST_MPL_CFG_NO_PREPROCESSED_HEADERS -DBOOST_MPL_LIMIT_MAP_SIZE=50 -DBOOST_MPL_LIMIT_VECTOR_SIZE=50 -DFUSION_MAX_VECTOR_SIZE=50)
+add_definitions(-DBOOST_MPL_CFG_NO_PREPROCESSED_HEADERS -DBOOST_MPL_LIMIT_MAP_SIZE=50 -DBOOST_MPL_LIMIT_VECTOR_SIZE=50 -DFUSION_MAX_VECTOR_SIZE=50
+                -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}")
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -319,7 +320,7 @@ add_library(aerial_autonomy
   ${SRC}
 )
 add_dependencies(aerial_autonomy proto)
-target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBS} ${ARMADILLO_LIBRARY} ${GCOP_LIBRARIES})
+target_link_libraries(aerial_autonomy proto ${GCOP_LIBRARIES} ${catkin_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBS} ${ARMADILLO_LIBRARY})
 
 
 ## Add cmake target dependencies of the library
@@ -457,6 +458,7 @@ catkin_add_gtest(${PROJECT_NAME}-proto-utils-test tests/common/proto_utils_tests
 catkin_add_gtest(${PROJECT_NAME}-reference-trajectory-test tests/types/reference_trajectory_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-airm-spiral-reference-trajectory-test tests/types/airm_spiral_reference_trajectory_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-qrotor-backstepping-controller-test tests/controllers/qrotor_backstepping_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-ddp-airm-mpc-controller-test tests/controllers/ddp_airm_mpc_controller_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
@@ -567,6 +569,9 @@ if(TARGET ${PROJECT_NAME}-constant-heading-depth-controller-test)
 endif()
 if(TARGET ${PROJECT_NAME}-qrotor-backstepping-controller-test)
   target_link_libraries(${PROJECT_NAME}-qrotor-backstepping-controller-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-ddp-airm-mpc-controller-test)
+  target_link_libraries(${PROJECT_NAME}-ddp-airm-mpc-controller-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test)
   target_link_libraries(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test aerial_autonomy ${GCOP_LIBRARIES})
