@@ -5,11 +5,11 @@
 MPCControllerAirmConnector::MPCControllerAirmConnector(
     parsernode::Parser &drone_hardware, ArmParser &arm_hardware,
     AbstractMPCController<StateType, ControlType> &controller,
-    Sensor<tf::Transform> &pose_sensor,
-    ThrustGainEstimator &thrust_gain_estimator,
-    AbstractConstraintGenerator &constraint_generator, int delay_buffer_size)
-    : MPCControllerConnector(controller, constraint_generator,
-                             ControllerGroup::UAV),
+    ThrustGainEstimator &thrust_gain_estimator, int delay_buffer_size,
+    SensorPtr<tf::StampedTransform> pose_sensor,
+    AbstractConstraintGeneratorPtr constraint_generator)
+    : MPCControllerConnector(controller, ControllerGroup::UAV,
+                             constraint_generator),
       drone_hardware_(drone_hardware), arm_hardware_(arm_hardware),
       pose_sensor_(pose_sensor), thrust_gain_estimator_(thrust_gain_estimator),
       joint_angle_commands_(2), previous_measurements_(8),
@@ -50,9 +50,19 @@ void MPCControllerAirmConnector::setGoal(
   clearCommandBuffers();
 }
 
+tf::Transform
+MPCControllerAirmConnector::getPose(const parsernode::common::quaddata &data) {
+  tf::Transform pose;
+  tf::vector3MsgToTF(data.localpos, pose.getOrigin());
+  pose.setRotation(tf::createQuaternionFromRPY(data.rpydata.x, data.rpydata.y,
+                                               data.rpydata.z));
+  return pose;
+}
+
 bool MPCControllerAirmConnector::estimateStateAndParameters(
     Eigen::VectorXd &current_state, Eigen::VectorXd &params) {
   current_state.resize(21);
+  // Timing logic
   auto current_time = std::chrono::high_resolution_clock::now();
   double dt =
       std::chrono::duration<double>(current_time - previous_measurement_time_)
@@ -61,8 +71,16 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
     LOG(WARNING) << "Time diff cannot be smaller than 1e-4";
     return false;
   }
+  // Get Quad data
+  parsernode::common::quaddata quad_data;
+  drone_hardware_.getquaddata(quad_data);
   ///\todo Do some filtering on position, rpy before differentiation
-  tf::Transform quad_pose = pose_sensor_.getSensorData();
+  tf::Transform quad_pose;
+  if (pose_sensor_) {
+    quad_pose = pose_sensor_->getSensorData();
+  } else {
+    quad_pose = getPose(quad_data);
+  }
   // Position
   const auto &quad_position = quad_pose.getOrigin();
   Eigen::Vector3d p(quad_position.x(), quad_position.y(), quad_position.z());
@@ -100,8 +118,6 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
   current_state.segment<2>(17) = joint_velocities;
   current_state.segment<2>(19) = previous_joint_commands_;
   // Estimate thrust gain parameter
-  parsernode::common::quaddata quad_data;
-  drone_hardware_.getquaddata(quad_data);
   thrust_gain_estimator_.addSensorData(quad_data.rpydata.x, quad_data.rpydata.y,
                                        quad_data.linacc.z);
   params.resize(1, thrust_gain_estimator_.getThrustGain());

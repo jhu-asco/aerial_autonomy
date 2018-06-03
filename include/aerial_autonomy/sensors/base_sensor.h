@@ -1,6 +1,7 @@
 #pragma once
 #include "aerial_autonomy/types/sensor_status.h"
 #include <aerial_autonomy/common/atomic.h>
+#include <memory>
 
 /**
 * @brief Base class for sensors
@@ -23,3 +24,6 @@ public:
   */
   virtual SensorStatus getSensorStatus() = 0;
 };
+
+template <class SensorDataT>
+using SensorPtr = std::shared_ptr<Sensor<SensorDataT>>;

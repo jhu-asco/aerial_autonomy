@@ -33,9 +33,9 @@ public:
   MPCControllerAirmConnector(
       parsernode::Parser &drone_hardware, ArmParser &arm_hardware,
       AbstractMPCController<StateType, ControlType> &controller,
-      Sensor<tf::Transform> &pose_sensor,
-      ThrustGainEstimator &thrust_gain_estimator,
-      AbstractConstraintGenerator &constraint_generator, int delay_buffer_size);
+      ThrustGainEstimator &thrust_gain_estimator, int delay_buffer_size = 1,
+      SensorPtr<tf::StampedTransform> pose_sensor = nullptr,
+      AbstractConstraintGeneratorPtr constraint_generator = nullptr);
 
   /**
   * @brief Set the goal for controller
@@ -61,6 +61,8 @@ public:
   void getDesiredTrajectory(std::vector<StateType> &xds,
                             std::vector<ControlType> &uds) const;
 
+  tf::Transform getPose(const parsernode::common::quaddata &data);
+
 protected:
   void clearCommandBuffers();
 
@@ -68,7 +70,7 @@ private:
   parsernode::Parser
       &drone_hardware_;     ///< Quadrotor parser for sending and receiving data
   ArmParser &arm_hardware_; ///< Parser for sending and receiving arm data
-  Sensor<tf::Transform> &pose_sensor_; ///< Pose sensor for quad data
+  SensorPtr<tf::StampedTransform> pose_sensor_; ///< Pose sensor for quad data
   ThrustGainEstimator &thrust_gain_estimator_;
   std::vector<double> joint_angle_commands_; ///< Commanded joint angles
   Eigen::VectorXd previous_measurements_;    ///< Previous measurements

@@ -301,7 +301,7 @@ set(SRC
   src/controller_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_connectors/manual_rpyt_controller_drone_connector.cpp
   src/controller_connectors/joystick_velocity_controller_drone_connector.cpp
-  src/sensors/mocap_sensor.cpp
+  src/sensors/pose_sensor.cpp
 )
 
 if (casadi_FOUND)

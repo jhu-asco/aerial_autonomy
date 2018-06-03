@@ -1,23 +1,23 @@
-#include "aerial_autonomy/sensors/mocap_sensor.h"
+#include "aerial_autonomy/sensors/pose_sensor.h"
 
-MocapSensor::MocapSensor(std::string mocap_topic, ros::Duration validity_buffer,
-                         std::string ns)
-    : nh_(ns), mocap_sub_(nh_.subscribe(mocap_topic, 1,
-                                        &MocapSensor::mocapCallback, this)),
+PoseSensor::PoseSensor(std::string pose_topic, ros::Duration validity_buffer,
+                       std::string ns)
+    : nh_(ns),
+      pose_sub_(nh_.subscribe(pose_topic, 1, &PoseSensor::poseCallback, this)),
       validity_buffer_(validity_buffer) {}
 
-tf::StampedTransform MocapSensor::getSensorData() {
+tf::StampedTransform PoseSensor::getSensorData() {
   return tf::StampedTransform(pose_);
 }
 
-void MocapSensor::mocapCallback(
+void PoseSensor::poseCallback(
     const geometry_msgs::TransformStampedConstPtr &pose_input) {
   tf::StampedTransform pose_out;
   tf::transformStampedMsgToTF(*pose_input, pose_out);
   pose_ = pose_out;
 }
 
-SensorStatus MocapSensor::getSensorStatus() {
+SensorStatus PoseSensor::getSensorStatus() {
   tf::StampedTransform pose = pose_;
   ros::Duration duration_since_last_message = (ros::Time::now() - pose.stamp_);
   if (duration_since_last_message > validity_buffer_) {

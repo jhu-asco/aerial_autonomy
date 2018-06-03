@@ -37,9 +37,10 @@ public:
   * @param group The controller group. Used to ensure only one controller
   * runs per group.
   */
-  MPCControllerConnector(AbstractMPCController<StateT, ControlT> &controller,
-                         AbstractConstraintGenerator &constraint_generator,
-                         ControllerGroup group)
+  MPCControllerConnector(
+      AbstractMPCController<StateT, ControlT> &controller,
+      ControllerGroup group,
+      AbstractConstraintGeneratorPtr constraint_generator = nullptr)
       : BaseConnector(controller, group),
         constraint_generator_(constraint_generator),
         t_goal_(std::chrono::high_resolution_clock::now()) {}
@@ -65,12 +66,16 @@ public:
   virtual bool extractSensorData(MPCInputs<StateT> &mpc_inputs) {
     bool estimation_status = estimateStateAndParameters(
         mpc_inputs.initial_state, mpc_inputs.parameters);
-    mpc_inputs.constraints = constraint_generator_.generateConstraints();
     mpc_inputs.time_since_goal =
         std::chrono::duration<double>(
             std::chrono::high_resolution_clock::now() - t_goal_)
             .count();
-    return (estimation_status && constraint_generator_.getStatus());
+    bool return_status = estimation_status;
+    if (constraint_generator_) {
+      mpc_inputs.constraints = constraint_generator_->generateConstraints();
+      return_status = return_status && constraint_generator_->getStatus();
+    }
+    return return_status;
   }
 
   void setGoal(ReferenceTrajectoryPtr<StateT, ControlT> goal) {
@@ -85,7 +90,8 @@ public:
                                     std::vector<ControlT> &uds) const = 0;
 
 private:
-  AbstractConstraintGenerator &constraint_generator_; ///< Generates constraints
+  AbstractConstraintGeneratorPtr
+      constraint_generator_; ///< Generates constraints
   std::chrono::high_resolution_clock::time_point
       t_goal_; ///< Time when goal is set
 };
