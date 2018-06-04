@@ -18,23 +18,23 @@ public:
     qf->Resize(21, 0.1);
     auto r = ddp_config->mutable_r();
     r->Resize(6, 1.0);
-    r->Set(0, 1e-4); // Reduce thrust control
+    r->Set(0, 4.0); // Reduce thrust control
     for (int i = 0; i < 3; ++i) {
       // Pos cost
-      ddp_config->set_qf(i, 10.0);
+      ddp_config->set_qf(i, 400.0);
       // Rpy cost
-      ddp_config->set_qf(i + 3, 5.0);
+      ddp_config->set_qf(i + 3, 20.0);
       // Vel cost
-      ddp_config->set_qf(i + 6, 1.0);
+      ddp_config->set_qf(i + 6, 10.0);
       ddp_config->set_q(i + 6, 1.0);
       // Rpydot cost
       ddp_config->set_qf(i + 9, 5.0);
     }
     for (int i = 0; i < 2; ++i) {
       // Joint angle cost
-      ddp_config->set_qf(i + 15, 5.0);
+      ddp_config->set_qf(i + 15, 20.0);
       // Joint velocity cost
-      ddp_config->set_qf(i + 17, 2.0);
+      ddp_config->set_qf(i + 17, 1.0);
     }
     ddp_config->set_debug(false);
     ddp_config->set_max_iters(100);
@@ -112,8 +112,9 @@ TEST_F(DDPAirmMPCControllerTests, ConstructorWithResidualDynamics) {
 }
 
 TEST_F(DDPAirmMPCControllerTests, SingleRunWithResidualDynamics) {
-  // config_.set_use_residual_dynamics(false);
-  config_.mutable_ddp_config()->set_n(100);
+  config_.set_use_residual_dynamics(false);
+  config_.mutable_ddp_config()->set_n(50);
+  config_.mutable_ddp_config()->set_min_cost(20);
   std::shared_ptr<DDPAirmMPCController> controller = createController();
   VLOG(1) << "Creating current sensor data";
   MPCInputs<Eigen::VectorXd> sensor_data;
@@ -138,7 +139,7 @@ TEST_F(DDPAirmMPCControllerTests, SingleRunWithResidualDynamics) {
   goal_state[20] = goal_state[16];
   Eigen::VectorXd goal_control(6);
   goal_control.setZero();
-  goal_control[0] = 9.81 / sensor_data.parameters[0];
+  goal_control[0] = 1.0;
   std::shared_ptr<AirmGcopWaypoint> way_point(
       new AirmGcopWaypoint(goal_state, goal_control));
   controller->setGoal(way_point);
@@ -157,13 +158,13 @@ TEST_F(DDPAirmMPCControllerTests, SingleRunWithResidualDynamics) {
   std::cout << "Xf: " << xs_out.back().transpose() << std::endl;
   // Check Xf is close enough to desired goal by adjusting cost function
   ASSERT_EQ(out_control.rows(), 6);
-  ASSERT_GT(out_control[0], 9.81 / sensor_data.parameters[0]);
+  ASSERT_GT(out_control[0], 1.0);
   ASSERT_LT(out_control[1], 0);
   ASSERT_GT(out_control[2], 0);
   ASSERT_GT(out_control[3], 0);
-  // Joint des vel
-  ASSERT_GT(out_control[4], 0);
-  ASSERT_LT(out_control[5], 0);
+  // Joint des angles
+  ASSERT_GT(out_control[4], sensor_data.initial_state[15]);
+  ASSERT_LT(out_control[5], sensor_data.initial_state[16]);
 }
 
 /*TEST_F(DDPAirmMPCControllerTests, Convergence) {

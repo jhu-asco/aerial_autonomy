@@ -99,7 +99,7 @@ void DDPAirmMPCController::resetControls() {
   VLOG(1) << "Resetting Controls";
   // initial controls
   Eigen::VectorXd ui(6);
-  ui << 9.81 / config_.default_thrust_gain(), 0, 0, 0, 0, 0;
+  ui << 1.0, 0, 0, 0, 0, 0;
   us_.resize(config_.ddp_config().n(), ui);
   if (ddp_) {
     ddp_->Update();
@@ -188,7 +188,13 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
     result = false;
   }
   // Get Control to return
-  control = us_[look_ahead_index_shift_];
+  control.resize(6);
+  control[0] = us_[look_ahead_index_shift_][0];
+  control.segment<2>(1) =
+      xs_[look_ahead_index_shift_].segment<2>(12); // rp_desired
+  control[3] = us_[look_ahead_index_shift_][3];    // yaw_rate
+  control.segment<2>(4) =
+      xs_[look_ahead_index_shift_].segment<2>(19); // ja_desired
   loop_timer_.loop_end();
   return result;
 }
