@@ -45,11 +45,17 @@ public:
 
   void rotateControls(int shift_length);
 
+  double getLoopTime() { return loop_timer_.average_loop_period(); }
+
+  void setConfig(AirmMPCControllerConfig config);
+
+  double getMPCCost() { return ddp_->J; }
+
 protected:
   bool runImplementation(MPCInputs<StateType> sensor_data, GoalType goal,
                          ControlType &control);
   ControllerStatus isConvergedImplementation(MPCInputs<StateType> sensor_data,
-                                             GoalType);
+                                             GoalType goal);
 
 private:
   AirmMPCControllerConfig config_;

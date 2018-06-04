@@ -16,6 +16,8 @@ public:
   std::pair<StateT, ControlT> atTime(double t) const;
   void getRP(double &roll, double &pitch, double yaw,
              Eigen::Vector3d acceleration_vector) const;
+  Eigen::Vector3d getAcceleration(double angle, double omega_squared, double rx,
+                                  double ry) const;
 
 private:
   SpiralReferenceTrajectoryConfig config_;
@@ -24,4 +26,5 @@ private:
   double current_yaw_;
   double kt_;
   static constexpr double epsilon = 1e-6;
+  static constexpr double gravity_magnitude_ = 9.81;
 };

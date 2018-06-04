@@ -107,9 +107,14 @@ void DDPAirmMPCController::resetControls() {
 }
 
 ControllerStatus DDPAirmMPCController::isConvergedImplementation(
-    MPCInputs<StateType> sensor_data, GoalType) {
+    MPCInputs<StateType> sensor_data, GoalType goal) {
   boost::mutex::scoped_lock lock(copy_mutex_);
   ControllerStatus controller_status = ControllerStatus::Active;
+  if (xds_.at(0).rows() < 21) {
+    double t = sensor_data.time_since_goal;
+    std::pair<StateType, ControlType> state_control_pair = goal->atTime(t);
+    xds_.at(0) = state_control_pair.first;
+  }
   Eigen::Vector3d error_position =
       sensor_data.initial_state.segment<3>(0) - xds_.at(0).segment<3>(0);
   Eigen::Vector3d error_velocity =
@@ -121,10 +126,12 @@ ControllerStatus DDPAirmMPCController::isConvergedImplementation(
     controller_status.setStatus(ControllerStatus::Completed,
                                 "Converged to reference trajectory");
   }
+  VLOG(1) << "Error: " << error_position.squaredNorm() << ", "
+          << error_velocity.squaredNorm();
   controller_status << "Error Position" << error_position(0)
                     << error_position(1) << error_position(2)
                     << error_velocity(0) << error_velocity(1)
-                    << error_velocity(2);
+                    << error_velocity(2) << loop_timer_.average_loop_period();
   return controller_status;
 }
 
@@ -138,6 +145,11 @@ void DDPAirmMPCController::rotateControls(int shift_length) {
   for (int i = N - shift_length; i < N; ++i) {
     us_[i] = us_[N - 1];
   }
+}
+
+void DDPAirmMPCController::setConfig(AirmMPCControllerConfig config) {
+  boost::mutex::scoped_lock(copy_mutex_);
+  config_ = config;
 }
 
 bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
@@ -171,7 +183,6 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   // Run MPC Iterations
   for (int i = 0; i < max_iters; ++i) {
     ddp_->Iterate();
-    VLOG(3) << "DDP_J: " << (ddp_->J);
     // Check for convergence
     if (std::abs(ddp_->J - J) < ddp_config.min_cost_decrease()) {
       VLOG(3) << "Converged";

@@ -18,6 +18,8 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
   clearCommandBuffers();
 }
 
+void MPCControllerAirmConnector::initialize() { run(); }
+
 void MPCControllerAirmConnector::clearCommandBuffers() {
   previous_joint_commands_.setZero();
   std::queue<Eigen::Vector3d> zero_queue;

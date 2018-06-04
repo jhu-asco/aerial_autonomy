@@ -64,6 +64,10 @@ TEST_F(AirmSpiralReferenceTrajectoryTests, ZeroTime) {
   auto state = state_control_pair.first;
   auto control = state_control_pair.second;
   double omega = quad_config.frequency() * 2 * M_PI;
+  double omega_squared = omega * omega;
+  Eigen::Vector3d acceleration(
+      -quad_config.radiusx() * omega_squared * sin(quad_config.phase()),
+      -quad_config.radiusy() * omega_squared * cos(quad_config.phase()), 9.81);
   ASSERT_EQ(state[0], current_position[0]);
   ASSERT_EQ(state[1], current_position[1] + quad_config.radiusy());
   ASSERT_EQ(state[2], current_position[2]);
@@ -78,7 +82,7 @@ TEST_F(AirmSpiralReferenceTrajectoryTests, ZeroTime) {
   ASSERT_NEAR(state[18], 0.0, 1e-15);
   ASSERT_EQ(state[19], 1.0); // Same as angles
   ASSERT_EQ(state[20], 2.0 + 0.5);
-  ASSERT_EQ(control[0], 9.81 / kt);
+  ASSERT_EQ(control[0], acceleration.norm() / 9.81);
   // Desired rate
   ASSERT_EQ(control[1], state[9]);
   ASSERT_EQ(control[2], state[10]);
@@ -172,6 +176,14 @@ TEST_F(AirmSpiralReferenceTrajectoryTests, ZeroFrequency) {
   for (int i = 0; i < 3; ++i) {
     ASSERT_EQ(state_control_pair.first[9 + i], 0.0);
   }
+}
+
+TEST_F(AirmSpiralReferenceTrajectoryTests, GetAcceleration) {
+  Eigen::Vector3d acceleration =
+      reference_trajectory->getAcceleration(1.0, 0, 1, 1);
+  ASSERT_EQ(acceleration[0], 0.0);
+  ASSERT_EQ(acceleration[1], 0.0);
+  ASSERT_EQ(acceleration[2], 9.81);
 }
 
 TEST_F(AirmSpiralReferenceTrajectoryTests, FiniteDifference) {

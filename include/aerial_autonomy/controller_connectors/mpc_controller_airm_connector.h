@@ -37,6 +37,8 @@ public:
       SensorPtr<tf::StampedTransform> pose_sensor = nullptr,
       AbstractConstraintGeneratorPtr constraint_generator = nullptr);
 
+  void initialize();
+
   /**
   * @brief Set the goal for controller
   *

@@ -1,6 +1,9 @@
 #include "aerial_autonomy/types/spiral_reference_trajectory.h"
 #include <glog/logging.h>
 
+constexpr double SpiralReferenceTrajectory::epsilon;
+constexpr double SpiralReferenceTrajectory::gravity_magnitude_;
+
 SpiralReferenceTrajectory::SpiralReferenceTrajectory(
     SpiralReferenceTrajectoryConfig config, ArmSineControllerConfig arm_config,
     Eigen::Vector3d current_position, double current_yaw, double kt)
@@ -35,6 +38,15 @@ void SpiralReferenceTrajectory::getRP(
   }
 }
 
+Eigen::Vector3d SpiralReferenceTrajectory::getAcceleration(double angle,
+                                                           double omega_squared,
+                                                           double rx,
+                                                           double ry) const {
+  // Counter gravity in addition to trajectory acceleration
+  return Eigen::Vector3d(-rx * omega_squared * sin(angle),
+                         -ry * omega_squared * cos(angle), gravity_magnitude_);
+}
+
 std::pair<Eigen::VectorXd, Eigen::VectorXd>
 SpiralReferenceTrajectory::atTime(double t) const {
   // State: position, rpy, velocity, rpydot, rpyd, ja, jv, jad
@@ -59,13 +71,13 @@ SpiralReferenceTrajectory::atTime(double t) const {
   double omega_squared = omega * omega;
   double signed_velocity_z = sign * velocity_z;
   double yaw = current_yaw_ + amplitude_yaw * sin(angle_yaw);
-  Eigen::Vector3d acceleration_vector(-rx * omega_squared * sin(angle),
-                                      -ry * omega_squared * cos(angle), 0);
   // Position
   x[0] = current_position_[0] + rx * sin(angle);
   x[1] = current_position_[1] + ry * cos(angle);
   x[2] = current_position_[2] + amplitude_z * dist_z;
   // Rpy
+  Eigen::Vector3d acceleration_vector =
+      getAcceleration(angle, omega_squared, rx, ry);
   getRP(x[3], x[4], yaw, acceleration_vector);
   x[5] = yaw;
   // Velocities
@@ -74,9 +86,9 @@ SpiralReferenceTrajectory::atTime(double t) const {
   x[8] = signed_velocity_z;
   // Finite difference to get rpydot
   double dt = 1e-6;
-  Eigen::Vector3d acceleration_vector_dt(
-      -rx * omega_squared * sin(angle + omega * dt),
-      -ry * omega_squared * cos(angle + omega * dt), 0);
+  double angle_delta = angle + omega * dt;
+  Eigen::Vector3d acceleration_vector_dt =
+      getAcceleration(angle_delta, omega_squared, rx, ry);
   double yaw_dt = yaw + amplitude_yaw * sin(angle_yaw + omega_yaw * dt);
   double roll_dt, pitch_dt;
   getRP(roll_dt, pitch_dt, yaw_dt, acceleration_vector_dt);
@@ -103,7 +115,7 @@ SpiralReferenceTrajectory::atTime(double t) const {
     x[start + i + 4] = x[start + i];
   }
   // Controls
-  u[0] = 9.81 / kt_;
+  u[0] = acceleration_vector.norm() / gravity_magnitude_;
   // rpyd_dot = rpy_dot
   u[1] = x[9];
   u[2] = x[10];
