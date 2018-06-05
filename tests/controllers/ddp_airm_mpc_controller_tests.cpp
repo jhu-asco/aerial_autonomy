@@ -47,8 +47,8 @@ public:
 
   std::shared_ptr<DDPAirmMPCController>
   createController(double controller_duration = 0.02) {
-    std::shared_ptr<DDPAirmMPCController> controller(
-        new DDPAirmMPCController(config_, controller_duration));
+    std::shared_ptr<DDPAirmMPCController> controller(new DDPAirmMPCController(
+        config_, std::chrono::duration<double>(controller_duration)));
     return controller;
   }
 

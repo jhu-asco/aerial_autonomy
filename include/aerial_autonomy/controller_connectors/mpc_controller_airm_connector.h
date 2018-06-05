@@ -67,6 +67,8 @@ public:
 
   void usePerfectTimeDiff(double time_diff = 0.02);
 
+  void useSensor(SensorPtr<tf::StampedTransform> sensor);
+
 protected:
   void clearCommandBuffers();
 

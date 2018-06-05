@@ -8,11 +8,12 @@ class VelocitySensorTests : public ::testing::Test {
 public:
   VelocitySensorTests() {
     odom_pub = nh.advertise<nav_msgs::Odometry>("/velocity_sensor/odometry", 1);
+    config.set_topic("/velocity_sensor/odometry");
   }
 
   ros::NodeHandle nh;
   ros::Publisher odom_pub;
-  VelocitySensorConfig config;
+  ROSSensorConfig config;
 };
 
 using namespace quad_simulator;

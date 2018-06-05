@@ -224,7 +224,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/place_group.proto
   proto/thrust_gain_estimator_config.proto
   proto/tracking_vector_estimator_config.proto
-  proto/velocity_sensor_config.proto
+  proto/ros_sensor_config.proto
   proto/arm_sine_controller_config.proto
   proto/qrotor_backstepping_controller_config.proto
   proto/ddp_mpc_controller_config.proto

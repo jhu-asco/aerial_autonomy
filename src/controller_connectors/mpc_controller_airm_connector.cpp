@@ -71,6 +71,11 @@ void MPCControllerAirmConnector::usePerfectTimeDiff(double time_diff) {
   perfect_time_diff_ = time_diff;
 }
 
+void MPCControllerAirmConnector::useSensor(
+    SensorPtr<tf::StampedTransform> sensor) {
+  pose_sensor_ = sensor;
+}
+
 bool MPCControllerAirmConnector::estimateStateAndParameters(
     Eigen::VectorXd &current_state, Eigen::VectorXd &params) {
   current_state.resize(21);

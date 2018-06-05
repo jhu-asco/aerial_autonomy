@@ -6,6 +6,7 @@
 #include "aerial_autonomy/controllers/relative_pose_controller.h"
 #include "aerial_autonomy/robot_systems/arm_system.h"
 #include "aerial_autonomy/robot_systems/uav_vision_system.h"
+#include "aerial_autonomy/sensors/pose_sensor.h"
 #include <chrono>
 
 /**
@@ -47,7 +48,8 @@ public:
             std::chrono::milliseconds(config_.uav_controller_timer_duration())),
         mpc_connector_(*drone_hardware_, *arm_hardware_, mpc_controller_,
                        thrust_gain_estimator_,
-                       config.thrust_gain_estimator_config().buffer_size()) {
+                       config.thrust_gain_estimator_config().buffer_size(),
+                       pose_sensor_) {
     controller_connector_container_.setObject(visual_servoing_arm_connector_);
     controller_connector_container_.setObject(mpc_connector_);
   }
