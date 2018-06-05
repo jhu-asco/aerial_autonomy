@@ -144,6 +144,8 @@ public:
    */
   Status status() { return status_; }
 
+  std::string statusAsText();
+
   /**
    * @brief Allows for explicit conversion of the class to a boolean variable
    * This is pretty useful to check controller status implies controller

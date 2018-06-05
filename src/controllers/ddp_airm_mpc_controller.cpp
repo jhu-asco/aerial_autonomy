@@ -34,7 +34,7 @@ DDPAirmMPCController::DDPAirmMPCController(AirmMPCControllerConfig config,
   if (config.use_residual_dynamics()) {
     sys_.reset(new gcop::AirmResidualNetworkModel(
         kt_, kp_rpy, kd_rpy, kp_ja, kd_ja, config.max_joint_velocity(),
-        config.n_layers(), folder_path, gcop::Activation::tanh, true));
+        config.n_layers(), folder_path, gcop::Activation::tanh, false));
   } else {
     sys_.reset(new gcop::AerialManipulationFeedforwardSystem(
         kt_, kp_rpy, kd_rpy, kp_ja, kd_ja, config.max_joint_velocity(), true));
@@ -119,15 +119,29 @@ ControllerStatus DDPAirmMPCController::isConvergedImplementation(
       sensor_data.initial_state.segment<3>(0) - xds_.at(0).segment<3>(0);
   Eigen::Vector3d error_velocity =
       sensor_data.initial_state.segment<3>(6) - xds_.at(0).segment<3>(6);
+  Eigen::Vector2d error_ja =
+      sensor_data.initial_state.segment<2>(15) - xds_.at(0).segment<2>(15);
+  Eigen::Vector2d error_jv =
+      sensor_data.initial_state.segment<2>(17) - xds_.at(0).segment<2>(17);
   if (error_position.squaredNorm() < config_.goal_position_tolerance() *
                                          config_.goal_position_tolerance() &&
       error_velocity.squaredNorm() < config_.goal_velocity_tolerance() *
-                                         config_.goal_velocity_tolerance()) {
+                                         config_.goal_velocity_tolerance() &&
+      error_ja.squaredNorm() < config_.goal_joint_angle_tolerance() *
+                                   config_.goal_joint_angle_tolerance() &&
+      error_jv.squaredNorm() < config_.goal_joint_velocity_tolerance() *
+                                   config_.goal_joint_velocity_tolerance()) {
+    VLOG(1) << "Controller Converged!";
     controller_status.setStatus(ControllerStatus::Completed,
                                 "Converged to reference trajectory");
   }
-  VLOG(1) << "Error: " << error_position.squaredNorm() << ", "
-          << error_velocity.squaredNorm();
+  /// \todo Check joint angles convergence :(
+  VLOG(2) << "Error: " << error_position.norm() << ", " << error_velocity.norm()
+          << ", " << error_ja.norm() << ", " << error_jv.norm();
+  VLOG(2) << "Tolerance: " << config_.goal_position_tolerance() << ", "
+          << config_.goal_velocity_tolerance() << ", "
+          << config_.goal_joint_angle_tolerance() << ", "
+          << config_.goal_joint_velocity_tolerance();
   controller_status << "Error Position" << error_position(0)
                     << error_position(1) << error_position(2)
                     << error_velocity(0) << error_velocity(1)
@@ -191,6 +205,7 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
     J = ddp_->J;
   }
   VLOG(3) << "DDP_J: " << (ddp_->J);
+  VLOG(3) << "xs0: " << xs_.front().transpose();
   VLOG(3) << "xf: " << xs_.back().transpose();
   VLOG(3) << "xd: " << xds_.back().transpose();
   if (ddp_->J > ddp_config.min_cost()) {
@@ -200,7 +215,7 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   }
   // Get Control to return
   control.resize(6);
-  control[0] = us_[look_ahead_index_shift_][0];
+  control[0] = (9.81 * us_[look_ahead_index_shift_][0]) / kt_[0];
   control.segment<2>(1) =
       xs_[look_ahead_index_shift_].segment<2>(12); // rp_desired
   control[3] = us_[look_ahead_index_shift_][3];    // yaw_rate

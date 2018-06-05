@@ -92,8 +92,8 @@ public:
 
   void checkOutControl(Eigen::VectorXd &control) {
     ASSERT_EQ(control.rows(), 6);
-    ASSERT_LT(control[0], 2.0);
-    ASSERT_GT(control[0], 0.1);
+    ASSERT_LT(control[0], 2.0 * 9.81 / 0.16);
+    ASSERT_GT(control[0], 0.1 * 9.81 / 0.16);
     for (int i = 0; i < 2; ++i) {
       ASSERT_LT(std::abs(control[i + 1]), M_PI / 4); // rp
     }
@@ -163,7 +163,7 @@ TEST_F(DDPAirmMPCControllerTests, SingleRunWithResidualDynamics) {
   checkState(xs_out[N], goal_state);
   checkOutControl(out_control);
   // Check control based on command
-  ASSERT_GT(out_control[0], 1.0);
+  ASSERT_GT(out_control[0], 1.0 * 9.81 / 0.16);
   ASSERT_LT(out_control[1], 0);
   ASSERT_GT(out_control[2], 0);
   ASSERT_GT(out_control[3], 0);

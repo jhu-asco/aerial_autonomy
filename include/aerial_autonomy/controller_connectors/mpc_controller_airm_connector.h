@@ -65,6 +65,8 @@ public:
 
   tf::Transform getPose(const parsernode::common::quaddata &data);
 
+  void usePerfectTimeDiff(double time_diff = 0.02);
+
 protected:
   void clearCommandBuffers();
 
@@ -88,4 +90,7 @@ private:
       &private_controller_; ///< Private ref
   boost::mutex
       copy_mutex_; ///< Mutex for copying states and reference trajectories
+  bool use_perfect_time_diff_; ///< Flag to use perfect time diff when
+                               /// differentiating
+  double perfect_time_diff_;   ///< The absolute time difference
 };

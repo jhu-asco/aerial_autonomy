@@ -14,14 +14,18 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
       pose_sensor_(pose_sensor), thrust_gain_estimator_(thrust_gain_estimator),
       joint_angle_commands_(2), previous_measurements_(8),
       previous_measurement_time_(std::chrono::high_resolution_clock::now()),
-      delay_buffer_size_(delay_buffer_size), private_controller_(controller) {
+      previous_measurements_initialized_(false),
+      delay_buffer_size_(delay_buffer_size), private_controller_(controller),
+      use_perfect_time_diff_(false), perfect_time_diff_(0.02) {
   clearCommandBuffers();
 }
 
 void MPCControllerAirmConnector::initialize() { run(); }
 
 void MPCControllerAirmConnector::clearCommandBuffers() {
-  previous_joint_commands_.setZero();
+  auto joint_angles = arm_hardware_.getJointAngles();
+  previous_joint_commands_ =
+      Eigen::Vector2d(joint_angles.at(0), joint_angles.at(1));
   std::queue<Eigen::Vector3d> zero_queue;
   for (int i = 0; i < delay_buffer_size_; ++i) {
     zero_queue.push(Eigen::Vector3d::Zero());
@@ -42,6 +46,7 @@ void MPCControllerAirmConnector::sendControllerCommands(ControlType control) {
   previous_joint_commands_ = control.segment<2>(4);
   rpy_command_buffer_.pop();
   rpy_command_buffer_.push(control.segment<3>(1));
+  thrust_gain_estimator_.addThrustCommand(control(0));
 }
 
 void MPCControllerAirmConnector::setGoal(
@@ -61,6 +66,11 @@ MPCControllerAirmConnector::getPose(const parsernode::common::quaddata &data) {
   return pose;
 }
 
+void MPCControllerAirmConnector::usePerfectTimeDiff(double time_diff) {
+  use_perfect_time_diff_ = true;
+  perfect_time_diff_ = time_diff;
+}
+
 bool MPCControllerAirmConnector::estimateStateAndParameters(
     Eigen::VectorXd &current_state, Eigen::VectorXd &params) {
   current_state.resize(21);
@@ -69,6 +79,9 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
   double dt =
       std::chrono::duration<double>(current_time - previous_measurement_time_)
           .count();
+  if (use_perfect_time_diff_) {
+    dt = perfect_time_diff_;
+  }
   if (dt < 1e-4) {
     LOG(WARNING) << "Time diff cannot be smaller than 1e-4";
     return false;
@@ -98,18 +111,14 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
     v = (p - previous_measurements_.segment<3>(0)) / dt;
     delta_rpy = rpy - previous_measurements_.segment<3>(3);
     delta_rpy[2] = math::angleWrap(delta_rpy[2]);
-    joint_velocities =
-        (joint_angles_vec - previous_measurements_.segment<2>(6)) / dt;
+    joint_velocities = Eigen::Vector2d(0, 0);
+    // joint_velocities =
+    //    (joint_angles_vec - previous_measurements_.segment<2>(6)) / dt;
   } else {
     v = delta_rpy = Eigen::Vector3d::Zero();
     joint_velocities = Eigen::Vector2d::Zero();
     previous_measurements_initialized_ = true;
   }
-  // Fill previous measurements and time
-  previous_measurements_.segment<6>(0) = current_state.segment<6>(0);
-  previous_measurements_.segment<2>(6) = joint_angles_vec;
-  previous_measurement_time_ = current_time;
-
   // Fill state
   current_state.segment<3>(0) = p;
   current_state.segment<3>(3) = rpy;
@@ -119,10 +128,15 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
   current_state.segment<2>(15) = joint_angles_vec;
   current_state.segment<2>(17) = joint_velocities;
   current_state.segment<2>(19) = previous_joint_commands_;
+  // Fill previous measurements and time
+  previous_measurements_.segment<6>(0) = current_state.segment<6>(0);
+  previous_measurements_.segment<2>(6) = joint_angles_vec;
+  previous_measurement_time_ = current_time;
   // Estimate thrust gain parameter
   thrust_gain_estimator_.addSensorData(quad_data.rpydata.x, quad_data.rpydata.y,
                                        quad_data.linacc.z);
-  params.resize(1, thrust_gain_estimator_.getThrustGain());
+  params.resize(1);
+  params << thrust_gain_estimator_.getThrustGain();
   return true;
 }
 
