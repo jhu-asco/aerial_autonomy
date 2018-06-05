@@ -39,6 +39,7 @@ public:
 TEST_F(VisualServoingControllerDroneConnectorTests, Constructor) {}
 
 TEST_F(VisualServoingControllerDroneConnectorTests, CriticalRun) {
+  visual_servoing_connector_->setGoal(Position());
   // make tracking invalid:
   simple_tracker_->setTrackingIsValid(false);
   // Run connector
