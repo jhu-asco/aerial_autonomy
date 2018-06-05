@@ -16,7 +16,6 @@ public:
   UAVArmSystemHandlerTests() : BaseTestPubSubs() {
     // Configure system
     UAVSystemHandlerConfig uav_system_handler_config;
-    BaseStateMachineConfig state_machine_config;
     uav_system_handler_config.mutable_uav_system_config()
         ->set_minimum_takeoff_height(0.4);
     auto uav_config = uav_system_handler_config.mutable_uav_system_config();
@@ -67,6 +66,8 @@ public:
       PickPlaceStateMachine,
       pick_place_events::PickPlaceEventManager<PickPlaceStateMachine>>>
       uav_system_handler_; ///< system contains robot system, state machine
+  BaseStateMachineConfig state_machine_config; ///< Passing by reference
+                                               ///< cannot be temp variable
 };
 
 TEST_F(UAVArmSystemHandlerTests, Constructor) {}
