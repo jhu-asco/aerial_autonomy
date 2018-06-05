@@ -161,8 +161,8 @@ TEST_F(MPCControllerAirmConnectorTests, ConvergenceZeroStartNoYaw) {
 }
 
 TEST_F(MPCControllerAirmConnectorTests, ConvergenceZeroStartPosYaw) {
-  runUntilConvergence(PositionYaw(0, 0, 0, 0), PositionYaw(-1, -0.1, 0.1, 0.25),
-                      {-0.8, 0}, {-0.8, 0});
+  runUntilConvergence(PositionYaw(0, 0, 0, 0),
+                      PositionYaw(-0.1, -0.1, 0.1, 0.1), {-0.8, 0}, {-0.8, 0});
 }
 
 TEST_F(MPCControllerAirmConnectorTests, ConvergenceZeroStartNegYaw) {

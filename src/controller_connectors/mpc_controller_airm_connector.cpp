@@ -111,9 +111,8 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
     v = (p - previous_measurements_.segment<3>(0)) / dt;
     delta_rpy = rpy - previous_measurements_.segment<3>(3);
     delta_rpy[2] = math::angleWrap(delta_rpy[2]);
-    joint_velocities = Eigen::Vector2d(0, 0);
-    // joint_velocities =
-    //    (joint_angles_vec - previous_measurements_.segment<2>(6)) / dt;
+    joint_velocities =
+        (joint_angles_vec - previous_measurements_.segment<2>(6)) / dt;
   } else {
     v = delta_rpy = Eigen::Vector3d::Zero();
     joint_velocities = Eigen::Vector2d::Zero();
