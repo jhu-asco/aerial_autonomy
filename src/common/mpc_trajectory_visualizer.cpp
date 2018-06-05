@@ -4,7 +4,10 @@ MPCTrajectoryVisualizer::MPCTrajectoryVisualizer(ControllerConnector &connector,
                                                  MPCVisualizerConfig config)
     : connector_(connector), nh_("mpc_visualizer"),
       visualizer_(nh_, config.parent_frame(), config.visualize_velocities()),
-      config_(config) {}
+      config_(config) {
+  gcop_trajectory_pub_ =
+      nh_.advertise<gcop_comm::CtrlTraj>("control_trajectory", 1);
+}
 
 void MPCTrajectoryVisualizer::publishTrajectory() {
   ControllerStatus status = connector_.getStatus();
@@ -30,13 +33,24 @@ void MPCTrajectoryVisualizer::publishTrajectory() {
   }
 }
 
+void MPCTrajectoryVisualizer::publishGcopTrajectory() {
+  ControllerStatus status = connector_.getStatus();
+  if (status == ControllerStatus::Active ||
+      status == ControllerStatus::Completed) {
+    connector_.getTrajectory(xs_, us_);
+    gcop_comm::CtrlTraj trajectory =
+        getTrajectory(xs_, us_, config_.skip_segments());
+    gcop_trajectory_pub_.publish(trajectory);
+  }
+}
+
 gcop_comm::CtrlTraj
 MPCTrajectoryVisualizer::getTrajectory(std::vector<Eigen::VectorXd> &xs,
                                        std::vector<Eigen::VectorXd> &us,
                                        int skip_segments) {
   gcop_comm::CtrlTraj control_trajectory;
-  control_trajectory.N = us.size();
-  for (unsigned int i = 0; i < (control_trajectory.N + 1); i += skip_segments) {
+  unsigned int N = us.size();
+  for (unsigned int i = 0; i < (N + 1); i += skip_segments) {
     const auto &x = xs[i];
     gcop_comm::State state;
     state.basepose.translation.x = x[0];
@@ -51,8 +65,9 @@ MPCTrajectoryVisualizer::getTrajectory(std::vector<Eigen::VectorXd> &xs,
       state.statevector.push_back(x[15 + j]);
     }
     control_trajectory.statemsg.push_back(state);
-    if (i < control_trajectory.N) {
+    if (i < N) {
       gcop_comm::Ctrl control;
+      control.ctrlvec.resize(6);
       control.ctrlvec[0] = us[i][0]; // thrust
       for (int j = 0; j < 3; ++j) {
         control.ctrlvec[j + 1] = x[12 + j];
@@ -63,5 +78,6 @@ MPCTrajectoryVisualizer::getTrajectory(std::vector<Eigen::VectorXd> &xs,
       control_trajectory.ctrl.push_back(control);
     }
   }
+  control_trajectory.N = control_trajectory.ctrl.size();
   return control_trajectory;
 }

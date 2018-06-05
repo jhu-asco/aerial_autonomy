@@ -16,9 +16,12 @@ public:
                                     std::vector<Eigen::VectorXd> &us,
                                     int skip_segments);
 
+  void publishGcopTrajectory();
+
 private:
   ControllerConnector &connector_;
   ros::NodeHandle nh_;
+  ros::Publisher gcop_trajectory_pub_;
   GcopTrajectoryVisualizer visualizer_;
   MPCVisualizerConfig config_;
   std::vector<Eigen::VectorXd> xs_;
