@@ -82,3 +82,7 @@ ddp_config {
 }
 
 weights_folder: "neural_network_model_data/tensorflow_model_vars_16_8_tanh/"
+goal_position_tolerance: 0.25
+goal_velocity_tolerance: 0.25
+goal_joint_angle_tolerance: 0.15
+goal_joint_velocity_tolerance: 0.15

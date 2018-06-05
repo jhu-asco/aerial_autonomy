@@ -102,7 +102,7 @@ int main(int argc, char **argv) {
       visualizer.publishTrajectory();
       count = 0;
     }
-    LOG_EVERY_N(INFO, 10) << "Connector: "
+    LOG_EVERY_N(INFO, 20) << "Connector: "
                           << controller_connector.getStatus().statusAsText();
     ros::spinOnce();
   }

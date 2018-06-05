@@ -19,4 +19,5 @@ message AirmMPCControllerConfig {
   optional double goal_velocity_tolerance = 9 [ default = 0.1 ];
   optional double goal_joint_angle_tolerance = 10 [ default = 0.05 ];
   optional double goal_joint_velocity_tolerance = 11 [ default = 0.1 ];
+  optional bool use_code_generation = 12 [ default = true ];
 }

@@ -28,8 +28,7 @@ public:
   using StateType = Eigen::VectorXd;
   using GoalType = ReferenceTrajectoryPtr<StateType, ControlType>;
   DDPAirmMPCController(AirmMPCControllerConfig config,
-                       std::chrono::duration<double> controller_duration,
-                       bool use_code_generation = true);
+                       std::chrono::duration<double> controller_duration);
   void resetControls();
 
   void getTrajectory(std::vector<StateType> &xs,

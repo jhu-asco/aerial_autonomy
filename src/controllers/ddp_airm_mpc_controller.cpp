@@ -24,7 +24,7 @@ void DDPAirmMPCController::loadArmParameters(Eigen::Vector2d &kp_ja,
 
 DDPAirmMPCController::DDPAirmMPCController(
     AirmMPCControllerConfig config,
-    std::chrono::duration<double> controller_duration, bool use_code_generation)
+    std::chrono::duration<double> controller_duration)
     : config_(config), kt_(1) {
   // Instantiate system
   std::string folder_path =
@@ -37,11 +37,11 @@ DDPAirmMPCController::DDPAirmMPCController(
     sys_.reset(new gcop::AirmResidualNetworkModel(
         kt_, kp_rpy, kd_rpy, kp_ja, kd_ja, config.max_joint_velocity(),
         config.n_layers(), folder_path, gcop::Activation::tanh,
-        use_code_generation));
+        config_.use_code_generation()));
   } else {
     sys_.reset(new gcop::AerialManipulationFeedforwardSystem(
         kt_, kp_rpy, kd_rpy, kp_ja, kd_ja, config.max_joint_velocity(),
-        use_code_generation));
+        config_.use_code_generation()));
   }
   VLOG(1) << "Instantiating Step function";
   sys_->instantiateStepFunction();

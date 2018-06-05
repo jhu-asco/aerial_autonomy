@@ -16,8 +16,8 @@ class MPCControllerAirmConnectorTests : public ::testing::Test {
 public:
   MPCControllerAirmConnectorTests()
       : thrust_gain_estimator_(0.2), controller_config_(createConfig()) {
-    controller_.reset(new DDPAirmMPCController(
-        controller_config_, std::chrono::milliseconds(20), false));
+    controller_.reset(new DDPAirmMPCController(controller_config_,
+                                               std::chrono::milliseconds(20)));
     controller_connector_.reset(new MPCControllerAirmConnector(
         drone_hardware_, arm_simulator_, *controller_, thrust_gain_estimator_));
     drone_hardware_.usePerfectTime();
@@ -62,6 +62,7 @@ public:
     ddp_config->set_max_iters(5);
     config.set_weights_folder(
         "neural_network_model_data/tensorflow_model_vars_16_8_tanh/");
+    config.set_use_code_generation(false);
     return config;
   }
 
