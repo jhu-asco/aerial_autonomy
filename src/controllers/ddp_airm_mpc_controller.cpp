@@ -22,11 +22,13 @@ void DDPAirmMPCController::loadArmParameters(Eigen::Vector2d &kp_ja,
   kd_ja = gcop::loadEigenMatrix(folder_path + "/joint_gains_kd_0");
 }
 
-DDPAirmMPCController::DDPAirmMPCController(AirmMPCControllerConfig config,
-                                           double controller_duration)
+DDPAirmMPCController::DDPAirmMPCController(
+    AirmMPCControllerConfig config,
+    std::chrono::duration<double> controller_duration, bool use_code_generation)
     : config_(config), kt_(1) {
   // Instantiate system
-  std::string folder_path = config.weights_folder();
+  std::string folder_path =
+      std::string(PROJECT_SOURCE_DIR) + "/" + config.weights_folder();
   Eigen::Vector3d kp_rpy, kd_rpy;
   Eigen::Vector2d kp_ja, kd_ja;
   loadQuadParameters(kp_rpy, kd_rpy, kt_, folder_path);
@@ -34,10 +36,12 @@ DDPAirmMPCController::DDPAirmMPCController(AirmMPCControllerConfig config,
   if (config.use_residual_dynamics()) {
     sys_.reset(new gcop::AirmResidualNetworkModel(
         kt_, kp_rpy, kd_rpy, kp_ja, kd_ja, config.max_joint_velocity(),
-        config.n_layers(), folder_path, gcop::Activation::tanh, false));
+        config.n_layers(), folder_path, gcop::Activation::tanh,
+        use_code_generation));
   } else {
     sys_.reset(new gcop::AerialManipulationFeedforwardSystem(
-        kt_, kp_rpy, kd_rpy, kp_ja, kd_ja, config.max_joint_velocity(), true));
+        kt_, kp_rpy, kd_rpy, kp_ja, kd_ja, config.max_joint_velocity(),
+        use_code_generation));
   }
   VLOG(1) << "Instantiating Step function";
   sys_->instantiateStepFunction();
@@ -48,7 +52,7 @@ DDPAirmMPCController::DDPAirmMPCController(AirmMPCControllerConfig config,
   double tf = h * N;
   CHECK(h > 0) << "The time step should be greater than 0";
   control_timer_shift_ =
-      std::min(int(std::ceil(controller_duration / h)), N - 1);
+      std::min(int(std::ceil(controller_duration.count() / h)), N - 1);
   VLOG(1) << "Control timer shift: " << control_timer_shift_;
   look_ahead_index_shift_ = std::ceil(ddp_config.look_ahead_time() / h);
   VLOG(1) << "Look ahead index shift: " << look_ahead_index_shift_;

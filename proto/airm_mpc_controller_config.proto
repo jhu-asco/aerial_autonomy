@@ -6,7 +6,7 @@ message AirmMPCControllerConfig {
   required DDPMPCControllerConfig ddp_config = 1;
   optional string weights_folder = 2;
   optional bool use_residual_dynamics = 3 [ default = true ];
-  optional double default_thrust_gain = 5 [ default = 0.15 ];
+  optional double default_thrust_gain = 5 [ default = 0.16 ];
   optional double max_joint_velocity = 6 [ default = 0.7 ];
   optional uint32 n_layers = 7 [ default = 3 ];
   /**

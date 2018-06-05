@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="aerial_autonomy" type="mpc_controller_tuner" name="mpc_controller_tuner" output="screen">
+    <remap from="/mpc_visualizer/control_trajectory" to="/ctrltraj"/>
+  </node>
+</launch>

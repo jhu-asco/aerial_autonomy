@@ -28,4 +28,7 @@ private:
   std::vector<Eigen::VectorXd> us_;
   std::vector<Eigen::VectorXd> xds_;
   std::vector<Eigen::VectorXd> uds_;
+
+private:
+  gcop_comm::State getState(const Eigen::VectorXd &x);
 };
