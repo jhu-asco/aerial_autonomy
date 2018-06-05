@@ -176,6 +176,8 @@ public:
     arm_position_tolerance->set_x(goal_tolerance_position_);
     arm_position_tolerance->set_y(goal_tolerance_position_);
     arm_position_tolerance->set_z(goal_tolerance_position_);
+    // Fill MPC Config
+    test_utils::fillMPCConfig(config_);
 
     tf::Transform camera_transform = conversions::protoTransformToTf(
         uav_vision_system_config->camera_transform());

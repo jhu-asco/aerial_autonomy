@@ -1,9 +1,5 @@
 syntax = "proto2";
 
-/*import "position.proto";
-import "velocity.proto";
-*/
-
 message SpiralReferenceTrajectoryConfig {
   optional double frequency = 1 [ default = 0.1 ];
   optional double phase = 2 [ default = 0 ];

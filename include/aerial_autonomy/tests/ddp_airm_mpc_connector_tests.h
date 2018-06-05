@@ -15,7 +15,8 @@
 class MPCControllerAirmConnectorTests : public ::testing::Test {
 public:
   MPCControllerAirmConnectorTests()
-      : thrust_gain_estimator_(0.2), controller_config_(createConfig()) {
+      : thrust_gain_estimator_(0.2),
+        controller_config_(test_utils::createMPCConfig()) {
     controller_.reset(new DDPAirmMPCController(controller_config_,
                                                std::chrono::milliseconds(20)));
     controller_connector_.reset(new MPCControllerAirmConnector(
@@ -23,47 +24,6 @@ public:
     drone_hardware_.usePerfectTime();
     drone_hardware_.set_delay_send_time(0.02);
     controller_connector_->usePerfectTimeDiff(0.02);
-  }
-
-  AirmMPCControllerConfig createConfig() {
-    AirmMPCControllerConfig config;
-    config.set_goal_position_tolerance(0.1);
-    config.set_goal_velocity_tolerance(0.2);
-    config.set_goal_joint_angle_tolerance(0.2);
-    config.set_goal_joint_velocity_tolerance(0.1);
-    DDPMPCControllerConfig *ddp_config = config.mutable_ddp_config();
-    ddp_config->set_min_cost(500);
-    ddp_config->set_look_ahead_time(0.02);
-    auto q = ddp_config->mutable_q();
-    q->Resize(21, 0.0);
-    auto qf = ddp_config->mutable_qf();
-    qf->Resize(21, 0.1);
-    auto r = ddp_config->mutable_r();
-    r->Resize(6, 0.1);
-    r->Set(0, 2.0); // Reduce thrust control
-    for (int i = 0; i < 3; ++i) {
-      // Pos cost
-      ddp_config->set_qf(i, 200.0);
-      // Rpy cost
-      ddp_config->set_qf(i + 3, 50.0);
-      // Vel cost
-      ddp_config->set_qf(i + 6, 10.0);
-      ddp_config->set_q(i + 6, 1.0);
-      // Rpydot cost
-      ddp_config->set_qf(i + 9, 5.0);
-    }
-    for (int i = 0; i < 2; ++i) {
-      // Joint angle cost
-      ddp_config->set_qf(i + 15, 200.0);
-      // Joint velocity cost
-      ddp_config->set_qf(i + 17, 5.0);
-    }
-    ddp_config->set_debug(false);
-    ddp_config->set_max_iters(5);
-    config.set_weights_folder(
-        "neural_network_model_data/tensorflow_model_vars_16_8_tanh/");
-    config.set_use_code_generation(false);
-    return config;
   }
 
   static void SetUpTestCase() {

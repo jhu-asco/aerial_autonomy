@@ -47,6 +47,8 @@ public:
     rpyt_vel_controller_tol->set_vx(0.1);
     rpyt_vel_controller_tol->set_vy(0.1);
     rpyt_vel_controller_tol->set_vz(0.1);
+    // Fill MPC Config
+    test_utils::fillMPCConfig(*uav_config);
 
     uav_system_handler_.reset(
         new UAVVisionSystemHandler<

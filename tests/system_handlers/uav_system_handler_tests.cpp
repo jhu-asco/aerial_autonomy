@@ -49,6 +49,8 @@ public:
     uav_config->mutable_rpyt_based_position_controller_config()
         ->mutable_rpyt_based_velocity_controller_config()
         ->set_max_acc_norm(10.);
+    // Fill MPC Config
+    test_utils::fillMPCConfig(*uav_config);
 
     uav_system_handler_.reset(
         new UAVSystemHandler<UAVStateMachine, UAVEventManager<UAVStateMachine>>(

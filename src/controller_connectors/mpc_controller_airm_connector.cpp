@@ -24,8 +24,15 @@ void MPCControllerAirmConnector::initialize() { run(); }
 
 void MPCControllerAirmConnector::clearCommandBuffers() {
   auto joint_angles = arm_hardware_.getJointAngles();
-  previous_joint_commands_ =
-      Eigen::Vector2d(joint_angles.at(0), joint_angles.at(1));
+  if (joint_angles.size() == 2) {
+    previous_joint_commands_ =
+        Eigen::Vector2d(joint_angles.at(0), joint_angles.at(1));
+  } else {
+    // This check is only needed to fix tests where arm hardware
+    // is giving out empty joint angles
+    LOG(WARNING) << "The joint angles from arm hardware are not 2";
+    previous_joint_commands_ = Eigen::Vector2d(0, 0);
+  }
   std::queue<Eigen::Vector3d> zero_queue;
   for (int i = 0; i < delay_buffer_size_; ++i) {
     zero_queue.push(Eigen::Vector3d::Zero());

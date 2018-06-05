@@ -67,6 +67,8 @@ protected:
     rpyt_vel_controller_tol->set_vx(0.1);
     rpyt_vel_controller_tol->set_vy(0.1);
     rpyt_vel_controller_tol->set_vz(0.1);
+    // Fill MPC Config
+    test_utils::fillMPCConfig(config);
 
     drone_hardware->setTakeoffAltitude(2.0);
     tracker_.reset(

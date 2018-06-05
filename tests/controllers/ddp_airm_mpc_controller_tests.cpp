@@ -41,7 +41,6 @@ public:
     ddp_config->set_debug(false);
     ddp_config->set_max_iters(100);
     config_.set_weights_folder(
-        std::string(PROJECT_SOURCE_DIR) +
         "/neural_network_model_data/tensorflow_model_vars_16_8_tanh/");
   }
 
