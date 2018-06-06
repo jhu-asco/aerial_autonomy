@@ -146,10 +146,9 @@ ControllerStatus DDPAirmMPCController::isConvergedImplementation(
           << config_.goal_velocity_tolerance() << ", "
           << config_.goal_joint_angle_tolerance() << ", "
           << config_.goal_joint_velocity_tolerance();
-  controller_status << "Error Position" << error_position(0)
-                    << error_position(1) << error_position(2)
-                    << error_velocity(0) << error_velocity(1)
-                    << error_velocity(2) << loop_timer_.average_loop_period();
+  controller_status << "Stats" << error_position.norm() << error_velocity.norm()
+                    << error_ja.norm() << error_jv.norm()
+                    << loop_timer_.average_loop_period();
   return controller_status;
 }
 

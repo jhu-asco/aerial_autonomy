@@ -49,10 +49,15 @@ public:
         mpc_connector_(*drone_hardware_, *arm_hardware_, mpc_controller_,
                        thrust_gain_estimator_,
                        config.thrust_gain_estimator_config().buffer_size(),
-                       pose_sensor_),
-        mpc_visualizer_(mpc_connector_, config_.uav_vision_system_config()
-                                            .uav_arm_system_config()
-                                            .visualizer_config()) {
+                       pose_sensor_) {
+    if (config_.uav_vision_system_config()
+            .uav_arm_system_config()
+            .visualize_mpc_trajectories()) {
+      mpc_visualizer_.reset(new MPCTrajectoryVisualizer(
+          mpc_connector_, config_.uav_vision_system_config()
+                              .uav_arm_system_config()
+                              .visualizer_config()));
+    }
     controller_connector_container_.setObject(visual_servoing_arm_connector_);
     controller_connector_container_.setObject(mpc_connector_);
   }
@@ -69,7 +74,15 @@ public:
     return status.str();
   }
 
-  void visualizeMPC() { mpc_visualizer_.publishTrajectory(); }
+  void usePerfectMPCTime(double time_diff = 0.02) {
+    mpc_connector_.usePerfectTimeDiff(time_diff);
+  }
+
+  void visualizeMPC() {
+    if (mpc_visualizer_) {
+      mpc_visualizer_->publishTrajectory();
+    }
+  }
 
 private:
   /**
@@ -95,5 +108,5 @@ private:
   /**
    * @brief mpc trajectory visualizer
    */
-  MPCTrajectoryVisualizer mpc_visualizer_;
+  std::unique_ptr<MPCTrajectoryVisualizer> mpc_visualizer_;
 };

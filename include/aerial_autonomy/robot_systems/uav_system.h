@@ -391,7 +391,8 @@ public:
           tf::createQuaternionFromRPY(data.rpydata.x, data.rpydata.y,
                                       data.rpydata.z),
           tf::Vector3(data.localpos.x, data.localpos.y, data.localpos.z));
-      result = tf::StampedTransform(t, ros::Time::now(), "optitrak", "uav");
+      result =
+          tf::StampedTransform(t, ros::Time(data.timestamp), "optitrak", "uav");
     }
     return result;
   }
