@@ -1,10 +1,12 @@
 syntax = "proto2";
 import "uav_state_machine_config.proto";
 import "visual_servoing_state_machine_config.proto";
+import "mpc_state_machine_config.proto";
 
 message BaseStateMachineConfig {
   oneof subclass {
     UAVStateMachineConfig uav_state_machine_config = 1;
     VisualServoingStateMachineConfig visual_servoing_state_machine_config = 2;
+    MPCStateMachineConfig mpc_state_machine_config = 3;
   }
 }
