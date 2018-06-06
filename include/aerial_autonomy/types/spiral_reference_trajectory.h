@@ -3,6 +3,7 @@
 #include "arm_sine_controller_config.pb.h"
 #include "spiral_reference_trajectory_config.pb.h"
 #include <Eigen/Dense>
+#include <memory>
 
 /**
 * @brief Spiral reference trajectory for Aerial manipulation system
@@ -25,12 +26,11 @@ public:
   * @param arm_config Arm reference trajectory parameters
   * @param current_position Current quadrotor position
   * @param current_yaw Current quadrotor yaw
-  * @param kt Thrust gain
   */
   SpiralReferenceTrajectory(SpiralReferenceTrajectoryConfig config,
                             ArmSineControllerConfig arm_config,
                             Eigen::Vector3d current_position,
-                            double current_yaw, double kt);
+                            double current_yaw);
   /**
   * @brief Get the state and control at specified time
   *
@@ -68,7 +68,10 @@ private:
   ArmSineControllerConfig arm_config_; ///< Arm reference trajectory parameters
   Eigen::Vector3d current_position_;   ///< Current quadrotor position
   double current_yaw_;                 ///< Current quadrotor yaw
-  double kt_;                          ///< Thrust gain
   static constexpr double epsilon = 1e-6; ///< Tolerance for rp singularity
   static constexpr double gravity_magnitude_ = 9.81; ///< Gravity magnitude
 };
+/**
+ * @brief shared pointer to spiral reference trajectory
+ */
+using SpiralReferenceTrajectoryPtr = std::shared_ptr<SpiralReferenceTrajectory>;

@@ -258,8 +258,8 @@ TEST_F(DDPAirmMPCControllerTests, ConvergenceSpiral) {
 
   std::shared_ptr<SpiralReferenceTrajectory> reference_trajectory(
       new SpiralReferenceTrajectory(reference_config, arm_reference_config,
-                                    sensor_data.initial_state.segment<3>(0), 0,
-                                    sensor_data.parameters[0]));
+                                    sensor_data.initial_state.segment<3>(0),
+                                    0));
   controller->setGoal(reference_trajectory);
   Eigen::VectorXd out_control;
   std::vector<Eigen::VectorXd> xs_out;

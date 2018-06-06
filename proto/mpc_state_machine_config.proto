@@ -7,6 +7,12 @@ import "position_yaw.proto";
 message MPCStateMachineConfig {
   optional SpiralReferenceTrajectoryConfig spiral_reference = 1;
   optional ArmSineControllerConfig arm_reference = 2;
+  /**
+  * @brief waypoint position and yaw in gravity aligned frame attached to quad
+  * COM
+  * i.e the waypoint in inertial frame = (quad position, yaw) +
+  * waypoint_reference
+  */
   optional config.PositionYaw waypoint_reference = 3;
   optional double goal_joint_angle_1 = 4;
   optional double goal_joint_angle_2 = 5;

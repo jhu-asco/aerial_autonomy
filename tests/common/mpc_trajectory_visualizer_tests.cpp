@@ -36,8 +36,8 @@ protected:
     init_position.z = initial_state.z;
     drone_hardware_.cmdwaypoint(init_position, initial_state.yaw);
     arm_simulator_.setJointAngles(init_joint_angles);
-    controller_connector_->setGoal(
-        createWayPoint(goal, goal_joint_angles[0], goal_joint_angles[1]));
+    controller_connector_->setGoal(conversions::createWayPoint(
+        goal, goal_joint_angles[0], goal_joint_angles[1]));
     controller_connector_->run();
   }
 

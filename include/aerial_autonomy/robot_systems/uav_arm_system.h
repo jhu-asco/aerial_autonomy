@@ -6,7 +6,6 @@
 #include "aerial_autonomy/controllers/relative_pose_controller.h"
 #include "aerial_autonomy/robot_systems/arm_system.h"
 #include "aerial_autonomy/robot_systems/uav_vision_system.h"
-#include "aerial_autonomy/sensors/pose_sensor.h"
 #include <chrono>
 
 /**
