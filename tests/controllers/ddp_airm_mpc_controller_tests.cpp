@@ -115,7 +115,7 @@ TEST_F(DDPAirmMPCControllerTests, ConstructorWithResidualDynamics) {
 TEST_F(DDPAirmMPCControllerTests, SingleRunWithResidualDynamics) {
   config_.set_use_residual_dynamics(true);
   config_.mutable_ddp_config()->set_n(100);
-  config_.mutable_ddp_config()->set_min_cost(20);
+  config_.mutable_ddp_config()->set_max_cost(20);
   config_.mutable_ddp_config()->set_min_cost_decrease(1e-3);
   std::shared_ptr<DDPAirmMPCController> controller = createController();
   VLOG(1) << "Creating current sensor data";
@@ -174,7 +174,7 @@ TEST_F(DDPAirmMPCControllerTests, SingleRunWithResidualDynamics) {
 TEST_F(DDPAirmMPCControllerTests, Convergence) {
   config_.set_use_residual_dynamics(true);
   config_.mutable_ddp_config()->set_n(50);
-  config_.mutable_ddp_config()->set_min_cost(20);
+  config_.mutable_ddp_config()->set_max_cost(20);
   config_.mutable_ddp_config()->set_min_cost_decrease(1e-2);
   config_.mutable_ddp_config()->set_max_iters(5);
   std::shared_ptr<DDPAirmMPCController> controller = createController();
@@ -225,7 +225,7 @@ TEST_F(DDPAirmMPCControllerTests, Convergence) {
 TEST_F(DDPAirmMPCControllerTests, ConvergenceSpiral) {
   config_.set_use_residual_dynamics(true);
   config_.mutable_ddp_config()->set_n(50);
-  config_.mutable_ddp_config()->set_min_cost(30);
+  config_.mutable_ddp_config()->set_max_cost(30);
   config_.mutable_ddp_config()->set_min_cost_decrease(1e-2);
   config_.mutable_ddp_config()->set_max_iters(5);
   std::shared_ptr<DDPAirmMPCController> controller = createController();

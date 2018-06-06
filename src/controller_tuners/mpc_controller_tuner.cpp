@@ -11,6 +11,16 @@
 
 #include <glog/logging.h>
 
+/**
+* @brief Create a way point reference trajectory from goal positionyaw and joint
+* angles
+*
+* @param goal Goal position yaw
+* @param desired_joint_angle_1 First joint angle
+* @param desired_joint_angle_2 Second joint angle
+*
+* @return waypoint reference trajectory
+*/
 std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>>
 createWayPoint(PositionYaw goal, double desired_joint_angle_1,
                double desired_joint_angle_2) {
@@ -26,6 +36,13 @@ createWayPoint(PositionYaw goal, double desired_joint_angle_1,
   return waypoint;
 }
 
+/**
+* @brief Create a spiral reference trajectory
+*
+* @param drone_hardware Quad simulator
+*
+* @return spiral reference trajectory
+*/
 std::shared_ptr<SpiralReferenceTrajectory>
 createSpiralReference(quad_simulator::QuadSimulator &drone_hardware) {
   parsernode::common::quaddata data;

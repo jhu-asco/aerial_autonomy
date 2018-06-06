@@ -175,6 +175,13 @@ private:
 
     return velocity_sensor;
   }
+  /**
+  * @brief create a pose sensor if using Motion Capture flag is set
+  *
+  * @param config The UAV system config
+  *
+  * @return new pose sensor if using motion capture otherwise nulllptr
+  */
   static std::shared_ptr<Sensor<tf::StampedTransform>>
   createPoseSensor(UAVSystemConfig &config) {
     auto pose_sensor_config = config.pose_sensor_config();

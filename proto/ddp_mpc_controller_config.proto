@@ -48,5 +48,5 @@ message DDPMPCControllerConfig {
   * @brief If ddp cost is greater than this, the algorithm
   * has been assumed to have failed
   */
-  optional double min_cost = 11 [ default = 10.0 ];
+  optional double max_cost = 11 [ default = 10.0 ];
 }

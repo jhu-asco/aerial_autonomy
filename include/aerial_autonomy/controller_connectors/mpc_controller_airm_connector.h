@@ -19,7 +19,13 @@
 class MPCControllerAirmConnector
     : public MPCControllerConnector<Eigen::VectorXd, Eigen::VectorXd> {
 public:
+  /**
+  * @brief Control type
+  */
   using ControlType = Eigen::VectorXd;
+  /**
+  * @brief State type
+  */
   using StateType = Eigen::VectorXd;
   /**
   * @brief Constructor
@@ -37,6 +43,9 @@ public:
       SensorPtr<tf::StampedTransform> pose_sensor = nullptr,
       AbstractConstraintGeneratorPtr constraint_generator = nullptr);
 
+  /**
+  * @brief Initialize MPC controller
+  */
   void initialize();
 
   /**
@@ -54,22 +63,64 @@ public:
   */
   void sendControllerCommands(ControlType control);
 
+  /**
+  * @brief Estimate the current state and static MPC parameters
+  *
+  * @param current_state Current system state
+  * @param params Current MPC parameters
+  *
+  * @return true if estimation is successful
+  */
   bool estimateStateAndParameters(Eigen::VectorXd &current_state,
                                   Eigen::VectorXd &params);
 
+  /**
+  * @brief Get the MPC trajectory
+  *
+  * @param xs vector of states
+  * @param us vector of controls
+  */
   void getTrajectory(std::vector<StateType> &xs,
                      std::vector<ControlType> &us) const;
 
+  /**
+  * @brief Get the reference MPC trajectory
+  *
+  * @param xds vector of desired states
+  * @param uds vector of desired controls
+  */
   void getDesiredTrajectory(std::vector<StateType> &xds,
                             std::vector<ControlType> &uds) const;
 
+  /**
+  * @brief get the pose of quadrotor as a tf transform
+  *
+  * @param data Quad data
+  *
+  * @return current pose of quadrotor
+  */
   tf::Transform getPose(const parsernode::common::quaddata &data);
 
+  /**
+  * @brief Specify the time difference for differentiating position, joint
+  * angles
+  *
+  * @param time_diff The simulated time difference between two measurements
+  */
   void usePerfectTimeDiff(double time_diff = 0.02);
 
+  /**
+  * @brief Swap out the internal sensor with provided sensor
+  *
+  * @param sensor Pose sensor to use
+  */
   void useSensor(SensorPtr<tf::StampedTransform> sensor);
 
 protected:
+  /**
+  * @brief Set rpy command buffer to zeros and joint angles to current joint
+  * angles
+  */
   void clearCommandBuffers();
 
 private:
@@ -77,9 +128,9 @@ private:
       &drone_hardware_;     ///< Quadrotor parser for sending and receiving data
   ArmParser &arm_hardware_; ///< Parser for sending and receiving arm data
   SensorPtr<tf::StampedTransform> pose_sensor_; ///< Pose sensor for quad data
-  ThrustGainEstimator &thrust_gain_estimator_;
-  std::vector<double> joint_angle_commands_; ///< Commanded joint angles
-  Eigen::VectorXd previous_measurements_;    ///< Previous measurements
+  ThrustGainEstimator &thrust_gain_estimator_;  ///< Thrust gain estimator
+  std::vector<double> joint_angle_commands_;    ///< Commanded joint angles
+  Eigen::VectorXd previous_measurements_;       ///< Previous measurements
   std::chrono::time_point<std::chrono::high_resolution_clock>
       previous_measurement_time_;          ///< Previous sensor measurement time
   bool previous_measurements_initialized_; ///< Flag to determin whether

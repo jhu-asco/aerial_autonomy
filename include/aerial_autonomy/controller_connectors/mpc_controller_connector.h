@@ -78,14 +78,31 @@ public:
     return return_status;
   }
 
+  /**
+  * @brief Set the goal for controller and save the current time
+  *
+  * @param goal goal for controller
+  */
   void setGoal(ReferenceTrajectoryPtr<StateT, ControlT> goal) {
     BaseConnector::setGoal(goal);
     t_goal_ = std::chrono::high_resolution_clock::now();
   }
 
+  /**
+  * @brief Get the MPC planned trajectory
+  *
+  * @param xs vector of MPC states
+  * @param us vector of MPC controls
+  */
   virtual void getTrajectory(std::vector<StateT> &xs,
                              std::vector<ControlT> &us) const = 0;
 
+  /**
+  * @brief Get the reference MPC trajectory
+  *
+  * @param xds vector of MPC states
+  * @param uds vector of MPC controls
+  */
   virtual void getDesiredTrajectory(std::vector<StateT> &xds,
                                     std::vector<ControlT> &uds) const = 0;
 

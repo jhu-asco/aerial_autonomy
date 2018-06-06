@@ -144,6 +144,11 @@ public:
    */
   Status status() { return status_; }
 
+  /**
+  * @brief convert enum to human readable value
+  *
+  * @return text describing the enum value
+  */
   std::string statusAsText();
 
   /**

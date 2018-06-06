@@ -25,5 +25,10 @@ public:
   virtual SensorStatus getSensorStatus() = 0;
 };
 
+/**
+* @brief Shared pointer to base sensor
+*
+* @tparam SensorDataT type of sensor data
+*/
 template <class SensorDataT>
 using SensorPtr = std::shared_ptr<Sensor<SensorDataT>>;

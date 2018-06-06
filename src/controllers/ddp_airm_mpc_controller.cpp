@@ -212,7 +212,7 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   VLOG(3) << "xs0: " << xs_.front().transpose();
   VLOG(3) << "xf: " << xs_.back().transpose();
   VLOG(3) << "xd: " << xds_.back().transpose();
-  if (ddp_->J > ddp_config.min_cost()) {
+  if (ddp_->J > ddp_config.max_cost()) {
     LOG(WARNING) << "Failed to get a reasonable trajectory using Ddp. J: "
                  << (ddp_->J);
     result = false;

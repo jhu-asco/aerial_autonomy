@@ -230,13 +230,18 @@ protected:
   void statusCallback(std_msgs::String status) { status_ = status.data; }
 };
 
+/**
+* @brief Fill MPC config with default values
+*
+* @param config MPC Controller config
+*/
 void fillMPCConfig(AirmMPCControllerConfig &config) {
   config.set_goal_position_tolerance(0.1);
   config.set_goal_velocity_tolerance(0.2);
   config.set_goal_joint_angle_tolerance(0.2);
   config.set_goal_joint_velocity_tolerance(0.1);
   DDPMPCControllerConfig *ddp_config = config.mutable_ddp_config();
-  ddp_config->set_min_cost(500);
+  ddp_config->set_max_cost(500);
   ddp_config->set_look_ahead_time(0.02);
   auto q = ddp_config->mutable_q();
   q->Resize(21, 0.0);
@@ -269,6 +274,11 @@ void fillMPCConfig(AirmMPCControllerConfig &config) {
   config.set_use_code_generation(false);
 }
 
+/**
+* @brief Fill MPC config into UAV arm system config part of UAV system config
+*
+* @param config UAV system config
+*/
 void fillMPCConfig(UAVSystemConfig &config) {
   auto mpc_config = config.mutable_uav_vision_system_config()
                         ->mutable_uav_arm_system_config()
@@ -276,6 +286,11 @@ void fillMPCConfig(UAVSystemConfig &config) {
   fillMPCConfig(*mpc_config);
 }
 
+/**
+* @brief Create an MPC controller config with default values
+*
+* @return MPC controller config
+*/
 AirmMPCControllerConfig createMPCConfig() {
   AirmMPCControllerConfig config;
   fillMPCConfig(config);

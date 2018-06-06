@@ -18,8 +18,20 @@ class AbstractMPCController
     : public Controller<MPCInputs<StateT>,
                         ReferenceTrajectoryPtr<StateT, ControlT>, ControlT> {
 public:
+  /**
+  * @brief Get MPC trajectory
+  *
+  * @param xs vector of states
+  * @param us vector of controls
+  */
   virtual void getTrajectory(std::vector<StateT> &xs,
                              std::vector<ControlT> &us) const = 0;
+  /**
+  * @brief Get reference MPC trajectory
+  *
+  * @param xds vector of ref states
+  * @param uds vector of ref controls
+  */
   virtual void getDesiredTrajectory(std::vector<StateT> &xds,
                                     std::vector<ControlT> &uds) const = 0;
 };

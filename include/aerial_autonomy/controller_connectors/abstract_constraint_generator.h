@@ -23,5 +23,8 @@ public:
   virtual bool getStatus() { return true; }
 };
 
+/**
+* @brief shared pointer to abstract constraint generator
+*/
 using AbstractConstraintGeneratorPtr =
     std::shared_ptr<AbstractConstraintGenerator>;

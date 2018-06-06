@@ -12,8 +12,17 @@
 
 #include <gtest/gtest.h>
 
+/**
+* @brief MPC Controller testing fixture.
+*
+* Provides functionality to create MPC Controller
+*
+*/
 class MPCControllerAirmConnectorTests : public ::testing::Test {
 public:
+  /**
+  * @brief Constructor
+  */
   MPCControllerAirmConnectorTests()
       : thrust_gain_estimator_(0.2),
         controller_config_(test_utils::createMPCConfig()) {
@@ -26,21 +35,25 @@ public:
     controller_connector_->usePerfectTimeDiff(0.02);
   }
 
+  /**
+  * @brief Configure logger
+  */
   static void SetUpTestCase() {
-    // Configure logging
     LogConfig log_config;
     log_config.set_directory("/tmp/data");
     Log::instance().configure(log_config);
-    DataStreamConfig data_config;
-    /*data_config.set_stream_id("velocity_based_position_controller");
-    Log::instance().addDataStream(data_config);
-    data_config.set_stream_id("rpyt_based_velocity_controller");
-    Log::instance().addDataStream(data_config);
-    data_config.set_stream_id("thrust_gain_estimator");
-    Log::instance().addDataStream(data_config);
-    */
   }
 
+  /**
+  * @brief run the MPC controller until its either converged/crashed
+  *
+  * @param initial_state initial robot state
+  * @param goal Goal point for robot
+  * @param goal_joint_angles Initial joint angles
+  * @param init_joint_angles Goal joint angles
+  * @param check_thrust_gain Flag whether to verify convergence of thrust gain
+  * estimator
+  */
   void runUntilConvergence(const PositionYaw &initial_state,
                            const PositionYaw &goal,
                            std::vector<double> &&goal_joint_angles,
@@ -87,6 +100,16 @@ public:
     }
   }
 
+  /**
+  * @brief create a waypoint reference trajectory from a goal point and joint
+  * angles
+  *
+  * @param goal Goal position and yaw
+  * @param desired_joint_angle_1 Desired joint angle for first joint
+  * @param desired_joint_angle_2 Desired joint angle for second joint
+  *
+  * @return Waypoint Reference trajectory
+  */
   std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>>
   createWayPoint(PositionYaw goal, double desired_joint_angle_1,
                  double desired_joint_angle_2) {
@@ -102,10 +125,12 @@ public:
     return waypoint;
   }
 
-  quad_simulator::QuadSimulator drone_hardware_;
-  ArmSimulator arm_simulator_;
-  std::unique_ptr<DDPAirmMPCController> controller_;
-  std::unique_ptr<MPCControllerAirmConnector> controller_connector_;
-  ThrustGainEstimator thrust_gain_estimator_;
-  AirmMPCControllerConfig controller_config_;
+protected:
+  quad_simulator::QuadSimulator drone_hardware_;     ///< Quad simulator
+  ArmSimulator arm_simulator_;                       ///< Arm simulator
+  std::unique_ptr<DDPAirmMPCController> controller_; ///< MPC controller
+  std::unique_ptr<MPCControllerAirmConnector>
+      controller_connector_;                  ///< MPC connector
+  ThrustGainEstimator thrust_gain_estimator_; ///< Thrust gain estimator
+  AirmMPCControllerConfig controller_config_; ///< Config for MPC controller
 };

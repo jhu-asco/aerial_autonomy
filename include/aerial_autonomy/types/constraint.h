@@ -30,11 +30,11 @@ struct Constraint {
     * are given by the scale vector.
     */
     Box
-  } constraint_type;
-  /**
-  * @brief the pose of the obstacle/constraint
-  * For cylinders, the major axis is assumed to be along the z axis
-  */
+  } constraint_type; ///< constraint type instance
+                     /**
+                     * @brief the pose of the obstacle/constraint
+                     * For cylinders, the major axis is assumed to be along the z axis
+                     */
   tf::Transform transform;
   /**
   * @brief The length of the obstacle along the body x, y, z axes
