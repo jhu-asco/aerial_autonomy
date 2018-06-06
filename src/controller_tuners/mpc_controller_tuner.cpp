@@ -67,7 +67,7 @@ createSpiralReference(quad_simulator::QuadSimulator &drone_hardware) {
   return std::shared_ptr<SpiralReferenceTrajectory>(
       new SpiralReferenceTrajectory(spiral_reference_config,
                                     arm_sine_reference_config, current_position,
-                                    current_yaw, 0.16));
+                                    current_yaw));
 }
 
 int main(int argc, char **argv) {

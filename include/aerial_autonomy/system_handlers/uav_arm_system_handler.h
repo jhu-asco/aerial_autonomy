@@ -68,8 +68,10 @@ public:
   */
   bool isConnected() { return common_handler_.isConnected(); }
 
-private:
+protected:
   UAVArmSystem uav_system_; ///< Contains controllers
+
+private:
   CommonSystemHandler<LogicStateMachineT, EventManagerT, UAVArmSystem>
       common_handler_;              ///< Common logic to create state machine
                                     ///< and associated connections.

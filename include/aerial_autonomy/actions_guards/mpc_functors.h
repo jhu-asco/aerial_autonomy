@@ -36,10 +36,10 @@ template <class LogicStateMachineT>
 struct MPCWaypointReferenceTrackingTransition
     : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
   using WaypointReferenceTrajectoryPtr =
-      Waypoint<Eigen::VectorXd, Eigen::VectorXd>;
+      std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>>;
   void run(UAVArmSystem &robot_system) {
     VLOG(1) << "Setting waypoint reference goal for mpc controller";
-    PositionYaw goal_positon_yaw = conversions::protoPositionYawToPositionYaw(
+    PositionYaw goal_position_yaw = conversions::protoPositionYawToPositionYaw(
         this->state_machine_config_.mpc_state_machine_config()
             .waypoint_reference());
     double goal_joint1 = this->state_machine_config_.mpc_state_machine_config()
@@ -47,20 +47,23 @@ struct MPCWaypointReferenceTrackingTransition
     double goal_joint2 = this->state_machine_config_.mpc_state_machine_config()
                              .goal_joint_angle_2();
     auto data = robot_system.getPose();
+    tf::Vector3 current_position = data.getOrigin();
+    double roll, pitch, yaw;
+    data.getBasis().getEulerYPR(yaw, pitch, roll);
     // Add current position to goal (assuming goal is defined in local gravity
     // aligned coordinates
-    goal_position_yaw =
-        goal_position_yaw + PositionYaw(data.localpos.x, data.localpos.y,
-                                        data.localpos.z, data.rpydata.z);
-    WaypointReferenceTrajectoryPtr reference(conversions::createWayPoint(
-        goal_position_yaw, goal_joint1, goal_joint2));
+    goal_position_yaw = goal_position_yaw +
+                        PositionYaw(current_position.x(), current_position.y(),
+                                    current_position.z(), yaw);
+    WaypointReferenceTrajectoryPtr reference = conversions::createWayPoint(
+        goal_position_yaw, goal_joint1, goal_joint2);
     robot_system.setGoal<MPCControllerAirmConnector,
                          WaypointReferenceTrajectoryPtr>(reference);
   }
 };
 
 /**
- * @brief internal action while performing position control
+ * @brief internal action while performing MPC control
  *
 * @tparam LogicStateMachineT Logic state machine used to process events
  */
@@ -71,3 +74,12 @@ using MPCControlInternalActionFunctor_ =
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
             LogicStateMachineT, MPCControllerAirmConnector, false>>>;
+/**
+* @brief State that uses MPC control functor to track a reference trajectory
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+using MPCState_ =
+    BaseState<UAVSystem, LogicStateMachineT,
+              MPCControlInternalActionFunctor_<LogicStateMachineT>>;

@@ -185,6 +185,7 @@ visual_servoing_events
 pick_place_events
 arm_events
 uav_arm_sysid_events
+mpc_events
 )
 
 ##############
@@ -350,11 +351,13 @@ target_link_libraries(uav_vision_system_node aerial_autonomy)
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
 
 if (arm_plugins_FOUND)
+  add_executable(airm_mpc_node src/system_handler_nodes/airm_mpc_node.cpp)
   add_executable(uav_arm_system_node src/system_handler_nodes/uav_arm_system_node.cpp)
   add_executable(uav_arm_sysid_node src/system_handler_nodes/uav_arm_sysid_node.cpp)
 
   target_link_libraries(uav_arm_system_node aerial_autonomy)
   target_link_libraries(uav_arm_sysid_node aerial_autonomy)
+  target_link_libraries(airm_mpc_node aerial_autonomy)
 endif ()
 
 #############
