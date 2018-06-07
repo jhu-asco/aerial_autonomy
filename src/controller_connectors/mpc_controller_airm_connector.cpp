@@ -127,6 +127,10 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
   ///\todo Do some filtering on position, rpy before differentiation
   tf::Transform quad_pose;
   if (pose_sensor_) {
+    if (pose_sensor_->getSensorStatus() != SensorStatus::VALID) {
+      LOG(WARNING) << "Sensor invalid";
+      return false;
+    }
     quad_pose = pose_sensor_->getSensorData();
   } else {
     quad_pose = getPose(quad_data);

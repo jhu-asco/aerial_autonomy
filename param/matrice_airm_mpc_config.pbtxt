@@ -1,0 +1,218 @@
+uav_arm_system_handler_config {
+  arm_controller_timer_duration: 20
+  mpc_visualization_timer_duration: 50
+}
+
+base_config {
+  state_machine_timer_duration: 20
+  status_timer_duration: 50
+}
+
+uav_system_config {
+  #uav_parser_type: "dji_parser/DjiParser"
+  uav_parser_type: "dji_parser/DjiHILParser"
+  uav_controller_timer_duration: 20
+  minimum_battery_percent: 25
+  minimum_takeoff_height: 0.8
+  landing_height: 0.1
+  position_controller_config {
+    goal_position_tolerance {
+      x: 0.05
+      y: 0.05
+      z: 0.05
+    }
+  }
+  velocity_controller_config {
+    goal_velocity_tolerance {
+      vx: 0.1
+      vy: 0.1
+      vz: 0.1
+    }
+  }
+
+  rpyt_based_position_controller_config {
+    velocity_based_position_controller_config {
+      position_gain: 1.0 
+      z_gain: 0.8
+      yaw_gain: 1.0
+      max_velocity: 1.0
+      position_i_gain: 0.0
+      yaw_i_gain: 0.0
+      position_saturation_value: 0.0
+      yaw_saturation_value: 0.0
+      max_yaw_rate: 3.14
+
+      position_controller_config {
+        goal_position_tolerance {
+          x: 0.15
+          y: 0.15
+          z: 0.2
+        }
+      }
+    }
+
+    rpyt_based_velocity_controller_config{
+      kp_xy: 4.0
+      ki_xy: 0.5
+      kp_z: 4.0
+      ki_z: 0.0
+      kt: 0.21
+
+      min_thrust: 10
+      max_thrust: 100
+      max_rp: 1.57
+      max_acc_norm: 1.0
+
+      velocity_controller_config{
+        goal_velocity_tolerance{
+          vx: 0.2
+          vy: 0.2
+          vz: 0.2
+        }
+      }
+    }
+  }
+
+  thrust_gain_estimator_config {
+    kt: 0.16
+    buffer_size: 10
+  }
+
+  uav_vision_system_config {
+    desired_visual_servoing_distance: 0.48
+    constant_heading_depth_controller_config {
+      radial_gain: 0.6
+      tangential_gain: 1.3
+      yaw_gain: 0.3
+      max_velocity: 0.2
+      min_velocity: 0.0
+      max_yaw_rate: 0.3
+      position_controller_config {
+        goal_position_tolerance {
+          x: 0.05
+          y: 0.05
+          z: 0.05
+        }
+        goal_yaw_tolerance: 0.08
+      }
+    }
+    uav_arm_system_config {
+      arm_system_config {
+        pose_controller_config {
+          goal_position_tolerance {
+            x: 0.02
+            y: 0.02
+            z: 0.02
+          }
+          goal_rotation_tolerance: 6
+        }
+        arm_parser_type: "ArmSimulator"
+      }
+      visualize_mpc_trajectories: true
+      visualizer_config {
+        parent_frame: "/optitrak"
+        trajectory_color {
+          r: 0
+          g: 1
+          b: 0
+        }
+        desired_trajectory_color {
+          r: 1
+          g: 0
+          b: 0
+          a: 0.4
+        }
+      }
+      mpc_controller_config {
+        ddp_config {
+          # State cost
+          # XYZ
+          Q: 0
+          Q: 0
+          Q: 0
+          # RPY
+          Q: 0
+          Q: 0
+          Q: 0
+          # Vxyz
+          Q: 1
+          Q: 1
+          Q: 1
+          # RPYdot
+          Q: 0
+          Q: 0
+          Q: 0
+          # RPY_cmd
+          Q: 0
+          Q: 0
+          Q: 0
+          # Joint_angles
+          Q: 0
+          Q: 0
+          # Joint_velocities
+          Q: 0
+          Q: 0
+          # Joint_cmd
+          Q: 0
+          Q: 0
+          # Terminal gains
+          # XYZ
+          Qf: 200
+          Qf: 200
+          Qf: 200
+          # RPY
+          Qf: 50
+          Qf: 50
+          Qf: 50
+          # Vxyz
+          Qf: 10
+          Qf: 10
+          Qf: 10
+          # RPYdot
+          Qf: 50 
+          Qf: 50
+          Qf: 50
+          # RPY_cmd
+          Qf: 0.1
+          Qf: 0.1
+          Qf: 0.1
+          # Joint_angles
+          Qf: 50
+          Qf: 50
+          # Joint_velocities
+          Qf: 5
+          Qf: 5
+          # Joint_cmd
+          Qf: 0.1
+          Qf: 0.1
+          # Control cost
+          # Thrust
+          R: 2.0
+          # Rpyd dot
+          R: 0.1
+          R: 0.1
+          R: 0.1
+          # desired joint velocities
+          R: 0.1
+          R: 0.1
+          # Trajectory length
+          N: 50
+          # Max iterations
+          max_iters: 5
+          # Min cost decrease
+          min_cost_decrease: 1e-4
+          # Look ahead time
+          look_ahead_time: 0.2
+          # Min cost
+          max_cost: 50.0
+        }
+
+        weights_folder: "neural_network_model_data/tensorflow_model_vars_16_8_tanh/"
+        goal_position_tolerance: 0.25
+        goal_velocity_tolerance: 0.25
+        goal_joint_angle_tolerance: 0.15
+        goal_joint_velocity_tolerance: 0.15
+      }
+    }
+  }
+}
