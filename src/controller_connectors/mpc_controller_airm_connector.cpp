@@ -1,6 +1,7 @@
 #include <aerial_autonomy/common/conversions.h>
 #include <aerial_autonomy/common/math.h>
 #include <aerial_autonomy/controller_connectors/mpc_controller_airm_connector.h>
+#include <aerial_autonomy/log/log.h>
 
 MPCControllerAirmConnector::MPCControllerAirmConnector(
     parsernode::Parser &drone_hardware, ArmParser &arm_hardware,
@@ -18,6 +19,28 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
       delay_buffer_size_(delay_buffer_size), private_controller_(controller),
       use_perfect_time_diff_(false), perfect_time_diff_(0.02) {
   clearCommandBuffers();
+  DATA_HEADER("mpc_state_estimator") << "x"
+                                     << "y"
+                                     << "z"
+                                     << "vx"
+                                     << "vy"
+                                     << "vz"
+                                     << "r"
+                                     << "p"
+                                     << "y"
+                                     << "rdot"
+                                     << "pdot"
+                                     << "ydot"
+                                     << "rd"
+                                     << "pd"
+                                     << "yd"
+                                     << "ja1"
+                                     << "ja2"
+                                     << "jv1"
+                                     << "jv2"
+                                     << "jad1"
+                                     << "jad2"
+                                     << "kt" << DataStream::endl;
 }
 
 void MPCControllerAirmConnector::initialize() { run(); }
@@ -111,8 +134,15 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
   // Position
   const auto &quad_position = quad_pose.getOrigin();
   Eigen::Vector3d p(quad_position.x(), quad_position.y(), quad_position.z());
+  Eigen::Vector3d rpy;
   // Euler angles
-  Eigen::Vector3d rpy = conversions::transformTfToRPY(quad_pose);
+  if (pose_sensor_) {
+    rpy = conversions::transformTfToRPY(quad_pose);
+  } else {
+    rpy = Eigen::Vector3d(quad_data.rpydata.x, quad_data.rpydata.y,
+                          quad_data.rpydata.z);
+    VLOG(1) << "Rpy: " << rpy;
+  }
   // Joint angles
   std::vector<double> joint_angles = arm_hardware_.getJointAngles();
   Eigen::Vector2d joint_angles_vec(joint_angles.at(0), joint_angles.at(1));
@@ -148,6 +178,8 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
                                        quad_data.linacc.z);
   params.resize(1);
   params << thrust_gain_estimator_.getThrustGain();
+  DATA_LOG("mpc_state_estimator") << current_state << params[0]
+                                  << DataStream::endl;
   return true;
 }
 

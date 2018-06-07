@@ -78,7 +78,7 @@ ddp_config {
   # Look ahead time
   look_ahead_time: 0.02
   # Min cost
-  min_cost: 50.0
+  max_cost: 50.0
 }
 
 weights_folder: "neural_network_model_data/tensorflow_model_vars_16_8_tanh/"

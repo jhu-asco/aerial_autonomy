@@ -24,6 +24,8 @@ struct MPCSpiralReferenceTrackingTransition
   * @param robot_system robot system
   */
   void run(UAVArmSystem &robot_system) {
+    VLOG(1) << "Recording home position";
+    robot_system.setHomeLocation();
     VLOG(1) << "Setting spiral reference goal for mpc controller";
     auto spiral_reference_config =
         this->state_machine_config_.mpc_state_machine_config()
@@ -61,6 +63,8 @@ struct MPCWaypointReferenceTrackingTransition
   * @param robot_system robot system
   */
   void run(UAVArmSystem &robot_system) {
+    VLOG(1) << "Recording home position";
+    robot_system.setHomeLocation();
     VLOG(1) << "Setting waypoint reference goal for mpc controller";
     PositionYaw goal_position_yaw = conversions::protoPositionYawToPositionYaw(
         this->state_machine_config_.mpc_state_machine_config()

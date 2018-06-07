@@ -34,5 +34,5 @@ message UAVArmSystemConfig {
   /**
   * @brief Flag to specify whether to visualize MPC trajectories
   */
-  optional bool visualize_mpc_trajectories = 12 [ default = true ];
+  optional bool visualize_mpc_trajectories = 12 [ default = false ];
 }

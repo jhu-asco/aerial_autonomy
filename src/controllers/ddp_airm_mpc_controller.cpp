@@ -1,5 +1,6 @@
 #include "aerial_autonomy/controllers/ddp_airm_mpc_controller.h"
 #include "aerial_autonomy/common/atomic.h"
+#include "aerial_autonomy/log/log.h"
 #include <gcop/load_eigen_matrix.h>
 
 void DDPAirmMPCController::loadQuadParameters(Eigen::Vector3d &kp_rpy,
@@ -97,6 +98,19 @@ DDPAirmMPCController::DDPAirmMPCController(
   ddp_->mu = config.ddp_config().mu();
   ddp_->debug = config.ddp_config().debug();
   VLOG(1) << "Done setting up ddp";
+  // Setting up logger
+  DATA_HEADER("ddp_mpc_controller") << "Errorx"
+                                    << "Errory"
+                                    << "Errorz"
+                                    << "Errorja1"
+                                    << "Errorja2"
+                                    << "thrust_d"
+                                    << "rd"
+                                    << "pd"
+                                    << "yaw_rate_d"
+                                    << "Jad1"
+                                    << "Jad2"
+                                    << "Loop timer" << DataStream::endl;
 }
 
 void DDPAirmMPCController::resetControls() {
@@ -190,7 +204,7 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   // Start state
   xs_.at(0) = sensor_data.initial_state;
   // Parameters
-  kt_[0] = sensor_data.parameters[0]; // copy kt
+  ///////////////////////////kt_[0] = sensor_data.parameters[0]; // copy kt
   rotateControls(control_timer_shift_);
   // Update states based on controls
   ddp_->Update();
@@ -200,15 +214,15 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
     ddp_->Iterate();
     // Check for convergence
     if (std::abs(ddp_->J - J) < ddp_config.min_cost_decrease()) {
-      VLOG(3) << "Converged";
+      VLOG(5) << "Converged";
       break;
     }
     J = ddp_->J;
   }
-  VLOG(3) << "DDP_J: " << (ddp_->J);
-  VLOG(3) << "xs0: " << xs_.front().transpose();
-  VLOG(3) << "xf: " << xs_.back().transpose();
-  VLOG(3) << "xd: " << xds_.back().transpose();
+  VLOG(5) << "DDP_J: " << (ddp_->J);
+  VLOG(5) << "xs0: " << xs_.front().transpose();
+  VLOG(5) << "xf: " << xs_.back().transpose();
+  VLOG(5) << "xd: " << xds_.back().transpose();
   if (ddp_->J > ddp_config.max_cost()) {
     LOG(WARNING) << "Failed to get a reasonable trajectory using Ddp. J: "
                  << (ddp_->J);
@@ -223,6 +237,14 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   control.segment<2>(4) =
       xs_[look_ahead_index_shift_].segment<2>(19); // ja_desired
   loop_timer_.loop_end();
+
+  Eigen::Vector3d error_position =
+      sensor_data.initial_state.segment<3>(0) - xds_.at(0).segment<3>(0);
+  Eigen::Vector2d error_ja =
+      sensor_data.initial_state.segment<2>(15) - xds_.at(0).segment<2>(15);
+  DATA_LOG("ddp_mpc_controller") << error_position << error_ja << control
+                                 << loop_timer_.average_loop_period()
+                                 << DataStream::endl;
   return result;
 }
 
