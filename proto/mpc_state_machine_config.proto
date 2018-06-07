@@ -4,8 +4,17 @@ import "spiral_reference_trajectory_config.proto";
 import "arm_sine_controller_config.proto";
 import "position_yaw.proto";
 
+/**
+* @brief MPC state machine proto config
+*/
 message MPCStateMachineConfig {
+  /**
+  * @brief spiral reference trajectory config
+  */
   optional SpiralReferenceTrajectoryConfig spiral_reference = 1;
+  /**
+  * @brief arm sinusoidal reference trajectory config
+  */
   optional ArmSineControllerConfig arm_reference = 2;
   /**
   * @brief waypoint position and yaw in gravity aligned frame attached to quad
@@ -14,6 +23,12 @@ message MPCStateMachineConfig {
   * waypoint_reference
   */
   optional config.PositionYaw waypoint_reference = 3;
+  /**
+  * @brief Waypoint goal for first joint angle
+  */
   optional double goal_joint_angle_1 = 4;
+  /**
+  * @brief Waypoint goal for second joint angle
+  */
   optional double goal_joint_angle_2 = 5;
 }

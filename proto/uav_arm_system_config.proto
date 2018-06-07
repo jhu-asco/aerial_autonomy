@@ -31,5 +31,8 @@ message UAVArmSystemConfig {
   * @brief AIRM MPC Controller config
   */
   optional AirmMPCControllerConfig mpc_controller_config = 11;
+  /**
+  * @brief Flag to specify whether to visualize MPC trajectories
+  */
   optional bool visualize_mpc_trajectories = 12 [ default = true ];
 }

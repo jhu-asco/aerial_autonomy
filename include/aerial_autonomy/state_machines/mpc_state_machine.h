@@ -3,11 +3,10 @@
  * MPC State Machine  uses MPC controller to follow a reference trajectory
  *
  * Events:
- *      >>> Without args
- *      Land
- *      Takeoff
  *      Abort
- *      Joystick
+ *      MPCSpiralTransition
+ *      MPCSpiralWaypoint
+ *      GoHome
  */
 
 // back-end
@@ -19,7 +18,7 @@
 // functors
 #include <boost/msm/front/functor_row.hpp>
 
-// Actions and guards used for uav
+// Actions and guards used for state machine
 #include <aerial_autonomy/actions_guards/mpc_states_actions.h>
 
 // Robot System used

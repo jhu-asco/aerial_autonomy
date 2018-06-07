@@ -74,10 +74,19 @@ public:
     return status.str();
   }
 
+  /**
+  * @brief Helper function for tests to enforce fixed time difference
+  * when differentiating the pose in MPC
+  *
+  * @param time_diff the fixed time difference to use
+  */
   void usePerfectMPCTime(double time_diff = 0.02) {
     mpc_connector_.usePerfectTimeDiff(time_diff);
   }
 
+  /**
+  * @brief MPC trajectory visualization function
+  */
   void visualizeMPC() {
     if (mpc_visualizer_) {
       mpc_visualizer_->publishTrajectory();

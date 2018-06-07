@@ -10,9 +10,19 @@
 #include "aerial_autonomy/types/waypoint.h"
 #include <tf_conversions/tf_eigen.h>
 
+/**
+* @brief Transition action for tracking spiral reference for Airm system
+*
+* @tparam LogicStateMachineT logic state machine type
+*/
 template <class LogicStateMachineT>
 struct MPCSpiralReferenceTrackingTransition
     : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  /**
+  * @brief implementation logic for the transition action
+  *
+  * @param robot_system robot system
+  */
   void run(UAVArmSystem &robot_system) {
     VLOG(1) << "Setting spiral reference goal for mpc controller";
     auto spiral_reference_config =
@@ -32,11 +42,24 @@ struct MPCSpiralReferenceTrackingTransition
   }
 };
 
+/**
+* @brief Transition action for tracking waypoint reference for Airm system
+*
+* @tparam LogicStateMachineT logic state machine type
+*/
 template <class LogicStateMachineT>
 struct MPCWaypointReferenceTrackingTransition
     : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  /**
+  * @brief shared pointer to waypoint reference for Airm system
+  */
   using WaypointReferenceTrajectoryPtr =
       std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>>;
+  /**
+  * @brief implementation logic for transition action
+  *
+  * @param robot_system robot system
+  */
   void run(UAVArmSystem &robot_system) {
     VLOG(1) << "Setting waypoint reference goal for mpc controller";
     PositionYaw goal_position_yaw = conversions::protoPositionYawToPositionYaw(

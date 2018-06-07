@@ -3,6 +3,11 @@
 #include <aerial_autonomy/actions_guards/mpc_functors.h>
 #include <aerial_autonomy/actions_guards/uav_states_actions.h>
 
+/**
+* @brief Defines states and actions used by MPC state machine
+*
+* @tparam LogicStateMachineT State machine type
+*/
 template <class LogicStateMachineT>
 struct MPCStatesActions : UAVStatesActions<LogicStateMachineT>,
                           ArmStatesActions<LogicStateMachineT> {

@@ -12,6 +12,9 @@
 template <class LogicStateMachineT, class EventManagerT>
 class MPCSystemHandler
     : public UAVArmSystemHandler<LogicStateMachineT, EventManagerT> {
+  /**
+   * @brief Base class for MPC system handler
+   */
   using BaseClass = UAVArmSystemHandler<LogicStateMachineT, EventManagerT>;
 
 public:
@@ -27,7 +30,12 @@ public:
             std::chrono::milliseconds(
                 config.uav_arm_system_handler_config()
                     .mpc_visualization_timer_duration())) {
-    mpc_visualization_timer_.start();
+    if (config.uav_system_config()
+            .uav_vision_system_config()
+            .uav_arm_system_config()
+            .visualize_mpc_trajectories()) {
+      mpc_visualization_timer_.start();
+    }
   }
 
 private:
