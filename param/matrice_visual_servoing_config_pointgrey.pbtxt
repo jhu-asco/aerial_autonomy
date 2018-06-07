@@ -31,7 +31,7 @@ uav_system_config {
     velocity_based_position_controller_config {
       position_gain: 0.7
       yaw_gain: 0.3
-      max_velocity: 0.3
+      max_velocity: 0.15
       position_i_gain: 0.0
       yaw_i_gain: 0.0
       position_saturation_value: 0.0
@@ -75,7 +75,7 @@ uav_system_config {
   }
 
   uav_vision_system_config {
-    tracker_type: "Alvar"
+    tracker_type: "KLT"
 
     camera_transform {
       position {
@@ -96,10 +96,14 @@ uav_system_config {
         y: 0
         z: 0
       }
+      #rotation {
+      #  r: 0
+      #  p: 1.57
+      #  y: 3.14
       rotation {
-        r: 0
-        p: 1.57
-        y: 3.14
+        r: 3.14
+        p: 0.0
+        y: 0.0
       }
     }
 
