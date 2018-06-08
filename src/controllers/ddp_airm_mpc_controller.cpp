@@ -26,7 +26,7 @@ void DDPAirmMPCController::loadArmParameters(Eigen::Vector2d &kp_ja,
 DDPAirmMPCController::DDPAirmMPCController(
     AirmMPCControllerConfig config,
     std::chrono::duration<double> controller_duration)
-    : config_(config), kt_(1) {
+    : config_(config), kt_(1), look_ahead_index_shift_(1) {
   // Instantiate system
   std::string folder_path =
       std::string(PROJECT_SOURCE_DIR) + "/" + config.weights_folder();
@@ -55,9 +55,9 @@ DDPAirmMPCController::DDPAirmMPCController(
   control_timer_shift_ =
       std::min(int(std::ceil(controller_duration.count() / h)), N - 1);
   VLOG(1) << "Control timer shift: " << control_timer_shift_;
-  look_ahead_index_shift_ = std::ceil(ddp_config.look_ahead_time() / h);
-  VLOG(1) << "Look ahead index shift: " << look_ahead_index_shift_;
-  CHECK(look_ahead_index_shift_ < N)
+  max_look_ahead_index_shift_ = std::ceil(ddp_config.look_ahead_time() / h);
+  VLOG(1) << "Look ahead index shift: " << max_look_ahead_index_shift_;
+  CHECK(max_look_ahead_index_shift_ < N)
       << "Look ahead time should be less than trajectory end time";
   VLOG(1) << "Manifold size: " << (sys_->X.n);
   xf_.resize(21);
@@ -122,6 +122,7 @@ void DDPAirmMPCController::resetControls() {
   if (ddp_) {
     ddp_->Update();
   }
+  look_ahead_index_shift_ = 1;
 }
 
 ControllerStatus DDPAirmMPCController::isConvergedImplementation(
@@ -236,6 +237,8 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   control[3] = us_[look_ahead_index_shift_][3];    // yaw_rate
   control.segment<2>(4) =
       xs_[look_ahead_index_shift_].segment<2>(19); // ja_desired
+  look_ahead_index_shift_ =
+      std::min(look_ahead_index_shift_ + 1, max_look_ahead_index_shift_);
   loop_timer_.loop_end();
 
   Eigen::Vector3d error_position =

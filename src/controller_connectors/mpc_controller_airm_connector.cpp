@@ -48,6 +48,8 @@ void MPCControllerAirmConnector::initialize() { run(); }
 
 void MPCControllerAirmConnector::clearCommandBuffers() {
   auto joint_angles = arm_hardware_.getJointAngles();
+  parsernode::common::quaddata quad_data;
+  drone_hardware_.getquaddata(quad_data);
   if (joint_angles.size() == 2) {
     previous_joint_commands_ =
         Eigen::Vector2d(joint_angles.at(0), joint_angles.at(1));
@@ -57,8 +59,10 @@ void MPCControllerAirmConnector::clearCommandBuffers() {
     LOG(WARNING) << "The joint angles from arm hardware are not 2";
     previous_joint_commands_ = Eigen::Vector2d(0, 0);
   }
+  double current_yaw = quad_data.rpydata.z;
   std::queue<Eigen::Vector3d> zero_queue;
   for (int i = 0; i < delay_buffer_size_; ++i) {
+    Eigen::Vector3d rpy(0, 0, current_yaw);
     zero_queue.push(Eigen::Vector3d::Zero());
   }
   rpy_command_buffer_.swap(zero_queue);
@@ -89,6 +93,7 @@ void MPCControllerAirmConnector::setGoal(
   VLOG(1) << "Clearing thrust estimator buffer";
   thrust_gain_estimator_.clearBuffer();
   previous_measurements_initialized_ = false;
+  private_controller_.resetControls();
   clearCommandBuffers();
 }
 
@@ -174,10 +179,10 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
   // filtered_rpydot_ = delta_rpy/dt;
   filtered_rpydot_ = exponential_gain_ * filtered_rpydot_ +
                      (1 - exponential_gain_) * (delta_rpy / dt);
-  // filtered_joint_velocity_  = exponential_gain_*filtered_joint_velocity_ +
-  // (1-exponential_gain_)*joint_velocities;
-  filtered_joint_velocity_ =
-      joint_velocities; //// If using filter then uncomment above line
+  filtered_joint_velocity_ = exponential_gain_ * filtered_joint_velocity_ +
+                             (1 - exponential_gain_) * joint_velocities;
+  // filtered_joint_velocity_ =
+  //    joint_velocities; //// If using filter then uncomment above line
   // Fill state
   current_state.segment<3>(0) = p;
   current_state.segment<3>(3) = rpy;
