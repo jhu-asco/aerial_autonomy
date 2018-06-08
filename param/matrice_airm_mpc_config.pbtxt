@@ -9,8 +9,8 @@ base_config {
 }
 
 uav_system_config {
-  #uav_parser_type: "dji_parser/DjiParser"
-  uav_parser_type: "dji_parser/DjiHILParser"
+  uav_parser_type: "dji_parser/DjiParser"
+  #uav_parser_type: "dji_parser/DjiHILParser"
   uav_controller_timer_duration: 20
   use_mocap_sensor: true
   minimum_battery_percent: 25
@@ -75,7 +75,7 @@ uav_system_config {
   }
 
   thrust_gain_estimator_config {
-    kt: 0.16
+    kt: 0.2
     buffer_size: 10
   }
 
@@ -129,6 +129,7 @@ uav_system_config {
         }
       }
       mpc_controller_config {
+        default_thrust_gain: 0.2
         ddp_config {
           # State cost
           # XYZ

@@ -67,3 +67,11 @@ data_stream_configs {
   stream_id: "mocap_logger"
   log_rate: 50
 }
+data_stream_configs {
+  stream_id: "mpc_state_estimator"
+  log_rate: 20
+}
+data_stream_configs {
+  stream_id: "ddp_mpc_controller"
+  log_rate: 20
+}

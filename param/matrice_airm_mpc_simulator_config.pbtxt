@@ -71,7 +71,7 @@ uav_system_config {
   }
 
   thrust_gain_estimator_config {
-    kt: 0.16
+    kt: 0.2
     buffer_size: 10
   }
 
@@ -121,6 +121,7 @@ uav_system_config {
         }
       }
       mpc_controller_config {
+        default_thrust_gain: 0.2
         ddp_config {
           # State cost
           # XYZ

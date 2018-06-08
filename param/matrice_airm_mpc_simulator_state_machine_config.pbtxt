@@ -23,11 +23,11 @@ mpc_state_machine_config {
   }
   waypoint_reference {
     position {
-      x: 0.5
+      x: 0.1
       y: 1.0
       z: 0.5
     }
-    yaw: 0.5
+    yaw: 0.0
   }
   goal_joint_angle_1: -1.0
   goal_joint_angle_2: 0.0

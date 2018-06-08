@@ -205,7 +205,7 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   // Start state
   xs_.at(0) = sensor_data.initial_state;
   // Parameters
-  ///////////////////////////kt_[0] = sensor_data.parameters[0]; // copy kt
+  kt_[0] = sensor_data.parameters[0]; // copy kt
   rotateControls(control_timer_shift_);
   // Update states based on controls
   ddp_->Update();
