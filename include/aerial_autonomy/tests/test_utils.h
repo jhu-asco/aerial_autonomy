@@ -236,6 +236,24 @@ protected:
 * @param config MPC Controller config
 */
 void fillMPCConfig(AirmMPCControllerConfig &config) {
+  auto lb = config.mutable_lower_bound_control();
+  lb->Resize(6);
+  auto ub = config.mutable_upper_bound_control();
+  ub->Resize(6);
+  config.set_lower_bound_control(0, 0.8);
+  config.set_lower_bound_control(1, -0.3);
+  config.set_lower_bound_control(2, -0.3);
+  config.set_lower_bound_control(3, -0.3);
+  config.set_lower_bound_control(4, -0.7);
+  config.set_lower_bound_control(5, -0.7);
+
+  config.set_upper_bound_control(0, 1.2);
+  config.set_upper_bound_control(1, 0.3);
+  config.set_upper_bound_control(2, 0.3);
+  config.set_upper_bound_control(3, 0.3);
+  config.set_upper_bound_control(4, 0.7);
+  config.set_upper_bound_control(5, 0.7);
+
   config.set_goal_position_tolerance(0.1);
   config.set_goal_velocity_tolerance(0.2);
   config.set_goal_joint_angle_tolerance(0.2);

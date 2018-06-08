@@ -86,3 +86,17 @@ goal_position_tolerance: 0.25
 goal_velocity_tolerance: 0.25
 goal_joint_angle_tolerance: 0.15
 goal_joint_velocity_tolerance: 0.15
+# Lower bound
+lower_bound_control: 0.8
+lower_bound_control: -0.3
+lower_bound_control: -0.3
+lower_bound_control: -0.3
+lower_bound_control: -0.7
+lower_bound_control: -0.7
+# Upper bound
+upper_bound_control: 1.2
+upper_bound_control: 0.3
+upper_bound_control: 0.3
+upper_bound_control: 0.3
+upper_bound_control: 0.7
+upper_bound_control: 0.7

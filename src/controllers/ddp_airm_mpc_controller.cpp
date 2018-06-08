@@ -34,15 +34,19 @@ DDPAirmMPCController::DDPAirmMPCController(
   Eigen::Vector2d kp_ja, kd_ja;
   loadQuadParameters(kp_rpy, kd_rpy, kt_, folder_path);
   loadArmParameters(kp_ja, kd_ja, folder_path);
+  lb_ = conversions::vectorProtoToEigen(config.lower_bound_control());
+  ub_ = conversions::vectorProtoToEigen(config.upper_bound_control());
+  CHECK(lb_.size() == 6) << "Lower bound controls should be of size 6";
+  CHECK(ub_.size() == 6) << "Upper bound controls should be of size 6";
   if (config.use_residual_dynamics()) {
     sys_.reset(new gcop::AirmResidualNetworkModel(
         kt_, kp_rpy, kd_rpy, kp_ja, kd_ja, config.max_joint_velocity(),
-        config.n_layers(), folder_path, gcop::Activation::tanh,
+        config.n_layers(), folder_path, lb_, ub_, gcop::Activation::tanh,
         config_.use_code_generation()));
   } else {
     sys_.reset(new gcop::AerialManipulationFeedforwardSystem(
-        kt_, kp_rpy, kd_rpy, kp_ja, kd_ja, config.max_joint_velocity(),
-        config_.use_code_generation()));
+        kt_, kp_rpy, kd_rpy, kp_ja, kd_ja, config.max_joint_velocity(), lb_,
+        ub_, config_.use_code_generation()));
   }
   VLOG(1) << "Instantiating Step function";
   sys_->instantiateStepFunction();

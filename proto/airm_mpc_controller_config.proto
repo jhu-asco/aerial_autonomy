@@ -47,4 +47,6 @@ message AirmMPCControllerConfig {
   * @brief Flag to specify use of code generation
   */
   optional bool use_code_generation = 12 [ default = true ];
+  repeated double lower_bound_control = 13;
+  repeated double upper_bound_control = 14;
 }

@@ -157,6 +157,8 @@ private:
   std::vector<StateType> xds_;   ///< vector of reference states
   std::vector<ControlType> uds_; ///< vector of reference controls
   Eigen::VectorXd kt_;           ///< Thrust gain
+  Eigen::VectorXd lb_;           ///< Lowerbound on control
+  Eigen::VectorXd ub_;           ///< Lowerbound on control
   std::vector<double> ts_;       ///< vector of timestamps
   int look_ahead_index_shift_;   ///< Future time stamp for controller being
                                  /// passed out to account for controller delay

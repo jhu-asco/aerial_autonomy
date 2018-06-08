@@ -12,6 +12,23 @@ public:
   using AirmGcopWaypoint = Waypoint<Eigen::VectorXd, Eigen::VectorXd>;
 
   DDPAirmMPCControllerTests() {
+    auto lb = config_.mutable_lower_bound_control();
+    lb->Resize(6);
+    auto ub = config_.mutable_upper_bound_control();
+    ub->Resize(6);
+    config_.set_lower_bound_control(0, 0.8);
+    config_.set_lower_bound_control(1, -0.3);
+    config_.set_lower_bound_control(2, -0.3);
+    config_.set_lower_bound_control(3, -0.3);
+    config_.set_lower_bound_control(4, -0.7);
+    config_.set_lower_bound_control(5, -0.7);
+
+    config_.set_upper_bound_control(0, 1.2);
+    config_.set_upper_bound_control(1, 0.3);
+    config_.set_upper_bound_control(2, 0.3);
+    config_.set_upper_bound_control(3, 0.3);
+    config_.set_upper_bound_control(4, 0.7);
+    config_.set_upper_bound_control(5, 0.7);
     DDPMPCControllerConfig *ddp_config = config_.mutable_ddp_config();
     ddp_config->set_look_ahead_time(0.02);
     auto q = ddp_config->mutable_q();
