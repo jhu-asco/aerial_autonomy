@@ -237,9 +237,9 @@ protected:
 */
 void fillMPCConfig(AirmMPCControllerConfig &config) {
   auto lb = config.mutable_lower_bound_control();
-  lb->Resize(6);
+  lb->Resize(6, 0);
   auto ub = config.mutable_upper_bound_control();
-  ub->Resize(6);
+  ub->Resize(6, 0);
   config.set_lower_bound_control(0, 0.8);
   config.set_lower_bound_control(1, -0.3);
   config.set_lower_bound_control(2, -0.3);

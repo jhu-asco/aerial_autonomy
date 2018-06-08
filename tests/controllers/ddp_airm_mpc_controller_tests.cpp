@@ -13,9 +13,9 @@ public:
 
   DDPAirmMPCControllerTests() {
     auto lb = config_.mutable_lower_bound_control();
-    lb->Resize(6);
+    lb->Resize(6, 0);
     auto ub = config_.mutable_upper_bound_control();
-    ub->Resize(6);
+    ub->Resize(6, 0);
     config_.set_lower_bound_control(0, 0.8);
     config_.set_lower_bound_control(1, -0.3);
     config_.set_lower_bound_control(2, -0.3);
