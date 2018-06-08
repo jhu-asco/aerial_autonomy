@@ -160,6 +160,8 @@ private:
   std::vector<double> ts_;       ///< vector of timestamps
   int look_ahead_index_shift_;   ///< Future time stamp for controller being
                                  /// passed out to account for controller delay
+  int max_look_ahead_index_shift_; ///< Future time stamp for controller being
+  /// passed out to account for controller delay
   LoopTimer
       loop_timer_; ///< Timer to find the average time taken by a controller
   int control_timer_shift_; ///< How many steps should the control shift by for

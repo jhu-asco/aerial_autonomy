@@ -138,6 +138,8 @@ private:
                                            /// initialized
   std::queue<Eigen::Vector3d> rpy_command_buffer_; ///< Rpy command buffer
   Eigen::Vector2d previous_joint_commands_;        ///< Previous joint commands
+  Eigen::Vector2d filtered_joint_velocity_;        ///< Filtered joint velocity
+  Eigen::Vector3d filtered_rpydot_;                ///< Filtered rpydot
   int delay_buffer_size_; ///< Size of rpy command buffer
   AbstractMPCController<StateType, ControlType>
       &private_controller_; ///< Private ref
@@ -146,4 +148,5 @@ private:
   bool use_perfect_time_diff_; ///< Flag to use perfect time diff when
                                /// differentiating
   double perfect_time_diff_;   ///< The absolute time difference
+  double exponential_gain_;    ///< Exponential gain
 };

@@ -21,6 +21,8 @@ for i, column in enumerate(data.columns):
     data_array = data[column].values
     f = plt.subplot(3, 8, i)
     plt.plot(ts, data_array)
-    if i <=  16:
-        f.axes.get_xaxis().set_ticks([])
+    #if i <=  16:
+    #    #f.axes.get_xaxis().set_ticks([])
     plt.ylabel(column)
+
+plt.show(block=True)
