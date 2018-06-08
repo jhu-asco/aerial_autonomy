@@ -68,15 +68,4 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
       bAnd<InitializeTrackerGuardFunctor_<LogicStateMachineT,
                                           ClosestTrackingStrategy>,
            CheckGoalIndex_<LogicStateMachineT, 0>>;
-
-  /**
-  * @brief Send the UAV back to home position
-  */
-  using GoHomeTransitionAction =
-      GoHomeTransitionActionFunctor_<LogicStateMachineT>;
-  /**
-  * @brief Check if home location is specified
-  */
-  using GoHomeTransitionGuard =
-      GoHomeTransitionGuardFunctor_<LogicStateMachineT>;
 };

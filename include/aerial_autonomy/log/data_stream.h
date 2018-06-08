@@ -2,6 +2,7 @@
 
 #include "data_stream_config.pb.h"
 
+#include <Eigen/Dense>
 #include <boost/filesystem.hpp>
 #include <boost/thread/mutex.hpp>
 #include <chrono>
@@ -62,6 +63,21 @@ public:
   template <class T> DataStream &operator<<(const T &t) {
     if (config_.log_data() && streaming_) {
       data_point_ << config_.delimiter() << t;
+    }
+    return *this;
+  }
+
+  /**
+   * @brief specialized operator to handle eigen vector
+   * @param t Eigen Vector
+   * @return modified DataStream
+   */
+  template <int row, int col>
+  DataStream &operator<<(const Eigen::Matrix<double, row, col> &t) {
+    if (config_.log_data() && streaming_) {
+      for (int i = 0; i < t.size(); ++i) {
+        data_point_ << config_.delimiter() << t(i);
+      }
     }
     return *this;
   }

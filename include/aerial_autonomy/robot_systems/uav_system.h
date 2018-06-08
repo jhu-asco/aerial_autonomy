@@ -376,4 +376,24 @@ public:
   * @return Home location (PositionYaw)
   */
   PositionYaw getHomeLocation() { return home_location_; }
+
+  /**
+   * @brief get the current pose frome either pose sensor/quad data
+   * @return pose as stamped transform
+   */
+  tf::StampedTransform getPose() {
+    tf::StampedTransform result;
+    if (pose_sensor_) {
+      result = pose_sensor_->getSensorData();
+    } else {
+      auto data = getUAVData();
+      tf::Transform t(
+          tf::createQuaternionFromRPY(data.rpydata.x, data.rpydata.y,
+                                      data.rpydata.z),
+          tf::Vector3(data.localpos.x, data.localpos.y, data.localpos.z));
+      result =
+          tf::StampedTransform(t, ros::Time(data.timestamp), "optitrak", "uav");
+    }
+    return result;
+  }
 };

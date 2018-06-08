@@ -1,5 +1,6 @@
 #include "aerial_autonomy/controllers/ddp_airm_mpc_controller.h"
 #include "aerial_autonomy/common/atomic.h"
+#include "aerial_autonomy/log/log.h"
 #include <gcop/load_eigen_matrix.h>
 
 void DDPAirmMPCController::loadQuadParameters(Eigen::Vector3d &kp_rpy,
@@ -25,7 +26,7 @@ void DDPAirmMPCController::loadArmParameters(Eigen::Vector2d &kp_ja,
 DDPAirmMPCController::DDPAirmMPCController(
     AirmMPCControllerConfig config,
     std::chrono::duration<double> controller_duration)
-    : config_(config), kt_(1) {
+    : config_(config), kt_(1), look_ahead_index_shift_(1) {
   // Instantiate system
   std::string folder_path =
       std::string(PROJECT_SOURCE_DIR) + "/" + config.weights_folder();
@@ -54,9 +55,9 @@ DDPAirmMPCController::DDPAirmMPCController(
   control_timer_shift_ =
       std::min(int(std::ceil(controller_duration.count() / h)), N - 1);
   VLOG(1) << "Control timer shift: " << control_timer_shift_;
-  look_ahead_index_shift_ = std::ceil(ddp_config.look_ahead_time() / h);
-  VLOG(1) << "Look ahead index shift: " << look_ahead_index_shift_;
-  CHECK(look_ahead_index_shift_ < N)
+  max_look_ahead_index_shift_ = std::ceil(ddp_config.look_ahead_time() / h);
+  VLOG(1) << "Look ahead index shift: " << max_look_ahead_index_shift_;
+  CHECK(max_look_ahead_index_shift_ < N)
       << "Look ahead time should be less than trajectory end time";
   VLOG(1) << "Manifold size: " << (sys_->X.n);
   xf_.resize(21);
@@ -97,6 +98,19 @@ DDPAirmMPCController::DDPAirmMPCController(
   ddp_->mu = config.ddp_config().mu();
   ddp_->debug = config.ddp_config().debug();
   VLOG(1) << "Done setting up ddp";
+  // Setting up logger
+  DATA_HEADER("ddp_mpc_controller") << "Errorx"
+                                    << "Errory"
+                                    << "Errorz"
+                                    << "Errorja1"
+                                    << "Errorja2"
+                                    << "thrust_d"
+                                    << "rd"
+                                    << "pd"
+                                    << "yaw_rate_d"
+                                    << "Jad1"
+                                    << "Jad2"
+                                    << "Loop timer" << DataStream::endl;
 }
 
 void DDPAirmMPCController::resetControls() {
@@ -108,6 +122,7 @@ void DDPAirmMPCController::resetControls() {
   if (ddp_) {
     ddp_->Update();
   }
+  look_ahead_index_shift_ = 1;
 }
 
 ControllerStatus DDPAirmMPCController::isConvergedImplementation(
@@ -139,17 +154,14 @@ ControllerStatus DDPAirmMPCController::isConvergedImplementation(
     controller_status.setStatus(ControllerStatus::Completed,
                                 "Converged to reference trajectory");
   }
-  /// \todo Check joint angles convergence :(
-  VLOG(2) << "Error: " << error_position.norm() << ", " << error_velocity.norm()
-          << ", " << error_ja.norm() << ", " << error_jv.norm();
+  /// \todo Fix joint angles convergence :(
   VLOG(2) << "Tolerance: " << config_.goal_position_tolerance() << ", "
           << config_.goal_velocity_tolerance() << ", "
           << config_.goal_joint_angle_tolerance() << ", "
           << config_.goal_joint_velocity_tolerance();
-  controller_status << "Error Position" << error_position(0)
-                    << error_position(1) << error_position(2)
-                    << error_velocity(0) << error_velocity(1)
-                    << error_velocity(2) << loop_timer_.average_loop_period();
+  controller_status << "Stats" << error_position.norm() << error_velocity.norm()
+                    << error_ja.norm() << error_jv.norm()
+                    << loop_timer_.average_loop_period();
   return controller_status;
 }
 
@@ -193,7 +205,7 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   // Start state
   xs_.at(0) = sensor_data.initial_state;
   // Parameters
-  kt_[0] = sensor_data.parameters[0]; // copy kt
+  ///////////////////////////kt_[0] = sensor_data.parameters[0]; // copy kt
   rotateControls(control_timer_shift_);
   // Update states based on controls
   ddp_->Update();
@@ -203,15 +215,15 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
     ddp_->Iterate();
     // Check for convergence
     if (std::abs(ddp_->J - J) < ddp_config.min_cost_decrease()) {
-      VLOG(3) << "Converged";
+      VLOG(5) << "Converged";
       break;
     }
     J = ddp_->J;
   }
-  VLOG(3) << "DDP_J: " << (ddp_->J);
-  VLOG(3) << "xs0: " << xs_.front().transpose();
-  VLOG(3) << "xf: " << xs_.back().transpose();
-  VLOG(3) << "xd: " << xds_.back().transpose();
+  VLOG(5) << "DDP_J: " << (ddp_->J);
+  VLOG(5) << "xs0: " << xs_.front().transpose();
+  VLOG(5) << "xf: " << xs_.back().transpose();
+  VLOG(5) << "xd: " << xds_.back().transpose();
   if (ddp_->J > ddp_config.max_cost()) {
     LOG(WARNING) << "Failed to get a reasonable trajectory using Ddp. J: "
                  << (ddp_->J);
@@ -225,7 +237,17 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   control[3] = us_[look_ahead_index_shift_][3];    // yaw_rate
   control.segment<2>(4) =
       xs_[look_ahead_index_shift_].segment<2>(19); // ja_desired
+  look_ahead_index_shift_ =
+      std::min(look_ahead_index_shift_ + 1, max_look_ahead_index_shift_);
   loop_timer_.loop_end();
+
+  Eigen::Vector3d error_position =
+      sensor_data.initial_state.segment<3>(0) - xds_.at(0).segment<3>(0);
+  Eigen::Vector2d error_ja =
+      sensor_data.initial_state.segment<2>(15) - xds_.at(0).segment<2>(15);
+  DATA_LOG("ddp_mpc_controller") << error_position << error_ja << control
+                                 << loop_timer_.average_loop_period()
+                                 << DataStream::endl;
   return result;
 }
 

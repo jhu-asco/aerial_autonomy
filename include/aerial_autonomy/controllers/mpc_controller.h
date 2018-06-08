@@ -3,6 +3,8 @@
 #include "aerial_autonomy/types/discrete_reference_trajectory_closest.h"
 #include "aerial_autonomy/types/mpc_inputs.h"
 
+#include <glog/logging.h>
+
 /**
 * @brief Generic MPC controller.
 *
@@ -34,4 +36,7 @@ public:
   */
   virtual void getDesiredTrajectory(std::vector<StateT> &xds,
                                     std::vector<ControlT> &uds) const = 0;
+  virtual void resetControls() {
+    LOG(WARNING) << "Reset Controls not implemented";
+  }
 };

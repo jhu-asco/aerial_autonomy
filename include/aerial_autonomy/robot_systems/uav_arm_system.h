@@ -1,12 +1,12 @@
 #pragma once
 #include "aerial_autonomy/common/conversions.h"
+#include "aerial_autonomy/common/mpc_trajectory_visualizer.h"
 #include "aerial_autonomy/controller_connectors/mpc_controller_airm_connector.h"
 #include "aerial_autonomy/controller_connectors/visual_servoing_controller_arm_connector.h"
 #include "aerial_autonomy/controllers/ddp_airm_mpc_controller.h"
 #include "aerial_autonomy/controllers/relative_pose_controller.h"
 #include "aerial_autonomy/robot_systems/arm_system.h"
 #include "aerial_autonomy/robot_systems/uav_vision_system.h"
-#include "aerial_autonomy/sensors/pose_sensor.h"
 #include <chrono>
 
 /**
@@ -50,6 +50,14 @@ public:
                        thrust_gain_estimator_,
                        config.thrust_gain_estimator_config().buffer_size(),
                        pose_sensor_) {
+    if (config_.uav_vision_system_config()
+            .uav_arm_system_config()
+            .visualize_mpc_trajectories()) {
+      mpc_visualizer_.reset(new MPCTrajectoryVisualizer(
+          mpc_connector_, config_.uav_vision_system_config()
+                              .uav_arm_system_config()
+                              .visualizer_config()));
+    }
     controller_connector_container_.setObject(visual_servoing_arm_connector_);
     controller_connector_container_.setObject(mpc_connector_);
   }
@@ -64,6 +72,25 @@ public:
     status << UAVVisionSystem::getSystemStatus() << std::endl
            << ArmSystem::getSystemStatus();
     return status.str();
+  }
+
+  /**
+  * @brief Helper function for tests to enforce fixed time difference
+  * when differentiating the pose in MPC
+  *
+  * @param time_diff the fixed time difference to use
+  */
+  void usePerfectMPCTime(double time_diff = 0.02) {
+    mpc_connector_.usePerfectTimeDiff(time_diff);
+  }
+
+  /**
+  * @brief MPC trajectory visualization function
+  */
+  void visualizeMPC() {
+    if (mpc_visualizer_) {
+      mpc_visualizer_->publishTrajectory();
+    }
   }
 
 private:
@@ -87,4 +114,8 @@ private:
    * @brief mpc_connector_
    */
   MPCControllerAirmConnector mpc_connector_;
+  /**
+   * @brief mpc trajectory visualizer
+   */
+  std::unique_ptr<MPCTrajectoryVisualizer> mpc_visualizer_;
 };

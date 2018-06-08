@@ -185,6 +185,7 @@ visual_servoing_events
 pick_place_events
 arm_events
 uav_arm_sysid_events
+mpc_events
 )
 
 ##############
@@ -217,6 +218,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/arm_system_config.proto
   proto/base_state_machine_config.proto
   proto/uav_state_machine_config.proto
+  proto/mpc_state_machine_config.proto
   proto/visual_servoing_state_machine_config.proto
   proto/pick_place_state_machine_config.proto
   proto/following_waypoint_sequence_config.proto
@@ -349,11 +351,13 @@ target_link_libraries(uav_vision_system_node aerial_autonomy)
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
 
 if (arm_plugins_FOUND)
+  add_executable(airm_mpc_node src/system_handler_nodes/airm_mpc_node.cpp)
   add_executable(uav_arm_system_node src/system_handler_nodes/uav_arm_system_node.cpp)
   add_executable(uav_arm_sysid_node src/system_handler_nodes/uav_arm_sysid_node.cpp)
 
   target_link_libraries(uav_arm_system_node aerial_autonomy)
   target_link_libraries(uav_arm_sysid_node aerial_autonomy)
+  target_link_libraries(airm_mpc_node aerial_autonomy)
 endif ()
 
 #############
@@ -638,7 +642,9 @@ endif()
 if (arm_plugins_FOUND)
   catkin_add_gtest(${PROJECT_NAME}-joystick-state-machine-test tests/state_machines/joystick_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-pick-place-state-machine-test tests/state_machines/pick_place_state_machine_tests.cpp)
+  catkin_add_gtest(${PROJECT_NAME}-mpc-state-machine-test tests/state_machines/mpc_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-pick-place-functor-tests tests/actions_guards/pick_place_functor_tests.cpp)
+  catkin_add_gtest(${PROJECT_NAME}-mpc-functor-tests tests/actions_guards/mpc_functor_tests.cpp)
   add_rostest_gtest(${PROJECT_NAME}-uav-arm-system-handler-test tests/system_handlers/uav_arm_system_handler_tests.test tests/system_handlers/uav_arm_system_handler_tests.cpp)
   add_dependencies(${PROJECT_NAME}-uav-arm-system-handler-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
   add_rostest_gtest(${PROJECT_NAME}-uav-arm-system-test tests/robot_systems/uav_arm_system_tests.test tests/robot_systems/uav_arm_system_tests.cpp)
@@ -671,10 +677,15 @@ if (arm_plugins_FOUND)
   if(TARGET ${PROJECT_NAME}-pick-place-state-machine-test)
     target_link_libraries(${PROJECT_NAME}-pick-place-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
   endif()
+  if(TARGET ${PROJECT_NAME}-mpc-state-machine-test)
+    target_link_libraries(${PROJECT_NAME}-mpc-state-machine-test aerial_autonomy)
+  endif()
   if(TARGET ${PROJECT_NAME}-pick-place-functor-tests)
     target_link_libraries(${PROJECT_NAME}-pick-place-functor-tests aerial_autonomy ${GCOP_LIBRARIES})
   endif()
-
+  if(TARGET ${PROJECT_NAME}-mpc-functor-tests)
+    target_link_libraries(${PROJECT_NAME}-mpc-functor-tests aerial_autonomy)
+  endif()
 endif ()
 
 ## Add folders to be run by python nosetests

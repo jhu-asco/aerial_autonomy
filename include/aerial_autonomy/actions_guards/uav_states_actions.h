@@ -121,4 +121,14 @@ template <class LogicStateMachineT> struct UAVStatesActions {
   */
   using GuardVelocityGoal =
       VelocityControlTransitionGuardFunctor_<LogicStateMachineT>;
+  /**
+  * @brief Send the UAV back to home position
+  */
+  using GoHomeTransitionAction =
+      GoHomeTransitionActionFunctor_<LogicStateMachineT>;
+  /**
+  * @brief Check if home location is specified
+  */
+  using GoHomeTransitionGuard =
+      GoHomeTransitionGuardFunctor_<LogicStateMachineT>;
 };

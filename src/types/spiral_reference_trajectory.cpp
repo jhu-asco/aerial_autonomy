@@ -6,12 +6,11 @@ constexpr double SpiralReferenceTrajectory::gravity_magnitude_;
 
 SpiralReferenceTrajectory::SpiralReferenceTrajectory(
     SpiralReferenceTrajectoryConfig config, ArmSineControllerConfig arm_config,
-    Eigen::Vector3d current_position, double current_yaw, double kt)
+    Eigen::Vector3d current_position, double current_yaw)
     : ReferenceTrajectory(), config_(config), arm_config_(arm_config),
-      current_position_(current_position), current_yaw_(current_yaw), kt_(kt) {
+      current_position_(current_position), current_yaw_(current_yaw) {
   const auto &joint_config_vec = arm_config_.joint_config();
   CHECK(joint_config_vec.size() == 2) << "There should be two joints";
-  CHECK(kt > 0) << "Thrust gain cannot be less than 0";
   CHECK(config.frequency_z() > 0)
       << "Z frequency cannot be 0 which implies z amplitude is infinity";
 }

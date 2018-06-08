@@ -67,7 +67,7 @@ createSpiralReference(quad_simulator::QuadSimulator &drone_hardware) {
   return std::shared_ptr<SpiralReferenceTrajectory>(
       new SpiralReferenceTrajectory(spiral_reference_config,
                                     arm_sine_reference_config, current_position,
-                                    current_yaw, 0.16));
+                                    current_yaw));
 }
 
 int main(int argc, char **argv) {
@@ -80,6 +80,12 @@ int main(int argc, char **argv) {
   auto data_stream_config = log_config.add_data_stream_configs();
   data_stream_config->set_log_rate(25);
   data_stream_config->set_stream_id("thrust_gain_estimator");
+  data_stream_config = log_config.add_data_stream_configs();
+  data_stream_config->set_log_rate(10);
+  data_stream_config->set_stream_id("mpc_state_estimator");
+  data_stream_config = log_config.add_data_stream_configs();
+  data_stream_config->set_log_rate(10);
+  data_stream_config->set_stream_id("ddp_mpc_controller");
   Log::instance().configure(log_config);
   AirmMPCControllerConfig mpc_controller_config;
   if (!proto_utils::loadProtoText(std::string(PROJECT_SOURCE_DIR) +

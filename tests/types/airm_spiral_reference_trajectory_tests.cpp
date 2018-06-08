@@ -6,11 +6,10 @@
 class AirmSpiralReferenceTrajectoryTests : public ::testing::Test {
 public:
   AirmSpiralReferenceTrajectoryTests()
-      : current_position(Eigen::Vector3d(1.0, 2.0, 3.0)), current_yaw(0.5),
-        kt(0.15) {
+      : current_position(Eigen::Vector3d(1.0, 2.0, 3.0)), current_yaw(0.5) {
     createConfig(arm_config, quad_config);
     reference_trajectory.reset(new SpiralReferenceTrajectory(
-        quad_config, arm_config, current_position, current_yaw, kt));
+        quad_config, arm_config, current_position, current_yaw));
   }
 
 protected:
@@ -19,7 +18,6 @@ protected:
   std::shared_ptr<SpiralReferenceTrajectory> reference_trajectory;
   Eigen::Vector3d current_position;
   double current_yaw;
-  double kt;
   void createConfig(ArmSineControllerConfig &arm_config,
                     SpiralReferenceTrajectoryConfig &quad_config) {
     auto joint1_config = arm_config.add_joint_config();
@@ -55,8 +53,8 @@ TEST(AirmSpiralReferenceTrajectory, Initialize) {
   arm_config.add_joint_config();
   arm_config.add_joint_config();
   SpiralReferenceTrajectoryConfig quad_config;
-  SpiralReferenceTrajectory reference_trajectory(
-      quad_config, arm_config, Eigen::Vector3d::Zero(), 0.0, 0.15);
+  SpiralReferenceTrajectory reference_trajectory(quad_config, arm_config,
+                                                 Eigen::Vector3d::Zero(), 0.0);
 }
 
 TEST_F(AirmSpiralReferenceTrajectoryTests, ZeroTime) {
@@ -162,7 +160,7 @@ TEST_F(AirmSpiralReferenceTrajectoryTests, ZeroFrequency) {
   arm_config.mutable_joint_config(0)->set_frequency(0.0);
   arm_config.mutable_joint_config(1)->set_frequency(0.0);
   reference_trajectory.reset(new SpiralReferenceTrajectory(
-      quad_config, arm_config, current_position, current_yaw, kt));
+      quad_config, arm_config, current_position, current_yaw));
   auto state_control_pair = reference_trajectory->atTime(0.0);
   auto state_control_pair_2 = reference_trajectory->atTime(5.0);
   for (int i = 0; i < 21; ++i) {

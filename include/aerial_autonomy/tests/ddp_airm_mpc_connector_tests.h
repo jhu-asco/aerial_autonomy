@@ -1,4 +1,5 @@
 #pragma once
+#include "aerial_autonomy/common/conversions.h"
 #include "aerial_autonomy/controller_connectors/mpc_controller_airm_connector.h"
 #include "aerial_autonomy/controllers/ddp_airm_mpc_controller.h"
 #include "aerial_autonomy/log/log.h"
@@ -68,8 +69,8 @@ public:
     init_position.z = initial_state.z;
     drone_hardware_.cmdwaypoint(init_position, initial_state.yaw);
     arm_simulator_.setJointAngles(init_joint_angles);
-    controller_connector_->setGoal(
-        createWayPoint(goal, goal_joint_angles[0], goal_joint_angles[1]));
+    controller_connector_->setGoal(conversions::createWayPoint(
+        goal, goal_joint_angles[0], goal_joint_angles[1]));
     auto runController = [&]() {
       controller_connector_->run();
       return controller_connector_->getStatus() == ControllerStatus::Active;
@@ -98,31 +99,6 @@ public:
     if (check_thrust_gain) {
       ASSERT_NEAR(thrust_gain_estimator_.getThrustGain(), 0.16, 1e-2);
     }
-  }
-
-  /**
-  * @brief create a waypoint reference trajectory from a goal point and joint
-  * angles
-  *
-  * @param goal Goal position and yaw
-  * @param desired_joint_angle_1 Desired joint angle for first joint
-  * @param desired_joint_angle_2 Desired joint angle for second joint
-  *
-  * @return Waypoint Reference trajectory
-  */
-  std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>>
-  createWayPoint(PositionYaw goal, double desired_joint_angle_1,
-                 double desired_joint_angle_2) {
-    std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>> waypoint;
-    Eigen::VectorXd goal_control(6);
-    goal_control << 1, 0, 0, 0, desired_joint_angle_1, desired_joint_angle_2;
-    Eigen::VectorXd goal_state(21);
-    goal_state << goal.x, goal.y, goal.z, 0, 0, goal.yaw, 0, 0, 0, 0, 0, 0, 0,
-        0, goal.yaw, desired_joint_angle_1, desired_joint_angle_2, 0, 0,
-        desired_joint_angle_1, desired_joint_angle_2;
-    waypoint.reset(new Waypoint<Eigen::VectorXd, Eigen::VectorXd>(
-        goal_state, goal_control));
-    return waypoint;
   }
 
 protected:

@@ -45,6 +45,13 @@ public:
     }
   }
 
+  /**
+  * @brief Activate a given controller connector and its dependent connectors
+  *
+  * Assumes the goal for the connector has already been set
+  *
+  * @param controller_connector The controller connector to activate
+  */
   void activateControllerConnector(
       AbstractControllerConnector *controller_connector) {
     if (controller_connector == nullptr) {
