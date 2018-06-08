@@ -75,7 +75,10 @@ void MPCControllerAirmConnector::sendControllerCommands(ControlType control) {
   arm_hardware_.setJointAngles(joint_angle_commands_);
   previous_joint_commands_ = control.segment<2>(4);
   rpy_command_buffer_.pop();
-  rpy_command_buffer_.push(control.segment<3>(1));
+  auto last_rpy_command = rpy_command_buffer_.back();
+  // Since we are commanding yaw rate we have to integrate
+  double yaw_cmd = control(3) * 0.02 + last_rpy_command(2);
+  rpy_command_buffer_.push(Eigen::Vector3d(control(1), control(2), yaw_cmd));
   thrust_gain_estimator_.addThrustCommand(control(0));
 }
 
@@ -145,7 +148,6 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
   } else {
     rpy = Eigen::Vector3d(quad_data.rpydata.x, quad_data.rpydata.y,
                           quad_data.rpydata.z);
-    VLOG(1) << "Rpy: " << rpy;
   }
   // Joint angles
   std::vector<double> joint_angles = arm_hardware_.getJointAngles();
