@@ -36,6 +36,7 @@ public:
             .visualize_mpc_trajectories()) {
       mpc_visualization_timer_.start();
     }
+    this->uav_system_.power(true);
   }
 
 private:

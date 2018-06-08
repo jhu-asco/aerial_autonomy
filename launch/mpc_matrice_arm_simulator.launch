@@ -13,7 +13,7 @@
     <env name="GLOG_v" value="$(arg log_level)"/>
     <env name="GLOG_alsologtostderr" value="1"/>
     <!-- Matrice SDK params -->
-    <param name="~uav/use_guidance_pos" type="bool" value="true"/>
+    <param name="~uav/use_guidance_pos" type="bool" value="false"/>
     <param name="~uav/serial_name" type="string" value="/dev/ttydji"/>
     <param name="~uav/baud_rate" type="int" value="230400"/>
     <param name="~uav/app_id" type="int" value="1024052"/>
@@ -25,4 +25,5 @@
   <!-- TODO Should get these TFs from proto somehow! -->
   <node pkg="tf" type="static_transform_publisher" name="camera_quad" args="0.18 0 -.08 1.5708 0 1.9199 /quad /pointgrey_camera 100"/>
   <node pkg="tf" type="static_transform_publisher" name="arm_quad" args="0.17 0 -.109 3.141 -1.5708 0 /quad /arm 100"/>
+  <include file="$(find ros_vrpn_client)/launch/matrice.launch"/>
 </launch>
