@@ -39,6 +39,7 @@ DDPAirmMPCController::DDPAirmMPCController(
   CHECK(lb_.size() == 6) << "Lower bound controls should be of size 6";
   CHECK(ub_.size() == 6) << "Upper bound controls should be of size 6";
   std::cout << "Lb: " << lb_.transpose() << std::endl;
+  std::cout << "Ub: " << ub_.transpose() << std::endl;
   if (config.use_residual_dynamics()) {
     sys_.reset(new gcop::AirmResidualNetworkModel(
         kt_, kp_rpy, kd_rpy, kp_ja, kd_ja, config.max_joint_velocity(),

@@ -9,9 +9,9 @@ ddp_config {
   Q: 0
   Q: 0
   # Vxyz
-  Q: 1
-  Q: 1
-  Q: 1
+  Q: 4
+  Q: 4
+  Q: 4
   # RPYdot
   Q: 0
   Q: 0
@@ -35,17 +35,17 @@ ddp_config {
   Qf: 200
   Qf: 200
   # RPY
-  Qf: 50
-  Qf: 50
-  Qf: 50
+  Qf: 100
+  Qf: 100
+  Qf: 100
   # Vxyz
-  Qf: 10
-  Qf: 10
-  Qf: 10
+  Qf: 100
+  Qf: 100
+  Qf: 100
   # RPYdot
-  Qf: 50 
-  Qf: 50
-  Qf: 50
+  Qf: 100 
+  Qf: 100
+  Qf: 100
   # RPY_cmd
   Qf: 0.1
   Qf: 0.1
@@ -61,24 +61,24 @@ ddp_config {
   Qf: 0.1
   # Control cost
   # Thrust
-  R: 2.0
+  R: 6.0
   # Rpyd dot
-  R: 0.1
-  R: 0.1
-  R: 0.1
+  R: 4.0
+  R: 4.0
+  R: 4.0
   # desired joint velocities
   R: 0.1
   R: 0.1
   # Trajectory length
-  N: 50
+  N: 100
   # Max iterations
-  max_iters: 20
+  max_iters: 2
   # Min cost decrease
   min_cost_decrease: 1e-4
   # Look ahead time
   look_ahead_time: 0.02
-  # Min cost
-  max_cost: 50.0
+  # Max cost
+  max_cost: 100.0
 }
 
 weights_folder: "neural_network_model_data/tensorflow_model_vars_16_8_tanh/"

@@ -96,7 +96,8 @@ int main(int argc, char **argv) {
   quad_simulator::QuadSimulator drone_hardware;
   ArmSimulator arm_simulator;
   drone_hardware.usePerfectTime();
-  drone_hardware.set_delay_send_time(0.02);
+  // drone_hardware.set_delay_send_time(0.02);
+  drone_hardware.set_delay_send_time(0.2);
   ThrustGainEstimator thrust_gain_estimator_(0.16);
   DDPAirmMPCController controller(mpc_controller_config,
                                   std::chrono::milliseconds(20));
@@ -107,8 +108,9 @@ int main(int argc, char **argv) {
   visualizer_config.mutable_trajectory_color()->set_r(0.0);
   visualizer_config.mutable_desired_trajectory_color()->set_a(0.5);
   MPCTrajectoryVisualizer visualizer(controller_connector, visualizer_config);
-  auto reference_ptr = createWayPoint(PositionYaw(1, 1, 1, 1.0), -0.8, 1.4);
-  // auto reference_ptr = createSpiralReference(drone_hardware);
+  // auto reference_ptr = createWayPoint(PositionYaw(0, 0, 0.6, 0.0), -0.8,
+  // 1.4);
+  auto reference_ptr = createSpiralReference(drone_hardware);
   controller_connector.usePerfectTimeDiff(
       0.02); ///\todo Remove this flag business
   // Start drone
@@ -117,8 +119,6 @@ int main(int argc, char **argv) {
   arm_simulator.setJointAngles(std::vector<double>{-0.7, 1.2});
   controller_connector.setGoal(reference_ptr);
   int count = 0;
-  ROS_INFO("Please press any key to start...");
-  getchar(); // Wait for user input
   while (ros::ok()) {
     controller_connector.run();
     if (++count == 4) {
