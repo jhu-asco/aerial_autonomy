@@ -40,6 +40,20 @@ struct UAVControllerAbortActionFunctor_
 };
 
 /**
+* @brief Action to set home location
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct SetHomeTransitionActionFunctor_
+    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+  void run(UAVSystem &robot_system) {
+    VLOG(1) << "Selecting home location";
+    robot_system.setHomeLocation();
+  }
+};
+
+/**
 * @brief Action to reach a pre designated point
 *
 * @tparam LogicStateMachineT Logic state machine used to process events

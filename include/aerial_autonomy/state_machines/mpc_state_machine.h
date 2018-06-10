@@ -99,6 +99,8 @@ public:
                       msa::MPCWaypointTransition, msmf::none>,
             msmf::Row<msa::Hovering, me::GoHome, msa::ReachingGoal,
                       msa::GoHomeTransitionAction, msa::GoHomeTransitionGuard>,
+            msmf::Row<msa::Hovering, me::SetHome, msa::Hovering,
+                      msa::SetHomeTransitionAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<msa::ReachingGoal, be::Abort, msa::Hovering,
                       msa::AbortUAVArmControllerArmRightFold, msmf::none>,
