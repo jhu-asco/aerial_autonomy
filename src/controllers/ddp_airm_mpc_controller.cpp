@@ -103,6 +103,7 @@ DDPAirmMPCController::DDPAirmMPCController(
       new gcop::Ddp<Eigen::VectorXd>(*sys_, *cost_, ts_, xs_, us_, &kt_));
   ddp_->mu = config.ddp_config().mu();
   ddp_->debug = config.ddp_config().debug();
+  max_iters_ = config.ddp_config().max_iters();
   VLOG(1) << "Done setting up ddp";
   // Setting up logger
   DATA_HEADER("ddp_mpc_controller") << "Errorx"
@@ -116,6 +117,7 @@ DDPAirmMPCController::DDPAirmMPCController(
                                     << "yaw_rate_d"
                                     << "Jad1"
                                     << "Jad2"
+                                    << "J"
                                     << "Loop timer" << DataStream::endl;
 }
 
@@ -129,6 +131,15 @@ void DDPAirmMPCController::resetControls() {
     ddp_->Update();
   }
   look_ahead_index_shift_ = 1;
+}
+
+void DDPAirmMPCController::setMaxIters(int iters) {
+  if (iters == -1) {
+    max_iters_ = config_.ddp_config().max_iters();
+  } else {
+    max_iters_ = iters;
+    CHECK(iters >= 1) << "Number of iters should be greater than 1";
+  }
 }
 
 ControllerStatus DDPAirmMPCController::isConvergedImplementation(
@@ -195,7 +206,6 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   loop_timer_.loop_start();
   boost::mutex::scoped_lock lock(copy_mutex_);
   auto &ddp_config = config_.ddp_config();
-  int max_iters = ddp_config.max_iters();
   int N = ddp_config.n();
   double h = ddp_config.h();
   double t0 = sensor_data.time_since_goal;
@@ -217,7 +227,7 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   ddp_->Update();
   double J = 1e6; // Assume start cost is some large value
   // Run MPC Iterations
-  for (int i = 0; i < max_iters; ++i) {
+  for (int i = 0; i < max_iters_; ++i) {
     ddp_->Iterate();
     // Check for convergence
     if (std::abs(ddp_->J - J) < ddp_config.min_cost_decrease()) {
@@ -251,9 +261,9 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
       sensor_data.initial_state.segment<3>(0) - xds_.at(0).segment<3>(0);
   Eigen::Vector2d error_ja =
       sensor_data.initial_state.segment<2>(15) - xds_.at(0).segment<2>(15);
-  DATA_LOG("ddp_mpc_controller") << error_position << error_ja << control
-                                 << loop_timer_.average_loop_period()
-                                 << DataStream::endl;
+  DATA_LOG("ddp_mpc_controller")
+      << error_position << error_ja << control << (ddp_->J)
+      << loop_timer_.average_loop_period() << DataStream::endl;
   return result;
 }
 

@@ -1,21 +1,21 @@
 ddp_config {
   # State cost
   # XYZ
-  Q: 0
-  Q: 0
-  Q: 0
+  Q: 1
+  Q: 1
+  Q: 1
   # RPY
-  Q: 0
-  Q: 0
-  Q: 0
+  Q: 4
+  Q: 4
+  Q: 4
   # Vxyz
   Q: 4
   Q: 4
   Q: 4
   # RPYdot
-  Q: 0
-  Q: 0
-  Q: 0
+  Q: 4
+  Q: 4
+  Q: 4
   # RPY_cmd
   Q: 0
   Q: 0
@@ -31,13 +31,13 @@ ddp_config {
   Q: 0
   # Terminal gains
   # XYZ
-  Qf: 200
-  Qf: 200
-  Qf: 200
+  Qf: 100
+  Qf: 100
+  Qf: 100
   # RPY
-  Qf: 100
-  Qf: 100
-  Qf: 100
+  Qf: 800
+  Qf: 800
+  Qf: 800
   # Vxyz
   Qf: 100
   Qf: 100
@@ -51,11 +51,11 @@ ddp_config {
   Qf: 0.1
   Qf: 0.1
   # Joint_angles
-  Qf: 50
-  Qf: 50
+  Qf: 100
+  Qf: 100
   # Joint_velocities
-  Qf: 5
-  Qf: 5
+  Qf: 100
+  Qf: 100
   # Joint_cmd
   Qf: 0.1
   Qf: 0.1
@@ -72,7 +72,7 @@ ddp_config {
   # Trajectory length
   N: 100
   # Max iterations
-  max_iters: 2
+  max_iters: 1
   # Min cost decrease
   min_cost_decrease: 1e-4
   # Look ahead time

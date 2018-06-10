@@ -53,6 +53,14 @@ public:
   void resetControls();
 
   /**
+   * @brief Set maximum iterations
+   *
+   * @param iters Max iterations. If specifying -1, will use max iterations from
+   * config
+   */
+  void setMaxIters(int iters);
+
+  /**
   * @brief Get MPC trajectory
   *
   * @param xs vector of states
@@ -168,6 +176,7 @@ private:
       loop_timer_; ///< Timer to find the average time taken by a controller
   int control_timer_shift_; ///< How many steps should the control shift by for
                             /// hot starting
+  int max_iters_;           ///< Maximum number of iterations
   mutable boost::mutex
       copy_mutex_; ///< Synchronize access to states and controls
 };

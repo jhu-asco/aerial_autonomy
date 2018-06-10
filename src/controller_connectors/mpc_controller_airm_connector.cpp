@@ -44,7 +44,11 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
                                      << "kt" << DataStream::endl;
 }
 
-void MPCControllerAirmConnector::initialize() { run(); }
+void MPCControllerAirmConnector::initialize() {
+  private_controller_.setMaxIters(100);
+  run();
+  private_controller_.setMaxIters(-1);
+}
 
 void MPCControllerAirmConnector::clearCommandBuffers() {
   auto joint_angles = arm_hardware_.getJointAngles();
@@ -73,7 +77,7 @@ void MPCControllerAirmConnector::sendControllerCommands(ControlType control) {
   rpyt_msg.x = control(1);
   rpyt_msg.y = control(2);
   rpyt_msg.z = control(3);
-  rpyt_msg.w = control(0);
+  rpyt_msg.w = math::clamp(control(0), 40, 80);
   drone_hardware_.cmdrpyawratethrust(rpyt_msg);
   joint_angle_commands_.at(0) = control(4);
   joint_angle_commands_.at(1) = control(5);
@@ -84,7 +88,7 @@ void MPCControllerAirmConnector::sendControllerCommands(ControlType control) {
   // Since we are commanding yaw rate we have to integrate
   double yaw_cmd = control(3) * 0.02 + last_rpy_command(2);
   rpy_command_buffer_.push(Eigen::Vector3d(control(1), control(2), yaw_cmd));
-  thrust_gain_estimator_.addThrustCommand(control(0));
+  thrust_gain_estimator_.addThrustCommand(rpyt_msg.w);
 }
 
 void MPCControllerAirmConnector::setGoal(

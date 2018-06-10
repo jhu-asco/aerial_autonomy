@@ -36,6 +36,9 @@ public:
   */
   virtual void getDesiredTrajectory(std::vector<StateT> &xds,
                                     std::vector<ControlT> &uds) const = 0;
+  virtual void setMaxIters(int iters) {
+    LOG(WARNING) << "Set maximum iterations not implemented";
+  }
   virtual void resetControls() {
     LOG(WARNING) << "Reset Controls not implemented";
   }
