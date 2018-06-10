@@ -71,8 +71,8 @@ SpiralReferenceTrajectory::atTime(double t) const {
   double signed_velocity_z = sign * velocity_z;
   double yaw = current_yaw_ + amplitude_yaw * sin(angle_yaw);
   // Position
-  x[0] = current_position_[0] + rx * sin(angle);
-  x[1] = current_position_[1] + ry * cos(angle);
+  x[0] = current_position_[0] - rx * sin(phase) + rx * sin(angle);
+  x[1] = current_position_[1] - ry * cos(phase) + ry * cos(angle);
   x[2] = current_position_[2] + amplitude_z * dist_z;
   // Rpy
   Eigen::Vector3d acceleration_vector =
