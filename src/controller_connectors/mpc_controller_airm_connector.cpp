@@ -18,7 +18,7 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
       previous_measurements_initialized_(false),
       delay_buffer_size_(delay_buffer_size), private_controller_(controller),
       use_perfect_time_diff_(false), perfect_time_diff_(0.02),
-      exponential_gain_(0.4) {
+      exponential_gain_(0.9) {
   clearCommandBuffers();
   DATA_HEADER("mpc_state_estimator") << "x"
                                      << "y"

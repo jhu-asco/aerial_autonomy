@@ -116,6 +116,7 @@ uav_system_config {
       visualize_mpc_trajectories: true
       visualizer_config {
         parent_frame: "/optitrak"
+        skip_segments: 10
         trajectory_color {
           r: 0
           g: 1
@@ -129,40 +130,25 @@ uav_system_config {
         }
       }
       mpc_controller_config {
-        # Lower bound
-        lower_bound_control: 0.8
-        lower_bound_control: -0.3
-        lower_bound_control: -0.3
-        lower_bound_control: -0.3
-        lower_bound_control: -0.7
-        lower_bound_control: -0.7
-        # Upper bound
-        upper_bound_control: 1.2
-        upper_bound_control: 0.3
-        upper_bound_control: 0.3
-        upper_bound_control: 0.3
-        upper_bound_control: 0.7
-        upper_bound_control: 0.7
-
-        default_thrust_gain: 0.2
+        default_thrust_gain: 0.16
         ddp_config {
           # State cost
           # XYZ
-          Q: 0
-          Q: 0
-          Q: 0
+          Q: 1
+          Q: 1
+          Q: 1
           # RPY
-          Q: 0
-          Q: 0
-          Q: 0
+          Q: 4
+          Q: 4
+          Q: 4
           # Vxyz
-          Q: 1
-          Q: 1
-          Q: 1
+          Q: 4
+          Q: 4
+          Q: 4
           # RPYdot
-          Q: 0
-          Q: 0
-          Q: 0
+          Q: 4
+          Q: 4
+          Q: 4
           # RPY_cmd
           Q: 0
           Q: 0
@@ -178,61 +164,75 @@ uav_system_config {
           Q: 0
           # Terminal gains
           # XYZ
-          Qf: 200
-          Qf: 200
-          Qf: 200
+          Qf: 100
+          Qf: 100
+          Qf: 100
           # RPY
-          Qf: 50
-          Qf: 50
-          Qf: 50
+          Qf: 800
+          Qf: 800
+          Qf: 800
           # Vxyz
-          Qf: 10
-          Qf: 10
-          Qf: 10
+          Qf: 100
+          Qf: 100
+          Qf: 100
           # RPYdot
-          Qf: 50 
-          Qf: 50
-          Qf: 50
+          Qf: 100 
+          Qf: 100
+          Qf: 100
           # RPY_cmd
           Qf: 0.1
           Qf: 0.1
           Qf: 0.1
           # Joint_angles
-          Qf: 50
-          Qf: 50
+          Qf: 100
+          Qf: 100
           # Joint_velocities
-          Qf: 5
-          Qf: 5
+          Qf: 100
+          Qf: 100
           # Joint_cmd
           Qf: 0.1
           Qf: 0.1
           # Control cost
           # Thrust
-          R: 2.0
+          R: 6.0
           # Rpyd dot
-          R: 0.1
-          R: 0.1
-          R: 0.1
+          R: 4.0
+          R: 4.0
+          R: 4.0
           # desired joint velocities
           R: 0.1
           R: 0.1
           # Trajectory length
-          N: 50
+          N: 100
           # Max iterations
-          max_iters: 5
+          max_iters: 1
           # Min cost decrease
           min_cost_decrease: 1e-4
           # Look ahead time
-          look_ahead_time: 0.2
-          # Min cost
-          max_cost: 50.0
+          look_ahead_time: 0.02
+          # Max cost
+          max_cost: 100.0
         }
 
         weights_folder: "neural_network_model_data/tensorflow_model_vars_16_8_tanh/"
-        goal_position_tolerance: 0.25
-        goal_velocity_tolerance: 0.25
+        goal_position_tolerance: 0.15
+        goal_velocity_tolerance: 0.15
         goal_joint_angle_tolerance: 0.15
         goal_joint_velocity_tolerance: 0.15
+        # Lower bound
+        lower_bound_control: 0.8
+        lower_bound_control: -0.6
+        lower_bound_control: -0.6
+        lower_bound_control: -0.6
+        lower_bound_control: -0.7
+        lower_bound_control: -0.7
+        # Upper bound
+        upper_bound_control: 1.2
+        upper_bound_control: 0.6
+        upper_bound_control: 0.6
+        upper_bound_control: 0.6
+        upper_bound_control: 0.7
+        upper_bound_control: 0.7
       }
     }
   }

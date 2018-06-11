@@ -171,11 +171,6 @@ ControllerStatus DDPAirmMPCController::isConvergedImplementation(
     controller_status.setStatus(ControllerStatus::Completed,
                                 "Converged to reference trajectory");
   }
-  /// \todo Fix joint angles convergence :(
-  VLOG(2) << "Tolerance: " << config_.goal_position_tolerance() << ", "
-          << config_.goal_velocity_tolerance() << ", "
-          << config_.goal_joint_angle_tolerance() << ", "
-          << config_.goal_joint_velocity_tolerance();
   controller_status << "Stats" << error_position.norm() << error_velocity.norm()
                     << error_ja.norm() << error_jv.norm()
                     << loop_timer_.average_loop_period();
