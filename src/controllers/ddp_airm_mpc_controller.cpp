@@ -46,6 +46,7 @@ DDPAirmMPCController::DDPAirmMPCController(
         config.n_layers(), folder_path, lb_, ub_, gcop::Activation::tanh,
         config_.use_code_generation()));
   } else {
+    kp_rpy(2) = 0.1; // Toa avoid singularity in GCOP
     sys_.reset(new gcop::AerialManipulationFeedforwardSystem(
         kt_, kp_rpy, kd_rpy, kp_ja, kd_ja, config.max_joint_velocity(), lb_,
         ub_, config_.use_code_generation()));

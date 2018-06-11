@@ -140,6 +140,7 @@ private:
   Eigen::Vector2d previous_joint_commands_;        ///< Previous joint commands
   Eigen::Vector2d filtered_joint_velocity_;        ///< Filtered joint velocity
   Eigen::Vector3d filtered_rpydot_;                ///< Filtered rpydot
+  Eigen::Vector3d filtered_velocity_;              ///< Filtered rpydot
   int delay_buffer_size_; ///< Size of rpy command buffer
   AbstractMPCController<StateType, ControlType>
       &private_controller_; ///< Private ref
@@ -148,5 +149,6 @@ private:
   bool use_perfect_time_diff_; ///< Flag to use perfect time diff when
                                /// differentiating
   double perfect_time_diff_;   ///< The absolute time difference
-  double exponential_gain_;    ///< Exponential gain
+  double angular_exp_gain_;    ///< Exponential gain
+  double velocity_exp_gain_;   ///< Exponential gain
 };

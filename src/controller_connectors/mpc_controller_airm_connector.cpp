@@ -18,7 +18,7 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
       previous_measurements_initialized_(false),
       delay_buffer_size_(delay_buffer_size), private_controller_(controller),
       use_perfect_time_diff_(false), perfect_time_diff_(0.02),
-      exponential_gain_(0.9) {
+      angular_exp_gain_(0.2), velocity_exp_gain_(0.1) {
   clearCommandBuffers();
   DATA_HEADER("mpc_state_estimator") << "x"
                                      << "y"
@@ -177,20 +177,23 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
     joint_velocities = Eigen::Vector2d::Zero();
     filtered_joint_velocity_ = Eigen::Vector2d::Zero();
     filtered_rpydot_ = Eigen::Vector3d::Zero();
+    filtered_velocity_ = Eigen::Vector3d::Zero();
     previous_measurements_initialized_ = true;
   }
   // Update filtered velocities:
   // filtered_rpydot_ = delta_rpy/dt;
-  filtered_rpydot_ = exponential_gain_ * filtered_rpydot_ +
-                     (1 - exponential_gain_) * (delta_rpy / dt);
-  filtered_joint_velocity_ = exponential_gain_ * filtered_joint_velocity_ +
-                             (1 - exponential_gain_) * joint_velocities;
+  filtered_rpydot_ = angular_exp_gain_ * filtered_rpydot_ +
+                     (1 - angular_exp_gain_) * (delta_rpy / dt);
+  filtered_joint_velocity_ = angular_exp_gain_ * filtered_joint_velocity_ +
+                             (1 - angular_exp_gain_) * joint_velocities;
+  filtered_velocity_ =
+      velocity_exp_gain_ * filtered_velocity_ + (1 - velocity_exp_gain_) * v;
   // filtered_joint_velocity_ =
   //    joint_velocities; //// If using filter then uncomment above line
   // Fill state
   current_state.segment<3>(0) = p;
   current_state.segment<3>(3) = rpy;
-  current_state.segment<3>(6) = v;
+  current_state.segment<3>(6) = filtered_velocity_;
   current_state.segment<3>(9) = filtered_rpydot_;
   current_state.segment<3>(12) = rpy_command_buffer_.front();
   current_state.segment<2>(15) = joint_angles_vec;
