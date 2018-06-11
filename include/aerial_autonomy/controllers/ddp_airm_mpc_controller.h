@@ -53,6 +53,11 @@ public:
   void resetControls();
 
   /**
+   * @brief Create a DDP using the system cost etc
+   */
+  void resetDDP();
+
+  /**
    * @brief Set maximum iterations
    *
    * @param iters Max iterations. If specifying -1, will use max iterations from

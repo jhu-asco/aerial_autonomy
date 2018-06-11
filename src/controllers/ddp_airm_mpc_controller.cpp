@@ -97,13 +97,8 @@ DDPAirmMPCController::DDPAirmMPCController(
   Eigen::VectorXd default_state(21);
   default_state.setZero();
   xs_.resize(N + 1, default_state);
-  resetControls(); // Set controls to default values
-  // Ddp
-  VLOG(1) << "Creating ddp";
-  ddp_.reset(
-      new gcop::Ddp<Eigen::VectorXd>(*sys_, *cost_, ts_, xs_, us_, &kt_));
-  ddp_->mu = config.ddp_config().mu();
-  ddp_->debug = config.ddp_config().debug();
+  // Controls
+  resetControls(); // Set controls to default values and resets DDP
   max_iters_ = config.ddp_config().max_iters();
   VLOG(1) << "Done setting up ddp";
   // Setting up logger
@@ -122,15 +117,27 @@ DDPAirmMPCController::DDPAirmMPCController(
                                     << "Loop timer" << DataStream::endl;
 }
 
+void DDPAirmMPCController::resetDDP() {
+  // Ddp
+  VLOG(1) << "Creating ddp";
+  ddp_.reset(
+      new gcop::Ddp<Eigen::VectorXd>(*sys_, *cost_, ts_, xs_, us_, &kt_));
+  ddp_->mu = config_.ddp_config().mu();
+  ddp_->debug = config_.ddp_config().debug();
+}
+
 void DDPAirmMPCController::resetControls() {
   VLOG(1) << "Resetting Controls";
   // initial controls
   Eigen::VectorXd ui(6);
   ui << 1.0, 0, 0, 0, 0, 0;
-  us_.resize(config_.ddp_config().n(), ui);
-  if (ddp_) {
-    ddp_->Update();
+  int N = config_.ddp_config().n();
+  us_.resize(N);
+  for (int i = 0; i < N; ++i) {
+    us_.at(i) = ui;
   }
+  resetDDP();
+  ddp_->Update();
   look_ahead_index_shift_ = 1;
 }
 

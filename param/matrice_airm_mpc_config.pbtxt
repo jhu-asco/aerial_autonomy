@@ -209,7 +209,7 @@ uav_system_config {
           # Min cost decrease
           min_cost_decrease: 1e-4
           # Look ahead time
-          look_ahead_time: 0.02
+          look_ahead_time: 0.2
           # Max cost
           max_cost: 100.0
         }
