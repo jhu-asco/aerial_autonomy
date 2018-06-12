@@ -3,7 +3,7 @@ mpc_state_machine_config {
     frequency: 0.05
     radiusx: 0.2
     radiusy: 0.2
-    velocity_z: 0.1
+    velocity_z: 0.05
     frequency_z: 0.05
   }
   arm_reference {
@@ -23,8 +23,8 @@ mpc_state_machine_config {
   }
   waypoint_reference {
     position {
-      x: 0.1
-      y: 0.1
+      x: 1.0
+      y: 0.0
       z: 0.1
     }
     yaw: 0.0
