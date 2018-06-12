@@ -254,11 +254,12 @@ void fillMPCConfig(AirmMPCControllerConfig &config) {
   config.set_upper_bound_control(4, 0.7);
   config.set_upper_bound_control(5, 0.7);
 
-  config.set_goal_position_tolerance(0.1);
-  config.set_goal_velocity_tolerance(0.2);
+  config.set_goal_position_tolerance(0.2);
+  config.set_goal_velocity_tolerance(0.25);
   config.set_goal_joint_angle_tolerance(0.2);
   config.set_goal_joint_velocity_tolerance(0.1);
   DDPMPCControllerConfig *ddp_config = config.mutable_ddp_config();
+  ddp_config->set_n(100);
   ddp_config->set_max_cost(500);
   ddp_config->set_look_ahead_time(0.02);
   auto q = ddp_config->mutable_q();
@@ -266,24 +267,29 @@ void fillMPCConfig(AirmMPCControllerConfig &config) {
   auto qf = ddp_config->mutable_qf();
   qf->Resize(21, 0.1);
   auto r = ddp_config->mutable_r();
-  r->Resize(6, 0.1);
-  r->Set(0, 2.0); // Reduce thrust control
+  r->Resize(6, 4.0);
+  r->Set(0, 6.0); // Reduce thrust control
+  r->Set(4, 1.0);
+  r->Set(5, 1.0);
   for (int i = 0; i < 3; ++i) {
     // Pos cost
-    ddp_config->set_qf(i, 200.0);
+    ddp_config->set_qf(i, 100.0);
+    ddp_config->set_q(i, 1.0);
     // Rpy cost
-    ddp_config->set_qf(i + 3, 50.0);
+    ddp_config->set_qf(i + 3, 800.0);
+    ddp_config->set_q(i + 3, 4.0);
     // Vel cost
-    ddp_config->set_qf(i + 6, 10.0);
-    ddp_config->set_q(i + 6, 1.0);
+    ddp_config->set_qf(i + 6, 100.0);
+    ddp_config->set_q(i + 6, 4.0);
     // Rpydot cost
     ddp_config->set_qf(i + 9, 5.0);
+    ddp_config->set_q(i + 9, 4.0);
   }
   for (int i = 0; i < 2; ++i) {
     // Joint angle cost
-    ddp_config->set_qf(i + 15, 200.0);
+    ddp_config->set_qf(i + 15, 100.0);
     // Joint velocity cost
-    ddp_config->set_qf(i + 17, 5.0);
+    ddp_config->set_qf(i + 17, 100.0);
   }
   ddp_config->set_debug(false);
   ddp_config->set_max_iters(5);

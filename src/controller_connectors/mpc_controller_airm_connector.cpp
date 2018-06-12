@@ -13,7 +13,7 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
                              constraint_generator),
       drone_hardware_(drone_hardware), arm_hardware_(arm_hardware),
       pose_sensor_(pose_sensor), thrust_gain_estimator_(thrust_gain_estimator),
-      joint_angle_commands_(2), previous_measurements_(8),
+      joint_angle_commands_(2), previous_measurements_(5),
       previous_measurement_time_(std::chrono::high_resolution_clock::now()),
       previous_measurements_initialized_(false),
       delay_buffer_size_(delay_buffer_size), private_controller_(controller),
@@ -120,6 +120,17 @@ void MPCControllerAirmConnector::useSensor(
   pose_sensor_ = sensor;
 }
 
+Eigen::Vector3d
+MPCControllerAirmConnector::omegaToRpyDot(const Eigen::Vector3d &omega,
+                                          const Eigen::Vector3d &rpy) {
+  Eigen::Matrix3d Mrpy;
+  double s_roll = sin(rpy[0]), c_roll = cos(rpy[0]), t_pitch = tan(rpy[1]);
+  double sec_pitch = sqrt(1 + t_pitch * t_pitch);
+  Mrpy << 1, s_roll * t_pitch, c_roll * t_pitch, 0, c_roll, -s_roll, 0,
+      s_roll * sec_pitch, c_roll * sec_pitch;
+  return Mrpy * omega;
+}
+
 bool MPCControllerAirmConnector::estimateStateAndParameters(
     Eigen::VectorXd &current_state, Eigen::VectorXd &params) {
   current_state.resize(21);
@@ -153,6 +164,8 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
   const auto &quad_position = quad_pose.getOrigin();
   Eigen::Vector3d p(quad_position.x(), quad_position.y(), quad_position.z());
   Eigen::Vector3d rpy;
+  Eigen::Vector3d omega(quad_data.omega.x, quad_data.omega.y,
+                        quad_data.omega.z);
   // Euler angles
   if (pose_sensor_) {
     rpy = conversions::transformTfToRPY(quad_pose);
@@ -164,25 +177,24 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
   std::vector<double> joint_angles = arm_hardware_.getJointAngles();
   Eigen::Vector2d joint_angles_vec(joint_angles.at(0), joint_angles.at(1));
   // Differentiate:
-  Eigen::Vector3d v, delta_rpy;
+  Eigen::Vector3d v;
   Eigen::Vector2d joint_velocities;
   if (previous_measurements_initialized_) {
     v = (p - previous_measurements_.segment<3>(0)) / dt;
-    delta_rpy = rpy - previous_measurements_.segment<3>(3);
-    delta_rpy[2] = math::angleWrap(delta_rpy[2]);
     joint_velocities =
-        (joint_angles_vec - previous_measurements_.segment<2>(6)) / dt;
+        (joint_angles_vec - previous_measurements_.segment<2>(3)) / dt;
   } else {
-    v = delta_rpy = Eigen::Vector3d::Zero();
+    v = Eigen::Vector3d::Zero();
     joint_velocities = Eigen::Vector2d::Zero();
     filtered_joint_velocity_ = Eigen::Vector2d::Zero();
     filtered_rpydot_ = Eigen::Vector3d::Zero();
     previous_measurements_initialized_ = true;
   }
+  // Get rpydot from omega:
+  filtered_rpydot_ = omegaToRpyDot(omega, rpy);
   // Update filtered velocities:
-  // filtered_rpydot_ = delta_rpy/dt;
-  filtered_rpydot_ = exponential_gain_ * filtered_rpydot_ +
-                     (1 - exponential_gain_) * (delta_rpy / dt);
+  // filtered_rpydot_ = exponential_gain_ * filtered_rpydot_ +
+  //                   (1 - exponential_gain_) * (delta_rpy / dt);
   filtered_joint_velocity_ = exponential_gain_ * filtered_joint_velocity_ +
                              (1 - exponential_gain_) * joint_velocities;
   // filtered_joint_velocity_ =
@@ -197,8 +209,8 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
   current_state.segment<2>(17) = filtered_joint_velocity_;
   current_state.segment<2>(19) = previous_joint_commands_;
   // Fill previous measurements and time
-  previous_measurements_.segment<6>(0) = current_state.segment<6>(0);
-  previous_measurements_.segment<2>(6) = joint_angles_vec;
+  previous_measurements_.segment<3>(0) = current_state.segment<3>(0);
+  previous_measurements_.segment<2>(3) = joint_angles_vec;
   previous_measurement_time_ = current_time;
   // Estimate thrust gain parameter
   thrust_gain_estimator_.addSensorData(quad_data.rpydata.x, quad_data.rpydata.y,
