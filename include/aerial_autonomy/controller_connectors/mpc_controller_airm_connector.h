@@ -102,6 +102,17 @@ public:
   tf::Transform getPose(const parsernode::common::quaddata &data);
 
   /**
+  * @brief Compute euler angle rates from body angular velocities
+  *
+  * @param omega Body angular velocities
+  * @param rpy Euler angles
+  *
+  * @return Euler angle rates
+  */
+  Eigen::Vector3d omegaToRpyDot(const Eigen::Vector3d &omega,
+                                const Eigen::Vector3d &rpy);
+
+  /**
   * @brief Specify the time difference for differentiating position, joint
   * angles
   *

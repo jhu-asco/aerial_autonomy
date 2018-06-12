@@ -1,6 +1,18 @@
 #include "aerial_autonomy/tests/ddp_airm_mpc_connector_tests.h"
 #include <gtest/gtest.h>
 
+TEST_F(MPCControllerAirmConnectorTests, OmegaToRpyDot) {
+  Eigen::Vector3d omega(1, 0, 0);
+  Eigen::Vector3d rpy(1, 1.2, -1); // Random values
+  Eigen::Vector3d rpydot = controller_connector_->omegaToRpyDot(omega, rpy);
+  test_utils::ASSERT_VEC_NEAR(rpydot, Eigen::Vector3d(1, 0, 0));
+  // rpy = 0, rpydot = omega
+  omega = Eigen::Vector3d(1, 2, 3);
+  rpy = Eigen::Vector3d(0, 0, 0);
+  rpydot = controller_connector_->omegaToRpyDot(omega, rpy);
+  test_utils::ASSERT_VEC_NEAR(rpydot, omega);
+}
+
 TEST_F(MPCControllerAirmConnectorTests, GoalIsStart) {
   runUntilConvergence(PositionYaw(0, 0, 0, 0), PositionYaw(0, 0, 0, 0),
                       {-0.8, 0}, {-0.8, 0}, false);

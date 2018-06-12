@@ -149,7 +149,7 @@ TEST_F(DDPAirmMPCControllerTests, SingleRunWithResidualDynamics) {
   Eigen::VectorXd goal_state(21);
   VLOG(1) << "Creating goal";
   goal_state.setZero();
-  goal_state[0] = goal_state[1] = goal_state[2] = 1.0;
+  goal_state[0] = goal_state[1] = goal_state[2] = 0.1;
   goal_state[5] = goal_state[14] = 0.5; // Yaw, yawd
   // Joint angles
   goal_state[15] = -0.3;
@@ -190,7 +190,7 @@ TEST_F(DDPAirmMPCControllerTests, SingleRunWithResidualDynamics) {
 
 TEST_F(DDPAirmMPCControllerTests, Convergence) {
   config_.set_use_residual_dynamics(true);
-  config_.mutable_ddp_config()->set_n(50);
+  config_.mutable_ddp_config()->set_n(100);
   config_.mutable_ddp_config()->set_max_cost(20);
   config_.mutable_ddp_config()->set_min_cost_decrease(1e-2);
   config_.mutable_ddp_config()->set_max_iters(5);
@@ -209,7 +209,7 @@ TEST_F(DDPAirmMPCControllerTests, Convergence) {
   Eigen::VectorXd goal_state(21);
   VLOG(1) << "Creating goal";
   goal_state.setZero();
-  goal_state[0] = goal_state[1] = goal_state[2] = 1.0;
+  goal_state[0] = goal_state[1] = goal_state[2] = 0.5;
   goal_state[5] = goal_state[14] = 0.5; // Yaw, yawd
   // Joint angles
   goal_state[15] = -0.3;
@@ -242,7 +242,7 @@ TEST_F(DDPAirmMPCControllerTests, Convergence) {
 TEST_F(DDPAirmMPCControllerTests, ConvergenceSpiral) {
   config_.set_use_residual_dynamics(true);
   config_.mutable_ddp_config()->set_n(50);
-  config_.mutable_ddp_config()->set_max_cost(30);
+  config_.mutable_ddp_config()->set_max_cost(50);
   config_.mutable_ddp_config()->set_min_cost_decrease(1e-2);
   config_.mutable_ddp_config()->set_max_iters(5);
   std::shared_ptr<DDPAirmMPCController> controller = createController();

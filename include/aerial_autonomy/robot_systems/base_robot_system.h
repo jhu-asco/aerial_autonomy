@@ -58,11 +58,12 @@ public:
       throw std::runtime_error(
           "null pointer provided for activating controller connector");
     }
-    controller_connector->initialize();
     ControllerGroup controller_group =
         controller_connector->getControllerGroup();
-    if (active_controllers_[controller_group] != controller_connector) {
+    // Initialize and swap
+    {
       boost::mutex::scoped_lock lock(*thread_mutexes_[controller_group]);
+      controller_connector->initialize();
       active_controllers_[controller_group] = controller_connector;
     }
     AbstractControllerConnector *dependent_connector =
