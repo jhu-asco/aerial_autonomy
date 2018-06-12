@@ -111,7 +111,8 @@ uav_system_config {
           }
           goal_rotation_tolerance: 6
         }
-        arm_parser_type: "ArmSimulator"
+        #arm_parser_type: "ArmSimulator"
+        arm_parser_type: "SimpleArm"
       }
       visualize_mpc_trajectories: true
       visualizer_config {
