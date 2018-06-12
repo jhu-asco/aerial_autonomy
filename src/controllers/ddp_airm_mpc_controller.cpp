@@ -44,7 +44,7 @@ DDPAirmMPCController::DDPAirmMPCController(
     sys_.reset(new gcop::AirmResidualNetworkModel(
         kt_, kp_rpy, kd_rpy, kp_ja, kd_ja, config.max_joint_velocity(),
         config.n_layers(), folder_path, lb_, ub_, gcop::Activation::tanh,
-        config_.use_code_generation()));
+        config_.use_code_generation(), config.mocap_yaw_offset()));
   } else {
     sys_.reset(new gcop::AerialManipulationFeedforwardSystem(
         kt_, kp_rpy, kd_rpy, kp_ja, kd_ja, config.max_joint_velocity(), lb_,

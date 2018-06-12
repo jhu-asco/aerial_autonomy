@@ -111,8 +111,8 @@ int main(int argc, char **argv) {
   auto reference_ptr =
       createWayPoint(PositionYaw(0.2, 0.2, 0.2, 0.0), -0.8, 1.4);
   // auto reference_ptr = createSpiralReference(drone_hardware);
-  // controller_connector.usePerfectTimeDiff(
-  //    0.02); ///\todo Remove this flag business
+  controller_connector.usePerfectTimeDiff(
+      0.02); ///\todo Remove this flag business
   // Start drone
   drone_hardware.setBatteryPercent(60);
   drone_hardware.takeoff();
