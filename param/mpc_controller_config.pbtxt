@@ -1,17 +1,17 @@
 ddp_config {
   # State cost
   # XYZ
-  Q: 1
-  Q: 1
-  Q: 1
+  Q: 100
+  Q: 100
+  Q: 100
   # RPY
   Q: 4
   Q: 4
   Q: 4
   # Vxyz
-  Q: 4
-  Q: 4
-  Q: 4
+  Q: 100
+  Q: 100
+  Q: 100
   # RPYdot
   Q: 4
   Q: 4
@@ -57,8 +57,8 @@ ddp_config {
   Qf: 100
   Qf: 100
   # Joint_cmd
-  Qf: 0.1
-  Qf: 0.1
+  Qf: 100
+  Qf: 100
   # Control cost
   # Thrust
   R: 6.0
@@ -76,9 +76,9 @@ ddp_config {
   # Min cost decrease
   min_cost_decrease: 1e-4
   # Look ahead time
-  look_ahead_time: 0.02
+  look_ahead_time: 0.04
   # Max cost
-  max_cost: 100.0
+  max_cost: 500.0
 }
 
 weights_folder: "neural_network_model_data/tensorflow_model_vars_16_8_tanh/"
