@@ -14,5 +14,7 @@ public:
   * @param t Time
   * @return Trajectory state and control
   */
+
+  
   virtual std::pair<StateT, ControlT> atTime(double t) const = 0;
 };
