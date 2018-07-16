@@ -1,5 +1,7 @@
 #pragma once
 #include "aerial_autonomy/types/reference_trajectory.h"
+#include "aerial_autonomy/types/particle_state.h"
+#include "aerial_autonomy/types/snap.h"
 
 #include <utility>
 #include <Eigen/Dense>
@@ -11,7 +13,7 @@ class MinimumSnapReferenceTrajectory: public ReferenceTrajectory<ParticleState, 
 {
 public:
   /*Constructor*/
-  Cow(const int r_in, const Ref<const VectorXd>& tau_vec_in, const Ref<const MatrixXd>& path_in) // normal non-default constructor
+  MinimumSnapReferenceTrajectory(const int r_in, const Ref<const VectorXd>& tau_vec_in, const Ref<const MatrixXd>& path_in) // normal non-default constructor
   : r(r_in), tau_vec(tau_vec_in), path(path_in)
   {
     Init(); // Separate function
@@ -235,7 +237,7 @@ private:
   // b = known endpoint derivatives
   MatrixXd bFixed()
   {
-    int idx_free = 4*(m-1); // # of unknowns (subject to optimization)
+    //int idx_free = 4*(m-1); // # of unknowns (subject to optimization)
     MatrixXd b; b.setZero((n+1)*m, path.cols());
     b.topRows(1) = path.topRows(1);
     b.row((r+1)+(n+1)*(m-1)) = path.bottomRows(1);
