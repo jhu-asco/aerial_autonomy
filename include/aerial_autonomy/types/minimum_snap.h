@@ -6,6 +6,8 @@
 #include <utility>
 #include <Eigen/Dense>
 #include <vector>
+#include <iostream>
+#include <fstream>
 
 using namespace Eigen;
 
@@ -13,7 +15,8 @@ class MinimumSnapReferenceTrajectory: public ReferenceTrajectory<ParticleState, 
 {
 public:
   /*Constructor*/
-  MinimumSnapReferenceTrajectory(const int r_in, const Ref<const VectorXd>& tau_vec_in, const Ref<const MatrixXd>& path_in) // normal non-default constructor
+  MinimumSnapReferenceTrajectory
+  (const int r_in, const Ref<const VectorXd>& tau_vec_in, const Ref<const MatrixXd>& path_in) // normal non-default constructor
   : r(r_in), tau_vec(tau_vec_in), path(path_in)
   {
     Init(); // Separate function
@@ -282,4 +285,22 @@ private:
     return ts_eigen;
   }
 
+};
+
+template<typename M>
+M load_csv (const std::string & path) {
+    std::ifstream indata;
+    indata.open(path);
+    std::string line;
+    std::vector<double> values;
+    uint rows = 0;
+    while (std::getline(indata, line)) {
+        std::stringstream lineStream(line);
+        std::string cell;
+        while (std::getline(lineStream, cell, ',')) {
+            values.push_back(std::stod(cell));
+        }
+        ++rows;
+    }
+    return Map<const Matrix<typename M::Scalar, M::RowsAtCompileTime, M::ColsAtCompileTime, RowMajor>>(values.data(), rows, values.size()/rows);
 };
