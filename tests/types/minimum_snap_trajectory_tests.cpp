@@ -1,5 +1,6 @@
 #include <aerial_autonomy/types/minimum_snap.h>
 #include <gtest/gtest.h>
+#include <chrono>
 
 void ASSERT_VEC_NEAR(const MatrixXd &state1,
                      const std::pair<ParticleState, Snap> &state2,
@@ -69,7 +70,15 @@ TEST(MinimumSnapReferenceTrajectory, MATLAB) {
   MatrixXd t_matlab = load_csv<MatrixXd>(std::string(PROJECT_SOURCE_DIR) +
                                          "/tests/types/data/t_matlab.csv");
 
+  auto t0 = std::chrono::high_resolution_clock::now();
   const MinimumSnapReferenceTrajectory ref(r, tau_vec_matlab, path_matlab);
+  auto t1 = std::chrono::high_resolution_clock::now();
+
+  std::chrono::duration<float> delta_t = t1 - t0;
+  std::cout << "[----------]"
+            << " Computation time (10 pts): " << delta_t.count()
+            << " seconds\n";
+
   for (int i = 0; i < t_matlab.rows(); i++) {
     auto ref_t = ref.atTime(t_matlab(i));
     ASSERT_VEC_NEAR(states_matlab.middleRows(5 * i, 5), ref_t);
