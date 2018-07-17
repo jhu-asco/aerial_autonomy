@@ -34,30 +34,36 @@ public:
     bOpt = bOptimized();
     P = A.lu().solve(C.transpose())*bOpt;
     ts_eigen = cumsumEigen();
+    ts = EigenToVector(ts_eigen);
   }
 
   MatrixXd getP() const { return P; }
+
   VectorXd getTs() const { return ts_eigen; }
+
   MatrixXd getEqualA(double t_tau) const { return equalA(t_tau); }
+
+  std::vector<double> EigenToVector(const VectorXd& vector_eigen) {
+    std::vector<double> vector_std(ts_eigen.data(), ts_eigen.data() + ts_eigen.rows() * ts_eigen.cols());
+    return vector_std;
+  }
 
   std::pair<ParticleState, Snap> atTime(double t) const
   {
-    VectorXd ts_eigen = getTs();
-    // conversion
-    //std::vector<double> ts_std(ts_eigen.data(), ts_eigen.data() + ts_eigen.rows() * ts_eigen.cols());
-    std::vector<double> ts_std(ts_eigen.data(), ts_eigen.data() + ts_eigen.rows() * ts_eigen.cols());
+    //if (this->ts.empty() || t < this->ts.front() || t > this->ts.back()) {
+    //  throw std::out_of_range("Accessed reference trajectory out of bounds");
+    //}
     // find interator
-    auto closest_t = std::lower_bound(ts_std.begin(), ts_std.end(), t);
-    int i = closest_t - ts_std.begin();
-
-    //
-    double t_tau = t - ts_std[i-1];
+    auto closest_t = std::lower_bound(ts.begin(), ts.end(), t);
+    int i = closest_t - ts.begin();
+    double t_tau = t - ts[i-1];
     MatrixXd P = getP();
-    // Select the segment of polynomials
-    MatrixXd P_seg = P.middleRows(10*(i-1), 10);
-
-    // borrow equalA to get pos, vel, ...
-    MatrixXd states_eigen = equalA(t_tau).bottomRows(5)*P_seg;
+    MatrixXd states_eigen;
+    if (i == 0) {
+      states_eigen = equalA(t_tau).bottomRows(5)*P.middleRows(0, 10);
+    } else {
+      states_eigen = equalA(t_tau).bottomRows(5)*P.middleRows(10*(i-1), 10);
+    }
 
     // Type conversion
     Position p(states_eigen(0,0), states_eigen(0,1), states_eigen(0,2));
@@ -87,7 +93,7 @@ private:
   /**
   * @brief Time stamps corresponding to states
   */
-  std::vector<double> ts_std;
+  std::vector<double> ts;
 
   // member functions
 
@@ -302,5 +308,6 @@ M load_csv (const std::string & path) {
         }
         ++rows;
     }
-    return Map<const Matrix<typename M::Scalar, M::RowsAtCompileTime, M::ColsAtCompileTime, RowMajor>>(values.data(), rows, values.size()/rows);
+    return Map<const Matrix<typename M::Scalar, M::RowsAtCompileTime, M::ColsAtCompileTime, RowMajor>>
+    (values.data(), rows, values.size()/rows);
 };
