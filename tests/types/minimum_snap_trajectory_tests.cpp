@@ -48,18 +48,26 @@ TEST(DiscreteReferenceTrajectoryInterpolate, TimeTooLarge) {
 
 TEST(MinimumSnapReferenceTrajectory, MATLAB) {
   int r = 4;
-  MatrixXd path_matlab =
-      load_csv<MatrixXd>("/home/soowon/MATLAB/workspace/path_matlab.csv");
+  // MatrixXd path_matlab =
+  //    load_csv<MatrixXd>("/home/soowon/MATLAB/workspace/path_matlab.csv");
+
+  // MatrixXd path_matlab =
+  //    load_csv<MatrixXd>("@DPROJECT_SOURCE_DIR@/tests/types/data/path_matlab.csv");
+  MatrixXd path_matlab = load_csv<MatrixXd>(
+      std::string(PROJECT_SOURCE_DIR) + "/tests/types/data/path_matlab.csv");
+
   MatrixXd tau_vec_matlab = load_csv<MatrixXd>(
-      "/home/soowon/MATLAB/workspace/tau_vec_matlab.csv"); // vec -> Mat...
-  MatrixXd states_matlab =
-      load_csv<MatrixXd>("/home/soowon/MATLAB/workspace/states_matlab.csv");
+      std::string(PROJECT_SOURCE_DIR) +
+      "/tests/types/data/tau_vec_matlab.csv"); // vec -> Mat...
+
+  MatrixXd states_matlab = load_csv<MatrixXd>(
+      std::string(PROJECT_SOURCE_DIR) + "/tests/types/data/states_matlab.csv");
   // std::ifstream file("/home/soowon/MATLAB/workspace/atTimet.csv");
   // std::string tt;
   // std::getline(file, tt);
   // double t_matlab = std::stod(tt);
-  MatrixXd t_matlab =
-      load_csv<MatrixXd>("/home/soowon/MATLAB/workspace/t_matlab.csv");
+  MatrixXd t_matlab = load_csv<MatrixXd>(std::string(PROJECT_SOURCE_DIR) +
+                                         "/tests/types/data/t_matlab.csv");
 
   const MinimumSnapReferenceTrajectory ref(r, tau_vec_matlab, path_matlab);
   for (int i = 0; i < t_matlab.rows(); i++) {
