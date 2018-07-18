@@ -1,6 +1,6 @@
 #include <aerial_autonomy/types/minimum_snap.h>
-#include <gtest/gtest.h>
 #include <chrono>
+#include <gtest/gtest.h>
 
 void ASSERT_VEC_NEAR(const MatrixXd &state1,
                      const std::pair<ParticleState, Snap> &state2,
@@ -27,7 +27,7 @@ void ASSERT_VEC_NEAR(const MatrixXd &state1,
   ASSERT_NEAR(state1(4, 2), std::get<1>(state2).z, tol);
 }
 
-TEST(DiscreteReferenceTrajectoryInterpolate, TimeTooSmall) {
+TEST(MinimumSnapReferenceTrajectory, TimeTooSmall) {
   int r = 4;
   VectorXd tau_vec(2);
   tau_vec << 1, 1;
@@ -37,7 +37,7 @@ TEST(DiscreteReferenceTrajectoryInterpolate, TimeTooSmall) {
   ASSERT_THROW(ref.atTime(-1), std::out_of_range);
 }
 
-TEST(DiscreteReferenceTrajectoryInterpolate, TimeTooLarge) {
+TEST(MinimumSnapReferenceTrajectory, TimeTooLarge) {
   int r = 4;
   VectorXd tau_vec(2);
   tau_vec << 1, 1;
@@ -91,6 +91,20 @@ TEST(MinimumSnapReferenceTrajectory, TimeAtStart) {
   tau_vec << 1, 1;
   MatrixXd path(3, 3);
   path << 0, 0, 0, 1, 1, 1, 2, 2, 2;
+  const MinimumSnapReferenceTrajectory ref(r, tau_vec, path);
+  auto ref_t = ref.atTime(0);
+  ASSERT_NEAR(std::get<0>(ref_t).p.x, 0, 1e-7);
+  ASSERT_NEAR(std::get<0>(ref_t).p.y, 0, 1e-7);
+  ASSERT_NEAR(std::get<0>(ref_t).p.z, 0, 1e-7);
+}
+
+TEST(MinimumSnapReferenceTrajectory, SingleSegment) {
+  int r = 4;
+  // VectorXd tau_vec(1);
+  // tau_vec << 1;
+  double tau_vec = 2;
+  MatrixXd path(2, 3);
+  path << 0, 0, 0, 1, 1, 1;
   const MinimumSnapReferenceTrajectory ref(r, tau_vec, path);
   auto ref_t = ref.atTime(0);
   ASSERT_NEAR(std::get<0>(ref_t).p.x, 0, 1e-7);

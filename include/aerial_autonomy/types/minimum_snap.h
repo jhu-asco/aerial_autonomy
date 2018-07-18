@@ -23,7 +23,14 @@ public:
         path(path_in) {
     Init(); // Separate function
   }
-
+  /**/
+  MinimumSnapReferenceTrajectory(
+      const int r_in, const double &tau,
+      const Ref<const MatrixXd> &path_in) // normal non-default constructor
+      : r(r_in),
+        path(path_in) {
+    InitSingleSeg(tau); // Separate function
+  }
   // void Init(int r_in, const Ref<const VectorXd>& tau_vec_in, const Ref<const
   // MatrixXd>& path_in);
   // MinimumSnapReferenceTrajectory Member functions
@@ -39,6 +46,15 @@ public:
     ts = EigenToVector(ts_eigen);
   }
 
+  void InitSingleSeg(double tau) {
+    n = 2 * r + 1; // order of the polynomial (ex. for minimum snap, 9th poly)
+    m = 1;         // Number of segments
+    A = equalA(tau);
+    Q = costQ(tau);
+    P = A.lu().solve(bFixed());
+    ts = {0, tau};
+  }
+
   MatrixXd getP() const { return P; }
 
   VectorXd getTs() const { return ts_eigen; }
@@ -50,7 +66,12 @@ public:
         ts_eigen.data(), ts_eigen.data() + ts_eigen.rows() * ts_eigen.cols());
     return vector_std;
   }
-
+  /**
+  * @brief Gets the trajectory information at the specified time using minimum
+  * snap
+  * @param t Time
+  * @return Trajectory state and control
+  */
   std::pair<ParticleState, Snap> atTime(double t) const {
     if (ts.empty() || t < ts.front() || t > ts.back()) {
       throw std::out_of_range("Accessed reference trajectory out of bounds");
@@ -59,7 +80,6 @@ public:
     auto closest_t = std::lower_bound(ts.begin(), ts.end(), t);
     int i = closest_t - ts.begin();
     double t_tau = t - ts[i - 1];
-    MatrixXd P = getP();
     MatrixXd states_eigen;
     if (i == 0) {
       states_eigen = equalA(t_tau).bottomRows(5) * P.middleRows(0, 10);
@@ -212,8 +232,6 @@ private:
   // Output:
   // C = permutation matrix
   MatrixXd permutC() {
-    int n = 2 * r + 1;
-    int m = tau_vec.size();
     VectorXd idx;
     idx.setZero(4 * (m - 1));
     for (int i = 1; i <= m - 1; i++) {
