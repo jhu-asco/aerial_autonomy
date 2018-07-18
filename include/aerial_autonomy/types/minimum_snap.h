@@ -10,62 +10,76 @@
 #include <vector>
 
 using namespace Eigen;
-
+/**
+* @brief A minimum snap trajectory containing controls, states and timestamps
+* Gets state/control information using unconstrained QP
+*/
 class MinimumSnapReferenceTrajectory
     : public ReferenceTrajectory<ParticleState, Snap> {
 public:
-  /*Constructor*/
-  MinimumSnapReferenceTrajectory(
-      const int r_in, const Ref<const VectorXd> &tau_vec_in,
-      const Ref<const MatrixXd> &path_in) // normal non-default constructor
-      : r(r_in),
-        tau_vec(tau_vec_in),
-        path(path_in) {
-    Init(); // Separate function
+  /**
+  * @brief Constructor for more than two segments
+  * @param r_in Order of the derivative subject to optimization
+  * @param tau_vec_in Array of time intervals
+  * @param path_in nby3 matrix containing waypoints (x,y,z)
+  */
+  MinimumSnapReferenceTrajectory(const int r_in,
+                                 const Ref<const VectorXd> &tau_vec_in,
+                                 const Ref<const MatrixXd> &path_in)
+      : r(r_in), tau_vec(tau_vec_in), path(path_in) {
+    Init();
   }
-  /**/
-  MinimumSnapReferenceTrajectory(
-      const int r_in, const double &tau,
-      const Ref<const MatrixXd> &path_in) // normal non-default constructor
-      : r(r_in),
-        path(path_in) {
-    InitSingleSeg(tau); // Separate function
-  }
-  // void Init(int r_in, const Ref<const VectorXd>& tau_vec_in, const Ref<const
-  // MatrixXd>& path_in);
-  // MinimumSnapReferenceTrajectory Member functions
+  /**
+  * @brief Initialization for more than two segments
+  */
   void Init() {
-    n = 2 * r + 1; // order of the polynomial (ex. for minimum snap, 9th poly)
-    m = tau_vec.size(); // Number of segments
+    n = 2 * r + 1;
+    m = tau_vec.size();
     A = augA();
     C = permutC();
     Q = augQ();
     bOpt = bOptimized();
     P = A.lu().solve(C.transpose()) * bOpt;
-    ts_eigen = cumsumEigen();
-    ts = EigenToVector(ts_eigen);
+    ts = vecEigenToStd(cumsumEigen(tau_vec));
   }
-
+  /**
+  * @brief Constructor for a single segment
+  * @param r_in Order of the derivative subject to optimization
+  * @param tau Time interval
+  * @param path_in 1by3 matrix containing waypoints (x,y,z)
+  */
+  MinimumSnapReferenceTrajectory(const int r_in, const double &tau,
+                                 const Ref<const MatrixXd> &path_in)
+      : r(r_in), path(path_in) {
+    InitSingleSeg(tau);
+  }
+  /**
+  * @brief Initialization for a single segment
+  */
   void InitSingleSeg(double tau) {
-    n = 2 * r + 1; // order of the polynomial (ex. for minimum snap, 9th poly)
-    m = 1;         // Number of segments
+    n = 2 * r + 1;
+    m = 1;
     A = equalA(tau);
     Q = costQ(tau);
     P = A.lu().solve(bFixed());
     ts = {0, tau};
   }
+  /**
+  * @brief Convertor from Eigen::VectorXd to std::vector<double>
+  * @param vec_eigen Eigen::VectorXd
+  * @return std::vector<double>
+  */
+  std::vector<double> vecEigenToStd(const Ref<const VectorXd> &vec_eigen) {
+    std::vector<double> vec_std(vec_eigen.data(),
+                                vec_eigen.data() +
+                                    vec_eigen.rows() * vec_eigen.cols());
+    return vec_std;
+  }
 
   MatrixXd getP() const { return P; }
 
-  VectorXd getTs() const { return ts_eigen; }
-
   MatrixXd getEqualA(double t_tau) const { return equalA(t_tau); }
 
-  std::vector<double> EigenToVector(const Ref<const VectorXd> &vector_eigen) {
-    std::vector<double> vector_std(
-        ts_eigen.data(), ts_eigen.data() + ts_eigen.rows() * ts_eigen.cols());
-    return vector_std;
-  }
   /**
   * @brief Gets the trajectory information at the specified time using minimum
   * snap
@@ -76,7 +90,6 @@ public:
     if (ts.empty() || t < ts.front() || t > ts.back()) {
       throw std::out_of_range("Accessed reference trajectory out of bounds");
     }
-
     auto closest_t = std::lower_bound(ts.begin(), ts.end(), t);
     int i = closest_t - ts.begin();
     double t_tau = t - ts[i - 1];
@@ -87,7 +100,6 @@ public:
       states_eigen =
           equalA(t_tau).bottomRows(5) * P.middleRows(10 * (i - 1), 10);
     }
-
     // Type conversion
     Position p(states_eigen(0, 0), states_eigen(0, 1), states_eigen(0, 2));
     Velocity v(states_eigen(1, 0), states_eigen(1, 1), states_eigen(1, 2));
@@ -99,42 +111,27 @@ public:
   }
 
 private:
-  // member variables
   const int r;
   const VectorXd tau_vec;
   const MatrixXd path;
-  int n;
-  int m;
-  MatrixXd A;
-  MatrixXd C;
-  MatrixXd Q;
-  // VectorXd bfixed;
-  MatrixXd bOpt;
-  MatrixXd P;
-  VectorXd ts_eigen;
-
-  /**
-  * @brief Time stamps corresponding to states
-  */
-  std::vector<double> ts;
-
-  // member functions
-
-  /* Equality matrix, A */
-  // Equality matrix, A is a mapping matrix from the coefficents of the
-  // polynomial
-  // , [p0 p1 p2 ... p9] to the equality constraint, [b0, bt]
-  // b0: start point of the polynomial; [pos, vel, accel, jerk, snap]
-  // bt: end point of the polynomial
-  // Ap = [b0 bt] = b
-
-  // Input:
-  // tau = time interval
-  // r = The order of the differentiation subject to optimization (ex. for
-  // minimum snap, r = 4)
-  // Output:
-  // A = equality matrix
-  // MatrixXd equalA(double tau) const;
+  int n;      ///< order of the polynomial (ex. for minimum snap, 9th poly)
+  int m;      ///< Number of segments
+  MatrixXd A; ///< Mapping from polynomial coefficents to endpoint derivatives
+  MatrixXd C; ///< Permutation matrix
+  MatrixXd Q; ///< Cost matrix
+  MatrixXd bOpt;          ///< Optimized endpoint derivatives
+  MatrixXd P;             ///< Polynomial coefficents
+  std::vector<double> ts; ///< Time stamps corresponding to states
+                          /**
+                          * @brief Equality matrix, A is a mapping matrix from the coefficents of the
+                          * polynomial [p0 p1 p2 ... p9] to the endpoint derivatives, [b0, bt]
+                          * b0: Initial endpoint of the polynomial; [pos, vel, accel, jerk, snap]
+                          * bt: Final endpoint of the polynomial
+                          * Ap = [b0 bt] = b
+                          * @param tau Time interval
+                          * @param r
+                          * @return Equality matrix
+                          */
   MatrixXd equalA(double tau) const {
     MatrixXd A0, Atau1, Atau;
     A0.setZero(r + 1, n + 1);
@@ -163,35 +160,34 @@ private:
     A.block(r + 1, 0, r + 1, n + 1) = Atau;
     return A;
   }
-  /* Augmented equality matrices, A1, A2, A3, ... */
-  // Input:
-  // tau_vec = array of time intervals
-  // r = The order of the differentiation subject to optimization (ex. for
-  // minimum snap, r = 4)
-  // Output:
-  // A = augmented equality matrix
+  /**
+  * @brief Augmented equality matrix, diag(A1, A2, A3, ...)
+  * @param tau_vec
+  * @param r
+  * @return Augmented equality matrix
+  */
   MatrixXd augA() {
     MatrixXd A;
     A.setZero((n + 1) * m, (n + 1) * m);
+    // Equality constraints
     for (int i = 0; i < m; i++) {
       A.block((n + 1) * i, (n + 1) * i, (n + 1), (n + 1)) = equalA(tau_vec(i));
     }
-    /* Continuity constraint */
-    // Enforce continuity (velocity, accel, jerk, snap) of the two adjacent
-    // polynomials
+    // Continuity constraints
+    // Enforce continuity (velocity, accel, jerk, snap) of
+    // the two adjacent polynomials
     for (int i = 0; i < m - 1; i++) {
       A.block((n + 1) * i + 6, (n + 1) * (i + 1), 4, (n + 1)) =
           -A.block((n + 1) * (i + 1) + 1, (n + 1) * (i + 1), 4, (n + 1));
     }
     return A;
   }
-  /* Cost matrix Q */
-  // Input:
-  // tau_vec = time interval
-  // r = The order of the differentiation subject to optimization (ex. for
-  // minimum snap, r = 4)
-  // Output:
-  // Q = cost matrix
+  /**
+  * @brief Cost matrix
+  * @param tau_vec
+  * @param r
+  * @return Cost matrix
+  */
   MatrixXd costQ(double tau) {
     MatrixXd Q;
     Q.setZero(n + 1, n + 1);
@@ -208,13 +204,12 @@ private:
     }
     return Q;
   }
-  /* Augment cost matrix, Q*/
-  // Input:
-  // tau_vec = array of time intervals
-  // r = The order of the differentiation subject to optimization (ex. for
-  // minimum snap, r = 4)
-  // Output:
-  // Q = augmented cost matrix
+  /**
+  * @brief Augmented cost matrix
+  * @param tau_vec
+  * @param r
+  * @return Augmented cost matrix
+  */
   MatrixXd augQ() {
     MatrixXd Q;
     Q.setZero((n + 1) * m, (n + 1) * m);
@@ -223,14 +218,12 @@ private:
     }
     return Q;
   }
-
-  /* Permutation matrix, C */
-  // Input:
-  // tau_vec = array of time intervals
-  // r = The order of the differentiation subject to optimization (ex. for
-  // minimum snap, r = 4)
-  // Output:
-  // C = permutation matrix
+  /**
+  * @brief Permutation matrix
+  * @param tau_vec
+  * @param r
+  * @return Permutation matrix
+  */
   MatrixXd permutC() {
     VectorXd idx;
     idx.setZero(4 * (m - 1));
@@ -257,13 +250,13 @@ private:
     C.bottomRows(4 * (m - 1)) = C_app;
     return C;
   }
-  /* Known (fixed) endpoint derivatives, b */
-  // Input:
-  // path = m by p matrix; m = number of waypoints, p = number of dimension
-  // r = The order of the differentiation subject to optimization (ex. for
-  // minimum snap, r = 4)
-  // Output:
-  // b = known endpoint derivatives
+  /**
+  * @brief Known (fixed) endpoint derivatives
+  * @param tau_vec
+  * @param r
+  * @param path
+  * @return Known endpoint derivatives
+  */
   MatrixXd bFixed() {
     // int idx_free = 4*(m-1); // # of unknowns (subject to optimization)
     MatrixXd b;
@@ -276,18 +269,16 @@ private:
     }
     return b;
   }
-
-  /* Optimized endpoint derivatives */
-  // Input:
-  // MatrixXd A, MatrixXd C, MatrixXd Q, VectorXd b
-  // r = The order of the differentiation subject to optimization (ex. for
-  // minimum snap, r = 4)
-  // Output:
-  // b_Opt = optimized endpoint derivatives
+  /**
+  * @brief Optimized endpoint derivatives
+  * @param A Augmented equality matrix
+  * @param C Permutation matrix
+  * @param Q Augmented cost matrix
+  * @param b Known endpoint derivatives
+  * @return Optimized endpoint derivatives
+  */
   MatrixXd bOptimized() {
-    // int m = bfixed.rows()/(n+1);
     int m = bFixed().rows() / (n + 1);
-    // VectorXd b_Opt = C*bfixed;
     MatrixXd b_Opt = C * bFixed();
     MatrixXd bF = b_Opt.topRows((n + 1) * m - 4 * (m - 1));
     MatrixXd R = C * A.transpose().lu().solve(Q) * A.lu().solve(C.transpose());
@@ -297,19 +288,26 @@ private:
     b_Opt.bottomRows(4 * (m - 1)) = bP_Opt;
     return b_Opt;
   }
-
-  VectorXd cumsumEigen() {
-    // VectorXd ts_eigen;
-    ts_eigen.setZero(m + 1);
+  /**
+  * @brief Cumulative sum of a vector
+  * @param vec_eigen Eigen::VectorXd
+  * @return Cumulative sum of a vector
+  */
+  VectorXd cumsumEigen(const Ref<const VectorXd> &vec_eigen) {
+    VectorXd vec_cumsum_eigen;
+    vec_cumsum_eigen.setZero(m + 1);
     for (int i = 1; i < m + 1; i++) {
-      /* code */
-      // std::cout << "/* message */" << tau_vec.head(i) << '\n';
-      ts_eigen(i) = tau_vec.head(i).sum();
+      vec_cumsum_eigen(i) = vec_eigen.head(i).sum();
     }
-    return ts_eigen;
+    return vec_cumsum_eigen;
   }
 };
 
+/**
+* @brief Read csv file as a type Eigen::MatrixXd
+* @param path Complete path to the csv directory
+* @return A matrix with type Eigen::MatrixXd
+*/
 template <typename M> M load_csv(const std::string &path) {
   std::ifstream indata;
   indata.open(path);

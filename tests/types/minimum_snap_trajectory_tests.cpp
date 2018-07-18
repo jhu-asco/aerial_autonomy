@@ -5,7 +5,6 @@
 void ASSERT_VEC_NEAR(const MatrixXd &state1,
                      const std::pair<ParticleState, Snap> &state2,
                      double tol = 1e-7) {
-  // ParticleState state2_particle = std::get<0>(state2);
   ASSERT_NEAR(state1(0, 0), std::get<0>(state2).p.x, tol);
   ASSERT_NEAR(state1(0, 1), std::get<0>(state2).p.y, tol);
   ASSERT_NEAR(state1(0, 2), std::get<0>(state2).p.z, tol);
@@ -49,27 +48,16 @@ TEST(MinimumSnapReferenceTrajectory, TimeTooLarge) {
 
 TEST(MinimumSnapReferenceTrajectory, MATLAB) {
   int r = 4;
-  // MatrixXd path_matlab =
-  //    load_csv<MatrixXd>("/home/soowon/MATLAB/workspace/path_matlab.csv");
-
-  // MatrixXd path_matlab =
-  //    load_csv<MatrixXd>("@DPROJECT_SOURCE_DIR@/tests/types/data/path_matlab.csv");
   MatrixXd path_matlab = load_csv<MatrixXd>(
       std::string(PROJECT_SOURCE_DIR) + "/tests/types/data/path_matlab.csv");
-
   MatrixXd tau_vec_matlab = load_csv<MatrixXd>(
       std::string(PROJECT_SOURCE_DIR) +
       "/tests/types/data/tau_vec_matlab.csv"); // vec -> Mat...
 
   MatrixXd states_matlab = load_csv<MatrixXd>(
       std::string(PROJECT_SOURCE_DIR) + "/tests/types/data/states_matlab.csv");
-  // std::ifstream file("/home/soowon/MATLAB/workspace/atTimet.csv");
-  // std::string tt;
-  // std::getline(file, tt);
-  // double t_matlab = std::stod(tt);
   MatrixXd t_matlab = load_csv<MatrixXd>(std::string(PROJECT_SOURCE_DIR) +
                                          "/tests/types/data/t_matlab.csv");
-
   auto t0 = std::chrono::high_resolution_clock::now();
   const MinimumSnapReferenceTrajectory ref(r, tau_vec_matlab, path_matlab);
   auto t1 = std::chrono::high_resolution_clock::now();
@@ -100,16 +88,14 @@ TEST(MinimumSnapReferenceTrajectory, TimeAtStart) {
 
 TEST(MinimumSnapReferenceTrajectory, SingleSegment) {
   int r = 4;
-  // VectorXd tau_vec(1);
-  // tau_vec << 1;
   double tau_vec = 2;
   MatrixXd path(2, 3);
   path << 0, 0, 0, 1, 1, 1;
   const MinimumSnapReferenceTrajectory ref(r, tau_vec, path);
-  auto ref_t = ref.atTime(0);
-  ASSERT_NEAR(std::get<0>(ref_t).p.x, 0, 1e-7);
-  ASSERT_NEAR(std::get<0>(ref_t).p.y, 0, 1e-7);
-  ASSERT_NEAR(std::get<0>(ref_t).p.z, 0, 1e-7);
+  auto ref_t = ref.atTime(2);
+  ASSERT_NEAR(std::get<0>(ref_t).p.x, 1, 1e-7);
+  ASSERT_NEAR(std::get<0>(ref_t).p.y, 1, 1e-7);
+  ASSERT_NEAR(std::get<0>(ref_t).p.z, 1, 1e-7);
 }
 
 int main(int argc, char **argv) {
