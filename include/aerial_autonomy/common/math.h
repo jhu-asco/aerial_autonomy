@@ -61,4 +61,11 @@ Eigen::Matrix3d hat(const Eigen::Vector3d &v);
   */
 Eigen::MatrixXd sylvester(const Eigen::MatrixXd &A, const Eigen::MatrixXd &B,
                           const Eigen::MatrixXd &C);
+
+/**
+  * @brief Cumulative sum of a vector
+  * @param vec_eigen Eigen::VectorXd
+  * @return Cumulative sum of a vector
+  */
+Eigen::VectorXd cumsumEigen(const Eigen::VectorXd &vec_eigen);
 }

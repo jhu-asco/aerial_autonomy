@@ -1,8 +1,8 @@
-#include <aerial_autonomy/types/minimum_snap.h>
+#include <aerial_autonomy/types/minimum_snap_reference_trajectory.h>
 #include <chrono>
 #include <gtest/gtest.h>
 
-void ASSERT_VEC_NEAR(const MatrixXd &state1,
+void ASSERT_VEC_NEAR(const Eigen::MatrixXd &state1,
                      const std::pair<ParticleState, Snap> &state2,
                      double tol = 1e-7) {
   ASSERT_NEAR(state1(0, 0), std::get<0>(state2).p.x, tol);
@@ -28,9 +28,9 @@ void ASSERT_VEC_NEAR(const MatrixXd &state1,
 
 TEST(MinimumSnapReferenceTrajectory, TimeTooSmall) {
   int r = 4;
-  VectorXd tau_vec(2);
+  Eigen::VectorXd tau_vec(2);
   tau_vec << 1, 1;
-  MatrixXd path(3, 3);
+  Eigen::MatrixXd path(3, 3);
   path << 0, 0, 0, 1, 1, 1, 2, 2, 2;
   const MinimumSnapReferenceTrajectory ref(r, tau_vec, path);
   ASSERT_THROW(ref.atTime(-1), std::out_of_range);
@@ -38,9 +38,9 @@ TEST(MinimumSnapReferenceTrajectory, TimeTooSmall) {
 
 TEST(MinimumSnapReferenceTrajectory, TimeTooLarge) {
   int r = 4;
-  VectorXd tau_vec(2);
+  Eigen::VectorXd tau_vec(2);
   tau_vec << 1, 1;
-  MatrixXd path(3, 3);
+  Eigen::MatrixXd path(3, 3);
   path << 0, 0, 0, 1, 1, 1, 2, 2, 2;
   const MinimumSnapReferenceTrajectory ref(r, tau_vec, path);
   ASSERT_THROW(ref.atTime(3), std::out_of_range);
@@ -48,16 +48,16 @@ TEST(MinimumSnapReferenceTrajectory, TimeTooLarge) {
 
 TEST(MinimumSnapReferenceTrajectory, MATLAB) {
   int r = 4;
-  MatrixXd path_matlab = load_csv<MatrixXd>(
+  Eigen::MatrixXd path_matlab = file_utils::load_csv<Eigen::MatrixXd>(
       std::string(PROJECT_SOURCE_DIR) + "/tests/types/data/path_matlab.csv");
-  MatrixXd tau_vec_matlab = load_csv<MatrixXd>(
+  Eigen::MatrixXd tau_vec_matlab = file_utils::load_csv<Eigen::MatrixXd>(
       std::string(PROJECT_SOURCE_DIR) +
       "/tests/types/data/tau_vec_matlab.csv"); // vec -> Mat...
 
-  MatrixXd states_matlab = load_csv<MatrixXd>(
+  Eigen::MatrixXd states_matlab = file_utils::load_csv<Eigen::MatrixXd>(
       std::string(PROJECT_SOURCE_DIR) + "/tests/types/data/states_matlab.csv");
-  MatrixXd t_matlab = load_csv<MatrixXd>(std::string(PROJECT_SOURCE_DIR) +
-                                         "/tests/types/data/t_matlab.csv");
+  Eigen::MatrixXd t_matlab = file_utils::load_csv<Eigen::MatrixXd>(
+      std::string(PROJECT_SOURCE_DIR) + "/tests/types/data/t_matlab.csv");
   auto t0 = std::chrono::high_resolution_clock::now();
   const MinimumSnapReferenceTrajectory ref(r, tau_vec_matlab, path_matlab);
   auto t1 = std::chrono::high_resolution_clock::now();
@@ -75,9 +75,9 @@ TEST(MinimumSnapReferenceTrajectory, MATLAB) {
 
 TEST(MinimumSnapReferenceTrajectory, TimeAtStart) {
   int r = 4;
-  VectorXd tau_vec(2);
+  Eigen::VectorXd tau_vec(2);
   tau_vec << 1, 1;
-  MatrixXd path(3, 3);
+  Eigen::MatrixXd path(3, 3);
   path << 0, 0, 0, 1, 1, 1, 2, 2, 2;
   const MinimumSnapReferenceTrajectory ref(r, tau_vec, path);
   auto ref_t = ref.atTime(0);
@@ -89,7 +89,7 @@ TEST(MinimumSnapReferenceTrajectory, TimeAtStart) {
 TEST(MinimumSnapReferenceTrajectory, SingleSegment) {
   int r = 4;
   double tau_vec = 2;
-  MatrixXd path(2, 3);
+  Eigen::MatrixXd path(2, 3);
   path << 0, 0, 0, 1, 1, 1;
   const MinimumSnapReferenceTrajectory ref(r, tau_vec, path);
   auto ref_t = ref.atTime(2);
