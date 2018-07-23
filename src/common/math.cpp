@@ -59,4 +59,17 @@ Eigen::VectorXd cumsumEigen(const Eigen::VectorXd &vec_eigen) {
   }
   return vec_cumsum_eigen;
 }
+
+double powInt(double base, int exp) {
+  double result = 1;
+  for (;;) {
+    if (exp & 1)
+      result *= base;
+    exp >>= 1;
+    if (!exp)
+      break;
+    base *= base;
+  }
+  return result;
+}
 }

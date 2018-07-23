@@ -3,13 +3,15 @@
 #include <fstream>
 #include <vector>
 
+namespace file_utils {
+
 /**
+* @ref
+* https://stackoverflow.com/questions/34247057/how-to-read-csv-file-and-assign-to-eigen-matrix
 * @brief Read csv file as a type Eigen::MatrixXd
 * @param path Complete path to the csv directory
 * @return A matrix with type Eigen::MatrixXd
 */
-namespace file_utils {
-
 template <typename M> M load_csv(const std::string &path) {
   std::ifstream indata;
   indata.open(path);

@@ -68,4 +68,12 @@ Eigen::MatrixXd sylvester(const Eigen::MatrixXd &A, const Eigen::MatrixXd &B,
   * @return Cumulative sum of a vector
   */
 Eigen::VectorXd cumsumEigen(const Eigen::VectorXd &vec_eigen);
+
+/**
+* @brief pow for int exponent
+* @param base
+* @param exponent
+* @return base^(exp)
+*/
+double powInt(double base, int exp);
 }
