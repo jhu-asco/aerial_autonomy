@@ -16,7 +16,7 @@ class MinimumSnapReferenceTrajectory
     : public ReferenceTrajectory<ParticleState, Snap> {
 public:
   /**
-  * @brief Constructor for more than two segments
+  * @brief Constructor
   * @param der_order_in Order of the derivative subject to optimization
   * @param tau_vec_in Array of time intervals
   * @param path_in nby3 matrix containing waypoints (x,y,z)
@@ -27,28 +27,18 @@ public:
       : der_order_(der_order_in), tau_vec_(tau_vec_in), path_(path_in) {
     poly_degree_ = 2 * der_order_ + 1;
     n_segments_ = tau_vec_.size();
-    equal_A_ = augA();
-    cost_Q_ = augQ();
-    b_optimized_ = bOptimized();
-    poly_coeffs_ = equal_A_.lu().solve(permutRow(b_optimized_, true));
-    ts_ = conversions::vectorEigenToStd(math::cumsumEigen(tau_vec_));
-  }
-
-  /**
-  * @brief Constructor for a single segment
-  * @param der_order_in Order of the derivative subject to optimization
-  * @param tau Time interval
-  * @param path_in 1by3 matrix containing waypoints (x,y,z)
-  */
-  MinimumSnapReferenceTrajectory(const int der_order_in, const double &tau,
-                                 const Eigen::MatrixXd &path_in)
-      : der_order_(der_order_in), path_(path_in) {
-    poly_degree_ = 2 * der_order_ + 1;
-    n_segments_ = 1;
-    equal_A_ = equalA(tau);
-    cost_Q_ = costQ(tau);
-    poly_coeffs_ = equal_A_.lu().solve(bFixed());
-    ts_ = {0, tau};
+    if (tau_vec_.size() == 1) {
+      equal_A_ = equalA(tau_vec_(0));
+      cost_Q_ = costQ(tau_vec_(0));
+      poly_coeffs_ = equal_A_.lu().solve(bFixed());
+      ts_ = {0, tau_vec_(0)};
+    } else {
+      equal_A_ = augA();
+      cost_Q_ = augQ();
+      b_optimized_ = bOptimized();
+      poly_coeffs_ = equal_A_.lu().solve(permutRow(b_optimized_, true));
+      ts_ = conversions::vectorEigenToStd(math::cumsumEigen(tau_vec_));
+    }
   }
 
   Eigen::MatrixXd getP() const { return poly_coeffs_; }

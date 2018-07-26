@@ -88,12 +88,13 @@ TEST(MinimumSnapReferenceTrajectory, TimeAtStart) {
 
 TEST(MinimumSnapReferenceTrajectory, SingleSegment) {
   int r = 4;
-  double tau_vec = 2;
+  Eigen::VectorXd tau_vec(1);
+  tau_vec << 2;
   Eigen::MatrixXd path(2, 3);
   path << 0, 0, 0, 1, 1, 1;
   const MinimumSnapReferenceTrajectory ref(r, tau_vec, path);
   auto ref_t_st = ref.atTime(0);
-  auto ref_t_end = ref.atTime(tau_vec);
+  auto ref_t_end = ref.atTime(tau_vec(0));
   ASSERT_NEAR(std::get<0>(ref_t_st).p.x, 0, 1e-7);
   ASSERT_NEAR(std::get<0>(ref_t_st).p.y, 0, 1e-7);
   ASSERT_NEAR(std::get<0>(ref_t_st).p.z, 0, 1e-7);
