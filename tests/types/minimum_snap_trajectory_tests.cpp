@@ -103,35 +103,6 @@ TEST(MinimumSnapReferenceTrajectory, SingleSegment) {
   ASSERT_NEAR(std::get<0>(ref_t_end).p.z, 1, 1e-7);
 }
 
-TEST(MATH, CumulativeSumForEigen) {
-  Eigen::VectorXd vec_eigen(5);
-  vec_eigen << 1, 2, 3, 4, 5;
-  Eigen::VectorXd vec_cumsum_eigen(6);
-  vec_cumsum_eigen << 0, 1, 3, 6, 10, 15;
-  Eigen::VectorXd vec_cumsum_eigen_result = math::cumsumEigen(vec_eigen);
-  for (int i = 0; i < vec_cumsum_eigen.size(); i++) {
-    ASSERT_NEAR(vec_cumsum_eigen(i), vec_cumsum_eigen_result(i), 1e-7);
-  }
-}
-
-TEST(MATH, CumulativeProduct) {
-  double tau = 0.1;
-  int size = 5;
-  std::vector<double> tau_exp = math::cumulativeExp(tau, size);
-  for (int i = 0; i < static_cast<int>(tau_exp.size()); i++) {
-    ASSERT_NEAR(tau_exp[i], pow(tau, i), 1e-7);
-  }
-}
-
-TEST(CONVERSIONS, VectorEigenToStd) {
-  Eigen::VectorXd vec_eigen(5);
-  vec_eigen << 1, 2, 3, 4, 5;
-  std::vector<double> vec_std = conversions::vectorEigenToStd(vec_eigen);
-  for (int i = 0; i < vec_eigen.size(); i++) {
-    ASSERT_NEAR(vec_eigen(i), vec_std[i], 1e-7);
-  }
-}
-
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
