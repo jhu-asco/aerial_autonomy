@@ -27,12 +27,16 @@ public:
       : der_order_(der_order_in), tau_vec_(tau_vec_in), path_(path_in) {
     poly_degree_ = 2 * der_order_ + 1;
     n_segments_ = tau_vec_.size();
+    total_dimensions_ = (poly_degree_ + 1) * n_segments_;
+    n_unknowns_ = 4 * (n_segments_ - 1);
+    n_knowns_ = total_dimensions_ - n_unknowns_;
     if (tau_vec_.size() == 1) {
       equal_A_ = equalA(tau_vec_(0));
       cost_Q_ = costQ(tau_vec_(0));
       poly_coeffs_ = equal_A_.lu().solve(bFixed());
       ts_ = {0, tau_vec_(0)};
     } else {
+      idx_ = permutIdx();
       equal_A_ = augA();
       cost_Q_ = augQ();
       b_optimized_ = bOptimized();
@@ -57,12 +61,11 @@ public:
     int i = closest_t - ts_.begin();
     double t_tau = t - ts_[i - 1];
     Eigen::MatrixXd states_eigen;
+    Eigen::MatrixXd equal_A = equalA(t_tau).bottomRows(5);
     if (i == 0) {
-      states_eigen =
-          equalA(t_tau).bottomRows(5) * poly_coeffs_.middleRows(0, 10);
+      states_eigen = equal_A * poly_coeffs_.middleRows(0, 10);
     } else {
-      states_eigen = equalA(t_tau).bottomRows(5) *
-                     poly_coeffs_.middleRows(10 * (i - 1), 10);
+      states_eigen = equal_A * poly_coeffs_.middleRows(10 * (i - 1), 10);
     }
     // Type conversion
     Position p(states_eigen(0, 0), states_eigen(0, 1), states_eigen(0, 2));
@@ -75,17 +78,21 @@ public:
   }
 
 private:
-  const int der_order_;
-  const Eigen::VectorXd tau_vec_;
-  const Eigen::MatrixXd path_;
-  int poly_degree_; // order of the polynomial (ex. for minimum snap, 9th poly)
-  int n_segments_;  // Number of segments
-  Eigen::MatrixXd
-      equal_A_; // Mapping from polynomial coefficents to endpoint derivatives
-  Eigen::MatrixXd cost_Q_;      // Cost matrix
+  const int der_order_;           // Order of derivative (snap = 4)
+  const Eigen::VectorXd tau_vec_; // Vector of time intervals
+  const Eigen::MatrixXd path_;    // N by R matrix, N: # of waypoints,
+  // R: Dimension of coordinate sys (ex. x,y,z=3)
+  int poly_degree_; // Order of the polynomial (ex. for minimum snap, 9th poly)
+  int n_segments_;  // # of segments, N-1
+  int total_dimensions_; // Dimension, (poly_degree_ + 1) * n_segments_
+  int n_unknowns_; // # of unknowns (will be optimized), 4 * (n_segments_ - 1)
+  int n_knowns_;   // # of knowns, total_dimensions_ - n_unknowns_
+  Eigen::MatrixXd equal_A_; // Mapping from poly coeffs to endpoint derivatives
+  Eigen::MatrixXd cost_Q_;  // Cost matrix
   Eigen::MatrixXd b_optimized_; // Optimized endpoint derivatives
   Eigen::MatrixXd poly_coeffs_; // Polynomial coefficents
   std::vector<double> ts_;      // Time stamps corresponding to states
+  Eigen::VectorXi idx_;         // Indexing for permutation
 
   /**
   * @brief Equality matrix, equal_A_ is a mapping matrix from the coefficents of
@@ -137,8 +144,7 @@ private:
   */
   Eigen::MatrixXd augA() {
     Eigen::MatrixXd A;
-    A.setZero((poly_degree_ + 1) * n_segments_,
-              (poly_degree_ + 1) * n_segments_);
+    A.setZero(total_dimensions_, total_dimensions_);
     // Equality constraints
     for (int i = 0; i < n_segments_; i++) {
       A.block((poly_degree_ + 1) * i, (poly_degree_ + 1) * i,
@@ -190,13 +196,37 @@ private:
   */
   Eigen::MatrixXd augQ() {
     Eigen::MatrixXd Q;
-    Q.setZero((poly_degree_ + 1) * n_segments_,
-              (poly_degree_ + 1) * n_segments_);
+    Q.setZero(total_dimensions_, total_dimensions_);
     for (int i = 0; i < n_segments_; i++) {
       Q.block((poly_degree_ + 1) * i, (poly_degree_ + 1) * i,
               (poly_degree_ + 1), (poly_degree_ + 1)) = costQ(tau_vec_(i));
     }
     return Q;
+  }
+
+  /**
+  * @brief Index for perumtation
+  * @return Eigen vector(int)
+  */
+  Eigen::VectorXi permutIdx() {
+    Eigen::VectorXi idx_app;
+    idx_app.setZero(n_unknowns_);
+    for (int i = 1; i <= n_segments_ - 1; i++) {
+      Eigen::VectorXi idx_tmp = Eigen::VectorXi::LinSpaced(
+          4, (poly_degree_ + 1) * i + 1, (poly_degree_ + 1) * i + 4);
+      idx_app.segment(4 * (i - 1), 4) = idx_tmp;
+    }
+    Eigen::VectorXi idx;
+    idx.setZero(total_dimensions_);
+    int row_idx = 0;
+    for (int i = 0; i < total_dimensions_; i++) {
+      if (!(idx_app.array() == i).any()) {
+        idx(row_idx) = i;
+        row_idx++;
+      }
+    }
+    idx.bottomRows(n_unknowns_) = idx_app;
+    return idx;
   }
 
   /**
@@ -206,31 +236,13 @@ private:
   * @return result Permuted matrix
   */
   Eigen::MatrixXd permutRow(const Eigen::MatrixXd &mat_eigen, bool is_reverse) {
-    Eigen::VectorXi idx_app;
-    idx_app.setZero(4 * (n_segments_ - 1));
-    for (int i = 1; i <= n_segments_ - 1; i++) {
-      Eigen::VectorXi idx_tmp = Eigen::VectorXi::LinSpaced(
-          4, (poly_degree_ + 1) * i + 1, (poly_degree_ + 1) * i + 4);
-      idx_app.segment(4 * (i - 1), 4) = idx_tmp;
-    }
-    Eigen::VectorXi idx;
-    idx.setZero(mat_eigen.rows());
     Eigen::MatrixXd result;
-    result.setZero(mat_eigen.rows(), mat_eigen.cols());
-    int row_idx = 0;
-    for (int i = 0; i < (poly_degree_ + 1) * n_segments_; i++) {
-      if (!(idx_app.array() == i).any()) {
-        idx(row_idx) = i;
-        row_idx++;
-      } else {
-      }
-    }
-    idx.bottomRows(4 * (n_segments_ - 1)) = idx_app;
-    for (int i = 0; i < mat_eigen.rows(); i++) {
+    result.setZero(total_dimensions_, mat_eigen.cols());
+    for (int i = 0; i < total_dimensions_; i++) {
       if (is_reverse) {
-        result.row(idx(i)) = mat_eigen.row(i);
+        result.row(idx_(i)) = mat_eigen.row(i);
       } else if (!is_reverse) {
-        result.row(i) = mat_eigen.row(idx(i));
+        result.row(i) = mat_eigen.row(idx_(i));
       }
     }
     return result;
@@ -245,7 +257,7 @@ private:
   */
   Eigen::MatrixXd bFixed() {
     Eigen::MatrixXd b;
-    b.setZero((poly_degree_ + 1) * n_segments_, path_.cols());
+    b.setZero(total_dimensions_, path_.cols());
     b.topRows(1) = path_.topRows(1);
     b.row((der_order_ + 1) + (poly_degree_ + 1) * (n_segments_ - 1)) =
         path_.bottomRows(1);
@@ -266,21 +278,17 @@ private:
   */
   Eigen::MatrixXd bOptimized() {
     Eigen::MatrixXd b_Opt = permutRow(bFixed(), false);
-    Eigen::MatrixXd bF =
-        b_Opt.topRows((poly_degree_ + 1) * n_segments_ - 4 * (n_segments_ - 1));
+    Eigen::MatrixXd bF = b_Opt.topRows(total_dimensions_ - n_unknowns_);
     Eigen::MatrixXd R = permutRow(
         permutRow(equal_A_.transpose().lu().solve(
                       equal_A_.transpose().lu().solve(cost_Q_).transpose()),
                   false)
             .transpose(),
         false);
-    Eigen::MatrixXd Rfp = R.topRightCorner((poly_degree_ + 1) * n_segments_ -
-                                               4 * (n_segments_ - 1),
-                                           4 * (n_segments_ - 1));
-    Eigen::MatrixXd Rpp =
-        R.bottomRightCorner(4 * (n_segments_ - 1), 4 * (n_segments_ - 1));
+    Eigen::MatrixXd Rfp = R.topRightCorner(n_knowns_, n_unknowns_);
+    Eigen::MatrixXd Rpp = R.bottomRightCorner(n_unknowns_, n_unknowns_);
     Eigen::MatrixXd bP_Opt = -Rpp.lu().solve(Rfp.transpose()) * bF;
-    b_Opt.bottomRows(4 * (n_segments_ - 1)) = bP_Opt;
+    b_Opt.bottomRows(n_unknowns_) = bP_Opt;
     return b_Opt;
   }
 };
