@@ -70,10 +70,10 @@ Eigen::MatrixXd sylvester(const Eigen::MatrixXd &A, const Eigen::MatrixXd &B,
 Eigen::VectorXd cumsumEigen(const Eigen::VectorXd &vec_eigen);
 
 /**
-* @brief pow for int exponent
-* @param base
-* @param exponent
-* @return base^(exp)
+* @brief Cumulative product of int exponent
+* @param tau Base
+* @param size Size of the vector
+* @return result [1, tau, tau^2, ... , tau^(size-1)]
 */
-double powInt(double base, int exp);
+std::vector<double> cumulativeExp(double tau, int size);
 }

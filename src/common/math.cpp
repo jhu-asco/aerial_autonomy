@@ -52,23 +52,19 @@ Eigen::MatrixXd sylvester(const Eigen::MatrixXd &A, const Eigen::MatrixXd &B,
 
 Eigen::VectorXd cumsumEigen(const Eigen::VectorXd &vec_eigen) {
   Eigen::VectorXd vec_cumsum_eigen;
-  int m = vec_eigen.size();
-  vec_cumsum_eigen.setZero(m + 1);
-  for (int i = 1; i < m + 1; i++) {
-    vec_cumsum_eigen(i) = vec_eigen.head(i).sum();
+  int vec_size = vec_eigen.size();
+  vec_cumsum_eigen.setZero(vec_size + 1);
+  for (int i = 0; i < vec_size; i++) {
+    vec_cumsum_eigen(i + 1) = vec_cumsum_eigen(i) + vec_eigen(i);
   }
   return vec_cumsum_eigen;
 }
 
-double powInt(double base, int exp) {
-  double result = 1;
-  for (;;) {
-    if (exp & 1)
-      result *= base;
-    exp >>= 1;
-    if (!exp)
-      break;
-    base *= base;
+std::vector<double> cumulativeExp(double tau, int size) {
+  std::vector<double> result(size);
+  result[0] = 1;
+  for (int i = 1; i < size; i++) {
+    result[i] = result[i - 1] * tau;
   }
   return result;
 }

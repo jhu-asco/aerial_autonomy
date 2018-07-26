@@ -30,7 +30,7 @@ public:
     equal_A_ = augA();
     cost_Q_ = augQ();
     b_optimized_ = bOptimized();
-    poly_coeffs_ = equal_A_.lu().solve(permutRow(b_optimized_, "reverse"));
+    poly_coeffs_ = equal_A_.lu().solve(permutRow(b_optimized_, true));
     ts_ = conversions::vectorEigenToStd(math::cumsumEigen(tau_vec_));
   }
 
@@ -114,12 +114,13 @@ private:
     Atau.setZero(der_order_ + 1, poly_degree_ + 1);
     Eigen::MatrixXd A;
     A.setZero(poly_degree_ + 1, poly_degree_ + 1);
+    std::vector<double> tau_exp = math::cumulativeExp(tau, poly_degree_ + 1);
     A0(0, 0) = 1;
     for (int i = 0; i <= der_order_; i++) {
       for (int j = 0; j <= poly_degree_; j++) {
         if (i == 0) {
           if (j >= i) {
-            Atau(i, j) = math::powInt(tau, j - i);
+            Atau(i, j) = tau_exp[j - i];
           }
         } else {
           Eigen::VectorXd diff_const =
@@ -128,7 +129,7 @@ private:
             A0(i, j) = diff_const.prod();
           }
           if (j >= i) {
-            Atau(i, j) = diff_const.prod() * math::powInt(tau, j - i);
+            Atau(i, j) = diff_const.prod() * tau_exp[j - i];
           }
         }
       }
@@ -174,6 +175,7 @@ private:
   Eigen::MatrixXd costQ(double tau) {
     Eigen::MatrixXd Q;
     Q.setZero(poly_degree_ + 1, poly_degree_ + 1);
+    std::vector<double> tau_exp = math::cumulativeExp(tau, poly_degree_ + 3);
     for (int i = 0; i < Q.rows(); i++) {
       for (int j = 0; j < Q.cols(); j++) {
         if (i >= der_order_ && j >= der_order_) {
@@ -182,9 +184,8 @@ private:
           Eigen::VectorXd j_m =
               Eigen::VectorXd::LinSpaced(der_order_, j, j - (der_order_ - 1));
           Eigen::VectorXd ij_m = i_m.cwiseProduct(j_m);
-          Q(i, j) = 2 * ij_m.prod() *
-                    math::powInt(tau, (i + j - 2 * der_order_ + 1)) /
-                    (i + j - 2 * der_order_ + 1);
+          int idx = (i + j) - (2 * der_order_) + 1;
+          Q(i, j) = 2 * ij_m.prod() * tau_exp[idx] / static_cast<double>(idx);
         }
       }
     }
@@ -210,12 +211,11 @@ private:
 
   /**
   * @brief Permute row of a matrix
-  * @param Eigen matrix
-  * @param direction of permutation
-  * @return permuted matrix
+  * @param mat_eigen Eigen matrix
+  * @param is_reverse Direction of perumtation
+  * @return result Permuted matrix
   */
-  Eigen::MatrixXd permutRow(const Eigen::MatrixXd &mat_eigen,
-                            const std::string &permut_dirc) {
+  Eigen::MatrixXd permutRow(const Eigen::MatrixXd &mat_eigen, bool is_reverse) {
     Eigen::VectorXi idx_app;
     idx_app.setZero(4 * (n_segments_ - 1));
     for (int i = 1; i <= n_segments_ - 1; i++) {
@@ -237,9 +237,9 @@ private:
     }
     idx.bottomRows(4 * (n_segments_ - 1)) = idx_app;
     for (int i = 0; i < mat_eigen.rows(); i++) {
-      if (permut_dirc == "reverse") {
+      if (is_reverse) {
         result.row(idx(i)) = mat_eigen.row(i);
-      } else if (permut_dirc == "") {
+      } else if (!is_reverse) {
         result.row(i) = mat_eigen.row(idx(i));
       }
     }
@@ -275,15 +275,15 @@ private:
   * @return Optimized endpoint derivatives
   */
   Eigen::MatrixXd bOptimized() {
-    Eigen::MatrixXd b_Opt = permutRow(bFixed(), "");
+    Eigen::MatrixXd b_Opt = permutRow(bFixed(), false);
     Eigen::MatrixXd bF =
         b_Opt.topRows((poly_degree_ + 1) * n_segments_ - 4 * (n_segments_ - 1));
     Eigen::MatrixXd R = permutRow(
         permutRow(equal_A_.transpose().lu().solve(
                       equal_A_.transpose().lu().solve(cost_Q_).transpose()),
-                  "")
+                  false)
             .transpose(),
-        "");
+        false);
     Eigen::MatrixXd Rfp = R.topRightCorner((poly_degree_ + 1) * n_segments_ -
                                                4 * (n_segments_ - 1),
                                            4 * (n_segments_ - 1));
