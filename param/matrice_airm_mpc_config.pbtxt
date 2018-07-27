@@ -191,8 +191,8 @@ uav_system_config {
           Qf: 100
           Qf: 100
           # Joint_cmd
-          Qf: 0.1
-          Qf: 0.1
+          Qf: 400
+          Qf: 400
           # Control cost
           # Thrust
           R: 6.0
@@ -201,10 +201,10 @@ uav_system_config {
           R: 4.0
           R: 4.0
           # desired joint velocities
-          R: 0.1
-          R: 0.1
+          R: 1.0
+          R: 1.0
           # Trajectory length
-          N: 100
+          N: 75
           # Max iterations
           max_iters: 1
           # Min cost decrease
@@ -216,7 +216,7 @@ uav_system_config {
         }
 
         weights_folder: "neural_network_model_data/tensorflow_model_vars_16_8_tanh/"
-        use_residual_dynamics: false
+        use_residual_dynamics: true
         goal_position_tolerance: 0.15
         goal_velocity_tolerance: 0.15
         goal_joint_angle_tolerance: 0.15
