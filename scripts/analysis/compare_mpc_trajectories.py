@@ -36,7 +36,7 @@ for iFolder, folder in enumerate(args.folders):
     interp_errors = np.vstack(interp_error_list).T
     abs_errors = np.abs(interp_errors)
     folder_label = args.legends[iFolder]
-    readable_labels = ['X (m)', 'Y (m)', 'Z (m)', 'J1 (rad)', 'J2 (rad)']
+    readable_labels = ['$p_x$(m)', '$p_y$(m)', '$p_z$(m)', '$r_1$ (rad)', '$r_2$(rad)']
     df = pd.DataFrame(abs_errors, columns=readable_labels)
     df = df.stack().reset_index()
     df.columns = ['Index', 'Sensor Channels', 'Mean Absolute Error']
@@ -49,6 +49,6 @@ sns.set_style('whitegrid')
 sns.set(font_scale = 1.2)
 plt.figure(1)
 sns.barplot('Sensor Channels', 'Mean Absolute Error',
-            'FolderLabel', data=error_df, ci=95)
+            'FolderLabel', data=error_df, ci=95, capsize=0.1, errwidth=1.2,)
 plt.savefig(os.path.join(args.save_folder, 'mpc_error_plot.eps'),
             bbox_inches='tight')

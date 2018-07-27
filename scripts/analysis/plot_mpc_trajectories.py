@@ -30,7 +30,7 @@ ref_xyz_ja = xyz_ja - interp_errors
 sns.set_style('whitegrid')
 sns.set(font_scale = 1.2)
 plt.figure(1)
-labels = ['X', 'Y', 'Z', 'Ja1', 'Ja2']
+labels = ['$p_x$', '$p_y$', '$p_z$', '$r_1$', '$r_2$']
 units = ['m','m','m','rad', 'rad']
 legend = ['Tracked', 'Reference']
 ts_sub = ts[iStart:iEnd]
