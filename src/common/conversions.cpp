@@ -44,4 +44,10 @@ Eigen::MatrixXd armaToEigen(const arma::mat &m) {
   std::memcpy(m_eig.data(), m.memptr(), sizeof(double) * m.n_rows * m.n_cols);
   return m_eig;
 }
+
+std::vector<double> vectorEigenToStd(const Eigen::VectorXd &vec_eigen) {
+  std::vector<double> vec_std(
+      vec_eigen.data(), vec_eigen.data() + vec_eigen.rows() * vec_eigen.cols());
+  return vec_std;
+}
 }

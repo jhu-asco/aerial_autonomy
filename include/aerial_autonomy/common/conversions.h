@@ -112,4 +112,11 @@ template <class T> Eigen::VectorXd vectorProtoToEigen(const T &xs) {
   }
   return v;
 }
+
+/**
+* @brief Convert a Eigen::VectorXd to std::vector<double>
+* @param vec_eigen Eigen::VectorXd
+* @return std::vector<double>
+*/
+std::vector<double> vectorEigenToStd(const Eigen::VectorXd &vec_eigen);
 }

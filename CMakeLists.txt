@@ -3,7 +3,8 @@ project(aerial_autonomy)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(CMAKE_CXX_FLAGS "-g -Werror -Wall -std=c++11 --coverage ${CMAKE_CXX_FLAGS}")
-add_definitions(-DBOOST_MPL_CFG_NO_PREPROCESSED_HEADERS -DBOOST_MPL_LIMIT_MAP_SIZE=50 -DBOOST_MPL_LIMIT_VECTOR_SIZE=50 -DFUSION_MAX_VECTOR_SIZE=50)
+add_definitions(-DBOOST_MPL_CFG_NO_PREPROCESSED_HEADERS -DBOOST_MPL_LIMIT_MAP_SIZE=50 -DBOOST_MPL_LIMIT_VECTOR_SIZE=50 -DFUSION_MAX_VECTOR_SIZE=50
+                -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}")
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -37,7 +38,7 @@ endif ()
 include(cmake/add_event_function.cmake)
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system)
-find_package(Protobuf 3.1 REQUIRED) 
+find_package(Protobuf 3.1 REQUIRED)
 find_package(Glog REQUIRED)
 find_package(Armadillo REQUIRED)
 
@@ -181,7 +182,7 @@ uav_arm_sysid_events
 ##############
 ## Protobuf ##
 ##############
-PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER 
+PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/uav_system_config.proto
   proto/uav_vision_system_config.proto
   proto/uav_arm_system_config.proto
@@ -435,6 +436,7 @@ catkin_add_gtest(${PROJECT_NAME}-conversions-test tests/common/conversions_tests
 catkin_add_gtest(${PROJECT_NAME}-proto-utils-test tests/common/proto_utils_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-reference-trajectory-test tests/types/reference_trajectory_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-qrotor-backstepping-controller-test tests/controllers/qrotor_backstepping_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-minimum-snap-trajectory-test tests/types/minimum_snap_trajectory_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
@@ -593,6 +595,9 @@ if(TARGET ${PROJECT_NAME}-velocity-sensor-test)
 endif()
 if(TARGET ${PROJECT_NAME}-reference-trajectory-test)
   target_link_libraries(${PROJECT_NAME}-reference-trajectory-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-minimum-snap-trajectory-test)
+  target_link_libraries(${PROJECT_NAME}-minimum-snap-trajectory-test aerial_autonomy)
 endif()
 
 if (arm_plugins_FOUND)
