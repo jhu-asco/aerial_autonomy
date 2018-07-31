@@ -135,17 +135,17 @@ uav_system_config {
         ddp_config {
           # State cost
           # XYZ
-          Q: 1
-          Q: 1
-          Q: 1
+          Q: 100
+          Q: 100
+          Q: 100
           # RPY
           Q: 4
           Q: 4
           Q: 4
           # Vxyz
-          Q: 4
-          Q: 4
-          Q: 4
+          Q: 100
+          Q: 100
+          Q: 100
           # RPYdot
           Q: 4
           Q: 4
@@ -155,11 +155,11 @@ uav_system_config {
           Q: 0
           Q: 0
           # Joint_angles
-          Q: 0
-          Q: 0
+          Q: 100
+          Q: 100
           # Joint_velocities
-          Q: 0
-          Q: 0
+          Q: 100
+          Q: 100
           # Joint_cmd
           Q: 0
           Q: 0
@@ -171,7 +171,7 @@ uav_system_config {
           # RPY
           Qf: 800
           Qf: 800
-          Qf: 800
+          Qf: 100
           # Vxyz
           Qf: 100
           Qf: 100
@@ -212,11 +212,11 @@ uav_system_config {
           # Look ahead time
           look_ahead_time: 0.2
           # Max cost
-          max_cost: 100.0
+          max_cost: 220
         }
 
         weights_folder: "neural_network_model_data/tensorflow_model_vars_16_8_tanh/"
-        use_residual_dynamics: true
+        use_residual_dynamics: false
         goal_position_tolerance: 0.15
         goal_velocity_tolerance: 0.15
         goal_joint_angle_tolerance: 0.15
