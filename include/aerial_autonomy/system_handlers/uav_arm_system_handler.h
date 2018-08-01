@@ -4,6 +4,7 @@
 
 #include <aerial_autonomy/VelocityBasedPositionControllerDynamicConfig.h>
 #include <aerial_autonomy/actions_guards/base_functors.h>
+#include <aerial_autonomy/log/mocap_logger.h>
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/system_handlers/common_system_handler.h>
 #include <aerial_autonomy/trackers/alvar_tracker.h>
@@ -77,4 +78,5 @@ private:
                                     ///< and associated connections.
   AsyncTimer uav_controller_timer_; ///< Timer for running uav controller
   AsyncTimer arm_controller_timer_; ///< Timer for running arm controller
+  MocapLogger mocap_logger_;        ///< Logger for mocap poses
 };

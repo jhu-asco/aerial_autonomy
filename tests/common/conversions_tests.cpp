@@ -172,6 +172,15 @@ TEST(ArmaToEigen, ConvertBack) {
   compareArma(m, m2);
 }
 
+TEST(EigenToStdVec, VectorXdToStdVecDouble) {
+  Eigen::VectorXd vec_eigen(5);
+  vec_eigen << 1, 2, 3, 4, 5;
+  std::vector<double> vec_std = conversions::vectorEigenToStd(vec_eigen);
+  for (int i = 0; i < vec_eigen.size(); i++) {
+    ASSERT_NEAR(vec_eigen(i), vec_std[i], 1e-7);
+  }
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

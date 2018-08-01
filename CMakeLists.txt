@@ -39,7 +39,7 @@ endif ()
 include(cmake/add_event_function.cmake)
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system)
-find_package(Protobuf 3.1 REQUIRED) 
+find_package(Protobuf 3.1 REQUIRED)
 find_package(Glog REQUIRED)
 find_package(Armadillo REQUIRED)
 
@@ -191,7 +191,7 @@ mpc_events
 ##############
 ## Protobuf ##
 ##############
-PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER 
+PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/uav_system_config.proto
   proto/uav_vision_system_config.proto
   proto/uav_arm_system_config.proto
@@ -467,6 +467,7 @@ catkin_add_gtest(${PROJECT_NAME}-reference-trajectory-test tests/types/reference
 catkin_add_gtest(${PROJECT_NAME}-airm-spiral-reference-trajectory-test tests/types/airm_spiral_reference_trajectory_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-qrotor-backstepping-controller-test tests/controllers/qrotor_backstepping_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-ddp-airm-mpc-controller-test tests/controllers/ddp_airm_mpc_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-minimum-snap-trajectory-test tests/types/minimum_snap_trajectory_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
@@ -637,6 +638,9 @@ if(TARGET ${PROJECT_NAME}-reference-trajectory-test)
 endif()
 if(TARGET ${PROJECT_NAME}-airm-spiral-reference-trajectory-test)
   target_link_libraries(${PROJECT_NAME}-airm-spiral-reference-trajectory-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-minimum-snap-trajectory-test)
+  target_link_libraries(${PROJECT_NAME}-minimum-snap-trajectory-test aerial_autonomy)
 endif()
 
 if (arm_plugins_FOUND)

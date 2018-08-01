@@ -1,7 +1,6 @@
 #pragma once
 #include <memory>
 #include <utility>
-
 /**
 * @brief An interface for retrieving states and controls from a trajectory
 *

@@ -136,4 +136,11 @@ template <class T> Eigen::VectorXd vectorProtoToEigen(const T &xs) {
 std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>>
 createWayPoint(PositionYaw goal, double desired_joint_angle_1,
                double desired_joint_angle_2);
+
+/**
+* @brief Convert a Eigen::VectorXd to std::vector<double>
+* @param vec_eigen Eigen::VectorXd
+* @return std::vector<double>
+*/
+std::vector<double> vectorEigenToStd(const Eigen::VectorXd &vec_eigen);
 }
