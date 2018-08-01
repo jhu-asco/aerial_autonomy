@@ -57,7 +57,7 @@ private:
   std::vector<Eigen::VectorXd> xds_; ///< Vector of desired states
   std::vector<Eigen::VectorXd> uds_; ///< Vector of desired controls
 
-private:
+public:
   /**
   * @brief Convert a single state vector to gcop comm state
   *

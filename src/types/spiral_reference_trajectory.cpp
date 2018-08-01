@@ -21,19 +21,20 @@ void SpiralReferenceTrajectory::getRP(
   Eigen::Vector3d unit_vec = acceleration_vector.normalized();
   double s_yaw = sin(yaw);
   double c_yaw = cos(yaw);
-  double temp1 = unit_vec[0] * s_yaw - unit_vec[1] * c_yaw;
-  if (std::abs(temp1) > 1.0) {
+  double sin_roll = unit_vec[0] * s_yaw - unit_vec[1] * c_yaw;
+  if (std::abs(sin_roll) > 1.0) {
     LOG(WARNING) << "sin(roll) > 1";
-    temp1 = std::copysign(1.0, temp1);
+    sin_roll = std::copysign(1.0, sin_roll);
   }
-  roll = std::asin(temp1);
-  double temp2 = unit_vec[0] * c_yaw + unit_vec[1] * s_yaw;
-  if (std::abs(temp2) < epsilon && std::abs(unit_vec[2]) < epsilon) {
+  roll = std::asin(sin_roll);
+  double unit_vec_projection = unit_vec[0] * c_yaw + unit_vec[1] * s_yaw;
+  if (std::abs(unit_vec_projection) < epsilon &&
+      std::abs(unit_vec[2]) < epsilon) {
     LOG(WARNING) << "Roll is +/-90degrees which is a singularity";
     pitch = 0;
   } else {
     double cos_inv = 1.0 / cos(roll);
-    pitch = std::atan2(temp2 * cos_inv, unit_vec[2] * cos_inv);
+    pitch = std::atan2(unit_vec_projection * cos_inv, unit_vec[2] * cos_inv);
   }
 }
 
