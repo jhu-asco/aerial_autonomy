@@ -15,9 +15,14 @@ bool QrotorBacksteppingControllerConnector::extractSensorData(
   * pos -> tf::Vector3;
   * ex)pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0))
   */
-  tf::Transform Pose;
+  // geometry_msgs::Vector3 rpydata; // Roll pitch yaw data in NWU format
+  tf::Quaternion q = tf::createQuaternionFromRPY(data.rpydata.x, data.rpydata.y,
+                                                 data.rpydata.z);
 
-  qrotor_backstepping_state.pose = Pose;
+  // geometry_msgs::Vector3 localpos; // Local pos based on home NWU format
+  qrotor_backstepping_state.pose(
+      q, tf::Vector3(data.localpos.x, data.localpos.y, data.localpos.z));
+
   // geometry_msgs::Vector3 linvel;   // Linear velocity of quadcopter
   qrotor_backstepping_state.v(data.linvel.x, data.linvel.y, data.linvel.z);
 
@@ -27,6 +32,8 @@ bool QrotorBacksteppingControllerConnector::extractSensorData(
   /* Objective
   * Acquire thrust, thrust_dot
   */
+  // geometry_msgs::Vector3 linacc;   // Linear acceleration of quadcopter
+  // data.linacc.z;
   qrotor_backstepping_state.thrust;
 
   qrotor_backstepping_state.thrust_dot;
@@ -45,13 +52,9 @@ void QrotorBacksteppingControllerConnector::sendControllerCommands(
   *Use torque, thrust_ddot -> get rpyratethrust
   */
   geometry_msgs::Quaternion rpyt_msg;
-  rpyt_msg
-      .x // Roll
-      rpyt_msg
-      .y // Pitch
-      rpyt_msg
-      .z // Yaw rate
-      rpyt_msg
-      .w // thrust
-      drone_hardware_.cmdrpyawratethrust(rpyt_msg);
+  // rpyt_msg.x; // Roll
+  // rpyt_msg.y; // Pitch
+  // rpyt_msg.z; // Yaw rate
+  // rpyt_msg.w; // thrust
+  drone_hardware_.cmdrpyawratethrust(rpyt_msg);
 }
