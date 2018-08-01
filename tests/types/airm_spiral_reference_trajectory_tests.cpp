@@ -67,7 +67,7 @@ TEST_F(AirmSpiralReferenceTrajectoryTests, ZeroTime) {
       -quad_config.radiusx() * omega_squared * sin(quad_config.phase()),
       -quad_config.radiusy() * omega_squared * cos(quad_config.phase()), 9.81);
   ASSERT_EQ(state[0], current_position[0]);
-  ASSERT_EQ(state[1], current_position[1] + quad_config.radiusy());
+  ASSERT_EQ(state[1], current_position[1]);
   ASSERT_EQ(state[2], current_position[2]);
   ASSERT_EQ(state[5], current_yaw);
   ASSERT_EQ(state[6], quad_config.radiusx() * omega);
@@ -97,7 +97,7 @@ TEST_F(AirmSpiralReferenceTrajectoryTests, Period) {
   double omega = quad_config.frequency() * 2 * M_PI;
   double omega_yaw = 2 * M_PI * quad_config.frequency_yaw();
   ASSERT_NEAR(state[0], current_position[0], 1e-14);
-  ASSERT_NEAR(state[1], current_position[1] + quad_config.radiusy(), 1e-14);
+  ASSERT_NEAR(state[1], current_position[1], 1e-14);
   ASSERT_NEAR(state[2], current_position[2] + 1.0, 1e-14);
   ASSERT_EQ(state[5],
             current_yaw + quad_config.amplitude_yaw() * sin(2 * M_PI * 0.1));

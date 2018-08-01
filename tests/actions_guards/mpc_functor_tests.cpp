@@ -152,7 +152,7 @@ TEST_F(MPCFunctorTests, CallInternalActionFunction) {
       goal->atTime(0);
   test_utils::ASSERT_VEC_NEAR(
       Eigen::Vector3d(desired_state_control_pair.first.segment<3>(0)),
-      Eigen::Vector3d(0, 0.1, 0.5));
+      Eigen::Vector3d(0, 0, 0.5));
   ASSERT_NEAR(desired_state_control_pair.first[5], 0.5, 1e-5);
 }
 
