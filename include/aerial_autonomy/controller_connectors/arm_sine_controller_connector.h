@@ -23,9 +23,7 @@ public:
    * @brief Constructor
    */
   ArmSineControllerConnector(ArmParser &arm_hardware,
-                             ArmSineController &controller)
-      : ControllerConnector(controller, ControllerGroup::Arm),
-        arm_hardware_(arm_hardware), private_ref_controller_(controller) {}
+                             ArmSineController &controller);
   /**
    * @brief Destructor
    */
@@ -48,7 +46,7 @@ protected:
   *
   * @return True always
   */
-  virtual bool extractSensorData(EmptySensor &) { return true; }
+  virtual bool extractSensorData(EmptySensor &);
 
   /**
    * @brief  Send joint angle commands to hardware

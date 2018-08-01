@@ -79,7 +79,7 @@ message UAVSystemConfig {
   /**
   * @brief String to choose sensor type
   */
-  optional string sensor_type = 14 [default = "Guidance"];
+  optional string sensor_type = 14 [ default = "Guidance" ];
   /**
   * @brief Velocity sensor config
   */
