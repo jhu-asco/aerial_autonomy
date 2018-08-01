@@ -8,23 +8,23 @@ mpc_state_machine_config {
   }
   arm_reference {
     joint_config {
-      amplitude: 0.1
-      frequency: 0.1
+      amplitude: 0.2
+      frequency: 0.2
       offset: -1.0
       phase: 0.1
     }
 
     joint_config {
-      amplitude: 0.1
-      frequency: 0.1
+      amplitude: 0.2
+      frequency: 0.2
       offset: 0.3
       phase: 0.0
     }
   }
   waypoint_reference {
     position {
-      x: 1.0
-      y: 0.0
+      x: 0.0
+      y: -0.5
       z: 0.1
     }
     yaw: 0.0

@@ -191,8 +191,10 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
     filtered_velocity_ = Eigen::Vector3d::Zero();
     previous_measurements_initialized_ = true;
   }
+  double rpydot_gain_ = 0.7;
   // Get rpydot from omega:
-  filtered_rpydot_ = omegaToRpyDot(omega, rpy);
+  filtered_rpydot_ = (rpydot_gain_ * filtered_rpydot_ +
+                      (1 - rpydot_gain_) * omegaToRpyDot(omega, rpy));
   // Update filtered velocities:
   filtered_joint_velocity_ = angular_exp_gain_ * filtered_joint_velocity_ +
                              (1 - angular_exp_gain_) * joint_velocities;
