@@ -6,6 +6,7 @@
 #include "aerial_autonomy/types/roll_pitch_yawrate_thrust.h"
 #include "qrotor_backstepping_controller_config.pb.h"
 
+#include <Eigen/Cholesky>
 #include <Eigen/Dense>
 #include <chrono>
 #include <parsernode/parser.h>
@@ -147,3 +148,5 @@ private:
   double dt_;
 
   parsernode::common::quaddata data_;
+
+  QrotorBacksteppingState current_state_;

@@ -2,45 +2,38 @@
 
 bool QrotorBacksteppingControllerConnector::extractSensorData(
     std::pair<double, QrotorBacksteppingState> &sensor_data) {
-  // parsernode::common::quaddata data;
+
   drone_hardware_.getquaddata(data_);
 
   // double current_time = std::chrono::high_resolution_clock::now() - t_0_;
   std::chrono::duration<double> time_duration = duration_cast<duration<double>>(
       std::chrono::high_resolution_clock::now() - t_0_);
   double current_time = time_duration.count();
-  QrotorBacksteppingState qrotor_backstepping_state;
 
-  /* Objective
-  *Use RPY & pos data from quaddata -> SE(3)
-  * RPY -> tf::Quaternion;
-  * pos -> tf::Vector3;
-  * ex)pose(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0, 0, 0))
-  */
   // geometry_msgs::Vector3 rpydata; // Roll pitch yaw data in NWU format
   tf::Quaternion q = tf::createQuaternionFromRPY(
       data_.rpydata.x, data_.rpydata.y, data_.rpydata.z);
 
   // geometry_msgs::Vector3 localpos; // Local pos based on home NWU format
-  qrotor_backstepping_state.pose(
+  current_state_.pose(
       q, tf::Vector3(data_.localpos.x, data_.localpos.y, data_.localpos.z));
 
   // geometry_msgs::Vector3 linvel;   // Linear velocity of quadcopter
-  qrotor_backstepping_state.v(data_.linvel.x, data_.linvel.y, data_.linvel.z);
+  current_state_.v(data_.linvel.x, data_.linvel.y, data_.linvel.z);
 
   // geometry_msgs::Vector3 omega;   // Angular velocities in NWU format
-  qrotor_backstepping_state.w(data_.omega.x, data_.omega.y, data_.omega.z);
+  current_state_.w(data_.omega.x, data_.omega.y, data_.omega.z);
 
   /* Objective
   * Acquire thrust, thrust_dot
   */
   // geometry_msgs::Vector3 linacc;   // Linear acceleration of quadcopter
   // data.linacc.z;
-  qrotor_backstepping_state.thrust = thrust_;
+  current_state_.thrust = thrust_;
 
-  qrotor_backstepping_state.thrust_dot = thrust_dot_;
+  current_state_.thrust_dot = thrust_dot_;
 
-  sensor_data = std::make_pair(current_time, qrotor_backstepping_state);
+  sensor_data = std::make_pair(current_time, current_state_);
 
   thrust_gain_estimator_.addSensorData(data_.rpydata.x, data_.rpydata.y,
                                        data_.linacc.z);
@@ -49,8 +42,7 @@ bool QrotorBacksteppingControllerConnector::extractSensorData(
 }
 
 void QrotorBacksteppingControllerConnector::sendControllerCommands(
-    QrotorBacksteppingControl control,
-    std::pair<double, QrotorBacksteppingState> &sensor_data);
+    QrotorBacksteppingControl control);
 {
   double Thrust_ddot = control.thrust_ddot;
   tf::Vector3 Torque = control.torque;
@@ -60,12 +52,11 @@ void QrotorBacksteppingControllerConnector::sendControllerCommands(
   thrust_dot_ = Thrust_ddot * dt_;
   thrust_ = thrust_dot_ * dt_;
 
-  QrotorBacksteppingState current_state = std::get<1> sensor_data;
   // conversions
   Eigen::Vector3d torque;
   tf::vectorTFToEigen(Torque, torque);
   Eigen::Vector3d current_omega;
-  tf::vectorTFToEigen(current_state.omega, current_omega);
+  tf::vectorTFToEigen(current_state_.omega, current_omega);
   Eigen::Vector3d current_rpy;
   current_rpy << data_rpydata.x, data_rpydata.y, data_rpydata.z;
 
