@@ -1,8 +1,8 @@
 mpc_state_machine_config {
   spiral_reference {
     frequency: 0.2
-    radiusx: 0.4
-    radiusy: 0.4
+    radius_x: 0.4
+    radius_y: 0.4
     velocity_z: 0.2
     frequency_z: 0.2
   }

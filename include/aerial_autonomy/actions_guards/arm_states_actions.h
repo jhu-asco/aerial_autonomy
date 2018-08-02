@@ -10,13 +10,6 @@
 */
 template <class LogicStateMachineT> struct ArmStatesActions {
   /**
-   * @brief  Action sequence to chain multiple actions together
-   *
-   * @tparam Sequence sequence of actions
-   */
-  template <class Sequence>
-  using bActionSequence = boost::msm::front::ActionSequence_<Sequence>;
-  /**
   * @brief State for folding arm
   */
   using ArmFolding = ArmFolding_<LogicStateMachineT>;
@@ -57,13 +50,13 @@ template <class LogicStateMachineT> struct ArmStatesActions {
   /**
   * @brief Action sequence that folds to right angle and aborts arm controller
   */
-  using AbortArmControllerRightFold =
-      bActionSequence<boost::mpl::vector<AbortArmController, ArmRightFold>>;
+  using AbortArmControllerRightFold = base_functors::bActionSequence<
+      boost::mpl::vector<AbortArmController, ArmRightFold>>;
   /**
   * @brief Action to take when starting folding arm before takeoff
   */
   using ArmPowerOnFold =
-      bActionSequence<boost::mpl::vector<ArmPowerOn, ArmFold>>;
+      base_functors::bActionSequence<boost::mpl::vector<ArmPowerOn, ArmFold>>;
   // Explicitly defined manual Control state
   /**
   * @brief State that checks arm status along with regular manual control

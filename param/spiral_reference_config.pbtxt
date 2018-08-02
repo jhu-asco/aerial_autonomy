@@ -1,5 +1,5 @@
 frequency: 0.05
-radiusx: 1.0
-radiusy: 1.0
+radius_x: 1.0
+radius_y: 1.0
 velocity_z: 0.1
 frequency_z: 0.05

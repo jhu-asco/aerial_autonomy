@@ -12,13 +12,6 @@ template <class LogicStateMachineT>
 struct MPCStatesActions : UAVStatesActions<LogicStateMachineT>,
                           ArmStatesActions<LogicStateMachineT> {
   /**
-   * @brief  Action sequence to chain multiple actions together
-   *
-   * @tparam Sequence sequence of actions
-   */
-  template <class Sequence>
-  using bActionSequence = boost::msm::front::ActionSequence_<Sequence>;
-  /**
    * @brief namespace for states and actions for basic uav actions
    */
   using usa = UAVStatesActions<LogicStateMachineT>;
@@ -48,13 +41,13 @@ struct MPCStatesActions : UAVStatesActions<LogicStateMachineT>,
   * right angle
   */
   using AbortArmControllerArmRightFold =
-      bActionSequence<boost::mpl::vector<typename asa::AbortArmController,
-                                         typename asa::ArmRightFold>>;
+      base_functors::bActionSequence<boost::mpl::vector<
+          typename asa::AbortArmController, typename asa::ArmRightFold>>;
   /**
   * @brief Action sequence to abort UAV and arm controllers and move arm to
   * right angle
   */
   using AbortUAVArmControllerArmRightFold =
-      bActionSequence<boost::mpl::vector<typename usa::UAVControllerAbort,
-                                         AbortArmControllerArmRightFold>>;
+      base_functors::bActionSequence<boost::mpl::vector<
+          typename usa::UAVControllerAbort, AbortArmControllerArmRightFold>>;
 };

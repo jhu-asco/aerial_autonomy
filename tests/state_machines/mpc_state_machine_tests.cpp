@@ -86,13 +86,6 @@ public:
     // Fill MPC Config
     test_utils::fillMPCConfig(config_);
 
-    /*auto mpc_config = uav_arm_system_config->mutable_mpc_controller_config();
-    mpc_config->set_goal_position_tolerance(0.25);
-    mpc_config->set_goal_velocity_tolerance(0.5);
-    mpc_config->set_goal_joint_angle_tolerance(0.1);
-    mpc_config->set_goal_joint_velocity_tolerance(0.2);
-    */
-
     tf::Transform camera_transform;
     camera_transform.setIdentity();
     tracker_.reset(new SimpleTracker(*drone_hardware_, camera_transform));

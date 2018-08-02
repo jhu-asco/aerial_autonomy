@@ -39,9 +39,6 @@ DataStream &DataStream::operator<<(DataStream &(*func)(DataStream &)) {
   return func(*this);
 }
 
-// DataStream &DataStream::operator<<(const Eigen::Ref<const Eigen::VectorXd>
-// &t)
-
 void DataStream::resetStringstream(std::stringstream &ss) {
   ss.str(std::string());
   ss.clear();

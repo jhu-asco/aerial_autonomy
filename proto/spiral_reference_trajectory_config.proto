@@ -15,11 +15,11 @@ message SpiralReferenceTrajectoryConfig {
   /**
   * @brief x radius
   */
-  optional double radiusx = 3 [ default = 0.1 ];
+  optional double radius_x = 3 [ default = 0.1 ];
   /**
   * @brief y radius
   */
-  optional double radiusy = 4 [ default = 0.1 ];
+  optional double radius_y = 4 [ default = 0.1 ];
   /**
   * @brief Velocity along z axis
   */

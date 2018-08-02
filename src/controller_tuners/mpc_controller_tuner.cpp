@@ -1,3 +1,4 @@
+#include <aerial_autonomy/common/conversions.h>
 #include <aerial_autonomy/common/mpc_trajectory_visualizer.h>
 #include <aerial_autonomy/common/proto_utils.h>
 #include <aerial_autonomy/controller_connectors/mpc_controller_airm_connector.h>
@@ -10,31 +11,6 @@
 #include <quad_simulator_parser/quad_simulator.h>
 
 #include <glog/logging.h>
-
-/**
-* @brief Create a way point reference trajectory from goal positionyaw and joint
-* angles
-*
-* @param goal Goal position yaw
-* @param desired_joint_angle_1 First joint angle
-* @param desired_joint_angle_2 Second joint angle
-*
-* @return waypoint reference trajectory
-*/
-std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>>
-createWayPoint(PositionYaw goal, double desired_joint_angle_1,
-               double desired_joint_angle_2) {
-  std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>> waypoint;
-  Eigen::VectorXd goal_control(6);
-  goal_control << 1, 0, 0, 0, desired_joint_angle_1, desired_joint_angle_2;
-  Eigen::VectorXd goal_state(21);
-  goal_state << goal.x, goal.y, goal.z, 0, 0, goal.yaw, 0, 0, 0, 0, 0, 0, 0, 0,
-      goal.yaw, desired_joint_angle_1, desired_joint_angle_2, 0, 0,
-      desired_joint_angle_1, desired_joint_angle_2;
-  waypoint.reset(
-      new Waypoint<Eigen::VectorXd, Eigen::VectorXd>(goal_state, goal_control));
-  return waypoint;
-}
 
 /**
 * @brief Create a spiral reference trajectory
@@ -109,7 +85,7 @@ int main(int argc, char **argv) {
   visualizer_config.mutable_desired_trajectory_color()->set_a(0.5);
   MPCTrajectoryVisualizer visualizer(controller_connector, visualizer_config);
   // auto reference_ptr =
-  //    createWayPoint(PositionYaw(0.2, 0.2, 0.2, 0.0), -0.8, 1.4);
+  //    conversions::createWayPoint(PositionYaw(0.2, 0.2, 0.2, 0.0), -0.8, 1.4);
   auto reference_ptr = createSpiralReference(drone_hardware);
   controller_connector.usePerfectTimeDiff(
       0.02); ///\todo Remove this flag business

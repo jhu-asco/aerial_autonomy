@@ -53,8 +53,8 @@ SpiralReferenceTrajectory::atTime(double t) const {
   // Controls: thrust, rpyd_dot, jad_dot;
   Eigen::VectorXd x(21);
   Eigen::VectorXd u(6);
-  const double rx = config_.radiusx();
-  const double ry = config_.radiusy();
+  const double rx = config_.radius_x();
+  const double ry = config_.radius_y();
   const double omega = 2 * M_PI * config_.frequency();
   const double phase = config_.phase();
   const double velocity_z = config_.velocity_z();

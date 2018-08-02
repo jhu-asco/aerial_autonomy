@@ -95,7 +95,7 @@ public:
                           Eigen::VectorXd &p, std::string folder_path);
 
   /**
-  * @brief Loard arm model parameters from text file
+  * @brief Load arm model parameters from text file
   *
   * @param kp_ja Second order kp gain on joint angles
   * @param kd_ja Second order kd gain on joint angles
@@ -105,7 +105,7 @@ public:
                          std::string folder_path);
 
   /**
-  * @brief shif the controls such that control_new[0:N-shift_len] =
+  * @brief Shift the controls such that control_new[0:N-shift_len] =
   * control_old[shift_len:N]
   * The remaining controls control_new[N-shift_len:] = control_old[N-1]
   *

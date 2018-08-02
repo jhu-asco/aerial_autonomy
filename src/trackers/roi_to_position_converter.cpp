@@ -75,8 +75,8 @@ bool RoiToPositionConverter::cameraInfoIsValid() {
 
 bool RoiToPositionConverter::roiIsValid() {
   bool valid = (ros::Time::now() - last_roi_update_time_).toSec() < 0.5;
-  // if (!valid)
-  //  VLOG(2) << "ROI has not been updated for 0.5 seconds";
+  if (!valid)
+    VLOG(2) << "ROI has not been updated for 0.5 seconds";
   return valid;
 }
 
