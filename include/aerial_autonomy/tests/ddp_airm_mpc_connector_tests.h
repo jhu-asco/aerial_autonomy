@@ -73,10 +73,12 @@ public:
         goal, goal_joint_angles[0], goal_joint_angles[1]));
     auto runController = [&]() {
       controller_connector_->run();
+      parsernode::common::quaddata sensor_data;
+      drone_hardware_.getquaddata(sensor_data);
       return controller_connector_->getStatus() == ControllerStatus::Active;
     };
     ASSERT_FALSE(test_utils::waitUntilFalse()(
-        runController, std::chrono::seconds(5), std::chrono::milliseconds(0)));
+        runController, std::chrono::seconds(20), std::chrono::milliseconds(0)));
     // Check position is close to goal position
     parsernode::common::quaddata sensor_data;
     drone_hardware_.getquaddata(sensor_data);

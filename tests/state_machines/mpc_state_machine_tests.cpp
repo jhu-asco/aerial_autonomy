@@ -46,6 +46,7 @@ public:
         mpc_state_machine_config->mutable_spiral_reference();
     spiral_reference->set_radiusx(1.0);
     spiral_reference->set_radiusy(1.0);
+    spiral_reference->set_frequency(0.01);
     // Waypoint
     auto waypoint_ref = mpc_state_machine_config->mutable_waypoint_reference();
     waypoint_ref->set_yaw(0.2);
@@ -184,11 +185,12 @@ protected:
     auto getStatusRunControllers = [&]() {
       uav_arm_system_->runActiveController(ControllerGroup::UAV);
       uav_arm_system_->runActiveController(ControllerGroup::Arm);
+      auto data = uav_arm_system_->getUAVData();
       return (uav_arm_system_->getActiveControllerStatus(
                   ControllerGroup::UAV) == ControllerStatus::Active);
     };
     ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                              std::chrono::seconds(4),
+                                              std::chrono::seconds(20),
                                               std::chrono::milliseconds(0)));
   }
 

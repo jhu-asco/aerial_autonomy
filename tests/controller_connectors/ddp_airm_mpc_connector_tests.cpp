@@ -24,8 +24,8 @@ TEST_F(MPCControllerAirmConnectorTests, ConvergenceZeroStartNoYaw) {
 }
 
 TEST_F(MPCControllerAirmConnectorTests, ConvergenceZeroStartPosYaw) {
-  runUntilConvergence(PositionYaw(0, 0, 0, 0),
-                      PositionYaw(-0.1, -0.1, 0.1, 0.1), {-0.8, 0}, {-0.8, 0});
+  runUntilConvergence(PositionYaw(0, 0, 0, 0), PositionYaw(-0.1, -1, 0.1, 0.1),
+                      {-0.8, 0}, {-0.8, 0});
 }
 
 TEST_F(MPCControllerAirmConnectorTests, ConvergenceZeroStartNegYaw) {
@@ -34,13 +34,13 @@ TEST_F(MPCControllerAirmConnectorTests, ConvergenceZeroStartNegYaw) {
 }
 
 TEST_F(MPCControllerAirmConnectorTests, ConvergenceNonZeroStartNoYaw) {
-  runUntilConvergence(PositionYaw(-1, 0.3, 2, 0), PositionYaw(1, -1, 1, 0),
+  runUntilConvergence(PositionYaw(-1, 0.3, 2, 0), PositionYaw(-0.5, 0.5, 1, 0),
                       {-0.8, 0}, {-0.8, 0});
 }
 
 TEST_F(MPCControllerAirmConnectorTests, ConvergenceNonZeroStartPosYaw) {
   runUntilConvergence(PositionYaw(-2.2, -1, 3.2, -0.1),
-                      PositionYaw(-2, -2, 3, 0.5), {-0.8, 0}, {-0.8, 0});
+                      PositionYaw(-2, -1.5, 3.5, 0.5), {-0.8, 0}, {-0.8, 0});
 }
 
 TEST_F(MPCControllerAirmConnectorTests, ConvergenceNonZeroStartNegYaw) {
