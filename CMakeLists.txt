@@ -31,8 +31,10 @@ find_package(arm_plugins)
 if (NOT arm_plugins_FOUND)
   message(WARNING "Could not find arm_plugins.  Not building arm-related components.")
 else ()
-  set(catkin_INCLUDE_DIRS ${catkin_INCLUDE_DIRS} ${arm_plugins_INCLUDE_DIRS})
-  set(catkin_LIBRARIES ${catkin_LIBRARIES} ${arm_plugins_LIBRARIES})
+  set(catkin_INCLUDE_DIRS ${
+  catkin_INCLUDE_DIRS} ${arm_plugins_INCLUDE_DIRS})
+  set(catkin_LIBRARIES ${
+  catkin_LIBRARIES} ${arm_plugins_LIBRARIES})
 endif ()
 
 include(cmake/add_event_function.cmake)
@@ -42,14 +44,16 @@ find_package(Protobuf 3.1 REQUIRED)
 find_package(Glog REQUIRED)
 find_package(Armadillo REQUIRED)
 
-# Quad simulator parser dependencies
+#Quad simulator parser dependencies
 find_package(GCOP REQUIRED systems)
 include_directories(${GCOP_INCLUDE_DIRS})
-set(QUAD_SIM_PARSER_LIBS ${QUAD_SIM_PARSER_LIBS} ${GCOP_LIBRARIES})
+set(QUAD_SIM_PARSER_LIBS ${
+  QUAD_SIM_PARSER_LIBS} ${GCOP_LIBRARIES})
 
 find_package(TinyXML REQUIRED)
 include_directories(${TINYXML_INCLUDE_DIR})
-set(QUAD_SIM_PARSER_LIBS ${QUAD_SIM_PARSER_LIBS} ${TINYXML_LIBRARIES})
+set(QUAD_SIM_PARSER_LIBS ${
+  QUAD_SIM_PARSER_LIBS} ${TINYXML_LIBRARIES})
 
 find_package(Eigen3 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
@@ -100,23 +104,23 @@ catkin_python_setup()
  )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+#add_service_files(
+#FILES
+#Service1.srv
+#Service2.srv
+#)
 
 ## Generate actions in the 'action' folder
-# add_action_files(
-#   FILES
-#   Action1.action
-#   Action2.action
-# )
+#add_action_files(
+#FILES
+#Action1.action
+#Action2.action
+#)
 
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
-#   DEPENDENCIES
-#   std_msgs
+#DEPENDENCIES
+#std_msgs
 )
 
 ################################################
@@ -136,7 +140,7 @@ generate_messages(
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
 generate_dynamic_reconfigure_options(
   cfg/VelocityBasedPositionControllerDynamic.cfg
-#   cfg/DynReconf2.cfg
+#cfg / DynReconf2.cfg
 )
 
 ###################################
@@ -151,18 +155,23 @@ generate_dynamic_reconfigure_options(
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES aerial_autonomy
-#  CATKIN_DEPENDS roscpp std_msgs
-#  DEPENDS system_lib
+#CATKIN_DEPENDS roscpp std_msgs
+#DEPENDS system_lib
 )
 
 ######################
 ## Event Generation ##
 ######################
 ## Generates event header files
-## ADD ${${PROJECT_NAME}_EXPORTED_TARGETS} as a dependency to any
-## targets that use the event header files
-## This target is also common to messages, cfg files etc
-## Add ${EVENT_INCLUDE_DIR} to include_directories
+## ADD ${
+  $ { PROJECT_NAME }
+  _EXPORTED_TARGETS
+}
+as a dependency to any##targets that use the event header files##This target is
+    also common to messages,
+    cfg files etc##Add $ {
+  EVENT_INCLUDE_DIR
+} to include_directories
 ## To use the event header files in source code, include
 ## them as #include <${PROJECT_NAME}/event_file_name.h>
 ## The header file contains the structs to define events
@@ -220,7 +229,8 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/arm_sine_controller_config.proto
   proto/qrotor_backstepping_controller_config.proto
 )
-add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
+add_library(proto ${
+  PROTO_HEADER} ${PROTO_SRC})
 
 target_link_libraries(proto ${PROTOBUF_LIBRARIES})
 
@@ -287,6 +297,7 @@ set(SRC
   src/controller_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_connectors/manual_rpyt_controller_drone_connector.cpp
   src/controller_connectors/joystick_velocity_controller_drone_connector.cpp
+  src/controller_connectors/qrotor_backstepping_controller_connector.cpp
 )
 
 if (arm_plugins_FOUND)
@@ -316,7 +327,8 @@ add_dependencies(event_publish_node ${PROJECT_NAME}_generate_messages_cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(aerial_autonomy_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+#add_dependencies(aerial_autonomy_node ${${                                    \
+    PROJECT_NAME } _EXPORTED_TARGETS } ${catkin_EXPORTED_TARGETS })
 
 ## Specify libraries to link a library or executable target against
 
@@ -337,36 +349,36 @@ endif ()
 ## Install ##
 #############
 
-# all install targets should use catkin DESTINATION variables
-# See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
+#all install targets should use catkin DESTINATION variables
+#See http: // ros.org/doc/api/catkin/html/adv_user_guide/variables.html
 
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
-# install(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+#install(PROGRAMS
+#scripts / my_python_script
+#DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION }
+#)
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS aerial_autonomy aerial_autonomy_node
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+#install(TARGETS aerial_autonomy aerial_autonomy_node
+#ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION }
+#LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION }
+#RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION }
+#)
 
 ## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
+#install(DIRECTORY include / ${PROJECT_NAME } /
+#DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION }
+#FILES_MATCHING PATTERN "*.h"
+#PATTERN ".svn" EXCLUDE
+#)
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
-# install(FILES
-#   # myfile1
-#   # myfile2
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
+#install(FILES
+# #myfile1
+# #myfile2
+#DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION }
+#)
 
 #############
 ## Testing ##
@@ -437,6 +449,7 @@ catkin_add_gtest(${PROJECT_NAME}-proto-utils-test tests/common/proto_utils_tests
 catkin_add_gtest(${PROJECT_NAME}-reference-trajectory-test tests/types/reference_trajectory_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-qrotor-backstepping-controller-test tests/controllers/qrotor_backstepping_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-minimum-snap-trajectory-test tests/types/minimum_snap_trajectory_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-qrotor-backstepping-controller-connector-test tests/controller_connectors/qrotor_backstepping_controller_connector_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
 endif()
@@ -599,7 +612,9 @@ endif()
 if(TARGET ${PROJECT_NAME}-minimum-snap-trajectory-test)
   target_link_libraries(${PROJECT_NAME}-minimum-snap-trajectory-test aerial_autonomy)
 endif()
-
+if(TARGET ${PROJECT_NAME}-qrotor-backstepping-controller-connector-test)
+  target_link_libraries(${PROJECT_NAME}-qrotor-backstepping-controller-connector-test aerial_autonomy ${GCOP_LIBRARIES} ${TINYXML_LIBRARIES} ${QUAD_SIM_PARSER_LIBS})
+endif()
 if (arm_plugins_FOUND)
   catkin_add_gtest(${PROJECT_NAME}-joystick-state-machine-test tests/state_machines/joystick_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-pick-place-state-machine-test tests/state_machines/pick_place_state_machine_tests.cpp)
@@ -643,7 +658,7 @@ if (arm_plugins_FOUND)
 endif ()
 
 ## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)
+#catkin_add_nosetests(test)
 install(FILES plugin.xml
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
         )
