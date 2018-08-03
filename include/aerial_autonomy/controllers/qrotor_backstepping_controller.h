@@ -10,6 +10,7 @@
 #include "qrotor_backstepping_controller_config.pb.h"
 
 #include <Eigen/Dense>
+#include <aerial_autonomy/log/log.h>
 #include <memory>
 
 /**
