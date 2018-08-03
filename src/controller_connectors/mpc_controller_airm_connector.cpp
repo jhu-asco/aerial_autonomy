@@ -45,9 +45,10 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
 }
 
 void MPCControllerAirmConnector::initialize() {
+  int iters = private_controller_.getMaxIters();
   private_controller_.setMaxIters(100);
   run();
-  private_controller_.setMaxIters(-1);
+  private_controller_.setMaxIters(iters);
 }
 
 void MPCControllerAirmConnector::clearCommandBuffers() {

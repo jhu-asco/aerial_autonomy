@@ -36,10 +36,23 @@ public:
   */
   virtual void getDesiredTrajectory(std::vector<StateT> &xds,
                                     std::vector<ControlT> &uds) const = 0;
-  virtual void setMaxIters(int iters) {
-    LOG(WARNING) << "Set maximum iterations not implemented";
-  }
-  virtual void resetControls() {
-    LOG(WARNING) << "Reset Controls not implemented";
-  }
+
+  /**
+  * @brief Reset the controls (inputs) to the optimization
+  */
+  virtual void resetControls() = 0;
+
+  /**
+  * @brief Set the maximum number of iterations in one step
+  *
+  * @param iters Number of iterations
+  */
+  virtual void setMaxIters(int iters) = 0;
+
+  /**
+  * @brief Get maximum iterations
+  *
+  * @return Max iterations
+  */
+  virtual int getMaxIters() const = 0;
 };

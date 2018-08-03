@@ -60,10 +60,16 @@ public:
   /**
    * @brief Set maximum iterations
    *
-   * @param iters Max iterations. If specifying -1, will use max iterations from
-   * config
+   * @param iters Max iterations.
    */
   void setMaxIters(int iters);
+
+  /**
+  * @brief Get maximum iterations
+  *
+  * @return Max iterations
+  */
+  int getMaxIters() const;
 
   /**
   * @brief Get MPC trajectory

@@ -142,13 +142,11 @@ void DDPAirmMPCController::resetControls() {
 }
 
 void DDPAirmMPCController::setMaxIters(int iters) {
-  if (iters == -1) {
-    max_iters_ = config_.ddp_config().max_iters();
-  } else {
-    max_iters_ = iters;
-    CHECK(iters >= 1) << "Number of iters should be greater than 1";
-  }
+  CHECK(iters >= 1) << "Number of iters should be greater than 1";
+  max_iters_ = iters;
 }
+
+int DDPAirmMPCController::getMaxIters() const { return max_iters_; }
 
 ControllerStatus DDPAirmMPCController::isConvergedImplementation(
     MPCInputs<StateType> sensor_data, GoalType goal) {
