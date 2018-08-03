@@ -65,6 +65,9 @@ template <class LogicStateMachineT> struct ArmStatesActions {
   * @tparam LogicStateMachineT Logic state machine used to process events
   */
   struct ManualControlArmState : public msmf::state<> {
+    /**
+    * @brief Internal transition table
+    */
     struct internal_transition_table
         : boost::mpl::vector<
               msmf::Internal<
