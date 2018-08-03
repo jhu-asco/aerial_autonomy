@@ -1,0 +1,11 @@
+joint_config {
+  amplitude: 0.1
+  frequency: 0.1
+  offset: -0.8
+}
+
+joint_config {
+  amplitude: 0.1
+  frequency: 0.05
+  offset: 1.4
+}

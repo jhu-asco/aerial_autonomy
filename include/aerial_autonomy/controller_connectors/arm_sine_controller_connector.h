@@ -60,5 +60,8 @@ private:
   * @brief Arm hardware to send commands
   */
   ArmParser &arm_hardware_;
+  /**
+  * @brief private reference to arm sine controller
+  */
   ArmSineController &private_ref_controller_;
 };

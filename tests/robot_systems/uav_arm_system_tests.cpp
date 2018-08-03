@@ -1,4 +1,5 @@
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
+#include <aerial_autonomy/tests/test_utils.h>
 #include <aerial_autonomy/trackers/roi_to_position_converter.h>
 #include <arm_parsers/generic_arm.h>
 #include <quad_simulator_parser/quad_simulator.h>
@@ -22,6 +23,8 @@ TEST(UAVArmSystemTests, Constructor) {
   uav_arm_system_config->mutable_position_controller_config();
   uav_arm_system_config->mutable_arm_system_config()->set_arm_parser_type(
       "GenericArm");
+  // Fill MPC Config
+  test_utils::fillMPCConfig(config);
 
   ASSERT_NO_THROW(new UAVArmSystem(config));
 }

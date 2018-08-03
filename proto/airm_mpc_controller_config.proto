@@ -1,0 +1,53 @@
+syntax = "proto2";
+
+import "ddp_mpc_controller_config.proto";
+
+message AirmMPCControllerConfig {
+  /**
+  * @brief ddp parameters
+  */
+  required DDPMPCControllerConfig ddp_config = 1;
+  /**
+  * @brief Folder to retrieve neural network and gain parameters from Tensorflow
+  */
+  optional string weights_folder = 2;
+  /**
+  * @brief Flag for using fully connected residual dynamics
+  */
+  optional bool use_residual_dynamics = 3 [ default = true ];
+  /**
+  * @brief Default thrust gain
+  */
+  optional double default_thrust_gain = 5 [ default = 0.16 ];
+  /**
+  * @brief Maximum joint velocity
+  */
+  optional double max_joint_velocity = 6 [ default = 0.7 ];
+  /**
+  * @brief Number of fully connected layers including the final linear layer
+  */
+  optional uint32 n_layers = 7 [ default = 3 ];
+  /**
+  * @brief Goal position tolerance
+  */
+  optional double goal_position_tolerance = 8 [ default = 0.05 ];
+  /**
+  * @brief Goal velocity tolerance
+  */
+  optional double goal_velocity_tolerance = 9 [ default = 0.1 ];
+  /**
+  * @brief Goal joint angle tolerance
+  */
+  optional double goal_joint_angle_tolerance = 10 [ default = 0.05 ];
+  /**
+  * @brief Goal joint velocity tolerance
+  */
+  optional double goal_joint_velocity_tolerance = 11 [ default = 0.1 ];
+  /**
+  * @brief Flag to specify use of code generation
+  */
+  optional bool use_code_generation = 12 [ default = true ];
+  repeated double lower_bound_control = 13;
+  repeated double upper_bound_control = 14;
+  optional double mocap_yaw_offset = 15 [ default = 1.57 ];
+}

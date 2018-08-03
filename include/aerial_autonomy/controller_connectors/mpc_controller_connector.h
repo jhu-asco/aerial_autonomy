@@ -1,11 +1,12 @@
 #pragma once
 #include "aerial_autonomy/controller_connectors/abstract_constraint_generator.h"
-#include "aerial_autonomy/controller_connectors/abstract_control_selector.h"
 #include "aerial_autonomy/controller_connectors/base_controller_connector.h"
 #include "aerial_autonomy/controllers/mpc_controller.h"
-#include "aerial_autonomy/estimators/state_estimator.h"
+
+#include <Eigen/Dense>
 
 #include <chrono>
+#include <memory>
 
 /**
 * @brief Generic Controller connector for MPC controllers
@@ -15,25 +16,21 @@
 */
 template <class StateT, class ControlT>
 class MPCControllerConnector
-    : public ControllerConnector<
-          MPCInputs<StateT>,
-          DiscreteReferenceTrajectoryClosest<StateT, ControlT>,
-          DiscreteReferenceTrajectoryClosest<StateT, ControlT>> {
+    : public ControllerConnector<MPCInputs<StateT>,
+                                 ReferenceTrajectoryPtr<StateT, ControlT>,
+                                 ControlT> {
   /**
   * @brief Parent controller connector
   */
   using BaseConnector =
       ControllerConnector<MPCInputs<StateT>,
-                          DiscreteReferenceTrajectoryClosest<StateT, ControlT>,
-                          DiscreteReferenceTrajectoryClosest<StateT, ControlT>>;
+                          ReferenceTrajectoryPtr<StateT, ControlT>, ControlT>;
 
 public:
   /**
   * @brief Constructor.
   *
   * Initializes start time
-  * \todo Gowtham create control selector based on proto strategy
-  *
   * @param controller The MPC Controller to use
   * @param constraint_generator The constraint generator to use
   * @param state_estimator state estimator that finds the state of robot
@@ -42,13 +39,22 @@ public:
   */
   MPCControllerConnector(
       AbstractMPCController<StateT, ControlT> &controller,
-      AbstractConstraintGenerator &constraint_generator,
-      AbstractStateEstimator<StateT, ControlT> &state_estimator,
-      ControllerGroup group)
+      ControllerGroup group,
+      AbstractConstraintGeneratorPtr constraint_generator = nullptr)
       : BaseConnector(controller, group),
         constraint_generator_(constraint_generator),
-        state_estimator_(state_estimator),
-        t_state_estimate_(std::chrono::high_resolution_clock::now()) {}
+        t_goal_(std::chrono::high_resolution_clock::now()) {}
+
+  /**
+  * @brief Estimate the current state and static params
+  *
+  * @param current_state Fill the state element
+  * @param params Param vector to fill
+  *
+  * @return  True if estimation is successful
+  */
+  virtual bool estimateStateAndParameters(StateT &current_state,
+                                          Eigen::VectorXd &params) = 0;
 
   /**
   * @brief extract the initial state and dynamic constraints
@@ -58,41 +64,51 @@ public:
   * @return true if state estimation and constraint generation is ok
   */
   virtual bool extractSensorData(MPCInputs<StateT> &mpc_inputs) {
-    mpc_inputs.initial_state = state_estimator_.getState();
-    t_state_estimate_ = std::chrono::high_resolution_clock::now();
-    mpc_inputs.constraints = constraint_generator_.generateConstraints();
-    return (state_estimator_.getStatus() && constraint_generator_.getStatus());
+    bool estimation_status = estimateStateAndParameters(
+        mpc_inputs.initial_state, mpc_inputs.parameters);
+    mpc_inputs.time_since_goal =
+        std::chrono::duration<double>(
+            std::chrono::high_resolution_clock::now() - t_goal_)
+            .count();
+    bool return_status = estimation_status;
+    if (constraint_generator_) {
+      mpc_inputs.constraints = constraint_generator_->generateConstraints();
+      return_status = return_status && constraint_generator_->getStatus();
+    }
+    return return_status;
   }
 
   /**
-  * @brief send commands to hardware.
+  * @brief Set the goal for controller and save the current time
   *
-  * @param control The control to send to hardware
+  * @param goal goal for controller
   */
-  virtual void sendCommandsToHardware(ControlT control) = 0;
+  void setGoal(ReferenceTrajectoryPtr<StateT, ControlT> goal) {
+    BaseConnector::setGoal(goal);
+    t_goal_ = std::chrono::high_resolution_clock::now();
+  }
 
   /**
-  * @brief select controller from mpc optimization and update
-  * estimator and send control to hardware
+  * @brief Get the MPC planned trajectory
   *
-  * @param trajectory The reference trajectory obtained from MPC optimization
+  * @param xs vector of MPC states
+  * @param us vector of MPC controls
   */
-  void sendControllerCommands(
-      DiscreteReferenceTrajectoryClosest<StateT, ControlT> trajectory) {
-    StateT current_state_estimate = state_estimator_.getState();
-    auto dt_optimization = std::chrono::duration<double>(
-        std::chrono::high_resolution_clock::now() - t_state_estimate_);
-    ControlT control = control_selector_->selectControl(
-        trajectory, current_state_estimate, dt_optimization);
-    state_estimator_.propagate(control);
-    sendCommandsToHardware(control);
-  }
+  virtual void getTrajectory(std::vector<StateT> &xs,
+                             std::vector<ControlT> &us) const = 0;
+
+  /**
+  * @brief Get the reference MPC trajectory
+  *
+  * @param xds vector of MPC states
+  * @param uds vector of MPC controls
+  */
+  virtual void getDesiredTrajectory(std::vector<StateT> &xds,
+                                    std::vector<ControlT> &uds) const = 0;
 
 private:
-  AbstractConstraintGenerator &constraint_generator_; ///< Generates constraints
-  AbstractStateEstimator<StateT, ControlT>
-      &state_estimator_; ///< Estimate current state
-  std::unique_ptr<AbstractControlSelector<StateT, ControlT>>
-      control_selector_; ///< Control selector
-  std::chrono::time_point<std::chrono::high_resolution_clock> t_state_estimate_;
+  AbstractConstraintGeneratorPtr
+      constraint_generator_; ///< Generates constraints
+  std::chrono::high_resolution_clock::time_point
+      t_goal_; ///< Time when goal is set
 };

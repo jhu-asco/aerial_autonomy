@@ -1,7 +1,7 @@
 #pragma once
 #include "aerial_autonomy/sensors/base_sensor.h"
 #include "aerial_autonomy/types/velocity.h"
-#include "velocity_sensor_config.pb.h"
+#include "ros_sensor_config.pb.h"
 #include <aerial_autonomy/common/conversions.h>
 #include <glog/logging.h>
 #include <nav_msgs/Odometry.h>
@@ -17,7 +17,7 @@ public:
   *
   * @param Config for velocity sensor
   */
-  VelocitySensor(VelocitySensorConfig config) : config_(config) {
+  VelocitySensor(ROSSensorConfig config) : config_(config) {
     VLOG(2) << "Initialzing ROS Sensor";
     odom_sub_ =
         nh_.subscribe(config.topic(), 1, &VelocitySensor::odomCallback, this);
@@ -59,7 +59,7 @@ private:
   /**
   * @brief sensor config
   */
-  VelocitySensorConfig config_;
+  ROSSensorConfig config_;
   /**
   * @brief nodehandle for ros stuff
   */

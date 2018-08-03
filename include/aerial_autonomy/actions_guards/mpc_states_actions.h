@@ -1,0 +1,53 @@
+#pragma once
+#include <aerial_autonomy/actions_guards/arm_states_actions.h>
+#include <aerial_autonomy/actions_guards/mpc_functors.h>
+#include <aerial_autonomy/actions_guards/uav_states_actions.h>
+
+/**
+* @brief Defines states and actions used by MPC state machine
+*
+* @tparam LogicStateMachineT State machine type
+*/
+template <class LogicStateMachineT>
+struct MPCStatesActions : UAVStatesActions<LogicStateMachineT>,
+                          ArmStatesActions<LogicStateMachineT> {
+  /**
+   * @brief namespace for states and actions for basic uav actions
+   */
+  using usa = UAVStatesActions<LogicStateMachineT>;
+  /**
+   * @brief namespace for states and actions for arm functors
+   */
+  using asa = ArmStatesActions<LogicStateMachineT>;
+  /// States
+  /**
+   * @brief MPC state
+   */
+  using MPCState = MPCState_<LogicStateMachineT>;
+
+  /// Transition Actions
+  /**
+   * @brief MPC transition action for tracking spiral reference
+   */
+  using MPCSpiralTransition =
+      MPCSpiralReferenceTrackingTransition<LogicStateMachineT>;
+  /**
+   * @brief MPC transition action for tracking waypoint
+   */
+  using MPCWaypointTransition =
+      MPCWaypointReferenceTrackingTransition<LogicStateMachineT>;
+  /**
+  * @brief Action sequence to abort arm controllers and move arm to
+  * right angle
+  */
+  using AbortArmControllerArmRightFold =
+      base_functors::bActionSequence<boost::mpl::vector<
+          typename asa::AbortArmController, typename asa::ArmRightFold>>;
+  /**
+  * @brief Action sequence to abort UAV and arm controllers and move arm to
+  * right angle
+  */
+  using AbortUAVArmControllerArmRightFold =
+      base_functors::bActionSequence<boost::mpl::vector<
+          typename usa::UAVControllerAbort, AbortArmControllerArmRightFold>>;
+};

@@ -1,0 +1,34 @@
+mpc_state_machine_config {
+  spiral_reference {
+    frequency: 0.2
+    radius_x: 0.4
+    radius_y: 0.4
+    velocity_z: 0.2
+    frequency_z: 0.2
+  }
+  arm_reference {
+    joint_config {
+      amplitude: 0.2
+      frequency: 0.2
+      offset: -1.0
+      phase: 0.1
+    }
+
+    joint_config {
+      amplitude: 0.2
+      frequency: 0.2
+      offset: 0.3
+      phase: 0.0
+    }
+  }
+  waypoint_reference {
+    position {
+      x: 0.0
+      y: -0.5
+      z: 0.1
+    }
+    yaw: 0.0
+  }
+  goal_joint_angle_1: -1.0
+  goal_joint_angle_2: 1.0
+}

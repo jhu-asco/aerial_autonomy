@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(aerial_autonomy)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-set(CMAKE_CXX_FLAGS "-g -Werror -Wall -std=c++11 --coverage ${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "-O3 -g -Werror -Wall -std=c++11 --coverage -march=corei7 -ffast-math -Wno-strict-overflow ${CMAKE_CXX_FLAGS}")
 add_definitions(-DBOOST_MPL_CFG_NO_PREPROCESSED_HEADERS -DBOOST_MPL_LIMIT_MAP_SIZE=50 -DBOOST_MPL_LIMIT_VECTOR_SIZE=50 -DFUSION_MAX_VECTOR_SIZE=50
                 -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}")
 
@@ -25,6 +25,7 @@ find_package(catkin REQUIRED COMPONENTS
   image_transport
   ar_track_alvar_msgs
   dynamic_reconfigure
+  gcop_comm
 )
 
 find_package(arm_plugins)
@@ -45,11 +46,18 @@ find_package(Armadillo REQUIRED)
 # Quad simulator parser dependencies
 find_package(GCOP REQUIRED systems)
 include_directories(${GCOP_INCLUDE_DIRS})
-set(QUAD_SIM_PARSER_LIBS ${QUAD_SIM_PARSER_LIBS} ${GCOP_LIBRARIES})
 
 find_package(TinyXML REQUIRED)
 include_directories(${TINYXML_INCLUDE_DIR})
-set(QUAD_SIM_PARSER_LIBS ${QUAD_SIM_PARSER_LIBS} ${TINYXML_LIBRARIES})
+set(GCOP_LIBRARIES ${GCOP_LIBRARIES} ${TINYXML_LIBRARIES})
+
+find_package(casadi)
+if (casadi_FOUND)
+  message("Found CASADI")
+  include_directories(${CASADI_INCLUDE_DIRS})
+  link_directories( ${CASADI_LIBRARY_DIRS})
+  set(GCOP_LIBRARIES ${GCOP_LIBRARIES} ${CASADI_LIBRARIES})
+endif()
 
 find_package(Eigen3 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
@@ -177,6 +185,7 @@ visual_servoing_events
 pick_place_events
 arm_events
 uav_arm_sysid_events
+mpc_events
 )
 
 ##############
@@ -209,6 +218,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/arm_system_config.proto
   proto/base_state_machine_config.proto
   proto/uav_state_machine_config.proto
+  proto/mpc_state_machine_config.proto
   proto/visual_servoing_state_machine_config.proto
   proto/pick_place_state_machine_config.proto
   proto/following_waypoint_sequence_config.proto
@@ -216,9 +226,13 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/place_group.proto
   proto/thrust_gain_estimator_config.proto
   proto/tracking_vector_estimator_config.proto
-  proto/velocity_sensor_config.proto
+  proto/ros_sensor_config.proto
   proto/arm_sine_controller_config.proto
   proto/qrotor_backstepping_controller_config.proto
+  proto/ddp_mpc_controller_config.proto
+  proto/airm_mpc_controller_config.proto
+  proto/mpc_visualizer_config.proto
+  proto/spiral_reference_trajectory_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -252,6 +266,7 @@ set(SRC
   src/common/controller_status.cpp
   src/common/string_utils.cpp
   src/common/system_handler_node_utils.cpp
+  src/common/mpc_trajectory_visualizer.cpp
   src/log/data_stream.cpp
   src/log/log.cpp
   src/log/mocap_logger.cpp
@@ -263,6 +278,8 @@ set(SRC
   src/trackers/closest_tracking_strategy.cpp
   src/trackers/id_tracking_strategy.cpp
   src/trackers/simple_tracking_strategy.cpp
+  src/types/spiral_reference_trajectory.cpp
+  src/types/sensor_status.cpp
   src/controllers/manual_rpyt_controller.cpp
   src/controllers/velocity_based_position_controller.cpp
   src/controllers/constant_heading_depth_controller.cpp
@@ -276,7 +293,7 @@ set(SRC
   src/controllers/qrotor_backstepping_controller.cpp
   src/estimators/thrust_gain_estimator.cpp
   src/estimators/tracking_vector_estimator.cpp
-  src/controller_connectors/mpc_controller_drone_connector.cpp
+  src/controller_connectors/mpc_controller_airm_connector.cpp
   src/controller_connectors/visual_servoing_controller_drone_connector.cpp
   src/controller_connectors/base_relative_pose_visual_servoing_connector.cpp
   src/controller_connectors/relative_pose_visual_servoing_controller_drone_connector.cpp
@@ -287,7 +304,13 @@ set(SRC
   src/controller_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_connectors/manual_rpyt_controller_drone_connector.cpp
   src/controller_connectors/joystick_velocity_controller_drone_connector.cpp
+  src/sensors/pose_sensor.cpp
 )
+
+if (casadi_FOUND)
+  set(SRC ${SRC}
+      src/controllers/ddp_airm_mpc_controller.cpp)
+endif()
 
 if (arm_plugins_FOUND)
   set(SRC ${SRC} ${ARM_SRC})
@@ -299,7 +322,7 @@ add_library(aerial_autonomy
   ${SRC}
 )
 add_dependencies(aerial_autonomy proto)
-target_link_libraries(aerial_autonomy proto ${catkin_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBS} ${ARMADILLO_LIBRARY})
+target_link_libraries(aerial_autonomy proto ${GCOP_LIBRARIES} ${catkin_LIBRARIES} ${GLOG_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBS} ${ARMADILLO_LIBRARY})
 
 
 ## Add cmake target dependencies of the library
@@ -312,6 +335,7 @@ add_executable(joystick_uav_node src/system_handler_nodes/joystick_uav_node.cpp)
 add_executable(uav_system_node src/system_handler_nodes/uav_system_node.cpp)
 add_executable(uav_vision_system_node src/system_handler_nodes/uav_vision_system_node.cpp)
 add_executable(event_publish_node src/tests/event_publish_node.cpp)
+add_executable(mpc_controller_tuner src/controller_tuners/mpc_controller_tuner.cpp)
 add_dependencies(event_publish_node ${PROJECT_NAME}_generate_messages_cpp)
 
 ## Add cmake target dependencies of the executable
@@ -321,16 +345,19 @@ add_dependencies(event_publish_node ${PROJECT_NAME}_generate_messages_cpp)
 ## Specify libraries to link a library or executable target against
 
 target_link_libraries(joystick_uav_node aerial_autonomy)
+target_link_libraries(mpc_controller_tuner aerial_autonomy)
 target_link_libraries(uav_system_node aerial_autonomy)
 target_link_libraries(uav_vision_system_node aerial_autonomy)
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
 
 if (arm_plugins_FOUND)
+  add_executable(airm_mpc_node src/system_handler_nodes/airm_mpc_node.cpp)
   add_executable(uav_arm_system_node src/system_handler_nodes/uav_arm_system_node.cpp)
   add_executable(uav_arm_sysid_node src/system_handler_nodes/uav_arm_sysid_node.cpp)
 
   target_link_libraries(uav_arm_system_node aerial_autonomy)
   target_link_libraries(uav_arm_sysid_node aerial_autonomy)
+  target_link_libraries(airm_mpc_node aerial_autonomy)
 endif ()
 
 #############
@@ -392,6 +419,7 @@ catkin_add_gtest(${PROJECT_NAME}-uav-basic-state-machine-test tests/state_machin
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-state-machine-test tests/state_machines/visual_servoing_state_machine_tests.cpp)
 add_dependencies(${PROJECT_NAME}-visual-servoing-state-machine-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
 add_rostest_gtest(${PROJECT_NAME}-system-handler-node-utils-test tests/common/system_handler_node_utils_tests.test tests/common/system_handler_node_utils_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-mpc-trajectory-visualizer-test tests/common/mpc_trajectory_visualizer_tests.test tests/common/mpc_trajectory_visualizer_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-uav-vision-system-test tests/robot_systems/uav_vision_system_tests.test tests/robot_systems/uav_vision_system_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-event-test tests/state_machines/state_machine_gui_connector_event_tests.test tests/state_machines/state_machine_gui_connector_event_tests.cpp)
 add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-event-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
@@ -427,6 +455,7 @@ add_rostest_gtest(${PROJECT_NAME}-velocity-sensor-test tests/sensors/velocity_se
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test tests/controller_connectors/relative_pose_visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-relative-pose-visual-servoing-connector-test tests/controller_connectors/rpyt_relative_pose_visual_servoing_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-position-controller-drone-connector-test tests/controller_connectors/rpyt_based_position_controller_drone_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-ddp-airm-mpc-connector-test tests/controller_connectors/ddp_airm_mpc_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-drone-connector-test tests/controller_connectors/visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test tests/controller_connectors/joystick_velocity_controller_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-data-stream-test tests/log/data_stream_tests.cpp)
@@ -435,25 +464,27 @@ catkin_add_gtest(${PROJECT_NAME}-string-utils-test tests/common/string_utils_tes
 catkin_add_gtest(${PROJECT_NAME}-conversions-test tests/common/conversions_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-proto-utils-test tests/common/proto_utils_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-reference-trajectory-test tests/types/reference_trajectory_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-airm-spiral-reference-trajectory-test tests/types/airm_spiral_reference_trajectory_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-qrotor-backstepping-controller-test tests/controllers/qrotor_backstepping_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-ddp-airm-mpc-controller-test tests/controllers/ddp_airm_mpc_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-minimum-snap-trajectory-test tests/types/minimum_snap_trajectory_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
-  target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+  target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-visual-servoing-state-machine-test)
-  target_link_libraries(${PROJECT_NAME}-visual-servoing-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+  target_link_libraries(${PROJECT_NAME}-visual-servoing-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test)
-  target_link_libraries(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+  target_link_libraries(${PROJECT_NAME}-pos-ctrlr-drone-cnctr-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test)
-  target_link_libraries(${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+  target_link_libraries(${PROJECT_NAME}-builtin-vel-ctrlr-drone-cnctr-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test)
-  target_link_libraries(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+  target_link_libraries(${PROJECT_NAME}-manual-rpyt-ctrlr-drone-cnctr-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test)
-  target_link_libraries(${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+  target_link_libraries(${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-unordered-heterogeneous-map-test)
   target_link_libraries(${PROJECT_NAME}-unordered-heterogeneous-map-test ${GLOG_LIBRARIES})
@@ -468,16 +499,16 @@ if(TARGET ${PROJECT_NAME}-evnt-mngr-test)
   target_link_libraries(${PROJECT_NAME}-evnt-mngr-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-uav-system-test)
-  target_link_libraries(${PROJECT_NAME}-uav-system-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+  target_link_libraries(${PROJECT_NAME}-uav-system-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-uav-basic-functor-tests)
-  target_link_libraries(${PROJECT_NAME}-uav-basic-functor-tests aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+  target_link_libraries(${PROJECT_NAME}-uav-basic-functor-tests aerial_autonomy ${GCOP_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-shorting-action-sequence-tests)
   target_link_libraries(${PROJECT_NAME}-shorting-action-sequence-tests aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-visual-servoing-functor-tests)
-  target_link_libraries(${PROJECT_NAME}-visual-servoing-functor-tests aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+  target_link_libraries(${PROJECT_NAME}-visual-servoing-functor-tests aerial_autonomy ${GCOP_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test)
   target_link_libraries(${PROJECT_NAME}-ctrlr-hrdwr-cnctr-test aerial_autonomy)
@@ -510,7 +541,7 @@ if(TARGET ${PROJECT_NAME}-uav-vision-system-handler-test)
   target_link_libraries(${PROJECT_NAME}-uav-vision-system-handler-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-uav-vision-system-test)
-  target_link_libraries(${PROJECT_NAME}-uav-vision-system-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+  target_link_libraries(${PROJECT_NAME}-uav-vision-system-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-velocity-based-position-controller-test)
   target_link_libraries(${PROJECT_NAME}-velocity-based-position-controller-test aerial_autonomy)
@@ -537,7 +568,10 @@ if(TARGET ${PROJECT_NAME}-rpyt-based-position-controller-test)
   target_link_libraries(${PROJECT_NAME}-rpyt-based-position-controller-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-rpyt-based-position-controller-drone-connector-test)
-  target_link_libraries(${PROJECT_NAME}-rpyt-based-position-controller-drone-connector-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+  target_link_libraries(${PROJECT_NAME}-rpyt-based-position-controller-drone-connector-test aerial_autonomy ${GCOP_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-ddp-airm-mpc-connector-test)
+  target_link_libraries(${PROJECT_NAME}-ddp-airm-mpc-connector-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-rpyt-based-velocity-controller-test)
   target_link_libraries(${PROJECT_NAME}-rpyt-based-velocity-controller-test aerial_autonomy)
@@ -546,16 +580,19 @@ if(TARGET ${PROJECT_NAME}-constant-heading-depth-controller-test)
   target_link_libraries(${PROJECT_NAME}-constant-heading-depth-controller-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-qrotor-backstepping-controller-test)
-  target_link_libraries(${PROJECT_NAME}-qrotor-backstepping-controller-test aerial_autonomy ${GCOP_LIBRARIES} ${TINYXML_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME}-qrotor-backstepping-controller-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-ddp-airm-mpc-controller-test)
+  target_link_libraries(${PROJECT_NAME}-ddp-airm-mpc-controller-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test)
-  target_link_libraries(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+  target_link_libraries(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-rpyt-relative-pose-visual-servoing-connector-test)
-  target_link_libraries(${PROJECT_NAME}-rpyt-relative-pose-visual-servoing-connector-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+  target_link_libraries(${PROJECT_NAME}-rpyt-relative-pose-visual-servoing-connector-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-visual-servoing-drone-connector-test)
-  target_link_libraries(${PROJECT_NAME}-visual-servoing-drone-connector-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+  target_link_libraries(${PROJECT_NAME}-visual-servoing-drone-connector-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-roi-to-position-converter-test)
   target_link_libraries(${PROJECT_NAME}-roi-to-position-converter-test aerial_autonomy)
@@ -563,14 +600,17 @@ endif()
 if(TARGET ${PROJECT_NAME}-system-handler-node-utils-test)
   target_link_libraries(${PROJECT_NAME}-system-handler-node-utils-test aerial_autonomy)
 endif()
+if(TARGET ${PROJECT_NAME}-mpc-trajectory-visualizer-test)
+  target_link_libraries(${PROJECT_NAME}-mpc-trajectory-visualizer-test aerial_autonomy)
+endif()
 if(TARGET ${PROJECT_NAME}-alvar-tracker-test)
   target_link_libraries(${PROJECT_NAME}-alvar-tracker-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-simple-tracker-test)
-  target_link_libraries(${PROJECT_NAME}-simple-tracker-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+  target_link_libraries(${PROJECT_NAME}-simple-tracker-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-simple-multi-tracker-test)
-  target_link_libraries(${PROJECT_NAME}-simple-multi-tracker-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+  target_link_libraries(${PROJECT_NAME}-simple-multi-tracker-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-math-test)
   target_link_libraries(${PROJECT_NAME}-math-test aerial_autonomy)
@@ -591,10 +631,13 @@ if(TARGET ${PROJECT_NAME}-conversions-test)
   target_link_libraries(${PROJECT_NAME}-conversions-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-velocity-sensor-test)
-  target_link_libraries(${PROJECT_NAME}-velocity-sensor-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+  target_link_libraries(${PROJECT_NAME}-velocity-sensor-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-reference-trajectory-test)
   target_link_libraries(${PROJECT_NAME}-reference-trajectory-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-airm-spiral-reference-trajectory-test)
+  target_link_libraries(${PROJECT_NAME}-airm-spiral-reference-trajectory-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-minimum-snap-trajectory-test)
   target_link_libraries(${PROJECT_NAME}-minimum-snap-trajectory-test aerial_autonomy)
@@ -603,7 +646,9 @@ endif()
 if (arm_plugins_FOUND)
   catkin_add_gtest(${PROJECT_NAME}-joystick-state-machine-test tests/state_machines/joystick_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-pick-place-state-machine-test tests/state_machines/pick_place_state_machine_tests.cpp)
+  catkin_add_gtest(${PROJECT_NAME}-mpc-state-machine-test tests/state_machines/mpc_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-pick-place-functor-tests tests/actions_guards/pick_place_functor_tests.cpp)
+  catkin_add_gtest(${PROJECT_NAME}-mpc-functor-tests tests/actions_guards/mpc_functor_tests.cpp)
   add_rostest_gtest(${PROJECT_NAME}-uav-arm-system-handler-test tests/system_handlers/uav_arm_system_handler_tests.test tests/system_handlers/uav_arm_system_handler_tests.cpp)
   add_dependencies(${PROJECT_NAME}-uav-arm-system-handler-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
   add_rostest_gtest(${PROJECT_NAME}-uav-arm-system-test tests/robot_systems/uav_arm_system_tests.test tests/robot_systems/uav_arm_system_tests.cpp)
@@ -613,33 +658,38 @@ if (arm_plugins_FOUND)
   catkin_add_gtest(${PROJECT_NAME}-arm-system-test tests/robot_systems/arm_system_tests.cpp)
 
   if(TARGET ${PROJECT_NAME}-joystick-state-machine-test)
-    target_link_libraries(${PROJECT_NAME}-joystick-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+    target_link_libraries(${PROJECT_NAME}-joystick-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
   endif()
   if(TARGET ${PROJECT_NAME}-arm-functor-tests)
-    target_link_libraries(${PROJECT_NAME}-arm-functor-tests aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+    target_link_libraries(${PROJECT_NAME}-arm-functor-tests aerial_autonomy ${GCOP_LIBRARIES})
   endif()
   if(TARGET ${PROJECT_NAME}-uav-arm-system-handler-test)
     target_link_libraries(${PROJECT_NAME}-uav-arm-system-handler-test aerial_autonomy)
   endif()
   if(TARGET ${PROJECT_NAME}-uav-arm-sysid-state-machine-test)
-    target_link_libraries(${PROJECT_NAME}-uav-arm-sysid-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+    target_link_libraries(${PROJECT_NAME}-uav-arm-sysid-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
   endif()
   if(TARGET ${PROJECT_NAME}-uav-arm-system-test)
-    target_link_libraries(${PROJECT_NAME}-uav-arm-system-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+    target_link_libraries(${PROJECT_NAME}-uav-arm-system-test aerial_autonomy ${GCOP_LIBRARIES})
   endif()
   if(TARGET ${PROJECT_NAME}-arm-system-test)
-    target_link_libraries(${PROJECT_NAME}-arm-system-test aerial_autonomy ${GCOP_LIBRARIES} ${TINYXML_LIBRARIES})
+    target_link_libraries(${PROJECT_NAME}-arm-system-test aerial_autonomy)
   endif()
   if(TARGET ${PROJECT_NAME}-visual-servoing-arm-connector-test)
-    target_link_libraries(${PROJECT_NAME}-visual-servoing-arm-connector-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+    target_link_libraries(${PROJECT_NAME}-visual-servoing-arm-connector-test aerial_autonomy ${GCOP_LIBRARIES})
   endif()
   if(TARGET ${PROJECT_NAME}-pick-place-state-machine-test)
-    target_link_libraries(${PROJECT_NAME}-pick-place-state-machine-test aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+    target_link_libraries(${PROJECT_NAME}-pick-place-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
+  endif()
+  if(TARGET ${PROJECT_NAME}-mpc-state-machine-test)
+    target_link_libraries(${PROJECT_NAME}-mpc-state-machine-test aerial_autonomy)
   endif()
   if(TARGET ${PROJECT_NAME}-pick-place-functor-tests)
-    target_link_libraries(${PROJECT_NAME}-pick-place-functor-tests aerial_autonomy ${QUAD_SIM_PARSER_LIBS})
+    target_link_libraries(${PROJECT_NAME}-pick-place-functor-tests aerial_autonomy ${GCOP_LIBRARIES})
   endif()
-
+  if(TARGET ${PROJECT_NAME}-mpc-functor-tests)
+    target_link_libraries(${PROJECT_NAME}-mpc-functor-tests aerial_autonomy)
+  endif()
 endif ()
 
 ## Add folders to be run by python nosetests

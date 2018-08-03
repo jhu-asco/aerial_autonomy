@@ -91,6 +91,8 @@ protected:
     arm_position_tolerance->set_x(.1);
     arm_position_tolerance->set_y(.1);
     arm_position_tolerance->set_z(.1);
+    // Fill MPC Config
+    test_utils::fillMPCConfig(config);
     simple_tracker.reset(new SimpleTracker(*drone_hardware, camera_transform));
     uav_arm_system.reset(new UAVArmSystem(
         config, std::dynamic_pointer_cast<BaseTracker>(simple_tracker),

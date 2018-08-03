@@ -1,5 +1,6 @@
 #pragma once
 #include "aerial_autonomy/types/constraint.h"
+#include <memory>
 
 /**
 * @brief Generates obstacles based on sensor data
@@ -21,3 +22,9 @@ public:
   */
   virtual bool getStatus() { return true; }
 };
+
+/**
+* @brief shared pointer to abstract constraint generator
+*/
+using AbstractConstraintGeneratorPtr =
+    std::shared_ptr<AbstractConstraintGenerator>;

@@ -1,25 +1,8 @@
 #pragma once
+#include "aerial_autonomy/types/sensor_status.h"
 #include <aerial_autonomy/common/atomic.h>
+#include <memory>
 
-/**
-* @brief enum for sensor status
-*
-* VALID : Sensor data is consistent with uav data upto
-* certain degree of precision
-*
-* INVALID : Set if sensor data diverges from uav data
-* for a prolonged period
-*/
-enum class SensorStatus { INVALID, VALID };
-/**
-* @brief convert sensor status to bool
-*/
-bool sensor_status_to_bool(SensorStatus status) {
-  if (status == SensorStatus::INVALID)
-    return false;
-  else
-    return true;
-}
 /**
 * @brief Base class for sensors
 *
@@ -41,3 +24,11 @@ public:
   */
   virtual SensorStatus getSensorStatus() = 0;
 };
+
+/**
+* @brief Shared pointer to base sensor
+*
+* @tparam SensorDataT type of sensor data
+*/
+template <class SensorDataT>
+using SensorPtr = std::shared_ptr<Sensor<SensorDataT>>;

@@ -1,0 +1,4 @@
+<launch>
+  <test test-name="mpc_trajectory_visualizer_tests" pkg="aerial_autonomy" type="aerial_autonomy-mpc-trajectory-visualizer-test">
+  </test>
+</launch>

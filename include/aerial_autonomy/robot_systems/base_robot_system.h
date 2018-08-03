@@ -45,17 +45,25 @@ public:
     }
   }
 
+  /**
+  * @brief Activate a given controller connector and its dependent connectors
+  *
+  * Assumes the goal for the connector has already been set
+  *
+  * @param controller_connector The controller connector to activate
+  */
   void activateControllerConnector(
       AbstractControllerConnector *controller_connector) {
     if (controller_connector == nullptr) {
       throw std::runtime_error(
           "null pointer provided for activating controller connector");
     }
-    controller_connector->initialize();
     ControllerGroup controller_group =
         controller_connector->getControllerGroup();
-    if (active_controllers_[controller_group] != controller_connector) {
+    // Initialize and swap
+    {
       boost::mutex::scoped_lock lock(*thread_mutexes_[controller_group]);
+      controller_connector->initialize();
       active_controllers_[controller_group] = controller_connector;
     }
     AbstractControllerConnector *dependent_connector =
@@ -76,7 +84,7 @@ public:
   template <class ControllerConnectorT, class GoalT> void setGoal(GoalT goal) {
     ControllerConnectorT *controller_connector =
         controller_connector_container_.getObject<ControllerConnectorT>();
-    if(controller_connector != nullptr) {
+    if (controller_connector != nullptr) {
       ControllerGroup controller_group =
           controller_connector->getControllerGroup();
       abortController(controller_group);

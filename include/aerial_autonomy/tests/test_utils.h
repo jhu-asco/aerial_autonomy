@@ -11,6 +11,8 @@
 #include <thread>
 
 #include "aerial_autonomy/types/position_yaw.h"
+#include "airm_mpc_controller_config.pb.h"
+#include "uav_system_config.pb.h"
 
 /**
  * @brief Namespace for helperfunctions that reduce code duplication
@@ -227,6 +229,98 @@ protected:
    */
   void statusCallback(std_msgs::String status) { status_ = status.data; }
 };
+
+/**
+* @brief Fill MPC config with default values
+*
+* @param config MPC Controller config
+*/
+void fillMPCConfig(AirmMPCControllerConfig &config) {
+  auto lb = config.mutable_lower_bound_control();
+  lb->Resize(6, 0);
+  auto ub = config.mutable_upper_bound_control();
+  ub->Resize(6, 0);
+  config.set_lower_bound_control(0, 0.8);
+  config.set_lower_bound_control(1, -0.3);
+  config.set_lower_bound_control(2, -0.3);
+  config.set_lower_bound_control(3, -0.3);
+  config.set_lower_bound_control(4, -0.7);
+  config.set_lower_bound_control(5, -0.7);
+
+  config.set_upper_bound_control(0, 1.2);
+  config.set_upper_bound_control(1, 0.3);
+  config.set_upper_bound_control(2, 0.3);
+  config.set_upper_bound_control(3, 0.3);
+  config.set_upper_bound_control(4, 0.7);
+  config.set_upper_bound_control(5, 0.7);
+
+  config.set_goal_position_tolerance(0.2);
+  config.set_goal_velocity_tolerance(0.25);
+  config.set_goal_joint_angle_tolerance(0.2);
+  config.set_goal_joint_velocity_tolerance(0.1);
+  DDPMPCControllerConfig *ddp_config = config.mutable_ddp_config();
+  ddp_config->set_n(100);
+  ddp_config->set_max_cost(500);
+  ddp_config->set_look_ahead_time(0.02);
+  auto q = ddp_config->mutable_q();
+  q->Resize(21, 0.0);
+  auto qf = ddp_config->mutable_qf();
+  qf->Resize(21, 0.1);
+  auto r = ddp_config->mutable_r();
+  r->Resize(6, 4.0);
+  r->Set(0, 6.0); // Reduce thrust control
+  r->Set(4, 1.0);
+  r->Set(5, 1.0);
+  for (int i = 0; i < 3; ++i) {
+    // Pos cost
+    ddp_config->set_qf(i, 100.0);
+    ddp_config->set_q(i, 1.0);
+    // Rpy cost
+    ddp_config->set_qf(i + 3, 800.0);
+    ddp_config->set_q(i + 3, 4.0);
+    // Vel cost
+    ddp_config->set_qf(i + 6, 100.0);
+    ddp_config->set_q(i + 6, 4.0);
+    // Rpydot cost
+    ddp_config->set_qf(i + 9, 5.0);
+    ddp_config->set_q(i + 9, 4.0);
+  }
+  for (int i = 0; i < 2; ++i) {
+    // Joint angle cost
+    ddp_config->set_qf(i + 15, 100.0);
+    // Joint velocity cost
+    ddp_config->set_qf(i + 17, 100.0);
+  }
+  ddp_config->set_debug(false);
+  ddp_config->set_max_iters(5);
+  config.set_weights_folder(
+      "neural_network_model_data/tensorflow_model_vars_16_8_tanh/");
+  config.set_use_code_generation(false);
+}
+
+/**
+* @brief Fill MPC config into UAV arm system config part of UAV system config
+*
+* @param config UAV system config
+*/
+void fillMPCConfig(UAVSystemConfig &config) {
+  auto mpc_config = config.mutable_uav_vision_system_config()
+                        ->mutable_uav_arm_system_config()
+                        ->mutable_mpc_controller_config();
+  fillMPCConfig(*mpc_config);
+}
+
+/**
+* @brief Create an MPC controller config with default values
+*
+* @return MPC controller config
+*/
+AirmMPCControllerConfig createMPCConfig() {
+  AirmMPCControllerConfig config;
+  fillMPCConfig(config);
+  return config;
+}
+
 /**
  * @brief Convenience name to wait until input function returns true
  */

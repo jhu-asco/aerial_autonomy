@@ -1,0 +1,7 @@
+MPCEventManager:
+  GoHome
+  SetHome
+  uav_basic_events/UAVEventManager/Abort
+  arm_events/ArmEventManager
+  MPCSpiralTrack
+  MPCWaypointTrack

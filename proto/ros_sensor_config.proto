@@ -1,7 +1,6 @@
 syntax = "proto2";
-import "transform.proto";
 
-message VelocitySensorConfig {
+message ROSSensorConfig {
   /**
   * @brief time from last msg after which sensor
   * becomes invalid
@@ -10,5 +9,5 @@ message VelocitySensorConfig {
   /**
   * Topic to subscribe for sensor data
   */
-  optional string topic = 3 [ default = "/velocity_sensor/odometry" ];
+  optional string topic = 3;
 }

@@ -1,0 +1,44 @@
+syntax = "proto2";
+
+/**
+* Configuration for MPC Visualization
+*/
+message MPCVisualizerConfig {
+  /**
+  * @brief Color message
+  */
+  message Color {
+    optional double r = 1 [ default = 1.0 ];
+    optional double g = 2 [ default = 0.0 ];
+    optional double b = 3 [ default = 0.0 ];
+    optional double a = 4 [ default = 1.0 ];
+  }
+  /**
+  * @brief parent frame for trajectory
+  */
+  optional string parent_frame = 1 [ default = "/optitrak" ];
+  /**
+  * @brief How many segments to skip for visualization
+  */
+  optional uint32 skip_segments = 2 [ default = 5 ];
+  /**
+  * @brief Visualize velocities
+  */
+  optional bool visualize_velocities = 3 [ default = false ];
+  /**
+  * @brief The id of line strip for trajectory
+  */
+  optional uint32 trajectory_id = 4 [ default = 1 ];
+  /**
+  * @brief Id of line strip for desired trajectory
+  */
+  optional uint32 desired_trajectory_id = 5 [ default = 2 ];
+  /**
+  * @brief color for line strip of trajectory
+  */
+  optional Color trajectory_color = 6;
+  /**
+  * @brief color for line strip of desired trajectory
+  */
+  optional Color desired_trajectory_color = 7;
+}

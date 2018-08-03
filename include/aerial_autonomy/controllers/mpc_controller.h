@@ -3,6 +3,8 @@
 #include "aerial_autonomy/types/discrete_reference_trajectory_closest.h"
 #include "aerial_autonomy/types/mpc_inputs.h"
 
+#include <glog/logging.h>
+
 /**
 * @brief Generic MPC controller.
 *
@@ -16,6 +18,41 @@
 template <class StateT, class ControlT>
 class AbstractMPCController
     : public Controller<MPCInputs<StateT>,
-                        DiscreteReferenceTrajectoryClosest<StateT, ControlT>,
-                        DiscreteReferenceTrajectoryClosest<StateT, ControlT>> {
+                        ReferenceTrajectoryPtr<StateT, ControlT>, ControlT> {
+public:
+  /**
+  * @brief Get MPC trajectory
+  *
+  * @param xs vector of states
+  * @param us vector of controls
+  */
+  virtual void getTrajectory(std::vector<StateT> &xs,
+                             std::vector<ControlT> &us) const = 0;
+  /**
+  * @brief Get reference MPC trajectory
+  *
+  * @param xds vector of ref states
+  * @param uds vector of ref controls
+  */
+  virtual void getDesiredTrajectory(std::vector<StateT> &xds,
+                                    std::vector<ControlT> &uds) const = 0;
+
+  /**
+  * @brief Reset the controls (inputs) to the optimization
+  */
+  virtual void resetControls() = 0;
+
+  /**
+  * @brief Set the maximum number of iterations in one step
+  *
+  * @param iters Number of iterations
+  */
+  virtual void setMaxIters(int iters) = 0;
+
+  /**
+  * @brief Get maximum iterations
+  *
+  * @return Max iterations
+  */
+  virtual int getMaxIters() const = 0;
 };

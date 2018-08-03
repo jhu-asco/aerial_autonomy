@@ -152,35 +152,6 @@ struct VisualServoingAbortActionFunctor_
 };
 
 /**
-* @brief Action to reach a pre designated point
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-struct GoHomeTransitionActionFunctor_
-    : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
-  void run(UAVVisionSystem &robot_system) {
-    PositionYaw home_location = robot_system.getHomeLocation();
-    VLOG(1) << "Going home";
-    robot_system.setGoal<RPYTBasedPositionControllerDroneConnector,
-                         PositionYaw>(home_location);
-  }
-};
-
-/**
-* @brief Guard for home transition
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-struct GoHomeTransitionGuardFunctor_
-    : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {
-  bool guard(UAVVisionSystem &robot_system) {
-    return robot_system.isHomeLocationSpecified();
-  }
-};
-
-/**
 * @brief Logic to check while reaching a visual servoing goal
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
