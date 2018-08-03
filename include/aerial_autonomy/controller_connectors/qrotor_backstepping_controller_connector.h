@@ -8,6 +8,7 @@
 
 #include <Eigen/Cholesky>
 #include <Eigen/Dense>
+#include <Eigen/LU>
 #include <chrono>
 #include <parsernode/parser.h>
 
@@ -78,9 +79,7 @@ protected:
   *
   * @param controls rpyt commands to send to UAV
   */
-  virtual void sendControllerCommands(
-      QrotorBacksteppingControl control,
-      std::pair<double, QrotorBacksteppingState> &sensor_data);
+  virtual void sendControllerCommands(QrotorBacksteppingControl control);
 
   /**
   * @brief  Mapping from body angular velocity to local rpydot
@@ -94,10 +93,6 @@ protected:
                                 const Eigen::Vector3d &rpy);
 
 private:
-  /**
-  * @brief Controller config
-  */
-  QrotorBacksteppingControllerConfig config_;
   /**
   * @brief Base class typedef to simplify code
   */
@@ -122,6 +117,10 @@ private:
   * @brief time at start
   */
   std::chrono::time_point<std::chrono::high_resolution_clock> t_0_;
+  /**
+  * @brief Controller config
+  */
+  QrotorBacksteppingControllerConfig config_;
   /**
   * @brief Variable to store current thrust
   */
@@ -150,3 +149,4 @@ private:
   parsernode::common::quaddata data_;
 
   QrotorBacksteppingState current_state_;
+};
