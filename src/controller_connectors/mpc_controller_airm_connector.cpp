@@ -122,9 +122,16 @@ void MPCControllerAirmConnector::useSensor(
 
 Eigen::Vector3d
 MPCControllerAirmConnector::omegaToRpyDot(const Eigen::Vector3d &omega,
-                                          const Eigen::Vector3d &rpy) {
+                                          const Eigen::Vector3d &rpy,
+                                          const double max_pitch) {
   Eigen::Matrix3d Mrpy;
-  double s_roll = sin(rpy[0]), c_roll = cos(rpy[0]), t_pitch = tan(rpy[1]);
+  double pitch = rpy[1];
+  double abs_pitch = std::abs(pitch);
+  if (abs_pitch > max_pitch) {
+    LOG(WARNING) << "Pitch close to pi/2 which is a singularity";
+    pitch = std::copysign(max_pitch, pitch);
+  }
+  double s_roll = sin(rpy[0]), c_roll = cos(rpy[0]), t_pitch = tan(pitch);
   double sec_pitch = sqrt(1 + t_pitch * t_pitch);
   Mrpy << 1, s_roll * t_pitch, c_roll * t_pitch, 0, c_roll, -s_roll, 0,
       s_roll * sec_pitch, c_roll * sec_pitch;

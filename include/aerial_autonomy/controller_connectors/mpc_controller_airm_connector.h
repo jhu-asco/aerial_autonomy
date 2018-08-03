@@ -106,11 +106,14 @@ public:
   *
   * @param omega Body angular velocities
   * @param rpy Euler angles
+  * @param max_pitch Maximum pitch should be less than pi/2 to avoid
+  *                  singularities
   *
   * @return Euler angle rates
   */
   Eigen::Vector3d omegaToRpyDot(const Eigen::Vector3d &omega,
-                                const Eigen::Vector3d &rpy);
+                                const Eigen::Vector3d &rpy,
+                                const double max_pitch = 0.9 * (M_PI / 2.0));
 
   /**
   * @brief Specify the time difference for differentiating position, joint
