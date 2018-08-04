@@ -8,6 +8,19 @@
 #include "base_state_machine_config.pb.h"
 
 /**
+* @brief Namespace for base functors
+*/
+namespace base_functors {
+/**
+ * @brief  Action sequence to chain multiple actions together
+ *
+ * @tparam Sequence sequence of actions
+ */
+template <class Sequence>
+using bActionSequence = boost::msm::front::ActionSequence_<Sequence>;
+}
+
+/**
 * @brief Action Functor for a given event, robot system, state machine
 *
 * This class provides run function for state transitions

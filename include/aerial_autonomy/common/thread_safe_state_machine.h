@@ -60,6 +60,16 @@ public:
  * @return Constructor with multiple arguments
  */
 #define MSM_CONSTRUCTOR_HELPER_EXECUTE_SUB(z, n, unused) ARG##n t##n
+/**
+* @brief Sub component of the recursive function to define multiple
+* constructors
+*
+* @param z Recursive argument
+* @param n The number of constructor arguments
+* @param  unused argument
+*
+* @return Constructor with multiple arguments
+*/
 #define MSM_CONSTRUCTOR_HELPER_EXECUTE(z, n, unused)                           \
   template <BOOST_PP_ENUM_PARAMS(n, class ARG)>                                \
   thread_safe_state_machine<A0, A1, A2, A3, A4>(                               \
@@ -90,13 +100,13 @@ public:
   /**
    * @brief Create friend for backend state machine to use private members
    *
-   * @tparam class template parameters for the parent class
-   * @tparam class template parameters for the parent class
-   * @tparam class template parameters for the parent class
-   * @tparam class template parameters for the parent class
-   * @tparam class template parameters for the parent class
+   * @tparam T1  template parameters for the parent class
+   * @tparam T2  template parameters for the parent class
+   * @tparam T3  template parameters for the parent class
+   * @tparam T4  template parameters for the parent class
+   * @tparam T5  template parameters for the parent class
    */
-  template <class, class, class, class, class>
+  template <class T1, class T2, class T3, class T4, class T5>
   friend class boost::msm::back::state_machine;
 
   template <class, class, class, class, class>

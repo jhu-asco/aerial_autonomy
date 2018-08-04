@@ -12,7 +12,7 @@ import "joystick_velocity_controller_config.proto";
 
 import "thrust_gain_estimator_config.proto";
 
-import "velocity_sensor_config.proto";
+import "ros_sensor_config.proto";
 
 message UAVSystemConfig {
   /**
@@ -79,9 +79,17 @@ message UAVSystemConfig {
   /**
   * @brief String to choose sensor type
   */
-  optional string sensor_type = 14 [default = "Guidance"];
+  optional string sensor_type = 14 [ default = "Guidance" ];
   /**
   * @brief Velocity sensor config
   */
-  optional VelocitySensorConfig velocity_sensor_config = 15;
+  optional ROSSensorConfig velocity_sensor_config = 15;
+  /**
+  * @brief If to use mocap ros sensor for pose sensor
+  */
+  optional bool use_mocap_sensor = 16 [ default = false ];
+  /**
+  * @brief Velocity sensor config
+  */
+  optional ROSSensorConfig pose_sensor_config = 17;
 }

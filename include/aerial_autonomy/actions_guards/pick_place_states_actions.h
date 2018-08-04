@@ -19,13 +19,6 @@ template <class LogicStateMachineT>
 struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
                                 ArmStatesActions<LogicStateMachineT> {
   /**
-   * @brief  Action sequence to chain multiple actions together
-   *
-   * @tparam Sequence sequence of actions
-   */
-  template <class Sequence>
-  using bActionSequence = boost::msm::front::ActionSequence_<Sequence>;
-  /**
    * @brief Logical and functor between two guard functions
    *
    * @tparam G1 First guard functor
@@ -74,46 +67,45 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
   /**
   * @brief Action sequence that ungrips then goes home
   */
-  using UngripGoHome = bActionSequence<
+  using UngripGoHome = base_functors::bActionSequence<
       boost::mpl::vector<ArmGripActionFunctor_<LogicStateMachineT, false>,
                          typename vsa::GoHomeTransitionAction>>;
   /**
    * @brief Action sequence to ungrip object and go to home location and
    * fold the arm to right angle
    */
-  using RightArmUngripGoHome = bActionSequence<
+  using RightArmUngripGoHome = base_functors::bActionSequence<
       boost::mpl::vector<UngripGoHome, typename asa::ArmRightFold>>;
 
   /**
   * @brief Action sequence that ungrips then goes home
   */
-  using ArmRightFoldGoHome =
-      bActionSequence<boost::mpl::vector<typename asa::AbortArmController,
-                                         typename asa::ArmRightFold,
-                                         typename vsa::GoHomeTransitionAction>>;
+  using ArmRightFoldGoHome = base_functors::bActionSequence<boost::mpl::vector<
+      typename asa::AbortArmController, typename asa::ArmRightFold,
+      typename vsa::GoHomeTransitionAction>>;
 
   /**
   * @brief Action sequence to abort UAV controller and move arm to right
   * angle
   */
   using AbortUAVControllerArmRightFold =
-      bActionSequence<boost::mpl::vector<typename usa::UAVControllerAbort,
-                                         typename asa::ArmRightFold>>;
+      base_functors::bActionSequence<boost::mpl::vector<
+          typename usa::UAVControllerAbort, typename asa::ArmRightFold>>;
   /**
   * @brief Action sequence to abort UAV and arm controllers and move arm to
   * right angle
   */
   using AbortUAVArmControllerArmRightFold =
-      bActionSequence<boost::mpl::vector<typename usa::UAVControllerAbort,
-                                         typename asa::AbortArmController,
-                                         typename asa::ArmRightFold>>;
+      base_functors::bActionSequence<boost::mpl::vector<
+          typename usa::UAVControllerAbort, typename asa::AbortArmController,
+          typename asa::ArmRightFold>>;
   /**
   * @brief Action sequence to abort UAV controller and move arm to right
   * angle
   */
   using AbortUAVControllerArmFold =
-      bActionSequence<boost::mpl::vector<typename usa::UAVControllerAbort,
-                                         typename asa::ArmFold>>;
+      base_functors::bActionSequence<boost::mpl::vector<
+          typename usa::UAVControllerAbort, typename asa::ArmFold>>;
 
   /**
   * @brief Check tracking is valid and arm is enabled for pick
@@ -126,7 +118,7 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
   /**
   * @brief Move arm to pick pose and move to tracked object
   */
-  using PickTransitionAction = bActionSequence<
+  using PickTransitionAction = base_functors::bActionSequence<
       boost::mpl::vector<ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>,
                          typename vsa::ResetRelativePoseVisualServoing,
                          RelativePoseVisualServoingTransitionActionFunctor_<
@@ -135,7 +127,7 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
   /**
   * @brief Action to take when starting placing object at either drop-off.
   */
-  using PlaceVisualServoingTransitionAction = bActionSequence<
+  using PlaceVisualServoingTransitionAction = base_functors::bActionSequence<
       boost::mpl::vector<typename vsa::ResetRelativePoseVisualServoing,
                          RelativePoseVisualServoingTransitionActionFunctor_<
                              LogicStateMachineT, 1>>>;
@@ -153,8 +145,8 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
   * angle
   */
   using AbortUAVArmController =
-      bActionSequence<boost::mpl::vector<typename usa::UAVControllerAbort,
-                                         typename asa::AbortArmController>>;
+      base_functors::bActionSequence<boost::mpl::vector<
+          typename usa::UAVControllerAbort, typename asa::AbortArmController>>;
   /**
   * @brief State for following waypoints after picking object
   */

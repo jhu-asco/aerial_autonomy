@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="hil" default="false"/>
+  <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/matrice_hil_uav_arm_sysid_config.pbtxt" if="$(arg hil)"/>
+  <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/matrice_uav_arm_sysid_config.pbtxt" unless="$(arg hil)"/>
+  <param name="log_config_filename" value="$(find aerial_autonomy)/param/log_config.pbtxt" />
+  <param name="state_machine_config_filename" value="$(find aerial_autonomy)/param/base_state_machine_config.pbtxt" />
+  <arg name="log_level" default="1"/>
+  <arg name="log_dir" default="$(find aerial_autonomy)/logs"/>
+  <node pkg="aerial_autonomy" type="uav_arm_sysid_node" name="uav_arm_sysid_node" output="screen">
+    <remap from="~common/goal_pose_command" to="/rqt_gui/pose_command_combined" />
+    <remap from="~common/goal_velocity_yaw_command" to="/rqt_gui/velocity_yaw_command" />
+    <remap from="~common/event_manager" to="/rqt_gui/event_trigger" />
+    <remap from="~common/system_status" to="/rqt_gui/system_status" />
+    <remap from="/mocap_log/quad_pose_mocap" to="/vrpn_client/matrice/pose" />
+    <env name="GLOG_log_dir" value="$(arg log_dir)"/>
+    <env name="GLOG_v" value="$(arg log_level)"/>
+    <env name="GLOG_alsologtostderr" value="1"/>
+ 
+    <param name="~arm/device_id" value="/dev/ttyACM0" />
+    <param name="~arm/baudrate" value="57600" />
+    <param name="~arm/link1_length" value="0.255" />
+    <param name="~arm/link2_length" value="0.296" />
+    <param name="~arm/link_offset" value="0.025" />
+    <param name="~arm/velocity_gain" value="3.0" />
+    <param name="~arm/max_joint_velocity" value="0.7" />
+
+    <!-- Matrice SDK params -->
+    <param name="~uav/use_guidance_pos" type="bool" value="false"/>
+    <param name="~uav/serial_name" type="string" value="/dev/ttydji"/>
+    <param name="~uav/baud_rate" type="int" value="230400"/>
+    <param name="~uav/app_id" type="int" value="1024052"/>
+    <param name="~uav/app_api_level" type="int" value="2"/>
+    <param name="~uav/app_version" type="int" value="1"/>
+    <param name="~uav/app_bundle_id" type="string" value="Welcome to use dji-sdk"/>
+    <param name="~uav/enc_key" type="string" value="8667ff1ec3a163d6ef14a7bf6a9fae66210855f309c1876788f61d2195dc58d7"/>
+  </node>
+  <include file="$(find ros_vrpn_client)/launch/matrice.launch" unless="$(arg hil)"/>
+</launch>

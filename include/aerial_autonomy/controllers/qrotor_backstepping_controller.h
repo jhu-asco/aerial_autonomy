@@ -25,9 +25,21 @@ class QrotorBacksteppingController
           std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>>,
           QrotorBacksteppingControl> {
 public:
+  /**
+  * @brief Fixed Eigen vector 6x1
+  */
   using Vector6d = Eigen::Matrix<double, 6, 1>;
+  /**
+  * @brief Fixed Eigen matrix 6x3
+  */
   using Matrix63d = Eigen::Matrix<double, 6, 3>;
+  /**
+  * @brief Fixed Eigen vector 6x1
+  */
   using Matrix6d = Eigen::Matrix<double, 6, 6>;
+  /**
+  * @brief Fixed Eigen matrix 3x6
+  */
   using Matrix36d = Eigen::Matrix<double, 3, 6>;
 
   /**

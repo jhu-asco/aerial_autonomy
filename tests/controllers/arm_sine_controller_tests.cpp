@@ -68,7 +68,7 @@ TEST_F(ArmSineControllerTests, CheckZeroFreq) {
   ASSERT_TRUE(result.second);
   auto joint_angles = result.first;
   ASSERT_EQ(joint_angles.size(), 2);
-  ASSERT_DOUBLE_EQ(joint_angles.at(0), amp.at(0));
+  ASSERT_DOUBLE_EQ(joint_angles.at(0), phase.at(0));
   ASSERT_DOUBLE_EQ(joint_angles.at(1), 0.0);
 }
 
@@ -91,7 +91,7 @@ TEST_F(ArmSineControllerTests, CheckPeriod) {
   auto joint_angles = result1.first;
   ASSERT_NEAR(joint_angles.at(1), 0.0, 1e-2);
   auto joint_angles2 = result2.first;
-  ASSERT_NEAR(joint_angles2.at(0), amp.at(0), 1e-2);
+  ASSERT_NEAR(joint_angles2.at(0), phase.at(0), 1e-2);
 }
 
 int main(int argc, char **argv) {

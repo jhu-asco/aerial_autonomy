@@ -45,6 +45,11 @@ public:
     }
   }
 
+  /**
+  * @brief Get Polynomial coefficients
+  *
+  * @return polynomial coefficients
+  */
   Eigen::MatrixXd getP() const { return poly_coeffs_; }
 
   /**
@@ -87,21 +92,25 @@ public:
   }
 
 private:
-  const int der_order_;           // Order of derivative (snap = 4)
-  const Eigen::VectorXd tau_vec_; // Vector of time intervals
-  const Eigen::MatrixXd path_;    // N by R matrix, N: # of waypoints,
-  // R: Dimension of coordinate sys (ex. x,y,z=3)
-  int poly_degree_; // Order of the polynomial (ex. for minimum snap, 9th poly)
-  int n_segments_;  // # of segments, N-1
-  int total_dimensions_; // Dimension, (poly_degree_ + 1) * n_segments_
-  int n_unknowns_; // # of unknowns (will be optimized), 4 * (n_segments_ - 1)
-  int n_knowns_;   // # of knowns, total_dimensions_ - n_unknowns_
-  Eigen::MatrixXd equal_A_; // Mapping from poly coeffs to endpoint derivatives
-  Eigen::MatrixXd cost_Q_;  // Cost matrix
-  Eigen::MatrixXd b_optimized_; // Optimized endpoint derivatives
-  Eigen::MatrixXd poly_coeffs_; // Polynomial coefficents
-  std::vector<double> ts_;      // Time stamps corresponding to states
-  Eigen::VectorXi idx_;         // Indexing for permutation
+  // clang-format off
+  const int der_order_;           ///< Order of derivative (snap = 4)
+  const Eigen::VectorXd tau_vec_; ///< Vector of time intervals
+  const Eigen::MatrixXd path_;    ///< N by R matrix, N: # of waypoints,
+                                  ///< R: Dimension of coordinate sys (ex. x,y,z=3)
+
+  int poly_degree_;      ///< Order of the polynomial (ex. for minimum snap, 9th poly)
+  int n_segments_;       ///< # of segments, N-1
+  int total_dimensions_; ///< Dimension, (poly_degree_ + 1) * n_segments_
+  int n_unknowns_;       ///< # of unknowns (will be optimized), 4 * (n_segments_ - 1)
+  int n_knowns_;         ///< # of knowns, total_dimensions_ - n_unknowns_
+
+  Eigen::MatrixXd equal_A_;     ///< Mapping from poly coeffs to endpoint derivatives
+  Eigen::MatrixXd cost_Q_;      ///< Cost matrix
+  Eigen::MatrixXd b_optimized_; ///< Optimized endpoint derivatives
+  Eigen::MatrixXd poly_coeffs_; ///< Polynomial coefficents
+  std::vector<double> ts_;      ///< Time stamps corresponding to states
+  Eigen::VectorXi idx_;         ///< Indexing for permutation
+  // clang-format on
 
   /**
   * @brief Equality matrix, equal_A_ is a mapping matrix from the coefficents of

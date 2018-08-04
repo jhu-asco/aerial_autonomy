@@ -30,7 +30,7 @@ bool ArmSineController::runImplementation(EmptySensor, EmptyGoal,
     double omega = 2 * M_PI * it->frequency();
     double phi = it->phase();
     double dt = duration().count();
-    double angle = a * sin(omega * dt + phi);
+    double angle = phi + a * sin(omega * dt);
     control.push_back(angle);
     Log::instance()["arm_sine_controller"] << angle;
   }

@@ -5,6 +5,7 @@
 #include "aerial_autonomy/types/position.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/velocity.h"
+#include "aerial_autonomy/types/waypoint.h"
 #include <armadillo>
 
 #include "position_yaw.pb.h"
@@ -18,6 +19,15 @@ namespace conversions {
  * @param tf Output tf::Transform
  */
 void transformMatrix4dToTf(const Eigen::Matrix4d &e, tf::Transform &tf);
+
+/**
+* @brief Convert transform into roll pitch yaw in body zyx format
+*
+* @param tf Transform from which rpy is extracted
+*
+* @returns rpy roll pitch yaw vector
+*/
+Eigen::Vector3d transformTfToRPY(const tf::Transform &tf);
 
 /**
  * @brief Convert roll, pitch, yaw Euler angles to a tf::Transform
@@ -106,12 +116,26 @@ std::vector<tf::Transform> protoTransformsToTfs(const T &proto_tfs) {
 * @return Converted Eigen vector
 */
 template <class T> Eigen::VectorXd vectorProtoToEigen(const T &xs) {
-  Eigen::VectorXd v;
-  for (auto x : xs) {
-    v << x;
+  int N = xs.size();
+  Eigen::VectorXd v(N);
+  for (int i = 0; i < N; ++i) {
+    v[i] = xs.Get(i);
   }
   return v;
 }
+/**
+  * @brief create a waypoint reference trajectory from a goal point and joint
+  * angles
+  *
+  * @param goal Goal position and yaw
+  * @param desired_joint_angle_1 Desired joint angle for first joint
+  * @param desired_joint_angle_2 Desired joint angle for second joint
+  *
+  * @return Waypoint Reference trajectory
+  */
+std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>>
+createWayPoint(PositionYaw goal, double desired_joint_angle_1,
+               double desired_joint_angle_2);
 
 /**
 * @brief Convert a Eigen::VectorXd to std::vector<double>

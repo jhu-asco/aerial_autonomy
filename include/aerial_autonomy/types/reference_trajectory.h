@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include <utility>
 /**
 * @brief An interface for retrieving states and controls from a trajectory
@@ -15,3 +16,13 @@ public:
   */
   virtual std::pair<StateT, ControlT> atTime(double t) const = 0;
 };
+
+/**
+* @brief shared reference trajectory pointer
+*
+* @tparam StateT  state type
+* @tparam ControlT control type
+*/
+template <class StateT, class ControlT>
+using ReferenceTrajectoryPtr =
+    std::shared_ptr<ReferenceTrajectory<StateT, ControlT>>;

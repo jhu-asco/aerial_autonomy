@@ -20,6 +20,25 @@ std::string ControllerStatus::getHtmlStatusString() {
   return controller_status_table.getTableString();
 }
 
+std::string ControllerStatus::statusAsText() {
+  std::string result = "unknown";
+  switch (status_) {
+  case ControllerStatus::Active:
+    result = "Active";
+    break;
+  case ControllerStatus::Completed:
+    result = "Completed";
+    break;
+  case ControllerStatus::Critical:
+    result = "Critical";
+    break;
+  case ControllerStatus::NotEngaged:
+    result = "NotEngaged";
+    break;
+  }
+  return result;
+}
+
 void ControllerStatus::addDebugInfo(
     const ControllerStatus::DebugInfo &debug_tuple,
     HtmlTableWriter &html_table_writer) {

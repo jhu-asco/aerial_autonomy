@@ -16,7 +16,6 @@ public:
   UAVSystemHandlerTests() : BaseTestPubSubs() {
     // Configure system
     UAVSystemHandlerConfig uav_system_handler_config;
-    BaseStateMachineConfig state_machine_config;
     // \todo Add UAV state machine config
     auto uav_config = uav_system_handler_config.mutable_uav_system_config();
     uav_config->set_uav_parser_type("quad_simulator_parser/QuadSimParser");
@@ -61,6 +60,8 @@ public:
   std::unique_ptr<UAVSystemHandler<UAVStateMachine,
                                    UAVEventManager<UAVStateMachine>>>
       uav_system_handler_; ///< system contains robot system, state machine
+  BaseStateMachineConfig state_machine_config; ///< Passing by reference
+                                               ///< cannot be temp variable
 };
 
 TEST_F(UAVSystemHandlerTests, Constructor) {}

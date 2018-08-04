@@ -1,0 +1,41 @@
+syntax = "proto2";
+
+/**
+* @brief config for spiral reference trajectory
+*/
+message SpiralReferenceTrajectoryConfig {
+  /**
+  * @brief Frequency along the circle
+  */
+  optional double frequency = 1 [ default = 0.1 ];
+  /**
+  * @brief Phase of the circle
+  */
+  optional double phase = 2 [ default = 0 ];
+  /**
+  * @brief x radius
+  */
+  optional double radius_x = 3 [ default = 0.1 ];
+  /**
+  * @brief y radius
+  */
+  optional double radius_y = 4 [ default = 0.1 ];
+  /**
+  * @brief Velocity along z axis
+  */
+  optional double velocity_z = 5 [ default = 0.1 ];
+  /**
+  * @brief Frequency along z axis. The The z velocity
+  * is reversed after the 1/frequency_z seconds. So
+  * amplitude_z = velocity_z/frequency_z;
+  */
+  optional double frequency_z = 6 [ default = 0.1 ];
+  /**
+  * @brief The yaw oscillation frequency
+  */
+  optional double frequency_yaw = 7 [ default = 0 ];
+  /**
+  * @brief The yaw oscillation amplitude
+  */
+  optional double amplitude_yaw = 8 [ default = 0 ];
+}

@@ -20,6 +20,7 @@
 #include <aerial_autonomy/controller_connectors/rpyt_based_position_controller_drone_connector.h>
 #include <aerial_autonomy/controller_connectors/rpyt_based_position_controller_drone_connector.h>
 #include <aerial_autonomy/sensors/guidance.h>
+#include <aerial_autonomy/sensors/pose_sensor.h>
 #include <aerial_autonomy/sensors/velocity_sensor.h>
 // Load UAV parser
 #include <pluginlib/class_loader.h>
@@ -77,14 +78,21 @@ private:
   * @brief Velocity controller which takes joystick controls as inputs
   */
   JoystickVelocityController joystick_velocity_controller_;
+
+protected:
   /**
-* @brief Velocity Sensor
-*/
+  * @brief Velocity Sensor
+  */
   std::shared_ptr<Sensor<Velocity>> velocity_sensor_;
+  /**
+   * @brief pose_sensor_
+   */
+  std::shared_ptr<Sensor<tf::StampedTransform>> pose_sensor_;
+
+private:
   /**
    * @brief connector for position controller
    */
-
   PositionControllerDroneConnector position_controller_drone_connector_;
   /**
    * @brief connector for position controller using rpyt
@@ -167,6 +175,24 @@ private:
 
     return velocity_sensor;
   }
+  /**
+  * @brief create a pose sensor if using Motion Capture flag is set
+  *
+  * @param config The UAV system config
+  *
+  * @return new pose sensor if using motion capture otherwise nulllptr
+  */
+  static std::shared_ptr<Sensor<tf::StampedTransform>>
+  createPoseSensor(UAVSystemConfig &config) {
+    auto pose_sensor_config = config.pose_sensor_config();
+    std::shared_ptr<Sensor<tf::StampedTransform>> pose_sensor;
+    if (config.use_mocap_sensor()) {
+      pose_sensor.reset(
+          new PoseSensor(pose_sensor_config.topic(),
+                         ros::Duration(pose_sensor_config.timeout())));
+    }
+    return pose_sensor;
+  }
 
 public:
   /**
@@ -208,6 +234,7 @@ public:
             std::chrono::milliseconds(config.uav_controller_timer_duration())),
         velocity_sensor_(
             UAVSystem::chooseSensor(velocity_sensor, drone_hardware_, config)),
+        pose_sensor_(UAVSystem::createPoseSensor(config)),
         position_controller_drone_connector_(*drone_hardware_,
                                              builtin_position_controller_),
         rpyt_based_position_controller_drone_connector_(
@@ -349,4 +376,24 @@ public:
   * @return Home location (PositionYaw)
   */
   PositionYaw getHomeLocation() { return home_location_; }
+
+  /**
+   * @brief get the current pose frome either pose sensor/quad data
+   * @return pose as stamped transform
+   */
+  tf::StampedTransform getPose() {
+    tf::StampedTransform result;
+    if (pose_sensor_) {
+      result = pose_sensor_->getSensorData();
+    } else {
+      auto data = getUAVData();
+      tf::Transform t(
+          tf::createQuaternionFromRPY(data.rpydata.x, data.rpydata.y,
+                                      data.rpydata.z),
+          tf::Vector3(data.localpos.x, data.localpos.y, data.localpos.z));
+      result = tf::StampedTransform(t, ros::Time(data.timestamp), "uav_origin",
+                                    "uav");
+    }
+    return result;
+  }
 };

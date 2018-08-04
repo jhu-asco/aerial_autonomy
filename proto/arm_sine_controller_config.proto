@@ -17,6 +17,10 @@ message ArmSineControllerConfig {
     * @brief Phase of sine in radians
     */
     optional double phase = 3 [ default = 0.0 ];
+    /**
+    * @brief The joint angle offset
+    */
+    optional double offset = 4 [ default = 0.0 ];
   }
   /**
   * @brief sine properties for each joint

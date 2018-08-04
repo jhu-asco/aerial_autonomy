@@ -16,7 +16,6 @@ public:
   UAVArmSystemHandlerTests() : BaseTestPubSubs() {
     // Configure system
     UAVSystemHandlerConfig uav_system_handler_config;
-    BaseStateMachineConfig state_machine_config;
     uav_system_handler_config.mutable_uav_system_config()
         ->set_minimum_takeoff_height(0.4);
     auto uav_config = uav_system_handler_config.mutable_uav_system_config();
@@ -50,6 +49,8 @@ public:
     rpyt_vel_controller_tol->set_vx(0.1);
     rpyt_vel_controller_tol->set_vy(0.1);
     rpyt_vel_controller_tol->set_vz(0.1);
+    // Fill MPC Config
+    test_utils::fillMPCConfig(*uav_config);
 
     uav_system_handler_.reset(
         new UAVArmSystemHandler<
@@ -65,6 +66,8 @@ public:
       PickPlaceStateMachine,
       pick_place_events::PickPlaceEventManager<PickPlaceStateMachine>>>
       uav_system_handler_; ///< system contains robot system, state machine
+  BaseStateMachineConfig state_machine_config; ///< Passing by reference
+                                               ///< cannot be temp variable
 };
 
 TEST_F(UAVArmSystemHandlerTests, Constructor) {}

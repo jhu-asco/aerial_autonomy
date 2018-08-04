@@ -1,0 +1,52 @@
+syntax = "proto2";
+
+/**
+* Configuration for the QrotorBacksteppingController
+*/
+message DDPMPCControllerConfig {
+  /**
+  * @brief State cost
+  */
+  repeated double Q = 1;
+  /**
+  * @brief Terminal cost
+  */
+  repeated double Qf = 2;
+  /**
+  * @brief Control cost
+  */
+  repeated double R = 3;
+  /**
+  * @brief The number of steps in trajectory
+  */
+  optional uint32 N = 4 [ default = 50 ];
+  /**
+  * @brief To set DDP in debug mode
+  */
+  optional bool debug = 5 [ default = false ];
+  /**
+  * @brief Maximum number of iterations to run DDP for
+  */
+  optional uint32 max_iters = 6 [ default = 10 ];
+  /**
+  * @brief If cost decrease is less than this assumes convergence
+  */
+  optional double min_cost_decrease = 7 [ default = 1e-2 ];
+  /**
+  * @brief time step for MPC optimization
+  */
+  optional double h = 8 [ default = 0.02 ];
+  /**
+  * @brief DDP regularization constant
+  */
+  optional double mu = 9 [ default = 1e-3 ];
+  /**
+  * @brief Look ahead time for the control should be less than tf
+  */
+  optional double look_ahead_time = 10 [ default = 0.2 ];
+  /**
+  * @brief If ddp cost is greater than this, the algorithm
+  * has been assumed to have failed
+  */
+  optional double max_cost = 11 [ default = 10.0 ];
+}

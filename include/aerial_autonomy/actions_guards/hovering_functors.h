@@ -94,6 +94,9 @@ using UAVStatusInternalActionFunctor_ =
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT> struct Hovering_ : public msmf::state<> {
+  /**
+  * @brief Internal transition table
+  */
   struct internal_transition_table
       : boost::mpl::vector<
             msmf::Internal<InternalTransitionEvent,

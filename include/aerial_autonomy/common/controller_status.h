@@ -145,6 +145,13 @@ public:
   Status status() { return status_; }
 
   /**
+  * @brief convert enum to human readable value
+  *
+  * @return text describing the enum value
+  */
+  std::string statusAsText();
+
+  /**
    * @brief Allows for explicit conversion of the class to a boolean variable
    * This is pretty useful to check controller status implies controller
    * convergence or not. For example:

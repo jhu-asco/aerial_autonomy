@@ -1,0 +1,13 @@
+syntax = "proto2";
+
+message ROSSensorConfig {
+  /**
+  * @brief time from last msg after which sensor
+  * becomes invalid
+  */
+  optional double timeout = 2 [ default = 0.5 ];
+  /**
+  * Topic to subscribe for sensor data
+  */
+  optional string topic = 3;
+}
