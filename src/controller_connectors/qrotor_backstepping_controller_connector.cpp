@@ -41,6 +41,7 @@ bool QrotorBacksteppingControllerConnector::extractSensorData(
   thrust_gain_estimator_.addSensorData(data_.rpydata.x, data_.rpydata.y,
                                        data_.linacc.z);
 
+  // std::cout << "sensor data extracted" << '\n';
   return true;
 }
 
@@ -48,35 +49,41 @@ void QrotorBacksteppingControllerConnector::sendControllerCommands(
     QrotorBacksteppingControl control) {
   double Thrust_ddot = control.thrust_ddot;
   tf::Vector3 Torque = control.torque;
-  /* Objective
-  *Use torque, thrust_ddot -> get rpyratethrust
-  */
-  thrust_dot_ = Thrust_ddot * dt_;
-  thrust_ = thrust_dot_ * dt_;
+
+  thrust_dot_ += Thrust_ddot * dt_;
+  thrust_ += thrust_dot_ * dt_;
+  // thrust_dot_ = Thrust_ddot * dt_;
+  // thrust_ = thrust_dot_ * dt_;
 
   // conversions
   Eigen::Vector3d torque;
   tf::vectorTFToEigen(Torque, torque);
   Eigen::Vector3d current_omega;
-  // tf::vectorTFToEigen(current_state_.w, current_omega);
   current_omega << data_.omega.x, data_.omega.y, data_.omega.z;
   Eigen::Vector3d current_rpy;
   current_rpy << data_.rpydata.x, data_.rpydata.y, data_.rpydata.z;
 
   Eigen::Vector3d omega_dot_cmd =
-      J_.lu().solve(J_ * current_omega.cross(current_omega) + torque);
-  Eigen::Vector3d omega_cmd = omega_dot_cmd * dt_;
+      J_.lu().solve((J_ * current_omega).cross(current_omega) + torque);
+  // Eigen::Vector3d omega_cmd = omega_dot_cmd * dt_;
 
-  Eigen::Vector3d rpydot_cmd = omegaToRpyDot(omega_cmd, current_rpy);
+  omega_cmd_ += omega_dot_cmd * dt_;
 
+  Eigen::Vector3d rpydot_cmd = omegaToRpyDot(omega_cmd_, current_rpy);
+
+  roll_cmd_ += rpydot_cmd[0] * dt_;  // Roll command
+  pitch_cmd_ += rpydot_cmd[1] * dt_; // Pitch command
   geometry_msgs::Quaternion rpyt_msg;
-  rpyt_msg.x = rpydot_cmd[0] * dt_; // Roll command
-  rpyt_msg.y = rpydot_cmd[1] * dt_; // Pitch command
-  rpyt_msg.z = rpydot_cmd[2];       // Yaw rate command
+  // rpyt_msg.x = rpydot_cmd[0] * dt_; // Roll command
+  // rpyt_msg.y = rpydot_cmd[1] * dt_; // Pitch command
+  rpyt_msg.x = roll_cmd_;     // Roll command
+  rpyt_msg.y = pitch_cmd_;    // Pitch command
+  rpyt_msg.z = rpydot_cmd[2]; // Yaw rate command
   rpyt_msg.w =
       thrust_ / (m_ * thrust_gain_estimator_.getThrustGain()); // thrust_command
   thrust_gain_estimator_.addThrustCommand(rpyt_msg.w);
   drone_hardware_.cmdrpyawratethrust(rpyt_msg);
+  // std::cout << "Controll commands sent" << '\n';
 }
 
 void QrotorBacksteppingControllerConnector::setGoal(
@@ -85,6 +92,10 @@ void QrotorBacksteppingControllerConnector::setGoal(
   t_0_ = std::chrono::high_resolution_clock::now();
   thrust_ = m_ * g_;
   thrust_dot_ = 0.0;
+  roll_cmd_ = 0;
+  pitch_cmd_ = 0;
+  omega_cmd_ << 0, 0, 0;
+  // std::cout << "Goal set" << '\n';
   // setThrust(config_.mass() * config_.acc_gravity());
   // setThrustDot(0.0);
   VLOG(1) << "Clearing thrust estimator buffer";

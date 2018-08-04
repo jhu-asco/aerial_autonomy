@@ -54,18 +54,27 @@ public:
   * @return Trajectory state and control
   */
   std::pair<ParticleState, Snap> atTime(double t) const {
-    if (ts_.empty() || t < ts_.front() || t > ts_.back()) {
+    if (ts_.empty() || t < ts_.front()) {
       throw std::out_of_range("Accessed reference trajectory out of bounds");
     }
+
     auto closest_t = std::lower_bound(ts_.begin(), ts_.end(), t);
     int i = closest_t - ts_.begin();
-    double t_tau = t - ts_[i - 1];
+    double t_tau;
+    if (t < ts_.back()) {
+      t_tau = t - ts_[i - 1];
+    } else {
+      t_tau = tau_vec_(tau_vec_.size() - 1);
+    }
+    // double t_tau = t - ts_[i - 1];
     Eigen::MatrixXd states_eigen;
     Eigen::MatrixXd equal_A = equalA(t_tau).bottomRows(5);
     if (i == 0) {
       states_eigen = equal_A * poly_coeffs_.middleRows(0, 10);
-    } else {
+    } else if (t < ts_.back()) {
       states_eigen = equal_A * poly_coeffs_.middleRows(10 * (i - 1), 10);
+    } else {
+      states_eigen = equal_A * poly_coeffs_.bottomRows(10);
     }
     // Type conversion
     Position p(states_eigen(0, 0), states_eigen(0, 1), states_eigen(0, 2));

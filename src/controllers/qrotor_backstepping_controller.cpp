@@ -97,8 +97,8 @@ bool QrotorBacksteppingController::runImplementation(
   }
   control.thrust_ddot = e_.dot(snap_cmd);
   DATA_LOG("qrotor_backstepping_controller")
-      << p(0) << p(1) << p(2) << p_d(0) << p_d(1) << p_d(2) << thrust
-      << g(0) + f(0) << g(1) + f(1) << g(2) + f(2) << DataStream::endl;
+      << p(0) - p_d(0) << p(1) - p_d(1) << p(2) - p_d(2) << v(0) - v_d(0)
+      << v(1) - v_d(1) << v(2) - v_d(2) << DataStream::endl;
   return true;
 }
 

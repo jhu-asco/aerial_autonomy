@@ -47,13 +47,11 @@ find_package(Armadillo REQUIRED)
 #Quad simulator parser dependencies
 find_package(GCOP REQUIRED systems)
 include_directories(${GCOP_INCLUDE_DIRS})
-set(QUAD_SIM_PARSER_LIBS ${
-  QUAD_SIM_PARSER_LIBS} ${GCOP_LIBRARIES})
+set(QUAD_SIM_PARSER_LIBS ${QUAD_SIM_PARSER_LIBS} ${GCOP_LIBRARIES})
 
 find_package(TinyXML REQUIRED)
 include_directories(${TINYXML_INCLUDE_DIR})
-set(QUAD_SIM_PARSER_LIBS ${
-  QUAD_SIM_PARSER_LIBS} ${TINYXML_LIBRARIES})
+set(QUAD_SIM_PARSER_LIBS ${QUAD_SIM_PARSER_LIBS} ${TINYXML_LIBRARIES})
 
 find_package(Eigen3 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
@@ -163,15 +161,10 @@ catkin_package(
 ## Event Generation ##
 ######################
 ## Generates event header files
-## ADD ${
-  $ { PROJECT_NAME }
-  _EXPORTED_TARGETS
-}
-as a dependency to any##targets that use the event header files##This target is
-    also common to messages,
-    cfg files etc##Add $ {
-  EVENT_INCLUDE_DIR
-} to include_directories
+## ADD ${$ { PROJECT_NAME }_EXPORTED_TARGETS}as a dependency to any
+##targets that use the event header files
+##This target is also common to messages, cfg files etc
+##Add $ {EVENT_INCLUDE_DIR} to include_directories
 ## To use the event header files in source code, include
 ## them as #include <${PROJECT_NAME}/event_file_name.h>
 ## The header file contains the structs to define events
@@ -229,8 +222,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/arm_sine_controller_config.proto
   proto/qrotor_backstepping_controller_config.proto
 )
-add_library(proto ${
-  PROTO_HEADER} ${PROTO_SRC})
+add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
 target_link_libraries(proto ${PROTOBUF_LIBRARIES})
 
@@ -327,8 +319,7 @@ add_dependencies(event_publish_node ${PROJECT_NAME}_generate_messages_cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-#add_dependencies(aerial_autonomy_node ${${                                    \
-    PROJECT_NAME } _EXPORTED_TARGETS } ${catkin_EXPORTED_TARGETS })
+#add_dependencies(aerial_autonomy_node ${${PROJECT_NAME} _EXPORTED_TARGETS } ${catkin_EXPORTED_TARGETS })
 
 ## Specify libraries to link a library or executable target against
 

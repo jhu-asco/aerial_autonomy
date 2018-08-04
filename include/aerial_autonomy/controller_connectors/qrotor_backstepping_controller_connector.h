@@ -149,4 +149,10 @@ private:
   parsernode::common::quaddata data_;
 
   QrotorBacksteppingState current_state_;
+
+  double roll_cmd_;
+
+  double pitch_cmd_;
+
+  Eigen::Vector3d omega_cmd_;
 };
