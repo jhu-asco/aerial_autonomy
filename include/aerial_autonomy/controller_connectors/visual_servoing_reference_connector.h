@@ -6,9 +6,10 @@
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/reference_trajectory.h"
 
-#include <parsernode/parser.h>
-
+#include <pair>
 #include <tf/tf.h>
+
+#include <parsernode/parser.h>
 
 /**
  * @brief A visual servoing controller that uses a tracker output as feedback
@@ -17,7 +18,7 @@
  */
 template <class StateT, class ControlT>
 class VisualServoingReferenceConnector
-    : public ControllerConnector<std::tuple<tf::Transform, tf::Transform>,
+    : public ControllerConnector<std::pair<PositionYaw, tf::Transform>,
                                  PositionYaw,
                                  ReferenceTrajectoryPtr<StateT, ControlT>>,
       public BaseRelativePoseVisualServoingConnector {
@@ -37,12 +38,21 @@ public:
       MPCControllerConnector<StateT, ControlT> &dependent_connector,
       tf::Transform camera_transform,
       tf::Transform tracking_offset_transform = tf::Transform::getIdentity())
-      : ControllerConnector(controller, ControllerGroup::HighLevel),
+      : BaseClass(controller, ControllerGroup::HighLevel),
         BaseRelativePoseVisualServoingConnector(tracker, drone_hardware,
                                                 camera_transform,
                                                 tracking_offset_transform),
-        dependent_connector_(dependent_connector) {
+        dependent_connector_(dependent_connector),
+        start_position_yaw_(0, 0, 0, 0) {
     logTrackerHeader("rpyt_relative_pose_visual_servoing_connector");
+  }
+
+  void initialize() {
+    parsernode::common::quaddata quad_data;
+    drone_hardware_.getquaddata(quad_data);
+    start_position_yaw_ =
+        PositionYaw(quad_data.localpos.x, quad_data.localpos.y,
+                    quad_data.localpos.z, quad_data.rpydata.z);
   }
   /**
    * @brief Destructor
@@ -61,7 +71,7 @@ protected:
    * @return true if able to compute transforms
    */
   virtual bool
-  extractSensorData(std::tuple<tf::Transform, tf::Transform> &sensor_data) {
+  extractSensorData(std::pair<PositionYaw, tf::Transform> &sensor_data) {
     parsernode::common::quaddata quad_data;
     drone_hardware_.getquaddata(quad_data);
     tf::Transform object_pose_cam;
@@ -69,11 +79,14 @@ protected:
       VLOG(1) << "Invalid tracking vector";
       return false;
     }
+    tf::Vector3 quad_origin(quad_data.localpos.x, quad_data.localpos.y,
+                            quad_data.localpos.z);
     tf::Transform tracking_pose =
         getTrackingTransformRotationCompensatedQuadFrame(object_pose_cam);
     logTrackerData("relative_pose_visual_servoing_controller_drone_connector",
                    tracking_pose, object_pose_cam, quad_data);
-    sensor_data = std::make_tuple(getBodyFrameRotation(), tracking_pose);
+    tracking_pose.setOrigin(quad_origin + tracking_pose.getOrigin());
+    sensor_data = std::make_pair(start_position_yaw_, tracking_pose);
     return true;
   }
 
@@ -87,18 +100,21 @@ protected:
     dependent_connector_.setGoal(control);
   }
 
+  ///\todo Overwrite dependent connector
+
 private:
   MPCControllerConnector<StateT, ControlT> &dependent_connector_;
+  PositionYaw start_position_yaw_;
   /**
    * @brief Base class typedef to simplify code
    */
   using BaseClass =
-      ControllerConnector<std::tuple<tf::Transform, tf::Transform>, PositionYaw,
+      ControllerConnector<std::pair<tf::Transform, tf::Transform>, PositionYaw,
                           ReferenceTrajectoryPtr<StateT, ControlT>>;
   /**
    * @brief Controller that generates reference trajectory
    */
   using ReferenceGenerator =
-      Controller<std::tuple<tf::Transform, tf::Transform>, PositionYaw,
+      Controller<std::pair<tf::Transform, tf::Transform>, PositionYaw,
                  ReferenceTrajectoryPtr<StateT, ControlT>>;
 };

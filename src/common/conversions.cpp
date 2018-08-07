@@ -1,4 +1,5 @@
 #include "aerial_autonomy/common/conversions.h"
+#include <glog/logging.h>
 
 #include <tf_conversions/tf_eigen.h>
 
@@ -70,5 +71,30 @@ std::vector<double> vectorEigenToStd(const Eigen::VectorXd &vec_eigen) {
   std::vector<double> vec_std(
       vec_eigen.data(), vec_eigen.data() + vec_eigen.rows() * vec_eigen.cols());
   return vec_std;
+}
+
+std::pair<double, double>
+accelerationToRollPitch(double yaw, Eigen::Vector3d acceleration_vector) {
+  const double epsilon = 1e-6;
+  double roll, pitch;
+  Eigen::Vector3d unit_vec = acceleration_vector.normalized();
+  double s_yaw = sin(yaw);
+  double c_yaw = cos(yaw);
+  double sin_roll = unit_vec[0] * s_yaw - unit_vec[1] * c_yaw;
+  if (std::abs(sin_roll) > 1.0) {
+    LOG(WARNING) << "sin(roll) > 1";
+    sin_roll = std::copysign(1.0, sin_roll);
+  }
+  roll = std::asin(sin_roll);
+  double unit_vec_projection = unit_vec[0] * c_yaw + unit_vec[1] * s_yaw;
+  if (std::abs(unit_vec_projection) < epsilon &&
+      std::abs(unit_vec[2]) < epsilon) {
+    LOG(WARNING) << "Roll is +/-90degrees which is a singularity";
+    pitch = 0;
+  } else {
+    double cos_inv = 1.0 / cos(roll);
+    pitch = std::atan2(unit_vec_projection * cos_inv, unit_vec[2] * cos_inv);
+  }
+  return std::make_pair(roll, pitch);
 }
 }

@@ -85,6 +85,7 @@ public:
   */
   void setGoal(ReferenceTrajectoryPtr<StateT, ControlT> goal) {
     BaseConnector::setGoal(goal);
+    ///\todo move this to initialize
     t_goal_ = std::chrono::high_resolution_clock::now();
   }
 

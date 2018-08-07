@@ -143,4 +143,7 @@ createWayPoint(PositionYaw goal, double desired_joint_angle_1,
 * @return std::vector<double>
 */
 std::vector<double> vectorEigenToStd(const Eigen::VectorXd &vec_eigen);
+
+std::pair<double, double>
+accelerationToRollPitch(double yaw, Eigen::Vector3d acceleration_vector);
 }

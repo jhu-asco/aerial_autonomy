@@ -1,0 +1,23 @@
+syntax = "proto2";
+
+/**
+* @brief config for particle reference trajectory
+*/
+message ParticleReferenceConfig {
+  /**
+  * @brief kp
+  */
+  optional double kp_x = 1 [ default = 1.0 ];
+  /**
+  * @brief kp
+  */
+  optional double kp_y = 2 [ default = 1.0 ];
+  /**
+  * @brief kp
+  */
+  optional double kp_z = 3 [ default = 1.0 ];
+  /**
+  * @brief kp
+  */
+  optional double kp_yaw = 4 [ default = 1.0 ];
+}

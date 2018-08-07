@@ -233,6 +233,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/airm_mpc_controller_config.proto
   proto/mpc_visualizer_config.proto
   proto/spiral_reference_trajectory_config.proto
+  proto/particle_reference_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
