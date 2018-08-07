@@ -45,6 +45,11 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
 }
 
 void MPCControllerAirmConnector::initialize() {
+  VLOG(1) << "Clearing thrust estimator buffer";
+  thrust_gain_estimator_.clearBuffer();
+  previous_measurements_initialized_ = false;
+  private_controller_.resetControls();
+  clearCommandBuffers();
   int iters = private_controller_.getMaxIters();
   private_controller_.setMaxIters(100);
   run();
@@ -90,16 +95,6 @@ void MPCControllerAirmConnector::sendControllerCommands(ControlType control) {
   double yaw_cmd = control(3) * 0.02 + last_rpy_command(2);
   rpy_command_buffer_.push(Eigen::Vector3d(control(1), control(2), yaw_cmd));
   thrust_gain_estimator_.addThrustCommand(rpyt_msg.w);
-}
-
-void MPCControllerAirmConnector::setGoal(
-    ReferenceTrajectoryPtr<StateType, ControlType> goal) {
-  MPCControllerConnector<Eigen::VectorXd, Eigen::VectorXd>::setGoal(goal);
-  VLOG(1) << "Clearing thrust estimator buffer";
-  thrust_gain_estimator_.clearBuffer();
-  previous_measurements_initialized_ = false;
-  private_controller_.resetControls();
-  clearCommandBuffers();
 }
 
 tf::Transform

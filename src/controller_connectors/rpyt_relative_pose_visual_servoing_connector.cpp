@@ -5,9 +5,6 @@ bool RPYTRelativePoseVisualServoingConnector::extractSensorData(
     std::tuple<tf::Transform, tf::Transform, VelocityYawRate> &sensor_data) {
   parsernode::common::quaddata quad_data;
   drone_hardware_.getquaddata(quad_data);
-  VelocityYawRate current_velocity_yawrate(
-      quad_data.linvel.x, quad_data.linvel.y, quad_data.linvel.z,
-      quad_data.omega.z);
   tf::Transform object_pose_cam;
   ///\todo Figure out what to do when the tracking pose is repeated
   if (!tracker_.getTrackingVector(object_pose_cam)) {
@@ -16,17 +13,8 @@ bool RPYTRelativePoseVisualServoingConnector::extractSensorData(
   }
   tf::Transform tracking_pose =
       getTrackingTransformRotationCompensatedQuadFrame(object_pose_cam);
-  auto tracking_origin = tracking_pose.getOrigin();
-  double tracking_r, tracking_p, tracking_y;
-  tracking_pose.getBasis().getRPY(tracking_r, tracking_p, tracking_y);
-  DATA_LOG("rpyt_relative_pose_visual_servoing_connector")
-      << quad_data.linvel.x << quad_data.linvel.y << quad_data.linvel.z
-      << quad_data.rpydata.x << quad_data.rpydata.y << quad_data.rpydata.z
-      << quad_data.omega.x << quad_data.omega.y << quad_data.omega.z
-      << tracking_origin.x() << tracking_origin.y() << tracking_origin.z()
-      << tracking_r << tracking_p << tracking_y
-      << getViewingAngle(object_pose_cam) << tracking_origin.length()
-      << DataStream::endl;
+  logTrackerData("rpyt_relative_pose_visual_servoing_connector", tracking_pose,
+                 object_pose_cam, quad_data);
   // giving transform in rotation-compensated quad frame
   sensor_data =
       std::make_tuple(getBodyFrameRotation(), tracking_pose,
@@ -55,10 +43,4 @@ void RPYTRelativePoseVisualServoingConnector::setGoal(PositionYaw goal) {
   BaseClass::setGoal(goal);
   VLOG(1) << "Clearing thrust estimator buffer";
   thrust_gain_estimator_.clearBuffer();
-}
-
-double RPYTRelativePoseVisualServoingConnector::getViewingAngle(
-    tf::Transform object_pose_cam) const {
-  tf::Vector3 z_vec = camera_transform_.getBasis().getColumn(2);
-  return z_vec.angle(object_pose_cam.getOrigin());
 }

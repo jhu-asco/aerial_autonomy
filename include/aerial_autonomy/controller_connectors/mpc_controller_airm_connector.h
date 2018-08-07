@@ -49,13 +49,6 @@ public:
   void initialize();
 
   /**
-  * @brief Set the goal for controller
-  *
-  * @param goal the designated goal
-  */
-  void setGoal(ReferenceTrajectoryPtr<StateType, ControlType> goal);
-
-  /**
   * @brief send commands to Quadrotor and arm
   *
   * @param control The commanded roll, pitch, yaw and thrust to send to

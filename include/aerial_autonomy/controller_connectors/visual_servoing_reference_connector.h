@@ -1,7 +1,9 @@
 #pragma once
 #include "aerial_autonomy/controller_connectors/base_controller_connector.h"
 #include "aerial_autonomy/controller_connectors/base_relative_pose_visual_servoing_connector.h"
+#include "aerial_autonomy/controller_connectors/mpc_controller_connector.h"
 #include "aerial_autonomy/trackers/base_tracker.h"
+#include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/reference_trajectory.h"
 
 #include <parsernode/parser.h>
@@ -31,51 +33,21 @@ public:
    */
   VisualServoingReferenceConnector(
       BaseTracker &tracker, parsernode::Parser &drone_hardware,
-      GenerateReferenceTrajectoryController &controller,
+      ReferenceGenerator &controller,
+      MPCControllerConnector<StateT, ControlT> &dependent_connector,
       tf::Transform camera_transform,
       tf::Transform tracking_offset_transform = tf::Transform::getIdentity())
       : ControllerConnector(controller, ControllerGroup::HighLevel),
         BaseRelativePoseVisualServoingConnector(tracker, drone_hardware,
                                                 camera_transform,
                                                 tracking_offset_transform),
-  {
-    DATA_HEADER("rpyt_relative_pose_visual_servoing_connector")
-        << "vel_x"
-        << "vel_y"
-        << "vel_z"
-        << "roll"
-        << "pitch"
-        << "yaw"
-        << "omega_x"
-        << "omega_y"
-        << "omega_z"
-        << "tracking_x"
-        << "tracking_y"
-        << "tracking_z"
-        << "tracking_r"
-        << "tracking_p"
-        << "tracking_y"
-        << "Viewing_angle"
-        << "Tracking_length" << DataStream::endl;
+        dependent_connector_(dependent_connector) {
+    logTrackerHeader("rpyt_relative_pose_visual_servoing_connector");
   }
   /**
    * @brief Destructor
    */
   virtual ~VisualServoingReferenceConnector() {}
-  /**
-   * @brief set goal to controller and clear estimator buffer
-   *
-   * @param goal empty goal
-   */
-  void setGoal(PositionYaw goal);
-  /**
-  * @brief Get the angle between camera z and the marker center
-  *
-  * @param object_pose_cam the transform of marker in camera frame
-  *
-  * @return angle in radians
-  */
-  double getViewingAngle(tf::Transform object_pose_cam) const;
 
 protected:
   /**
@@ -89,7 +61,21 @@ protected:
    * @return true if able to compute transforms
    */
   virtual bool
-  extractSensorData(std::tuple<tf::Transform, tf::Transform> &sensor_data);
+  extractSensorData(std::tuple<tf::Transform, tf::Transform> &sensor_data) {
+    parsernode::common::quaddata quad_data;
+    drone_hardware_.getquaddata(quad_data);
+    tf::Transform object_pose_cam;
+    if (!tracker_.getTrackingVector(object_pose_cam)) {
+      VLOG(1) << "Invalid tracking vector";
+      return false;
+    }
+    tf::Transform tracking_pose =
+        getTrackingTransformRotationCompensatedQuadFrame(object_pose_cam);
+    logTrackerData("relative_pose_visual_servoing_controller_drone_connector",
+                   tracking_pose, object_pose_cam, quad_data);
+    sensor_data = std::make_tuple(getBodyFrameRotation(), tracking_pose);
+    return true;
+  }
 
   /**
    * @brief Send velocity commands to hardware
@@ -97,9 +83,12 @@ protected:
    * @param controls roll, pitch, yawrate, thrust to send to UAV
    */
   virtual void
-  sendControllerCommands(ReferenceTrajectoryPtr<StateT, ControlT> controls);
+  sendControllerCommands(ReferenceTrajectoryPtr<StateT, ControlT> control) {
+    dependent_connector_.setGoal(control);
+  }
 
 private:
+  MPCControllerConnector<StateT, ControlT> &dependent_connector_;
   /**
    * @brief Base class typedef to simplify code
    */
@@ -107,8 +96,9 @@ private:
       ControllerConnector<std::tuple<tf::Transform, tf::Transform>, PositionYaw,
                           ReferenceTrajectoryPtr<StateT, ControlT>>;
   /**
-   * @brief Estimator for finding the gain between joystick thrust command and
-   * the acceleration in body z direction
+   * @brief Controller that generates reference trajectory
    */
-  ThrustGainEstimator &thrust_gain_estimator_;
+  using ReferenceGenerator =
+      Controller<std::tuple<tf::Transform, tf::Transform>, PositionYaw,
+                 ReferenceTrajectoryPtr<StateT, ControlT>>;
 };

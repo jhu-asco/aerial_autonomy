@@ -12,11 +12,8 @@ bool RelativePoseVisualServoingControllerDroneConnector::extractSensorData(
   }
   tf::Transform tracking_pose =
       getTrackingTransformRotationCompensatedQuadFrame(object_pose_cam);
-  DATA_LOG("relative_pose_visual_servoing_controller_drone_connector")
-      << quad_data.linvel.x << quad_data.linvel.y << quad_data.linvel.z
-      << quad_data.rpydata.x << quad_data.rpydata.y << quad_data.rpydata.z
-      << quad_data.omega.x << quad_data.omega.y << quad_data.omega.z
-      << DataStream::endl;
+  logTrackerData("relative_pose_visual_servoing_controller_drone_connector",
+                 tracking_pose, object_pose_cam, quad_data);
   // giving transform in rotation-compensated quad frame
   sensor_data = std::make_tuple(getBodyFrameRotation(), tracking_pose);
   return true;
