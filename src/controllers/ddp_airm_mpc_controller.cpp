@@ -1,6 +1,9 @@
 #include "aerial_autonomy/controllers/ddp_airm_mpc_controller.h"
 #include "aerial_autonomy/common/atomic.h"
+#include "aerial_autonomy/common/conversions.h"
 #include "aerial_autonomy/log/log.h"
+#include <gcop/aerial_manipulation_feedforward_system.h>
+#include <gcop/airm_residual_network_model.h>
 #include <gcop/load_eigen_matrix.h>
 
 void DDPAirmMPCController::loadQuadParameters(Eigen::Vector3d &kp_rpy,
@@ -26,7 +29,8 @@ void DDPAirmMPCController::loadArmParameters(Eigen::Vector2d &kp_ja,
 DDPAirmMPCController::DDPAirmMPCController(
     AirmMPCControllerConfig config,
     std::chrono::duration<double> controller_duration)
-    : config_(config), kt_(1), look_ahead_index_shift_(1) {
+    : DDPCasadiMPCController(config.ddp_config(), controller_duration),
+      config_(config) {
   // Instantiate system
   std::string folder_path =
       std::string(PROJECT_SOURCE_DIR) + "/" + config.weights_folder();
@@ -44,32 +48,25 @@ DDPAirmMPCController::DDPAirmMPCController(
     sys_.reset(new gcop::AirmResidualNetworkModel(
         kt_, kp_rpy, kd_rpy, kp_ja, kd_ja, config.max_joint_velocity(),
         config.n_layers(), folder_path, lb_, ub_, gcop::Activation::tanh,
-        config_.use_code_generation(), config.mocap_yaw_offset()));
+        config.use_code_generation(), config.mocap_yaw_offset()));
   } else {
     kp_rpy(2) = 0.1; // Toa avoid singularity in GCOP
     sys_.reset(new gcop::AerialManipulationFeedforwardSystem(
         kt_, kp_rpy, kd_rpy, kp_ja, kd_ja, config.max_joint_velocity(), lb_,
-        ub_, config_.use_code_generation()));
+        ub_, config.use_code_generation()));
   }
   VLOG(1) << "Instantiating Step function";
   sys_->instantiateStepFunction();
   // cost
-  auto ddp_config = config_.ddp_config();
+  auto ddp_config = config.ddp_config();
   int N = ddp_config.n();
   double h = ddp_config.h();
   double tf = h * N;
-  CHECK(h > 0) << "The time step should be greater than 0";
-  control_timer_shift_ =
-      std::min(int(std::ceil(controller_duration.count() / h)), N - 1);
-  VLOG(1) << "Control timer shift: " << control_timer_shift_;
-  max_look_ahead_index_shift_ = std::ceil(ddp_config.look_ahead_time() / h);
-  VLOG(1) << "Look ahead index shift: " << max_look_ahead_index_shift_;
-  CHECK(max_look_ahead_index_shift_ < N)
-      << "Look ahead time should be less than trajectory end time";
   VLOG(1) << "Manifold size: " << (sys_->X.n);
   xf_.resize(21);
   xf_.setZero();
   cost_.reset(new gcop::LqCost<Eigen::VectorXd>(*sys_, tf, xf_));
+  cost_->SetReference(&xds_, &uds_);
   VLOG(1) << "Created cost function";
   CHECK(ddp_config.q_size() == sys_->X.n)
       << "Cost dimension should be same as system state size";
@@ -86,20 +83,12 @@ DDPAirmMPCController::DDPAirmMPCController(
   cost_->UpdateGains();
   // References:
   VLOG(1) << "Trajectory length: " << N;
-  xds_.resize(N + 1);
-  uds_.resize(N);
-  cost_->SetReference(&xds_, &uds_);
-  // Times
-  for (int k = 0; k <= N; ++k) {
-    ts_.push_back(k * h);
-  }
   // states
   Eigen::VectorXd default_state(21);
   default_state.setZero();
   xs_.resize(N + 1, default_state);
   // Controls
   resetControls(); // Set controls to default values and resets DDP
-  max_iters_ = config.ddp_config().max_iters();
   VLOG(1) << "Done setting up ddp";
   // Setting up logger
   DATA_HEADER("ddp_mpc_controller") << "Errorx"
@@ -117,36 +106,11 @@ DDPAirmMPCController::DDPAirmMPCController(
                                     << "Loop timer" << DataStream::endl;
 }
 
-void DDPAirmMPCController::resetDDP() {
-  // Ddp
-  VLOG(1) << "Creating ddp";
-  ddp_.reset(
-      new gcop::Ddp<Eigen::VectorXd>(*sys_, *cost_, ts_, xs_, us_, &kt_));
-  ddp_->mu = config_.ddp_config().mu();
-  ddp_->debug = config_.ddp_config().debug();
-}
-
-void DDPAirmMPCController::resetControls() {
-  VLOG(1) << "Resetting Controls";
-  // initial controls
+DDPAirmMPCController::ControlType DDPAirmMPCController::stationaryControl() {
   Eigen::VectorXd ui(6);
   ui << 1.0, 0, 0, 0, 0, 0;
-  int N = config_.ddp_config().n();
-  us_.resize(N);
-  for (int i = 0; i < N; ++i) {
-    us_.at(i) = ui;
-  }
-  resetDDP();
-  ddp_->Update();
-  look_ahead_index_shift_ = 1;
+  return ui;
 }
-
-void DDPAirmMPCController::setMaxIters(int iters) {
-  CHECK(iters >= 1) << "Number of iters should be greater than 1";
-  max_iters_ = iters;
-}
-
-int DDPAirmMPCController::getMaxIters() const { return max_iters_; }
 
 ControllerStatus DDPAirmMPCController::isConvergedImplementation(
     MPCInputs<StateType> sensor_data, GoalType goal) {
@@ -183,69 +147,13 @@ ControllerStatus DDPAirmMPCController::isConvergedImplementation(
   return controller_status;
 }
 
-void DDPAirmMPCController::rotateControls(int shift_length) {
-  int N = us_.size();
-  // Rotate controls by control timer shift
-  // in proto file (Default 50 Hz)
-  for (int i = 0; i < N - shift_length; ++i) {
-    us_[i] = us_[i + shift_length];
-  }
-  for (int i = N - shift_length; i < N; ++i) {
-    us_[i] = us_[N - 1];
-  }
-}
-
 void DDPAirmMPCController::setConfig(AirmMPCControllerConfig config) {
   boost::mutex::scoped_lock(copy_mutex_);
   config_ = config;
+  ddp_config_ = config.ddp_config();
 }
 
-bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
-                                             GoalType goal,
-                                             ControlType &control) {
-  bool result = true;
-  loop_timer_.loop_start();
-  boost::mutex::scoped_lock lock(copy_mutex_);
-  auto &ddp_config = config_.ddp_config();
-  int N = ddp_config.n();
-  double h = ddp_config.h();
-  double t0 = sensor_data.time_since_goal;
-  // Get MPC Reference from high level reference trajectory
-  for (int i = 0; i <= N; ++i) {
-    double t = t0 + i * h;
-    std::pair<StateType, ControlType> state_control_pair = goal->atTime(t);
-    xds_.at(i) = state_control_pair.first;
-    if (i < N) {
-      uds_.at(i) = state_control_pair.second;
-    }
-  }
-  // Start state
-  xs_.at(0) = sensor_data.initial_state;
-  // Parameters
-  kt_[0] = sensor_data.parameters[0]; // copy kt
-  rotateControls(control_timer_shift_);
-  // Update states based on controls
-  ddp_->Update();
-  double J = 1e6; // Assume start cost is some large value
-  // Run MPC Iterations
-  for (int i = 0; i < max_iters_; ++i) {
-    ddp_->Iterate();
-    // Check for convergence
-    if (std::abs(ddp_->J - J) < ddp_config.min_cost_decrease()) {
-      VLOG(5) << "Converged";
-      break;
-    }
-    J = ddp_->J;
-  }
-  VLOG(5) << "DDP_J: " << (ddp_->J);
-  VLOG(5) << "xs0: " << xs_.front().transpose();
-  VLOG(5) << "xf: " << xs_.back().transpose();
-  VLOG(5) << "xd: " << xds_.back().transpose();
-  if (ddp_->J > ddp_config.max_cost()) {
-    LOG(WARNING) << "Failed to get a reasonable trajectory using Ddp. J: "
-                 << (ddp_->J);
-    result = false;
-  }
+void DDPAirmMPCController::outputControl(ControlType &control) {
   // Get Control to return
   control.resize(6);
   control[0] = (9.81 * us_[look_ahead_index_shift_][0]) / kt_[0];
@@ -254,10 +162,10 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   control[3] = us_[look_ahead_index_shift_][3];    // yaw_rate
   control.segment<2>(4) =
       xs_[look_ahead_index_shift_].segment<2>(19); // ja_desired
-  look_ahead_index_shift_ =
-      std::min(look_ahead_index_shift_ + 1, max_look_ahead_index_shift_);
-  loop_timer_.loop_end();
+}
 
+void DDPAirmMPCController::logData(MPCInputs<StateType> &sensor_data,
+                                   ControlType &control) {
   Eigen::Vector3d error_position =
       sensor_data.initial_state.segment<3>(0) - xds_.at(0).segment<3>(0);
   Eigen::Vector2d error_ja =
@@ -265,19 +173,4 @@ bool DDPAirmMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   DATA_LOG("ddp_mpc_controller")
       << error_position << error_ja << control << (ddp_->J)
       << loop_timer_.average_loop_period() << DataStream::endl;
-  return result;
-}
-
-void DDPAirmMPCController::getTrajectory(std::vector<StateType> &xs,
-                                         std::vector<ControlType> &us) const {
-  boost::mutex::scoped_lock lock(copy_mutex_);
-  xs = xs_;
-  us = us_;
-}
-
-void DDPAirmMPCController::getDesiredTrajectory(
-    std::vector<StateType> &xds, std::vector<ControlType> &uds) const {
-  boost::mutex::scoped_lock lock(copy_mutex_);
-  xds = xds_;
-  uds = uds_;
 }

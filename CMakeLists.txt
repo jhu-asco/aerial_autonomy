@@ -234,6 +234,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/mpc_visualizer_config.proto
   proto/spiral_reference_trajectory_config.proto
   proto/particle_reference_config.proto
+  proto/quad_mpc_controller_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -292,6 +293,7 @@ set(SRC
   src/controllers/joystick_velocity_controller.cpp
   src/controllers/arm_sine_controller.cpp
   src/controllers/qrotor_backstepping_controller.cpp
+  src/controllers/ddp_casadi_mpc_controller.cpp
   src/estimators/thrust_gain_estimator.cpp
   src/estimators/tracking_vector_estimator.cpp
   src/controller_connectors/mpc_controller_airm_connector.cpp

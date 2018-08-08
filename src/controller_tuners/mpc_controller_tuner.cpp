@@ -94,6 +94,7 @@ int main(int argc, char **argv) {
   drone_hardware.takeoff();
   arm_simulator.setJointAngles(std::vector<double>{-0.7, 1.2});
   controller_connector.setGoal(reference_ptr);
+  controller_connector.initialize();
   int count = 0;
   while (ros::ok()) {
     controller_connector.run();
