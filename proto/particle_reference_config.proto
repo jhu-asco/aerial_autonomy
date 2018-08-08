@@ -20,4 +20,12 @@ message ParticleReferenceConfig {
   * @brief kp
   */
   optional double kp_yaw = 4 [ default = 1.0 ];
+  /**
+   * @brief maximum velocity
+   */
+  optional double max_velocity = 5 [ default = 0.5 ];
+  /**
+   * @brief maximum yawrate
+   */
+  optional double max_yaw_rate = 6 [ default = 0.2 ];
 }
