@@ -6,8 +6,8 @@
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/reference_trajectory.h"
 
-#include <pair>
 #include <tf/tf.h>
+#include <utility> // Pair
 
 #include <parsernode/parser.h>
 
@@ -22,6 +22,14 @@ class VisualServoingReferenceConnector
                                  PositionYaw,
                                  ReferenceTrajectoryPtr<StateT, ControlT>>,
       public BaseRelativePoseVisualServoingConnector {
+private:
+  /**
+   * @brief Controller that generates reference trajectory
+   */
+  using ReferenceGenerator =
+      Controller<std::pair<PositionYaw, tf::Transform>, PositionYaw,
+                 ReferenceTrajectoryPtr<StateT, ControlT>>;
+
 public:
   /**
    * @brief Constructor
@@ -52,7 +60,7 @@ public:
     start_position_yaw_ =
         PositionYaw(quad_data.localpos.x, quad_data.localpos.y,
                     quad_data.localpos.z, quad_data.rpydata.z);
-    run(); // sets goal to low-level connector
+    this->run(); // sets goal to low-level connector
   }
   /**
    * @brief Destructor
@@ -107,12 +115,6 @@ private:
    * @brief Base class typedef to simplify code
    */
   using BaseClass =
-      ControllerConnector<std::pair<tf::Transform, tf::Transform>, PositionYaw,
+      ControllerConnector<std::pair<PositionYaw, tf::Transform>, PositionYaw,
                           ReferenceTrajectoryPtr<StateT, ControlT>>;
-  /**
-   * @brief Controller that generates reference trajectory
-   */
-  using ReferenceGenerator =
-      Controller<std::pair<tf::Transform, tf::Transform>, PositionYaw,
-                 ReferenceTrajectoryPtr<StateT, ControlT>>;
 };

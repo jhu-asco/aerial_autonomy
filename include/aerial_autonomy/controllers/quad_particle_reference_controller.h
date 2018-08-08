@@ -1,9 +1,11 @@
 #pragma once
 #include "aerial_autonomy/controllers/base_controller.h"
 #include "aerial_autonomy/types/position_yaw.h"
+#include "aerial_autonomy/types/reference_trajectory.h"
+#include "particle_reference_config.pb.h"
 
-#include <pair>
 #include <tf/tf.h>
+#include <utility>
 
 class QuadParticleReferenceController
     : public Controller<
@@ -14,10 +16,6 @@ public:
   * @brief Constructor
   */
   QuadParticleReferenceController(ParticleReferenceConfig config);
-  /**
-   * @brief Destructor
-   */
-  virtual ~QuadParticleReferenceController() {}
 
 protected:
   virtual bool runImplementation(
@@ -25,8 +23,8 @@ protected:
       ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> &control);
 
   virtual ControllerStatus
-  isConvergedImplementation(std::pair<PositionYaw, tf::Transform> sensor_data,
-                            PositionYaw goal) {
+      isConvergedImplementation(std::pair<PositionYaw, tf::Transform>,
+                                PositionYaw) {
     return ControllerStatus(ControllerStatus::Status::Active);
   }
 

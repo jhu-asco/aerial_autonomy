@@ -1,4 +1,5 @@
 #include "aerial_autonomy/types/particle_reference_trajectory.h"
+#include "aerial_autonomy/types/position_yaw.h"
 #include <Eigen/Dense>
 
 class QuadParticleTrajectory

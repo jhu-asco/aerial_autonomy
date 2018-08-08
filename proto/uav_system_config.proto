@@ -14,6 +14,8 @@ import "thrust_gain_estimator_config.proto";
 
 import "ros_sensor_config.proto";
 
+import "quad_mpc_controller_config.proto";
+
 message UAVSystemConfig {
   /**
   * @brief Battery percentage required for takeoff
@@ -92,4 +94,8 @@ message UAVSystemConfig {
   * @brief Velocity sensor config
   */
   optional ROSSensorConfig pose_sensor_config = 17;
+  /**
+  * @brief MPC Config for quadrotor
+  */
+  optional QuadMPCControllerConfig quad_mpc_controller_config = 18;
 }

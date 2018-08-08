@@ -1,5 +1,6 @@
 #pragma once
 
+#include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/reference_trajectory.h"
 #include "particle_reference_config.pb.h"
 #include <tf/tf.h>
@@ -28,7 +29,7 @@ public:
   void setGoal(PositionYaw goal_state) { goal_state_ = goal_state; }
 
 protected:
-  ParticleReferenceConfig config_;
   PositionYaw goal_state_;
   PositionYaw current_state_;
+  ParticleReferenceConfig config_;
 };

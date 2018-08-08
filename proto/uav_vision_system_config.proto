@@ -5,6 +5,7 @@ import "rpyt_based_relative_pose_controller_config.proto";
 import "uav_arm_system_config.proto";
 import "transform.proto";
 import "tracking_vector_estimator_config.proto";
+import "particle_reference_config.proto";
 
 message UAVVisionSystemConfig {
   required ConstantHeadingDepthControllerConfig
@@ -44,4 +45,8 @@ message UAVVisionSystemConfig {
   oneof subclass { UAVArmSystemConfig uav_arm_system_config = 8; }
 
   optional TrackingVectorEstimatorConfig tracking_vector_estimator_config = 9;
+  /**
+  * @brief visual servoing reference trajectory generation
+  */
+  optional ParticleReferenceConfig particle_reference_config = 10;
 }

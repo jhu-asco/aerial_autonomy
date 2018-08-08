@@ -43,7 +43,8 @@ public:
       AbstractConstraintGeneratorPtr constraint_generator = nullptr)
       : BaseConnector(controller, group),
         constraint_generator_(constraint_generator),
-        t_goal_(std::chrono::high_resolution_clock::now()) {}
+        t_goal_(std::chrono::high_resolution_clock::now()),
+        mpc_controller_(controller) {}
 
   /**
   * @brief Estimate the current state and static params
@@ -90,7 +91,9 @@ public:
   * @param us vector of MPC controls
   */
   virtual void getTrajectory(std::vector<StateT> &xs,
-                             std::vector<ControlT> &us) const = 0;
+                             std::vector<ControlT> &us) const {
+    mpc_controller_.getTrajectory(xs, us);
+  }
 
   /**
   * @brief Get the reference MPC trajectory
@@ -99,11 +102,14 @@ public:
   * @param uds vector of MPC controls
   */
   virtual void getDesiredTrajectory(std::vector<StateT> &xds,
-                                    std::vector<ControlT> &uds) const = 0;
+                                    std::vector<ControlT> &uds) const {
+    mpc_controller_.getDesiredTrajectory(xds, uds);
+  }
 
 private:
   AbstractConstraintGeneratorPtr
       constraint_generator_; ///< Generates constraints
   std::chrono::high_resolution_clock::time_point
       t_goal_; ///< Time when goal is set
+  AbstractMPCController<StateT, ControlT> &mpc_controller_; ///< MPC Controller
 };
