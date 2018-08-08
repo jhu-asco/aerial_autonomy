@@ -79,15 +79,9 @@ public:
   }
 
   /**
-  * @brief Set the goal for controller and save the current time
-  *
-  * @param goal goal for controller
-  */
-  void setGoal(ReferenceTrajectoryPtr<StateT, ControlT> goal) {
-    BaseConnector::setGoal(goal);
-    ///\todo move this to initialize
-    t_goal_ = std::chrono::high_resolution_clock::now();
-  }
+   * @brief Save current time
+   */
+  void initialize() { t_goal_ = std::chrono::high_resolution_clock::now(); }
 
   /**
   * @brief Get the MPC planned trajectory

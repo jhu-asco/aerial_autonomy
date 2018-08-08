@@ -45,6 +45,7 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
 }
 
 void MPCControllerAirmConnector::initialize() {
+  MPCControllerConnector::initialize();
   VLOG(1) << "Clearing thrust estimator buffer";
   thrust_gain_estimator_.clearBuffer();
   previous_measurements_initialized_ = false;

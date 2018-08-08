@@ -16,7 +16,7 @@
  * and brings the quadrotor
  * to a goal pose expressed in the tracked object's coordinate frame
  */
-template <class StateT, class ControlT>
+template <class StateT, class ControlT, class DependentConnectorT>
 class VisualServoingReferenceConnector
     : public ControllerConnector<std::pair<PositionYaw, tf::Transform>,
                                  PositionYaw,
@@ -34,8 +34,7 @@ public:
    */
   VisualServoingReferenceConnector(
       BaseTracker &tracker, parsernode::Parser &drone_hardware,
-      ReferenceGenerator &controller,
-      MPCControllerConnector<StateT, ControlT> &dependent_connector,
+      ReferenceGenerator &controller, DependentConnectorT &dependent_connector,
       tf::Transform camera_transform,
       tf::Transform tracking_offset_transform = tf::Transform::getIdentity())
       : BaseClass(controller, ControllerGroup::HighLevel),
@@ -53,6 +52,7 @@ public:
     start_position_yaw_ =
         PositionYaw(quad_data.localpos.x, quad_data.localpos.y,
                     quad_data.localpos.z, quad_data.rpydata.z);
+    run(); // sets goal to low-level connector
   }
   /**
    * @brief Destructor
@@ -100,10 +100,8 @@ protected:
     dependent_connector_.setGoal(control);
   }
 
-  ///\todo Overwrite dependent connector
-
 private:
-  MPCControllerConnector<StateT, ControlT> &dependent_connector_;
+  DependentConnectorT &dependent_connector_;
   PositionYaw start_position_yaw_;
   /**
    * @brief Base class typedef to simplify code
