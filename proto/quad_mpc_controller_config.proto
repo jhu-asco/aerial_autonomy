@@ -39,6 +39,10 @@ message QuadMPCControllerConfig {
   * @brief Goal velocity tolerance
   */
   optional double goal_velocity_tolerance = 9 [ default = 0.1 ];
+  /**
+  * @brief Flag to specify use of code generation
+  */
+  optional bool use_code_generation = 10 [ default = true ];
   repeated double lower_bound_control = 13;
   repeated double upper_bound_control = 14;
 }

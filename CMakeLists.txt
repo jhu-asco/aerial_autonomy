@@ -294,6 +294,7 @@ set(SRC
   src/controllers/arm_sine_controller.cpp
   src/controllers/qrotor_backstepping_controller.cpp
   src/controllers/ddp_casadi_mpc_controller.cpp
+  src/controllers/ddp_quad_mpc_controller.cpp
   src/estimators/thrust_gain_estimator.cpp
   src/estimators/tracking_vector_estimator.cpp
   src/controller_connectors/mpc_controller_airm_connector.cpp

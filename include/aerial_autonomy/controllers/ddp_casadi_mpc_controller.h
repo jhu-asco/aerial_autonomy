@@ -87,7 +87,7 @@ public:
   *
   * @param shift_length The length to shift the controls by
   */
-  void rotateControls(int shift_length);
+  void rotateControls(unsigned int shift_length);
 
   /**
   * @brief Get the average time taken to run MPC control loop
@@ -152,15 +152,18 @@ protected:
   ControlType lb_;               ///< Lowerbound on control
   ControlType ub_;               ///< Lowerbound on control
   std::vector<double> ts_;       ///< vector of timestamps
-  int look_ahead_index_shift_;   ///< Future time stamp for controller being
-                                 /// passed out to account for controller delay
-  int max_look_ahead_index_shift_; ///< Future time stamp for controller being
+  unsigned int
+      look_ahead_index_shift_; ///< Future time stamp for controller being
+                               /// passed out to account for controller delay
+  unsigned int
+      max_look_ahead_index_shift_; ///< Future time stamp for controller being
   /// passed out to account for controller delay
   LoopTimer
       loop_timer_; ///< Timer to find the average time taken by a controller
-  int control_timer_shift_; ///< How many steps should the control shift by for
+  unsigned int
+      control_timer_shift_; ///< How many steps should the control shift by for
                             /// hot starting
-  int max_iters_;           ///< Maximum number of iterations
+  unsigned int max_iters_;  ///< Maximum number of iterations
   mutable boost::mutex
       copy_mutex_; ///< Synchronize access to states and controls
 };
