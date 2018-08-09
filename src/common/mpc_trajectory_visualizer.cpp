@@ -76,7 +76,7 @@ MPCTrajectoryVisualizer::getTrajectory(std::vector<Eigen::VectorXd> &xs,
     }
     // Desired joint angles
     control.ctrlvec[4] = x[19];
-    control.ctrlvec[4] = x[20];
+    control.ctrlvec[5] = x[20];
     control_trajectory.ctrl.push_back(control);
     // time
     control_trajectory.time.push_back(0.02 * i);
