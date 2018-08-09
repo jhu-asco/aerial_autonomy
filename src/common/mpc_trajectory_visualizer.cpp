@@ -54,8 +54,11 @@ gcop_comm::State MPCTrajectoryVisualizer::getState(const Eigen::VectorXd &x) {
   state.basetwist.linear.x = x[6];
   state.basetwist.linear.y = x[7];
   state.basetwist.linear.z = x[8];
-  for (int j = 0; j < 4; ++j) {
-    state.statevector.push_back(x[15 + j]);
+  if (x.size() == 21) {
+    // Joint angles, velocities
+    for (int j = 0; j < 4; ++j) {
+      state.statevector.push_back(x[15 + j]);
+    }
   }
   return state;
 }
@@ -69,14 +72,17 @@ MPCTrajectoryVisualizer::getTrajectory(std::vector<Eigen::VectorXd> &xs,
     const auto &x = xs[i];
     control_trajectory.statemsg.push_back(getState(x));
     gcop_comm::Ctrl control;
-    control.ctrlvec.resize(6);
+    unsigned int us_size = us[i].size();
+    control.ctrlvec.resize(us_size);
     control.ctrlvec[0] = us[i][0]; // thrust
     for (int j = 0; j < 3; ++j) {
       control.ctrlvec[j + 1] = x[12 + j];
     }
-    // Desired joint angles
-    control.ctrlvec[4] = x[19];
-    control.ctrlvec[5] = x[20];
+    if (us_size == 6) {
+      // Desired joint angles
+      control.ctrlvec[4] = x[19];
+      control.ctrlvec[5] = x[20];
+    }
     control_trajectory.ctrl.push_back(control);
     // time
     control_trajectory.time.push_back(0.02 * i);

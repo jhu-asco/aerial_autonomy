@@ -67,6 +67,19 @@ createWayPoint(PositionYaw goal, double desired_joint_angle_1,
   return waypoint;
 }
 
+std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>>
+createWayPoint(PositionYaw goal) {
+  std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>> waypoint;
+  Eigen::VectorXd goal_control(4);
+  goal_control << 1, 0, 0, 0;
+  Eigen::VectorXd goal_state(15);
+  goal_state << goal.x, goal.y, goal.z, 0, 0, goal.yaw, 0, 0, 0, 0, 0, 0, 0, 0,
+      goal.yaw;
+  waypoint.reset(
+      new Waypoint<Eigen::VectorXd, Eigen::VectorXd>(goal_state, goal_control));
+  return waypoint;
+}
+
 std::vector<double> vectorEigenToStd(const Eigen::VectorXd &vec_eigen) {
   std::vector<double> vec_std(
       vec_eigen.data(), vec_eigen.data() + vec_eigen.rows() * vec_eigen.cols());
