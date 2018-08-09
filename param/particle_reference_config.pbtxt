@@ -1,0 +1,6 @@
+kp_x : 0.2
+kp_y : 0.2
+kp_z : 0.2
+kp_yaw : 0.2
+max_velocity : 0.5
+max_yaw_rate : 0.2
