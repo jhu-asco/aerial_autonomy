@@ -56,6 +56,7 @@ void setPose(const geometry_msgs::PoseStamped::ConstPtr &pose_stamped,
   auto reference_ptr =
       createQuadParticleReference(drone_hardware, goal_position_yaw, true);
   connector.setGoal(reference_ptr);
+  connector.initialize();
 }
 
 int main(int argc, char **argv) {

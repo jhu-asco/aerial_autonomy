@@ -23,15 +23,20 @@ QuadParticleTrajectory::QuadParticleTrajectory(PositionYaw goal_state,
   linear_slopes = Eigen::Vector4d::Zero();
   if (time_intersection[0] > tol) {
     linear_slopes[0] = std::copysign(config.max_velocity(), error.x);
+    error.x = error.x - linear_slopes[0] * time_intersection[0];
   }
   if (time_intersection[1] > tol) {
     linear_slopes[1] = std::copysign(config.max_velocity(), error.y);
+    error.y = error.y - linear_slopes[1] * time_intersection[1];
   }
   if (time_intersection[2] > tol) {
     linear_slopes[2] = std::copysign(config.max_velocity(), error.z);
+    error.z = error.z - linear_slopes[2] * time_intersection[2];
   }
   if (time_intersection[3] > tol) {
     linear_slopes[3] = std::copysign(config.max_yaw_rate(), error.yaw);
+    error.yaw = error.yaw - linear_slopes[3] * time_intersection[3];
+    error.yaw = math::angleWrap(error.yaw);
   }
 }
 
@@ -58,8 +63,8 @@ QuadParticleTrajectory::atTime(double t) const {
   double dt = 1e-6;
   double t_dt = t + dt;
   // x
-  double exp_kp_x = exp(-config_.kp_x() * t);
-  double exp_kp_x_dt = exp(-config_.kp_x() * (t_dt));
+  double exp_kp_x = exp(-config_.kp_x() * (t - time_intersection[0]));
+  double exp_kp_x_dt = exp(-config_.kp_x() * (t_dt - time_intersection[0]));
   double exp_x_diff = -exp_kp_x * error.x;
   if (t < time_intersection[0]) {
     x[0] = current_state_.x + linear_slopes[0] * t;
@@ -73,8 +78,8 @@ QuadParticleTrajectory::atTime(double t) const {
     acc_dt[0] = -(config_.kp_x() * config_.kp_x()) * exp_kp_x_dt * error.x;
   }
   // y
-  double exp_kp_y = exp(-config_.kp_y() * t);
-  double exp_kp_y_dt = exp(-config_.kp_y() * (t_dt));
+  double exp_kp_y = exp(-config_.kp_y() * (t - time_intersection[1]));
+  double exp_kp_y_dt = exp(-config_.kp_y() * (t_dt - time_intersection[1]));
   double exp_y_diff = -exp_kp_y * error.y;
   if (t < time_intersection[1]) {
     x[1] = current_state_.y + linear_slopes[1] * t;
@@ -88,8 +93,8 @@ QuadParticleTrajectory::atTime(double t) const {
     acc_dt[1] = -(config_.kp_y() * config_.kp_y()) * exp_kp_y_dt * error.y;
   }
   // z
-  double exp_kp_z = exp(-config_.kp_z() * t);
-  double exp_kp_z_dt = exp(-config_.kp_z() * (t_dt));
+  double exp_kp_z = exp(-config_.kp_z() * (t - time_intersection[2]));
+  double exp_kp_z_dt = exp(-config_.kp_z() * (t_dt - time_intersection[2]));
   double exp_z_diff = -exp_kp_z * error.z;
   if (t < time_intersection[2]) {
     x[2] = current_state_.z + linear_slopes[2] * t;
@@ -104,8 +109,8 @@ QuadParticleTrajectory::atTime(double t) const {
                 gravity_magnitude_;
   }
   // yaw
-  double exp_kp_yaw = exp(-config_.kp_yaw() * t);
-  double exp_kp_yaw_dt = exp(-config_.kp_yaw() * (t_dt));
+  double exp_kp_yaw = exp(-config_.kp_yaw() * (t - time_intersection[3]));
+  double exp_kp_yaw_dt = exp(-config_.kp_yaw() * (t_dt - time_intersection[3]));
   double exp_yaw_diff = -exp_kp_yaw * error.yaw;
   if (t < time_intersection[3]) {
     x[5] = current_state_.yaw + linear_slopes[3] * t;
