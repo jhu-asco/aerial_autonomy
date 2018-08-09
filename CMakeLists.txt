@@ -344,6 +344,7 @@ add_executable(uav_system_node src/system_handler_nodes/uav_system_node.cpp)
 add_executable(uav_vision_system_node src/system_handler_nodes/uav_vision_system_node.cpp)
 add_executable(event_publish_node src/tests/event_publish_node.cpp)
 add_executable(mpc_controller_tuner src/controller_tuners/mpc_controller_tuner.cpp)
+add_executable(quad_mpc_controller_tuner src/controller_tuners/quad_mpc_controller_tuner.cpp)
 add_dependencies(event_publish_node ${PROJECT_NAME}_generate_messages_cpp)
 
 ## Add cmake target dependencies of the executable
@@ -354,6 +355,7 @@ add_dependencies(event_publish_node ${PROJECT_NAME}_generate_messages_cpp)
 
 target_link_libraries(joystick_uav_node aerial_autonomy)
 target_link_libraries(mpc_controller_tuner aerial_autonomy)
+target_link_libraries(quad_mpc_controller_tuner aerial_autonomy)
 target_link_libraries(uav_system_node aerial_autonomy)
 target_link_libraries(uav_vision_system_node aerial_autonomy)
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
