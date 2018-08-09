@@ -181,6 +181,45 @@ TEST(EigenToStdVec, VectorXdToStdVecDouble) {
   }
 }
 
+TEST(OmegaToRpyDot, Identity) {
+  Eigen::Vector3d omega(1, 0, 0);
+  Eigen::Vector3d rpy(1, 1.2, -1); // Random values
+  Eigen::Vector3d rpydot = conversions::omegaToRpyDot(omega, rpy);
+  test_utils::ASSERT_VEC_NEAR(rpydot, Eigen::Vector3d(1, 0, 0));
+  // rpy = 0, rpydot = omega
+  omega = Eigen::Vector3d(1, 2, 3);
+  rpy = Eigen::Vector3d(0, 0, 0);
+  rpydot = conversions::omegaToRpyDot(omega, rpy);
+  test_utils::ASSERT_VEC_NEAR(rpydot, omega);
+}
+
+TEST(OmegaToRpyDot, Singularity) {
+  Eigen::Vector3d omega(1, 1.2, 2.3);
+  Eigen::Vector3d rpy(1, -M_PI / 2.0, -1); // Pitch equal to pi/2
+  Eigen::Vector3d rpydot = conversions::omegaToRpyDot(omega, rpy);
+  Eigen::Vector3d rpy_clamped(1, -0.9 * (M_PI / 2.0), -1);
+  Eigen::Vector3d rpydot_clamped = conversions::omegaToRpyDot(omega, rpy);
+  test_utils::ASSERT_VEC_NEAR(rpydot, rpydot_clamped);
+}
+
+TEST(OmegaToRpyDot, FiniteDiff) {
+  Eigen::Vector3d omega(1, 2, 3);
+  Eigen::Vector3d rpy(1, 1.2, -1); // Random values
+  tf::Transform R;
+  conversions::transformRPYToTf(rpy[0], rpy[1], rpy[2], R);
+  double dt = 1e-6;
+  tf::Vector3 axis(omega[0], omega[1], omega[2]);
+  double angle = axis.length() * dt;
+  axis.normalize();
+  tf::Transform dR(tf::Quaternion(axis, angle));
+  tf::Transform Rn = R * dR;
+  Eigen::Vector3d rpy_next = conversions::transformTfToRPY(Rn);
+  Eigen::Vector3d rpydot_fd = (1.0 / dt) * (rpy_next - rpy);
+
+  Eigen::Vector3d rpydot = conversions::omegaToRpyDot(omega, rpy);
+  test_utils::ASSERT_VEC_NEAR(rpydot, rpydot_fd, 1e-3);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

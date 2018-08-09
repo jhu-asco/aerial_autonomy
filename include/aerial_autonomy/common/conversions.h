@@ -6,6 +6,7 @@
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/velocity.h"
 #include "aerial_autonomy/types/waypoint.h"
+#include "parsernode/common.h"
 #include <armadillo>
 
 #include "position_yaw.pb.h"
@@ -144,6 +145,37 @@ createWayPoint(PositionYaw goal, double desired_joint_angle_1,
 */
 std::vector<double> vectorEigenToStd(const Eigen::VectorXd &vec_eigen);
 
+/**
+ * @brief Map acceleration vector to roll, pitch
+ *
+ * @param yaw Current yaw
+ * @param acceleration_vector Acceleration vector
+ *
+ * @return  roll, pitch as a pair
+ */
 std::pair<double, double>
 accelerationToRollPitch(double yaw, Eigen::Vector3d acceleration_vector);
+
+/**
+ * @brief get the pose of quadrotor as a tf transform
+ *
+ * @param data Quad data
+ *
+ * @return current pose of quadrotor
+ */
+tf::Transform getPose(const parsernode::common::quaddata &data);
+
+/**
+ * @brief Compute euler angle rates from body angular velocities
+ *
+ * @param omega Body angular velocities
+ * @param rpy Euler angles
+ * @param max_pitch Maximum pitch should be less than pi/2 to avoid
+ *                  singularities
+ *
+ * @return Euler angle rates
+ */
+Eigen::Vector3d omegaToRpyDot(const Eigen::Vector3d &omega,
+                              const Eigen::Vector3d &rpy,
+                              const double max_pitch = 0.9 * (M_PI / 2.0));
 }

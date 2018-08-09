@@ -48,15 +48,6 @@ void QuadAirmMPCCommonConnector::sendControllerCommands(ControlType control) {
   thrust_gain_estimator_.addThrustCommand(rpyt_msg.w);
 }
 
-tf::Transform
-QuadAirmMPCCommonConnector::getPose(const parsernode::common::quaddata &data) {
-  tf::Transform pose;
-  tf::vector3MsgToTF(data.localpos, pose.getOrigin());
-  pose.setRotation(tf::createQuaternionFromRPY(data.rpydata.x, data.rpydata.y,
-                                               data.rpydata.z));
-  return pose;
-}
-
 void QuadAirmMPCCommonConnector::usePerfectTimeDiff(double time_diff) {
   use_perfect_time_diff_ = true;
   perfect_time_diff_ = time_diff;
@@ -65,22 +56,4 @@ void QuadAirmMPCCommonConnector::usePerfectTimeDiff(double time_diff) {
 void QuadAirmMPCCommonConnector::useSensor(
     SensorPtr<tf::StampedTransform> sensor) {
   pose_sensor_ = sensor;
-}
-
-Eigen::Vector3d
-QuadAirmMPCCommonConnector::omegaToRpyDot(const Eigen::Vector3d &omega,
-                                          const Eigen::Vector3d &rpy,
-                                          const double max_pitch) {
-  Eigen::Matrix3d Mrpy;
-  double pitch = rpy[1];
-  double abs_pitch = std::abs(pitch);
-  if (abs_pitch > max_pitch) {
-    LOG(WARNING) << "Pitch close to pi/2 which is a singularity";
-    pitch = std::copysign(max_pitch, pitch);
-  }
-  double s_roll = sin(rpy[0]), c_roll = cos(rpy[0]), t_pitch = tan(pitch);
-  double sec_pitch = sqrt(1 + t_pitch * t_pitch);
-  Mrpy << 1, s_roll * t_pitch, c_roll * t_pitch, 0, c_roll, -s_roll, 0,
-      s_roll * sec_pitch, c_roll * sec_pitch;
-  return Mrpy * omega;
 }

@@ -97,4 +97,29 @@ accelerationToRollPitch(double yaw, Eigen::Vector3d acceleration_vector) {
   }
   return std::make_pair(roll, pitch);
 }
+
+tf::Transform getPose(const parsernode::common::quaddata &data) {
+  tf::Transform pose;
+  tf::vector3MsgToTF(data.localpos, pose.getOrigin());
+  pose.setRotation(tf::createQuaternionFromRPY(data.rpydata.x, data.rpydata.y,
+                                               data.rpydata.z));
+  return pose;
+}
+
+Eigen::Vector3d omegaToRpyDot(const Eigen::Vector3d &omega,
+                              const Eigen::Vector3d &rpy,
+                              const double max_pitch) {
+  Eigen::Matrix3d Mrpy;
+  double pitch = rpy[1];
+  double abs_pitch = std::abs(pitch);
+  if (abs_pitch > max_pitch) {
+    LOG(WARNING) << "Pitch close to pi/2 which is a singularity";
+    pitch = std::copysign(max_pitch, pitch);
+  }
+  double s_roll = sin(rpy[0]), c_roll = cos(rpy[0]), t_pitch = tan(pitch);
+  double sec_pitch = sqrt(1 + t_pitch * t_pitch);
+  Mrpy << 1, s_roll * t_pitch, c_roll * t_pitch, 0, c_roll, -s_roll, 0,
+      s_roll * sec_pitch, c_roll * sec_pitch;
+  return Mrpy * omega;
+}
 }

@@ -92,7 +92,7 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
     }
     quad_pose = pose_sensor_->getSensorData();
   } else {
-    quad_pose = getPose(quad_data);
+    quad_pose = conversions::getPose(quad_data);
   }
   // Position
   const auto &quad_position = quad_pose.getOrigin();
@@ -127,8 +127,9 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
   }
   double rpydot_gain_ = 0.7;
   // Get rpydot from omega:
-  filtered_rpydot_ = (rpydot_gain_ * filtered_rpydot_ +
-                      (1 - rpydot_gain_) * omegaToRpyDot(omega, rpy));
+  filtered_rpydot_ =
+      (rpydot_gain_ * filtered_rpydot_ +
+       (1 - rpydot_gain_) * conversions::omegaToRpyDot(omega, rpy));
   // Update filtered velocities:
   filtered_joint_velocity_ = angular_exp_gain_ * filtered_joint_velocity_ +
                              (1 - angular_exp_gain_) * joint_velocities;
