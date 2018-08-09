@@ -1,5 +1,6 @@
 #include "aerial_autonomy/types/quad_particle_reference_trajectory.h"
 #include "aerial_autonomy/common/conversions.h"
+#include "aerial_autonomy/common/math.h"
 #include <glog/logging.h>
 
 constexpr double QuadParticleTrajectory::gravity_magnitude_,
@@ -122,6 +123,8 @@ QuadParticleTrajectory::atTime(double t) const {
   auto roll_pitch_dt = conversions::accelerationToRollPitch(yaw_dt, acc_dt);
   x[9] = (roll_pitch_dt.first - x[3]) / dt;
   x[10] = (roll_pitch_dt.second - x[4]) / dt;
+  // Wrap yaw
+  x[5] = math::angleWrap(x[5]);
   // Commanded angles
   x[12] = x[3];
   x[13] = x[4];

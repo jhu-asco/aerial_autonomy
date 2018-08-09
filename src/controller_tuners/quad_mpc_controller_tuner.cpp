@@ -24,7 +24,8 @@
 */
 std::shared_ptr<QuadParticleTrajectory>
 createQuadParticleReference(quad_simulator::QuadSimulator &drone_hardware,
-                            PositionYaw goal_position_yaw) {
+                            PositionYaw goal_position_yaw,
+                            bool ignore_z = false) {
   parsernode::common::quaddata data;
   drone_hardware.getquaddata(data);
   PositionYaw start_position_yaw(data.localpos.x, data.localpos.y,
@@ -36,6 +37,9 @@ createQuadParticleReference(quad_simulator::QuadSimulator &drone_hardware,
                                       "/param/particle_reference_config.pbtxt",
                                   particle_reference_config)) {
     LOG(WARNING) << "Cannot load proto file for particle reference trajectory";
+  }
+  if (ignore_z) {
+    goal_position_yaw.z = start_position_yaw.z;
   }
   return std::shared_ptr<QuadParticleTrajectory>(new QuadParticleTrajectory(
       goal_position_yaw, start_position_yaw, particle_reference_config));
@@ -50,7 +54,7 @@ void setPose(const geometry_msgs::PoseStamped::ConstPtr &pose_stamped,
   ROS_INFO("goal: %f, %f, %f, %f", goal_position_yaw.x, goal_position_yaw.y,
            goal_position_yaw.z, goal_position_yaw.yaw);
   auto reference_ptr =
-      createQuadParticleReference(drone_hardware, goal_position_yaw);
+      createQuadParticleReference(drone_hardware, goal_position_yaw, true);
   connector.setGoal(reference_ptr);
 }
 
@@ -111,7 +115,10 @@ int main(int argc, char **argv) {
       boost::bind(setPose, _1, boost::ref(controller_connector),
                   boost::ref(drone_hardware)));
   int count = 0;
-  while (ros::ok()) {
+  while (ros::ok() &&
+         controller_connector.getStatus() !=
+             ControllerStatus::Status::Critical) {
+
     controller_connector.run();
     if (++count == 4) {
       visualizer.publishTrajectory();

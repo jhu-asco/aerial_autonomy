@@ -5,12 +5,15 @@
 #include <gtest/gtest.h>
 
 ParticleReferenceConfig createConfig(double kp_x, double kp_y, double kp_z,
-                                     double kp_yaw) {
+                                     double kp_yaw, double max_velocity,
+                                     double max_yaw_rate) {
   ParticleReferenceConfig config;
   config.set_kp_x(kp_x);
   config.set_kp_y(kp_y);
   config.set_kp_z(kp_z);
   config.set_kp_yaw(kp_yaw);
+  config.set_max_velocity(max_velocity);
+  config.set_max_yaw_rate(max_yaw_rate);
   return config;
 }
 
@@ -134,6 +137,19 @@ TEST(QuadParticleReferenceTrajectory, ExpStateFiniteDiff) {
       rpy_dot_expected, Eigen::Vector3d(state_control_pair.first.segment<3>(9)),
       1e-6);
 }
+
+TEST(QuadParticleReferenceTrajectory, TestLargeYawDiff) {
+  ParticleReferenceConfig config = createConfig(0.2, 0.2, 0.2, 0.2, 0.5, 0.2);
+  PositionYaw current_position_yaw(1.0, 1.0, 1.0, -3);
+  PositionYaw goal_position_yaw(1, 0.8, 0, 3.1);
+  QuadParticleTrajectory reference(goal_position_yaw, current_position_yaw,
+                                   config);
+  auto state_control_pair = reference.atTime(2);
+  ASSERT_LT(state_control_pair.first[5], current_position_yaw.yaw);
+  state_control_pair = reference.atTime(20);
+  ASSERT_NEAR(state_control_pair.first[5], goal_position_yaw.yaw, 1e-2);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
