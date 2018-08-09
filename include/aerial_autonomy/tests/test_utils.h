@@ -322,6 +322,59 @@ AirmMPCControllerConfig createMPCConfig() {
 }
 
 /**
+* @brief create a default MPC Config
+*
+* @return config MPC Controller config
+*/
+QuadMPCControllerConfig createQuadMPCConfig() {
+  QuadMPCControllerConfig config;
+  auto lb = config.mutable_lower_bound_control();
+  lb->Resize(4, 0);
+  auto ub = config.mutable_upper_bound_control();
+  ub->Resize(4, 0);
+  config.set_lower_bound_control(0, 0.8);
+  config.set_lower_bound_control(1, -0.3);
+  config.set_lower_bound_control(2, -0.3);
+  config.set_lower_bound_control(3, -0.3);
+
+  config.set_upper_bound_control(0, 1.2);
+  config.set_upper_bound_control(1, 0.3);
+  config.set_upper_bound_control(2, 0.3);
+  config.set_upper_bound_control(3, 0.3);
+
+  config.set_goal_position_tolerance(0.2);
+  config.set_goal_velocity_tolerance(0.25);
+  DDPMPCControllerConfig *ddp_config = config.mutable_ddp_config();
+  ddp_config->set_n(100);
+  ddp_config->set_max_cost(500);
+  ddp_config->set_look_ahead_time(0.02);
+  auto q = ddp_config->mutable_q();
+  q->Resize(15, 0.0);
+  auto qf = ddp_config->mutable_qf();
+  qf->Resize(15, 0.1);
+  auto r = ddp_config->mutable_r();
+  r->Resize(4, 4.0);
+  r->Set(0, 6.0); // Reduce thrust control
+  for (int i = 0; i < 3; ++i) {
+    // Pos cost
+    ddp_config->set_qf(i, 100.0);
+    ddp_config->set_q(i, 1.0);
+    // Rpy cost
+    ddp_config->set_qf(i + 3, 800.0);
+    ddp_config->set_q(i + 3, 4.0);
+    // Vel cost
+    ddp_config->set_qf(i + 6, 100.0);
+    ddp_config->set_q(i + 6, 4.0);
+    // Rpydot cost
+    ddp_config->set_qf(i + 9, 5.0);
+    ddp_config->set_q(i + 9, 4.0);
+  }
+  ddp_config->set_debug(false);
+  ddp_config->set_max_iters(5);
+  config.set_use_code_generation(false);
+  return config;
+}
+/**
  * @brief Convenience name to wait until input function returns true
  */
 using waitUntilTrue = WaitUntilResult<true>;

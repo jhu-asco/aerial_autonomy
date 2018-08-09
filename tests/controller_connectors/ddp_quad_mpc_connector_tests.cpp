@@ -1,14 +1,12 @@
-#pragma once
 #include "aerial_autonomy/common/conversions.h"
-#include "aerial_autonomy/controller_connectors/mpc_controller_airm_connector.h"
-#include "aerial_autonomy/controllers/ddp_airm_mpc_controller.h"
+#include "aerial_autonomy/controller_connectors/mpc_controller_quad_connector.h"
+#include "aerial_autonomy/controllers/ddp_quad_mpc_controller.h"
 #include "aerial_autonomy/log/log.h"
 #include "aerial_autonomy/tests/test_utils.h"
 #include "aerial_autonomy/types/waypoint.h"
 
 #include <Eigen/Dense>
 
-#include "arm_parsers/arm_simulator.h"
 #include <quad_simulator_parser/quad_simulator.h>
 
 #include <gtest/gtest.h>
@@ -19,18 +17,18 @@
 * Provides functionality to create MPC Controller
 *
 */
-class MPCControllerAirmConnectorTests : public ::testing::Test {
+class MPCControllerQuadConnectorTests : public ::testing::Test {
 public:
   /**
   * @brief Constructor
   */
-  MPCControllerAirmConnectorTests()
+  MPCControllerQuadConnectorTests()
       : thrust_gain_estimator_(0.2),
-        controller_config_(test_utils::createMPCConfig()) {
-    controller_.reset(new DDPAirmMPCController(controller_config_,
+        controller_config_(test_utils::createQuadMPCConfig()) {
+    controller_.reset(new DDPQuadMPCController(controller_config_,
                                                std::chrono::milliseconds(20)));
-    controller_connector_.reset(new MPCControllerAirmConnector(
-        drone_hardware_, arm_simulator_, *controller_, thrust_gain_estimator_));
+    controller_connector_.reset(new MPCControllerQuadConnector(
+        drone_hardware_, *controller_, thrust_gain_estimator_));
     drone_hardware_.usePerfectTime();
     drone_hardware_.set_delay_send_time(0.02);
     controller_connector_->usePerfectTimeDiff(0.02);
@@ -44,11 +42,11 @@ public:
     log_config.set_directory("/tmp/data");
     Log::instance().configure(log_config);
     DataStreamConfig data_config;
-    data_config.set_stream_id("ddp_mpc_controller");
+    data_config.set_stream_id("ddp_quad_mpc_controller");
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("thrust_gain_estimator");
     Log::instance().addDataStream(data_config);
-    data_config.set_stream_id("airm_mpc_state_estimator");
+    data_config.set_stream_id("quad_mpc_state_estimator");
     Log::instance().addDataStream(data_config);
   }
 
@@ -57,15 +55,11 @@ public:
   *
   * @param initial_state initial robot state
   * @param goal Goal point for robot
-  * @param goal_joint_angles Initial joint angles
-  * @param init_joint_angles Goal joint angles
   * @param check_thrust_gain Flag whether to verify convergence of thrust gain
   * estimator
   */
   void runUntilConvergence(const PositionYaw &initial_state,
                            const PositionYaw &goal,
-                           std::vector<double> &&goal_joint_angles,
-                           std::vector<double> &&init_joint_angles = {0, 0},
                            bool check_thrust_gain = true) {
     // Fly quadrotor which sets the altitude to 0.5
     drone_hardware_.setBatteryPercent(60);
@@ -75,13 +69,9 @@ public:
     init_position.y = initial_state.y;
     init_position.z = initial_state.z;
     drone_hardware_.cmdwaypoint(init_position, initial_state.yaw);
-    arm_simulator_.setJointAngles(init_joint_angles);
-    controller_connector_->setGoal(conversions::createWayPoint(
-        goal, goal_joint_angles[0], goal_joint_angles[1]));
+    controller_connector_->setGoal(conversions::createWayPoint(goal));
     auto runController = [&]() {
       controller_connector_->run();
-      parsernode::common::quaddata sensor_data;
-      drone_hardware_.getquaddata(sensor_data);
       return controller_connector_->getStatus() == ControllerStatus::Active;
     };
     ASSERT_FALSE(test_utils::waitUntilFalse()(
@@ -112,10 +102,44 @@ public:
 
 protected:
   quad_simulator::QuadSimulator drone_hardware_;     ///< Quad simulator
-  ArmSimulator arm_simulator_;                       ///< Arm simulator
-  std::unique_ptr<DDPAirmMPCController> controller_; ///< MPC controller
-  std::unique_ptr<MPCControllerAirmConnector>
+  std::unique_ptr<DDPQuadMPCController> controller_; ///< MPC controller
+  std::unique_ptr<MPCControllerQuadConnector>
       controller_connector_;                  ///< MPC connector
   ThrustGainEstimator thrust_gain_estimator_; ///< Thrust gain estimator
-  AirmMPCControllerConfig controller_config_; ///< Config for MPC controller
+  QuadMPCControllerConfig controller_config_; ///< Config for MPC controller
 };
+
+TEST_F(MPCControllerQuadConnectorTests, GoalIsStart) {
+  runUntilConvergence(PositionYaw(0, 0, 0, 0), PositionYaw(0, 0, 0, 0), false);
+}
+
+TEST_F(MPCControllerQuadConnectorTests, ConvergenceZeroStartNoYaw) {
+  runUntilConvergence(PositionYaw(0, 0, 0, 0), PositionYaw(1, -1, 1, 0));
+}
+
+TEST_F(MPCControllerQuadConnectorTests, ConvergenceZeroStartPosYaw) {
+  runUntilConvergence(PositionYaw(0, 0, 0, 0), PositionYaw(-0.1, -1, 0.1, 0.1));
+}
+
+TEST_F(MPCControllerQuadConnectorTests, ConvergenceZeroStartNegYaw) {
+  runUntilConvergence(PositionYaw(0, 0, 0, 0), PositionYaw(1, -1, -1, -0.5));
+}
+
+TEST_F(MPCControllerQuadConnectorTests, ConvergenceNonZeroStartNoYaw) {
+  runUntilConvergence(PositionYaw(-1, 0.3, 2, 0), PositionYaw(-0.5, 0.5, 1, 0));
+}
+
+TEST_F(MPCControllerQuadConnectorTests, ConvergenceNonZeroStartPosYaw) {
+  runUntilConvergence(PositionYaw(-2.2, -1, 3.2, -0.1),
+                      PositionYaw(-2, -1.5, 3.5, 0.5));
+}
+
+TEST_F(MPCControllerQuadConnectorTests, ConvergenceNonZeroStartNegYaw) {
+  runUntilConvergence(PositionYaw(-.1, 0.2, 1, 0.4),
+                      PositionYaw(-0.5, -0.2, -0.1, -0.5));
+}
+
+int main(int argc, char **argv) {
+  testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+}

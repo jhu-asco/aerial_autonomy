@@ -76,17 +76,17 @@ DDPQuadMPCController::DDPQuadMPCController(
   resetControls(); // Set controls to default values and resets DDP
   VLOG(1) << "Done setting up ddp";
   // Setting up logger
-  DATA_HEADER("ddp_mpc_controller") << "Errorx"
-                                    << "Errory"
-                                    << "Errorz"
-                                    << "thrust_d"
-                                    << "rd"
-                                    << "pd"
-                                    << "yaw_rate_d"
-                                    << "Jad1"
-                                    << "Jad2"
-                                    << "J"
-                                    << "Loop timer" << DataStream::endl;
+  DATA_HEADER("ddp_quad_mpc_controller") << "Errorx"
+                                         << "Errory"
+                                         << "Errorz"
+                                         << "thrust_d"
+                                         << "rd"
+                                         << "pd"
+                                         << "yaw_rate_d"
+                                         << "Jad1"
+                                         << "Jad2"
+                                         << "J"
+                                         << "Loop timer" << DataStream::endl;
 }
 
 DDPQuadMPCController::ControlType DDPQuadMPCController::stationaryControl() {
@@ -140,7 +140,7 @@ void DDPQuadMPCController::logData(MPCInputs<StateType> &sensor_data,
                                    ControlType &control) {
   Eigen::Vector3d error_position =
       sensor_data.initial_state.segment<3>(0) - xds_.at(0).segment<3>(0);
-  DATA_LOG("ddp_mpc_controller") << error_position << control << (ddp_->J)
-                                 << loop_timer_.average_loop_period()
-                                 << DataStream::endl;
+  DATA_LOG("ddp_quad_mpc_controller") << error_position << control << (ddp_->J)
+                                      << loop_timer_.average_loop_period()
+                                      << DataStream::endl;
 }
