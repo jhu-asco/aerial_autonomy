@@ -96,7 +96,7 @@ int main(int argc, char **argv) {
   visualizer_config.mutable_trajectory_color()->set_g(1.0);
   visualizer_config.mutable_trajectory_color()->set_r(0.0);
   visualizer_config.mutable_desired_trajectory_color()->set_a(0.5);
-  MPCTrajectoryVisualizer visualizer(controller_connector, visualizer_config);
+  MPCTrajectoryVisualizer visualizer(visualizer_config);
   PositionYaw goal_position_yaw(1.0, 1.0, 1.0, 0.5);
   // auto reference_ptr =
   //    conversions::createQuadWayPoint(goal_position_yaw);
@@ -122,7 +122,7 @@ int main(int argc, char **argv) {
 
     controller_connector.run();
     if (++count == 4) {
-      visualizer.publishTrajectory();
+      visualizer.publishTrajectory(controller_connector);
       count = 0;
     }
     LOG_EVERY_N(INFO, 20) << "Connector: "

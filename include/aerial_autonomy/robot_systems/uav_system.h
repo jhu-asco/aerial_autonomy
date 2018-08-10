@@ -3,6 +3,8 @@
 #include "uav_system_config.pb.h"
 // Html Utilities
 #include <aerial_autonomy/common/html_utils.h>
+// MPC Trajectory visualizer
+#include "aerial_autonomy/common/mpc_trajectory_visualizer.h"
 // Base robot system
 #include <aerial_autonomy/robot_systems/base_robot_system.h>
 // Controllers
@@ -94,6 +96,10 @@ protected:
    * @brief pose_sensor_
    */
   std::shared_ptr<Sensor<tf::StampedTransform>> pose_sensor_;
+  /**
+   * @brief mpc trajectory visualizer
+   */
+  std::unique_ptr<MPCTrajectoryVisualizer> mpc_visualizer_;
 
 private:
   /**
@@ -279,6 +285,11 @@ public:
     controller_connector_container_.setObject(
         joystick_velocity_controller_drone_connector_);
     controller_connector_container_.setObject(quad_mpc_connector_);
+    // Visualization
+    if (config_.visualize_mpc_trajectories()) {
+      mpc_visualizer_.reset(
+          new MPCTrajectoryVisualizer(config_.visualizer_config()));
+    }
   }
   /**
   * @brief Get sensor data from UAV
@@ -289,6 +300,15 @@ public:
     parsernode::common::quaddata data;
     drone_hardware_->getquaddata(data);
     return data;
+  }
+
+  /**
+* @brief MPC trajectory visualization function
+*/
+  void visualizeQuadMPC() {
+    if (mpc_visualizer_) {
+      mpc_visualizer_->publishTrajectory(quad_mpc_connector_);
+    }
   }
 
   /**

@@ -16,6 +16,8 @@ import "ros_sensor_config.proto";
 
 import "quad_mpc_controller_config.proto";
 
+import "mpc_visualizer_config.proto";
+
 message UAVSystemConfig {
   /**
   * @brief Battery percentage required for takeoff
@@ -98,4 +100,12 @@ message UAVSystemConfig {
   * @brief MPC Config for quadrotor
   */
   optional QuadMPCControllerConfig quad_mpc_controller_config = 18;
+  /**
+  * @brief Visualizing MPC trajectories
+  */
+  optional MPCVisualizerConfig visualizer_config = 19;
+  /**
+  * @brief Flag to specify whether to visualize MPC trajectories
+  */
+  optional bool visualize_mpc_trajectories = 20 [ default = false ];
 }

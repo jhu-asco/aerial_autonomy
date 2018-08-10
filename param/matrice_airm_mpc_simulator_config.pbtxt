@@ -1,6 +1,6 @@
+mpc_visualization_timer_duration: 50
 uav_arm_system_handler_config {
   arm_controller_timer_duration: 20
-  mpc_visualization_timer_duration: 50
 }
 
 base_config {
@@ -75,6 +75,21 @@ uav_system_config {
     buffer_size: 10
   }
 
+	visualize_mpc_trajectories: true
+	visualizer_config {
+		parent_frame: "/world"
+		trajectory_color {
+			r: 0
+			g: 1
+			b: 0
+		}
+		desired_trajectory_color {
+			r: 1
+			g: 0
+			b: 0
+			a: 0.4
+		}
+	}
   uav_vision_system_config {
     desired_visual_servoing_distance: 0.48
     constant_heading_depth_controller_config {
@@ -104,22 +119,7 @@ uav_system_config {
           goal_rotation_tolerance: 6
         }
         arm_parser_type: "ArmSimulator"
-      }
-      visualize_mpc_trajectories: true
-      visualizer_config {
-        parent_frame: "/world"
-        trajectory_color {
-          r: 0
-          g: 1
-          b: 0
-        }
-        desired_trajectory_color {
-          r: 1
-          g: 0
-          b: 0
-          a: 0.4
-        }
-      }
+      } 
       mpc_controller_config {
         default_thrust_gain: 0.16
         ddp_config {

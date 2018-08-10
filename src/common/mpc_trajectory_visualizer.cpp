@@ -1,22 +1,22 @@
 #include "aerial_autonomy/common/mpc_trajectory_visualizer.h"
 
-MPCTrajectoryVisualizer::MPCTrajectoryVisualizer(ControllerConnector &connector,
-                                                 MPCVisualizerConfig config)
-    : connector_(connector), nh_("mpc_visualizer"),
+MPCTrajectoryVisualizer::MPCTrajectoryVisualizer(MPCVisualizerConfig config)
+    : nh_("mpc_visualizer"),
       visualizer_(nh_, config.parent_frame(), config.visualize_velocities()),
       config_(config) {
   gcop_trajectory_pub_ =
       nh_.advertise<gcop_comm::CtrlTraj>("control_trajectory", 1);
 }
 
-void MPCTrajectoryVisualizer::publishTrajectory() {
-  ControllerStatus status = connector_.getStatus();
+void MPCTrajectoryVisualizer::publishTrajectory(
+    ControllerConnector &connector) {
+  ControllerStatus status = connector.getStatus();
   if (status == ControllerStatus::Active ||
       status == ControllerStatus::Completed) {
-    connector_.getTrajectory(xs_, us_);
+    connector.getTrajectory(xs_, us_);
     gcop_comm::CtrlTraj trajectory =
         getTrajectory(xs_, us_, config_.skip_segments());
-    connector_.getDesiredTrajectory(xds_, uds_);
+    connector.getDesiredTrajectory(xds_, uds_);
     gcop_comm::CtrlTraj desired_trajectory =
         getTrajectory(xds_, uds_, config_.skip_segments());
     const auto &trajectory_color = config_.trajectory_color();
@@ -34,11 +34,12 @@ void MPCTrajectoryVisualizer::publishTrajectory() {
   }
 }
 
-void MPCTrajectoryVisualizer::publishGcopTrajectory() {
-  ControllerStatus status = connector_.getStatus();
+void MPCTrajectoryVisualizer::publishGcopTrajectory(
+    ControllerConnector &connector) {
+  ControllerStatus status = connector.getStatus();
   if (status == ControllerStatus::Active ||
       status == ControllerStatus::Completed) {
-    connector_.getTrajectory(xs_, us_);
+    connector.getTrajectory(xs_, us_);
     gcop_comm::CtrlTraj trajectory =
         getTrajectory(xs_, us_, config_.skip_segments());
     gcop_trajectory_pub_.publish(trajectory);

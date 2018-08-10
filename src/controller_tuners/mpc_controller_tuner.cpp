@@ -83,7 +83,7 @@ int main(int argc, char **argv) {
   visualizer_config.mutable_trajectory_color()->set_g(1.0);
   visualizer_config.mutable_trajectory_color()->set_r(0.0);
   visualizer_config.mutable_desired_trajectory_color()->set_a(0.5);
-  MPCTrajectoryVisualizer visualizer(controller_connector, visualizer_config);
+  MPCTrajectoryVisualizer visualizer(visualizer_config);
   // auto reference_ptr =
   //    conversions::createWayPoint(PositionYaw(0.2, 0.2, 0.2, 0.0), -0.8, 1.4);
   auto reference_ptr = createSpiralReference(drone_hardware);
@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
   while (ros::ok()) {
     controller_connector.run();
     if (++count == 4) {
-      visualizer.publishTrajectory();
+      visualizer.publishTrajectory(controller_connector);
       count = 0;
     }
     LOG_EVERY_N(INFO, 20) << "Connector: "
