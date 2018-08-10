@@ -40,12 +40,18 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
     VLOG(1) << "Setting goal " << GoalIndex
             << " for relative pose visual servoing drone connector!";
     // \todo (Matt) Perhaps get goal based on a name instead of an index?
-    auto goal =
-        this->state_machine_config_.visual_servoing_state_machine_config()
-            .relative_pose_goals()
-            .Get(GoalIndex);
-    robot_system.setGoal<RPYTRelativePoseVisualServoingConnector, PositionYaw>(
-        conversions::protoPositionYawToPositionYaw(goal));
+    auto state_machine_config =
+        this->state_machine_config_.visual_servoing_state_machine_config();
+    auto goal = state_machine_config.relative_pose_goals().Get(GoalIndex);
+    PositionYaw position_yaw_goal =
+        conversions::protoPositionYawToPositionYaw(goal);
+    if (state_machine_config.use_reference_controller()) {
+      robot_system.setGoal<UAVVisionSystem::VisualServoingReferenceConnectorT,
+                           PositionYaw>(position_yaw_goal);
+    } else {
+      robot_system.setGoal<RPYTRelativePoseVisualServoingConnector,
+                           PositionYaw>(position_yaw_goal);
+    }
   }
 };
 

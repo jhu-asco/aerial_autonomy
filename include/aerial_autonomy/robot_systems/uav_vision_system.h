@@ -27,6 +27,14 @@ protected:
 
 public:
   /**
+   * @brief Shortcut for visual servoing reference connector
+   *
+   * with dependent mpc connector
+   */
+  using VisualServoingReferenceConnectorT = VisualServoingReferenceConnector<
+      Eigen::VectorXd, Eigen::VectorXd,
+      MPCControllerConnector<Eigen::VectorXd, Eigen::VectorXd>>;
+  /**
   * @brief Constructor
   * @param config Configuration parameters
   * @param tracker Used to track targets for visual servoing. If provided, will
@@ -67,6 +75,8 @@ public:
     controller_connector_container_.setObject(visual_servoing_drone_connector_);
     controller_connector_container_.setObject(
         relative_pose_visual_servoing_drone_connector_);
+    controller_connector_container_.setObject(
+        visual_servoing_reference_connector_);
   }
 
   /**
@@ -216,8 +226,5 @@ private:
   /**
    * @brief High level visual servoing connector
    */
-  VisualServoingReferenceConnector<
-      Eigen::VectorXd, Eigen::VectorXd,
-      MPCControllerConnector<Eigen::VectorXd, Eigen::VectorXd>>
-      visual_servoing_reference_connector_;
+  VisualServoingReferenceConnectorT visual_servoing_reference_connector_;
 };

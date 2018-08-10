@@ -12,4 +12,5 @@ message VisualServoingStateMachineConfig {
   oneof subclass {
     PickPlaceStateMachineConfig pick_place_state_machine_config = 2;
   }
+  optional bool use_reference_controller = 3 [ default = false ];
 }
