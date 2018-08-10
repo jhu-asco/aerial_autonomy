@@ -11,6 +11,7 @@
 #include "aerial_autonomy/robot_systems/uav_system.h"
 #include "aerial_autonomy/trackers/alvar_tracker.h"
 #include "aerial_autonomy/trackers/roi_to_position_converter.h"
+#include "aerial_autonomy/trackers/simulated_ros_tracker.h"
 #include "uav_system_config.pb.h"
 
 #include <tf/tf.h>
@@ -49,7 +50,8 @@ public:
       : UAVSystem(config, drone_hardware, velocity_sensor),
         camera_transform_(conversions::protoTransformToTf(
             config_.uav_vision_system_config().camera_transform())),
-        tracker_(UAVVisionSystem::chooseTracker(tracker, config)),
+        tracker_(UAVVisionSystem::chooseTracker(tracker, drone_hardware_,
+                                                camera_transform_, config)),
         constant_heading_depth_controller_(
             config_.uav_vision_system_config()
                 .constant_heading_depth_controller_config()),
@@ -180,6 +182,8 @@ protected:
    * specified one if user provided nullptr.
    */
   static BaseTrackerPtr chooseTracker(BaseTrackerPtr tracker,
+                                      UAVParserPtr drone_hardware,
+                                      tf::Transform camera_transform,
                                       UAVSystemConfig &config) {
     BaseTrackerPtr tracker_pointer;
     if (tracker) {
@@ -191,6 +195,9 @@ protected:
         tracker_pointer = BaseTrackerPtr(new RoiToPositionConverter());
       } else if (tracker_type == "Alvar") {
         tracker_pointer = BaseTrackerPtr(new AlvarTracker());
+      } else if (tracker_type == "Simulated") {
+        tracker_pointer = BaseTrackerPtr(new SimulatedROSTracker(
+            *drone_hardware, camera_transform, "simulated_ros_tracker"));
       } else {
         throw std::runtime_error("Unknown tracker type provided: " +
                                  tracker_type);

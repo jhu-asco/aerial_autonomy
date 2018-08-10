@@ -29,7 +29,8 @@ struct ResetRelativePoseVisualServoingTransitionActionFunctor_
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
-template <class LogicStateMachineT, int GoalIndex, bool SetHome = true>
+template <class LogicStateMachineT, class ConnectorT, int GoalIndex,
+          bool SetHome = true>
 struct RelativePoseVisualServoingTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
   void run(UAVVisionSystem &robot_system) {
@@ -45,16 +46,11 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
     auto goal = state_machine_config.relative_pose_goals().Get(GoalIndex);
     PositionYaw position_yaw_goal =
         conversions::protoPositionYawToPositionYaw(goal);
-    if (state_machine_config.use_reference_controller()) {
-      robot_system.setGoal<UAVVisionSystem::VisualServoingReferenceConnectorT,
-                           PositionYaw>(position_yaw_goal);
-    } else {
-      robot_system.setGoal<RPYTRelativePoseVisualServoingConnector,
-                           PositionYaw>(position_yaw_goal);
-    }
+    robot_system.setGoal<ConnectorT, PositionYaw>(position_yaw_goal);
+    // RPYTRelativePoseVisualServoingConnector,
+    // UAVVisionSystem::VisualServoingReferenceConnectorT
   }
 };
-
 /**
  * @brief Check the goal index commanded is available in the stored goal
  * arrays
@@ -133,55 +129,17 @@ struct EventIdVisualServoingGuardFunctor_
 };
 
 /**
-* @brief Empty for now
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-struct VisualServoingTransitionActionFunctor_
-    : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
-  void run(UAVVisionSystem &robot_system) {}
-};
-
-/**
-* @brief
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-struct VisualServoingAbortActionFunctor_
-    : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
-  void run(UAVVisionSystem &robot_system) {
-    LOG(WARNING) << "Aborting visual servoing controller";
-    robot_system.abortController(ControllerGroup::UAV);
-  }
-};
-
-/**
-* @brief Logic to check while reaching a visual servoing goal
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-using VisualServoingInternalActionFunctor_ =
-    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
-        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-        ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, VisualServoingControllerDroneConnector>>>;
-
-/**
 * @brief Logic to check while reaching a visual servoing goal
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 * @tparam AbortEventT Event to send when controller is critical
 */
-template <class LogicStateMachineT, class AbortEventT>
-using RelativePoseVisualServoingInternalActionFunctor_ =
+template <class LogicStateMachineT, class AbortEventT, class ConnectorT>
+using VisualServoingInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-        ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, RPYTRelativePoseVisualServoingConnector, true,
-            AbortEventT>>>;
+        ControllerStatusInternalActionFunctor_<LogicStateMachineT, ConnectorT,
+                                               true, AbortEventT>>>;
 
 /**
 * @brief Check tracking is valid
@@ -239,23 +197,14 @@ struct VisualServoingTransitionGuardFunctor_
 };
 
 /**
-* @brief State that uses visual servoing to reach a desired goal.
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-using VisualServoing_ =
-    BaseState<UAVVisionSystem, LogicStateMachineT,
-              VisualServoingInternalActionFunctor_<LogicStateMachineT>>;
-
-/**
 * @brief State that uses relative pose control functor to reach a desired goal.
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 * @tparam AbortEventT Event to send when controller is critical
+* @tparam ConnectorT Connector to use for internal action functor
 */
-template <class LogicStateMachineT, class AbortEventT>
-using RelativePoseVisualServoing_ =
+template <class LogicStateMachineT, class AbortEventT, class ConnectorT>
+using VisualServoing_ =
     BaseState<UAVVisionSystem, LogicStateMachineT,
-              RelativePoseVisualServoingInternalActionFunctor_<
-                  LogicStateMachineT, AbortEventT>>;
+              VisualServoingInternalActionFunctor_<LogicStateMachineT,
+                                                   AbortEventT, ConnectorT>>;

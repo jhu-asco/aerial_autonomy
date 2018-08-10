@@ -25,26 +25,40 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
   /**
   * @brief State when reaching a visual servoing goal
   */
-  using VisualServoing = VisualServoing_<LogicStateMachineT>;
+  using VisualServoing =
+      VisualServoing_<LogicStateMachineT, be::Abort,
+                      VisualServoingControllerDroneConnector>;
 
   /**
-  * @brief State when reaching a relative pose visual servoing goal
+  * @brief State when reaching a relative pose visual servoing goal using rpyt
+  * controller
   */
-  using RelativePoseVisualServoing =
-      RelativePoseVisualServoing_<LogicStateMachineT, be::Abort>;
+  using RPYTRelativePoseVisualServoing =
+      VisualServoing_<LogicStateMachineT, be::Abort,
+                      RPYTRelativePoseVisualServoingConnector>;
 
+  /**
+  * @brief State when reaching a relative pose visual servoing goal using MPC
+  * controller
+  */
+  using MPCRelativePoseVisualServoing =
+      VisualServoing_<LogicStateMachineT, be::Abort,
+                      UAVVisionSystem::VisualServoingReferenceConnectorT>;
   // Basic transition Actions
   /**
-  * @brief Action to take when starting visual servoing
+  * @brief Action to take when starting rpyt relative pose visual servoing
   */
-  using VisualServoingTransitionAction =
-      VisualServoingTransitionActionFunctor_<LogicStateMachineT>;
+  using RPYTRelativePoseVisualServoingTransitionAction =
+      RelativePoseVisualServoingTransitionActionFunctor_<
+          LogicStateMachineT, RPYTRelativePoseVisualServoingConnector, 0>;
 
   /**
-  * @brief Action to take when starting relative pose visual servoing
+  * @brief Action to take when starting mpc relative pose visual servoing
   */
-  using RelativePoseVisualServoingTransitionAction =
-      RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT, 0>;
+  using MPCRelativePoseVisualServoingTransitionAction =
+      RelativePoseVisualServoingTransitionActionFunctor_<
+          LogicStateMachineT,
+          UAVVisionSystem::VisualServoingReferenceConnectorT, 0>;
 
   /**
   * @brief Action for initializing relative pose visual servoing

@@ -135,8 +135,8 @@ public:
                       vsa::ReachingGoalSet, vsa::ReachingGoalGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::Hovering, vse::TrackROI,
-                      vsa::RelativePoseVisualServoing,
-                      vsa::RelativePoseVisualServoingTransitionAction,
+                      vsa::RPYTRelativePoseVisualServoing,
+                      vsa::RPYTRelativePoseVisualServoingTransitionAction,
                       vsa::RelativePoseVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::Hovering, vse::GoHome, vsa::ReachingGoal,
@@ -154,11 +154,8 @@ public:
             msmf::Row<vsa::ReachingGoal, be::Land, vsa::Landing,
                       vsa::ReachingGoalLand, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<vsa::RelativePoseVisualServoing, be::Abort, vsa::Hovering,
-                      vsa::UAVControllerAbort, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<vsa::RelativePoseVisualServoing, be::Land, vsa::Landing,
-                      vsa::ReachingGoalLand, msmf::none>,
+            msmf::Row<vsa::RPYTRelativePoseVisualServoing, be::Abort,
+                      vsa::Hovering, vsa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::Landing, Completed, vsa::Landed, msmf::none,
                       msmf::none>,
@@ -166,8 +163,8 @@ public:
             msmf::Row<vsa::ReachingGoal, Completed, vsa::Hovering,
                       vsa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<vsa::RelativePoseVisualServoing, Completed, vsa::Hovering,
-                      vsa::UAVControllerAbort, msmf::none>,
+            msmf::Row<vsa::RPYTRelativePoseVisualServoing, Completed,
+                      vsa::Hovering, vsa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::ManualControlState, be::Takeoff, vsa::Hovering,
                       vsa::ManualControlSwitchAction,
