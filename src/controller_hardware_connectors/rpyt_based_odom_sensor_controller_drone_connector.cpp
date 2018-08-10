@@ -2,12 +2,12 @@
 
 bool RPYTBasedOdomSensorControllerDroneConnector::extractSensorData(
     std::tuple<VelocityYawRate, PositionYaw> &sensor_data) {
-  if (odom_sensor_.getSensorStatus() == SensorStatus::INVALID) {
+  if (sensor_.getSensorStatus() == SensorStatus::INVALID) {
     return false;
   }
   parsernode::common::quaddata data;
   drone_hardware_.getquaddata(data);
-  sensor_data = odom_sensor_.getSensorData();
+  sensor_data = sensor_.getSensorData();
   VelocityYawRate vel = std::get<0>(sensor_data);
   PositionYaw pos = std::get<1>(sensor_data);
   DATA_LOG("rpyt_based_odom_sensor_controller_drone_connector")

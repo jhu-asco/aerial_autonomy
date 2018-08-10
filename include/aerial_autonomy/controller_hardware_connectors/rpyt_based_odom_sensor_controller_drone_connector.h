@@ -32,7 +32,7 @@ public:
         drone_hardware_(drone_hardware),
         thrust_gain_estimator_(thrust_gain_estimator),
         private_reference_controller_(controller),
-        odom_sensor_(odom_sensor) {}
+        sensor_(odom_sensor) {}
   /**
    * @brief set goal to controller and clear estimator buffer
    *
@@ -84,6 +84,6 @@ private:
   /**
    * @brief Outside Odometry Sensor
    */
-  OdomSensor &odom_sensor_;
+  Sensor<std::tuple<VelocityYawRate, PositionYaw>> &sensor_;
 
 };
