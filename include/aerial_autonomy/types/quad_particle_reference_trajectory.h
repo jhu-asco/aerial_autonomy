@@ -16,6 +16,8 @@ public:
 
   double findTimeIntersection(double gain, double x_diff, double max_velocity);
 
+  Eigen::VectorXd goal(double);
+
 private:
   static constexpr double gravity_magnitude_ = 9.81; ///< Gravity magnitude
   static constexpr double tol = 1e-3;

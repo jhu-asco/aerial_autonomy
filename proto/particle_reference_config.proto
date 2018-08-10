@@ -7,19 +7,19 @@ message ParticleReferenceConfig {
   /**
   * @brief kp
   */
-  optional double kp_x = 1 [ default = 1.0 ];
+  optional double kp_x = 1 [ default = 0.5 ];
   /**
   * @brief kp
   */
-  optional double kp_y = 2 [ default = 1.0 ];
+  optional double kp_y = 2 [ default = 0.5 ];
   /**
   * @brief kp
   */
-  optional double kp_z = 3 [ default = 1.0 ];
+  optional double kp_z = 3 [ default = 0.5 ];
   /**
   * @brief kp
   */
-  optional double kp_yaw = 4 [ default = 1.0 ];
+  optional double kp_yaw = 4 [ default = 0.5 ];
   /**
    * @brief maximum velocity
    */

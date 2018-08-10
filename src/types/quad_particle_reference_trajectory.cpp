@@ -143,3 +143,14 @@ QuadParticleTrajectory::atTime(double t) const {
   u[3] = x[11];
   return std::make_pair(x, u);
 }
+
+Eigen::VectorXd QuadParticleTrajectory::goal(double) {
+  Eigen::VectorXd goal_state(15);
+  goal_state.setZero();
+  goal_state[0] = goal_state_.x;
+  goal_state[1] = goal_state_.y;
+  goal_state[2] = goal_state_.z;
+  goal_state[5] = goal_state_.yaw;
+  goal_state[14] = goal_state_.yaw;
+  return goal_state;
+}

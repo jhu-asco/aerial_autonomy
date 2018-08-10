@@ -99,15 +99,12 @@ ControllerStatus DDPQuadMPCController::isConvergedImplementation(
     MPCInputs<StateType> sensor_data, GoalType goal) {
   boost::mutex::scoped_lock lock(copy_mutex_);
   ControllerStatus controller_status = ControllerStatus::Active;
-  if (xds_.at(0).rows() < state_size_) {
-    double t = sensor_data.time_since_goal;
-    std::pair<StateType, ControlType> state_control_pair = goal->atTime(t);
-    xds_.at(0) = state_control_pair.first;
-  }
+  double t0 = sensor_data.time_since_goal;
+  Eigen::VectorXd end_goal = goal->goal(t0);
   Eigen::Vector3d error_position =
-      sensor_data.initial_state.segment<3>(0) - xds_.at(0).segment<3>(0);
+      sensor_data.initial_state.segment<3>(0) - end_goal.segment<3>(0);
   Eigen::Vector3d error_velocity =
-      sensor_data.initial_state.segment<3>(6) - xds_.at(0).segment<3>(6);
+      sensor_data.initial_state.segment<3>(6) - end_goal.segment<3>(6);
   if (error_position.squaredNorm() < config_.goal_position_tolerance() *
                                          config_.goal_position_tolerance() &&
       error_velocity.squaredNorm() < config_.goal_velocity_tolerance() *

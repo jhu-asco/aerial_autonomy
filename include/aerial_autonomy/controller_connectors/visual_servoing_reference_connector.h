@@ -51,7 +51,7 @@ public:
                                                 tracking_offset_transform),
         dependent_connector_(dependent_connector),
         start_position_yaw_(0, 0, 0, 0) {
-    logTrackerHeader("rpyt_relative_pose_visual_servoing_connector");
+    logTrackerHeader("visual_servoing_reference_connector");
   }
 
   void initialize() {
@@ -91,8 +91,8 @@ protected:
                             quad_data.localpos.z);
     tf::Transform tracking_pose =
         getTrackingTransformRotationCompensatedQuadFrame(object_pose_cam);
-    logTrackerData("relative_pose_visual_servoing_controller_drone_connector",
-                   tracking_pose, object_pose_cam, quad_data);
+    logTrackerData("visual_servoing_reference_connector", tracking_pose,
+                   object_pose_cam, quad_data);
     tracking_pose.setOrigin(quad_origin + tracking_pose.getOrigin());
     sensor_data = std::make_pair(start_position_yaw_, tracking_pose);
     return true;
