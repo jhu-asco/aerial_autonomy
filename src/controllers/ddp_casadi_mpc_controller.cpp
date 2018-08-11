@@ -102,10 +102,6 @@ bool DDPCasadiMPCController::runImplementation(MPCInputs<StateType> sensor_data,
     }
     J = ddp_->J;
   }
-  VLOG(5) << "DDP_J: " << (ddp_->J);
-  VLOG(5) << "xs0: " << xs_.front().transpose();
-  VLOG(5) << "xf: " << xs_.back().transpose();
-  VLOG(5) << "xd: " << xds_.back().transpose();
   if (ddp_->J > ddp_config_.max_cost()) {
     LOG(WARNING) << "Failed to get a reasonable trajectory using Ddp. J: "
                  << (ddp_->J);
@@ -116,6 +112,12 @@ bool DDPCasadiMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   look_ahead_index_shift_ =
       std::min(look_ahead_index_shift_ + 1, max_look_ahead_index_shift_);
   loop_timer_.loop_end();
+  VLOG(5) << "T0: " << t0;
+  VLOG(5) << "DDP_J: " << (ddp_->J);
+  VLOG(5) << "xs0: " << xs_.front().transpose();
+  VLOG(5) << "xf: " << xs_.back().transpose();
+  VLOG(5) << "xd: " << xds_.back().transpose();
+  VLOG(5) << "u: " << control.transpose();
 
   logData(sensor_data, control);
   return result;

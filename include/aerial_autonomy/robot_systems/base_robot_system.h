@@ -60,13 +60,6 @@ public:
     }
     ControllerGroup controller_group =
         controller_connector->getControllerGroup();
-    // Initialize and swap
-    {
-      boost::mutex::scoped_lock lock(*thread_mutexes_[controller_group]);
-      VLOG(1) << "Initializing";
-      controller_connector->initialize();
-      active_controllers_[controller_group] = controller_connector;
-    }
     AbstractControllerConnector *dependent_connector =
         controller_connector->getDependentConnector();
     if (dependent_connector != nullptr) {
@@ -74,6 +67,13 @@ public:
       activateControllerConnector(dependent_connector);
     } else {
       VLOG(1) << "No dependent connector";
+    }
+    // Initialize and swap
+    {
+      boost::mutex::scoped_lock lock(*thread_mutexes_[controller_group]);
+      VLOG(1) << "Initializing";
+      controller_connector->initialize();
+      active_controllers_[controller_group] = controller_connector;
     }
   }
 

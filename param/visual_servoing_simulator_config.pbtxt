@@ -53,21 +53,21 @@ uav_system_config {
       Q: 0
       # Terminal gains
       # XYZ
-      Qf: 100
-      Qf: 100
-      Qf: 100
+      Qf: 10
+      Qf: 10
+      Qf: 10
       # RPY
-      Qf: 800
-      Qf: 800
-      Qf: 800
+      Qf: 10
+      Qf: 10
+      Qf: 10
       # Vxyz
-      Qf: 100
-      Qf: 100
-      Qf: 100
+      Qf: 10
+      Qf: 10
+      Qf: 10
       # RPYdot
-      Qf: 100
-      Qf: 100
-      Qf: 100
+      Qf: 10
+      Qf: 10
+      Qf: 10
       # RPY_cmd
       Qf: 0.1
       Qf: 0.1
