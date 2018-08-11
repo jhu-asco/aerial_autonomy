@@ -74,6 +74,9 @@ DDPQuadMPCController::DDPQuadMPCController(
   xs_.resize(N + 1, default_state);
   // Controls
   resetControls(); // Set controls to default values and resets DDP
+  // Copy reference from states, controls
+  xds_ = xs_;
+  uds_ = us_;
   VLOG(1) << "Done setting up ddp";
   // Setting up logger
   DATA_HEADER("ddp_quad_mpc_controller") << "Errorx"

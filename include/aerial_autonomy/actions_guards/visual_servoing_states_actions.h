@@ -43,7 +43,7 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
   */
   using MPCRelativePoseVisualServoing =
       VisualServoing_<LogicStateMachineT, be::Abort,
-                      UAVVisionSystem::VisualServoingReferenceConnectorT>;
+                      MPCControllerQuadConnector>;
   // Basic transition Actions
   /**
   * @brief Action to take when starting rpyt relative pose visual servoing

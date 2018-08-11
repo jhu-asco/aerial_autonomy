@@ -108,6 +108,10 @@ protected:
     dependent_connector_.setGoal(control);
   }
 
+  AbstractControllerConnector *getDependentConnector() {
+    return &dependent_connector_;
+  }
+
 private:
   DependentConnectorT &dependent_connector_;
   PositionYaw start_position_yaw_;

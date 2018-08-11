@@ -49,4 +49,9 @@ message UAVVisionSystemConfig {
   * @brief visual servoing reference trajectory generation
   */
   optional ParticleReferenceConfig particle_reference_config = 10;
+  /**
+  * @brief Timestep in milliseconds for timer which runs high level
+  * continously
+  */
+  optional int32 high_level_controller_timer_duration = 11 [ default = 50 ];
 }

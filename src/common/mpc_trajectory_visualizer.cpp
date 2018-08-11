@@ -47,6 +47,10 @@ void MPCTrajectoryVisualizer::publishGcopTrajectory(
 }
 gcop_comm::State MPCTrajectoryVisualizer::getState(const Eigen::VectorXd &x) {
   gcop_comm::State state;
+  if (x.size() < 15) {
+    ROS_INFO("State size less than 15: %lu", x.size());
+    return state;
+  }
   state.basepose.translation.x = x[0];
   state.basepose.translation.y = x[1];
   state.basepose.translation.z = x[2];

@@ -41,10 +41,7 @@ void DDPCasadiMPCController::resetControls() {
   // initial controls
   Eigen::VectorXd ui = stationaryControl();
   unsigned int N = ddp_config_.n();
-  us_.resize(N);
-  for (unsigned int i = 0; i < N; ++i) {
-    us_.at(i) = ui;
-  }
+  us_.resize(N, ui);
   resetDDP();
   ddp_->Update();
   look_ahead_index_shift_ = 1;
