@@ -36,7 +36,9 @@ struct UAVControllerAbortActionFunctor_
   void run(UAVSystem &robot_system) {
     LOG(WARNING) << "Aborting UAV Controller";
     robot_system.abortController(ControllerGroup::UAV);
+    LOG(WARNING) << "Aborting HighLevel Controller";
     robot_system.abortController(ControllerGroup::HighLevel);
+    LOG(WARNING) << "Done aborting";
   }
 };
 
