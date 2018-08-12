@@ -1,0 +1,24 @@
+syntax = "proto2";
+
+message MPCConnectorConfig {
+  /**
+  * @brief  Filtering gain on joint velocities
+  */
+  optional double angular_exp_gain = 1 [ default = 0.9 ];
+  /**
+  * @brief Filtering on  quad velocity
+  */
+  optional double velocity_exp_gain = 2 [ default = 0.9 ];
+  /**
+  * @brief Filtering on rpydot
+  */
+  optional double rpydot_gain = 3 [ default = 0.7 ];
+  /**
+  * @brief time diff setting for finite diff
+  */
+  optional bool use_perfect_time_diff = 4 [ default = false ];
+  /**
+  * @brief Time diff for finite diff
+  */
+  optional double perfect_time_diff = 5 [ default = 0.02 ];
+}

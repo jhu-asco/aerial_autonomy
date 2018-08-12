@@ -48,7 +48,7 @@ public:
         mpc_connector_(*drone_hardware_, *arm_hardware_, mpc_controller_,
                        thrust_gain_estimator_,
                        config.thrust_gain_estimator_config().buffer_size(),
-                       pose_sensor_) {
+                       config.mpc_connector_config(), pose_sensor_) {
     controller_connector_container_.setObject(visual_servoing_arm_connector_);
     controller_connector_container_.setObject(mpc_connector_);
   }

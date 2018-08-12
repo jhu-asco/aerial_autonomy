@@ -9,11 +9,11 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
     parsernode::Parser &drone_hardware, ArmParser &arm_hardware,
     AbstractMPCController<StateType, ControlType> &controller,
     ThrustGainEstimator &thrust_gain_estimator, int delay_buffer_size,
-    SensorPtr<tf::StampedTransform> pose_sensor,
+    MPCConnectorConfig config, SensorPtr<tf::StampedTransform> pose_sensor,
     AbstractConstraintGeneratorPtr constraint_generator)
     : QuadAirmMPCCommonConnector(drone_hardware, controller,
                                  thrust_gain_estimator, delay_buffer_size,
-                                 pose_sensor, constraint_generator),
+                                 config, pose_sensor, constraint_generator),
       arm_hardware_(arm_hardware), joint_angle_commands_(2),
       previous_measurements_(5) {
   clearJointCommandBuffers();
@@ -73,8 +73,8 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
   double dt =
       std::chrono::duration<double>(current_time - previous_measurement_time_)
           .count();
-  if (use_perfect_time_diff_) {
-    dt = perfect_time_diff_;
+  if (config_.use_perfect_time_diff()) {
+    dt = config_.perfect_time_diff();
   }
   if (dt < 1e-4) {
     LOG(WARNING) << "Time diff cannot be smaller than 1e-4";
@@ -125,18 +125,18 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
     filtered_velocity_ = Eigen::Vector3d::Zero();
     previous_measurements_initialized_ = true;
   }
-  double rpydot_gain_ = 0.7;
+  double rpydot_gain = config_.rpydot_gain();
   // Get rpydot from omega:
   filtered_rpydot_ =
-      (rpydot_gain_ * filtered_rpydot_ +
-       (1 - rpydot_gain_) * conversions::omegaToRpyDot(omega, rpy));
+      (rpydot_gain * filtered_rpydot_ +
+       (1 - rpydot_gain) * conversions::omegaToRpyDot(omega, rpy));
   // Update filtered velocities:
-  filtered_joint_velocity_ = angular_exp_gain_ * filtered_joint_velocity_ +
-                             (1 - angular_exp_gain_) * joint_velocities;
+  double angular_exp_gain = config_.angular_exp_gain();
+  double velocity_exp_gain = config_.velocity_exp_gain();
+  filtered_joint_velocity_ = angular_exp_gain * filtered_joint_velocity_ +
+                             (1 - angular_exp_gain) * joint_velocities;
   filtered_velocity_ =
-      velocity_exp_gain_ * filtered_velocity_ + (1 - velocity_exp_gain_) * v;
-  // filtered_joint_velocity_ =
-  //    joint_velocities; //// If using filter then uncomment above line
+      velocity_exp_gain * filtered_velocity_ + (1 - velocity_exp_gain) * v;
   // Fill state
   current_state.segment<3>(0) = p;
   current_state.segment<3>(3) = rpy;

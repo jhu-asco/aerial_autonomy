@@ -269,9 +269,10 @@ public:
         joystick_velocity_controller_drone_connector_(
             *drone_hardware_, joystick_velocity_controller_,
             thrust_gain_estimator_),
-        quad_mpc_connector_(
-            *drone_hardware_, quad_mpc_controller_, thrust_gain_estimator_,
-            config.thrust_gain_estimator_config().buffer_size(), pose_sensor_),
+        quad_mpc_connector_(*drone_hardware_, quad_mpc_controller_,
+                            thrust_gain_estimator_,
+                            config.thrust_gain_estimator_config().buffer_size(),
+                            config.mpc_connector_config(), pose_sensor_),
         home_location_specified_(false) {
     drone_hardware_->initialize();
     // Add control hardware connector containers

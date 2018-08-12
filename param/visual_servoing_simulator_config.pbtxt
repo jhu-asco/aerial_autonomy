@@ -27,6 +27,11 @@ uav_system_config {
       vz: 0.1
     }
   }
+  mpc_connector_config {
+    velocity_exp_gain: 0.0
+    rpydot_gain: 0.0
+    use_perfect_time_diff: true
+  }
   quad_mpc_controller_config {
     default_thrust_gain: 0.16
     ddp_config {
@@ -103,6 +108,10 @@ uav_system_config {
     upper_bound_control: 0.6
     upper_bound_control: 0.6
     upper_bound_control: 0.6
+  }
+  thrust_gain_estimator_config {
+    kt: 0.2
+    buffer_size: 10
   }
 	visualize_mpc_trajectories: true
   visualizer_config {

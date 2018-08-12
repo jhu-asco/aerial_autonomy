@@ -24,6 +24,7 @@ public:
       parsernode::Parser &drone_hardware, ArmParser &arm_hardware,
       AbstractMPCController<StateType, ControlType> &controller,
       ThrustGainEstimator &thrust_gain_estimator, int delay_buffer_size = 1,
+      MPCConnectorConfig config = MPCConnectorConfig(),
       SensorPtr<tf::StampedTransform> pose_sensor = nullptr,
       AbstractConstraintGeneratorPtr constraint_generator = nullptr);
 

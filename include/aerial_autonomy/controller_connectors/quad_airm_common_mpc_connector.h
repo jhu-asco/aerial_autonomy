@@ -2,6 +2,7 @@
 #include "aerial_autonomy/controller_connectors/mpc_controller_connector.h"
 #include "aerial_autonomy/estimators/thrust_gain_estimator.h"
 #include "aerial_autonomy/sensors/base_sensor.h"
+#include "mpc_connector_config.pb.h"
 #include <Eigen/Dense>
 #include <chrono>
 #include <parsernode/parser.h>
@@ -35,7 +36,8 @@ public:
   QuadAirmMPCCommonConnector(
       parsernode::Parser &drone_hardware,
       AbstractMPCController<StateType, ControlType> &controller,
-      ThrustGainEstimator &thrust_gain_estimator, int delay_buffer_size = 1,
+      ThrustGainEstimator &thrust_gain_estimator, int delay_buffer_size,
+      MPCConnectorConfig config,
       SensorPtr<tf::StampedTransform> pose_sensor = nullptr,
       AbstractConstraintGeneratorPtr constraint_generator = nullptr);
 
@@ -90,9 +92,5 @@ protected:
       &private_controller_; ///< Private ref
   boost::mutex
       copy_mutex_; ///< Mutex for copying states and reference trajectories
-  bool use_perfect_time_diff_; ///< Flag to use perfect time diff when
-                               /// differentiating
-  double perfect_time_diff_;   ///< The absolute time difference
-  double angular_exp_gain_;    ///< Exponential gain
-  double velocity_exp_gain_;   ///< Exponential gain
+  MPCConnectorConfig config_; ///< Config for mpc connector
 };

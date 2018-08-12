@@ -89,8 +89,13 @@ int main(int argc, char **argv) {
   ThrustGainEstimator thrust_gain_estimator_(0.16);
   DDPQuadMPCController controller(quad_mpc_controller_config,
                                   std::chrono::milliseconds(20));
-  MPCControllerQuadConnector controller_connector(drone_hardware, controller,
-                                                  thrust_gain_estimator_);
+  MPCConnectorConfig connector_config;
+  connector_config.set_velocity_exp_gain(0.0);
+  connector_config.set_rpydot_gain(0.0);
+  connector_config.set_angular_exp_gain(0.0);
+  connector_config.set_use_perfect_time_diff(true);
+  MPCControllerQuadConnector controller_connector(
+      drone_hardware, controller, thrust_gain_estimator_, 1, connector_config);
   MPCVisualizerConfig visualizer_config;
   visualizer_config.set_skip_segments(10);
   visualizer_config.mutable_trajectory_color()->set_g(1.0);

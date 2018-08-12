@@ -7,7 +7,7 @@ QuadAirmMPCCommonConnector::QuadAirmMPCCommonConnector(
     parsernode::Parser &drone_hardware,
     AbstractMPCController<StateType, ControlType> &controller,
     ThrustGainEstimator &thrust_gain_estimator, int delay_buffer_size,
-    SensorPtr<tf::StampedTransform> pose_sensor,
+    MPCConnectorConfig config, SensorPtr<tf::StampedTransform> pose_sensor,
     AbstractConstraintGeneratorPtr constraint_generator)
     : MPCControllerConnector(controller, ControllerGroup::UAV,
                              constraint_generator),
@@ -16,8 +16,7 @@ QuadAirmMPCCommonConnector::QuadAirmMPCCommonConnector(
       previous_measurement_time_(std::chrono::high_resolution_clock::now()),
       previous_measurements_initialized_(false),
       delay_buffer_size_(delay_buffer_size), private_controller_(controller),
-      use_perfect_time_diff_(false), perfect_time_diff_(0.02),
-      angular_exp_gain_(0.9), velocity_exp_gain_(0.9) {
+      config_(config) {
   clearCommandBuffers();
 }
 
@@ -49,8 +48,8 @@ void QuadAirmMPCCommonConnector::sendControllerCommands(ControlType control) {
 }
 
 void QuadAirmMPCCommonConnector::usePerfectTimeDiff(double time_diff) {
-  use_perfect_time_diff_ = true;
-  perfect_time_diff_ = time_diff;
+  config_.set_use_perfect_time_diff(true);
+  config_.set_perfect_time_diff(time_diff);
 }
 
 void QuadAirmMPCCommonConnector::useSensor(
