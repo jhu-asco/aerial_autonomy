@@ -259,6 +259,7 @@ set(ARM_SRC
   src/controller_connectors/arm_sine_controller_connector.cpp
   src/controller_connectors/builtin_pose_controller_arm_connector.cpp
   src/controller_connectors/visual_servoing_controller_arm_connector.cpp
+  src/controller_connectors/mpc_controller_airm_connector.cpp
 )
 
 set(SRC
@@ -295,7 +296,6 @@ set(SRC
   src/controllers/qrotor_backstepping_controller.cpp
   src/estimators/thrust_gain_estimator.cpp
   src/estimators/tracking_vector_estimator.cpp
-  src/controller_connectors/mpc_controller_airm_connector.cpp
   src/controller_connectors/visual_servoing_controller_drone_connector.cpp
   src/controller_connectors/base_relative_pose_visual_servoing_connector.cpp
   src/controller_connectors/relative_pose_visual_servoing_controller_drone_connector.cpp
@@ -311,7 +311,7 @@ set(SRC
 )
 
 if (casadi_FOUND)
-  set(SRC ${SRC}
+  set(ARM_SRC ${ARM_SRC}
       src/controllers/ddp_airm_mpc_controller.cpp)
 endif()
 
@@ -338,8 +338,8 @@ add_executable(joystick_uav_node src/system_handler_nodes/joystick_uav_node.cpp)
 add_executable(uav_system_node src/system_handler_nodes/uav_system_node.cpp)
 add_executable(uav_vision_system_node src/system_handler_nodes/uav_vision_system_node.cpp)
 add_executable(event_publish_node src/tests/event_publish_node.cpp)
-add_executable(mpc_controller_tuner src/controller_tuners/mpc_controller_tuner.cpp)
 add_dependencies(event_publish_node ${PROJECT_NAME}_generate_messages_cpp)
+add_executable(qrotor_backstepping_controller_tuner src/controller_tuners/qrotor_backstepping_controller_tuner.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -348,10 +348,10 @@ add_dependencies(event_publish_node ${PROJECT_NAME}_generate_messages_cpp)
 ## Specify libraries to link a library or executable target against
 
 target_link_libraries(joystick_uav_node aerial_autonomy)
-target_link_libraries(mpc_controller_tuner aerial_autonomy)
 target_link_libraries(uav_system_node aerial_autonomy)
 target_link_libraries(uav_vision_system_node aerial_autonomy)
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
+target_link_libraries(qrotor_backstepping_controller_tuner aerial_autonomy)
 
 if (arm_plugins_FOUND)
   add_executable(airm_mpc_node src/system_handler_nodes/airm_mpc_node.cpp)
@@ -361,6 +361,10 @@ if (arm_plugins_FOUND)
   target_link_libraries(uav_arm_system_node aerial_autonomy)
   target_link_libraries(uav_arm_sysid_node aerial_autonomy)
   target_link_libraries(airm_mpc_node aerial_autonomy)
+  if (casadi_FOUND)
+    add_executable(mpc_controller_tuner src/controller_tuners/mpc_controller_tuner.cpp)
+    target_link_libraries(mpc_controller_tuner aerial_autonomy)
+  endif()
 endif ()
 
 #############
@@ -422,7 +426,7 @@ catkin_add_gtest(${PROJECT_NAME}-uav-basic-state-machine-test tests/state_machin
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-state-machine-test tests/state_machines/visual_servoing_state_machine_tests.cpp)
 add_dependencies(${PROJECT_NAME}-visual-servoing-state-machine-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
 add_rostest_gtest(${PROJECT_NAME}-system-handler-node-utils-test tests/common/system_handler_node_utils_tests.test tests/common/system_handler_node_utils_tests.cpp)
-add_rostest_gtest(${PROJECT_NAME}-mpc-trajectory-visualizer-test tests/common/mpc_trajectory_visualizer_tests.test tests/common/mpc_trajectory_visualizer_tests.cpp)
+
 add_rostest_gtest(${PROJECT_NAME}-uav-vision-system-test tests/robot_systems/uav_vision_system_tests.test tests/robot_systems/uav_vision_system_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-event-test tests/state_machines/state_machine_gui_connector_event_tests.test tests/state_machines/state_machine_gui_connector_event_tests.cpp)
 add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-event-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
@@ -458,7 +462,6 @@ add_rostest_gtest(${PROJECT_NAME}-velocity-sensor-test tests/sensors/velocity_se
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test tests/controller_connectors/relative_pose_visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-relative-pose-visual-servoing-connector-test tests/controller_connectors/rpyt_relative_pose_visual_servoing_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-position-controller-drone-connector-test tests/controller_connectors/rpyt_based_position_controller_drone_connector_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-ddp-airm-mpc-connector-test tests/controller_connectors/ddp_airm_mpc_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-drone-connector-test tests/controller_connectors/visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test tests/controller_connectors/joystick_velocity_controller_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-data-stream-test tests/log/data_stream_tests.cpp)
@@ -469,9 +472,9 @@ catkin_add_gtest(${PROJECT_NAME}-proto-utils-test tests/common/proto_utils_tests
 catkin_add_gtest(${PROJECT_NAME}-reference-trajectory-test tests/types/reference_trajectory_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-airm-spiral-reference-trajectory-test tests/types/airm_spiral_reference_trajectory_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-qrotor-backstepping-controller-test tests/controllers/qrotor_backstepping_controller_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-ddp-airm-mpc-controller-test tests/controllers/ddp_airm_mpc_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-minimum-snap-trajectory-test tests/types/minimum_snap_trajectory_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-qrotor-backstepping-controller-connector-test tests/controller_connectors/qrotor_backstepping_controller_connector_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-qrotor-backstepping-trajectory-visualizer-test tests/common/qrotor_backstepping_trajectory_visualizer_tests.test tests/common/qrotor_backstepping_trajectory_visualizer_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
@@ -574,9 +577,6 @@ endif()
 if(TARGET ${PROJECT_NAME}-rpyt-based-position-controller-drone-connector-test)
   target_link_libraries(${PROJECT_NAME}-rpyt-based-position-controller-drone-connector-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
-if(TARGET ${PROJECT_NAME}-ddp-airm-mpc-connector-test)
-  target_link_libraries(${PROJECT_NAME}-ddp-airm-mpc-connector-test aerial_autonomy)
-endif()
 if(TARGET ${PROJECT_NAME}-rpyt-based-velocity-controller-test)
   target_link_libraries(${PROJECT_NAME}-rpyt-based-velocity-controller-test aerial_autonomy)
 endif()
@@ -585,9 +585,6 @@ if(TARGET ${PROJECT_NAME}-constant-heading-depth-controller-test)
 endif()
 if(TARGET ${PROJECT_NAME}-qrotor-backstepping-controller-test)
   target_link_libraries(${PROJECT_NAME}-qrotor-backstepping-controller-test aerial_autonomy)
-endif()
-if(TARGET ${PROJECT_NAME}-ddp-airm-mpc-controller-test)
-  target_link_libraries(${PROJECT_NAME}-ddp-airm-mpc-controller-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test)
   target_link_libraries(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test aerial_autonomy ${GCOP_LIBRARIES})
@@ -604,9 +601,7 @@ endif()
 if(TARGET ${PROJECT_NAME}-system-handler-node-utils-test)
   target_link_libraries(${PROJECT_NAME}-system-handler-node-utils-test aerial_autonomy)
 endif()
-if(TARGET ${PROJECT_NAME}-mpc-trajectory-visualizer-test)
-  target_link_libraries(${PROJECT_NAME}-mpc-trajectory-visualizer-test aerial_autonomy)
-endif()
+
 if(TARGET ${PROJECT_NAME}-alvar-tracker-test)
   target_link_libraries(${PROJECT_NAME}-alvar-tracker-test aerial_autonomy)
 endif()
@@ -649,6 +644,9 @@ endif()
 if(TARGET ${PROJECT_NAME}-qrotor-backstepping-controller-connector-test)
   target_link_libraries(${PROJECT_NAME}-qrotor-backstepping-controller-connector-test aerial_autonomy ${GCOP_LIBRARIES} ${TINYXML_LIBRARIES} ${QUAD_SIM_PARSER_LIBS})
 endif()
+if(TARGET ${PROJECT_NAME}-qrotor-backstepping-trajectory-visualizer-test)
+  target_link_libraries(${PROJECT_NAME}-qrotor-backstepping-trajectory-visualizer-test aerial_autonomy ${GCOP_LIBRARIES} ${TINYXML_LIBRARIES} ${QUAD_SIM_PARSER_LIBS})
+endif()
 if (arm_plugins_FOUND)
   catkin_add_gtest(${PROJECT_NAME}-joystick-state-machine-test tests/state_machines/joystick_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-pick-place-state-machine-test tests/state_machines/pick_place_state_machine_tests.cpp)
@@ -662,6 +660,9 @@ if (arm_plugins_FOUND)
   catkin_add_gtest(${PROJECT_NAME}-arm-functor-tests tests/actions_guards/arm_functor_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-uav-arm-sysid-state-machine-test tests/state_machines/uav_arm_sysid_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-arm-system-test tests/robot_systems/arm_system_tests.cpp)
+  catkin_add_gtest(${PROJECT_NAME}-ddp-airm-mpc-connector-test tests/controller_connectors/ddp_airm_mpc_connector_tests.cpp)
+  catkin_add_gtest(${PROJECT_NAME}-ddp-airm-mpc-controller-test tests/controllers/ddp_airm_mpc_controller_tests.cpp)
+  add_rostest_gtest(${PROJECT_NAME}-mpc-trajectory-visualizer-test tests/common/mpc_trajectory_visualizer_tests.test tests/common/mpc_trajectory_visualizer_tests.cpp)
 
   if(TARGET ${PROJECT_NAME}-joystick-state-machine-test)
     target_link_libraries(${PROJECT_NAME}-joystick-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
@@ -696,6 +697,16 @@ if (arm_plugins_FOUND)
   if(TARGET ${PROJECT_NAME}-mpc-functor-tests)
     target_link_libraries(${PROJECT_NAME}-mpc-functor-tests aerial_autonomy)
   endif()
+  if(TARGET ${PROJECT_NAME}-ddp-airm-mpc-controller-test)
+    target_link_libraries(${PROJECT_NAME}-ddp-airm-mpc-controller-test aerial_autonomy)
+  endif()
+  if(TARGET ${PROJECT_NAME}-ddp-airm-mpc-connector-test)
+    target_link_libraries(${PROJECT_NAME}-ddp-airm-mpc-connector-test aerial_autonomy)
+  endif()
+  if(TARGET ${PROJECT_NAME}-mpc-trajectory-visualizer-test)
+    target_link_libraries(${PROJECT_NAME}-mpc-trajectory-visualizer-test aerial_autonomy)
+  endif()
+
 endif ()
 
 ## Add folders to be run by python nosetests
