@@ -1,5 +1,5 @@
 #pragma once
-#include "aerial_autonomy/sensors/base_sensor.h"
+#include "aerial_autonomy/sensors/ros_sensor.h"
 #include "aerial_autonomy/types/velocity.h"
 #include "ros_sensor_config.pb.h"
 #include <aerial_autonomy/common/conversions.h>
@@ -18,62 +18,40 @@ public:
   * @param Config for velocity sensor
   */
   VelocitySensor(ROSSensorConfig config) : config_(config) {
-    VLOG(2) << "Initialzing ROS Sensor";
-    odom_sub_ =
-        nh_.subscribe(config.topic(), 1, &VelocitySensor::odomCallback, this);
-    last_msg_time_ = ros::Time::now();
+    sensor_ = ROS_Sensor<nav_msgs::Odometry>(config);
   }
   /**
   * @brief gives sensor data
   */
   Velocity getSensorData() {
-    Velocity sensor_data = sensor_data_;
-    return sensor_data;
+    nav_msgs::Odometry msg = sensor_.getSensorData();
+    Velocity vel_sensor_data(msg.twist.twist.linear.x,
+                             msg.twist.twist.linear.y,
+                             msg.twist.twist.linear.z);
+    return vel_sensor_data;
   }
   /**
   * @brief gives sensor status
   */
   SensorStatus getSensorStatus() {
-    SensorStatus sensor_status;
-    ros::Time last_msg_time = last_msg_time_;
-    if ((ros::Time::now() - last_msg_time).toSec() > config_.timeout())
-      sensor_status = SensorStatus::INVALID;
-    else
-      sensor_status = SensorStatus::VALID;
-
-    return sensor_status;
+    return sensor_.getSensorStatus();
   }
 
 private:
-  /**
-  * @brief callback for pose sensor
+  /*
+  * @brief sensor
   */
-  void odomCallback(const nav_msgs::Odometry::ConstPtr msg) {
-    ros::Time last_msg_time = msg->header.stamp;
-    last_msg_time_ = last_msg_time;
-    Velocity vel_sensor_data(msg->twist.twist.linear.x,
-                             msg->twist.twist.linear.y,
-                             msg->twist.twist.linear.z);
-    sensor_data_ = vel_sensor_data;
-  }
-  /**
+  ROS_Sensor<nav_msgs::Odometry> sensor_;
+  /*
   * @brief sensor config
   */
   ROSSensorConfig config_;
   /**
-  * @brief nodehandle for ros stuff
+  * @brief sensor's origin in world frame
   */
-  ros::NodeHandle nh_;
-  /**
-  * @brief Subscriber for odometry topic
-  */
-  ros::Subscriber odom_sub_;
-  /**
-  * @brief time of last msg recieved
-  */
-  Atomic<ros::Time> last_msg_time_;
+  //tf::Transform sensor_world_tf_;
   /**
   * @brief variable to store sensor data
   */
-  Atomic<Velocity> sensor_data_;
+  //Atomic<Velocity> sensor_data_;
 };

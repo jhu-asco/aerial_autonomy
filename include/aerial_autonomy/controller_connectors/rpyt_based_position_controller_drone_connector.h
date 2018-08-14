@@ -6,6 +6,7 @@
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/roll_pitch_yawrate_thrust.h"
 #include "aerial_autonomy/types/velocity_yaw_rate.h"
+#include "aerial_autonomy/sensors/base_sensor.h"
 
 #include <parsernode/parser.h>
 /**
@@ -24,11 +25,13 @@ public:
   RPYTBasedPositionControllerDroneConnector(
       parsernode::Parser &drone_hardware,
       RPYTBasedPositionController &controller,
-      ThrustGainEstimator &thrust_gain_estimator)
+      ThrustGainEstimator &thrust_gain_estimator,
+      Sensor<std::tuple<VelocityYawRate, PositionYaw>> *sensor = nullptr)
       : ControllerConnector(controller, ControllerGroup::UAV),
         drone_hardware_(drone_hardware),
         thrust_gain_estimator_(thrust_gain_estimator),
-        private_reference_controller_(controller) {}
+        private_reference_controller_(controller),
+        sensor_(sensor) {}
   /**
    * @brief set goal to controller and clear estimator buffer
    *
@@ -76,4 +79,10 @@ private:
    * @brief Internal reference to controller that is connected by this class
    */
   RPYTBasedPositionController &private_reference_controller_;
+
+  /**
+   * @brief Outside Odometry Sensor (default to null, change to use different sensors)
+   */
+  Sensor<std::tuple<VelocityYawRate, PositionYaw>> *sensor_;
+
 };

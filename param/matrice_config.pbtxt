@@ -99,4 +99,35 @@ uav_system_config {
     kt: 0.18
     buffer_size: 10
   }
+
+  velocity_sensor_config{
+    sensor_transform{
+      position{
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      }
+      rotation{
+        r: 0.0
+        p: 3.14
+        y: 0.0
+      }
+    }
+    timeout: 0.5
+  }
+  sensor_type: "ROS Sensor"
+  odomsensor{
+    sensor_transform{
+      position{
+        x: -0.06
+        y: 0.0
+        z: 0.0
+      }
+      rotation{
+        r: 0.0
+        p: 0.0
+        y: 0.0
+      }
+    }
+  }
 }

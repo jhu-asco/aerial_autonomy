@@ -22,6 +22,7 @@ ControllerStatus RPYTBasedPositionController::isConvergedImplementation(
   ControllerStatus controller_status(ControllerStatus::Completed);
   controller_status += rpyt_velocity_controller_.isConverged(
       std::make_tuple(velocity, position.yaw));
+  position_controller_.setGoal(goal, true);
   controller_status += position_controller_.isConverged(position);
   return controller_status;
 }
