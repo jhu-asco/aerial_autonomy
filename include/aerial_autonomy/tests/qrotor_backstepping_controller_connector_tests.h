@@ -89,11 +89,6 @@ public:
     controller_connector_->setGoal(goal);
     auto runController = [&]() {
       controller_connector_->run();
-      // double current_thrust = controller_connector_->getThrust();
-
-      // ASSERT_GT(current_thrust/config_.mass(), 1.2 * config_.acc_gravity());
-      // ASSERT_LT(current_thrust/config_.mass(), 0.8 * config_.acc_gravity());
-
       return controller_connector_->getStatus() == ControllerStatus::Active;
     };
     ASSERT_FALSE(test_utils::waitUntilFalse()(runController,
@@ -116,6 +111,13 @@ public:
     ASSERT_EQ(controller_connector_->getStatus(), ControllerStatus::Completed);
   }
 
+  /**
+  * @brief run the backstepping controller until its either converged, or the
+  * control input is out of bounds
+  * @param goal reference trajectory
+  * @param pos_err Initial position error
+  * @param vel_err Initial velocity error
+  */
   void runUntilOutOfBounds(
       std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal,
       double total_time, tf::Vector3 pos_err, tf::Vector3 vel_err,
