@@ -283,7 +283,7 @@ set(SRC
   src/trackers/id_tracking_strategy.cpp
   src/trackers/simple_tracking_strategy.cpp
   src/types/spiral_reference_trajectory.cpp
-	src/types/quad_particle_reference_trajectory.cpp
+  src/types/quad_particle_reference_trajectory.cpp
   src/types/sensor_status.cpp
   src/controllers/manual_rpyt_controller.cpp
   src/controllers/velocity_based_position_controller.cpp
@@ -298,7 +298,7 @@ set(SRC
   src/controllers/qrotor_backstepping_controller.cpp
   src/controllers/ddp_casadi_mpc_controller.cpp
   src/controllers/ddp_quad_mpc_controller.cpp
-	src/controllers/quad_particle_reference_controller.cpp
+  src/controllers/quad_particle_reference_controller.cpp
   src/estimators/thrust_gain_estimator.cpp
   src/estimators/tracking_vector_estimator.cpp
   src/controller_connectors/mpc_controller_airm_connector.cpp
@@ -312,7 +312,7 @@ set(SRC
   src/controller_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_connectors/manual_rpyt_controller_drone_connector.cpp
   src/controller_connectors/joystick_velocity_controller_drone_connector.cpp
-  src/controller_connectors/quad_airm_common_mpc_connector.cpp
+  src/controller_connectors/base_mpc_controller_quad_connector.cpp
   src/controller_connectors/mpc_controller_quad_connector.cpp
   src/sensors/pose_sensor.cpp
 )

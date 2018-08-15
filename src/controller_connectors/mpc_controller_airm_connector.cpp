@@ -11,9 +11,9 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
     ThrustGainEstimator &thrust_gain_estimator, int delay_buffer_size,
     MPCConnectorConfig config, SensorPtr<tf::StampedTransform> pose_sensor,
     AbstractConstraintGeneratorPtr constraint_generator)
-    : QuadAirmMPCCommonConnector(drone_hardware, controller,
-                                 thrust_gain_estimator, delay_buffer_size,
-                                 config, pose_sensor, constraint_generator),
+    : BaseMPCControllerQuadConnector(drone_hardware, controller,
+                                     thrust_gain_estimator, delay_buffer_size,
+                                     config, pose_sensor, constraint_generator),
       arm_hardware_(arm_hardware), joint_angle_commands_(2),
       previous_measurements_(5) {
   clearJointCommandBuffers();
@@ -58,7 +58,7 @@ void MPCControllerAirmConnector::clearJointCommandBuffers() {
 }
 
 void MPCControllerAirmConnector::sendControllerCommands(ControlType control) {
-  QuadAirmMPCCommonConnector::sendControllerCommands(control);
+  BaseMPCControllerQuadConnector::sendControllerCommands(control);
   joint_angle_commands_.at(0) = control(4);
   joint_angle_commands_.at(1) = control(5);
   arm_hardware_.setJointAngles(joint_angle_commands_);

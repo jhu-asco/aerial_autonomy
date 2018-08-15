@@ -53,7 +53,7 @@ Eigen::MatrixXd armaToEigen(const arma::mat &m) {
 }
 
 std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>>
-createWayPoint(PositionYaw goal, double desired_joint_angle_1,
+createWaypoint(PositionYaw goal, double desired_joint_angle_1,
                double desired_joint_angle_2) {
   std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>> waypoint;
   Eigen::VectorXd goal_control(6);
@@ -68,7 +68,7 @@ createWayPoint(PositionYaw goal, double desired_joint_angle_1,
 }
 
 std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>>
-createWayPoint(PositionYaw goal) {
+createWaypoint(PositionYaw goal) {
   std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>> waypoint;
   Eigen::VectorXd goal_control(4);
   goal_control << 1, 0, 0, 0;

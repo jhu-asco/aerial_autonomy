@@ -27,6 +27,10 @@ struct ResetRelativePoseVisualServoingTransitionActionFunctor_
 /**
 * @brief Action for initializing relative pose visual servoing
 *
+*Possible connectors to use
+*   RPYTRelativePoseVisualServoingConnector,
+*   UAVVisionSystem::VisualServoingReferenceConnectorT
+*
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT, class ConnectorT, int GoalIndex,
@@ -47,8 +51,6 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
     PositionYaw position_yaw_goal =
         conversions::protoPositionYawToPositionYaw(goal);
     robot_system.setGoal<ConnectorT, PositionYaw>(position_yaw_goal);
-    // RPYTRelativePoseVisualServoingConnector,
-    // UAVVisionSystem::VisualServoingReferenceConnectorT
   }
 };
 /**

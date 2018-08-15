@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
   visualizer_config.mutable_desired_trajectory_color()->set_a(0.5);
   MPCTrajectoryVisualizer visualizer(visualizer_config);
   // auto reference_ptr =
-  //    conversions::createWayPoint(PositionYaw(0.2, 0.2, 0.2, 0.0), -0.8, 1.4);
+  //    conversions::createWaypoint(PositionYaw(0.2, 0.2, 0.2, 0.0), -0.8, 1.4);
   auto reference_ptr = createSpiralReference(drone_hardware);
   controller_connector.usePerfectTimeDiff(
       0.02); ///\todo Remove this flag business

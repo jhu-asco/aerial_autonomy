@@ -13,7 +13,7 @@
 * @brief Controller connector common code between airm and quadrotor
 * system
 */
-class QuadAirmMPCCommonConnector
+class BaseMPCControllerQuadConnector
     : public MPCControllerConnector<Eigen::VectorXd, Eigen::VectorXd> {
 public:
   /**
@@ -33,7 +33,7 @@ public:
   * @param constraint_generator The constraint generator to use
   * @param state_estimator state estimator that finds the state of robot
   */
-  QuadAirmMPCCommonConnector(
+  BaseMPCControllerQuadConnector(
       parsernode::Parser &drone_hardware,
       AbstractMPCController<StateType, ControlType> &controller,
       ThrustGainEstimator &thrust_gain_estimator, int delay_buffer_size,
@@ -42,9 +42,9 @@ public:
       AbstractConstraintGeneratorPtr constraint_generator = nullptr);
 
   /**
-   * @brief ~QuadAirmMPCCommonConnector Destructor
+   * @brief ~BaseMPCControllerQuadConnector Destructor
    */
-  virtual ~QuadAirmMPCCommonConnector() {}
+  virtual ~BaseMPCControllerQuadConnector() {}
 
   /**
   * @brief send commands to Quadrotor

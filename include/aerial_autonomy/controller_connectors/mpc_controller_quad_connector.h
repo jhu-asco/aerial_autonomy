@@ -1,5 +1,5 @@
 #pragma once
-#include "aerial_autonomy/controller_connectors/quad_airm_common_mpc_connector.h"
+#include "aerial_autonomy/controller_connectors/base_mpc_controller_quad_connector.h"
 #include <Eigen/Dense>
 #include <tf/tf.h>
 
@@ -7,7 +7,7 @@
 * @brief Controller connector for generic MPC Controller for Quadrotor
 * system
 */
-class MPCControllerQuadConnector : public QuadAirmMPCCommonConnector {
+class MPCControllerQuadConnector : public BaseMPCControllerQuadConnector {
 public:
   /**
   * @brief Constructor

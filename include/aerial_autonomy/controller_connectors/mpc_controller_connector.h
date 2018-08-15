@@ -43,7 +43,7 @@ public:
       AbstractConstraintGeneratorPtr constraint_generator = nullptr)
       : BaseConnector(controller, group),
         constraint_generator_(constraint_generator),
-        t_goal_(std::chrono::high_resolution_clock::now()),
+        t_init_(std::chrono::high_resolution_clock::now()),
         mpc_controller_(controller) {}
 
   /**
@@ -69,7 +69,7 @@ public:
         mpc_inputs.initial_state, mpc_inputs.parameters);
     mpc_inputs.time_since_goal =
         std::chrono::duration<double>(
-            std::chrono::high_resolution_clock::now() - t_goal_)
+            std::chrono::high_resolution_clock::now() - t_init_)
             .count();
     bool return_status = estimation_status;
     if (constraint_generator_) {
@@ -82,7 +82,7 @@ public:
   /**
    * @brief Save current time
    */
-  void initialize() { t_goal_ = std::chrono::high_resolution_clock::now(); }
+  void initialize() { t_init_ = std::chrono::high_resolution_clock::now(); }
 
   /**
   * @brief Get the MPC planned trajectory
@@ -110,6 +110,6 @@ private:
   AbstractConstraintGeneratorPtr
       constraint_generator_; ///< Generates constraints
   std::chrono::high_resolution_clock::time_point
-      t_goal_; ///< Time when goal is set
+      t_init_; ///< Time when connector is initialized
   AbstractMPCController<StateT, ControlT> &mpc_controller_; ///< MPC Controller
 };

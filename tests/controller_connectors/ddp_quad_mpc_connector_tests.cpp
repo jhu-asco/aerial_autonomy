@@ -69,7 +69,7 @@ public:
     init_position.y = initial_state.y;
     init_position.z = initial_state.z;
     drone_hardware_.cmdwaypoint(init_position, initial_state.yaw);
-    controller_connector_->setGoal(conversions::createWayPoint(goal));
+    controller_connector_->setGoal(conversions::createWaypoint(goal));
     auto runController = [&]() {
       controller_connector_->run();
       return controller_connector_->getStatus() == ControllerStatus::Active;

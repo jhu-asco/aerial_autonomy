@@ -11,9 +11,9 @@ MPCControllerQuadConnector::MPCControllerQuadConnector(
     ThrustGainEstimator &thrust_gain_estimator, int delay_buffer_size,
     MPCConnectorConfig config, SensorPtr<tf::StampedTransform> pose_sensor,
     AbstractConstraintGeneratorPtr constraint_generator)
-    : QuadAirmMPCCommonConnector(drone_hardware, controller,
-                                 thrust_gain_estimator, delay_buffer_size,
-                                 config, pose_sensor, constraint_generator),
+    : BaseMPCControllerQuadConnector(drone_hardware, controller,
+                                     thrust_gain_estimator, delay_buffer_size,
+                                     config, pose_sensor, constraint_generator),
       previous_measurements_(3) {
   // clang-format off
   DATA_HEADER("quad_mpc_state_estimator") << "x" << "y" << "z"

@@ -14,7 +14,7 @@
 /**
  * @brief A visual servoing controller that uses a tracker output as feedback
  * and brings the quadrotor
- * to a goal pose expressed in the tracked object's coordinate frame
+ * to a goal reference expressed in the tracked object's coordinate frame
  */
 template <class StateT, class ControlT, class DependentConnectorT>
 class VisualServoingReferenceConnector

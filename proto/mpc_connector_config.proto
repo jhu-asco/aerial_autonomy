@@ -21,4 +21,16 @@ message MPCConnectorConfig {
   * @brief Time diff for finite diff
   */
   optional double perfect_time_diff = 5 [ default = 0.02 ];
+  /**
+  * @brief Maximum thrust command to send
+  */
+  optional double max_thrust_command = 6 [ default = 80.0 ];
+  /**
+  * @brief Minimum thrust command to send
+  */
+  optional double min_thrust_command = 7 [ default = 40.0 ];
+  /**
+  * @brief time step for integrating yaw rate
+  */
+  optional double dt_yaw_integration = 8 [ default = 0.02 ];
 }

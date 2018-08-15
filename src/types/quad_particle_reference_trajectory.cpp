@@ -7,11 +7,11 @@ constexpr double QuadParticleTrajectory::gravity_magnitude_,
     QuadParticleTrajectory::tol;
 
 QuadParticleTrajectory::QuadParticleTrajectory(PositionYaw goal_state,
-                                               PositionYaw current_state,
+                                               PositionYaw start_state,
                                                ParticleReferenceConfig config)
     : ParticleTrajectory<Eigen::VectorXd, Eigen::VectorXd>(
-          goal_state, current_state, config) {
-  error = goal_state - current_state;
+          goal_state, start_state, config) {
+  error = goal_state - start_state;
   time_intersection[0] =
       findTimeIntersection(config.kp_x(), error.x, config.max_velocity());
   time_intersection[1] =
@@ -67,7 +67,7 @@ QuadParticleTrajectory::atTime(double t) const {
   double exp_kp_x_dt = exp(-config_.kp_x() * (t_dt - time_intersection[0]));
   double exp_x_diff = -exp_kp_x * error.x;
   if (t < time_intersection[0]) {
-    x[0] = current_state_.x + linear_slopes[0] * t;
+    x[0] = start_state_.x + linear_slopes[0] * t;
     x[6] = linear_slopes[0];
     acc[0] = 0;
     acc_dt[0] = 0;
@@ -82,7 +82,7 @@ QuadParticleTrajectory::atTime(double t) const {
   double exp_kp_y_dt = exp(-config_.kp_y() * (t_dt - time_intersection[1]));
   double exp_y_diff = -exp_kp_y * error.y;
   if (t < time_intersection[1]) {
-    x[1] = current_state_.y + linear_slopes[1] * t;
+    x[1] = start_state_.y + linear_slopes[1] * t;
     x[7] = linear_slopes[1];
     acc[1] = 0;
     acc_dt[1] = 0;
@@ -97,7 +97,7 @@ QuadParticleTrajectory::atTime(double t) const {
   double exp_kp_z_dt = exp(-config_.kp_z() * (t_dt - time_intersection[2]));
   double exp_z_diff = -exp_kp_z * error.z;
   if (t < time_intersection[2]) {
-    x[2] = current_state_.z + linear_slopes[2] * t;
+    x[2] = start_state_.z + linear_slopes[2] * t;
     x[8] = linear_slopes[2];
     acc[2] = gravity_magnitude_;
     acc_dt[2] = gravity_magnitude_;
@@ -113,9 +113,9 @@ QuadParticleTrajectory::atTime(double t) const {
   double exp_kp_yaw_dt = exp(-config_.kp_yaw() * (t_dt - time_intersection[3]));
   double exp_yaw_diff = -exp_kp_yaw * error.yaw;
   if (t < time_intersection[3]) {
-    x[5] = current_state_.yaw + linear_slopes[3] * t;
+    x[5] = start_state_.yaw + linear_slopes[3] * t;
     x[11] = linear_slopes[3];
-    yaw_dt = current_state_.yaw + linear_slopes[3] * (t_dt);
+    yaw_dt = start_state_.yaw + linear_slopes[3] * (t_dt);
   } else {
     x[5] = exp_yaw_diff + goal_state_.yaw;
     x[11] = -config_.kp_yaw() * exp_yaw_diff;
