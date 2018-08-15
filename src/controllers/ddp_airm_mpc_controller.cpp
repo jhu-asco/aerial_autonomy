@@ -101,19 +101,19 @@ DDPAirmMPCController::DDPAirmMPCController(
   resetControls(); // Set controls to default values and resets DDP
   VLOG(1) << "Done setting up ddp";
   // Setting up logger
-  DATA_HEADER("ddp_mpc_controller") << "Errorx"
-                                    << "Errory"
-                                    << "Errorz"
-                                    << "Errorja1"
-                                    << "Errorja2"
-                                    << "thrust_d"
-                                    << "rd"
-                                    << "pd"
-                                    << "yaw_rate_d"
-                                    << "Jad1"
-                                    << "Jad2"
-                                    << "J"
-                                    << "Loop timer" << DataStream::endl;
+  DATA_HEADER("ddp_airm_mpc_controller") << "Errorx"
+                                         << "Errory"
+                                         << "Errorz"
+                                         << "Errorja1"
+                                         << "Errorja2"
+                                         << "thrust_d"
+                                         << "rd"
+                                         << "pd"
+                                         << "yaw_rate_d"
+                                         << "Jad1"
+                                         << "Jad2"
+                                         << "J"
+                                         << "Loop timer" << DataStream::endl;
 }
 
 DDPAirmMPCController::ControlType DDPAirmMPCController::stationaryControl() {
@@ -180,7 +180,7 @@ void DDPAirmMPCController::logData(MPCInputs<StateType> &sensor_data,
       sensor_data.initial_state.segment<3>(0) - xds_.at(0).segment<3>(0);
   Eigen::Vector2d error_ja =
       sensor_data.initial_state.segment<2>(15) - xds_.at(0).segment<2>(15);
-  DATA_LOG("ddp_mpc_controller")
+  DATA_LOG("ddp_airm_mpc_controller")
       << error_position << error_ja << control << (ddp_->J)
       << loop_timer_.average_loop_period() << DataStream::endl;
 }
