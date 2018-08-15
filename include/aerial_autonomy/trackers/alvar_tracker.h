@@ -21,8 +21,8 @@ public:
   AlvarTracker(
       std::string name_space = "~tracker",
       std::chrono::duration<double> timeout = std::chrono::milliseconds(500))
-      : BaseTracker(std::move(std::unique_ptr<TrackingStrategy>(
-            new IdTrackingStrategy(4)))),
+      : BaseTracker(std::move(
+            std::unique_ptr<TrackingStrategy>(new IdTrackingStrategy(4)))),
         nh_(name_space),
         alvar_sub_(nh_.subscribe("ar_pose_marker", 1,
                                  &AlvarTracker::markerCallback, this)),

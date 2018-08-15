@@ -39,8 +39,8 @@ TEST_F(OdomSensorTests, SensorTF) {
 
   OdomSensor sensor(new_config);
   nav_msgs::Odometry odom_msg;
-  tf::Vector3 pos(10,10,10);
-  tf::Quaternion orientation(0,0,1,0);
+  tf::Vector3 pos(10, 10, 10);
+  tf::Quaternion orientation(0, 0, 1, 0);
   odom_msg.pose.pose.position.x = pos.getX();
   odom_msg.pose.pose.position.y = pos.getY();
   odom_msg.pose.pose.position.z = pos.getZ();
@@ -48,8 +48,8 @@ TEST_F(OdomSensorTests, SensorTF) {
   odom_msg.pose.pose.orientation.y = 0;
   odom_msg.pose.pose.orientation.z = 1;
   odom_msg.pose.pose.orientation.w = 0;
-  tf::Vector3 linVel(0.1,-0.2,0.3);
-  tf::Vector3 angVel(0.1,-0.2,0.3);
+  tf::Vector3 linVel(0.1, -0.2, 0.3);
+  tf::Vector3 angVel(0.1, -0.2, 0.3);
   odom_msg.twist.twist.linear.x = linVel.getX();
   odom_msg.twist.twist.linear.y = linVel.getY();
   odom_msg.twist.twist.linear.z = linVel.getZ();

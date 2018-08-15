@@ -1,7 +1,7 @@
 #pragma once
 #include "base_sensor.h"
-#include <ros/ros.h>
 #include "ros_sensor_config.pb.h"
+#include <ros/ros.h>
 
 /**
 * @brief Base class for ROS sensors
@@ -9,13 +9,12 @@
 * Subclass provides functionality to update sensor data
 * and status
 */
-template <class SensorDataT> 
-class ROS_Sensor: public Sensor<SensorDataT> {
+template <class SensorDataT> class ROS_Sensor : public Sensor<SensorDataT> {
 public:
   /**
   * @brief Constructor
   */
-  ROS_Sensor(ROSSensorConfig config): config_(config) {
+  ROS_Sensor(ROSSensorConfig config) : config_(config) {
     VLOG(2) << "Initializing ROS Sensor";
     sub_ = nh_.subscribe(config.topic(), 1, &ROS_Sensor::callback, this);
     last_msg_time_ = ros::Time::now();
@@ -41,7 +40,7 @@ public:
   }
 
 private:
-  //Only works if SensorDataT is the proper ROS msg type
+  // Only works if SensorDataT is the proper ROS msg type
   void callback(const typename SensorDataT::ConstPtr msg) {
     ros::Time last_msg_time = msg->header.stamp;
     last_msg_time_ = last_msg_time;
