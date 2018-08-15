@@ -25,7 +25,10 @@ public:
   *
   * @return Trajectory state and control
   */
-  virtual std::pair<StateT, ControlT> atGoalEnd() const = 0;
+  std::pair<StateT, ControlT> atGoalEnd() const {
+    return std::pair<StateT, ControlT>(this->states.back(),
+                                       this->controls.back());
+  }
   /**
   * @brief Time stamps corresponding to states
   */
