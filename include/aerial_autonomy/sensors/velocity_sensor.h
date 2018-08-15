@@ -17,8 +17,9 @@ public:
   *
   * @param Config for velocity sensor
   */
-  VelocitySensor(ROSSensorConfig config) : config_(config) {
-    sensor_ = ROS_Sensor<nav_msgs::Odometry>(config);
+  VelocitySensor(ROSSensorConfig config): sensor_(config) {
+    //sensor_ = ROS_Sensor<nav_msgs::Odometry>(config);
+    config_ = config;
   }
   /**
   * @brief gives sensor data
