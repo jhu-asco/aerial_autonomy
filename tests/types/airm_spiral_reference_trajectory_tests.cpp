@@ -37,8 +37,8 @@ protected:
     quad_config.set_frequency(5.0);
     quad_config.set_phase(0.0);
 
-    quad_config.set_radiusx(1.0);
-    quad_config.set_radiusy(0.5);
+    quad_config.set_radius_x(1.0);
+    quad_config.set_radius_y(0.5);
 
     quad_config.set_velocity_z(1.0);
     quad_config.set_frequency_z(1.0);
@@ -64,13 +64,13 @@ TEST_F(AirmSpiralReferenceTrajectoryTests, ZeroTime) {
   double omega = quad_config.frequency() * 2 * M_PI;
   double omega_squared = omega * omega;
   Eigen::Vector3d acceleration(
-      -quad_config.radiusx() * omega_squared * sin(quad_config.phase()),
-      -quad_config.radiusy() * omega_squared * cos(quad_config.phase()), 9.81);
+      -quad_config.radius_x() * omega_squared * sin(quad_config.phase()),
+      -quad_config.radius_y() * omega_squared * cos(quad_config.phase()), 9.81);
   ASSERT_EQ(state[0], current_position[0]);
   ASSERT_EQ(state[1], current_position[1]);
   ASSERT_EQ(state[2], current_position[2]);
   ASSERT_EQ(state[5], current_yaw);
-  ASSERT_EQ(state[6], quad_config.radiusx() * omega);
+  ASSERT_EQ(state[6], quad_config.radius_x() * omega);
   ASSERT_EQ(state[7], 0.0);
   ASSERT_EQ(state[8], quad_config.velocity_z());
   // Joints
@@ -101,7 +101,7 @@ TEST_F(AirmSpiralReferenceTrajectoryTests, Period) {
   ASSERT_NEAR(state[2], current_position[2] + 1.0, 1e-14);
   ASSERT_EQ(state[5],
             current_yaw + quad_config.amplitude_yaw() * sin(2 * M_PI * 0.1));
-  ASSERT_NEAR(state[6], quad_config.radiusx() * omega, 1e-14);
+  ASSERT_NEAR(state[6], quad_config.radius_x() * omega, 1e-14);
   ASSERT_NEAR(state[7], 0.0, 1e-13);
   ASSERT_NEAR(state[8], -quad_config.velocity_z(), 1e-14);
   ASSERT_EQ(state[11],

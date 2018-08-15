@@ -56,14 +56,6 @@ public:
    * @param goal empty goal
    */
   void setGoal(PositionYaw goal);
-  /**
-  * @brief Get the angle between camera z and the marker center
-  *
-  * @param object_pose_cam the transform of marker in camera frame
-  *
-  * @return angle in radians
-  */
-  double getViewingAngle(tf::Transform object_pose_cam) const;
 
 protected:
   /**

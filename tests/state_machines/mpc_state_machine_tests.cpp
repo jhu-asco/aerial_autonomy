@@ -44,8 +44,8 @@ public:
     joint2_config->set_phase(M_PI / 2.0);
     auto spiral_reference =
         mpc_state_machine_config->mutable_spiral_reference();
-    spiral_reference->set_radiusx(1.0);
-    spiral_reference->set_radiusy(1.0);
+    spiral_reference->set_radius_x(1.0);
+    spiral_reference->set_radius_y(1.0);
     spiral_reference->set_frequency(0.01);
     // Waypoint
     auto waypoint_ref = mpc_state_machine_config->mutable_waypoint_reference();
@@ -80,9 +80,7 @@ public:
     rpyt_vel_controller_tol->set_vy(0.1);
     rpyt_vel_controller_tol->set_vz(0.1);
     // Disable Pose sensor since it depends on ros
-    auto uav_arm_system_config = config_.mutable_uav_vision_system_config()
-                                     ->mutable_uav_arm_system_config();
-    uav_arm_system_config->set_visualize_mpc_trajectories(false);
+    config_.set_visualize_mpc_trajectories(false);
     // Fill MPC Config
     test_utils::fillMPCConfig(config_);
 
