@@ -11,6 +11,7 @@
 
 #include <Eigen/Dense>
 #include <aerial_autonomy/log/log.h>
+#include <glog/logging.h>
 #include <memory>
 
 /**
@@ -72,6 +73,19 @@ public:
 
     auto AmBK = A_ - B_ * K_;
     P_ = math::sylvester(AmBK.transpose(), AmBK, Q_);
+    DATA_HEADER("qrotor_backstepping_controller") << "p.x"
+                                                  << "p.y"
+                                                  << "p.z"
+                                                  << "p_d.x"
+                                                  << "p_d.y"
+                                                  << "p_d.z"
+                                                  << "v.x"
+                                                  << "v.y"
+                                                  << "v.z"
+                                                  << "v_d.x"
+                                                  << "v_d.y"
+                                                  << "v_d.z"
+                                                  << DataStream::endl;
   }
 
 protected:
@@ -108,6 +122,14 @@ protected:
   std::pair<ParticleState, Snap>
   getGoalFromReference(double current_time,
                        const ReferenceTrajectory<ParticleState, Snap> &ref);
+
+  /**
+  * @brief Gets the trajectory information at the end
+  *
+  * @return Goal at the end
+  */
+  std::pair<ParticleState, Snap>
+  getGoalAtTimeEnd(const ReferenceTrajectory<ParticleState, Snap> &ref);
   /**
   * @brief Controller config
   */
