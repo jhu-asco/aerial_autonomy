@@ -71,7 +71,7 @@ public:
     } else {
       t_tau = tau_vec_(tau_vec_.size() - 1);
     }
-    // double t_tau = t - ts_[i - 1];
+
     Eigen::MatrixXd states_eigen;
     Eigen::MatrixXd equal_A = equalA(t_tau).bottomRows(5);
     if (i == 0) {
@@ -88,6 +88,23 @@ public:
     Jerk j(states_eigen(3, 0), states_eigen(3, 1), states_eigen(3, 2));
     Snap snap(states_eigen(4, 0), states_eigen(4, 1), states_eigen(4, 2));
 
+    return std::pair<ParticleState, Snap>(ParticleState(p, v, a, j), snap);
+  }
+  /**
+  * @brief Gets the trajectory information at the end
+  *
+  * @return Trajectory state and control
+  */
+  std::pair<ParticleState, Snap> atGoalEnd() const {
+    Eigen::MatrixXd equal_A =
+        equalA(tau_vec_(tau_vec_.size() - 1)).bottomRows(5);
+    Eigen::MatrixXd states_eigen = equal_A * poly_coeffs_.bottomRows(10);
+    // Type conversion
+    Position p(states_eigen(0, 0), states_eigen(0, 1), states_eigen(0, 2));
+    Velocity v(states_eigen(1, 0), states_eigen(1, 1), states_eigen(1, 2));
+    Acceleration a(states_eigen(2, 0), states_eigen(2, 1), states_eigen(2, 2));
+    Jerk j(states_eigen(3, 0), states_eigen(3, 1), states_eigen(3, 2));
+    Snap snap(states_eigen(4, 0), states_eigen(4, 1), states_eigen(4, 2));
     return std::pair<ParticleState, Snap>(ParticleState(p, v, a, j), snap);
   }
 
