@@ -43,6 +43,5 @@ public:
                                   Eigen::VectorXd &params);
 
 private:
-  Eigen::VectorXd previous_measurements_; ///< Previous measurements
-  static constexpr int state_size_ = 15;  ///< State size
+  static constexpr int state_size_ = 15; ///< State size
 };

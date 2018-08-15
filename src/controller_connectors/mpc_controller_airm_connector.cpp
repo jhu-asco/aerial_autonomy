@@ -15,7 +15,7 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
                                      thrust_gain_estimator, delay_buffer_size,
                                      config, pose_sensor, constraint_generator),
       arm_hardware_(arm_hardware), joint_angle_commands_(2),
-      previous_measurements_(5) {
+      previous_joint_measurements_initialized_(false) {
   clearJointCommandBuffers();
   // clang-format off
   DATA_HEADER("airm_mpc_state_estimator") << "x" << "y" << "z"
@@ -31,17 +31,9 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
 }
 
 void MPCControllerAirmConnector::initialize() {
-  MPCControllerConnector::initialize();
-  VLOG(1) << "Clearing thrust estimator buffer";
-  thrust_gain_estimator_.clearBuffer();
-  previous_measurements_initialized_ = false;
-  private_controller_.resetControls();
-  clearCommandBuffers();
+  previous_joint_measurements_initialized_ = false;
   clearJointCommandBuffers();
-  int iters = private_controller_.getMaxIters();
-  private_controller_.setMaxIters(100);
-  run();
-  private_controller_.setMaxIters(iters);
+  initializePrivateController(private_controller_);
 }
 
 void MPCControllerAirmConnector::clearJointCommandBuffers() {
@@ -67,95 +59,35 @@ void MPCControllerAirmConnector::sendControllerCommands(ControlType control) {
 
 bool MPCControllerAirmConnector::estimateStateAndParameters(
     Eigen::VectorXd &current_state, Eigen::VectorXd &params) {
+  double dt = getTimeDiff();
   current_state.resize(state_size_);
-  // Timing logic
-  auto current_time = std::chrono::high_resolution_clock::now();
-  double dt =
-      std::chrono::duration<double>(current_time - previous_measurement_time_)
-          .count();
-  if (config_.use_perfect_time_diff()) {
-    dt = config_.perfect_time_diff();
-  }
-  if (dt < 1e-4) {
-    LOG(WARNING) << "Time diff cannot be smaller than 1e-4";
-    return false;
-  }
-  // Get Quad data
-  parsernode::common::quaddata quad_data;
-  drone_hardware_.getquaddata(quad_data);
-  ///\todo Do some filtering on position, rpy before differentiation
-  tf::Transform quad_pose;
-  if (pose_sensor_) {
-    if (pose_sensor_->getSensorStatus() != SensorStatus::VALID) {
-      LOG(WARNING) << "Sensor invalid";
-      return false;
-    }
-    quad_pose = pose_sensor_->getSensorData();
-  } else {
-    quad_pose = conversions::getPose(quad_data);
-  }
-  // Position
-  const auto &quad_position = quad_pose.getOrigin();
-  Eigen::Vector3d p(quad_position.x(), quad_position.y(), quad_position.z());
-  Eigen::Vector3d rpy;
-  Eigen::Vector3d omega(quad_data.omega.x, quad_data.omega.y,
-                        quad_data.omega.z);
-  // Euler angles
-  if (pose_sensor_) {
-    rpy = conversions::transformTfToRPY(quad_pose);
-  } else {
-    rpy = Eigen::Vector3d(quad_data.rpydata.x, quad_data.rpydata.y,
-                          quad_data.rpydata.z);
-  }
   // Joint angles
   std::vector<double> joint_angles = arm_hardware_.getJointAngles();
   Eigen::Vector2d joint_angles_vec(joint_angles.at(0), joint_angles.at(1));
   // Differentiate:
-  Eigen::Vector3d v;
   Eigen::Vector2d joint_velocities;
-  if (previous_measurements_initialized_) {
-    v = (p - previous_measurements_.segment<3>(0)) / dt;
-    joint_velocities =
-        (joint_angles_vec - previous_measurements_.segment<2>(3)) / dt;
+  if (previous_joint_measurements_initialized_) {
+    joint_velocities = (joint_angles_vec - previous_joint_angles_) / dt;
   } else {
-    v = Eigen::Vector3d::Zero();
     joint_velocities = Eigen::Vector2d::Zero();
     filtered_joint_velocity_ = Eigen::Vector2d::Zero();
-    filtered_rpydot_ = Eigen::Vector3d::Zero();
-    filtered_velocity_ = Eigen::Vector3d::Zero();
-    previous_measurements_initialized_ = true;
+    previous_joint_measurements_initialized_ = true;
   }
-  double rpydot_gain = config_.rpydot_gain();
-  // Get rpydot from omega:
-  filtered_rpydot_ =
-      (rpydot_gain * filtered_rpydot_ +
-       (1 - rpydot_gain) * conversions::omegaToRpyDot(omega, rpy));
   // Update filtered velocities:
   double angular_exp_gain = config_.angular_exp_gain();
-  double velocity_exp_gain = config_.velocity_exp_gain();
   filtered_joint_velocity_ = angular_exp_gain * filtered_joint_velocity_ +
                              (1 - angular_exp_gain) * joint_velocities;
-  filtered_velocity_ =
-      velocity_exp_gain * filtered_velocity_ + (1 - velocity_exp_gain) * v;
   // Fill state
-  current_state.segment<3>(0) = p;
-  current_state.segment<3>(3) = rpy;
-  current_state.segment<3>(6) = filtered_velocity_;
-  current_state.segment<3>(9) = filtered_rpydot_;
-  current_state.segment<3>(12) = rpy_command_buffer_.front();
   current_state.segment<2>(15) = joint_angles_vec;
   current_state.segment<2>(17) = filtered_joint_velocity_;
   current_state.segment<2>(19) = previous_joint_commands_;
-  // Fill previous measurements and time
-  previous_measurements_.segment<3>(0) = current_state.segment<3>(0);
-  previous_measurements_.segment<2>(3) = joint_angles_vec;
-  previous_measurement_time_ = current_time;
-  // Estimate thrust gain parameter
-  thrust_gain_estimator_.addSensorData(quad_data.rpydata.x, quad_data.rpydata.y,
-                                       quad_data.linacc.z);
-  params.resize(1);
-  params << thrust_gain_estimator_.getThrustGain();
-  DATA_LOG("airm_mpc_state_estimator") << current_state << params[0]
-                                       << DataStream::endl;
-  return true;
+  // Fill previous measurements
+  previous_joint_angles_ = joint_angles_vec;
+  // Fill Quad stuff
+  bool result = fillQuadStateAndParameters(current_state, params, dt);
+  if (result) {
+    DATA_LOG("airm_mpc_state_estimator") << current_state << params[0]
+                                         << DataStream::endl;
+  }
+  return result;
 }

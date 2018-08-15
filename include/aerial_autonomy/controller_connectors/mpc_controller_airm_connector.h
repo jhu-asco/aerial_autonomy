@@ -62,8 +62,10 @@ protected:
 private:
   ArmParser &arm_hardware_; ///< Parser for sending and receiving arm data
   std::vector<double> joint_angle_commands_; ///< Commanded joint angles
-  Eigen::VectorXd previous_measurements_;    ///< Previous measurements
   Eigen::Vector2d previous_joint_commands_;  ///< Previous joint commands
   Eigen::Vector2d filtered_joint_velocity_;  ///< Filtered joint velocity
+  Eigen::Vector2d previous_joint_angles_;    ///< Previous joint angles
+  bool
+      previous_joint_measurements_initialized_; ///< Previous joint measurements
   static constexpr int state_size_ = 21;
 };

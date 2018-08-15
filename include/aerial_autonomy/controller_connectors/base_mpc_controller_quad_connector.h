@@ -74,6 +74,46 @@ protected:
   */
   void clearCommandBuffers();
 
+  /**
+  * @brief Estimate the current state and static MPC parameters
+  *
+  * for quadrotor
+  *
+  * @param current_state Current system state
+  * @param params Current MPC parameters
+  * @param dt Time difference for finite diff
+  *
+  * @return true if estimation is successful
+  */
+  bool fillQuadStateAndParameters(Eigen::VectorXd &current_state,
+                                  Eigen::VectorXd &params, double dt);
+
+  /**
+   * @brief Get time difference
+   *
+   * @return time difference
+   */
+  double getTimeDiff();
+
+  /**
+   * @brief initialize the controller
+   *
+   * @tparam T  The type of controller
+   * @param private_controller private controller
+   */
+  template <class T> void initializePrivateController(T &private_controller) {
+    MPCControllerConnector::initialize();
+    VLOG(1) << "Clearing thrust estimator buffer";
+    thrust_gain_estimator_.clearBuffer();
+    previous_measurements_initialized_ = false;
+    private_controller.resetControls();
+    clearCommandBuffers();
+    int iters = private_controller.getMaxIters();
+    private_controller.setMaxIters(100);
+    run();
+    private_controller.setMaxIters(iters);
+  }
+
 protected:
   parsernode::Parser
       &drone_hardware_; ///< Quadrotor parser for sending and receiving data
@@ -84,6 +124,7 @@ protected:
   bool previous_measurements_initialized_; ///< Flag to determin whether
                                            /// previous measurements have been
                                            /// initialized
+  Eigen::VectorXd previous_measurements_;  ///< Previous measurements
   std::queue<Eigen::Vector3d> rpy_command_buffer_; ///< Rpy command buffer
   Eigen::Vector3d filtered_rpydot_;                ///< Filtered rpydot
   Eigen::Vector3d filtered_velocity_;              ///< Filtered rpydot
