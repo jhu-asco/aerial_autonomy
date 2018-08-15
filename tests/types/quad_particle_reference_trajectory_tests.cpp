@@ -31,7 +31,7 @@ TEST(QuadParticleReferenceTrajectory, Convergence) {
   PositionYaw goal_position_yaw(1, 2, 3, 1.57);
   QuadParticleTrajectory reference(goal_position_yaw, current_position_yaw,
                                    config);
-  auto state_control_pair = reference.atTime(10); // After 10 seconds
+  auto state_control_pair = reference.atTime(20); // After 10 seconds
   Eigen::VectorXd state = state_control_pair.first;
   Eigen::VectorXd control = state_control_pair.second;
   ASSERT_EQ(state.size(), 15);
@@ -66,7 +66,7 @@ TEST(QuadParticleReferenceTrajectory, Convergence) {
 TEST(QuadParticleReferenceTrajectory, StartState) {
   ParticleReferenceConfig config;
   PositionYaw current_position_yaw(0.0, 0.2, 0.3, 0);
-  PositionYaw goal_position_yaw(1, 2, 3, -1.57);
+  PositionYaw goal_position_yaw(5, 5, 5, -1.57);
   QuadParticleTrajectory reference(goal_position_yaw, current_position_yaw,
                                    config);
   auto state_control_pair = reference.atTime(0);

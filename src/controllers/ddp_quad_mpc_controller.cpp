@@ -26,15 +26,11 @@ DDPQuadMPCController::DDPQuadMPCController(
   /// \todo Add defaults if vector size is wrong
   lb_ = conversions::vectorProtoToEigen(config.lower_bound_control());
   ub_ = conversions::vectorProtoToEigen(config.upper_bound_control());
-  if (lb_.size() != control_size_) {
-    LOG(WARNING) << "Lower bound size incorrect: " << lb_.size();
-    lb_.resize(control_size_);
-    lb_ << 0.5, -0.6, -0.6, -0.6;
-  }
-  if (ub_.size() != control_size_) {
-    LOG(WARNING) << "Upper bound size incorrect: " << ub_.size();
-    ub_.resize(control_size_);
-    ub_ << 1.5, 0.6, 0.6, 0.6;
+  if (lb_.size() != control_size_ || ub_.size() != control_size_) {
+    LOG(WARNING) << "Lower/Upper bound size incorrect: " << lb_.size() << ", "
+                 << ub_.size();
+    controller_config_status_ = false;
+    return;
   }
   std::cout << "Lb: " << lb_.transpose() << std::endl;
   std::cout << "Ub: " << ub_.transpose() << std::endl;
@@ -53,12 +49,12 @@ DDPQuadMPCController::DDPQuadMPCController(
   cost_.reset(new gcop::LqCost<Eigen::VectorXd>(*sys_, tf, xf_));
   cost_->SetReference(&xds_, &uds_);
   VLOG(1) << "Created cost function";
-  CHECK(ddp_config.q_size() == sys_->X.n)
-      << "Cost dimension should be same as system state size";
-  CHECK(ddp_config.qf_size() == sys_->X.n)
-      << "Final Cost dimension should be same as system state size";
-  CHECK(ddp_config.r_size() == sys_->U.n)
-      << "Control cost dimension should be same as system control size";
+  if (ddp_config.q_size() != sys_->X.n || ddp_config.qf_size() != sys_->X.n ||
+      ddp_config.r_size() != sys_->U.n) {
+    LOG(WARNING) << "Cost config sizes do not match";
+    controller_config_status_ = false;
+    return;
+  }
   cost_->Q =
       (conversions::vectorProtoToEigen(*ddp_config.mutable_q())).asDiagonal();
   cost_->Qf =
@@ -100,6 +96,10 @@ DDPQuadMPCController::ControlType DDPQuadMPCController::stationaryControl() {
 
 ControllerStatus DDPQuadMPCController::isConvergedImplementation(
     MPCInputs<StateType> sensor_data, GoalType goal) {
+  if (!controller_config_status_) {
+    LOG(WARNING) << "Controller config invalid!";
+    return ControllerStatus(ControllerStatus::Critical);
+  }
   boost::mutex::scoped_lock lock(copy_mutex_);
   ControllerStatus controller_status = ControllerStatus::Active;
   double t0 = sensor_data.time_since_goal;

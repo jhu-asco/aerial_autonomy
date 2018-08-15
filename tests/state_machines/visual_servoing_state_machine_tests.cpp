@@ -28,6 +28,7 @@ public:
   VisualServoingStateMachineTests()
       : drone_hardware(new QuadSimulator), goal_tolerance_position_(0.5) {
     drone_hardware->usePerfectTime();
+    drone_hardware->set_delay_send_time(0.02);
     auto uav_vision_system_config = config.mutable_uav_vision_system_config();
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
     auto depth_config =
@@ -45,6 +46,10 @@ public:
     vs_position_tolerance->set_x(goal_tolerance_position_);
     vs_position_tolerance->set_y(goal_tolerance_position_);
     vs_position_tolerance->set_z(goal_tolerance_position_);
+    // Configure mpc controller
+    // QuadMPCControllerConfig mpc_config = createQuadMPCConfig();
+    auto mpc_config = config.mutable_quad_mpc_controller_config();
+    test_utils::fillQuadMPCConfig(*mpc_config);
 
     // Configure position controller
     auto vel_based_position_controller =
@@ -136,7 +141,7 @@ public:
              ControllerStatus::Completed;
     };
     ASSERT_TRUE(test_utils::waitUntilTrue()(getUAVStatusRunControllers,
-                                            std::chrono::seconds(1),
+                                            std::chrono::seconds(20),
                                             std::chrono::milliseconds(0)));
   }
 
@@ -195,8 +200,12 @@ TEST_F(VisualServoingStateMachineTests, VisualServoing) {
   // Check we are in visual servoing state
   ASSERT_STREQ(pstate(*logic_state_machine), "VisualServoing");
   // Check controller status
-  ASSERT_EQ(uav_system->getStatus<RPYTRelativePoseVisualServoingConnector>(),
+  ASSERT_EQ(uav_system->getStatus<MPCControllerQuadConnector>(),
             ControllerStatus::Active);
+  ASSERT_EQ(
+      uav_system
+          ->getStatus<UAVVisionSystem::VisualServoingReferenceConnectorT>(),
+      ControllerStatus::Active);
 
   runActiveControllerToConvergence();
 

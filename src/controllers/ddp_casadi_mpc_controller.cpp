@@ -3,7 +3,8 @@
 DDPCasadiMPCController::DDPCasadiMPCController(
     DDPMPCControllerConfig ddp_config,
     std::chrono::duration<double> controller_duration)
-    : ddp_config_(ddp_config), kt_(1), look_ahead_index_shift_(1) {
+    : ddp_config_(ddp_config), kt_(1), look_ahead_index_shift_(1),
+      controller_config_status_(true) {
   // parameters from ddp config
   unsigned int N = ddp_config.n();
   double h = ddp_config.h();
@@ -69,6 +70,10 @@ void DDPCasadiMPCController::rotateControls(unsigned int shift_length) {
 bool DDPCasadiMPCController::runImplementation(MPCInputs<StateType> sensor_data,
                                                GoalType goal,
                                                ControlType &control) {
+  if (!controller_config_status_) {
+    LOG(WARNING) << "Controller config invalid!";
+    return false;
+  }
   bool result = true;
   loop_timer_.loop_start();
   boost::mutex::scoped_lock lock(copy_mutex_);

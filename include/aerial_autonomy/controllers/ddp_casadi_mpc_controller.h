@@ -165,5 +165,6 @@ protected:
                             /// hot starting
   unsigned int max_iters_;  ///< Maximum number of iterations
   mutable boost::mutex
-      copy_mutex_; ///< Synchronize access to states and controls
+      copy_mutex_;                ///< Synchronize access to states and controls
+  bool controller_config_status_; ///< If config provided is ok
 };

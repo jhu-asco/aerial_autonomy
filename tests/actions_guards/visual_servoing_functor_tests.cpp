@@ -13,12 +13,14 @@ using namespace quad_simulator;
 using vsa = VisualServoingStatesActions<UAVVisionLogicStateMachine>;
 
 // Visual Servoing
-using VisualServoingInternalAction =
-    VisualServoingInternalActionFunctor_<UAVVisionLogicStateMachine>;
+using VisualServoingInternalAction = VisualServoingInternalActionFunctor_<
+    UAVVisionLogicStateMachine, be::Abort,
+    VisualServoingControllerDroneConnector>;
 
 using RelativePoseVisualServoingInternalAction =
-    RelativePoseVisualServoingInternalActionFunctor_<UAVVisionLogicStateMachine,
-                                                     be::Abort>;
+    VisualServoingInternalActionFunctor_<
+        UAVVisionLogicStateMachine, be::Abort,
+        RPYTRelativePoseVisualServoingConnector>;
 
 class VisualServoingTests : public ::testing::Test {
 protected:
@@ -126,9 +128,8 @@ protected:
 };
 /// \brief Test Visual Servoing
 TEST_F(VisualServoingTests, Constructor) {
-  ASSERT_NO_THROW(new vsa::VisualServoingTransitionAction());
   ASSERT_NO_THROW(new VisualServoingInternalAction());
-  ASSERT_NO_THROW(new vsa::RelativePoseVisualServoingTransitionAction());
+  ASSERT_NO_THROW(new vsa::RPYTRelativePoseVisualServoingTransitionAction());
   ASSERT_NO_THROW(new RelativePoseVisualServoingInternalAction());
 }
 
@@ -243,7 +244,7 @@ TEST_F(VisualServoingTests, CallRelativePoseInternalActionFunction) {
   drone_hardware->setBatteryPercent(60);
   drone_hardware->takeoff();
   // Call guard
-  vsa::RelativePoseVisualServoingTransitionAction
+  vsa::RPYTRelativePoseVisualServoingTransitionAction
       visual_servoing_transition_action;
   int dummy_start_state, dummy_target_state;
 
@@ -311,7 +312,7 @@ TEST_F(VisualServoingTests, LowBatteryCallRelativePoseInternalActionFunction) {
   drone_hardware->setBatteryPercent(60);
   drone_hardware->takeoff();
   // Call action functor
-  vsa::RelativePoseVisualServoingTransitionAction
+  vsa::RPYTRelativePoseVisualServoingTransitionAction
       visual_servoing_transition_action;
   int dummy_start_state, dummy_target_state;
   visual_servoing_transition_action(NULL, *sample_logic_state_machine,
@@ -366,7 +367,7 @@ TEST_F(VisualServoingTests, LostTrackingRelativePoseInternalActionFunction) {
   drone_hardware->setBatteryPercent(60);
   drone_hardware->takeoff();
   // Call action functor
-  vsa::RelativePoseVisualServoingTransitionAction
+  vsa::RPYTRelativePoseVisualServoingTransitionAction
       visual_servoing_transition_action;
   int dummy_start_state, dummy_target_state;
   visual_servoing_transition_action(NULL, *sample_logic_state_machine,

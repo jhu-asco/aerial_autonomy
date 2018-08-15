@@ -326,8 +326,7 @@ AirmMPCControllerConfig createMPCConfig() {
 *
 * @return config MPC Controller config
 */
-QuadMPCControllerConfig createQuadMPCConfig() {
-  QuadMPCControllerConfig config;
+void fillQuadMPCConfig(QuadMPCControllerConfig &config) {
   auto lb = config.mutable_lower_bound_control();
   lb->Resize(4, 0);
   auto ub = config.mutable_upper_bound_control();
@@ -372,8 +371,19 @@ QuadMPCControllerConfig createQuadMPCConfig() {
   ddp_config->set_debug(false);
   ddp_config->set_max_iters(5);
   config.set_use_code_generation(false);
+}
+
+/**
+* @brief Create an MPC controller config with default values
+*
+* @return MPC controller config
+*/
+QuadMPCControllerConfig createQuadMPCConfig() {
+  QuadMPCControllerConfig config;
+  fillQuadMPCConfig(config);
   return config;
 }
+
 /**
  * @brief Convenience name to wait until input function returns true
  */
