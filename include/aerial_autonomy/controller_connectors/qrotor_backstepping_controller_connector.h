@@ -8,8 +8,8 @@
 
 #include <Eigen/Cholesky>
 #include <Eigen/Dense>
-// #include <Eigen/LU>
 #include <chrono>
+#include <glog/logging.h>
 #include <parsernode/parser.h>
 
 /**
@@ -44,6 +44,11 @@ public:
     J_ << config_.jxx(), config_.jxy(), config_.jxz(), config_.jyx(),
         config_.jyy(), config_.jyz(), config_.jzx(), config_.jzy(),
         config_.jzz();
+    DATA_HEADER("qrotor_backstepping_controller_connector") << "roll_cmd"
+                                                            << "pitch_cmd"
+                                                            << "yaw_rate_cmd"
+                                                            << "thrust_cmd"
+                                                            << DataStream::endl;
   }
 
   /**
@@ -52,6 +57,14 @@ public:
   * @param goal empty goal
   */
   void setGoal(std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal);
+
+  double getRollCmd() { return roll_cmd_; }
+
+  double getPitchCmd() { return pitch_cmd_; }
+
+  double getYawRateCmd() { return yaw_rate_cmd_; }
+
+  double getThrust() { return thrust_; }
 
 protected:
   /**
@@ -157,4 +170,20 @@ private:
   * @brief Variable to store pitch command
   */
   double pitch_cmd_;
+  /**
+  * @brief Variable to store yaw rate command
+  */
+  double yaw_rate_cmd_;
+  /**
+  * @brief Variable to store thrust command
+  */
+  double thrust_cmd_;
+  /**
+  * @brief Variable to store lower bound on control
+  */
+  Eigen::Vector4d lb_;
+  /**
+  * @brief Variable to store upper bound on control
+  */
+  Eigen::Vector4d ub_;
 };

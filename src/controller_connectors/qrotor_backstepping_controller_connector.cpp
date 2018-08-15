@@ -1,4 +1,5 @@
 #include "aerial_autonomy/controller_connectors/qrotor_backstepping_controller_connector.h"
+#include <glog/logging.h>
 #include <tf_conversions/tf_eigen.h>
 
 bool QrotorBacksteppingControllerConnector::extractSensorData(
@@ -62,14 +63,44 @@ void QrotorBacksteppingControllerConnector::sendControllerCommands(
   Eigen::Vector3d rpydot_cmd = omegaToRpyDot(omega_cmd_, current_rpy);
   roll_cmd_ += rpydot_cmd[0] * dt;  // Roll command
   pitch_cmd_ += rpydot_cmd[1] * dt; // Pitch command
-  geometry_msgs::Quaternion rpyt_msg;
-  rpyt_msg.x = roll_cmd_;     // Roll command
-  rpyt_msg.y = pitch_cmd_;    // Pitch command
-  rpyt_msg.z = rpydot_cmd[2]; // Yaw rate command
-  rpyt_msg.w =
+  yaw_rate_cmd_ = rpydot_cmd[2];    // Yaw rate command
+
+  // Bounds
+  if (roll_cmd_ < lb_(0)) {
+    roll_cmd_ = lb_(0);
+  } else if (roll_cmd_ > ub_(0)) {
+    roll_cmd_ = ub_(0);
+  }
+  if (pitch_cmd_ < lb_(1)) {
+    pitch_cmd_ = lb_(1);
+  } else if (pitch_cmd_ > ub_(1)) {
+    pitch_cmd_ = ub_(1);
+  }
+  if (yaw_rate_cmd_ < lb_(2)) {
+    yaw_rate_cmd_ = lb_(2);
+  } else if (yaw_rate_cmd_ > ub_(2)) {
+    yaw_rate_cmd_ = ub_(2);
+  }
+  if (thrust_ / m_ < lb_(3) * g_) {
+    thrust_ = m_ * lb_(3) * g_;
+  } else if (thrust_ / m_ > ub_(3) * g_) {
+    thrust_ = m_ * ub_(3) * g_;
+  }
+
+  thrust_cmd_ =
       thrust_ / (m_ * thrust_gain_estimator_.getThrustGain()); // thrust_command
+
+  geometry_msgs::Quaternion rpyt_msg;
+  rpyt_msg.x = roll_cmd_;
+  rpyt_msg.y = pitch_cmd_;
+  rpyt_msg.z = yaw_rate_cmd_;
+  rpyt_msg.w = thrust_cmd_;
   thrust_gain_estimator_.addThrustCommand(rpyt_msg.w);
   drone_hardware_.cmdrpyawratethrust(rpyt_msg);
+
+  DATA_LOG("qrotor_backstepping_controller_connector")
+      << roll_cmd_ << pitch_cmd_ << yaw_rate_cmd_ << thrust_cmd_
+      << DataStream::endl;
 }
 
 void QrotorBacksteppingControllerConnector::setGoal(
@@ -82,6 +113,9 @@ void QrotorBacksteppingControllerConnector::setGoal(
   roll_cmd_ = 0;
   pitch_cmd_ = 0;
   omega_cmd_ << 0, 0, 0;
+  lb_ << -0.785, -0.785, -1.5708, 0.8;
+  ub_ << 0.785, 0.785, 1.5708, 1.2;
+
   VLOG(1) << "Clearing thrust estimator buffer";
   thrust_gain_estimator_.clearBuffer();
 }
