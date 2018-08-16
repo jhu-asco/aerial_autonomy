@@ -155,9 +155,12 @@ uav_system_config {
     kt: 0.18
     buffer_size: 10
   }
+ pose_sensor_config {
+    topic: "/vrpn_client/matrice/pose"
+  }
   visualize_mpc_trajectories: true
   visualizer_config {
-    parent_frame: "/world"
+    parent_frame: "/optitrak"
     skip_segments: 10
     trajectory_color {
       r: 0
@@ -181,7 +184,7 @@ uav_system_config {
         z: -0.0836
       }
       rotation {
-        r: 1.9372
+        r: 1.5794
         p: 0
         y: 1.5794
       }
