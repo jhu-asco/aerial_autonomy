@@ -1,6 +1,7 @@
 #pragma once
 #include "aerial_autonomy/common/atomic.h"
-#include "aerial_autonomy/sensors/base_sensor.h"
+#include "aerial_autonomy/sensors/ros_sensor.h"
+#include <geometry_msgs/TransformStamped.h>
 #include <ros/ros.h>
 #include <tf/tf.h>
 
@@ -40,11 +41,7 @@ public:
   *
   * @param pose_input input ROS message
   */
-  void poseCallback(const geometry_msgs::TransformStampedConstPtr &pose_input);
 
 private:
-  ros::NodeHandle nh_;                ///< Nodehandle
-  ros::Subscriber pose_sub_;          ///< ros subscriber
-  Atomic<tf::StampedTransform> pose_; ///< latest pose
-  ros::Duration validity_buffer_;     ///< timeout for messages
+  ROS_Sensor<geometry_msgs::TransformStamped> *sensor_
 };

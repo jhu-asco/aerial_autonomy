@@ -187,9 +187,7 @@ private:
     auto pose_sensor_config = config.pose_sensor_config();
     std::shared_ptr<Sensor<tf::StampedTransform>> pose_sensor;
     if (config.use_mocap_sensor()) {
-      pose_sensor.reset(
-          new PoseSensor(pose_sensor_config.topic(),
-                         ros::Duration(pose_sensor_config.timeout())));
+      pose_sensor.reset(new PoseSensor(pose_sensor_config));
     }
     return pose_sensor;
   }
