@@ -46,6 +46,7 @@ void BaseMPCControllerQuadConnector::sendControllerCommands(
   // Since we are commanding yaw rate we have to integrate
   double yaw_cmd =
       control(3) * config_.dt_yaw_integration() + last_rpy_command(2);
+  yaw_cmd = math::angleWrap(yaw_cmd);
   rpy_command_buffer_.push(Eigen::Vector3d(control(1), control(2), yaw_cmd));
   thrust_gain_estimator_.addThrustCommand(rpyt_msg.w);
 }

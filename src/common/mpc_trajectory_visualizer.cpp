@@ -80,9 +80,10 @@ MPCTrajectoryVisualizer::getTrajectory(std::vector<Eigen::VectorXd> &xs,
     unsigned int us_size = us[i].size();
     control.ctrlvec.resize(us_size);
     control.ctrlvec[0] = us[i][0]; // thrust
-    for (int j = 0; j < 3; ++j) {
+    for (int j = 0; j < 2; ++j) {
       control.ctrlvec[j + 1] = x[12 + j];
     }
+    control.ctrlvec[3] = us[i][3]; // yaw rate
     if (us_size == 6) {
       // Desired joint angles
       control.ctrlvec[4] = x[19];

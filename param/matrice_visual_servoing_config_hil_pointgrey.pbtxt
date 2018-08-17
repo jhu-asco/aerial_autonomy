@@ -28,8 +28,8 @@ uav_system_config {
     }
   }
   mpc_connector_config {
-    velocity_exp_gain: 0.0
-    rpydot_gain: 0.0
+    velocity_exp_gain: 0.9
+    rpydot_gain: 0.9
     use_perfect_time_diff: false
   }
   quad_mpc_controller_config {

@@ -61,6 +61,7 @@ public:
   }
 
   void initialize() {
+    VLOG(1) << "initializing visual servoing reference";
     if (pose_sensor_) {
       if (pose_sensor_->getSensorStatus() != SensorStatus::VALID) {
         LOG(WARNING)
@@ -68,7 +69,10 @@ public:
         return;
       }
       tf::StampedTransform pose = pose_sensor_->getSensorData();
-      conversions::positionYawToTf(start_position_yaw_, pose);
+      conversions::tfToPositionYaw(start_position_yaw_, pose);
+      VLOG(2) << "Position yaw: " << start_position_yaw_.x << ", "
+              << start_position_yaw_.y << ", " << start_position_yaw_.z << ", "
+              << start_position_yaw_.yaw;
     } else {
       parsernode::common::quaddata quad_data;
       drone_hardware_.getquaddata(quad_data);
