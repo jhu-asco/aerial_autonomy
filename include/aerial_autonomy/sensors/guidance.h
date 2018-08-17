@@ -26,6 +26,11 @@ public:
     return vel_data;
   }
 
+  Velocity getTransformedSensorData() {
+    // Assuming there is no sensor transform
+    return getSensorData();
+  }
+
   SensorStatus getSensorStatus() { return SensorStatus::VALID; }
 
 private:

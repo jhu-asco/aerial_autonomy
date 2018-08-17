@@ -382,7 +382,7 @@ public:
   tf::StampedTransform getPose() {
     tf::StampedTransform result;
     if (pose_sensor_) {
-      result = pose_sensor_->getSensorData();
+      result = pose_sensor_->getTransformedSensorData();
     } else {
       auto data = getUAVData();
       tf::Transform t(

@@ -18,7 +18,7 @@ public:
 using namespace quad_simulator;
 
 TEST_F(OdomSensorTests, Constructor) {
-  ASSERT_NO_THROW(new OdomSensor(config));
+  ASSERT_NO_THROW(new OdometrySensor(config));
 }
 
 TEST_F(OdomSensorTests, SensorTF) {
@@ -37,7 +37,7 @@ TEST_F(OdomSensorTests, SensorTF) {
   tf::Transform sensor_tf(tf::createQuaternionFromRPY(-1.57, 0.0, 1.57),
                           tf::Vector3(5.0, 2.0, 1.0));
 
-  OdomSensor sensor(new_config);
+  OdometrySensor sensor(new_config);
   nav_msgs::Odometry odom_msg;
   tf::Vector3 pos(10, 10, 10);
   tf::Quaternion orientation(0, 0, 1, 0);
@@ -81,7 +81,7 @@ TEST_F(OdomSensorTests, SensorTF) {
 }
 
 TEST_F(OdomSensorTests, Timeout) {
-  OdomSensor sensor(config);
+  OdometrySensor sensor(config);
   nav_msgs::Odometry odom_msg;
   odom_msg.header.stamp = ros::Time::now();
   odom_msg.twist.twist.linear.x = 0.1;

@@ -10,7 +10,7 @@
 /**
 * @brief ros based velocity sensor
 */
-class OdomSensor : public Sensor<std::tuple<VelocityYawRate, PositionYaw>> {
+class OdometrySensor : public Sensor<std::tuple<VelocityYawRate, PositionYaw>> {
 public:
   /**
   *
@@ -18,16 +18,16 @@ public:
   *
   * @param Config for odometry sensor
   */
-  OdomSensor(ROSSensorConfig config) : config_(config) {
-    // sensor_quad_tf_ =
-    //    conversions::protoTransformToTf(config_.sensor_transform());
-    sensor_ = ROS_Sensor<nav_msgs::Odometry>(config);
+  OdometrySensor(ROSSensorConfig config) : ros_odom_sensor_(config) {
+    //    ros_odom_sensor_.reset(new ROSSensor<nav_msgs::Odometry>(config));
+    local_transform_ =
+        conversions::protoTransformToTf(config.sensor_transform());
   }
   /**
   * @brief gives sensor data
   */
   std::tuple<VelocityYawRate, PositionYaw> getSensorData() {
-    nav_msg::Odometry msg = sensor_.getSensorData();
+    nav_msg::Odometry msg = ros_odom_sensor_.getSensorData();
     // Transform the velocity
     tf::Vector3 velocity(msg->twist.twist.linear.x, msg->twist.twist.linear.y,
                          msg->twist.twist.linear.z);
@@ -42,7 +42,36 @@ public:
         msg->pose.pose.orientation.x, msg->pose.pose.orientation.y,
         msg->pose.pose.orientation.z, msg->pose.pose.orientation.w);
     tf::Transform pyTransform(orientation, position);
-    // pyTransform = pyTransform * sensor_quad_tf_;
+    // Set the result
+    PositionYaw py(
+        pyTransform.getOrigin().getX(), pyTransform.getOrigin().getY(),
+        pyTransform.getOrigin().getZ(), tf::getYaw(pyTransform.getRotation()));
+    retVal = std::make_tuple(vyr, py);
+    return retVal;
+  }
+  /**
+  * @brief gives sensor data
+  */
+  std::tuple<VelocityYawRate, PositionYaw> getTransformedSensorData() {
+    nav_msg::Odometry msg = ros_odom_sensor_.getSensorData();
+    // Transform the velocity
+    tf::Transform rotation_only_transform(local_transform_.getRotation());
+    tf::Vector3 velocity(msg->twist.twist.linear.x, msg->twist.twist.linear.y,
+                         msg->twist.twist.linear.z);
+    tf::Vector3 rate(msg->twist.twist.angular.x, msg->twist.twist.angular.y,
+                     msg->twist.twist.angular.z);
+    velocity = velocity * rotation_only_transform;
+    rate = velocity * rotation_only_transform;
+    VelocityYawRate vyr(velocity.getX(), velocity.getY(), velocity.getZ(),
+                        rate.getZ());
+    // Transform the position-yaw
+    tf::Vector3 position(msg->pose.pose.position.x, msg->pose.pose.position.y,
+                         msg->pose.pose.position.z);
+    tf::Quaternion orientation(
+        msg->pose.pose.orientation.x, msg->pose.pose.orientation.y,
+        msg->pose.pose.orientation.z, msg->pose.pose.orientation.w);
+    tf::Transform pyTransform(orientation, position);
+    pyTransform = pyTransform * local_transform_;
     // Set the result
     PositionYaw py(
         pyTransform.getOrigin().getX(), pyTransform.getOrigin().getY(),
@@ -53,23 +82,12 @@ public:
   /**
   * @brief gives sensor status
   */
-  SensorStatus getSensorStatus() { return sensor_.getSensorStatus(); }
+  SensorStatus getSensorStatus() { return ros_odom_sensor_.getSensorStatus(); }
 
 private:
   /**
   * @brief sensor
   */
-  ROS_Sensor<nav_msgs::Odometry> sensor_;
-  /**
-  * @brief sensor config
-  */
-  ROSSensorConfig config_;
-  /**
-  * @brief sensor's origin in world frame
-  */
-  // tf::Transform sensor_quad_tf_;
-  /**
-  * @brief variable to store sensor data
-  */
-  // Atomic<std::tuple<VelocityYawRate, PositionYaw>> sensor_data_;
+  ROSSensor<nav_msgs::Odometry> ros_odom_sensor_;
+  tf::Transform local_transform_;
 };

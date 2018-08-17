@@ -6,7 +6,7 @@ bool RPYTBasedPositionControllerDroneConnector::extractSensorData(
     if (sensor_->getSensorStatus() == SensorStatus::INVALID) {
       return false;
     }
-    sensor_data = sensor_->getSensorData();
+    sensor_data = sensor_->getTransformedSensorData();
   }
   parsernode::common::quaddata data;
   drone_hardware_.getquaddata(data);

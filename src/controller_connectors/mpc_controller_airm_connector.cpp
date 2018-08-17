@@ -164,7 +164,7 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
       LOG(WARNING) << "Sensor invalid";
       return false;
     }
-    quad_pose = pose_sensor_->getSensorData();
+    quad_pose = pose_sensor_->getTransformedSensorData();
   } else {
     quad_pose = getPose(quad_data);
   }

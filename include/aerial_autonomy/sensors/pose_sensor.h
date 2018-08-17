@@ -1,6 +1,7 @@
 #pragma once
 #include "aerial_autonomy/common/atomic.h"
 #include "aerial_autonomy/sensors/ros_sensor.h"
+#include <aerial_autonomy/common/conversions.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <ros/ros.h>
 #include <tf/tf.h>
@@ -14,13 +15,10 @@ public:
   /**
   * @brief Constructor
   *
-  * @param pose_topic ros topic name
-  * @param validity_buffer timeout for messages
-  * @param ns Name space for internal node handle
+  * @param config configuration for the sensor.
   *
   */
-  PoseSensor(std::string pose_topic, ros::Duration validity_buffer,
-             std::string ns = "~pose");
+  PoseSensor(ROSSensorConfig config);
 
   /**
   * @brief  get the latest sensor measurement
@@ -28,6 +26,12 @@ public:
   * @return sensor measurement
   */
   tf::StampedTransform getSensorData();
+  /**
+  * @brief  get the latest sensor measurement
+  *
+  * @return sensor measurement
+  */
+  tf::StampedTransform getTransformedSensorData();
 
   /**
   * @brief Get the status of the sensor
@@ -43,5 +47,6 @@ public:
   */
 
 private:
-  ROS_Sensor<geometry_msgs::TransformStamped> *sensor_
+  ROSSensor<geometry_msgs::TransformStamped> sensor_;
+  tf::Transform local_transform_;
 };

@@ -26,7 +26,7 @@ public:
       parsernode::Parser &drone_hardware,
       RPYTBasedPositionController &controller,
       ThrustGainEstimator &thrust_gain_estimator,
-      Sensor<std::tuple<VelocityYawRate, PositionYaw>> *sensor = nullptr)
+      SensorPtr<std::tuple<VelocityYawRate, PositionYaw>> sensor = nullptr)
       : ControllerConnector(controller, ControllerGroup::UAV),
         drone_hardware_(drone_hardware),
         thrust_gain_estimator_(thrust_gain_estimator),
@@ -83,5 +83,5 @@ private:
    * @brief Outside Odometry Sensor (default to null, change to use different
    * sensors)
    */
-  Sensor<std::tuple<VelocityYawRate, PositionYaw>> *sensor_;
+  SensorPtr<std::tuple<VelocityYawRate, PositionYaw>> sensor_;
 };

@@ -9,23 +9,23 @@
 * Subclass provides functionality to update sensor data
 * and status
 */
-template <class SensorDataT> class ROS_Sensor : public Sensor<SensorDataT> {
+template <class SensorDataT> class ROSSensor : public Sensor<SensorDataT> {
 public:
   /**
   * @brief Constructor
   */
-  ROS_Sensor(ROSSensorConfig config) : config_(config) {
-    VLOG(2) << "Initializing ROS Sensor";
-    sub_ = nh_.subscribe(config.topic(), 1, &ROS_Sensor::callback, this);
+  ROSSensor(ROSSensorConfig config) : config_(config) {
+    sub_ = nh_.subscribe(config.topic(), 1, &ROSSensor::callback, this);
     last_msg_time_ = ros::Time::now();
   }
   /**
   * @brief gets the latest sensor data
   */
-  SensorDataT getSensorData() {
-    SensorDataT retVal = sensor_data_;
-    return retVal;
-  }
+  SensorDataT getSensorData() { return SensorDataT(sensor_data_); }
+  /**
+  * @brief gets the latest sensor data
+  */
+  SensorDataT getTransformedSensorData() { return SensorDataT(sensor_data_); }
   /**
   * @brief gets the current status of the sensor
   */
@@ -40,7 +40,10 @@ public:
   }
 
 private:
-  // Only works if SensorDataT is the proper ROS msg type
+  /**
+  * @brief Listen to the topic and set sensor_data_.  Only works if SensorDataT
+  * is a ROS msg type
+  */
   void callback(const typename SensorDataT::ConstPtr msg) {
     ros::Time last_msg_time = msg->header.stamp;
     last_msg_time_ = last_msg_time;

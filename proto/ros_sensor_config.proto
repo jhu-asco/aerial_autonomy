@@ -1,4 +1,5 @@
 syntax = "proto2";
+import "transform.proto";
 
 message ROSSensorConfig {
   /**
@@ -10,4 +11,8 @@ message ROSSensorConfig {
   * Topic to subscribe for sensor data
   */
   optional string topic = 3;
+  /**
+  * Transform from sensor to quad center.
+  */
+  optional config.Transform sensor_transform = 4;
 }

@@ -6,6 +6,8 @@
 #include <glog/logging.h>
 #include <nav_msgs/Odometry.h>
 #include <ros/ros.h>
+#include <tf/tf.h>
+
 /**
 * @brief ros based velocity sensor
 */
@@ -18,17 +20,29 @@ public:
   * @param Config for velocity sensor
   */
   VelocitySensor(ROSSensorConfig config) : sensor_(config) {
-    // sensor_ = ROS_Sensor<nav_msgs::Odometry>(config);
-    config_ = config;
+    //    sensor_.reset(ROSSensor<nav_msgs::Odometry>(config));
+    local_transform_ =
+        conversions::protoTransformToTf(config.sensor_transform());
   }
   /**
   * @brief gives sensor data
   */
   Velocity getSensorData() {
     nav_msgs::Odometry msg = sensor_.getSensorData();
-    Velocity vel_sensor_data(msg.twist.twist.linear.x, msg.twist.twist.linear.y,
-                             msg.twist.twist.linear.z);
-    return vel_sensor_data;
+    Velocity velocity_sensor_data(msg.twist.twist.linear.x,
+                                  msg.twist.twist.linear.y,
+                                  msg.twist.twist.linear.z);
+    return velocity_sensor_data;
+  }
+  /**
+  * @brief gives sensor status
+  */
+  Velocity getTransformedSensorData() {
+    Velocity raw_data = getSensorData();
+    tf::Vector3 vector_data(raw_data.x, raw_data.y, raw_data.z);
+    tf::Transform rotation_only_transform(local_transform_.getRotation());
+    vector_data = rotation_only_transform * vector_data;
+    return Velocity(vector_data.getX(), vector_data.getY(), vector_data.getZ());
   }
   /**
   * @brief gives sensor status
@@ -37,19 +51,9 @@ public:
 
 private:
   /*
-  * @brief sensor
+  * @brief Underlying ROS sensor.  Listens to a ROS topic of Odometry messages,
+  * which we use for velocity.
   */
-  ROS_Sensor<nav_msgs::Odometry> sensor_;
-  /*
-  * @brief sensor config
-  */
-  ROSSensorConfig config_;
-  /**
-  * @brief sensor's origin in world frame
-  */
-  // tf::Transform sensor_world_tf_;
-  /**
-  * @brief variable to store sensor data
-  */
-  // Atomic<Velocity> sensor_data_;
+  ROSSensor<nav_msgs::Odometry> sensor_;
+  tf::Transform local_transform_;
 };
