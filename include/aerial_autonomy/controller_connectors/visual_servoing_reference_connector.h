@@ -44,22 +44,27 @@ public:
       BaseTracker &tracker, parsernode::Parser &drone_hardware,
       ReferenceGenerator &controller, DependentConnectorT &dependent_connector,
       tf::Transform camera_transform,
+      SensorPtr<tf::StampedTransform> pose_sensor = nullptr,
       tf::Transform tracking_offset_transform = tf::Transform::getIdentity())
       : BaseClass(controller, ControllerGroup::HighLevel),
         BaseRelativePoseVisualServoingConnector(tracker, drone_hardware,
                                                 camera_transform,
                                                 tracking_offset_transform),
         dependent_connector_(dependent_connector),
-        start_position_yaw_(0, 0, 0, 0) {
+        start_position_yaw_(0, 0, 0, 0), pose_sensor_(pose_sensor) {
     logTrackerHeader("visual_servoing_reference_connector");
   }
 
   void initialize() {
-    parsernode::common::quaddata quad_data;
-    drone_hardware_.getquaddata(quad_data);
-    start_position_yaw_ =
-        PositionYaw(quad_data.localpos.x, quad_data.localpos.y,
-                    quad_data.localpos.z, quad_data.rpydata.z);
+    if (pose_sensor_) {
+      if(sensor
+    } else {
+      parsernode::common::quaddata quad_data;
+      drone_hardware_.getquaddata(quad_data);
+      start_position_yaw_ =
+          PositionYaw(quad_data.localpos.x, quad_data.localpos.y,
+                      quad_data.localpos.z, quad_data.rpydata.z);
+    }
     this->run(); // sets goal to low-level connector
   }
   /**
@@ -115,9 +120,10 @@ protected:
 private:
   DependentConnectorT &dependent_connector_;
   PositionYaw start_position_yaw_;
-  /**
-   * @brief Base class typedef to simplify code
-   */
+  SensorPtr<tf::StampedTransform> pose_sensor_; ///< Pose sensor for quad data
+                                                /**
+                                                 * @brief Base class typedef to simplify code
+                                                 */
   using BaseClass =
       ControllerConnector<std::pair<PositionYaw, tf::Transform>, PositionYaw,
                           ReferenceTrajectoryPtr<StateT, ControlT>>;
