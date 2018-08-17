@@ -245,5 +245,6 @@ uav_system_config {
       max_velocity : 0.2
       max_yaw_rate : 0.2
     }
+    gain_visual_servoing_tracking_pose: 0.05
   }
 }

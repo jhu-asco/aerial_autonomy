@@ -40,10 +40,11 @@ public:
    * rotation-compensated
    * frame of the quadrotor
    * @param obect_pose_cam Transform of the object in the camera's frame
+   * @parm body_frame_rotation quad orientation in inertial frame
    * @return Returned tracking pose in rotation compensated frame
    */
   tf::Transform getTrackingTransformRotationCompensatedQuadFrame(
-      tf::Transform object_pose_cam);
+      tf::Transform object_pose_cam, tf::Transform body_frame_rotation);
   /**
   * @brief Get the angle between camera z and the marker center
   *

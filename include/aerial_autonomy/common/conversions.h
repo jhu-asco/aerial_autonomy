@@ -47,6 +47,14 @@ void transformRPYToTf(double r, double p, double y, tf::Transform &tf);
 void positionYawToTf(const PositionYaw &p, tf::Transform &tf);
 
 /**
+ * @brief Convert tf transform to position yaw
+ *
+ * @param p positon yaw output
+ * @param tf input tf transform
+ */
+void tfToPositionYaw(PositionYaw &p, const tf::Transform &tf);
+
+/**
  * @brief Convert T to Eigen::Vector3d
  * @param p Position to convert
  * @return The equivalent Eigen::Vector3d

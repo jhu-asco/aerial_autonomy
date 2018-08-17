@@ -5,6 +5,6 @@ visual_servoing_state_machine_config {
         y: 1.0
         z: .235
       }
-      yaw: 1.5708
+      yaw: -1.5708
     }
 }

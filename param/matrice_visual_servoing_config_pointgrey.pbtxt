@@ -258,6 +258,7 @@ uav_system_config {
         }
       }
     }
+    gain_visual_servoing_tracking_pose: 0.1
   }
 }
 

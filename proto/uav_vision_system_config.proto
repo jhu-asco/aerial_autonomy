@@ -54,4 +54,8 @@ message UAVVisionSystemConfig {
   * continously
   */
   optional int32 high_level_controller_timer_duration = 11 [ default = 50 ];
+  /**
+  * @brief Filter on visual servoing tracking position yaw
+  */
+  optional double gain_visual_servoing_tracking_pose = 12 [ default = 0.1 ];
 }

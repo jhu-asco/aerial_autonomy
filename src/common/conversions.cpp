@@ -37,6 +37,12 @@ void positionYawToTf(const PositionYaw &p, tf::Transform &tf) {
   tf.setOrigin(tf::Vector3(p.x, p.y, p.z));
 }
 
+void tfToPositionYaw(PositionYaw &p, const tf::Transform &tf) {
+  double yaw = tf::getYaw(tf.getRotation());
+  const tf::Vector3 &position = tf.getOrigin();
+  p = PositionYaw(position.x(), position.y(), position.z(), yaw);
+}
+
 PositionYaw protoPositionYawToPositionYaw(config::PositionYaw p) {
   return PositionYaw(p.position().x(), p.position().y(), p.position().z(),
                      p.yaw());

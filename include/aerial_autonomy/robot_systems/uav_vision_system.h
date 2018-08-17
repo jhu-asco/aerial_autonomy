@@ -72,8 +72,11 @@ public:
         visual_servoing_reference_connector_(
             *tracker_, *drone_hardware_, quad_reference_generator_,
             quad_mpc_connector_, camera_transform_,
-            conversions::protoTransformToTf(config_.uav_vision_system_config()
-                                                .tracking_offset_transform())) {
+            conversions::protoTransformToTf(
+                config_.uav_vision_system_config().tracking_offset_transform()),
+            config_.uav_vision_system_config()
+                .gain_visual_servoing_tracking_pose(),
+            pose_sensor_) {
     controller_connector_container_.setObject(visual_servoing_drone_connector_);
     controller_connector_container_.setObject(
         relative_pose_visual_servoing_drone_connector_);

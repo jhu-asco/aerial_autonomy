@@ -11,13 +11,15 @@ bool RPYTRelativePoseVisualServoingConnector::extractSensorData(
     VLOG(1) << "Invalid tracking vector";
     return false;
   }
+  tf::Transform body_frame_rotation = getBodyFrameRotation();
   tf::Transform tracking_pose =
-      getTrackingTransformRotationCompensatedQuadFrame(object_pose_cam);
+      getTrackingTransformRotationCompensatedQuadFrame(object_pose_cam,
+                                                       body_frame_rotation);
   logTrackerData("rpyt_relative_pose_visual_servoing_connector", tracking_pose,
                  object_pose_cam, quad_data);
   // giving transform in rotation-compensated quad frame
   sensor_data =
-      std::make_tuple(getBodyFrameRotation(), tracking_pose,
+      std::make_tuple(body_frame_rotation, tracking_pose,
                       VelocityYawRate(quad_data.linvel.x, quad_data.linvel.y,
                                       quad_data.linvel.z, quad_data.omega.z));
   thrust_gain_estimator_.addSensorData(quad_data.rpydata.x, quad_data.rpydata.y,

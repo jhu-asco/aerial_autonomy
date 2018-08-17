@@ -2,10 +2,10 @@
 
 tf::Transform BaseRelativePoseVisualServoingConnector::
     getTrackingTransformRotationCompensatedQuadFrame(
-        tf::Transform object_pose_cam) {
+        tf::Transform object_pose_cam, tf::Transform body_frame_rotation) {
   // Convert tracked frame from camera frame to UAV-centered global frame
-  tf::Transform tracking_transform = getBodyFrameRotation() *
-                                     camera_transform_ * object_pose_cam *
+  tf::Transform tracking_transform = body_frame_rotation * camera_transform_ *
+                                     object_pose_cam *
                                      tracking_offset_transform_;
   // Remove roll and pitch components of tracked frame
   double roll, pitch, yaw;
