@@ -101,14 +101,14 @@ uav_system_config {
     goal_velocity_tolerance: 0.15
     # Lower bound
     lower_bound_control: 0.8
-    lower_bound_control: -0.6
-    lower_bound_control: -0.6
-    lower_bound_control: -0.6
+    lower_bound_control: -0.3
+    lower_bound_control: -0.3
+    lower_bound_control: -0.3
     # Upper bound
     upper_bound_control: 1.2
-    upper_bound_control: 0.6
-    upper_bound_control: 0.6
-    upper_bound_control: 0.6
+    upper_bound_control: 0.3
+    upper_bound_control: 0.3
+    upper_bound_control: 0.3
   }
   rpyt_based_position_controller_config {
     velocity_based_position_controller_config {

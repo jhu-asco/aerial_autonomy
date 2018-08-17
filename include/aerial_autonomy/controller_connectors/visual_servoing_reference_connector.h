@@ -80,6 +80,7 @@ public:
           PositionYaw(quad_data.localpos.x, quad_data.localpos.y,
                       quad_data.localpos.z, quad_data.rpydata.z);
     }
+    VLOG(1) << "Filtered gain: " << filter_gain_tracking_pose_;
     filtered_tracking_pose_available_ = false;
     this->run(); // sets goal to low-level connector
   }
@@ -104,9 +105,9 @@ protected:
       filtered_tracking_pose_available_ = true;
       return input;
     }
-    filtered_position_yaw_ =
-        tracking_position_yaw * filter_gain_tracking_pose_ +
-        filtered_position_yaw_ * (1 - filter_gain_tracking_pose_);
+    filtered_position_yaw_ = (tracking_position_yaw - filtered_position_yaw_) *
+                                 filter_gain_tracking_pose_ +
+                             filtered_position_yaw_;
     tf::Transform filtered_pose;
     conversions::positionYawToTf(filtered_position_yaw_, filtered_pose);
     return filtered_pose;
@@ -142,11 +143,15 @@ protected:
     }
     tf::Transform tracking_pose = quad_pose * camera_transform_ *
                                   object_pose_cam * tracking_offset_transform_;
-    tf::Transform filtered_tracking_pose = filter(tracking_pose);
+    PositionYaw tracking_position_yaw;
+    // remove rp
+    // conversions::tfToPositionYaw(tracking_position_yaw, tracking_pose);
+    // conversions::positionYawToTf(tracking_position_yaw, tracking_pose);
+    tracking_pose = filter(tracking_pose);
     // Filter tracking pose
-    logTrackerData("visual_servoing_reference_connector",
-                   filtered_tracking_pose, object_pose_cam, quad_data);
-    sensor_data = std::make_pair(start_position_yaw_, filtered_tracking_pose);
+    logTrackerData("visual_servoing_reference_connector", tracking_pose,
+                   object_pose_cam, quad_data);
+    sensor_data = std::make_pair(start_position_yaw_, tracking_pose);
     return true;
   }
 
