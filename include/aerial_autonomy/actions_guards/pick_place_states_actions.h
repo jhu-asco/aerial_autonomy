@@ -66,14 +66,6 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
   using RPYTRelativePoseVisualServoing =
       VisualServoing_<LogicStateMachineT, Reset,
                       RPYTRelativePoseVisualServoingConnector>;
-  /**
-  * @brief State when reaching a relative pose visual servoing goal
-  *
-  * Uses reset instead of abort
-  */
-  using MPCRelativePoseVisualServoing =
-      VisualServoing_<LogicStateMachineT, Reset,
-                      UAVVisionSystem::VisualServoingReferenceConnectorT>;
   // Transition Actions
   /**
   * @brief Action to take when starting rpyt relative pose visual servoing
@@ -146,17 +138,21 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
   /**
   * @brief Move arm to pick pose and move to tracked object
   */
-  using PickTransitionAction = base_functors::bActionSequence<
-      boost::mpl::vector<ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>,
-                         typename vsa::ResetRelativePoseVisualServoing,
-                         RPYTRelativePoseVisualServoingTransitionAction_<0>>>;
+  using PickTransitionAction =
+      base_functors::bActionSequence<boost::mpl::vector<
+          ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>,
+          typename vsa::ResetRelativePoseVisualServoing,
+          typename vsa::MPCRelativePoseVisualServoingTransitionAction>>;
 
   /**
   * @brief Action to take when starting placing object at either drop-off.
   */
-  using PlaceVisualServoingTransitionAction = base_functors::bActionSequence<
-      boost::mpl::vector<typename vsa::ResetRelativePoseVisualServoing,
-                         RPYTRelativePoseVisualServoingTransitionAction_<1>>>;
+  using PlaceVisualServoingTransitionAction =
+      base_functors::bActionSequence<boost::mpl::vector<
+          typename vsa::ResetRelativePoseVisualServoing,
+          RelativePoseVisualServoingTransitionActionFunctor_<
+              LogicStateMachineT,
+              UAVVisionSystem::VisualServoingReferenceConnectorT, 1>>>;
   // \todo Matt add guard to check if relative pose visual servoing goal exists
 
   /**

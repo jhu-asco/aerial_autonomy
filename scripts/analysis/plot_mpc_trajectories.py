@@ -6,6 +6,7 @@ import os
 import pandas as pd
 import seaborn as sns
 import numpy as np
+from set_axes_equal import set_axes_equal
 # %% Getting data
 parser = argparse.ArgumentParser(
     prog='plot_quad_data')
@@ -61,6 +62,7 @@ ax.legend(legend)
 ax.set_xlabel('X (m)')
 ax.set_ylabel('Y (m)')
 ax.set_zlabel('Z (m)')
+set_axes_equal(ax)
 rms_errors = np.sqrt(np.mean(np.square(interp_errors[iStart:iEnd, :]), axis=0))
 np.set_printoptions(precision=2, suppress=True)
 header = 'RMSX, RMSY, RMSZ'
