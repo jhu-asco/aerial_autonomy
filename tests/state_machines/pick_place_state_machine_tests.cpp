@@ -33,7 +33,8 @@ class PickPlaceStateMachineTests : public ::testing::Test {
 public:
   PickPlaceStateMachineTests()
       : drone_hardware_(new QuadSimulator), arm_(new ArmSimulator),
-        goal_tolerance_position_(0.1), grip_timeout_(1000), grip_duration_(10) {
+        goal_tolerance_position_(0.1), grip_timeout_(25000),
+        grip_duration_(10) {
     auto vision_state_machine_config =
         state_machine_config_.mutable_visual_servoing_state_machine_config();
     auto pick_state_machine_config =
@@ -176,6 +177,13 @@ public:
     arm_position_tolerance->set_x(goal_tolerance_position_);
     arm_position_tolerance->set_y(goal_tolerance_position_);
     arm_position_tolerance->set_z(goal_tolerance_position_);
+    // Fill quad mpc config
+    auto mpc_config = config_.mutable_quad_mpc_controller_config();
+    test_utils::fillQuadMPCConfig(*mpc_config);
+    // Fill exponential config
+    auto particle_reference_config =
+        uav_vision_system_config->mutable_particle_reference_config();
+    particle_reference_config->set_max_velocity(1.0);
     // Fill MPC Config
     test_utils::fillMPCConfig(config_);
 
@@ -227,6 +235,12 @@ public:
     data_config.set_stream_id("velocity_based_relative_pose_controller");
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("thrust_gain_estimator");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("quad_mpc_state_estimator");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("ddp_quad_mpc_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("quad_mpc_state_estimator");
     Log::instance().addDataStream(data_config);
   }
 
@@ -300,8 +314,11 @@ protected:
     ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
     // Check UAV and arm controllers are active
     ASSERT_EQ(
-        uav_arm_system_->getStatus<RPYTRelativePoseVisualServoingConnector>(),
+        uav_arm_system_
+            ->getStatus<UAVVisionSystem::VisualServoingReferenceConnectorT>(),
         ControllerStatus::Active);
+    ASSERT_EQ(uav_arm_system_->getStatus<MPCControllerQuadConnector>(),
+              ControllerStatus::Active);
     ASSERT_EQ(uav_arm_system_->getStatus<BuiltInPoseControllerArmConnector>(),
               ControllerStatus::Active);
     // Keep running the controller until its completed or timeout
@@ -314,7 +331,7 @@ protected:
                  ControllerStatus::Active;
     };
     ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                              std::chrono::seconds(1),
+                                              std::chrono::seconds(25),
                                               std::chrono::milliseconds(0)));
     // Grip object for required duration
     arm_->setGripperStatus(true);
@@ -335,12 +352,13 @@ protected:
     ASSERT_STREQ(pstate(*logic_state_machine_), "PlaceState");
     ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(),
               typeid(ObjectId));
+    LOG(INFO) << "In Place State!!";
     // Place the object in the correct spot
     uint32_t actual_place_target;
     ASSERT_TRUE(uav_arm_system_->getTrackingVectorId(actual_place_target));
     ASSERT_EQ(actual_place_target, expected_place_target);
     ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                              std::chrono::seconds(1),
+                                              std::chrono::seconds(25),
                                               std::chrono::milliseconds(0)));
     logic_state_machine_->process_event(InternalTransitionEvent());
     // Check Place completed with ungrip
@@ -419,8 +437,11 @@ TEST_F(PickPlaceStateMachineTests, PickTimeout) {
   ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
   // Check UAV and arm controllers are active
   ASSERT_EQ(
-      uav_arm_system_->getStatus<RPYTRelativePoseVisualServoingConnector>(),
+      uav_arm_system_
+          ->getStatus<UAVVisionSystem::VisualServoingReferenceConnectorT>(),
       ControllerStatus::Active);
+  ASSERT_EQ(uav_arm_system_->getStatus<MPCControllerQuadConnector>(),
+            ControllerStatus::Active);
   ASSERT_EQ(uav_arm_system_->getStatus<BuiltInPoseControllerArmConnector>(),
             ControllerStatus::Active);
   // Keep running the controller until its completed or timeout
@@ -433,7 +454,7 @@ TEST_F(PickPlaceStateMachineTests, PickTimeout) {
                ControllerStatus::Active;
   };
   ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                            std::chrono::seconds(1),
+                                            std::chrono::seconds(25),
                                             std::chrono::milliseconds(0)));
 
   // Grip has failed
@@ -525,6 +546,7 @@ TEST_F(PickPlaceStateMachineTests, PickPlaceInvalidTrackingAbort) {
   tracker_->setTrackingIsValid(false);
   // Run active controllers
   for (int i = 0; i < 2; ++i) {
+    uav_arm_system_->runActiveController(ControllerGroup::HighLevel);
     uav_arm_system_->runActiveController(ControllerGroup::UAV);
     uav_arm_system_->runActiveController(ControllerGroup::Arm);
   }
@@ -545,6 +567,7 @@ TEST_F(PickPlaceStateMachineTests, PickPlaceInvalidTrackingGripping) {
   tracker_->setTrackingIsValid(false);
   // Run active controllers
   for (int i = 0; i < 2; ++i) {
+    uav_arm_system_->runActiveController(ControllerGroup::HighLevel);
     uav_arm_system_->runActiveController(ControllerGroup::UAV);
     uav_arm_system_->runActiveController(ControllerGroup::Arm);
   }

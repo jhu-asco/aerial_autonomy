@@ -38,6 +38,10 @@ void DDPCasadiMPCController::resetDDP() {
 }
 
 void DDPCasadiMPCController::resetControls() {
+  if (!controller_config_status_) {
+    LOG(WARNING) << "Controller config invalid!";
+    return;
+  }
   VLOG(1) << "Resetting Controls";
   // initial controls
   Eigen::VectorXd ui = stationaryControl();

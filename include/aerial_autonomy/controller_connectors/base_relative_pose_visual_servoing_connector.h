@@ -54,6 +54,12 @@ public:
   */
   double getViewingAngle(tf::Transform object_pose_cam) const;
 
+  /**
+   * @brief Get the rotation of the uav body frame
+   * @return The rotation transform
+   */
+  tf::Transform getBodyFrameRotation();
+
 protected:
   /**
    * @brief logTrackerData
@@ -75,13 +81,6 @@ protected:
    * @param stream_name name of logging stream
    */
   void logTrackerHeader(std::string stream_name);
-
-protected:
-  /**
-   * @brief Get the rotation of the uav body frame
-   * @return The rotation transform
-   */
-  tf::Transform getBodyFrameRotation();
 
   /**
   * @brief Quad hardware to send commands

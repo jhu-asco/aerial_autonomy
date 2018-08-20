@@ -91,6 +91,9 @@ protected:
     arm_position_tolerance->set_x(.1);
     arm_position_tolerance->set_y(.1);
     arm_position_tolerance->set_z(.1);
+    // Fill quad mpc config
+    auto mpc_config = config.mutable_quad_mpc_controller_config();
+    test_utils::fillQuadMPCConfig(*mpc_config);
     // Fill MPC Config
     test_utils::fillMPCConfig(config);
     simple_tracker.reset(new SimpleTracker(*drone_hardware, camera_transform));
@@ -146,9 +149,8 @@ TEST_F(PickPlaceFunctorTests, CallPickActionFunction) {
                                dummy_start_state, dummy_target_state);
   ASSERT_TRUE(uav_arm_system->isHomeLocationSpecified());
   // UAV goal
-  PositionYaw uav_goal =
-      uav_arm_system
-          ->getGoal<RPYTRelativePoseVisualServoingConnector, PositionYaw>();
+  PositionYaw uav_goal = uav_arm_system->getGoal<
+      UAVVisionSystem::VisualServoingReferenceConnectorT, PositionYaw>();
   // Arm goal
   tf::Transform arm_goal =
       uav_arm_system

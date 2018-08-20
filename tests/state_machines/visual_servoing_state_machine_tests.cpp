@@ -47,7 +47,6 @@ public:
     vs_position_tolerance->set_y(goal_tolerance_position_);
     vs_position_tolerance->set_z(goal_tolerance_position_);
     // Configure mpc controller
-    // QuadMPCControllerConfig mpc_config = createQuadMPCConfig();
     auto mpc_config = config.mutable_quad_mpc_controller_config();
     test_utils::fillQuadMPCConfig(*mpc_config);
 
