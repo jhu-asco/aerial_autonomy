@@ -345,7 +345,7 @@ void fillQuadMPCConfig(QuadMPCControllerConfig &config) {
   config.set_goal_velocity_tolerance(0.25);
   DDPMPCControllerConfig *ddp_config = config.mutable_ddp_config();
   ddp_config->set_n(100);
-  ddp_config->set_max_cost(500);
+  ddp_config->set_max_cost(700);
   ddp_config->set_look_ahead_time(0.02);
   auto q = ddp_config->mutable_q();
   q->Resize(15, 0.0);
