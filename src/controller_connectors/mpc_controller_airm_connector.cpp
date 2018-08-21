@@ -19,8 +19,8 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
   clearJointCommandBuffers();
   // clang-format off
   DATA_HEADER("airm_mpc_state_estimator") << "x" << "y" << "z"
-                                          << "vx" << "vy" << "vz"
                                           << "r" << "p" << "y"
+                                          << "vx" << "vy" << "vz"
                                           << "rdot" << "pdot" << "ydot"
                                           << "rd" << "pd" << "yd"
                                           << "ja1" << "ja2"

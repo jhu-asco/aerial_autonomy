@@ -16,8 +16,8 @@ MPCControllerQuadConnector::MPCControllerQuadConnector(
           config, pose_sensor, constraint_generator) {
   // clang-format off
   DATA_HEADER("quad_mpc_state_estimator") << "x" << "y" << "z"
-                                          << "vx" << "vy" << "vz"
                                           << "r" << "p" << "y"
+                                          << "vx" << "vy" << "vz"
                                           << "rdot" << "pdot" << "ydot"
                                           << "rd" << "pd" << "yd"
                                           << "kt" << DataStream::endl;
