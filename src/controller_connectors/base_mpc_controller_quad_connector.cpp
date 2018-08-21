@@ -15,8 +15,14 @@ BaseMPCControllerQuadConnector::BaseMPCControllerQuadConnector(
       thrust_gain_estimator_(thrust_gain_estimator),
       previous_measurement_time_(std::chrono::high_resolution_clock::now()),
       previous_measurements_initialized_(false), previous_measurements_(3),
+      rpydot_filter_(config.rpydot_gain()),
+      velocity_filter_(config.velocity_exp_gain()),
+      rp_bias_filter_(config.rp_bias_gain()),
+      clamped_bias_(Eigen::Vector2d::Zero()),
       delay_buffer_size_(delay_buffer_size), private_controller_(controller),
       config_(config) {
+  // Set rp bias to 0 in the beginning
+  rp_bias_filter_.setFilterData(Eigen::Vector2d::Zero());
   clearCommandBuffers();
 }
 
@@ -35,8 +41,8 @@ void BaseMPCControllerQuadConnector::clearCommandBuffers() {
 void BaseMPCControllerQuadConnector::sendControllerCommands(
     ControlType control) {
   geometry_msgs::Quaternion rpyt_msg;
-  rpyt_msg.x = control(1);
-  rpyt_msg.y = control(2);
+  rpyt_msg.x = control(1) - clamped_bias_[0];
+  rpyt_msg.y = control(2) - clamped_bias_[1];
   rpyt_msg.z = control(3);
   rpyt_msg.w = math::clamp(control(0), config_.min_thrust_command(),
                            config_.max_thrust_command());
@@ -112,25 +118,25 @@ bool BaseMPCControllerQuadConnector::fillQuadStateAndParameters(
     v = (p - previous_measurements_) / dt;
   } else {
     v = Eigen::Vector3d::Zero();
-    filtered_rpydot_ = Eigen::Vector3d::Zero();
-    filtered_velocity_ = Eigen::Vector3d::Zero();
     previous_measurements_initialized_ = true;
   }
-  double rpydot_gain = config_.rpydot_gain();
-  // Get rpydot from omega:
-  filtered_rpydot_ =
-      (rpydot_gain * filtered_rpydot_ +
-       (1 - rpydot_gain) * conversions::omegaToRpyDot(omega, rpy));
-  // Update filtered velocities:
-  double velocity_exp_gain = config_.velocity_exp_gain();
-  filtered_velocity_ =
-      velocity_exp_gain * filtered_velocity_ + (1 - velocity_exp_gain) * v;
+  Eigen::Vector3d filtered_velocity = velocity_filter_.addAndFilter(v);
+  Eigen::Vector3d filtered_rpydot =
+      rpydot_filter_.addAndFilter(conversions::omegaToRpyDot(omega, rpy));
   // Fill state
   current_state.segment<3>(0) = p;
   current_state.segment<3>(3) = rpy;
-  current_state.segment<3>(6) = filtered_velocity_;
-  current_state.segment<3>(9) = filtered_rpydot_;
+  current_state.segment<3>(6) = filtered_velocity;
+  current_state.segment<3>(9) = filtered_rpydot;
   current_state.segment<3>(12) = rpy_command_buffer_.front();
+  // Update bias:
+  Eigen::Vector2d delta_rpy = rpy.head<2>() - current_state.segment<2>(12);
+  Eigen::Vector2d bias = rp_bias_filter_.addAndFilter(delta_rpy);
+  // Clamp bias
+  clamped_bias_[0] =
+      math::clamp(bias[0], -config_.max_bias(), config_.max_bias());
+  clamped_bias_[1] =
+      math::clamp(bias[1], -config_.max_bias(), config_.max_bias());
   // Fill previous measurements and time
   previous_measurements_ = current_state.segment<3>(0);
   // Estimate thrust gain parameter

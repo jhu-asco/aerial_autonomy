@@ -105,7 +105,7 @@ public:
     ASSERT_TF_NEAR(quad_transform,
                    gravity_aligned_tracked_pose * goal_relative_pose_tf, tol_);
     ASSERT_EQ(quad_mpc_connector_->getStatus(), ControllerStatus::Completed);
-    ASSERT_NEAR(thrust_gain_estimator_.getThrustGain(), 0.16, 1e-2);
+    ASSERT_NEAR(thrust_gain_estimator_.getThrustGain(), 0.16, 2e-2);
   }
 
   QuadSimulator drone_hardware_;

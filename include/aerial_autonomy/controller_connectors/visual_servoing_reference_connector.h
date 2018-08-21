@@ -3,6 +3,7 @@
 #include "aerial_autonomy/controller_connectors/base_controller_connector.h"
 #include "aerial_autonomy/controller_connectors/base_relative_pose_visual_servoing_connector.h"
 #include "aerial_autonomy/controller_connectors/mpc_controller_connector.h"
+#include "aerial_autonomy/filters/exponential_filter.h"
 #include "aerial_autonomy/sensors/base_sensor.h"
 #include "aerial_autonomy/trackers/base_tracker.h"
 #include "aerial_autonomy/types/position_yaw.h"
@@ -55,8 +56,7 @@ public:
                                                 tracking_offset_transform),
         dependent_connector_(dependent_connector),
         start_position_yaw_(0, 0, 0, 0), pose_sensor_(pose_sensor),
-        filter_gain_tracking_pose_(filter_gain_tracking_pose),
-        filtered_tracking_pose_available_(false) {
+        tracking_pose_filter_(filter_gain_tracking_pose) {
     logTrackerHeader("visual_servoing_reference_connector");
   }
 
@@ -80,8 +80,7 @@ public:
           PositionYaw(quad_data.localpos.x, quad_data.localpos.y,
                       quad_data.localpos.z, quad_data.rpydata.z);
     }
-    VLOG(1) << "Filtered gain: " << filter_gain_tracking_pose_;
-    filtered_tracking_pose_available_ = false;
+    tracking_pose_filter_.reset();
     this->run(); // sets goal to low-level connector
   }
   /**
@@ -100,16 +99,10 @@ protected:
   tf::Transform filter(tf::Transform input) {
     PositionYaw tracking_position_yaw;
     conversions::tfToPositionYaw(tracking_position_yaw, input);
-    if (!filtered_tracking_pose_available_) {
-      filtered_position_yaw_ = tracking_position_yaw;
-      filtered_tracking_pose_available_ = true;
-      return input;
-    }
-    filtered_position_yaw_ = (tracking_position_yaw - filtered_position_yaw_) *
-                                 filter_gain_tracking_pose_ +
-                             filtered_position_yaw_;
+    PositionYaw filtered_position_yaw =
+        tracking_pose_filter_.addAndFilter(tracking_position_yaw);
     tf::Transform filtered_pose;
-    conversions::positionYawToTf(filtered_position_yaw_, filtered_pose);
+    conversions::positionYawToTf(filtered_position_yaw, filtered_pose);
     return filtered_pose;
   }
   /**
@@ -144,9 +137,7 @@ protected:
     tf::Transform tracking_pose = quad_pose * camera_transform_ *
                                   object_pose_cam * tracking_offset_transform_;
     PositionYaw tracking_position_yaw;
-    // remove rp
-    // conversions::tfToPositionYaw(tracking_position_yaw, tracking_pose);
-    // conversions::positionYawToTf(tracking_position_yaw, tracking_pose);
+    // filter remove rp
     tracking_pose = filter(tracking_pose);
     // Filter tracking pose
     logTrackerData("visual_servoing_reference_connector", tracking_pose,
@@ -170,16 +161,15 @@ protected:
   }
 
 private:
-  DependentConnectorT &dependent_connector_;
-  PositionYaw start_position_yaw_;
+  DependentConnectorT &dependent_connector_;    ///< Dependent MPC Connector
+  PositionYaw start_position_yaw_;              ///< Start position yaw
   SensorPtr<tf::StampedTransform> pose_sensor_; ///< Pose sensor for quad data
-  double filter_gain_tracking_pose_;      ///< Exp filter gain on tracking pose
-  bool filtered_tracking_pose_available_; ///< Flag to specify if filtered
-                                          /// tracking pose available
-  PositionYaw filtered_position_yaw_;     ///< Filtered tracking position yaw
-                                          /**
-                                           * @brief Base class typedef to simplify code
-                                           */
+  ExponentialFilter<PositionYaw>
+      tracking_pose_filter_; ///< Filter tracking pose
+
+  /**
+   * @brief Base class typedef to simplify code
+   */
   using BaseClass =
       ControllerConnector<std::pair<PositionYaw, tf::Transform>, PositionYaw,
                           ReferenceTrajectoryPtr<StateT, ControlT>>;

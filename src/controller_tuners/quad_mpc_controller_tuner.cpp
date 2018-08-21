@@ -90,9 +90,9 @@ int main(int argc, char **argv) {
   DDPQuadMPCController controller(quad_mpc_controller_config,
                                   std::chrono::milliseconds(20));
   MPCConnectorConfig connector_config;
-  connector_config.set_velocity_exp_gain(0.0);
-  connector_config.set_rpydot_gain(0.0);
-  connector_config.set_angular_exp_gain(0.0);
+  connector_config.set_velocity_exp_gain(1.0);
+  connector_config.set_rpydot_gain(1.0);
+  connector_config.set_joint_velocity_exp_gain(1.0);
   connector_config.set_use_perfect_time_diff(true);
   MPCControllerQuadConnector controller_connector(
       drone_hardware, controller, thrust_gain_estimator_, 1, connector_config);

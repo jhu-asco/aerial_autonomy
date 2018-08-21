@@ -4,15 +4,15 @@ message MPCConnectorConfig {
   /**
   * @brief  Filtering gain on joint velocities
   */
-  optional double angular_exp_gain = 1 [ default = 0.9 ];
+  optional double joint_velocity_exp_gain = 1 [ default = 0.1 ];
   /**
   * @brief Filtering on  quad velocity
   */
-  optional double velocity_exp_gain = 2 [ default = 0.9 ];
+  optional double velocity_exp_gain = 2 [ default = 0.1 ];
   /**
   * @brief Filtering on rpydot
   */
-  optional double rpydot_gain = 3 [ default = 0.7 ];
+  optional double rpydot_gain = 3 [ default = 0.3 ];
   /**
   * @brief time diff setting for finite diff
   */
@@ -33,4 +33,12 @@ message MPCConnectorConfig {
   * @brief time step for integrating yaw rate
   */
   optional double dt_yaw_integration = 8 [ default = 0.02 ];
+  /**
+  * @brief Filtering on rp bias
+  */
+  optional double rp_bias_gain = 9 [ default = 0.01 ];
+  /**
+  * @brief Maximum rp bias
+  */
+  optional double max_bias = 10 [ default = 0.05 ];
 }

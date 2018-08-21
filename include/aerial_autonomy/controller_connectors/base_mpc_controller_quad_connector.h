@@ -1,6 +1,7 @@
 #pragma once
 #include "aerial_autonomy/controller_connectors/mpc_controller_connector.h"
 #include "aerial_autonomy/estimators/thrust_gain_estimator.h"
+#include "aerial_autonomy/filters/exponential_filter.h"
 #include "aerial_autonomy/sensors/base_sensor.h"
 #include "mpc_connector_config.pb.h"
 #include <Eigen/Dense>
@@ -108,6 +109,8 @@ protected:
     previous_measurements_initialized_ = false;
     private_controller.resetControls();
     clearCommandBuffers();
+    velocity_filter_.reset();
+    rpydot_filter_.reset();
     int iters = private_controller.getMaxIters();
     private_controller.setMaxIters(100);
     run();
@@ -125,9 +128,11 @@ protected:
                                            /// previous measurements have been
                                            /// initialized
   Eigen::VectorXd previous_measurements_;  ///< Previous measurements
-  std::queue<Eigen::Vector3d> rpy_command_buffer_; ///< Rpy command buffer
-  Eigen::Vector3d filtered_rpydot_;                ///< Filtered rpydot
-  Eigen::Vector3d filtered_velocity_;              ///< Filtered rpydot
+  std::queue<Eigen::Vector3d> rpy_command_buffer_;     ///< Rpy command buffer
+  ExponentialFilter<Eigen::Vector3d> rpydot_filter_;   ///< Filter
+  ExponentialFilter<Eigen::Vector3d> velocity_filter_; ///< Filter
+  ExponentialFilter<Eigen::Vector2d> rp_bias_filter_;  ///< Filter
+  Eigen::Vector2d clamped_bias_;                       ///< Clamped bias vector
   int delay_buffer_size_; ///< Size of rpy command buffer
   AbstractMPCController<StateType, ControlType>
       &private_controller_; ///< Private ref

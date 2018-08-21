@@ -15,6 +15,7 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
                                      thrust_gain_estimator, delay_buffer_size,
                                      config, pose_sensor, constraint_generator),
       arm_hardware_(arm_hardware), joint_angle_commands_(2),
+      joint_velocity_filter_(config.joint_velocity_exp_gain()),
       previous_joint_measurements_initialized_(false) {
   clearJointCommandBuffers();
   // clang-format off
@@ -26,12 +27,14 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
                                           << "ja1" << "ja2"
                                           << "jv1" << "jv2"
                                           << "jad1" << "jad2"
+                                          << "bias_r" << "bias_p"
                                           << "kt" << DataStream::endl;
   // clang-format on
 }
 
 void MPCControllerAirmConnector::initialize() {
   previous_joint_measurements_initialized_ = false;
+  joint_velocity_filter_.reset();
   clearJointCommandBuffers();
   initializePrivateController(private_controller_);
 }
@@ -70,16 +73,14 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
     joint_velocities = (joint_angles_vec - previous_joint_angles_) / dt;
   } else {
     joint_velocities = Eigen::Vector2d::Zero();
-    filtered_joint_velocity_ = Eigen::Vector2d::Zero();
     previous_joint_measurements_initialized_ = true;
   }
   // Update filtered velocities:
-  double angular_exp_gain = config_.angular_exp_gain();
-  filtered_joint_velocity_ = angular_exp_gain * filtered_joint_velocity_ +
-                             (1 - angular_exp_gain) * joint_velocities;
+  Eigen::Vector2d filtered_joint_velocity =
+      joint_velocity_filter_.addAndFilter(joint_velocities);
   // Fill state
   current_state.segment<2>(15) = joint_angles_vec;
-  current_state.segment<2>(17) = filtered_joint_velocity_;
+  current_state.segment<2>(17) = filtered_joint_velocity;
   current_state.segment<2>(19) = previous_joint_commands_;
   // Fill previous measurements
   previous_joint_angles_ = joint_angles_vec;
@@ -87,7 +88,7 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
   bool result = fillQuadStateAndParameters(current_state, params, dt);
   if (result) {
     DATA_LOG("airm_mpc_state_estimator") << current_state << params[0]
-                                         << DataStream::endl;
+                                         << clamped_bias_ << DataStream::endl;
   }
   return result;
 }

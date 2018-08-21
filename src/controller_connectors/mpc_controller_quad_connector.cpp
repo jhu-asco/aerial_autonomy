@@ -20,7 +20,7 @@ MPCControllerQuadConnector::MPCControllerQuadConnector(
                                           << "vx" << "vy" << "vz"
                                           << "rdot" << "pdot" << "ydot"
                                           << "rd" << "pd" << "yd"
-                                          << "kt" << DataStream::endl;
+                                          << "kt" << "bias_r"<< "bias_p" << DataStream::endl;
   // clang-format on
 }
 
@@ -35,7 +35,7 @@ bool MPCControllerQuadConnector::estimateStateAndParameters(
   bool result = fillQuadStateAndParameters(current_state, params, dt);
   if (result) {
     DATA_LOG("quad_mpc_state_estimator") << current_state << params[0]
-                                         << DataStream::endl;
+                                         << clamped_bias_ << DataStream::endl;
   }
   return result;
 }
