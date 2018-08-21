@@ -84,6 +84,8 @@ rpy_d = np.roll(rpy_d, args.delay, axis=0)
 rpy_d[:args.delay, :] = 0
 rpy_d[:,2] = rpy_d[:,2] + rpy[0,2]-rpy_d[0,2]
 labels = ['roll', 'pitch', 'yaw']
+if 'bias_r' in state_data.columns:
+    bias = state_data[['bias_r', 'bias_p']].values
 for i in range(3):
     plt.figure(7+i)
     ref_angle = rpy_d[iStart:iEnd, i]
@@ -93,7 +95,11 @@ for i in range(3):
     print("Std diff: ",labels[i],': ', np.std(rpy[iStart:iEnd, i] - rpy_d[iStart:iEnd, i]))
     plt.xlabel('Time (seconds)')
     plt.ylabel(labels[i]+' (rad)')
-    plt.legend(legend)
+    if 'bias_r' in state_data.columns and i < 2:
+        plt.plot(ts_sub, bias[iStart:iEnd, i])
+        plt.legend(legend+['bias'])
+    else:
+        plt.legend(legend)
     plt.tight_layout()
     plt.savefig(os.path.join(args.folder,labels[i]+'.eps'),
                              bbox_inches='tight')
