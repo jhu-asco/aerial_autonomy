@@ -438,16 +438,24 @@ struct PickControllerStatusCheck_
 
   bool run(UAVArmSystem &robot_system,
            LogicStateMachineT &logic_state_machine) {
-    ControllerStatus status =
+    ControllerStatus visual_servoing_status =
+        robot_system
+            .getStatus<UAVVisionSystem::VisualServoingReferenceConnectorT>();
+    ControllerStatus mpc_status =
         robot_system.getStatus<MPCControllerQuadConnector>();
     bool grip_status = robot_system.gripStatus();
-    if (status == ControllerStatus::Critical && grip_status) {
+    if ((visual_servoing_status == ControllerStatus::Critical ||
+         mpc_status == ControllerStatus::Critical) &&
+        grip_status) {
+      robot_system.abortController(ControllerGroup::HighLevel);
       robot_system.abortController(ControllerGroup::UAV);
       VLOG(1)
           << "Controller critical while gripping is true! Aborting Controller!";
-    } else if ((status == ControllerStatus::Critical ||
-                status == ControllerStatus::NotEngaged) &&
+    } else if ((visual_servoing_status == ControllerStatus::Critical ||
+                mpc_status == ControllerStatus::Critical ||
+                visual_servoing_status == ControllerStatus::NotEngaged) &&
                !grip_status) {
+      robot_system.abortController(ControllerGroup::HighLevel);
       logic_state_machine.process_event(Reset());
       VLOG(1) << "Gripping failed and no controller engaged or controller "
                  "critical. So resetting!";

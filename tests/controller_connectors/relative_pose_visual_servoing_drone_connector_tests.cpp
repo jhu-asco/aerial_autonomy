@@ -138,9 +138,12 @@ TEST_F(RelativePoseVisualServoingControllerDroneConnectorTests,
   // Get vector
   tf::Transform object_pose_cam;
   ASSERT_TRUE(simple_tracker_->getTrackingVector(object_pose_cam));
+  tf::Transform body_frame_rotation =
+      visual_servoing_connector_->getBodyFrameRotation();
   tf::Transform tracking_vector =
       visual_servoing_connector_
-          ->getTrackingTransformRotationCompensatedQuadFrame(object_pose_cam);
+          ->getTrackingTransformRotationCompensatedQuadFrame(
+              object_pose_cam, body_frame_rotation);
   ASSERT_TF_NEAR(tracking_vector, goal_rot_comp, 1e-6);
 }
 
