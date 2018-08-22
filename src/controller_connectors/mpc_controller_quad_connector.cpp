@@ -35,7 +35,7 @@ bool MPCControllerQuadConnector::estimateStateAndParameters(
   bool result = fillQuadStateAndParameters(current_state, params, dt);
   if (result) {
     DATA_LOG("quad_mpc_state_estimator") << current_state << params[0]
-                                         << clamped_bias_ << DataStream::endl;
+                                         << DataStream::endl;
   }
   return result;
 }
