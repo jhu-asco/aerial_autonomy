@@ -41,8 +41,8 @@ void BaseMPCControllerQuadConnector::clearCommandBuffers() {
 void BaseMPCControllerQuadConnector::sendControllerCommands(
     ControlType control) {
   geometry_msgs::Quaternion rpyt_msg;
-  rpyt_msg.x = control(1); // - clamped_bias_[0];
-  rpyt_msg.y = control(2); // - clamped_bias_[1];
+  rpyt_msg.x = control(1);
+  rpyt_msg.y = control(2) + 0.005;
   rpyt_msg.z = control(3);
   rpyt_msg.w = math::clamp(control(0), config_.min_thrust_command(),
                            config_.max_thrust_command());

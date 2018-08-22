@@ -42,12 +42,19 @@ public:
             std::bind(&UAVArmSystem::runActiveController, std::ref(uav_system_),
                       ControllerGroup::Arm),
             std::chrono::milliseconds(config.uav_arm_system_handler_config()
-                                          .arm_controller_timer_duration())) {
-
+                                          .arm_controller_timer_duration())),
+        quad_mpc_visualization_timer_(
+            std::bind(&UAVSystem::visualizeQuadMPC,
+                      std::ref(this->uav_system_)),
+            std::chrono::milliseconds(
+                config.mpc_visualization_timer_duration())) {
     // Get the party started
     common_handler_.startTimers();
     uav_controller_timer_.start();
     arm_controller_timer_.start();
+    if (config.uav_system_config().visualize_mpc_trajectories()) {
+      quad_mpc_visualization_timer_.start();
+    }
   }
 
   /**
@@ -79,4 +86,5 @@ private:
   AsyncTimer uav_controller_timer_; ///< Timer for running uav controller
   AsyncTimer arm_controller_timer_; ///< Timer for running arm controller
   MocapLogger mocap_logger_;        ///< Logger for mocap poses
+  AsyncTimer quad_mpc_visualization_timer_; ///< Timer for visualizing MPC
 };
