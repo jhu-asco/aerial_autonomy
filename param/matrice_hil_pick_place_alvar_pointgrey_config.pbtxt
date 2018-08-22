@@ -1,6 +1,6 @@
 mpc_visualization_timer_duration: 50
 uav_arm_system_handler_config {
-  arm_controller_timer_duration: 50
+  arm_controller_timer_duration: 200
 }
 
 base_config {
@@ -31,8 +31,9 @@ uav_system_config {
     }
   }
   mpc_connector_config {
-    velocity_exp_gain: 0.9
-    rpydot_gain: 0.9
+    velocity_exp_gain: 0.1
+    rpydot_gain: 0.1
+    rp_bias_gain: 0.0
     use_perfect_time_diff: false
   }
   quad_mpc_controller_config {
@@ -322,6 +323,112 @@ uav_system_config {
           goal_rotation_tolerance: 6
         }
         arm_parser_type: "SimpleArm"
+      }
+      mpc_controller_config {
+        default_thrust_gain: 0.16
+        ddp_config {
+          # State cost
+          # XYZ
+          Q: 100
+          Q: 100
+          Q: 100
+          # RPY
+          Q: 4
+          Q: 4
+          Q: 4
+          # Vxyz
+          Q: 100
+          Q: 100
+          Q: 100
+          # RPYdot
+          Q: 4
+          Q: 4
+          Q: 4
+          # RPY_cmd
+          Q: 0
+          Q: 0
+          Q: 0
+          # Joint_angles
+          Q: 100
+          Q: 100
+          # Joint_velocities
+          Q: 100
+          Q: 100
+          # Joint_cmd
+          Q: 0
+          Q: 0
+          # Terminal gains
+          # XYZ
+          Qf: 100
+          Qf: 100
+          Qf: 100
+          # RPY
+          Qf: 800
+          Qf: 800
+          Qf: 100
+          # Vxyz
+          Qf: 100
+          Qf: 100
+          Qf: 100
+          # RPYdot
+          Qf: 100 
+          Qf: 100
+          Qf: 100
+          # RPY_cmd
+          Qf: 0.1
+          Qf: 0.1
+          Qf: 0.1
+          # Joint_angles
+          Qf: 100
+          Qf: 100
+          # Joint_velocities
+          Qf: 100
+          Qf: 100
+          # Joint_cmd
+          Qf: 400
+          Qf: 400
+          # Control cost
+          # Thrust
+          R: 6.0
+          # Rpyd dot
+          R: 4.0
+          R: 4.0
+          R: 4.0
+          # desired joint velocities
+          R: 1.0
+          R: 1.0
+          # Trajectory length
+          N: 75
+          # Max iterations
+          max_iters: 1
+          # Min cost decrease
+          min_cost_decrease: 1e-4
+          # Look ahead time
+          look_ahead_time: 0.2
+          # Max cost
+          max_cost: 220
+        }
+
+        weights_folder: "neural_network_model_data/tensorflow_model_vars_16_8_tanh/"
+        use_residual_dynamics: false
+        goal_position_tolerance: 0.15
+        goal_velocity_tolerance: 0.15
+        goal_joint_angle_tolerance: 0.15
+        goal_joint_velocity_tolerance: 0.15
+        # Lower bound
+        lower_bound_control: 0.8
+        lower_bound_control: -0.6
+        lower_bound_control: -0.6
+        lower_bound_control: -0.6
+        lower_bound_control: -0.7
+        lower_bound_control: -0.7
+        # Upper bound
+        upper_bound_control: 1.2
+        upper_bound_control: 0.6
+        upper_bound_control: 0.6
+        upper_bound_control: 0.6
+        upper_bound_control: 0.7
+        upper_bound_control: 0.7
       }
     }
   }

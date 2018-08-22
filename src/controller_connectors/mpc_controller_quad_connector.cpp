@@ -20,7 +20,7 @@ MPCControllerQuadConnector::MPCControllerQuadConnector(
                                           << "vx" << "vy" << "vz"
                                           << "rdot" << "pdot" << "ydot"
                                           << "rd" << "pd" << "yd"
-                                          << "kt" << "bias_r"<< "bias_p" << DataStream::endl;
+                                          << "kt" << "acc_x" << "acc_y"<< "acc_z" << DataStream::endl;
   // clang-format on
 }
 
@@ -33,9 +33,12 @@ bool MPCControllerQuadConnector::estimateStateAndParameters(
   double dt = getTimeDiff();
   current_state.resize(state_size_);
   bool result = fillQuadStateAndParameters(current_state, params, dt);
+  parsernode::common::quaddata quad_data;
+  drone_hardware_.getquaddata(quad_data);
   if (result) {
-    DATA_LOG("quad_mpc_state_estimator") << current_state << params[0]
-                                         << clamped_bias_ << DataStream::endl;
+    DATA_LOG("quad_mpc_state_estimator")
+        << current_state << params[0] << quad_data.linacc.x
+        << quad_data.linacc.y << quad_data.linacc.z << DataStream::endl;
   }
   return result;
 }
