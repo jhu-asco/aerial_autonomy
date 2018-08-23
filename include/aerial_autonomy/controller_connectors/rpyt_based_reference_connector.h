@@ -55,16 +55,15 @@ public:
         perfect_time_diff_(config.perfect_time_diff()),
         previous_measurement_initialized_(false),
         previous_position_(tf::Vector3(0, 0, 0)),
-        velocity_filter_(config.velocity_exp_gain()) {}
-  /**
-   * @brief set goal to controller and clear estimator buffer
-   *
-   * @param goal empty goal
-   */
-  void setGoal(ReferenceTrajectoryPtr<StateT, ControlT> goal) {
-    BaseClass::setGoal(goal);
-    VLOG(1) << "Clearing thrust estimator buffer";
-    thrust_gain_estimator_.clearBuffer();
+        velocity_filter_(config.velocity_exp_gain()) {
+    DATA_HEADER("rpyt_reference_connector") << "Thrust_gain"
+                                            << "x"
+                                            << "y"
+                                            << "z"
+                                            << "yaw"
+                                            << "vx"
+                                            << "vy"
+                                            << "vz" << DataStream::endl;
   }
 
 protected:
@@ -188,6 +187,10 @@ bool RPYTBasedReferenceConnector<StateT, ControlT>::extractSensorData(
                       velocity, position_yaw);
   thrust_gain_estimator_.addSensorData(data.rpydata.x, data.rpydata.y,
                                        data.linacc.z);
+  DATA_LOG("rpyt_reference_connector")
+      << std::get<1>(sensor_data) << position_yaw.x << position_yaw.y
+      << position_yaw.z << position_yaw.yaw << velocity.x << velocity.y
+      << velocity.z << DataStream::endl;
   return true;
 }
 
@@ -198,8 +201,8 @@ tf::Vector3 RPYTBasedReferenceConnector<StateT, ControlT>::getVelocity(
   tf::Vector3 velocity(0, 0, 0);
   if (previous_measurement_initialized_) {
     velocity = (current_position - previous_position_) / dt;
-    previous_measurement_initialized_ = false;
   }
+  previous_measurement_initialized_ = true;
   return velocity;
 }
 
@@ -239,4 +242,6 @@ void RPYTBasedReferenceConnector<StateT, ControlT>::initialize() {
   time_since_init_ = 0.0;
   velocity_filter_.reset();
   previous_measurement_initialized_ = false;
+  VLOG(1) << "Clearing thrust estimator buffer";
+  thrust_gain_estimator_.clearBuffer();
 }

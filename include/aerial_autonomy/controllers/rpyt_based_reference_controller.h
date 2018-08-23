@@ -28,14 +28,18 @@ public:
    */
   AbstractRPYTBasedReferenceController(RPYTBasedPositionControllerConfig config)
       : config_(config) {
-    // clang format off
+    // clang-format off
     DATA_HEADER("rpyt_reference_controller") << "Errorx"
                                              << "Errory"
                                              << "Errorz"
                                              << "Erroryaw"
                                              << "Errorvx"
                                              << "Errorvy"
-                                             << "Errorvz" << DataStream::endl;
+                                             << "Errorvz"
+                                             << "Cmd_roll"
+                                             << "Cmd_pitch"
+                                             << "Cmd_yawrate"
+                                             << "Cmd_thrust" << DataStream::endl;
     // clang format on
   }
 
@@ -124,6 +128,10 @@ protected:
     control.t = desired_acceleration.norm() / kt;
     control.t = math::clamp(control.t, velocity_config.min_thrust(),
                             velocity_config.max_thrust());
+    DATA_LOG("rpyt_reference_controller")
+        << error_position_yaw.x << error_position_yaw.y << error_position_yaw.z
+        << error_position_yaw.yaw << error_velocity.x << error_velocity.y
+        << error_velocity.z << control.r << control.p << control.y << control.t << DataStream::endl;
     return true;
   }
   /**
@@ -168,10 +176,6 @@ protected:
       VLOG_EVERY_N(1, 100) << "Reached goal";
       status.setStatus(ControllerStatus::Completed, "Reached goal");
     }
-    DATA_LOG("rpyt_reference_controller")
-        << error_position_yaw.x << error_position_yaw.y << error_position_yaw.z
-        << error_position_yaw.yaw << error_velocity.x << error_velocity.y
-        << error_velocity.z << DataStream::endl;
     return status;
   }
 

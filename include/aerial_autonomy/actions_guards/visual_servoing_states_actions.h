@@ -36,7 +36,13 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
   using RPYTRelativePoseVisualServoing =
       VisualServoing_<LogicStateMachineT, be::Abort,
                       RPYTRelativePoseVisualServoingConnector>;
-
+  /**
+  * @brief State when reaching a relative pose visual servoing goal using rpyt
+  * controller
+  */
+  using RPYTReferenceVisualServoing = VisualServoing_<
+      LogicStateMachineT, be::Abort,
+      RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>;
   /**
   * @brief State when reaching a relative pose visual servoing goal using MPC
   * controller

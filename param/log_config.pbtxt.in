@@ -90,3 +90,11 @@ data_stream_configs {
   stream_id: "rpyt_reference_controller"
   log_rate: 20
 }
+data_stream_configs {
+  stream_id: "rpyt_reference_connector"
+  log_rate: 20
+}
+data_stream_configs {
+  stream_id: "visual_servoing_reference_connector"
+  log_rate: 20
+}

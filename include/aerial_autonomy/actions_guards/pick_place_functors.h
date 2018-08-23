@@ -74,7 +74,9 @@ using PlaceInternalActionFunctor_ =
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, MPCControllerQuadConnector, true, Reset>>>;
+            LogicStateMachineT,
+            RPYBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>, true,
+            Reset>>>;
 
 /**
 * @brief Check tracking is valid before starting visual servoing and arm is
@@ -441,8 +443,8 @@ struct PickControllerStatusCheck_
     ControllerStatus visual_servoing_status =
         robot_system
             .getStatus<UAVVisionSystem::VisualServoingReferenceConnectorT>();
-    ControllerStatus mpc_status =
-        robot_system.getStatus<MPCControllerQuadConnector>();
+    ControllerStatus mpc_status = robot_system.getStatus<
+        RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>();
     bool grip_status = robot_system.gripStatus();
     if ((visual_servoing_status == ControllerStatus::Critical ||
          mpc_status == ControllerStatus::Critical) &&
