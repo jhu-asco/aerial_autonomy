@@ -168,11 +168,13 @@ std::vector<double> vectorEigenToStd(const Eigen::VectorXd &vec_eigen);
  *
  * @param yaw Current yaw
  * @param acceleration_vector Acceleration vector
+ * @param epsilon tolerance for singularities
  *
  * @return  roll, pitch as a pair
  */
 std::pair<double, double>
-accelerationToRollPitch(double yaw, Eigen::Vector3d acceleration_vector);
+accelerationToRollPitch(double yaw, Eigen::Vector3d acceleration_vector,
+                        const double &epsilon = 1e-6);
 
 /**
  * @brief get the pose of quadrotor as a tf transform

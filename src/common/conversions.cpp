@@ -93,8 +93,8 @@ std::vector<double> vectorEigenToStd(const Eigen::VectorXd &vec_eigen) {
 }
 
 std::pair<double, double>
-accelerationToRollPitch(double yaw, Eigen::Vector3d acceleration_vector) {
-  const double epsilon = 1e-6;
+accelerationToRollPitch(double yaw, Eigen::Vector3d acceleration_vector,
+                        const double &epsilon) {
   double roll, pitch;
   Eigen::Vector3d unit_vec = acceleration_vector.normalized();
   double s_yaw = sin(yaw);
