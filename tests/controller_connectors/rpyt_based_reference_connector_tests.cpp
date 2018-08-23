@@ -3,6 +3,8 @@
 #include "aerial_autonomy/tests/test_utils.h"
 #include "aerial_autonomy/types/quad_particle_reference_trajectory.h"
 
+#include "rpyt_reference_connector_config.pb.h"
+
 #include <quad_simulator_parser/quad_simulator.h>
 
 #include <gtest/gtest.h>
@@ -46,10 +48,13 @@ public:
     velocity_tolerance->set_vz(goal_tolerance_velocity_);
     velocity_controller_config->mutable_velocity_controller_config()
         ->set_goal_yaw_rate_tolerance(goal_tolerance_yaw_rate_);
+    RPYTReferenceConnectorConfig connector_config;
+    connector_config.set_use_perfect_time_diff(true);
     controller_.reset(new RPYTBasedReferenceControllerEigen(config));
     controller_connector_.reset(
         new RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>(
-            drone_hardware_, *controller_, thrust_gain_estimator_, true));
+            drone_hardware_, *controller_, thrust_gain_estimator_,
+            connector_config));
     drone_hardware_.usePerfectTime();
   }
 

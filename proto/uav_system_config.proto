@@ -20,6 +20,8 @@ import "mpc_visualizer_config.proto";
 
 import "mpc_connector_config.proto";
 
+import "rpyt_reference_connector_config.proto";
+
 message UAVSystemConfig {
   /**
   * @brief Battery percentage required for takeoff
@@ -114,4 +116,8 @@ message UAVSystemConfig {
   * @brief Flag to specify whether to visualize MPC trajectories
   */
   optional bool visualize_mpc_trajectories = 21 [ default = false ];
+  /**
+  * @brief RPYT reference connector config
+  */
+  optional RPYTReferenceConnectorConfig rpyt_reference_connector_config = 22;
 }

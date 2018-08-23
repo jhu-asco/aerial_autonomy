@@ -232,12 +232,17 @@ TEST(PositionControlFunctorTests, TransitionActionTest) {
   PositionYaw goal(1, 1, 1, 1);
   position_control_transition_action_functor(
       goal, sample_logic_state_machine, dummy_start_state, dummy_target_state);
-  ASSERT_EQ(uav_system.getStatus<RPYTBasedPositionControllerDroneConnector>(),
-            ControllerStatus::Active);
-  PositionYaw resulting_goal =
-      uav_system
-          .getGoal<RPYTBasedPositionControllerDroneConnector, PositionYaw>();
-  ASSERT_EQ(goal, resulting_goal);
+  ASSERT_EQ(
+      (uav_system.getStatus<
+          RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>()),
+      ControllerStatus::Active);
+  auto resulting_goal = uav_system.getGoal<
+      RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
+      ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>();
+  auto goal_returned = resulting_goal->goal(0);
+  PositionYaw resulting_position_yaw(goal_returned(0), goal_returned(1),
+                                     goal_returned(2), goal_returned(5));
+  ASSERT_EQ(goal, resulting_position_yaw);
 }
 
 TEST(PositionControlFunctorTests, AbortActionTest) {
@@ -303,7 +308,9 @@ TEST(PositionControlFunctorTests, PositionControlInternalActionTest) {
   int dummy_start_state, dummy_target_state;
   PositionControlInternalActionFunctor position_control_internal_action_functor;
   PositionYaw goal(1, 1, 1, 1);
-  uav_system.setGoal<RPYTBasedPositionControllerDroneConnector>(goal);
+  uav_system
+      .setGoal<RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>(
+          conversions::createWaypoint(goal));
   position_control_internal_action_functor(
       InternalTransitionEvent(), sample_logic_state_machine, dummy_start_state,
       dummy_target_state);

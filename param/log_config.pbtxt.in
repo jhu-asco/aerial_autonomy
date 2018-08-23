@@ -86,3 +86,7 @@ data_stream_configs {
   stream_id: "arm_sine_controller"
   log_rate: 20
 }
+data_stream_configs {
+  stream_id: "rpyt_reference_controller"
+  log_rate: 20
+}

@@ -12,6 +12,7 @@
 #include <aerial_autonomy/controllers/ddp_quad_mpc_controller.h>
 #include <aerial_autonomy/controllers/joystick_velocity_controller.h>
 #include <aerial_autonomy/controllers/rpyt_based_position_controller.h>
+#include <aerial_autonomy/controllers/rpyt_based_reference_controller.h>
 // Estimators
 #include <aerial_autonomy/estimators/thrust_gain_estimator.h>
 // Specific ControllerConnectors
@@ -22,7 +23,7 @@
 #include <aerial_autonomy/controller_connectors/joystick_velocity_controller_drone_connector.h>
 #include <aerial_autonomy/controller_connectors/mpc_controller_quad_connector.h>
 #include <aerial_autonomy/controller_connectors/rpyt_based_position_controller_drone_connector.h>
-#include <aerial_autonomy/controller_connectors/rpyt_based_position_controller_drone_connector.h>
+#include <aerial_autonomy/controller_connectors/rpyt_based_reference_connector.h>
 #include <aerial_autonomy/sensors/guidance.h>
 #include <aerial_autonomy/sensors/pose_sensor.h>
 #include <aerial_autonomy/sensors/velocity_sensor.h>
@@ -59,6 +60,10 @@ protected:
   * @brief RPYT based position controller
   */
   RPYTBasedPositionController rpyt_based_position_controller_;
+  /**
+  * @brief RPYT based reference controller
+  */
+  RPYTBasedReferenceControllerEigen rpyt_based_reference_controller_;
   /**
   * @brief Thrust gain estimator
   */
@@ -100,6 +105,12 @@ protected:
    * @brief mpc trajectory visualizer
    */
   std::unique_ptr<MPCTrajectoryVisualizer> mpc_visualizer_;
+  /**
+   * @brief connector for position controller using rpyt
+   * commands
+   */
+  RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>
+      rpyt_based_reference_connector_;
 
 private:
   /**
@@ -245,6 +256,8 @@ public:
         rpyt_based_position_controller_(
             config.rpyt_based_position_controller_config(),
             std::chrono::milliseconds(config.uav_controller_timer_duration())),
+        rpyt_based_reference_controller_(
+            config.rpyt_based_position_controller_config()),
         thrust_gain_estimator_(config.thrust_gain_estimator_config()),
         builtin_position_controller_(config.position_controller_config()),
         builtin_velocity_controller_(config.velocity_controller_config()),
@@ -257,6 +270,10 @@ public:
         velocity_sensor_(
             UAVSystem::chooseSensor(velocity_sensor, drone_hardware_, config)),
         pose_sensor_(UAVSystem::createPoseSensor(config)),
+        rpyt_based_reference_connector_(
+            *drone_hardware_, rpyt_based_reference_controller_,
+            thrust_gain_estimator_, config.rpyt_reference_connector_config(),
+            pose_sensor_),
         position_controller_drone_connector_(*drone_hardware_,
                                              builtin_position_controller_),
         rpyt_based_position_controller_drone_connector_(
@@ -286,6 +303,7 @@ public:
     controller_connector_container_.setObject(
         joystick_velocity_controller_drone_connector_);
     controller_connector_container_.setObject(quad_mpc_connector_);
+    controller_connector_container_.setObject(rpyt_based_reference_connector_);
     // Visualization
     if (config_.visualize_mpc_trajectories()) {
       mpc_visualizer_.reset(
@@ -424,6 +442,7 @@ public:
    */
   tf::StampedTransform getPose() {
     tf::StampedTransform result;
+    ///\todo Figure out what to do if pose sensor is not valid??
     if (pose_sensor_) {
       result = pose_sensor_->getSensorData();
     } else {
@@ -436,5 +455,12 @@ public:
                                     "uav");
     }
     return result;
+  }
+
+  SensorStatus getPoseSensorStatus() {
+    if (pose_sensor_) {
+      return pose_sensor_->getSensorStatus();
+    }
+    return SensorStatus::VALID;
   }
 };

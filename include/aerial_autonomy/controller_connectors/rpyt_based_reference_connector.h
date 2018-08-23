@@ -9,6 +9,8 @@
 #include "aerial_autonomy/types/roll_pitch_yawrate_thrust.h"
 #include "aerial_autonomy/types/velocity_yaw_rate.h"
 
+#include "rpyt_reference_connector_config.pb.h"
+
 #include <chrono>
 #include <parsernode/parser.h>
 /**
@@ -41,16 +43,19 @@ public:
       parsernode::Parser &drone_hardware,
       AbstractRPYTBasedReferenceController<StateT, ControlT> &controller,
       ThrustGainEstimator &thrust_gain_estimator,
-      bool use_perfect_time_diff = false, double exp_gain = 1.0,
+      RPYTReferenceConnectorConfig config,
       SensorPtr<tf::StampedTransform> pose_sensor = nullptr)
       : BaseClass(controller, ControllerGroup::UAV),
         drone_hardware_(drone_hardware), pose_sensor_(pose_sensor),
         thrust_gain_estimator_(thrust_gain_estimator),
         t_init_(std::chrono::high_resolution_clock::now()),
         previous_measurement_time_(std::chrono::high_resolution_clock::now()),
-        time_since_init_(0), use_perfect_time_diff_(use_perfect_time_diff),
-        perfect_time_diff_(0.02), previous_measurement_initialized_(false),
-        previous_position_(tf::Vector3(0, 0, 0)), velocity_filter_(exp_gain) {}
+        time_since_init_(0),
+        use_perfect_time_diff_(config.use_perfect_time_diff()),
+        perfect_time_diff_(config.perfect_time_diff()),
+        previous_measurement_initialized_(false),
+        previous_position_(tf::Vector3(0, 0, 0)),
+        velocity_filter_(config.velocity_exp_gain()) {}
   /**
    * @brief set goal to controller and clear estimator buffer
    *

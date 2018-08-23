@@ -34,7 +34,7 @@ public:
    */
   using VisualServoingReferenceConnectorT = VisualServoingReferenceConnector<
       Eigen::VectorXd, Eigen::VectorXd,
-      MPCControllerConnector<Eigen::VectorXd, Eigen::VectorXd>>;
+      RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>;
   /**
   * @brief Constructor
   * @param config Configuration parameters
@@ -71,7 +71,7 @@ public:
                                                 .tracking_offset_transform())),
         visual_servoing_reference_connector_(
             *tracker_, *drone_hardware_, quad_reference_generator_,
-            quad_mpc_connector_, camera_transform_,
+            rpyt_based_reference_connector_, camera_transform_,
             conversions::protoTransformToTf(
                 config_.uav_vision_system_config().tracking_offset_transform()),
             config_.uav_vision_system_config()

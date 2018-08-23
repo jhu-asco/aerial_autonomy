@@ -236,6 +236,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/particle_reference_config.proto
   proto/quad_mpc_controller_config.proto
   proto/mpc_connector_config.proto
+  proto/rpyt_reference_connector_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 

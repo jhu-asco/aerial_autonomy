@@ -2,6 +2,7 @@ syntax = "proto2";
 import "uav_state_machine_config.proto";
 import "visual_servoing_state_machine_config.proto";
 import "mpc_state_machine_config.proto";
+import "particle_reference_config.proto";
 
 message BaseStateMachineConfig {
   oneof subclass {
@@ -9,4 +10,5 @@ message BaseStateMachineConfig {
     VisualServoingStateMachineConfig visual_servoing_state_machine_config = 2;
     MPCStateMachineConfig mpc_state_machine_config = 3;
   }
+  optional ParticleReferenceConfig particle_reference_config = 4;
 }
