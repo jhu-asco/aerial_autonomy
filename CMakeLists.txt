@@ -310,6 +310,7 @@ set(SRC
   src/controller_connectors/position_controller_drone_connector.cpp
   src/controller_connectors/velocity_based_position_controller_drone_connector.cpp
   src/controller_connectors/rpyt_based_position_controller_drone_connector.cpp
+  src/controller_connectors/rpyt_based_reference_connector.cpp
   src/controller_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_connectors/manual_rpyt_controller_drone_connector.cpp
   src/controller_connectors/joystick_velocity_controller_drone_connector.cpp
