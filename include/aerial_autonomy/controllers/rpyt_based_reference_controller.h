@@ -27,7 +27,17 @@ public:
    * @param config Controller config
    */
   AbstractRPYTBasedReferenceController(RPYTBasedPositionControllerConfig config)
-      : config_(config), gravity_(9.81) {}
+      : config_(config) {
+    // clang format off
+    DATA_HEADER("rpyt_reference_controller") << "Errorx"
+                                             << "Errory"
+                                             << "Errorz"
+                                             << "Erroryaw"
+                                             << "Errorvx"
+                                             << "Errorvy"
+                                             << "Errorvz" << DataStream::endl;
+    // clang format on
+  }
 
 protected:
   /**
@@ -39,6 +49,18 @@ protected:
    */
   virtual std::pair<VelocityYawRate, PositionYaw>
   getReference(const StateT &state) = 0;
+
+  /**
+   * @brief Get feedforward acceleration
+   *
+   * @param state_control_pair input state control pair from reference
+   *
+   * @return feedforward acceleration
+   */
+  virtual Eigen::Vector3d
+  getAcceleration(const std::pair<StateT, ControlT> &state_control_pair) {
+    return Eigen::Vector3d(0, 0, 0);
+  }
 
   /**
    * @brief Run rpyt reference controller
@@ -54,8 +76,8 @@ protected:
       std::tuple<double, double, Velocity, PositionYaw> sensor_data,
       ReferenceTrajectoryPtr<StateT, ControlT> goal,
       RollPitchYawRateThrust &control) {
-    auto simplified_goal =
-        getReference(goal->atTime(std::get<0>(sensor_data)).first);
+    auto state_control_pair = goal->atTime(std::get<0>(sensor_data));
+    auto simplified_goal = getReference(state_control_pair.first);
     double kt = std::get<1>(sensor_data);
     Velocity current_velocity = std::get<2>(sensor_data);
     PositionYaw current_position_yaw = std::get<3>(sensor_data);
@@ -75,7 +97,7 @@ protected:
         velocity_position_config.position_gain() * error_position_yaw.y +
         velocity_config.kp_xy() * error_velocity.y;
     desired_acceleration[2] =
-        velocity_position_config.z_gain() * error_position_yaw.y +
+        velocity_position_config.z_gain() * error_position_yaw.z +
         velocity_config.kp_z() * error_velocity.z;
     ///\todo Add feedforward acceleration from reference
     double magnitude_acceleration = desired_acceleration.norm();
@@ -84,7 +106,10 @@ protected:
           (velocity_config.max_acc_norm() / magnitude_acceleration) *
           desired_acceleration;
     }
-    desired_acceleration[2] = desired_acceleration[2] + gravity_;
+    // desired_acceleration[2] = desired_acceleration[2] + gravity_;
+    // Add feedforward acc
+    desired_acceleration =
+        desired_acceleration + getAcceleration(state_control_pair);
     std::pair<double, double> rp = conversions::accelerationToRollPitch(
         current_position_yaw.yaw, desired_acceleration,
         velocity_config.tolerance_rp());
@@ -143,12 +168,15 @@ protected:
       VLOG_EVERY_N(1, 100) << "Reached goal";
       status.setStatus(ControllerStatus::Completed, "Reached goal");
     }
+    DATA_LOG("rpyt_reference_controller")
+        << error_position_yaw.x << error_position_yaw.y << error_position_yaw.z
+        << error_position_yaw.yaw << error_velocity.x << error_velocity.y
+        << error_velocity.z << DataStream::endl;
     return status;
   }
 
 private:
   RPYTBasedPositionControllerConfig config_; ///< Gains for reference tracking
-  const double gravity_;                     /// Magnitude of gravity
 };
 
 class RPYTBasedReferenceControllerEigen
@@ -159,6 +187,9 @@ public:
       AbstractRPYTBasedReferenceController<Eigen::VectorXd, Eigen::VectorXd>;
   using BaseClass::BaseClass; // Inherit constructor
 protected:
+  const double gravity_ = 9.81; /// Magnitude of gravity
   std::pair<VelocityYawRate, PositionYaw>
   getReference(const Eigen::VectorXd &state);
+  Eigen::Vector3d getAcceleration(
+      const std::pair<Eigen::VectorXd, Eigen::VectorXd> &state_control_pair);
 };
