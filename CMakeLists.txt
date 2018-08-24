@@ -237,6 +237,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/quad_mpc_controller_config.proto
   proto/mpc_connector_config.proto
   proto/rpyt_reference_connector_config.proto
+  proto/polynomial_reference_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -285,6 +286,7 @@ set(SRC
   src/trackers/simple_tracking_strategy.cpp
   src/types/spiral_reference_trajectory.cpp
   src/types/quad_particle_reference_trajectory.cpp
+  src/types/polynomial_reference_trajectory.cpp
   src/types/sensor_status.cpp
   src/controllers/manual_rpyt_controller.cpp
   src/controllers/velocity_based_position_controller.cpp
@@ -486,6 +488,7 @@ catkin_add_gtest(${PROJECT_NAME}-proto-utils-test tests/common/proto_utils_tests
 catkin_add_gtest(${PROJECT_NAME}-reference-trajectory-test tests/types/reference_trajectory_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-airm-spiral-reference-trajectory-test tests/types/airm_spiral_reference_trajectory_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-quad-particle-reference-trajectory-test tests/types/quad_particle_reference_trajectory_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-polynomial-reference-trajectory-test tests/types/polynomial_reference_trajectory_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-qrotor-backstepping-controller-test tests/controllers/qrotor_backstepping_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-ddp-airm-mpc-controller-test tests/controllers/ddp_airm_mpc_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-ddp-quad-mpc-controller-test tests/controllers/ddp_quad_mpc_controller_tests.cpp)
@@ -681,6 +684,9 @@ if(TARGET ${PROJECT_NAME}-airm-spiral-reference-trajectory-test)
 endif()
 if(TARGET ${PROJECT_NAME}-quad-particle-reference-trajectory-test)
   target_link_libraries(${PROJECT_NAME}-quad-particle-reference-trajectory-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-polynomial-reference-trajectory-test)
+  target_link_libraries(${PROJECT_NAME}-polynomial-reference-trajectory-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-minimum-snap-trajectory-test)
   target_link_libraries(${PROJECT_NAME}-minimum-snap-trajectory-test aerial_autonomy)

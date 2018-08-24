@@ -1,0 +1,11 @@
+syntax = "proto2";
+
+/**
+* @brief config for polynomial reference trajectory
+*/
+message PolynomialReferenceConfig {
+  /**
+  * @brief kp
+  */
+  optional double tf = 1 [ default = 5 ];
+}
