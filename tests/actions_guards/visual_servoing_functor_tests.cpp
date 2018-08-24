@@ -33,6 +33,8 @@ protected:
   VisualServoingTests() {
     drone_hardware.reset(new QuadSimulator);
     drone_hardware->usePerfectTime();
+    config.mutable_rpyt_reference_connector_config()->set_use_perfect_time_diff(
+        true);
     auto uav_vision_system_config = config.mutable_uav_vision_system_config();
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
     tf::Transform camera_transform = conversions::protoTransformToTf(
@@ -121,6 +123,14 @@ protected:
     data_config.set_stream_id("rpyt_relative_pose_visual_servoing_connector");
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("velocity_based_relative_pose_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("rpyt_reference_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("rpyt_reference_connector");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("thrust_gain_estimator");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("visual_servoing_reference_connector");
     Log::instance().addDataStream(data_config);
   }
 
@@ -407,7 +417,8 @@ TEST_F(VisualServoingTests, CallGoHomeTransitionAction) {
                             dummy_start_state, dummy_target_state);
   auto getUAVStatusRunController = [&]() {
     uav_system->runActiveController(ControllerGroup::UAV);
-    return uav_system->getStatus<RPYTBasedPositionControllerDroneConnector>() ==
+    return uav_system->getStatus<RPYTBasedReferenceConnector<
+               Eigen::VectorXd, Eigen::VectorXd>>() ==
            ControllerStatus::Completed;
   };
   ASSERT_TRUE(test_utils::waitUntilTrue()(getUAVStatusRunController,

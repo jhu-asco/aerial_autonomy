@@ -75,7 +75,7 @@ using PlaceInternalActionFunctor_ =
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
             LogicStateMachineT,
-            RPYBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>, true,
+            RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>, true,
             Reset>>>;
 
 /**
@@ -443,18 +443,18 @@ struct PickControllerStatusCheck_
     ControllerStatus visual_servoing_status =
         robot_system
             .getStatus<UAVVisionSystem::VisualServoingReferenceConnectorT>();
-    ControllerStatus mpc_status = robot_system.getStatus<
+    ControllerStatus lowlevel_status = robot_system.getStatus<
         RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>();
     bool grip_status = robot_system.gripStatus();
     if ((visual_servoing_status == ControllerStatus::Critical ||
-         mpc_status == ControllerStatus::Critical) &&
+         lowlevel_status == ControllerStatus::Critical) &&
         grip_status) {
       robot_system.abortController(ControllerGroup::HighLevel);
       robot_system.abortController(ControllerGroup::UAV);
       VLOG(1)
           << "Controller critical while gripping is true! Aborting Controller!";
     } else if ((visual_servoing_status == ControllerStatus::Critical ||
-                mpc_status == ControllerStatus::Critical ||
+                lowlevel_status == ControllerStatus::Critical ||
                 visual_servoing_status == ControllerStatus::NotEngaged) &&
                !grip_status) {
       robot_system.abortController(ControllerGroup::HighLevel);

@@ -29,6 +29,8 @@ public:
       : drone_hardware(new QuadSimulator), goal_tolerance_position_(0.5) {
     drone_hardware->usePerfectTime();
     drone_hardware->set_delay_send_time(0.02);
+    config.mutable_rpyt_reference_connector_config()->set_use_perfect_time_diff(
+        true);
     auto uav_vision_system_config = config.mutable_uav_vision_system_config();
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
     auto depth_config =
@@ -158,6 +160,14 @@ public:
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("velocity_based_relative_pose_controller");
     Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("rpyt_reference_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("rpyt_reference_connector");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("thrust_gain_estimator");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("visual_servoing_reference_connector");
+    Log::instance().addDataStream(data_config);
   }
 
   ~VisualServoingStateMachineTests() {
@@ -199,8 +209,10 @@ TEST_F(VisualServoingStateMachineTests, VisualServoing) {
   // Check we are in visual servoing state
   ASSERT_STREQ(pstate(*logic_state_machine), "VisualServoing");
   // Check controller status
-  ASSERT_EQ(uav_system->getStatus<MPCControllerQuadConnector>(),
-            ControllerStatus::Active);
+  ASSERT_EQ(
+      (uav_system->getStatus<
+          RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>()),
+      ControllerStatus::Active);
   ASSERT_EQ(
       uav_system
           ->getStatus<UAVVisionSystem::VisualServoingReferenceConnectorT>(),
