@@ -65,7 +65,13 @@ public:
                                             << "yaw"
                                             << "vx"
                                             << "vy"
-                                            << "vz" << DataStream::endl;
+                                            << "vz"
+                                            << "accx"
+                                            << "accy"
+                                            << "accz"
+                                            << "Sensor_roll"
+                                            << "Sensor_pitch"
+                                            << "Sensor_yaw" << DataStream::endl;
   }
 
 protected:
@@ -161,6 +167,7 @@ bool RPYTBasedReferenceConnector<StateT, ControlT>::extractSensorData(
   drone_hardware_.getquaddata(data);
   PositionYaw position_yaw;
   Velocity velocity;
+  double sensor_r = 0, sensor_p = 0, sensor_y = 0;
   if (pose_sensor_) {
     if (pose_sensor_->getSensorStatus() != SensorStatus::VALID) {
       LOG(WARNING) << "Sensor invalid";
@@ -168,6 +175,7 @@ bool RPYTBasedReferenceConnector<StateT, ControlT>::extractSensorData(
     }
     tf::Transform quad_pose = pose_sensor_->getSensorData();
     conversions::tfToPositionYaw(position_yaw, quad_pose);
+    quad_pose.getBasis().getRPY(sensor_r, sensor_p, sensor_y);
     // Get Velocity
     tf::Vector3 sensor_velocity = getVelocity(quad_pose.getOrigin());
     velocity =
@@ -192,7 +200,9 @@ bool RPYTBasedReferenceConnector<StateT, ControlT>::extractSensorData(
   DATA_LOG("rpyt_reference_connector")
       << std::get<1>(sensor_data) << position_yaw.x << position_yaw.y
       << position_yaw.z << data.rpydata.x << data.rpydata.y << position_yaw.yaw
-      << velocity.x << velocity.y << velocity.z << DataStream::endl;
+      << velocity.x << velocity.y << velocity.z << data.linacc.x
+      << data.linacc.y << data.linacc.z << sensor_r << sensor_p << sensor_y
+      << DataStream::endl;
   return true;
 }
 
@@ -204,6 +214,7 @@ tf::Vector3 RPYTBasedReferenceConnector<StateT, ControlT>::getVelocity(
   if (previous_measurement_initialized_) {
     velocity = (current_position - previous_position_) / dt;
   }
+  previous_position_ = current_position;
   previous_measurement_initialized_ = true;
   return velocity;
 }

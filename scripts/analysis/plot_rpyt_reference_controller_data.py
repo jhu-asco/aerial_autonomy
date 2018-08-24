@@ -66,10 +66,15 @@ print("RMS ERRORS: ", rms_errors)
 labels = ['roll', 'pitch']
 rpy = connector_data[labels].values
 rpy_d = ctrlr_data[['Cmd_roll','Cmd_pitch']].values
+if 'Sensor_roll' in connector_data.columns:
+  sensor_rpy_labels = ['Sensor_roll', 'Sensor_pitch', 'Sensor_yaw']
+  sensor_rpy = connector_data[sensor_rpy_labels].values
 for i in range(2):
     plt.figure()
     plt.plot(ts_sub, rpy[iStart:iEnd, i])
     plt.plot(ts_sub, rpy_d[iStart:iEnd, i])
+    if 'Sensor_roll' in connector_data.columns:
+      plt.plot(ts_sub, sensor_rpy[iStart:iEnd, i])
     print("Mean diff ",labels[i],': ', np.mean(rpy[iStart:iEnd, i] - rpy_d[iStart:iEnd, i]))
     print("Std diff: ",labels[i],': ', np.std(rpy[iStart:iEnd, i] - rpy_d[iStart:iEnd, i]))
     plt.xlabel('Time (seconds)')
@@ -78,4 +83,13 @@ plt.figure()
 plt.plot(ts_sub, connector_data['Thrust_gain'][iStart:iEnd])
 plt.xlabel('Time (seconds)')
 plt.ylabel('Thrust gain')
+if 'accx' in connector_data.columns:
+  plt.figure()
+  acc_labels = ['accx', 'accy', 'accz']
+  acc = connector_data[acc_labels].values
+  for i in range(3):
+    plt.subplot(3,1, i+1)
+    plt.plot(ts_sub, acc[iStart:iEnd, i])
+    plt.ylabel(acc_labels[i])
+  plt.xlabel('Time (seconds)')
 plt.show()
