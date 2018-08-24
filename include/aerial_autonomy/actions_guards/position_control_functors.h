@@ -6,7 +6,7 @@
 #include <aerial_autonomy/controller_connectors/position_controller_drone_connector.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
-#include <aerial_autonomy/types/quad_particle_reference_trajectory.h>
+#include <aerial_autonomy/types/polynomial_reference_trajectory.h>
 #include <aerial_autonomy/uav_basic_events.h>
 #include <glog/logging.h>
 #include <parsernode/common.h>
@@ -24,11 +24,12 @@ struct PositionControlTransitionActionFunctor_
   void run(const PositionYaw &goal, UAVSystem &robot_system) {
     tf::StampedTransform start_pose = robot_system.getPose();
     auto &reference_config =
-        this->state_machine_config_.particle_reference_config();
+        this->state_machine_config_.poly_reference_config();
     PositionYaw start_position_yaw;
     conversions::tfToPositionYaw(start_position_yaw, start_pose);
     ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> reference(
-        new QuadParticleTrajectory(goal, start_position_yaw, reference_config));
+        new PolynomialReferenceTrajectory(goal, start_position_yaw,
+                                          reference_config));
     robot_system
         .setGoal<RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
                  ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>(
@@ -80,12 +81,12 @@ struct GoHomeTransitionActionFunctor_
     VLOG(1) << "Going home";
     tf::StampedTransform start_pose = robot_system.getPose();
     auto &reference_config =
-        this->state_machine_config_.particle_reference_config();
+        this->state_machine_config_.poly_reference_config();
     PositionYaw start_position_yaw;
     conversions::tfToPositionYaw(start_position_yaw, start_pose);
     ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> reference(
-        new QuadParticleTrajectory(home_location, start_position_yaw,
-                                   reference_config));
+        new PolynomialReferenceTrajectory(home_location, start_position_yaw,
+                                          reference_config));
     robot_system
         .setGoal<RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
                  ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>(

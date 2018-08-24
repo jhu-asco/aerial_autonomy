@@ -92,7 +92,7 @@ uav_system_config {
     }
   }
   thrust_gain_estimator_config {
-    kt: 0.18
+    kt: 0.16
     buffer_size: 10
   }
 }

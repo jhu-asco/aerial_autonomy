@@ -6,6 +6,7 @@
 #include "aerial_autonomy/controller_connectors/visual_servoing_reference_connector.h"
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
 #include "aerial_autonomy/controllers/quad_particle_reference_controller.h"
+#include "aerial_autonomy/controllers/quad_polynomial_reference_controller.h"
 #include "aerial_autonomy/controllers/rpyt_based_relative_pose_controller.h"
 #include "aerial_autonomy/estimators/tracking_vector_estimator.h"
 #include "aerial_autonomy/robot_systems/uav_system.h"
@@ -61,6 +62,8 @@ public:
             std::chrono::milliseconds(config_.uav_controller_timer_duration())),
         quad_reference_generator_(
             config_.uav_vision_system_config().particle_reference_config()),
+        quad_poly_reference_generator_(
+            config_.uav_vision_system_config().poly_reference_config()),
         visual_servoing_drone_connector_(*tracker_, *drone_hardware_,
                                          constant_heading_depth_controller_,
                                          camera_transform_),
@@ -70,7 +73,7 @@ public:
             conversions::protoTransformToTf(config_.uav_vision_system_config()
                                                 .tracking_offset_transform())),
         visual_servoing_reference_connector_(
-            *tracker_, *drone_hardware_, quad_reference_generator_,
+            *tracker_, *drone_hardware_, quad_poly_reference_generator_,
             rpyt_based_reference_connector_, camera_transform_,
             conversions::protoTransformToTf(
                 config_.uav_vision_system_config().tracking_offset_transform()),
@@ -223,6 +226,11 @@ private:
    * end
    */
   QuadParticleReferenceController quad_reference_generator_;
+  /**
+   * @brief generates polynomial reference trajectory for quad from start to
+   * end
+   */
+  QuadPolynomialReferenceController quad_poly_reference_generator_;
   /**
   * @brief Connector for the constant heading depth controller to
   * UAV

@@ -7,7 +7,7 @@
  * @brief Reference trajectory for MPC quadrotor system
  */
 class PolynomialReferenceTrajectory
-    : ReferenceTrajectory<Eigen::VectorXd, Eigen::VectorXd> {
+    : public ReferenceTrajectory<Eigen::VectorXd, Eigen::VectorXd> {
 public:
   /**
    * @brief Constructor

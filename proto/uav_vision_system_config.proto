@@ -6,6 +6,7 @@ import "uav_arm_system_config.proto";
 import "transform.proto";
 import "tracking_vector_estimator_config.proto";
 import "particle_reference_config.proto";
+import "polynomial_reference_config.proto";
 
 message UAVVisionSystemConfig {
   required ConstantHeadingDepthControllerConfig
@@ -58,4 +59,8 @@ message UAVVisionSystemConfig {
   * @brief Filter on visual servoing tracking position yaw
   */
   optional double gain_visual_servoing_tracking_pose = 12 [ default = 0.1 ];
+  /**
+  * @brief polynomial reference config
+  */
+  optional PolynomialReferenceConfig poly_reference_config = 13;
 }

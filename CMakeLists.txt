@@ -302,6 +302,7 @@ set(SRC
   src/controllers/ddp_casadi_mpc_controller.cpp
   src/controllers/ddp_quad_mpc_controller.cpp
   src/controllers/quad_particle_reference_controller.cpp
+  src/controllers/quad_polynomial_reference_controller.cpp
   src/controllers/rpyt_based_reference_controller.cpp
   src/estimators/thrust_gain_estimator.cpp
   src/estimators/tracking_vector_estimator.cpp
