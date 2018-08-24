@@ -176,6 +176,7 @@ protected:
       VLOG_EVERY_N(1, 100) << "Reached goal";
       status.setStatus(ControllerStatus::Completed, "Reached goal");
     }
+    status<<"Errors: "<<error_position_yaw.x<<error_position_yaw.y<<error_position_yaw.z<<error_position_yaw.yaw;
     return status;
   }
 

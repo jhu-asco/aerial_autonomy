@@ -60,6 +60,8 @@ public:
                                             << "x"
                                             << "y"
                                             << "z"
+                                            << "roll"
+                                            << "pitch"
                                             << "yaw"
                                             << "vx"
                                             << "vy"
@@ -189,8 +191,8 @@ bool RPYTBasedReferenceConnector<StateT, ControlT>::extractSensorData(
                                        data.linacc.z);
   DATA_LOG("rpyt_reference_connector")
       << std::get<1>(sensor_data) << position_yaw.x << position_yaw.y
-      << position_yaw.z << position_yaw.yaw << velocity.x << velocity.y
-      << velocity.z << DataStream::endl;
+      << position_yaw.z << data.rpydata.x << data.rpydata.y << position_yaw.yaw
+      << velocity.x << velocity.y << velocity.z << DataStream::endl;
   return true;
 }
 
