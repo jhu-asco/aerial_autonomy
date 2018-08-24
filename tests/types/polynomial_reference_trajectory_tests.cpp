@@ -89,6 +89,27 @@ TEST(PolynomialReferenceTrajectory, CheckTrajectory) {
   ASSERT_NEAR(end.second[3], 0.0, 1e-7);
 }
 
+TEST(PolynomialReferenceTrajectory, PrintTrajectory) {
+  PolynomialReferenceConfig config;
+  config.set_tf(5);
+  PositionYaw start_position_yaw(0, 0, 0, -2);
+  PositionYaw goal_position_yaw(1, 2, 3, 1.5);
+  PolynomialReferenceTrajectory reference(goal_position_yaw, start_position_yaw,
+                                          config);
+  std::ofstream ofile("/tmp/poly_data.csv");
+  ofile << "#Time,x,y,z,roll,pitch,yaw,vx,vy,vz" << std::endl;
+  for (int i = 0; i < 500; ++i) {
+    double t = i * 0.02;
+    auto state_control_pair = reference.atTime(t);
+    Eigen::VectorXd &state = state_control_pair.first;
+    ofile << t;
+    for (int i = 0; i < 9; ++i) {
+      ofile << "," << state[i];
+    }
+    ofile << std::endl;
+  }
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
