@@ -27,8 +27,8 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
                                           << "ja1" << "ja2"
                                           << "jv1" << "jv2"
                                           << "jad1" << "jad2"
-                                          << "bias_r" << "bias_p"
-                                          << "kt" << DataStream::endl;
+                                          << "kt" << "bias_r" << "bias_p"
+                                          << DataStream::endl;
   // clang-format on
 }
 
@@ -87,8 +87,9 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
   // Fill Quad stuff
   bool result = fillQuadStateAndParameters(current_state, params, dt);
   if (result) {
-    DATA_LOG("airm_mpc_state_estimator") << current_state << params[0]
-                                         << clamped_bias_ << DataStream::endl;
+    DATA_LOG("airm_mpc_state_estimator")
+        << current_state << params[0]
+        << thrust_gain_estimator_.getRollPitchBias() << DataStream::endl;
   }
   return result;
 }

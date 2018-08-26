@@ -131,8 +131,6 @@ protected:
   std::queue<Eigen::Vector3d> rpy_command_buffer_;     ///< Rpy command buffer
   ExponentialFilter<Eigen::Vector3d> rpydot_filter_;   ///< Filter
   ExponentialFilter<Eigen::Vector3d> velocity_filter_; ///< Filter
-  ExponentialFilter<Eigen::Vector2d> rp_bias_filter_;  ///< Filter
-  Eigen::Vector2d clamped_bias_;                       ///< Clamped bias vector
   int delay_buffer_size_; ///< Size of rpy command buffer
   AbstractMPCController<StateType, ControlType>
       &private_controller_; ///< Private ref

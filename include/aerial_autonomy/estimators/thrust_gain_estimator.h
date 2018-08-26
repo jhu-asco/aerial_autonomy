@@ -1,21 +1,25 @@
 #pragma once
 #include "thrust_gain_estimator_config.pb.h"
+#include <Eigen/Dense>
 #include <queue>
+#include <tf/tf.h>
 
 /**
- * @brief Estimates the thrust gain given body acceleration, roll, pitch and
+ * @brief Estimates the thrust gain, rp bias given body acceleration, roll,
+ * pitch and
  * commanded thrust
  */
 class ThrustGainEstimator {
 public:
   /**
-   * @brief Estimates thrust gain given current roll, pitch, body z acceleration
+   * @brief Estimates thrust gain, bias given current roll, pitch, body xyz
+   * accelerations
    * and thrust commands
    *
    * Usage:
    *      ThrustGainEstimator thrust_gain_estimator();
    *      thrust_gain_estimator.addSensorData(current_roll, current_pitch,
-   * current_body_z_acc);
+   * current_body_acc);
    *      thrust_gain_estimator.addThrustCommand();
    *      double updated_gain = thrust_gain_estimator.getThrustGain();
    *
@@ -26,16 +30,17 @@ public:
       ThrustGainEstimatorConfig config = ThrustGainEstimatorConfig())
       : ThrustGainEstimator(config.kt(), config.mixing_gain(),
                             config.buffer_size(), config.kt_max(),
-                            config.kt_min()) {}
+                            config.kt_min(), config.max_roll_pitch_bias()) {}
 
   /**
-   * @brief Estimates thrust gain given current roll, pitch, body z acceleration
+   * @brief Estimates thrust gain,bias given current roll, pitch, body z
+   * acceleration
    * and thrust commands
    *
    * Usage:
    *      ThrustGainEstimator thrust_gain_estimator(0.16);
    *      thrust_gain_estimator.addSensorData(current_roll, current_pitch,
-   * current_body_z_acc);
+   * current_body_acc);
    *      thrust_gain_estimator.addThrustCommand();
    *      double updated_gain = thrust_gain_estimator.getThrustGain();
    *
@@ -55,19 +60,21 @@ public:
   ThrustGainEstimator(double thrust_gain_initial, double mixing_gain = 0.1,
                       unsigned int buffer_size = 1,
                       double max_thrust_gain = 0.25,
-                      double min_thrust_gain = 0.1);
+                      double min_thrust_gain = 0.1,
+                      double max_roll_pitch_bias = 0.05);
   /**
    * @brief reset internal thrust gain to a specified value
    * This is to reset the estimator in case of failue in learning. If the
    * specified
-   * thrust gain is less than zero, will throw an error.
+   * thrust gain is less than zero, will throw an error. Also set
+   * rp bias to 0
    *
    * @param thrust_gain gain to reset to.
    */
-  void resetThrustGain(double thrust_gain);
+  void reset(double thrust_gain);
   /**
    * @brief process sensor data with the last available thrust command and
-   * update internal thrust gain
+   * update internal thrust gain, bias
    * Will only process sensor data if the thrust command queue is full.
    * Otherwise waits for enough
    * thrust commands to be filled up.
@@ -79,10 +86,10 @@ public:
    *
    * @param roll current roll in radians under Euler ZYX convention
    * @param pitch current pitch in radians under Euler ZYX convention
-   * @param body_z_acc Current body z acceleration in meters per second square
+   * @param body_acc Current body acceleration in meters per second square
    * (accelerometer reading)
    */
-  void addSensorData(double roll, double pitch, double body_z_acc);
+  void addSensorData(double roll, double pitch, tf::Vector3 body_acc);
   /**
    * @brief add thrust command to queue.
    * If queue is full, the command in front is discarded to mantain buffer size
@@ -95,18 +102,26 @@ public:
    * @return  current thrust gain
    */
   double getThrustGain();
+
+  /**
+   * @brief Get roll pitch bias. RPBias + roll_pitch_imu = true_rp
+   *
+   * @return current roll and pitch bias
+   */
+  Eigen::Vector2d getRollPitchBias();
   /**
    * @brief process sensor data and thrust command to return estimated gain
    *
    * @param roll current roll in radians under Euler ZYX convention
    * @param pitch current pitch in radians under Euler ZYX convention
-   * @param body_z_acc Current body z acceleration in meters per second square
+   * @param body_acc Current body acceleration in meters per second square
    * (accelerometer reading)
    * @param thrust_command Commanded thrust in its own units
-   * @return estimated thrust gain
+   * @return estimated thrust gain and roll pitch bias
    */
-  double processSensorThrustPair(double roll, double pitch, double body_z_acc,
-                                 double thrust_command);
+  std::pair<double, Eigen::Vector2d>
+  processSensorThrustPair(double roll, double pitch, tf::Vector3 body_acc,
+                          double thrust_command);
   /**
    * @brief getQueueSize
    * @return he internal thrust command queue size
@@ -130,6 +145,11 @@ private:
    * frame
    */
   double thrust_gain_;
+  /**
+   * @brief Roll bias + roll from imu = true roll i.e ensures body acc is along
+   * z axis
+   */
+  Eigen::Vector2d roll_pitch_bias_;
   /**
    * @brief Filtering gain used for filtering thrust gain. Should be between 0
    * and 1
@@ -156,4 +176,8 @@ private:
    * @brief Clip min thrust gain to this value
    */
   const double min_thrust_gain_;
+  /**
+   * @brief Max rp bias allowed
+   */
+  const double max_roll_pitch_bias_;
 };

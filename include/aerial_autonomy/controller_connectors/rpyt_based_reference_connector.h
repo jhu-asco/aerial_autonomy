@@ -66,9 +66,8 @@ public:
                                             << "vx"
                                             << "vy"
                                             << "vz"
-                                            << "accx"
-                                            << "accy"
-                                            << "accz"
+                                            << "roll_bias"
+                                            << "pitch_bias"
                                             << "Sensor_roll"
                                             << "Sensor_pitch"
                                             << "Sensor_yaw" << DataStream::endl;
@@ -195,14 +194,15 @@ bool RPYTBasedReferenceConnector<StateT, ControlT>::extractSensorData(
   sensor_data =
       std::make_tuple(time_since_init_, thrust_gain_estimator_.getThrustGain(),
                       velocity, position_yaw);
+  tf::Vector3 body_acc(data.linacc.x, data.linacc.y, data.linacc.z);
   thrust_gain_estimator_.addSensorData(data.rpydata.x, data.rpydata.y,
-                                       data.linacc.z);
+                                       body_acc);
+  Eigen::Vector2d roll_pitch_bias = thrust_gain_estimator_.getRollPitchBias();
   DATA_LOG("rpyt_reference_connector")
       << std::get<1>(sensor_data) << position_yaw.x << position_yaw.y
       << position_yaw.z << data.rpydata.x << data.rpydata.y << position_yaw.yaw
-      << velocity.x << velocity.y << velocity.z << data.linacc.x
-      << data.linacc.y << data.linacc.z << sensor_r << sensor_p << sensor_y
-      << DataStream::endl;
+      << velocity.x << velocity.y << velocity.z << roll_pitch_bias << sensor_r
+      << sensor_p << sensor_y << DataStream::endl;
   return true;
 }
 
@@ -241,6 +241,10 @@ template <class StateT, class ControlT>
 void RPYTBasedReferenceConnector<StateT, ControlT>::sendControllerCommands(
     RollPitchYawRateThrust controls) {
   geometry_msgs::Quaternion rpyt_msg;
+  // Eigen::Vector2d roll_pitch_bias =
+  // thrust_gain_estimator_.getRollPitchBias();
+  // rpyt_msg.x = controls.r - roll_pitch_bias[0];
+  // rpyt_msg.y = controls.p - roll_pitch_bias[1];
   rpyt_msg.x = controls.r;
   rpyt_msg.y = controls.p;
   rpyt_msg.z = controls.y;

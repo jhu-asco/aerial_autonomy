@@ -17,12 +17,8 @@ BaseMPCControllerQuadConnector::BaseMPCControllerQuadConnector(
       previous_measurements_initialized_(false), previous_measurements_(3),
       rpydot_filter_(config.rpydot_gain()),
       velocity_filter_(config.velocity_exp_gain()),
-      rp_bias_filter_(config.rp_bias_gain()),
-      clamped_bias_(Eigen::Vector2d::Zero()),
       delay_buffer_size_(delay_buffer_size), private_controller_(controller),
       config_(config) {
-  // Set rp bias to 0 in the beginning
-  rp_bias_filter_.setFilterData(Eigen::Vector2d::Zero());
   clearCommandBuffers();
 }
 
@@ -41,8 +37,9 @@ void BaseMPCControllerQuadConnector::clearCommandBuffers() {
 void BaseMPCControllerQuadConnector::sendControllerCommands(
     ControlType control) {
   geometry_msgs::Quaternion rpyt_msg;
-  rpyt_msg.x = control(1) - clamped_bias_[0];
-  rpyt_msg.y = control(2) - clamped_bias_[1];
+  Eigen::Vector2d roll_pitch_bias = thrust_gain_estimator_.getRollPitchBias();
+  rpyt_msg.x = control(1) - roll_pitch_bias[0];
+  rpyt_msg.y = control(2) - roll_pitch_bias[1];
   rpyt_msg.z = control(3);
   rpyt_msg.w = math::clamp(control(0), config_.min_thrust_command(),
                            config_.max_thrust_command());
@@ -129,19 +126,13 @@ bool BaseMPCControllerQuadConnector::fillQuadStateAndParameters(
   current_state.segment<3>(6) = filtered_velocity;
   current_state.segment<3>(9) = filtered_rpydot;
   current_state.segment<3>(12) = rpy_command_buffer_.front();
-  // Update bias:
-  Eigen::Vector2d delta_rpy = rpy.head<2>() - current_state.segment<2>(12);
-  Eigen::Vector2d bias = rp_bias_filter_.addAndFilter(delta_rpy);
-  // Clamp bias
-  clamped_bias_[0] =
-      math::clamp(bias[0], -config_.max_bias(), config_.max_bias());
-  clamped_bias_[1] =
-      math::clamp(bias[1], -config_.max_bias(), config_.max_bias());
   // Fill previous measurements and time
   previous_measurements_ = current_state.segment<3>(0);
   // Estimate thrust gain parameter
+  tf::Vector3 body_acc(quad_data.linacc.x, quad_data.linacc.y,
+                       quad_data.linacc.z);
   thrust_gain_estimator_.addSensorData(quad_data.rpydata.x, quad_data.rpydata.y,
-                                       quad_data.linacc.z);
+                                       body_acc);
   params.resize(1);
   params << thrust_gain_estimator_.getThrustGain();
   return true;

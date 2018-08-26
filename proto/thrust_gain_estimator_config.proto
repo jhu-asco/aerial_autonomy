@@ -31,4 +31,8 @@ message ThrustGainEstimatorConfig {
   * @brief Minimum thrust gain
   */
   optional double kt_min = 5 [ default = 0.1 ];
+  /**
+  * @brief Maximum roll and pitch bias
+  */
+  optional double max_roll_pitch_bias = 6 [ default = 0.05 ];
 }

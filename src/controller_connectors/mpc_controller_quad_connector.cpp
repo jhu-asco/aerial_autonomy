@@ -34,8 +34,9 @@ bool MPCControllerQuadConnector::estimateStateAndParameters(
   current_state.resize(state_size_);
   bool result = fillQuadStateAndParameters(current_state, params, dt);
   if (result) {
-    DATA_LOG("quad_mpc_state_estimator") << current_state << params[0]
-                                         << clamped_bias_ << DataStream::endl;
+    DATA_LOG("quad_mpc_state_estimator")
+        << current_state << params[0]
+        << thrust_gain_estimator_.getRollPitchBias() << DataStream::endl;
   }
   return result;
 }
