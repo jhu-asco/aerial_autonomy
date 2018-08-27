@@ -79,7 +79,7 @@ public:
                 config_.uav_vision_system_config().tracking_offset_transform()),
             config_.uav_vision_system_config()
                 .gain_visual_servoing_tracking_pose(),
-            pose_sensor_) {
+            odom_sensor_) {
     controller_connector_container_.setObject(visual_servoing_drone_connector_);
     controller_connector_container_.setObject(
         relative_pose_visual_servoing_drone_connector_);

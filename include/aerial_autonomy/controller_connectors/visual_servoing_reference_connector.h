@@ -49,26 +49,27 @@ public:
       tf::Transform camera_transform,
       tf::Transform tracking_offset_transform = tf::Transform::getIdentity(),
       double filter_gain_tracking_pose = 0.1,
-      SensorPtr<tf::StampedTransform> pose_sensor = nullptr)
+      SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor =
+          nullptr)
       : BaseClass(controller, ControllerGroup::HighLevel),
         BaseRelativePoseVisualServoingConnector(tracker, drone_hardware,
                                                 camera_transform,
                                                 tracking_offset_transform),
         dependent_connector_(dependent_connector),
-        start_position_yaw_(0, 0, 0, 0), pose_sensor_(pose_sensor),
+        start_position_yaw_(0, 0, 0, 0), odom_sensor_(odom_sensor),
         tracking_pose_filter_(filter_gain_tracking_pose) {
     logTrackerHeader("visual_servoing_reference_connector");
   }
 
   void initialize() {
     VLOG(1) << "initializing visual servoing reference";
-    if (pose_sensor_) {
-      if (pose_sensor_->getSensorStatus() != SensorStatus::VALID) {
+    if (odom_sensor_) {
+      if (odom_sensor_->getSensorStatus() != SensorStatus::VALID) {
         LOG(WARNING)
             << "Pose sensor invalid! Cannot initialize visual servoing";
         return;
       }
-      tf::StampedTransform pose = pose_sensor_->getSensorData();
+      tf::StampedTransform pose = odom_sensor_->getSensorData().first;
       conversions::tfToPositionYaw(start_position_yaw_, pose);
       VLOG(2) << "Position yaw: " << start_position_yaw_.x << ", "
               << start_position_yaw_.y << ", " << start_position_yaw_.z << ", "
@@ -125,12 +126,12 @@ protected:
       return false;
     }
     tf::Transform quad_pose;
-    if (pose_sensor_) {
-      if (pose_sensor_->getSensorStatus() != SensorStatus::VALID) {
+    if (odom_sensor_) {
+      if (odom_sensor_->getSensorStatus() != SensorStatus::VALID) {
         LOG(WARNING) << "Pose sensor invalid!";
         return false;
       }
-      quad_pose = pose_sensor_->getSensorData();
+      quad_pose = odom_sensor_->getSensorData().first;
     } else {
       quad_pose = conversions::getPose(quad_data);
     }
@@ -161,9 +162,10 @@ protected:
   }
 
 private:
-  DependentConnectorT &dependent_connector_;    ///< Dependent MPC Connector
-  PositionYaw start_position_yaw_;              ///< Start position yaw
-  SensorPtr<tf::StampedTransform> pose_sensor_; ///< Pose sensor for quad data
+  DependentConnectorT &dependent_connector_; ///< Dependent MPC Connector
+  PositionYaw start_position_yaw_;           ///< Start position yaw
+  SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>>
+      odom_sensor_; ///< Pose sensor for quad data
   ExponentialFilter<PositionYaw>
       tracking_pose_filter_; ///< Filter tracking pose
 

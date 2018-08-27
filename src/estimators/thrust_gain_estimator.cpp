@@ -7,15 +7,19 @@
 
 ThrustGainEstimator::ThrustGainEstimator(
     double thrust_gain_initial, double mixing_gain, unsigned int buffer_size,
-    double max_thrust_gain, double min_thrust_gain, double max_roll_pitch_bias)
+    double max_thrust_gain, double min_thrust_gain, double max_roll_pitch_bias,
+    double rp_mixing_gain)
     : thrust_gain_(thrust_gain_initial), roll_pitch_bias_(0, 0),
-      mixing_gain_(mixing_gain), delay_buffer_size_(buffer_size),
-      gravity_magnitude_(9.81), thrust_command_tolerance_(1e-2),
-      max_thrust_gain_(max_thrust_gain), min_thrust_gain_(min_thrust_gain),
+      mixing_gain_(mixing_gain), rp_mixing_gain_(rp_mixing_gain),
+      delay_buffer_size_(buffer_size), gravity_magnitude_(9.81),
+      thrust_command_tolerance_(1e-2), max_thrust_gain_(max_thrust_gain),
+      min_thrust_gain_(min_thrust_gain),
       max_roll_pitch_bias_(max_roll_pitch_bias) {
   CHECK_GE(delay_buffer_size_, 1) << "Buffer size should be atleast 1";
   CHECK_GT(mixing_gain_, 0) << "Mixing gain should be between 0 and 1";
   CHECK_LT(mixing_gain_, 1) << "Mixing gain should be between 0 and 1";
+  CHECK_GT(rp_mixing_gain_, 0) << "Mixing gain should be between 0 and 1";
+  CHECK_LT(rp_mixing_gain_, 1) << "Mixing gain should be between 0 and 1";
   CHECK_GE(thrust_gain_initial, min_thrust_gain_)
       << "Thrust gain should be greater than or equal to minimum: "
       << min_thrust_gain_;
@@ -74,8 +78,8 @@ void ThrustGainEstimator::addSensorData(double roll, double pitch,
     thrust_gain_ =
         math::clamp(thrust_gain_, min_thrust_gain_, max_thrust_gain_);
     Eigen::Vector2d &roll_pitch_bias_estimated = gain_bias_pair.second;
-    roll_pitch_bias_ = mixing_gain_ * roll_pitch_bias_estimated +
-                       (1 - mixing_gain_) * roll_pitch_bias_;
+    roll_pitch_bias_ = rp_mixing_gain_ * roll_pitch_bias_estimated +
+                       (1 - rp_mixing_gain_) * roll_pitch_bias_;
     roll_pitch_bias_[0] = math::clamp(
         roll_pitch_bias_[0], -max_roll_pitch_bias_, max_roll_pitch_bias_);
     roll_pitch_bias_[1] = math::clamp(

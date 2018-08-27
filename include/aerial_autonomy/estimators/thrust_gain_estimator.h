@@ -30,7 +30,8 @@ public:
       ThrustGainEstimatorConfig config = ThrustGainEstimatorConfig())
       : ThrustGainEstimator(config.kt(), config.mixing_gain(),
                             config.buffer_size(), config.kt_max(),
-                            config.kt_min(), config.max_roll_pitch_bias()) {}
+                            config.kt_min(), config.max_roll_pitch_bias(),
+                            config.rp_mixing_gain()) {}
 
   /**
    * @brief Estimates thrust gain,bias given current roll, pitch, body z
@@ -61,7 +62,8 @@ public:
                       unsigned int buffer_size = 1,
                       double max_thrust_gain = 0.25,
                       double min_thrust_gain = 0.1,
-                      double max_roll_pitch_bias = 0.05);
+                      double max_roll_pitch_bias = 0.05,
+                      double rp_mixing_gain = 0.1);
   /**
    * @brief reset internal thrust gain to a specified value
    * This is to reset the estimator in case of failue in learning. If the
@@ -155,6 +157,10 @@ private:
    * and 1
    */
   double mixing_gain_;
+  /**
+   * @brief Filter gain for rp bias estimation
+   */
+  double rp_mixing_gain_;
   /**
    * @brief Assuming quad command is at 50 Hz, the buffer size is delay between
    * when command is sent and sensor measurements are received

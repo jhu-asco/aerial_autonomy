@@ -3,7 +3,6 @@
 #include "aerial_autonomy/controller_connectors/base_controller_connector.h"
 #include "aerial_autonomy/controllers/rpyt_based_reference_controller.h"
 #include "aerial_autonomy/estimators/thrust_gain_estimator.h"
-#include "aerial_autonomy/filters/exponential_filter.h"
 #include "aerial_autonomy/sensors/base_sensor.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/roll_pitch_yawrate_thrust.h"
@@ -44,18 +43,14 @@ public:
       AbstractRPYTBasedReferenceController<StateT, ControlT> &controller,
       ThrustGainEstimator &thrust_gain_estimator,
       RPYTReferenceConnectorConfig config,
-      SensorPtr<tf::StampedTransform> pose_sensor = nullptr)
+      SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor =
+          nullptr)
       : BaseClass(controller, ControllerGroup::UAV),
-        drone_hardware_(drone_hardware), pose_sensor_(pose_sensor),
+        drone_hardware_(drone_hardware), odom_sensor_(odom_sensor),
         thrust_gain_estimator_(thrust_gain_estimator),
-        t_init_(std::chrono::high_resolution_clock::now()),
-        previous_measurement_time_(std::chrono::high_resolution_clock::now()),
-        time_since_init_(0),
+        t_init_(std::chrono::high_resolution_clock::now()), time_since_init_(0),
         use_perfect_time_diff_(config.use_perfect_time_diff()),
-        perfect_time_diff_(config.perfect_time_diff()),
-        previous_measurement_initialized_(false),
-        previous_position_(tf::Vector3(0, 0, 0)),
-        velocity_filter_(config.velocity_exp_gain()) {
+        perfect_time_diff_(config.perfect_time_diff()) {
     DATA_HEADER("rpyt_reference_connector") << "Thrust_gain"
                                             << "x"
                                             << "y"
@@ -98,19 +93,6 @@ protected:
    */
   void initialize();
 
-  /**
-   * @brief Get time difference
-   *
-   * @return time difference
-   */
-  double getTimeDiff();
-  /**
-   * @brief Get velocity
-   *
-   * @return get velocity by finite diff
-   */
-  tf::Vector3 getVelocity(tf::Vector3 current_position);
-
 private:
   /**
   * @brief Quad hardware to send commands
@@ -119,7 +101,7 @@ private:
   /**
    * @brief Pose sensor for quad data
    */
-  SensorPtr<tf::StampedTransform> pose_sensor_;
+  SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor_;
   /**
    * @brief Estimator for finding the gain between joystick thrust command and
    * the acceleration in body z direction
@@ -129,10 +111,6 @@ private:
    * @brief Time when connector is initialized
    */
   std::chrono::high_resolution_clock::time_point t_init_;
-  /**
-   * @brief Previous measurment time
-   */
-  std::chrono::high_resolution_clock::time_point previous_measurement_time_;
   /**
    * @brief Time since initialization
    */
@@ -145,18 +123,6 @@ private:
    * @brief Perfect time diff to use for finite diff
    */
   const double perfect_time_diff_;
-  /**
-   * @brief Previous measurement initialized flag
-   */
-  bool previous_measurement_initialized_;
-  /**
-   * @brief Previous position measurement
-   */
-  tf::Vector3 previous_position_;
-  /**
-   * @brief Filter for velocity
-   */
-  ExponentialFilter<Eigen::Vector3d> velocity_filter_;
 };
 
 template <class StateT, class ControlT>
@@ -167,16 +133,17 @@ bool RPYTBasedReferenceConnector<StateT, ControlT>::extractSensorData(
   PositionYaw position_yaw;
   Velocity velocity;
   double sensor_r = 0, sensor_p = 0, sensor_y = 0;
-  if (pose_sensor_) {
-    if (pose_sensor_->getSensorStatus() != SensorStatus::VALID) {
+  if (odom_sensor_) {
+    if (odom_sensor_->getSensorStatus() != SensorStatus::VALID) {
       LOG(WARNING) << "Sensor invalid";
       return false;
     }
-    tf::Transform quad_pose = pose_sensor_->getSensorData();
-    conversions::tfToPositionYaw(position_yaw, quad_pose);
-    quad_pose.getBasis().getRPY(sensor_r, sensor_p, sensor_y);
+    auto quad_pose_velocity_pair = odom_sensor_->getSensorData();
+    conversions::tfToPositionYaw(position_yaw, quad_pose_velocity_pair.first);
+    quad_pose_velocity_pair.first.getBasis().getRPY(sensor_r, sensor_p,
+                                                    sensor_y);
     // Get Velocity
-    tf::Vector3 sensor_velocity = getVelocity(quad_pose.getOrigin());
+    tf::Vector3 &sensor_velocity = quad_pose_velocity_pair.second;
     velocity =
         Velocity(sensor_velocity.x(), sensor_velocity.y(), sensor_velocity.z());
   } else {
@@ -207,37 +174,6 @@ bool RPYTBasedReferenceConnector<StateT, ControlT>::extractSensorData(
 }
 
 template <class StateT, class ControlT>
-tf::Vector3 RPYTBasedReferenceConnector<StateT, ControlT>::getVelocity(
-    tf::Vector3 current_position) {
-  double dt = getTimeDiff();
-  tf::Vector3 velocity(0, 0, 0);
-  if (previous_measurement_initialized_) {
-    velocity = (current_position - previous_position_) / dt;
-  }
-  previous_position_ = current_position;
-  previous_measurement_initialized_ = true;
-  return velocity;
-}
-
-template <class StateT, class ControlT>
-double RPYTBasedReferenceConnector<StateT, ControlT>::getTimeDiff() {
-  // Timing logic
-  auto current_time = std::chrono::high_resolution_clock::now();
-  double dt =
-      std::chrono::duration<double>(current_time - previous_measurement_time_)
-          .count();
-  if (use_perfect_time_diff_) {
-    dt = perfect_time_diff_;
-  }
-  previous_measurement_time_ = current_time;
-  if (dt < 1e-4) {
-    LOG(WARNING) << "Time diff cannot be smaller than 1e-4";
-    dt = 1e-4;
-  }
-  return dt;
-}
-
-template <class StateT, class ControlT>
 void RPYTBasedReferenceConnector<StateT, ControlT>::sendControllerCommands(
     RollPitchYawRateThrust controls) {
   geometry_msgs::Quaternion rpyt_msg;
@@ -257,8 +193,6 @@ template <class StateT, class ControlT>
 void RPYTBasedReferenceConnector<StateT, ControlT>::initialize() {
   t_init_ = std::chrono::high_resolution_clock::now();
   time_since_init_ = 0.0;
-  velocity_filter_.reset();
-  previous_measurement_initialized_ = false;
   VLOG(1) << "Clearing thrust estimator buffer";
   thrust_gain_estimator_.clearBuffer();
 }

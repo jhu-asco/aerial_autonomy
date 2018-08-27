@@ -12,6 +12,8 @@ import "joystick_velocity_controller_config.proto";
 
 import "thrust_gain_estimator_config.proto";
 
+import "odom_from_pose_sensor_config.proto";
+
 import "ros_sensor_config.proto";
 
 import "quad_mpc_controller_config.proto";
@@ -99,7 +101,7 @@ message UAVSystemConfig {
   /**
   * @brief Velocity sensor config
   */
-  optional ROSSensorConfig pose_sensor_config = 17;
+  optional OdomSensorConfig odom_sensor_config = 17;
   /**
   * @brief MPC Config for quadrotor
   */

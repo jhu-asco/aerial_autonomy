@@ -10,4 +10,8 @@ message ROSSensorConfig {
   * Topic to subscribe for sensor data
   */
   optional string topic = 3;
+  /**
+  * @brief Namespace for ros nodehandle
+  */
+  optional string name_space = 4 [ default = "" ];
 }

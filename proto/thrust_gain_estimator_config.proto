@@ -35,4 +35,8 @@ message ThrustGainEstimatorConfig {
   * @brief Maximum roll and pitch bias
   */
   optional double max_roll_pitch_bias = 6 [ default = 0.05 ];
+  /**
+  * @brief gain for rp bias estimation
+  */
+  optional double rp_mixing_gain = 7 [ default = 0.1 ];
 }

@@ -238,6 +238,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/mpc_connector_config.proto
   proto/rpyt_reference_connector_config.proto
   proto/polynomial_reference_config.proto
+  proto/odom_from_pose_sensor_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -321,6 +322,7 @@ set(SRC
   src/controller_connectors/base_mpc_controller_quad_connector.cpp
   src/controller_connectors/mpc_controller_quad_connector.cpp
   src/sensors/pose_sensor.cpp
+  src/sensors/odometry_from_pose_sensor.cpp
 )
 
 if (casadi_FOUND)
