@@ -70,11 +70,18 @@ ctrlr_data = pd.read_csv(os.path.join(args.folder, 'rpyt_reference_controller'))
 ts_ctrlr= (ctrlr_data['#Time'] - connector_data['#Time'][0])/1e9
 iStart = np.argmin(np.abs(ts - args.tStart))
 iEnd = np.argmin(np.abs(ts - args.tEnd))
-
 # Get acc from mocap
 vel_xyz = connector_data[['vx','vy','vz']].values
 yaw = connector_data['Sensor_yaw'].values
-body_acc_imu = connector_data[['accx', 'accy', 'accz']].values
+if 'accx' in connector_data.columns:
+    body_acc_imu = connector_data[['accx', 'accy', 'accz']].values
+else:
+    estimator_data = pd.read_csv(os.path.join(args.folder, 'thrust_gain_estimator'))
+    ts_estimator= (estimator_data['#Time'] - connector_data['#Time'][0])/1e9
+    body_acc_imu = np.empty((ts.size, 3))
+    body_acc_imu_original = estimator_data[['body_x_acc', 'body_y_acc', 'body_z_acc']].values
+    for i in range(3):
+        body_acc_imu[:,i] = np.interp(ts, ts_estimator, body_acc_imu_original[:,i])
 rp_imu = connector_data[['roll','pitch']].values
 global_acc = getAcceleration(ts[iStart:iEnd], vel_xyz[iStart:iEnd, :])
 rotated_acc = transformGlobalAcc(yaw[iStart:(iEnd-1)], global_acc)
