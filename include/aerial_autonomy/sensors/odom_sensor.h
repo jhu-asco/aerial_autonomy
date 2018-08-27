@@ -57,12 +57,14 @@ public:
     // Map the velocity and transform with only the rotation of the local
     // transform.
     tf::Transform rotation_only_transform(local_transform_.getRotation());
+    tf::Vector3 tranform_translate(local_transform_.getOrigin());
     tf::Vector3 velocity(msg->twist.twist.linear.x, msg->twist.twist.linear.y,
                          msg->twist.twist.linear.z);
     tf::Vector3 rate(msg->twist.twist.angular.x, msg->twist.twist.angular.y,
                      msg->twist.twist.angular.z);
-    velocity = velocity * rotation_only_transform;
-    rate = velocity * rotation_only_transform;
+    velocity = velocity + rate.cross(transform_translate);
+    velocity = rotation_only_transform * velocity;
+    rate = rotation_only_transform * rate;
     VelocityYawRate vyr(velocity.getX(), velocity.getY(), velocity.getZ(),
                         rate.getZ());
     // Map the position yaw and transform with the local transform.

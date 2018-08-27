@@ -37,11 +37,21 @@ public:
   * @brief give sensor data, transformed by the local transform.
   */
   Velocity getTransformedSensorData() {
-    Velocity raw_data = getSensorData();
-    tf::Vector3 vector_data(raw_data.x, raw_data.y, raw_data.z);
+    nav_msgs::Odometry msg = sensor_.getSensorData();
+    tf::Vector3 linear_velocity_data(msg.twist.twist.linear.x,
+                                     msg.twist.twist.linear.y,
+                                     msg.twist.twist.linear.z);
+    tf::Vector3 angular_velocity_data(msg.twist.twist.angular.x,
+                                      msg.twist.twist.angular.y,
+                                      msg.twist.twist.angular.z);
     tf::Transform rotation_only_transform(local_transform_.getRotation());
-    vector_data = rotation_only_transform * vector_data;
-    return Velocity(vector_data.getX(), vector_data.getY(), vector_data.getZ());
+    tf::Vector3 transform_translation(local_transform_.getOrigin());
+    tf::Vector3 transformed_velocity =
+        angular_velocity_data.cross(transform_translation) +
+        linear_velocity_data;
+    transformed_velocity = rotation_only_transform * transformed_velocity;
+    return Velocity(transformed_velocity.getX(), transformed_velocity.getY(),
+                    transformed_velocity.getZ());
   }
   /**
   * @brief gives sensor status
@@ -55,7 +65,8 @@ private:
   */
   ROSSensor<nav_msgs::Odometry> sensor_;
   /*
-  * @brief Local transform provided by the config
+  * @brief Local transform provided by the config, from sensor frame to robot
+  * frame.
   */
   tf::Transform local_transform_;
 };
