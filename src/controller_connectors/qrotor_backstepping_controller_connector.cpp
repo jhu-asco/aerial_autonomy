@@ -1,35 +1,56 @@
 #include "aerial_autonomy/controller_connectors/qrotor_backstepping_controller_connector.h"
+#include <aerial_autonomy/common/conversions.h>
 #include <glog/logging.h>
 #include <tf_conversions/tf_eigen.h>
 
 bool QrotorBacksteppingControllerConnector::extractSensorData(
     std::pair<double, QrotorBacksteppingState> &sensor_data) {
 
-  drone_hardware_.getquaddata(data_);
-
   std::chrono::duration<double> time_duration =
       std::chrono::duration_cast<std::chrono::duration<double>>(
           std::chrono::high_resolution_clock::now() - t_0_);
   double current_time = time_duration.count();
 
-  tf::Quaternion q = tf::createQuaternionFromRPY(
-      data_.rpydata.x, data_.rpydata.y, data_.rpydata.z);
+  drone_hardware_.getquaddata(data_);
 
-  current_state_.pose = tf::Transform(
-      q, tf::Vector3(data_.localpos.x, data_.localpos.y, data_.localpos.z));
+  // Pose (SE3)
+  tf::Transform quad_pose;
+  if (pose_sensor_) {
+    if (pose_sensor_->getSensorStatus() != SensorStatus::VALID) {
+      LOG(WARNING) << "Sensor invalid";
+      return false;
+    }
+    quad_pose = pose_sensor_->getSensorData();
+  } else {
+    quad_pose = getPose(data_);
+  }
+  current_state_.pose = quad_pose;
 
+  // Euler angles (Roll Pitch Yaw)
+  if (pose_sensor_) {
+    current_rpy_ = conversions::transformTfToRPY(quad_pose);
+  } else {
+    current_rpy_ =
+        Eigen::Vector3d(data_.rpydata.x, data_.rpydata.y, data_.rpydata.z);
+  }
+
+  // Linear Velocity
   current_state_.v =
       tf::Vector3(data_.linvel.x, data_.linvel.y, data_.linvel.z);
 
+  // Angular velocity
   current_state_.w = tf::Vector3(data_.omega.x, data_.omega.y, data_.omega.z);
 
+  // Thrust (Newton)
   current_state_.thrust = thrust_;
 
+  // Thrust_dot (Newton/sec)
   current_state_.thrust_dot = thrust_dot_;
 
   sensor_data = std::make_pair(current_time, current_state_);
 
-  thrust_gain_estimator_.addSensorData(data_.rpydata.x, data_.rpydata.y,
+  // Estimate thrust_gain
+  thrust_gain_estimator_.addSensorData(current_rpy_(0), current_rpy_(1),
                                        data_.linacc.z);
 
   return true;
@@ -53,14 +74,12 @@ void QrotorBacksteppingControllerConnector::sendControllerCommands(
   Eigen::Vector3d torque;
   tf::vectorTFToEigen(Torque, torque);
   Eigen::Vector3d current_omega;
-  current_omega << data_.omega.x, data_.omega.y, data_.omega.z;
-  Eigen::Vector3d current_rpy;
-  current_rpy << data_.rpydata.x, data_.rpydata.y, data_.rpydata.z;
+  tf::vectorTFToEigen(current_state_.w, current_omega);
 
   Eigen::Vector3d omega_dot_cmd =
       J_.llt().solve((J_ * current_omega).cross(current_omega) + torque);
   omega_cmd_ += omega_dot_cmd * dt;
-  Eigen::Vector3d rpydot_cmd = omegaToRpyDot(omega_cmd_, current_rpy);
+  Eigen::Vector3d rpydot_cmd = omegaToRpyDot(omega_cmd_, current_rpy_);
   roll_cmd_ += rpydot_cmd[0] * dt;  // Roll command
   pitch_cmd_ += rpydot_cmd[1] * dt; // Pitch command
   yaw_rate_cmd_ = rpydot_cmd[2];    // Yaw rate command
@@ -81,9 +100,9 @@ void QrotorBacksteppingControllerConnector::sendControllerCommands(
   } else if (yaw_rate_cmd_ > ub_(2)) {
     yaw_rate_cmd_ = ub_(2);
   }
-  if (thrust_ / m_ < lb_(3) * g_) {
+  if (thrust_ < m_ * lb_(3) * g_) {
     thrust_ = m_ * lb_(3) * g_;
-  } else if (thrust_ / m_ > ub_(3) * g_) {
+  } else if (thrust_ > m_ * ub_(3) * g_) {
     thrust_ = m_ * ub_(3) * g_;
   }
 
@@ -128,4 +147,18 @@ Eigen::Vector3d QrotorBacksteppingControllerConnector::omegaToRpyDot(
   Mrpy << 1, s_roll * t_pitch, c_roll * t_pitch, 0, c_roll, -s_roll, 0,
       s_roll * sec_pitch, c_roll * sec_pitch;
   return Mrpy * omega;
+}
+
+tf::Transform QrotorBacksteppingControllerConnector::getPose(
+    const parsernode::common::quaddata &data) {
+  tf::Transform pose;
+  tf::vector3MsgToTF(data.localpos, pose.getOrigin());
+  pose.setRotation(tf::createQuaternionFromRPY(data.rpydata.x, data.rpydata.y,
+                                               data.rpydata.z));
+  return pose;
+}
+
+void QrotorBacksteppingControllerConnector::useSensor(
+    SensorPtr<tf::StampedTransform> sensor) {
+  pose_sensor_ = sensor;
 }

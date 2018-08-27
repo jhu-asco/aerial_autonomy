@@ -3,6 +3,7 @@
 #include "aerial_autonomy/controller_connectors/base_controller_connector.h"
 #include "aerial_autonomy/controllers/qrotor_backstepping_controller.h"
 #include "aerial_autonomy/estimators/thrust_gain_estimator.h"
+#include "aerial_autonomy/sensors/base_sensor.h"
 #include "aerial_autonomy/types/roll_pitch_yawrate_thrust.h"
 #include "qrotor_backstepping_controller_config.pb.h"
 
@@ -34,13 +35,14 @@ public:
       parsernode::Parser &drone_hardware,
       QrotorBacksteppingController &controller,
       ThrustGainEstimator &thrust_gain_estimator,
-      QrotorBacksteppingControllerConfig config)
+      QrotorBacksteppingControllerConfig config,
+      SensorPtr<tf::StampedTransform> pose_sensor = nullptr)
       : ControllerConnector(controller, ControllerGroup::UAV),
         drone_hardware_(drone_hardware),
         thrust_gain_estimator_(thrust_gain_estimator),
         private_reference_controller_(controller), config_(config),
         t_0_(std::chrono::high_resolution_clock::now()), m_(config_.mass()),
-        g_(config_.acc_gravity()) {
+        g_(config_.acc_gravity()), pose_sensor_(pose_sensor) {
     J_ << config_.jxx(), config_.jxy(), config_.jxz(), config_.jyx(),
         config_.jyy(), config_.jyz(), config_.jzx(), config_.jzy(),
         config_.jzz();
@@ -65,6 +67,13 @@ public:
   double getYawRateCmd() { return yaw_rate_cmd_; }
 
   double getThrust() { return thrust_; }
+
+  /**
+  * @brief Swap out the internal sensor with provided sensor
+  *
+  * @param sensor Pose sensor to use
+  */
+  void useSensor(SensorPtr<tf::StampedTransform> sensor);
 
 protected:
   /**
@@ -96,6 +105,15 @@ protected:
   */
   Eigen::Vector3d omegaToRpyDot(const Eigen::Vector3d &omega,
                                 const Eigen::Vector3d &rpy);
+
+  /**
+  * @brief get the pose of quadrotor as a tf transform
+  *
+  * @param data Quad data
+  *
+  * @return current pose of quadrotor
+  */
+  tf::Transform getPose(const parsernode::common::quaddata &data);
 
 private:
   /**
@@ -147,9 +165,17 @@ private:
   */
   parsernode::common::quaddata data_;
   /**
+  * @brief Variable to store pose sensor for quad data
+  */
+  SensorPtr<tf::StampedTransform> pose_sensor_;
+  /**
   * @brief Variable to store current state
   */
   QrotorBacksteppingState current_state_;
+  /**
+  * @brief Variable to store current RPY
+  */
+  Eigen::Vector3d current_rpy_;
   /**
   * @brief Variable to store current thrust
   */
