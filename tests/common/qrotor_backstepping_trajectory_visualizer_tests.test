@@ -1,0 +1,4 @@
+<launch>
+  <test test-name="qrotor_backstepping_trajectory_visualizer_tests" pkg="aerial_autonomy" type="aerial_autonomy-qrotor-backstepping-trajectory-visualizer-test">
+  </test>
+</launch>
