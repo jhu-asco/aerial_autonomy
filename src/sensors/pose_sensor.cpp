@@ -1,7 +1,6 @@
 #include "aerial_autonomy/sensors/pose_sensor.h"
 
 PoseSensor::PoseSensor(ROSSensorConfig config) : sensor_(config) {
-  //  sensor_.reset(new ROSSensor<geometry_msgs::TransformStamped>(config));
   local_transform_ = conversions::protoTransformToTf(config.sensor_transform());
 }
 

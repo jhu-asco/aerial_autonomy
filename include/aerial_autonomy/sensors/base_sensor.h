@@ -16,11 +16,12 @@ public:
   */
   Sensor() {}
   /**
-  * @brief gets the latest sensor data
+  * @brief gets the latest raw sensor data
   */
   virtual SensorDataT getSensorData() = 0;
   /**
-  * @brief gets the latest sensor data
+  * @brief gets the latest sensor data, transformed by the robot-to-sensor
+  * transform
   */
   virtual SensorDataT getTransformedSensorData() = 0;
   /**

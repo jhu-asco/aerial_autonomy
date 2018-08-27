@@ -27,7 +27,8 @@ public:
   */
   tf::StampedTransform getSensorData();
   /**
-  * @brief  get the latest sensor measurement
+  * @brief  get the latest sensor measurement, transformed by the local
+  * transform from the config.
   *
   * @return sensor measurement
   */
@@ -40,13 +41,13 @@ public:
   */
   SensorStatus getSensorStatus();
 
-  /**
-  * @brief ROS callback function
-  *
-  * @param pose_input input ROS message
-  */
-
 private:
+  /**
+  * @brief ROS listening sensor
+  */
   ROSSensor<geometry_msgs::TransformStamped> sensor_;
+  /**
+  * @brief local transform from sensor to robot system frame
+  */
   tf::Transform local_transform_;
 };

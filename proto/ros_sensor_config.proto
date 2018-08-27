@@ -12,7 +12,7 @@ message ROSSensorConfig {
   */
   optional string topic = 3;
   /**
-  * Transform from sensor to quad center.
+  * Transform from sensor to robot center.
   */
   optional config.Transform sensor_transform = 4;
 }

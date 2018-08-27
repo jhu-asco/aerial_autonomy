@@ -20,7 +20,6 @@ public:
   * @param Config for velocity sensor
   */
   VelocitySensor(ROSSensorConfig config) : sensor_(config) {
-    //    sensor_.reset(ROSSensor<nav_msgs::Odometry>(config));
     local_transform_ =
         conversions::protoTransformToTf(config.sensor_transform());
   }
@@ -35,7 +34,7 @@ public:
     return velocity_sensor_data;
   }
   /**
-  * @brief gives sensor status
+  * @brief give sensor data, transformed by the local transform.
   */
   Velocity getTransformedSensorData() {
     Velocity raw_data = getSensorData();
@@ -55,5 +54,8 @@ private:
   * which we use for velocity.
   */
   ROSSensor<nav_msgs::Odometry> sensor_;
+  /*
+  * @brief Local transform provided by the config
+  */
   tf::Transform local_transform_;
 };
