@@ -195,8 +195,8 @@ struct GoToWaypointInternalActionFunctor_
       }
     }
     // check controller status
-    ControllerStatus status =
-        robot_system.getStatus<RPYTBasedPositionControllerDroneConnector>();
+    ControllerStatus status = robot_system.getStatus<
+        RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>();
     int tracked_index = state.getTrackedIndex();
     if (status == ControllerStatus::Completed) {
       VLOG(1) << "Reached goal for tracked index: " << tracked_index;
@@ -214,13 +214,19 @@ struct GoToWaypointInternalActionFunctor_
         }
       }
     } else if (status == ControllerStatus::Critical) {
-      LOG(WARNING) << "Controller critical for "
-                   << typeid(RPYTBasedPositionControllerDroneConnector).name();
+      LOG(WARNING)
+          << "Controller critical for "
+          << typeid(
+                 RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>)
+                 .name();
       logic_state_machine.process_event(be::Abort());
       return false;
     } else if (status == ControllerStatus::NotEngaged) {
-      LOG(WARNING) << "Controller not engaged for "
-                   << typeid(RPYTBasedPositionControllerDroneConnector).name();
+      LOG(WARNING)
+          << "Controller not engaged for "
+          << typeid(
+                 RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>)
+                 .name();
       logic_state_machine.process_event(be::Abort());
       return false;
     }
@@ -239,8 +245,10 @@ struct GoToWaypointInternalActionFunctor_
     way_point.z += data.localpos.z;
     VLOG(1) << "Waypoint position: " << way_point.x << ", " << way_point.y
             << ", " << way_point.z;
-    robot_system.setGoal<RPYTBasedPositionControllerDroneConnector,
-                         PositionYaw>(way_point);
+    robot_system
+        .setGoal<RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
+                 ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>(
+            conversions::createWaypoint(way_point));
   }
 };
 
