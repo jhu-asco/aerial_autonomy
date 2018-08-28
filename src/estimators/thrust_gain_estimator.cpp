@@ -55,7 +55,11 @@ std::pair<double, Eigen::Vector2d> ThrustGainEstimator::processSensorThrustPair(
   rotated_acc[2] = rotated_acc[2] + gravity_magnitude_;
   double thrust_command_clipped =
       std::max(thrust_command_tolerance_, thrust_command);
-  double thrust_gain_estimated = rotated_acc.length() / thrust_command_clipped;
+  double gravity_z_acc_comp = gravity_magnitude_ * cos(roll) * cos(pitch);
+  double thrust_gain_estimated =
+      (body_acc[2] + gravity_z_acc_comp) / thrust_command_clipped;
+  // double thrust_gain_estimated = rotated_acc.length() /
+  // thrust_command_clipped;
   Eigen::Vector3d rotated_acc_eig(rotated_acc[0], rotated_acc[1],
                                   rotated_acc[2]);
   auto roll_pitch = conversions::accelerationToRollPitch(0, rotated_acc_eig);

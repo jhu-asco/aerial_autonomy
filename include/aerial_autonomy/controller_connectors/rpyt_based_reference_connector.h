@@ -177,12 +177,11 @@ template <class StateT, class ControlT>
 void RPYTBasedReferenceConnector<StateT, ControlT>::sendControllerCommands(
     RollPitchYawRateThrust controls) {
   geometry_msgs::Quaternion rpyt_msg;
-  // Eigen::Vector2d roll_pitch_bias =
-  // thrust_gain_estimator_.getRollPitchBias();
-  // rpyt_msg.x = controls.r - roll_pitch_bias[0];
-  // rpyt_msg.y = controls.p - roll_pitch_bias[1];
-  rpyt_msg.x = controls.r;
-  rpyt_msg.y = controls.p;
+  Eigen::Vector2d roll_pitch_bias = thrust_gain_estimator_.getRollPitchBias();
+  rpyt_msg.x = controls.r - roll_pitch_bias(0);
+  rpyt_msg.y = controls.p - roll_pitch_bias(1);
+  // rpyt_msg.x = controls.r;
+  // rpyt_msg.y = controls.p;
   rpyt_msg.z = controls.y;
   rpyt_msg.w = controls.t;
   thrust_gain_estimator_.addThrustCommand(controls.t);

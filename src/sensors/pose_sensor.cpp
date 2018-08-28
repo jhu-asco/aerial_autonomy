@@ -2,8 +2,9 @@
 
 PoseSensor::PoseSensor(std::string pose_topic, ros::Duration validity_buffer,
                        std::string ns)
-    : nh_(ns),
-      pose_sub_(nh_.subscribe(pose_topic, 1, &PoseSensor::poseCallback, this)),
+    : nh_(ns), pose_sub_(nh_.subscribe(
+                   pose_topic, 1, &PoseSensor::poseCallback, this,
+                   ros::TransportHints().unreliable().reliable().tcpNoDelay())),
       validity_buffer_(validity_buffer) {}
 
 tf::StampedTransform PoseSensor::getSensorData() {

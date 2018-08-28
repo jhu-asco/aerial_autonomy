@@ -94,4 +94,13 @@ if 'accx' in connector_data.columns:
     plt.plot(ts_sub, acc[iStart:iEnd, i])
     plt.ylabel(acc_labels[i])
   plt.xlabel('Time (seconds)')
+if 'roll_bias' in connector_data.columns:
+  plt.figure()
+  plt.subplot(2,1,1)
+  plt.plot(ts_sub, connector_data['roll_bias'][iStart:iEnd])
+  plt.ylabel("Roll bias")
+  plt.subplot(2,1,2)
+  plt.plot(ts_sub, connector_data['pitch_bias'][iStart:iEnd])
+  plt.ylabel("Pitch bias")
+  plt.xlabel('Time (seconds)')
 plt.show()
