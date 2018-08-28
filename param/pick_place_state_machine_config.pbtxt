@@ -2,8 +2,8 @@ visual_servoing_state_machine_config {
   relative_pose_goals {
     position {
       x: 0
-      y: -.595
-      z: 0.255
+      y: -.665
+      z: 0.305
     }
     yaw: 1.5708
   }
@@ -65,11 +65,11 @@ visual_servoing_state_machine_config {
     following_waypoint_sequence_config {
       way_points {
         position {
-          x: 1.0
-          y: 0.0
+          x: 0.0
+          y: 1.0
           z: 0.4
         }
-        yaw: 0
+        yaw: 1.57
       }
       way_points {
         position {
@@ -77,15 +77,15 @@ visual_servoing_state_machine_config {
           y: 0.0
           z: 0.0
         }
-        yaw: 0
+        yaw: 1.57
       }
       way_points {
         position {
-          x: -1.7
-          y: 0.0
+          x: 0.0
+          y: -1.7
           z: 0.08
         }
-        yaw: 0
+        yaw: -1.57
       }
       way_points {
         position {
@@ -93,7 +93,7 @@ visual_servoing_state_machine_config {
           y: 0.0
           z: 0.0
         }
-        yaw: 3.141
+        yaw: 1.57
       }
     }
   }

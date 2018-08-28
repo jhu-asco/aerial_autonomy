@@ -239,10 +239,10 @@ struct GoToWaypointInternalActionFunctor_
   * @param way_point Waypoint to send
   */
   void sendLocalWaypoint(UAVArmSystem &robot_system, PositionYaw way_point) {
-    parsernode::common::quaddata data = robot_system.getUAVData();
-    way_point.x += data.localpos.x;
-    way_point.y += data.localpos.y;
-    way_point.z += data.localpos.z;
+    tf::StampedTransform quad_pose = robot_system.getPose();
+    way_point.x += quad_pose.getOrigin().x();
+    way_point.y += quad_pose.getOrigin().y();
+    way_point.z += quad_pose.getOrigin().z();
     VLOG(1) << "Waypoint position: " << way_point.x << ", " << way_point.y
             << ", " << way_point.z;
     robot_system
