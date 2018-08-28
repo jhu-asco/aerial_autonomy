@@ -59,6 +59,13 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
   */
   using PlaceState = PlaceState_<LogicStateMachineT>;
   /**
+  * @brief State when reaching a relative pose visual servoing goal using rpyt
+  * controller Uses reset instead of abort
+  */
+  using PrePickState = VisualServoing_<
+      LogicStateMachineT, Reset,
+      RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>;
+  /**
   * @brief State when reaching a relative pose visual servoing goal
   *
   * Uses reset instead of abort
@@ -136,13 +143,29 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
   // \todo Check if tracked object is in workspace
 
   /**
+  * @brief Move arm to pick pose and move to waypoint in front of object
+  */
+  using PrePickTransitionAction =
+      base_functors::bActionSequence<boost::mpl::vector<
+          ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>,
+          typename vsa::ResetRelativePoseVisualServoing,
+          RelativePoseVisualServoingTransitionActionFunctor_<
+              LogicStateMachineT,
+              UAVVisionSystem::VisualServoingReferenceConnectorT, 2>>>;
+
+  /**
   * @brief Move arm to pick pose and move to tracked object
+  *
+  * Do not set home since we are using this as an intermediate step
+  * after pre-pick
   */
   using PickTransitionAction =
       base_functors::bActionSequence<boost::mpl::vector<
           ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>,
           typename vsa::ResetRelativePoseVisualServoing,
-          typename vsa::MPCRelativePoseVisualServoingTransitionAction>>;
+          RelativePoseVisualServoingTransitionActionFunctor_<
+              LogicStateMachineT,
+              UAVVisionSystem::VisualServoingReferenceConnectorT, 0, false>>>;
 
   /**
   * @brief Action to take when starting placing object at either drop-off.

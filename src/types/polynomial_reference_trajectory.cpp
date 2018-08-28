@@ -9,7 +9,7 @@ PolynomialReferenceTrajectory::PolynomialReferenceTrajectory(
     PositionYaw goal_state, PositionYaw start_state,
     PolynomialReferenceConfig config)
     : degree_(9), dimensions_(4), goal_state_(goal_state),
-      start_state_(dimensions_), config_(config) {
+      start_state_(dimensions_) {
   PositionYaw error = goal_state - start_state;
   start_state_ << start_state.x, start_state.y, start_state.z, start_state.yaw;
   Eigen::MatrixXd constraints(degree_ + 1, dimensions_);
@@ -19,9 +19,14 @@ PolynomialReferenceTrajectory::PolynomialReferenceTrajectory(
   constraints(0, 1) = error.y;
   constraints(0, 2) = error.z;
   constraints(0, 3) = error.yaw;
-  CHECK_GT(config_.tf(), 1e-2) << "Final time should be greater than 1e-2";
-  basis.topRows(dimensions_ + 1) =
-      findBasisMatrix(config_.tf(), degree_, dimensions_);
+  CHECK_GT(config.min_tf(), 1e-2) << "Final time should be greater than 1e-2";
+  CHECK_LT(config.max_velocity(), 2.0)
+      << "Final time should be greater than 1e-2";
+  tf_ = std::max(Eigen::Vector3d(error.x, error.y, error.z).norm() /
+                     config.max_velocity(),
+                 config.min_tf());
+  VLOG_EVERY_N(2, 200) << "Tf: " << tf_;
+  basis.topRows(dimensions_ + 1) = findBasisMatrix(tf_, degree_, dimensions_);
   basis.bottomRows(dimensions_ + 1) =
       findBasisMatrix(0.0, degree_, dimensions_);
   coefficients_ = basis.colPivHouseholderQr().solve(constraints);
@@ -58,7 +63,7 @@ std::pair<Eigen::VectorXd, Eigen::VectorXd>
 PolynomialReferenceTrajectory::atTime(double t) const {
   Eigen::VectorXd state(15);
   Eigen::VectorXd control(4);
-  double t_clamped = math::clamp(t, 0, config_.tf());
+  double t_clamped = math::clamp(t, 0, tf_);
   Eigen::MatrixXd basis = findBasisMatrix(t_clamped, degree_, dimensions_);
   Eigen::MatrixXd out = basis * coefficients_;
   Eigen::VectorXd position_yaw = start_state_ + out.row(0).transpose();

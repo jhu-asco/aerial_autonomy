@@ -17,5 +17,6 @@ visual_servoing_state_machine_config {
     }
 }
 poly_reference_config {
-  tf: 5.0
+  max_velocity: 0.5
+  min_tf: 2.0
 }

@@ -149,6 +149,13 @@ public:
     pose_goal->set_yaw(0);
     // Relative marker goal for place
     vision_state_machine_config->add_relative_pose_goals();
+    // Pre-Pick
+    auto pre_pick_goal = vision_state_machine_config->add_relative_pose_goals();
+    auto pre_pick_goal_position = pre_pick_goal->mutable_position();
+    pre_pick_goal_position->set_x(0.5);
+    pre_pick_goal_position->set_y(1);
+    pre_pick_goal_position->set_z(2);
+    pre_pick_goal->set_yaw(0);
 
     auto waypoint_config =
         pick_state_machine_config->mutable_following_waypoint_sequence_config();
@@ -317,7 +324,7 @@ protected:
     ASSERT_STREQ(pstate(*logic_state_machine_), "WaitingForPick");
     // Check in PickState
     logic_state_machine_->process_event(InternalTransitionEvent());
-    ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
+    ASSERT_STREQ(pstate(*logic_state_machine_), "PrePickState");
     // Check UAV and arm controllers are active
     ASSERT_EQ(
         uav_arm_system_
@@ -341,6 +348,11 @@ protected:
     ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
                                               std::chrono::seconds(25),
                                               std::chrono::milliseconds(0)));
+    logic_state_machine_->process_event(InternalTransitionEvent());
+    ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
+    ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
+                                              std::chrono::seconds(25),
+                                              std::chrono::milliseconds(0)));
     // Grip object for required duration
     arm_->setGripperStatus(true);
     logic_state_machine_->process_event(InternalTransitionEvent());
@@ -353,7 +365,7 @@ protected:
     // Run controllers through one waypoint
     logic_state_machine_->process_event(InternalTransitionEvent());
     ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                              std::chrono::seconds(1),
+                                              std::chrono::seconds(25),
                                               std::chrono::milliseconds(0)));
     logic_state_machine_->process_event(InternalTransitionEvent());
     // Check we are in Place
@@ -377,11 +389,11 @@ protected:
     // Run controllers through two waypoints
     logic_state_machine_->process_event(InternalTransitionEvent());
     ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                              std::chrono::seconds(1),
+                                              std::chrono::seconds(25),
                                               std::chrono::milliseconds(0)));
     logic_state_machine_->process_event(InternalTransitionEvent());
     ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                              std::chrono::seconds(1),
+                                              std::chrono::seconds(25),
                                               std::chrono::milliseconds(0)));
     logic_state_machine_->process_event(InternalTransitionEvent());
     // Check we are back to waiting for pick
@@ -442,7 +454,7 @@ TEST_F(PickPlaceStateMachineTests, PickTimeout) {
   ASSERT_STREQ(pstate(*logic_state_machine_), "WaitingForPick");
   // Check in PickState
   logic_state_machine_->process_event(InternalTransitionEvent());
-  ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
+  ASSERT_STREQ(pstate(*logic_state_machine_), "PrePickState");
   // Check UAV and arm controllers are active
   ASSERT_EQ(
       uav_arm_system_
@@ -466,7 +478,11 @@ TEST_F(PickPlaceStateMachineTests, PickTimeout) {
   ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
                                             std::chrono::seconds(25),
                                             std::chrono::milliseconds(0)));
-
+  logic_state_machine_->process_event(InternalTransitionEvent());
+  ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
+  ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
+                                            std::chrono::seconds(25),
+                                            std::chrono::milliseconds(0)));
   // Grip has failed
   arm_->setGripperStatus(false);
 
@@ -490,8 +506,21 @@ TEST_F(PickPlaceStateMachineTests, PickWaitForGrip) {
   ASSERT_STREQ(pstate(*logic_state_machine_), "WaitingForPick");
   // Check in PickState
   logic_state_machine_->process_event(InternalTransitionEvent());
+  ASSERT_STREQ(pstate(*logic_state_machine_), "PrePickState");
+  // Keep running the controller until its completed or timeout
+  auto getStatusRunControllers = [&]() {
+    uav_arm_system_->runActiveController(ControllerGroup::UAV);
+    uav_arm_system_->runActiveController(ControllerGroup::Arm);
+    return uav_arm_system_->getActiveControllerStatus(ControllerGroup::UAV) ==
+               ControllerStatus::Active ||
+           uav_arm_system_->getActiveControllerStatus(ControllerGroup::Arm) ==
+               ControllerStatus::Active;
+  };
+  ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
+                                            std::chrono::seconds(25),
+                                            std::chrono::milliseconds(0)));
+  logic_state_machine_->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
-
   // Initially not gripping
   arm_->setGripperStatus(false);
   logic_state_machine_->process_event(InternalTransitionEvent());
@@ -503,7 +532,7 @@ TEST_F(PickPlaceStateMachineTests, PickWaitForGrip) {
     logic_state_machine_->process_event(InternalTransitionEvent());
     return pstate(*logic_state_machine_) == std::string("PickState");
   };
-  ASSERT_FALSE(test_utils::waitUntilFalse()(grip, std::chrono::seconds(1),
+  ASSERT_FALSE(test_utils::waitUntilFalse()(grip, std::chrono::seconds(25),
                                             std::chrono::milliseconds(0)));
   ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(ObjectId));
   // Check we are in hovering state
@@ -518,8 +547,21 @@ TEST_F(PickPlaceStateMachineTests, PickGripTooLate) {
   ASSERT_STREQ(pstate(*logic_state_machine_), "WaitingForPick");
   // Check in PickState
   logic_state_machine_->process_event(InternalTransitionEvent());
+  ASSERT_STREQ(pstate(*logic_state_machine_), "PrePickState");
+  // Keep running the controller until its completed or timeout
+  auto getStatusRunControllers = [&]() {
+    uav_arm_system_->runActiveController(ControllerGroup::UAV);
+    uav_arm_system_->runActiveController(ControllerGroup::Arm);
+    return uav_arm_system_->getActiveControllerStatus(ControllerGroup::UAV) ==
+               ControllerStatus::Active ||
+           uav_arm_system_->getActiveControllerStatus(ControllerGroup::Arm) ==
+               ControllerStatus::Active;
+  };
+  ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
+                                            std::chrono::seconds(25),
+                                            std::chrono::milliseconds(0)));
+  logic_state_machine_->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
-
   // Initially not gripping
   arm_->setGripperStatus(false);
   logic_state_machine_->process_event(InternalTransitionEvent());
@@ -551,7 +593,7 @@ TEST_F(PickPlaceStateMachineTests, PickPlaceInvalidTrackingAbort) {
   logic_state_machine_->process_event(pe::Pick());
   logic_state_machine_->process_event(InternalTransitionEvent());
   // Check we are in pick state
-  ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
+  ASSERT_STREQ(pstate(*logic_state_machine_), "PrePickState");
   // Set tracker to invalid
   tracker_->setTrackingIsValid(false);
   // Run active controllers
@@ -572,6 +614,20 @@ TEST_F(PickPlaceStateMachineTests, PickPlaceInvalidTrackingGripping) {
   logic_state_machine_->process_event(pe::Pick());
   logic_state_machine_->process_event(InternalTransitionEvent());
   // Check we are in pick state
+  ASSERT_STREQ(pstate(*logic_state_machine_), "PrePickState");
+  // Keep running the controller until its completed or timeout
+  auto getStatusRunControllers = [&]() {
+    uav_arm_system_->runActiveController(ControllerGroup::UAV);
+    uav_arm_system_->runActiveController(ControllerGroup::Arm);
+    return uav_arm_system_->getActiveControllerStatus(ControllerGroup::UAV) ==
+               ControllerStatus::Active ||
+           uav_arm_system_->getActiveControllerStatus(ControllerGroup::Arm) ==
+               ControllerStatus::Active;
+  };
+  ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
+                                            std::chrono::seconds(25),
+                                            std::chrono::milliseconds(0)));
+  logic_state_machine_->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
   // Set tracker to invalid
   tracker_->setTrackingIsValid(false);

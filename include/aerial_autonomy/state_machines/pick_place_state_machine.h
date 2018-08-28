@@ -170,8 +170,17 @@ public:
             msmf::Row<psa::ResetVisualServoing, Completed, psa::WaitingForPick,
                       psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::WaitingForPick, pe::Pick, psa::PickState,
+            msmf::Row<psa::WaitingForPick, pe::Pick, psa::PrePickState,
+                      psa::PrePickTransitionAction, psa::PickTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::PrePickState, Completed, psa::PickState,
                       psa::PickTransitionAction, psa::PickTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::PrePickState, be::Abort, psa::Hovering,
+                      psa::AbortUAVArmController, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::PrePickState, Reset, psa::ResetVisualServoing,
+                      psa::ArmRightFoldGoHome, psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::WaitingForPick, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
@@ -259,13 +268,14 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 15> state_names = {
+static constexpr std::array<const char *, 16> state_names = {
     "Landed",
     "ArmPreTakeoffFolding",
     "Takingoff",
     "Hovering",
     "ResetVisualServoing",
     "WaitingForPick",
+    "PrePickState",
     "ArmPreLandingFolding",
     "ReachingGoal",
     "ExecutingVelocityGoal",
