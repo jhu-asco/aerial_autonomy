@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
   geometry_msgs::Vector3 init_position;
   init_position.x = initial_desired_state.p.x;
   init_position.y = initial_desired_state.p.y - .3;
-  init_position.z = initial_desired_state.p.z - 8.0;
+  init_position.z = initial_desired_state.p.z - .1;
   drone_hardware.cmdwaypoint(init_position);
 
   parsernode::common::quaddata data;
