@@ -65,7 +65,10 @@ print("RMS ERRORS: ", rms_errors)
 # Plot rpy and rpy_desired
 labels = ['roll', 'pitch']
 rpy = connector_data[labels].values
-rpy_d = ctrlr_data[['Cmd_roll','Cmd_pitch']].values
+rpy_d = []
+for label in ['Cmd_roll', 'Cmd_pitch']:
+  rpy_d.append(np.interp(ts, ts1, ctrlr_data[label].values))
+rpy_d = np.vstack(rpy_d).T
 if 'Sensor_roll' in connector_data.columns:
   sensor_rpy_labels = ['Sensor_roll', 'Sensor_pitch', 'Sensor_yaw']
   sensor_rpy = connector_data[sensor_rpy_labels].values
@@ -85,13 +88,35 @@ plt.figure()
 plt.plot(ts_sub, connector_data['Thrust_gain'][iStart:iEnd])
 plt.xlabel('Time (seconds)')
 plt.ylabel('Thrust gain')
+acc_labels = ['accx', 'accy', 'accz']
+
+plt.figure()
 if 'accx' in connector_data.columns:
-  plt.figure()
-  acc_labels = ['accx', 'accy', 'accz']
   acc = connector_data[acc_labels].values
+else:
+  estimator_data = pd.read_csv(os.path.join(args.folder, 'thrust_gain_estimator'))
+  ts_estimator= (estimator_data['#Time'] - connector_data['#Time'][0])/1e9
+  acc = np.empty((ts.size, 3))
+  body_acc_imu_original = estimator_data[['body_x_acc', 'body_y_acc', 'body_z_acc']].values
   for i in range(3):
-    plt.subplot(3,1, i+1)
-    plt.plot(ts_sub, acc[iStart:iEnd, i])
-    plt.ylabel(acc_labels[i])
-  plt.xlabel('Time (seconds)')
+    acc[:,i] = np.interp(ts, ts_estimator, body_acc_imu_original[:,i]) 
+  thrust_gain = np.interp(ts, ts_estimator, estimator_data['thrust_gain'].values)
+for i in range(3):
+  plt.subplot(3,1, i+1)
+  plt.plot(ts_sub, acc[iStart:iEnd, i])
+  plt.ylabel(acc_labels[i])
+plt.xlabel('Time (seconds)')
+plt.figure()
+cmd_thrust = np.interp(ts, ts1, ctrlr_data['Cmd_thrust'].values)
+cmd_yaw_rate = np.interp(ts, ts1, ctrlr_data['Cmd_yawrate'].values)
+ax = plt.gca()
+try:
+  ax.plot(ts, thrust_gain)
+  ax2 = ax.twinx()
+  ax2.plot(ts, cmd_yaw_rate, 'r')
+  ax2.legend(['Command yaw rate'])
+  ax.legend(['Thrust gain'])
+  plt.xlabel("Time (seconds)")
+except:
+  pass
 plt.show()
