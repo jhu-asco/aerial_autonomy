@@ -215,12 +215,12 @@ struct GoToWaypointInternalActionFunctor_
       }
     } else if (status == ControllerStatus::Critical) {
       LOG(WARNING) << "Controller critical for "
-                   << typeid(RPYTBasedPositionControllerDroneConnector).name();
+                   << typeid(RPYTBasedReferenceConnector).name();
       logic_state_machine.process_event(be::Abort());
       return false;
     } else if (status == ControllerStatus::NotEngaged) {
       LOG(WARNING) << "Controller not engaged for "
-                   << typeid(RPYTBasedPositionControllerDroneConnector).name();
+                   << typeid(RPYTBasedReferenceConnector).name();
       logic_state_machine.process_event(be::Abort());
       return false;
     }
