@@ -237,6 +237,10 @@ uav_system_config {
         kt: 0.2
       }
     }
+    poly_reference_config {
+      max_velocity: 0.5
+      min_tf: 2.0
+    }
     particle_reference_config {
       kp_x : 0.2
       kp_y : 0.2

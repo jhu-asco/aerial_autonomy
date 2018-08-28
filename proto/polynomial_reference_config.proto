@@ -7,5 +7,6 @@ message PolynomialReferenceConfig {
   /**
   * @brief kp
   */
-  optional double tf = 1 [ default = 5 ];
+  optional double max_velocity = 1 [ default = 0.5 ];
+  optional double min_tf = 2 [ default = 1 ];
 }

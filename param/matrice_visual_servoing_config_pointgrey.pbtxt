@@ -270,6 +270,10 @@ uav_system_config {
         }
       }
     }
+    poly_reference_config {
+      max_velocity: 0.5
+      min_tf: 1.0
+    }
     gain_visual_servoing_tracking_pose: 0.1
   }
 }

@@ -53,9 +53,9 @@ public:
 private:
   static constexpr double gravity_magnitude_ = 9.81; ///< Gravity magnitude
   const int degree_;                                 ///< Degree of polynomial
-  const int dimensions_;             ///< Dimension = 4 corresponding to xyz,yaw
-  Eigen::MatrixXd coefficients_;     ///< Coefficients for polynomials
-  PositionYaw goal_state_;           ///< Goal state
-  Eigen::VectorXd start_state_;      ///< Start state
-  PolynomialReferenceConfig config_; ///< Polynomial reference config
+  const int dimensions_;         ///< Dimension = 4 corresponding to xyz,yaw
+  Eigen::MatrixXd coefficients_; ///< Coefficients for polynomials
+  PositionYaw goal_state_;       ///< Goal state
+  Eigen::VectorXd start_state_;  ///< Start state
+  double tf_;                    ///< Final time
 };
