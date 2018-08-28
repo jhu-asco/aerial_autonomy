@@ -118,8 +118,8 @@ void QrotorBacksteppingControllerConnector::sendControllerCommands(
   drone_hardware_.cmdrpyawratethrust(rpyt_msg);
 
   DATA_LOG("qrotor_backstepping_controller_connector")
-      << roll_cmd_ << pitch_cmd_ << yaw_rate_cmd_ << thrust_cmd_
-      << DataStream::endl;
+      << current_rpy_(0) << current_rpy_(1) << current_rpy_(2) << roll_cmd_
+      << pitch_cmd_ << yaw_rate_cmd_ << thrust_ << DataStream::endl;
 }
 
 void QrotorBacksteppingControllerConnector::setGoal(

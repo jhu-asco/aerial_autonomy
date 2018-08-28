@@ -73,19 +73,18 @@ public:
 
     auto AmBK = A_ - B_ * K_;
     P_ = math::sylvester(AmBK.transpose(), AmBK, Q_);
-    DATA_HEADER("qrotor_backstepping_controller") << "p.x"
-                                                  << "p.y"
-                                                  << "p.z"
-                                                  << "p_d.x"
-                                                  << "p_d.y"
-                                                  << "p_d.z"
-                                                  << "v.x"
-                                                  << "v.y"
-                                                  << "v.z"
-                                                  << "v_d.x"
-                                                  << "v_d.y"
-                                                  << "v_d.z"
-                                                  << DataStream::endl;
+    DATA_HEADER("qrotor_backstepping_controller") << "p_x"
+                                                  << "p_y"
+                                                  << "p_z"
+                                                  << "pd_x"
+                                                  << "pd_y"
+                                                  << "pd_z"
+                                                  << "v_x"
+                                                  << "v_y"
+                                                  << "v_z"
+                                                  << "vd_x"
+                                                  << "vd_y"
+                                                  << "vd_z" << DataStream::endl;
   }
 
 protected:

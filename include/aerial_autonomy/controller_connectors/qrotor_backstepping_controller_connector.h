@@ -46,10 +46,13 @@ public:
     J_ << config_.jxx(), config_.jxy(), config_.jxz(), config_.jyx(),
         config_.jyy(), config_.jyz(), config_.jzx(), config_.jzy(),
         config_.jzz();
-    DATA_HEADER("qrotor_backstepping_controller_connector") << "roll_cmd"
+    DATA_HEADER("qrotor_backstepping_controller_connector") << "roll"
+                                                            << "pitch"
+                                                            << "yaw"
+                                                            << "roll_cmd"
                                                             << "pitch_cmd"
                                                             << "yaw_rate_cmd"
-                                                            << "thrust_cmd"
+                                                            << "thrust"
                                                             << DataStream::endl;
   }
 
