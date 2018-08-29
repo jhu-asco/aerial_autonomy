@@ -116,7 +116,7 @@ uav_system_config {
     velocity_based_position_controller_config {
       position_gain: 2.0
       z_gain: 1.0
-      yaw_gain: 1.0
+      yaw_gain: 0.8
       max_velocity: 1.0
       position_i_gain: 0.0
       yaw_i_gain: 0.0
@@ -130,13 +130,13 @@ uav_system_config {
           y: 0.05
           z: 0.05
         }
-        goal_yaw_tolerance: .05
+        goal_yaw_tolerance: .02
       }
     }
 
     rpyt_based_velocity_controller_config{
-      kp_xy: 4.0
-      kp_z: 6.0
+      kp_xy: 5.0
+      kp_z: 7.0
       ki_xy: 0.5
       ki_z: 0.0
       kt: 0.21
@@ -159,6 +159,7 @@ uav_system_config {
   thrust_gain_estimator_config {
     kt: 0.18
     buffer_size: 10
+    mixing_gain: 0.2
   }
   odom_sensor_config {
     ros_sensor_config {
@@ -294,6 +295,10 @@ uav_system_config {
           goal_yaw_tolerance: 0.1
         }
       }
+    }
+    poly_reference_config {
+      max_velocity: 0.3
+      min_tf: 4.0
     }
     gain_visual_servoing_tracking_pose: 0.1
     uav_arm_system_config {

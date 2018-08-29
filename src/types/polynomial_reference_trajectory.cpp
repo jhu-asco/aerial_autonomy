@@ -25,7 +25,7 @@ PolynomialReferenceTrajectory::PolynomialReferenceTrajectory(
   tf_ = std::max(Eigen::Vector3d(error.x, error.y, error.z).norm() /
                      config.max_velocity(),
                  config.min_tf());
-  VLOG_EVERY_N(2, 200) << "Tf: " << tf_;
+  VLOG_EVERY_N(2, 20) << "Tf: " << tf_;
   basis.topRows(dimensions_ + 1) = findBasisMatrix(tf_, degree_, dimensions_);
   basis.bottomRows(dimensions_ + 1) =
       findBasisMatrix(0.0, degree_, dimensions_);

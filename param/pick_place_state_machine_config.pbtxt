@@ -2,8 +2,8 @@ visual_servoing_state_machine_config {
   relative_pose_goals {
     position {
       x: 0
-      y: -.665
-      z: 0.305
+      y: -.65
+      z: 0.29
     }
     yaw: 1.5708
   }
@@ -13,6 +13,16 @@ visual_servoing_state_machine_config {
       x: 0
       y: -.867
       z: 0.055
+    }
+    yaw: 1.5708
+  }
+
+  # Prepick
+  relative_pose_goals {
+    position {
+      x: 0
+      y: -.765
+      z: 0.405
     }
     yaw: 1.5708
   }
@@ -97,4 +107,8 @@ visual_servoing_state_machine_config {
       }
     }
   }
+}
+poly_reference_config {
+  max_velocity: 0.3
+  min_tf: 4.0
 }

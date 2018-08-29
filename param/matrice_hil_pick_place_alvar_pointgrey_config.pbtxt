@@ -115,7 +115,7 @@ uav_system_config {
   rpyt_based_position_controller_config {
     velocity_based_position_controller_config {
       position_gain: 2.0
-      z_gain: 0.8
+      z_gain: 1.0
       yaw_gain: 1.0
       max_velocity: 1.0
       position_i_gain: 0.0
@@ -136,7 +136,7 @@ uav_system_config {
 
     rpyt_based_velocity_controller_config{
       kp_xy: 4.0
-      kp_z: 4.0
+      kp_z: 6.0
       ki_xy: 0.5
       ki_z: 0.0
       kt: 0.21

@@ -414,11 +414,8 @@ public:
   * @brief save current location as home location
   */
   void setHomeLocation() {
-    parsernode::common::quaddata data = getUAVData();
-    home_location_.x = data.localpos.x;
-    home_location_.y = data.localpos.y;
-    home_location_.z = data.localpos.z;
-    home_location_.yaw = data.rpydata.z;
+    tf::StampedTransform current_pose = getPose();
+    conversions::tfToPositionYaw(home_location_, current_pose);
     home_location_specified_ = true;
   }
 
