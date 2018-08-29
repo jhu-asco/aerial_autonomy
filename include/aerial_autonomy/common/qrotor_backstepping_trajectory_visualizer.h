@@ -8,8 +8,7 @@
 
 /**
 * @brief Helper class to visualize Qrotor backstepping control trajectories
-* using
-* gcop comm package
+* using gcop comm package
 */
 class QrotorBacksteppingTrajectoryVisualizer {
 public:
@@ -22,12 +21,9 @@ public:
   QrotorBacksteppingTrajectoryVisualizer(MPCVisualizerConfig config)
       : nh_("qrotor_backstepping_trajectory_visualizer"), config_(config),
         visualizer_(nh_, config_.parent_frame(),
-                    config_.visualize_velocities()) {
-    way_points_pub_ =
-        nh_.advertise<visualization_msgs::Marker>("way_point_marker", 1);
-    current_des_pub_ =
-        nh_.advertise<visualization_msgs::Marker>("current_des_marker", 1);
-  }
+                    config_.visualize_velocities()),
+        points_pub_(nh_.advertise<visualization_msgs::Marker>(
+            "current_des_waypts", 5)) {}
   /**
   * @brief publish desired trajectory to rviz and rostopic
   */
@@ -46,8 +42,8 @@ public:
         desired_trajectory_color.b(), desired_trajectory_color.a());
     visualizer_.publishLineStrip(desired_trajectory);
     visualizer_.publishVelocities(desired_trajectory);
-    way_points_pub_.publish(way_points);
-    current_des_pub_.publish(current_desired_state);
+    points_pub_.publish(way_points);
+    points_pub_.publish(current_desired_state);
   }
   /**
   * @brief Convert a single state vector to gcop comm state
@@ -108,7 +104,7 @@ public:
   getWayPoints(std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal,
                Eigen::VectorXd tau_vec) {
     visualization_msgs::Marker points;
-    points.header.frame_id = "/optitrak";
+    points.header.frame_id = config_.parent_frame();
     points.header.stamp = ros::Time::now();
     points.ns = "way_points";
     points.action = visualization_msgs::Marker::ADD;
@@ -144,12 +140,12 @@ public:
       std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal,
       std::chrono::high_resolution_clock::time_point t0) {
     visualization_msgs::Marker points;
-    points.header.frame_id = "/optitrak";
+    points.header.frame_id = config_.parent_frame();
     points.header.stamp = ros::Time::now();
     points.ns = "current_desired_state";
     points.action = visualization_msgs::Marker::ADD;
     points.pose.orientation.w = 1.0;
-    points.id = 1;
+    points.id = 2;
     points.type = visualization_msgs::Marker::POINTS;
     points.scale.x = .2;
     points.scale.y = .2;
@@ -173,6 +169,5 @@ private:
   MPCVisualizerConfig config_; ///< Visualizer config
   GcopTrajectoryVisualizer
       visualizer_; ///< Visualizer helper for publishing trajectories to Rviz
-  ros::Publisher way_points_pub_;  ///< Publisher for way points
-  ros::Publisher current_des_pub_; ///< Publisher for current desired state
+  ros::Publisher points_pub_; ///< Point publisher
 };
