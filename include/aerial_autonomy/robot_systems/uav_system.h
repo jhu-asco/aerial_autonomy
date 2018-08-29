@@ -460,4 +460,10 @@ public:
     }
     return SensorStatus::VALID;
   }
+  void resetThrustMixingGain() {
+    thrust_gain_estimator_.resetThrustMixingGain();
+  }
+  void setThrustMixingGain(double mixing_gain) {
+    thrust_gain_estimator_.setThrustMixingGain(mixing_gain);
+  }
 };

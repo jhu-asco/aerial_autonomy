@@ -103,6 +103,7 @@ template <class LogicStateMachineT>
 struct GoHomeTransitionGuardFunctor_
     : EventAgnosticGuardFunctor<UAVSystem, LogicStateMachineT> {
   bool guard(UAVSystem &robot_system) {
+    LOG(INFO) << "Checking home location specified and pose sensor status";
     return robot_system.isHomeLocationSpecified() &&
            sensor_status_to_bool(robot_system.getPoseSensorStatus());
   }

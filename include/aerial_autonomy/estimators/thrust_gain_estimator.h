@@ -137,6 +137,18 @@ public:
    */
   void clearBuffer();
 
+  /**
+   * @brief Set the current thrust mixing gain to specified value
+   *
+   * @param mixing_gain gain to set
+   */
+  void setThrustMixingGain(double mixing_gain);
+
+  /**
+   * @brief reset the thrust mixing gain to config specified
+   */
+  void resetThrustMixingGain();
+
 private:
   /**
    * @brief Queue to store thrust commands to account for delay
@@ -157,6 +169,11 @@ private:
    * and 1
    */
   double mixing_gain_;
+  /**
+   * @brief Filtering gain obtained from config which can be different from
+   * mixing gain set using "setThrustMixingGain" function
+   */
+  double config_mixing_gain_;
   /**
    * @brief Filter gain for rp bias estimation
    */

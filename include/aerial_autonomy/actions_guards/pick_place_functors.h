@@ -108,6 +108,38 @@ struct SetNoisePolynomialReference_
 };
 
 /**
+* @brief set noise flag to quad polynomial reference controller
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct SetThrustMixingGain_
+    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  void run(UAVArmSystem &robot_system_) {
+    double thrust_gain = (this->state_machine_config_)
+                             .visual_servoing_state_machine_config()
+                             .pick_place_state_machine_config()
+                             .object_pickup_thrust_gain();
+    LOG(INFO) << "Setting thrust gain to " << thrust_gain;
+    robot_system_.setThrustMixingGain(thrust_gain);
+  }
+};
+
+/**
+* @brief set noise flag to quad polynomial reference controller
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct ResetThrustMixingGain_
+    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  void run(UAVArmSystem &robot_system_) {
+    LOG(INFO) << "Resetting thrust mixing gain";
+    robot_system_.resetThrustMixingGain();
+  }
+};
+
+/**
  * @brief Set arm goal and set grip to false to start with.
  *
  * @tparam LogicStateMachineT State machine that contains the functor
@@ -419,6 +451,13 @@ struct ReachingPostPickWaypoint_
     FollowingWaypointSequence_<LogicStateMachineT, StartIndex, EndIndex,
                                ObjectId>::on_entry(e, logic_state_machine);
     object_id_ = e;
+    SetThrustMixingGain_<FSM>()(e, logic_state_machine, *this, *this);
+  }
+
+  // On exit reset thrust gain
+  template <class EventT, class FSM>
+  void on_exit(EventT &e, FSM &logic_state_machine) {
+    ResetThrustMixingGain_<FSM>()(e, logic_state_machine, *this, *this);
   }
 
 private:

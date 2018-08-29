@@ -10,10 +10,10 @@ ThrustGainEstimator::ThrustGainEstimator(
     double max_thrust_gain, double min_thrust_gain, double max_roll_pitch_bias,
     double rp_mixing_gain)
     : thrust_gain_(thrust_gain_initial), roll_pitch_bias_(0, 0),
-      mixing_gain_(mixing_gain), rp_mixing_gain_(rp_mixing_gain),
-      delay_buffer_size_(buffer_size), gravity_magnitude_(9.81),
-      thrust_command_tolerance_(1e-2), max_thrust_gain_(max_thrust_gain),
-      min_thrust_gain_(min_thrust_gain),
+      mixing_gain_(mixing_gain), config_mixing_gain_(mixing_gain),
+      rp_mixing_gain_(rp_mixing_gain), delay_buffer_size_(buffer_size),
+      gravity_magnitude_(9.81), thrust_command_tolerance_(1e-2),
+      max_thrust_gain_(max_thrust_gain), min_thrust_gain_(min_thrust_gain),
       max_roll_pitch_bias_(max_roll_pitch_bias) {
   CHECK_GE(delay_buffer_size_, 1) << "Buffer size should be atleast 1";
   CHECK_GT(mixing_gain_, 0) << "Mixing gain should be between 0 and 1";
@@ -113,4 +113,14 @@ Eigen::Vector2d ThrustGainEstimator::getRollPitchBias() {
 void ThrustGainEstimator::clearBuffer() {
   std::queue<double> empty;
   thrust_command_queue_.swap(empty);
+}
+
+void ThrustGainEstimator::resetThrustMixingGain() {
+  mixing_gain_ = config_mixing_gain_;
+}
+
+void ThrustGainEstimator::setThrustMixingGain(double mixing_gain) {
+  CHECK_GT(mixing_gain, 0) << "Mixing gain should be between 0 and 1";
+  CHECK_LT(mixing_gain, 1) << "Mixing gain should be between 0 and 1";
+  mixing_gain_ = mixing_gain;
 }
