@@ -1,5 +1,6 @@
 #pragma once
 
+#include "aerial_autonomy/common/math.h"
 #include "aerial_autonomy/controller_connectors/base_controller_connector.h"
 #include "aerial_autonomy/controllers/qrotor_backstepping_controller.h"
 #include "aerial_autonomy/estimators/thrust_gain_estimator.h"
@@ -39,8 +40,7 @@ public:
       SensorPtr<tf::StampedTransform> pose_sensor = nullptr)
       : ControllerConnector(controller, ControllerGroup::UAV),
         drone_hardware_(drone_hardware),
-        thrust_gain_estimator_(thrust_gain_estimator),
-        private_reference_controller_(controller), config_(config),
+        thrust_gain_estimator_(thrust_gain_estimator), config_(config),
         t_0_(std::chrono::high_resolution_clock::now()), m_(config_.mass()),
         g_(config_.acc_gravity()), pose_sensor_(pose_sensor) {
     J_ << config_.jxx(), config_.jxy(), config_.jxz(), config_.jyx(),
@@ -63,11 +63,11 @@ public:
   */
   void setGoal(std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal);
 
-  double getRollCmd() { return roll_cmd_; }
+  double getRollCommand() { return rpyt_message_.x; }
 
-  double getPitchCmd() { return pitch_cmd_; }
+  double getPitchCommand() { return rpyt_message_.y; }
 
-  double getYawRateCmd() { return yaw_rate_cmd_; }
+  double getYawRateCommand() { return rpyt_message_.z; }
 
   double getThrust() { return thrust_; }
 
@@ -81,8 +81,7 @@ public:
 protected:
   /**
   * @brief extracts position and velocity data from UAV to compute appropriate
-  * rpyt
-  * commands
+  * rpyt commands
   *
   * @param sensor_data Current position and velocity of UAV
   *
@@ -136,10 +135,6 @@ private:
   */
   ThrustGainEstimator &thrust_gain_estimator_;
   /**
-  * @brief Internal reference to controller that is connected by this class
-  */
-  QrotorBacksteppingController &private_reference_controller_;
-  /**
   * @brief Controller config
   */
   QrotorBacksteppingControllerConfig config_;
@@ -150,11 +145,11 @@ private:
   /**
   * @brief Mass
   */
-  double m_;
+  const double m_;
   /**
   * @brief Gravity
   */
-  double g_;
+  const double g_;
   /**
   * @brief Moment of inertia matrix
   */
@@ -164,49 +159,33 @@ private:
   */
   std::chrono::time_point<std::chrono::high_resolution_clock> previous_time_;
   /**
-  * @brief Variable to store sensor data
-  */
-  parsernode::common::quaddata data_;
-  /**
   * @brief Variable to store pose sensor for quad data
   */
   SensorPtr<tf::StampedTransform> pose_sensor_;
   /**
-  * @brief Variable to store current state
+  * @brief Variable to integrate & store omega
   */
-  QrotorBacksteppingState current_state_;
+  Eigen::Vector3d current_omega_;
   /**
   * @brief Variable to store current RPY
   */
   Eigen::Vector3d current_rpy_;
   /**
-  * @brief Variable to store current thrust
+  * @brief Variable to integrate & store current thrust
   */
   double thrust_;
   /**
-  * @brief Variable to store current thrust_dot
+  * @brief Variable to integrate & store current thrust_dot
   */
   double thrust_dot_;
   /**
-  * @brief Variable to store omega command
+  * @brief Variable to integrate & store omega command
   */
-  Eigen::Vector3d omega_cmd_;
+  Eigen::Vector3d omega_command_;
   /**
-  * @brief Variable to store roll command
+  * @brief Variable to integrate & store rpyt command message
   */
-  double roll_cmd_;
-  /**
-  * @brief Variable to store pitch command
-  */
-  double pitch_cmd_;
-  /**
-  * @brief Variable to store yaw rate command
-  */
-  double yaw_rate_cmd_;
-  /**
-  * @brief Variable to store thrust command
-  */
-  double thrust_cmd_;
+  geometry_msgs::Quaternion rpyt_message_;
   /**
   * @brief Variable to store lower bound on control
   */

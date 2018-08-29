@@ -62,8 +62,8 @@ int main(int argc, char **argv) {
   ParticleState initial_desired_state = std::get<0>(goal->atTime(0.0));
   geometry_msgs::Vector3 init_position;
   init_position.x = initial_desired_state.p.x;
-  init_position.y = initial_desired_state.p.y - .3;
-  init_position.z = initial_desired_state.p.z - .1;
+  init_position.y = initial_desired_state.p.y;
+  init_position.z = initial_desired_state.p.z - 10;
   drone_hardware.cmdwaypoint(init_position);
 
   parsernode::common::quaddata data;

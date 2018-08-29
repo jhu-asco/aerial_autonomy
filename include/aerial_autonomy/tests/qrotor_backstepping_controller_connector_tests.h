@@ -167,12 +167,12 @@ public:
       controller_connector_->run();
       double current_thrust = controller_connector_->getThrust();
 
-      ASSERT_GE(controller_connector_->getRollCmd(), -0.785);
-      ASSERT_LE(controller_connector_->getRollCmd(), 0.785);
-      ASSERT_GE(controller_connector_->getPitchCmd(), -0.785);
-      ASSERT_LE(controller_connector_->getPitchCmd(), 0.785);
-      ASSERT_GE(controller_connector_->getYawRateCmd(), -1.5708);
-      ASSERT_LE(controller_connector_->getYawRateCmd(), 1.5708);
+      ASSERT_GE(controller_connector_->getRollCommand(), -0.785);
+      ASSERT_LE(controller_connector_->getRollCommand(), 0.785);
+      ASSERT_GE(controller_connector_->getPitchCommand(), -0.785);
+      ASSERT_LE(controller_connector_->getPitchCommand(), 0.785);
+      ASSERT_GE(controller_connector_->getYawRateCommand(), -1.5708);
+      ASSERT_LE(controller_connector_->getYawRateCommand(), 1.5708);
       ASSERT_GE(current_thrust / config_.mass(),
                 (0.8 - 1e-5) * config_.acc_gravity());
       ASSERT_LE(current_thrust / config_.mass(),
