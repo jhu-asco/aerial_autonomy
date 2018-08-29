@@ -112,7 +112,6 @@ ControllerStatus QrotorBacksteppingController::isConvergedImplementation(
     std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal) {
   ControllerStatus controller_status = ControllerStatus::Active;
 
-  // double current_time = std::get<0>(sensor_data);
   QrotorBacksteppingState current_state = std::get<1>(sensor_data);
 
   std::pair<ParticleState, Snap> end_ref = getGoalAtTimeEnd(*goal);
