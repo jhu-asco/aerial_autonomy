@@ -50,12 +50,24 @@ public:
    */
   Eigen::MatrixXd findBasisMatrix(double t, int degree, int dimensions) const;
 
+  /**
+   * @brief Get additive sinusoidal noise
+   *
+   * @param t time
+   * @param a amplitude
+   * @param nu frequency
+   *
+   * @return noise, noise_dot, noise_ddot
+   */
+  Eigen::Vector3d getNoise(double t, double a, double nu) const;
+
 private:
   static constexpr double gravity_magnitude_ = 9.81; ///< Gravity magnitude
   const int degree_;                                 ///< Degree of polynomial
-  const int dimensions_;         ///< Dimension = 4 corresponding to xyz,yaw
-  Eigen::MatrixXd coefficients_; ///< Coefficients for polynomials
-  PositionYaw goal_state_;       ///< Goal state
-  Eigen::VectorXd start_state_;  ///< Start state
-  double tf_;                    ///< Final time
+  const int dimensions_;             ///< Dimension = 4 corresponding to xyz,yaw
+  Eigen::MatrixXd coefficients_;     ///< Coefficients for polynomials
+  PositionYaw goal_state_;           ///< Goal state
+  Eigen::VectorXd start_state_;      ///< Start state
+  double tf_;                        ///< Final time
+  PolynomialReferenceConfig config_; ///< config
 };

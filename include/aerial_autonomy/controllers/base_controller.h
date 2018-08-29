@@ -51,6 +51,11 @@ public:
    */
   virtual GoalType getGoal() const { return goal_; }
   /**
+   * @brief Reset controller state called by connector initialize at the
+   * beginning
+   */
+  virtual void reset() {}
+  /**
    * @brief Destructor
    */
   virtual ~Controller() {}

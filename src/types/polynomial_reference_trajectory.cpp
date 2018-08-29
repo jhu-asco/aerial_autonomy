@@ -9,7 +9,7 @@ PolynomialReferenceTrajectory::PolynomialReferenceTrajectory(
     PositionYaw goal_state, PositionYaw start_state,
     PolynomialReferenceConfig config)
     : degree_(9), dimensions_(4), goal_state_(goal_state),
-      start_state_(dimensions_) {
+      start_state_(dimensions_), config_(config) {
   PositionYaw error = goal_state - start_state;
   start_state_ << start_state.x, start_state.y, start_state.z, start_state.yaw;
   Eigen::MatrixXd constraints(degree_ + 1, dimensions_);
@@ -59,6 +59,22 @@ PolynomialReferenceTrajectory::findBasisMatrix(double t, int degree,
   return basis;
 }
 
+Eigen::Vector3d PolynomialReferenceTrajectory::getNoise(double t, double a,
+                                                        double nu) const {
+  double omega = nu * M_PI * 2.0;
+  double s_omega_t = sin(omega * t), c_omega_t = cos(omega * t);
+  double s_omega_t_squared = std::pow(s_omega_t, 2);
+  double s_omega_t_cubed = s_omega_t_squared * s_omega_t;
+  double s_omega_t_quadrupled = s_omega_t_cubed * s_omega_t;
+  double omega_squared = std::pow(omega, 2);
+  Eigen::Vector3d noise;
+  noise[0] = a * s_omega_t_quadrupled;
+  noise[1] = 4 * omega * a * s_omega_t_cubed * c_omega_t;
+  noise[2] = -16 * omega_squared * noise[0] +
+             12 * omega_squared * a * s_omega_t_squared;
+  return noise;
+}
+
 std::pair<Eigen::VectorXd, Eigen::VectorXd>
 PolynomialReferenceTrajectory::atTime(double t) const {
   Eigen::VectorXd state(15);
@@ -69,11 +85,32 @@ PolynomialReferenceTrajectory::atTime(double t) const {
   Eigen::VectorXd position_yaw = start_state_ + out.row(0).transpose();
   Eigen::VectorXd velocity_yawrate = out.row(1);
   Eigen::VectorXd acceleration_yaw = out.row(2);
+  if (t > tf_ && config_.add_noise()) {
+    double dt = t - tf_;
+    Eigen::Vector3d forward_noise =
+        getNoise(dt, config_.forward_noise_amplitude(),
+                 config_.forward_noise_frequency());
+    Eigen::Vector3d z_noise =
+        getNoise(dt, config_.z_noise_amplitude(), config_.z_noise_frequency());
+    double c_yaw = cos(goal_state_.yaw), s_yaw = sin(goal_state_.yaw);
+    position_yaw[0] += forward_noise[0] * c_yaw;
+    position_yaw[1] += forward_noise[0] * s_yaw;
+    position_yaw[2] += z_noise[0];
+    // vel
+    velocity_yawrate[0] += forward_noise[1] * c_yaw;
+    velocity_yawrate[1] += forward_noise[1] * s_yaw;
+    velocity_yawrate[2] += z_noise[1];
+    // acc
+    acceleration_yaw[0] += forward_noise[2] * c_yaw;
+    acceleration_yaw[1] += forward_noise[2] * s_yaw;
+    acceleration_yaw[2] += z_noise[2];
+  }
   Eigen::Vector3d acceleration = acceleration_yaw.segment(0, 3);
   // wrap yaw
   position_yaw(3) = math::angleWrap(position_yaw(3));
   // Compensate gravity
   acceleration[2] = acceleration[2] + gravity_magnitude_;
+
   // Get rp from acceleration
   auto roll_pitch =
       conversions::accelerationToRollPitch(position_yaw(3), acceleration);

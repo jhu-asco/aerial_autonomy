@@ -170,6 +170,10 @@ public:
     rpyt_based_relative_pose_controller_.resetIntegrator();
   }
 
+  void setNoisePolyReferenceController(bool flag) {
+    quad_poly_reference_generator_.useNoise(flag);
+  }
+
 protected:
   /**
   * @brief Camera transform in the frame of the UAV

@@ -62,6 +62,7 @@ public:
   }
 
   void initialize() {
+    BaseClass::initialize(); // Reset controller
     VLOG(1) << "initializing visual servoing reference";
     if (odom_sensor_) {
       if (odom_sensor_->getSensorStatus() != SensorStatus::VALID) {

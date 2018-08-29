@@ -1,6 +1,7 @@
 #include "aerial_autonomy/controllers/quad_polynomial_reference_controller.h"
 #include "aerial_autonomy/common/conversions.h"
 #include "aerial_autonomy/types/polynomial_reference_trajectory.h"
+#include <glog/logging.h>
 #include <tf/tf.h>
 
 QuadPolynomialReferenceController::QuadPolynomialReferenceController(
@@ -20,4 +21,13 @@ bool QuadPolynomialReferenceController::runImplementation(
   control.reset(new PolynomialReferenceTrajectory(desired_pose_yaw,
                                                   sensor_data.first, config_));
   return true;
+}
+
+void QuadPolynomialReferenceController::useNoise(bool flag) {
+  config_.set_add_noise(flag);
+}
+
+void QuadPolynomialReferenceController::reset() {
+  LOG(INFO) << "Resetting poly reference";
+  useNoise(false); // reset any noise flags in config
 }

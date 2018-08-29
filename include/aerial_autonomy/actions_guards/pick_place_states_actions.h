@@ -165,7 +165,8 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
           typename vsa::ResetRelativePoseVisualServoing,
           RelativePoseVisualServoingTransitionActionFunctor_<
               LogicStateMachineT,
-              UAVVisionSystem::VisualServoingReferenceConnectorT, 0, false>>>;
+              UAVVisionSystem::VisualServoingReferenceConnectorT, 0, false>,
+          SetNoisePolynomialReference_<LogicStateMachineT, true>>>;
 
   /**
   * @brief Action to take when starting placing object at either drop-off.
