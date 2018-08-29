@@ -24,6 +24,18 @@ public:
    */
   QuadPolynomialReferenceController(PolynomialReferenceConfig config);
 
+  /**
+   * @brief Specify whether to add noise at end
+   *
+   * @param flag true if we want to add noise at end of reference
+   */
+  void useNoise(bool flag);
+
+  /**
+   * @brief reset controller status
+   */
+  void reset();
+
 protected:
   /**
    * @brief generate reference trajectory based on sensor data, goal
