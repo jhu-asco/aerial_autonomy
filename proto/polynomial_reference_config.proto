@@ -10,8 +10,8 @@ message PolynomialReferenceConfig {
   optional double max_velocity = 1 [ default = 0.5 ];
   optional double min_tf = 2 [ default = 1 ];
   optional double forward_noise_amplitude = 3 [ default = 0.05 ];
-  optional double forward_noise_frequency = 4 [ default = 0.5 ];
-  optional double z_noise_amplitude = 5 [ default = 0.05 ];
-  optional double z_noise_frequency = 6 [ default = 0.25 ];
+  optional double forward_noise_frequency = 4 [ default = 0.25 ];
+  optional double z_noise_amplitude = 5 [ default = 0.03 ];
+  optional double z_noise_frequency = 6 [ default = 0.125 ];
   optional bool add_noise = 7 [ default = false ];
 }

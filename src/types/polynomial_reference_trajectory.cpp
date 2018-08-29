@@ -63,11 +63,15 @@ Eigen::Vector3d PolynomialReferenceTrajectory::getNoise(double t, double a,
                                                         double nu) const {
   double omega = nu * M_PI * 2.0;
   double s_omega_t = sin(omega * t), c_omega_t = cos(omega * t);
+  double s_omega_t_squared = std::pow(s_omega_t, 2);
+  double s_omega_t_cubed = s_omega_t_squared * s_omega_t;
+  double s_omega_t_quadrupled = s_omega_t_cubed * s_omega_t;
   double omega_squared = std::pow(omega, 2);
   Eigen::Vector3d noise;
-  noise[0] = a * std::pow(s_omega_t, 2);
-  noise[1] = 2 * omega * a * s_omega_t * c_omega_t;
-  noise[2] = -4 * omega_squared * noise[0] + 2 * omega_squared * a;
+  noise[0] = a * s_omega_t_quadrupled;
+  noise[1] = 4 * omega * a * s_omega_t_cubed * c_omega_t;
+  noise[2] = -16 * omega_squared * noise[0] +
+             12 * omega_squared * a * s_omega_t_squared;
   return noise;
 }
 

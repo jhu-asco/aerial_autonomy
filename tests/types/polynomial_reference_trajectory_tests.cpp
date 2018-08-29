@@ -97,7 +97,7 @@ TEST(PolynomialReferenceTrajectory, Noise) {
   Eigen::Vector3d noise = reference.getNoise(t, a, nu);
   Eigen::Vector3d noise_dt = reference.getNoise(t + dt, a, nu);
   Eigen::Vector3d noise_neg_dt = reference.getNoise(t - dt, a, nu);
-  ASSERT_DOUBLE_EQ(noise[0], a * std::pow(sin(2 * M_PI * nu * t), 2));
+  ASSERT_DOUBLE_EQ(noise[0], a * std::pow(sin(2 * M_PI * nu * t), 4));
   ASSERT_NEAR(noise[1], (noise_dt[0] - noise_neg_dt[0]) / (2 * dt), 1e-6);
   ASSERT_NEAR(noise[2], (noise_dt[1] - noise_neg_dt[1]) / (2 * dt), 1e-6);
 }
@@ -116,9 +116,9 @@ TEST(PolynomialReferenceTrajectory, CheckTrajectoryWithNoise) {
   double omega = 2 * M_PI * config.forward_noise_frequency();
   double omega_z = 2 * M_PI * config.z_noise_frequency();
   double noise =
-      config.forward_noise_amplitude() * std::pow(sin(omega * delta_t), 2);
+      config.forward_noise_amplitude() * std::pow(sin(omega * delta_t), 4);
   double noise_z =
-      config.z_noise_amplitude() * std::pow(sin(omega_z * delta_t), 2);
+      config.z_noise_amplitude() * std::pow(sin(omega_z * delta_t), 4);
   ASSERT_NEAR(state1[1], 2 + noise, 1e-8);
   ASSERT_NEAR(state1[0], 1, 1e-8);
   ASSERT_NEAR(state1[2], 3 + noise_z, 1e-8);
