@@ -38,6 +38,13 @@ public:
                       ControllerGroup::UAV),
             std::chrono::milliseconds(
                 config.uav_system_config().uav_controller_timer_duration())),
+        high_level_controller_timer_(
+            std::bind(&UAVSystem::runActiveController, std::ref(uav_system_),
+                      ControllerGroup::HighLevel),
+            std::chrono::milliseconds(
+                config.uav_system_config()
+                    .uav_vision_system_config()
+                    .high_level_controller_timer_duration())),
         arm_controller_timer_(
             std::bind(&UAVArmSystem::runActiveController, std::ref(uav_system_),
                       ControllerGroup::Arm),
@@ -47,6 +54,7 @@ public:
     // Get the party started
     common_handler_.startTimers();
     uav_controller_timer_.start();
+    high_level_controller_timer_.start();
     arm_controller_timer_.start();
   }
 
@@ -77,6 +85,7 @@ private:
       common_handler_;              ///< Common logic to create state machine
                                     ///< and associated connections.
   AsyncTimer uav_controller_timer_; ///< Timer for running uav controller
-  AsyncTimer arm_controller_timer_; ///< Timer for running arm controller
-  MocapLogger mocap_logger_;        ///< Logger for mocap poses
+  AsyncTimer high_level_controller_timer_; ///< Timer for running high level
+  AsyncTimer arm_controller_timer_;        ///< Timer for running arm controller
+  MocapLogger mocap_logger_;               ///< Logger for mocap poses
 };

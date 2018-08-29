@@ -24,6 +24,7 @@ bool QuadPolynomialReferenceController::runImplementation(
 }
 
 void QuadPolynomialReferenceController::useNoise(bool flag) {
+  LOG(INFO) << "Use noise: " << flag;
   config_.set_add_noise(flag);
 }
 
