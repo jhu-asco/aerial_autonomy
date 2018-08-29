@@ -69,7 +69,7 @@ public:
     if (t < ts_.back()) {
       t_tau = t - ts_[i - 1];
     } else {
-      t_tau = tau_vec_(tau_vec_.size() - 1);
+      t_tau = tau_vec_.tail(1)(0);
     }
 
     Eigen::MatrixXd states_eigen;
