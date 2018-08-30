@@ -61,9 +61,9 @@ int main(int argc, char **argv) {
   // Initial condition
   ParticleState initial_desired_state = std::get<0>(goal->atTime(0.0));
   geometry_msgs::Vector3 init_position;
-  init_position.x = initial_desired_state.p.x;
-  init_position.y = initial_desired_state.p.y;
-  init_position.z = initial_desired_state.p.z - 10;
+  init_position.x = initial_desired_state.p.x - .5;
+  init_position.y = initial_desired_state.p.y - .5;
+  init_position.z = initial_desired_state.p.z - .5;
   drone_hardware.cmdwaypoint(init_position);
 
   parsernode::common::quaddata data;
@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
     broadcaster.sendTransform(tf::StampedTransform(
         tf::Transform(
             q, tf::Vector3(data.localpos.x, data.localpos.y, data.localpos.z)),
-        ros::Time::now(), "optitrak", "quad"));
+        ros::Time::now(), visualizer_config.parent_frame(), "quad"));
 
     // Run controller
     controller_connector.run();
