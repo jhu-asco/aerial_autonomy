@@ -1,5 +1,6 @@
 #pragma once
 
+#include "aerial_autonomy/common/conversions.h"
 #include "aerial_autonomy/common/math.h"
 #include "aerial_autonomy/controller_connectors/base_controller_connector.h"
 #include "aerial_autonomy/controllers/qrotor_backstepping_controller.h"
@@ -42,9 +43,6 @@ public:
         thrust_gain_estimator_(thrust_gain_estimator), config_(config),
         t_0_(std::chrono::high_resolution_clock::now()), m_(config_.mass()),
         g_(config_.acc_gravity()), pose_sensor_(pose_sensor) {
-    J_ << config_.jxx(), config_.jxy(), config_.jxz(), config_.jyx(),
-        config_.jyy(), config_.jyz(), config_.jzx(), config_.jzy(),
-        config_.jzz();
     DATA_HEADER("qrotor_backstepping_controller_connector") << "roll"
                                                             << "pitch"
                                                             << "yaw"
@@ -88,24 +86,6 @@ protected:
   * @param controls rpyt commands to send to UAV
   */
   virtual void sendControllerCommands(QrotorBacksteppingControl control);
-  /**
-  * @brief Mapping from body angular velocity to local rpydot
-  *
-  * @param omega body angular velocity
-  * @param rpy current rpy from sensor data
-  *
-  * @return eigen vector3d, rpydot
-  */
-  Eigen::Vector3d omegaToRpyDot(const Eigen::Vector3d &omega,
-                                const Eigen::Vector3d &rpy);
-  /**
-  * @brief Get the pose of quadrotor as a tf transform
-  *
-  * @param data Quad data
-  *
-  * @return current pose of quadrotor
-  */
-  tf::Transform getPose(const parsernode::common::quaddata &data);
 
 private:
   /**
@@ -140,10 +120,6 @@ private:
   * @brief Gravity
   */
   const double g_;
-  /**
-  * @brief Moment of inertia matrix
-  */
-  Eigen::Matrix3d J_;
   /**
   * @brief Time when the last sendControllerCommands is called
   */

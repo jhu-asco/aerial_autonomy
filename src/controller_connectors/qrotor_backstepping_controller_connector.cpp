@@ -23,7 +23,7 @@ bool QrotorBacksteppingControllerConnector::extractSensorData(
     }
     quad_pose = pose_sensor_->getSensorData();
   } else {
-    quad_pose = getPose(data);
+    quad_pose = conversions::getPose(data);
   }
   current_state.pose = quad_pose;
 
@@ -59,6 +59,9 @@ bool QrotorBacksteppingControllerConnector::extractSensorData(
 
 void QrotorBacksteppingControllerConnector::sendControllerCommands(
     QrotorBacksteppingControl control) {
+  Eigen::Matrix3d J; // Inertia matrix
+  J << config_.jxx(), config_.jxy(), config_.jxz(), config_.jyx(),
+      config_.jyy(), config_.jyz(), config_.jzx(), config_.jzy(), config_.jzz();
   double Thrust_ddot = control.thrust_ddot;
   tf::Vector3 Torque = control.torque;
   std::chrono::time_point<std::chrono::high_resolution_clock> current_time =
@@ -74,11 +77,11 @@ void QrotorBacksteppingControllerConnector::sendControllerCommands(
   // conversions
   Eigen::Vector3d torque;
   tf::vectorTFToEigen(Torque, torque);
-
   Eigen::Vector3d omega_dot_cmd =
-      J_.llt().solve((J_ * current_omega_).cross(current_omega_) + torque);
+      J.llt().solve((J * current_omega_).cross(current_omega_) + torque);
   omega_command_ += omega_dot_cmd * dt;
-  Eigen::Vector3d rpydot_cmd = omegaToRpyDot(omega_command_, current_rpy_);
+  Eigen::Vector3d rpydot_cmd =
+      conversions::omegaToRpyDot(omega_command_, current_rpy_);
   rpyt_message_.x += rpydot_cmd[0] * dt; // Roll command
   rpyt_message_.y += rpydot_cmd[1] * dt; // Pitch command
   rpyt_message_.z = rpydot_cmd[2];       // Yaw rate command
@@ -106,35 +109,18 @@ void QrotorBacksteppingControllerConnector::setGoal(
   BaseClass::setGoal(goal);
   t_0_ = std::chrono::high_resolution_clock::now();
   previous_time_ = std::chrono::high_resolution_clock::now();
+  // Initial state
   thrust_ = m_ * g_;
   thrust_dot_ = 0;
-  rpyt_message_.x = 0;
-  rpyt_message_.y = 0;
+  rpyt_message_.x = 0; // Initial roll
+  rpyt_message_.y = 0; // Initial pitch
   omega_command_ << 0, 0, 0;
+  // Set lower, upper bounds
   lb_ << -0.785, -0.785, -1.5708, 0.8;
   ub_ << 0.785, 0.785, 1.5708, 1.2;
 
   VLOG(1) << "Clearing thrust estimator buffer";
   thrust_gain_estimator_.clearBuffer();
-}
-
-Eigen::Vector3d QrotorBacksteppingControllerConnector::omegaToRpyDot(
-    const Eigen::Vector3d &omega, const Eigen::Vector3d &rpy) {
-  Eigen::Matrix3d Mrpy;
-  double s_roll = sin(rpy[0]), c_roll = cos(rpy[0]), t_pitch = tan(rpy[1]);
-  double sec_pitch = sqrt(1 + t_pitch * t_pitch);
-  Mrpy << 1, s_roll * t_pitch, c_roll * t_pitch, 0, c_roll, -s_roll, 0,
-      s_roll * sec_pitch, c_roll * sec_pitch;
-  return Mrpy * omega;
-}
-
-tf::Transform QrotorBacksteppingControllerConnector::getPose(
-    const parsernode::common::quaddata &data) {
-  tf::Transform pose;
-  tf::vector3MsgToTF(data.localpos, pose.getOrigin());
-  pose.setRotation(tf::createQuaternionFromRPY(data.rpydata.x, data.rpydata.y,
-                                               data.rpydata.z));
-  return pose;
 }
 
 void QrotorBacksteppingControllerConnector::useSensor(
