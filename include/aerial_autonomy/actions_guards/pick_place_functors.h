@@ -13,6 +13,7 @@
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/types/completed_event.h>
 #include <aerial_autonomy/types/object_id.h>
+#include <aerial_autonomy/types/polynomial_reference_trajectory.h>
 #include <aerial_autonomy/types/reset_event.h>
 #include <chrono>
 #include <glog/logging.h>
@@ -248,7 +249,7 @@ struct GoToWaypointInternalActionFunctor_
         logic_state_machine.process_event(be::Abort());
         return false;
       } else {
-        sendLocalWaypoint(robot_system, waypoint);
+        sendLocalWaypoint(robot_system, waypoint, state.getReferenceConfig());
       }
     }
     // check controller status
@@ -267,7 +268,7 @@ struct GoToWaypointInternalActionFunctor_
           logic_state_machine.process_event(be::Abort());
           return false;
         } else {
-          sendLocalWaypoint(robot_system, waypoint);
+          sendLocalWaypoint(robot_system, waypoint, state.getReferenceConfig());
         }
       }
     } else if (status == ControllerStatus::Critical) {
@@ -295,17 +296,24 @@ struct GoToWaypointInternalActionFunctor_
   * @param robot_system Robot to send waypoint to
   * @param way_point Waypoint to send
   */
-  void sendLocalWaypoint(UAVArmSystem &robot_system, PositionYaw way_point) {
+  void sendLocalWaypoint(UAVArmSystem &robot_system, PositionYaw way_point,
+                         PolynomialReferenceConfig reference_config) {
     tf::StampedTransform quad_pose = robot_system.getPose();
     way_point.x += quad_pose.getOrigin().x();
     way_point.y += quad_pose.getOrigin().y();
     way_point.z += quad_pose.getOrigin().z();
     VLOG(1) << "Waypoint position: " << way_point.x << ", " << way_point.y
             << ", " << way_point.z;
+    tf::StampedTransform start_pose = robot_system.getPose();
+    PositionYaw start_position_yaw;
+    conversions::tfToPositionYaw(start_position_yaw, start_pose);
+    ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> reference(
+        new PolynomialReferenceTrajectory(way_point, start_position_yaw,
+                                          reference_config));
     robot_system
         .setGoal<RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
                  ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>(
-            conversions::createWaypoint(way_point));
+            reference);
   }
 };
 
@@ -422,6 +430,10 @@ struct FollowingWaypointSequence_
   * @return True if initialized, false otherwise
   */
   bool controlInitialized() { return control_initialized_; }
+
+  PolynomialReferenceConfig getReferenceConfig() {
+    return config_.poly_reference_config();
+  }
 
 private:
   FollowingWaypointSequenceConfig config_; ///< State config
