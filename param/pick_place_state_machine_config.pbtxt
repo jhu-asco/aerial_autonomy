@@ -105,6 +105,10 @@ visual_servoing_state_machine_config {
         }
         yaw: 1.57
       }
+      poly_reference_config {
+        min_tf: 4.0
+        max_velocity: 0.3
+      }
     }
   }
 }

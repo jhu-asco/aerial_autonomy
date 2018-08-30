@@ -1,3 +1,4 @@
+#pragma once
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/reference_trajectory.h"
 #include "polynomial_reference_config.pb.h"
