@@ -125,8 +125,3 @@ SpiralReferenceTrajectory::atTime(double t) const {
   u[5] = x[18];
   return std::make_pair(x, u);
 }
-
-std::pair<Eigen::VectorXd, Eigen::VectorXd>
-SpiralReferenceTrajectory::atGoalEnd() const {
-  return atTime(0);
-}

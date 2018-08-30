@@ -40,12 +40,6 @@ public:
   */
   std::pair<StateT, ControlT> atTime(double t) const;
   /**
-  * @brief Gets the trajectory information at the end
-  *
-  * @return Trajectory state and control
-  */
-  std::pair<StateT, ControlT> atGoalEnd() const;
-  /**
   * @brief Compute roll and pitch necessary to align z axis along specified axis
   *
   * @param roll Desired roll

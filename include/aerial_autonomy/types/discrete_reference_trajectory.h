@@ -21,15 +21,6 @@ public:
   */
   virtual std::pair<StateT, ControlT> atTime(double t) const = 0;
   /**
-  * @brief Gets the trajectory information at the end
-  *
-  * @return Trajectory state and control
-  */
-  std::pair<StateT, ControlT> atGoalEnd() const {
-    return std::pair<StateT, ControlT>(this->states.back(),
-                                       this->controls.back());
-  }
-  /**
   * @brief Time stamps corresponding to states
   */
   std::vector<double> ts;
