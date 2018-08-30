@@ -299,6 +299,9 @@ uav_system_config {
     poly_reference_config {
       max_velocity: 0.3
       min_tf: 4.0
+      forward_noise_amplitude: 0.07
+      z_noise_amplitude: 0.0
+      forward_noise_frequency: 0.1
     }
     gain_visual_servoing_tracking_pose: 0.1
     uav_arm_system_config {

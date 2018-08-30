@@ -62,9 +62,7 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
   * @brief State when reaching a relative pose visual servoing goal using rpyt
   * controller Uses reset instead of abort
   */
-  using PrePickState = VisualServoing_<
-      LogicStateMachineT, Reset,
-      RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>;
+  using PrePickState = PrePickState_<LogicStateMachineT>;
   /**
   * @brief State when reaching a relative pose visual servoing goal
   *

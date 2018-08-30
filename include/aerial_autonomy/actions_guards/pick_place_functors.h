@@ -63,6 +63,18 @@ struct GrippingInternalActionFunctor_
   }
 };
 
+template <class LogicStateMachineT>
+using PrePickInternalActionFunctor_ =
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ControllerStatusInternalActionFunctor_<
+            LogicStateMachineT,
+            RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>, true,
+            Reset>,
+        ControllerStatusInternalActionFunctor_<
+            LogicStateMachineT,
+            UAVVisionSystem::VisualServoingReferenceConnectorT, false, Reset>>>;
+
 /**
 * @brief Logic to check while placing object
 *
@@ -637,3 +649,8 @@ private:
    */
   std::chrono::milliseconds grip_timeout_ = std::chrono::milliseconds(0);
 };
+
+template <class LogicStateMachineT>
+using PrePickState_ =
+    BaseState<UAVArmSystem, LogicStateMachineT,
+              PrePickInternalActionFunctor_<LogicStateMachineT>>;

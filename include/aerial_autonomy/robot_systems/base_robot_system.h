@@ -89,6 +89,8 @@ public:
     ControllerConnectorT *controller_connector =
         controller_connector_container_.getObject<ControllerConnectorT>();
     if (controller_connector != nullptr) {
+      // Abort highlevel always
+      abortController(ControllerGroup::HighLevel);
       ControllerGroup controller_group =
           controller_connector->getControllerGroup();
       abortController(controller_group);

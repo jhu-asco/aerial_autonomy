@@ -126,11 +126,11 @@ uav_system_config {
 
       position_controller_config {
         goal_position_tolerance {
-          x: 0.05
-          y: 0.05
-          z: 0.05
+          x: 0.1
+          y: 0.1
+          z: 0.1
         }
-        goal_yaw_tolerance: .02
+        goal_yaw_tolerance: .1
       }
     }
 
