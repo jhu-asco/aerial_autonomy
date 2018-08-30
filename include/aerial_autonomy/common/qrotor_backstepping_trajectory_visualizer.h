@@ -52,16 +52,16 @@ public:
   *
   * @return gcop comm state
   */
-  gcop_comm::State getState(ParticleState &x) {
+  gcop_comm::State getState(ParticleState &particle_state) {
     gcop_comm::State state;
     // Position
-    state.basepose.translation.x = x.p.x;
-    state.basepose.translation.y = x.p.y;
-    state.basepose.translation.z = x.p.z;
+    state.basepose.translation.x = particle_state.p.x;
+    state.basepose.translation.y = particle_state.p.y;
+    state.basepose.translation.z = particle_state.p.z;
     // Velocity
-    state.basetwist.linear.x = x.v.x;
-    state.basetwist.linear.y = x.v.y;
-    state.basetwist.linear.z = x.v.z;
+    state.basetwist.linear.x = particle_state.v.x;
+    state.basetwist.linear.y = particle_state.v.y;
+    state.basetwist.linear.z = particle_state.v.z;
     return state;
   }
   /**
@@ -103,28 +103,30 @@ public:
   visualization_msgs::Marker
   getWayPoints(std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal,
                Eigen::VectorXd tau_vec) {
-    visualization_msgs::Marker points;
-    points.header.frame_id = config_.parent_frame();
-    points.header.stamp = ros::Time::now();
-    points.ns = "way_points";
-    points.action = visualization_msgs::Marker::ADD;
-    points.pose.orientation.w = 1.0;
-    points.id = 1;
-    points.type = visualization_msgs::Marker::POINTS;
-    points.scale.x = .15;
-    points.scale.y = .15;
-    points.color.g = 1.0f;
-    points.color.a = 0.5;
+    visualization_msgs::Marker marker;
+    marker.header.frame_id = config_.parent_frame();
+    marker.header.stamp = ros::Time::now();
+    marker.ns = "way_points";
+    marker.id = 1;
+    marker.type = visualization_msgs::Marker::POINTS;
+    marker.action = visualization_msgs::Marker::ADD;
+    // Set the scale and color
+    marker.scale.x = .15;
+    marker.scale.y = .15;
+    marker.color.g = 1.0f;
+    marker.color.a = 0.5;
     for (int i = 0; i < tau_vec.size(); i++) {
+      // Get way points
       ParticleState states =
           std::get<0>(goal->atTime(tau_vec.head(i + 1).sum()));
-      geometry_msgs::Point p;
-      p.x = states.p.x;
-      p.y = states.p.y;
-      p.z = states.p.z;
-      points.points.push_back(p);
+      // Set the pose of the marker
+      geometry_msgs::Point pt;
+      pt.x = states.p.x;
+      pt.y = states.p.y;
+      pt.z = states.p.z;
+      marker.points.push_back(pt);
     }
-    return points;
+    return marker;
   }
 
   /**
@@ -139,29 +141,35 @@ public:
   visualization_msgs::Marker getCurrentDesiredState(
       std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal,
       std::chrono::high_resolution_clock::time_point t0) {
-    visualization_msgs::Marker points;
-    points.header.frame_id = config_.parent_frame();
-    points.header.stamp = ros::Time::now();
-    points.ns = "current_desired_state";
-    points.action = visualization_msgs::Marker::ADD;
-    points.pose.orientation.w = 1.0;
-    points.id = 2;
-    points.type = visualization_msgs::Marker::POINTS;
-    points.scale.x = .2;
-    points.scale.y = .2;
-    points.color.r = 1.0;
-    points.color.b = 1.0;
-    points.color.a = 0.8;
+    visualization_msgs::Marker marker;
+    marker.header.frame_id = config_.parent_frame();
+    marker.header.stamp = ros::Time::now();
+    marker.ns = "current_desired_state";
+    marker.id = 2;
+    marker.type = visualization_msgs::Marker::SPHERE;
+    marker.action = visualization_msgs::Marker::ADD;
+    // Current time
     auto current_t = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> current_T = current_t - t0;
+    // Current desired state
     ParticleState current_desired_state =
         std::get<0>(goal->atTime(current_T.count()));
-    geometry_msgs::Point p;
-    p.x = current_desired_state.p.x;
-    p.y = current_desired_state.p.y;
-    p.z = current_desired_state.p.z;
-    points.points.push_back(p);
-    return points;
+    // Set the pose of the marker
+    marker.pose.position.x = current_desired_state.p.x;
+    marker.pose.position.y = current_desired_state.p.y;
+    marker.pose.position.z = current_desired_state.p.z;
+    marker.pose.orientation.x = 0.0;
+    marker.pose.orientation.y = 0.0;
+    marker.pose.orientation.z = 0.0;
+    marker.pose.orientation.w = 1.0;
+    // Set the scale and color
+    marker.scale.x = 0.2;
+    marker.scale.y = 0.2;
+    marker.scale.z = 0.2;
+    marker.color.r = 1.0;
+    marker.color.b = 1.0;
+    marker.color.a = 0.8;
+    return marker;
   }
 
 private:
