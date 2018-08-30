@@ -13,7 +13,6 @@
 #include <chrono>
 #include <glog/logging.h>
 #include <parsernode/parser.h>
-
 /**
 * @brief A controller connector for trajectory-tracking backstepping controller
 * for a quadrotor.
@@ -55,22 +54,16 @@ public:
                                                             << "thrust"
                                                             << DataStream::endl;
   }
-
   /**
-  * @brief set goal to controller and clear estimator buffer
+  * @brief Set goal to controller and clear estimator buffer
   *
   * @param goal empty goal
   */
   void setGoal(std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal);
-
-  double getRollCommand() { return rpyt_message_.x; }
-
-  double getPitchCommand() { return rpyt_message_.y; }
-
-  double getYawRateCommand() { return rpyt_message_.z; }
-
-  double getThrust() { return thrust_; }
-
+  /**
+  * @brief Get last command
+  */
+  geometry_msgs::Quaternion getLastCommand() { return rpyt_message_; }
   /**
   * @brief Swap out the internal sensor with provided sensor
   *
@@ -80,7 +73,7 @@ public:
 
 protected:
   /**
-  * @brief extracts position and velocity data from UAV to compute appropriate
+  * @brief Extracts position and velocity data from UAV to compute appropriate
   * rpyt commands
   *
   * @param sensor_data Current position and velocity of UAV
@@ -89,16 +82,14 @@ protected:
   */
   virtual bool
   extractSensorData(std::pair<double, QrotorBacksteppingState> &sensor_data);
-
   /**
-  * @brief  Send rpyt commands to hardware
+  * @brief Send rpyt commands to hardware
   *
   * @param controls rpyt commands to send to UAV
   */
   virtual void sendControllerCommands(QrotorBacksteppingControl control);
-
   /**
-  * @brief  Mapping from body angular velocity to local rpydot
+  * @brief Mapping from body angular velocity to local rpydot
   *
   * @param omega body angular velocity
   * @param rpy current rpy from sensor data
@@ -107,9 +98,8 @@ protected:
   */
   Eigen::Vector3d omegaToRpyDot(const Eigen::Vector3d &omega,
                                 const Eigen::Vector3d &rpy);
-
   /**
-  * @brief get the pose of quadrotor as a tf transform
+  * @brief Get the pose of quadrotor as a tf transform
   *
   * @param data Quad data
   *
@@ -139,7 +129,7 @@ private:
   */
   QrotorBacksteppingControllerConfig config_;
   /**
-  * @brief time at start
+  * @brief Time at start
   */
   std::chrono::time_point<std::chrono::high_resolution_clock> t_0_;
   /**

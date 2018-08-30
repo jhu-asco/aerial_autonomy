@@ -81,7 +81,7 @@ void QrotorBacksteppingControllerConnector::sendControllerCommands(
   Eigen::Vector3d rpydot_cmd = omegaToRpyDot(omega_command_, current_rpy_);
   rpyt_message_.x += rpydot_cmd[0] * dt; // Roll command
   rpyt_message_.y += rpydot_cmd[1] * dt; // Pitch command
-  double yaw_rate_cmd = rpydot_cmd[2];   // Yaw rate command
+  rpyt_message_.z = rpydot_cmd[2];       // Yaw rate command
 
   // Bound command input
   rpyt_message_.x = math::clamp(rpyt_message_.x, lb_(0), ub_(0));
@@ -91,11 +91,9 @@ void QrotorBacksteppingControllerConnector::sendControllerCommands(
 
   double thrust_cmd =
       thrust_ / (m_ * thrust_gain_estimator_.getThrustGain()); // thrust_command
-
-  rpyt_message_.z = yaw_rate_cmd;
   rpyt_message_.w = thrust_cmd;
-  thrust_gain_estimator_.addThrustCommand(rpyt_message_.w);
   drone_hardware_.cmdrpyawratethrust(rpyt_message_);
+  thrust_gain_estimator_.addThrustCommand(rpyt_message_.w);
 
   DATA_LOG("qrotor_backstepping_controller_connector")
       << current_rpy_(0) << current_rpy_(1) << current_rpy_(2)

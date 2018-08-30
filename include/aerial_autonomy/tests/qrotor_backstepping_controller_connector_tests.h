@@ -165,19 +165,18 @@ public:
     controller_connector_->setGoal(goal);
     while (controller_connector_->getStatus() != ControllerStatus::Completed) {
       controller_connector_->run();
-      double current_thrust = controller_connector_->getThrust();
-
-      ASSERT_GE(controller_connector_->getRollCommand(), -0.785);
-      ASSERT_LE(controller_connector_->getRollCommand(), 0.785);
-      ASSERT_GE(controller_connector_->getPitchCommand(), -0.785);
-      ASSERT_LE(controller_connector_->getPitchCommand(), 0.785);
-      ASSERT_GE(controller_connector_->getYawRateCommand(), -1.5708);
-      ASSERT_LE(controller_connector_->getYawRateCommand(), 1.5708);
-      ASSERT_GE(current_thrust / config_.mass(),
+      ASSERT_GE(controller_connector_->getLastCommand().x, -0.785);
+      ASSERT_LE(controller_connector_->getLastCommand().x, 0.785);
+      ASSERT_GE(controller_connector_->getLastCommand().y, -0.785);
+      ASSERT_LE(controller_connector_->getLastCommand().y, 0.785);
+      ASSERT_GE(controller_connector_->getLastCommand().z, -1.5708);
+      ASSERT_LE(controller_connector_->getLastCommand().z, 1.5708);
+      ASSERT_GE(controller_connector_->getLastCommand().w *
+                    thrust_gain_estimator_.getThrustGain(),
                 (0.8 - 1e-5) * config_.acc_gravity());
-      ASSERT_LE(current_thrust / config_.mass(),
+      ASSERT_LE(controller_connector_->getLastCommand().w *
+                    thrust_gain_estimator_.getThrustGain(),
                 (1.2 + 1e-5) * config_.acc_gravity());
-
       std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
   }
