@@ -11,10 +11,16 @@ QrotorBacksteppingController::getGoalFromReference(
   return ref.atTime(t);
 }
 
-std::pair<ParticleState, Snap> QrotorBacksteppingController::getGoalAtTimeEnd(
-    const ReferenceTrajectory<ParticleState, Snap> &ref) {
-  return ref.atGoalEnd();
-}
+// std::pair<ParticleState, Snap>
+// QrotorBacksteppingController::getGoalAtTimeEnd(
+//     const ReferenceTrajectory<ParticleState, Snap> &ref) {
+//   return ref.atGoalEnd();
+// }
+
+// ParticleState QrotorBacksteppingController::getGoalAtTimeEnd(
+//     ReferenceTrajectory<ParticleState, Snap> &ref) {
+//   return ref.goal(0.0);
+// }
 
 bool QrotorBacksteppingController::runImplementation(
     std::pair<double, QrotorBacksteppingState> sensor_data,
@@ -111,11 +117,8 @@ ControllerStatus QrotorBacksteppingController::isConvergedImplementation(
     std::pair<double, QrotorBacksteppingState> sensor_data,
     std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal) {
   ControllerStatus controller_status = ControllerStatus::Active;
-
   QrotorBacksteppingState current_state = std::get<1>(sensor_data);
-
-  std::pair<ParticleState, Snap> end_ref = getGoalAtTimeEnd(*goal);
-  ParticleState end_goal = std::get<0>(end_ref);
+  ParticleState end_goal = goal->goal(0.0); // dummy param
 
   const config::Velocity tolerance_vel = config_.goal_velocity_tolerance();
   const config::Position tolerance_pos = config_.goal_position_tolerance();

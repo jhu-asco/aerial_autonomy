@@ -15,12 +15,15 @@ public:
   * @return Trajectory state and control
   */
   virtual std::pair<StateT, ControlT> atTime(double t) const = 0;
+
   /**
-  * @brief Gets the trajectory information at the end
+  * @brief goal for reference trajectory
   *
-  * @return Trajectory state and control
+  * @param t Time when goal is asked for
+  *
+  * @return state at time t
   */
-  virtual std::pair<StateT, ControlT> atGoalEnd() const = 0;
+  virtual StateT goal(double t) { return atTime(t).first; }
 };
 
 /**

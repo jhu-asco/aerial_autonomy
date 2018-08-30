@@ -91,11 +91,15 @@ public:
     return std::pair<ParticleState, Snap>(ParticleState(p, v, a, j), snap);
   }
   /**
-  * @brief Gets the trajectory information at the end
+  * @brief get goal at specified time
   *
-  * @return Trajectory state and control
+  * Will give the end of reference trajectory
+  *
+  * @param double time
+  *
+  * @return State at end of reference trajectory
   */
-  std::pair<ParticleState, Snap> atGoalEnd() const {
+  ParticleState goal(double) {
     Eigen::MatrixXd equal_A =
         equalA(tau_vec_(tau_vec_.size() - 1)).bottomRows(5);
     Eigen::MatrixXd states_eigen = equal_A * poly_coeffs_.bottomRows(10);
@@ -104,8 +108,7 @@ public:
     Velocity v(states_eigen(1, 0), states_eigen(1, 1), states_eigen(1, 2));
     Acceleration a(states_eigen(2, 0), states_eigen(2, 1), states_eigen(2, 2));
     Jerk j(states_eigen(3, 0), states_eigen(3, 1), states_eigen(3, 2));
-    Snap snap(states_eigen(4, 0), states_eigen(4, 1), states_eigen(4, 2));
-    return std::pair<ParticleState, Snap>(ParticleState(p, v, a, j), snap);
+    return ParticleState(p, v, a, j);
   }
 
 private:

@@ -112,7 +112,6 @@ protected:
   ControllerStatus isConvergedImplementation(
       std::pair<double, QrotorBacksteppingState> sensor_data,
       std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal);
-
   /**
   * @brief Gets current goal and derivatives from the reference
   * @param ref Reference trajectory
@@ -121,14 +120,6 @@ protected:
   std::pair<ParticleState, Snap>
   getGoalFromReference(double current_time,
                        const ReferenceTrajectory<ParticleState, Snap> &ref);
-
-  /**
-  * @brief Gets the trajectory information at the end
-  *
-  * @return Goal at the end
-  */
-  std::pair<ParticleState, Snap>
-  getGoalAtTimeEnd(const ReferenceTrajectory<ParticleState, Snap> &ref);
   /**
   * @brief Controller config
   */
