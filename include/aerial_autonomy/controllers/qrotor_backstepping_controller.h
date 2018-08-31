@@ -10,6 +10,8 @@
 #include "qrotor_backstepping_controller_config.pb.h"
 
 #include <Eigen/Dense>
+#include <aerial_autonomy/log/log.h>
+#include <glog/logging.h>
 #include <memory>
 
 /**
@@ -71,6 +73,18 @@ public:
 
     auto AmBK = A_ - B_ * K_;
     P_ = math::sylvester(AmBK.transpose(), AmBK, Q_);
+    DATA_HEADER("qrotor_backstepping_controller") << "p_x"
+                                                  << "p_y"
+                                                  << "p_z"
+                                                  << "pd_x"
+                                                  << "pd_y"
+                                                  << "pd_z"
+                                                  << "v_x"
+                                                  << "v_y"
+                                                  << "v_z"
+                                                  << "vd_x"
+                                                  << "vd_y"
+                                                  << "vd_z" << DataStream::endl;
   }
 
 protected:
@@ -98,7 +112,6 @@ protected:
   ControllerStatus isConvergedImplementation(
       std::pair<double, QrotorBacksteppingState> sensor_data,
       std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal);
-
   /**
   * @brief Gets current goal and derivatives from the reference
   * @param ref Reference trajectory

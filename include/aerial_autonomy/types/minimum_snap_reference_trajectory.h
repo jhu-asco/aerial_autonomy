@@ -59,18 +59,27 @@ public:
   * @return Trajectory state and control
   */
   std::pair<ParticleState, Snap> atTime(double t) const {
-    if (ts_.empty() || t < ts_.front() || t > ts_.back()) {
+    if (ts_.empty() || t < ts_.front()) {
       throw std::out_of_range("Accessed reference trajectory out of bounds");
     }
+
     auto closest_t = std::lower_bound(ts_.begin(), ts_.end(), t);
     int i = closest_t - ts_.begin();
-    double t_tau = t - ts_[i - 1];
+    double t_tau;
+    if (t < ts_.back()) {
+      t_tau = t - ts_[i - 1];
+    } else {
+      t_tau = tau_vec_.tail(1)(0);
+    }
+
     Eigen::MatrixXd states_eigen;
     Eigen::MatrixXd equal_A = equalA(t_tau).bottomRows(5);
     if (i == 0) {
       states_eigen = equal_A * poly_coeffs_.middleRows(0, 10);
-    } else {
+    } else if (t < ts_.back()) {
       states_eigen = equal_A * poly_coeffs_.middleRows(10 * (i - 1), 10);
+    } else {
+      states_eigen = equal_A * poly_coeffs_.bottomRows(10);
     }
     // Type conversion
     Position p(states_eigen(0, 0), states_eigen(0, 1), states_eigen(0, 2));
@@ -80,6 +89,26 @@ public:
     Snap snap(states_eigen(4, 0), states_eigen(4, 1), states_eigen(4, 2));
 
     return std::pair<ParticleState, Snap>(ParticleState(p, v, a, j), snap);
+  }
+  /**
+  * @brief get goal at specified time
+  *
+  * Will give the end of reference trajectory
+  *
+  * @param double time
+  *
+  * @return State at end of reference trajectory
+  */
+  ParticleState goal(double) {
+    Eigen::MatrixXd equal_A =
+        equalA(tau_vec_(tau_vec_.size() - 1)).bottomRows(5);
+    Eigen::MatrixXd states_eigen = equal_A * poly_coeffs_.bottomRows(10);
+    // Type conversion
+    Position p(states_eigen(0, 0), states_eigen(0, 1), states_eigen(0, 2));
+    Velocity v(states_eigen(1, 0), states_eigen(1, 1), states_eigen(1, 2));
+    Acceleration a(states_eigen(2, 0), states_eigen(2, 1), states_eigen(2, 2));
+    Jerk j(states_eigen(3, 0), states_eigen(3, 1), states_eigen(3, 2));
+    return ParticleState(p, v, a, j);
   }
 
 private:
