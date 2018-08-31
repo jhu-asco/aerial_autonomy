@@ -153,6 +153,20 @@ struct ResetThrustMixingGain_
 };
 
 /**
+* @brief set noise flag to quad polynomial reference controller
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct ResetToleranceReferenceController_
+    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  void run(UAVArmSystem &robot_system_) {
+    LOG(INFO) << "Resetting thrust mixing gain";
+    robot_system_.resetReferenceControllerTolerance();
+  }
+};
+
+/**
  * @brief Set arm goal and set grip to false to start with.
  *
  * @tparam LogicStateMachineT State machine that contains the functor
@@ -249,7 +263,8 @@ struct GoToWaypointInternalActionFunctor_
         logic_state_machine.process_event(be::Abort());
         return false;
       } else {
-        sendLocalWaypoint(robot_system, waypoint, state.getReferenceConfig());
+        sendLocalWaypoint(robot_system, waypoint, state.getReferenceConfig(),
+                          state.getPositionToleranceConfig());
       }
     }
     // check controller status
@@ -268,7 +283,8 @@ struct GoToWaypointInternalActionFunctor_
           logic_state_machine.process_event(be::Abort());
           return false;
         } else {
-          sendLocalWaypoint(robot_system, waypoint, state.getReferenceConfig());
+          sendLocalWaypoint(robot_system, waypoint, state.getReferenceConfig(),
+                            state.getPositionToleranceConfig());
         }
       }
     } else if (status == ControllerStatus::Critical) {
@@ -297,7 +313,8 @@ struct GoToWaypointInternalActionFunctor_
   * @param way_point Waypoint to send
   */
   void sendLocalWaypoint(UAVArmSystem &robot_system, PositionYaw way_point,
-                         PolynomialReferenceConfig reference_config) {
+                         PolynomialReferenceConfig reference_config,
+                         PositionControllerConfig goal_tolerance) {
     tf::StampedTransform quad_pose = robot_system.getPose();
     way_point.x += quad_pose.getOrigin().x();
     way_point.y += quad_pose.getOrigin().y();
@@ -310,6 +327,7 @@ struct GoToWaypointInternalActionFunctor_
     ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> reference(
         new PolynomialReferenceTrajectory(way_point, start_position_yaw,
                                           reference_config));
+    robot_system.setReferenceControllerTolerance(goal_tolerance);
     robot_system
         .setGoal<RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
                  ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>(
@@ -435,6 +453,10 @@ struct FollowingWaypointSequence_
     return config_.poly_reference_config();
   }
 
+  PositionControllerConfig getPositionToleranceConfig() {
+    return config_.position_controller_config();
+  }
+
 private:
   FollowingWaypointSequenceConfig config_; ///< State config
   int tracked_index_ = StartIndex;         ///< Current tracked index
@@ -482,6 +504,8 @@ struct ReachingPostPickWaypoint_
   template <class EventT, class FSM>
   void on_exit(EventT &e, FSM &logic_state_machine) {
     ResetThrustMixingGain_<FSM>()(e, logic_state_machine, *this, *this);
+    ResetToleranceReferenceController_<FSM>()(e, logic_state_machine, *this,
+                                              *this);
   }
 
 private:

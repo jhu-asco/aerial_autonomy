@@ -4,6 +4,8 @@ import "position_yaw.proto";
 
 import "polynomial_reference_config.proto";
 
+import "position_controller_config.proto";
+
 message FollowingWaypointSequenceConfig {
   /**
   * @brief List of way points. These are relative waypoints specified
@@ -12,4 +14,5 @@ message FollowingWaypointSequenceConfig {
   */
   repeated config.PositionYaw way_points = 1;
   optional PolynomialReferenceConfig poly_reference_config = 2;
+  optional PositionControllerConfig position_controller_config = 3;
 }

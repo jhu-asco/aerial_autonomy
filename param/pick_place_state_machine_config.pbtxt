@@ -4,7 +4,7 @@ visual_servoing_state_machine_config {
     position {
       x: 0
       y: -.68
-      z: 0.275
+      z: 0.29
     }
     yaw: 1.5708
   }
@@ -110,6 +110,14 @@ visual_servoing_state_machine_config {
       poly_reference_config {
         min_tf: 4.0
         max_velocity: 0.3
+      }
+      position_controller_config {
+        goal_position_tolerance {
+          x: 0.15
+          y: 0.15
+          z: 0.1
+        }
+        goal_yaw_tolerance: .15
       }
     }
     object_pickup_thrust_gain: 0.6

@@ -1,4 +1,5 @@
 #pragma once
+#include "aerial_autonomy/common/atomic.h"
 #include "aerial_autonomy/common/conversions.h"
 #include "aerial_autonomy/common/math.h"
 #include "aerial_autonomy/controllers/base_controller.h"
@@ -28,6 +29,7 @@ public:
    */
   AbstractRPYTBasedReferenceController(RPYTBasedPositionControllerConfig config)
       : config_(config) {
+    resetPositionTolerance();
     // clang-format off
     DATA_HEADER("rpyt_reference_controller") << "Errorx"
                                              << "Errory"
@@ -42,6 +44,16 @@ public:
                                              << "Cmd_thrust" << DataStream::endl;
     // clang format on
   }
+  void setPositionTolerance(PositionControllerConfig position_controller_config) {
+    LOG(INFO)<<"Setting new position tolerance";
+    position_controller_config_ = position_controller_config;
+  }
+
+  void resetPositionTolerance() {
+    LOG(INFO)<<"Resetting position tolerance";
+    position_controller_config_ = config_.velocity_based_position_controller_config().position_controller_config();
+  }
+
 
 protected:
   /**
@@ -155,10 +167,11 @@ protected:
         (Velocity)simplified_goal.first - current_velocity;
     // Check position and goal tolerance
     auto &velocity_config = config_.rpyt_based_velocity_controller_config();
-    auto &velocity_position_config =
-        config_.velocity_based_position_controller_config();
-    auto &position_controller_config =
-        velocity_position_config.position_controller_config();
+    //auto &velocity_position_config =
+    //    config_.velocity_based_position_controller_config();
+    //auto &position_controller_config =
+    //    velocity_position_config.position_controller_config();
+    PositionControllerConfig position_controller_config = position_controller_config_;
     auto &tolerance_vel =
         velocity_config.velocity_controller_config().goal_velocity_tolerance();
     const config::Position &tolerance_pos =
@@ -182,6 +195,7 @@ protected:
 
 private:
   RPYTBasedPositionControllerConfig config_; ///< Gains for reference tracking
+  Atomic<PositionControllerConfig> position_controller_config_;/// position controller config
 };
 
 class RPYTBasedReferenceControllerEigen

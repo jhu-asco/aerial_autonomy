@@ -300,7 +300,8 @@ uav_system_config {
       max_velocity: 0.3
       min_tf: 4.0
       forward_noise_amplitude: 0.07
-      z_noise_amplitude: 0.0
+      z_noise_amplitude: 0.00
+      z_noise_frequency: 0.05
       forward_noise_frequency: 0.1
     }
     gain_visual_servoing_tracking_pose: 0.1

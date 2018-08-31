@@ -466,4 +466,12 @@ public:
   void setThrustMixingGain(double mixing_gain) {
     thrust_gain_estimator_.setThrustMixingGain(mixing_gain);
   }
+
+  void setReferenceControllerTolerance(PositionControllerConfig config) {
+    rpyt_based_reference_controller_.setPositionTolerance(config);
+  }
+
+  void resetReferenceControllerTolerance() {
+    rpyt_based_reference_controller_.resetPositionTolerance();
+  }
 };
