@@ -120,11 +120,11 @@ public:
       ParticleState states =
           std::get<0>(goal->atTime(tau_vec.head(i + 1).sum()));
       // Set the pose of the marker
-      geometry_msgs::Point pt;
-      pt.x = states.p.x;
-      pt.y = states.p.y;
-      pt.z = states.p.z;
-      marker.points.push_back(pt);
+      geometry_msgs::Point point;
+      point.x = states.p.x;
+      point.y = states.p.y;
+      point.z = states.p.z;
+      marker.points.push_back(point);
     }
     return marker;
   }
