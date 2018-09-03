@@ -547,8 +547,8 @@ struct PickControllerStatusCheck_
     ControllerStatus visual_servoing_status =
         robot_system
             .getStatus<UAVVisionSystem::VisualServoingReferenceConnectorT>();
-    ControllerStatus lowlevel_status = robot_system.getStatus<
-        RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>();
+    ControllerStatus lowlevel_status =
+        robot_system.getStatus<MPCControllerQuadConnector>();
     bool grip_status = robot_system.gripStatus();
     if ((visual_servoing_status == ControllerStatus::Critical ||
          lowlevel_status == ControllerStatus::Critical) &&

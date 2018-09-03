@@ -45,9 +45,9 @@ uav_system_config {
       Q: 0
       Q: 0
       # Vxyz
-      Q: 4 
-      Q: 4 
-      Q: 4 
+      Q: 4
+      Q: 4
+      Q: 4
       # RPYdot
       Q: 0
       Q: 0
@@ -152,6 +152,9 @@ uav_system_config {
   thrust_gain_estimator_config {
     kt: 0.16
     buffer_size: 10
+    max_roll_pitch_bias: 0.04
+    rp_mixing_gain: 0.001
+    mixing_gain: 0.2
   }
   visualize_mpc_trajectories: true
   visualizer_config {
@@ -239,7 +242,7 @@ uav_system_config {
     }
     poly_reference_config {
       max_velocity: 0.5
-      min_tf: 2.0
+      min_tf: 1.0
     }
     particle_reference_config {
       kp_x : 0.2
