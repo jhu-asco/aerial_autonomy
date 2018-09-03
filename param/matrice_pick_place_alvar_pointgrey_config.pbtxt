@@ -160,6 +160,8 @@ uav_system_config {
     kt: 0.18
     buffer_size: 10
     mixing_gain: 0.2
+    max_roll_pitch_bias: 0.025
+    rp_mixing_gain: 0.01
   }
   odom_sensor_config {
     ros_sensor_config {
