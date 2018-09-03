@@ -8,13 +8,15 @@
 ThrustGainEstimator::ThrustGainEstimator(
     double thrust_gain_initial, double mixing_gain, unsigned int buffer_size,
     double max_thrust_gain, double min_thrust_gain, double max_roll_pitch_bias,
-    double rp_mixing_gain)
-    : thrust_gain_(thrust_gain_initial), roll_pitch_bias_(0, 0),
+    double rp_mixing_gain, double init_roll_bias, double init_pitch_bias)
+    : thrust_gain_(thrust_gain_initial),
+      roll_pitch_bias_(init_roll_bias, init_pitch_bias),
       mixing_gain_(mixing_gain), config_mixing_gain_(mixing_gain),
       rp_mixing_gain_(rp_mixing_gain), delay_buffer_size_(buffer_size),
       gravity_magnitude_(9.81), thrust_command_tolerance_(1e-2),
       max_thrust_gain_(max_thrust_gain), min_thrust_gain_(min_thrust_gain),
-      max_roll_pitch_bias_(max_roll_pitch_bias) {
+      max_roll_pitch_bias_(max_roll_pitch_bias),
+      init_roll_bias_(init_roll_bias), init_pitch_bias_(init_pitch_bias) {
   CHECK_GE(delay_buffer_size_, 1) << "Buffer size should be atleast 1";
   CHECK_GT(mixing_gain_, 0) << "Mixing gain should be between 0 and 1";
   CHECK_LT(mixing_gain_, 1) << "Mixing gain should be between 0 and 1";
@@ -45,7 +47,7 @@ void ThrustGainEstimator::reset(double thrust_gain) {
       << "Thrust gain should be less than or equal to maximum: "
       << max_thrust_gain_;
   thrust_gain_ = thrust_gain;
-  roll_pitch_bias_.setZero();
+  roll_pitch_bias_ = Eigen::Vector2d(init_roll_bias_, init_pitch_bias_);
 }
 
 std::pair<double, Eigen::Vector2d> ThrustGainEstimator::processSensorThrustPair(

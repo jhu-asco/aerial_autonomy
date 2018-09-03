@@ -31,7 +31,8 @@ public:
       : ThrustGainEstimator(config.kt(), config.mixing_gain(),
                             config.buffer_size(), config.kt_max(),
                             config.kt_min(), config.max_roll_pitch_bias(),
-                            config.rp_mixing_gain()) {}
+                            config.rp_mixing_gain(), config.init_roll_bias(),
+                            config.init_pitch_bias()) {}
 
   /**
    * @brief Estimates thrust gain,bias given current roll, pitch, body z
@@ -63,7 +64,8 @@ public:
                       double max_thrust_gain = 0.25,
                       double min_thrust_gain = 0.1,
                       double max_roll_pitch_bias = 0.05,
-                      double rp_mixing_gain = 0.1);
+                      double rp_mixing_gain = 0.1, double init_roll_bias = 0.0,
+                      double init_pitch_bias = 0.0);
   /**
    * @brief reset internal thrust gain to a specified value
    * This is to reset the estimator in case of failue in learning. If the
@@ -203,4 +205,12 @@ private:
    * @brief Max rp bias allowed
    */
   const double max_roll_pitch_bias_;
+  /**
+   * @brief Initial roll bias
+   */
+  const double init_roll_bias_;
+  /**
+   * @brief Initial pitch bias
+   */
+  const double init_pitch_bias_;
 };
