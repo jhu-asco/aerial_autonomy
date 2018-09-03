@@ -85,6 +85,9 @@ DDPQuadMPCController::DDPQuadMPCController(
                                          << "Jad1"
                                          << "Jad2"
                                          << "J"
+                                         << "r_ref"
+                                         << "p_ref"
+                                         << "y_ref"
                                          << "Loop timer" << DataStream::endl;
 }
 
@@ -140,7 +143,8 @@ void DDPQuadMPCController::logData(MPCInputs<StateType> &sensor_data,
                                    ControlType &control) {
   Eigen::Vector3d error_position =
       sensor_data.initial_state.segment<3>(0) - xds_.at(0).segment<3>(0);
-  DATA_LOG("ddp_quad_mpc_controller") << error_position << control << (ddp_->J)
-                                      << loop_timer_.average_loop_period()
-                                      << DataStream::endl;
+  DATA_LOG("ddp_quad_mpc_controller")
+      << error_position << control << (ddp_->J)
+      << Eigen::Vector3d(xds_.at(0).segment<3>(3))
+      << loop_timer_.average_loop_period() << DataStream::endl;
 }
