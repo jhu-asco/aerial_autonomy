@@ -40,17 +40,17 @@ uav_system_config {
     ddp_config {
       # State cost
       # XYZ
-      Q: 1
-      Q: 1
-      Q: 1
+      Q: 100
+      Q: 100
+      Q: 100
       # RPY
-      Q: 0
-      Q: 0
-      Q: 0
+      Q: 100
+      Q: 100
+      Q: 100
       # Vxyz
-      Q: 4
-      Q: 4
-      Q: 4
+      Q: 100
+      Q: 100
+      Q: 100
       # RPYdot
       Q: 0
       Q: 0
@@ -61,21 +61,21 @@ uav_system_config {
       Q: 0
       # Terminal gains
       # XYZ
-      Qf: 10
-      Qf: 10
-      Qf: 10
+      Qf: 100
+      Qf: 100
+      Qf: 100
       # RPY
-      Qf: 10
-      Qf: 10
-      Qf: 10
+      Qf: 800
+      Qf: 800
+      Qf: 800
       # Vxyz
-      Qf: 10
-      Qf: 10
-      Qf: 10
+      Qf: 100
+      Qf: 100
+      Qf: 100
       # RPYdot
-      Qf: 10
-      Qf: 10
-      Qf: 10
+      Qf: 100
+      Qf: 100
+      Qf: 100
       # RPY_cmd
       Qf: 0.1
       Qf: 0.1
@@ -99,8 +99,9 @@ uav_system_config {
       max_cost: 500.0
     }
 
-    goal_position_tolerance: 0.15
-    goal_velocity_tolerance: 0.15
+    goal_position_tolerance: 0.05
+    goal_velocity_tolerance: 0.05
+    goal_yaw_tolerance: 0.02
     # Lower bound
     lower_bound_control: 0.8
     lower_bound_control: -0.3

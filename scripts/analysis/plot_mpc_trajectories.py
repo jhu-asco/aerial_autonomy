@@ -84,6 +84,7 @@ rpy_d = np.roll(rpy_d, args.delay, axis=0)
 rpy_d[:args.delay, :] = 0
 rpy_d[:,2] = rpy_d[:,2] + rpy[0,2]-rpy_d[0,2]
 labels = ['roll', 'pitch', 'yaw']
+ref_labels = ['r_ref', 'p_ref', 'y_ref']
 if 'bias_r' in state_data.columns:
     bias = state_data[['bias_r', 'bias_p']].values
 for i in range(3):
@@ -91,15 +92,19 @@ for i in range(3):
     ref_angle = rpy_d[iStart:iEnd, i]
     plt.plot(ts_sub, rpy[iStart:iEnd, i])
     plt.plot(ts_sub, rpy_d[iStart:iEnd, i])
+    i_legend = legend
+    if ref_labels[i] in error_data.columns:
+        ref_signal = np.interp(ts, ts1, error_data[ref_labels[i]].values)
+        plt.plot(ts_sub, ref_signal[iStart:iEnd])
+        i_legend.append('ref')
     print("Mean diff ",labels[i],': ', np.mean(rpy[iStart:iEnd, i] - rpy_d[iStart:iEnd, i]))
     print("Std diff: ",labels[i],': ', np.std(rpy[iStart:iEnd, i] - rpy_d[iStart:iEnd, i]))
     plt.xlabel('Time (seconds)')
     plt.ylabel(labels[i]+' (rad)')
     if 'bias_r' in state_data.columns and i < 2:
         plt.plot(ts_sub, bias[iStart:iEnd, i])
-        plt.legend(legend+['bias'])
-    else:
-        plt.legend(legend)
+        i_legend.append('bias')
+    plt.legend(i_legend)
     plt.tight_layout()
     plt.savefig(os.path.join(args.folder,labels[i]+'.eps'),
                              bbox_inches='tight')
