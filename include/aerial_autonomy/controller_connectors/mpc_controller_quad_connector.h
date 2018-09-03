@@ -23,7 +23,8 @@ public:
       AbstractMPCController<StateType, ControlType> &controller,
       ThrustGainEstimator &thrust_gain_estimator, int delay_buffer_size = 1,
       MPCConnectorConfig config = MPCConnectorConfig(),
-      SensorPtr<tf::StampedTransform> pose_sensor = nullptr,
+      SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor =
+          nullptr,
       AbstractConstraintGeneratorPtr constraint_generator = nullptr);
 
   /**

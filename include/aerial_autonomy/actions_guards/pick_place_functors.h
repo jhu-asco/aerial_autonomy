@@ -69,9 +69,7 @@ using PrePickInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT,
-            RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>, true,
-            Reset>,
+            LogicStateMachineT, MPCControllerQuadConnector, true, Reset>,
         ControllerStatusInternalActionFunctor_<
             LogicStateMachineT,
             UAVVisionSystem::VisualServoingReferenceConnectorT, false, Reset>>>;
@@ -87,9 +85,7 @@ using PlaceInternalActionFunctor_ =
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT,
-            RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>, true,
-            Reset>>>;
+            LogicStateMachineT, MPCControllerQuadConnector, true, Reset>>>;
 
 /**
 * @brief Check tracking is valid before starting visual servoing and arm is

@@ -9,11 +9,12 @@ MPCControllerQuadConnector::MPCControllerQuadConnector(
     parsernode::Parser &drone_hardware,
     AbstractMPCController<StateType, ControlType> &controller,
     ThrustGainEstimator &thrust_gain_estimator, int delay_buffer_size,
-    MPCConnectorConfig config, SensorPtr<tf::StampedTransform> pose_sensor,
+    MPCConnectorConfig config,
+    SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor,
     AbstractConstraintGeneratorPtr constraint_generator)
     : BaseMPCControllerQuadConnector(
           drone_hardware, controller, thrust_gain_estimator, delay_buffer_size,
-          config, pose_sensor, constraint_generator) {
+          config, odom_sensor, constraint_generator) {
   // clang-format off
   DATA_HEADER("quad_mpc_state_estimator") << "x" << "y" << "z"
                                           << "r" << "p" << "y"
@@ -30,9 +31,8 @@ void MPCControllerQuadConnector::initialize() {
 
 bool MPCControllerQuadConnector::estimateStateAndParameters(
     Eigen::VectorXd &current_state, Eigen::VectorXd &params) {
-  double dt = getTimeDiff();
   current_state.resize(state_size_);
-  bool result = fillQuadStateAndParameters(current_state, params, dt);
+  bool result = fillQuadStateAndParameters(current_state, params);
   if (result) {
     DATA_LOG("quad_mpc_state_estimator")
         << current_state << params[0]

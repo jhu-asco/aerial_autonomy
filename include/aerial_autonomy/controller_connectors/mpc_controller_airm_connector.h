@@ -25,7 +25,8 @@ public:
       AbstractMPCController<StateType, ControlType> &controller,
       ThrustGainEstimator &thrust_gain_estimator, int delay_buffer_size = 1,
       MPCConnectorConfig config = MPCConnectorConfig(),
-      SensorPtr<tf::StampedTransform> pose_sensor = nullptr,
+      SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor =
+          nullptr,
       AbstractConstraintGeneratorPtr constraint_generator = nullptr);
 
   /**
@@ -59,6 +60,13 @@ protected:
   */
   void clearJointCommandBuffers();
 
+  /**
+   * @brief Get time difference
+   *
+   * @return time difference
+   */
+  double getTimeDiff();
+
 private:
   ArmParser &arm_hardware_; ///< Parser for sending and receiving arm data
   std::vector<double> joint_angle_commands_; ///< Commanded joint angles
@@ -69,4 +77,6 @@ private:
   bool
       previous_joint_measurements_initialized_; ///< Previous joint measurements
   static constexpr int state_size_ = 21;
+  std::chrono::time_point<std::chrono::high_resolution_clock>
+      previous_measurement_time_; ///< For finding time diff
 };
