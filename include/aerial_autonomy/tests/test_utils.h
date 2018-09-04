@@ -106,6 +106,23 @@ void ASSERT_VEC_NEAR(const T vec1, const T &vec2, double tol = 1e-8) {
 }
 
 /**
+* @brief Assert that two Eigen matrices are close to each other
+*
+* @param mat1 First matrix
+* @param mat2 second matrix
+* @param tol comparision tolerance
+*/
+void ASSERT_EIGENMAT_NEAR(const Eigen::MatrixXd &mat1,
+                          const Eigen::MatrixXd &mat2, double tol = 1e-7) {
+  if (mat1.cols() != mat2.cols() || mat1.rows() != mat2.rows()) {
+    throw std::length_error("Two matrices have different sizes");
+  }
+  for (int i = 0; i < mat1.array().size(); i++) {
+    ASSERT_NEAR(mat1.array()(i), mat2.array()(i), tol);
+  }
+}
+
+/**
  * @brief Assert that two tf::Transforms are close to each other
  * @param tf1 First transform
  * @param tf2 Second transform
