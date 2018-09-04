@@ -1,7 +1,7 @@
 #include "aerial_autonomy/tests/test_utils.h"
+#include "aerial_autonomy/types/minimum_snap_reference_trajectory.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "minimum_snap_reference_trajectory_config.pb.h"
-#include <aerial_autonomy/types/minimum_snap_reference_trajectory.h>
 #include <chrono>
 #include <gtest/gtest.h>
 

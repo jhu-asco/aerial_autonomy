@@ -1,5 +1,7 @@
-#include <aerial_autonomy/common/qrotor_backstepping_trajectory_visualizer.h>
-#include <aerial_autonomy/tests/qrotor_backstepping_controller_connector_tests.h>
+#include "aerial_autonomy/common/qrotor_backstepping_trajectory_visualizer.h"
+#include "aerial_autonomy/tests/qrotor_backstepping_controller_connector_tests.h"
+#include "aerial_autonomy/types/position_yaw.h"
+#include "minimum_snap_reference_trajectory_config.pb.h"
 #include <chrono>
 #include <gtest/gtest.h>
 #include <ros/ros.h>
