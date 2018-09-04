@@ -1,0 +1,85 @@
+der_order: 4
+
+tau_vec: 6.0
+tau_vec: 6.0
+tau_vec: 6.0
+tau_vec: 6.0
+tau_vec: 6.0
+tau_vec: 6.0
+tau_vec: 6.0
+tau_vec: 6.0
+
+following_waypoint_sequence_config {
+  way_points {
+    position {
+      x: 0.0
+      y: 0.0
+      z: 0.0
+    }
+    yaw: 0
+  }
+  way_points {
+    position {
+      x: 2.0
+      y: 0.0
+      z: 1.0
+    }
+    yaw: 0
+  }
+  way_points {
+    position {
+      x: 2.0
+      y: 2.0
+      z: 2.0
+    }
+    yaw: 0
+  }
+  way_points {
+    position {
+      x: 0.0
+      y: 2.0
+      z: 3.0
+    }
+    yaw: 0
+  }
+  way_points {
+    position {
+      x: 0.0
+      y: 0.0
+      z: 4.0
+    }
+    yaw: 0
+  }
+  way_points {
+    position {
+      x: 2.0
+      y: 0.0
+      z: 5.0
+    }
+    yaw: 0
+  }
+  way_points {
+    position {
+      x: 2.0
+      y: 2.0
+      z: 6.0
+    }
+    yaw: 0
+  }
+  way_points {
+    position {
+      x: 0.0
+      y: 2.0
+      z: 7.0
+    }
+    yaw: 0
+  }
+  way_points {
+    position {
+      x: 0.0
+      y: 0.0
+      z: 8.0
+    }
+    yaw: 0
+  }
+}
