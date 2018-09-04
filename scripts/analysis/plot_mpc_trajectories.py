@@ -4,7 +4,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import argparse
 import os
 import pandas as pd
-import seaborn as sns
+#import seaborn as sns
 import numpy as np
 from set_axes_equal import set_axes_equal
 # %% Getting data
@@ -24,23 +24,23 @@ ts = (ts - ts[0])/1e9
 iStart = np.argmin(np.abs(ts - args.tStart))
 iEnd = np.argmin(np.abs(ts - args.tEnd))
 interp_error_list = []
-error_labels = ['Errorx','Errory','Errorz']
+error_labels = ['Errorx','Errory','Errorz', 'Errorvx', 'Errorvy', 'Errorvz']
 if args.prefix == 'airm':
     error_labels = error_labels + ['Errorja1','Errorja2']
 for label in error_labels:
     interp_error_list.append(np.interp(ts, ts1, error_data[label].values))
 interp_errors = np.vstack(interp_error_list).T
 if args.prefix == 'airm':
-    states = state_data[['x','y','z','ja1','ja2']].values
+    states = state_data[['x','y','z','vx','vy','vz','ja1','ja2']].values
 else:
-    states = state_data[['x','y','z']].values
+    states = state_data[['x','y','z', 'vx','vy','vz']].values
 ref_states = states - interp_errors
 # %% Plotting
-sns.set_style('whitegrid')
-sns.set(font_scale = 1.2)
+#sns.set_style('whitegrid')
+#sns.set(font_scale = 1.2)
 plt.figure(1)
-labels = ['$p_x$', '$p_y$', '$p_z$', '$r_1$', '$r_2$']
-units = ['m','m','m','rad', 'rad']
+labels = ['$p_x$', '$p_y$', '$p_z$', '$v_x$', '$v_y$', '$v_z$', '$r_1$', '$r_2$',]
+units = ['m','m','m','m/s','m/s','m/s','rad', 'rad']
 legend = ['Tracked', 'Reference']
 ts_sub = ts[iStart:iEnd]
 ncols = states.shape[1]
@@ -54,6 +54,8 @@ for i in range(ncols):
     plt.tight_layout()
     plt.savefig(os.path.join(args.folder,labels[i]+'.eps'),
                              bbox_inches='tight')
+plt.figure(100)
+plt.plot(ts1, error_data['thrust_d'])
 
 fig = plt.figure(6)
 ax = fig.add_subplot(111, projection='3d')

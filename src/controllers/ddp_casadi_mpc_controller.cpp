@@ -127,6 +127,7 @@ bool DDPCasadiMPCController::runImplementation(MPCInputs<StateType> sensor_data,
   VLOG(5) << "xf: " << xs_.back().transpose();
   VLOG(5) << "xd: " << xds_.back().transpose();
   VLOG(5) << "u: " << control.transpose();
+  VLOG_EVERY_N(1, 20) << "Desired command: " << uds_.at(0);
 
   logData(sensor_data, control);
   return result;

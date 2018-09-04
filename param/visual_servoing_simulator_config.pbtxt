@@ -41,9 +41,9 @@ uav_system_config {
       Q: 100
       Q: 100
       # RPY
-      Q: 100
-      Q: 100
-      Q: 100
+      Q: 4
+      Q: 4
+      Q: 4
       # Vxyz
       Q: 100
       Q: 100

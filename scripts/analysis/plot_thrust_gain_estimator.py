@@ -16,8 +16,9 @@ data = np.genfromtxt(
     delimiter=',', names=True)
 ts = (data['Time'] - data['Time'][0]) / 1e9
 gravity_component = 9.81 * np.cos(data['roll']) * np.cos(data['pitch'])
+scaled_thrust = data['thrust_command'] * data['thrust_gain']
 error_thrust_command = data['body_z_acc'] - \
-    data['thrust_command'] * data['thrust_gain'] + gravity_component
+    scaled_thrust + gravity_component
 plt.figure(1)
 plt.subplot(2, 1, 1)
 plt.plot(ts, data['roll'])
@@ -44,4 +45,8 @@ plt.figure(4)
 plt.plot(ts, error_thrust_command)
 plt.ylabel('Body_Z_Acc_diff')
 plt.xlabel('Time (sec)')
+plt.figure(5)
+plt.plot(ts, scaled_thrust)
+plt.xlabel('Time (sec)')
+plt.ylabel('Scaled thrust in g')
 plt.show()

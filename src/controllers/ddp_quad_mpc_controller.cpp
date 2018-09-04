@@ -78,6 +78,9 @@ DDPQuadMPCController::DDPQuadMPCController(
   DATA_HEADER("ddp_quad_mpc_controller") << "Errorx"
                                          << "Errory"
                                          << "Errorz"
+                                         << "Errorvx"
+                                         << "Errorvy"
+                                         << "Errorvz"
                                          << "thrust_d"
                                          << "rd"
                                          << "pd"
@@ -122,6 +125,10 @@ ControllerStatus DDPQuadMPCController::isConvergedImplementation(
   }
   controller_status << "Stats" << error_position.norm() << error_velocity.norm()
                     << error_yaw << loop_timer_.average_loop_period();
+  VLOG_EVERY_N(1, 20) << "Stats" << error_position.norm()
+                      << error_velocity.norm() << error_yaw
+                      << loop_timer_.average_loop_period();
+  return controller_status;
   return controller_status;
 }
 
@@ -144,8 +151,10 @@ void DDPQuadMPCController::logData(MPCInputs<StateType> &sensor_data,
                                    ControlType &control) {
   Eigen::Vector3d error_position =
       sensor_data.initial_state.segment<3>(0) - xds_.at(0).segment<3>(0);
+  Eigen::Vector3d error_velocity =
+      sensor_data.initial_state.segment<3>(6) - xds_.at(0).segment<3>(6);
   DATA_LOG("ddp_quad_mpc_controller")
-      << error_position << control << (ddp_->J)
+      << error_position << error_velocity << control << (ddp_->J)
       << Eigen::Vector3d(xds_.at(0).segment<3>(3))
       << loop_timer_.average_loop_period() << DataStream::endl;
 }

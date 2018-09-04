@@ -41,6 +41,8 @@ void BaseMPCControllerQuadConnector::sendControllerCommands(
   rpyt_msg.z = control(3);
   rpyt_msg.w = math::clamp(control(0), config_.min_thrust_command(),
                            config_.max_thrust_command());
+  VLOG_EVERY_N(1, 20) << "Control: " << rpyt_msg.w << ", " << rpyt_msg.x << ", "
+                      << rpyt_msg.y << ", " << rpyt_msg.z;
   drone_hardware_.cmdrpyawratethrust(rpyt_msg);
   rpy_command_buffer_.pop();
   auto last_rpy_command = rpy_command_buffer_.back();
@@ -90,12 +92,17 @@ bool BaseMPCControllerQuadConnector::fillQuadStateAndParameters(
   Eigen::Vector3d rpy;
   Eigen::Vector3d omega(quad_data.omega.x, quad_data.omega.y,
                         quad_data.omega.z);
+  Eigen::Vector2d roll_pitch_bias = thrust_gain_estimator_.getRollPitchBias();
   // Euler angles
   if (odom_sensor_) {
     rpy = conversions::transformTfToRPY(quad_pose);
+    rpy[0] = quad_data.rpydata.x + roll_pitch_bias[0];
+    rpy[1] = quad_data.rpydata.y + roll_pitch_bias[1];
   } else {
     rpy = Eigen::Vector3d(quad_data.rpydata.x, quad_data.rpydata.y,
                           quad_data.rpydata.z);
+    rpy[0] = quad_data.rpydata.x + roll_pitch_bias[0];
+    rpy[1] = quad_data.rpydata.y + roll_pitch_bias[1];
   }
   Eigen::Vector3d filtered_rpydot =
       rpydot_filter_.addAndFilter(conversions::omegaToRpyDot(omega, rpy));
