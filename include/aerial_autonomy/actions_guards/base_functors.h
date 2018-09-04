@@ -186,6 +186,63 @@ protected:
 };
 
 /**
+* @brief Action functor that does not require the event triggering it
+*
+* This action functor performs the same action irrespective of the event
+* triggering it. For example takeoff, land actions
+*
+* Also has access to target state for using any information available from
+* state
+*
+* @tparam RobotSystemT The robot system used in the action
+*/
+template <class RobotSystemT, class LogicStateMachineT, class TargetState>
+struct TargetStateDependentEventAgnosticActionFunctor {
+public:
+  /**
+    * @brief Override this run function for different sub classes.
+    * This function performs the logic checking for each state
+    * @param robot_system Provides sensor data and allows for controlling
+    * hardware
+    */
+  virtual void run(RobotSystemT &robot_system, TargetState &target_state) = 0;
+
+  /**
+     * @brief operator () Internally calls run function
+     * @param logic_state_machine Backend of logic State Machine. can send
+     * events using this.
+     */
+  template <class EventT, class FSM, class SourceState, class TargetState>
+  void operator()(EventT const &, FSM &logic_state_machine, SourceState &,
+                  TargetState &target_state) {
+    static_assert(
+        std::is_convertible<decltype(
+                                logic_state_machine.robot_system_container_()),
+                            RobotSystemT &>::value,
+        "Robot system in logic state machine is not the same as one used in "
+        "action functor");
+    static_assert(
+        std::is_base_of<FSM, LogicStateMachineT>::value,
+        "Template Logic state machine arg is not subclass of provided FSM");
+    // \todo (Matt) Pass the config directly to the run function instead to
+    // avoid a copy here (could also just keep a pointer to the config)
+    state_machine_config_ = logic_state_machine.base_state_machine_config_;
+    run(logic_state_machine.robot_system_container_(), target_state);
+  }
+
+  /**
+  * @brief virtual destructor to get polymorphism
+  */
+  virtual ~TargetStateDependentEventAgnosticActionFunctor() {}
+
+protected:
+  /**
+  * @brief Copy of state machine configuration which can be used in run function
+  */
+  BaseStateMachineConfig state_machine_config_;
+};
+
+/**
 * @brief Guard functor that does not require the event triggering it
 *
 * This action functor performs the same guard check irrespective of the

@@ -116,6 +116,11 @@ struct SetNoisePolynomialReference_
   }
 };
 
+template <class LogicStateMachineT, class ConnectorT, int GoalIndex>
+struct PlaceRelativePoseVisualServoingAction_
+    : TargetStateDependentEventAgnosticActionFunctor<
+          UAVArmSystem, LogicStateMachineT, PlaceState> {};
+
 /**
 * @brief set noise flag to quad polynomial reference controller
 *
@@ -517,8 +522,12 @@ private:
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using PlaceState_ = BaseState<UAVArmSystem, LogicStateMachineT,
-                              PlaceInternalActionFunctor_<LogicStateMachineT>>;
+struct PlaceState_
+    : BaseState<UAVArmSystem, LogicStateMachineT,
+                PlaceInternalActionFunctor_<LogicStateMachineT>> {
+private:
+  int offset
+};
 
 /**
 * @brief State where robot waits for an object to appear before transitioning
