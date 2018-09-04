@@ -1,7 +1,10 @@
+#include "aerial_autonomy/common/conversions.h"
+#include "aerial_autonomy/common/proto_utils.h"
+#include "aerial_autonomy/common/qrotor_backstepping_trajectory_visualizer.h"
+#include "aerial_autonomy/log/log.h"
 #include "aerial_autonomy/types/minimum_snap_reference_trajectory.h"
-#include <aerial_autonomy/common/proto_utils.h>
-#include <aerial_autonomy/common/qrotor_backstepping_trajectory_visualizer.h>
-#include <aerial_autonomy/log/log.h>
+#include "aerial_autonomy/types/position_yaw.h"
+#include "minimum_snap_reference_trajectory_config.pb.h"
 #include <chrono>
 #include <glog/logging.h>
 #include <quad_simulator_parser/quad_simulator.h>
@@ -31,6 +34,13 @@ int main(int argc, char **argv) {
           config)) {
     LOG(ERROR) << "Cannot load proto file for the controller";
   }
+  MinimumSnapReferenceTrajectoryConfig ref_config;
+  if (!proto_utils::loadProtoText(
+          std::string(PROJECT_SOURCE_DIR) +
+              "/param/minimum_snap_reference_trajectory_config.pbtxt",
+          ref_config)) {
+    LOG(ERROR) << "Cannot load proto file for the reference trajectory";
+  }
   quad_simulator::QuadSimulator drone_hardware;
   drone_hardware.usePerfectTime();
   drone_hardware.set_delay_send_time(0.2);
@@ -48,14 +58,11 @@ int main(int argc, char **argv) {
   visualizer_config.mutable_desired_trajectory_color()->set_a(0.8);
   QrotorBacksteppingTrajectoryVisualizer visualizer(visualizer_config);
 
-  // Set goal
-  int r = 4;
-  Eigen::VectorXd tau_vec(4);
-  tau_vec << 11.5, 11.5, 11.5, 11.5;
-  Eigen::MatrixXd path(5, 3);
-  path << 0, 0, 0, 10, 0, 0, 10, 10, 3, 0, 10, 0, 0, 0, 0;
+  Eigen::VectorXd tau_vec;
+  tau_vec = conversions::vectorProtoToEigen(ref_config.tau_vec());
+
   std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal(
-      new MinimumSnapReferenceTrajectory(r, tau_vec, path));
+      new MinimumSnapReferenceTrajectory(ref_config));
   controller_connector.setGoal(goal);
 
   // Initial condition
