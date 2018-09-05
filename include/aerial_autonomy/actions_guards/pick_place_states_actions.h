@@ -59,6 +59,10 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
   */
   using PlaceState = PlaceState_<LogicStateMachineT>;
   /**
+  * @brief State while positioning the uav for pre-placing
+  */
+  using PrePlaceState = PrePlaceState_<LogicStateMachineT>;
+  /**
   * @brief State when reaching a relative pose visual servoing goal using rpyt
   * controller Uses reset instead of abort
   */
@@ -176,6 +180,15 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
           RelativePoseVisualServoingTransitionActionFunctor_<
               LogicStateMachineT,
               UAVVisionSystem::VisualServoingReferenceConnectorT, 1>>>;
+  /**
+  * @brief Action to take when starting placing object at either drop-off.
+  */
+  using PrePlaceVisualServoingTransitionAction =
+      base_functors::bActionSequence<boost::mpl::vector<
+          typename vsa::ResetRelativePoseVisualServoing,
+          RelativePoseVisualServoingTransitionActionFunctor_<
+              LogicStateMachineT,
+              UAVVisionSystem::VisualServoingReferenceConnectorT, 3>>>;
   // \todo Matt add guard to check if relative pose visual servoing goal exists
 
   /**

@@ -692,3 +692,6 @@ template <class LogicStateMachineT>
 using PrePickState_ =
     BaseState<UAVArmSystem, LogicStateMachineT,
               PrePickInternalActionFunctor_<LogicStateMachineT>>;
+
+template <class LogicStateMachineT>
+struct PrePlaceState_ : public PlaceState_<LogicStateMachineT> {};
