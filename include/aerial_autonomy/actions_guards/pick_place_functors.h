@@ -694,4 +694,4 @@ using PrePickState_ =
               PrePickInternalActionFunctor_<LogicStateMachineT>>;
 
 template <class LogicStateMachineT>
-class PrePlaceState_ : PlaceState_<LogicStateMachineT> {};
+struct PrePlaceState_ : public PlaceState_<LogicStateMachineT> {};

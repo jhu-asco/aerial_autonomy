@@ -242,7 +242,7 @@ public:
             msmf::Row<psa::PrePlaceState, Completed, psa::PlaceState,
                       psa::PlaceVisualServoingTransitionAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PrePlaceState, be::Abort, psa::PlaceState,
+            msmf::Row<psa::PrePlaceState, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PlaceState, Completed,
