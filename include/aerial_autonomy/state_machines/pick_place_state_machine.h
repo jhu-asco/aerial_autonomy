@@ -234,9 +234,16 @@ public:
             msmf::Row<psa::ReachingPostPickWaypoint, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingPostPickWaypoint, ObjectId, psa::PlaceState,
-                      psa::PlaceVisualServoingTransitionAction,
+            msmf::Row<psa::ReachingPostPickWaypoint, ObjectId,
+                      psa::PrePlaceState,
+                      psa::PrePlaceVisualServoingTransitionAction,
                       psa::PlaceVisualServoingTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::PrePlaceState, Completed, psa::PlaceState,
+                      psa::PlaceVisualServoingTransitionAction, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::PrePlaceState, be::Abort, psa::PlaceState,
+                      psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PlaceState, Completed,
                       psa::ReachingPostPlaceWaypoint, psa::ArmGripAction<false>,
@@ -268,7 +275,7 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 16> state_names = {
+static constexpr std::array<const char *, 17> state_names = {
     "Landed",
     "ArmPreTakeoffFolding",
     "Takingoff",
@@ -282,6 +289,7 @@ static constexpr std::array<const char *, 16> state_names = {
     "PickState",
     "Landing",
     "ReachingPostPickWaypoint",
+    "PrePlaceState",
     "PlaceState",
     "ReachingPostPlaceWaypoint",
     "ManualControlArmState"};

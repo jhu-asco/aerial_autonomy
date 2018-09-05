@@ -168,7 +168,8 @@ struct ResetToleranceReferenceController_
  * @tparam LogicStateMachineT State machine that contains the functor
  * @tparam TransformIndex Index of goal transform
  */
-template <class LogicStateMachineT, int TransformIndex>
+template <class LogicStateMachineT, int TransformIndex,
+          bool ResetGripper = true>
 struct VisualServoingArmTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
   void run(UAVArmSystem &robot_system) {
@@ -180,8 +181,10 @@ struct VisualServoingArmTransitionActionFunctor_
             .Get(TransformIndex);
     robot_system.setGoal<VisualServoingControllerArmConnector, tf::Transform>(
         conversions::protoTransformToTf(goal));
-    // Also ensure the gripper is in the right state to grip objects
-    robot_system.resetGripper();
+    if (ResetGripper) {
+      // Also ensure the gripper is in the right state to grip objects
+      robot_system.resetGripper();
+    }
   }
 };
 
@@ -191,7 +194,8 @@ struct VisualServoingArmTransitionActionFunctor_
  * @tparam LogicStateMachineT State machine that contains the functor
  * @tparam TransformIndex Index of goal transform
  */
-template <class LogicStateMachineT, int TransformIndex>
+template <class LogicStateMachineT, int TransformIndex,
+          bool ResetGripper = true>
 struct ArmPoseTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
   void run(UAVArmSystem &robot_system) {
@@ -203,8 +207,10 @@ struct ArmPoseTransitionActionFunctor_
             .Get(TransformIndex);
     robot_system.setGoal<BuiltInPoseControllerArmConnector, tf::Transform>(
         conversions::protoTransformToTf(goal));
-    // Also ensure the gripper is in the right state to grip objects
-    robot_system.resetGripper();
+    if (ResetGripper) {
+      // Also ensure the gripper is in the right state to grip objects
+      robot_system.resetGripper();
+    }
   }
 };
 // \todo Matt Add guard for arm pose goal that checks goal index
@@ -686,3 +692,6 @@ template <class LogicStateMachineT>
 using PrePickState_ =
     BaseState<UAVArmSystem, LogicStateMachineT,
               PrePickInternalActionFunctor_<LogicStateMachineT>>;
+
+template <class LogicStateMachineT>
+class PrePlaceState_ : PlaceState_<LogicStateMachineT> {};
