@@ -29,9 +29,19 @@ visual_servoing_state_machine_config {
     yaw: 1.5708
   }
 
+  # PrePlace
+  relative_pose_goals {
+    position {
+      x: 0
+      y: -1.1
+      z: 0.105
+    }
+    yaw: 1.5708
+  }
+
   pick_place_state_machine_config {
     grip_config {
-      grip_timeout: 30000
+      grip_timeout: 20000
     }
     place_groups {
       destination_id: 15

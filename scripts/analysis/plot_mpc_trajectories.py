@@ -99,6 +99,10 @@ for i in range(3):
         ref_signal = np.interp(ts, ts1, error_data[ref_labels[i]].values)
         plt.plot(ts_sub, ref_signal[iStart:iEnd])
         i_legend.append('ref')
+    if i == 2:
+        yaw_rate_interp = np.interp(ts, ts1, error_data['yaw_rate_d'].values)
+        plt.plot(ts_sub, yaw_rate_interp[iStart:iEnd])
+        i_legend.append('yaw_rate')
     print("Mean diff ",labels[i],': ', np.mean(rpy[iStart:iEnd, i] - rpy_d[iStart:iEnd, i]))
     print("Std diff: ",labels[i],': ', np.std(rpy[iStart:iEnd, i] - rpy_d[iStart:iEnd, i]))
     plt.xlabel('Time (seconds)')
