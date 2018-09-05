@@ -40,9 +40,9 @@ uav_system_config {
     ddp_config {
       # State cost
       # XYZ
-      Q: 1
-      Q: 1
-      Q: 1
+      Q: 4
+      Q: 4
+      Q: 4
       # RPY
       Q: 4
       Q: 4
@@ -161,9 +161,9 @@ uav_system_config {
     kt: 0.18
     buffer_size: 10
     mixing_gain: 0.2
-    max_roll_pitch_bias: 0.02
+    max_roll_pitch_bias: 0.025
     rp_mixing_gain: 0.01
-    init_roll_bias: 0.0
+    init_roll_bias: 0.005
     init_pitch_bias: -0.015
   }
   odom_sensor_config {
@@ -302,7 +302,7 @@ uav_system_config {
       }
     }
     poly_reference_config {
-      max_velocity: 0.3
+      max_velocity: 0.4
       min_tf: 1.0
       forward_noise_amplitude: 0.07
       z_noise_amplitude: 0.00

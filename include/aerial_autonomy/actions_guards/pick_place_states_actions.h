@@ -171,6 +171,7 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
   */
   using PlaceVisualServoingTransitionAction =
       base_functors::bActionSequence<boost::mpl::vector<
+          ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0, false>,
           typename vsa::ResetRelativePoseVisualServoing,
           RelativePoseVisualServoingTransitionActionFunctor_<
               LogicStateMachineT,
