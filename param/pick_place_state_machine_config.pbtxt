@@ -4,7 +4,7 @@ visual_servoing_state_machine_config {
     position {
       x: 0.03
       y: -.68
-      z: 0.29
+      z: 0.28
     }
     yaw: 1.5708
   }
