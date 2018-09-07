@@ -2,9 +2,9 @@ visual_servoing_state_machine_config {
   # Pick
   relative_pose_goals {
     position {
-      x: 0
+      x: 0.03
       y: -.67
-      z: 0.29
+      z: 0.28
     }
     yaw: 1.5708
   }
@@ -22,7 +22,7 @@ visual_servoing_state_machine_config {
   # Prepick
   relative_pose_goals {
     position {
-      x: 0
+      x: 0.03
       y: -.78
       z: 0.325
     }
@@ -32,7 +32,7 @@ visual_servoing_state_machine_config {
   # PrePlace
   relative_pose_goals {
     position {
-      x: 0
+      x: 0.03
       y: -1.1
       z: 0.105
     }
@@ -45,7 +45,7 @@ visual_servoing_state_machine_config {
     }
     place_groups {
       destination_id: 15
-      object_ids: 0
+      object_ids: 28
     }
     place_groups {
       destination_id: 25
@@ -136,7 +136,7 @@ visual_servoing_state_machine_config {
         goal_yaw_tolerance: .15
       }
     }
-    object_pickup_thrust_gain: 0.6
+    object_pickup_thrust_gain: 0.4
   }
 }
 poly_reference_config {

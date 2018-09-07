@@ -174,7 +174,7 @@ public:
                       psa::PrePickTransitionAction, psa::PickTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PrePickState, Completed, psa::PickState,
-                      psa::PickTransitionAction, psa::PickTransitionGuard>,
+                      psa::PickTransitionAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PrePickState, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,

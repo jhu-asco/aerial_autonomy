@@ -54,10 +54,15 @@ for i in range(ncols):
     plt.tight_layout()
     plt.savefig(os.path.join(args.folder,labels[i]+'.eps'),
                              bbox_inches='tight')
+ref_v_labels = ['vx_ref', 'vy_ref', 'vz_ref']
+for i in range(3):
+  plt.figure(i+4)
+  plt.plot(ts1, error_data[ref_v_labels[i]])
+
 plt.figure(100)
 plt.plot(ts1, error_data['thrust_d'])
 
-fig = plt.figure(6)
+fig = plt.figure(101)
 ax = fig.add_subplot(111, projection='3d')
 ax.plot(states[iStart:iEnd,0], states[iStart:iEnd,1], states[iStart:iEnd,2])
 ax.plot(ref_states[iStart:iEnd,0], ref_states[iStart:iEnd,1], ref_states[iStart:iEnd,2])
@@ -122,4 +127,11 @@ plt.xlabel('Pitch command (rad)')
 plt.ylabel('Error pitch (rad)')
 plt.savefig(os.path.join(args.folder,'delta_pitch.eps'),
                          bbox_inches='tight')
+plt.figure()
+plt.subplot(2,1,1)
+plt.plot(ts1, error_data['J'])
+plt.ylabel("MPC Cost")
+plt.subplot(2,1,2)
+plt.plot(ts1, error_data['Loop timer'])
+plt.ylabel("Loop timer")
 plt.show()
