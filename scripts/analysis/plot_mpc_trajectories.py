@@ -4,7 +4,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import argparse
 import os
 import pandas as pd
-#import seaborn as sns
+import seaborn as sns
 import numpy as np
 from set_axes_equal import set_axes_equal
 # %% Getting data
@@ -54,10 +54,11 @@ for i in range(ncols):
     plt.tight_layout()
     plt.savefig(os.path.join(args.folder,labels[i]+'.eps'),
                              bbox_inches='tight')
-ref_v_labels = ['vx_ref', 'vy_ref', 'vz_ref']
-for i in range(3):
-  plt.figure(i+4)
-  plt.plot(ts1, error_data[ref_v_labels[i]])
+if 'vx_ref' in error_data.columns:
+    ref_v_labels = ['vx_ref', 'vy_ref', 'vz_ref']
+    for i in range(3):
+      plt.figure(i+4)
+      plt.plot(ts1, error_data[ref_v_labels[i]])
 
 plt.figure(100)
 plt.plot(ts1, error_data['thrust_d'])
@@ -134,4 +135,12 @@ plt.ylabel("MPC Cost")
 plt.subplot(2,1,2)
 plt.plot(ts1, error_data['Loop timer'])
 plt.ylabel("Loop timer")
+yaw_ref = np.interp(ts, ts1, error_data['y_ref'].values)
+error_yaw = (state_data['y.1'] - yaw_ref).values
+error_df = pd.DataFrame(np.hstack((interp_errors[:, :3], error_yaw[:, np.newaxis], interp_errors[:, 3:])),
+                        columns = ['Errorx','Errory','Errorz', 'Erroryaw', 'Errorvx', 'Errorvy', 'Errorvz'])
+error_df.to_csv(os.path.join(args.folder, 'errors.csv'))
+plt.figure()
+sns.barplot(data=error_df.abs(), ci=2)
+plt.savefig(os.path.join(args.folder, 'mean_absolute_errors.eps'), layout='tight', dpi=300)
 plt.show()
