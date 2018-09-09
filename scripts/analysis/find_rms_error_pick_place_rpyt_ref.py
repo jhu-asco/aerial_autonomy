@@ -60,17 +60,17 @@ else:
 # Plot:
 ax = sns.barplot(data=cumulative_error_df[error_labels].abs(), ci=2)
 ax.yaxis.grid(which="major")
-plt.savefig('mean_absolute_errors.eps', layout='tight')
+plt.savefig('mean_absolute_errors.eps', bbox_inches='tight', dpi=300)
 plt.figure()
 total_time = meta_df['Total time']
 total_time[total_time > 0].hist()
 plt.xlabel('Total time (seconds)')
 plt.ylabel('Count')
-plt.savefig('total_times_histogram.eps',layout='tight',dpi=300)
+plt.savefig('total_times_histogram.eps',bbox_inches='tight',dpi=300)
 plt.figure()
 meta_df['Pickup times'].hist()
 plt.xlabel('Pickup time (seconds)')
 plt.ylabel('Count')
-plt.savefig('pickup_times_histogram.eps', layout='tight', dpi=300)
+plt.savefig('pickup_times_histogram.eps', bbox_inches='tight', dpi=300)
 plt.show()
 
