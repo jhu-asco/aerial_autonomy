@@ -45,9 +45,9 @@ if args.cumulative_df is None:
             print("No data frame to evaluate")
             continue
         tStart = meta_df['Start time'].iloc[i]
-        tEnd = meta_df['Place End time'].iloc[i]
-        if tEnd < 0:
-            tEnd = meta_df['Pick End time'].iloc[i]
+        #tEnd = meta_df['Place End time'].iloc[i]
+        #if tEnd < 0:
+        tEnd = meta_df['Pick End time'].iloc[i]
         iStart = np.argmin(np.abs(ts - tStart))
         iEnd = np.argmin(np.abs(ts - tEnd))
         list_dfs.append(error_df.iloc[iStart:iEnd])
