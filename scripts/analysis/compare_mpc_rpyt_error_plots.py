@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 """
 Created on Sun Sep  9 18:04:20 2018
 Compare MPC Errors with RPYT ref Errors
@@ -41,11 +41,12 @@ cum_rpyt_unstack_df = cum_rpyt_unstack_df.reset_index()
 cum_rpyt_unstack_df = cum_rpyt_unstack_df.drop(columns=['level_1'])
 cum_rpyt_unstack_df.columns = ['Axis', 'Error']
 cum_rpyt_unstack_df['Error'] = cum_rpyt_unstack_df['Error'].abs()
-cum_rpyt_unstack_df['Controller'] = 'RPYT'
+cum_rpyt_unstack_df['Controller'] = 'Acceleration control'
 
 combined_errors = pd.concat((cumulative_mpc_unstack_df,
                              cum_rpyt_unstack_df), ignore_index=True)
 # %%
+sns.set()
 plt.figure()
 ax = sns.barplot(data=combined_errors, x='Axis', y='Error', hue='Controller')
 ax.yaxis.grid(True)
