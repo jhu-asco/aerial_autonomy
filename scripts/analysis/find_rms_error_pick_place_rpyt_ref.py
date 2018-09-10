@@ -17,6 +17,7 @@ parser.add_argument('--prefix', type=str,
 args = parser.parse_args()
 error_labels = ['Errorx','Errory','Errorz', 'Erroryaw', 'Errorvx', 'Errorvy',
                     'Errorvz']
+sns.set(style="white", font_scale=2.0)
 meta_df = pd.read_csv(args.meta_file)
 if args.cumulative_df is None:
     list_dfs = []
@@ -63,7 +64,7 @@ print "Mean RMS: ", np.mean(rms)
 print "Std RMS: ", np.std(rms)
 print "Mean absolute error: ", cumulative_error_df.abs().mean()
 # Plot:
-ax = sns.barplot(data=cumulative_error_df[error_labels].abs(), ci=2)
+ax = sns.barplot(data=cumulative_error_df[error_labels].abs(), ci=95)
 ax.yaxis.grid(which="major")
 plt.savefig('mean_absolute_errors.eps', bbox_inches='tight', dpi=300)
 plt.figure()

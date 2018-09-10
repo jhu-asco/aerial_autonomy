@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import argparse
 import os
 import pandas as pd
+import seaborn as sns
 import scipy.signal as signal
 import tf.transformations as tf
 
@@ -118,6 +119,8 @@ rp_sensor = connector_data[['Sensor_roll', 'Sensor_pitch']].values
 rd = np.interp(ts, ts_ctrlr, ctrlr_data['Cmd_roll'])
 pd = np.interp(ts, ts_ctrlr, ctrlr_data['Cmd_pitch'])
 rp_d = np.vstack((rd, pd)).T
+
+sns.set(font_scale=2.0, style="white")
 
 for i, label in enumerate(['Roll(rad)', 'Pitch (rad)']):
     plt.figure()
