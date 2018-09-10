@@ -52,6 +52,7 @@ ax = sns.barplot(data=combined_errors, x='Axis', y='Error', hue='Controller')
 ax.yaxis.grid(True)
 plt.savefig('mean_absolute_error_compare.eps', bbox_inches='tight', dpi=300)
 plt.savefig('mean_absolute_error_compare.png', bbox_inches='tight', dpi=300)
+plt.show()
 
 
 
