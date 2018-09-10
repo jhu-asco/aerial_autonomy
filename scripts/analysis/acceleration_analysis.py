@@ -119,16 +119,19 @@ rd = np.interp(ts, ts_ctrlr, ctrlr_data['Cmd_roll'])
 pd = np.interp(ts, ts_ctrlr, ctrlr_data['Cmd_pitch'])
 rp_d = np.vstack((rd, pd)).T
 
-for i, label in enumerate(['roll', 'pitch']):
+for i, label in enumerate(['Roll(rad)', 'Pitch (rad)']):
     plt.figure()
-    plt.plot(ts1, rp_acc_mocap[:,i])
+    #plt.plot(ts1, rp_acc_mocap[:,i])
     #plt.plot(ts[iStart:iEnd], rp_sensor[iStart:iEnd, i])
     plt.plot(ts[iStart:iEnd], rp_acc_imu[iStart:iEnd,i])
     plt.plot(ts[iStart:iEnd], rp_imu[iStart:iEnd,i])
-    plt.plot(ts[iStart:iEnd], rp_d[iStart:iEnd,i])
-    plt.legend(['Mocap_Acc', 'Acc_IMU', 'Fused_Quad', 'Command'])
+    #plt.plot(ts[iStart:iEnd], rp_d[iStart:iEnd,i])
+    #plt.legend(['Mocap_Acc', 'Acc_IMU', 'Fused_Quad', 'Command'])
+    plt.legend(['Acc_IMU', 'IMU'])
     plt.ylabel(label)
     plt.xlabel('Time (seconds)')
+    plt.grid(True)
+    plt.savefig(label+'.eps', bbox_inches='tight', dpi=300)
     mocap_diff = rp_acc_mocap[:,i] - rp_imu[iStart:(iEnd-1),i]
     imu_diff = rp_acc_imu[iStart:iEnd,i] - rp_imu[iStart:iEnd,i]
     print label+':'

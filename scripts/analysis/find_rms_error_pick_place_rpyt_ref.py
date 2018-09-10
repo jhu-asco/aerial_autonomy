@@ -57,6 +57,11 @@ if args.cumulative_df is None:
                                             'cumulative_error.csv'))
 else:
     cumulative_error_df = pd.read_csv(args.cumulative_df)
+# Print mean, RMS
+rms = np.sqrt(np.square(cumulative_error_df[['Errorx', 'Errory', 'Errorz']]).mean(axis=1))
+print "Mean RMS: ", np.mean(rms)
+print "Std RMS: ", np.std(rms)
+print "Mean absolute error: ", cumulative_error_df.abs().mean()
 # Plot:
 ax = sns.barplot(data=cumulative_error_df[error_labels].abs(), ci=2)
 ax.yaxis.grid(which="major")
