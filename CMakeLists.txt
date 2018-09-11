@@ -32,10 +32,8 @@ find_package(arm_plugins)
 if (NOT arm_plugins_FOUND)
   message(WARNING "Could not find arm_plugins.  Not building arm-related components.")
 else ()
-  set(catkin_INCLUDE_DIRS ${
-  catkin_INCLUDE_DIRS} ${arm_plugins_INCLUDE_DIRS})
-  set(catkin_LIBRARIES ${
-  catkin_LIBRARIES} ${arm_plugins_LIBRARIES})
+  set(catkin_INCLUDE_DIRS ${catkin_INCLUDE_DIRS} ${arm_plugins_INCLUDE_DIRS})
+  set(catkin_LIBRARIES ${catkin_LIBRARIES} ${arm_plugins_LIBRARIES})
 endif ()
 
 include(cmake/add_event_function.cmake)

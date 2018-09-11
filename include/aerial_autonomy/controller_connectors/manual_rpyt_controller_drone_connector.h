@@ -23,9 +23,7 @@ public:
   */
   ManualRPYTControllerDroneConnector(
       parsernode::Parser &drone_hardware,
-      Controller<Joystick, EmptyGoal, RollPitchYawRateThrust> &controller)
-      : ControllerConnector(controller, ControllerGroup::UAV),
-        drone_hardware_(drone_hardware) {}
+      Controller<Joystick, EmptyGoal, RollPitchYawRateThrust> &controller);
 
 protected:
   /**
