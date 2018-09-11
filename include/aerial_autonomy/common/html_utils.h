@@ -94,7 +94,7 @@ public:
    * @brief constructor initializes the table header
    * @param width The width of each column in the table in px
    */
-  HtmlTableWriter(int width = 120) : width_(width), row_ended(true) {
+  HtmlTableWriter(int width = 240) : width_(width), row_ended(true) {
     table_string_stream << std::fixed << std::setprecision(2);
     table_string_stream << "<table border=\"1\">";
   }

@@ -49,7 +49,7 @@ cum_rpyt_unstack_df['Controller'] = 'Acceleration control'
 combined_errors = pd.concat((cumulative_mpc_unstack_df,
                              cum_rpyt_unstack_df), ignore_index=True)
 # %%
-sns.set()
+sns.set(font='Times New Roman')
 plt.figure()
 ax = sns.barplot(data=combined_errors, x='Axis', y='Error', hue='Controller')
 ax.yaxis.grid(True)

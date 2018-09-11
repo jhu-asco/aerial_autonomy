@@ -10,7 +10,7 @@ ControllerStatus::ControllerStatus(ControllerStatus::Status status,
       debug_header_("") {}
 
 std::string ControllerStatus::getHtmlStatusString() {
-  HtmlTableWriter controller_status_table(90); // Shorter width
+  HtmlTableWriter controller_status_table(180); // Shorter width
   addDebugInfo(
       std::make_tuple(status_, status_description_, debug_header_, debug_info_),
       controller_status_table);

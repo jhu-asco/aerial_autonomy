@@ -19,6 +19,7 @@ from python_qt_binding.QtWidgets import (QLabel, QVBoxLayout,
                                          QTextEdit, QPushButton,
                                          QSlider, QTabWidget)
 from python_qt_binding.QtCore import *
+from python_qt_binding.QtGui import QFont
 from ros_event_trigger import RosEventTrigger
 from argparse import ArgumentParser
 from functools import partial
@@ -64,6 +65,9 @@ class EventTransmissionGUI(Plugin):
         ## Textbox to show sytem status
         self.system_status_textbox = QTextEdit()
         self.system_status_textbox.setReadOnly(True)
+        font = QFont()
+        font.setPointSize(14)
+        self.system_status_textbox.setFont(font)
         self._layout.addWidget(self.system_status_textbox)
 
         # Define and connect buttons
