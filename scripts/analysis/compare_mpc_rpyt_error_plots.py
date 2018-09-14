@@ -9,6 +9,7 @@ import pandas as pd
 import seaborn as sns
 import os
 import matplotlib.pyplot as plt
+import matplotlib
 
 parser = argparse.ArgumentParser(
     prog='plot_quad_data')
@@ -50,6 +51,8 @@ combined_errors = pd.concat((cumulative_mpc_unstack_df,
                              cum_rpyt_unstack_df), ignore_index=True)
 # %%
 sns.set(font='Times New Roman')
+matplotlib.rcParams['pdf.fonttype'] = 42
+matplotlib.rcParams['ps.fonttype'] = 42
 plt.figure()
 ax = sns.barplot(data=combined_errors, x='Axis', y='Error', hue='Controller')
 ax.yaxis.grid(True)
