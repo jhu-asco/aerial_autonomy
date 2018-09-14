@@ -20,8 +20,7 @@ public:
   */
   virtual SensorDataT getSensorData() = 0;
   /**
-  * @brief gets the latest sensor data, transformed by the robot-to-sensor
-  * transform
+  * @brief gets the latest sensor data in the robot frame.
   */
   virtual SensorDataT getTransformedSensorData() = 0;
   /**
