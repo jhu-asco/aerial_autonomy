@@ -1,11 +1,13 @@
 #pragma once
-#include "aerial_autonomy/sensors/base_sensor.h"
+#include "aerial_autonomy/sensors/ros_sensor.h"
 #include "aerial_autonomy/types/velocity.h"
 #include "ros_sensor_config.pb.h"
 #include <aerial_autonomy/common/conversions.h>
 #include <glog/logging.h>
 #include <nav_msgs/Odometry.h>
 #include <ros/ros.h>
+#include <tf/tf.h>
+
 /**
 * @brief ros based velocity sensor
 */
@@ -17,63 +19,55 @@ public:
   *
   * @param Config for velocity sensor
   */
-  VelocitySensor(ROSSensorConfig config) : config_(config) {
-    VLOG(2) << "Initialzing ROS Sensor";
-    odom_sub_ =
-        nh_.subscribe(config.topic(), 1, &VelocitySensor::odomCallback, this);
-    last_msg_time_ = ros::Time::now();
+  VelocitySensor(ROSSensorConfig config) : sensor_(config) {
+    local_transform_ =
+        conversions::protoTransformToTf(config.sensor_transform());
   }
   /**
   * @brief gives sensor data
   */
   Velocity getSensorData() {
-    Velocity sensor_data = sensor_data_;
-    return sensor_data;
+    nav_msgs::Odometry msg = sensor_.getSensorData();
+    Velocity velocity_sensor_data(msg.twist.twist.linear.x,
+                                  msg.twist.twist.linear.y,
+                                  msg.twist.twist.linear.z);
+    return velocity_sensor_data;
+  }
+  /**
+  * @brief give sensor data, transformed by the local transform.
+  * Returns the velocity in the sensor origin frame of the robot center.
+  */
+  Velocity getTransformedSensorData() {
+    nav_msgs::Odometry msg = sensor_.getSensorData();
+    tf::Vector3 linear_velocity_data(msg.twist.twist.linear.x,
+                                     msg.twist.twist.linear.y,
+                                     msg.twist.twist.linear.z);
+    tf::Vector3 angular_velocity_data(msg.twist.twist.angular.x,
+                                      msg.twist.twist.angular.y,
+                                      msg.twist.twist.angular.z);
+    tf::Transform rotation_only_transform(local_transform_.getRotation());
+    tf::Vector3 transform_translation(local_transform_.getOrigin());
+    tf::Vector3 transformed_velocity =
+        rotation_only_transform *
+            angular_velocity_data.cross(transform_translation) +
+        linear_velocity_data;
+    return Velocity(transformed_velocity.getX(), transformed_velocity.getY(),
+                    transformed_velocity.getZ());
   }
   /**
   * @brief gives sensor status
   */
-  SensorStatus getSensorStatus() {
-    SensorStatus sensor_status;
-    ros::Time last_msg_time = last_msg_time_;
-    if ((ros::Time::now() - last_msg_time).toSec() > config_.timeout())
-      sensor_status = SensorStatus::INVALID;
-    else
-      sensor_status = SensorStatus::VALID;
-
-    return sensor_status;
-  }
+  SensorStatus getSensorStatus() { return sensor_.getSensorStatus(); }
 
 private:
-  /**
-  * @brief callback for pose sensor
+  /*
+  * @brief Underlying ROS sensor.  Listens to a ROS topic of Odometry messages,
+  * which we use for velocity.
   */
-  void odomCallback(const nav_msgs::Odometry::ConstPtr msg) {
-    ros::Time last_msg_time = msg->header.stamp;
-    last_msg_time_ = last_msg_time;
-    Velocity vel_sensor_data(msg->twist.twist.linear.x,
-                             msg->twist.twist.linear.y,
-                             msg->twist.twist.linear.z);
-    sensor_data_ = vel_sensor_data;
-  }
-  /**
-  * @brief sensor config
+  ROSSensor<nav_msgs::Odometry> sensor_;
+  /*
+  * @brief Local transform provided by the config, from sensor frame to robot
+  * frame.
   */
-  ROSSensorConfig config_;
-  /**
-  * @brief nodehandle for ros stuff
-  */
-  ros::NodeHandle nh_;
-  /**
-  * @brief Subscriber for odometry topic
-  */
-  ros::Subscriber odom_sub_;
-  /**
-  * @brief time of last msg recieved
-  */
-  Atomic<ros::Time> last_msg_time_;
-  /**
-  * @brief variable to store sensor data
-  */
-  Atomic<Velocity> sensor_data_;
+  tf::Transform local_transform_;
 };

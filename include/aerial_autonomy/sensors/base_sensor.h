@@ -16,9 +16,13 @@ public:
   */
   Sensor() {}
   /**
-  * @brief gets the latest sensor data
+  * @brief gets the latest raw sensor data
   */
   virtual SensorDataT getSensorData() = 0;
+  /**
+  * @brief gets the latest sensor data in the robot frame.
+  */
+  virtual SensorDataT getTransformedSensorData() = 0;
   /**
   * @brief gets the current status of the sensor
   */
