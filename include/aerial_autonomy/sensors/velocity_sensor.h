@@ -35,6 +35,7 @@ public:
   }
   /**
   * @brief give sensor data, transformed by the local transform.
+  * Returns the velocity in the sensor origin frame of the robot center.
   */
   Velocity getTransformedSensorData() {
     nav_msgs::Odometry msg = sensor_.getSensorData();
@@ -47,9 +48,9 @@ public:
     tf::Transform rotation_only_transform(local_transform_.getRotation());
     tf::Vector3 transform_translation(local_transform_.getOrigin());
     tf::Vector3 transformed_velocity =
-        angular_velocity_data.cross(transform_translation) +
+        rotation_only_transform *
+            angular_velocity_data.cross(transform_translation) +
         linear_velocity_data;
-    transformed_velocity = rotation_only_transform * transformed_velocity;
     return Velocity(transformed_velocity.getX(), transformed_velocity.getY(),
                     transformed_velocity.getZ());
   }

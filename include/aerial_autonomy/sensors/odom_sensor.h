@@ -62,11 +62,11 @@ public:
                          msg->twist.twist.linear.z);
     tf::Vector3 rate(msg->twist.twist.angular.x, msg->twist.twist.angular.y,
                      msg->twist.twist.angular.z);
-    velocity = velocity + rate.cross(transform_translate);
-    velocity = rotation_only_transform * velocity;
-    rate = rotation_only_transform * rate;
-    VelocityYawRate vyr(velocity.getX(), velocity.getY(), velocity.getZ(),
-                        rate.getZ());
+    tf::Vector3 quad_velocity =
+        velocity + rotation_only_transform * (rate.cross(transform_translate));
+    tf::Vector3 quad_rate = rotation_only_transform * rate;
+    VelocityYawRate vyr(quad_velocity.getX(), quad_velocity.getY(),
+                        quad_velocity.getZ(), quad_rate.getZ());
     // Map the position yaw and transform with the local transform.
     tf::Vector3 position(msg->pose.pose.position.x, msg->pose.pose.position.y,
                          msg->pose.pose.position.z);
@@ -74,11 +74,12 @@ public:
         msg->pose.pose.orientation.x, msg->pose.pose.orientation.y,
         msg->pose.pose.orientation.z, msg->pose.pose.orientation.w);
     tf::Transform pyTransform(orientation, position);
-    pyTransform = pyTransform * local_transform_;
+    tf::Transform quad_in_sensor_origin = pyTransform * local_transform_;
     // Set the result
-    PositionYaw py(
-        pyTransform.getOrigin().getX(), pyTransform.getOrigin().getY(),
-        pyTransform.getOrigin().getZ(), tf::getYaw(pyTransform.getRotation()));
+    PositionYaw py(quad_in_sensor_origin.getOrigin().getX(),
+                   quad_in_sensor_origin.getOrigin().getY(),
+                   quad_in_sensor_origin.getOrigin().getZ(),
+                   tf::getYaw(pyTransform.getRotation()));
     retVal = std::make_tuple(vyr, py);
     return retVal;
   }
