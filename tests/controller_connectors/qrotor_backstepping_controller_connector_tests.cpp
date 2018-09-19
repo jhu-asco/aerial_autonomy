@@ -12,7 +12,7 @@ TEST_F(QrotorBacksteppingControllerConnectorTests, PoseSensor) {
   tf::Vector3 vel_err(0, 0, 0);
   std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal(
       new MinimumSnapReferenceTrajectory(r, tau_vec, path));
-  runUntilConvergence(goal, total_time, pos_err, vel_err, true);
+  runUntilConvergence(goal, total_time, pos_err, vel_err, true, true);
 }
 
 TEST_F(QrotorBacksteppingControllerConnectorTests, InitialDisturbPos) {

@@ -14,29 +14,27 @@ bool QrotorBacksteppingControllerConnector::extractSensorData(
   drone_hardware_.getquaddata(data);
   QrotorBacksteppingState current_state;
 
-  // Pose (SE3)
-  tf::Transform quad_pose;
-  if (pose_sensor_) {
-    if (pose_sensor_->getSensorStatus() != SensorStatus::VALID) {
-      LOG(WARNING) << "Sensor invalid";
+  if (odom_sensor_) {
+    if (odom_sensor_->getSensorStatus() != SensorStatus::VALID) {
+      LOG(WARNING) << "Pose sensor invalid!";
       return false;
     }
-    quad_pose = pose_sensor_->getSensorData();
+    auto quad_pose_velocity_pair = odom_sensor_->getSensorData();
+    // Pose
+    current_state.pose = quad_pose_velocity_pair.first;
+    // RPY
+    current_rpy_ = conversions::transformTfToRPY(current_state.pose);
+    // Linear velocity
+    current_state.v = quad_pose_velocity_pair.second;
   } else {
-    quad_pose = conversions::getPose(data);
-  }
-  current_state.pose = quad_pose;
-
-  // Euler angles (Roll Pitch Yaw)
-  if (pose_sensor_) {
-    current_rpy_ = conversions::transformTfToRPY(quad_pose);
-  } else {
+    // Pose
+    current_state.pose = conversions::getPose(data);
+    // RPY
     current_rpy_ =
         Eigen::Vector3d(data.rpydata.x, data.rpydata.y, data.rpydata.z);
+    // Linear velocity
+    current_state.v = tf::Vector3(data.linvel.x, data.linvel.y, data.linvel.z);
   }
-
-  // Linear Velocity
-  current_state.v = tf::Vector3(data.linvel.x, data.linvel.y, data.linvel.z);
 
   // Angular velocity
   current_state.w = tf::Vector3(data.omega.x, data.omega.y, data.omega.z);
@@ -124,6 +122,6 @@ void QrotorBacksteppingControllerConnector::setGoal(
 }
 
 void QrotorBacksteppingControllerConnector::useSensor(
-    SensorPtr<tf::StampedTransform> sensor) {
-  pose_sensor_ = sensor;
+    SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> sensor) {
+  odom_sensor_ = sensor;
 }

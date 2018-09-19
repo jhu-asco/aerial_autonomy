@@ -38,7 +38,7 @@ public:
     vel_tolerance->set_vx(0.02);
     vel_tolerance->set_vy(0.02);
     vel_tolerance->set_vz(0.02);
-    pose_sensor_.reset(new FlightControlSensor(drone_hardware_));
+    odom_sensor_.reset(new FlightControlSensor(drone_hardware_));
     controller_.reset(new QrotorBacksteppingController(config_));
 
     drone_hardware_.usePerfectTime();
@@ -69,13 +69,13 @@ public:
   void runUntilConvergence(
       std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal,
       double total_time, tf::Vector3 pos_err, tf::Vector3 vel_err,
-      bool check_thrust_gain = true, bool using_pose_sensor = false) {
+      bool check_thrust_gain = true, bool using_odom_sensor = false) {
 
     // Use pose sensor instead of quaddata
-    if (!using_pose_sensor) {
+    if (!using_odom_sensor) {
       controller_connector_.reset(new QrotorBacksteppingControllerConnector(
           drone_hardware_, *controller_, thrust_gain_estimator_, config_,
-          pose_sensor_));
+          odom_sensor_));
     } else {
       // Use quaddata
       controller_connector_.reset(new QrotorBacksteppingControllerConnector(
@@ -183,7 +183,9 @@ public:
 
 private:
   QuadSimulator drone_hardware_;
-  std::shared_ptr<Sensor<tf::StampedTransform>> pose_sensor_;
+  // std::shared_ptr<Sensor<tf::StampedTransform>> pose_sensor_;
+  std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>>
+      odom_sensor_;
   std::unique_ptr<QrotorBacksteppingController> controller_;
   std::unique_ptr<QrotorBacksteppingControllerConnector> controller_connector_;
   ThrustGainEstimator thrust_gain_estimator_;

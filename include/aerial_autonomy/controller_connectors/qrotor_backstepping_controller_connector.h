@@ -37,12 +37,13 @@ public:
       QrotorBacksteppingController &controller,
       ThrustGainEstimator &thrust_gain_estimator,
       QrotorBacksteppingControllerConfig config,
-      SensorPtr<tf::StampedTransform> pose_sensor = nullptr)
+      SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor =
+          nullptr)
       : ControllerConnector(controller, ControllerGroup::UAV),
         drone_hardware_(drone_hardware),
         thrust_gain_estimator_(thrust_gain_estimator), config_(config),
         t_0_(std::chrono::high_resolution_clock::now()), m_(config_.mass()),
-        g_(config_.acc_gravity()), pose_sensor_(pose_sensor) {
+        g_(config_.acc_gravity()), odom_sensor_(odom_sensor) {
     DATA_HEADER("qrotor_backstepping_controller_connector") << "roll"
                                                             << "pitch"
                                                             << "yaw"
@@ -67,7 +68,8 @@ public:
   *
   * @param sensor Pose sensor to use
   */
-  void useSensor(SensorPtr<tf::StampedTransform> sensor);
+  void
+  useSensor(SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> sensor);
 
 protected:
   /**
@@ -125,9 +127,9 @@ private:
   */
   std::chrono::time_point<std::chrono::high_resolution_clock> previous_time_;
   /**
-  * @brief Variable to store pose sensor for quad data
-  */
-  SensorPtr<tf::StampedTransform> pose_sensor_;
+   * @brief Pose sensor for quad data
+   */
+  SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor_;
   /**
   * @brief Variable to integrate & store omega
   */
