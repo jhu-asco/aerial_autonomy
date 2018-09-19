@@ -8,19 +8,21 @@
 // Controllers
 #include <aerial_autonomy/controllers/basic_controllers.h>
 #include <aerial_autonomy/controllers/joystick_velocity_controller.h>
+#include <aerial_autonomy/controllers/qrotor_backstepping_controller.h>
 #include <aerial_autonomy/controllers/rpyt_based_position_controller.h>
 // Estimators
 #include <aerial_autonomy/estimators/thrust_gain_estimator.h>
 // Specific ControllerConnectors
 #include <aerial_autonomy/controller_connectors/basic_controller_connectors.h>
 #include <aerial_autonomy/controller_connectors/joystick_velocity_controller_drone_connector.h>
+#include <aerial_autonomy/controller_connectors/qrotor_backstepping_controller_connector.h>
 // Sensors
 #include <aerial_autonomy/controller_connectors/basic_controller_connectors.h>
 #include <aerial_autonomy/controller_connectors/joystick_velocity_controller_drone_connector.h>
 #include <aerial_autonomy/controller_connectors/rpyt_based_position_controller_drone_connector.h>
 #include <aerial_autonomy/controller_connectors/rpyt_based_position_controller_drone_connector.h>
 #include <aerial_autonomy/sensors/guidance.h>
-#include <aerial_autonomy/sensors/pose_sensor.h>
+#include <aerial_autonomy/sensors/odometry_from_pose_sensor.h>
 #include <aerial_autonomy/sensors/velocity_sensor.h>
 // Load UAV parser
 #include <pluginlib/class_loader.h>
@@ -78,6 +80,10 @@ private:
   * @brief Velocity controller which takes joystick controls as inputs
   */
   JoystickVelocityController joystick_velocity_controller_;
+  /**
+  * @brief Backstepping controller
+  */
+  QrotorBacksteppingController qrotor_backstepping_controller_;
 
 protected:
   /**
@@ -85,9 +91,10 @@ protected:
   */
   std::shared_ptr<Sensor<Velocity>> velocity_sensor_;
   /**
-   * @brief pose_sensor_
+   * @brief odom_sensor_
    */
-  std::shared_ptr<Sensor<tf::StampedTransform>> pose_sensor_;
+  std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>>
+      odom_sensor_;
 
 private:
   /**
@@ -114,6 +121,12 @@ private:
   */
   JoystickVelocityControllerDroneConnector
       joystick_velocity_controller_drone_connector_;
+
+  /**
+  * @brief Connector from JoystickVelocityController to drone hardware
+  */
+  QrotorBacksteppingControllerConnector
+      qrotor_backstepping_controller_connector_;
 
   /**
   * @brief Home Location
@@ -176,22 +189,21 @@ private:
     return velocity_sensor;
   }
   /**
-  * @brief create a pose sensor if using Motion Capture flag is set
+  * @brief create a odom sensor if using Motion Capture flag is set
   *
   * @param config The UAV system config
   *
-  * @return new pose sensor if using motion capture otherwise nulllptr
+  * @return new odom sensor if using motion capture otherwise nulllptr
   */
-  static std::shared_ptr<Sensor<tf::StampedTransform>>
-  createPoseSensor(UAVSystemConfig &config) {
-    auto pose_sensor_config = config.pose_sensor_config();
-    std::shared_ptr<Sensor<tf::StampedTransform>> pose_sensor;
+  static std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>>
+  createOdomSensor(UAVSystemConfig &config) {
+    auto odom_sensor_config = config.odom_sensor_config();
+    std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>>
+        odom_sensor;
     if (config.use_mocap_sensor()) {
-      pose_sensor.reset(
-          new PoseSensor(pose_sensor_config.topic(),
-                         ros::Duration(pose_sensor_config.timeout())));
+      odom_sensor.reset(new OdomFromPoseSensor(odom_sensor_config));
     }
-    return pose_sensor;
+    return odom_sensor;
   }
 
 public:
@@ -232,9 +244,11 @@ public:
         joystick_velocity_controller_(
             config.joystick_velocity_controller_config(),
             std::chrono::milliseconds(config.uav_controller_timer_duration())),
+        qrotor_backstepping_controller_(
+            config.qrotor_backstepping_controller_config()),
         velocity_sensor_(
             UAVSystem::chooseSensor(velocity_sensor, drone_hardware_, config)),
-        pose_sensor_(UAVSystem::createPoseSensor(config)),
+        odom_sensor_(UAVSystem::createOdomSensor(config)),
         position_controller_drone_connector_(*drone_hardware_,
                                              builtin_position_controller_),
         rpyt_based_position_controller_drone_connector_(
@@ -247,6 +261,10 @@ public:
         joystick_velocity_controller_drone_connector_(
             *drone_hardware_, joystick_velocity_controller_,
             thrust_gain_estimator_),
+        qrotor_backstepping_controller_connector_(
+            *drone_hardware_, qrotor_backstepping_controller_,
+            thrust_gain_estimator_,
+            config.qrotor_backstepping_controller_config(), odom_sensor_),
         home_location_specified_(false) {
     drone_hardware_->initialize();
     // Add control hardware connector containers
@@ -259,6 +277,8 @@ public:
     controller_connector_container_.setObject(rpyt_controller_drone_connector_);
     controller_connector_container_.setObject(
         joystick_velocity_controller_drone_connector_);
+    controller_connector_container_.setObject(
+        qrotor_backstepping_controller_connector_);
   }
   /**
   * @brief Get sensor data from UAV
@@ -383,8 +403,9 @@ public:
    */
   tf::StampedTransform getPose() {
     tf::StampedTransform result;
-    if (pose_sensor_) {
-      result = pose_sensor_->getSensorData();
+    ///\todo Figure out what to do if pose sensor is not valid??
+    if (odom_sensor_) {
+      result = odom_sensor_->getSensorData().first;
     } else {
       auto data = getUAVData();
       tf::Transform t(
@@ -395,5 +416,12 @@ public:
                                     "uav");
     }
     return result;
+  }
+
+  SensorStatus getPoseSensorStatus() {
+    if (odom_sensor_) {
+      return odom_sensor_->getSensorStatus();
+    }
+    return SensorStatus::VALID;
   }
 };
