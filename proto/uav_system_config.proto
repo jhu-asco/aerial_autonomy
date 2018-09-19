@@ -12,7 +12,11 @@ import "joystick_velocity_controller_config.proto";
 
 import "thrust_gain_estimator_config.proto";
 
+import "odom_from_pose_sensor_config.proto";
+
 import "ros_sensor_config.proto";
+
+import "qrotor_backstepping_controller_config.proto";
 
 message UAVSystemConfig {
   /**
@@ -49,6 +53,10 @@ message UAVSystemConfig {
 
   optional JoystickVelocityControllerConfig
       joystick_velocity_controller_config = 12;
+
+  optional QrotorBacksteppingControllerConfig
+      qrotor_backstepping_controller_config = 18;
+
   /**
   * @brief A crude form of inheritance for proto. Contains a config for
   * subclasses of UAVSystemConfig
@@ -91,5 +99,6 @@ message UAVSystemConfig {
   /**
   * @brief Velocity sensor config
   */
-  optional ROSSensorConfig pose_sensor_config = 17;
+  optional OdomSensorConfig odom_sensor_config = 17;
+
 }
