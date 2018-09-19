@@ -18,7 +18,7 @@ template <class LogicStateMachineT> struct ArmStatesActions {
   */
   using ArmStatus = ArmStatus_<LogicStateMachineT>;
   /**
-  * @brief Action to poweroff arm
+  * @brief Action to poweron arm
   */
   using ArmPowerOn = ArmPoweronTransitionActionFunctor_<LogicStateMachineT>;
   /**
