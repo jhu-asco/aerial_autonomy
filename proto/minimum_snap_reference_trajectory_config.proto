@@ -19,4 +19,8 @@ message MinimumSnapReferenceTrajectoryConfig {
   */
   required FollowingWaypointSequenceConfig following_waypoint_sequence_config =
       3;
+  /**
+  * @brief maximum velocity
+  */
+  optional double average_velocity = 4 [ default = 1 ];
 }
