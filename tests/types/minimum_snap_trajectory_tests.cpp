@@ -2,6 +2,7 @@
 #include "aerial_autonomy/types/minimum_snap_reference_trajectory.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "minimum_snap_reference_trajectory_config.pb.h"
+#include <aerial_autonomy/common/conversions.h>
 #include <chrono>
 #include <gtest/gtest.h>
 
@@ -29,13 +30,14 @@ void ASSERT_STATES_NEAR(const Eigen::MatrixXd &state1,
   ASSERT_NEAR(state1(4, 2), std::get<1>(state2).z, tol);
 }
 
-void setWaypoint(config::PositionYaw *way_point, double x, double y, double z,
-                 double yaw) {
-  way_point->mutable_position()->set_x(x);
-  way_point->mutable_position()->set_y(y);
-  way_point->mutable_position()->set_z(z);
-  way_point->set_yaw(yaw);
-}
+// void setWaypoint(config::PositionYaw *way_point, double x, double y, double
+// z,
+//                  double yaw) {
+//   way_point->mutable_position()->set_x(x);
+//   way_point->mutable_position()->set_y(y);
+//   way_point->mutable_position()->set_z(z);
+//   way_point->set_yaw(yaw);
+// }
 
 TEST(MinimumSnapReferenceTrajectory, Constructor) {
   int r = 4;
@@ -45,14 +47,20 @@ TEST(MinimumSnapReferenceTrajectory, Constructor) {
   path << 0, 0, 0, 1, 1, 1, 2, 2, 2;
   MinimumSnapReferenceTrajectory ref_first(r, tau_vec, path);
 
+  PositionYaw start_position_yaw(0, 0, 0, 0);
+  PositionYaw midpoint_position_yaw(1, 1, 1, 0);
+  PositionYaw goal_position_yaw(2, 2, 2, 0);
   MinimumSnapReferenceTrajectoryConfig ref_config;
   ref_config.add_tau_vec(1);
   ref_config.add_tau_vec(1);
   auto waypoint_config =
       ref_config.mutable_following_waypoint_sequence_config();
-  setWaypoint(waypoint_config->add_way_points(), 0, 0, 0, 0);
-  setWaypoint(waypoint_config->add_way_points(), 1, 1, 1, 0);
-  setWaypoint(waypoint_config->add_way_points(), 2, 2, 2, 0);
+  conversions::setWaypoint(waypoint_config->add_way_points(),
+                           start_position_yaw);
+  conversions::setWaypoint(waypoint_config->add_way_points(),
+                           midpoint_position_yaw);
+  conversions::setWaypoint(waypoint_config->add_way_points(),
+                           goal_position_yaw);
   MinimumSnapReferenceTrajectory ref_second(ref_config);
   test_utils::ASSERT_EIGENMAT_NEAR(ref_first.getP(), ref_second.getP());
 }

@@ -86,6 +86,14 @@ createWaypoint(PositionYaw goal) {
   return waypoint;
 }
 
+void setWaypoint(config::PositionYaw *way_point,
+                 const PositionYaw &position_yaw) {
+  way_point->mutable_position()->set_x(position_yaw.x);
+  way_point->mutable_position()->set_y(position_yaw.y);
+  way_point->mutable_position()->set_z(position_yaw.z);
+  way_point->set_yaw(position_yaw.yaw);
+}
+
 std::vector<double> vectorEigenToStd(const Eigen::VectorXd &vec_eigen) {
   std::vector<double> vec_std(
       vec_eigen.data(), vec_eigen.data() + vec_eigen.rows() * vec_eigen.cols());
