@@ -27,6 +27,11 @@ template <class LogicStateMachineT> struct UAVStatesActions {
   */
   using ReachingGoal = ReachingGoal_<LogicStateMachineT>;
   /**
+  * @brief Reaching goal state
+  */
+  using ReachingGoalBackStepping =
+      ReachingGoalBackStepping_<LogicStateMachineT>;
+  /**
   * @brief Hovering state
   */
   using Hovering = Hovering_<LogicStateMachineT>;
