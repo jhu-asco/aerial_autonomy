@@ -6,6 +6,7 @@
 #include "base_state_machine_config.pb.h"
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/types/internal_transition_event.h>
+#include <boost/msm/front/functor_row.hpp>
 
 /**
 * @brief Namespace for base functors
@@ -60,6 +61,9 @@ struct ActionFunctor {
     static_assert(
         std::is_base_of<FSM, LogicStateMachineT>::value,
         "Template Logic state machine arg is not subclass of provided FSM");
+    // \todo (Matt) Pass the config directly to the run function instead to
+    // avoid a copy here (could also just keep a pointer to the config)
+    state_machine_config_ = logic_state_machine.base_state_machine_config_;
     run(event, logic_state_machine.robot_system_container_());
   }
 
@@ -67,6 +71,12 @@ struct ActionFunctor {
   * @brief Virtual destructor to obtain polymorphism
   */
   virtual ~ActionFunctor() {}
+
+protected:
+  /**
+  * @brief Copy of state machine configuration which can be used in run function
+  */
+  BaseStateMachineConfig state_machine_config_;
 };
 
 /**
