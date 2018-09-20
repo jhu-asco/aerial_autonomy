@@ -9,7 +9,7 @@ message MinimumSnapReferenceTrajectoryConfig {
   /**
   * @brief Order of derivative (snap = 4)
   */
-  required int32 der_order = 1 [ default = 4 ];
+  optional int32 der_order = 1 [ default = 4 ];
   /**
   * @brief Vector of time intervals
   */
