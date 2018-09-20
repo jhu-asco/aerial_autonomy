@@ -113,8 +113,8 @@ public:
             msmf::Row<usa::TakingOff, Completed, usa::Hovering, msmf::none,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<usa::Hovering, PositionYaw, usa::ReachingGoal,
-                      usa::ReachingGoalSet, usa::ReachingGoalGuard>,
+            msmf::Row<usa::Hovering, PositionYaw, usa::ReachingGoalBackstepping,
+                      usa::ReachingGoalSetBackstepping, usa::ReachingGoalGuard>,
             msmf::Row<usa::Hovering, VelocityYaw, usa::ExecutingVelocityGoal,
                       usa::SetVelocityGoal, usa::GuardVelocityGoal>,
             msmf::Row<usa::Hovering, be::Land, usa::Landing, usa::LandingAction,
@@ -125,22 +125,18 @@ public:
                       usa::RunningJoystickVelocityController,
                       usa::StartJoystickVelocityController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<usa::ReachingGoal, be::Abort, usa::Hovering,
+            msmf::Row<usa::ReachingGoalBackstepping, be::Abort, usa::Hovering,
                       usa::UAVControllerAbort, msmf::none>,
-            msmf::Row<usa::ReachingGoal, be::Land, usa::Landing,
-                      usa::ReachingGoalLand, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::ExecutingVelocityGoal, VelocityYaw,
                       usa::ExecutingVelocityGoal, usa::SetVelocityGoal,
                       usa::GuardVelocityGoal>,
             msmf::Row<usa::ExecutingVelocityGoal, be::Abort, usa::Hovering,
                       usa::UAVControllerAbort, msmf::none>,
-            msmf::Row<usa::ExecutingVelocityGoal, be::Land, usa::Landing,
-                      usa::ReachingGoalLand, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::Landing, Completed, usa::Landed, msmf::none,
                       msmf::none>,
-            msmf::Row<usa::ReachingGoal, Completed, usa::Hovering,
+            msmf::Row<usa::ReachingGoalBackstepping, Completed, usa::Hovering,
                       usa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::ManualControlState, be::Takeoff, usa::Hovering,

@@ -29,8 +29,8 @@ template <class LogicStateMachineT> struct UAVStatesActions {
   /**
   * @brief Reaching goal state
   */
-  using ReachingGoalBackStepping =
-      ReachingGoalBackStepping_<LogicStateMachineT>;
+  using ReachingGoalBackstepping =
+      ReachingGoalBackstepping_<LogicStateMachineT>;
   /**
   * @brief Hovering state
   */
@@ -82,6 +82,11 @@ template <class LogicStateMachineT> struct UAVStatesActions {
   */
   using ReachingGoalSet =
       PositionControlTransitionActionFunctor_<LogicStateMachineT>;
+  /**
+  * @brief set goal action when transitioning
+  */
+  using ReachingGoalSetBackstepping =
+      BacksteppingTransitionActionFunctor_<LogicStateMachineT>;
   /**
   * @brief Guard to avoid going to goal if goal is not correct
   */

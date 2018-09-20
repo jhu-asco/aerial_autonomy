@@ -17,7 +17,7 @@ message MinimumSnapReferenceTrajectoryConfig {
   /**
   * @brief Config for the FollowingWaypointSequence state
   */
-  required FollowingWaypointSequenceConfig following_waypoint_sequence_config =
+  optional FollowingWaypointSequenceConfig following_waypoint_sequence_config =
       3;
   /**
   * @brief maximum velocity

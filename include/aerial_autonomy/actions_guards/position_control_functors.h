@@ -13,9 +13,17 @@
 #include <parsernode/common.h>
 
 namespace be = uav_basic_events;
-
 template <class LogicStateMachineT>
 struct PositionControlTransitionActionFunctor_
+    : ActionFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
+  void run(const PositionYaw &goal, UAVSystem &robot_system) {
+    robot_system
+        .setGoal<RPYTBasedPositionControllerDroneConnector, PositionYaw>(goal);
+  }
+};
+
+template <class LogicStateMachineT>
+struct BacksteppingTransitionActionFunctor_
     : ActionFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
   void run(const PositionYaw &goal, UAVSystem &robot_system) {
     tf::StampedTransform start_pose = robot_system.getPose();
@@ -170,7 +178,9 @@ struct ZeroVelocityGuardFunctor_
  * @tparam LogicStateMachineT Logic state machine used to process events
  * @tparam ControllerConnectorT Controller connector used to process events
  */
-template <class LogicStateMachineT, class ControllerConnectorT>
+template <class LogicStateMachineT,
+          class ControllerConnectorT =
+              RPYTBasedPositionControllerDroneConnector>
 using PositionControlInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<
         boost::mpl::vector<UAVStatusInternalActionFunctor_<LogicStateMachineT>,
@@ -194,7 +204,7 @@ using ReachingGoal_ = BaseState<
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using ReachingGoalBackStepping_ =
+using ReachingGoalBackstepping_ =
     BaseState<UAVSystem, LogicStateMachineT,
               PositionControlInternalActionFunctor_<
                   LogicStateMachineT, QrotorBacksteppingControllerConnector>>;
