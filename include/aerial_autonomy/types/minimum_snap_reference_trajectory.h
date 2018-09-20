@@ -141,21 +141,14 @@ private:
    * @brief check parameters
    */
   void paramCheck() {
-    if (der_order_ < 0) {
-      throw std::invalid_argument(
-          "der_order_ < 0, Order of derivative must be at least 0");
-    }
-    if (tau_vec_.prod() <= 0) {
-      throw std::invalid_argument(
-          "All elements of time interval must be greater than 0");
-    }
-    if (path_.cols() != 3) {
-      throw std::length_error("The size of path is wrong (must be N by 3)");
-    }
-    if (tau_vec_.size() + 1 != path_.rows()) {
-      throw std::length_error("The size of tau_vec has to be 1 less than the "
-                              "size of the row of path");
-    }
+    CHECK_GT(der_order_, 0)
+        << "der_order_ < 0, Order of derivative must be at least 0";
+    CHECK_GE(tau_vec_.prod(), 0)
+        << "All elements of time interval must be greater than 0";
+    CHECK_EQ(path_.cols(), 3) << "The size of path is wrong (must be N by 3)";
+    CHECK_EQ(tau_vec_.size() + 1, path_.rows()) << "The size of tau_vec has to "
+                                                   "be 1 less than the size of "
+                                                   "the row of path";
   }
 
   /**

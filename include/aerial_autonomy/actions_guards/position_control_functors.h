@@ -27,7 +27,6 @@ struct BacksteppingTransitionActionFunctor_
     : ActionFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
   void run(const PositionYaw &goal, UAVSystem &robot_system) {
     tf::StampedTransform start_pose = robot_system.getPose();
-
     PositionYaw start_position_yaw;
     conversions::tfToPositionYaw(start_position_yaw, start_pose);
     // Minimum snap reference trajectory config
@@ -36,6 +35,9 @@ struct BacksteppingTransitionActionFunctor_
     // Waypoints config
     auto waypoint_config =
         reference_config.mutable_following_waypoint_sequence_config();
+    CHECK_EQ((waypoint_config->way_points()).size(), 0)
+        << "Should not input any waypoints. They are automatically specified "
+           "based on start and goal";
     // Add waypoints
     conversions::setWaypoint(waypoint_config->add_way_points(),
                              start_position_yaw);
@@ -47,6 +49,9 @@ struct BacksteppingTransitionActionFunctor_
     double distance = std::sqrt(x * x + y * y + z * z);
 
     double average_velocity = reference_config.average_velocity();
+    CHECK_EQ(reference_config.tau_vec().size(), 0)
+        << "Should not input any time steps. They are automatically specified "
+           "based on input average velocity";
     // Add time interval
     reference_config.add_tau_vec(distance / average_velocity);
     // Minimum snap reference trajectory object

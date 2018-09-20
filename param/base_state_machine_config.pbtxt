@@ -2,5 +2,4 @@ uav_state_machine_config {
 }
 
 minimum_snap_reference_trajectory_config {
-  tau_vec: 5.0
 }
