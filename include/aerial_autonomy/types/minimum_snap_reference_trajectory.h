@@ -9,6 +9,7 @@
 #include "minimum_snap_reference_trajectory_config.pb.h"
 
 #include <Eigen/Dense>
+#include <glog/logging.h>
 
 /**
 * @brief A minimum snap trajectory containing controls, states and timestamps
