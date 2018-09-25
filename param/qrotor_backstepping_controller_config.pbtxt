@@ -1,21 +1,20 @@
-kp_xy: 23.0
-kp_z: 27.0
-kd_xy: 30.0
-kd_z: 30.0
-k1: 0.33
-k2: 0.33
+kp_xy: 5
+kp_z: 10
+kd_xy: 5
+kd_z: 10
+k1: 0.3
+k2: 0.3
 jxx: 0.05
 jyy: 0.05
 jzz: 0.08
 mass: 3.4
-
 goal_position_tolerance {
-  x: 0.01
-  y: 0.01
-  z: 0.01
+  x: 0.02
+  y: 0.02
+  z: 0.02
 }
 goal_velocity_tolerance {
-  vx: 0.01
-  vy: 0.01
-  vz: 0.01
+  vx: 0.02
+  vy: 0.02
+  vz: 0.02
 }
