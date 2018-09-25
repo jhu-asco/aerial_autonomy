@@ -18,13 +18,13 @@ int main(int argc, char **argv) {
   LogConfig log_config;
   log_config.set_directory(std::string(PROJECT_SOURCE_DIR) + "/logs/data");
   auto data_stream_config = log_config.add_data_stream_configs();
-  data_stream_config->set_log_rate(25);
+  data_stream_config->set_log_rate(20);
   data_stream_config->set_stream_id("thrust_gain_estimator");
   data_stream_config = log_config.add_data_stream_configs();
-  data_stream_config->set_log_rate(10);
+  data_stream_config->set_log_rate(20);
   data_stream_config->set_stream_id("qrotor_backstepping_controller");
   data_stream_config = log_config.add_data_stream_configs();
-  data_stream_config->set_log_rate(10);
+  data_stream_config->set_log_rate(20);
   data_stream_config->set_stream_id("qrotor_backstepping_controller_connector");
   Log::instance().configure(log_config);
   QrotorBacksteppingControllerConfig config;
@@ -42,10 +42,10 @@ int main(int argc, char **argv) {
     LOG(ERROR) << "Cannot load proto file for the reference trajectory";
   }
   quad_simulator::QuadSimulator drone_hardware;
-  drone_hardware.usePerfectTime();
+  // drone_hardware.usePerfectTime();
   drone_hardware.set_delay_send_time(0.2);
   ThrustGainEstimator thrust_gain_estimator(0.16);
-  drone_hardware.setBatteryPercent(60);
+  drone_hardware.setBatteryPercent(100);
   drone_hardware.takeoff();
 
   QrotorBacksteppingController controller(config);
@@ -68,9 +68,9 @@ int main(int argc, char **argv) {
   // Initial condition
   ParticleState initial_desired_state = std::get<0>(goal->atTime(0.0));
   geometry_msgs::Vector3 init_position;
-  init_position.x = initial_desired_state.p.x - .5;
-  init_position.y = initial_desired_state.p.y - .5;
-  init_position.z = initial_desired_state.p.z - .5;
+  init_position.x = initial_desired_state.p.x;
+  init_position.y = initial_desired_state.p.y;
+  init_position.z = initial_desired_state.p.z;
   drone_hardware.cmdwaypoint(init_position);
 
   parsernode::common::quaddata data;
