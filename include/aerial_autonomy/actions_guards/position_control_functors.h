@@ -1,4 +1,5 @@
 #pragma once
+#include "aerial_autonomy/common/proto_utils.h"
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
@@ -13,6 +14,7 @@
 #include <parsernode/common.h>
 
 namespace be = uav_basic_events;
+
 template <class LogicStateMachineT>
 struct PositionControlTransitionActionFunctor_
     : ActionFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
@@ -53,15 +55,40 @@ struct BacksteppingTransitionActionFunctor_
         << "Should not input any time steps. They are automatically specified "
            "based on input average velocity";
     // Add time interval
-    reference_config.add_tau_vec(distance / average_velocity);
+    reference_config.add_tau_vec(distance / (average_velocity * .5));
+
+    std::cout << "distance: " << distance << '\n'
+              << "average_velocity: " << average_velocity * .5 << '\n'
+              << "calculated tau: " << reference_config.tau_vec(0) << '\n'
+              << "start: " << waypoint_config->way_points(0).position().x()
+              << " " << waypoint_config->way_points(0).position().y() << " "
+              << waypoint_config->way_points(0).position().z() << " "
+              << waypoint_config->way_points(0).yaw() << '\n'
+              << "goal: " << waypoint_config->way_points(1).position().x()
+              << " " << waypoint_config->way_points(1).position().y() << " "
+              << waypoint_config->way_points(1).position().z() << " "
+              << waypoint_config->way_points(1).yaw() << '\n';
     // Minimum snap reference trajectory object
     std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> reference(
         new MinimumSnapReferenceTrajectory(reference_config));
-
     robot_system
         .setGoal<QrotorBacksteppingControllerConnector,
                  std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>>>(
             reference);
+    // MinimumSnapReferenceTrajectoryConfig reference_config_alternative;
+    // if (!proto_utils::loadProtoText(
+    //   std::string(PROJECT_SOURCE_DIR) +
+    //   "/param/minimum_snap_reference_trajectory_config.pbtxt",
+    //   reference_config_alternative)) {
+    //     LOG(ERROR) << "Cannot load proto file for the reference trajectory";
+    //   }
+    // std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>>
+    // reference_alternative(
+    //   new MinimumSnapReferenceTrajectory(reference_config_alternative));
+    // robot_system
+    //     .setGoal<QrotorBacksteppingControllerConnector,
+    //              std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>>>(
+    //         reference_alternative);
   }
 };
 
