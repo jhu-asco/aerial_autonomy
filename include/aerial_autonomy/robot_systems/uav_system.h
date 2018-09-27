@@ -284,10 +284,10 @@ public:
         joystick_velocity_controller_drone_connector_);
     controller_connector_container_.setObject(
         qrotor_backstepping_controller_connector_);
-    // qrotor_backstepping_visualizer_.reset(new
-    // QrotorBacksteppingTrajectoryVisualizer(
-    //   config.visualizer_config(),
-    //   qrotor_backstepping_controller_connector_));
+    qrotor_backstepping_visualizer_.reset(
+        new QrotorBacksteppingTrajectoryVisualizer(
+            config.visualizer_config(),
+            qrotor_backstepping_controller_connector_));
   }
   /**
   * @brief Get sensor data from UAV
@@ -436,10 +436,6 @@ public:
 
   void visualizeBackStepping() {
     std::cout << "/* message */" << '\n';
-    qrotor_backstepping_visualizer_.reset(
-        new QrotorBacksteppingTrajectoryVisualizer(
-            config_.visualizer_config(),
-            qrotor_backstepping_controller_connector_));
     qrotor_backstepping_visualizer_->publishTrajectory(true);
   }
 };

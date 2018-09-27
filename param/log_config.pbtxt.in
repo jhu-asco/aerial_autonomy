@@ -86,3 +86,12 @@ data_stream_configs {
   stream_id: "arm_sine_controller"
   log_rate: 20
 }
+
+data_stream_configs {
+  stream_id: "qrotor_backstepping_controller"
+  log_rate: 20
+}
+data_stream_configs {
+  stream_id: "qrotor_backstepping_controller_connector"
+  log_rate: 20
+}

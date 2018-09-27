@@ -45,8 +45,10 @@ public:
     //   started_= true;
     // }
     // else if (status == ControllerStatus::Active && started_) {
+    goal_ = connector_.getGoal();
     if (!goal_) { // this is the NULL check
       std::cout << "goal is null!" << '\n';
+      return;
     } else if (goal_) {
       std::cout << "goal is not empty so lets print start, goal xyz" << '\n';
       ParticleState desired_state = std::get<0>(goal_->atTime(0));
@@ -229,7 +231,7 @@ private:
       visualizer_; ///< Visualizer helper for publishing trajectories to Rviz
   // ros::Publisher points_pub_; ///< Point publisher
   // stdQrotorBacksteppingControllerConnector connector_; ///>
-  QrotorBacksteppingControllerConnector connector_;
+  QrotorBacksteppingControllerConnector &connector_;
   std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal_;
   std::chrono::high_resolution_clock::time_point t0_;
   bool started_ = false;
