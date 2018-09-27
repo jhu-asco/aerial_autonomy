@@ -18,6 +18,8 @@ import "ros_sensor_config.proto";
 
 import "qrotor_backstepping_controller_config.proto";
 
+import "mpc_visualizer_config.proto";
+
 message UAVSystemConfig {
   /**
   * @brief Battery percentage required for takeoff
@@ -101,4 +103,5 @@ message UAVSystemConfig {
   */
   optional OdomSensorConfig odom_sensor_config = 17;
 
+  optional MPCVisualizerConfig visualizer_config = 19;
 }
