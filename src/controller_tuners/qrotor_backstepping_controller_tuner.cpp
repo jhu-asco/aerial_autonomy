@@ -56,15 +56,14 @@ int main(int argc, char **argv) {
   visualizer_config.mutable_desired_trajectory_color()->set_g(0);
   visualizer_config.mutable_desired_trajectory_color()->set_b(0);
   visualizer_config.mutable_desired_trajectory_color()->set_a(0.8);
-  QrotorBacksteppingTrajectoryVisualizer visualizer(visualizer_config);
-
+  // visualizer_config.visualize_velocities(false);
   Eigen::VectorXd tau_vec;
   tau_vec = conversions::vectorProtoToEigen(ref_config.tau_vec());
 
   std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal(
       new MinimumSnapReferenceTrajectory(ref_config));
   controller_connector.setGoal(goal);
-
+  QrotorBacksteppingTrajectoryVisualizer visualizer(visualizer_config, controller_connector);
   // Initial condition
   ParticleState initial_desired_state = std::get<0>(goal->atTime(0.0));
   geometry_msgs::Vector3 init_position;
@@ -80,11 +79,15 @@ int main(int argc, char **argv) {
 
   // Start time
   auto t0 = std::chrono::high_resolution_clock::now();
-
+  int count = 0;
   while (ros::ok()) {
     // Publish reference trajectory
-    visualizer.publishTrajectory(goal, tau_vec, t0);
-
+    if (count == 500) {
+      visualizer.publishTrajectory(true);
+    }
+    count++;
+    controller_connector.run();
+    // Run controller
     // Vizualize quad frame
     drone_hardware.getquaddata(data);
     tf::Quaternion q = tf::createQuaternionFromRPY(
@@ -94,9 +97,8 @@ int main(int argc, char **argv) {
             q, tf::Vector3(data.localpos.x, data.localpos.y, data.localpos.z)),
         ros::Time::now(), visualizer_config.parent_frame(), "quad"));
 
-    // Run controller
-    controller_connector.run();
     ros::spinOnce();
+
     std::this_thread::sleep_for(std::chrono::milliseconds(20));
 
     // Display controller status

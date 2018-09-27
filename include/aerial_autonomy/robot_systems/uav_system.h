@@ -28,6 +28,8 @@
 #include <pluginlib/class_loader.h>
 // Base class for UAV parsers
 #include <parsernode/parser.h>
+// vizualizer
+#include "aerial_autonomy/common/qrotor_backstepping_trajectory_visualizer.h"
 // shared ptr
 #include <memory>
 
@@ -132,6 +134,9 @@ private:
   * @brief Home Location
   */
   PositionYaw home_location_;
+
+  std::unique_ptr<QrotorBacksteppingTrajectoryVisualizer>
+      qrotor_backstepping_visualizer_;
 
   /**
   * @brief Flag to specify if home location is specified or not
@@ -279,6 +284,10 @@ public:
         joystick_velocity_controller_drone_connector_);
     controller_connector_container_.setObject(
         qrotor_backstepping_controller_connector_);
+    // qrotor_backstepping_visualizer_.reset(new
+    // QrotorBacksteppingTrajectoryVisualizer(
+    //   config.visualizer_config(),
+    //   qrotor_backstepping_controller_connector_));
   }
   /**
   * @brief Get sensor data from UAV
@@ -423,5 +432,14 @@ public:
       return odom_sensor_->getSensorStatus();
     }
     return SensorStatus::VALID;
+  }
+
+  void visualizeBackStepping() {
+    std::cout << "/* message */" << '\n';
+    qrotor_backstepping_visualizer_.reset(
+        new QrotorBacksteppingTrajectoryVisualizer(
+            config_.visualizer_config(),
+            qrotor_backstepping_controller_connector_));
+    qrotor_backstepping_visualizer_->publishTrajectory(true);
   }
 };

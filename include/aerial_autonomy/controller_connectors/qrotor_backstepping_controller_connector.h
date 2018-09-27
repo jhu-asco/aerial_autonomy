@@ -51,6 +51,7 @@ public:
                                                             << "pitch_cmd"
                                                             << "yaw_rate_cmd"
                                                             << "thrust"
+                                                            << "dt"
                                                             << DataStream::endl;
   }
   /**
@@ -70,6 +71,10 @@ public:
   */
   void
   useSensor(SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> sensor);
+
+  std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> getGoal() {
+    return goal_;
+  }
 
 protected:
   /**
@@ -162,4 +167,8 @@ private:
   * @brief Variable to store upper bound on control
   */
   Eigen::Vector4d ub_;
+
+  int initial_count_;
+
+  std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal_;
 };

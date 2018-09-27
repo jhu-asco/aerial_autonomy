@@ -120,7 +120,9 @@ ControllerStatus QrotorBacksteppingController::isConvergedImplementation(
 
   Velocity velocity_diff = end_goal.v - current_velocity;
   Position position_diff = end_goal.p - current_position;
-
+  controller_status << "Error pos, vel: " << position_diff.x << position_diff.y
+                    << position_diff.z << velocity_diff.x << velocity_diff.y
+                    << velocity_diff.z;
   // TODO: use common vector3 interface to compare two vectors
   if (std::abs(velocity_diff.x) < tolerance_vel.vx() &&
       std::abs(velocity_diff.y) < tolerance_vel.vy() &&

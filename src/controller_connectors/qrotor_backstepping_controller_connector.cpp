@@ -67,7 +67,13 @@ void QrotorBacksteppingControllerConnector::sendControllerCommands(
   std::chrono::duration<double> dt_duration =
       std::chrono::duration_cast<std::chrono::duration<double>>(current_time -
                                                                 previous_time_);
-  double dt = dt_duration.count();
+  double dt;
+  if (initial_count_ == 0) {
+    dt = 0.02;
+    initial_count_++;
+  } else {
+    dt = dt_duration.count();
+  }
   previous_time_ = current_time;
   thrust_dot_ += Thrust_ddot * dt;
   thrust_ += thrust_dot_ * dt;
@@ -93,8 +99,8 @@ void QrotorBacksteppingControllerConnector::sendControllerCommands(
   double thrust_cmd =
       thrust_ / (m_ * thrust_gain_estimator_.getThrustGain()); // thrust_command
   rpyt_message_.w = thrust_cmd;
-  drone_hardware_.cmdrpyawratethrust(rpyt_message_);
   thrust_gain_estimator_.addThrustCommand(rpyt_message_.w);
+  drone_hardware_.cmdrpyawratethrust(rpyt_message_);
 
   DATA_LOG("qrotor_backstepping_controller_connector")
       << current_rpy_(0) << current_rpy_(1) << current_rpy_(2)
@@ -105,6 +111,7 @@ void QrotorBacksteppingControllerConnector::sendControllerCommands(
 void QrotorBacksteppingControllerConnector::setGoal(
     std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal) {
   BaseClass::setGoal(goal);
+  goal_ = goal;
   t_0_ = std::chrono::high_resolution_clock::now();
   previous_time_ = std::chrono::high_resolution_clock::now();
   // Initial state
@@ -116,7 +123,16 @@ void QrotorBacksteppingControllerConnector::setGoal(
   // Set lower, upper bounds
   lb_ << -0.785, -0.785, -1.5708, 0.8;
   ub_ << 0.785, 0.785, 1.5708, 1.2;
-
+  std::cout << "mass: " << config_.mass() << '\n'
+            << "kp_xy: " << config_.kp_xy() << '\n'
+            << "kd_xy: " << config_.kd_xy() << '\n'
+            << "kp_z: " << config_.kp_z() << '\n'
+            << "kd_z: " << config_.kd_z() << '\n'
+            << "k1: " << config_.k1() << '\n'
+            << "k2: " << config_.k2() << '\n'
+            << "jxx: " << config_.jxx() << '\n'
+            << "jyy: " << config_.jyy() << '\n'
+            << "jzz: " << config_.jzz() << '\n';
   VLOG(1) << "Clearing thrust estimator buffer";
   thrust_gain_estimator_.clearBuffer();
 }

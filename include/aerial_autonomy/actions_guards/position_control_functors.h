@@ -46,19 +46,21 @@ struct BacksteppingTransitionActionFunctor_
     conversions::setWaypoint(waypoint_config->add_way_points(), goal);
     // L2 distance between start, goal
     double x = start_position_yaw.x - goal.x;
-    double y = start_position_yaw.x - goal.y;
-    double z = start_position_yaw.x - goal.z;
-    double distance = std::sqrt(x * x + y * y + z * z);
-
+    double y = start_position_yaw.y - goal.y;
+    double z = start_position_yaw.z - goal.z;
+    double distance = std::sqrt((x * x) + (y * y) + (z * z));
     double average_velocity = reference_config.average_velocity();
+    // minimum time interval
+    double tau_min = 7.0;
     CHECK_EQ(reference_config.tau_vec().size(), 0)
         << "Should not input any time steps. They are automatically specified "
            "based on input average velocity";
     // Add time interval
-    reference_config.add_tau_vec(distance / (average_velocity * .5));
+    reference_config.add_tau_vec(
+        std::max(distance / average_velocity, tau_min));
 
     std::cout << "distance: " << distance << '\n'
-              << "average_velocity: " << average_velocity * .5 << '\n'
+              << "average_velocity: " << average_velocity << '\n'
               << "calculated tau: " << reference_config.tau_vec(0) << '\n'
               << "start: " << waypoint_config->way_points(0).position().x()
               << " " << waypoint_config->way_points(0).position().y() << " "
@@ -75,6 +77,7 @@ struct BacksteppingTransitionActionFunctor_
         .setGoal<QrotorBacksteppingControllerConnector,
                  std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>>>(
             reference);
+    robot_system.visualizeBackStepping();
     // MinimumSnapReferenceTrajectoryConfig reference_config_alternative;
     // if (!proto_utils::loadProtoText(
     //   std::string(PROJECT_SOURCE_DIR) +
