@@ -207,6 +207,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/rpyt_based_velocity_controller_config.proto
   proto/rpyt_based_relative_pose_controller_config.proto
   proto/rpyt_based_position_controller_config.proto
+  proto/rpyt_based_relative_pose_adaptive_estimate_controller_config.proto
   proto/joystick_velocity_controller_config.proto
   proto/position.proto
   proto/rotation.proto
@@ -289,6 +290,7 @@ set(SRC
   src/controllers/rpyt_based_velocity_controller.cpp
   src/controllers/rpyt_based_position_controller.cpp
   src/controllers/rpyt_based_relative_pose_controller.cpp
+  src/controllers/rpyt_based_relative_pose_adaptive_estimate_controller.cpp
   src/controllers/joystick_velocity_controller.cpp
   src/controllers/arm_sine_controller.cpp
   src/controllers/qrotor_backstepping_controller.cpp
@@ -298,6 +300,7 @@ set(SRC
   src/controller_connectors/base_relative_pose_visual_servoing_connector.cpp
   src/controller_connectors/relative_pose_visual_servoing_controller_drone_connector.cpp
   src/controller_connectors/rpyt_relative_pose_visual_servoing_connector.cpp
+  src/controller_connectors/rpyt_relative_pose_adaptive_estimate_connector.cpp
   src/controller_connectors/position_controller_drone_connector.cpp
   src/controller_connectors/velocity_based_position_controller_drone_connector.cpp
   src/controller_connectors/rpyt_based_position_controller_drone_connector.cpp
