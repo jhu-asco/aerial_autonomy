@@ -63,7 +63,8 @@ int main(int argc, char **argv) {
   std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal(
       new MinimumSnapReferenceTrajectory(ref_config));
   controller_connector.setGoal(goal);
-  QrotorBacksteppingTrajectoryVisualizer visualizer(visualizer_config, controller_connector);
+  QrotorBacksteppingTrajectoryVisualizer visualizer(visualizer_config,
+                                                    controller_connector);
   // Initial condition
   ParticleState initial_desired_state = std::get<0>(goal->atTime(0.0));
   geometry_msgs::Vector3 init_position;
@@ -79,14 +80,15 @@ int main(int argc, char **argv) {
 
   // Start time
   auto t0 = std::chrono::high_resolution_clock::now();
-  int count = 0;
+  bool started = true;
+  // Publish reference trajectory
   while (ros::ok()) {
-    // Publish reference trajectory
-    if (count == 500) {
-      visualizer.publishTrajectory(true);
-    }
-    count++;
     controller_connector.run();
+    if (started) {
+      /* code */
+      visualizer.publishTrajectory(true);
+      started = false;
+    }
     // Run controller
     // Vizualize quad frame
     drone_hardware.getquaddata(data);

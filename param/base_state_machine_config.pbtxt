@@ -2,4 +2,5 @@ uav_state_machine_config {
 }
 
 minimum_snap_reference_trajectory_config {
+  average_velocity: 0.5
 }

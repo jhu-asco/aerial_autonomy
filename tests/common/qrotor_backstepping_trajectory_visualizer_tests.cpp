@@ -1,9 +1,12 @@
 #include "aerial_autonomy/common/qrotor_backstepping_trajectory_visualizer.h"
+#include "aerial_autonomy/common/proto_utils.h"
+#include "aerial_autonomy/controller_connectors/qrotor_backstepping_controller_connector.h"
 #include "aerial_autonomy/tests/qrotor_backstepping_controller_connector_tests.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "minimum_snap_reference_trajectory_config.pb.h"
 #include <chrono>
 #include <gtest/gtest.h>
+#include <quad_simulator_parser/quad_simulator.h>
 #include <ros/ros.h>
 
 class QrotorBacksteppingTrajectoryVisualizerTests
@@ -11,8 +14,30 @@ class QrotorBacksteppingTrajectoryVisualizerTests
 public:
   QrotorBacksteppingTrajectoryVisualizerTests()
       : QrotorBacksteppingControllerConnectorTests() {
-    visualizer_.reset(
-        new QrotorBacksteppingTrajectoryVisualizer(visualizer_config));
+    QrotorBacksteppingControllerConfig config;
+    if (!proto_utils::loadProtoText(
+            std::string(PROJECT_SOURCE_DIR) +
+                "/param/qrotor_backstepping_controller_config.pbtxt",
+            config)) {
+      LOG(ERROR) << "Cannot load proto file for the controller";
+    }
+    quad_simulator::QuadSimulator drone_hardware;
+    ThrustGainEstimator thrust_gain_estimator(0.16);
+    QrotorBacksteppingController controller(config);
+    QrotorBacksteppingControllerConnector controller_connector(
+        drone_hardware, controller, thrust_gain_estimator, config);
+    MinimumSnapReferenceTrajectoryConfig ref_config;
+    if (!proto_utils::loadProtoText(
+            std::string(PROJECT_SOURCE_DIR) +
+                "/param/minimum_snap_reference_trajectory_config.pbtxt",
+            ref_config)) {
+      LOG(ERROR) << "Cannot load proto file for the reference trajectory";
+    }
+    std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal(
+        new MinimumSnapReferenceTrajectory(ref_config));
+    controller_connector.setGoal(goal);
+    visualizer_.reset(new QrotorBacksteppingTrajectoryVisualizer(
+        visualizer_config, controller_connector));
     visualize_traj_sub_ = nh_.subscribe(
         "/desired_traj", 2,
         &QrotorBacksteppingTrajectoryVisualizerTests::markerSubscribe, this);
@@ -40,8 +65,8 @@ TEST_F(QrotorBacksteppingTrajectoryVisualizerTests,
   path << 0, 0, 0, 1, 1, 1;
   std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal(
       new MinimumSnapReferenceTrajectory(r, tau_vec, path));
-  auto t0 = std::chrono::high_resolution_clock::now();
-  visualizer_->publishTrajectory(goal, tau_vec, t0);
+  // auto t0 = std::chrono::high_resolution_clock::now();
+  visualizer_->publishTrajectory(true);
   auto checkVisualizeTrajectory = [&]() {
     ros::spinOnce();
     return (received_messages_.size() == 1);

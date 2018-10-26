@@ -1,21 +1,21 @@
 der_order: 4
 
-tau_vec: 10.0
+tau_vec: 7.0
 
 following_waypoint_sequence_config {
   way_points {
     position {
       x: 0.0
       y: 0.0
-      z: 0.5
+      z: 1.0
     }
     yaw: 0
   }
   way_points {
     position {
-      x: 5.0
-      y: 5.0
-      z: 5.0
+      x: 0.0
+      y: 1.0
+      z: 1.0
     }
     yaw: 0
   }

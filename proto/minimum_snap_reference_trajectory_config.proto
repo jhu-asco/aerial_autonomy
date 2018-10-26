@@ -22,5 +22,5 @@ message MinimumSnapReferenceTrajectoryConfig {
   /**
   * @brief maximum velocity
   */
-  optional double average_velocity = 4 [ default = 1 ];
+  optional double average_velocity = 4 [ default = 0.5 ];
 }

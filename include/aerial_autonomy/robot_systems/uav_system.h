@@ -435,7 +435,7 @@ public:
   }
 
   void visualizeBackStepping() {
-    std::cout << "/* message */" << '\n';
+    std::cout << "Running visualizer" << '\n';
     qrotor_backstepping_visualizer_->publishTrajectory(true);
   }
 };

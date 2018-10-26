@@ -39,24 +39,17 @@ public:
   * @brief publish desired trajectory to rviz and rostopic
   */
   void publishTrajectory(bool retain_marker) {
-    // ControllerStatus status = connector_.getStatus();
-    // if (status == ControllerStatus::Active && !started_) {
-    //   t0_ = std::chrono::high_resolution_clock::now();
-    //   started_= true;
-    // }
-    // else if (status == ControllerStatus::Active && started_) {
     goal_ = connector_.getGoal();
     if (!goal_) { // this is the NULL check
       std::cout << "goal is null!" << '\n';
       return;
     } else if (goal_) {
-      std::cout << "goal is not empty so lets print start, goal xyz" << '\n';
-      ParticleState desired_state = std::get<0>(goal_->atTime(0));
-      std::cout << "x0: " << desired_state.p.x << " y0: " << desired_state.p.y
-                << " z0: " << desired_state.p.z << '\n';
-      desired_state = std::get<0>(goal_->atTime(1000));
-      std::cout << "x0: " << desired_state.p.x << " y0: " << desired_state.p.y
-                << " z0: " << desired_state.p.z << '\n';
+      ParticleState initial_pos = std::get<0>(goal_->atTime(0));
+      std::cout << "initial: [ " << initial_pos.p.x << ", " << initial_pos.p.y
+                << ", " << initial_pos.p.z << " ]" << '\n';
+      ParticleState goal_pos = goal_->goal(0);
+      std::cout << "goal: [ " << goal_pos.p.x << ", " << goal_pos.p.y << ", "
+                << goal_pos.p.z << " ]" << '\n';
     }
     gcop_comm::CtrlTraj desired_trajectory = getTrajectory();
     // visualization_msgs::Marker way_points = getWayPoints(tau_vec_);
@@ -129,7 +122,7 @@ public:
       control_trajectory.time.push_back(current_time);
       ParticleState desired_state = std::get<0>(goal_->atTime(current_time));
       control_trajectory.statemsg.push_back(getState(desired_state));
-      current_time += 0.1;
+      current_time += 1.0;
       N++;
       ahead_time = current_time;
       ParticleState ahead_desired_state =
