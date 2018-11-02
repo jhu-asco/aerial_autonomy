@@ -3,8 +3,10 @@
 #include "aerial_autonomy/common/file_utils.h"
 #include "aerial_autonomy/common/math.h"
 #include "aerial_autonomy/types/particle_state.h"
+#include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/reference_trajectory.h"
 #include "aerial_autonomy/types/snap.h"
+#include "minimum_snap_reference_trajectory_config.pb.h"
 
 #include <Eigen/Dense>
 
@@ -17,14 +19,170 @@ class MinimumSnapReferenceTrajectory
 public:
   /**
   * @brief Constructor
+  *
   * @param der_order_in Order of the derivative subject to optimization
   * @param tau_vec_in Array of time intervals
   * @param path_in nby3 matrix containing waypoints (x,y,z)
+  *
   */
-  MinimumSnapReferenceTrajectory(const int der_order_in,
+  MinimumSnapReferenceTrajectory(const int &der_order_in,
                                  const Eigen::VectorXd &tau_vec_in,
                                  const Eigen::MatrixXd &path_in)
       : der_order_(der_order_in), tau_vec_(tau_vec_in), path_(path_in) {
+    paramCheck();
+    initialize();
+  }
+
+  /**
+  * @brief Constructor
+  *
+  * @param ref_config Reference trajectory config
+  *
+  */
+  MinimumSnapReferenceTrajectory(
+      const MinimumSnapReferenceTrajectoryConfig &ref_config)
+      : ref_config_(ref_config), der_order_(ref_config_.der_order()),
+        tau_vec_(conversions::vectorProtoToEigen(ref_config_.tau_vec())),
+        path_(positionYawsToEigenMat(ref_config_)) {
+    paramCheck();
+    initialize();
+  }
+
+  /**
+  * @brief Get Polynomial coefficients
+  *
+  * @return polynomial coefficients
+  */
+  Eigen::MatrixXd getP() const { return poly_coeffs_; }
+
+  /**
+  * @brief Gets the trajectory information at the specified time using minimum
+  * snap
+  *
+  * @param t Time
+  *
+  * @return Trajectory state and control
+  */
+  std::pair<ParticleState, Snap> atTime(double t) const {
+    if (ts_.empty() || t < ts_.front()) {
+      throw std::out_of_range("Accessed reference trajectory out of bounds");
+    }
+
+    auto closest_t = std::lower_bound(ts_.begin(), ts_.end(), t);
+    int i = closest_t - ts_.begin();
+    double t_tau;
+    if (t < ts_.back()) {
+      t_tau = t - ts_[i - 1];
+    } else {
+      t_tau = tau_vec_.tail(1)(0);
+    }
+
+    Eigen::MatrixXd states_eigen;
+    Eigen::MatrixXd equal_A = equalA(t_tau).bottomRows(5);
+    if (i == 0) {
+      states_eigen = equal_A * poly_coeffs_.middleRows(0, 10);
+    } else if (t < ts_.back()) {
+      states_eigen = equal_A * poly_coeffs_.middleRows(10 * (i - 1), 10);
+    } else {
+      states_eigen = equal_A * poly_coeffs_.bottomRows(10);
+    }
+    // Type conversion
+    Position p(states_eigen(0, 0), states_eigen(0, 1), states_eigen(0, 2));
+    Velocity v(states_eigen(1, 0), states_eigen(1, 1), states_eigen(1, 2));
+    Acceleration a(states_eigen(2, 0), states_eigen(2, 1), states_eigen(2, 2));
+    Jerk j(states_eigen(3, 0), states_eigen(3, 1), states_eigen(3, 2));
+    Snap snap(states_eigen(4, 0), states_eigen(4, 1), states_eigen(4, 2));
+
+    return std::pair<ParticleState, Snap>(ParticleState(p, v, a, j), snap);
+  }
+
+  /**
+  * @brief get goal at specified time will give the end of reference trajectory
+  *
+  * @param double time
+  *
+  * @return State at end of reference trajectory
+  */
+  ParticleState goal(double) {
+    Eigen::MatrixXd equal_A =
+        equalA(tau_vec_(tau_vec_.size() - 1)).bottomRows(5);
+    Eigen::MatrixXd states_eigen = equal_A * poly_coeffs_.bottomRows(10);
+    // Type conversion
+    Position p(states_eigen(0, 0), states_eigen(0, 1), states_eigen(0, 2));
+    Velocity v(states_eigen(1, 0), states_eigen(1, 1), states_eigen(1, 2));
+    Acceleration a(states_eigen(2, 0), states_eigen(2, 1), states_eigen(2, 2));
+    Jerk j(states_eigen(3, 0), states_eigen(3, 1), states_eigen(3, 2));
+    return ParticleState(p, v, a, j);
+  }
+
+private:
+  // clang-format off
+  MinimumSnapReferenceTrajectoryConfig ref_config_; ///> Reference trajectory configuration
+  const int der_order_;           ///< Order of derivative (snap = 4)
+  const Eigen::VectorXd tau_vec_; ///< Vector of time intervals
+  const Eigen::MatrixXd path_;    ///< N by R matrix, N: # of waypoints,
+                            ///< R: Dimension of coordinate sys (ex. x,y,z=3)
+
+  int poly_degree_;      ///< Order of the polynomial (ex. for minimum snap, 9th poly)
+  int n_segments_;       ///< # of segments, N-1
+  int total_dimensions_; ///< Dimension, (poly_degree_ + 1) * n_segments_
+  int n_unknowns_;       ///< # of unknowns (will be optimized), 4 * (n_segments_ - 1)
+  int n_knowns_;         ///< # of knowns, total_dimensions_ - n_unknowns_
+
+  Eigen::MatrixXd equal_A_;     ///< Mapping from poly coeffs to endpoint derivatives
+  Eigen::MatrixXd cost_Q_;      ///< Cost matrix
+  Eigen::MatrixXd b_optimized_; ///< Optimized endpoint derivatives
+  Eigen::MatrixXd poly_coeffs_; ///< Polynomial coefficents
+  std::vector<double> ts_;      ///< Time stamps corresponding to states
+  Eigen::VectorXi idx_;         ///< Indexing for permutation
+  // clang-format on
+
+  /**
+   * @brief check parameters
+   */
+  void paramCheck() {
+    if (der_order_ < 0) {
+      throw std::invalid_argument(
+          "der_order_ < 0, Order of derivative must be at least 0");
+    }
+    if (tau_vec_.prod() <= 0) {
+      throw std::invalid_argument(
+          "All elements of time interval must be greater than 0");
+    }
+    if (path_.cols() != 3) {
+      throw std::length_error("The size of path is wrong (must be N by 3)");
+    }
+    if (tau_vec_.size() + 1 != path_.rows()) {
+      throw std::length_error("The size of tau_vec has to be 1 less than the "
+                              "size of the row of path");
+    }
+  }
+
+  /**
+   * @brief take way points and store them in Eigen::MatrixXd
+   *
+   * @param ref_config Reference trajectory config
+   *
+   * @return path
+   */
+  static Eigen::MatrixXd positionYawsToEigenMat(
+      const MinimumSnapReferenceTrajectoryConfig &ref_config) {
+    Eigen::MatrixXd path(
+        ref_config.following_waypoint_sequence_config().way_points_size(), 3);
+    for (int i = 0; i < path.rows(); i++) {
+      PositionYaw pos_yaw = conversions::protoPositionYawToPositionYaw(
+          ref_config.following_waypoint_sequence_config().way_points(i));
+      path(i, 0) = pos_yaw.position().x;
+      path(i, 1) = pos_yaw.position().y;
+      path(i, 2) = pos_yaw.position().z;
+    }
+    return path;
+  }
+
+  /**
+   * @brief initialization
+   */
+  void initialize() {
     poly_degree_ = 2 * der_order_ + 1;
     n_segments_ = tau_vec_.size();
     total_dimensions_ = (poly_degree_ + 1) * n_segments_;
@@ -46,72 +204,14 @@ public:
   }
 
   /**
-  * @brief Get Polynomial coefficients
-  *
-  * @return polynomial coefficients
-  */
-  Eigen::MatrixXd getP() const { return poly_coeffs_; }
-
-  /**
-  * @brief Gets the trajectory information at the specified time using minimum
-  * snap
-  * @param t Time
-  * @return Trajectory state and control
-  */
-  std::pair<ParticleState, Snap> atTime(double t) const {
-    if (ts_.empty() || t < ts_.front() || t > ts_.back()) {
-      throw std::out_of_range("Accessed reference trajectory out of bounds");
-    }
-    auto closest_t = std::lower_bound(ts_.begin(), ts_.end(), t);
-    int i = closest_t - ts_.begin();
-    double t_tau = t - ts_[i - 1];
-    Eigen::MatrixXd states_eigen;
-    Eigen::MatrixXd equal_A = equalA(t_tau).bottomRows(5);
-    if (i == 0) {
-      states_eigen = equal_A * poly_coeffs_.middleRows(0, 10);
-    } else {
-      states_eigen = equal_A * poly_coeffs_.middleRows(10 * (i - 1), 10);
-    }
-    // Type conversion
-    Position p(states_eigen(0, 0), states_eigen(0, 1), states_eigen(0, 2));
-    Velocity v(states_eigen(1, 0), states_eigen(1, 1), states_eigen(1, 2));
-    Acceleration a(states_eigen(2, 0), states_eigen(2, 1), states_eigen(2, 2));
-    Jerk j(states_eigen(3, 0), states_eigen(3, 1), states_eigen(3, 2));
-    Snap snap(states_eigen(4, 0), states_eigen(4, 1), states_eigen(4, 2));
-
-    return std::pair<ParticleState, Snap>(ParticleState(p, v, a, j), snap);
-  }
-
-private:
-  // clang-format off
-  const int der_order_;           ///< Order of derivative (snap = 4)
-  const Eigen::VectorXd tau_vec_; ///< Vector of time intervals
-  const Eigen::MatrixXd path_;    ///< N by R matrix, N: # of waypoints,
-                                  ///< R: Dimension of coordinate sys (ex. x,y,z=3)
-
-  int poly_degree_;      ///< Order of the polynomial (ex. for minimum snap, 9th poly)
-  int n_segments_;       ///< # of segments, N-1
-  int total_dimensions_; ///< Dimension, (poly_degree_ + 1) * n_segments_
-  int n_unknowns_;       ///< # of unknowns (will be optimized), 4 * (n_segments_ - 1)
-  int n_knowns_;         ///< # of knowns, total_dimensions_ - n_unknowns_
-
-  Eigen::MatrixXd equal_A_;     ///< Mapping from poly coeffs to endpoint derivatives
-  Eigen::MatrixXd cost_Q_;      ///< Cost matrix
-  Eigen::MatrixXd b_optimized_; ///< Optimized endpoint derivatives
-  Eigen::MatrixXd poly_coeffs_; ///< Polynomial coefficents
-  std::vector<double> ts_;      ///< Time stamps corresponding to states
-  Eigen::VectorXi idx_;         ///< Indexing for permutation
-  // clang-format on
-
-  /**
   * @brief Equality matrix, equal_A_ is a mapping matrix from the coefficents of
-  * the
-  * polynomial [p0 p1 p2 ... p9] to the endpoint derivatives, [b0, bt]
+  * the polynomial [p0 p1 p2 ... p9] to the endpoint derivatives, [b0, bt]
   * b0: Initial endpoint of the polynomial; [pos, vel, accel, jerk, snap]
   * bt: Final endpoint of the polynomial
   * Ap = [b0 bt] = b
+  *
   * @param tau Time interval
-  * @param der_order_
+  *
   * @return Equality matrix
   */
   Eigen::MatrixXd equalA(double tau) const {
@@ -147,8 +247,7 @@ private:
 
   /**
   * @brief Augmented equality matrix, diag(A1, A2, A3, ...)
-  * @param tau_vec_
-  * @param der_order_
+  *
   * @return Augmented equality matrix
   */
   Eigen::MatrixXd augA() {
@@ -173,8 +272,10 @@ private:
 
   /**
   * @brief Cost matrix
+  *
   * @param tau_vec_
   * @param der_order_
+  *
   * @return Cost matrix
   */
   Eigen::MatrixXd costQ(double tau) {
@@ -198,11 +299,10 @@ private:
   }
 
   /**
-  * @brief Augmented cost matrix
-  * @param tau_vec_
-  * @param der_order_
-  * @return Augmented cost matrix
-  */
+   * @brief Augmented cost matrix
+   *
+   * @return Augmented cost matrix
+   */
   Eigen::MatrixXd augQ() {
     Eigen::MatrixXd Q;
     Q.setZero(total_dimensions_, total_dimensions_);
@@ -215,7 +315,8 @@ private:
 
   /**
   * @brief Index for perumtation
-  * @return Eigen vector(int)
+  *
+  * @return index
   */
   Eigen::VectorXi permutIdx() {
     Eigen::VectorXi idx_app;
@@ -240,8 +341,10 @@ private:
 
   /**
   * @brief Permute row of a matrix
+  *
   * @param mat_eigen Eigen matrix
   * @param is_reverse Direction of perumtation
+  *
   * @return result Permuted matrix
   */
   Eigen::MatrixXd permutRow(const Eigen::MatrixXd &mat_eigen, bool is_reverse) {
@@ -259,9 +362,7 @@ private:
 
   /**
   * @brief Known (fixed) endpoint derivatives
-  * @param tau_vec_
-  * @param der_order_
-  * @param path_
+  *
   * @return Known endpoint derivatives
   */
   Eigen::MatrixXd bFixed() {
@@ -279,10 +380,7 @@ private:
 
   /**
   * @brief Optimized endpoint derivatives
-  * @param equal_A_ Augmented equality matrix
-  * @param permut_C_ Permutation matrix
-  * @param cost_Q_ Augmented cost matrix
-  * @param b Known endpoint derivatives
+  *
   * @return Optimized endpoint derivatives
   */
   Eigen::MatrixXd bOptimized() {

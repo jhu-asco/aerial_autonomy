@@ -1,13 +1,18 @@
 #pragma once
+#include "aerial_autonomy/common/proto_utils.h"
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
+#include <aerial_autonomy/common/conversions.h>
 #include <aerial_autonomy/controller_connectors/position_controller_drone_connector.h>
+#include <aerial_autonomy/controller_connectors/rpyt_relative_pose_adaptive_estimate_connector.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/uav_basic_events.h>
 #include <glog/logging.h>
 #include <parsernode/common.h>
+
+#include <aerial_autonomy/types/minimum_snap_reference_trajectory.h>
 
 namespace be = uav_basic_events;
 
@@ -22,6 +27,59 @@ struct PositionControlTransitionActionFunctor_
   void run(const PositionYaw &goal, UAVSystem &robot_system) {
     robot_system
         .setGoal<RPYTBasedPositionControllerDroneConnector, PositionYaw>(goal);
+  }
+};
+
+/**
+* @brief Transition action to perform when going into position control mode
+* with the adaptive controller
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct AdaptiveTransitionActionFunctor_
+    : ActionFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
+  void run(const PositionYaw &goal, UAVSystem &robot_system) {
+    tf::StampedTransform start_pose = robot_system.getPose();
+    PositionYaw start_position_yaw;
+    conversions::tfToPositionYaw(start_position_yaw, start_pose);
+    // Minimum snap reference trajectory config
+    auto reference_config = MinimumSnapReferenceTrajectoryConfig();
+    // this->state_machine_config_.minimum_snap_reference_trajectory_config();
+    // Waypoints config
+    auto waypoint_config =
+        reference_config.mutable_following_waypoint_sequence_config();
+    CHECK_EQ((waypoint_config->way_points()).size(), 0)
+        << "Should not input any waypoints. They are automatically specified "
+           "based on start and goal";
+    // Add waypoints
+    conversions::setWaypoint(waypoint_config->add_way_points(),
+                             start_position_yaw);
+    conversions::setWaypoint(waypoint_config->add_way_points(), goal);
+    // L2 distance between start, goal
+    double x = start_position_yaw.x - goal.x;
+    double y = start_position_yaw.y - goal.y;
+    double z = start_position_yaw.z - goal.z;
+    double distance = std::sqrt((x * x) + (y * y) + (z * z));
+    double average_velocity = reference_config.average_velocity();
+    // minimum time interval
+    double tau_min = 7.0;
+    CHECK_EQ(reference_config.tau_vec().size(), 0)
+        << "Should not input any time steps. They are automatically specified "
+           "based on input average velocity";
+    // Add time interval
+    reference_config.add_tau_vec(
+        std::max(distance / average_velocity, tau_min));
+    // Minimum snap reference trajectory object
+    std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> reference(
+        new MinimumSnapReferenceTrajectory(reference_config));
+    double goal_yaw = goal.yaw;
+    std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> pair_goal =
+        std::make_pair(reference, goal_yaw);
+    robot_system.setGoal<
+        RPYTRelativePoseAdaptiveEstimateConnector,
+        std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double>>(
+        pair_goal);
   }
 };
 

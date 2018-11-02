@@ -43,7 +43,7 @@ find_package(Protobuf 3.1 REQUIRED)
 find_package(Glog REQUIRED)
 find_package(Armadillo REQUIRED)
 
-# Quad simulator parser dependencies
+#Quad simulator parser dependencies
 find_package(GCOP REQUIRED systems)
 include_directories(${GCOP_INCLUDE_DIRS})
 
@@ -108,23 +108,23 @@ catkin_python_setup()
  )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+#add_service_files(
+#FILES
+#Service1.srv
+#Service2.srv
+#)
 
 ## Generate actions in the 'action' folder
-# add_action_files(
-#   FILES
-#   Action1.action
-#   Action2.action
-# )
+#add_action_files(
+#FILES
+#Action1.action
+#Action2.action
+#)
 
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
-#   DEPENDENCIES
-#   std_msgs
+#DEPENDENCIES
+#std_msgs
 )
 
 ################################################
@@ -144,7 +144,7 @@ generate_messages(
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
 generate_dynamic_reconfigure_options(
   cfg/VelocityBasedPositionControllerDynamic.cfg
-#   cfg/DynReconf2.cfg
+#cfg / DynReconf2.cfg
 )
 
 ###################################
@@ -159,18 +159,18 @@ generate_dynamic_reconfigure_options(
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES aerial_autonomy
-#  CATKIN_DEPENDS roscpp std_msgs
-#  DEPENDS system_lib
+#CATKIN_DEPENDS roscpp std_msgs
+#DEPENDS system_lib
 )
 
 ######################
 ## Event Generation ##
 ######################
 ## Generates event header files
-## ADD ${${PROJECT_NAME}_EXPORTED_TARGETS} as a dependency to any
-## targets that use the event header files
-## This target is also common to messages, cfg files etc
-## Add ${EVENT_INCLUDE_DIR} to include_directories
+## ADD ${$ { PROJECT_NAME }_EXPORTED_TARGETS}as a dependency to any
+##targets that use the event header files
+##This target is also common to messages, cfg files etc
+##Add $ {EVENT_INCLUDE_DIR} to include_directories
 ## To use the event header files in source code, include
 ## them as #include <${PROJECT_NAME}/event_file_name.h>
 ## The header file contains the structs to define events
@@ -206,8 +206,8 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/velocity_controller_config.proto
   proto/rpyt_based_velocity_controller_config.proto
   proto/rpyt_based_relative_pose_controller_config.proto
-  proto/rpyt_based_position_controller_config.proto
   proto/rpyt_based_relative_pose_adaptive_estimate_controller_config.proto
+  proto/rpyt_based_position_controller_config.proto
   proto/joystick_velocity_controller_config.proto
   proto/position.proto
   proto/rotation.proto
@@ -229,11 +229,11 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/tracking_vector_estimator_config.proto
   proto/ros_sensor_config.proto
   proto/arm_sine_controller_config.proto
-  proto/qrotor_backstepping_controller_config.proto
   proto/ddp_mpc_controller_config.proto
   proto/airm_mpc_controller_config.proto
   proto/mpc_visualizer_config.proto
   proto/spiral_reference_trajectory_config.proto
+  proto/minimum_snap_reference_trajectory_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -293,7 +293,6 @@ set(SRC
   src/controllers/rpyt_based_relative_pose_adaptive_estimate_controller.cpp
   src/controllers/joystick_velocity_controller.cpp
   src/controllers/arm_sine_controller.cpp
-  src/controllers/qrotor_backstepping_controller.cpp
   src/estimators/thrust_gain_estimator.cpp
   src/estimators/tracking_vector_estimator.cpp
   src/controller_connectors/visual_servoing_controller_drone_connector.cpp
@@ -342,7 +341,7 @@ add_dependencies(event_publish_node ${PROJECT_NAME}_generate_messages_cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(aerial_autonomy_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+#add_dependencies(aerial_autonomy_node ${${PROJECT_NAME} _EXPORTED_TARGETS } ${catkin_EXPORTED_TARGETS })
 
 ## Specify libraries to link a library or executable target against
 
@@ -369,36 +368,36 @@ endif ()
 ## Install ##
 #############
 
-# all install targets should use catkin DESTINATION variables
-# See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
+#all install targets should use catkin DESTINATION variables
+#See http: // ros.org/doc/api/catkin/html/adv_user_guide/variables.html
 
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
-# install(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+#install(PROGRAMS
+#scripts / my_python_script
+#DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION }
+#)
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS aerial_autonomy aerial_autonomy_node
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+#install(TARGETS aerial_autonomy aerial_autonomy_node
+#ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION }
+#LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION }
+#RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION }
+#)
 
 ## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
+#install(DIRECTORY include / ${PROJECT_NAME } /
+#DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION }
+#FILES_MATCHING PATTERN "*.h"
+#PATTERN ".svn" EXCLUDE
+#)
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
-# install(FILES
-#   # myfile1
-#   # myfile2
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
+#install(FILES
+# #myfile1
+# #myfile2
+#DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION }
+#)
 
 #############
 ## Testing ##
@@ -467,11 +466,8 @@ catkin_add_gtest(${PROJECT_NAME}-log-test tests/log/log_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-string-utils-test tests/common/string_utils_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-conversions-test tests/common/conversions_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-proto-utils-test tests/common/proto_utils_tests.cpp)
-add_rostest_gtest(${PROJECT_NAME}-odom-sensor-test tests/sensors/odom_sensor_tests.test tests/sensors/odom_sensor_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-reference-trajectory-test tests/types/reference_trajectory_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-airm-spiral-reference-trajectory-test tests/types/airm_spiral_reference_trajectory_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-qrotor-backstepping-controller-test tests/controllers/qrotor_backstepping_controller_tests.cpp)
-catkin_add_gtest(${PROJECT_NAME}-minimum-snap-trajectory-test tests/types/minimum_snap_trajectory_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
@@ -580,9 +576,6 @@ endif()
 if(TARGET ${PROJECT_NAME}-constant-heading-depth-controller-test)
   target_link_libraries(${PROJECT_NAME}-constant-heading-depth-controller-test aerial_autonomy)
 endif()
-if(TARGET ${PROJECT_NAME}-qrotor-backstepping-controller-test)
-  target_link_libraries(${PROJECT_NAME}-qrotor-backstepping-controller-test aerial_autonomy)
-endif()
 if(TARGET ${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test)
   target_link_libraries(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
@@ -626,9 +619,6 @@ endif()
 if(TARGET ${PROJECT_NAME}-conversions-test)
   target_link_libraries(${PROJECT_NAME}-conversions-test aerial_autonomy)
 endif()
-if(TARGET ${PROJECT_NAME}-odom-sensor-test)
-  target_link_libraries(${PROJECT_NAME}-odom-sensor-test aerial_autonomy)
-endif()
 if(TARGET ${PROJECT_NAME}-velocity-sensor-test)
   target_link_libraries(${PROJECT_NAME}-velocity-sensor-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
@@ -641,7 +631,6 @@ endif()
 if(TARGET ${PROJECT_NAME}-minimum-snap-trajectory-test)
   target_link_libraries(${PROJECT_NAME}-minimum-snap-trajectory-test aerial_autonomy)
 endif()
-
 if (arm_plugins_FOUND)
   catkin_add_gtest(${PROJECT_NAME}-joystick-state-machine-test tests/state_machines/joystick_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-pick-place-state-machine-test tests/state_machines/pick_place_state_machine_tests.cpp)
@@ -705,7 +694,7 @@ if (arm_plugins_FOUND)
 endif ()
 
 ## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)
+#catkin_add_nosetests(test)
 install(FILES plugin.xml
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
         )

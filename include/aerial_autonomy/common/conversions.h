@@ -6,6 +6,7 @@
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/velocity.h"
 #include "aerial_autonomy/types/waypoint.h"
+#include "parsernode/common.h"
 #include <armadillo>
 
 #include "position_yaw.pb.h"
@@ -44,6 +45,14 @@ void transformRPYToTf(double r, double p, double y, tf::Transform &tf);
  * @param tf The equivalent tf::Transform
  */
 void positionYawToTf(const PositionYaw &p, tf::Transform &tf);
+
+/**
+ * @brief Convert tf transform to position yaw
+ *
+ * @param p positon yaw output
+ * @param tf input tf transform
+ */
+void tfToPositionYaw(PositionYaw &p, const tf::Transform &tf);
 
 /**
  * @brief Convert T to Eigen::Vector3d
@@ -138,9 +147,69 @@ createWayPoint(PositionYaw goal, double desired_joint_angle_1,
                double desired_joint_angle_2);
 
 /**
+  * @brief create a waypoint reference trajectory from a goal point
+  * for a quad
+  *
+  * @param goal Goal position and yaw
+  *
+  * @return Waypoint Reference trajectory
+  */
+std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>>
+createWaypoint(PositionYaw goal);
+
+/**
+  * @brief set a waypoint into a reference config object
+  *
+  * @param way_point repeated field in a message FollowingWaypointSequenceConfig
+  * that contains waypoints in a type PositionYaw.
+  * @param x
+  * @param y
+  * @param z
+  * @param yaw
+  */
+void setWaypoint(config::PositionYaw *way_point,
+                 const PositionYaw &position_yaw);
+
+/**
 * @brief Convert a Eigen::VectorXd to std::vector<double>
+*
 * @param vec_eigen Eigen::VectorXd
+*
 * @return std::vector<double>
 */
 std::vector<double> vectorEigenToStd(const Eigen::VectorXd &vec_eigen);
+
+/**
+ * @brief Map acceleration vector to roll, pitch
+ *
+ * @param yaw Current yaw
+ * @param acceleration_vector Acceleration vector
+ *
+ * @return  roll, pitch as a pair
+ */
+std::pair<double, double>
+accelerationToRollPitch(double yaw, Eigen::Vector3d acceleration_vector);
+
+/**
+ * @brief get the pose of quadrotor as a tf transform
+ *
+ * @param data Quad data
+ *
+ * @return current pose of quadrotor
+ */
+tf::Transform getPose(const parsernode::common::quaddata &data);
+
+/**
+ * @brief Compute euler angle rates from body angular velocities
+ *
+ * @param omega Body angular velocities
+ * @param rpy Euler angles
+ * @param max_pitch Maximum pitch should be less than pi/2 to avoid
+ *                  singularities
+ *
+ * @return Euler angle rates
+ */
+Eigen::Vector3d omegaToRpyDot(const Eigen::Vector3d &omega,
+                              const Eigen::Vector3d &rpy,
+                              const double max_pitch = 0.9 * (M_PI / 2.0));
 }

@@ -9,11 +9,13 @@
 #include <aerial_autonomy/controllers/basic_controllers.h>
 #include <aerial_autonomy/controllers/joystick_velocity_controller.h>
 #include <aerial_autonomy/controllers/rpyt_based_position_controller.h>
+#include <aerial_autonomy/controllers/rpyt_based_relative_pose_adaptive_estimate_controller.h>
 // Estimators
 #include <aerial_autonomy/estimators/thrust_gain_estimator.h>
 // Specific ControllerConnectors
 #include <aerial_autonomy/controller_connectors/basic_controller_connectors.h>
 #include <aerial_autonomy/controller_connectors/joystick_velocity_controller_drone_connector.h>
+#include <aerial_autonomy/controller_connectors/rpyt_relative_pose_adaptive_estimate_connector.h>
 // Sensors
 #include <aerial_autonomy/controller_connectors/basic_controller_connectors.h>
 #include <aerial_autonomy/controller_connectors/joystick_velocity_controller_drone_connector.h>
@@ -78,6 +80,11 @@ private:
   * @brief Velocity controller which takes joystick controls as inputs
   */
   JoystickVelocityController joystick_velocity_controller_;
+  /**
+  * @brief Adaptive Estimate Controller
+  */
+  RPYTBasedRelativePoseAdaptiveEstimateController
+      rpyt_adaptive_estimate_controller_;
 
 protected:
   /**
@@ -114,6 +121,11 @@ private:
   */
   JoystickVelocityControllerDroneConnector
       joystick_velocity_controller_drone_connector_;
+  /**
+  * @brief Adaptive Estimate Controller Connector
+  */
+  RPYTRelativePoseAdaptiveEstimateConnector
+      rpyt_adaptive_estimate_controller_drone_connector_;
 
   /**
   * @brief Home Location
@@ -230,6 +242,9 @@ public:
         joystick_velocity_controller_(
             config.joystick_velocity_controller_config(),
             std::chrono::milliseconds(config.uav_controller_timer_duration())),
+        rpyt_adaptive_estimate_controller_(
+            config
+                .rpyt_based_relative_pose_adaptive_estimate_controller_config()),
         velocity_sensor_(
             UAVSystem::chooseSensor(velocity_sensor, drone_hardware_, config)),
         pose_sensor_(UAVSystem::createPoseSensor(config)),
@@ -245,6 +260,11 @@ public:
         joystick_velocity_controller_drone_connector_(
             *drone_hardware_, joystick_velocity_controller_,
             thrust_gain_estimator_),
+        rpyt_adaptive_estimate_controller_drone_connector_(
+            *drone_hardware_, rpyt_adaptive_estimate_controller_,
+            config
+                .rpyt_based_relative_pose_adaptive_estimate_controller_config()
+                .mhat()),
         home_location_specified_(false) {
     drone_hardware_->initialize();
     // Add control hardware connector containers
@@ -257,6 +277,8 @@ public:
     controller_connector_container_.setObject(rpyt_controller_drone_connector_);
     controller_connector_container_.setObject(
         joystick_velocity_controller_drone_connector_);
+    controller_connector_container_.setObject(
+        rpyt_adaptive_estimate_controller_drone_connector_);
   }
   /**
   * @brief Get sensor data from UAV

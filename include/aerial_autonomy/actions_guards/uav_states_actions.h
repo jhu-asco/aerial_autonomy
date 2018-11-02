@@ -78,6 +78,11 @@ template <class LogicStateMachineT> struct UAVStatesActions {
   using ReachingGoalSet =
       PositionControlTransitionActionFunctor_<LogicStateMachineT>;
   /**
+  * @brief set goal action when transitioning, but with adaptive controller
+  */
+  using AdaptiveReachingGoalSet =
+      AdaptiveTransitionActionFunctor_<LogicStateMachineT>;
+  /**
   * @brief Guard to avoid going to goal if goal is not correct
   */
   using ReachingGoalGuard =
