@@ -309,6 +309,7 @@ set(SRC
   src/controller_connectors/manual_rpyt_controller_drone_connector.cpp
   src/controller_connectors/joystick_velocity_controller_drone_connector.cpp
   src/controller_connectors/qrotor_backstepping_controller_connector.cpp
+  src/controller_connectors/obstacle_avoidance_controller_connector.cpp
   src/sensors/pose_sensor.cpp
   src/sensors/odometry_from_pose_sensor.cpp
 )

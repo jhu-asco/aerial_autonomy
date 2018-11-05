@@ -88,6 +88,11 @@ template <class LogicStateMachineT> struct UAVStatesActions {
   using ReachingGoalSetBackstepping =
       BacksteppingTransitionActionFunctor_<LogicStateMachineT>;
   /**
+   * @brief Set goal for highlevel obstacle avoidance connector
+   */
+  using ObstacleAvoidanceAction =
+      ObstacleAvoidanceActionFunctor_<LogicStateMachineT>;
+  /**
   * @brief Guard to avoid going to goal if goal is not correct
   */
   using ReachingGoalGuard =
