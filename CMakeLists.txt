@@ -235,6 +235,8 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/spiral_reference_trajectory_config.proto
   proto/minimum_snap_reference_trajectory_config.proto
   proto/odom_from_pose_sensor_config.proto
+  proto/obstacle_config.proto
+  proto/obstacle_cost_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
