@@ -15,12 +15,25 @@
 
 namespace be = uav_basic_events;
 
+/**
+* @brief Transition action to perform when going into position control mode
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
 template <class LogicStateMachineT>
 struct PositionControlTransitionActionFunctor_
     : ActionFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
   void run(const PositionYaw &goal, UAVSystem &robot_system) {
     robot_system
         .setGoal<RPYTBasedPositionControllerDroneConnector, PositionYaw>(goal);
+  }
+};
+
+template <class LogicStateMachineT>
+struct ObstacleAvoidanceActionFunctor_
+    : ActionFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
+  void run(const PositionYaw &goal, UAVSystem &robot_system) {
+    robot_system.setGoal<ObstacleAvoidanceConnector, PositionYaw>(goal);
   }
 };
 
@@ -78,20 +91,6 @@ struct BacksteppingTransitionActionFunctor_
                  std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>>>(
             reference);
     robot_system.visualizeBackStepping();
-    // MinimumSnapReferenceTrajectoryConfig reference_config_alternative;
-    // if (!proto_utils::loadProtoText(
-    //   std::string(PROJECT_SOURCE_DIR) +
-    //   "/param/minimum_snap_reference_trajectory_config.pbtxt",
-    //   reference_config_alternative)) {
-    //     LOG(ERROR) << "Cannot load proto file for the reference trajectory";
-    //   }
-    // std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>>
-    // reference_alternative(
-    //   new MinimumSnapReferenceTrajectory(reference_config_alternative));
-    // robot_system
-    //     .setGoal<QrotorBacksteppingControllerConnector,
-    //              std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>>>(
-    //         reference_alternative);
   }
 };
 
@@ -106,6 +105,9 @@ struct UAVControllerAbortActionFunctor_
   void run(UAVSystem &robot_system) {
     LOG(WARNING) << "Aborting UAV Controller";
     robot_system.abortController(ControllerGroup::UAV);
+    LOG(WARNING) << "Aborting HighLevel Controller";
+    robot_system.abortController(ControllerGroup::HighLevel);
+    LOG(WARNING) << "Done aborting";
   }
 };
 
