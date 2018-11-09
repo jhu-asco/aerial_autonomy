@@ -1,0 +1,11 @@
+syntax = "proto2";
+
+import "position.proto";
+
+message ObstacleConfig {
+  message ObstacleParameters {
+    optional double radius = 1 [ default = 0.0 ];
+    optional config.Position position = 2;
+  }
+  repeated ObstacleParameters obstacle_parameters = 1;
+}

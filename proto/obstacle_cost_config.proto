@@ -1,0 +1,12 @@
+syntax = "proto2";
+
+import "ddp_mpc_controller_config.proto";
+
+message ObstacleCostConfig {
+  optional DDPMPCControllerConfig mpc_cost_config = 1;
+  optional double detection_radius = 2 [ default = 5.0 ];
+  optional double ko = 3 [ default = 10 ];
+  optional double soft_ko = 4 [ default = 1 ];
+  optional double k_inflation = 5 [ default = 2 ];
+  optional double dilation_constant = 6 [ default = 2 ];
+}

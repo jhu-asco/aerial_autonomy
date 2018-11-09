@@ -244,8 +244,13 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/spiral_reference_trajectory_config.proto
   proto/minimum_snap_reference_trajectory_config.proto
   proto/odom_from_pose_sensor_config.proto
+
   proto/spherical_obstacle.proto
   proto/multiple_spherical_obstacles.proto
+
+  proto/obstacle_config.proto
+  proto/obstacle_cost_config.proto
+
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -320,6 +325,7 @@ set(SRC
   src/controller_connectors/manual_rpyt_controller_drone_connector.cpp
   src/controller_connectors/joystick_velocity_controller_drone_connector.cpp
   src/controller_connectors/qrotor_backstepping_controller_connector.cpp
+  src/controller_connectors/obstacle_avoidance_controller_connector.cpp
   src/sensors/pose_sensor.cpp
   src/sensors/odometry_from_pose_sensor.cpp
 )
