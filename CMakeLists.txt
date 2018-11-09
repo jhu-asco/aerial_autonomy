@@ -64,6 +64,15 @@ include_directories(${EIGEN3_INCLUDE_DIR})
 
 find_package(OpenCV OPTIONAL_COMPONENTS tracking)
 
+find_package(Ceres)
+if (CERES_FOUND)
+  message("Found CERES")
+  include_directories(${CERES_INCLUDE_DIRS})
+  ## link_directories(${CERES_LIBRARIES})
+  set(GCOP_LIBRARIES ${GCOP_LIBRARIES} ${CERES_LIBRARY} ${CERES_LIBRARIES})
+endif (CERES_FOUND)
+
+
 if (OpenCV_VERSION_MAJOR EQUAL "3")
   message(STATUS "OpenCV3 version requires tracking module to be included")
   if (NOT OpenCV_tracking_FOUND)
@@ -235,6 +244,8 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/spiral_reference_trajectory_config.proto
   proto/minimum_snap_reference_trajectory_config.proto
   proto/odom_from_pose_sensor_config.proto
+  proto/spherical_obstacle.proto
+  proto/multiple_spherical_obstacles.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -253,6 +264,7 @@ include_directories(
   ${PROTOBUF_INCLUDE_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}
   ${GLOG_INCLUDE_DIR}
+  ${CERES_INCLUDE_DIRS}
 )
 
 set(ARM_SRC
@@ -294,6 +306,7 @@ set(SRC
   src/controllers/joystick_velocity_controller.cpp
   src/controllers/arm_sine_controller.cpp
   src/controllers/qrotor_backstepping_controller.cpp
+  src/controllers/obstacle_avoidance_reference_controller.cpp
   src/estimators/thrust_gain_estimator.cpp
   src/estimators/tracking_vector_estimator.cpp
   src/controller_connectors/visual_servoing_controller_drone_connector.cpp
@@ -475,6 +488,7 @@ catkin_add_gtest(${PROJECT_NAME}-airm-spiral-reference-trajectory-test tests/typ
 catkin_add_gtest(${PROJECT_NAME}-qrotor-backstepping-controller-test tests/controllers/qrotor_backstepping_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-minimum-snap-trajectory-test tests/types/minimum_snap_trajectory_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-qrotor-backstepping-controller-connector-test tests/controller_connectors/qrotor_backstepping_controller_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-obstacle-avoidance-reference-controller-test tests/controllers/obstacle_avoidance_reference_controller_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-qrotor-backstepping-trajectory-visualizer-test tests/common/qrotor_backstepping_trajectory_visualizer_tests.test tests/common/qrotor_backstepping_trajectory_visualizer_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
@@ -586,6 +600,9 @@ if(TARGET ${PROJECT_NAME}-constant-heading-depth-controller-test)
 endif()
 if(TARGET ${PROJECT_NAME}-qrotor-backstepping-controller-test)
   target_link_libraries(${PROJECT_NAME}-qrotor-backstepping-controller-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-obstacle-avoidance-reference-controller-test)
+  target_link_libraries(${PROJECT_NAME}-obstacle-avoidance-reference-controller-test aerial_autonomy ${CERES_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test)
   target_link_libraries(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test aerial_autonomy ${GCOP_LIBRARIES})

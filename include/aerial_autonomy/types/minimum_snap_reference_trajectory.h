@@ -55,7 +55,9 @@ public:
   * @return polynomial coefficients
   */
   Eigen::MatrixXd getP() const { return poly_coeffs_; }
-
+  double getCost() {
+    return (poly_coeffs_.transpose() * cost_Q_ * poly_coeffs_).value();
+  }
   /**
   * @brief Gets the trajectory information at the specified time using minimum
   * snap

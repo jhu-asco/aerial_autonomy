@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+import "position_yaw.proto";
+
+package config;
+
+/**
+* @brief config for a spherical obstacle
+*/
+message SphericalObstacle {
+  /**
+  * @brief X, Y, Z position
+  */
+  required PositionYaw position = 1;
+  /**
+  * @brief Radius
+  */
+  optional double radius = 2 [ default = 1.0 ];
+}

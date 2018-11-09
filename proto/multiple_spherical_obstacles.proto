@@ -1,0 +1,11 @@
+syntax = "proto2";
+
+import "spherical_obstacle.proto";
+
+message MultipleSphericalObstacles {
+  /**
+  * @brief List of spherical obstacles. For example (0.1, 0, 0, 1)
+  * will make a spherical obstacle at (0.1, 0, 0) with radius 1
+  */
+  repeated config.SphericalObstacle spherical_obstacle = 1;
+}
