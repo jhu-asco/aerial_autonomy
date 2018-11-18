@@ -97,10 +97,10 @@ uav_system_config {
   }
   rpyt_based_relative_pose_adaptive_estimate_controller_config{
     km: 0.05
-    kp_xy: 2
-    kd_xy: 2.0
-    kp_z: 2
-    kd_z: 2.0
+    kp_xy: 10
+    kd_xy: 12.0
+    kp_z: 15
+    kd_z: 12.0
     tolerance_rp: 0.1
     min_thrust: 10
     max_thrust: 100
@@ -108,7 +108,7 @@ uav_system_config {
     tolerance_pos: 0.1
     tolerance_vel: 0.1
     tolerance_acc: 0.1
-    mhat: 6.25
+    mhat: 6.5
   }
   thrust_gain_estimator_config {
     kt: 0.18

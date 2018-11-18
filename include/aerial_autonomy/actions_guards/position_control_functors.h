@@ -13,6 +13,7 @@
 #include <parsernode/common.h>
 
 #include <aerial_autonomy/types/minimum_snap_reference_trajectory.h>
+#include <aerial_autonomy/types/circle_reference_trajectory.h>
 
 namespace be = uav_basic_events;
 
@@ -40,7 +41,7 @@ template <class LogicStateMachineT>
 struct AdaptiveTransitionActionFunctor_
     : ActionFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
   void run(const PositionYaw &goal, UAVSystem &robot_system) {
-    tf::StampedTransform start_pose = robot_system.getPose();
+    /*tf::StampedTransform start_pose = robot_system.getPose();
     PositionYaw start_position_yaw;
     conversions::tfToPositionYaw(start_position_yaw, start_pose);
     // Minimum snap reference trajectory config
@@ -70,9 +71,10 @@ struct AdaptiveTransitionActionFunctor_
     // Add time interval
     reference_config.add_tau_vec(
         std::max(distance / average_velocity, tau_min));
-    // Minimum snap reference trajectory object
+    // Minimum snap reference trajectory object*/
     std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> reference(
-        new MinimumSnapReferenceTrajectory(reference_config));
+    //    new MinimumSnapReferenceTrajectory(reference_config));
+        new CircleReferenceTrajectory(goal));
     double goal_yaw = goal.yaw;
     std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> pair_goal =
         std::make_pair(reference, goal_yaw);
@@ -80,6 +82,7 @@ struct AdaptiveTransitionActionFunctor_
         RPYTRelativePoseAdaptiveEstimateConnector,
         std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double>>(
         pair_goal);
+    robot_system.visualizeTrajectory(reference);
   }
 };
 

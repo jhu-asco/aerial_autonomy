@@ -9,7 +9,6 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
     RollPitchYawThrustAdaptive &control) {
   // Get the current mhat
   double mhat = std::get<0>(sensor_data);
-  LOG(WARNING) << mhat << std::endl;
   // Get the goal state
   ParticleState desired_state;
   auto current_time = std::chrono::high_resolution_clock::now();
@@ -77,6 +76,17 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
   control.r = math::clamp(control.r, -config_.max_rp(), config_.max_rp());
   control.p = math::clamp(control.p, -config_.max_rp(), config_.max_rp());
   control.y = yaw;
+  double lyap_V = 0.5*delta_x.norm()*delta_x.norm() + 0.5*(mhat-6)*(mhat-6)/(km*6);
+  //LOG(WARNING) << "M_Hat: " << mhat << " V: " << lyap_V << std::endl;
+  LOG(WARNING) << mhat << " " 
+               << lyap_V << " " 
+               << delta_x(0) << " " 
+               << delta_x(1) << " " 
+               << delta_x(2) << " " 
+               << delta_x(3) << " " 
+               << delta_x(4) << " " 
+               << delta_x(5) << " " 
+               << std::endl;
   return true;
 }
 

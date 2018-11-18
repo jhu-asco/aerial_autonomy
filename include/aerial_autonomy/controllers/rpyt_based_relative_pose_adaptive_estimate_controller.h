@@ -11,6 +11,9 @@
 #include <chrono>
 #include <tf/tf.h>
 #include <tuple>
+#include "aerial_autonomy/log/log.h"
+
+#include <glog/logging.h>
 
 /**
  * @brief A trajectory-tracking controller that estimates the mass parameter of

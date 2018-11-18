@@ -229,6 +229,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/tracking_vector_estimator_config.proto
   proto/ros_sensor_config.proto
   proto/arm_sine_controller_config.proto
+  proto/qrotor_backstepping_controller_config.proto
   proto/ddp_mpc_controller_config.proto
   proto/airm_mpc_controller_config.proto
   proto/mpc_visualizer_config.proto
@@ -293,6 +294,7 @@ set(SRC
   src/controllers/rpyt_based_relative_pose_adaptive_estimate_controller.cpp
   src/controllers/joystick_velocity_controller.cpp
   src/controllers/arm_sine_controller.cpp
+  src/controllers/qrotor_backstepping_controller.cpp
   src/estimators/thrust_gain_estimator.cpp
   src/estimators/tracking_vector_estimator.cpp
   src/controller_connectors/visual_servoing_controller_drone_connector.cpp
@@ -306,6 +308,7 @@ set(SRC
   src/controller_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_connectors/manual_rpyt_controller_drone_connector.cpp
   src/controller_connectors/joystick_velocity_controller_drone_connector.cpp
+  src/controller_connectors/qrotor_backstepping_controller_connector.cpp
   src/sensors/pose_sensor.cpp
 )
 
@@ -338,6 +341,7 @@ add_executable(uav_system_node src/system_handler_nodes/uav_system_node.cpp)
 add_executable(uav_vision_system_node src/system_handler_nodes/uav_vision_system_node.cpp)
 add_executable(event_publish_node src/tests/event_publish_node.cpp)
 add_dependencies(event_publish_node ${PROJECT_NAME}_generate_messages_cpp)
+#add_executable(qrotor_backstepping_controller_tuner src/controller_tuners/qrotor_backstepping_controller_tuner.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -349,6 +353,7 @@ target_link_libraries(joystick_uav_node aerial_autonomy)
 target_link_libraries(uav_system_node aerial_autonomy)
 target_link_libraries(uav_vision_system_node aerial_autonomy)
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
+#target_link_libraries(qrotor_backstepping_controller_tuner aerial_autonomy)
 
 if (arm_plugins_FOUND)
   add_executable(airm_mpc_node src/system_handler_nodes/airm_mpc_node.cpp)
@@ -468,6 +473,10 @@ catkin_add_gtest(${PROJECT_NAME}-conversions-test tests/common/conversions_tests
 catkin_add_gtest(${PROJECT_NAME}-proto-utils-test tests/common/proto_utils_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-reference-trajectory-test tests/types/reference_trajectory_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-airm-spiral-reference-trajectory-test tests/types/airm_spiral_reference_trajectory_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-qrotor-backstepping-controller-test tests/controllers/qrotor_backstepping_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-minimum-snap-trajectory-test tests/types/minimum_snap_trajectory_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-qrotor-backstepping-controller-connector-test tests/controller_connectors/qrotor_backstepping_controller_connector_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-qrotor-backstepping-trajectory-visualizer-test tests/common/qrotor_backstepping_trajectory_visualizer_tests.test tests/common/qrotor_backstepping_trajectory_visualizer_tests.cpp)
 if(TARGET ${PROJECT_NAME}-uav-basic-state-machine-test)
   target_link_libraries(${PROJECT_NAME}-uav-basic-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
@@ -630,6 +639,12 @@ if(TARGET ${PROJECT_NAME}-airm-spiral-reference-trajectory-test)
 endif()
 if(TARGET ${PROJECT_NAME}-minimum-snap-trajectory-test)
   target_link_libraries(${PROJECT_NAME}-minimum-snap-trajectory-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-qrotor-backstepping-controller-connector-test)
+  target_link_libraries(${PROJECT_NAME}-qrotor-backstepping-controller-connector-test aerial_autonomy ${GCOP_LIBRARIES} ${TINYXML_LIBRARIES} ${QUAD_SIM_PARSER_LIBS})
+endif()
+if(TARGET ${PROJECT_NAME}-qrotor-backstepping-trajectory-visualizer-test)
+  target_link_libraries(${PROJECT_NAME}-qrotor-backstepping-trajectory-visualizer-test aerial_autonomy ${GCOP_LIBRARIES} ${TINYXML_LIBRARIES} ${QUAD_SIM_PARSER_LIBS})
 endif()
 if (arm_plugins_FOUND)
   catkin_add_gtest(${PROJECT_NAME}-joystick-state-machine-test tests/state_machines/joystick_state_machine_tests.cpp)
