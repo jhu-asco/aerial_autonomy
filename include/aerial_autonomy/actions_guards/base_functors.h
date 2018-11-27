@@ -3,10 +3,9 @@
 // Static asserts
 #include <type_traits>
 // Internal Transition Event
-#include <aerial_autonomy/types/internal_transition_event.h>
-#include <boost/msm/front/functor_row.hpp>
-
 #include "base_state_machine_config.pb.h"
+#include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
+#include <aerial_autonomy/types/internal_transition_event.h>
 
 /**
 * @brief Namespace for base functors

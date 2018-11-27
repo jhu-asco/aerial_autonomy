@@ -96,6 +96,9 @@ bool QrotorBacksteppingController::runImplementation(
     control.torque = tf::Vector3(0, 0, 0);
   }
   control.thrust_ddot = e_.dot(snap_cmd);
+  DATA_LOG("qrotor_backstepping_controller")
+      << p(0) << p(1) << p(2) << p_d(0) << p_d(1) << p_d(2) << v(0) << v(1)
+      << v(2) << v_d(0) << v_d(1) << v_d(2) << DataStream::endl;
   return true;
 }
 
@@ -103,13 +106,8 @@ ControllerStatus QrotorBacksteppingController::isConvergedImplementation(
     std::pair<double, QrotorBacksteppingState> sensor_data,
     std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> goal) {
   ControllerStatus controller_status = ControllerStatus::Active;
-
-  double current_time = std::get<0>(sensor_data);
   QrotorBacksteppingState current_state = std::get<1>(sensor_data);
-
-  std::pair<ParticleState, Snap> current_ref =
-      getGoalFromReference(current_time, *goal);
-  ParticleState current_goal = std::get<0>(current_ref);
+  ParticleState end_goal = goal->goal(sensor_data.first);
 
   const config::Velocity tolerance_vel = config_.goal_velocity_tolerance();
   const config::Position tolerance_pos = config_.goal_position_tolerance();
@@ -120,8 +118,8 @@ ControllerStatus QrotorBacksteppingController::isConvergedImplementation(
   Position current_position(current_pos_tf.x(), current_pos_tf.y(),
                             current_pos_tf.z());
 
-  Velocity velocity_diff = current_goal.v - current_velocity;
-  Position position_diff = current_goal.p - current_position;
+  Velocity velocity_diff = end_goal.v - current_velocity;
+  Position position_diff = end_goal.p - current_position;
 
   // TODO: use common vector3 interface to compare two vectors
   if (std::abs(velocity_diff.x) < tolerance_vel.vx() &&

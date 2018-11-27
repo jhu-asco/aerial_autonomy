@@ -43,7 +43,9 @@ TEST(MinimumSnapReferenceTrajectory, TimeTooLarge) {
   Eigen::MatrixXd path(3, 3);
   path << 0, 0, 0, 1, 1, 1, 2, 2, 2;
   const MinimumSnapReferenceTrajectory ref(r, tau_vec, path);
-  ASSERT_THROW(ref.atTime(3), std::out_of_range);
+  ASSERT_NEAR(std::get<0>(ref.atTime(3)).p.x, 2, 1e-7);
+  ASSERT_NEAR(std::get<0>(ref.atTime(3)).p.y, 2, 1e-7);
+  ASSERT_NEAR(std::get<0>(ref.atTime(3)).p.z, 2, 1e-7);
 }
 
 TEST(MinimumSnapReferenceTrajectory, MATLAB) {
