@@ -71,7 +71,9 @@ struct GrippingInternalActionFunctor_
  */
 template <class LogicStateMachineT>
 using PrePickInternalActionFunctor_ =
-    VisualServoingInternalActionFunctor_<LogicStateMachineT, Reset>;
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+        VisualServoingInternalActionFunctor_<LogicStateMachineT, Reset>>>;
 
 /**
 * @brief Logic to check while placing object

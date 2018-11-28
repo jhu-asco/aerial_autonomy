@@ -120,6 +120,9 @@ public:
     pose_goal_position->set_y(0);
     pose_goal_position->set_z(0);
     pose_goal->set_yaw(0);
+    // set connector type
+    state_machine_config.mutable_visual_servoing_state_machine_config()
+        ->set_connector_type(VisualServoingStateMachineConfig::RPYTPose);
 
     tf::Transform camera_transform = conversions::protoTransformToTf(
         uav_vision_system_config->camera_transform());
@@ -209,15 +212,8 @@ TEST_F(VisualServoingStateMachineTests, VisualServoing) {
   // Check we are in visual servoing state
   ASSERT_STREQ(pstate(*logic_state_machine), "VisualServoing");
   // Check controller status
-  ASSERT_EQ(
-      (uav_system->getStatus<
-          RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>()),
-      ControllerStatus::Active);
-  ASSERT_EQ(
-      uav_system
-          ->getStatus<UAVVisionSystem::VisualServoingReferenceConnectorT>(),
-      ControllerStatus::Active);
-
+  ASSERT_EQ((uav_system->getStatus<RPYTRelativePoseVisualServoingConnector>()),
+            ControllerStatus::Active);
   runActiveControllerToConvergence();
 
   logic_state_machine->process_event(InternalTransitionEvent());

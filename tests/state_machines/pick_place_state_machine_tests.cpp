@@ -40,6 +40,9 @@ public:
     auto pick_state_machine_config =
         vision_state_machine_config->mutable_pick_place_state_machine_config();
     auto grip_config = pick_state_machine_config->mutable_grip_config();
+    // Set visual servoing controller
+    vision_state_machine_config->set_connector_type(
+        VisualServoingStateMachineConfig::RPYTRef);
     // Configure place groups
     uint32_t dest1 = 15;
     uint32_t dest2 = 16;
@@ -235,6 +238,10 @@ public:
     log_config.set_directory("/tmp/data");
     Log::instance().configure(log_config);
     DataStreamConfig data_config;
+    data_config.set_stream_id("rpyt_reference_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("rpyt_reference_connector");
+    Log::instance().addDataStream(data_config);
     data_config.set_stream_id("rpyt_based_velocity_controller");
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("velocity_based_position_controller");
@@ -250,10 +257,6 @@ public:
     data_config.set_stream_id("ddp_quad_mpc_controller");
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("quad_mpc_state_estimator");
-    Log::instance().addDataStream(data_config);
-    data_config.set_stream_id("rpyt_reference_controller");
-    Log::instance().addDataStream(data_config);
-    data_config.set_stream_id("rpyt_reference_connector");
     Log::instance().addDataStream(data_config);
   }
 
@@ -326,10 +329,9 @@ protected:
     logic_state_machine_->process_event(InternalTransitionEvent());
     ASSERT_STREQ(pstate(*logic_state_machine_), "PrePickState");
     // Check UAV and arm controllers are active
-    ASSERT_EQ(
-        uav_arm_system_
-            ->getStatus<UAVVisionSystem::VisualServoingReferenceConnectorT>(),
-        ControllerStatus::Active);
+    ASSERT_EQ(uav_arm_system_->getStatus<
+                  UAVVisionSystem::RPYTVisualServoingReferenceConnectorT>(),
+              ControllerStatus::Active);
     ASSERT_EQ(
         (uav_arm_system_->getStatus<
             RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>()),
@@ -365,7 +367,7 @@ protected:
     // Run controllers through one waypoint
     logic_state_machine_->process_event(InternalTransitionEvent());
     ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                              std::chrono::seconds(25),
+                                              std::chrono::seconds(50),
                                               std::chrono::milliseconds(0)));
     logic_state_machine_->process_event(InternalTransitionEvent());
     // Check we are in Place
@@ -458,7 +460,7 @@ TEST_F(PickPlaceStateMachineTests, PickTimeout) {
   // Check UAV and arm controllers are active
   ASSERT_EQ(
       uav_arm_system_
-          ->getStatus<UAVVisionSystem::VisualServoingReferenceConnectorT>(),
+          ->getStatus<UAVVisionSystem::RPYTVisualServoingReferenceConnectorT>(),
       ControllerStatus::Active);
   ASSERT_EQ(
       (uav_arm_system_->getStatus<
