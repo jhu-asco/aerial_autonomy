@@ -33,9 +33,14 @@ public:
    *
    * with dependent mpc connector
    */
-  using VisualServoingReferenceConnectorT = VisualServoingReferenceConnector<
+  using RPYTVisualServoingReferenceConnectorT =
+      VisualServoingReferenceConnector<
+          Eigen::VectorXd, Eigen::VectorXd,
+          RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>;
+
+  using MPCVisualServoingReferenceConnectorT = VisualServoingReferenceConnector<
       Eigen::VectorXd, Eigen::VectorXd,
-      RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>;
+      MPCControllerConnector<Eigen::VectorXd, Eigen::VectorXd>>;
   /**
   * @brief Constructor
   * @param config Configuration parameters
@@ -72,9 +77,17 @@ public:
             thrust_gain_estimator_, camera_transform_,
             conversions::protoTransformToTf(config_.uav_vision_system_config()
                                                 .tracking_offset_transform())),
-        visual_servoing_reference_connector_(
+        rpyt_visual_servoing_reference_connector_(
             *tracker_, *drone_hardware_, quad_poly_reference_generator_,
             rpyt_based_reference_connector_, camera_transform_,
+            conversions::protoTransformToTf(
+                config_.uav_vision_system_config().tracking_offset_transform()),
+            config_.uav_vision_system_config()
+                .gain_visual_servoing_tracking_pose(),
+            odom_sensor_),
+        mpc_visual_servoing_reference_connector_(
+            *tracker_, *drone_hardware_, quad_poly_reference_generator_,
+            quad_mpc_connector_, camera_transform_,
             conversions::protoTransformToTf(
                 config_.uav_vision_system_config().tracking_offset_transform()),
             config_.uav_vision_system_config()
@@ -84,7 +97,9 @@ public:
     controller_connector_container_.setObject(
         relative_pose_visual_servoing_drone_connector_);
     controller_connector_container_.setObject(
-        visual_servoing_reference_connector_);
+        mpc_visual_servoing_reference_connector_);
+    controller_connector_container_.setObject(
+        rpyt_visual_servoing_reference_connector_);
   }
 
   /**
@@ -248,5 +263,10 @@ private:
   /**
    * @brief High level visual servoing connector
    */
-  VisualServoingReferenceConnectorT visual_servoing_reference_connector_;
+  RPYTVisualServoingReferenceConnectorT
+      rpyt_visual_servoing_reference_connector_;
+  /**
+   * @brief High level visual servoing connector
+   */
+  MPCVisualServoingReferenceConnectorT mpc_visual_servoing_reference_connector_;
 };

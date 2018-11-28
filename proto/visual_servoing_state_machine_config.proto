@@ -12,4 +12,13 @@ message VisualServoingStateMachineConfig {
   oneof subclass {
     PickPlaceStateMachineConfig pick_place_state_machine_config = 2;
   }
+
+  enum RelativePoseConnectorType {
+    RPYTRef = 0;
+    MPC = 1;
+    RPYTPose = 2;
+    VelPose = 3;
+  }
+
+  optional RelativePoseConnectorType connector_type = 3 [ default = RPYTPose ];
 }

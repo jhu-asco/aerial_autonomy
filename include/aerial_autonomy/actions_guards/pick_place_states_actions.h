@@ -72,26 +72,15 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
   *
   * Uses reset instead of abort
   */
-  using RPYTRelativePoseVisualServoing =
-      VisualServoing_<LogicStateMachineT, Reset,
-                      RPYTRelativePoseVisualServoingConnector>;
+  using RelativePoseVisualServoing = VisualServoing_<LogicStateMachineT, Reset>;
   // Transition Actions
   /**
   * @brief Action to take when starting rpyt relative pose visual servoing
   */
   template <int GoalIndex>
-  using RPYTRelativePoseVisualServoingTransitionAction_ =
-      RelativePoseVisualServoingTransitionActionFunctor_<
-          LogicStateMachineT, RPYTRelativePoseVisualServoingConnector,
-          GoalIndex>;
-  /**
-  * @brief Action to take when starting rpyt relative pose visual servoing
-  */
-  template <int GoalIndex>
-  using MPCRelativePoseVisualServoingTransitionAction_ =
-      RelativePoseVisualServoingTransitionActionFunctor_<
-          LogicStateMachineT,
-          UAVVisionSystem::VisualServoingReferenceConnectorT, GoalIndex>;
+  using RelativePoseVisualServoingTransitionAction_ =
+      RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT,
+                                                         GoalIndex>;
 
   /**
   * @brief Action sequence that ungrips then goes home
@@ -147,13 +136,11 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
   /**
   * @brief Move arm to pick pose and move to waypoint in front of object
   */
-  using PrePickTransitionAction =
-      base_functors::bActionSequence<boost::mpl::vector<
-          ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>,
-          typename vsa::ResetRelativePoseVisualServoing,
-          RelativePoseVisualServoingTransitionActionFunctor_<
-              LogicStateMachineT,
-              UAVVisionSystem::VisualServoingReferenceConnectorT, 2>>>;
+  using PrePickTransitionAction = base_functors::bActionSequence<
+      boost::mpl::vector<ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>,
+                         typename vsa::ResetRelativePoseVisualServoing,
+                         RelativePoseVisualServoingTransitionActionFunctor_<
+                             LogicStateMachineT, 2>>>;
 
   /**
   * @brief Move arm to pick pose and move to tracked object
@@ -165,9 +152,8 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
       base_functors::bActionSequence<boost::mpl::vector<
           ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>,
           typename vsa::ResetRelativePoseVisualServoing,
-          RelativePoseVisualServoingTransitionActionFunctor_<
-              LogicStateMachineT,
-              UAVVisionSystem::VisualServoingReferenceConnectorT, 0, false>,
+          RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT,
+                                                             0, false>,
           SetNoisePolynomialReference_<LogicStateMachineT, true>>>;
 
   /**
@@ -177,18 +163,15 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
       base_functors::bActionSequence<boost::mpl::vector<
           ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0, false>,
           typename vsa::ResetRelativePoseVisualServoing,
-          RelativePoseVisualServoingTransitionActionFunctor_<
-              LogicStateMachineT,
-              UAVVisionSystem::VisualServoingReferenceConnectorT, 1>>>;
+          RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT,
+                                                             1>>>;
   /**
   * @brief Action to take when starting placing object at either drop-off.
   */
-  using PrePlaceVisualServoingTransitionAction =
-      base_functors::bActionSequence<boost::mpl::vector<
-          typename vsa::ResetRelativePoseVisualServoing,
-          RelativePoseVisualServoingTransitionActionFunctor_<
-              LogicStateMachineT,
-              UAVVisionSystem::VisualServoingReferenceConnectorT, 3>>>;
+  using PrePlaceVisualServoingTransitionAction = base_functors::bActionSequence<
+      boost::mpl::vector<typename vsa::ResetRelativePoseVisualServoing,
+                         RelativePoseVisualServoingTransitionActionFunctor_<
+                             LogicStateMachineT, 3>>>;
   // \todo Matt add guard to check if relative pose visual servoing goal exists
 
   /**
