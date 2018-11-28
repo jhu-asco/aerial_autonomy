@@ -5,8 +5,9 @@ base_config {
 }
 
 uav_system_config {
-  uav_parser_type: "quad_simulator_parser/QuadSimParser"
+  uav_parser_type: "dji_parser/DjiHILParser"
   uav_controller_timer_duration: 20
+  use_mocap_sensor: true
   minimum_battery_percent: 20
   minimum_takeoff_height: 0.5
   landing_height: 0.1
@@ -116,5 +117,20 @@ uav_system_config {
   thrust_gain_estimator_config {
     kt: 0.18
     buffer_size: 10
+  }
+  pose_sensor_config {
+    topic: "/vrpn_client/matrice/pose"
+    sensor_transform {
+      position {
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      }
+      rotation {
+        r: 0
+        p: 0
+        y: 0
+      }
+    } 
   }
 }

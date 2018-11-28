@@ -46,6 +46,9 @@ void RPYTRelativePoseAdaptiveEstimateConnector::sendControllerCommands(
   double dt = dt_duration.count();
   previous_time_ = current_time;
   mhat += controls.dm * dt;
+  if (mhat < min_m_) {
+    mhat = min_m_;
+  }
   // Send commands
   geometry_msgs::Quaternion rpyt_msg;
   rpyt_msg.x = controls.r;

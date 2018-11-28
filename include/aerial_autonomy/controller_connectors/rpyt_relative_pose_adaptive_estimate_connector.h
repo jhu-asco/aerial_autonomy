@@ -31,7 +31,7 @@ public:
   RPYTRelativePoseAdaptiveEstimateConnector(
       parsernode::Parser &drone_hardware,
       RPYTBasedRelativePoseAdaptiveEstimateController &controller,
-      double mhat_initial,
+      double mhat_initial, double min_m = 0.5,
       SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor =
           nullptr)
       : ControllerConnector(controller, ControllerGroup::UAV),
@@ -39,6 +39,7 @@ public:
         drone_hardware_(drone_hardware) {
     previous_time_ = std::chrono::high_resolution_clock::now();
     mhat = mhat_initial;
+    min_m_ = min_m;
   }
   /**
    * @brief Destructor
@@ -85,6 +86,7 @@ private:
   * @brief Internal estimate of mass parameter mhat
   */
   double mhat;
+  double min_m_;
   /**
   * @brief Time when the last sendControllerCommands is called
   */

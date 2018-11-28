@@ -40,17 +40,26 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
   x_d.head<3>() = p_d;
   x_d.tail<3>() = v_d;
   delta_x = x - x_d;
+  Eigen::Vector3d delta_p = p - p_d;
+  Eigen::Vector3d delta_v = v - v_d;
 
   // Update mhat
-  control.dm = -km * ((acc_d - ag_).transpose()) * (v - v_d);
+  control.dm =
+      -km * ((acc_d - ag_).transpose()) * (delta_v + config_.eps() * delta_p);
+  control.dm = math::clamp(control.dm, -config_.max_dm(), config_.max_dm());
+  /*double delta_z = delta_p(2);
+  Eigen::Vector3d kp(config_.kp_xy(), config_.kp_xy(), config_.kp_z());
+  double delta_m_est = mhat - 6;
+  if (delta_z > -((delta_p.transpose() * kp.asDiagonal() *
+  delta_p).norm())/(km*ag_(2)*delta_m_est)){
+    control.dm = 0;
+  }*/
   // Find body acceleration
   auto world_acc = (mhat * acc_d - mhat * ag_ - K_ * delta_x);
   Eigen::Vector3d rot_acc;
   rot_acc[0] = world_acc(0) * cos(yaw) + world_acc(1) * sin(yaw);
   rot_acc[1] = -world_acc(0) * sin(yaw) + world_acc(1) * cos(yaw);
   rot_acc[2] = world_acc(2);
-  // Temporarily see if this rotation is breaking it
-  // rot_acc = world_acc;
   // Find thrust
   control.t = rot_acc.norm();
   // normalize acceleration in gravity aligned yaw-compensated frame
@@ -76,17 +85,14 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
   control.r = math::clamp(control.r, -config_.max_rp(), config_.max_rp());
   control.p = math::clamp(control.p, -config_.max_rp(), config_.max_rp());
   control.y = yaw;
-  double lyap_V = 0.5*delta_x.norm()*delta_x.norm() + 0.5*(mhat-6)*(mhat-6)/(km*6);
-  //LOG(WARNING) << "M_Hat: " << mhat << " V: " << lyap_V << std::endl;
-  LOG(WARNING) << mhat << " " 
-               << lyap_V << " " 
-               << delta_x(0) << " " 
-               << delta_x(1) << " " 
-               << delta_x(2) << " " 
-               << delta_x(3) << " " 
-               << delta_x(4) << " " 
-               << delta_x(5) << " " 
-               << std::endl;
+  double lyap_V = (0.5 * (delta_x.transpose() * P_ * delta_x)).norm();
+  lyap_V += 0.5 * (mhat - 6) * (mhat - 6) / (km);
+
+  // LOG(WARNING) << "M_Hat: " << mhat << " V: " << lyap_V << std::endl;
+  DATA_LOG("adaptive_controller")
+      << mhat << " " << lyap_V << " " << delta_x(0) << " " << delta_x(1) << " "
+      << delta_x(2) << " " << delta_x(3) << " " << delta_x(4) << " "
+      << delta_x(5) << " " << DataStream::endl;
   return true;
 }
 
@@ -119,6 +125,9 @@ RPYTBasedRelativePoseAdaptiveEstimateController::isConvergedImplementation(
                         desired_state.a.z);
   Eigen::Vector3d delta_p = p - p_d;
   Eigen::Vector3d delta_v = v - v_d;
+  status << "Parameter Estimate and Position Error: "
+         << std::get<0>(sensor_data) << "Position Error: " << delta_p(0)
+         << delta_p(1) << delta_p(2);
   if (delta_p.norm() < config_.tolerance_pos() &&
       delta_v.norm() < config_.tolerance_vel() &&
       acc_d.norm() < config_.tolerance_acc()) {

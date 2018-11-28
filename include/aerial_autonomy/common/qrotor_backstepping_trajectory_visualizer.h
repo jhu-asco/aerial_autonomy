@@ -27,8 +27,7 @@ public:
                     config_.visualize_velocities()),
         // points_pub_(nh_.advertise<visualization_msgs::Marker>(
         // "current_des_waypts", 5)),
-        goal_(goal),
-        t0_(std::chrono::high_resolution_clock::now()) {
+        goal_(goal), t0_(std::chrono::high_resolution_clock::now()) {
     const auto &desired_trajectory_color = config_.desired_trajectory_color();
     visualizer_.setID(config_.desired_trajectory_id());
     visualizer_.setColorLineStrip(
@@ -38,7 +37,9 @@ public:
   /**
   * @brief publish desired trajectory to rviz and rostopic
   */
-  void publishTrajectory(bool retain_marker, ReferenceTrajectoryPtr<ParticleState, Snap> goal = nullptr){
+  void publishTrajectory(
+      bool retain_marker,
+      ReferenceTrajectoryPtr<ParticleState, Snap> goal = nullptr) {
     goal_ = goal;
     if (!goal_) { // this is the NULL check
       std::cout << "goal is null!" << '\n';

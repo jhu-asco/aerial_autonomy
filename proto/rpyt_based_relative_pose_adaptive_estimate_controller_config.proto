@@ -2,6 +2,7 @@ syntax = "proto2";
 
 message RPYTBasedRelativePoseAdaptiveEstimateControllerConfig {
   optional double km = 1;
+  optional double eps = 15;
   optional double acc_gravity = 2 [ default = 9.81 ];
   optional double kp_xy = 3;
   optional double kp_z = 4;
@@ -15,4 +16,6 @@ message RPYTBasedRelativePoseAdaptiveEstimateControllerConfig {
   optional double tolerance_vel = 12;
   optional double tolerance_acc = 13;
   optional double mhat = 14;
+  optional double min_m = 16;
+  optional double max_dm = 17;
 }

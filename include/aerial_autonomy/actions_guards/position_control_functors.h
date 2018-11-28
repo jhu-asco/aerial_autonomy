@@ -12,8 +12,9 @@
 #include <glog/logging.h>
 #include <parsernode/common.h>
 
-#include <aerial_autonomy/types/minimum_snap_reference_trajectory.h>
 #include <aerial_autonomy/types/circle_reference_trajectory.h>
+#include <aerial_autonomy/types/hover_reference_trajectory.h>
+#include <aerial_autonomy/types/minimum_snap_reference_trajectory.h>
 
 namespace be = uav_basic_events;
 
@@ -73,8 +74,8 @@ struct AdaptiveTransitionActionFunctor_
         std::max(distance / average_velocity, tau_min));
     // Minimum snap reference trajectory object*/
     std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> reference(
-    //    new MinimumSnapReferenceTrajectory(reference_config));
-        new CircleReferenceTrajectory(goal));
+        //    new MinimumSnapReferenceTrajectory(reference_config));
+        new HoverReferenceTrajectory(goal));
     double goal_yaw = goal.yaw;
     std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> pair_goal =
         std::make_pair(reference, goal_yaw);

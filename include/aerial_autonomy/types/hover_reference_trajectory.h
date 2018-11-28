@@ -14,7 +14,7 @@
 * @brief A minimum snap trajectory containing controls, states and timestamps
 * Gets state/control information using unconstrained QP
 */
-class CircleReferenceTrajectory
+class HoverReferenceTrajectory
     : public ReferenceTrajectory<ParticleState, Snap> {
 public:
   /**
@@ -25,7 +25,7 @@ public:
   * @param path_in nby3 matrix containing waypoints (x,y,z)
   *
   */
-  CircleReferenceTrajectory() {}
+  HoverReferenceTrajectory() {}
 
   /**
   * @brief Constructor
@@ -33,10 +33,10 @@ public:
   * @param ref_config Reference trajectory config
   *
   */
-  CircleReferenceTrajectory(const PositionYaw &py) {
-    radius = sqrt(py.x * py.x + py.y * py.y);
+  HoverReferenceTrajectory(const PositionYaw &py) {
+    x = py.x;
+    y = py.y;
     z = py.z;
-    w = 1.0;
   }
 
   /**
@@ -48,21 +48,15 @@ public:
   * @return Trajectory state and control
   */
   std::pair<ParticleState, Snap> atTime(double t) const {
-
-    // Type conversion
-    double theta = w * t;
-    double x = radius * cos(theta);
-    double y = radius * sin(theta);
-    Position p(x, y, z + 0.1 * sin(10 * theta));
-    Velocity v(-w * y, w * x, w * cos(10 * theta));
-    Acceleration a(-w * w * x, -w * w * y, -10 * w * w * sin(theta));
-    Jerk j(w * w * w * y, -w * w * w * x, -100 * w * w * w * cos(theta));
-    Snap snap(w * w * w * w * x, w * w * w * w * y,
-              1000 * w * w * w * w * sin(theta));
+    Position p(x, y, z);
+    Velocity v(0, 0, 0);
+    Acceleration a(0, 0, 0);
+    Jerk j(0, 0, 0);
+    Snap snap(0, 0, 0);
 
     return std::pair<ParticleState, Snap>(ParticleState(p, v, a, j), snap);
   }
 
 private:
-  double radius, z, w;
+  double x, y, z;
 };

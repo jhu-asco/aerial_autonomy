@@ -267,7 +267,10 @@ public:
             *drone_hardware_, rpyt_adaptive_estimate_controller_,
             config
                 .rpyt_based_relative_pose_adaptive_estimate_controller_config()
-                .mhat()),
+                .mhat(),
+            config
+                .rpyt_based_relative_pose_adaptive_estimate_controller_config()
+                .min_m()),
         home_location_specified_(false) {
     drone_hardware_->initialize();
     // Add control hardware connector containers
@@ -283,8 +286,7 @@ public:
     controller_connector_container_.setObject(
         rpyt_adaptive_estimate_controller_drone_connector_);
     qrotor_visualizer_.reset(
-        new QrotorBacksteppingTrajectoryVisualizer(
-            config.visualizer_config()));
+        new QrotorBacksteppingTrajectoryVisualizer(config.visualizer_config()));
   }
   /**
   * @brief Get sensor data from UAV
@@ -422,7 +424,7 @@ public:
     }
     return result;
   }
-  void visualizeTrajectory(ReferenceTrajectoryPtr<ParticleState, Snap> goal ) {
+  void visualizeTrajectory(ReferenceTrajectoryPtr<ParticleState, Snap> goal) {
     qrotor_visualizer_->publishTrajectory(true, goal);
   }
 };
