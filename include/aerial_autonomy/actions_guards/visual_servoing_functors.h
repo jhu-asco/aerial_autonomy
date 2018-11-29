@@ -74,6 +74,10 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
     // \todo (Matt) Perhaps get goal based on a name instead of an index?
     auto state_machine_config =
         this->state_machine_config_.visual_servoing_state_machine_config();
+    if (GoalIndex >= state_machine_config.relative_pose_goals().size()) {
+      LOG(ERROR) << "GoalIndex: " << GoalIndex << " Relative Pose goals size: "
+                 << state_machine_config.relative_pose_goals().size();
+    }
     auto goal = state_machine_config.relative_pose_goals().Get(GoalIndex);
     PositionYaw position_yaw_goal =
         conversions::protoPositionYawToPositionYaw(goal);
@@ -94,6 +98,8 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
           position_yaw_goal);
       break;
     case VisualServoingStateMachineConfig::VelPose:
+      // Maybe use relativepose visual servoing drone connector instead of
+      // this??
       VisualServoingTransitionGuardFunctor_<LogicStateMachineT>().guard(
           robot_system);
       break;
