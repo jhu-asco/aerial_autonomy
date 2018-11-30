@@ -1,0 +1,8 @@
+syntax = "proto2";
+
+import "ros_sensor_config.proto";
+
+message OdomSensorConfig {
+  optional ROSSensorConfig ros_sensor_config = 1;
+  optional double velocity_filter_gain = 2 [ default = 0.5 ];
+}

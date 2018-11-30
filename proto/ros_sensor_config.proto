@@ -15,4 +15,5 @@ message ROSSensorConfig {
   * Transform from sensor to robot center.
   */
   optional config.Transform sensor_transform = 4;
+  optional string name_space = 5 [ default = "" ];
 }

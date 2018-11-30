@@ -118,6 +118,13 @@ uav_system_config {
     kt: 0.18
     buffer_size: 10
   }
+  odom_sensor_config {
+    ros_sensor_config {
+      topic: "/vrpn_client/matrice/pose"
+    }
+    velocity_filter_gain: 0.5
+
+  }
   pose_sensor_config {
     topic: "/vrpn_client/matrice/pose"
     sensor_transform {

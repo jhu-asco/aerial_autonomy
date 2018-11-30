@@ -23,6 +23,7 @@
 #include <aerial_autonomy/controller_connectors/rpyt_based_position_controller_drone_connector.h>
 #include <aerial_autonomy/sensors/guidance.h>
 #include <aerial_autonomy/sensors/pose_sensor.h>
+#include <aerial_autonomy/sensors/odometry_from_pose_sensor.h>
 #include <aerial_autonomy/sensors/velocity_sensor.h>
 // Load UAV parser
 #include <pluginlib/class_loader.h>
@@ -97,6 +98,10 @@ protected:
    * @brief pose_sensor_
    */
   std::shared_ptr<Sensor<tf::StampedTransform>> pose_sensor_;
+  /**
+   * @brief pose_sensor_
+   */
+  std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>> odom_from_pose_sensor_;
 
 private:
   /**
@@ -202,7 +207,25 @@ private:
     auto pose_sensor_config = config.pose_sensor_config();
     std::shared_ptr<Sensor<tf::StampedTransform>> pose_sensor;
     if (config.use_mocap_sensor()) {
+      VLOG(2) << "Using MOCAP sensor";
       pose_sensor.reset(new PoseSensor(pose_sensor_config));
+    }
+    return pose_sensor;
+  }
+  /**
+  * @brief create a pose sensor if using Motion Capture flag is set
+  *
+  * @param config The UAV system config
+  *
+  * @return new pose sensor if using motion capture otherwise nulllptr
+  */
+  static std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>>
+  createOdomFromPoseSensor(UAVSystemConfig &config) {
+    auto sensor_config = config.odom_sensor_config();
+    std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>> pose_sensor;
+    if (config.use_mocap_sensor()) {
+      VLOG(2) << "Using MOCAP sensor";
+      pose_sensor.reset(new OdomFromPoseSensor(sensor_config));
     }
     return pose_sensor;
   }
@@ -251,6 +274,7 @@ public:
         velocity_sensor_(
             UAVSystem::chooseSensor(velocity_sensor, drone_hardware_, config)),
         pose_sensor_(UAVSystem::createPoseSensor(config)),
+        odom_from_pose_sensor_(UAVSystem::createOdomFromPoseSensor(config)),
         position_controller_drone_connector_(*drone_hardware_,
                                              builtin_position_controller_),
         rpyt_based_position_controller_drone_connector_(
@@ -270,7 +294,7 @@ public:
                 .mhat(),
             config
                 .rpyt_based_relative_pose_adaptive_estimate_controller_config()
-                .min_m()),
+                .min_m(), odom_from_pose_sensor_),
         home_location_specified_(false) {
     drone_hardware_->initialize();
     // Add control hardware connector containers
