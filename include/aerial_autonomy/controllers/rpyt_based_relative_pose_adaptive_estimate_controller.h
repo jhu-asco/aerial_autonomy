@@ -57,7 +57,8 @@ public:
                                        << "delta_pz"
                                        << "delta_vx"
                                        << "delta_vy"
-                                       << "delta_vz" << DataStream::endl;
+                                       << "delta_vz"
+                                       << "yaw_cmd" << DataStream::endl;
     Eigen::Vector3d kp(config_.kp_xy(), config_.kp_xy(), config_.kp_z());
     Eigen::Vector3d kd(config_.kd_xy(), config_.kd_xy(), config_.kd_z());
     K_.leftCols<3>() = kp.asDiagonal();

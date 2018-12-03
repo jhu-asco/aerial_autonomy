@@ -109,7 +109,7 @@ uav_system_config {
     tolerance_pos: 0.1
     tolerance_vel: 0.1
     tolerance_acc: 0.1
-    mhat: 6.0
+    mhat: 5.5
     min_m: 5.0
     max_dm: 4.0
   }

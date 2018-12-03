@@ -92,7 +92,7 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
   DATA_LOG("adaptive_controller")
       << mhat << " " << lyap_V << " " << delta_x(0) << " " << delta_x(1) << " "
       << delta_x(2) << " " << delta_x(3) << " " << delta_x(4) << " "
-      << delta_x(5) << " " << DataStream::endl;
+      << delta_x(5) << " " << yaw << " " << DataStream::endl;
   return true;
 }
 

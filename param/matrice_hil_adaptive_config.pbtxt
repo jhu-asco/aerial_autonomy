@@ -5,7 +5,7 @@ base_config {
 }
 
 uav_system_config {
-  uav_parser_type: "dji_parser/DjiHILParser"
+  uav_parser_type: "dji_parser/DjiParser"
   uav_controller_timer_duration: 20
   use_mocap_sensor: true
   minimum_battery_percent: 20
@@ -97,10 +97,10 @@ uav_system_config {
     }
   }
   rpyt_based_relative_pose_adaptive_estimate_controller_config{
-    km: 0.005
-    eps: 0.25
-    kp_xy: 2
-    kd_xy: 2
+    km: 0.05
+    eps: 0.05
+    kp_xy: 12
+    kd_xy: 9
     kp_z: 2
     kd_z: 2
     tolerance_rp: 0.1
@@ -110,9 +110,9 @@ uav_system_config {
     tolerance_pos: 0.1
     tolerance_vel: 0.1
     tolerance_acc: 0.1
-    mhat: 6.0
-    min_m: 5.0
-    max_dm: 4.0
+    mhat: 4.75
+    min_m: 3.0
+    max_dm: 1.0
   }
   thrust_gain_estimator_config {
     kt: 0.18
