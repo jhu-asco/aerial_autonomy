@@ -375,9 +375,6 @@ protected:
     // Run controllers through one waypoint
     logic_state_machine_->process_event(InternalTransitionEvent());
     auto getStatusRunControllersv2 = [&]() {
-      // auto uav_data = uav_arm_system_->getUAVData();
-      // LOG(INFO)<<uav_data.localpos.x<<", "<<uav_data.localpos.y<<",
-      // "<<uav_data.localpos.z;
       uav_arm_system_->runActiveController(ControllerGroup::UAV);
       uav_arm_system_->runActiveController(ControllerGroup::Arm);
       return uav_arm_system_->getActiveControllerStatus(ControllerGroup::UAV) ==
@@ -475,7 +472,7 @@ TEST_F(PickPlaceStateMachineTests, PickPlace) {
   // Repeat pick place for other targets
   PickPlace(pick_state_machine_config.place_groups().Get(1).destination_id());
 }
-/*
+
 TEST_F(PickPlaceStateMachineTests, PickTimeout) {
   GoToHoverFromLanded();
   // Start Pick
@@ -487,12 +484,7 @@ TEST_F(PickPlaceStateMachineTests, PickTimeout) {
   ASSERT_STREQ(pstate(*logic_state_machine_), "PrePickState");
   // Check UAV and arm controllers are active
   ASSERT_EQ(
-      uav_arm_system_
-          ->getStatus<RPYTRelativePoseVisualServoingConnector>(),
-      ControllerStatus::Active);
-  ASSERT_EQ(
-      (uav_arm_system_->getStatus<
-          RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>()),
+      uav_arm_system_->getStatus<RPYTRelativePoseVisualServoingConnector>(),
       ControllerStatus::Active);
   ASSERT_EQ(uav_arm_system_->getStatus<BuiltInPoseControllerArmConnector>(),
             ControllerStatus::Active);
@@ -551,6 +543,10 @@ TEST_F(PickPlaceStateMachineTests, PickWaitForGrip) {
                                             std::chrono::milliseconds(0)));
   logic_state_machine_->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
+  ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
+                                            std::chrono::seconds(25),
+                                            std::chrono::milliseconds(0)));
+  VLOG(1) << "State: " << pstate(*logic_state_machine_);
   // Initially not gripping
   arm_->setGripperStatus(false);
   logic_state_machine_->process_event(InternalTransitionEvent());
@@ -564,6 +560,9 @@ TEST_F(PickPlaceStateMachineTests, PickWaitForGrip) {
   };
   ASSERT_FALSE(test_utils::waitUntilFalse()(grip, std::chrono::seconds(25),
                                             std::chrono::milliseconds(0)));
+  std::cout << "Last processed event: "
+            << (logic_state_machine_->lastProcessedEventIndex()).name()
+            << std::endl;
   ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(ObjectId));
   // Check we are in hovering state
   ASSERT_STREQ(pstate(*logic_state_machine_), "ReachingPostPickWaypoint");
@@ -712,7 +711,6 @@ TEST_F(PickPlaceStateMachineTests, PickPlaceManualControlInternalActions) {
   // Check we are still in Manual Control State
   ASSERT_STREQ(pstate(*logic_state_machine_), "ManualControlArmState");
 }
-*/
 ///
 
 int main(int argc, char **argv) {

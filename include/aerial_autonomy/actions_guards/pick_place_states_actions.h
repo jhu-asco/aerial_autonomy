@@ -131,6 +131,11 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
   using PickTransitionGuard =
       bAnd<typename vsa::RelativePoseVisualServoingTransitionGuard,
            ArmTrackingGuardFunctor_<LogicStateMachineT>>;
+  /**
+   * @brief Check prepick goal index is specified
+   */
+  using PrePickTransitionGuard =
+      bAnd<PickTransitionGuard, CheckGoalIndex_<LogicStateMachineT, 2>>;
   // \todo Check if tracked object is in workspace
 
   /**
@@ -178,8 +183,12 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
   * @brief Guard to set and check that the id to track is available
   * before beginning visual servoing
   */
+  using PrePlaceVisualServoingTransitionGuard =
+      bAnd<EventIdVisualServoingGuardFunctor_<LogicStateMachineT>,
+           CheckGoalIndex_<LogicStateMachineT, 3>>;
+
   using PlaceVisualServoingTransitionGuard =
-      EventIdVisualServoingGuardFunctor_<LogicStateMachineT>;
+      CheckGoalIndex_<LogicStateMachineT, 1>;
 
   /**
   * @brief Action sequence to abort UAV controller and arm controller

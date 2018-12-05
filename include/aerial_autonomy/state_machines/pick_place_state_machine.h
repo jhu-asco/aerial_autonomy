@@ -171,7 +171,8 @@ public:
                       psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::WaitingForPick, pe::Pick, psa::PrePickState,
-                      psa::PrePickTransitionAction, psa::PickTransitionGuard>,
+                      psa::PrePickTransitionAction,
+                      psa::PrePickTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PrePickState, Completed, psa::PickState,
                       psa::PickTransitionAction, msmf::none>,
@@ -237,10 +238,11 @@ public:
             msmf::Row<psa::ReachingPostPickWaypoint, ObjectId,
                       psa::PrePlaceState,
                       psa::PrePlaceVisualServoingTransitionAction,
-                      psa::PlaceVisualServoingTransitionGuard>,
+                      psa::PrePlaceVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PrePlaceState, Completed, psa::PlaceState,
-                      psa::PlaceVisualServoingTransitionAction, msmf::none>,
+                      psa::PlaceVisualServoingTransitionAction,
+                      psa::PlaceVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PrePlaceState, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,

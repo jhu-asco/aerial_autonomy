@@ -65,7 +65,7 @@ struct GrippingInternalActionFunctor_
 };
 
 /**
- * @brief Check visual servoing status and reset is something goes wrong
+ * @brief Check visual servoing status and reset if something goes wrong
  *
  * @tparam LogicStateMachineT logic state machine
  */
@@ -552,6 +552,7 @@ struct PickControllerStatusCheck_
     ControllerStatus visual_servoing_status, lowlevel_status;
     switch (connector_type) {
     case VisualServoingStateMachineConfig::RPYTPose:
+      visual_servoing_status = ControllerStatus(ControllerStatus::Completed);
       lowlevel_status =
           robot_system.getStatus<RPYTRelativePoseVisualServoingConnector>();
       break;
@@ -581,9 +582,14 @@ struct PickControllerStatusCheck_
           << "Controller critical while gripping is true! Aborting Controller!";
     } else if ((visual_servoing_status == ControllerStatus::Critical ||
                 lowlevel_status == ControllerStatus::Critical ||
+                lowlevel_status == ControllerStatus::NotEngaged ||
                 visual_servoing_status == ControllerStatus::NotEngaged) &&
                !grip_status) {
+      VLOG(1) << "Visual servoing status: "
+              << visual_servoing_status.statusAsText() << ", "
+              << "Lowlevel status: " << lowlevel_status.statusAsText();
       robot_system.abortController(ControllerGroup::HighLevel);
+      robot_system.abortController(ControllerGroup::UAV);
       logic_state_machine.process_event(Reset());
       VLOG(1) << "Gripping failed and no controller engaged or controller "
                  "critical. So resetting!";
