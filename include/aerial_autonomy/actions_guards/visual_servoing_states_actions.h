@@ -23,48 +23,17 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
 
   // Visual servoing states
   /**
-  * @brief State when reaching a visual servoing goal
+  * @brief State when reaching a relative pose visual servoing goal
   */
-  using VisualServoing =
-      VisualServoing_<LogicStateMachineT, be::Abort,
-                      VisualServoingControllerDroneConnector>;
+  using RelativePoseVisualServoing =
+      VisualServoing_<LogicStateMachineT, be::Abort>;
 
-  /**
-  * @brief State when reaching a relative pose visual servoing goal using rpyt
-  * controller
-  */
-  using RPYTRelativePoseVisualServoing =
-      VisualServoing_<LogicStateMachineT, be::Abort,
-                      RPYTRelativePoseVisualServoingConnector>;
-  /**
-  * @brief State when reaching a relative pose visual servoing goal using rpyt
-  * controller
-  */
-  using RPYTReferenceVisualServoing = VisualServoing_<
-      LogicStateMachineT, be::Abort,
-      RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>;
-  /**
-  * @brief State when reaching a relative pose visual servoing goal using MPC
-  * controller
-  */
-  using MPCRelativePoseVisualServoing =
-      VisualServoing_<LogicStateMachineT, be::Abort,
-                      MPCControllerQuadConnector>;
   // Basic transition Actions
   /**
   * @brief Action to take when starting rpyt relative pose visual servoing
   */
-  using RPYTRelativePoseVisualServoingTransitionAction =
-      RelativePoseVisualServoingTransitionActionFunctor_<
-          LogicStateMachineT, RPYTRelativePoseVisualServoingConnector, 0>;
-
-  /**
-  * @brief Action to take when starting mpc relative pose visual servoing
-  */
-  using MPCRelativePoseVisualServoingTransitionAction =
-      RelativePoseVisualServoingTransitionActionFunctor_<
-          LogicStateMachineT,
-          UAVVisionSystem::VisualServoingReferenceConnectorT, 0>;
+  using RelativePoseVisualServoingTransitionAction =
+      RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT, 0>;
 
   /**
   * @brief Action for initializing relative pose visual servoing
@@ -72,14 +41,6 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
   using ResetRelativePoseVisualServoing =
       ResetRelativePoseVisualServoingTransitionActionFunctor_<
           LogicStateMachineT>;
-
-  /**
-  * @brief Check whether visual servoing is feasible currently
-  */
-  using VisualServoingTransitionGuard =
-      bAnd<InitializeTrackerGuardFunctor_<LogicStateMachineT,
-                                          ClosestTrackingStrategy>,
-           VisualServoingTransitionGuardFunctor_<LogicStateMachineT>>;
 
   /**
   * @brief Check whether relative pose visual servoing is feasible currently

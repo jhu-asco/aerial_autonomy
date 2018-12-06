@@ -20,10 +20,10 @@ using namespace test_utils;
 class RPYTRelativePoseVisualConnectorTests : public ::testing::Test {
 public:
   RPYTRelativePoseVisualConnectorTests()
-      : goal_tolerance_position_(0.05), goal_tolerance_velocity_(0.1),
-        goal_tolerance_yaw_(0.05), goal_tolerance_yaw_rate_(0.05),
+      : goal_tolerance_position_(0.1), goal_tolerance_velocity_(0.1),
+        goal_tolerance_yaw_(0.1), goal_tolerance_yaw_rate_(0.05),
         tracking_offset_transform_(
-            tf::createQuaternionFromRPY(0, M_PI / 3, M_PI / 2),
+            tf::createQuaternionFromRPY(0, M_PI / 3, 0.2),
             tf::Vector3(0, 0, 0)),
         thrust_gain_estimator_(0.18) {
     RPYTBasedRelativePoseControllerConfig config;

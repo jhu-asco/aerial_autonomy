@@ -24,17 +24,44 @@ struct ResetRelativePoseVisualServoingTransitionActionFunctor_
     robot_system.resetRelativePoseController();
   }
 };
+
+/**
+* @brief Check tracking is valid before starting visual servoing
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct VisualServoingTransitionGuardFunctor_
+    : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {
+  bool guard(UAVVisionSystem &robot_system) {
+    Position tracking_vector;
+    if (!robot_system.getTrackingVector(tracking_vector)) {
+      LOG(WARNING) << "Lost tracking while servoing.";
+      return false;
+    }
+    VLOG(1) << "Setting tracking vector";
+    double desired_distance = robot_system.getConfiguration()
+                                  .uav_vision_system_config()
+                                  .desired_visual_servoing_distance();
+    double tracking_vector_norm = tracking_vector.norm();
+    if (tracking_vector_norm < 1e-6) {
+      LOG(WARNING) << "Tracking vector too small cannot initialize direction";
+      return false;
+    } else {
+      // \todo Matt: could possibly move this block to the action functor
+      VLOG(1) << "Selecting home location";
+      robot_system.setHomeLocation();
+      robot_system.setGoal<VisualServoingControllerDroneConnector, Position>(
+          tracking_vector * desired_distance / tracking_vector_norm);
+    }
+    return true;
+  }
+};
 /**
 * @brief Action for initializing relative pose visual servoing
 *
-*Possible connectors to use
-*   RPYTRelativePoseVisualServoingConnector,
-*   UAVVisionSystem::VisualServoingReferenceConnectorT
-*
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
-template <class LogicStateMachineT, class ConnectorT, int GoalIndex,
-          bool SetHome = true>
+template <class LogicStateMachineT, int GoalIndex, bool SetHome = true>
 struct RelativePoseVisualServoingTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
   void run(UAVVisionSystem &robot_system) {
@@ -47,10 +74,39 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
     // \todo (Matt) Perhaps get goal based on a name instead of an index?
     auto state_machine_config =
         this->state_machine_config_.visual_servoing_state_machine_config();
+    if (GoalIndex >= state_machine_config.relative_pose_goals().size()) {
+      LOG(ERROR) << "GoalIndex: " << GoalIndex << " Relative Pose goals size: "
+                 << state_machine_config.relative_pose_goals().size();
+    }
     auto goal = state_machine_config.relative_pose_goals().Get(GoalIndex);
     PositionYaw position_yaw_goal =
         conversions::protoPositionYawToPositionYaw(goal);
-    robot_system.setGoal<ConnectorT, PositionYaw>(position_yaw_goal);
+    auto connector_type = state_machine_config.connector_type();
+    switch (connector_type) {
+    case VisualServoingStateMachineConfig::RPYTPose:
+      robot_system.setGoal<RPYTRelativePoseVisualServoingConnector,
+                           PositionYaw>(position_yaw_goal);
+      break;
+    case VisualServoingStateMachineConfig::RPYTRef:
+      robot_system.setGoal<
+          UAVVisionSystem::RPYTVisualServoingReferenceConnectorT, PositionYaw>(
+          position_yaw_goal);
+      break;
+    case VisualServoingStateMachineConfig::MPC:
+      robot_system.setGoal<
+          UAVVisionSystem::MPCVisualServoingReferenceConnectorT, PositionYaw>(
+          position_yaw_goal);
+      break;
+    case VisualServoingStateMachineConfig::VelPose:
+      // Maybe use relativepose visual servoing drone connector instead of
+      // this??
+      VisualServoingTransitionGuardFunctor_<LogicStateMachineT>().guard(
+          robot_system);
+      break;
+    default:
+      LOG(WARNING) << "Unknown visual servoing connector";
+      break;
+    }
   }
 };
 /**
@@ -129,6 +185,57 @@ struct EventIdVisualServoingGuardFunctor_
     return false;
   }
 };
+template <class LogicStateMachineT, class AbortEventT>
+struct VisualServoingStatus_
+    : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
+  bool run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
+    // Check config for which connector to use
+    auto connector_type = logic_state_machine.base_state_machine_config_
+                              .visual_servoing_state_machine_config()
+                              .connector_type();
+    bool result = false;
+    switch (connector_type) {
+    case VisualServoingStateMachineConfig::RPYTPose:
+      result = ControllerStatusInternalActionFunctor_<
+                   LogicStateMachineT, RPYTRelativePoseVisualServoingConnector,
+                   true, AbortEventT>()
+                   .run(robot_system, logic_state_machine);
+      break;
+    case VisualServoingStateMachineConfig::RPYTRef:
+      result =
+          ControllerStatusInternalActionFunctor_<
+              LogicStateMachineT,
+              RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
+              true, AbortEventT>()
+              .run(robot_system, logic_state_machine);
+      result &= ControllerStatusInternalActionFunctor_<
+                    LogicStateMachineT,
+                    UAVVisionSystem::RPYTVisualServoingReferenceConnectorT,
+                    false, AbortEventT>()
+                    .run(robot_system, logic_state_machine);
+      break;
+    case VisualServoingStateMachineConfig::MPC:
+      result =
+          ControllerStatusInternalActionFunctor_<LogicStateMachineT,
+                                                 MPCControllerQuadConnector,
+                                                 true, AbortEventT>()
+              .run(robot_system, logic_state_machine);
+      result &= ControllerStatusInternalActionFunctor_<
+                    LogicStateMachineT,
+                    UAVVisionSystem::MPCVisualServoingReferenceConnectorT,
+                    false, AbortEventT>()
+                    .run(robot_system, logic_state_machine);
+      break;
+    case VisualServoingStateMachineConfig::VelPose:
+      result = ControllerStatusInternalActionFunctor_<
+                   LogicStateMachineT, VisualServoingControllerDroneConnector,
+                   true, AbortEventT>()
+                   .run(robot_system, logic_state_machine);
+      break;
+    }
+    return result;
+  }
+};
 
 /**
 * @brief Logic to check while reaching a visual servoing goal
@@ -136,12 +243,11 @@ struct EventIdVisualServoingGuardFunctor_
 * @tparam LogicStateMachineT Logic state machine used to process events
 * @tparam AbortEventT Event to send when controller is critical
 */
-template <class LogicStateMachineT, class AbortEventT, class ConnectorT>
+template <class LogicStateMachineT, class AbortEventT>
 using VisualServoingInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-        ControllerStatusInternalActionFunctor_<LogicStateMachineT, ConnectorT,
-                                               true, AbortEventT>>>;
+        VisualServoingStatus_<LogicStateMachineT, AbortEventT>>>;
 
 /**
 * @brief Check tracking is valid
@@ -167,46 +273,12 @@ struct InitializeTrackerGuardFunctor_
 };
 
 /**
-* @brief Check tracking is valid before starting visual servoing
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-struct VisualServoingTransitionGuardFunctor_
-    : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {
-  bool guard(UAVVisionSystem &robot_system) {
-    Position tracking_vector;
-    if (!robot_system.getTrackingVector(tracking_vector)) {
-      LOG(WARNING) << "Lost tracking while servoing.";
-      return false;
-    }
-    VLOG(1) << "Setting tracking vector";
-    double desired_distance = robot_system.getConfiguration()
-                                  .uav_vision_system_config()
-                                  .desired_visual_servoing_distance();
-    double tracking_vector_norm = tracking_vector.norm();
-    if (tracking_vector_norm < 1e-6) {
-      LOG(WARNING) << "Tracking vector too small cannot initialize direction";
-      return false;
-    } else {
-      // \todo Matt: could possibly move this block to the action functor
-      VLOG(1) << "Selecting home location";
-      robot_system.setHomeLocation();
-      robot_system.setGoal<VisualServoingControllerDroneConnector, Position>(
-          tracking_vector * desired_distance / tracking_vector_norm);
-    }
-    return true;
-  }
-};
-
-/**
 * @brief State that uses relative pose control functor to reach a desired goal.
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 * @tparam AbortEventT Event to send when controller is critical
-* @tparam ConnectorT Connector to use for internal action functor
 */
-template <class LogicStateMachineT, class AbortEventT, class ConnectorT>
-using VisualServoing_ =
-    BaseState<UAVVisionSystem, LogicStateMachineT,
-              VisualServoingInternalActionFunctor_<LogicStateMachineT,
-                                                   AbortEventT, ConnectorT>>;
+template <class LogicStateMachineT, class AbortEventT>
+using VisualServoing_ = BaseState<
+    UAVVisionSystem, LogicStateMachineT,
+    VisualServoingInternalActionFunctor_<LogicStateMachineT, AbortEventT>>;

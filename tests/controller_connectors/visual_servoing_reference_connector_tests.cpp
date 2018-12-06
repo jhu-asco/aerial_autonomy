@@ -93,8 +93,9 @@ public:
       quad_mpc_connector_->run();
       return quad_mpc_connector_->getStatus() == ControllerStatus::Active;
     };
-    ASSERT_FALSE(test_utils::waitUntilFalse()(
-        runController, std::chrono::seconds(20), std::chrono::milliseconds(0)));
+    ASSERT_FALSE(test_utils::waitUntilFalse()(runController,
+                                              std::chrono::seconds(200),
+                                              std::chrono::milliseconds(0)));
     // Check position is the goal position
     parsernode::common::quaddata sensor_data;
     drone_hardware_.getquaddata(sensor_data);
@@ -154,8 +155,8 @@ TEST_F(VisualServoingReferenceConnectorTests, CriticalRun) {
 
 TEST_F(VisualServoingReferenceConnectorTests, RunUntilConvergence) {
   // set tracking goal
-  tf::Transform tracked_pose(tf::createQuaternionFromRPY(0, 0, -0.1),
-                             tf::Vector3(2, -0.5, 0.5));
+  tf::Transform tracked_pose(tf::createQuaternionFromRPY(0, 0, 0.5),
+                             tf::Vector3(1, -0.1, 0.5));
   PositionYaw goal_relative_pose(1, 0, 0, 0.5);
   runUntilConvergence(tracked_pose, goal_relative_pose);
 }
@@ -163,9 +164,9 @@ TEST_F(VisualServoingReferenceConnectorTests, RunUntilConvergence) {
 TEST_F(VisualServoingReferenceConnectorTests,
        RunUntilConvergenceNonZeroRollPitch) {
   // set tracking goal
-  tf::Transform tracked_pose(tf::createQuaternionFromRPY(0.4, -0.6, -0.5),
-                             tf::Vector3(1.5, -0.5, 0.5));
-  PositionYaw goal_relative_pose(1, -1.5, 2, 0.5);
+  tf::Transform tracked_pose(tf::createQuaternionFromRPY(0.1, -0.1, 0.2),
+                             tf::Vector3(1, -0.05, 0.5));
+  PositionYaw goal_relative_pose(1, 0, 0, 0.5);
   runUntilConvergence(tracked_pose, goal_relative_pose);
 }
 
