@@ -155,8 +155,17 @@ TEST_F(VisualServoingReferenceConnectorTests, CriticalRun) {
 
 TEST_F(VisualServoingReferenceConnectorTests, RunUntilConvergence) {
   // set tracking goal
-  tf::Transform tracked_pose(tf::createQuaternionFromRPY(0, 0, -0.1),
-                             tf::Vector3(2, -0.5, 0.5));
+  tf::Transform tracked_pose(tf::createQuaternionFromRPY(0, 0, 0.5),
+                             tf::Vector3(1, -0.1, 0.5));
+  PositionYaw goal_relative_pose(1, 0, 0, 0.5);
+  runUntilConvergence(tracked_pose, goal_relative_pose);
+}
+
+TEST_F(VisualServoingReferenceConnectorTests,
+       RunUntilConvergenceNonZeroRollPitch) {
+  // set tracking goal
+  tf::Transform tracked_pose(tf::createQuaternionFromRPY(0.1, -0.1, 0.2),
+                             tf::Vector3(1, -0.05, 0.5));
   PositionYaw goal_relative_pose(1, 0, 0, 0.5);
   runUntilConvergence(tracked_pose, goal_relative_pose);
 }
