@@ -45,4 +45,8 @@ message QuadMPCControllerConfig {
   optional bool use_code_generation = 10 [ default = true ];
   repeated double lower_bound_control = 13;
   repeated double upper_bound_control = 14;
+  /**
+  * @brief Goal yaw tolerance
+  */
+  optional double goal_yaw_tolerance = 15 [ default = 0.1 ];
 }

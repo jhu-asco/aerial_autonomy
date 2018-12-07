@@ -78,13 +78,23 @@ DDPQuadMPCController::DDPQuadMPCController(
   DATA_HEADER("ddp_quad_mpc_controller") << "Errorx"
                                          << "Errory"
                                          << "Errorz"
+                                         << "Errorvx"
+                                         << "Errorvy"
+                                         << "Errorvz"
                                          << "thrust_d"
                                          << "rd"
                                          << "pd"
                                          << "yaw_rate_d"
-                                         << "Jad1"
-                                         << "Jad2"
                                          << "J"
+                                         << "x_ref"
+                                         << "y_ref"
+                                         << "z_ref"
+                                         << "r_ref"
+                                         << "p_ref"
+                                         << "y_ref"
+                                         << "vx_ref"
+                                         << "vy_ref"
+                                         << "vz_ref"
                                          << "Loop timer" << DataStream::endl;
 }
 
@@ -108,16 +118,23 @@ ControllerStatus DDPQuadMPCController::isConvergedImplementation(
       sensor_data.initial_state.segment<3>(0) - end_goal.segment<3>(0);
   Eigen::Vector3d error_velocity =
       sensor_data.initial_state.segment<3>(6) - end_goal.segment<3>(6);
+  double error_yaw =
+      math::angleWrap(sensor_data.initial_state(5) - end_goal(5));
   if (error_position.squaredNorm() < config_.goal_position_tolerance() *
                                          config_.goal_position_tolerance() &&
       error_velocity.squaredNorm() < config_.goal_velocity_tolerance() *
-                                         config_.goal_velocity_tolerance()) {
+                                         config_.goal_velocity_tolerance() &&
+      std::abs(error_yaw) < config_.goal_yaw_tolerance()) {
     VLOG(1) << "Controller Converged!";
     controller_status.setStatus(ControllerStatus::Completed,
                                 "Converged to reference trajectory");
   }
   controller_status << "Stats" << error_position.norm() << error_velocity.norm()
-                    << loop_timer_.average_loop_period();
+                    << error_yaw << loop_timer_.average_loop_period();
+  VLOG_EVERY_N(1, 20) << "Stats" << error_position.norm()
+                      << error_velocity.norm() << error_yaw
+                      << loop_timer_.average_loop_period();
+  return controller_status;
   return controller_status;
 }
 
@@ -140,7 +157,10 @@ void DDPQuadMPCController::logData(MPCInputs<StateType> &sensor_data,
                                    ControlType &control) {
   Eigen::Vector3d error_position =
       sensor_data.initial_state.segment<3>(0) - xds_.at(0).segment<3>(0);
-  DATA_LOG("ddp_quad_mpc_controller") << error_position << control << (ddp_->J)
-                                      << loop_timer_.average_loop_period()
-                                      << DataStream::endl;
+  Eigen::Vector3d error_velocity =
+      sensor_data.initial_state.segment<3>(6) - xds_.at(0).segment<3>(6);
+  DATA_LOG("ddp_quad_mpc_controller")
+      << error_position << error_velocity << control << (ddp_->J)
+      << Eigen::VectorXd(xds_.at(0).segment<9>(0))
+      << loop_timer_.average_loop_period() << DataStream::endl;
 }
