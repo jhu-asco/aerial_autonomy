@@ -568,6 +568,13 @@ struct PickControllerStatusCheck_
       lowlevel_status = robot_system.getStatus<MPCControllerQuadConnector>();
       break;
     case VisualServoingStateMachineConfig::VelPose:
+      visual_servoing_status = ControllerStatus(ControllerStatus::Completed);
+      lowlevel_status =
+          robot_system
+              .getStatus<RelativePoseVisualServoingControllerDroneConnector>();
+      break;
+    case VisualServoingStateMachineConfig::HeadingDepth:
+      visual_servoing_status = ControllerStatus(ControllerStatus::Completed);
       lowlevel_status =
           robot_system.getStatus<VisualServoingControllerDroneConnector>();
       break;

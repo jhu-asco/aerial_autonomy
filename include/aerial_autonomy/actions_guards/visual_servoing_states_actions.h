@@ -49,4 +49,11 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
       bAnd<InitializeTrackerGuardFunctor_<LogicStateMachineT,
                                           ClosestTrackingStrategy>,
            CheckGoalIndex_<LogicStateMachineT, 0>>;
+
+  /**
+   * @brief Check whether heading depth visual servoing is feasible and sets
+   * goal also
+   */
+  using VisualServoingTransitionGuard =
+      VisualServoingTransitionGuardFunctor_<LogicStateMachineT>;
 };

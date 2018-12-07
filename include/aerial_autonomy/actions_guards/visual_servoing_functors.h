@@ -4,6 +4,7 @@
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/common/math.h>
 #include <aerial_autonomy/common/proto_utils.h>
+#include <aerial_autonomy/controller_connectors/relative_pose_visual_servoing_controller_drone_connector.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_vision_system.h>
 #include <aerial_autonomy/trackers/id_tracking_strategy.h>
@@ -98,6 +99,10 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
           position_yaw_goal);
       break;
     case VisualServoingStateMachineConfig::VelPose:
+      robot_system.setGoal<RelativePoseVisualServoingControllerDroneConnector,
+                           PositionYaw>(position_yaw_goal);
+      break;
+    case VisualServoingStateMachineConfig::HeadingDepth:
       // Maybe use relativepose visual servoing drone connector instead of
       // this??
       VisualServoingTransitionGuardFunctor_<LogicStateMachineT>().guard(
@@ -226,10 +231,17 @@ struct VisualServoingStatus_
                     false, AbortEventT>()
                     .run(robot_system, logic_state_machine);
       break;
-    case VisualServoingStateMachineConfig::VelPose:
+    case VisualServoingStateMachineConfig::HeadingDepth:
       result = ControllerStatusInternalActionFunctor_<
                    LogicStateMachineT, VisualServoingControllerDroneConnector,
                    true, AbortEventT>()
+                   .run(robot_system, logic_state_machine);
+      break;
+    case VisualServoingStateMachineConfig::VelPose:
+      result = ControllerStatusInternalActionFunctor_<
+                   LogicStateMachineT,
+                   RelativePoseVisualServoingControllerDroneConnector, true,
+                   AbortEventT>()
                    .run(robot_system, logic_state_machine);
       break;
     }

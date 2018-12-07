@@ -13,14 +13,8 @@ using namespace quad_simulator;
 using vsa = VisualServoingStatesActions<UAVVisionLogicStateMachine>;
 
 // Visual Servoing
-using VisualServoingInternalAction = VisualServoingInternalActionFunctor_<
-    UAVVisionLogicStateMachine, be::Abort,
-    VisualServoingControllerDroneConnector>;
-
-using RelativePoseVisualServoingInternalAction =
-    VisualServoingInternalActionFunctor_<
-        UAVVisionLogicStateMachine, be::Abort,
-        RPYTRelativePoseVisualServoingConnector>;
+using VisualServoingInternalAction =
+    VisualServoingInternalActionFunctor_<UAVVisionLogicStateMachine, be::Abort>;
 
 class VisualServoingTests : public ::testing::Test {
 protected:
@@ -97,6 +91,8 @@ protected:
         state_machine_config.mutable_visual_servoing_state_machine_config()
             ->add_relative_pose_goals();
     auto pose_goal_position = pose_goal->mutable_position();
+    state_machine_config.mutable_visual_servoing_state_machine_config()
+        ->set_connector_type(VisualServoingStateMachineConfig::RPYTPose);
     pose_goal_position->set_x(1);
     pose_goal_position->set_y(1);
     pose_goal_position->set_z(2);
@@ -139,8 +135,6 @@ protected:
 /// \brief Test Visual Servoing
 TEST_F(VisualServoingTests, Constructor) {
   ASSERT_NO_THROW(new VisualServoingInternalAction());
-  ASSERT_NO_THROW(new vsa::RPYTRelativePoseVisualServoingTransitionAction());
-  ASSERT_NO_THROW(new RelativePoseVisualServoingInternalAction());
 }
 
 TEST_F(VisualServoingTests, CallGuardFunction) {
@@ -206,6 +200,9 @@ TEST_F(VisualServoingTests, ZeroLengthTrackingCallGuardFunction) {
 // Call Internal Action function after setting the quad to the right target
 // location
 TEST_F(VisualServoingTests, CallInternalActionFunction) {
+  // Set the correct controller
+  state_machine_config.mutable_visual_servoing_state_machine_config()
+      ->set_connector_type(VisualServoingStateMachineConfig::HeadingDepth);
   // Specify a global position
   Position roi_goal(5, 0, 0.5);
   simple_tracker->setTargetPositionGlobalFrame(roi_goal);
@@ -254,7 +251,7 @@ TEST_F(VisualServoingTests, CallRelativePoseInternalActionFunction) {
   drone_hardware->setBatteryPercent(60);
   drone_hardware->takeoff();
   // Call guard
-  vsa::RPYTRelativePoseVisualServoingTransitionAction
+  vsa::RelativePoseVisualServoingTransitionAction
       visual_servoing_transition_action;
   int dummy_start_state, dummy_target_state;
 
@@ -281,7 +278,7 @@ TEST_F(VisualServoingTests, CallRelativePoseInternalActionFunction) {
   status = uav_system->getStatus<RPYTRelativePoseVisualServoingConnector>();
   ASSERT_EQ(status, ControllerStatus::Completed);
   // Call internal action functor
-  RelativePoseVisualServoingInternalAction visual_servoing_internal_action;
+  VisualServoingInternalAction visual_servoing_internal_action;
   visual_servoing_internal_action(NULL, *sample_logic_state_machine,
                                   dummy_start_state, dummy_target_state);
   ASSERT_EQ(sample_logic_state_machine->getProcessEventTypeId(),
@@ -289,6 +286,9 @@ TEST_F(VisualServoingTests, CallRelativePoseInternalActionFunction) {
 }
 
 TEST_F(VisualServoingTests, LowBatteryCallInternalActionFunction) {
+  // Set heading depth controller
+  state_machine_config.mutable_visual_servoing_state_machine_config()
+      ->set_connector_type(VisualServoingStateMachineConfig::HeadingDepth);
   // Specify a global position
   Position roi_goal(5, 0, 0.5);
   simple_tracker->setTargetPositionGlobalFrame(roi_goal);
@@ -322,13 +322,13 @@ TEST_F(VisualServoingTests, LowBatteryCallRelativePoseInternalActionFunction) {
   drone_hardware->setBatteryPercent(60);
   drone_hardware->takeoff();
   // Call action functor
-  vsa::RPYTRelativePoseVisualServoingTransitionAction
+  vsa::RelativePoseVisualServoingTransitionAction
       visual_servoing_transition_action;
   int dummy_start_state, dummy_target_state;
   visual_servoing_transition_action(NULL, *sample_logic_state_machine,
                                     dummy_start_state, dummy_target_state);
   // Run Internal action
-  RelativePoseVisualServoingInternalAction visual_servoing_internal_action;
+  VisualServoingInternalAction visual_servoing_internal_action;
   visual_servoing_internal_action(NULL, *sample_logic_state_machine,
                                   dummy_start_state, dummy_target_state);
   // Check status of controller
@@ -345,6 +345,9 @@ TEST_F(VisualServoingTests, LowBatteryCallRelativePoseInternalActionFunction) {
 }
 
 TEST_F(VisualServoingTests, LostTrackingInternalActionFunction) {
+  // Set heading depth controller
+  state_machine_config.mutable_visual_servoing_state_machine_config()
+      ->set_connector_type(VisualServoingStateMachineConfig::HeadingDepth);
   // Specify a global position
   Position roi_goal(5, 0, 0.5);
   simple_tracker->setTargetPositionGlobalFrame(roi_goal);
@@ -377,7 +380,7 @@ TEST_F(VisualServoingTests, LostTrackingRelativePoseInternalActionFunction) {
   drone_hardware->setBatteryPercent(60);
   drone_hardware->takeoff();
   // Call action functor
-  vsa::RPYTRelativePoseVisualServoingTransitionAction
+  vsa::RelativePoseVisualServoingTransitionAction
       visual_servoing_transition_action;
   int dummy_start_state, dummy_target_state;
   visual_servoing_transition_action(NULL, *sample_logic_state_machine,
@@ -387,7 +390,7 @@ TEST_F(VisualServoingTests, LostTrackingRelativePoseInternalActionFunction) {
   // Run controller to update controller status
   uav_system->runActiveController(ControllerGroup::UAV);
   // Test internal action
-  RelativePoseVisualServoingInternalAction visual_servoing_internal_action;
+  VisualServoingInternalAction visual_servoing_internal_action;
   visual_servoing_internal_action(NULL, *sample_logic_state_machine,
                                   dummy_start_state, dummy_target_state);
   ASSERT_EQ(sample_logic_state_machine->getProcessEventTypeId(),
