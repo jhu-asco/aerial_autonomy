@@ -96,14 +96,12 @@ bool BaseMPCControllerQuadConnector::fillQuadStateAndParameters(
   // Euler angles
   if (odom_sensor_) {
     rpy = conversions::transformTfToRPY(quad_pose);
-    rpy[0] = quad_data.rpydata.x + roll_pitch_bias[0];
-    rpy[1] = quad_data.rpydata.y + roll_pitch_bias[1];
   } else {
     rpy = Eigen::Vector3d(quad_data.rpydata.x, quad_data.rpydata.y,
                           quad_data.rpydata.z);
-    rpy[0] = quad_data.rpydata.x + roll_pitch_bias[0];
-    rpy[1] = quad_data.rpydata.y + roll_pitch_bias[1];
   }
+  rpy[0] = quad_data.rpydata.x + roll_pitch_bias[0];
+  rpy[1] = quad_data.rpydata.y + roll_pitch_bias[1];
   Eigen::Vector3d filtered_rpydot =
       rpydot_filter_.addAndFilter(conversions::omegaToRpyDot(omega, rpy));
   // Fill state

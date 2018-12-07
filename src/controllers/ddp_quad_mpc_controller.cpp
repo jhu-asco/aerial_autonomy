@@ -131,10 +131,6 @@ ControllerStatus DDPQuadMPCController::isConvergedImplementation(
   }
   controller_status << "Stats" << error_position.norm() << error_velocity.norm()
                     << error_yaw << loop_timer_.average_loop_period();
-  VLOG_EVERY_N(1, 20) << "Stats" << error_position.norm()
-                      << error_velocity.norm() << error_yaw
-                      << loop_timer_.average_loop_period();
-  return controller_status;
   return controller_status;
 }
 
