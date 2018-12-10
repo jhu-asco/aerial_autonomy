@@ -39,7 +39,8 @@ public:
       AbstractMPCController<StateType, ControlType> &controller,
       ThrustGainEstimator &thrust_gain_estimator, int delay_buffer_size,
       MPCConnectorConfig config,
-      SensorPtr<tf::StampedTransform> pose_sensor = nullptr,
+      SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor =
+          nullptr,
       AbstractConstraintGeneratorPtr constraint_generator = nullptr);
 
   /**
@@ -67,7 +68,8 @@ public:
   *
   * @param sensor Pose sensor to use
   */
-  void useSensor(SensorPtr<tf::StampedTransform> sensor);
+  void
+  useSensor(SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> sensor);
 
 protected:
   /**
@@ -82,19 +84,11 @@ protected:
   *
   * @param current_state Current system state
   * @param params Current MPC parameters
-  * @param dt Time difference for finite diff
   *
   * @return true if estimation is successful
   */
   bool fillQuadStateAndParameters(Eigen::VectorXd &current_state,
-                                  Eigen::VectorXd &params, double dt);
-
-  /**
-   * @brief Get time difference
-   *
-   * @return time difference
-   */
-  double getTimeDiff();
+                                  Eigen::VectorXd &params);
 
   /**
    * @brief initialize the controller
@@ -106,10 +100,8 @@ protected:
     MPCControllerConnector::initialize();
     VLOG(1) << "Clearing thrust estimator buffer";
     thrust_gain_estimator_.clearBuffer();
-    previous_measurements_initialized_ = false;
     private_controller.resetControls();
     clearCommandBuffers();
-    velocity_filter_.reset();
     rpydot_filter_.reset();
     int iters = private_controller.getMaxIters();
     private_controller.setMaxIters(100);
@@ -120,17 +112,13 @@ protected:
 protected:
   parsernode::Parser
       &drone_hardware_; ///< Quadrotor parser for sending and receiving data
-  SensorPtr<tf::StampedTransform> pose_sensor_; ///< Pose sensor for quad data
-  ThrustGainEstimator &thrust_gain_estimator_;  ///< Thrust gain estimator
-  std::chrono::time_point<std::chrono::high_resolution_clock>
-      previous_measurement_time_;          ///< Previous sensor measurement time
-  bool previous_measurements_initialized_; ///< Flag to determin whether
-                                           /// previous measurements have been
-                                           /// initialized
-  Eigen::VectorXd previous_measurements_;  ///< Previous measurements
-  std::queue<Eigen::Vector3d> rpy_command_buffer_;     ///< Rpy command buffer
-  ExponentialFilter<Eigen::Vector3d> rpydot_filter_;   ///< Filter
-  ExponentialFilter<Eigen::Vector3d> velocity_filter_; ///< Filter
+                        /**
+                         * @brief Pose sensor for quad data
+                         */
+  SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor_;
+  ThrustGainEstimator &thrust_gain_estimator_;       ///< Thrust gain estimator
+  std::queue<Eigen::Vector3d> rpy_command_buffer_;   ///< Rpy command buffer
+  ExponentialFilter<Eigen::Vector3d> rpydot_filter_; ///< Filter
   int delay_buffer_size_; ///< Size of rpy command buffer
   AbstractMPCController<StateType, ControlType>
       &private_controller_; ///< Private ref

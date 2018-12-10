@@ -7,16 +7,14 @@ BaseMPCControllerQuadConnector::BaseMPCControllerQuadConnector(
     parsernode::Parser &drone_hardware,
     AbstractMPCController<StateType, ControlType> &controller,
     ThrustGainEstimator &thrust_gain_estimator, int delay_buffer_size,
-    MPCConnectorConfig config, SensorPtr<tf::StampedTransform> pose_sensor,
+    MPCConnectorConfig config,
+    SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor,
     AbstractConstraintGeneratorPtr constraint_generator)
     : MPCControllerConnector(controller, ControllerGroup::UAV,
                              constraint_generator),
-      drone_hardware_(drone_hardware), pose_sensor_(pose_sensor),
+      drone_hardware_(drone_hardware), odom_sensor_(odom_sensor),
       thrust_gain_estimator_(thrust_gain_estimator),
-      previous_measurement_time_(std::chrono::high_resolution_clock::now()),
-      previous_measurements_initialized_(false), previous_measurements_(3),
       rpydot_filter_(config.rpydot_gain()),
-      velocity_filter_(config.velocity_exp_gain()),
       delay_buffer_size_(delay_buffer_size), private_controller_(controller),
       config_(config) {
   clearCommandBuffers();
@@ -43,6 +41,8 @@ void BaseMPCControllerQuadConnector::sendControllerCommands(
   rpyt_msg.z = control(3);
   rpyt_msg.w = math::clamp(control(0), config_.min_thrust_command(),
                            config_.max_thrust_command());
+  VLOG_EVERY_N(1, 20) << "Control: " << rpyt_msg.w << ", " << rpyt_msg.x << ", "
+                      << rpyt_msg.y << ", " << rpyt_msg.z;
   drone_hardware_.cmdrpyawratethrust(rpyt_msg);
   rpy_command_buffer_.pop();
   auto last_rpy_command = rpy_command_buffer_.back();
@@ -60,41 +60,31 @@ void BaseMPCControllerQuadConnector::usePerfectTimeDiff(double time_diff) {
 }
 
 void BaseMPCControllerQuadConnector::useSensor(
-    SensorPtr<tf::StampedTransform> sensor) {
-  pose_sensor_ = sensor;
-}
-
-double BaseMPCControllerQuadConnector::getTimeDiff() {
-  // Timing logic
-  auto current_time = std::chrono::high_resolution_clock::now();
-  double dt =
-      std::chrono::duration<double>(current_time - previous_measurement_time_)
-          .count();
-  if (config_.use_perfect_time_diff()) {
-    dt = config_.perfect_time_diff();
-  }
-  previous_measurement_time_ = current_time;
-  if (dt < 1e-4) {
-    LOG(WARNING) << "Time diff cannot be smaller than 1e-4";
-    dt = 1e-4;
-  }
-  return dt;
+    SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> sensor) {
+  odom_sensor_ = sensor;
 }
 
 bool BaseMPCControllerQuadConnector::fillQuadStateAndParameters(
-    Eigen::VectorXd &current_state, Eigen::VectorXd &params, double dt) {
+    Eigen::VectorXd &current_state, Eigen::VectorXd &params) {
   // Get Quad data
   parsernode::common::quaddata quad_data;
   drone_hardware_.getquaddata(quad_data);
   tf::Transform quad_pose;
-  if (pose_sensor_) {
-    if (pose_sensor_->getSensorStatus() != SensorStatus::VALID) {
+  Eigen::Vector3d velocity;
+  if (odom_sensor_) {
+    if (odom_sensor_->getSensorStatus() != SensorStatus::VALID) {
       LOG(WARNING) << "Sensor invalid";
       return false;
     }
-    quad_pose = pose_sensor_->getSensorData();
+    auto quad_pose_velocity_pair = odom_sensor_->getSensorData();
+    quad_pose = quad_pose_velocity_pair.first;
+    velocity = Eigen::Vector3d(quad_pose_velocity_pair.second.x(),
+                               quad_pose_velocity_pair.second.y(),
+                               quad_pose_velocity_pair.second.z());
   } else {
     quad_pose = conversions::getPose(quad_data);
+    velocity = Eigen::Vector3d(quad_data.linvel.x, quad_data.linvel.y,
+                               quad_data.linvel.z);
   }
   // Position
   const auto &quad_position = quad_pose.getOrigin();
@@ -102,32 +92,24 @@ bool BaseMPCControllerQuadConnector::fillQuadStateAndParameters(
   Eigen::Vector3d rpy;
   Eigen::Vector3d omega(quad_data.omega.x, quad_data.omega.y,
                         quad_data.omega.z);
+  Eigen::Vector2d roll_pitch_bias = thrust_gain_estimator_.getRollPitchBias();
   // Euler angles
-  if (pose_sensor_) {
+  if (odom_sensor_) {
     rpy = conversions::transformTfToRPY(quad_pose);
   } else {
     rpy = Eigen::Vector3d(quad_data.rpydata.x, quad_data.rpydata.y,
                           quad_data.rpydata.z);
   }
-  // Differentiate:
-  Eigen::Vector3d v;
-  if (previous_measurements_initialized_) {
-    v = (p - previous_measurements_) / dt;
-  } else {
-    v = Eigen::Vector3d::Zero();
-    previous_measurements_initialized_ = true;
-  }
-  Eigen::Vector3d filtered_velocity = velocity_filter_.addAndFilter(v);
+  rpy[0] = quad_data.rpydata.x + roll_pitch_bias[0];
+  rpy[1] = quad_data.rpydata.y + roll_pitch_bias[1];
   Eigen::Vector3d filtered_rpydot =
       rpydot_filter_.addAndFilter(conversions::omegaToRpyDot(omega, rpy));
   // Fill state
   current_state.segment<3>(0) = p;
   current_state.segment<3>(3) = rpy;
-  current_state.segment<3>(6) = filtered_velocity;
+  current_state.segment<3>(6) = velocity;
   current_state.segment<3>(9) = filtered_rpydot;
   current_state.segment<3>(12) = rpy_command_buffer_.front();
-  // Fill previous measurements and time
-  previous_measurements_ = current_state.segment<3>(0);
   // Estimate thrust gain parameter
   tf::Vector3 body_acc(quad_data.linacc.x, quad_data.linacc.y,
                        quad_data.linacc.z);

@@ -103,8 +103,6 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
                            PositionYaw>(position_yaw_goal);
       break;
     case VisualServoingStateMachineConfig::HeadingDepth:
-      // Maybe use relativepose visual servoing drone connector instead of
-      // this??
       VisualServoingTransitionGuardFunctor_<LogicStateMachineT>().guard(
           robot_system);
       break;

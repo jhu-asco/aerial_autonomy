@@ -9,11 +9,12 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
     parsernode::Parser &drone_hardware, ArmParser &arm_hardware,
     AbstractMPCController<StateType, ControlType> &controller,
     ThrustGainEstimator &thrust_gain_estimator, int delay_buffer_size,
-    MPCConnectorConfig config, SensorPtr<tf::StampedTransform> pose_sensor,
+    MPCConnectorConfig config,
+    SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor,
     AbstractConstraintGeneratorPtr constraint_generator)
     : BaseMPCControllerQuadConnector(drone_hardware, controller,
                                      thrust_gain_estimator, delay_buffer_size,
-                                     config, pose_sensor, constraint_generator),
+                                     config, odom_sensor, constraint_generator),
       arm_hardware_(arm_hardware), joint_angle_commands_(2),
       joint_velocity_filter_(config.joint_velocity_exp_gain()),
       previous_joint_measurements_initialized_(false) {
@@ -33,6 +34,7 @@ MPCControllerAirmConnector::MPCControllerAirmConnector(
 }
 
 void MPCControllerAirmConnector::initialize() {
+  previous_measurement_time_ = std::chrono::high_resolution_clock::now();
   previous_joint_measurements_initialized_ = false;
   joint_velocity_filter_.reset();
   clearJointCommandBuffers();
@@ -60,6 +62,23 @@ void MPCControllerAirmConnector::sendControllerCommands(ControlType control) {
   previous_joint_commands_ = control.segment<2>(4);
 }
 
+double MPCControllerAirmConnector::getTimeDiff() {
+  // Timing logic
+  auto current_time = std::chrono::high_resolution_clock::now();
+  double dt =
+      std::chrono::duration<double>(current_time - previous_measurement_time_)
+          .count();
+  if (config_.use_perfect_time_diff()) {
+    dt = config_.perfect_time_diff();
+  }
+  previous_measurement_time_ = current_time;
+  if (dt < 1e-4) {
+    LOG(WARNING) << "Time diff cannot be smaller than 1e-4";
+    dt = 1e-4;
+  }
+  return dt;
+}
+
 bool MPCControllerAirmConnector::estimateStateAndParameters(
     Eigen::VectorXd &current_state, Eigen::VectorXd &params) {
   double dt = getTimeDiff();
@@ -85,7 +104,7 @@ bool MPCControllerAirmConnector::estimateStateAndParameters(
   // Fill previous measurements
   previous_joint_angles_ = joint_angles_vec;
   // Fill Quad stuff
-  bool result = fillQuadStateAndParameters(current_state, params, dt);
+  bool result = fillQuadStateAndParameters(current_state, params);
   if (result) {
     DATA_LOG("airm_mpc_state_estimator")
         << current_state << params[0]

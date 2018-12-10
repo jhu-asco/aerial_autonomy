@@ -44,9 +44,9 @@ uav_system_config {
       Q: 1
       Q: 1
       # RPY
-      Q: 0
-      Q: 0
-      Q: 0
+      Q: 4
+      Q: 4
+      Q: 4
       # Vxyz
       Q: 4
       Q: 4
@@ -160,6 +160,10 @@ uav_system_config {
     kt: 0.18
     buffer_size: 10
     mixing_gain: 0.2
+    max_roll_pitch_bias: 0.02
+    rp_mixing_gain: 0.01
+    init_roll_bias: 0.0
+    init_pitch_bias: -0.015
   }
   odom_sensor_config {
     ros_sensor_config {
