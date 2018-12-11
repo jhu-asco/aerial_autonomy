@@ -7,6 +7,7 @@ import "transform.proto";
 import "tracking_vector_estimator_config.proto";
 import "particle_reference_config.proto";
 import "polynomial_reference_config.proto";
+import "velocity_based_relative_pose_controller_config.proto";
 
 message UAVVisionSystemConfig {
   required ConstantHeadingDepthControllerConfig
@@ -63,4 +64,9 @@ message UAVVisionSystemConfig {
   * @brief polynomial reference config
   */
   optional PolynomialReferenceConfig poly_reference_config = 13;
+  /**
+  * @brief Config for velocity based relative pose UAV controller
+  */
+  optional VelocityBasedRelativePoseControllerConfig
+      velocity_based_relative_pose_controller_config = 14;
 }

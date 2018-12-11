@@ -1,6 +1,7 @@
 #pragma once
 #include "aerial_autonomy/common/conversions.h"
 #include "aerial_autonomy/common/html_utils.h"
+#include "aerial_autonomy/controller_connectors/relative_pose_visual_servoing_controller_drone_connector.h"
 #include "aerial_autonomy/controller_connectors/rpyt_relative_pose_visual_servoing_connector.h"
 #include "aerial_autonomy/controller_connectors/visual_servoing_controller_drone_connector.h"
 #include "aerial_autonomy/controller_connectors/visual_servoing_reference_connector.h"
@@ -8,6 +9,7 @@
 #include "aerial_autonomy/controllers/quad_particle_reference_controller.h"
 #include "aerial_autonomy/controllers/quad_polynomial_reference_controller.h"
 #include "aerial_autonomy/controllers/rpyt_based_relative_pose_controller.h"
+#include "aerial_autonomy/controllers/velocity_based_relative_pose_controller.h"
 #include "aerial_autonomy/estimators/tracking_vector_estimator.h"
 #include "aerial_autonomy/robot_systems/uav_system.h"
 #include "aerial_autonomy/trackers/alvar_tracker.h"
@@ -65,6 +67,10 @@ public:
             config_.uav_vision_system_config()
                 .rpyt_based_relative_pose_controller_config(),
             std::chrono::milliseconds(config_.uav_controller_timer_duration())),
+        velocity_based_relative_pose_controller_(
+            config_.uav_vision_system_config()
+                .velocity_based_relative_pose_controller_config(),
+            std::chrono::milliseconds(config_.uav_controller_timer_duration())),
         quad_reference_generator_(
             config_.uav_vision_system_config().particle_reference_config()),
         quad_poly_reference_generator_(
@@ -72,9 +78,14 @@ public:
         visual_servoing_drone_connector_(*tracker_, *drone_hardware_,
                                          constant_heading_depth_controller_,
                                          camera_transform_),
-        relative_pose_visual_servoing_drone_connector_(
+        rpyt_relative_pose_visual_servoing_drone_connector_(
             *tracker_, *drone_hardware_, rpyt_based_relative_pose_controller_,
             thrust_gain_estimator_, camera_transform_,
+            conversions::protoTransformToTf(config_.uav_vision_system_config()
+                                                .tracking_offset_transform())),
+        velocity_relative_pose_visual_servoing_drone_connector_(
+            *tracker_, *drone_hardware_,
+            velocity_based_relative_pose_controller_, camera_transform_,
             conversions::protoTransformToTf(config_.uav_vision_system_config()
                                                 .tracking_offset_transform())),
         rpyt_visual_servoing_reference_connector_(
@@ -95,7 +106,9 @@ public:
             odom_sensor_) {
     controller_connector_container_.setObject(visual_servoing_drone_connector_);
     controller_connector_container_.setObject(
-        relative_pose_visual_servoing_drone_connector_);
+        rpyt_relative_pose_visual_servoing_drone_connector_);
+    controller_connector_container_.setObject(
+        velocity_relative_pose_visual_servoing_drone_connector_);
     controller_connector_container_.setObject(
         mpc_visual_servoing_reference_connector_);
     controller_connector_container_.setObject(
@@ -241,6 +254,11 @@ private:
   */
   RPYTBasedRelativePoseController rpyt_based_relative_pose_controller_;
   /**
+  * @brief Controller to mantain a relative pose with respect to the object
+  * using velocity commands
+  */
+  VelocityBasedRelativePoseController velocity_based_relative_pose_controller_;
+  /**
    * @brief generates exponential reference trajectory for quad from start to
    * end
    */
@@ -259,7 +277,12 @@ private:
   * @brief Connects relative pose controller ot tracker and UAV
   */
   RPYTRelativePoseVisualServoingConnector
-      relative_pose_visual_servoing_drone_connector_;
+      rpyt_relative_pose_visual_servoing_drone_connector_;
+  /**
+  * @brief Connects velocity relative pose controller ot tracker and UAV
+  */
+  RelativePoseVisualServoingControllerDroneConnector
+      velocity_relative_pose_visual_servoing_drone_connector_;
   /**
    * @brief High level visual servoing connector
    */

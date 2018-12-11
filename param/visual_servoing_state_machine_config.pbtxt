@@ -15,7 +15,7 @@ visual_servoing_state_machine_config {
       }
       yaw: 1.5708
     }
-    connector_type: RPYTRef
+    connector_type: VelPose
 }
 poly_reference_config {
   max_velocity: 0.5
