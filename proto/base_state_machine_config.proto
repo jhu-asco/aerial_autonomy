@@ -2,7 +2,6 @@ syntax = "proto2";
 import "uav_state_machine_config.proto";
 import "visual_servoing_state_machine_config.proto";
 import "mpc_state_machine_config.proto";
-import "particle_reference_config.proto";
 import "polynomial_reference_config.proto";
 
 message BaseStateMachineConfig {
