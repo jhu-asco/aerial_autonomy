@@ -97,8 +97,8 @@ uav_system_config {
       look_ahead_time: 0.2
       # Max cost
       max_cost: 500.0
-      # \todo Gowtham Remove debug after experiments 
-      debug: true
+      # Print debug info from MPC
+      debug: false
     }
 
     goal_position_tolerance: 0.15
