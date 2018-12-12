@@ -13,6 +13,7 @@
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/types/completed_event.h>
 #include <aerial_autonomy/types/object_id.h>
+#include <aerial_autonomy/types/polynomial_reference_trajectory.h>
 #include <aerial_autonomy/types/reset_event.h>
 #include <chrono>
 #include <glog/logging.h>
@@ -64,18 +65,26 @@ struct GrippingInternalActionFunctor_
 };
 
 /**
+ * @brief Check visual servoing status and reset if something goes wrong
+ *
+ * @tparam LogicStateMachineT logic state machine
+ */
+template <class LogicStateMachineT>
+using PrePickInternalActionFunctor_ =
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+        VisualServoingInternalActionFunctor_<LogicStateMachineT, Reset>>>;
+
+/**
 * @brief Logic to check while placing object
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using PlaceInternalActionFunctor_ =
-    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
-        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-        ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, RPYTRelativePoseVisualServoingConnector, true,
-            Reset>>>;
+using PlaceInternalActionFunctor_ = boost::msm::front::ShortingActionSequence_<
+    boost::mpl::vector<UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+                       ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+                       VisualServoingStatus_<LogicStateMachineT, Reset>>>;
 
 /**
 * @brief Check tracking is valid before starting visual servoing and arm is
@@ -90,6 +99,65 @@ struct ArmTrackingGuardFunctor_
     Position tracking_vector;
     return (robot_system_.getTrackingVector(tracking_vector) &&
             robot_system_.enabled());
+  }
+};
+
+/**
+* @brief set noise flag to quad polynomial reference controller
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT, bool flag>
+struct SetNoisePolynomialReference_
+    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  void run(UAVArmSystem &robot_system_) {
+    robot_system_.setNoisePolyReferenceController(flag);
+  }
+};
+
+/**
+* @brief set noise flag to quad polynomial reference controller
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct SetThrustMixingGain_
+    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  void run(UAVArmSystem &robot_system_) {
+    double thrust_gain = (this->state_machine_config_)
+                             .visual_servoing_state_machine_config()
+                             .pick_place_state_machine_config()
+                             .object_pickup_thrust_gain();
+    LOG(INFO) << "Setting thrust gain to " << thrust_gain;
+    robot_system_.setThrustMixingGain(thrust_gain);
+  }
+};
+
+/**
+* @brief set noise flag to quad polynomial reference controller
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct ResetThrustMixingGain_
+    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  void run(UAVArmSystem &robot_system_) {
+    LOG(INFO) << "Resetting thrust mixing gain";
+    robot_system_.resetThrustMixingGain();
+  }
+};
+
+/**
+* @brief set noise flag to quad polynomial reference controller
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct ResetToleranceReferenceController_
+    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  void run(UAVArmSystem &robot_system_) {
+    LOG(INFO) << "Resetting thrust mixing gain";
+    robot_system_.resetReferenceControllerTolerance();
   }
 };
 
@@ -122,7 +190,8 @@ struct VisualServoingArmTransitionActionFunctor_
  * @tparam LogicStateMachineT State machine that contains the functor
  * @tparam TransformIndex Index of goal transform
  */
-template <class LogicStateMachineT, int TransformIndex>
+template <class LogicStateMachineT, int TransformIndex,
+          bool ResetGripper = true>
 struct ArmPoseTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
   void run(UAVArmSystem &robot_system) {
@@ -134,8 +203,10 @@ struct ArmPoseTransitionActionFunctor_
             .Get(TransformIndex);
     robot_system.setGoal<BuiltInPoseControllerArmConnector, tf::Transform>(
         conversions::protoTransformToTf(goal));
-    // Also ensure the gripper is in the right state to grip objects
-    robot_system.resetGripper();
+    if (ResetGripper) {
+      // Also ensure the gripper is in the right state to grip objects
+      robot_system.resetGripper();
+    }
   }
 };
 // \todo Matt Add guard for arm pose goal that checks goal index
@@ -190,12 +261,13 @@ struct GoToWaypointInternalActionFunctor_
         logic_state_machine.process_event(be::Abort());
         return false;
       } else {
-        sendLocalWaypoint(robot_system, waypoint);
+        sendLocalWaypoint(robot_system, waypoint, state.getReferenceConfig(),
+                          state.getPositionToleranceConfig());
       }
     }
     // check controller status
-    ControllerStatus status =
-        robot_system.getStatus<RPYTBasedPositionControllerDroneConnector>();
+    ControllerStatus status = robot_system.getStatus<
+        RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>();
     int tracked_index = state.getTrackedIndex();
     if (status == ControllerStatus::Completed) {
       VLOG(1) << "Reached goal for tracked index: " << tracked_index;
@@ -209,17 +281,24 @@ struct GoToWaypointInternalActionFunctor_
           logic_state_machine.process_event(be::Abort());
           return false;
         } else {
-          sendLocalWaypoint(robot_system, waypoint);
+          sendLocalWaypoint(robot_system, waypoint, state.getReferenceConfig(),
+                            state.getPositionToleranceConfig());
         }
       }
     } else if (status == ControllerStatus::Critical) {
-      LOG(WARNING) << "Controller critical for "
-                   << typeid(RPYTBasedPositionControllerDroneConnector).name();
+      LOG(WARNING)
+          << "Controller critical for "
+          << typeid(
+                 RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>)
+                 .name();
       logic_state_machine.process_event(be::Abort());
       return false;
     } else if (status == ControllerStatus::NotEngaged) {
-      LOG(WARNING) << "Controller not engaged for "
-                   << typeid(RPYTBasedPositionControllerDroneConnector).name();
+      LOG(WARNING)
+          << "Controller not engaged for "
+          << typeid(
+                 RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>)
+                 .name();
       logic_state_machine.process_event(be::Abort());
       return false;
     }
@@ -231,15 +310,26 @@ struct GoToWaypointInternalActionFunctor_
   * @param robot_system Robot to send waypoint to
   * @param way_point Waypoint to send
   */
-  void sendLocalWaypoint(UAVArmSystem &robot_system, PositionYaw way_point) {
-    parsernode::common::quaddata data = robot_system.getUAVData();
-    way_point.x += data.localpos.x;
-    way_point.y += data.localpos.y;
-    way_point.z += data.localpos.z;
+  void sendLocalWaypoint(UAVArmSystem &robot_system, PositionYaw way_point,
+                         PolynomialReferenceConfig reference_config,
+                         PositionControllerConfig goal_tolerance) {
+    tf::StampedTransform quad_pose = robot_system.getPose();
+    way_point.x += quad_pose.getOrigin().x();
+    way_point.y += quad_pose.getOrigin().y();
+    way_point.z += quad_pose.getOrigin().z();
     VLOG(1) << "Waypoint position: " << way_point.x << ", " << way_point.y
             << ", " << way_point.z;
-    robot_system.setGoal<RPYTBasedPositionControllerDroneConnector,
-                         PositionYaw>(way_point);
+    tf::StampedTransform start_pose = robot_system.getPose();
+    PositionYaw start_position_yaw;
+    conversions::tfToPositionYaw(start_position_yaw, start_pose);
+    ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> reference(
+        new PolynomialReferenceTrajectory(way_point, start_position_yaw,
+                                          reference_config));
+    robot_system.setReferenceControllerTolerance(goal_tolerance);
+    robot_system
+        .setGoal<RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
+                 ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>(
+            reference);
   }
 };
 
@@ -357,6 +447,14 @@ struct FollowingWaypointSequence_
   */
   bool controlInitialized() { return control_initialized_; }
 
+  PolynomialReferenceConfig getReferenceConfig() {
+    return config_.poly_reference_config();
+  }
+
+  PositionControllerConfig getPositionToleranceConfig() {
+    return config_.position_controller_config();
+  }
+
 private:
   FollowingWaypointSequenceConfig config_; ///< State config
   int tracked_index_ = StartIndex;         ///< Current tracked index
@@ -397,6 +495,15 @@ struct ReachingPostPickWaypoint_
     FollowingWaypointSequence_<LogicStateMachineT, StartIndex, EndIndex,
                                ObjectId>::on_entry(e, logic_state_machine);
     object_id_ = e;
+    SetThrustMixingGain_<FSM>()(e, logic_state_machine, *this, *this);
+  }
+
+  // On exit reset thrust gain
+  template <class EventT, class FSM>
+  void on_exit(EventT &e, FSM &logic_state_machine) {
+    ResetThrustMixingGain_<FSM>()(e, logic_state_machine, *this, *this);
+    ResetToleranceReferenceController_<FSM>()(e, logic_state_machine, *this,
+                                              *this);
   }
 
 private:
@@ -439,16 +546,57 @@ struct PickControllerStatusCheck_
 
   bool run(UAVArmSystem &robot_system,
            LogicStateMachineT &logic_state_machine) {
-    ControllerStatus status =
-        robot_system.getStatus<RPYTRelativePoseVisualServoingConnector>();
+    auto connector_type = logic_state_machine.base_state_machine_config_
+                              .visual_servoing_state_machine_config()
+                              .connector_type();
+    ControllerStatus visual_servoing_status, lowlevel_status;
+    switch (connector_type) {
+    case VisualServoingStateMachineConfig::RPYTPose:
+      visual_servoing_status = ControllerStatus(ControllerStatus::Completed);
+      lowlevel_status =
+          robot_system.getStatus<RPYTRelativePoseVisualServoingConnector>();
+      break;
+    case VisualServoingStateMachineConfig::RPYTRef:
+      visual_servoing_status = robot_system.getStatus<
+          UAVVisionSystem::RPYTVisualServoingReferenceConnectorT>();
+      lowlevel_status = robot_system.getStatus<
+          RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>();
+      break;
+    case VisualServoingStateMachineConfig::MPC:
+      visual_servoing_status = robot_system.getStatus<
+          UAVVisionSystem::MPCVisualServoingReferenceConnectorT>();
+      lowlevel_status = robot_system.getStatus<MPCControllerQuadConnector>();
+      break;
+    case VisualServoingStateMachineConfig::VelPose:
+      visual_servoing_status = ControllerStatus(ControllerStatus::Completed);
+      lowlevel_status =
+          robot_system
+              .getStatus<RelativePoseVisualServoingControllerDroneConnector>();
+      break;
+    case VisualServoingStateMachineConfig::HeadingDepth:
+      visual_servoing_status = ControllerStatus(ControllerStatus::Completed);
+      lowlevel_status =
+          robot_system.getStatus<VisualServoingControllerDroneConnector>();
+      break;
+    }
     bool grip_status = robot_system.gripStatus();
-    if (status == ControllerStatus::Critical && grip_status) {
+    if ((visual_servoing_status == ControllerStatus::Critical ||
+         lowlevel_status == ControllerStatus::Critical) &&
+        grip_status) {
+      robot_system.abortController(ControllerGroup::HighLevel);
       robot_system.abortController(ControllerGroup::UAV);
       VLOG(1)
           << "Controller critical while gripping is true! Aborting Controller!";
-    } else if ((status == ControllerStatus::Critical ||
-                status == ControllerStatus::NotEngaged) &&
+    } else if ((visual_servoing_status == ControllerStatus::Critical ||
+                lowlevel_status == ControllerStatus::Critical ||
+                lowlevel_status == ControllerStatus::NotEngaged ||
+                visual_servoing_status == ControllerStatus::NotEngaged) &&
                !grip_status) {
+      VLOG(1) << "Visual servoing status: "
+              << visual_servoing_status.statusAsText() << ", "
+              << "Lowlevel status: " << lowlevel_status.statusAsText();
+      robot_system.abortController(ControllerGroup::HighLevel);
+      robot_system.abortController(ControllerGroup::UAV);
       logic_state_machine.process_event(Reset());
       VLOG(1) << "Gripping failed and no controller engaged or controller "
                  "critical. So resetting!";
@@ -568,3 +716,11 @@ private:
    */
   std::chrono::milliseconds grip_timeout_ = std::chrono::milliseconds(0);
 };
+
+template <class LogicStateMachineT>
+using PrePickState_ =
+    BaseState<UAVArmSystem, LogicStateMachineT,
+              PrePickInternalActionFunctor_<LogicStateMachineT>>;
+
+template <class LogicStateMachineT>
+struct PrePlaceState_ : public PlaceState_<LogicStateMachineT> {};

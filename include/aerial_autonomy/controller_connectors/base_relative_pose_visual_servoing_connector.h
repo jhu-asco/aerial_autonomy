@@ -1,4 +1,5 @@
 #pragma once
+#include "aerial_autonomy/log/log.h"
 #include "aerial_autonomy/trackers/base_tracker.h"
 #include <parsernode/parser.h>
 
@@ -39,17 +40,47 @@ public:
    * rotation-compensated
    * frame of the quadrotor
    * @param obect_pose_cam Transform of the object in the camera's frame
+   * @parm body_frame_rotation quad orientation in inertial frame
    * @return Returned tracking pose in rotation compensated frame
    */
   tf::Transform getTrackingTransformRotationCompensatedQuadFrame(
-      tf::Transform object_pose_cam);
+      tf::Transform object_pose_cam, tf::Transform body_frame_rotation);
+  /**
+  * @brief Get the angle between camera z and the marker center
+  *
+  * @param object_pose_cam the transform of marker in camera frame
+  *
+  * @return angle in radians
+  */
+  double getViewingAngle(tf::Transform object_pose_cam) const;
 
-protected:
   /**
    * @brief Get the rotation of the uav body frame
    * @return The rotation transform
    */
   tf::Transform getBodyFrameRotation();
+
+protected:
+  /**
+   * @brief logTrackerData
+   *
+   * Log tracker info to stream
+   * @param stream_name name of logging stream
+   * @param tracking_pose Tracker pose
+   * @param object_pose_cam Object pose in camera frame
+   * @param quad_data Quadrotor sensor data
+   */
+  void logTrackerData(std::string stream_name, tf::Transform tracking_pose,
+                      tf::Transform object_pose_cam,
+                      parsernode::common::quaddata &quad_data);
+
+  /**
+   * @brief logTrackerHeader
+   *
+   * Log tracker header to stream
+   * @param stream_name name of logging stream
+   */
+  void logTrackerHeader(std::string stream_name);
 
   /**
   * @brief Quad hardware to send commands

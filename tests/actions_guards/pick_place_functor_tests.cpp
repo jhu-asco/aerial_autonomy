@@ -52,6 +52,9 @@ protected:
     auto pick_state_machine_config =
         state_machine_config.mutable_visual_servoing_state_machine_config()
             ->mutable_pick_place_state_machine_config();
+
+    state_machine_config.mutable_visual_servoing_state_machine_config()
+        ->set_connector_type(VisualServoingStateMachineConfig::RPYTRef);
     // Arm transform
     setTransform(uav_arm_system_config->mutable_arm_transform(), 0.2, 0, -0.1,
                  M_PI, 0, 0);
@@ -68,11 +71,13 @@ protected:
 
     auto vision_state_machine_config =
         state_machine_config.mutable_visual_servoing_state_machine_config();
-    auto pose_goal = vision_state_machine_config->add_relative_pose_goals();
-    pose_goal->mutable_position()->set_x(pose_goal_.x);
-    pose_goal->mutable_position()->set_y(pose_goal_.y);
-    pose_goal->mutable_position()->set_z(pose_goal_.z);
-    pose_goal->set_yaw(pose_goal_.yaw);
+    for (int i = 0; i < 3; ++i) {
+      auto pose_goal = vision_state_machine_config->add_relative_pose_goals();
+      pose_goal->mutable_position()->set_x(pose_goal_.x);
+      pose_goal->mutable_position()->set_y(pose_goal_.y);
+      pose_goal->mutable_position()->set_z(pose_goal_.z);
+      pose_goal->set_yaw(pose_goal_.yaw);
+    }
 
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
     tf::Transform camera_transform = conversions::protoTransformToTf(
@@ -91,6 +96,9 @@ protected:
     arm_position_tolerance->set_x(.1);
     arm_position_tolerance->set_y(.1);
     arm_position_tolerance->set_z(.1);
+    // Fill quad mpc config
+    auto mpc_config = config.mutable_quad_mpc_controller_config();
+    test_utils::fillQuadMPCConfig(*mpc_config);
     // Fill MPC Config
     test_utils::fillMPCConfig(config);
     simple_tracker.reset(new SimpleTracker(*drone_hardware, camera_transform));
@@ -135,7 +143,7 @@ TEST_F(PickPlaceFunctorTests, CallPickActionFunction) {
   simple_tracker->setTargetPositionGlobalFrame(roi_goal);
   // Test action functor
   psa::PickTransitionGuard pick_place_transition_guard;
-  psa::PickTransitionAction pick_place_transition_action;
+  psa::PrePickTransitionAction pick_place_transition_action;
   int dummy_start_state, dummy_target_state;
   ASSERT_FALSE(uav_arm_system->isHomeLocationSpecified());
   uav_arm_system->power(true);
@@ -146,15 +154,18 @@ TEST_F(PickPlaceFunctorTests, CallPickActionFunction) {
                                dummy_start_state, dummy_target_state);
   ASSERT_TRUE(uav_arm_system->isHomeLocationSpecified());
   // UAV goal
-  PositionYaw uav_goal =
-      uav_arm_system
-          ->getGoal<RPYTRelativePoseVisualServoingConnector, PositionYaw>();
+  PositionYaw uav_goal = uav_arm_system->getGoal<
+      UAVVisionSystem::RPYTVisualServoingReferenceConnectorT, PositionYaw>();
   // Arm goal
   tf::Transform arm_goal =
       uav_arm_system
           ->getGoal<BuiltInPoseControllerArmConnector, tf::Transform>();
   // Check goals
-  ASSERT_EQ(uav_goal, pose_goal_);
+  // ASSERT_EQ(uav_goal, pose_goal_);
+  ASSERT_DOUBLE_EQ(uav_goal.x, pose_goal_.x);
+  ASSERT_DOUBLE_EQ(uav_goal.y, pose_goal_.y);
+  ASSERT_DOUBLE_EQ(uav_goal.z, pose_goal_.z);
+  ASSERT_DOUBLE_EQ(uav_goal.yaw, pose_goal_.yaw);
   ASSERT_TF_NEAR(arm_goal, tf::Transform(tf::Quaternion(0, 0, 0, 1),
                                          tf::Vector3(-0.1, 0, 0)));
 }

@@ -1,0 +1,52 @@
+syntax = "proto2";
+
+import "ddp_mpc_controller_config.proto";
+
+message QuadMPCControllerConfig {
+  /**
+  * @brief ddp parameters
+  */
+  required DDPMPCControllerConfig ddp_config = 1;
+  /**
+  * @brief  roll proportional gain
+  */
+  optional double kp_roll = 2 [ default = 16 ];
+  /**
+  * @brief pitch proportional gain
+  */
+  optional double kp_pitch = 3 [ default = 16 ];
+  /**
+  * @brief derivative roll gain
+  */
+  optional double kd_roll = 4 [ default = 8.17 ];
+  /**
+  * @brief derivative pitch gain
+  */
+  optional double kd_pitch = 5 [ default = 7.0 ];
+  /**
+  * @brief derivative yaw gain
+  */
+  optional double kd_yaw = 6 [ default = 3.33 ];
+  /**
+  * @brief Default thrust gain
+  */
+  optional double default_thrust_gain = 7 [ default = 0.16 ];
+  /**
+  * @brief Goal position tolerance
+  */
+  optional double goal_position_tolerance = 8 [ default = 0.05 ];
+  /**
+  * @brief Goal velocity tolerance
+  */
+  optional double goal_velocity_tolerance = 9 [ default = 0.1 ];
+  /**
+  * @brief Flag to specify use of code generation
+  */
+  optional bool use_code_generation = 10 [ default = true ];
+  repeated double lower_bound_control = 13;
+  repeated double upper_bound_control = 14;
+  /**
+  * @brief Goal yaw tolerance
+  */
+  optional double goal_yaw_tolerance = 15 [ default = 0.1 ];
+}

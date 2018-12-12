@@ -69,12 +69,12 @@ data_stream_configs {
 }
 
 data_stream_configs {
-  stream_id: "mpc_state_estimator"
+  stream_id: "quad_mpc_state_estimator"
   log_rate: 20
 }
 
 data_stream_configs {
-  stream_id: "ddp_mpc_controller"
+  stream_id: "ddp_quad_mpc_controller"
 }
 
 data_stream_configs {
@@ -84,5 +84,17 @@ data_stream_configs {
 
 data_stream_configs {
   stream_id: "arm_sine_controller"
+  log_rate: 20
+}
+data_stream_configs {
+  stream_id: "rpyt_reference_controller"
+  log_rate: 20
+}
+data_stream_configs {
+  stream_id: "rpyt_reference_connector"
+  log_rate: 20
+}
+data_stream_configs {
+  stream_id: "visual_servoing_reference_connector"
   log_rate: 20
 }

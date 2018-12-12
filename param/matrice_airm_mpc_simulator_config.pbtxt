@@ -1,6 +1,6 @@
+mpc_visualization_timer_duration: 50
 uav_arm_system_handler_config {
   arm_controller_timer_duration: 20
-  mpc_visualization_timer_duration: 50
 }
 
 base_config {
@@ -27,6 +27,83 @@ uav_system_config {
       vy: 0.1
       vz: 0.1
     }
+  }
+  quad_mpc_controller_config {
+    default_thrust_gain: 0.16
+    ddp_config {
+      # State cost
+      # XYZ
+      Q: 1
+      Q: 1
+      Q: 1
+      # RPY
+      Q: 0
+      Q: 0
+      Q: 0
+      # Vxyz
+      Q: 4
+      Q: 4
+      Q: 4
+      # RPYdot
+      Q: 0
+      Q: 0
+      Q: 0
+      # RPY_cmd
+      Q: 0
+      Q: 0
+      Q: 0
+      # Terminal gains
+      # XYZ
+      Qf: 10
+      Qf: 10
+      Qf: 10
+      # RPY
+      Qf: 10
+      Qf: 10
+      Qf: 10
+      # Vxyz
+      Qf: 10
+      Qf: 10
+      Qf: 10
+      # RPYdot
+      Qf: 10
+      Qf: 10
+      Qf: 10
+      # RPY_cmd
+      Qf: 0.1
+      Qf: 0.1
+      Qf: 0.1
+      # Control cost
+      # Thrust
+      R: 6.0
+      # Rpyd dot
+      R: 4.0
+      R: 4.0
+      R: 4.0
+      # Trajectory length
+      N: 100
+      # Max iterations
+      max_iters: 2
+      # Min cost decrease
+      min_cost_decrease: 1e-4
+      # Look ahead time
+      look_ahead_time: 0.2
+      # Max cost
+      max_cost: 500.0
+    }
+
+    goal_position_tolerance: 0.15
+    goal_velocity_tolerance: 0.15
+    # Lower bound
+    lower_bound_control: 0.8
+    lower_bound_control: -0.6
+    lower_bound_control: -0.6
+    lower_bound_control: -0.6
+    # Upper bound
+    upper_bound_control: 1.2
+    upper_bound_control: 0.6
+    upper_bound_control: 0.6
+    upper_bound_control: 0.6
   }
 
   rpyt_based_position_controller_config {
@@ -75,6 +152,21 @@ uav_system_config {
     buffer_size: 10
   }
 
+  visualize_mpc_trajectories: true
+  visualizer_config {
+    parent_frame: "/world"
+    trajectory_color {
+      r: 0
+      g: 1
+      b: 0
+    }
+    desired_trajectory_color {
+      r: 1
+      g: 0
+      b: 0
+      a: 0.4
+    }
+  }
   uav_vision_system_config {
     desired_visual_servoing_distance: 0.48
     constant_heading_depth_controller_config {
@@ -104,22 +196,7 @@ uav_system_config {
           goal_rotation_tolerance: 6
         }
         arm_parser_type: "ArmSimulator"
-      }
-      visualize_mpc_trajectories: true
-      visualizer_config {
-        parent_frame: "/world"
-        trajectory_color {
-          r: 0
-          g: 1
-          b: 0
-        }
-        desired_trajectory_color {
-          r: 1
-          g: 0
-          b: 0
-          a: 0.4
-        }
-      }
+      } 
       mpc_controller_config {
         default_thrust_gain: 0.16
         ddp_config {

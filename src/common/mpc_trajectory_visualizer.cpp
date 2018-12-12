@@ -1,22 +1,22 @@
 #include "aerial_autonomy/common/mpc_trajectory_visualizer.h"
 
-MPCTrajectoryVisualizer::MPCTrajectoryVisualizer(ControllerConnector &connector,
-                                                 MPCVisualizerConfig config)
-    : connector_(connector), nh_("mpc_visualizer"),
+MPCTrajectoryVisualizer::MPCTrajectoryVisualizer(MPCVisualizerConfig config)
+    : nh_("mpc_visualizer"),
       visualizer_(nh_, config.parent_frame(), config.visualize_velocities()),
       config_(config) {
   gcop_trajectory_pub_ =
       nh_.advertise<gcop_comm::CtrlTraj>("control_trajectory", 1);
 }
 
-void MPCTrajectoryVisualizer::publishTrajectory() {
-  ControllerStatus status = connector_.getStatus();
+void MPCTrajectoryVisualizer::publishTrajectory(
+    ControllerConnector &connector) {
+  ControllerStatus status = connector.getStatus();
   if (status == ControllerStatus::Active ||
       status == ControllerStatus::Completed) {
-    connector_.getTrajectory(xs_, us_);
+    connector.getTrajectory(xs_, us_);
     gcop_comm::CtrlTraj trajectory =
         getTrajectory(xs_, us_, config_.skip_segments());
-    connector_.getDesiredTrajectory(xds_, uds_);
+    connector.getDesiredTrajectory(xds_, uds_);
     gcop_comm::CtrlTraj desired_trajectory =
         getTrajectory(xds_, uds_, config_.skip_segments());
     const auto &trajectory_color = config_.trajectory_color();
@@ -34,11 +34,12 @@ void MPCTrajectoryVisualizer::publishTrajectory() {
   }
 }
 
-void MPCTrajectoryVisualizer::publishGcopTrajectory() {
-  ControllerStatus status = connector_.getStatus();
+void MPCTrajectoryVisualizer::publishGcopTrajectory(
+    ControllerConnector &connector) {
+  ControllerStatus status = connector.getStatus();
   if (status == ControllerStatus::Active ||
       status == ControllerStatus::Completed) {
-    connector_.getTrajectory(xs_, us_);
+    connector.getTrajectory(xs_, us_);
     gcop_comm::CtrlTraj trajectory =
         getTrajectory(xs_, us_, config_.skip_segments());
     gcop_trajectory_pub_.publish(trajectory);
@@ -46,6 +47,10 @@ void MPCTrajectoryVisualizer::publishGcopTrajectory() {
 }
 gcop_comm::State MPCTrajectoryVisualizer::getState(const Eigen::VectorXd &x) {
   gcop_comm::State state;
+  if (x.size() < 15) {
+    ROS_INFO("State size less than 15: %lu", x.size());
+    return state;
+  }
   state.basepose.translation.x = x[0];
   state.basepose.translation.y = x[1];
   state.basepose.translation.z = x[2];
@@ -54,8 +59,11 @@ gcop_comm::State MPCTrajectoryVisualizer::getState(const Eigen::VectorXd &x) {
   state.basetwist.linear.x = x[6];
   state.basetwist.linear.y = x[7];
   state.basetwist.linear.z = x[8];
-  for (int j = 0; j < 4; ++j) {
-    state.statevector.push_back(x[15 + j]);
+  if (x.size() == 21) {
+    // Joint angles, velocities
+    for (int j = 0; j < 4; ++j) {
+      state.statevector.push_back(x[15 + j]);
+    }
   }
   return state;
 }
@@ -69,14 +77,18 @@ MPCTrajectoryVisualizer::getTrajectory(std::vector<Eigen::VectorXd> &xs,
     const auto &x = xs[i];
     control_trajectory.statemsg.push_back(getState(x));
     gcop_comm::Ctrl control;
-    control.ctrlvec.resize(6);
+    unsigned int us_size = us[i].size();
+    control.ctrlvec.resize(us_size);
     control.ctrlvec[0] = us[i][0]; // thrust
-    for (int j = 0; j < 3; ++j) {
+    for (int j = 0; j < 2; ++j) {
       control.ctrlvec[j + 1] = x[12 + j];
     }
-    // Desired joint angles
-    control.ctrlvec[4] = x[19];
-    control.ctrlvec[4] = x[20];
+    control.ctrlvec[3] = us[i][3]; // yaw rate
+    if (us_size == 6) {
+      // Desired joint angles
+      control.ctrlvec[4] = x[19];
+      control.ctrlvec[5] = x[20];
+    }
     control_trajectory.ctrl.push_back(control);
     // time
     control_trajectory.time.push_back(0.02 * i);

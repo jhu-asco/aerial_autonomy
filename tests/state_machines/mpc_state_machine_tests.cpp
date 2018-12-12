@@ -29,6 +29,8 @@ public:
   MPCStateMachineTests()
       : drone_hardware_(new QuadSimulator), arm_(new ArmSimulator),
         goal_tolerance_position_(0.1) {
+    config_.mutable_rpyt_reference_connector_config()
+        ->set_use_perfect_time_diff(true);
     auto mpc_state_machine_config =
         state_machine_config_.mutable_mpc_state_machine_config();
     auto arm_reference = mpc_state_machine_config->mutable_arm_reference();
@@ -44,8 +46,8 @@ public:
     joint2_config->set_phase(M_PI / 2.0);
     auto spiral_reference =
         mpc_state_machine_config->mutable_spiral_reference();
-    spiral_reference->set_radiusx(1.0);
-    spiral_reference->set_radiusy(1.0);
+    spiral_reference->set_radius_x(1.0);
+    spiral_reference->set_radius_y(1.0);
     spiral_reference->set_frequency(0.01);
     // Waypoint
     auto waypoint_ref = mpc_state_machine_config->mutable_waypoint_reference();
@@ -80,9 +82,7 @@ public:
     rpyt_vel_controller_tol->set_vy(0.1);
     rpyt_vel_controller_tol->set_vz(0.1);
     // Disable Pose sensor since it depends on ros
-    auto uav_arm_system_config = config_.mutable_uav_vision_system_config()
-                                     ->mutable_uav_arm_system_config();
-    uav_arm_system_config->set_visualize_mpc_trajectories(false);
+    config_.set_visualize_mpc_trajectories(false);
     // Fill MPC Config
     test_utils::fillMPCConfig(config_);
 
@@ -120,6 +120,10 @@ public:
     data_config.set_stream_id("velocity_based_relative_pose_controller");
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("thrust_gain_estimator");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("rpyt_reference_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("rpyt_reference_connector");
     Log::instance().addDataStream(data_config);
   }
 

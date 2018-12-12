@@ -12,11 +12,8 @@ bool VelocityBasedRelativePoseController::runImplementation(
   tf::Transform current_pose = std::get<0>(sensor_data);
   tf::Transform desired_pose = std::get<1>(sensor_data) * goal_tf;
 
-  double current_roll, current_pitch, current_yaw;
-  current_pose.getBasis().getRPY(current_roll, current_pitch, current_yaw);
-
-  double desired_roll, desired_pitch, desired_yaw;
-  desired_pose.getBasis().getRPY(desired_roll, desired_pitch, desired_yaw);
+  double current_yaw = tf::getYaw(current_pose.getRotation());
+  double desired_yaw = tf::getYaw(desired_pose.getRotation());
 
   PositionYaw desired_position_yaw(
       desired_pose.getOrigin().getX(), desired_pose.getOrigin().getY(),
@@ -43,19 +40,13 @@ ControllerStatus VelocityBasedRelativePoseController::isConvergedImplementation(
   tf::Transform current_pose = std::get<0>(sensor_data);
   tf::Transform tracked_pose = std::get<1>(sensor_data);
   tf::Transform desired_pose = tracked_pose * goal_tf;
-
-  double current_roll, current_pitch, current_yaw;
-  current_pose.getBasis().getRPY(current_roll, current_pitch, current_yaw);
-
-  double desired_roll, desired_pitch, desired_yaw;
-  desired_pose.getBasis().getRPY(desired_roll, desired_pitch, desired_yaw);
+  double current_yaw = tf::getYaw(current_pose.getRotation());
+  double desired_yaw = tf::getYaw(desired_pose.getRotation());
 
   tf::Transform frame_relative_pose = tracked_pose.inverse() * current_pose;
   tf::Vector3 frame_relative_error =
       frame_relative_pose.getOrigin() - goal_tf.getOrigin();
-  double frame_relative_roll, frame_relative_pitch, frame_relative_yaw;
-  frame_relative_pose.getBasis().getRPY(
-      frame_relative_roll, frame_relative_pitch, frame_relative_yaw);
+  double frame_relative_yaw = tf::getYaw(frame_relative_pose.getRotation());
   double frame_relative_yaw_error =
       math::angleWrap(frame_relative_yaw - goal.yaw);
 

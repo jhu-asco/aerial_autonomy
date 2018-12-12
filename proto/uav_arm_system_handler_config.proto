@@ -6,9 +6,4 @@ message UAVArmSystemHandlerConfig {
   * continously
   */
   optional int32 arm_controller_timer_duration = 1 [ default = 20 ];
-
-  /**
-  * @brief Timestep in milliseconds for mpc visualization
-  */
-  optional int32 mpc_visualization_timer_duration = 2 [ default = 50 ];
 }

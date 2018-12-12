@@ -51,8 +51,9 @@ bool QrotorBacksteppingControllerConnector::extractSensorData(
   sensor_data = std::make_pair(current_time, current_state);
 
   // Estimate thrust_gain
+  tf::Vector3 body_acc(data.linacc.x, data.linacc.y, data.linacc.z);
   thrust_gain_estimator_.addSensorData(current_rpy_(0), current_rpy_(1),
-                                       data.linacc.z);
+                                       body_acc);
 
   return true;
 }

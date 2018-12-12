@@ -19,6 +19,8 @@ public:
     uav_system_handler_config.mutable_uav_system_config()
         ->set_minimum_takeoff_height(0.4);
     auto uav_config = uav_system_handler_config.mutable_uav_system_config();
+    uav_config->mutable_rpyt_reference_connector_config()
+        ->set_use_perfect_time_diff(true);
     uav_config->set_uav_parser_type("quad_simulator_parser/QuadSimParser");
     uav_config->mutable_uav_vision_system_config()
         ->mutable_uav_arm_system_config()
@@ -38,9 +40,9 @@ public:
             ->mutable_goal_position_tolerance();
     pos_controller_config->mutable_position_controller_config()
         ->set_goal_yaw_tolerance(0.1);
-    goal_position_tolerance->set_x(0.1);
-    goal_position_tolerance->set_y(0.1);
-    goal_position_tolerance->set_z(0.1);
+    goal_position_tolerance->set_x(0.05);
+    goal_position_tolerance->set_y(0.05);
+    goal_position_tolerance->set_z(0.05);
     auto rpyt_vel_controller_tol =
         uav_config->mutable_rpyt_based_position_controller_config()
             ->mutable_rpyt_based_velocity_controller_config()

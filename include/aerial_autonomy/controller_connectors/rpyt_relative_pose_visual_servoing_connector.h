@@ -44,24 +44,7 @@ public:
                                                 tracking_offset_transform),
         thrust_gain_estimator_(thrust_gain_estimator),
         private_reference_controller_(controller) {
-    DATA_HEADER("rpyt_relative_pose_visual_servoing_connector")
-        << "vel_x"
-        << "vel_y"
-        << "vel_z"
-        << "roll"
-        << "pitch"
-        << "yaw"
-        << "omega_x"
-        << "omega_y"
-        << "omega_z"
-        << "tracking_x"
-        << "tracking_y"
-        << "tracking_z"
-        << "tracking_r"
-        << "tracking_p"
-        << "tracking_y"
-        << "Viewing_angle"
-        << "Tracking_length" << DataStream::endl;
+    logTrackerHeader("rpyt_relative_pose_visual_servoing_connector");
   }
   /**
    * @brief Destructor
@@ -73,14 +56,6 @@ public:
    * @param goal empty goal
    */
   void setGoal(PositionYaw goal);
-  /**
-  * @brief Get the angle between camera z and the marker center
-  *
-  * @param object_pose_cam the transform of marker in camera frame
-  *
-  * @return angle in radians
-  */
-  double getViewingAngle(tf::Transform object_pose_cam) const;
 
 protected:
   /**

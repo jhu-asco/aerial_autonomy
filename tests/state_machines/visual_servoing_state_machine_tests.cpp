@@ -28,6 +28,9 @@ public:
   VisualServoingStateMachineTests()
       : drone_hardware(new QuadSimulator), goal_tolerance_position_(0.5) {
     drone_hardware->usePerfectTime();
+    drone_hardware->set_delay_send_time(0.02);
+    config.mutable_rpyt_reference_connector_config()->set_use_perfect_time_diff(
+        true);
     auto uav_vision_system_config = config.mutable_uav_vision_system_config();
     uav_vision_system_config->set_desired_visual_servoing_distance(1.0);
     auto depth_config =
@@ -45,6 +48,9 @@ public:
     vs_position_tolerance->set_x(goal_tolerance_position_);
     vs_position_tolerance->set_y(goal_tolerance_position_);
     vs_position_tolerance->set_z(goal_tolerance_position_);
+    // Configure mpc controller
+    auto mpc_config = config.mutable_quad_mpc_controller_config();
+    test_utils::fillQuadMPCConfig(*mpc_config);
 
     // Configure position controller
     auto vel_based_position_controller =
@@ -114,6 +120,9 @@ public:
     pose_goal_position->set_y(0);
     pose_goal_position->set_z(0);
     pose_goal->set_yaw(0);
+    // set connector type
+    state_machine_config.mutable_visual_servoing_state_machine_config()
+        ->set_connector_type(VisualServoingStateMachineConfig::RPYTPose);
 
     tf::Transform camera_transform = conversions::protoTransformToTf(
         uav_vision_system_config->camera_transform());
@@ -136,7 +145,7 @@ public:
              ControllerStatus::Completed;
     };
     ASSERT_TRUE(test_utils::waitUntilTrue()(getUAVStatusRunControllers,
-                                            std::chrono::seconds(1),
+                                            std::chrono::seconds(20),
                                             std::chrono::milliseconds(0)));
   }
 
@@ -153,6 +162,14 @@ public:
     data_config.set_stream_id("rpyt_relative_pose_visual_servoing_connector");
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("velocity_based_relative_pose_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("rpyt_reference_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("rpyt_reference_connector");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("thrust_gain_estimator");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("visual_servoing_reference_connector");
     Log::instance().addDataStream(data_config);
   }
 
@@ -195,9 +212,8 @@ TEST_F(VisualServoingStateMachineTests, VisualServoing) {
   // Check we are in visual servoing state
   ASSERT_STREQ(pstate(*logic_state_machine), "VisualServoing");
   // Check controller status
-  ASSERT_EQ(uav_system->getStatus<RPYTRelativePoseVisualServoingConnector>(),
+  ASSERT_EQ((uav_system->getStatus<RPYTRelativePoseVisualServoingConnector>()),
             ControllerStatus::Active);
-
   runActiveControllerToConvergence();
 
   logic_state_machine->process_event(InternalTransitionEvent());

@@ -28,17 +28,13 @@ public:
         mpc_visualization_timer_(
             std::bind(&UAVArmSystem::visualizeMPC, std::ref(this->uav_system_)),
             std::chrono::milliseconds(
-                config.uav_arm_system_handler_config()
-                    .mpc_visualization_timer_duration())) {
-    if (config.uav_system_config()
-            .uav_vision_system_config()
-            .uav_arm_system_config()
-            .visualize_mpc_trajectories()) {
+                config.mpc_visualization_timer_duration())) {
+    if (config.uav_system_config().visualize_mpc_trajectories()) {
       mpc_visualization_timer_.start();
     }
     this->uav_system_.power(true);
   }
 
 private:
-  AsyncTimer mpc_visualization_timer_; ///< Timer for running arm controller
+  AsyncTimer mpc_visualization_timer_; ///< Timer for visualizing MPC
 };

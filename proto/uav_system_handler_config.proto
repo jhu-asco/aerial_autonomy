@@ -22,4 +22,8 @@ message UAVSystemHandlerConfig {
   oneof subclass {
     UAVArmSystemHandlerConfig uav_arm_system_handler_config = 5;
   }
+  /**
+  * @brief Timestep in milliseconds for mpc visualization
+  */
+  optional int32 mpc_visualization_timer_duration = 6 [ default = 50 ];
 }

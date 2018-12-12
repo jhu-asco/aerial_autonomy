@@ -82,7 +82,7 @@ struct MPCWaypointReferenceTrackingTransition
     goal_position_yaw = goal_position_yaw +
                         PositionYaw(current_position.x(), current_position.y(),
                                     current_position.z(), yaw);
-    WaypointReferenceTrajectoryPtr reference = conversions::createWayPoint(
+    WaypointReferenceTrajectoryPtr reference = conversions::createWaypoint(
         goal_position_yaw, goal_joint1, goal_joint2);
     robot_system.setGoal<MPCControllerAirmConnector,
                          WaypointReferenceTrajectoryPtr>(reference);

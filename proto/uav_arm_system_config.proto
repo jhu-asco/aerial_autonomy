@@ -4,7 +4,6 @@ import "pose_controller_config.proto";
 import "arm_system_config.proto";
 import "transform.proto";
 import "airm_mpc_controller_config.proto";
-import "mpc_visualizer_config.proto";
 
 message UAVArmSystemConfig {
 
@@ -24,15 +23,7 @@ message UAVArmSystemConfig {
   optional ArmSystemConfig arm_system_config = 9;
 
   /**
-  * @brief Visualizing MPC trajectories
-  */
-  optional MPCVisualizerConfig visualizer_config = 10;
-  /**
   * @brief AIRM MPC Controller config
   */
   optional AirmMPCControllerConfig mpc_controller_config = 11;
-  /**
-  * @brief Flag to specify whether to visualize MPC trajectories
-  */
-  optional bool visualize_mpc_trajectories = 12 [ default = false ];
 }

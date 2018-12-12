@@ -17,26 +17,31 @@ parser.add_argument('-s', '--save_folder', type=str, default='./',
                     help='Folder to save final plot')
 parser.add_argument('--tStart', type=float, default=0.0, help='Start time')
 parser.add_argument('--tEnd', type=float, default=1e3, help='End time')
+parser.add_argument('--prefix', type=str, default='airm', help='quad or airm')
 args = parser.parse_args()
 error_df_list = []
 assert(len(args.folders) == len(args.legends))
 
 for iFolder, folder in enumerate(args.folders):
-    state_data = pd.read_csv(os.path.join(folder, 'mpc_state_estimator'))
-    error_data = pd.read_csv(os.path.join(folder, 'ddp_mpc_controller'))
+    state_data = pd.read_csv(os.path.join(args.folder, args.prefix+'_mpc_state_estimator'))
+    error_data = pd.read_csv(os.path.join(args.folder, 'ddp_'+args.prefix+'_mpc_controller'))
     ts = state_data['#Time'].values
     ts1 = (error_data['#Time'].values - ts[0])/1e9
     ts = (ts - ts[0])/1e9
     iStart = np.argmin(np.abs(ts - args.tStart))
     iEnd = np.argmin(np.abs(ts - args.tEnd))
     interp_error_list = []
-    labels = ['Errorx','Errory','Errorz','Errorja1','Errorja2']
+    labels = ['Errorx','Errory','Errorz']
+    if args.prefix == 'airm':
+        labels = labels + ['Errorja1','Errorja2']
     for label in labels:
         interp_error_list.append(np.interp(ts, ts1, error_data[label].values))
     interp_errors = np.vstack(interp_error_list).T
     abs_errors = np.abs(interp_errors)
     folder_label = args.legends[iFolder]
-    readable_labels = ['$p_x$(m)', '$p_y$(m)', '$p_z$(m)', '$r_1$ (rad)', '$r_2$(rad)']
+    readable_labels = ['$p_x$(m)', '$p_y$(m)', '$p_z$(m)']
+    if args.prefix == 'airm':
+        readable_labels = readable_labels + ['$r_1$ (rad)', '$r_2$(rad)']
     df = pd.DataFrame(abs_errors, columns=readable_labels)
     df = df.stack().reset_index()
     df.columns = ['Index', 'Sensor Channels', 'Mean Absolute Error']
