@@ -65,7 +65,16 @@ message StateEstimatorConfig {
   * @brief Max position standard deviation before estimator goes critical
   */
   optional double max_allowed_stdev = 13 [ default = 0.1 ];
+  /**
+  * @brief Namespace for node handle
+  */
   optional string ros_namespace = 14 [ default = "estimator" ];
+  /**
+  * @brief Config for connecting to guidance for velocity
+  */
   optional ROSSensorConfig guidance_sensor_config = 15;
+  /**
+  * @brief Config for connecting to pose sensor (Mocap/VINS)
+  */
   optional ROSSensorConfig pose_sensor_config = 16;
 }
