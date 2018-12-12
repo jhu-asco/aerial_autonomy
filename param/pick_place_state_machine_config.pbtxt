@@ -138,6 +138,7 @@ visual_servoing_state_machine_config {
     }
     object_pickup_thrust_gain: 0.4
   }
+  connector_type: RPYTRef
 }
 poly_reference_config {
   max_velocity: 0.3
