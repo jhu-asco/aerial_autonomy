@@ -2,15 +2,6 @@
 
 #include <glog/logging.h>
 
-bool AlvarTracker::getTrackingVectors(
-    std::unordered_map<uint32_t, tf::Transform> &pose) {
-  if (!trackingIsValid()) {
-    return false;
-  }
-  pose = object_poses_;
-  return true;
-}
-
 bool AlvarTracker::trackingIsValid() {
   bool valid = (ros::Time::now() - last_valid_time_).toSec() < timeout_.count();
   if (!valid) {
@@ -36,7 +27,7 @@ void AlvarTracker::markerCallback(
                     marker_pose.position.z));
     object_poses[marker_msg.markers[i].id] = transform;
   }
-  object_poses_ = object_poses;
+  updateTrackingPoses(object_poses);
 }
 
 bool AlvarTracker::isConnected() { return alvar_sub_.getNumPublishers() > 0; }

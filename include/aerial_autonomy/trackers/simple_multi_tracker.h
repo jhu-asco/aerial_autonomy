@@ -14,13 +14,6 @@ public:
   SimpleMultiTracker(std::unique_ptr<TrackingStrategy> tracking_strategy)
       : BaseTracker(std::move(tracking_strategy)) {}
   /**
-   * @brief Get the tracking vectors
-   * @param pos Returned list of tracking vectors
-   * @return True if successful, false otherwise
-   */
-  virtual bool
-  getTrackingVectors(std::unordered_map<uint32_t, tf::Transform> &pos);
-  /**
   * @brief Check whether tracking is valid
   * @return True if the tracking is valid, false otherwise
   */
@@ -32,10 +25,4 @@ public:
   */
   void
   setTrackingVectors(const std::unordered_map<uint32_t, tf::Transform> &pos);
-
-private:
-  /**
-  * @brief Tracking vectors to return
-  */
-  std::unordered_map<uint32_t, tf::Transform> tracking_vectors_;
 };

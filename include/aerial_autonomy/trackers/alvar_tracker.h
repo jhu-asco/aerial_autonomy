@@ -27,13 +27,6 @@ public:
                                  &AlvarTracker::markerCallback, this)),
         timeout_(timeout) {}
   /**
-   * @brief Get the tracking vectors
-   * @param pos Returned tracking vectors
-   * @return True if successful, false otherwise
-   */
-  virtual bool
-  getTrackingVectors(std::unordered_map<uint32_t, tf::Transform> &pos);
-  /**
   * @brief Check whether tracking is valid
   * @return True if the tracking is valid, false otherwise
   */
@@ -75,10 +68,6 @@ private:
   */
   Atomic<std::chrono::time_point<std::chrono::high_resolution_clock>>
       last_tracking_time_;
-  /**
-  * @brief Stored tracking transforms
-  */
-  Atomic<std::unordered_map<uint32_t, tf::Transform>> object_poses_;
   /**
   * @brief Timeout for valid update
   */

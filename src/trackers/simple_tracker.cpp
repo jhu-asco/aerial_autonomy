@@ -7,14 +7,19 @@ SimpleTracker::SimpleTracker(parsernode::Parser &drone_hardware,
     : BaseTracker(std::move(
           std::unique_ptr<TrackingStrategy>(new SimpleTrackingStrategy()))),
       drone_hardware_(drone_hardware), tracking_valid_(true),
-      camera_transform_(camera_transform) {}
+      camera_transform_(camera_transform),
+      update_tracker_pose_timer_(
+          std::bind(&SimpleTracker::updateRelativePoses, this),
+          std::chrono::milliseconds(10)) {
+  update_tracker_pose_timer_.start();
+}
 
-bool SimpleTracker::getTrackingVectors(
-    std::unordered_map<uint32_t, tf::Transform> &p) {
-  CHECK(p.empty()) << "Tracking vector map not empty";
+void SimpleTracker::updateRelativePoses() {
+  std::lock_guard<std::recursive_mutex> lock(timer_mutex_);
   if (!trackingIsValid()) {
-    return false;
+    return;
   }
+  std::unordered_map<uint32_t, tf::Transform> p;
   parsernode::common::quaddata uav_data;
   drone_hardware_.getquaddata(uav_data);
   tf::Transform quad_tf_global(
@@ -26,26 +31,33 @@ bool SimpleTracker::getTrackingVectors(
     p[target.first] =
         camera_transform_.inverse() * quad_tf_global.inverse() * target.second;
   }
-  return true;
+  updateTrackingPoses(p);
 }
 
 void SimpleTracker::setTargetPosesGlobalFrame(
     std::unordered_map<uint32_t, tf::Transform> &poses) {
+  std::lock_guard<std::recursive_mutex> lock(timer_mutex_);
   target_poses_ = poses;
+  updateRelativePoses();
 }
 
 void SimpleTracker::setTargetPoseGlobalFrame(tf::Transform p) {
+  std::lock_guard<std::recursive_mutex> lock(timer_mutex_);
   target_poses_[0] = p;
+  updateRelativePoses();
 }
 
 void SimpleTracker::setTargetPositionGlobalFrame(Position p) {
+  std::lock_guard<std::recursive_mutex> lock(timer_mutex_);
   target_poses_[0] =
       tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(p.x, p.y, p.z));
+  updateRelativePoses();
 }
 
 bool SimpleTracker::trackingIsValid() { return tracking_valid_; }
 
 void SimpleTracker::setTrackingIsValid(bool is_valid) {
+  std::lock_guard<std::recursive_mutex> lock(timer_mutex_);
   tracking_valid_ = is_valid;
 }
 
