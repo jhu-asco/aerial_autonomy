@@ -41,13 +41,6 @@ public:
             "depth", 1, &RoiToPositionConverter::depthCallback, this)),
         image_subscriber_(it_.subscribe(
             "image", 1, &RoiToPositionConverter::imageCallback, this)) {}
-
-  /**
-   * @brief Get the stored tracking vector
-   * @param pos Returned tracking vectors
-   * @return True if successful, false otherwise
-   */
-  bool getTrackingVectors(std::unordered_map<uint32_t, tf::Transform> &pos);
   /**
    * @brief Get the 3D position of the ROI (in the frame of the
    * camera)
@@ -158,10 +151,6 @@ private:
   */
   Atomic<sensor_msgs::RegionOfInterest> roi_rect_;
   /**
-  * @brief Transform of object in camera frame (meters)
-  */
-  Atomic<tf::Transform> object_pose_;
-  /**
   * @brief Max distance of object from camera (meters)
   * \todo Make this a configurable param
   */
@@ -171,7 +160,6 @@ private:
   * \todo Make this a configurable param
   */
   double foreground_percent_ = 0.25;
-
   /**
   * @brief last time ROI was updated
   */
