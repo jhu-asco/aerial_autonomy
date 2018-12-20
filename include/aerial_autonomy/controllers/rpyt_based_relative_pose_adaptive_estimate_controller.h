@@ -58,7 +58,19 @@ public:
                                        << "delta_vx"
                                        << "delta_vy"
                                        << "delta_vz"
-                                       << "yaw_cmd" << DataStream::endl;
+                                       << "yaw_cmd" 
+                                       << "x_goal"
+                                       << "y_goal" 
+                                       << "z_goal"
+                                       << "x"
+                                       << "y" 
+                                       << "z"
+                                       << "acc_x"
+                                       << "acc_y" 
+                                       << "acc_z"
+                                       << "roll" 
+                                       << "pitch"
+                                       << DataStream::endl;
     Eigen::Vector3d kp(config_.kp_xy(), config_.kp_xy(), config_.kp_z());
     Eigen::Vector3d kd(config_.kd_xy(), config_.kd_xy(), config_.kd_z());
     K_.leftCols<3>() = kp.asDiagonal();
@@ -74,6 +86,18 @@ public:
    * @brief Destructor
    */
   virtual ~RPYTBasedRelativePoseAdaptiveEstimateController() {}
+
+  /**
+  * Set goal
+  */
+  
+  void setGoal(std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> goal) {
+    t0_ = std::chrono::high_resolution_clock::now();
+    Controller<
+          std::tuple<double, double, ParticleState>,
+          std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double>,
+          RollPitchYawThrustAdaptive>::setGoal(goal);
+  }
 
 protected:
   /**

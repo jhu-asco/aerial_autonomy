@@ -57,7 +57,7 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
     control.dm = 0;
   }*/
   // Find body acceleration
-  Eigen::Vector3d world_acc = -K_ * delta_x;
+  Eigen::Vector3d world_acc = -K_ * delta_x + mhat * acc_d;
   world_acc[0] =
       math::clamp(world_acc(0), -config_.max_acc(), config_.max_acc());
   world_acc[1] =
@@ -71,7 +71,7 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
       world_acc[i] = 0;
     }
   }
-  world_acc = mhat * acc_d - mhat * ag_ + world_acc;
+  world_acc = - mhat * ag_ + world_acc;
   Eigen::Vector3d rot_acc;
   rot_acc[0] = world_acc(0) * cos(curr_yaw) + world_acc(1) * sin(curr_yaw);
   rot_acc[1] = -world_acc(0) * sin(curr_yaw) + world_acc(1) * cos(curr_yaw);
@@ -108,8 +108,15 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
 
   // LOG(WARNING) << "M_Hat: " << mhat << " V: " << lyap_V << std::endl;
   DATA_LOG("adaptive_controller")
-      << mhat << lyap_V << delta_x(0) << delta_x(1) << delta_x(2) << delta_x(3)
-      << delta_x(4) << delta_x(5) << (curr_yaw - goal_yaw) << DataStream::endl;
+      << mhat << lyap_V 
+      << delta_x(0) << delta_x(1) << delta_x(2) 
+      << delta_x(3) << delta_x(4) << delta_x(5) 
+      << (curr_yaw - goal_yaw) 
+      << desired_state.p.x << desired_state.p.y << desired_state.p.z 
+      << state.p.x << state.p.y << state.p.z 
+      << world_acc(0) << world_acc(1) << world_acc(2) 
+      << control.r << control.p 
+      << DataStream::endl;
   return true;
 }
 

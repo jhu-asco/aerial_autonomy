@@ -67,5 +67,6 @@ void RPYTRelativePoseAdaptiveEstimateConnector::sendControllerCommands(
 
 void RPYTRelativePoseAdaptiveEstimateConnector::setGoal(
     std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> goal) {
+    previous_time_ = std::chrono::high_resolution_clock::now();
   BaseClass::setGoal(goal);
 }
