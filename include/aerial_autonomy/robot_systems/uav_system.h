@@ -22,8 +22,8 @@
 #include <aerial_autonomy/controller_connectors/rpyt_based_position_controller_drone_connector.h>
 #include <aerial_autonomy/controller_connectors/rpyt_based_position_controller_drone_connector.h>
 #include <aerial_autonomy/sensors/guidance.h>
-#include <aerial_autonomy/sensors/pose_sensor.h>
 #include <aerial_autonomy/sensors/odometry_from_pose_sensor.h>
+#include <aerial_autonomy/sensors/pose_sensor.h>
 #include <aerial_autonomy/sensors/velocity_sensor.h>
 // Load UAV parser
 #include <pluginlib/class_loader.h>
@@ -101,7 +101,8 @@ protected:
   /**
    * @brief pose_sensor_
    */
-  std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>> odom_from_pose_sensor_;
+  std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>>
+      odom_from_pose_sensor_;
 
 private:
   /**
@@ -222,7 +223,8 @@ private:
   static std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>>
   createOdomFromPoseSensor(UAVSystemConfig &config) {
     auto sensor_config = config.odom_sensor_config();
-    std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>> pose_sensor;
+    std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>>
+        pose_sensor;
     if (config.use_mocap_sensor()) {
       VLOG(2) << "Using MOCAP sensor";
       pose_sensor.reset(new OdomFromPoseSensor(sensor_config));
@@ -294,7 +296,8 @@ public:
                 .mhat(),
             config
                 .rpyt_based_relative_pose_adaptive_estimate_controller_config()
-                .min_m(), odom_from_pose_sensor_),
+                .min_m(),
+            odom_from_pose_sensor_),
         home_location_specified_(false) {
     drone_hardware_->initialize();
     // Add control hardware connector containers

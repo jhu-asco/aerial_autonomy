@@ -5,8 +5,9 @@
 * @brief
 */
 bool RPYTRelativePoseAdaptiveEstimateConnector::extractSensorData(
-    std::pair<double, ParticleState> &sensor_data) {
+    std::tuple<double, double, ParticleState> &sensor_data) {
   ParticleState curr_state;
+  double curr_yaw;
   if (odom_sensor_) {
     // Use outside sensor (if valid)
     if (odom_sensor_->getSensorStatus() != SensorStatus::VALID) {
@@ -20,6 +21,10 @@ bool RPYTRelativePoseAdaptiveEstimateConnector::extractSensorData(
     // Linear velocity
     tf::Vector3 vel = quad_pose_velocity_pair.second;
     curr_state.v = Velocity(vel.getX(), vel.getY(), vel.getZ());
+    // Yaw
+    Eigen::Vector3d rpy =
+        conversions::transformTfToRPY(quad_pose_velocity_pair.first);
+    curr_yaw = rpy(2);
   } else {
     // Get quad data from parser
     parsernode::common::quaddata quad_data;
@@ -30,8 +35,10 @@ bool RPYTRelativePoseAdaptiveEstimateConnector::extractSensorData(
     // Linear velocity
     curr_state.v =
         Velocity(quad_data.linvel.x, quad_data.linvel.y, quad_data.linvel.z);
+    // Yaw
+    curr_yaw = quad_data.rpydata.z;
   }
-  sensor_data = std::make_pair(mhat, curr_state);
+  sensor_data = std::make_tuple(mhat, curr_yaw, curr_state);
   return true;
 }
 
@@ -55,7 +62,7 @@ void RPYTRelativePoseAdaptiveEstimateConnector::sendControllerCommands(
   rpyt_msg.y = controls.p;
   rpyt_msg.z = controls.y;
   rpyt_msg.w = controls.t;
-  drone_hardware_.cmdrpythrust(rpyt_msg);
+  drone_hardware_.cmdrpyawratethrust(rpyt_msg);
 }
 
 void RPYTRelativePoseAdaptiveEstimateConnector::setGoal(

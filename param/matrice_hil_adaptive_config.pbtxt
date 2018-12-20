@@ -5,9 +5,11 @@ base_config {
 }
 
 uav_system_config {
-  uav_parser_type: "dji_parser/DjiParser"
+  #uav_parser_type: "dji_parser/DjiParser"
+  uav_parser_type: "quad_simulator_parser/QuadSimParser"
   uav_controller_timer_duration: 20
-  use_mocap_sensor: true
+  #use_mocap_sensor: true
+  use_mocap_sensor: false
   minimum_battery_percent: 20
   minimum_takeoff_height: 0.5
   landing_height: 0.1
@@ -110,9 +112,14 @@ uav_system_config {
     tolerance_pos: 0.1
     tolerance_vel: 0.1
     tolerance_acc: 0.1
-    mhat: 4.75
+    tolerance_yaw: 0.1
+    mhat: 6.0
     min_m: 3.0
     max_dm: 1.0
+    max_acc: 1000.0
+    max_vel: 0.5
+    k_yaw: 1.0
+    yaw_rate_max: 1.0
   }
   thrust_gain_estimator_config {
     kt: 0.18

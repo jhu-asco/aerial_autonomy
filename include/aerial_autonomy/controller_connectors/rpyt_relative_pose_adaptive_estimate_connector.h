@@ -1,4 +1,5 @@
 #pragma once
+#include "aerial_autonomy/common/conversions.h"
 #include "aerial_autonomy/common/math.h"
 #include "aerial_autonomy/controller_connectors/base_controller_connector.h"
 #include "aerial_autonomy/controllers/rpyt_based_relative_pose_adaptive_estimate_controller.h"
@@ -19,7 +20,7 @@
  */
 class RPYTRelativePoseAdaptiveEstimateConnector
     : public ControllerConnector<
-          std::pair<double, ParticleState>,
+          std::tuple<double, double, ParticleState>,
           std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double>,
           RollPitchYawThrustAdaptive> {
 public:
@@ -60,7 +61,8 @@ protected:
    *
    * @return true if able to compute transforms
    */
-  virtual bool extractSensorData(std::pair<double, ParticleState> &sensor_data);
+  virtual bool
+  extractSensorData(std::tuple<double, double, ParticleState> &sensor_data);
 
   /**
    * @brief Send velocity commands to hardware
@@ -74,7 +76,7 @@ private:
    * @brief Base class typedef to simplify code
    */
   using BaseClass = ControllerConnector<
-      std::pair<double, ParticleState>,
+      std::tuple<double, double, ParticleState>,
       std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double>,
       RollPitchYawThrustAdaptive>;
   /**

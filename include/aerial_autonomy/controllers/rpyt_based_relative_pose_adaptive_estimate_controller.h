@@ -22,7 +22,7 @@
  */
 class RPYTBasedRelativePoseAdaptiveEstimateController
     : public Controller<
-          std::pair<double, ParticleState>,
+          std::tuple<double, double, ParticleState>,
           std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double>,
           RollPitchYawThrustAdaptive> {
 public:
@@ -85,7 +85,7 @@ protected:
    * @return True if controller is successful in running
    */
   virtual bool runImplementation(
-      std::pair<double, ParticleState> sensor_data,
+      std::tuple<double, double, ParticleState> sensor_data,
       std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> goal,
       RollPitchYawThrustAdaptive &control);
   /**
@@ -97,7 +97,7 @@ protected:
   * @return controller status that contains an enum and debug information.
   */
   virtual ControllerStatus isConvergedImplementation(
-      std::pair<double, ParticleState> sensor_data,
+      std::tuple<double, double, ParticleState> sensor_data,
       std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> goal);
 
 private:

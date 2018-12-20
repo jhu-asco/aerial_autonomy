@@ -4,9 +4,11 @@
 #include <glog/logging.h>
 
 bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
-    std::pair<double, ParticleState> sensor_data,
+    std::tuple<double, double, ParticleState> sensor_data,
     std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> goal,
     RollPitchYawThrustAdaptive &control) {
+  // Get the current yaw
+  double curr_yaw = std::get<1>(sensor_data);
   // Get the current mhat
   double mhat = std::get<0>(sensor_data);
   // Get the goal state
@@ -23,9 +25,9 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
     LOG(WARNING) << e.what() << std::endl;
     return false;
   }
-  double yaw = std::get<1>(goal);
+  double goal_yaw = std::get<1>(goal);
   // Get the current state
-  ParticleState state = std::get<1>(sensor_data);
+  ParticleState state = std::get<2>(sensor_data);
   // Unpack into Eigen structures
   Eigen::Vector3d p(state.p.x, state.p.y, state.p.z);
   Eigen::Vector3d p_d(desired_state.p.x, desired_state.p.y, desired_state.p.z);
@@ -55,10 +57,24 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
     control.dm = 0;
   }*/
   // Find body acceleration
-  auto world_acc = (mhat * acc_d - mhat * ag_ - K_ * delta_x);
+  Eigen::Vector3d world_acc = -K_ * delta_x;
+  world_acc[0] =
+      math::clamp(world_acc(0), -config_.max_acc(), config_.max_acc());
+  world_acc[1] =
+      math::clamp(world_acc(1), -config_.max_acc(), config_.max_acc());
+  world_acc[2] =
+      math::clamp(world_acc(2), -config_.max_acc(), config_.max_acc());
+  for (int i = 0; i < 3; i++) {
+    if ((delta_v(i) > config_.max_vel() && world_acc(i) > 0) ||
+        (delta_v(i) < -config_.max_vel() && world_acc(i) < 0)) {
+      LOG(WARNING) << "Velocity Bound Reached: " << i;
+      world_acc[i] = 0;
+    }
+  }
+  world_acc = mhat * acc_d - mhat * ag_ + world_acc;
   Eigen::Vector3d rot_acc;
-  rot_acc[0] = world_acc(0) * cos(yaw) + world_acc(1) * sin(yaw);
-  rot_acc[1] = -world_acc(0) * sin(yaw) + world_acc(1) * cos(yaw);
+  rot_acc[0] = world_acc(0) * cos(curr_yaw) + world_acc(1) * sin(curr_yaw);
+  rot_acc[1] = -world_acc(0) * sin(curr_yaw) + world_acc(1) * cos(curr_yaw);
   rot_acc[2] = world_acc(2);
   // Find thrust
   control.t = rot_acc.norm();
@@ -84,24 +100,30 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
       math::clamp(control.t, config_.min_thrust(), config_.max_thrust());
   control.r = math::clamp(control.r, -config_.max_rp(), config_.max_rp());
   control.p = math::clamp(control.p, -config_.max_rp(), config_.max_rp());
-  control.y = yaw;
+  control.y = -config_.k_yaw() * (math::angleWrap(curr_yaw - goal_yaw));
+  control.y =
+      math::clamp(control.y, -config_.yaw_rate_max(), config_.yaw_rate_max());
   double lyap_V = (0.5 * (delta_x.transpose() * P_ * delta_x)).norm();
   lyap_V += 0.5 * (mhat - 6) * (mhat - 6) / (km);
 
   // LOG(WARNING) << "M_Hat: " << mhat << " V: " << lyap_V << std::endl;
   DATA_LOG("adaptive_controller")
-      << mhat << " " << lyap_V << " " << delta_x(0) << " " << delta_x(1) << " "
-      << delta_x(2) << " " << delta_x(3) << " " << delta_x(4) << " "
-      << delta_x(5) << " " << yaw << " " << DataStream::endl;
+      << mhat << lyap_V << delta_x(0) << delta_x(1) << delta_x(2) << delta_x(3)
+      << delta_x(4) << delta_x(5) << (curr_yaw - goal_yaw) << DataStream::endl;
   return true;
 }
 
 ControllerStatus
 RPYTBasedRelativePoseAdaptiveEstimateController::isConvergedImplementation(
-    std::pair<double, ParticleState> sensor_data,
+    std::tuple<double, double, ParticleState> sensor_data,
     std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> goal) {
+  // Get the current and goal yaw
+  double curr_yaw = std::get<1>(sensor_data);
+  double goal_yaw = std::get<1>(goal);
+  double delta_yaw = math::angleWrap(curr_yaw - goal_yaw);
+  // Get the current state
   ControllerStatus status = ControllerStatus::Active;
-  ParticleState state = std::get<1>(sensor_data);
+  ParticleState state = std::get<2>(sensor_data);
   // Get the goal state
   ParticleState desired_state;
   auto current_time = std::chrono::high_resolution_clock::now();
@@ -130,6 +152,7 @@ RPYTBasedRelativePoseAdaptiveEstimateController::isConvergedImplementation(
          << delta_p(1) << delta_p(2);
   if (delta_p.norm() < config_.tolerance_pos() &&
       delta_v.norm() < config_.tolerance_vel() &&
+      delta_yaw < config_.tolerance_yaw() &&
       acc_d.norm() < config_.tolerance_acc()) {
     status.setStatus(ControllerStatus::Completed);
   }

@@ -27,7 +27,9 @@ public:
   * @return sensor measurement
   */
   std::pair<tf::StampedTransform, tf::Vector3> getSensorData();
-  std::pair<tf::StampedTransform, tf::Vector3> getTransformedSensorData() { return getSensorData();}
+  std::pair<tf::StampedTransform, tf::Vector3> getTransformedSensorData() {
+    return getSensorData();
+  }
 
   /**
   * @brief Get the status of the sensor
