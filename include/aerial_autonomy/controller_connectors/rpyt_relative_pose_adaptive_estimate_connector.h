@@ -88,6 +88,9 @@ private:
   * @brief Internal estimate of mass parameter mhat
   */
   double mhat;
+  /**
+  * @brief Minimum allowable m_hat
+  */
   double min_m_;
   /**
   * @brief Time when the last sendControllerCommands is called
