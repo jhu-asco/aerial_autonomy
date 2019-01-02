@@ -6,8 +6,7 @@
 class MPCTrajectoryVisualizerTests : public MPCControllerAirmConnectorTests {
 public:
   MPCTrajectoryVisualizerTests() : MPCControllerAirmConnectorTests() {
-    visualizer_.reset(
-        new MPCTrajectoryVisualizer(*controller_connector_, visualizer_config));
+    visualizer_.reset(new MPCTrajectoryVisualizer(visualizer_config));
     visualize_traj_sub_ =
         nh_.subscribe("/desired_traj", 2,
                       &MPCTrajectoryVisualizerTests::markerSubscribe, this);
@@ -36,7 +35,7 @@ protected:
     init_position.z = initial_state.z;
     drone_hardware_.cmdwaypoint(init_position, initial_state.yaw);
     arm_simulator_.setJointAngles(init_joint_angles);
-    controller_connector_->setGoal(conversions::createWayPoint(
+    controller_connector_->setGoal(conversions::createWaypoint(
         goal, goal_joint_angles[0], goal_joint_angles[1]));
     controller_connector_->run();
   }
@@ -52,7 +51,7 @@ protected:
 };
 
 TEST_F(MPCTrajectoryVisualizerTests, testNotEngagedControlTrajectory) {
-  visualizer_->publishGcopTrajectory();
+  visualizer_->publishGcopTrajectory(*controller_connector_);
   auto checkControlTrajectory = [&]() {
     ros::spinOnce();
     return (controller_config_.ddp_config().n() == received_ctrl_traj_.N);
@@ -65,7 +64,7 @@ TEST_F(MPCTrajectoryVisualizerTests, testNotEngagedControlTrajectory) {
 TEST_F(MPCTrajectoryVisualizerTests, testActiveControlTrajectory) {
   enableConnector(PositionYaw(0, 0, 0, 0), PositionYaw(1, 1, 1.5, 0.5),
                   {-0.8, 1.4}, {-0.6, 1.0});
-  visualizer_->publishGcopTrajectory();
+  visualizer_->publishGcopTrajectory(*controller_connector_);
   auto checkControlTrajectory = [&]() {
     ros::spinOnce();
     return (received_ctrl_traj_.ctrl.size() == received_ctrl_traj_.N);
@@ -78,7 +77,7 @@ TEST_F(MPCTrajectoryVisualizerTests, testActiveControlTrajectory) {
 TEST_F(MPCTrajectoryVisualizerTests, testActiveVisualizeTrajectory) {
   enableConnector(PositionYaw(0, 0, 0, 0), PositionYaw(1, 1, 1.5, 0.5),
                   {-0.8, 1.4}, {-0.6, 1.0});
-  visualizer_->publishTrajectory();
+  visualizer_->publishTrajectory(*controller_connector_);
   auto checkVisualizeTrajectory = [&]() {
     ros::spinOnce();
     return (received_messages_.size() == 2);

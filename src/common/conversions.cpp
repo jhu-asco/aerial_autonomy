@@ -59,7 +59,7 @@ Eigen::MatrixXd armaToEigen(const arma::mat &m) {
 }
 
 std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>>
-createWayPoint(PositionYaw goal, double desired_joint_angle_1,
+createWaypoint(PositionYaw goal, double desired_joint_angle_1,
                double desired_joint_angle_2) {
   std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>> waypoint;
   Eigen::VectorXd goal_control(6);
@@ -101,8 +101,8 @@ std::vector<double> vectorEigenToStd(const Eigen::VectorXd &vec_eigen) {
 }
 
 std::pair<double, double>
-accelerationToRollPitch(double yaw, Eigen::Vector3d acceleration_vector) {
-  const double epsilon = 1e-6;
+accelerationToRollPitch(double yaw, Eigen::Vector3d acceleration_vector,
+                        const double &epsilon) {
   double roll, pitch;
   Eigen::Vector3d unit_vec = acceleration_vector.normalized();
   double s_yaw = sin(yaw);

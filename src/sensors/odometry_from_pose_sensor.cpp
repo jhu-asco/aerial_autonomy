@@ -26,10 +26,9 @@ void OdomFromPoseSensor::poseCallback(
     if (tdiff < 1e-3) {
       tdiff = 1e-3;
     }
-    /*if (tdiff >= 0.02) {
+    if (tdiff >= 0.05) {
       LOG(WARNING) << "Tdiff too big: " << tdiff;
     }
-    */
     tf::Vector3 velocity =
         (pose_out.getOrigin() - previous_pose.getOrigin()) / tdiff;
     velocity_ = velocity_filter_.addAndFilter(velocity);

@@ -72,8 +72,7 @@ protected:
     // Fill MPC Config
     test_utils::fillMPCConfig(config);
     // Set visualization to false
-    uav_vision_system_config->mutable_uav_arm_system_config()
-        ->set_visualize_mpc_trajectories(false);
+    config.set_visualize_mpc_trajectories(false);
     uav_system.reset(new UAVArmSystem(
         config, std::dynamic_pointer_cast<BaseTracker>(simple_tracker),
         std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware),

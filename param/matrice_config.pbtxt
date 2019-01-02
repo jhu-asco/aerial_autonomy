@@ -6,6 +6,9 @@ base_config {
 
 uav_system_config {
   uav_parser_type: "quad_simulator_parser/QuadSimParser"
+  #uav_parser_type: "dji_parser/DjiParser"
+  use_mocap_sensor: true
+  #use_mocap_sensor: false
   uav_controller_timer_duration: 20
   minimum_battery_percent: 20
   minimum_takeoff_height: 0.5
@@ -116,5 +119,11 @@ uav_system_config {
   thrust_gain_estimator_config {
     kt: 0.18
     buffer_size: 10
+  }
+  odom_sensor_config {
+    ros_sensor_config {
+      topic: "/vrpn_client/matrice/pose"
+    }
+    velocity_filter_gain: 0.5
   }
 }

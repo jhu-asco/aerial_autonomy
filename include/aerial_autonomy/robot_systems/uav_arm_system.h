@@ -1,6 +1,5 @@
 #pragma once
 #include "aerial_autonomy/common/conversions.h"
-#include "aerial_autonomy/common/mpc_trajectory_visualizer.h"
 #include "aerial_autonomy/controller_connectors/mpc_controller_airm_connector.h"
 #include "aerial_autonomy/controller_connectors/visual_servoing_controller_arm_connector.h"
 #include "aerial_autonomy/controllers/ddp_airm_mpc_controller.h"
@@ -49,15 +48,7 @@ public:
         mpc_connector_(*drone_hardware_, *arm_hardware_, mpc_controller_,
                        thrust_gain_estimator_,
                        config.thrust_gain_estimator_config().buffer_size(),
-                       pose_sensor_) {
-    if (config_.uav_vision_system_config()
-            .uav_arm_system_config()
-            .visualize_mpc_trajectories()) {
-      mpc_visualizer_.reset(new MPCTrajectoryVisualizer(
-          mpc_connector_, config_.uav_vision_system_config()
-                              .uav_arm_system_config()
-                              .visualizer_config()));
-    }
+                       config.mpc_connector_config(), odom_sensor_) {
     controller_connector_container_.setObject(visual_servoing_arm_connector_);
     controller_connector_container_.setObject(mpc_connector_);
   }
@@ -89,7 +80,7 @@ public:
   */
   void visualizeMPC() {
     if (mpc_visualizer_) {
-      mpc_visualizer_->publishTrajectory();
+      mpc_visualizer_->publishTrajectory(mpc_connector_);
     }
   }
 
@@ -114,8 +105,4 @@ private:
    * @brief mpc_connector_
    */
   MPCControllerAirmConnector mpc_connector_;
-  /**
-   * @brief mpc trajectory visualizer
-   */
-  std::unique_ptr<MPCTrajectoryVisualizer> mpc_visualizer_;
 };

@@ -25,7 +25,7 @@ bool RPYTBasedRelativePoseController::runImplementation(
 
 ControllerStatus RPYTBasedRelativePoseController::isConvergedImplementation(
     std::tuple<tf::Transform, tf::Transform, VelocityYawRate> sensor_data,
-    PositionYaw goal) {
+    PositionYaw) {
   tf::Transform current_transform = std::get<0>(sensor_data);
   auto transform_tuple =
       std::make_tuple(current_transform, std::get<1>(sensor_data));

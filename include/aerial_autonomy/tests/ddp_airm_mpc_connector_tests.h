@@ -43,6 +43,13 @@ public:
     LogConfig log_config;
     log_config.set_directory("/tmp/data");
     Log::instance().configure(log_config);
+    DataStreamConfig data_config;
+    data_config.set_stream_id("ddp_mpc_controller");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("thrust_gain_estimator");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("airm_mpc_state_estimator");
+    Log::instance().addDataStream(data_config);
   }
 
   /**
@@ -69,7 +76,7 @@ public:
     init_position.z = initial_state.z;
     drone_hardware_.cmdwaypoint(init_position, initial_state.yaw);
     arm_simulator_.setJointAngles(init_joint_angles);
-    controller_connector_->setGoal(conversions::createWayPoint(
+    controller_connector_->setGoal(conversions::createWaypoint(
         goal, goal_joint_angles[0], goal_joint_angles[1]));
     auto runController = [&]() {
       controller_connector_->run();

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+  <node pkg="aerial_autonomy" type="quad_mpc_controller_tuner" name="quad_mpc_controller_tuner" output="screen">
+    <remap from="/mpc_visualizer/control_trajectory" to="/ctrltraj"/>
+    <env name="GLOG_alsologtostderr" value="1"/>
+  </node>
+</launch>

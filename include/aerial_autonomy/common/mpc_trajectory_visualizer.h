@@ -21,12 +21,11 @@ public:
   * @param connector mpc controller connector
   * @param config visualizer specific config
   */
-  MPCTrajectoryVisualizer(ControllerConnector &connector,
-                          MPCVisualizerConfig config);
+  MPCTrajectoryVisualizer(MPCVisualizerConfig config);
   /**
   * @brief publish trajectory and desired trajectory to rviz and rostopic
   */
-  void publishTrajectory();
+  void publishTrajectory(ControllerConnector &connector);
   /**
   * @brief Convert a vector of states into gcop comm trajectory
   *
@@ -43,11 +42,10 @@ public:
   /**
   * @brief publish the current trajectory to rostopic
   */
-  void publishGcopTrajectory();
+  void publishGcopTrajectory(ControllerConnector &connector);
 
 private:
-  ControllerConnector &connector_; ///< MPC Connector
-  ros::NodeHandle nh_;             ///< Nodehandle to publish gcop trajectories
+  ros::NodeHandle nh_; ///< Nodehandle to publish gcop trajectories
   ros::Publisher gcop_trajectory_pub_; ///< Publisher for gcop trajectories
   GcopTrajectoryVisualizer
       visualizer_; ///< Visualizer helper for publishing trajectories to Rviz

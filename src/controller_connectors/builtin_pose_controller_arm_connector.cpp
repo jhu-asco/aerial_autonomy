@@ -12,9 +12,17 @@ bool BuiltInPoseControllerArmConnector::extractSensorData(
 
 void BuiltInPoseControllerArmConnector::sendControllerCommands(
     tf::Transform pose) {
-  Eigen::Affine3d pose_eig;
+  /*Eigen::Affine3d pose_eig;
   tf::transformTFToEigen(pose, pose_eig);
   if (!arm_hardware_.setEndEffectorPose(pose_eig.matrix())) {
     LOG_EVERY_N(WARNING, 50) << "End effector not in workspace";
   }
+  */
+}
+
+void BuiltInPoseControllerArmConnector::initialize() {
+  tf::Transform goal_pose = getGoal();
+  Eigen::Affine3d pose_eig;
+  tf::transformTFToEigen(goal_pose, pose_eig);
+  arm_hardware_.setEndEffectorPose(pose_eig.matrix());
 }

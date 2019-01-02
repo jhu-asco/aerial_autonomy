@@ -16,3 +16,8 @@ param/log_config.pbtxt
 *.creator
 *.creator.user
 *.files
+*TODO*
+*.bak
+*.eps
+*.png
+*.tar.gz

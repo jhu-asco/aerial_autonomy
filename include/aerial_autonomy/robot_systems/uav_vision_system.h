@@ -1,14 +1,20 @@
 #pragma once
 #include "aerial_autonomy/common/conversions.h"
 #include "aerial_autonomy/common/html_utils.h"
+#include "aerial_autonomy/controller_connectors/relative_pose_visual_servoing_controller_drone_connector.h"
 #include "aerial_autonomy/controller_connectors/rpyt_relative_pose_visual_servoing_connector.h"
 #include "aerial_autonomy/controller_connectors/visual_servoing_controller_drone_connector.h"
+#include "aerial_autonomy/controller_connectors/visual_servoing_reference_connector.h"
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
+#include "aerial_autonomy/controllers/quad_particle_reference_controller.h"
+#include "aerial_autonomy/controllers/quad_polynomial_reference_controller.h"
 #include "aerial_autonomy/controllers/rpyt_based_relative_pose_controller.h"
+#include "aerial_autonomy/controllers/velocity_based_relative_pose_controller.h"
 #include "aerial_autonomy/estimators/tracking_vector_estimator.h"
 #include "aerial_autonomy/robot_systems/uav_system.h"
 #include "aerial_autonomy/trackers/alvar_tracker.h"
 #include "aerial_autonomy/trackers/roi_to_position_converter.h"
+#include "aerial_autonomy/trackers/simulated_ros_tracker.h"
 #include "uav_system_config.pb.h"
 
 #include <tf/tf.h>
@@ -25,6 +31,19 @@ protected:
 
 public:
   /**
+   * @brief Shortcut for visual servoing reference connector
+   *
+   * with dependent mpc connector
+   */
+  using RPYTVisualServoingReferenceConnectorT =
+      VisualServoingReferenceConnector<
+          Eigen::VectorXd, Eigen::VectorXd,
+          RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>;
+
+  using MPCVisualServoingReferenceConnectorT = VisualServoingReferenceConnector<
+      Eigen::VectorXd, Eigen::VectorXd,
+      MPCControllerConnector<Eigen::VectorXd, Eigen::VectorXd>>;
+  /**
   * @brief Constructor
   * @param config Configuration parameters
   * @param tracker Used to track targets for visual servoing. If provided, will
@@ -34,11 +53,13 @@ public:
   * config file
   */
   UAVVisionSystem(UAVSystemConfig config, BaseTrackerPtr tracker = nullptr,
-                  UAVParserPtr drone_hardware = nullptr)
-      : UAVSystem(config, drone_hardware),
+                  UAVParserPtr drone_hardware = nullptr,
+                  SensorPtr<Velocity> velocity_sensor = nullptr)
+      : UAVSystem(config, drone_hardware, velocity_sensor),
         camera_transform_(conversions::protoTransformToTf(
             config_.uav_vision_system_config().camera_transform())),
-        tracker_(UAVVisionSystem::chooseTracker(tracker, config)),
+        tracker_(UAVVisionSystem::chooseTracker(tracker, drone_hardware_,
+                                                camera_transform_, config)),
         constant_heading_depth_controller_(
             config_.uav_vision_system_config()
                 .constant_heading_depth_controller_config()),
@@ -46,17 +67,52 @@ public:
             config_.uav_vision_system_config()
                 .rpyt_based_relative_pose_controller_config(),
             std::chrono::milliseconds(config_.uav_controller_timer_duration())),
+        velocity_based_relative_pose_controller_(
+            config_.uav_vision_system_config()
+                .velocity_based_relative_pose_controller_config(),
+            std::chrono::milliseconds(config_.uav_controller_timer_duration())),
+        quad_reference_generator_(
+            config_.uav_vision_system_config().particle_reference_config()),
+        quad_poly_reference_generator_(
+            config_.uav_vision_system_config().poly_reference_config()),
         visual_servoing_drone_connector_(*tracker_, *drone_hardware_,
                                          constant_heading_depth_controller_,
                                          camera_transform_),
-        relative_pose_visual_servoing_drone_connector_(
+        rpyt_relative_pose_visual_servoing_drone_connector_(
             *tracker_, *drone_hardware_, rpyt_based_relative_pose_controller_,
             thrust_gain_estimator_, camera_transform_,
             conversions::protoTransformToTf(config_.uav_vision_system_config()
-                                                .tracking_offset_transform())) {
+                                                .tracking_offset_transform())),
+        velocity_relative_pose_visual_servoing_drone_connector_(
+            *tracker_, *drone_hardware_,
+            velocity_based_relative_pose_controller_, camera_transform_,
+            conversions::protoTransformToTf(config_.uav_vision_system_config()
+                                                .tracking_offset_transform())),
+        rpyt_visual_servoing_reference_connector_(
+            *tracker_, *drone_hardware_, quad_poly_reference_generator_,
+            rpyt_based_reference_connector_, camera_transform_,
+            conversions::protoTransformToTf(
+                config_.uav_vision_system_config().tracking_offset_transform()),
+            config_.uav_vision_system_config()
+                .gain_visual_servoing_tracking_pose(),
+            odom_sensor_),
+        mpc_visual_servoing_reference_connector_(
+            *tracker_, *drone_hardware_, quad_poly_reference_generator_,
+            quad_mpc_connector_, camera_transform_,
+            conversions::protoTransformToTf(
+                config_.uav_vision_system_config().tracking_offset_transform()),
+            config_.uav_vision_system_config()
+                .gain_visual_servoing_tracking_pose(),
+            odom_sensor_) {
     controller_connector_container_.setObject(visual_servoing_drone_connector_);
     controller_connector_container_.setObject(
-        relative_pose_visual_servoing_drone_connector_);
+        rpyt_relative_pose_visual_servoing_drone_connector_);
+    controller_connector_container_.setObject(
+        velocity_relative_pose_visual_servoing_drone_connector_);
+    controller_connector_container_.setObject(
+        mpc_visual_servoing_reference_connector_);
+    controller_connector_container_.setObject(
+        rpyt_visual_servoing_reference_connector_);
   }
 
   /**
@@ -142,6 +198,10 @@ public:
     rpyt_based_relative_pose_controller_.resetIntegrator();
   }
 
+  void setNoisePolyReferenceController(bool flag) {
+    quad_poly_reference_generator_.useNoise(flag);
+  }
+
 protected:
   /**
   * @brief Camera transform in the frame of the UAV
@@ -160,6 +220,8 @@ protected:
    * specified one if user provided nullptr.
    */
   static BaseTrackerPtr chooseTracker(BaseTrackerPtr tracker,
+                                      UAVParserPtr drone_hardware,
+                                      tf::Transform camera_transform,
                                       UAVSystemConfig &config) {
     BaseTrackerPtr tracker_pointer;
     if (tracker) {
@@ -171,6 +233,9 @@ protected:
         tracker_pointer = BaseTrackerPtr(new RoiToPositionConverter());
       } else if (tracker_type == "Alvar") {
         tracker_pointer = BaseTrackerPtr(new AlvarTracker());
+      } else if (tracker_type == "Simulated") {
+        tracker_pointer = BaseTrackerPtr(new SimulatedROSTracker(
+            *drone_hardware, camera_transform, "simulated_ros_tracker"));
       } else {
         throw std::runtime_error("Unknown tracker type provided: " +
                                  tracker_type);
@@ -189,6 +254,21 @@ private:
   */
   RPYTBasedRelativePoseController rpyt_based_relative_pose_controller_;
   /**
+  * @brief Controller to mantain a relative pose with respect to the object
+  * using velocity commands
+  */
+  VelocityBasedRelativePoseController velocity_based_relative_pose_controller_;
+  /**
+   * @brief generates exponential reference trajectory for quad from start to
+   * end
+   */
+  QuadParticleReferenceController quad_reference_generator_;
+  /**
+   * @brief generates polynomial reference trajectory for quad from start to
+   * end
+   */
+  QuadPolynomialReferenceController quad_poly_reference_generator_;
+  /**
   * @brief Connector for the constant heading depth controller to
   * UAV
   */
@@ -197,5 +277,19 @@ private:
   * @brief Connects relative pose controller ot tracker and UAV
   */
   RPYTRelativePoseVisualServoingConnector
-      relative_pose_visual_servoing_drone_connector_;
+      rpyt_relative_pose_visual_servoing_drone_connector_;
+  /**
+  * @brief Connects velocity relative pose controller ot tracker and UAV
+  */
+  RelativePoseVisualServoingControllerDroneConnector
+      velocity_relative_pose_visual_servoing_drone_connector_;
+  /**
+   * @brief High level visual servoing connector
+   */
+  RPYTVisualServoingReferenceConnectorT
+      rpyt_visual_servoing_reference_connector_;
+  /**
+   * @brief High level visual servoing connector
+   */
+  MPCVisualServoingReferenceConnectorT mpc_visual_servoing_reference_connector_;
 };

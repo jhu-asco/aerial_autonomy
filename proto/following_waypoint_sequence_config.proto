@@ -2,6 +2,10 @@ syntax = "proto2";
 
 import "position_yaw.proto";
 
+import "polynomial_reference_config.proto";
+
+import "position_controller_config.proto";
+
 message FollowingWaypointSequenceConfig {
   /**
   * @brief List of way points. These are relative waypoints specified
@@ -9,4 +13,6 @@ message FollowingWaypointSequenceConfig {
   * will move 0.1m in north and sets an absolute yaw of 0.
   */
   repeated config.PositionYaw way_points = 1;
+  optional PolynomialReferenceConfig poly_reference_config = 2;
+  optional PositionControllerConfig position_controller_config = 3;
 }

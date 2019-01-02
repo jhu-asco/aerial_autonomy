@@ -18,7 +18,7 @@ bool RPYTBasedPositionControllerDroneConnector::extractSensorData(
     sensor_data = std::make_tuple(velocity_yawrate, position_yaw);
   }
   thrust_gain_estimator_.addSensorData(data.rpydata.x, data.rpydata.y,
-                                       data.linacc.z);
+                                       body_acc);
   auto rpyt_controller_config = private_reference_controller_.getRPYTConfig();
   rpyt_controller_config.set_kt(thrust_gain_estimator_.getThrustGain());
   private_reference_controller_.updateRPYTConfig(rpyt_controller_config);
@@ -28,8 +28,9 @@ bool RPYTBasedPositionControllerDroneConnector::extractSensorData(
 void RPYTBasedPositionControllerDroneConnector::sendControllerCommands(
     RollPitchYawRateThrust controls) {
   geometry_msgs::Quaternion rpyt_msg;
-  rpyt_msg.x = controls.r;
-  rpyt_msg.y = controls.p;
+  Eigen::Vector2d roll_pitch_bias = thrust_gain_estimator_.getRollPitchBias();
+  rpyt_msg.x = controls.r - roll_pitch_bias[0];
+  rpyt_msg.y = controls.p - roll_pitch_bias[1];
   rpyt_msg.z = controls.y;
   rpyt_msg.w = controls.t;
   thrust_gain_estimator_.addThrustCommand(controls.t);

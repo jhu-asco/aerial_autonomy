@@ -23,25 +23,14 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
 
   // Visual servoing states
   /**
-  * @brief State when reaching a visual servoing goal
-  */
-  using VisualServoing = VisualServoing_<LogicStateMachineT>;
-
-  /**
   * @brief State when reaching a relative pose visual servoing goal
   */
   using RelativePoseVisualServoing =
-      RelativePoseVisualServoing_<LogicStateMachineT, be::Abort>;
+      VisualServoing_<LogicStateMachineT, be::Abort>;
 
   // Basic transition Actions
   /**
-  * @brief Action to take when starting visual servoing
-  */
-  using VisualServoingTransitionAction =
-      VisualServoingTransitionActionFunctor_<LogicStateMachineT>;
-
-  /**
-  * @brief Action to take when starting relative pose visual servoing
+  * @brief Action to take when starting rpyt relative pose visual servoing
   */
   using RelativePoseVisualServoingTransitionAction =
       RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT, 0>;
@@ -54,18 +43,17 @@ struct VisualServoingStatesActions : UAVStatesActions<LogicStateMachineT> {
           LogicStateMachineT>;
 
   /**
-  * @brief Check whether visual servoing is feasible currently
-  */
-  using VisualServoingTransitionGuard =
-      bAnd<InitializeTrackerGuardFunctor_<LogicStateMachineT,
-                                          ClosestTrackingStrategy>,
-           VisualServoingTransitionGuardFunctor_<LogicStateMachineT>>;
-
-  /**
   * @brief Check whether relative pose visual servoing is feasible currently
   */
   using RelativePoseVisualServoingTransitionGuard =
       bAnd<InitializeTrackerGuardFunctor_<LogicStateMachineT,
                                           ClosestTrackingStrategy>,
            CheckGoalIndex_<LogicStateMachineT, 0>>;
+
+  /**
+   * @brief Check whether heading depth visual servoing is feasible and sets
+   * goal also
+   */
+  using VisualServoingTransitionGuard =
+      VisualServoingTransitionGuardFunctor_<LogicStateMachineT>;
 };

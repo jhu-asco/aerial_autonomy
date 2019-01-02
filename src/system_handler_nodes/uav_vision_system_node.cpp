@@ -26,7 +26,8 @@ int main(int argc, char **argv) {
                          visual_servoing_events::VisualServoingEventManager<
                              VisualServoingStateMachine>>
       uav_system_handler(uav_system_handler_config, state_machine_config);
-
+  // ros::MultiThreadedSpinner spinner(4);
+  // spinner.spin();
   ros::spin();
 
   return 0;

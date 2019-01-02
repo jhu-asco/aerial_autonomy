@@ -1,6 +1,6 @@
+mpc_visualization_timer_duration: 50
 uav_arm_system_handler_config {
   arm_controller_timer_duration: 20
-  mpc_visualization_timer_duration: 50
 }
 
 base_config {
@@ -82,7 +82,22 @@ uav_system_config {
   pose_sensor_config {
     topic: "/vrpn_client/matrice/pose"
   }
-
+  visualize_mpc_trajectories: true
+  visualizer_config {
+    parent_frame: "/optitrak"
+    skip_segments: 10
+    trajectory_color {
+      r: 0
+      g: 1
+      b: 0
+    }
+    desired_trajectory_color {
+      r: 1
+      g: 0
+      b: 0
+      a: 0.4
+    }
+  }
   uav_vision_system_config {
     desired_visual_servoing_distance: 0.48
     constant_heading_depth_controller_config {
@@ -113,22 +128,6 @@ uav_system_config {
         }
         #arm_parser_type: "ArmSimulator"
         arm_parser_type: "SimpleArm"
-      }
-      visualize_mpc_trajectories: true
-      visualizer_config {
-        parent_frame: "/optitrak"
-        skip_segments: 10
-        trajectory_color {
-          r: 0
-          g: 1
-          b: 0
-        }
-        desired_trajectory_color {
-          r: 1
-          g: 0
-          b: 0
-          a: 0.4
-        }
       }
       mpc_controller_config {
         default_thrust_gain: 0.16

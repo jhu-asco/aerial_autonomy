@@ -1,0 +1,16 @@
+syntax = "proto2";
+
+message RPYTReferenceConnectorConfig {
+  /**
+  * @brief Filtering on  quad velocity
+  */
+  optional double velocity_exp_gain = 1 [ default = 0.9 ];
+  /**
+  * @brief time diff setting for finite diff
+  */
+  optional bool use_perfect_time_diff = 2 [ default = false ];
+  /**
+  * @brief Time diff for finite diff
+  */
+  optional double perfect_time_diff = 3 [ default = 0.02 ];
+}

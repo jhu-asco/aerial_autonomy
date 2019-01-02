@@ -83,9 +83,9 @@ int main(int argc, char **argv) {
   visualizer_config.mutable_trajectory_color()->set_g(1.0);
   visualizer_config.mutable_trajectory_color()->set_r(0.0);
   visualizer_config.mutable_desired_trajectory_color()->set_a(0.5);
-  MPCTrajectoryVisualizer visualizer(controller_connector, visualizer_config);
+  MPCTrajectoryVisualizer visualizer(visualizer_config);
   // auto reference_ptr =
-  //    conversions::createWayPoint(PositionYaw(0.2, 0.2, 0.2, 0.0), -0.8, 1.4);
+  //    conversions::createWaypoint(PositionYaw(0.2, 0.2, 0.2, 0.0), -0.8, 1.4);
   auto reference_ptr = createSpiralReference(drone_hardware);
   controller_connector.usePerfectTimeDiff(
       0.02); ///\todo Remove this flag business
@@ -94,11 +94,12 @@ int main(int argc, char **argv) {
   drone_hardware.takeoff();
   arm_simulator.setJointAngles(std::vector<double>{-0.7, 1.2});
   controller_connector.setGoal(reference_ptr);
+  controller_connector.initialize();
   int count = 0;
   while (ros::ok()) {
     controller_connector.run();
     if (++count == 4) {
-      visualizer.publishTrajectory();
+      visualizer.publishTrajectory(controller_connector);
       count = 0;
     }
     LOG_EVERY_N(INFO, 20) << "Connector: "
