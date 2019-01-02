@@ -47,7 +47,6 @@ struct AdaptiveTransitionActionFunctor_
     conversions::tfToPositionYaw(start_position_yaw, start_pose);
     // Minimum snap reference trajectory config
     auto reference_config = MinimumSnapReferenceTrajectoryConfig();
-    // this->state_machine_config_.minimum_snap_reference_trajectory_config();
     // Waypoints config
     auto waypoint_config =
         reference_config.mutable_following_waypoint_sequence_config();
@@ -75,7 +74,6 @@ struct AdaptiveTransitionActionFunctor_
     // Minimum snap reference trajectory object
     std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> reference(
         new MinimumSnapReferenceTrajectory(reference_config));
-    // new HoverReferenceTrajectory(goal));
     double goal_yaw = goal.yaw;
     std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> pair_goal =
         std::make_pair(reference, goal_yaw);
