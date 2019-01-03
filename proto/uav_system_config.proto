@@ -17,13 +17,10 @@ import "thrust_gain_estimator_config.proto";
 import "odom_from_pose_sensor_config.proto";
 
 import "ros_sensor_config.proto";
-import "odom_from_pose_sensor_config.proto";
 
 import "mpc_visualizer_config.proto";
 
 import "quad_mpc_controller_config.proto";
-
-import "mpc_visualizer_config.proto";
 
 import "mpc_connector_config.proto";
 
@@ -107,19 +104,13 @@ message UAVSystemConfig {
   */
   optional bool use_mocap_sensor = 16 [ default = false ];
   /**
-  * @brief Velocity sensor config
+  * @brief Odometry sensor config
   */
-  optional OdomSensorConfig odom_sensor_config = 20;
-  /**
-  * @brief Velocity sensor config
-  */
-  optional ROSSensorConfig pose_sensor_config = 17;
-
-  optional MPCVisualizerConfig visualizer_config = 19;
+  optional OdomSensorConfig odom_sensor_config = 17;
   /**
   * @brief MPC Config for quadrotor
   */
-  optional QuadMPCControllerConfig quad_mpc_controller_config = 18;
+  optional QuadMPCControllerConfig quad_mpc_controller_config = 19;
   /**
   * @brief MPC connector config
   */

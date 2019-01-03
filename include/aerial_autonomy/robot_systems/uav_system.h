@@ -12,8 +12,8 @@
 #include <aerial_autonomy/controllers/ddp_quad_mpc_controller.h>
 #include <aerial_autonomy/controllers/joystick_velocity_controller.h>
 #include <aerial_autonomy/controllers/rpyt_based_position_controller.h>
-#include <aerial_autonomy/controllers/rpyt_based_relative_pose_adaptive_estimate_controller.h>
 #include <aerial_autonomy/controllers/rpyt_based_reference_controller.h>
+#include <aerial_autonomy/controllers/rpyt_based_relative_pose_adaptive_estimate_controller.h>
 // Estimators
 #include <aerial_autonomy/estimators/thrust_gain_estimator.h>
 // Specific ControllerConnectors
@@ -107,16 +107,6 @@ protected:
   * @brief Velocity Sensor
   */
   std::shared_ptr<Sensor<Velocity>> velocity_sensor_;
-  //TODO: Figure out if any of these are redundant
-  /**
-   * @brief pose_sensor_
-   */
-  std::shared_ptr<Sensor<tf::StampedTransform>> pose_sensor_;
-  /**
-   * @brief odom_from_pose_sensor_
-   */
-  std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>>
-      odom_from_pose_sensor_;
   /**
    * @brief odom_sensor_
    */
@@ -132,7 +122,6 @@ protected:
    */
   RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>
       rpyt_based_reference_connector_;
->>>>>>> 3dfc9bd1f2ed2f1d7952351ea0b2c688c30b7a72
 
 private:
   /**
@@ -247,24 +236,6 @@ private:
         odom_sensor;
     if (config.use_mocap_sensor()) {
       VLOG(2) << "Using MOCAP sensor (Odom Sensor)";
-      pose_sensor.reset(new PoseSensor(pose_sensor_config));
-    }
-    return pose_sensor;
-  }
-  /**
-  * @brief create a pose sensor if using Motion Capture flag is set
-  *
-  * @param config The UAV system config
-  *
-  * @return new pose sensor if using motion capture otherwise nulllptr
-  */
-  static std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>>
-  createOdomFromPoseSensor(UAVSystemConfig &config) {
-    auto sensor_config = config.odom_sensor_config();
-    std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>>
-        pose_sensor;
-    if (config.use_mocap_sensor()) {
-      VLOG(2) << "Using MOCAP sensor (Odom From Pose)";
       odom_sensor.reset(new OdomFromPoseSensor(odom_sensor_config));
     }
     return odom_sensor;
@@ -313,10 +284,6 @@ public:
         rpyt_adaptive_estimate_controller_(
             config
                 .rpyt_based_relative_pose_adaptive_estimate_controller_config()),
-        velocity_sensor_(
-            UAVSystem::chooseSensor(velocity_sensor, drone_hardware_, config)),
-        pose_sensor_(UAVSystem::createPoseSensor(config)),
-        odom_from_pose_sensor_(UAVSystem::createOdomFromPoseSensor(config)),
         quad_mpc_controller_(
             config.quad_mpc_controller_config(),
             std::chrono::milliseconds(config.uav_controller_timer_duration())),
@@ -347,7 +314,7 @@ public:
             config
                 .rpyt_based_relative_pose_adaptive_estimate_controller_config()
                 .min_m(),
-            odom_from_pose_sensor_),
+            odom_sensor_),
         quad_mpc_connector_(*drone_hardware_, quad_mpc_controller_,
                             thrust_gain_estimator_,
                             config.thrust_gain_estimator_config().buffer_size(),
@@ -505,11 +472,7 @@ public:
    */
   tf::StampedTransform getPose() {
     tf::StampedTransform result;
-    if (pose_sensor_) {
-      result = pose_sensor_->getTransformedSensorData();
-    }
-    ///\todo Figure out what to do if pose sensor is not valid??
-    else if (odom_sensor_) {
+    if (odom_sensor_) {
       result = odom_sensor_->getSensorData().first;
     } else {
       auto data = getUAVData();
@@ -524,13 +487,10 @@ public:
   }
   void visualizeTrajectory(ReferenceTrajectoryPtr<ParticleState, Snap> goal) {
     qrotor_visualizer_->publishTrajectory(true, goal);
-
+  }
   SensorStatus getPoseSensorStatus() {
     if (odom_sensor_) {
       return odom_sensor_->getSensorStatus();
-    }
-    else if (pose_sensor_) {
-      return pose_sensor_->getSensorStatus();
     }
     return SensorStatus::VALID;
   }

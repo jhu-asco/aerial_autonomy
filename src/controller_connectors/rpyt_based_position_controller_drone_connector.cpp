@@ -17,6 +17,7 @@ bool RPYTBasedPositionControllerDroneConnector::extractSensorData(
                                      data.linvel.z, data.omega.z);
     sensor_data = std::make_tuple(velocity_yawrate, position_yaw);
   }
+  tf::Vector3 body_acc(data.linacc.x, data.linacc.y, data.linacc.z);
   thrust_gain_estimator_.addSensorData(data.rpydata.x, data.rpydata.y,
                                        body_acc);
   auto rpyt_controller_config = private_reference_controller_.getRPYTConfig();

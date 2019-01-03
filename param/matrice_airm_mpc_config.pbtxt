@@ -79,9 +79,6 @@ uav_system_config {
     buffer_size: 10
   }
 
-  pose_sensor_config {
-    topic: "/vrpn_client/matrice/pose"
-  }
   visualize_mpc_trajectories: true
   visualizer_config {
     parent_frame: "/optitrak"
