@@ -47,7 +47,7 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
 
   // Update mhat
   control.dm =
-      -km * ((acc_d - ag_).transpose()) * (delta_v + config_.eps() * delta_p);
+      -km_ * ((acc_d - ag_).transpose()) * (delta_v + config_.eps() * delta_p);
   control.dm = math::clamp(control.dm, -config_.max_dm(), config_.max_dm());
   // Find body acceleration
   Eigen::Vector3d world_acc = -K_ * delta_x + mhat * acc_d;
@@ -103,7 +103,7 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
       math::clamp(control.y, -config_.yaw_rate_max(), config_.yaw_rate_max());
   // Estimate the lyapunov function for logging
   double lyap_V = (0.5 * (delta_x.transpose() * P_ * delta_x)).norm();
-  lyap_V += 0.5 * (mhat - 6) * (mhat - 6) / (km);
+  lyap_V += 0.5 * (mhat - 6) * (mhat - 6) / (km_);
   // Log the data
   DATA_LOG("adaptive_controller")
       << mhat << lyap_V << delta_x(0) << delta_x(1) << delta_x(2) << delta_x(3)

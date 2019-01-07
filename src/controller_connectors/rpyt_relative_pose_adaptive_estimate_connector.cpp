@@ -1,9 +1,6 @@
 #include "aerial_autonomy/controller_connectors/rpyt_relative_pose_adaptive_estimate_connector.h"
 #include "aerial_autonomy/log/log.h"
 
-/*
-* @brief
-*/
 bool RPYTRelativePoseAdaptiveEstimateConnector::extractSensorData(
     std::tuple<double, double, ParticleState> &sensor_data) {
   ParticleState curr_state;
@@ -38,7 +35,7 @@ bool RPYTRelativePoseAdaptiveEstimateConnector::extractSensorData(
     // Yaw
     curr_yaw = quad_data.rpydata.z;
   }
-  sensor_data = std::make_tuple(mhat, curr_yaw, curr_state);
+  sensor_data = std::make_tuple(mhat_, curr_yaw, curr_state);
   return true;
 }
 
@@ -52,9 +49,9 @@ void RPYTRelativePoseAdaptiveEstimateConnector::sendControllerCommands(
                                                                 previous_time_);
   double dt = dt_duration.count();
   previous_time_ = current_time;
-  mhat += controls.dm * dt;
-  if (mhat < min_m_) {
-    mhat = min_m_;
+  mhat_ += controls.dm * dt;
+  if (mhat_ < min_m_) {
+    mhat_ = min_m_;
   }
   // Send commands
   geometry_msgs::Quaternion rpyt_msg;

@@ -35,7 +35,7 @@ public:
   }
   /**
   * @brief give sensor data, transformed by the local transform.
-  * Returns the velocity in the sensor origin frame of the robot center.
+  * Returns the robot velocity in the sensor frame.
   */
   Velocity getTransformedSensorData() {
     nav_msgs::Odometry msg = sensor_.getSensorData();

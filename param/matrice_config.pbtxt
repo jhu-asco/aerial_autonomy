@@ -5,8 +5,7 @@ base_config {
 }
 
 uav_system_config {
-  uav_parser_type: "quad_simulator_parser/QuadSimParser"
-  #uav_parser_type: "dji_parser/DjiParser"
+  uav_parser_type: "dji_parser/DjiParser"
   use_mocap_sensor: true
   #use_mocap_sensor: false
   uav_controller_timer_duration: 20

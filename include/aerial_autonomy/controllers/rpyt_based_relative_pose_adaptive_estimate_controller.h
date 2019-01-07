@@ -47,7 +47,7 @@ public:
   */
   RPYTBasedRelativePoseAdaptiveEstimateController(
       RPYTBasedRelativePoseAdaptiveEstimateControllerConfig config)
-      : config_(config), km(config_.km()), ag_(0, 0, -config_.acc_gravity()) {
+      : config_(config), km_(config_.km()), ag_(0, 0, -config_.acc_gravity()) {
     DATA_HEADER("adaptive_controller") << "mhat"
                                        << "lyap"
                                        << "delta_px"
@@ -131,7 +131,7 @@ private:
   /**
    * @brief The gain for adaptively estimating m
    */
-  double km;
+  double km_;
   /**
   * @brief Acceleration due to gravity
   */
