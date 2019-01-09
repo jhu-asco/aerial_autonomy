@@ -45,8 +45,7 @@ public:
     PositionYaw py(
         pyTransform.getOrigin().getX(), pyTransform.getOrigin().getY(),
         pyTransform.getOrigin().getZ(), tf::getYaw(pyTransform.getRotation()));
-    retVal = std::make_tuple(vyr, py);
-    return retVal;
+    return std::make_tuple(vyr, py);
   }
   /**
   * @brief gives sensor data, transformed by the local transform (e.g. the
@@ -80,8 +79,7 @@ public:
                    quad_in_sensor_origin.getOrigin().getY(),
                    quad_in_sensor_origin.getOrigin().getZ(),
                    tf::getYaw(pyTransform.getRotation()));
-    retVal = std::make_tuple(vyr, py);
-    return retVal;
+    return std::make_tuple(vyr, py);
   }
   /**
   * @brief gives sensor status

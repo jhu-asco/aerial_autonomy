@@ -11,7 +11,7 @@
 
 /**
 * @brief A circular trajectory for testing.
-* Currently adds a
+* Currently adds an oscillation in z through constants in the constructor.
 */
 class CircleReferenceTrajectory
     : public ReferenceTrajectory<ParticleState, Snap> {
