@@ -12,7 +12,7 @@ message ROSSensorConfig {
   */
   optional string topic = 3;
   /**
-  * Transform from sensor to robot center.
+  * Transform to convert points from sensor frame to robot frame.
   */
   optional config.Transform sensor_transform = 4;
   optional string name_space = 5 [ default = "" ];

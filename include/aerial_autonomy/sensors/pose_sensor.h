@@ -10,7 +10,7 @@
 * @brief Pose sensor from a ros topic
 * \todo Gowtham Make this a generic templated ros sensor
 */
-class PoseSensor : public Sensor<tf::StampedTransform> {
+class PoseSensor : public TransformedSensor<tf::StampedTransform> {
 public:
   /**
   * @brief Constructor
@@ -46,8 +46,4 @@ private:
   * @brief ROS listening sensor
   */
   ROSSensor<geometry_msgs::TransformStamped> sensor_;
-  /**
-  * @brief local transform from sensor to robot system frame
-  */
-  tf::Transform local_transform_;
 };

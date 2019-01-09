@@ -5,7 +5,6 @@
 #include "aerial_autonomy/types/particle_state.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/reference_trajectory.h"
-#include "aerial_autonomy/types/snap.h"
 
 #include <Eigen/Dense>
 

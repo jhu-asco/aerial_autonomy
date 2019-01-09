@@ -11,7 +11,7 @@
 * \todo Gowtham Make this a generic templated ros sensor
 */
 class OdomFromPoseSensor
-    : public Sensor<std::pair<tf::StampedTransform, tf::Vector3>> {
+    : public TransformedSensor<std::pair<tf::StampedTransform, tf::Vector3>> {
 public:
   /**
   * @brief Constructor
