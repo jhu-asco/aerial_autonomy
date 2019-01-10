@@ -4,10 +4,16 @@
 #include <glog/logging.h>
 
 AccelerationBiasEstimator::AccelerationBiasEstimator(
+    AccelerationBiasEstimatorConfig config)
+    : AccelerationBiasEstimator(config.mixing_gain(), config.max_bias(),
+                                config.delay_buffer_size()) {}
+
+AccelerationBiasEstimator::AccelerationBiasEstimator(
     double mixing_gain, double max_bias, unsigned int delay_buffer_size)
     : acceleration_bias_filter_(mixing_gain), max_bias_(max_bias),
       delay_buffer_size_(delay_buffer_size), gravity_magnitude_(9.81) {
   CHECK_GE(max_bias_, 0) << "Max bias should be non-negative";
+  CHECK_GE(delay_buffer_size_, 1) << "Buffer size should be atleast 1";
 }
 
 void AccelerationBiasEstimator::reset() {

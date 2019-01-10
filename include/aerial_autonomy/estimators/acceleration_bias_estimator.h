@@ -1,5 +1,6 @@
 #pragma once
 
+#include "acceleration_bias_estimator_config.pb.h"
 #include "aerial_autonomy/filters/exponential_filter.h"
 #include <Eigen/Dense>
 #include <queue>
@@ -11,6 +12,12 @@
  **/
 class AccelerationBiasEstimator {
 public:
+  /**
+  * @brief Constructor
+  * @param config Configuration
+  */
+  AccelerationBiasEstimator(AccelerationBiasEstimatorConfig config =
+                                AccelerationBiasEstimatorConfig());
   /**
   * @brief Constructor
   * @param mixing_gain Gain of the bias filter

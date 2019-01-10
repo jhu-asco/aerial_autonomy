@@ -224,6 +224,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/following_waypoint_sequence_config.proto
   proto/grip_config.proto
   proto/place_group.proto
+  proto/acceleration_bias_estimator_config.proto
   proto/thrust_gain_estimator_config.proto
   proto/tracking_vector_estimator_config.proto
   proto/ros_sensor_config.proto
@@ -431,6 +432,7 @@ catkin_add_gtest(${PROJECT_NAME}-iterable-enum-test tests/common/iterable_enum_t
 catkin_add_gtest(${PROJECT_NAME}-velocity-based-position-controller-test tests/controllers/velocity_based_position_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-arm-sine-controller-test tests/controllers/arm_sine_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-thrust-gain-estimator-test tests/estimators/thrust_gain_estimator_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-acceleration-bias-estimator-test tests/estimators/acceleration_bias_estimator_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-tracking-vector-estimator-test tests/estimators/tracking_vector_estimator_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-controller-test tests/controllers/relative_pose_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-velocity-based-relative-pose-controller-test tests/controllers/velocity_based_relative_pose_controller_tests.cpp)
@@ -553,6 +555,9 @@ if(TARGET ${PROJECT_NAME}-arm-sine-controller-test)
 endif()
 if(TARGET ${PROJECT_NAME}-thrust-gain-estimator-test)
   target_link_libraries(${PROJECT_NAME}-thrust-gain-estimator-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-acceleration-bias-estimator-test)
+  target_link_libraries(${PROJECT_NAME}-acceleration-bias-estimator-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-tracking-vector-estimator-test)
   target_link_libraries(${PROJECT_NAME}-tracking-vector-estimator-test aerial_autonomy ${catkin_LIBRARIES})
