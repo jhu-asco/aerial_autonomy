@@ -25,6 +25,12 @@ void transformRPYToTf(double r, double p, double y, tf::Transform &tf) {
   tf.setRotation(tf::createQuaternionFromRPY(r, p, y));
 }
 
+void transformRPYToMatrix3d(double r, double p, double y, Eigen::Matrix3d &tf) {
+  tf = Eigen::AngleAxisd(y, Eigen::Vector3d::UnitZ()) *
+       Eigen::AngleAxisd(p, Eigen::Vector3d::UnitY()) *
+       Eigen::AngleAxisd(r, Eigen::Vector3d::UnitX());
+}
+
 tf::Transform protoTransformToTf(const config::Transform &tf) {
   return tf::Transform(
       tf::createQuaternionFromRPY(tf.rotation().r(), tf.rotation().p(),

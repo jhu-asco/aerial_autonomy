@@ -40,6 +40,15 @@ Eigen::Vector3d transformTfToRPY(const tf::Transform &tf);
 void transformRPYToTf(double r, double p, double y, tf::Transform &tf);
 
 /**
+ * @brief Convert roll, pitch, yaw Euler angles to a Eigen::Matrix3d
+ * @param r Roll
+ * @param p Pitch
+ * @param y Yaw
+ * @param tf Output matrix
+ */
+void transformRPYToMatrix3d(double r, double p, double y, Eigen::Matrix3d &tf);
+
+/**
  * @brief Convert PositionYaw to tf::Transform
  * @param p PositionYaw to convert
  * @param tf The equivalent tf::Transform

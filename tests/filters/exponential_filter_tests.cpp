@@ -51,6 +51,17 @@ TEST(ExponentialFilterTests, Convergence) {
   ASSERT_NEAR(filter.getFilterData(), sensor_data, 1e-3);
 }
 
+TEST(ExponentialFilterTests, DataAvailable) {
+  ExponentialFilter<double> filter(0.1);
+  ASSERT_FALSE(filter.isDataAvailable());
+
+  filter.add(0.0);
+  ASSERT_TRUE(filter.isDataAvailable());
+
+  filter.reset();
+  ASSERT_FALSE(filter.isDataAvailable());
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
