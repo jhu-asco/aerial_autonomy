@@ -64,7 +64,7 @@ private:
   */
   ExponentialFilter<Eigen::Vector3d> acceleration_bias_filter_;
   /**
-  * @brief Maximum allows bias
+  * @brief Maximum allowed bias
   */
   double max_bias_;
   /**
