@@ -27,7 +27,7 @@ Eigen::Vector3d AccelerationBiasEstimator::computeAccelerationBias(
     double roll, double pitch, Eigen::Vector3d body_acc, double thrust_acc) {
   Eigen::Matrix3d rotation;
   conversions::transformRPYToMatrix3d(roll, pitch, 0, rotation);
-  Eigen::Vector3d gravity(0, 0, gravity_magnitude_);
+  Eigen::Vector3d gravity(0, 0, -gravity_magnitude_);
   Eigen::Vector3d gravity_body = rotation.transpose() * gravity;
 
   return body_acc - gravity_body - Eigen::Vector3d(0, 0, thrust_acc);
