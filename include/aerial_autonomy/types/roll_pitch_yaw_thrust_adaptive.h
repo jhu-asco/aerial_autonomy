@@ -1,7 +1,9 @@
 #pragma once
+#include "aerial_autonomy/types/roll_pitch_yaw_thrust.h"
 /**
 * @brief Roll, pitch, yaw, thrust and adaptive parameter estimate message
 */
+
 struct RollPitchYawThrustAdaptive {
   /**
   * @brief Explicit instantiation
@@ -14,10 +16,7 @@ struct RollPitchYawThrustAdaptive {
   */
   RollPitchYawThrustAdaptive(double r = 0, double p = 0, double y = 0,
                              double t = 0, double dm = 0)
-      : r(r), p(p), y(y), t(t), dm(dm) {}
-  double r;  ///< roll
-  double p;  ///< pitch
-  double y;  ///< yaw
-  double t;  ///< thrust
+      : rpyt(r, p, y, t), dm(dm) {}
+  RollPitchYawThrust rpyt;
   double dm; ///< dm
 };

@@ -75,32 +75,34 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
   rot_acc[1] = -world_acc(0) * sin(curr_yaw) + world_acc(1) * cos(curr_yaw);
   rot_acc[2] = world_acc(2);
   // Find thrust
-  control.t = rot_acc.norm();
+  control.rpyt.t = rot_acc.norm();
   // normalize acceleration in gravity aligned yaw-compensated frame
-  if (control.t > 1e-8)
+  if (control.rpyt.t > 1e-8)
     rot_acc = (1 / rot_acc.norm()) * rot_acc;
   else {
-    LOG(WARNING) << "Thrust close to zero !!" << control.t;
+    LOG(WARNING) << "Thrust close to zero !!" << control.rpyt.t;
     rot_acc = Eigen::Vector3d(0, 0, 0);
   }
   // yaw-compensated y-acceleration is sine of roll
-  control.r = -asin(rot_acc[1]);
+  control.rpyt.r = -asin(rot_acc[1]);
   // check if roll = 90 and compute pitch accordingly
   if ((abs(rot_acc[1]) - 1.0) < config_.tolerance_rp())
-    control.p = atan2(rot_acc[0], rot_acc[2]);
+    control.rpyt.p = atan2(rot_acc[0], rot_acc[2]);
   else {
     // if roll is 90, pitch is undefined and is set to zero
-    control.p = 0;
+    control.rpyt.p = 0;
     LOG(WARNING) << "Desired roll is 90 degrees. Setting pitch to 0";
   }
   // Clamp values according to config
-  control.t =
-      math::clamp(control.t, config_.min_thrust(), config_.max_thrust());
-  control.r = math::clamp(control.r, -config_.max_rp(), config_.max_rp());
-  control.p = math::clamp(control.p, -config_.max_rp(), config_.max_rp());
-  control.y = -config_.k_yaw() * (math::angleWrap(curr_yaw - goal_yaw));
-  control.y =
-      math::clamp(control.y, -config_.yaw_rate_max(), config_.yaw_rate_max());
+  control.rpyt.t =
+      math::clamp(control.rpyt.t, config_.min_thrust(), config_.max_thrust());
+  control.rpyt.r =
+      math::clamp(control.rpyt.r, -config_.max_rp(), config_.max_rp());
+  control.rpyt.p =
+      math::clamp(control.rpyt.p, -config_.max_rp(), config_.max_rp());
+  control.rpyt.y = -config_.k_yaw() * (math::angleWrap(curr_yaw - goal_yaw));
+  control.rpyt.y = math::clamp(control.rpyt.y, -config_.yaw_rate_max(),
+                               config_.yaw_rate_max());
   // Estimate the lyapunov function for logging
   double lyap_V = (0.5 * (delta_x.transpose() * P_ * delta_x)).norm();
   lyap_V += 0.5 * (mhat - 6) * (mhat - 6) / (km_);
@@ -109,8 +111,8 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
       << mhat << lyap_V << delta_x(0) << delta_x(1) << delta_x(2) << delta_x(3)
       << delta_x(4) << delta_x(5) << (curr_yaw - goal_yaw) << desired_state.p.x
       << desired_state.p.y << desired_state.p.z << state.p.x << state.p.y
-      << state.p.z << world_acc(0) << world_acc(1) << world_acc(2) << control.r
-      << control.p << DataStream::endl;
+      << state.p.z << world_acc(0) << world_acc(1) << world_acc(2)
+      << control.rpyt.r << control.rpyt.p << DataStream::endl;
   return true;
 }
 

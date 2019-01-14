@@ -55,10 +55,10 @@ void RPYTRelativePoseAdaptiveEstimateConnector::sendControllerCommands(
   }
   // Send commands
   geometry_msgs::Quaternion rpyt_msg;
-  rpyt_msg.x = controls.r;
-  rpyt_msg.y = controls.p;
-  rpyt_msg.z = controls.y;
-  rpyt_msg.w = controls.t;
+  rpyt_msg.x = controls.rpyt.r;
+  rpyt_msg.y = controls.rpyt.p;
+  rpyt_msg.z = controls.rpyt.y;
+  rpyt_msg.w = controls.rpyt.t;
   drone_hardware_.cmdrpyawratethrust(rpyt_msg);
 }
 

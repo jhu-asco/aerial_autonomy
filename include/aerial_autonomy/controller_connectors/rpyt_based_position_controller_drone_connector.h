@@ -3,7 +3,7 @@
 #include "aerial_autonomy/controller_connectors/base_controller_connector.h"
 #include "aerial_autonomy/controllers/rpyt_based_position_controller.h"
 #include "aerial_autonomy/estimators/thrust_gain_estimator.h"
-#include "aerial_autonomy/sensors/base_sensor.h"
+#include "aerial_autonomy/sensors/transformed_sensor.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/roll_pitch_yawrate_thrust.h"
 #include "aerial_autonomy/types/velocity_yaw_rate.h"
@@ -26,7 +26,8 @@ public:
       parsernode::Parser &drone_hardware,
       RPYTBasedPositionController &controller,
       ThrustGainEstimator &thrust_gain_estimator,
-      SensorPtr<std::tuple<VelocityYawRate, PositionYaw>> sensor = nullptr)
+      TransformedSensorPtr<std::tuple<VelocityYawRate, PositionYaw>> sensor =
+          nullptr)
       : ControllerConnector(controller, ControllerGroup::UAV),
         drone_hardware_(drone_hardware),
         thrust_gain_estimator_(thrust_gain_estimator),
@@ -83,5 +84,5 @@ private:
    * @brief Outside Odometry Sensor (default to null, change to use different
    * sensors)
    */
-  SensorPtr<std::tuple<VelocityYawRate, PositionYaw>> sensor_;
+  TransformedSensorPtr<std::tuple<VelocityYawRate, PositionYaw>> sensor_;
 };

@@ -4,6 +4,7 @@
 #include <aerial_autonomy/common/atomic.h>
 #include <memory>
 #include <ros/ros.h>
+#include <tf/tf.h>
 
 /**
 * @brief Base class for sensors with local transformations
@@ -17,7 +18,8 @@ public:
   /**
   * @brief Initialize the local transform
   */
-  TransformedSensor(tf::Transform input) : local_transform_(input) {}
+  TransformedSensor(tf::Transform input = tf::Transform::getIdentity())
+      : local_transform_(input) {}
   /**
   * @brief gets the latest sensor data in the robot frame.
   */
@@ -30,3 +32,5 @@ protected:
   */
   tf::Transform local_transform_;
 };
+template <class SensorDataT>
+using TransformedSensorPtr = std::shared_ptr<TransformedSensor<SensorDataT>>;

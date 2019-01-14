@@ -1,7 +1,7 @@
 #pragma once
 #include "aerial_autonomy/common/atomic.h"
 #include "aerial_autonomy/filters/exponential_filter.h"
-#include "aerial_autonomy/sensors/base_sensor.h"
+#include "aerial_autonomy/sensors/transformed_sensor.h"
 #include "odom_from_pose_sensor_config.pb.h"
 #include <ros/ros.h>
 #include <tf/tf.h>

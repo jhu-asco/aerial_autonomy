@@ -1,6 +1,7 @@
 #pragma once
 #include "aerial_autonomy/common/atomic.h"
 #include "aerial_autonomy/sensors/ros_sensor.h"
+#include "aerial_autonomy/sensors/transformed_sensor.h"
 #include <aerial_autonomy/common/conversions.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <ros/ros.h>
