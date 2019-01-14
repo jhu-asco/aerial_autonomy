@@ -25,7 +25,8 @@ public:
         tracking_offset_transform_(
             tf::createQuaternionFromRPY(0, M_PI / 3, 0.2),
             tf::Vector3(0, 0, 0)),
-        thrust_gain_estimator_(0.18) {
+        thrust_gain_estimator_(0.18),
+        acceleration_bias_estimator_(0.1, 2.0, 10) {
     RPYTBasedRelativePoseControllerConfig config;
     auto velocity_relative_pose_config =
         config.mutable_velocity_based_relative_pose_controller_config();
@@ -65,8 +66,8 @@ public:
     visual_servoing_connector_.reset(
         new RPYTRelativePoseVisualServoingConnector(
             *simple_tracker_, drone_hardware_, *controller_,
-            thrust_gain_estimator_, camera_transform,
-            tracking_offset_transform_));
+            thrust_gain_estimator_, acceleration_bias_estimator_,
+            camera_transform, tracking_offset_transform_));
     drone_hardware_.usePerfectTime();
   }
 
@@ -113,7 +114,7 @@ public:
              ControllerStatus::Active;
     };
     ASSERT_FALSE(test_utils::waitUntilFalse()(
-        runController, std::chrono::seconds(1), std::chrono::milliseconds(0)));
+        runController, std::chrono::seconds(2), std::chrono::milliseconds(0)));
     // Check position is the goal position
     parsernode::common::quaddata sensor_data;
     drone_hardware_.getquaddata(sensor_data);
@@ -127,6 +128,8 @@ public:
     ASSERT_EQ(visual_servoing_connector_->getStatus(),
               ControllerStatus::Completed);
     ASSERT_NEAR(thrust_gain_estimator_.getThrustGain(), 0.16, 1e-4);
+    ASSERT_VEC_NEAR(acceleration_bias_estimator_.getAccelerationBias(),
+                    Eigen::Vector3d(0, 0, 0), 1e-1);
   }
 
   QuadSimulator drone_hardware_;
@@ -140,6 +143,7 @@ public:
   double goal_tolerance_yaw_rate_;
   tf::Transform tracking_offset_transform_;
   ThrustGainEstimator thrust_gain_estimator_;
+  AccelerationBiasEstimator acceleration_bias_estimator_;
 };
 
 TEST_F(RPYTRelativePoseVisualConnectorTests, Constructor) {}
@@ -184,6 +188,42 @@ TEST_F(RPYTRelativePoseVisualConnectorTests, TestViewingAngle) {
               M_PI / 4, 1e-8);
 }
 
+TEST_F(RPYTRelativePoseVisualConnectorTests, TestAccelerationBiasEstimator) {
+  tf::Transform tracked_pose(tf::createQuaternionFromRPY(0, 0, -0.1),
+                             tf::Vector3(2, -0.5, 0.5));
+  PositionYaw goal_relative_pose(1, 0, 0, 0.5);
+  Eigen::Vector3d acceleration_bias(1.0, -0.5, 0);
+
+  simple_tracker_->setTargetPoseGlobalFrame(tracked_pose);
+  simple_tracker_->setTrackingIsValid(true);
+  tf::Transform gravity_aligned_tracked_pose =
+      tracked_pose * tracking_offset_transform_;
+  double roll, pitch, yaw;
+  gravity_aligned_tracked_pose.getBasis().getRPY(roll, pitch, yaw);
+  gravity_aligned_tracked_pose.getBasis().setRPY(0, 0, yaw);
+  // Fly quadrotor which sets the altitude to 0.5
+  drone_hardware_.setBatteryPercent(60);
+  drone_hardware_.takeoff();
+  // Set goal
+  tf::Transform goal_relative_pose_tf;
+  conversions::positionYawToTf(goal_relative_pose, goal_relative_pose_tf);
+  visual_servoing_connector_->setGoal(goal_relative_pose);
+  // Run controller to estimate acc bias
+  auto runController = [&]() {
+    visual_servoing_connector_->run();
+    return true;
+  };
+  // Let thrust gain converge
+  test_utils::waitUntilFalse()(runController, std::chrono::milliseconds(500),
+                               std::chrono::milliseconds(0));
+  // Fix thrust gain
+  thrust_gain_estimator_.setThrustMixingGain(0);
+  drone_hardware_.setAccelerationBias(acceleration_bias);
+  test_utils::waitUntilFalse()(runController, std::chrono::milliseconds(500),
+                               std::chrono::milliseconds(0));
+  ASSERT_VEC_NEAR(acceleration_bias_estimator_.getAccelerationBias(),
+                  acceleration_bias, 1e-2);
+}
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

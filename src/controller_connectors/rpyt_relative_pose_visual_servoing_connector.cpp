@@ -24,8 +24,12 @@ bool RPYTRelativePoseVisualServoingConnector::extractSensorData(
                                       quad_data.linvel.z, quad_data.omega.z));
   tf::Vector3 body_acc(quad_data.linacc.x, quad_data.linacc.y,
                        quad_data.linacc.z);
+  Eigen::Vector3d body_acc_eig(quad_data.linacc.x, quad_data.linacc.y,
+                               quad_data.linacc.z);
   thrust_gain_estimator_.addSensorData(quad_data.rpydata.x, quad_data.rpydata.y,
                                        body_acc);
+  acceleration_bias_estimator_.addSensorData(quad_data.rpydata.x,
+                                             quad_data.rpydata.y, body_acc_eig);
   auto rpyt_controller_config = private_reference_controller_.getRPYTConfig();
   rpyt_controller_config.set_kt(thrust_gain_estimator_.getThrustGain());
   private_reference_controller_.updateRPYTConfig(rpyt_controller_config);
@@ -41,6 +45,8 @@ void RPYTRelativePoseVisualServoingConnector::sendControllerCommands(
   rpyt_msg.z = controls.y;
   rpyt_msg.w = controls.t;
   thrust_gain_estimator_.addThrustCommand(controls.t);
+  acceleration_bias_estimator_.addAccelerationCommand(
+      controls.t * thrust_gain_estimator_.getThrustGain());
   drone_hardware_.cmdrpyawratethrust(rpyt_msg);
 }
 
