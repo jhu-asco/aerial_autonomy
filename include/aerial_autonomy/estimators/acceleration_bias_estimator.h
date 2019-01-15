@@ -6,7 +6,8 @@
 #include <queue>
 
 /**
- * @brief Computes an acceleration bias for a quadrotor that is assumed to be
+ * @brief Computes an acceleration bias in the body frame of a quadrotor that is
+ *assumed to be
  *only
  * under the influence of gravity and thrust
  **/
@@ -43,12 +44,12 @@ public:
   */
   void addAccelerationCommand(double acc);
   /**
-  * @brief Get the current acceleration bias
+  * @brief Get the current acceleration bias in the body frame
   * @return Acceleration bias
   */
   Eigen::Vector3d getAccelerationBias();
   /**
-  * @brief Compute the acceleration bias
+  * @brief Compute the acceleration bias in the body frame
   * @param roll Roll of robot
   * @param pitch Pitch of robot
   * @param body_acc Body acceleration of the robot measured by IMU
