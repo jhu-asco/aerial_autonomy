@@ -1,4 +1,5 @@
 #pragma once
+#include "aerial_autonomy/common/atomic.h"
 #include "aerial_autonomy/trackers/tracking_strategy.h"
 
 #include <tf/tf.h>
@@ -37,20 +38,19 @@ public:
    * @param pos Returned tracking vector
    * @return True if successful, false otherwise
    */
-  virtual bool getTrackingVector(tf::Transform &pos);
+  bool getTrackingVector(tf::Transform &pos);
   /**
    * @brief Get the tracking vector
    * @param pos Returned tracking vector
    * @return True if successful, false otherwise
    */
-  virtual bool getTrackingVector(std::tuple<uint32_t, tf::Transform> &pos);
+  bool getTrackingVector(std::tuple<uint32_t, tf::Transform> &pos);
   /**
    * @brief Get the tracking vectors
    * @param pos Returned map of tracking vectors
    * @return True if successful, false otherwise
    */
-  virtual bool
-  getTrackingVectors(std::unordered_map<uint32_t, tf::Transform> &pos) = 0;
+  bool getTrackingVectors(std::unordered_map<uint32_t, tf::Transform> &pos);
   /**
   * @brief Check whether tracking is valid
   * @return True if the tracking is valid, false otherwise
@@ -67,9 +67,37 @@ public:
     return std::chrono::high_resolution_clock::now();
   }
 
+  /**
+   * @brief Set a callback function that will be called whenever a tracker
+   * matching tracking strategy is available
+   *
+   * @param tracker_callback Callback function
+   */
+  void setTrackerCallback(
+      std::function<void(uint32_t, tf::Transform)> tracker_callback);
+
+protected:
+  /**
+   * @brief Update internal tracking vectors. Subclasses should call this
+   * function to
+   * update the tracking vectors
+   *
+   * @param tracking_poses Map of tracking transforms and their ids
+   */
+  void updateTrackingPoses(
+      const std::unordered_map<uint32_t, tf::Transform> &tracking_poses);
+
 private:
   /**
   * @brief Strategy used to choose which object to track among multiple objects
   */
   std::unique_ptr<TrackingStrategy> tracking_strategy_;
+  /**
+   * @brief Callback function when tracked object is available
+   */
+  std::function<void(uint32_t, tf::Transform)> tracker_callback_;
+  /**
+   * @brief Map of tracker ids and poses
+   */
+  Atomic<std::unordered_map<uint32_t, tf::Transform>> tracking_poses_;
 };

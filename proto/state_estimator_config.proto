@@ -1,0 +1,80 @@
+syntax = "proto2";
+
+import "ros_sensor_config.proto";
+
+/**
+* Settings for generic state estimator
+*/
+message StateEstimatorConfig {
+  /**
+  * @brief specifies which sensors to use
+  */
+  enum Profile {
+    INDOORS_MOCAP = 0;
+    INDOORS_GUIDANCE = 1;
+    OUTDOORS_GPS = 2;
+    OUTDOORS_VINS = 3;
+  }
+  optional Profile profile = 1 [ default = INDOORS_MOCAP ];
+  /**
+  * @brief Window size to use for optimization
+  */
+  optional double window_size = 2 [ default = 1.0 ];
+  /**
+  * @brief Number of knots in a window
+  */
+  optional int32 number_knots = 3 [ default = 5 ];
+  /**
+  * @brief Estimate target object
+  */
+  optional bool estimate_target = 4 [ default = true ];
+  /**
+  * @brief State standard deviation (p, R, v, omega)
+  */
+  repeated double initial_state_stdev = 5;
+  /**
+  * @brief State standard deviation for target if we are tracking
+  */
+  repeated double target_marker_stdev = 6;
+  /**
+  * @brief position sensor standard deviation
+  */
+  optional double sensor_position_stdev = 7 [ default = 0.01 ];
+  /**
+  * @brief Orientation sensor standard deviation
+  */
+  optional double sensor_orientation_stdev = 8 [ default = 0.01 ];
+  /**
+  * @brief Standard deviation of altitude
+  * \todo Find these from data
+  */
+  optional double altitude_sensor_stdev = 9 [ default = 0.1 ];
+  /**
+  * @brief Standard deviation of accelerometer
+  */
+  optional double acceleration_sensor_stdev = 10 [ default = 0.1 ];
+  /**
+  * @brief Standard deviation of gyro data
+  */
+  optional double gyro_sensor_stdev = 11 [ default = 0.1 ];
+  /**
+  * @brief Maximum number of optimization iterations
+  */
+  optional int32 max_iters = 12 [ default = 2 ];
+  /**
+  * @brief Max position standard deviation before estimator goes critical
+  */
+  optional double max_allowed_stdev = 13 [ default = 0.1 ];
+  /**
+  * @brief Namespace for node handle
+  */
+  optional string ros_namespace = 14 [ default = "estimator" ];
+  /**
+  * @brief Config for connecting to guidance for velocity
+  */
+  optional ROSSensorConfig guidance_sensor_config = 15;
+  /**
+  * @brief Config for connecting to pose sensor (Mocap/VINS)
+  */
+  optional ROSSensorConfig pose_sensor_config = 16;
+}

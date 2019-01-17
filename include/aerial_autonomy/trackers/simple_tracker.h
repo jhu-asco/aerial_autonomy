@@ -1,7 +1,9 @@
 #pragma once
 #include "uav_vision_system_config.pb.h"
+#include <aerial_autonomy/common/async_timer.h>
 #include <aerial_autonomy/trackers/base_tracker.h>
 #include <aerial_autonomy/types/position.h>
+#include <mutex>
 #include <parsernode/parser.h>
 #include <tf/tf.h>
 
@@ -19,13 +21,6 @@ public:
   */
   SimpleTracker(parsernode::Parser &drone_hardware,
                 tf::Transform camera_transform);
-  /**
-   * @brief Get the tracking vector
-   * @param pos Returned tracking vector
-   * @return True if successful, false otherwise
-   */
-  virtual bool
-  getTrackingVectors(std::unordered_map<uint32_t, tf::Transform> &pos);
   /**
   * @brief Check whether tracking is valid
   * @return True if the tracking is valid, false otherwise
@@ -69,4 +64,8 @@ private:
   bool tracking_valid_;                ///< Flag to specify if tracking is valid
   std::unordered_map<uint32_t, tf::Transform> target_poses_; ///< Tracked poses
   tf::Transform camera_transform_; ///< Transform of camera in uav frame
+  AsyncTimer
+      update_tracker_pose_timer_; ///< Update tracker poses based on quad pose
+  std::recursive_mutex timer_mutex_; ///< Lock access to target poses
+  void updateRelativePoses();
 };

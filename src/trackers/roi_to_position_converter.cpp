@@ -57,7 +57,8 @@ void RoiToPositionConverter::depthCallback(
   tf::Transform object_pose;
   computeTrackingVector(roi_rect, depth->image, camera_info,
                         max_object_distance_, foreground_percent_, object_pose);
-  object_pose_ = object_pose;
+  updateTrackingPoses(
+      std::unordered_map<uint32_t, tf::Transform>{{0, object_pose}});
   /// \todo store a flag indicating a position has been computed and return
   /// false in positionIsValid if it has not
 }
@@ -78,16 +79,6 @@ bool RoiToPositionConverter::roiIsValid() {
   if (!valid)
     VLOG(2) << "ROI has not been updated for 0.5 seconds";
   return valid;
-}
-
-bool RoiToPositionConverter::getTrackingVectors(
-    std::unordered_map<uint32_t, tf::Transform> &pos) {
-  CHECK(pos.empty()) << "Tracking vector map is not empty";
-  if (!trackingIsValid()) {
-    return false;
-  }
-  pos[0] = object_pose_;
-  return true;
 }
 
 void RoiToPositionConverter::computeTrackingVector(

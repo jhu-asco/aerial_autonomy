@@ -240,6 +240,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/rpyt_reference_connector_config.proto
   proto/polynomial_reference_config.proto
   proto/odom_from_pose_sensor_config.proto
+  proto/state_estimator_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
