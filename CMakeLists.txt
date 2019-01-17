@@ -278,6 +278,7 @@ set(SRC
   src/log/log.cpp
   src/log/mocap_logger.cpp
   src/trackers/roi_to_position_converter.cpp
+  src/trackers/roi_to_plane_converter.cpp
   src/trackers/simple_tracker.cpp
   src/trackers/alvar_tracker.cpp
   src/trackers/base_tracker.cpp
