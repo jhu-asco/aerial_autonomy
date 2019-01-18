@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 
 #include <chrono>
-#include <sensor_msgs/image_encodings.h>
-#include <thread>
 #include <random>
+#include <sensor_msgs/image_encodings.h>
 #include <tf_conversions/tf_eigen.h>
+#include <thread>
 
 #include "aerial_autonomy/trackers/roi_to_plane_converter.h"
 
@@ -64,8 +64,8 @@ TEST(RoiToPlaneConverterTests, ComputeTrackingVector) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
 
-  RoiToPlaneConverter::computeTrackingVector(
-      roi, depth, camera_info, max_distance, front_percent, pose);
+  RoiToPlaneConverter::computeTrackingVector(roi, depth, camera_info,
+                                             max_distance, front_percent, pose);
   ASSERT_NEAR(pose.getOrigin().x(), (5.5 - cx) / fx, 1e-5);
   ASSERT_NEAR(pose.getOrigin().y(), (5.5 - cy) / fy, 1e-5);
   ASSERT_NEAR(pose.getOrigin().z(), 1, 1e-5);
@@ -97,8 +97,8 @@ TEST(RoiToPlaneConverterTests, ComputeTrackingVectorFront) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
 
-  RoiToPlaneConverter::computeTrackingVector(
-      roi, depth, camera_info, max_distance, front_percent, pose);
+  RoiToPlaneConverter::computeTrackingVector(roi, depth, camera_info,
+                                             max_distance, front_percent, pose);
   ASSERT_NEAR(pose.getOrigin().x(), 0.5 * (2 - cx) / fx, 1e-5);
   ASSERT_NEAR(pose.getOrigin().y(), 0.5 * (2 - cy) / fy, 1e-5);
   ASSERT_NEAR(pose.getOrigin().z(), 0.5, 1e-5);
@@ -129,8 +129,8 @@ TEST(RoiToPlaneConverterTests, ComputeTrackingVectorMaxDistance) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
 
-  RoiToPlaneConverter::computeTrackingVector(
-      roi, depth, camera_info, max_distance, front_percent, pose);
+  RoiToPlaneConverter::computeTrackingVector(roi, depth, camera_info,
+                                             max_distance, front_percent, pose);
   ASSERT_NEAR(pose.getOrigin().x(),
               max_distance * (roi.x_offset + roi.width / 2. - cx) / fx, 1e-5);
   ASSERT_NEAR(pose.getOrigin().y(),
@@ -210,13 +210,11 @@ TEST_F(RoiToPlaneConverterROSTests, GetTrackingVector) {
 }
 
 TEST(RoiToPlaneConverterTests, ComputePlaneFit) {
-
   Eigen::Vector3d norm_vec(1, 1, 1);
   norm_vec.normalize();
   Eigen::Vector3d centroid(1, 1, 1);
-  Eigen::VectorXd x = Eigen::VectorXd::LinSpaced(20,0,2);
-  Eigen::VectorXd y = Eigen::VectorXd::LinSpaced(20,0,2);
-  Eigen::VectorXd z(x.size());
+  Eigen::VectorXd x = Eigen::VectorXd::LinSpaced(20, 0, 2);
+  Eigen::VectorXd y = Eigen::VectorXd::LinSpaced(20, 0, 2);
   Eigen::MatrixXd roi_point_cloud(3, x.size() * y.size());
   // Gaussian noise
   const double mean = 0.0;
@@ -228,8 +226,10 @@ TEST(RoiToPlaneConverterTests, ComputePlaneFit) {
   for (int i = 0; i < x.size(); i++) {
     for (int j = 0; j < y.size(); j++) {
       // Compute z coord of the plane
-      double z = -((x(i) - centroid(0)) * norm_vec(0) + (y(j) - centroid(1)) *
-      norm_vec(1))/norm_vec(2) + centroid(2);
+      double z = -((x(i) - centroid(0)) * norm_vec(0) +
+                   (y(j) - centroid(1)) * norm_vec(1)) /
+                     norm_vec(2) +
+                 centroid(2);
       // Add noise
       double x_noise = x(i) + dist(generator);
       double y_noise = y(j) + dist(generator);
@@ -239,6 +239,7 @@ TEST(RoiToPlaneConverterTests, ComputePlaneFit) {
       count++;
     }
   }
+
   tf::Transform pose;
   RoiToPlaneConverter::computePlaneFit(roi_point_cloud, pose);
   ASSERT_NEAR(pose.getOrigin().x(), centroid(0), 1e-2);
@@ -246,7 +247,6 @@ TEST(RoiToPlaneConverterTests, ComputePlaneFit) {
   ASSERT_NEAR(pose.getOrigin().z(), centroid(2), 1e-2);
   // Eigenvector correspoding to smallest eigenvalue
   tf::Vector3 z_vec = pose.getBasis().getColumn(2);
-  //
   if (z_vec.getX() < 0) {
     z_vec *= -1.;
   }
@@ -254,6 +254,7 @@ TEST(RoiToPlaneConverterTests, ComputePlaneFit) {
   ASSERT_NEAR(z_vec.getY(), norm_vec(1), 1e-2);
   ASSERT_NEAR(z_vec.getZ(), norm_vec(2), 1e-2);
 }
+
 int main(int argc, char **argv) {
   ros::init(argc, argv, "roi_to_plane_converter_test");
   testing::InitGoogleTest(&argc, argv);
