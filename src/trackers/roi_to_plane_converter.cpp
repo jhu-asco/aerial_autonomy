@@ -130,30 +130,15 @@ void RoiToPlaneConverter::computeTrackingVector(
     std::partial_sort(roi_position_depths.begin(),
                       roi_position_depths.begin() + number_of_depths_to_sort,
                       roi_position_depths.end(), compare); // Doing Partial Sort
-
+    // 3byN
     Eigen::MatrixXd roi_point_cloud(3, number_of_depths_to_sort);
 
     // Point cloud
     computePointCloud(roi_position_depths, number_of_depths_to_sort, cx, cy, fx,
                       fy, roi_point_cloud);
-
+    std::cout << "point cloud: " << '\n' << roi_point_cloud << '\n';
     // Compute Plane
     computePlaneFit(roi_point_cloud, pos);
-
-    //
-    // Eigen::Vector3d sum(0, 0, 0);
-    // sum *= (1.0f / number_of_depths_to_sort);
-    // object_distance = sum(2);
-    // object_position_cam(0) = sum(0);
-    // object_position_cam(1) = sum(1);
-    // Eigen::Vector3d centroid(object_distance * (object_position_cam(0) - cx)
-    // / fx, object_distance * (object_position_cam(1) - cy) / fy,
-    // object_distance); roi_point_cloud.colwise() -= centroid;
-
-    // tf::Vector3 centroid_tf;
-    // tf::vectorEigenToTF(centroid, centroid_tf);
-    // pos.setOrigin(tf::Vector3(centroid(0),centroid(1),centroid(2)));
-    // pos.setRotation(tf::Quaternion(0, 0, 0, 1));
   }
 }
 
@@ -162,7 +147,6 @@ void RoiToPlaneConverter::computePointCloud(
     int number_of_depths_to_sort, const double &cx, const double &cy,
     const double &fx, const double &fy, Eigen::MatrixXd &roi_point_cloud) {
   for (int i = 0; i < number_of_depths_to_sort; ++i) {
-    sum += roi_position_depths[i];
     roi_point_cloud(0, i) =
         roi_position_depths[i](2) * (roi_position_depths[i](0) - cx) / fx;
     roi_point_cloud(1, i) =
@@ -175,18 +159,20 @@ void RoiToPlaneConverter::computePlaneFit(Eigen::MatrixXd &roi_point_cloud,
                                           tf::Transform &pos) {
   // Compute centroid
   Eigen::Vector3d centroid = roi_point_cloud.rowwise().mean();
-
+  roi_point_cloud.colwise() -= centroid;
   // Singular Value Decomposition
-  int setting = Eigen::ComputeFullU | Eigen::ComputeThinV;
-  Eigen::JacobiSVD<Eigen::MatrixXd> svd = roi_point_cloud.jacobiSvd(setting);
+  Eigen::JacobiSVD<Eigen::MatrixXd> svd(
+      roi_point_cloud, Eigen::ComputeFullU | Eigen::ComputeFullV);
   Eigen::Matrix3d U = svd.matrixU();
+  std::cout << "matrix U: " << '\n' << svd.matrixU() << '\n';
+  std::cout << "singular values: " << '\n' << svd.singularValues() << '\n';
   Eigen::Vector3d norms = U.colwise().norm();
   U.col(0) /= norms(0);
   U.col(1) /= norms(1);
   U.col(2) /= norms(2);
   // Homogeneous transformation matrix
-  Eigen::MatrixXd E;
-  E.setIdentity(4, 4);
+  Eigen::MatrixXd E = Eigen::MatrixXd::Identity(4, 4);
+  // E.setIdentity(4, 4);
   E.block(0, 0, 3, 3) = U;
   E.block(0, 3, 3, 1) = centroid;
   conversions::transformMatrix4dToTf(E, pos);

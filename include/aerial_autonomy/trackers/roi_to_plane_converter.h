@@ -17,6 +17,7 @@
 #include <sensor_msgs/RegionOfInterest.h>
 
 #include <Eigen/Dense>
+#include <Eigen/SVD>
 
 #include <boost/thread/mutex.hpp>
 
@@ -64,6 +65,16 @@ public:
                                     double max_distance,
                                     double foreground_percent,
                                     tf::Transform &pos);
+
+  static void
+  computePointCloud(std::vector<Eigen::Vector3d> &roi_position_depths,
+                    int number_of_depths_to_sort, const double &cx,
+                    const double &cy, const double &fx, const double &fy,
+                    Eigen::MatrixXd &roi_point_cloud);
+
+  static void computePlaneFit(Eigen::MatrixXd &roi_point_cloud,
+                              tf::Transform &pos);
+
   /**
    * @brief Check whether tracking is valid
    * @return True if the tracking is valid, false otherwise
