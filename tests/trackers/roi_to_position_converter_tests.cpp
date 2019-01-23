@@ -38,6 +38,7 @@ private:
 };
 
 TEST(RoiToPositionConverterTests, ComputeTrackingVector) {
+  RoiToPositionConverter converter("");
   sensor_msgs::RegionOfInterest roi;
   cv::Mat depth(40, 40, CV_32F);
   sensor_msgs::CameraInfo camera_info;
@@ -62,14 +63,15 @@ TEST(RoiToPositionConverterTests, ComputeTrackingVector) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
 
-  RoiToPositionConverter::computeTrackingVector(
-      roi, depth, camera_info, max_distance, front_percent, pose);
+  converter.computeTrackingVector(roi, depth, camera_info, max_distance,
+                                  front_percent, pose);
   ASSERT_NEAR(pose.getOrigin().x(), (5.5 - cx) / fx, 1e-5);
   ASSERT_NEAR(pose.getOrigin().y(), (5.5 - cy) / fy, 1e-5);
   ASSERT_NEAR(pose.getOrigin().z(), 1, 1e-5);
 }
 
 TEST(RoiToPositionConverterTests, ComputeTrackingVectorFront) {
+  RoiToPositionConverter converter("");
   sensor_msgs::RegionOfInterest roi;
   cv::Mat depth(40, 40, CV_32F);
   sensor_msgs::CameraInfo camera_info;
@@ -95,14 +97,15 @@ TEST(RoiToPositionConverterTests, ComputeTrackingVectorFront) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
 
-  RoiToPositionConverter::computeTrackingVector(
-      roi, depth, camera_info, max_distance, front_percent, pose);
+  converter.computeTrackingVector(roi, depth, camera_info, max_distance,
+                                  front_percent, pose);
   ASSERT_NEAR(pose.getOrigin().x(), 0.5 * (2 - cx) / fx, 1e-5);
   ASSERT_NEAR(pose.getOrigin().y(), 0.5 * (2 - cy) / fy, 1e-5);
   ASSERT_NEAR(pose.getOrigin().z(), 0.5, 1e-5);
 }
 
 TEST(RoiToPositionConverterTests, ComputeTrackingVectorMaxDistance) {
+  RoiToPositionConverter converter("");
   sensor_msgs::RegionOfInterest roi;
   cv::Mat depth(40, 40, CV_32F);
   sensor_msgs::CameraInfo camera_info;
@@ -127,8 +130,8 @@ TEST(RoiToPositionConverterTests, ComputeTrackingVectorMaxDistance) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
 
-  RoiToPositionConverter::computeTrackingVector(
-      roi, depth, camera_info, max_distance, front_percent, pose);
+  converter.computeTrackingVector(roi, depth, camera_info, max_distance,
+                                  front_percent, pose);
   ASSERT_NEAR(pose.getOrigin().x(),
               max_distance * (roi.x_offset + roi.width / 2. - cx) / fx, 1e-5);
   ASSERT_NEAR(pose.getOrigin().y(),

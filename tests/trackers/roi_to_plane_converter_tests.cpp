@@ -40,6 +40,7 @@ private:
 };
 
 TEST(RoiToPlaneConverterTests, ComputeTrackingVector) {
+  RoiToPlaneConverter converter("");
   sensor_msgs::RegionOfInterest roi;
   cv::Mat depth(40, 40, CV_32F);
   sensor_msgs::CameraInfo camera_info;
@@ -64,14 +65,15 @@ TEST(RoiToPlaneConverterTests, ComputeTrackingVector) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
 
-  RoiToPlaneConverter::computeTrackingVector(roi, depth, camera_info,
-                                             max_distance, front_percent, pose);
+  converter.computeTrackingVector(roi, depth, camera_info, max_distance,
+                                  front_percent, pose);
   ASSERT_NEAR(pose.getOrigin().x(), (5.5 - cx) / fx, 1e-5);
   ASSERT_NEAR(pose.getOrigin().y(), (5.5 - cy) / fy, 1e-5);
   ASSERT_NEAR(pose.getOrigin().z(), 1, 1e-5);
 }
 
 TEST(RoiToPlaneConverterTests, ComputeTrackingVectorFront) {
+  RoiToPlaneConverter converter("");
   sensor_msgs::RegionOfInterest roi;
   cv::Mat depth(40, 40, CV_32F);
   sensor_msgs::CameraInfo camera_info;
@@ -97,14 +99,15 @@ TEST(RoiToPlaneConverterTests, ComputeTrackingVectorFront) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
 
-  RoiToPlaneConverter::computeTrackingVector(roi, depth, camera_info,
-                                             max_distance, front_percent, pose);
+  converter.computeTrackingVector(roi, depth, camera_info, max_distance,
+                                  front_percent, pose);
   ASSERT_NEAR(pose.getOrigin().x(), 0.5 * (2 - cx) / fx, 1e-5);
   ASSERT_NEAR(pose.getOrigin().y(), 0.5 * (2 - cy) / fy, 1e-5);
   ASSERT_NEAR(pose.getOrigin().z(), 0.5, 1e-5);
 }
 
 TEST(RoiToPlaneConverterTests, ComputeTrackingVectorMaxDistance) {
+  RoiToPlaneConverter converter("");
   sensor_msgs::RegionOfInterest roi;
   cv::Mat depth(40, 40, CV_32F);
   sensor_msgs::CameraInfo camera_info;
@@ -129,8 +132,8 @@ TEST(RoiToPlaneConverterTests, ComputeTrackingVectorMaxDistance) {
   camera_info.K[0] = fx;
   camera_info.K[4] = fy;
 
-  RoiToPlaneConverter::computeTrackingVector(roi, depth, camera_info,
-                                             max_distance, front_percent, pose);
+  converter.computeTrackingVector(roi, depth, camera_info, max_distance,
+                                  front_percent, pose);
   ASSERT_NEAR(pose.getOrigin().x(),
               max_distance * (roi.x_offset + roi.width / 2. - cx) / fx, 1e-5);
   ASSERT_NEAR(pose.getOrigin().y(),
@@ -239,9 +242,9 @@ TEST(RoiToPlaneConverterTests, ComputePlaneFit) {
       count++;
     }
   }
-
+  RoiToPlaneConverter converter("");
   tf::Transform pose;
-  RoiToPlaneConverter::computePlaneFit(roi_point_cloud, pose);
+  converter.computePlaneFit(roi_point_cloud, pose);
   ASSERT_NEAR(pose.getOrigin().x(), centroid(0), 1e-2);
   ASSERT_NEAR(pose.getOrigin().y(), centroid(1), 1e-2);
   ASSERT_NEAR(pose.getOrigin().z(), centroid(2), 1e-2);
