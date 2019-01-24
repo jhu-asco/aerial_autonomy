@@ -16,8 +16,8 @@ public:
 
   /**
    * @brief Get the 3D position of the ROI when Depth is not empty
-   * @param roi_position_depths
-   * @param number_of_depths_to_sort
+   * @param roi_position_depths 3D pixel points in the ROI
+   * @param number_of_depths_to_sort Number of points after partial sort
    * @param camera_info Camera calibration parameters
    * @param pos Returned position
    */

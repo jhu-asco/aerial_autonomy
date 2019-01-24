@@ -35,9 +35,6 @@ void RoiBaseTracker::depthCallback(
     return;
   }
   last_pose_update_time_ = ros::Time::now();
-  if (!poseIsValid()) {
-    return;
-  }
   /// \todo (Matt) make timeout configurable
   if (!roiIsValid()) {
     return;
