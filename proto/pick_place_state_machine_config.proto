@@ -30,4 +30,11 @@ message PickPlaceStateMachineConfig {
   * @brief Thrust gain when picking up an object
   */
   optional double object_pickup_thrust_gain = 5 [ default = 0.1 ];
+
+  /**
+  * @brief Placing and checking thresholds
+  */
+  optional double placing_acc_threshold = 6 [ default = 1 ];
+  optional double checking_acc_threshold = 7 [ default = -1 ];
+
 }

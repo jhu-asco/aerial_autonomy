@@ -1,0 +1,137 @@
+visual_servoing_state_machine_config {
+
+  # PrePlace
+  relative_pose_goals {
+    position {
+      x: 0.03
+      y: -1.1
+      z: 0.105
+    }
+    yaw: 1.5708
+  }
+
+  # Place
+  relative_pose_goals {
+    position {
+      x: 0.03
+      y: -.887
+      z: 0.105
+    }
+    yaw: 1.5708
+  }
+
+  # Checking
+  relative_pose_goals {
+    position {
+      x: 0.03
+      y: -.887
+      z: 0.105
+    }
+    yaw: 1.5708
+  }
+
+  pick_place_state_machine_config {
+    grip_config {
+      grip_timeout: 20000
+    }
+    place_groups {
+      destination_id: 15
+      object_ids: 28
+    }
+    place_groups {
+      destination_id: 25
+      object_ids: 1
+    }
+    place_groups {
+      destination_id: 26
+      object_ids: 4
+    }
+    place_groups {
+      destination_id: 27
+      object_ids: 7
+    }
+    place_groups {
+      destination_id: 18
+      object_ids: 16
+    } 
+
+    arm_goal_transform {
+      position {
+        x: -0.2
+        y: 0
+        z: 0.47
+      }
+      rotation {
+        r: 0
+        p: 0
+        y: 0
+      }
+    }
+
+    arm_goal_transform {
+      position {
+        x: 0
+        y: -0.09
+        z: -0.01
+      }
+      rotation {
+        r: 0
+        p: 0
+        y: 0
+      }
+    }
+
+    following_waypoint_sequence_config {
+      way_points {
+        position {
+          x: 0.0
+          y: 1.0
+          z: 0.4
+        }
+        yaw: 1.57
+      }
+      way_points {
+        position {
+          x: 0.0
+          y: 0.0
+          z: 0.0
+        }
+        yaw: 1.57
+      }
+      way_points {
+        position {
+          x: 0.0
+          y: -1.9
+          z: 0.08
+        }
+        yaw: 1.57
+      }
+      way_points {
+        position {
+          x: 0.0
+          y: 0.0
+          z: -0.1
+        }
+        yaw: -1.57
+      }
+      poly_reference_config {
+        min_tf: 4.0
+        max_velocity: 0.3
+      }
+      position_controller_config {
+        goal_position_tolerance {
+          x: 0.15
+          y: 0.15
+          z: 0.1
+        }
+        goal_yaw_tolerance: .15
+      }
+    }
+    object_pickup_thrust_gain: 0.4
+  }
+  connector_type: RPYTRef
+}
+poly_reference_config {
+  max_velocity: 0.3
+  min_tf: 4.0
+}

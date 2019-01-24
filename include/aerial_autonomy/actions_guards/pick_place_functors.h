@@ -85,7 +85,6 @@ using PlaceInternalActionFunctor_ = boost::msm::front::ShortingActionSequence_<
     boost::mpl::vector<UAVStatusInternalActionFunctor_<LogicStateMachineT>,
                        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
                        VisualServoingStatus_<LogicStateMachineT, Reset>>>;
-
 /**
 * @brief Check tracking is valid before starting visual servoing and arm is
 * enabled before picking objects
