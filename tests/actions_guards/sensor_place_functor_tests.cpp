@@ -1,6 +1,6 @@
 #include "position_yaw.pb.h"
-#include <aerial_autonomy/actions_guards/sensor_place_states_actions.h>
 #include <aerial_autonomy/actions_guards/pick_place_states_actions.h>
+#include <aerial_autonomy/actions_guards/sensor_place_states_actions.h>
 #include <aerial_autonomy/tests/sample_logic_state_machine.h>
 #include <aerial_autonomy/tests/test_utils.h>
 #include <aerial_autonomy/trackers/simple_tracker.h>
@@ -35,14 +35,14 @@ using PlaceInternalAction =
     PlaceInternalActionFunctor_<UAVArmLogicStateMachine>;
 
 class SensorPlaceFunctorTests : public ::testing::Test {
-//There's nothing needed here.
+  // There's nothing needed here.
 protected:
   SensorPlaceFunctorTests() {}
   virtual ~SensorPlaceFunctorTests(){};
 };
 /// \brief Test Visual Servoing
-//The PlaceInternalAction initializes all the new functors.
-//The functionality is tested in the state machine test.
+// The PlaceInternalAction initializes all the new functors.
+// The functionality is tested in the state machine test.
 TEST_F(SensorPlaceFunctorTests, Constructor) {
   ASSERT_NO_THROW(new PlaceInternalAction());
 }

@@ -177,38 +177,37 @@ public:
     pose_goal_position->set_z(2);
     pose_goal->set_yaw(0);
 */
-/*
-    auto waypoint_config =
-        pick_state_machine_config->mutable_following_waypoint_sequence_config();
-    auto waypoint_position_controller_config =
-        waypoint_config->mutable_position_controller_config();
-    *(waypoint_position_controller_config) =
-        *(pos_controller_config->mutable_position_controller_config());
-    // Post-pick waypoints
-    for (int i = 0; i < 2; i++) {
-      auto pose_goal = waypoint_config->add_way_points();
-      auto pose_goal_position = pose_goal->mutable_position();
-      pose_goal_position->set_x(-i);
-      pose_goal_position->set_y(0);
-      pose_goal_position->set_z(1);
-      pose_goal->set_yaw(0);
-    }
+    /*
+        auto waypoint_config =
+            pick_state_machine_config->mutable_following_waypoint_sequence_config();
+        auto waypoint_position_controller_config =
+            waypoint_config->mutable_position_controller_config();
+        *(waypoint_position_controller_config) =
+            *(pos_controller_config->mutable_position_controller_config());
+        // Post-pick waypoints
+        for (int i = 0; i < 2; i++) {
+          auto pose_goal = waypoint_config->add_way_points();
+          auto pose_goal_position = pose_goal->mutable_position();
+          pose_goal_position->set_x(-i);
+          pose_goal_position->set_y(0);
+          pose_goal_position->set_z(1);
+          pose_goal->set_yaw(0);
+        }
 
-    // Post-place waypoints
-    for (int i = 0; i < 2; i++) {
-      auto pose_goal = waypoint_config->add_way_points();
-      auto pose_goal_position = pose_goal->mutable_position();
-      pose_goal_position->set_x(2);
-      pose_goal_position->set_y(0);
-      pose_goal_position->set_z(0.5);
-      pose_goal->set_yaw(M_PI);
-    }
-*/
+        // Post-place waypoints
+        for (int i = 0; i < 2; i++) {
+          auto pose_goal = waypoint_config->add_way_points();
+          auto pose_goal_position = pose_goal->mutable_position();
+          pose_goal_position->set_x(2);
+          pose_goal_position->set_y(0);
+          pose_goal_position->set_z(0.5);
+          pose_goal->set_yaw(M_PI);
+        }
+    */
     // Acceleration Threshold
     pick_state_machine_config->set_placing_acc_threshold(5);
     pick_state_machine_config->set_checking_acc_threshold(-5);
 
-     
     // Arm controller params
     auto arm_position_tolerance =
         uav_arm_system_config->mutable_position_controller_config()
@@ -319,7 +318,7 @@ protected:
 
   template <class EventT> void testArmOffAbort() {
     // First takeoff
-    //GoToHoverFromLanded();
+    // GoToHoverFromLanded();
     logic_state_machine_->process_event(EventT());
     logic_state_machine_->process_event(InternalTransitionEvent());
     ASSERT_STRNE(pstate(*logic_state_machine_), "Hovering");
@@ -403,10 +402,10 @@ protected:
                                               std::chrono::milliseconds(0)));
     logic_state_machine_->process_event(InternalTransitionEvent());
     // Check that the controllers are completed, but the state is still place
-    ASSERT_TRUE(uav_arm_system_->getActiveControllerStatus(ControllerGroup::UAV) ==
-                 ControllerStatus::Completed);
-    ASSERT_TRUE(uav_arm_system_->getActiveControllerStatus(ControllerGroup::Arm) ==
-                 ControllerStatus::Completed);
+    ASSERT_TRUE(uav_arm_system_->getActiveControllerStatus(
+                    ControllerGroup::UAV) == ControllerStatus::Completed);
+    ASSERT_TRUE(uav_arm_system_->getActiveControllerStatus(
+                    ControllerGroup::Arm) == ControllerStatus::Completed);
     ASSERT_STREQ(pstate(*logic_state_machine_), "PlaceState");
   }
   void SimulatorCheck() {
@@ -433,10 +432,10 @@ protected:
                                               std::chrono::milliseconds(0)));
     logic_state_machine_->process_event(InternalTransitionEvent());
     // Check that the controllers are completed, but the state is still place
-    ASSERT_TRUE(uav_arm_system_->getActiveControllerStatus(ControllerGroup::UAV) ==
-                 ControllerStatus::Completed);
-    ASSERT_TRUE(uav_arm_system_->getActiveControllerStatus(ControllerGroup::Arm) ==
-                 ControllerStatus::Completed);
+    ASSERT_TRUE(uav_arm_system_->getActiveControllerStatus(
+                    ControllerGroup::UAV) == ControllerStatus::Completed);
+    ASSERT_TRUE(uav_arm_system_->getActiveControllerStatus(
+                    ControllerGroup::Arm) == ControllerStatus::Completed);
     ASSERT_STREQ(pstate(*logic_state_machine_), "CheckingState");
   }
   void SimulatorPostPlace() {
@@ -505,15 +504,15 @@ TEST_F(SensorPlaceStateMachineTests, HoveringandLanding) {
 // Try full placement task
 TEST_F(SensorPlaceStateMachineTests, SensorPlace) {
 
-  //Biases for GCOP
-  Eigen::Vector3d eigen_place_bias(10,0,10);
-  Eigen::Vector3d eigen_check_bias(-10,0,-10);
-  Eigen::Vector3d eigen_zero_bias(0,0,0);
+  // Biases for GCOP
+  Eigen::Vector3d eigen_place_bias(10, 0, 10);
+  Eigen::Vector3d eigen_check_bias(-10, 0, -10);
+  Eigen::Vector3d eigen_zero_bias(0, 0, 0);
 
   GoToHoverFromLanded();
   // Start Place
   SimulatorPlaceFromHover();
-  //Add acceleration bias
+  // Add acceleration bias
   drone_hardware_->setAccelerationBias(eigen_place_bias);
   // Keep running the controller until its completed or timeout
   auto getStatusRunControllers = [&]() {
@@ -529,10 +528,10 @@ TEST_F(SensorPlaceStateMachineTests, SensorPlace) {
                                             std::chrono::milliseconds(0)));
   logic_state_machine_->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine_), "CheckingState");
-  //Remove GCOP Stuff
+  // Remove GCOP Stuff
   drone_hardware_->setAccelerationBias(eigen_zero_bias);
   SimulatorCheck();
-  //Add acceleration bias
+  // Add acceleration bias
   drone_hardware_->setAccelerationBias(eigen_check_bias);
   // Keep running the controller until its completed or timeout
   ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
@@ -540,7 +539,7 @@ TEST_F(SensorPlaceStateMachineTests, SensorPlace) {
                                             std::chrono::milliseconds(0)));
   logic_state_machine_->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine_), "PostPlaceState");
-  //Remove GCOP Stuff
+  // Remove GCOP Stuff
   drone_hardware_->setAccelerationBias(eigen_zero_bias);
   SimulatorPostPlace();
 }
@@ -637,33 +636,33 @@ TEST_F(SensorPlaceStateMachineTests, CheckingInvalidTrackingAbort) {
 
 // Manual rc abort
 TEST_F(SensorPlaceStateMachineTests, ManualControlAbort) {
-  //First Takeoff
+  // First Takeoff
   GoToHoverFromLanded();
-  //PrePlace
+  // PrePlace
   testManualControlAbort<se::Place>();
-  //Place
+  // Place
   GoToPrePlaceFromHover();
   testManualControlAbort<Completed>();
-  //Checking
+  // Checking
   GoToPlaceFromHover();
   testManualControlAbort<Completed>();
-  //PostPlace
+  // PostPlace
   GoToCheckingFromHover();
   testManualControlAbort<Completed>();
 }
 // Arm abort
 TEST_F(SensorPlaceStateMachineTests, ArmOffAbort) {
-  //First Takeoff
+  // First Takeoff
   GoToHoverFromLanded();
-  //PrePlace
+  // PrePlace
   testArmOffAbort<se::Place>();
-  //Place
+  // Place
   GoToPrePlaceFromHover();
   testArmOffAbort<Completed>();
-  //Checking
+  // Checking
   GoToPlaceFromHover();
   testArmOffAbort<Completed>();
-  //PostPlace
+  // PostPlace
   GoToCheckingFromHover();
   testArmOffAbort<Completed>();
 }
