@@ -54,7 +54,16 @@ public:
     return filter_data_;
   }
 
+  /**
+  * @brief Reset the filter
+  */
   void reset() { filter_data_available_ = false; }
+
+  /**
+  * @brief Check if filter data is available
+  * @return True if available, false otherwise
+  */
+  bool isDataAvailable() { return filter_data_available_; }
 
 private:
   double gain_;                ///< Mixing gain
