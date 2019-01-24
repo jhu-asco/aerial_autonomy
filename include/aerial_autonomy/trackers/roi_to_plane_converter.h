@@ -16,20 +16,16 @@ public:
       : RoiBaseTracker(name_space) {}
 
   /**
-   * @brief Get the 3D position of the ROI (in the frame of the
-   * camera)
-   * @param roi Region of interest to consider
-   * @param depth Pixel depths
-   * @param cam_info Camera calibration parameters
-   * @param max_distance Ignore pixels farther away than this
-   * @param foreground_percent Average over closest foreground_percent of pixels
+   * @brief Get the 3D position of the plane in ROI when Depth is not empty
+   * @param roi_position_depths
+   * @param number_of_depths_to_sort
+   * @param camera_info Camera calibration parameters
    * @param pos Returned position
    */
-  void computeTrackingVector(const sensor_msgs::RegionOfInterest &roi,
-                             const cv::Mat &depth,
-                             const sensor_msgs::CameraInfo &cam_info,
-                             double max_distance, double foreground_percent,
-                             tf::Transform &pos);
+  void computeTrackingVectorWithDepth(
+      std::vector<Eigen::Vector3d> &roi_position_depths,
+      int number_of_depths_to_sort, const sensor_msgs::CameraInfo &camera_info,
+      tf::Transform &pos);
 
   /**
    * @brief Get the 3D point cloud of the ROI (in the frame of the
@@ -47,7 +43,7 @@ public:
   /**
    * @brief Get the 3D plane fitting via singular value decomposition method
    * @param roi_point_cloud 3byN point cloud
-   * @param roi_point_cloud Returned pos
+   * @param pos Returned pose of the plane
    */
   void computePlaneFit(Eigen::MatrixXd &roi_point_cloud, tf::Transform &pos);
 };

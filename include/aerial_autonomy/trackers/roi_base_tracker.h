@@ -57,12 +57,22 @@ public:
    * @param foreground_percent Average over closest foreground_percent of pixels
    * @param pos Returned position
    */
-  virtual void computeTrackingVector(const sensor_msgs::RegionOfInterest &roi,
-                                     const cv::Mat &depth,
-                                     const sensor_msgs::CameraInfo &cam_info,
-                                     double max_distance,
-                                     double foreground_percent,
-                                     tf::Transform &pos) = 0;
+  void computeTrackingVector(const sensor_msgs::RegionOfInterest &roi,
+                             const cv::Mat &depth,
+                             const sensor_msgs::CameraInfo &cam_info,
+                             double max_distance, double foreground_percent,
+                             tf::Transform &pos);
+  /**
+   * @brief Get the 3D position of the ROI when Depth is not empty
+   * @param roi_position_depths
+   * @param number_of_depths_to_sort
+   * @param camera_info Camera calibration parameters
+   * @param pos Returned position
+   */
+  virtual void computeTrackingVectorWithDepth(
+      std::vector<Eigen::Vector3d> &roi_position_depths,
+      int number_of_depths_to_sort, const sensor_msgs::CameraInfo &camera_info,
+      tf::Transform &pos) = 0;
   /**
    * @brief Check whether tracking is valid
    * @return True if the tracking is valid, false otherwise
@@ -92,6 +102,11 @@ protected:
    * @return True if the ROI is valid, false otherwise
    */
   bool roiIsValid();
+  /**
+   * @brief Check whether the system has a valid Tracking vector (Pose)
+   * @return True if the Pose is valid, false otherwise
+   */
+  bool poseIsValid();
   /**
    * @brief ROI subscriber callback
    * @param roi_msg ROI message
@@ -180,4 +195,8 @@ protected:
    */
   Atomic<std::chrono::time_point<std::chrono::high_resolution_clock>>
       last_tracking_time_;
+  /**
+   * @brief last time Pose was updated
+   */
+  Atomic<ros::Time> last_pose_update_time_;
 };

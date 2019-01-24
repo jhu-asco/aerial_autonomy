@@ -158,6 +158,10 @@ TEST_F(RoiToPlaneConverterROSTests, TrackingValid) {
 
   sensor_msgs::RegionOfInterest roi;
   publishRoi(roi);
+  ASSERT_FALSE(converter.trackingIsValid());
+
+  cv::Mat depth(40, 40, CV_32F);
+  publishDepth(depth);
   ASSERT_TRUE(converter.trackingIsValid());
 
   /// \todo Matt This should depend on the configured ROI timeout
