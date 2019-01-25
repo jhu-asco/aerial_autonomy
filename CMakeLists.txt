@@ -278,7 +278,9 @@ set(SRC
   src/log/data_stream.cpp
   src/log/log.cpp
   src/log/mocap_logger.cpp
+  src/trackers/roi_base_tracker.cpp
   src/trackers/roi_to_position_converter.cpp
+  src/trackers/roi_to_plane_converter.cpp
   src/trackers/simple_tracker.cpp
   src/trackers/alvar_tracker.cpp
   src/trackers/base_tracker.cpp
@@ -445,6 +447,7 @@ catkin_add_gtest(${PROJECT_NAME}-math-test tests/common/math_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-tracker-test tests/trackers/simple_tracker_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-multi-tracker-test tests/trackers/simple_multi_tracker_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-roi-to-position-converter-test tests/trackers/roi_to_position_converter_tests.test tests/trackers/roi_to_position_converter_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-roi-to-plane-converter-test tests/trackers/roi_to_plane_converter_tests.test tests/trackers/roi_to_plane_converter_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-alvar-tracker-test tests/trackers/alvar_tracker_tests.test tests/trackers/alvar_tracker_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-velocity-sensor-test tests/sensors/velocity_sensor_tests.test tests/sensors/velocity_sensor_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test tests/controller_connectors/relative_pose_visual_servoing_drone_connector_tests.cpp)
@@ -612,6 +615,9 @@ if(TARGET ${PROJECT_NAME}-visual-servoing-drone-connector-test)
 endif()
 if(TARGET ${PROJECT_NAME}-roi-to-position-converter-test)
   target_link_libraries(${PROJECT_NAME}-roi-to-position-converter-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-roi-to-plane-converter-test)
+  target_link_libraries(${PROJECT_NAME}-roi-to-plane-converter-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-system-handler-node-utils-test)
   target_link_libraries(${PROJECT_NAME}-system-handler-node-utils-test aerial_autonomy)
