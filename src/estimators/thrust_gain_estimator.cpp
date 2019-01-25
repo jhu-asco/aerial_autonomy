@@ -18,8 +18,8 @@ ThrustGainEstimator::ThrustGainEstimator(
       max_roll_pitch_bias_(max_roll_pitch_bias),
       init_roll_bias_(init_roll_bias), init_pitch_bias_(init_pitch_bias) {
   CHECK_GE(delay_buffer_size_, 1) << "Buffer size should be atleast 1";
-  CHECK_GT(mixing_gain_, 0) << "Mixing gain should be between 0 and 1";
-  CHECK_LT(mixing_gain_, 1) << "Mixing gain should be between 0 and 1";
+  CHECK_GE(mixing_gain_, 0) << "Mixing gain should be between 0 and 1";
+  CHECK_LE(mixing_gain_, 1) << "Mixing gain should be between 0 and 1";
   CHECK_GT(rp_mixing_gain_, 0) << "Mixing gain should be between 0 and 1";
   CHECK_LT(rp_mixing_gain_, 1) << "Mixing gain should be between 0 and 1";
   CHECK_GE(thrust_gain_initial, min_thrust_gain_)
@@ -122,7 +122,7 @@ void ThrustGainEstimator::resetThrustMixingGain() {
 }
 
 void ThrustGainEstimator::setThrustMixingGain(double mixing_gain) {
-  CHECK_GT(mixing_gain, 0) << "Mixing gain should be between 0 and 1";
-  CHECK_LT(mixing_gain, 1) << "Mixing gain should be between 0 and 1";
+  CHECK_GE(mixing_gain, 0) << "Mixing gain should be between 0 and 1";
+  CHECK_LE(mixing_gain, 1) << "Mixing gain should be between 0 and 1";
   mixing_gain_ = mixing_gain;
 }

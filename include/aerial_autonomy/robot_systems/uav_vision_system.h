@@ -10,6 +10,7 @@
 #include "aerial_autonomy/controllers/quad_polynomial_reference_controller.h"
 #include "aerial_autonomy/controllers/rpyt_based_relative_pose_controller.h"
 #include "aerial_autonomy/controllers/velocity_based_relative_pose_controller.h"
+#include "aerial_autonomy/estimators/acceleration_bias_estimator.h"
 #include "aerial_autonomy/estimators/tracking_vector_estimator.h"
 #include "aerial_autonomy/robot_systems/uav_system.h"
 #include "aerial_autonomy/trackers/alvar_tracker.h"
@@ -60,6 +61,8 @@ public:
             config_.uav_vision_system_config().camera_transform())),
         tracker_(UAVVisionSystem::chooseTracker(tracker, drone_hardware_,
                                                 camera_transform_, config)),
+        acceleration_bias_estimator_(
+            config_.uav_vision_system_config().acceleration_bias_estimator_config()),
         constant_heading_depth_controller_(
             config_.uav_vision_system_config()
                 .constant_heading_depth_controller_config()),
@@ -80,7 +83,7 @@ public:
                                          camera_transform_),
         rpyt_relative_pose_visual_servoing_drone_connector_(
             *tracker_, *drone_hardware_, rpyt_based_relative_pose_controller_,
-            thrust_gain_estimator_, camera_transform_,
+            thrust_gain_estimator_, acceleration_bias_estimator_, camera_transform_,
             conversions::protoTransformToTf(config_.uav_vision_system_config()
                                                 .tracking_offset_transform())),
         velocity_relative_pose_visual_servoing_drone_connector_(
@@ -202,6 +205,14 @@ public:
     quad_poly_reference_generator_.useNoise(flag);
   }
 
+  /**
+  * @brief Get the estimated acceleration bias
+  * @return Estimated acceleration bias
+  */
+  Eigen::Vector3d getAccelerationBias() {
+    return acceleration_bias_estimator_.getAccelerationBias();
+  }
+
 protected:
   /**
   * @brief Camera transform in the frame of the UAV
@@ -245,6 +256,10 @@ protected:
   }
 
 private:
+  /**
+  * @brief Estimates acceleration bias
+  */
+  AccelerationBiasEstimator acceleration_bias_estimator_;
   /**
   * @brief Track the target position given by the tracker
   */
