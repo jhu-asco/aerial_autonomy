@@ -92,7 +92,8 @@ struct AdaptiveTransitionActionFunctor_
         RPYTRelativePoseAdaptiveEstimateConnector,
         std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double>>(
         pair_goal);
-    robot_system.visualizeTrajectory(reference);
+    // robot_system.visualizeTrajectory(reference); Removed until arguments can
+    // be ironed out
   }
 };
 

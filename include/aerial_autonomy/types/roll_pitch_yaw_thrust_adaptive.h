@@ -4,7 +4,7 @@
 * @brief Roll, pitch, yaw, thrust and adaptive parameter estimate message
 */
 
-struct RollPitchYawThrustAdaptive {
+struct RollPitchYawThrustAdaptive : RollPitchYawThrust {
   /**
   * @brief Explicit instantiation
   *
@@ -14,9 +14,5 @@ struct RollPitchYawThrustAdaptive {
   * @param t Thrust
   * @param dm derivative of mass perimeter
   */
-  RollPitchYawThrustAdaptive(double r = 0, double p = 0, double y = 0,
-                             double t = 0, double dm = 0)
-      : rpyt(r, p, y, t), dm(dm) {}
-  RollPitchYawThrust rpyt;
   double dm; ///< dm
 };

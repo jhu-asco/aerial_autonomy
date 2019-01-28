@@ -485,9 +485,10 @@ public:
     }
     return result;
   }
+  /*Removed until the arguments are ironed out.
   void visualizeTrajectory(ReferenceTrajectoryPtr<ParticleState, Snap> goal) {
     qrotor_visualizer_->publishTrajectory(true, goal);
-  }
+  }*/
   SensorStatus getPoseSensorStatus() {
     if (odom_sensor_) {
       return odom_sensor_->getSensorStatus();
