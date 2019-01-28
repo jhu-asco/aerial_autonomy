@@ -1,0 +1,4 @@
+<launch>
+  <test test-name="RoiToPlaneConverter" pkg="aerial_autonomy" type="aerial_autonomy-roi-to-plane-converter-test">
+  </test>
+</launch>

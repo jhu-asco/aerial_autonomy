@@ -225,6 +225,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/following_waypoint_sequence_config.proto
   proto/grip_config.proto
   proto/place_group.proto
+  proto/acceleration_bias_estimator_config.proto
   proto/thrust_gain_estimator_config.proto
   proto/tracking_vector_estimator_config.proto
   proto/ros_sensor_config.proto
@@ -279,7 +280,9 @@ set(SRC
   src/log/data_stream.cpp
   src/log/log.cpp
   src/log/mocap_logger.cpp
+  src/trackers/roi_base_tracker.cpp
   src/trackers/roi_to_position_converter.cpp
+  src/trackers/roi_to_plane_converter.cpp
   src/trackers/simple_tracker.cpp
   src/trackers/alvar_tracker.cpp
   src/trackers/base_tracker.cpp
@@ -309,6 +312,7 @@ set(SRC
   src/controllers/quad_particle_reference_controller.cpp
   src/controllers/quad_polynomial_reference_controller.cpp
   src/controllers/rpyt_based_reference_controller.cpp
+  src/estimators/acceleration_bias_estimator.cpp
   src/estimators/thrust_gain_estimator.cpp
   src/estimators/tracking_vector_estimator.cpp
   src/controller_connectors/visual_servoing_controller_drone_connector.cpp
@@ -390,41 +394,6 @@ if (arm_plugins_FOUND)
 endif ()
 
 #############
-## Install ##
-#############
-
-#all install targets should use catkin DESTINATION variables
-#See http: // ros.org/doc/api/catkin/html/adv_user_guide/variables.html
-
-## Mark executable scripts (Python etc.) for installation
-## in contrast to setup.py, you can choose the destination
-#install(PROGRAMS
-#scripts / my_python_script
-#DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION }
-#)
-
-## Mark executables and/or libraries for installation
-#install(TARGETS aerial_autonomy aerial_autonomy_node
-#ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION }
-#LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION }
-#RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION }
-#)
-
-## Mark cpp header files for installation
-#install(DIRECTORY include / ${PROJECT_NAME } /
-#DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION }
-#FILES_MATCHING PATTERN "*.h"
-#PATTERN ".svn" EXCLUDE
-#)
-
-## Mark other files for installation (e.g. launch and bag files, etc.)
-#install(FILES
-# #myfile1
-# #myfile2
-#DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION }
-#)
-
-#############
 ## Testing ##
 #############
 
@@ -469,6 +438,7 @@ catkin_add_gtest(${PROJECT_NAME}-iterable-enum-test tests/common/iterable_enum_t
 catkin_add_gtest(${PROJECT_NAME}-velocity-based-position-controller-test tests/controllers/velocity_based_position_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-arm-sine-controller-test tests/controllers/arm_sine_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-thrust-gain-estimator-test tests/estimators/thrust_gain_estimator_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-acceleration-bias-estimator-test tests/estimators/acceleration_bias_estimator_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-tracking-vector-estimator-test tests/estimators/tracking_vector_estimator_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-controller-test tests/controllers/relative_pose_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-velocity-based-relative-pose-controller-test tests/controllers/velocity_based_relative_pose_controller_tests.cpp)
@@ -481,6 +451,7 @@ catkin_add_gtest(${PROJECT_NAME}-math-test tests/common/math_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-tracker-test tests/trackers/simple_tracker_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-multi-tracker-test tests/trackers/simple_multi_tracker_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-roi-to-position-converter-test tests/trackers/roi_to_position_converter_tests.test tests/trackers/roi_to_position_converter_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-roi-to-plane-converter-test tests/trackers/roi_to_plane_converter_tests.test tests/trackers/roi_to_plane_converter_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-alvar-tracker-test tests/trackers/alvar_tracker_tests.test tests/trackers/alvar_tracker_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-velocity-sensor-test tests/sensors/velocity_sensor_tests.test tests/sensors/velocity_sensor_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test tests/controller_connectors/relative_pose_visual_servoing_drone_connector_tests.cpp)
@@ -592,6 +563,9 @@ endif()
 if(TARGET ${PROJECT_NAME}-thrust-gain-estimator-test)
   target_link_libraries(${PROJECT_NAME}-thrust-gain-estimator-test aerial_autonomy)
 endif()
+if(TARGET ${PROJECT_NAME}-acceleration-bias-estimator-test)
+  target_link_libraries(${PROJECT_NAME}-acceleration-bias-estimator-test aerial_autonomy)
+endif()
 if(TARGET ${PROJECT_NAME}-tracking-vector-estimator-test)
   target_link_libraries(${PROJECT_NAME}-tracking-vector-estimator-test aerial_autonomy ${catkin_LIBRARIES})
 endif()
@@ -645,6 +619,9 @@ if(TARGET ${PROJECT_NAME}-visual-servoing-drone-connector-test)
 endif()
 if(TARGET ${PROJECT_NAME}-roi-to-position-converter-test)
   target_link_libraries(${PROJECT_NAME}-roi-to-position-converter-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-roi-to-plane-converter-test)
+  target_link_libraries(${PROJECT_NAME}-roi-to-plane-converter-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-system-handler-node-utils-test)
   target_link_libraries(${PROJECT_NAME}-system-handler-node-utils-test aerial_autonomy)
