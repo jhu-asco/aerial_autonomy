@@ -1,12 +1,10 @@
 #pragma once
 #include "grip_config.pb.h"
-#include <Eigen>
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
 #include <aerial_autonomy/actions_guards/manual_control_functors.h>
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_functors.h>
-#include <aerial_autonomy/commmon/conversions.h>
 #include <aerial_autonomy/common/conversions.h>
 #include <aerial_autonomy/common/proto_utils.h>
 #include <aerial_autonomy/logic_states/base_state.h>
@@ -19,20 +17,31 @@
 #include <aerial_autonomy/types/reset_event.h>
 #include <chrono>
 #include <glog/logging.h>
+#include <tf_conversions/tf_eigen.h>
 #include <thread>
 
 // Forward Declarations
-template <class LogicStateMachineT> class PlaceState_;
-template <class LogicStateMachineT> class CheckingState_;
+template <class LogicStateMachineT> class SensorPlaceState_;
+template <class LogicStateMachineT> class SensorCheckingState_;
 
 // New Functors
+// Set thust mixing gain to 0
+template <class LogicStateMachineT>
+struct ZeroThrustMixingGain_
+    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  void run(UAVArmSystem &robot_system_) {
+    LOG(INFO) << "Setting thrust mixing gain to zero";
+    robot_system_.setThrustMixingGain(0);
+  }
+};
 
 // Check the normal acceleration bias in the horizontal plane
 // Send complete event if theshold is reached.
 template <class LogicStateMachineT, bool placingFlag>
 struct NormalForceThresholdInternalActionFunctor_
-    : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
-  bool run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
+    : InternalActionFunctor<UAVVisionSystem, LogicStateMachineT> {
+  bool run(UAVVisionSystem &robot_system,
+           LogicStateMachineT &logic_state_machine) {
     // Get the acceleration bias (in body frame)
     Eigen::Vector3d bias_acc = robot_system.getAccelerationBias();
     tf::Vector3 bias_acc_tf =
@@ -43,9 +52,9 @@ struct NormalForceThresholdInternalActionFunctor_
         conversions::transformTfToRPY(robot_system.getPose());
     tf::Transform rotation_world_to_body;
     conversions::transformRPYToTf(curr_rpy(0), curr_rpy(1), curr_rpy(2),
-                                  &rotation_world_to_body);
+                                  rotation_world_to_body);
     tf::Transform rotation_world_to_local;
-    conversions::transformRPYToTf(0, 0, curr_rpy(2), &rotation_world_to_local);
+    conversions::transformRPYToTf(0, 0, curr_rpy(2), rotation_world_to_local);
     tf::Vector3 bias_acc_local_tf =
         rotation_world_to_local *
         (rotation_world_to_body.inverse() * bias_acc_tf);
@@ -53,7 +62,7 @@ struct NormalForceThresholdInternalActionFunctor_
     // the normal direction.
     // To be more precise, we should use the relative yaw to mix the x and y
     // components.
-    double normal_acc = bias_acc_local_tf.x();
+    double normal_acc_ = bias_acc_local_tf.x();
     if (placingFlag) {
       double threshold = logic_state_machine.base_state_machine_config_
                              .visual_servoing_state_machine_config()
@@ -73,6 +82,7 @@ struct NormalForceThresholdInternalActionFunctor_
         return false;
       }
     }
+    return true;
   }
 };
 
@@ -153,7 +163,9 @@ struct TimeoutInternalActionFunctor_
                                       .grip_timeout());
     if (state.timeInState() > threshold) {
       logic_state_machine.process_event(Reset());
+      return false;
     }
+    return true;
   }
 };
 
@@ -163,7 +175,7 @@ struct TimeoutInternalActionFunctor_
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using PrePlaceInternalActionFunctor_ =
+using PreSensorPlaceInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<
         boost::mpl::vector<UAVStatusInternalActionFunctor_<LogicStateMachineT>,
                            ArmStatusInternalActionFunctor_<LogicStateMachineT>,
@@ -175,9 +187,10 @@ using PrePlaceInternalActionFunctor_ =
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-struct PrePlaceState_ =
-    BaseState<UAVArmSystem, LogicStateMachineT,
-              PrePlaceInternalActionFunctor_<LogicStateMachineT>>;
+class PreSensorPlaceState_
+    : public BaseState<
+          UAVArmSystem, LogicStateMachineT,
+          PreSensorPlaceInternalActionFunctor_<LogicStateMachineT>> {};
 
 /**
 * @brief Logic to check while placing object
@@ -185,45 +198,48 @@ struct PrePlaceState_ =
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using PlaceInternalActionFunctor_ =
+using SensorPlaceInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-        NoCompleteVisualServoingStatus_<LogicStateMachineT, Abort>,
+        NoCompleteVisualServoingStatus_<LogicStateMachineT, be::Abort>,
         NormalForceThresholdInternalActionFunctor_<LogicStateMachineT, true>,
         TimeoutInternalActionFunctor_<LogicStateMachineT,
-                                      PlaceState_<LogicStateMachineT>>>>;
+                                      SensorPlaceState_<LogicStateMachineT>>>>;
 /**
 * @brief State that uses visual servoing to place object.
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using PlaceState_ = TimedState<UAVArmSystem, LogicStateMachineT,
-                               PlaceInternalActionFunctor_<LogicStateMachineT>>;
+class SensorPlaceState_
+    : public TimedState<UAVArmSystem, LogicStateMachineT,
+                        SensorPlaceInternalActionFunctor_<LogicStateMachineT>> {
+};
 /**
 * @brief Logic to check if an object has been placed
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using CheckingInternalActionFunctor_ =
+using SensorCheckingInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-        NoCompleteVisualServoingStatus_<LogicStateMachineT, Abort>,
+        NoCompleteVisualServoingStatus_<LogicStateMachineT, be::Abort>,
         NormalForceThresholdInternalActionFunctor_<LogicStateMachineT, false>,
-        TimeoutInternalActionFunctor_<LogicStateMachineT,
-                                      CheckingState_<LogicStateMachineT>>>>;
+        TimeoutInternalActionFunctor_<
+            LogicStateMachineT, SensorCheckingState_<LogicStateMachineT>>>>;
 /**
 * @brief State that checks that an object has been placed.
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using CheckingState_ =
-    TimedState<UAVArmSystem, LogicStateMachineT,
-               CheckingInternalActionFunctor_<LogicStateMachineT>>;
+class SensorCheckingState_
+    : public TimedState<
+          UAVArmSystem, LogicStateMachineT,
+          SensorCheckingInternalActionFunctor_<LogicStateMachineT>> {};
 
 /**
 * @brief Logic for going to the post-place position
@@ -243,6 +259,6 @@ using PostPlaceInternalActionFunctor_ =
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-struct PostPlaceState_ =
-    BaseState<UAVArmSystem, LogicStateMachineT,
-              PostPlaceInternalActionFunctor_<LogicStateMachineT>>;
+class PostPlaceState_
+    : public BaseState<UAVArmSystem, LogicStateMachineT,
+                       PostPlaceInternalActionFunctor_<LogicStateMachineT>> {};

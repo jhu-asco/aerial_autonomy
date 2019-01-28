@@ -12,13 +12,13 @@
 #include <boost/msm/front/functor_row.hpp>
 
 // State index list
-static double preplace_index = 0;
-static double place_index = 1;
-static double checking_index = 2;
-static double postplace_index = 0;
+#define preplace_index 0
+#define place_index 1
+#define checking_index 2
+#define postplace_index 0
 
-static double place_arm_index = 0;
-static double checking_arm_index = 1;
+#define place_arm_index 0
+#define checking_arm_index 1
 
 /**
 * @brief Class to provide typedefs for all basic uav states and actions
@@ -59,15 +59,15 @@ struct SensorPlaceStatesActions
   /**
   * @brief State while positioning the uav for pre-placing
   */
-  using PrePlaceState = PrePlaceState_<LogicStateMachineT>;
+  using PreSensorPlaceState = PreSensorPlaceState_<LogicStateMachineT>;
   /**
   * @brief State while positioning the uav for placing
   */
-  using PlaceState = PlaceState_<LogicStateMachineT>;
+  using SensorPlaceState = SensorPlaceState_<LogicStateMachineT>;
   /**
   * @brief State while pulling away from a placement.
   */
-  using CheckingState = CheckingState_<LogicStateMachineT>;
+  using SensorCheckingState = SensorCheckingState_<LogicStateMachineT>;
   /**
   * @brief State for retreating after placing object
   */
@@ -75,54 +75,58 @@ struct SensorPlaceStatesActions
 
   // Transition Actions and Guards
   /**
-  * @brief Action to take when starting placing object at either drop-off.
+  * @brief Action to take when starting placing.
   */
-  using PrePlaceVisualServoingTransitionAction =
+  using PreSensorPlaceVisualServoingTransitionAction =
       base_functors::bActionSequence<boost::mpl::vector<
           typename vsa::ResetRelativePoseVisualServoing,
           typename asa::ArmRightFold,
+          ResetThrustMixingGain_<LogicStateMachineT>,
           RelativePoseVisualServoingTransitionActionFunctor_<
               LogicStateMachineT, preplace_index, true>>>; // Set Home set to
                                                            // true
-                                                           /**
-                                                           * @brief Guard to set and check that the id to track is available
-                                                           * before beginning visual servoing
-                                                           */
-  using PrePlaceVisualServoingTransitionGuard =
+
+  /**
+  * @brief Guard to set and check that the id to track is available
+  * before beginning visual servoing
+  */
+  using PreSensorPlaceVisualServoingTransitionGuard =
       CheckGoalIndex_<LogicStateMachineT, preplace_index>;
+
   /**
   * @brief Action to take when placing sensor
   */
-  using PlaceVisualServoingTransitionAction = base_functors::bActionSequence<
-      boost::mpl::vector<ArmPoseTransitionActionFunctor_<
-                             LogicStateMachineT, place_arm_index, false>,
-                         typename vsa::ResetRelativePoseVisualServoing,
-                         RelativePoseVisualServoingTransitionActionFunctor_<
-                             LogicStateMachineT, place_index, false>>>; // Set
-                                                                        // Home
-                                                                        // set
-                                                                        // to
-                                                                        // false
-                                                                        /**
-                                                                        * @brief Guard to take when placing sensor. Might be nothing.
-                                                                        */
-  using PlaceVisualServoingTransitionGuard =
+  using SensorPlaceVisualServoingTransitionAction =
+      base_functors::bActionSequence<boost::mpl::vector<
+          ArmPoseTransitionActionFunctor_<LogicStateMachineT, place_arm_index,
+                                          false>,
+          typename vsa::ResetRelativePoseVisualServoing,
+          ZeroThrustMixingGain_<LogicStateMachineT>,
+          RelativePoseVisualServoingTransitionActionFunctor_<
+              LogicStateMachineT, place_index, false>>>; // Don't set home
+
+  /**
+  * @brief Guard to take when placing sensor. Might be nothing.
+  */
+  using SensorPlaceVisualServoingTransitionGuard =
       CheckGoalIndex_<LogicStateMachineT, place_index>;
+
   /**
   * @brief Action to take when checking sensor placement
   */
-  using CheckingVisualServoingTransitionAction =
+  using SensorCheckingVisualServoingTransitionAction =
       base_functors::bActionSequence<boost::mpl::vector<
           ArmPoseTransitionActionFunctor_<LogicStateMachineT,
                                           checking_arm_index, false>,
           typename vsa::ResetRelativePoseVisualServoing,
+          ZeroThrustMixingGain_<LogicStateMachineT>,
           RelativePoseVisualServoingTransitionActionFunctor_<
-              LogicStateMachineT, checking_index, false>>>; // Set home set to
-                                                            // false
-                                                            /**
-                                                            * @brief Guard to take when checking sensor placement. Might be nothing.
-                                                            */
-  using CheckingVisualServoingTransitionGuard =
+              LogicStateMachineT, checking_index, false>>>; // Don't set home
+
+  /**
+  * @brief Guard to take when checking sensor placement. Might be nothing.
+  */
+  using SensorCheckingVisualServoingTransitionGuard =
       CheckGoalIndex_<LogicStateMachineT, checking_index>;
 
   // Transition Actions and Guards
@@ -131,16 +135,17 @@ struct SensorPlaceStatesActions
   */
   using PostPlaceVisualServoingTransitionAction =
       base_functors::bActionSequence<boost::mpl::vector<
+          ArmGripActionFunctor_<LogicStateMachineT, false>,
           typename vsa::ResetRelativePoseVisualServoing,
           typename asa::ArmRightFold,
+          ResetThrustMixingGain_<LogicStateMachineT>,
           RelativePoseVisualServoingTransitionActionFunctor_<
-              LogicStateMachineT, postplace_index, false>>>; // Set Home set to
-                                                             // false
-                                                             /**
-                                                             * @brief Guard to set and check that the id to track is available
-                                                             * before beginning visual servoing
-                                                             */
+              LogicStateMachineT, postplace_index, false>>>; // Don't set home
+
+  /**
+  * @brief Guard to set and check that the id to track is available
+  * before beginning visual servoing
+  */
   using PostPlaceVisualServoingTransitionGuard =
       CheckGoalIndex_<LogicStateMachineT, postplace_index>;
-/**
 };
