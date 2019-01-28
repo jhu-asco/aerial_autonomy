@@ -32,9 +32,9 @@ public:
         grip_duration_(10) {
     auto vision_state_machine_config =
         state_machine_config_.mutable_visual_servoing_state_machine_config();
-    auto pick_state_machine_config =
-        vision_state_machine_config->mutable_pick_place_state_machine_config();
-    auto grip_config = pick_state_machine_config->mutable_grip_config();
+    auto sensor_place_state_machine_config =
+        vision_state_machine_config
+            ->mutable_sensor_place_state_machine_config();
     // Set visual servoing controller
     vision_state_machine_config->set_connector_type(
         VisualServoingStateMachineConfig::RPYTPose);
@@ -54,8 +54,7 @@ public:
     position_tolerance->set_y(goal_tolerance_position_);
     position_tolerance->set_z(goal_tolerance_position_);
     // Grip parameters
-    grip_config->set_grip_timeout(grip_timeout_);
-    grip_config->set_grip_duration(grip_duration_);
+    sensor_place_state_machine_config->set_grip_timeout(grip_timeout_);
 
     // Position controller params
     auto pos_controller_config =
@@ -124,15 +123,15 @@ public:
 
     // Arm goal transforms
     // Place Arm Transform
-    setTransform(pick_state_machine_config->add_arm_goal_transform(), -0.3, 0,
-                 0, 0, 0, 0);
+    setTransform(sensor_place_state_machine_config->add_arm_goal_transform(),
+                 -0.3, 0, 0, 0, 0, 0);
     // Checking Arm Transform
-    setTransform(pick_state_machine_config->add_arm_goal_transform(), -0.5, 0,
-                 0, 0, 0, 0);
+    setTransform(sensor_place_state_machine_config->add_arm_goal_transform(),
+                 -0.5, 0, 0, 0, 0, 0);
 
     // Set Thresholds for Normal Forces
-    pick_state_machine_config->set_placing_acc_threshold(1);
-    pick_state_machine_config->set_checking_acc_threshold(-1);
+    sensor_place_state_machine_config->set_placing_acc_threshold(-1);
+    sensor_place_state_machine_config->set_checking_acc_threshold(1);
 
     // Set Acceleration Bias Config
     auto acceleration_estimator_config =
@@ -162,8 +161,8 @@ public:
     pose_goal->set_yaw(0);
 
     // Acceleration Threshold
-    pick_state_machine_config->set_placing_acc_threshold(5);
-    pick_state_machine_config->set_checking_acc_threshold(-5);
+    sensor_place_state_machine_config->set_placing_acc_threshold(-5);
+    sensor_place_state_machine_config->set_checking_acc_threshold(5);
 
     // Arm controller params
     auto arm_position_tolerance =
@@ -341,8 +340,6 @@ protected:
     ASSERT_EQ(
         uav_arm_system_->getStatus<RPYTRelativePoseVisualServoingConnector>(),
         ControllerStatus::Active);
-    // ASSERT_EQ(uav_arm_system_->getStatus<BuiltInPoseControllerArmConnector>(),
-    //          ControllerStatus::Active);
     // Keep running the controller until its completed or timeout
     auto getStatusRunControllers = [&]() {
       uav_arm_system_->runActiveController(ControllerGroup::UAV);
@@ -460,8 +457,8 @@ TEST_F(SensorPlaceStateMachineTests, HoveringandLanding) {
 TEST_F(SensorPlaceStateMachineTests, SensorPlace) {
 
   // Biases for GCOP
-  Eigen::Vector3d eigen_place_bias(10, 0, 0);
-  Eigen::Vector3d eigen_check_bias(-10, 0, 0);
+  Eigen::Vector3d eigen_place_bias(-10, 0, 0);
+  Eigen::Vector3d eigen_check_bias(10, 0, 0);
   Eigen::Vector3d eigen_zero_bias(0, 0, 0);
 
   GoToHoverFromLanded();
@@ -474,6 +471,8 @@ TEST_F(SensorPlaceStateMachineTests, SensorPlace) {
     uav_arm_system_->runActiveController(ControllerGroup::UAV);
     uav_arm_system_->runActiveController(ControllerGroup::Arm);
     Eigen::Vector3d bias = uav_arm_system_->getAccelerationBias();
+    cout << "filling: " << bias.x() << " " << bias.y() << " " << bias.z()
+         << std::endl;
     return bias.norm() < 5;
   };
   ASSERT_FALSE(test_utils::waitUntilFalse()(
@@ -486,6 +485,8 @@ TEST_F(SensorPlaceStateMachineTests, SensorPlace) {
     uav_arm_system_->runActiveController(ControllerGroup::UAV);
     uav_arm_system_->runActiveController(ControllerGroup::Arm);
     Eigen::Vector3d bias = uav_arm_system_->getAccelerationBias();
+    cout << "emptying: " << bias.x() << " " << bias.y() << " " << bias.z()
+         << std::endl;
     return bias.norm() > 0.5;
   };
   ASSERT_FALSE(test_utils::waitUntilFalse()(
@@ -498,7 +499,7 @@ TEST_F(SensorPlaceStateMachineTests, SensorPlace) {
       fillAccBuff, std::chrono::seconds(25), std::chrono::milliseconds(0)));
   logic_state_machine_->process_event(InternalTransitionEvent());
   ASSERT_STREQ(pstate(*logic_state_machine_), "PostPlaceState");
-  // Remove GCOP Stuff
+  // Remove bias
   drone_hardware_->setAccelerationBias(eigen_zero_bias);
   ASSERT_FALSE(test_utils::waitUntilFalse()(
       emptyAccBuff, std::chrono::seconds(25), std::chrono::milliseconds(0)));
@@ -557,6 +558,26 @@ TEST_F(SensorPlaceStateMachineTests, CheckingTimeout) {
 }
 
 // Abort due to tracking becoming invalid
+TEST_F(SensorPlaceStateMachineTests, PrePlaceInvalidTrackingAbort) {
+  // First takeoff
+  GoToHoverFromLanded();
+  // Go to PrePlace
+  GoToPrePlaceFromHover();
+  // Check we are in place state
+  ASSERT_STREQ(pstate(*logic_state_machine_), "PrePlaceState");
+  // Set tracker to invalid
+  tracker_->setTrackingIsValid(false);
+  // Run active controllers
+  for (int i = 0; i < 2; ++i) {
+    uav_arm_system_->runActiveController(ControllerGroup::HighLevel);
+    uav_arm_system_->runActiveController(ControllerGroup::UAV);
+    uav_arm_system_->runActiveController(ControllerGroup::Arm);
+  }
+  logic_state_machine_->process_event(InternalTransitionEvent());
+  ASSERT_STREQ(pstate(*logic_state_machine_), "Hovering");
+}
+
+// Abort due to tracking becoming invalid
 TEST_F(SensorPlaceStateMachineTests, PlaceInvalidTrackingAbort) {
   // First takeoff
   GoToHoverFromLanded();
@@ -585,6 +606,26 @@ TEST_F(SensorPlaceStateMachineTests, CheckingInvalidTrackingAbort) {
   SimulatorCheck();
   // Check we are in checking state
   ASSERT_STREQ(pstate(*logic_state_machine_), "CheckingState");
+  // Set tracker to invalid
+  tracker_->setTrackingIsValid(false);
+  // Run active controllers
+  for (int i = 0; i < 2; ++i) {
+    uav_arm_system_->runActiveController(ControllerGroup::HighLevel);
+    uav_arm_system_->runActiveController(ControllerGroup::UAV);
+    uav_arm_system_->runActiveController(ControllerGroup::Arm);
+  }
+  logic_state_machine_->process_event(InternalTransitionEvent());
+  ASSERT_STREQ(pstate(*logic_state_machine_), "Hovering");
+}
+
+// Abort due to tracking becoming invalid
+TEST_F(SensorPlaceStateMachineTests, PostPlaceInvalidTrackingAbort) {
+  // First takeoff
+  GoToHoverFromLanded();
+  // Go to PostPlace
+  GoToPostPlaceFromHover();
+  // Check we are in place state
+  ASSERT_STREQ(pstate(*logic_state_machine_), "PostPlaceState");
   // Set tracker to invalid
   tracker_->setTrackingIsValid(false);
   // Run active controllers

@@ -99,7 +99,7 @@ struct SensorPlaceStatesActions
   using SensorPlaceVisualServoingTransitionAction =
       base_functors::bActionSequence<boost::mpl::vector<
           ArmPoseTransitionActionFunctor_<LogicStateMachineT, place_arm_index,
-                                          false>,
+                                          false, false>,
           typename vsa::ResetRelativePoseVisualServoing,
           ZeroThrustMixingGain_<LogicStateMachineT>,
           RelativePoseVisualServoingTransitionActionFunctor_<
@@ -117,7 +117,7 @@ struct SensorPlaceStatesActions
   using SensorCheckingVisualServoingTransitionAction =
       base_functors::bActionSequence<boost::mpl::vector<
           ArmPoseTransitionActionFunctor_<LogicStateMachineT,
-                                          checking_arm_index, false>,
+                                          checking_arm_index, false, false>,
           typename vsa::ResetRelativePoseVisualServoing,
           ZeroThrustMixingGain_<LogicStateMachineT>,
           RelativePoseVisualServoingTransitionActionFunctor_<
@@ -131,7 +131,8 @@ struct SensorPlaceStatesActions
 
   // Transition Actions and Guards
   /**
-  * @brief Action to take when starting placing object at either drop-off.
+  * @brief Action to take after checking and when returning to the staging
+  * location.
   */
   using PostPlaceVisualServoingTransitionAction =
       base_functors::bActionSequence<boost::mpl::vector<

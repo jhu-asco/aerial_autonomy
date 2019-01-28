@@ -188,7 +188,8 @@ struct EventIdVisualServoingGuardFunctor_
     return false;
   }
 };
-template <class LogicStateMachineT, class AbortEventT>
+template <class LogicStateMachineT, class AbortEventT,
+          bool CompleteFlagT = true>
 struct VisualServoingStatus_
     : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
   bool run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
@@ -201,7 +202,7 @@ struct VisualServoingStatus_
     case VisualServoingStateMachineConfig::RPYTPose:
       result = ControllerStatusInternalActionFunctor_<
                    LogicStateMachineT, RPYTRelativePoseVisualServoingConnector,
-                   true, AbortEventT>()
+                   CompleteFlagT, AbortEventT>()
                    .run(robot_system, logic_state_machine);
       break;
     case VisualServoingStateMachineConfig::RPYTRef:
@@ -209,37 +210,37 @@ struct VisualServoingStatus_
           ControllerStatusInternalActionFunctor_<
               LogicStateMachineT,
               RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
-              true, AbortEventT>()
+              CompleteFlagT, AbortEventT>()
               .run(robot_system, logic_state_machine);
       result &= ControllerStatusInternalActionFunctor_<
                     LogicStateMachineT,
                     UAVVisionSystem::RPYTVisualServoingReferenceConnectorT,
-                    false, AbortEventT>()
+                    CompleteFlagT, AbortEventT>()
                     .run(robot_system, logic_state_machine);
       break;
     case VisualServoingStateMachineConfig::MPC:
       result =
           ControllerStatusInternalActionFunctor_<LogicStateMachineT,
                                                  MPCControllerQuadConnector,
-                                                 true, AbortEventT>()
+                                                 CompleteFlagT, AbortEventT>()
               .run(robot_system, logic_state_machine);
       result &= ControllerStatusInternalActionFunctor_<
                     LogicStateMachineT,
                     UAVVisionSystem::MPCVisualServoingReferenceConnectorT,
-                    false, AbortEventT>()
+                    CompleteFlagT, AbortEventT>()
                     .run(robot_system, logic_state_machine);
       break;
     case VisualServoingStateMachineConfig::HeadingDepth:
       result = ControllerStatusInternalActionFunctor_<
                    LogicStateMachineT, VisualServoingControllerDroneConnector,
-                   true, AbortEventT>()
+                   CompleteFlagT, AbortEventT>()
                    .run(robot_system, logic_state_machine);
       break;
     case VisualServoingStateMachineConfig::VelPose:
       result = ControllerStatusInternalActionFunctor_<
                    LogicStateMachineT,
-                   RelativePoseVisualServoingControllerDroneConnector, true,
-                   AbortEventT>()
+                   RelativePoseVisualServoingControllerDroneConnector,
+                   CompleteFlagT, AbortEventT>()
                    .run(robot_system, logic_state_machine);
       break;
     }

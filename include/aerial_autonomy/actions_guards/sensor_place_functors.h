@@ -50,100 +50,37 @@ struct NormalForceThresholdInternalActionFunctor_
     // local frame)
     Eigen::Vector3d curr_rpy =
         conversions::transformTfToRPY(robot_system.getPose());
-    tf::Transform rotation_world_to_body;
-    conversions::transformRPYToTf(curr_rpy(0), curr_rpy(1), curr_rpy(2),
-                                  rotation_world_to_body);
-    tf::Transform rotation_world_to_local;
-    conversions::transformRPYToTf(0, 0, curr_rpy(2), rotation_world_to_local);
-    tf::Vector3 bias_acc_local_tf =
-        rotation_world_to_local *
-        (rotation_world_to_body.inverse() * bias_acc_tf);
-    // Take the x value of the vector, which, if we're normal to the wall, is
-    // the normal direction.
-    // To be more precise, we should use the relative yaw to mix the x and y
+    tf::Transform rotation_from_body_to_local;
+    conversions::transformRPYToTf(curr_rpy(0), curr_rpy(1), 0,
+                                  rotation_from_body_to_local);
+    tf::Vector3 bias_acc_local_tf = rotation_from_body_to_local * bias_acc_tf;
+    // Take the x value of the vector, which, if the robot is oriented normal to
+    // the
+    // wall, is the normal direction.  If the local x is not aligned with the
+    // wall
+    // normal vector, the true result would be a combination of the x and y
     // components.
     double normal_acc_ = bias_acc_local_tf.x();
     if (placingFlag) {
       double threshold = logic_state_machine.base_state_machine_config_
                              .visual_servoing_state_machine_config()
-                             .pick_place_state_machine_config()
+                             .sensor_place_state_machine_config()
                              .placing_acc_threshold();
-      if (normal_acc_ > threshold) {
+      if (normal_acc_ < threshold) {
         logic_state_machine.process_event(Completed());
         return false;
       }
     } else {
       double threshold = logic_state_machine.base_state_machine_config_
                              .visual_servoing_state_machine_config()
-                             .pick_place_state_machine_config()
+                             .sensor_place_state_machine_config()
                              .checking_acc_threshold();
-      if (normal_acc_ < threshold) {
+      if (normal_acc_ > threshold) {
         logic_state_machine.process_event(Completed());
         return false;
       }
     }
     return true;
-  }
-};
-
-// Exactly the same as the VisualServoingStatus_ functor, but no complete events
-// are sent.
-template <class LogicStateMachineT, class AbortEventT>
-struct NoCompleteVisualServoingStatus_
-    : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
-  bool run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
-    // Check config for which connector to use
-    auto connector_type = logic_state_machine.base_state_machine_config_
-                              .visual_servoing_state_machine_config()
-                              .connector_type();
-    bool result = false;
-    switch (connector_type) {
-    case VisualServoingStateMachineConfig::RPYTPose:
-      result = ControllerStatusInternalActionFunctor_<
-                   LogicStateMachineT, RPYTRelativePoseVisualServoingConnector,
-                   false, AbortEventT>()
-                   .run(robot_system, logic_state_machine);
-      break;
-    case VisualServoingStateMachineConfig::RPYTRef:
-      result =
-          ControllerStatusInternalActionFunctor_<
-              LogicStateMachineT,
-              RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
-              false, AbortEventT>()
-              .run(robot_system, logic_state_machine);
-      result &= ControllerStatusInternalActionFunctor_<
-                    LogicStateMachineT,
-                    UAVVisionSystem::RPYTVisualServoingReferenceConnectorT,
-                    false, AbortEventT>()
-                    .run(robot_system, logic_state_machine);
-      break;
-    case VisualServoingStateMachineConfig::MPC:
-      result =
-          ControllerStatusInternalActionFunctor_<LogicStateMachineT,
-                                                 MPCControllerQuadConnector,
-                                                 false, AbortEventT>()
-              .run(robot_system, logic_state_machine);
-      result &= ControllerStatusInternalActionFunctor_<
-                    LogicStateMachineT,
-                    UAVVisionSystem::MPCVisualServoingReferenceConnectorT,
-                    false, AbortEventT>()
-                    .run(robot_system, logic_state_machine);
-      break;
-    case VisualServoingStateMachineConfig::HeadingDepth:
-      result = ControllerStatusInternalActionFunctor_<
-                   LogicStateMachineT, VisualServoingControllerDroneConnector,
-                   false, AbortEventT>()
-                   .run(robot_system, logic_state_machine);
-      break;
-    case VisualServoingStateMachineConfig::VelPose:
-      result = ControllerStatusInternalActionFunctor_<
-                   LogicStateMachineT,
-                   RelativePoseVisualServoingControllerDroneConnector, true,
-                   AbortEventT>()
-                   .run(robot_system, logic_state_machine);
-      break;
-    }
-    return result;
   }
 };
 
@@ -158,8 +95,7 @@ struct TimeoutInternalActionFunctor_
     std::chrono::milliseconds threshold =
         std::chrono::milliseconds(logic_state_machine.base_state_machine_config_
                                       .visual_servoing_state_machine_config()
-                                      .pick_place_state_machine_config()
-                                      .grip_config()
+                                      .sensor_place_state_machine_config()
                                       .grip_timeout());
     if (state.timeInState() > threshold) {
       logic_state_machine.process_event(Reset());
@@ -176,10 +112,10 @@ struct TimeoutInternalActionFunctor_
 */
 template <class LogicStateMachineT>
 using PreSensorPlaceInternalActionFunctor_ =
-    boost::msm::front::ShortingActionSequence_<
-        boost::mpl::vector<UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-                           ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-                           VisualServoingStatus_<LogicStateMachineT, Reset>>>;
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+        VisualServoingStatus_<LogicStateMachineT, be::Abort>>>;
 
 /**
 * @brief State for going to the placement staging position
@@ -202,7 +138,7 @@ using SensorPlaceInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-        NoCompleteVisualServoingStatus_<LogicStateMachineT, be::Abort>,
+        VisualServoingStatus_<LogicStateMachineT, be::Abort, false>,
         NormalForceThresholdInternalActionFunctor_<LogicStateMachineT, true>,
         TimeoutInternalActionFunctor_<LogicStateMachineT,
                                       SensorPlaceState_<LogicStateMachineT>>>>;
@@ -226,7 +162,7 @@ using SensorCheckingInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-        NoCompleteVisualServoingStatus_<LogicStateMachineT, be::Abort>,
+        VisualServoingStatus_<LogicStateMachineT, be::Abort, false>,
         NormalForceThresholdInternalActionFunctor_<LogicStateMachineT, false>,
         TimeoutInternalActionFunctor_<
             LogicStateMachineT, SensorCheckingState_<LogicStateMachineT>>>>;
@@ -248,10 +184,10 @@ class SensorCheckingState_
 */
 template <class LogicStateMachineT>
 using PostPlaceInternalActionFunctor_ =
-    boost::msm::front::ShortingActionSequence_<
-        boost::mpl::vector<UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-                           ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-                           VisualServoingStatus_<LogicStateMachineT, Reset>>>;
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+        VisualServoingStatus_<LogicStateMachineT, be::Abort>>>;
 
 /**
 * @brief State for going to the placement staging position

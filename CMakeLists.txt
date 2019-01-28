@@ -222,6 +222,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/mpc_state_machine_config.proto
   proto/visual_servoing_state_machine_config.proto
   proto/pick_place_state_machine_config.proto
+  proto/sensor_place_state_machine_config.proto
   proto/following_waypoint_sequence_config.proto
   proto/grip_config.proto
   proto/place_group.proto
