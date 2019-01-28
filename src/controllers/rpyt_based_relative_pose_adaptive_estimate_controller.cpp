@@ -46,6 +46,8 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
   Eigen::Vector3d delta_v = v - v_d;
 
   // Update mhat
+  // The details behind this formula can be found in this document:
+  // https://drive.google.com/open?id=1GYvwzfI0OKF62tpSu5e_kgDBWRzJuQ96
   control.dm =
       -km_ * ((acc_d - ag_).transpose()) * (delta_v + config_.eps() * delta_p);
   control.dm = math::clamp(control.dm, -config_.max_dm(), config_.max_dm());
