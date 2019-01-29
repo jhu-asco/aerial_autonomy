@@ -1,0 +1,27 @@
+syntax = "proto2";
+
+/**
+* Settings for acceleration bias estimator
+*/
+message AccelerationBiasEstimatorConfig {
+  /**
+  * @brief Gain to update the bias based on
+  * estimated bias at each time step. If the mixing gain is close to 1, the
+  * internal bias
+  * will follow the estimated thrust gain closely. The mixing gain has to
+  * be between 0 and 1
+  */
+  optional double mixing_gain = 1 [ default = 0.1 ];
+  /**
+  * @brief Number of time steps delay between
+  * commanded thrust and sensor data being received.
+  * For example, if the sensor is being received 0.2 seconds after
+  * thrust command and the controller is running at 50 Hz, then
+  * buffer size is 10.
+  */
+  optional uint32 delay_buffer_size = 2 [ default = 1 ];
+  /**
+  * @brief Maximum acceleration bias
+  */
+  optional double max_bias = 3 [ default = 0.05 ];
+}

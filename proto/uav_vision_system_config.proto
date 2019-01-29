@@ -8,6 +8,7 @@ import "tracking_vector_estimator_config.proto";
 import "particle_reference_config.proto";
 import "polynomial_reference_config.proto";
 import "velocity_based_relative_pose_controller_config.proto";
+import "acceleration_bias_estimator_config.proto";
 
 message UAVVisionSystemConfig {
   required ConstantHeadingDepthControllerConfig
@@ -69,4 +70,9 @@ message UAVVisionSystemConfig {
   */
   optional VelocityBasedRelativePoseControllerConfig
       velocity_based_relative_pose_controller_config = 14;
+  /**
+  * @brief Config for acceleration bias estimator
+  */
+  optional AccelerationBiasEstimatorConfig acceleration_bias_estimator_config =
+      15;
 }

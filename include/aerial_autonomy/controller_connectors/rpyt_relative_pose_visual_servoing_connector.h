@@ -2,6 +2,7 @@
 #include "aerial_autonomy/controller_connectors/base_controller_connector.h"
 #include "aerial_autonomy/controller_connectors/base_relative_pose_visual_servoing_connector.h"
 #include "aerial_autonomy/controllers/rpyt_based_relative_pose_controller.h"
+#include "aerial_autonomy/estimators/acceleration_bias_estimator.h"
 #include "aerial_autonomy/estimators/thrust_gain_estimator.h"
 #include "aerial_autonomy/trackers/base_tracker.h"
 #include "aerial_autonomy/types/position_yaw.h"
@@ -36,6 +37,7 @@ public:
       BaseTracker &tracker, parsernode::Parser &drone_hardware,
       RPYTBasedRelativePoseController &controller,
       ThrustGainEstimator &thrust_gain_estimator,
+      AccelerationBiasEstimator &acceleration_bias_estimator,
       tf::Transform camera_transform,
       tf::Transform tracking_offset_transform = tf::Transform::getIdentity())
       : ControllerConnector(controller, ControllerGroup::UAV),
@@ -43,6 +45,7 @@ public:
                                                 camera_transform,
                                                 tracking_offset_transform),
         thrust_gain_estimator_(thrust_gain_estimator),
+        acceleration_bias_estimator_(acceleration_bias_estimator),
         private_reference_controller_(controller) {
     logTrackerHeader("rpyt_relative_pose_visual_servoing_connector");
   }
@@ -90,6 +93,10 @@ private:
    * the acceleration in body z direction
    */
   ThrustGainEstimator &thrust_gain_estimator_;
+  /**
+   * @brief Estimator for computing acceleration bias
+   */
+  AccelerationBiasEstimator &acceleration_bias_estimator_;
   /**
    * @brief Internal reference to controller that is connected by this class
    */
