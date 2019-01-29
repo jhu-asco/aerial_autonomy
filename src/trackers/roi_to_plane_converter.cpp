@@ -47,9 +47,22 @@ void RoiToPlaneConverter::computePlaneFit(Eigen::MatrixXd &roi_point_cloud,
   U.col(0) /= norms(0);
   U.col(1) /= norms(1);
   U.col(2) /= norms(2);
+  // Make normal vector to be x-axis of that is coming out from the plane
+  Eigen::Vector3d normal_vec = U.col(2);
+  if (normal_vec(2) > 0) {
+    normal_vec = -normal_vec;
+  }
+  // Cross product with x-axis of the camera (just (1,0,0)) to get z-axis
+  // (a,b,c) X (1,0,0) = (0,c,-b)
+  Eigen::Vector3d vertical_vec(0, normal_vec(2), -normal_vec(1));
+  // Finally, cross product two axes to get y-axis
+  Eigen::Vector3d horiz_vec = vertical_vec.cross(normal_vec);
+  Eigen::Matrix3d R;
+  R << normal_vec.normalized(), horiz_vec.normalized(),
+      vertical_vec.normalized();
   // Homogeneous transformation matrix
   Eigen::MatrixXd E = Eigen::MatrixXd::Identity(4, 4);
-  E.block(0, 0, 3, 3) = U;
+  E.block(0, 0, 3, 3) = R;
   E.block(0, 3, 3, 1) = centroid;
   conversions::transformMatrix4dToTf(E, pos);
 }

@@ -38,7 +38,7 @@ message UAVVisionSystemConfig {
   /**
   * @brief Type of tracker to use, e.g. Alvar, ROI
   */
-  optional string tracker_type = 4 [ default = "ROI" ];
+  optional string tracker_type = 4 [ default = "ROI2Pos" ];
 
   /**
   * @brief A crude form of inheritance for proto. Contains a config for
