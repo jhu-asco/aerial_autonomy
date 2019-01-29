@@ -1,6 +1,4 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="event_file" default="uav_basic_events"/>
   <node pkg="rqt_gui" type="rqt_gui" name="rqt_gui" args="--perspective-file $(find aerial_autonomy)/launch/aerial_autonomy_perspective.perspective"/>
-  <node pkg="rqt_gui" type="rqt_gui" name="rqt_gui_aerial_autonomy" args="--command-start-plugin aerial_autonomy_gui --args -e $(find aerial_autonomy)/events/$(arg event_file)"/>
 </launch>

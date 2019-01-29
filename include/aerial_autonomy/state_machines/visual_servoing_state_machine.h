@@ -157,9 +157,6 @@ public:
             msmf::Row<vsa::RelativePoseVisualServoing, be::Abort, vsa::Hovering,
                       vsa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<vsa::RelativePoseVisualServoing, be::Land, vsa::Landing,
-                      vsa::ReachingGoalLand, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::Landing, Completed, vsa::Landed, msmf::none,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+

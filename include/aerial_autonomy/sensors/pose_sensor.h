@@ -1,6 +1,7 @@
 #pragma once
 #include "aerial_autonomy/common/atomic.h"
 #include "aerial_autonomy/sensors/ros_sensor.h"
+#include "aerial_autonomy/sensors/transformed_sensor.h"
 #include <aerial_autonomy/common/conversions.h>
 #include <geometry_msgs/TransformStamped.h>
 #include <ros/ros.h>
@@ -10,7 +11,7 @@
 * @brief Pose sensor from a ros topic
 * \todo Gowtham Make this a generic templated ros sensor
 */
-class PoseSensor : public Sensor<tf::StampedTransform> {
+class PoseSensor : public TransformedSensor<tf::StampedTransform> {
 public:
   /**
   * @brief Constructor
@@ -46,8 +47,4 @@ private:
   * @brief ROS listening sensor
   */
   ROSSensor<geometry_msgs::TransformStamped> sensor_;
-  /**
-  * @brief local transform from sensor to robot system frame
-  */
-  tf::Transform local_transform_;
 };

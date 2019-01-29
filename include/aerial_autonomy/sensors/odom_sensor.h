@@ -1,5 +1,6 @@
 #pragma once
 #include "aerial_autonomy/sensors/ros_sensor.h"
+#include "aerial_autonomy/sensors/transformed_sensor.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/velocity_yaw_rate.h"
 #include "ros_sensor_config.pb.h"
@@ -10,7 +11,8 @@
 /**
 * @brief ros based velocity sensor
 */
-class OdometrySensor : public Sensor<std::tuple<VelocityYawRate, PositionYaw>> {
+class OdometrySensor
+    : public TransformedSensor<std::tuple<VelocityYawRate, PositionYaw>> {
 public:
   /**
   *
@@ -45,8 +47,7 @@ public:
     PositionYaw py(
         pyTransform.getOrigin().getX(), pyTransform.getOrigin().getY(),
         pyTransform.getOrigin().getZ(), tf::getYaw(pyTransform.getRotation()));
-    retVal = std::make_tuple(vyr, py);
-    return retVal;
+    return std::make_tuple(vyr, py);
   }
   /**
   * @brief gives sensor data, transformed by the local transform (e.g. the
@@ -62,9 +63,9 @@ public:
                          msg->twist.twist.linear.z);
     tf::Vector3 rate(msg->twist.twist.angular.x, msg->twist.twist.angular.y,
                      msg->twist.twist.angular.z);
-    tf::Vector3 quad_velocity =
-        velocity + rotation_only_transform * (rate.cross(transform_translate));
     tf::Vector3 quad_rate = rotation_only_transform * rate;
+    tf::Vector3 quad_velocity = rotation_only_transform * velocity -
+                                quad_rate.cross(transform_translate);
     VelocityYawRate vyr(quad_velocity.getX(), quad_velocity.getY(),
                         quad_velocity.getZ(), quad_rate.getZ());
     // Map the position yaw and transform with the local transform.
@@ -74,14 +75,14 @@ public:
         msg->pose.pose.orientation.x, msg->pose.pose.orientation.y,
         msg->pose.pose.orientation.z, msg->pose.pose.orientation.w);
     tf::Transform pyTransform(orientation, position);
-    tf::Transform quad_in_sensor_origin = pyTransform * local_transform_;
+    tf::Transform quad_in_sensor_origin =
+        pyTransform * local_transform_.inverse();
     // Set the result
     PositionYaw py(quad_in_sensor_origin.getOrigin().getX(),
                    quad_in_sensor_origin.getOrigin().getY(),
                    quad_in_sensor_origin.getOrigin().getZ(),
                    tf::getYaw(pyTransform.getRotation()));
-    retVal = std::make_tuple(vyr, py);
-    return retVal;
+    return std::make_tuple(vyr, py);
   }
   /**
   * @brief gives sensor status
@@ -93,8 +94,4 @@ private:
   * @brief ROS Topic listening sensor
   */
   ROSSensor<nav_msgs::Odometry> ros_odom_sensor_;
-  /**
-  * @brief The transform between the sensor and the robot frame.
-  */
-  tf::Transform local_transform_;
 };

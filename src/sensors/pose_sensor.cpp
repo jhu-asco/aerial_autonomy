@@ -13,7 +13,7 @@ tf::StampedTransform PoseSensor::getSensorData() {
 
 tf::StampedTransform PoseSensor::getTransformedSensorData() {
   tf::StampedTransform raw_data = getSensorData();
-  tf::Transform transformed_data = raw_data * local_transform_;
+  tf::Transform transformed_data = local_transform_ * raw_data;
   return tf::StampedTransform(transformed_data, raw_data.stamp_,
                               raw_data.frame_id_, raw_data.child_frame_id_);
 }

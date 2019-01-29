@@ -1,0 +1,74 @@
+ddp_config {
+  # State cost
+  # XYZ
+  Q: 100
+  Q: 100
+  Q: 100
+  # RPY
+  Q: 4
+  Q: 4
+  Q: 4
+  # Vxyz
+  Q: 100
+  Q: 100
+  Q: 100
+  # RPYdot
+  Q: 4
+  Q: 4
+  Q: 4
+  # RPY_cmd
+  Q: 0
+  Q: 0
+  Q: 0
+  # Terminal gains
+  # XYZ
+  Qf: 100
+  Qf: 100
+  Qf: 100
+  # RPY
+  Qf: 800
+  Qf: 800
+  Qf: 800
+  # Vxyz
+  Qf: 100
+  Qf: 100
+  Qf: 100
+  # RPYdot
+  Qf: 100 
+  Qf: 100
+  Qf: 100
+  # RPY_cmd
+  Qf: 0.1
+  Qf: 0.1
+  Qf: 0.1
+  # Control cost
+  # Thrust
+  R: 6.0
+  # Rpyd dot
+  R: 4.0
+  R: 4.0
+  R: 4.0
+  # Trajectory length
+  N: 100
+  # Max iterations
+  max_iters: 2
+  # Min cost decrease
+  min_cost_decrease: 1e-4
+  # Look ahead time
+  look_ahead_time: 0.04
+  # Max cost
+  max_cost: 500.0
+}
+
+goal_position_tolerance: 0.25
+goal_velocity_tolerance: 0.25
+# Lower bound
+lower_bound_control: 0.8
+lower_bound_control: -0.6
+lower_bound_control: -0.6
+lower_bound_control: -0.6
+# Upper bound
+upper_bound_control: 1.2
+upper_bound_control: 0.6
+upper_bound_control: 0.6
+upper_bound_control: 0.6

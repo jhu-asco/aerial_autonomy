@@ -225,6 +225,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/following_waypoint_sequence_config.proto
   proto/grip_config.proto
   proto/place_group.proto
+  proto/acceleration_bias_estimator_config.proto
   proto/thrust_gain_estimator_config.proto
   proto/tracking_vector_estimator_config.proto
   proto/ros_sensor_config.proto
@@ -235,6 +236,11 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/mpc_visualizer_config.proto
   proto/spiral_reference_trajectory_config.proto
   proto/minimum_snap_reference_trajectory_config.proto
+  proto/particle_reference_config.proto
+  proto/quad_mpc_controller_config.proto
+  proto/mpc_connector_config.proto
+  proto/rpyt_reference_connector_config.proto
+  proto/polynomial_reference_config.proto
   proto/odom_from_pose_sensor_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
@@ -274,15 +280,20 @@ set(SRC
   src/log/data_stream.cpp
   src/log/log.cpp
   src/log/mocap_logger.cpp
+  src/trackers/roi_base_tracker.cpp
   src/trackers/roi_to_position_converter.cpp
+  src/trackers/roi_to_plane_converter.cpp
   src/trackers/simple_tracker.cpp
   src/trackers/alvar_tracker.cpp
   src/trackers/base_tracker.cpp
   src/trackers/simple_multi_tracker.cpp
+  src/trackers/simulated_ros_tracker.cpp
   src/trackers/closest_tracking_strategy.cpp
   src/trackers/id_tracking_strategy.cpp
   src/trackers/simple_tracking_strategy.cpp
   src/types/spiral_reference_trajectory.cpp
+  src/types/quad_particle_reference_trajectory.cpp
+  src/types/polynomial_reference_trajectory.cpp
   src/types/sensor_status.cpp
   src/controllers/manual_rpyt_controller.cpp
   src/controllers/velocity_based_position_controller.cpp
@@ -296,6 +307,12 @@ set(SRC
   src/controllers/joystick_velocity_controller.cpp
   src/controllers/arm_sine_controller.cpp
   src/controllers/qrotor_backstepping_controller.cpp
+  src/controllers/ddp_casadi_mpc_controller.cpp
+  src/controllers/ddp_quad_mpc_controller.cpp
+  src/controllers/quad_particle_reference_controller.cpp
+  src/controllers/quad_polynomial_reference_controller.cpp
+  src/controllers/rpyt_based_reference_controller.cpp
+  src/estimators/acceleration_bias_estimator.cpp
   src/estimators/thrust_gain_estimator.cpp
   src/estimators/tracking_vector_estimator.cpp
   src/controller_connectors/visual_servoing_controller_drone_connector.cpp
@@ -306,9 +323,12 @@ set(SRC
   src/controller_connectors/position_controller_drone_connector.cpp
   src/controller_connectors/velocity_based_position_controller_drone_connector.cpp
   src/controller_connectors/rpyt_based_position_controller_drone_connector.cpp
+  src/controller_connectors/rpyt_based_reference_connector.cpp
   src/controller_connectors/builtin_velocity_controller_drone_connector.cpp
   src/controller_connectors/manual_rpyt_controller_drone_connector.cpp
   src/controller_connectors/joystick_velocity_controller_drone_connector.cpp
+  src/controller_connectors/base_mpc_controller_quad_connector.cpp
+  src/controller_connectors/mpc_controller_quad_connector.cpp
   src/controller_connectors/qrotor_backstepping_controller_connector.cpp
   src/sensors/pose_sensor.cpp
   src/sensors/odometry_from_pose_sensor.cpp
@@ -367,44 +387,11 @@ if (arm_plugins_FOUND)
   target_link_libraries(airm_mpc_node aerial_autonomy)
   if (casadi_FOUND)
     add_executable(mpc_controller_tuner src/controller_tuners/mpc_controller_tuner.cpp)
+    add_executable(quad_mpc_controller_tuner src/controller_tuners/quad_mpc_controller_tuner.cpp)
     target_link_libraries(mpc_controller_tuner aerial_autonomy)
+    target_link_libraries(quad_mpc_controller_tuner aerial_autonomy)
   endif()
 endif ()
-
-#############
-## Install ##
-#############
-
-#all install targets should use catkin DESTINATION variables
-#See http: // ros.org/doc/api/catkin/html/adv_user_guide/variables.html
-
-## Mark executable scripts (Python etc.) for installation
-## in contrast to setup.py, you can choose the destination
-#install(PROGRAMS
-#scripts / my_python_script
-#DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION }
-#)
-
-## Mark executables and/or libraries for installation
-#install(TARGETS aerial_autonomy aerial_autonomy_node
-#ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION }
-#LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION }
-#RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION }
-#)
-
-## Mark cpp header files for installation
-#install(DIRECTORY include / ${PROJECT_NAME } /
-#DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION }
-#FILES_MATCHING PATTERN "*.h"
-#PATTERN ".svn" EXCLUDE
-#)
-
-## Mark other files for installation (e.g. launch and bag files, etc.)
-#install(FILES
-# #myfile1
-# #myfile2
-#DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION }
-#)
 
 #############
 ## Testing ##
@@ -438,6 +425,7 @@ add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-pose-test tests/st
 add_rostest_gtest(${PROJECT_NAME}-state-machine-gui-connector-velocity-test tests/state_machines/state_machine_gui_connector_velocity_tests.test tests/state_machines/state_machine_gui_connector_velocity_tests.cpp)
 add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-pose-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
 add_dependencies(${PROJECT_NAME}-state-machine-gui-connector-velocity-test ${${PROJECT_NAME}_EXPORTED_TARGETS} event_publish_node)
+catkin_add_gtest(${PROJECT_NAME}-exponential-filter-test tests/filters/exponential_filter_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-async-timer-test tests/common/async_timer_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-atomic-test tests/common/atomic_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-controller-status-test tests/common/controller_status_tests.cpp)
@@ -450,22 +438,28 @@ catkin_add_gtest(${PROJECT_NAME}-iterable-enum-test tests/common/iterable_enum_t
 catkin_add_gtest(${PROJECT_NAME}-velocity-based-position-controller-test tests/controllers/velocity_based_position_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-arm-sine-controller-test tests/controllers/arm_sine_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-thrust-gain-estimator-test tests/estimators/thrust_gain_estimator_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-acceleration-bias-estimator-test tests/estimators/acceleration_bias_estimator_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-tracking-vector-estimator-test tests/estimators/tracking_vector_estimator_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-controller-test tests/controllers/relative_pose_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-velocity-based-relative-pose-controller-test tests/controllers/velocity_based_relative_pose_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-relative-pose-controller-test tests/controllers/rpyt_based_relative_pose_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-velocity-controller-test tests/controllers/rpyt_based_velocity_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-position-controller-test tests/controllers/rpyt_based_position_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-rpyt-based-reference-controller-test tests/controllers/rpyt_based_reference_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-constant-heading-depth-controller-test tests/controllers/constant_heading_depth_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-math-test tests/common/math_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-tracker-test tests/trackers/simple_tracker_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-simple-multi-tracker-test tests/trackers/simple_multi_tracker_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-roi-to-position-converter-test tests/trackers/roi_to_position_converter_tests.test tests/trackers/roi_to_position_converter_tests.cpp)
+add_rostest_gtest(${PROJECT_NAME}-roi-to-plane-converter-test tests/trackers/roi_to_plane_converter_tests.test tests/trackers/roi_to_plane_converter_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-alvar-tracker-test tests/trackers/alvar_tracker_tests.test tests/trackers/alvar_tracker_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-velocity-sensor-test tests/sensors/velocity_sensor_tests.test tests/sensors/velocity_sensor_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test tests/controller_connectors/relative_pose_visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-relative-pose-visual-servoing-connector-test tests/controller_connectors/rpyt_relative_pose_visual_servoing_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-visual-servoing-reference-connector-test tests/controller_connectors/visual_servoing_reference_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-rpyt-based-position-controller-drone-connector-test tests/controller_connectors/rpyt_based_position_controller_drone_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-rpyt-based-reference-connector-test tests/controller_connectors/rpyt_based_reference_connector_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-ddp-quad-mpc-connector-test tests/controller_connectors/ddp_quad_mpc_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-visual-servoing-drone-connector-test tests/controller_connectors/visual_servoing_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-joystick-velocity-controller-drone-connector-test tests/controller_connectors/joystick_velocity_controller_drone_connector_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-data-stream-test tests/log/data_stream_tests.cpp)
@@ -475,7 +469,10 @@ catkin_add_gtest(${PROJECT_NAME}-conversions-test tests/common/conversions_tests
 catkin_add_gtest(${PROJECT_NAME}-proto-utils-test tests/common/proto_utils_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-reference-trajectory-test tests/types/reference_trajectory_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-airm-spiral-reference-trajectory-test tests/types/airm_spiral_reference_trajectory_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-quad-particle-reference-trajectory-test tests/types/quad_particle_reference_trajectory_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-polynomial-reference-trajectory-test tests/types/polynomial_reference_trajectory_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-qrotor-backstepping-controller-test tests/controllers/qrotor_backstepping_controller_tests.cpp)
+catkin_add_gtest(${PROJECT_NAME}-ddp-quad-mpc-controller-test tests/controllers/ddp_quad_mpc_controller_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-minimum-snap-trajectory-test tests/types/minimum_snap_trajectory_tests.cpp)
 catkin_add_gtest(${PROJECT_NAME}-qrotor-backstepping-controller-connector-test tests/controller_connectors/qrotor_backstepping_controller_connector_tests.cpp)
 add_rostest_gtest(${PROJECT_NAME}-qrotor-backstepping-trajectory-visualizer-test tests/common/qrotor_backstepping_trajectory_visualizer_tests.test tests/common/qrotor_backstepping_trajectory_visualizer_tests.cpp)
@@ -536,6 +533,9 @@ endif()
 if(TARGET ${PROJECT_NAME}-async-timer-test)
   target_link_libraries(${PROJECT_NAME}-async-timer-test aerial_autonomy)
 endif()
+if(TARGET ${PROJECT_NAME}-exponential-filter-test)
+  target_link_libraries(${PROJECT_NAME}-exponential-filter-test aerial_autonomy)
+endif()
 if(TARGET ${PROJECT_NAME}-atomic-test)
   target_link_libraries(${PROJECT_NAME}-atomic-test ${Boost_LIBRARIES} ${catkin_LIBRARIES})
 endif()
@@ -563,6 +563,9 @@ endif()
 if(TARGET ${PROJECT_NAME}-thrust-gain-estimator-test)
   target_link_libraries(${PROJECT_NAME}-thrust-gain-estimator-test aerial_autonomy)
 endif()
+if(TARGET ${PROJECT_NAME}-acceleration-bias-estimator-test)
+  target_link_libraries(${PROJECT_NAME}-acceleration-bias-estimator-test aerial_autonomy)
+endif()
 if(TARGET ${PROJECT_NAME}-tracking-vector-estimator-test)
   target_link_libraries(${PROJECT_NAME}-tracking-vector-estimator-test aerial_autonomy ${catkin_LIBRARIES})
 endif()
@@ -578,8 +581,17 @@ endif()
 if(TARGET ${PROJECT_NAME}-rpyt-based-position-controller-test)
   target_link_libraries(${PROJECT_NAME}-rpyt-based-position-controller-test aerial_autonomy)
 endif()
+if(TARGET ${PROJECT_NAME}-rpyt-based-reference-controller-test)
+  target_link_libraries(${PROJECT_NAME}-rpyt-based-reference-controller-test aerial_autonomy)
+endif()
 if(TARGET ${PROJECT_NAME}-rpyt-based-position-controller-drone-connector-test)
   target_link_libraries(${PROJECT_NAME}-rpyt-based-position-controller-drone-connector-test aerial_autonomy ${GCOP_LIBRARIES})
+endif()
+if(TARGET ${PROJECT_NAME}-rpyt-based-reference-connector-test)
+  target_link_libraries(${PROJECT_NAME}-rpyt-based-reference-connector-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-ddp-quad-mpc-connector-test)
+  target_link_libraries(${PROJECT_NAME}-ddp-quad-mpc-connector-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-rpyt-based-velocity-controller-test)
   target_link_libraries(${PROJECT_NAME}-rpyt-based-velocity-controller-test aerial_autonomy)
@@ -587,17 +599,29 @@ endif()
 if(TARGET ${PROJECT_NAME}-constant-heading-depth-controller-test)
   target_link_libraries(${PROJECT_NAME}-constant-heading-depth-controller-test aerial_autonomy)
 endif()
+if(TARGET ${PROJECT_NAME}-qrotor-backstepping-controller-test)
+  target_link_libraries(${PROJECT_NAME}-qrotor-backstepping-controller-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-ddp-quad-mpc-controller-test)
+  target_link_libraries(${PROJECT_NAME}-ddp-quad-mpc-controller-test aerial_autonomy)
+endif()
 if(TARGET ${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test)
   target_link_libraries(${PROJECT_NAME}-relative-pose-visual-servoing-drone-connector-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-rpyt-relative-pose-visual-servoing-connector-test)
   target_link_libraries(${PROJECT_NAME}-rpyt-relative-pose-visual-servoing-connector-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
+if(TARGET ${PROJECT_NAME}-visual-servoing-reference-connector-test)
+  target_link_libraries(${PROJECT_NAME}-visual-servoing-reference-connector-test aerial_autonomy ${GCOP_LIBRARIES})
+endif()
 if(TARGET ${PROJECT_NAME}-visual-servoing-drone-connector-test)
   target_link_libraries(${PROJECT_NAME}-visual-servoing-drone-connector-test aerial_autonomy ${GCOP_LIBRARIES})
 endif()
 if(TARGET ${PROJECT_NAME}-roi-to-position-converter-test)
   target_link_libraries(${PROJECT_NAME}-roi-to-position-converter-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-roi-to-plane-converter-test)
+  target_link_libraries(${PROJECT_NAME}-roi-to-plane-converter-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-system-handler-node-utils-test)
   target_link_libraries(${PROJECT_NAME}-system-handler-node-utils-test aerial_autonomy)
@@ -638,6 +662,12 @@ if(TARGET ${PROJECT_NAME}-reference-trajectory-test)
 endif()
 if(TARGET ${PROJECT_NAME}-airm-spiral-reference-trajectory-test)
   target_link_libraries(${PROJECT_NAME}-airm-spiral-reference-trajectory-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-quad-particle-reference-trajectory-test)
+  target_link_libraries(${PROJECT_NAME}-quad-particle-reference-trajectory-test aerial_autonomy)
+endif()
+if(TARGET ${PROJECT_NAME}-polynomial-reference-trajectory-test)
+  target_link_libraries(${PROJECT_NAME}-polynomial-reference-trajectory-test aerial_autonomy)
 endif()
 if(TARGET ${PROJECT_NAME}-minimum-snap-trajectory-test)
   target_link_libraries(${PROJECT_NAME}-minimum-snap-trajectory-test aerial_autonomy)

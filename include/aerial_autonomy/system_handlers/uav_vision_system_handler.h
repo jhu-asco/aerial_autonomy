@@ -32,11 +32,26 @@ public:
             std::bind(&UAVVisionSystem::runActiveController,
                       std::ref(uav_system_), ControllerGroup::UAV),
             std::chrono::milliseconds(
-                config.uav_system_config().uav_controller_timer_duration())) {
-
+                config.uav_system_config().uav_controller_timer_duration())),
+        high_level_controller_timer_(
+            std::bind(&UAVSystem::runActiveController, std::ref(uav_system_),
+                      ControllerGroup::HighLevel),
+            std::chrono::milliseconds(
+                config.uav_system_config()
+                    .uav_vision_system_config()
+                    .high_level_controller_timer_duration())),
+        quad_mpc_visualization_timer_(
+            std::bind(&UAVSystem::visualizeQuadMPC,
+                      std::ref(this->uav_system_)),
+            std::chrono::milliseconds(
+                config.mpc_visualization_timer_duration())) {
     // Get the party started
     common_handler_.startTimers();
     uav_controller_timer_.start();
+    high_level_controller_timer_.start();
+    if (config.uav_system_config().visualize_mpc_trajectories()) {
+      quad_mpc_visualization_timer_.start();
+    }
   }
 
   /**
@@ -64,4 +79,6 @@ private:
       common_handler_;              ///< Common logic to create state machine
                                     ///< and associated connections.
   AsyncTimer uav_controller_timer_; ///< Timer for running uav controller
+  AsyncTimer high_level_controller_timer_;  ///< Timer for running high level
+  AsyncTimer quad_mpc_visualization_timer_; ///< Timer for visualizing MPC
 };

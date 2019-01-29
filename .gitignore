@@ -1,6 +1,7 @@
 CMakeLists.txt.user
 *.pyc
 *.swp
+*.swo
 doxy_errors.txt
 .documentation_coverage_info/*
 .test_coverage_info/*
@@ -16,3 +17,8 @@ param/log_config.pbtxt
 *.creator
 *.creator.user
 *.files
+*TODO*
+*.bak
+*.eps
+*.png
+*.tar.gz

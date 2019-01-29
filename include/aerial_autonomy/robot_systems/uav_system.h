@@ -3,12 +3,16 @@
 #include "uav_system_config.pb.h"
 // Html Utilities
 #include <aerial_autonomy/common/html_utils.h>
+// MPC Trajectory visualizer
+#include "aerial_autonomy/common/mpc_trajectory_visualizer.h"
 // Base robot system
 #include <aerial_autonomy/robot_systems/base_robot_system.h>
 // Controllers
 #include <aerial_autonomy/controllers/basic_controllers.h>
+#include <aerial_autonomy/controllers/ddp_quad_mpc_controller.h>
 #include <aerial_autonomy/controllers/joystick_velocity_controller.h>
 #include <aerial_autonomy/controllers/rpyt_based_position_controller.h>
+#include <aerial_autonomy/controllers/rpyt_based_reference_controller.h>
 #include <aerial_autonomy/controllers/rpyt_based_relative_pose_adaptive_estimate_controller.h>
 // Estimators
 #include <aerial_autonomy/estimators/thrust_gain_estimator.h>
@@ -19,8 +23,9 @@
 // Sensors
 #include <aerial_autonomy/controller_connectors/basic_controller_connectors.h>
 #include <aerial_autonomy/controller_connectors/joystick_velocity_controller_drone_connector.h>
+#include <aerial_autonomy/controller_connectors/mpc_controller_quad_connector.h>
 #include <aerial_autonomy/controller_connectors/rpyt_based_position_controller_drone_connector.h>
-#include <aerial_autonomy/controller_connectors/rpyt_based_position_controller_drone_connector.h>
+#include <aerial_autonomy/controller_connectors/rpyt_based_reference_connector.h>
 #include <aerial_autonomy/sensors/guidance.h>
 #include <aerial_autonomy/sensors/odometry_from_pose_sensor.h>
 #include <aerial_autonomy/sensors/pose_sensor.h>
@@ -61,6 +66,10 @@ protected:
   */
   RPYTBasedPositionController rpyt_based_position_controller_;
   /**
+  * @brief RPYT based reference controller
+  */
+  RPYTBasedReferenceControllerEigen rpyt_based_reference_controller_;
+  /**
   * @brief Thrust gain estimator
   */
   ThrustGainEstimator thrust_gain_estimator_;
@@ -88,6 +97,10 @@ private:
   */
   RPYTBasedRelativePoseAdaptiveEstimateController
       rpyt_adaptive_estimate_controller_;
+  /**
+   * @brief MPC Controller for quadrotor only
+   */
+  DDPQuadMPCController quad_mpc_controller_;
 
 protected:
   /**
@@ -95,14 +108,20 @@ protected:
   */
   std::shared_ptr<Sensor<Velocity>> velocity_sensor_;
   /**
-   * @brief pose_sensor_
-   */
-  std::shared_ptr<Sensor<tf::StampedTransform>> pose_sensor_;
-  /**
-   * @brief pose_sensor_
+   * @brief odom_sensor_
    */
   std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>>
-      odom_from_pose_sensor_;
+      odom_sensor_;
+  /**
+   * @brief mpc trajectory visualizer
+   */
+  std::unique_ptr<MPCTrajectoryVisualizer> mpc_visualizer_;
+  /**
+   * @brief connector for position controller using rpyt
+   * commands
+   */
+  RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>
+      rpyt_based_reference_connector_;
 
 private:
   /**
@@ -135,6 +154,13 @@ private:
   RPYTRelativePoseAdaptiveEstimateConnector
       rpyt_adaptive_estimate_controller_drone_connector_;
 
+protected:
+  /**
+   * @brief Quad MPC Connector
+   */
+  MPCControllerQuadConnector quad_mpc_connector_;
+
+private:
   /**
   * @brief Home Location
   */
@@ -197,39 +223,22 @@ private:
     return velocity_sensor;
   }
   /**
-  * @brief create a pose sensor if using Motion Capture flag is set
+  * @brief create a odom sensor if using Motion Capture flag is set
   *
   * @param config The UAV system config
   *
-  * @return new pose sensor if using motion capture otherwise nulllptr
-  */
-  static std::shared_ptr<Sensor<tf::StampedTransform>>
-  createPoseSensor(UAVSystemConfig &config) {
-    auto pose_sensor_config = config.pose_sensor_config();
-    std::shared_ptr<Sensor<tf::StampedTransform>> pose_sensor;
-    if (config.use_mocap_sensor()) {
-      VLOG(2) << "Using MOCAP sensor";
-      pose_sensor.reset(new PoseSensor(pose_sensor_config));
-    }
-    return pose_sensor;
-  }
-  /**
-  * @brief create a pose sensor if using Motion Capture flag is set
-  *
-  * @param config The UAV system config
-  *
-  * @return new pose sensor if using motion capture otherwise nulllptr
+  * @return new odom sensor if using motion capture otherwise nulllptr
   */
   static std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>>
-  createOdomFromPoseSensor(UAVSystemConfig &config) {
-    auto sensor_config = config.odom_sensor_config();
+  createOdomSensor(UAVSystemConfig &config) {
+    auto odom_sensor_config = config.odom_sensor_config();
     std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>>
-        pose_sensor;
+        odom_sensor;
     if (config.use_mocap_sensor()) {
-      VLOG(2) << "Using MOCAP sensor";
-      pose_sensor.reset(new OdomFromPoseSensor(sensor_config));
+      VLOG(2) << "Using MOCAP sensor (Odom Sensor)";
+      odom_sensor.reset(new OdomFromPoseSensor(odom_sensor_config));
     }
-    return pose_sensor;
+    return odom_sensor;
   }
 
 public:
@@ -264,6 +273,8 @@ public:
         rpyt_based_position_controller_(
             config.rpyt_based_position_controller_config(),
             std::chrono::milliseconds(config.uav_controller_timer_duration())),
+        rpyt_based_reference_controller_(
+            config.rpyt_based_position_controller_config()),
         thrust_gain_estimator_(config.thrust_gain_estimator_config()),
         builtin_position_controller_(config.position_controller_config()),
         builtin_velocity_controller_(config.velocity_controller_config()),
@@ -273,10 +284,16 @@ public:
         rpyt_adaptive_estimate_controller_(
             config
                 .rpyt_based_relative_pose_adaptive_estimate_controller_config()),
+        quad_mpc_controller_(
+            config.quad_mpc_controller_config(),
+            std::chrono::milliseconds(config.uav_controller_timer_duration())),
         velocity_sensor_(
             UAVSystem::chooseSensor(velocity_sensor, drone_hardware_, config)),
-        pose_sensor_(UAVSystem::createPoseSensor(config)),
-        odom_from_pose_sensor_(UAVSystem::createOdomFromPoseSensor(config)),
+        odom_sensor_(UAVSystem::createOdomSensor(config)),
+        rpyt_based_reference_connector_(
+            *drone_hardware_, rpyt_based_reference_controller_,
+            thrust_gain_estimator_, config.rpyt_reference_connector_config(),
+            odom_sensor_),
         position_controller_drone_connector_(*drone_hardware_,
                                              builtin_position_controller_),
         rpyt_based_position_controller_drone_connector_(
@@ -297,7 +314,11 @@ public:
             config
                 .rpyt_based_relative_pose_adaptive_estimate_controller_config()
                 .min_m(),
-            odom_from_pose_sensor_),
+            odom_sensor_),
+        quad_mpc_connector_(*drone_hardware_, quad_mpc_controller_,
+                            thrust_gain_estimator_,
+                            config.thrust_gain_estimator_config().buffer_size(),
+                            config.mpc_connector_config(), odom_sensor_),
         home_location_specified_(false) {
     drone_hardware_->initialize();
     // Add control hardware connector containers
@@ -314,6 +335,13 @@ public:
         rpyt_adaptive_estimate_controller_drone_connector_);
     qrotor_visualizer_.reset(
         new QrotorBacksteppingTrajectoryVisualizer(config.visualizer_config()));
+    controller_connector_container_.setObject(quad_mpc_connector_);
+    controller_connector_container_.setObject(rpyt_based_reference_connector_);
+    // Visualization
+    if (config_.visualize_mpc_trajectories()) {
+      mpc_visualizer_.reset(
+          new MPCTrajectoryVisualizer(config_.visualizer_config()));
+    }
   }
   /**
   * @brief Get sensor data from UAV
@@ -324,6 +352,15 @@ public:
     parsernode::common::quaddata data;
     drone_hardware_->getquaddata(data);
     return data;
+  }
+
+  /**
+* @brief MPC trajectory visualization function
+*/
+  void visualizeQuadMPC() {
+    if (mpc_visualizer_) {
+      mpc_visualizer_->publishTrajectory(quad_mpc_connector_);
+    }
   }
 
   /**
@@ -410,11 +447,8 @@ public:
   * @brief save current location as home location
   */
   void setHomeLocation() {
-    parsernode::common::quaddata data = getUAVData();
-    home_location_.x = data.localpos.x;
-    home_location_.y = data.localpos.y;
-    home_location_.z = data.localpos.z;
-    home_location_.yaw = data.rpydata.z;
+    tf::StampedTransform current_pose = getPose();
+    conversions::tfToPositionYaw(home_location_, current_pose);
     home_location_specified_ = true;
   }
 
@@ -438,8 +472,8 @@ public:
    */
   tf::StampedTransform getPose() {
     tf::StampedTransform result;
-    if (pose_sensor_) {
-      result = pose_sensor_->getTransformedSensorData();
+    if (odom_sensor_) {
+      result = odom_sensor_->getSensorData().first;
     } else {
       auto data = getUAVData();
       tf::Transform t(
@@ -451,7 +485,28 @@ public:
     }
     return result;
   }
+  /*Removed until the arguments are ironed out.
   void visualizeTrajectory(ReferenceTrajectoryPtr<ParticleState, Snap> goal) {
     qrotor_visualizer_->publishTrajectory(true, goal);
+  }*/
+  SensorStatus getPoseSensorStatus() {
+    if (odom_sensor_) {
+      return odom_sensor_->getSensorStatus();
+    }
+    return SensorStatus::VALID;
+  }
+  void resetThrustMixingGain() {
+    thrust_gain_estimator_.resetThrustMixingGain();
+  }
+  void setThrustMixingGain(double mixing_gain) {
+    thrust_gain_estimator_.setThrustMixingGain(mixing_gain);
+  }
+
+  void setReferenceControllerTolerance(PositionControllerConfig config) {
+    rpyt_based_reference_controller_.setPositionTolerance(config);
+  }
+
+  void resetReferenceControllerTolerance() {
+    rpyt_based_reference_controller_.resetPositionTolerance();
   }
 };

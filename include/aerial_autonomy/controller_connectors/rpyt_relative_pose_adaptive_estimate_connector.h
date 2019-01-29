@@ -39,8 +39,11 @@ public:
         private_reference_controller_(controller), odom_sensor_(odom_sensor),
         drone_hardware_(drone_hardware) {
     previous_time_ = std::chrono::high_resolution_clock::now();
-    mhat = mhat_initial;
+    mhat_ = mhat_initial;
     min_m_ = min_m;
+    if (mhat_ < min_m_) {
+      mhat_ = min_m_;
+    }
   }
   /**
    * @brief Destructor
@@ -87,7 +90,10 @@ private:
   /**
   * @brief Internal estimate of mass parameter mhat
   */
-  double mhat;
+  double mhat_;
+  /**
+  * @brief Minimum allowable m_hat
+  */
   double min_m_;
   /**
   * @brief Time when the last sendControllerCommands is called

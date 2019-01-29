@@ -1,7 +1,6 @@
 #pragma once
 #include "aerial_autonomy/trackers/base_tracker.h"
 #include "aerial_autonomy/trackers/closest_tracking_strategy.h"
-#include "aerial_autonomy/trackers/id_tracking_strategy.h"
 
 #include "aerial_autonomy/common/atomic.h"
 
@@ -21,8 +20,8 @@ public:
   AlvarTracker(
       std::string name_space = "~tracker",
       std::chrono::duration<double> timeout = std::chrono::milliseconds(500))
-      : BaseTracker(std::move(
-            std::unique_ptr<TrackingStrategy>(new ClosestTrackingStrategy()))),
+      : BaseTracker(std::move(std::unique_ptr<TrackingStrategy>(
+            new ClosestTrackingStrategy(default_num_retries_)))),
         nh_(name_space),
         alvar_sub_(nh_.subscribe("ar_pose_marker", 1,
                                  &AlvarTracker::markerCallback, this)),

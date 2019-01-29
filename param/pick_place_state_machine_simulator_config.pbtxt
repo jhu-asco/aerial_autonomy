@@ -50,4 +50,5 @@ visual_servoing_state_machine_config {
       }
     }
   }
+  connector_type: RPYTRef
 }

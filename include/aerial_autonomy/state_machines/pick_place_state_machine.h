@@ -170,8 +170,18 @@ public:
             msmf::Row<psa::ResetVisualServoing, Completed, psa::WaitingForPick,
                       psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::WaitingForPick, pe::Pick, psa::PickState,
-                      psa::PickTransitionAction, psa::PickTransitionGuard>,
+            msmf::Row<psa::WaitingForPick, pe::Pick, psa::PrePickState,
+                      psa::PrePickTransitionAction,
+                      psa::PrePickTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::PrePickState, Completed, psa::PickState,
+                      psa::PickTransitionAction, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::PrePickState, be::Abort, psa::Hovering,
+                      psa::AbortUAVArmController, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::PrePickState, Reset, psa::ResetVisualServoing,
+                      psa::ArmRightFoldGoHome, psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::WaitingForPick, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
@@ -225,9 +235,17 @@ public:
             msmf::Row<psa::ReachingPostPickWaypoint, be::Abort, psa::Hovering,
                       psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingPostPickWaypoint, ObjectId, psa::PlaceState,
+            msmf::Row<psa::ReachingPostPickWaypoint, ObjectId,
+                      psa::PrePlaceState,
+                      psa::PrePlaceVisualServoingTransitionAction,
+                      psa::PrePlaceVisualServoingTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::PrePlaceState, Completed, psa::PlaceState,
                       psa::PlaceVisualServoingTransitionAction,
                       psa::PlaceVisualServoingTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<psa::PrePlaceState, be::Abort, psa::Hovering,
+                      psa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::PlaceState, Completed,
                       psa::ReachingPostPlaceWaypoint, psa::ArmGripAction<false>,
@@ -259,19 +277,21 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 15> state_names = {
+static constexpr std::array<const char *, 17> state_names = {
     "Landed",
     "ArmPreTakeoffFolding",
     "Takingoff",
     "Hovering",
     "ResetVisualServoing",
     "WaitingForPick",
+    "PrePickState",
     "ArmPreLandingFolding",
     "ReachingGoal",
     "ExecutingVelocityGoal",
     "PickState",
     "Landing",
     "ReachingPostPickWaypoint",
+    "PrePlaceState",
     "PlaceState",
     "ReachingPostPlaceWaypoint",
     "ManualControlArmState"};

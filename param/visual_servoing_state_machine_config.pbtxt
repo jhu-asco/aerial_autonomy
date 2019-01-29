@@ -2,9 +2,22 @@ visual_servoing_state_machine_config {
     relative_pose_goals {
       position {
         x: 0
+        y: -.595
+        z: 0.255
+      }
+      yaw: 1.5708
+    }
+    relative_pose_goals {
+      position {
+        x: 0
         y: -1.0
         z: .235
       }
       yaw: 1.5708
     }
+    connector_type: VelPose
+}
+poly_reference_config {
+  max_velocity: 0.5
+  min_tf: 2.0
 }

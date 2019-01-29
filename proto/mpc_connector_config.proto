@@ -1,0 +1,36 @@
+syntax = "proto2";
+
+message MPCConnectorConfig {
+  /**
+  * @brief  Filtering gain on joint velocities
+  */
+  optional double joint_velocity_exp_gain = 1 [ default = 0.1 ];
+  /**
+  * @brief Filtering on  quad velocity
+  */
+  optional double velocity_exp_gain = 2 [ default = 0.1 ];
+  /**
+  * @brief Filtering on rpydot
+  */
+  optional double rpydot_gain = 3 [ default = 0.3 ];
+  /**
+  * @brief time diff setting for finite diff
+  */
+  optional bool use_perfect_time_diff = 4 [ default = false ];
+  /**
+  * @brief Time diff for finite diff
+  */
+  optional double perfect_time_diff = 5 [ default = 0.02 ];
+  /**
+  * @brief Maximum thrust command to send
+  */
+  optional double max_thrust_command = 6 [ default = 80.0 ];
+  /**
+  * @brief Minimum thrust command to send
+  */
+  optional double min_thrust_command = 7 [ default = 40.0 ];
+  /**
+  * @brief time step for integrating yaw rate
+  */
+  optional double dt_yaw_integration = 8 [ default = 0.02 ];
+}

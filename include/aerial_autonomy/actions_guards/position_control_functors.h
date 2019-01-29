@@ -8,6 +8,7 @@
 #include <aerial_autonomy/controller_connectors/rpyt_relative_pose_adaptive_estimate_connector.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
+#include <aerial_autonomy/types/polynomial_reference_trajectory.h>
 #include <aerial_autonomy/uav_basic_events.h>
 #include <glog/logging.h>
 #include <parsernode/common.h>
@@ -27,8 +28,18 @@ template <class LogicStateMachineT>
 struct PositionControlTransitionActionFunctor_
     : ActionFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
   void run(const PositionYaw &goal, UAVSystem &robot_system) {
+    tf::StampedTransform start_pose = robot_system.getPose();
+    auto &reference_config =
+        this->state_machine_config_.poly_reference_config();
+    PositionYaw start_position_yaw;
+    conversions::tfToPositionYaw(start_position_yaw, start_pose);
+    ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> reference(
+        new PolynomialReferenceTrajectory(goal, start_position_yaw,
+                                          reference_config));
     robot_system
-        .setGoal<RPYTBasedPositionControllerDroneConnector, PositionYaw>(goal);
+        .setGoal<RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
+                 ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>(
+            reference);
   }
 };
 
@@ -47,7 +58,6 @@ struct AdaptiveTransitionActionFunctor_
     conversions::tfToPositionYaw(start_position_yaw, start_pose);
     // Minimum snap reference trajectory config
     auto reference_config = MinimumSnapReferenceTrajectoryConfig();
-    // this->state_machine_config_.minimum_snap_reference_trajectory_config();
     // Waypoints config
     auto waypoint_config =
         reference_config.mutable_following_waypoint_sequence_config();
@@ -75,7 +85,6 @@ struct AdaptiveTransitionActionFunctor_
     // Minimum snap reference trajectory object
     std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> reference(
         new MinimumSnapReferenceTrajectory(reference_config));
-    // new HoverReferenceTrajectory(goal));
     double goal_yaw = goal.yaw;
     std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> pair_goal =
         std::make_pair(reference, goal_yaw);
@@ -83,7 +92,8 @@ struct AdaptiveTransitionActionFunctor_
         RPYTRelativePoseAdaptiveEstimateConnector,
         std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double>>(
         pair_goal);
-    robot_system.visualizeTrajectory(reference);
+    // robot_system.visualizeTrajectory(reference); Removed until arguments can
+    // be ironed out
   }
 };
 
@@ -98,6 +108,9 @@ struct UAVControllerAbortActionFunctor_
   void run(UAVSystem &robot_system) {
     LOG(WARNING) << "Aborting UAV Controller";
     robot_system.abortController(ControllerGroup::UAV);
+    LOG(WARNING) << "Aborting HighLevel Controller";
+    robot_system.abortController(ControllerGroup::HighLevel);
+    LOG(WARNING) << "Done aborting";
   }
 };
 
@@ -126,8 +139,18 @@ struct GoHomeTransitionActionFunctor_
   void run(UAVSystem &robot_system) {
     PositionYaw home_location = robot_system.getHomeLocation();
     VLOG(1) << "Going home";
-    robot_system.setGoal<RPYTBasedPositionControllerDroneConnector,
-                         PositionYaw>(home_location);
+    tf::StampedTransform start_pose = robot_system.getPose();
+    auto &reference_config =
+        this->state_machine_config_.poly_reference_config();
+    PositionYaw start_position_yaw;
+    conversions::tfToPositionYaw(start_position_yaw, start_pose);
+    ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> reference(
+        new PolynomialReferenceTrajectory(home_location, start_position_yaw,
+                                          reference_config));
+    robot_system
+        .setGoal<RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
+                 ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>(
+            reference);
   }
 };
 
@@ -140,7 +163,9 @@ template <class LogicStateMachineT>
 struct GoHomeTransitionGuardFunctor_
     : EventAgnosticGuardFunctor<UAVSystem, LogicStateMachineT> {
   bool guard(UAVSystem &robot_system) {
-    return robot_system.isHomeLocationSpecified();
+    LOG(INFO) << "Checking home location specified and pose sensor status";
+    return robot_system.isHomeLocationSpecified() &&
+           sensor_status_to_bool(robot_system.getPoseSensorStatus());
   }
 };
 
@@ -163,8 +188,10 @@ struct PositionControlTransitionGuardFunctor_
     bool result = true;
     if (std::abs(current_position.x - goal.x) > tolerance_pos ||
         std::abs(current_position.y - goal.y) > tolerance_pos ||
-        std::abs(current_position.z - goal.z) > tolerance_pos) {
-      LOG(WARNING) << "Goal not within the position tolerance";
+        std::abs(current_position.z - goal.z) > tolerance_pos ||
+        !sensor_status_to_bool(robot_system.getPoseSensorStatus())) {
+      LOG(WARNING)
+          << "Goal not within the position tolerance or sensor invalid";
       result = false;
     }
     return result;
@@ -204,7 +231,8 @@ using PositionControlInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT, RPYTBasedPositionControllerDroneConnector>>>;
+            LogicStateMachineT,
+            RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>>>;
 
 /**
 * @brief State that uses position control functor to reach a desired goal.

@@ -5,14 +5,12 @@
 #include "aerial_autonomy/types/particle_state.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/reference_trajectory.h"
-#include "aerial_autonomy/types/snap.h"
-#include "minimum_snap_reference_trajectory_config.pb.h"
 
 #include <Eigen/Dense>
 
 /**
-* @brief A minimum snap trajectory containing controls, states and timestamps
-* Gets state/control information using unconstrained QP
+* @brief A circular trajectory for testing.
+* Currently adds an oscillation in z through constants in the constructor.
 */
 class CircleReferenceTrajectory
     : public ReferenceTrajectory<ParticleState, Snap> {
@@ -20,23 +18,22 @@ public:
   /**
   * @brief Constructor
   *
-  * @param der_order_in Order of the derivative subject to optimization
-  * @param tau_vec_in Array of time intervals
-  * @param path_in nby3 matrix containing waypoints (x,y,z)
-  *
   */
   CircleReferenceTrajectory() {}
 
   /**
   * @brief Constructor
   *
-  * @param ref_config Reference trajectory config
-  *
+  * @param py Goal from connector.
+  * initializes the radius to the py radius, z to the py z, and w to 1.
   */
   CircleReferenceTrajectory(const PositionYaw &py) {
-    radius = sqrt(py.x * py.x + py.y * py.y);
-    z = py.z;
-    w = 1.0;
+    radius_ = sqrt(py.x * py.x + py.y * py.y);
+    z_ = py.z;
+    w_ = 1.0;
+    // Z oscillation constants
+    z_amp_ = 0.1;
+    z_freq_ = 1.0;
   }
 
   /**
@@ -50,19 +47,22 @@ public:
   std::pair<ParticleState, Snap> atTime(double t) const {
 
     // Type conversion
-    double theta = w * t;
-    double x = radius * cos(theta);
-    double y = radius * sin(theta);
-    Position p(x, y, z + 0.1 * sin(10 * theta));
-    Velocity v(-w * y, w * x, w * cos(10 * theta));
-    Acceleration a(-w * w * x, -w * w * y, -10 * w * w * sin(theta));
-    Jerk j(w * w * w * y, -w * w * w * x, -100 * w * w * w * cos(theta));
-    Snap snap(w * w * w * w * x, w * w * w * w * y,
-              1000 * w * w * w * w * sin(theta));
+    double theta = w_ * t;
+    double x = radius_ * cos(theta);
+    double y = radius_ * sin(theta);
+    Position p(x, y, z_ + z_amp_ * sin(z_freq_ * t));
+    Velocity v(-w_ * y, w_ * x, z_amp_ * z_freq_ * cos(z_freq_ * t));
+    Acceleration a(-w_ * w_ * x, -w_ * w_ * y,
+                   -z_amp_ * z_freq_ * z_freq_ * sin(z_freq_ * t));
+    Jerk j(w_ * w_ * w_ * y, -w_ * w_ * w_ * x,
+           -z_amp_ * z_freq_ * z_freq_ * z_freq_ * cos(z_freq_ * t));
+    Snap snap(w_ * w_ * w_ * w_ * x, w_ * w_ * w_ * w_ * y,
+              z_amp_ * z_freq_ * z_freq_ * z_freq_ * z_freq_ *
+                  sin(z_freq_ * t));
 
     return std::pair<ParticleState, Snap>(ParticleState(p, v, a, j), snap);
   }
 
 private:
-  double radius, z, w;
+  double radius_, z_, w_, z_amp_, z_freq_;
 };

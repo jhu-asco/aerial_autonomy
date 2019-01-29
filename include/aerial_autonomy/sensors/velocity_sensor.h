@@ -11,7 +11,7 @@
 /**
 * @brief ros based velocity sensor
 */
-class VelocitySensor : public Sensor<Velocity> {
+class VelocitySensor : public TransformedSensor<Velocity> {
 public:
   /**
   *
@@ -35,7 +35,7 @@ public:
   }
   /**
   * @brief give sensor data, transformed by the local transform.
-  * Returns the velocity in the sensor origin frame of the robot center.
+  * Returns the robot velocity in the sensor frame.
   */
   Velocity getTransformedSensorData() {
     nav_msgs::Odometry msg = sensor_.getSensorData();
@@ -65,9 +65,4 @@ private:
   * which we use for velocity.
   */
   ROSSensor<nav_msgs::Odometry> sensor_;
-  /*
-  * @brief Local transform provided by the config, from sensor frame to robot
-  * frame.
-  */
-  tf::Transform local_transform_;
 };

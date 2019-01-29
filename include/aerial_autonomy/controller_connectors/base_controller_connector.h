@@ -51,7 +51,7 @@ public:
   * Ensure the dependent connector's goals have been set if present
   *
   */
-  virtual void initialize() {}
+  virtual void initialize() = 0;
   /**
   * @brief Return the type of hardware (ControllerGroup) used by the controller
   *
@@ -155,6 +155,8 @@ public:
    * @brief disengage the connector i.e set status to not engaged
    */
   void disengage() { status_ = ControllerStatus::NotEngaged; }
+
+  virtual void initialize() { controller_.reset(); }
 
 protected:
   /**

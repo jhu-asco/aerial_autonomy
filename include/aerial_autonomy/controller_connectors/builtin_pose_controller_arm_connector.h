@@ -25,6 +25,8 @@ public:
    */
   virtual ~BuiltInPoseControllerArmConnector() {}
 
+  void initialize();
+
 protected:
   /**
    * @brief Extracts pose data from arm

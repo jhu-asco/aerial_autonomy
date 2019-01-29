@@ -59,11 +59,29 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
   */
   using PlaceState = PlaceState_<LogicStateMachineT>;
   /**
-  * @brief State when reaching a relative pose visual servoing goal
+  * @brief State while positioning the uav for pre-placing
   */
-  using RelativePoseVisualServoing =
-      RelativePoseVisualServoing_<LogicStateMachineT, Reset>;
+  using PrePlaceState = PrePlaceState_<LogicStateMachineT>;
+  /**
+  * @brief State when reaching a relative pose visual servoing goal using rpyt
+  * controller Uses reset instead of abort
+  */
+  using PrePickState = PrePickState_<LogicStateMachineT>;
+  /**
+  * @brief State when reaching a relative pose visual servoing goal
+  *
+  * Uses reset instead of abort
+  */
+  using RelativePoseVisualServoing = VisualServoing_<LogicStateMachineT, Reset>;
   // Transition Actions
+  /**
+  * @brief Action to take when starting rpyt relative pose visual servoing
+  */
+  template <int GoalIndex>
+  using RelativePoseVisualServoingTransitionAction_ =
+      RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT,
+                                                         GoalIndex>;
+
   /**
   * @brief Action sequence that ungrips then goes home
   */
@@ -113,32 +131,64 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
   using PickTransitionGuard =
       bAnd<typename vsa::RelativePoseVisualServoingTransitionGuard,
            ArmTrackingGuardFunctor_<LogicStateMachineT>>;
+  /**
+   * @brief Check prepick goal index is specified
+   */
+  using PrePickTransitionGuard =
+      bAnd<PickTransitionGuard, CheckGoalIndex_<LogicStateMachineT, 2>>;
   // \todo Check if tracked object is in workspace
 
   /**
-  * @brief Move arm to pick pose and move to tracked object
+  * @brief Move arm to pick pose and move to waypoint in front of object
   */
-  using PickTransitionAction = base_functors::bActionSequence<
+  using PrePickTransitionAction = base_functors::bActionSequence<
       boost::mpl::vector<ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>,
                          typename vsa::ResetRelativePoseVisualServoing,
                          RelativePoseVisualServoingTransitionActionFunctor_<
-                             LogicStateMachineT, 0>>>;
+                             LogicStateMachineT, 2>>>;
+
+  /**
+  * @brief Move arm to pick pose and move to tracked object
+  *
+  * Do not set home since we are using this as an intermediate step
+  * after pre-pick
+  */
+  using PickTransitionAction =
+      base_functors::bActionSequence<boost::mpl::vector<
+          ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>,
+          typename vsa::ResetRelativePoseVisualServoing,
+          RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT,
+                                                             0, false>,
+          SetNoisePolynomialReference_<LogicStateMachineT, true>>>;
 
   /**
   * @brief Action to take when starting placing object at either drop-off.
   */
-  using PlaceVisualServoingTransitionAction = base_functors::bActionSequence<
+  using PlaceVisualServoingTransitionAction =
+      base_functors::bActionSequence<boost::mpl::vector<
+          ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0, false>,
+          typename vsa::ResetRelativePoseVisualServoing,
+          RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT,
+                                                             1>>>;
+  /**
+  * @brief Action to take when starting placing object at either drop-off.
+  */
+  using PrePlaceVisualServoingTransitionAction = base_functors::bActionSequence<
       boost::mpl::vector<typename vsa::ResetRelativePoseVisualServoing,
                          RelativePoseVisualServoingTransitionActionFunctor_<
-                             LogicStateMachineT, 1>>>;
+                             LogicStateMachineT, 3>>>;
   // \todo Matt add guard to check if relative pose visual servoing goal exists
 
   /**
   * @brief Guard to set and check that the id to track is available
   * before beginning visual servoing
   */
+  using PrePlaceVisualServoingTransitionGuard =
+      bAnd<EventIdVisualServoingGuardFunctor_<LogicStateMachineT>,
+           CheckGoalIndex_<LogicStateMachineT, 3>>;
+
   using PlaceVisualServoingTransitionGuard =
-      EventIdVisualServoingGuardFunctor_<LogicStateMachineT>;
+      CheckGoalIndex_<LogicStateMachineT, 1>;
 
   /**
   * @brief Action sequence to abort UAV controller and arm controller

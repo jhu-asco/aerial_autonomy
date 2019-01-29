@@ -14,10 +14,17 @@ import "joystick_velocity_controller_config.proto";
 
 import "thrust_gain_estimator_config.proto";
 
-import "ros_sensor_config.proto";
 import "odom_from_pose_sensor_config.proto";
 
+import "ros_sensor_config.proto";
+
 import "mpc_visualizer_config.proto";
+
+import "quad_mpc_controller_config.proto";
+
+import "mpc_connector_config.proto";
+
+import "rpyt_reference_connector_config.proto";
 
 message UAVSystemConfig {
   /**
@@ -97,13 +104,27 @@ message UAVSystemConfig {
   */
   optional bool use_mocap_sensor = 16 [ default = false ];
   /**
-  * @brief Velocity sensor config
+  * @brief Odometry sensor config
   */
-  optional OdomSensorConfig odom_sensor_config = 20;
+  optional OdomSensorConfig odom_sensor_config = 17;
   /**
-  * @brief Velocity sensor config
+  * @brief MPC Config for quadrotor
   */
-  optional ROSSensorConfig pose_sensor_config = 17;
-
-  optional MPCVisualizerConfig visualizer_config = 19;
+  optional QuadMPCControllerConfig quad_mpc_controller_config = 19;
+  /**
+  * @brief MPC connector config
+  */
+  optional MPCConnectorConfig mpc_connector_config = 23;
+  /**
+  * @brief Visualizing MPC trajectories
+  */
+  optional MPCVisualizerConfig visualizer_config = 20;
+  /**
+  * @brief Flag to specify whether to visualize MPC trajectories
+  */
+  optional bool visualize_mpc_trajectories = 21 [ default = false ];
+  /**
+  * @brief RPYT reference connector config
+  */
+  optional RPYTReferenceConnectorConfig rpyt_reference_connector_config = 22;
 }

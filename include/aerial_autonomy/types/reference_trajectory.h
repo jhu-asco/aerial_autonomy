@@ -17,12 +17,12 @@ public:
   virtual std::pair<StateT, ControlT> atTime(double t) const = 0;
 
   /**
-  * @brief goal for reference trajectory
-  *
-  * @param t Time when goal is asked for
-  *
-  * @return state at time t
-  */
+   * @brief goal for reference trajectory
+   *
+   * @param t Time when goal is asked for
+   *
+   * @return state at time t
+   */
   virtual StateT goal(double t) { return atTime(t).first; }
 };
 

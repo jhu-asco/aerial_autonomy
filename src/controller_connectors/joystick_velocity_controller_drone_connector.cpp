@@ -29,8 +29,10 @@ bool JoystickVelocityControllerDroneConnector::extractSensorData(
                            quad_data.linvel.z, quad_data.omega.z);
 
   sensor_data = std::make_tuple(joy_data, vel_data, quad_data.rpydata.z);
+  tf::Vector3 body_acc(quad_data.linacc.x, quad_data.linacc.y,
+                       quad_data.linacc.z);
   thrust_gain_estimator_.addSensorData(quad_data.rpydata.x, quad_data.rpydata.y,
-                                       quad_data.linacc.z);
+                                       body_acc);
   auto rpyt_controller_config = private_reference_controller_.getRPYTConfig();
   rpyt_controller_config.set_kt(thrust_gain_estimator_.getThrustGain());
   private_reference_controller_.updateRPYTConfig(rpyt_controller_config);
@@ -41,8 +43,9 @@ void JoystickVelocityControllerDroneConnector::sendControllerCommands(
     RollPitchYawRateThrust controls) {
 
   geometry_msgs::Quaternion rpyt_command;
-  rpyt_command.x = controls.r;
-  rpyt_command.y = controls.p;
+  Eigen::Vector2d roll_pitch_bias = thrust_gain_estimator_.getRollPitchBias();
+  rpyt_command.x = controls.r - roll_pitch_bias[0];
+  rpyt_command.y = controls.p - roll_pitch_bias[1];
   rpyt_command.z = controls.y;
   rpyt_command.w = controls.t;
   thrust_gain_estimator_.addThrustCommand(controls.t);

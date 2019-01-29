@@ -46,32 +46,32 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
   Eigen::Vector3d delta_v = v - v_d;
 
   // Update mhat
+  // The details behind this formula can be found in this document:
+  // https://drive.google.com/open?id=1GYvwzfI0OKF62tpSu5e_kgDBWRzJuQ96
   control.dm =
-      -km * ((acc_d - ag_).transpose()) * (delta_v + config_.eps() * delta_p);
+      -km_ * ((acc_d - ag_).transpose()) * (delta_v + config_.eps() * delta_p);
   control.dm = math::clamp(control.dm, -config_.max_dm(), config_.max_dm());
-  /*double delta_z = delta_p(2);
-  Eigen::Vector3d kp(config_.kp_xy(), config_.kp_xy(), config_.kp_z());
-  double delta_m_est = mhat - 6;
-  if (delta_z > -((delta_p.transpose() * kp.asDiagonal() *
-  delta_p).norm())/(km*ag_(2)*delta_m_est)){
-    control.dm = 0;
-  }*/
   // Find body acceleration
   Eigen::Vector3d world_acc = -K_ * delta_x + mhat * acc_d;
+  // Clamp each component of world_acc to plus-minus max_acc
   world_acc[0] =
       math::clamp(world_acc(0), -config_.max_acc(), config_.max_acc());
   world_acc[1] =
       math::clamp(world_acc(1), -config_.max_acc(), config_.max_acc());
   world_acc[2] =
       math::clamp(world_acc(2), -config_.max_acc(), config_.max_acc());
+  // Check each velocity for exceeding the bound, and if so, zero out the
+  // acceleration if it would get worse.
   for (int i = 0; i < 3; i++) {
-    if ((delta_v(i) > config_.max_vel() && world_acc(i) > 0) ||
-        (delta_v(i) < -config_.max_vel() && world_acc(i) < 0)) {
+    if ((v(i) > config_.max_vel() && world_acc(i) > 0) ||
+        (v(i) < -config_.max_vel() && world_acc(i) < 0)) {
       LOG(WARNING) << "Velocity Bound Reached: " << i;
       world_acc[i] = 0;
     }
   }
-  world_acc = - mhat * ag_ + world_acc;
+  // Add in the gravity term
+  world_acc = -mhat * ag_ + world_acc;
+  // Rotate by yaw
   Eigen::Vector3d rot_acc;
   rot_acc[0] = world_acc(0) * cos(curr_yaw) + world_acc(1) * sin(curr_yaw);
   rot_acc[1] = -world_acc(0) * sin(curr_yaw) + world_acc(1) * cos(curr_yaw);
@@ -103,20 +103,16 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
   control.y = -config_.k_yaw() * (math::angleWrap(curr_yaw - goal_yaw));
   control.y =
       math::clamp(control.y, -config_.yaw_rate_max(), config_.yaw_rate_max());
+  // Estimate the lyapunov function for logging
   double lyap_V = (0.5 * (delta_x.transpose() * P_ * delta_x)).norm();
-  lyap_V += 0.5 * (mhat - 6) * (mhat - 6) / (km);
-
-  // LOG(WARNING) << "M_Hat: " << mhat << " V: " << lyap_V << std::endl;
+  lyap_V += 0.5 * (mhat - 6) * (mhat - 6) / (km_);
+  // Log the data
   DATA_LOG("adaptive_controller")
-      << mhat << lyap_V 
-      << delta_x(0) << delta_x(1) << delta_x(2) 
-      << delta_x(3) << delta_x(4) << delta_x(5) 
-      << (curr_yaw - goal_yaw) 
-      << desired_state.p.x << desired_state.p.y << desired_state.p.z 
-      << state.p.x << state.p.y << state.p.z 
-      << world_acc(0) << world_acc(1) << world_acc(2) 
-      << control.r << control.p 
-      << DataStream::endl;
+      << mhat << lyap_V << delta_x(0) << delta_x(1) << delta_x(2) << delta_x(3)
+      << delta_x(4) << delta_x(5) << (curr_yaw - goal_yaw) << desired_state.p.x
+      << desired_state.p.y << desired_state.p.z << state.p.x << state.p.y
+      << state.p.z << world_acc(0) << world_acc(1) << world_acc(2) << control.r
+      << control.p << DataStream::endl;
   return true;
 }
 
@@ -155,8 +151,10 @@ RPYTBasedRelativePoseAdaptiveEstimateController::isConvergedImplementation(
   Eigen::Vector3d delta_p = p - p_d;
   Eigen::Vector3d delta_v = v - v_d;
   status << "Parameter Estimate and Position Error: "
-         << std::get<0>(sensor_data) << "Position Error: " << delta_p(0)
-         << delta_p(1) << delta_p(2);
+         << std::get<0>(sensor_data) << delta_p(0) << delta_p(1) << delta_p(2);
+  // Controller converged if position, velocity, and yaw are within tolerances
+  // and if the reference trajectory acc is below the tolerance, so we don't
+  // quit early
   if (delta_p.norm() < config_.tolerance_pos() &&
       delta_v.norm() < config_.tolerance_vel() &&
       delta_yaw < config_.tolerance_yaw() &&

@@ -34,9 +34,9 @@ public:
   *
   */
   HoverReferenceTrajectory(const PositionYaw &py) {
-    x = py.x;
-    y = py.y;
-    z = py.z;
+    x_ = py.x;
+    y_ = py.y;
+    z_ = py.z;
   }
 
   /**
@@ -48,7 +48,7 @@ public:
   * @return Trajectory state and control
   */
   std::pair<ParticleState, Snap> atTime(double t) const {
-    Position p(x, y, z);
+    Position p(x_, y_, z_);
     Velocity v(0, 0, 0);
     Acceleration a(0, 0, 0);
     Jerk j(0, 0, 0);
@@ -58,5 +58,5 @@ public:
   }
 
 private:
-  double x, y, z;
+  double x_, y_, z_;
 };
