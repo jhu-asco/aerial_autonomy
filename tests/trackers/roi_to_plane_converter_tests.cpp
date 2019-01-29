@@ -254,9 +254,17 @@ TEST(RoiToPlaneConverterTests, ComputePlaneFit) {
   ASSERT_NEAR(pose.getOrigin().z(), centroid(2), 1e-2);
   // Eigenvector correspoding to smallest eigenvalue
   tf::Vector3 x_axis = pose.getBasis().getColumn(0);
-  ASSERT_NEAR(x_axis.getX(), norm_vec(0), 1e-2);
-  ASSERT_NEAR(x_axis.getY(), norm_vec(1), 1e-2);
-  ASSERT_NEAR(x_axis.getZ(), norm_vec(2), 1e-2);
+  tf::Vector3 y_axis = pose.getBasis().getColumn(1);
+  tf::Vector3 z_axis = pose.getBasis().getColumn(2);
+  ASSERT_NEAR(x_axis.getX(), 0, 1e-2);
+  ASSERT_NEAR(x_axis.getY(), 0, 1e-2);
+  ASSERT_NEAR(x_axis.getZ(), -1, 1e-2);
+  ASSERT_NEAR(y_axis.getX(), 1, 1e-2);
+  ASSERT_NEAR(y_axis.getY(), 0, 1e-2);
+  ASSERT_NEAR(y_axis.getZ(), 0, 1e-2);
+  ASSERT_NEAR(z_axis.getX(), 0, 1e-2);
+  ASSERT_NEAR(z_axis.getY(), -1, 1e-2);
+  ASSERT_NEAR(z_axis.getZ(), 0, 1e-2);
 }
 
 TEST(RoiToPlaneConverterTests, ComputePlaneFitNoneZeroNormalVector) {
@@ -301,8 +309,22 @@ TEST(RoiToPlaneConverterTests, ComputePlaneFitNoneZeroNormalVector) {
   ASSERT_NEAR(x_axis.getY(), norm_vec(1), 1e-2);
   ASSERT_NEAR(x_axis.getZ(), norm_vec(2), 1e-2);
 
-  tf::Vector3 z_axis_tf = pose.getBasis().getColumn(3);
-  Eigen::Vector3d z_axis(z_axis_tf.getX(), z_axis_tf.getY(), z_axis_tf.getZ());
+  Eigen::Vector3d z_axis(0, norm_vec(2), -norm_vec(1));
+  z_axis.normalize();
+  Eigen::Vector3d y_axis = z_axis.cross(norm_vec);
+  y_axis.normalize();
+  tf::Vector3 z_axis_tf = pose.getBasis().getColumn(2);
+  Eigen::Vector3d z_axis_from_pos(z_axis_tf.getX(), z_axis_tf.getY(),
+                                  z_axis_tf.getZ());
+  tf::Vector3 y_axis_tf = pose.getBasis().getColumn(1);
+  Eigen::Vector3d y_axis_from_pos(y_axis_tf.getX(), y_axis_tf.getY(),
+                                  y_axis_tf.getZ());
+  ASSERT_NEAR(y_axis(0), y_axis_from_pos(0), 1e-2);
+  ASSERT_NEAR(y_axis(1), y_axis_from_pos(1), 1e-2);
+  ASSERT_NEAR(y_axis(2), y_axis_from_pos(2), 1e-2);
+  ASSERT_NEAR(z_axis(0), z_axis_from_pos(0), 1e-2);
+  ASSERT_NEAR(z_axis(1), z_axis_from_pos(1), 1e-2);
+  ASSERT_NEAR(z_axis(2), z_axis_from_pos(2), 1e-2);
 }
 
 int main(int argc, char **argv) {
