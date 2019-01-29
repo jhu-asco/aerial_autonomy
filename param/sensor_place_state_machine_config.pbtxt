@@ -30,31 +30,10 @@ visual_servoing_state_machine_config {
     yaw: 1.5708
   }
 
-  pick_place_state_machine_config {
-    grip_config {
-      grip_timeout: 20000
-    }
-    place_groups {
-      destination_id: 15
-      object_ids: 28
-    }
-    place_groups {
-      destination_id: 25
-      object_ids: 1
-    }
-    place_groups {
-      destination_id: 26
-      object_ids: 4
-    }
-    place_groups {
-      destination_id: 27
-      object_ids: 7
-    }
-    place_groups {
-      destination_id: 18
-      object_ids: 16
-    } 
-
+  sensor_place_state_machine_config {
+    grip_timeout: 20000
+    
+    #placing arm
     arm_goal_transform {
       position {
         x: -0.2
@@ -68,6 +47,7 @@ visual_servoing_state_machine_config {
       }
     }
 
+    #checking arm
     arm_goal_transform {
       position {
         x: 0
@@ -81,57 +61,8 @@ visual_servoing_state_machine_config {
       }
     }
 
-    following_waypoint_sequence_config {
-      way_points {
-        position {
-          x: 0.0
-          y: 1.0
-          z: 0.4
-        }
-        yaw: 1.57
-      }
-      way_points {
-        position {
-          x: 0.0
-          y: 0.0
-          z: 0.0
-        }
-        yaw: 1.57
-      }
-      way_points {
-        position {
-          x: 0.0
-          y: -1.9
-          z: 0.08
-        }
-        yaw: 1.57
-      }
-      way_points {
-        position {
-          x: 0.0
-          y: 0.0
-          z: -0.1
-        }
-        yaw: -1.57
-      }
-      poly_reference_config {
-        min_tf: 4.0
-        max_velocity: 0.3
-      }
-      position_controller_config {
-        goal_position_tolerance {
-          x: 0.15
-          y: 0.15
-          z: 0.1
-        }
-        goal_yaw_tolerance: .15
-      }
-    }
-    object_pickup_thrust_gain: 0.4
+    placing_acc_threshold: -1
+    checking_acc_threshold: 1
   }
   connector_type: RPYTRef
-}
-poly_reference_config {
-  max_velocity: 0.3
-  min_tf: 4.0
 }

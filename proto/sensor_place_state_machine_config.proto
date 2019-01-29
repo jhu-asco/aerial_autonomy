@@ -19,7 +19,7 @@ message SensorPlaceStateMachineConfig {
   /**
   * @brief Placing and checking thresholds
   */
-  optional double placing_acc_threshold = 3 [ default = 1 ];
-  optional double checking_acc_threshold = 4 [ default = -1 ];
+  optional double placing_acc_threshold = 3 [ default = -1 ];
+  optional double checking_acc_threshold = 4 [ default = 1 ];
 
 }

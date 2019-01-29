@@ -471,8 +471,6 @@ TEST_F(SensorPlaceStateMachineTests, SensorPlace) {
     uav_arm_system_->runActiveController(ControllerGroup::UAV);
     uav_arm_system_->runActiveController(ControllerGroup::Arm);
     Eigen::Vector3d bias = uav_arm_system_->getAccelerationBias();
-    cout << "filling: " << bias.x() << " " << bias.y() << " " << bias.z()
-         << std::endl;
     return bias.norm() < 5;
   };
   ASSERT_FALSE(test_utils::waitUntilFalse()(
@@ -485,8 +483,6 @@ TEST_F(SensorPlaceStateMachineTests, SensorPlace) {
     uav_arm_system_->runActiveController(ControllerGroup::UAV);
     uav_arm_system_->runActiveController(ControllerGroup::Arm);
     Eigen::Vector3d bias = uav_arm_system_->getAccelerationBias();
-    cout << "emptying: " << bias.x() << " " << bias.y() << " " << bias.z()
-         << std::endl;
     return bias.norm() > 0.5;
   };
   ASSERT_FALSE(test_utils::waitUntilFalse()(
