@@ -115,7 +115,16 @@ public:
   PickPlaceStateMachineFrontEnd(
       UAVArmSystem &uav_system,
       const BaseStateMachineConfig &state_machine_config)
-      : BaseStateMachine(uav_system, state_machine_config) {}
+      : BaseStateMachine(uav_system, state_machine_config) {
+    auto pick_state_machine_config =
+        state_machine_config.visual_servoing_state_machine_config()
+            .pick_place_state_machine_config();
+    config_map_.insert<psa::ReachingPostPickWaypointBase>(
+        pick_state_machine_config.following_waypoint_sequence_config());
+    config_map_.insert<psa::ReachingPostPlaceWaypoint>(
+        pick_state_machine_config.following_waypoint_sequence_config());
+    config_map_.insert<psa::PickState>(pick_state_machine_config.grip_config());
+  }
 
   /**
    * @brief Alternative constructor with default state machine config
