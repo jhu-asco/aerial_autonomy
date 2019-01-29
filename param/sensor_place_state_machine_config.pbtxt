@@ -3,31 +3,31 @@ visual_servoing_state_machine_config {
   # PrePlace
   relative_pose_goals {
     position {
-      x: 0.03
-      y: -1.1
-      z: 0.105
+      x: 1.5
+      y: 0
+      z: 0
     }
-    yaw: 1.5708
+    yaw: 3.14
   }
 
   # Place
   relative_pose_goals {
     position {
-      x: 0.03
-      y: -.887
-      z: 0.105
+      x: 1.0
+      y: 0
+      z: 0
     }
-    yaw: 1.5708
+    yaw: 3.14
   }
 
   # Checking
   relative_pose_goals {
     position {
-      x: 0.03
-      y: -.887
-      z: 0.105
+      x: 1.1
+      y: 0
+      z: 0
     }
-    yaw: 1.5708
+    yaw: 3.14
   }
 
   sensor_place_state_machine_config {
@@ -50,9 +50,9 @@ visual_servoing_state_machine_config {
     #checking arm
     arm_goal_transform {
       position {
-        x: 0
-        y: -0.09
-        z: -0.01
+        x: -0.2
+        y: 0
+        z: 0.3
       }
       rotation {
         r: 0
