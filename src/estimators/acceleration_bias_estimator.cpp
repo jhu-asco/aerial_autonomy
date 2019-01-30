@@ -58,7 +58,7 @@ void AccelerationBiasEstimator::addAccelerationCommand(double acc) {
   acceleration_commands_.push(acc);
 }
 
-Eigen::Vector3d AccelerationBiasEstimator::getAccelerationBias() {
+Eigen::Vector3d AccelerationBiasEstimator::getAccelerationBias() const {
   if (acceleration_bias_filter_.isDataAvailable()) {
     return acceleration_bias_filter_.getFilterData();
   } else {

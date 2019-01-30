@@ -46,7 +46,7 @@
 
 namespace msmf = boost::msm::front;
 namespace vse = visual_servoing_events;
-namespace se = pick_place_events;
+namespace se = sensor_place_events;
 namespace be = uav_basic_events;
 
 // Forward Declaration

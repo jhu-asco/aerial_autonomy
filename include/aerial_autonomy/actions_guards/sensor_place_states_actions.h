@@ -11,6 +11,8 @@
 #include <boost/msm/front/euml/operator.hpp>
 #include <boost/msm/front/functor_row.hpp>
 
+#include <aerial_autonomy/trackers/closest_tracking_strategy.h>
+
 // State index list
 #define preplace_index 0
 #define place_index 1
@@ -91,7 +93,9 @@ struct SensorPlaceStatesActions
   * before beginning visual servoing
   */
   using PreSensorPlaceVisualServoingTransitionGuard =
-      CheckGoalIndex_<LogicStateMachineT, preplace_index>;
+      bAnd<InitializeTrackerGuardFunctor_<LogicStateMachineT,
+                                          ClosestTrackingStrategy>,
+           CheckGoalIndex_<LogicStateMachineT, preplace_index>>;
 
   /**
   * @brief Action to take when placing sensor

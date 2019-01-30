@@ -18,7 +18,7 @@ public:
    *
    * @return filtered data
    */
-  virtual T getFilterData() = 0;
+  virtual T getFilterData() const = 0;
   /**
    * @brief Andd sensor data, filter
    *

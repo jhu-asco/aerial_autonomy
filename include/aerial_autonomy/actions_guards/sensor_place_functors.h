@@ -61,6 +61,8 @@ struct NormalForceThresholdInternalActionFunctor_
     // normal vector, the true result would be a combination of the x and y
     // components.
     double normal_acc_ = bias_acc_local_tf.x();
+    VLOG(1) << bias_acc.transpose();
+    VLOG(1) << normal_acc_ << " " << curr_rpy.transpose();
     if (placingFlag) {
       double threshold = logic_state_machine.base_state_machine_config_
                              .visual_servoing_state_machine_config()
@@ -99,6 +101,7 @@ struct TimeoutInternalActionFunctor_
                                       .grip_timeout());
     if (state.timeInState() > threshold) {
       logic_state_machine.process_event(Reset());
+      VLOG(1) << "Timout Reached: Resetting";
       return false;
     }
     return true;

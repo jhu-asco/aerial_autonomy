@@ -167,7 +167,14 @@ public:
     status << UAVSystem::getSystemStatus() << std::endl;
     HtmlTableWriter table_writer;
     table_writer.beginRow();
+    table_writer.addHeader("Acc Bias Estimator");
+    table_writer.beginRow();
+    auto acc_bias = getAccelerationBias();
+    table_writer.addCell(acc_bias.x());
+    table_writer.addCell(acc_bias.y());
+    table_writer.addCell(acc_bias.z());
     table_writer.addHeader("Tracker Status", Colors::blue);
+    table_writer.beginRow();
     table_writer.beginRow();
     std::string tracking_valid =
         (tracker_->trackingIsValid() ? "True" : "False");
@@ -211,7 +218,7 @@ public:
   * @brief Get the estimated acceleration bias
   * @return Estimated acceleration bias
   */
-  Eigen::Vector3d getAccelerationBias() {
+  Eigen::Vector3d getAccelerationBias() const {
     return acceleration_bias_estimator_.getAccelerationBias();
   }
 
