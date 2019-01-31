@@ -41,14 +41,15 @@ TEST_F(AccelerationBiasEstimatorTests, Constructor) {
 
 TEST_F(AccelerationBiasEstimatorTests, NoRollPitch) {
   fillBuffer(estimator_, buffer_size_, 0, 0, 9.91);
-  ASSERT_VEC_NEAR(Eigen::Vector3d(0, 0, -0.1),
+  ASSERT_VEC_NEAR(Eigen::Vector3d(0, 0, -0.1 * mixing_factor_),
                   estimator_.getAccelerationBias());
 }
 
 TEST_F(AccelerationBiasEstimatorTests, SmallDelayBuffer) {
   AccelerationBiasEstimator estimator(0.5, 1.0, 1);
   fillBuffer(estimator, 1, 0, 0, 9.91);
-  ASSERT_VEC_NEAR(Eigen::Vector3d(0, 0, -0.1), estimator.getAccelerationBias());
+  ASSERT_VEC_NEAR(Eigen::Vector3d(0, 0, -0.1 * mixing_factor_),
+                  estimator.getAccelerationBias());
 }
 
 TEST_F(AccelerationBiasEstimatorTests, MaxBias) {
@@ -65,13 +66,24 @@ TEST_F(AccelerationBiasEstimatorTests, MaxBiasNeg) {
 
 TEST_F(AccelerationBiasEstimatorTests, MaxBiasWithPitch) {
   fillBuffer(estimator_, buffer_size_, 0, 5. * M_PI / 180., 11.81);
-  ASSERT_VEC_NEAR(Eigen::Vector3d(-sin(5. * M_PI / 180.) * 9.81, 0, -max_bias_),
+  ASSERT_VEC_NEAR(
+      Eigen::Vector3d(-sin(5. * M_PI / 180.) * 9.81 * mixing_factor_, 0,
+                      -max_bias_),
+      estimator_.getAccelerationBias());
+}
+
+TEST_F(AccelerationBiasEstimatorTests, MaxBiasWithNegPitch) {
+  fillBuffer(estimator_, buffer_size_, 0, -5. * M_PI / 180., 11.81);
+  ASSERT_VEC_NEAR(Eigen::Vector3d(sin(5. * M_PI / 180.) * 9.81 * mixing_factor_,
+                                  0, -max_bias_),
                   estimator_.getAccelerationBias());
 }
 
 TEST_F(AccelerationBiasEstimatorTests, MaxBiasWithRoll) {
   fillBuffer(estimator_, buffer_size_, 5. * M_PI / 180., 0, 11.81);
-  ASSERT_VEC_NEAR(Eigen::Vector3d(0, sin(5. * M_PI / 180.) * 9.81, -max_bias_),
+  ASSERT_VEC_NEAR(Eigen::Vector3d(0,
+                                  sin(5. * M_PI / 180.) * 9.81 * mixing_factor_,
+                                  -max_bias_),
                   estimator_.getAccelerationBias());
 }
 
@@ -91,10 +103,11 @@ TEST_F(AccelerationBiasEstimatorTests, DelayAndMixing) {
   estimator_.addAccelerationCommand(start_cmd);
   estimator_.addSensorData(0, 0, Eigen::Vector3d(0, 0, 0));
   fillBuffer(estimator_, buffer_size_ - 1, 0, 0, buffer_cmd);
-  ASSERT_VEC_NEAR(Eigen::Vector3d(0, 0, -start_bias),
+  ASSERT_VEC_NEAR(Eigen::Vector3d(0, 0, -start_bias * mixing_factor_),
                   estimator_.getAccelerationBias());
 
-  double z_bias = start_bias + mixing_factor_ * (buffer_bias - start_bias);
+  double z_bias = mixing_factor_ * start_bias +
+                  mixing_factor_ * (buffer_bias - mixing_factor_ * start_bias);
   estimator_.addAccelerationCommand(start_cmd);
   estimator_.addSensorData(0, 0, Eigen::Vector3d(0, 0, 0));
   ASSERT_VEC_NEAR(Eigen::Vector3d(0, 0, -z_bias),
@@ -110,13 +123,13 @@ TEST_F(AccelerationBiasEstimatorTests, DelayAndMixing) {
 
 TEST_F(AccelerationBiasEstimatorTests, Reset) {
   fillBuffer(estimator_, buffer_size_, 0, 0, 9.91);
-  ASSERT_VEC_NEAR(Eigen::Vector3d(0, 0, -0.1),
+  ASSERT_VEC_NEAR(Eigen::Vector3d(0, 0, -0.1 * mixing_factor_),
                   estimator_.getAccelerationBias());
 
   estimator_.reset();
 
   fillBuffer(estimator_, buffer_size_, 0, 0, 9.91);
-  ASSERT_VEC_NEAR(Eigen::Vector3d(0, 0, -0.1),
+  ASSERT_VEC_NEAR(Eigen::Vector3d(0, 0, -0.1 * mixing_factor_),
                   estimator_.getAccelerationBias());
 }
 

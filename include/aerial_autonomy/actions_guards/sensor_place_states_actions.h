@@ -123,6 +123,7 @@ struct SensorPlaceStatesActions
           ArmPoseTransitionActionFunctor_<LogicStateMachineT,
                                           checking_arm_index, false, false>,
           typename vsa::ResetRelativePoseVisualServoing,
+          ResetAccelerationBiasEstimator_<LogicStateMachineT>,
           ZeroThrustMixingGain_<LogicStateMachineT>,
           RelativePoseVisualServoingTransitionActionFunctor_<
               LogicStateMachineT, checking_index, false>>>; // Don't set home

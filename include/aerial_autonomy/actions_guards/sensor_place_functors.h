@@ -35,6 +35,18 @@ struct ZeroThrustMixingGain_
   }
 };
 
+/**
+* @brief Reset the acceleration bias estimator
+*/
+template <class LogicStateMachineT>
+struct ResetAccelerationBiasEstimator_
+    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  void run(UAVArmSystem &robot_system_) {
+    LOG(INFO) << "Resetting acceleration bias estimator";
+    robot_system_.resetAccelerationBiasEstimator();
+  }
+};
+
 // Check the normal acceleration bias in the horizontal plane
 // Send complete event if theshold is reached.
 template <class LogicStateMachineT, bool placingFlag>
@@ -61,14 +73,13 @@ struct NormalForceThresholdInternalActionFunctor_
     // normal vector, the true result would be a combination of the x and y
     // components.
     double normal_acc_ = bias_acc_local_tf.x();
-    VLOG(1) << bias_acc.transpose();
-    VLOG(1) << normal_acc_ << " " << curr_rpy.transpose();
     if (placingFlag) {
       double threshold = logic_state_machine.base_state_machine_config_
                              .visual_servoing_state_machine_config()
                              .sensor_place_state_machine_config()
                              .placing_acc_threshold();
       if (normal_acc_ < threshold) {
+        VLOG(1) << "Placing Threshold Exceeded";
         logic_state_machine.process_event(Completed());
         return false;
       }
@@ -78,6 +89,7 @@ struct NormalForceThresholdInternalActionFunctor_
                              .sensor_place_state_machine_config()
                              .checking_acc_threshold();
       if (normal_acc_ > threshold) {
+        VLOG(1) << "Checking Threshold Exceeded";
         logic_state_machine.process_event(Completed());
         return false;
       }

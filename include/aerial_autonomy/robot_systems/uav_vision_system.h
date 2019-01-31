@@ -165,41 +165,43 @@ public:
   std::string getSystemStatus() const {
     std::stringstream status;
     status << UAVSystem::getSystemStatus() << std::endl;
-    HtmlTableWriter table_writer;
-    table_writer.beginRow();
-    table_writer.addHeader("Acc Bias Estimator");
-    table_writer.beginRow();
+    HtmlTableWriter table_writer_acc;
+    table_writer_acc.beginRow();
+    table_writer_acc.addHeader("Acc Bias Estimator", Colors::blue);
+    table_writer_acc.beginRow();
     auto acc_bias = getAccelerationBias();
-    table_writer.addCell(acc_bias.x());
-    table_writer.addCell(acc_bias.y());
-    table_writer.addCell(acc_bias.z());
-    table_writer.addHeader("Tracker Status", Colors::blue);
-    table_writer.beginRow();
-    table_writer.beginRow();
+    table_writer_acc.addCell(acc_bias.x());
+    table_writer_acc.addCell(acc_bias.y());
+    table_writer_acc.addCell(acc_bias.z());
+    HtmlTableWriter table_writer_tracker;
+    table_writer_tracker.beginRow();
+    table_writer_tracker.addHeader("Tracker Status", Colors::blue);
+    table_writer_tracker.beginRow();
     std::string tracking_valid =
         (tracker_->trackingIsValid() ? "True" : "False");
     std::string valid_color =
         (tracker_->trackingIsValid() ? Colors::green : Colors::red);
-    table_writer.addCell(tracking_valid, "Valid", valid_color);
-    table_writer.beginRow();
-    table_writer.addCell("Tracking Vectors: ");
+    table_writer_tracker.addCell(tracking_valid, "Valid", valid_color);
+    table_writer_tracker.beginRow();
+    table_writer_tracker.addCell("Tracking Vectors: ");
     std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
     if (tracker_->getTrackingVectors(tracking_vectors)) {
       for (auto tv : tracking_vectors) {
         tf::Transform tv_body_frame = camera_transform_ * tv.second;
-        table_writer.beginRow();
-        table_writer.addCell(tv.first);
-        table_writer.addCell(tv_body_frame.getOrigin().x());
-        table_writer.addCell(tv_body_frame.getOrigin().y());
-        table_writer.addCell(tv_body_frame.getOrigin().z());
+        table_writer_tracker.beginRow();
+        table_writer_tracker.addCell(tv.first);
+        table_writer_tracker.addCell(tv_body_frame.getOrigin().x());
+        table_writer_tracker.addCell(tv_body_frame.getOrigin().y());
+        table_writer_tracker.addCell(tv_body_frame.getOrigin().z());
         double roll, pitch, yaw;
         tv_body_frame.getBasis().getRPY(roll, pitch, yaw);
-        table_writer.addCell(roll);
-        table_writer.addCell(pitch);
-        table_writer.addCell(yaw);
+        table_writer_tracker.addCell(roll);
+        table_writer_tracker.addCell(pitch);
+        table_writer_tracker.addCell(yaw);
       }
     }
-    status << table_writer.getTableString();
+    status << table_writer_acc.getTableString()
+           << table_writer_tracker.getTableString();
     return status.str();
   }
 
@@ -220,6 +222,13 @@ public:
   */
   Eigen::Vector3d getAccelerationBias() const {
     return acceleration_bias_estimator_.getAccelerationBias();
+  }
+
+  /**
+  * @brief Resets the acceleration bias estimator
+  */
+  void resetAccelerationBiasEstimator() {
+    acceleration_bias_estimator_.reset();
   }
 
 protected:
