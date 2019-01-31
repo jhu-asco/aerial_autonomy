@@ -14,6 +14,7 @@
 #include "aerial_autonomy/estimators/tracking_vector_estimator.h"
 #include "aerial_autonomy/robot_systems/uav_system.h"
 #include "aerial_autonomy/trackers/alvar_tracker.h"
+#include "aerial_autonomy/trackers/roi_to_plane_converter.h"
 #include "aerial_autonomy/trackers/roi_to_position_converter.h"
 #include "aerial_autonomy/trackers/simulated_ros_tracker.h"
 #include "uav_system_config.pb.h"
@@ -21,8 +22,8 @@
 #include <tf/tf.h>
 
 /**
-* @brief UAV system with a camera and visual sevoing capabilities.
-*/
+ * @brief UAV system with a camera and visual sevoing capabilities.
+ */
 class UAVVisionSystem : public UAVSystem {
 protected:
   /**
@@ -45,14 +46,14 @@ public:
       Eigen::VectorXd, Eigen::VectorXd,
       MPCControllerConnector<Eigen::VectorXd, Eigen::VectorXd>>;
   /**
-  * @brief Constructor
-  * @param config Configuration parameters
-  * @param tracker Used to track targets for visual servoing. If provided, will
-  * overwrite
-  * the one in config file
-  * @param drone_hardware UAV driver. If provided, will overwrite the one in
-  * config file
-  */
+   * @brief Constructor
+   * @param config Configuration parameters
+   * @param tracker Used to track targets for visual servoing. If provided, will
+   * overwrite
+   * the one in config file
+   * @param drone_hardware UAV driver. If provided, will overwrite the one in
+   * config file
+   */
   UAVVisionSystem(UAVSystemConfig config, BaseTrackerPtr tracker = nullptr,
                   UAVParserPtr drone_hardware = nullptr,
                   SensorPtr<Velocity> velocity_sensor = nullptr)
@@ -61,8 +62,8 @@ public:
             config_.uav_vision_system_config().camera_transform())),
         tracker_(UAVVisionSystem::chooseTracker(tracker, drone_hardware_,
                                                 camera_transform_, config)),
-        acceleration_bias_estimator_(
-            config_.uav_vision_system_config().acceleration_bias_estimator_config()),
+        acceleration_bias_estimator_(config_.uav_vision_system_config()
+                                         .acceleration_bias_estimator_config()),
         constant_heading_depth_controller_(
             config_.uav_vision_system_config()
                 .constant_heading_depth_controller_config()),
@@ -83,7 +84,8 @@ public:
                                          camera_transform_),
         rpyt_relative_pose_visual_servoing_drone_connector_(
             *tracker_, *drone_hardware_, rpyt_based_relative_pose_controller_,
-            thrust_gain_estimator_, acceleration_bias_estimator_, camera_transform_,
+            thrust_gain_estimator_, acceleration_bias_estimator_,
+            camera_transform_,
             conversions::protoTransformToTf(config_.uav_vision_system_config()
                                                 .tracking_offset_transform())),
         velocity_relative_pose_visual_servoing_drone_connector_(
@@ -119,21 +121,21 @@ public:
   }
 
   /**
-  * @brief Get the direction vector of the tracking target in
-  * the
-  * global frame
-  * @param pos Returned position
-  * @return True if successful and false otherwise
-  */
+   * @brief Get the direction vector of the tracking target in
+   * the
+   * global frame
+   * @param pos Returned position
+   * @return True if successful and false otherwise
+   */
   bool getTrackingVector(Position &pos) {
     return visual_servoing_drone_connector_.getTrackingVectorGlobalFrame(pos);
   }
 
   /**
-  * @brief Get the ID of the current tracked target
-  * @param id Returned ID
-  * @return True if successful, false otherwise
-  */
+   * @brief Get the ID of the current tracked target
+   * @param id Returned ID
+   * @return True if successful, false otherwise
+   */
   bool getTrackingVectorId(uint32_t &id) {
     std::tuple<uint32_t, tf::Transform> tracking_vec;
     bool valid = tracker_->getTrackingVector(tracking_vec);
@@ -144,9 +146,9 @@ public:
   }
 
   /**
-  * @brief Set the tracker's tracking strategy
-  * @param strategy Tracking strategy to set
-  */
+   * @brief Set the tracker's tracking strategy
+   * @param strategy Tracking strategy to set
+   */
   void
   setTrackingStrategy(std::unique_ptr<TrackingStrategy> &&tracking_strategy) {
     tracker_->setTrackingStrategy(std::move(tracking_strategy));
@@ -215,8 +217,8 @@ public:
 
 protected:
   /**
-  * @brief Camera transform in the frame of the UAV
-  */
+   * @brief Camera transform in the frame of the UAV
+   */
   tf::Transform camera_transform_;
 
   BaseTrackerPtr tracker_; ///< Tracking system
@@ -240,8 +242,10 @@ protected:
     } else {
       std::string tracker_type =
           config.uav_vision_system_config().tracker_type();
-      if (tracker_type == "ROI") {
+      if (tracker_type == "ROI2Pos") {
         tracker_pointer = BaseTrackerPtr(new RoiToPositionConverter());
+      } else if (tracker_type == "ROI2Plane") {
+        tracker_pointer = BaseTrackerPtr(new RoiToPlaneConverter());
       } else if (tracker_type == "Alvar") {
         tracker_pointer = BaseTrackerPtr(new AlvarTracker());
       } else if (tracker_type == "Simulated") {
@@ -265,13 +269,13 @@ private:
   */
   ConstantHeadingDepthController constant_heading_depth_controller_;
   /**
-  * @brief Controller to mantain a relative pose with respect to the object
-  */
+   * @brief Controller to mantain a relative pose with respect to the object
+   */
   RPYTBasedRelativePoseController rpyt_based_relative_pose_controller_;
   /**
-  * @brief Controller to mantain a relative pose with respect to the object
-  * using velocity commands
-  */
+   * @brief Controller to mantain a relative pose with respect to the object
+   * using velocity commands
+   */
   VelocityBasedRelativePoseController velocity_based_relative_pose_controller_;
   /**
    * @brief generates exponential reference trajectory for quad from start to
@@ -284,18 +288,18 @@ private:
    */
   QuadPolynomialReferenceController quad_poly_reference_generator_;
   /**
-  * @brief Connector for the constant heading depth controller to
-  * UAV
-  */
+   * @brief Connector for the constant heading depth controller to
+   * UAV
+   */
   VisualServoingControllerDroneConnector visual_servoing_drone_connector_;
   /**
-  * @brief Connects relative pose controller ot tracker and UAV
-  */
+   * @brief Connects relative pose controller ot tracker and UAV
+   */
   RPYTRelativePoseVisualServoingConnector
       rpyt_relative_pose_visual_servoing_drone_connector_;
   /**
-  * @brief Connects velocity relative pose controller ot tracker and UAV
-  */
+   * @brief Connects velocity relative pose controller ot tracker and UAV
+   */
   RelativePoseVisualServoingControllerDroneConnector
       velocity_relative_pose_visual_servoing_drone_connector_;
   /**

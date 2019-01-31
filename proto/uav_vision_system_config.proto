@@ -39,7 +39,7 @@ message UAVVisionSystemConfig {
   /**
   * @brief Type of tracker to use, e.g. Alvar, ROI
   */
-  optional string tracker_type = 4 [ default = "ROI" ];
+  optional string tracker_type = 4 [ default = "ROI2Pos" ];
 
   /**
   * @brief A crude form of inheritance for proto. Contains a config for
@@ -73,6 +73,6 @@ message UAVVisionSystemConfig {
   /**
   * @brief Config for acceleration bias estimator
   */
-  optional AccelerationBiasEstimatorConfig
-      acceleration_bias_estimator_config = 15;
+  optional AccelerationBiasEstimatorConfig acceleration_bias_estimator_config =
+      15;
 }
