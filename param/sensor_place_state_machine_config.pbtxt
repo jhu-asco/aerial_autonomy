@@ -1,60 +1,62 @@
 visual_servoing_state_machine_config {
 
   # Alvar testing
-  relative_pose_goals {
-    position {
-      x: 0.0
-      y: -0.7
-      z: 0.0
-    }
-    yaw: 1.5708
-  }
-  relative_pose_goals {
-    position {
-      x: 0.0
-      y: -0.45
-      z: 0.0
-    }
-    yaw: 1.5708
-  }
-  relative_pose_goals {
-    position {
-      x: 0.0
-      y: -0.67
-      z: 0.0
-    }
-    yaw: 1.5708
-  }
+  #relative_pose_goals {
+  #  position {
+  #    x: 0.0
+  #    y: -0.7
+  #    z: 0.0
+  #  }
+  #  yaw: 1.5708
+  #}
+  #relative_pose_goals {
+  #  position {
+  #    x: 0.0
+  #    y: -0.45
+  #    z: 0.0
+  #  }
+  #  yaw: 1.5708
+  #}
+  #relative_pose_goals {
+  #  position {
+  #    x: 0.0
+  #    y: -0.67
+  #    z: 0.0
+  #  }
+  #  yaw: 1.5708
+  #}
 
   # PrePlace
-  #relative_pose_goals {
-  #  position {
-  #    x: 1.5
-  #    y: 0
-  #    z: 0
-  #  }
-  #  yaw: 3.14
-  #}
+  relative_pose_goals {
+    position {
+      #x: 0.7
+      x: 0.8
+      y: 0
+      z: 0.2
+    }
+    yaw: 3.14
+  }
 
-  ## Place
-  #relative_pose_goals {
-  #  position {
-  #    x: 1.0
-  #    y: 0
-  #    z: 0
-  #  }
-  #  yaw: 3.14
-  #}
+  # Place
+  relative_pose_goals {
+    position {
+      #x: 0.45
+      x: 0.7
+      y: 0
+      z: 0.2
+    }
+    yaw: 3.14
+  }
 
-  ## Checking
-  #relative_pose_goals {
-  #  position {
-  #    x: 1.1
-  #    y: 0
-  #    z: 0
-  #  }
-  #  yaw: 3.14
-  #}
+  # Checking
+  relative_pose_goals {
+    position {
+      x: 0.67
+      y: 0
+      z: 0
+    }
+    yaw: 3.14
+  }
 
   sensor_place_state_machine_config {
     grip_timeout: 12000

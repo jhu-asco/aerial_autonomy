@@ -30,7 +30,11 @@ void RoiBaseTracker::cameraInfoCallback(
 
 void RoiBaseTracker::depthCallback(
     const sensor_msgs::ImageConstPtr &depth_msg) {
-  if (depth_msg->encoding != std::string("32FC1")) {
+  auto begin_time = ros::Time::now();
+  double depth_multiplier = 1.0;
+  if (depth_msg->encoding == std::string("16UC1")) {
+    depth_multiplier = .001;
+  } else if (depth_msg->encoding != std::string("32FC1")) {
     LOG(ERROR) << "Depth encoding " << depth_msg->encoding << " not expected";
     return;
   }
@@ -53,9 +57,55 @@ void RoiBaseTracker::depthCallback(
   sensor_msgs::CameraInfo camera_info;
   camera_info = camera_info_;
   tf::Transform object_pose;
-  computeTrackingVector(roi_rect, depth->image, camera_info,
+  computeTrackingVector(roi_rect, depth_multiplier * depth->image, camera_info,
                         max_object_distance_, foreground_percent_, object_pose);
+  publishPose(object_pose);
   object_pose_ = object_pose;
+  double callback_time = (ros::Time::now() - begin_time).toSec();
+  if (callback_time > 0.5) {
+    LOG(WARNING) << "Depth Callback took  " << callback_time << " seconds";
+  }
+}
+
+// TODO (Matt): Move to common file
+void RoiBaseTracker::publishPose(const tf::Transform &pose) {
+  auto origin = pose.getOrigin();
+  auto stamp = ros::Time::now();
+
+  visualization_msgs::MarkerArray markers;
+  for (unsigned int i = 0; i < 3; i++) {
+    visualization_msgs::Marker marker;
+    auto axis = pose.getBasis().getColumn(i);
+
+    marker.header.frame_id = "camera";
+    marker.header.stamp = stamp;
+    marker.ns = "tracker_pose";
+    marker.id = i;
+    marker.type = visualization_msgs::Marker::ARROW;
+    marker.action = visualization_msgs::Marker::ADD;
+    marker.scale.x = 0.1;
+    marker.scale.y = 0.1;
+    marker.scale.z = 0.1;
+    marker.color.a = 1.0; // Don't forget to set the alpha!
+    marker.color.r = i == 0 ? 1.0 : 0;
+    marker.color.g = i == 1 ? 1.0 : 0;
+    marker.color.b = i == 2 ? 1.0 : 0;
+
+    geometry_msgs::Point start;
+    start.x = origin.x();
+    start.y = origin.y();
+    start.z = origin.z();
+    auto end_tf = origin + axis;
+    geometry_msgs::Point end;
+    end.x = end_tf.x();
+    end.y = end_tf.y();
+    end.z = end_tf.z();
+    marker.points.push_back(start);
+    marker.points.push_back(end);
+
+    markers.markers.push_back(marker);
+  }
+  pose_publisher_.publish(markers);
 }
 
 bool RoiBaseTracker::trackingIsValid() {
@@ -70,16 +120,20 @@ bool RoiBaseTracker::cameraInfoIsValid() {
 }
 
 bool RoiBaseTracker::roiIsValid() {
-  bool valid = (ros::Time::now() - last_roi_update_time_).toSec() < 0.5;
-  if (!valid)
-    VLOG(2) << "ROI has not been updated for 0.5 seconds";
+  double update_time = (ros::Time::now() - last_roi_update_time_).toSec();
+  bool valid = update_time < 0.5;
+  if (!valid) {
+    VLOG_EVERY_N(2, 20) << "ROI has not been updated for " << update_time
+                        << " seconds";
+  }
   return valid;
 }
 
 bool RoiBaseTracker::poseIsValid() {
   bool valid = (ros::Time::now() - last_pose_update_time_).toSec() < 0.5;
-  if (!valid)
-    VLOG(2) << "Pose has not been updated for 0.5 seconds";
+  if (!valid) {
+    VLOG_EVERY_N(2, 20) << "Pose has not been updated for 0.5 seconds";
+  }
   return valid;
 }
 
@@ -106,10 +160,12 @@ void RoiBaseTracker::computeTrackingVector(
        x < roi_rect.x_offset + roi_rect.width; x++) {
     for (unsigned int y = roi_rect.y_offset;
          y < roi_rect.y_offset + roi_rect.height; y++) {
-      float px_depth = *(depth.ptr<float>(y, x));
-      if (!std::isnan(px_depth) && px_depth > 0) {
-        if (px_depth <= max_distance)
-          roi_position_depths.push_back(Eigen::Vector3d(x, y, px_depth));
+      if (y >= 0 && int(y) < depth.rows && x >= 0 && int(x) < depth.cols) {
+        float px_depth = *(depth.ptr<float>(y, x));
+        if (!std::isnan(px_depth) && px_depth > 0) {
+          if (px_depth <= max_distance)
+            roi_position_depths.push_back(Eigen::Vector3d(x, y, px_depth));
+        }
       }
     }
   }
