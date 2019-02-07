@@ -1,0 +1,465 @@
+mpc_visualization_timer_duration: 50
+uav_arm_system_handler_config {
+  arm_controller_timer_duration: 50
+}
+
+base_config {
+  state_machine_timer_duration: 20
+  status_timer_duration: 50
+}
+
+uav_system_config {
+  uav_controller_timer_duration: 20
+  uav_parser_type: "dji_parser/DjiParser"
+  use_mocap_sensor: false
+  minimum_battery_percent: 25
+  minimum_takeoff_height: 0.8
+  landing_height: 0.1
+
+  position_controller_config {
+    goal_position_tolerance {
+      x: 0.05
+      y: 0.05
+      z: 0.05
+    }
+  }
+  velocity_controller_config {
+    goal_velocity_tolerance {
+      vx: 0.1
+      vy: 0.1
+      vz: 0.1
+    }
+  }
+  mpc_connector_config {
+    velocity_exp_gain: 0.9
+    rpydot_gain: 0.9
+    use_perfect_time_diff: false
+  }
+  quad_mpc_controller_config {
+    default_thrust_gain: 0.16
+    ddp_config {
+      # State cost
+      # XYZ
+      Q: 20
+      Q: 20
+      Q: 20
+      # RPY
+      Q: 10
+      Q: 10
+      Q: 10
+      # Vxyz
+      Q: 20
+      Q: 20
+      Q: 20
+      # RPYdot
+      Q: 0
+      Q: 0
+      Q: 0
+      # RPY_cmd
+      Q: 0
+      Q: 0
+      Q: 0
+      # Terminal gains
+      # XYZ
+      Qf: 10
+      Qf: 10
+      Qf: 10
+      # RPY
+      Qf: 10
+      Qf: 10
+      Qf: 10
+      # Vxyz
+      Qf: 10
+      Qf: 10
+      Qf: 10
+      # RPYdot
+      Qf: 10
+      Qf: 10
+      Qf: 10
+      # RPY_cmd
+      Qf: 0.1
+      Qf: 0.1
+      Qf: 0.1
+      # Control cost
+      # Thrust
+      R: 6.0
+      # Rpyd dot
+      R: 4.0
+      R: 4.0
+      R: 4.0
+      # Trajectory length
+      N: 100
+      # Max iterations
+      max_iters: 1
+      # Min cost decrease
+      min_cost_decrease: 1e-4
+      # Look ahead time
+      look_ahead_time: 0.2
+      # Max cost
+      max_cost: 500.0
+      # Print debug info from MPC
+      debug: false
+    }
+
+    goal_position_tolerance: 0.15
+    goal_velocity_tolerance: 0.15
+    # Lower bound
+    lower_bound_control: 0.7
+    lower_bound_control: -1.0
+    lower_bound_control: -1.0
+    lower_bound_control: -1.0
+    # Upper bound (Thrust rpyd_dot)
+    upper_bound_control: 1.3
+    upper_bound_control: 1.0
+    upper_bound_control: 1.0
+    upper_bound_control: 1.0
+  }
+  rpyt_based_position_controller_config {
+    velocity_based_position_controller_config {
+      position_gain: 2.0
+      z_gain: 1.0
+      yaw_gain: 0.8
+      max_velocity: 1.0
+      position_i_gain: 0.0
+      yaw_i_gain: 0.0
+      position_saturation_value: 0.0
+      yaw_saturation_value: 0.0
+      max_yaw_rate: 3.14
+
+      position_controller_config {
+        goal_position_tolerance {
+          x: 0.05
+          y: 0.05
+          z: 0.05
+        }
+        goal_yaw_tolerance: .02
+      }
+    }
+
+    rpyt_based_velocity_controller_config{
+      kp_xy: 5.0
+      kp_z: 7.0
+      ki_xy: 0.5
+      ki_z: 0.0
+      kt: 0.21
+
+      min_thrust: 10
+      max_thrust: 100
+      max_rp: 1.57
+      max_acc_norm: 1.0
+
+      velocity_controller_config{
+        goal_velocity_tolerance{
+          vx: 0.1
+          vy: 0.1
+          vz: 0.1
+        }
+      }
+    }
+  }
+
+  thrust_gain_estimator_config {
+    kt: 0.18
+    buffer_size: 10
+    mixing_gain: 0.2
+    max_roll_pitch_bias: 0.025
+    rp_mixing_gain: 0.01
+    init_roll_bias: 0.005
+    init_pitch_bias: -0.015
+  }
+  odom_sensor_config {
+    ros_sensor_config {
+      topic: "/vrpn_client/matrice/pose"
+    }
+   velocity_filter_gain: 0.5
+  }
+  visualize_mpc_trajectories: true
+  visualizer_config {
+    parent_frame: "/optitrak"
+    skip_segments: 10
+    trajectory_color {
+      r: 0
+      g: 1
+      b: 0
+    }
+    desired_trajectory_color {
+      r: 1
+      g: 0
+      b: 0
+      a: 0.4
+    }
+  }
+  rpyt_reference_connector_config {
+    velocity_exp_gain: 0.9
+  }
+  uav_vision_system_config {
+    tracker_type: "ROI2Plane"
+
+    camera_transform {
+      position {
+        x: 0.10
+        y: -0.07
+        z: 0.08
+      }
+      rotation {
+        r: 1.5794
+        p: 0
+        y: 1.5794
+      }
+    }
+
+    tracking_offset_transform {
+      position {
+        x: 0
+        y: 0
+        z: 0
+      }
+      rotation {
+        r: 3.1415
+        p: 0
+        y: 0
+      }
+    }
+
+    acceleration_bias_estimator_config {
+      mixing_gain: 0.01
+      max_bias: 3.0
+      delay_buffer_size: 10
+    }
+
+    desired_visual_servoing_distance: 0.48
+
+    constant_heading_depth_controller_config {
+      radial_gain: 0.6
+      tangential_gain: 1.3
+      yaw_gain: 0.3
+      max_velocity: 0.2
+      min_velocity: 0.0
+      max_yaw_rate: 0.3
+      position_controller_config {
+        goal_position_tolerance {
+          x: 0.05
+          y: 0.05
+          z: 0.05
+        }
+        goal_yaw_tolerance: 0.08
+      }
+    }
+
+    tracking_vector_estimator_config {
+      marker_process_stdev {
+        x: .001
+        y: .001
+        z: .001
+      }
+      marker_meas_stdev {
+        x: .005
+        y: .005
+        z: .005
+      }
+      marker_initial_stdev {
+        x: .05
+        y: .05
+        z: .05
+      }
+      marker_dilation_stdev {
+        x: 1.0
+        y: 1.0
+        z: 1.0
+      }
+    }
+
+    rpyt_based_relative_pose_controller_config {
+      velocity_based_relative_pose_controller_config {
+        velocity_based_position_controller_config {
+          position_gain: 1.0
+          z_gain: 1.0
+          yaw_gain: 0.6
+          max_velocity: 0.3
+          max_yaw_rate: 0.3
+          position_i_gain: 0
+          yaw_i_gain: 0
+          position_saturation_value: 0
+          yaw_saturation_value: 0
+          position_controller_config {
+            goal_position_tolerance {
+              x: 0.1
+              y: 0.1
+              z: 0.1
+            }
+            goal_yaw_tolerance: 0.1
+          }
+        }
+      }
+      rpyt_based_velocity_controller_config {
+        kp_xy: 4.0
+        kp_z: 5.0
+        ki_xy: 0.5
+        ki_z: 0.0
+        kt: 0.18
+        max_acc_norm: 0.8
+        velocity_controller_config {
+          goal_velocity_tolerance {
+            vx: 0.1
+            vy: 0.1
+            vz: 0.1
+          }
+          goal_yaw_tolerance: 0.1
+        }
+      }
+    }
+    poly_reference_config {
+      # MPC poly reference had
+      # max velocity of 0.4 and min_tf of 1.0
+      max_velocity: 0.3
+      min_tf: 4.0
+      forward_noise_amplitude: 0.07
+      z_noise_amplitude: 0.00
+      z_noise_frequency: 0.05
+      forward_noise_frequency: 0.1
+    }
+    gain_visual_servoing_tracking_pose: 0.1
+    uav_arm_system_config {
+      arm_transform {
+        position {
+          x: 0.17
+          y: 0
+          z: -0.109
+        }
+        rotation {
+          r: 0
+          p: -1.5707
+          y: 3.141
+        }
+      }
+
+      position_controller_config {
+        goal_position_tolerance {
+          x: 0.02
+          y: 0.02
+          z: 0.02
+        }
+        goal_rotation_tolerance: 6
+      }
+
+      arm_system_config {
+        pose_controller_config {
+          goal_position_tolerance {
+            x: 0.02
+            y: 0.02
+            z: 0.02
+          }
+          goal_rotation_tolerance: 6
+        }
+        arm_parser_type: "SimpleArm"
+      }
+      mpc_controller_config {
+        default_thrust_gain: 0.16
+        ddp_config {
+          # State cost
+          # XYZ
+          Q: 100
+          Q: 100
+          Q: 100
+          # RPY
+          Q: 4
+          Q: 4
+          Q: 4
+          # Vxyz
+          Q: 100
+          Q: 100
+          Q: 100
+          # RPYdot
+          Q: 4
+          Q: 4
+          Q: 4
+          # RPY_cmd
+          Q: 0
+          Q: 0
+          Q: 0
+          # Joint_angles
+          Q: 100
+          Q: 100
+          # Joint_velocities
+          Q: 100
+          Q: 100
+          # Joint_cmd
+          Q: 0
+          Q: 0
+          # Terminal gains
+          # XYZ
+          Qf: 100
+          Qf: 100
+          Qf: 100
+          # RPY
+          Qf: 800
+          Qf: 800
+          Qf: 100
+          # Vxyz
+          Qf: 100
+          Qf: 100
+          Qf: 100
+          # RPYdot
+          Qf: 100 
+          Qf: 100
+          Qf: 100
+          # RPY_cmd
+          Qf: 0.1
+          Qf: 0.1
+          Qf: 0.1
+          # Joint_angles
+          Qf: 100
+          Qf: 100
+          # Joint_velocities
+          Qf: 100
+          Qf: 100
+          # Joint_cmd
+          Qf: 400
+          Qf: 400
+          # Control cost
+          # Thrust
+          R: 6.0
+          # Rpyd dot
+          R: 4.0
+          R: 4.0
+          R: 4.0
+          # desired joint velocities
+          R: 1.0
+          R: 1.0
+          # Trajectory length
+          N: 75
+          # Max iterations
+          max_iters: 1
+          # Min cost decrease
+          min_cost_decrease: 1e-4
+          # Look ahead time
+          look_ahead_time: 0.2
+          # Max cost
+          max_cost: 220
+        }
+
+        weights_folder: "neural_network_model_data/tensorflow_model_vars_16_8_tanh/"
+        use_residual_dynamics: false
+        goal_position_tolerance: 0.15
+        goal_velocity_tolerance: 0.15
+        goal_joint_angle_tolerance: 0.15
+        goal_joint_velocity_tolerance: 0.15
+        # Lower bound
+        lower_bound_control: 0.8
+        lower_bound_control: -0.6
+        lower_bound_control: -0.6
+        lower_bound_control: -0.6
+        lower_bound_control: -0.7
+        lower_bound_control: -0.7
+        # Upper bound
+        upper_bound_control: 1.2
+        upper_bound_control: 0.6
+        upper_bound_control: 0.6
+        upper_bound_control: 0.6
+        upper_bound_control: 0.7
+        upper_bound_control: 0.7
+      }
+    }
+  }
+}
+
