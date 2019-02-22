@@ -1,7 +1,7 @@
 #pragma once
 #include "aerial_autonomy/common/math.h"
 #include "aerial_autonomy/controllers/base_controller.h"
-#include "aerial_autonomy/types/particle_state.h"
+#include "aerial_autonomy/types/particle_state_yaw.h"
 #include "aerial_autonomy/types/reference_trajectory.h"
 #include "aerial_autonomy/types/roll_pitch_yaw_thrust_adaptive.h"
 #include "aerial_autonomy/types/snap.h"
@@ -23,7 +23,7 @@
 class RPYTBasedRelativePoseAdaptiveEstimateController
     : public Controller<
           std::tuple<double, double, ParticleState>,
-          std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double>,
+          ReferenceTrajectoryPtr<ParticleStateYaw, Snap>,
           RollPitchYawThrustAdaptive> {
 public:
   /**
@@ -91,10 +91,10 @@ public:
   * @param goal new controller goal
   */
   void
-  setGoal(std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> goal) {
+  setGoal(ReferenceTrajectoryPtr<ParticleStateYaw, Snap> goal) {
     t0_ = std::chrono::high_resolution_clock::now();
     Controller<std::tuple<double, double, ParticleState>,
-               std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double>,
+               ReferenceTrajectoryPtr<ParticleStateYaw, Snap>,
                RollPitchYawThrustAdaptive>::setGoal(goal);
   }
 
@@ -109,7 +109,7 @@ protected:
    */
   virtual bool runImplementation(
       std::tuple<double, double, ParticleState> sensor_data,
-      std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> goal,
+      ReferenceTrajectoryPtr<ParticleStateYaw, Snap> goal,
       RollPitchYawThrustAdaptive &control);
   /**
   * @brief Check if controller converged
@@ -121,7 +121,7 @@ protected:
   */
   virtual ControllerStatus isConvergedImplementation(
       std::tuple<double, double, ParticleState> sensor_data,
-      std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> goal);
+      ReferenceTrajectoryPtr<ParticleStateYaw, Snap> goal);
 
 private:
   /**

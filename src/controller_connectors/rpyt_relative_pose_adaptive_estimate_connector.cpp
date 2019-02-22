@@ -5,6 +5,9 @@ bool RPYTRelativePoseAdaptiveEstimateConnector::extractSensorData(
     std::tuple<double, double, ParticleState> &sensor_data) {
   ParticleState curr_state;
   double curr_yaw;
+    // Get quad data from parser
+    parsernode::common::quaddata quad_data;
+    drone_hardware_.getquaddata(quad_data);
   if (odom_sensor_) {
     // Use outside sensor (if valid)
     if (odom_sensor_->getSensorStatus() != SensorStatus::VALID) {
@@ -23,9 +26,6 @@ bool RPYTRelativePoseAdaptiveEstimateConnector::extractSensorData(
         conversions::transformTfToRPY(quad_pose_velocity_pair.first);
     curr_yaw = rpy(2);
   } else {
-    // Get quad data from parser
-    parsernode::common::quaddata quad_data;
-    drone_hardware_.getquaddata(quad_data);
     // Pose
     curr_state.p = Position(quad_data.localpos.x, quad_data.localpos.y,
                             quad_data.localpos.z);
@@ -36,6 +36,11 @@ bool RPYTRelativePoseAdaptiveEstimateConnector::extractSensorData(
     curr_yaw = quad_data.rpydata.z;
   }
   sensor_data = std::make_tuple(mhat_, curr_yaw, curr_state);
+  //Add to thrust gain estimator for comparison purposes
+  tf::Vector3 body_acc(quad_data.linacc.x, quad_data.linacc.y,
+                       quad_data.linacc.z);
+  thrust_gain_estimator_.addSensorData(quad_data.rpydata.x, quad_data.rpydata.y,
+                                       body_acc);
   return true;
 }
 
@@ -60,10 +65,12 @@ void RPYTRelativePoseAdaptiveEstimateConnector::sendControllerCommands(
   rpyt_msg.z = controls.y;
   rpyt_msg.w = controls.t;
   drone_hardware_.cmdrpyawratethrust(rpyt_msg);
+  //Add to thrust gain estimator for comparison purposes
+  thrust_gain_estimator_.addThrustCommand(controls.t);
 }
 
 void RPYTRelativePoseAdaptiveEstimateConnector::setGoal(
-    std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> goal) {
+    ReferenceTrajectoryPtr<ParticleStateYaw, Snap> goal) {
   previous_time_ = std::chrono::high_resolution_clock::now();
   BaseClass::setGoal(goal);
 }

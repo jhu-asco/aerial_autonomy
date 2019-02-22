@@ -4,11 +4,12 @@
 #include "aerial_autonomy/controller_connectors/base_controller_connector.h"
 #include "aerial_autonomy/controllers/rpyt_based_relative_pose_adaptive_estimate_controller.h"
 #include "aerial_autonomy/sensors/base_sensor.h"
-#include "aerial_autonomy/types/particle_state.h"
+#include "aerial_autonomy/types/particle_state_yaw.h"
 #include "aerial_autonomy/types/reference_trajectory.h"
 #include "aerial_autonomy/types/roll_pitch_yaw_thrust_adaptive.h"
 #include "aerial_autonomy/types/snap.h"
 #include "rpyt_based_relative_pose_adaptive_estimate_controller_config.pb.h"
+#include "aerial_autonomy/estimators/thrust_gain_estimator.h"
 #include <chrono>
 #include <parsernode/parser.h>
 
@@ -21,7 +22,7 @@
 class RPYTRelativePoseAdaptiveEstimateConnector
     : public ControllerConnector<
           std::tuple<double, double, ParticleState>,
-          std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double>,
+          ReferenceTrajectoryPtr<ParticleStateYaw, Snap>,
           RollPitchYawThrustAdaptive> {
 public:
   /**
@@ -32,12 +33,14 @@ public:
   RPYTRelativePoseAdaptiveEstimateConnector(
       parsernode::Parser &drone_hardware,
       RPYTBasedRelativePoseAdaptiveEstimateController &controller,
+      ThrustGainEstimator &thrust_gain_estimator,
       double mhat_initial, double min_m = 0.5,
       SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor =
           nullptr)
       : ControllerConnector(controller, ControllerGroup::UAV),
         private_reference_controller_(controller), odom_sensor_(odom_sensor),
-        drone_hardware_(drone_hardware) {
+        drone_hardware_(drone_hardware),
+        thrust_gain_estimator_(thrust_gain_estimator){
     previous_time_ = std::chrono::high_resolution_clock::now();
     mhat_ = mhat_initial;
     min_m_ = min_m;
@@ -54,7 +57,7 @@ public:
    *
    */
   void
-  setGoal(std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> goal);
+  setGoal(ReferenceTrajectoryPtr<ParticleStateYaw, Snap> goal);
 
 protected:
   /**
@@ -80,7 +83,7 @@ private:
    */
   using BaseClass = ControllerConnector<
       std::tuple<double, double, ParticleState>,
-      std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double>,
+      ReferenceTrajectoryPtr<ParticleStateYaw, Snap>,
       RollPitchYawThrustAdaptive>;
   /**
   * @brief Internal reference to controller that is connected by this class
@@ -107,4 +110,6 @@ private:
   * @brief Quad hardware to send commands
   */
   parsernode::Parser &drone_hardware_;
+  //For comparison
+  ThrustGainEstimator &thrust_gain_estimator_;
 };

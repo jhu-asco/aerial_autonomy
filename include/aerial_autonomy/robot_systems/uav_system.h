@@ -148,13 +148,13 @@ private:
   */
   JoystickVelocityControllerDroneConnector
       joystick_velocity_controller_drone_connector_;
+
+protected:
   /**
   * @brief Adaptive Estimate Controller Connector
   */
   RPYTRelativePoseAdaptiveEstimateConnector
       rpyt_adaptive_estimate_controller_drone_connector_;
-
-protected:
   /**
    * @brief Quad MPC Connector
    */
@@ -308,6 +308,7 @@ public:
             thrust_gain_estimator_),
         rpyt_adaptive_estimate_controller_drone_connector_(
             *drone_hardware_, rpyt_adaptive_estimate_controller_,
+            thrust_gain_estimator_,
             config
                 .rpyt_based_relative_pose_adaptive_estimate_controller_config()
                 .mhat(),

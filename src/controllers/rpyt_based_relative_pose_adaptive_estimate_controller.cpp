@@ -5,27 +5,26 @@
 
 bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
     std::tuple<double, double, ParticleState> sensor_data,
-    std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> goal,
+    ReferenceTrajectoryPtr<ParticleStateYaw, Snap> goal,
     RollPitchYawThrustAdaptive &control) {
   // Get the current yaw
   double curr_yaw = std::get<1>(sensor_data);
   // Get the current mhat
   double mhat = std::get<0>(sensor_data);
   // Get the goal state
-  ParticleState desired_state;
+  ParticleStateYaw desired_state;
   auto current_time = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> dt_duration =
       std::chrono::duration_cast<std::chrono::duration<double>>(current_time -
                                                                 t0_);
   double curr_time = dt_duration.count();
   try {
-    auto temp_pair = std::get<0>(goal)->atTime(curr_time);
+    auto temp_pair = goal->atTime(curr_time);
     desired_state = temp_pair.first;
   } catch (std::logic_error e) {
     LOG(WARNING) << e.what() << std::endl;
     return false;
   }
-  double goal_yaw = std::get<1>(goal);
   // Get the current state
   ParticleState state = std::get<2>(sensor_data);
   // Unpack into Eigen structures
@@ -100,7 +99,7 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
       math::clamp(control.t, config_.min_thrust(), config_.max_thrust());
   control.r = math::clamp(control.r, -config_.max_rp(), config_.max_rp());
   control.p = math::clamp(control.p, -config_.max_rp(), config_.max_rp());
-  control.y = -config_.k_yaw() * (math::angleWrap(curr_yaw - goal_yaw));
+  control.y = -config_.k_yaw() * (math::angleWrap(curr_yaw - desired_state.yaw));
   control.y =
       math::clamp(control.y, -config_.yaw_rate_max(), config_.yaw_rate_max());
   // Estimate the lyapunov function for logging
@@ -109,7 +108,7 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
   // Log the data
   DATA_LOG("adaptive_controller")
       << mhat << lyap_V << delta_x(0) << delta_x(1) << delta_x(2) << delta_x(3)
-      << delta_x(4) << delta_x(5) << (curr_yaw - goal_yaw) << desired_state.p.x
+      << delta_x(4) << delta_x(5) << (curr_yaw - desired_state.yaw) << desired_state.p.x
       << desired_state.p.y << desired_state.p.z << state.p.x << state.p.y
       << state.p.z << world_acc(0) << world_acc(1) << world_acc(2) << control.r
       << control.p << DataStream::endl;
@@ -119,28 +118,27 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
 ControllerStatus
 RPYTBasedRelativePoseAdaptiveEstimateController::isConvergedImplementation(
     std::tuple<double, double, ParticleState> sensor_data,
-    std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> goal) {
+    ReferenceTrajectoryPtr<ParticleStateYaw, Snap> goal) {
   // Get the current and goal yaw
   double curr_yaw = std::get<1>(sensor_data);
-  double goal_yaw = std::get<1>(goal);
-  double delta_yaw = math::angleWrap(curr_yaw - goal_yaw);
   // Get the current state
   ControllerStatus status = ControllerStatus::Active;
   ParticleState state = std::get<2>(sensor_data);
   // Get the goal state
-  ParticleState desired_state;
+  ParticleStateYaw desired_state;
   auto current_time = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> dt_duration =
       std::chrono::duration_cast<std::chrono::duration<double>>(current_time -
                                                                 t0_);
   double curr_time = dt_duration.count();
   try {
-    auto temp_pair = std::get<0>(goal)->atTime(curr_time);
+    auto temp_pair = goal->atTime(curr_time);
     desired_state = temp_pair.first;
   } catch (std::logic_error e) {
     LOG(WARNING) << e.what() << std::endl;
     return ControllerStatus::Critical;
   }
+  double delta_yaw = math::angleWrap(curr_yaw - desired_state.yaw);
   // Unpack into Eigen structures
   Eigen::Vector3d p(state.p.x, state.p.y, state.p.z);
   Eigen::Vector3d p_d(desired_state.p.x, desired_state.p.y, desired_state.p.z);

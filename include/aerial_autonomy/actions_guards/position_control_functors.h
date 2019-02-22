@@ -15,7 +15,7 @@
 
 #include <aerial_autonomy/types/circle_reference_trajectory.h>
 #include <aerial_autonomy/types/hover_reference_trajectory.h>
-#include <aerial_autonomy/types/minimum_snap_reference_trajectory.h>
+#include <aerial_autonomy/types/minimum_snap_reference_trajectory_yaw.h>
 
 namespace be = uav_basic_events;
 
@@ -83,15 +83,12 @@ struct AdaptiveTransitionActionFunctor_
     reference_config.add_tau_vec(
         std::max(distance / average_velocity, tau_min));
     // Minimum snap reference trajectory object
-    std::shared_ptr<ReferenceTrajectory<ParticleState, Snap>> reference(
-        new MinimumSnapReferenceTrajectory(reference_config));
-    double goal_yaw = goal.yaw;
-    std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double> pair_goal =
-        std::make_pair(reference, goal_yaw);
+    std::shared_ptr<ReferenceTrajectory<ParticleStateYaw, Snap>> reference(
+        new MinimumSnapReferenceTrajectoryYaw(reference_config,goal.yaw));
     robot_system.setGoal<
         RPYTRelativePoseAdaptiveEstimateConnector,
-        std::pair<ReferenceTrajectoryPtr<ParticleState, Snap>, double>>(
-        pair_goal);
+        ReferenceTrajectoryPtr<ParticleStateYaw, Snap>>(
+        reference);
     // robot_system.visualizeTrajectory(reference); Removed until arguments can
     // be ironed out
   }
