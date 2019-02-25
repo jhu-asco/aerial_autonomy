@@ -4,20 +4,15 @@
 #include <glog/logging.h>
 
 bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
-    std::tuple<double, double, ParticleState> sensor_data,
+    std::tuple<double, double, ParticleStateYaw> sensor_data,
     ReferenceTrajectoryPtr<ParticleStateYaw, Snap> goal,
     RollPitchYawThrustAdaptive &control) {
-  // Get the current yaw
-  double curr_yaw = std::get<1>(sensor_data);
+  // Get the current time
+  double curr_time = std::get<1>(sensor_data);
   // Get the current mhat
   double mhat = std::get<0>(sensor_data);
   // Get the goal state
   ParticleStateYaw desired_state;
-  auto current_time = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double> dt_duration =
-      std::chrono::duration_cast<std::chrono::duration<double>>(current_time -
-                                                                t0_);
-  double curr_time = dt_duration.count();
   try {
     auto temp_pair = goal->atTime(curr_time);
     desired_state = temp_pair.first;
@@ -26,7 +21,8 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
     return false;
   }
   // Get the current state
-  ParticleState state = std::get<2>(sensor_data);
+  ParticleStateYaw state = std::get<2>(sensor_data);
+  double curr_yaw = state.yaw;
   // Unpack into Eigen structures
   Eigen::Vector3d p(state.p.x, state.p.y, state.p.z);
   Eigen::Vector3d p_d(desired_state.p.x, desired_state.p.y, desired_state.p.z);
@@ -111,26 +107,22 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
       << delta_x(4) << delta_x(5) << (curr_yaw - desired_state.yaw) << desired_state.p.x
       << desired_state.p.y << desired_state.p.z << state.p.x << state.p.y
       << state.p.z << world_acc(0) << world_acc(1) << world_acc(2) << control.r
-      << control.p << DataStream::endl;
+      << control.p << curr_time << DataStream::endl;
   return true;
 }
 
 ControllerStatus
 RPYTBasedRelativePoseAdaptiveEstimateController::isConvergedImplementation(
-    std::tuple<double, double, ParticleState> sensor_data,
+    std::tuple<double, double, ParticleStateYaw> sensor_data,
     ReferenceTrajectoryPtr<ParticleStateYaw, Snap> goal) {
-  // Get the current and goal yaw
-  double curr_yaw = std::get<1>(sensor_data);
+  // Get the current time
+  double curr_time = std::get<1>(sensor_data);
   // Get the current state
   ControllerStatus status = ControllerStatus::Active;
-  ParticleState state = std::get<2>(sensor_data);
+  ParticleStateYaw state = std::get<2>(sensor_data);
+  double curr_yaw = state.yaw;
   // Get the goal state
   ParticleStateYaw desired_state;
-  auto current_time = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double> dt_duration =
-      std::chrono::duration_cast<std::chrono::duration<double>>(current_time -
-                                                                t0_);
-  double curr_time = dt_duration.count();
   try {
     auto temp_pair = goal->atTime(curr_time);
     desired_state = temp_pair.first;

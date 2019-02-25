@@ -2,12 +2,11 @@
 #include "aerial_autonomy/log/log.h"
 
 bool RPYTRelativePoseAdaptiveEstimateConnector::extractSensorData(
-    std::tuple<double, double, ParticleState> &sensor_data) {
-  ParticleState curr_state;
-  double curr_yaw;
-    // Get quad data from parser
-    parsernode::common::quaddata quad_data;
-    drone_hardware_.getquaddata(quad_data);
+    std::tuple<double, double, ParticleStateYaw> &sensor_data) {
+  ParticleStateYaw curr_state;
+  // Get quad data from parser
+  parsernode::common::quaddata quad_data;
+  drone_hardware_.getquaddata(quad_data);
   if (odom_sensor_) {
     // Use outside sensor (if valid)
     if (odom_sensor_->getSensorStatus() != SensorStatus::VALID) {
@@ -24,7 +23,7 @@ bool RPYTRelativePoseAdaptiveEstimateConnector::extractSensorData(
     // Yaw
     Eigen::Vector3d rpy =
         conversions::transformTfToRPY(quad_pose_velocity_pair.first);
-    curr_yaw = rpy(2);
+    curr_state.yaw = rpy(2);
   } else {
     // Pose
     curr_state.p = Position(quad_data.localpos.x, quad_data.localpos.y,
@@ -33,9 +32,10 @@ bool RPYTRelativePoseAdaptiveEstimateConnector::extractSensorData(
     curr_state.v =
         Velocity(quad_data.linvel.x, quad_data.linvel.y, quad_data.linvel.z);
     // Yaw
-    curr_yaw = quad_data.rpydata.z;
+    curr_state.yaw = quad_data.rpydata.z;
   }
-  sensor_data = std::make_tuple(mhat_, curr_yaw, curr_state);
+  double curr_time = std::chrono::duration<double>(std::chrono::high_resolution_clock::now() - t_init_).count();
+  sensor_data = std::make_tuple(mhat_, curr_time, curr_state);
   //Add to thrust gain estimator for comparison purposes
   tf::Vector3 body_acc(quad_data.linacc.x, quad_data.linacc.y,
                        quad_data.linacc.z);
@@ -73,4 +73,9 @@ void RPYTRelativePoseAdaptiveEstimateConnector::setGoal(
     ReferenceTrajectoryPtr<ParticleStateYaw, Snap> goal) {
   previous_time_ = std::chrono::high_resolution_clock::now();
   BaseClass::setGoal(goal);
+}
+
+void RPYTRelativePoseAdaptiveEstimateConnector::initialize() {
+  t_init_ = std::chrono::high_resolution_clock::now();
+  previous_time_ = t_init_;
 }

@@ -21,7 +21,7 @@
  */
 class RPYTRelativePoseAdaptiveEstimateConnector
     : public ControllerConnector<
-          std::tuple<double, double, ParticleState>,
+          std::tuple<double, double, ParticleStateYaw>,
           ReferenceTrajectoryPtr<ParticleStateYaw, Snap>,
           RollPitchYawThrustAdaptive> {
 public:
@@ -41,6 +41,7 @@ public:
         private_reference_controller_(controller), odom_sensor_(odom_sensor),
         drone_hardware_(drone_hardware),
         thrust_gain_estimator_(thrust_gain_estimator){
+    t_init_ = std::chrono::high_resolution_clock::now();
     previous_time_ = std::chrono::high_resolution_clock::now();
     mhat_ = mhat_initial;
     min_m_ = min_m;
@@ -68,7 +69,7 @@ protected:
    * @return true if able to compute transforms
    */
   virtual bool
-  extractSensorData(std::tuple<double, double, ParticleState> &sensor_data);
+  extractSensorData(std::tuple<double, double, ParticleStateYaw> &sensor_data);
 
   /**
    * @brief Send velocity commands to hardware
@@ -76,13 +77,15 @@ protected:
    * @param controls roll, pitch, yawrate, thrust to send to UAV
    */
   virtual void sendControllerCommands(RollPitchYawThrustAdaptive controls);
+  
+  void initialize();
 
 private:
   /**
    * @brief Base class typedef to simplify code
    */
   using BaseClass = ControllerConnector<
-      std::tuple<double, double, ParticleState>,
+      std::tuple<double, double, ParticleStateYaw>,
       ReferenceTrajectoryPtr<ParticleStateYaw, Snap>,
       RollPitchYawThrustAdaptive>;
   /**
@@ -99,7 +102,11 @@ private:
   */
   double min_m_;
   /**
-  * @brief Time when the last sendControllerCommands is called
+  * @brief Time when the last initialize was called
+  */
+  std::chrono::high_resolution_clock::time_point t_init_;
+  /**
+  * @brief Time when the last sendControllerCommands was called
   */
   std::chrono::time_point<std::chrono::high_resolution_clock> previous_time_;
   /**

@@ -22,7 +22,7 @@
  */
 class RPYTBasedRelativePoseAdaptiveEstimateController
     : public Controller<
-          std::tuple<double, double, ParticleState>,
+          std::tuple<double, double, ParticleStateYaw>,
           ReferenceTrajectoryPtr<ParticleStateYaw, Snap>,
           RollPitchYawThrustAdaptive> {
 public:
@@ -67,7 +67,7 @@ public:
                                        << "acc_y"
                                        << "acc_z"
                                        << "roll"
-                                       << "pitch" << DataStream::endl;
+                                       << "pitch" << "t" << DataStream::endl;
     Eigen::Vector3d kp(config_.kp_xy(), config_.kp_xy(), config_.kp_z());
     Eigen::Vector3d kd(config_.kd_xy(), config_.kd_xy(), config_.kd_z());
     K_.leftCols<3>() = kp.asDiagonal();
@@ -93,7 +93,7 @@ public:
   void
   setGoal(ReferenceTrajectoryPtr<ParticleStateYaw, Snap> goal) {
     t0_ = std::chrono::high_resolution_clock::now();
-    Controller<std::tuple<double, double, ParticleState>,
+    Controller<std::tuple<double, double, ParticleStateYaw>,
                ReferenceTrajectoryPtr<ParticleStateYaw, Snap>,
                RollPitchYawThrustAdaptive>::setGoal(goal);
   }
@@ -108,7 +108,7 @@ protected:
    * @return True if controller is successful in running
    */
   virtual bool runImplementation(
-      std::tuple<double, double, ParticleState> sensor_data,
+      std::tuple<double, double, ParticleStateYaw> sensor_data,
       ReferenceTrajectoryPtr<ParticleStateYaw, Snap> goal,
       RollPitchYawThrustAdaptive &control);
   /**
@@ -120,7 +120,7 @@ protected:
   * @return controller status that contains an enum and debug information.
   */
   virtual ControllerStatus isConvergedImplementation(
-      std::tuple<double, double, ParticleState> sensor_data,
+      std::tuple<double, double, ParticleStateYaw> sensor_data,
       ReferenceTrajectoryPtr<ParticleStateYaw, Snap> goal);
 
 private:

@@ -133,6 +133,10 @@ public:
         mpc_visual_servoing_reference_connector_);
     controller_connector_container_.setObject(
         rpyt_visual_servoing_reference_connector_);
+    controller_connector_container_.setObject(
+        rpyt_adaptive_reference_connector_);
+    controller_connector_container_.setObject(
+        rpyt_adaptive_estimate_controller_drone_connector_);
   }
 
   /**
