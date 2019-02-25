@@ -4,7 +4,7 @@
 #include <glog/logging.h>
 #include <tf/tf.h>
 
-QuadPolynomialAdaptiveReferenceController::QuadPolynomialReferenceController(
+QuadPolynomialAdaptiveReferenceController::QuadPolynomialAdaptiveReferenceController(
     PolynomialReferenceConfig config)
     : config_(config) {}
 

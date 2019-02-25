@@ -562,6 +562,12 @@ struct PickControllerStatusCheck_
       lowlevel_status = robot_system.getStatus<
           RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>();
       break;
+    case VisualServoingStateMachineConfig::RPYTRefAdaptive:
+      visual_servoing_status = robot_system.getStatus<
+          UAVVisionSystem::RPYTAdaptiveReferenceConnectorT>();
+      lowlevel_status = robot_system.getStatus<
+          RPYTRelativePoseAdaptiveEstimateConnector>();
+      break;
     case VisualServoingStateMachineConfig::MPC:
       visual_servoing_status = robot_system.getStatus<
           UAVVisionSystem::MPCVisualServoingReferenceConnectorT>();

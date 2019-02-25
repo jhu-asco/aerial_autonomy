@@ -3,6 +3,7 @@
 #include "aerial_autonomy/types/position_yaw.h"
 #include "aerial_autonomy/types/particle_state_yaw.h"
 #include "aerial_autonomy/types/reference_trajectory.h"
+#include "aerial_autonomy/types/snap.h"
 #include "polynomial_reference_config.pb.h"
 #include "aerial_autonomy/controllers/quad_polynomial_reference_controller.h"
 #include <tf/tf.h>

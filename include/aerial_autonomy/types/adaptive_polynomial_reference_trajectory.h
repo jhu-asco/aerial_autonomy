@@ -1,5 +1,7 @@
 #pragma once
 #include "aerial_autonomy/types/position_yaw.h"
+#include "aerial_autonomy/types/particle_state_yaw.h"
+#include "aerial_autonomy/types/snap.h"
 #include "aerial_autonomy/types/reference_trajectory.h"
 #include "polynomial_reference_config.pb.h"
 #include <Eigen/Dense>

@@ -294,6 +294,7 @@ set(SRC
   src/types/spiral_reference_trajectory.cpp
   src/types/quad_particle_reference_trajectory.cpp
   src/types/polynomial_reference_trajectory.cpp
+  src/types/adaptive_polynomial_reference_trajectory.cpp
   src/types/sensor_status.cpp
   src/controllers/manual_rpyt_controller.cpp
   src/controllers/velocity_based_position_controller.cpp
@@ -311,6 +312,7 @@ set(SRC
   src/controllers/ddp_quad_mpc_controller.cpp
   src/controllers/quad_particle_reference_controller.cpp
   src/controllers/quad_polynomial_reference_controller.cpp
+  src/controllers/quad_polynomial_adaptive_reference_controller.cpp
   src/controllers/rpyt_based_reference_controller.cpp
   src/estimators/acceleration_bias_estimator.cpp
   src/estimators/thrust_gain_estimator.cpp
