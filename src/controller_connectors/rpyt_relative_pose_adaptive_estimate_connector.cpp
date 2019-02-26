@@ -71,6 +71,7 @@ void RPYTRelativePoseAdaptiveEstimateConnector::sendControllerCommands(
 
 void RPYTRelativePoseAdaptiveEstimateConnector::setGoal(
     ReferenceTrajectoryPtr<ParticleStateYaw, Snap> goal) {
+  //This may need a t_init_ to be set too. 
   previous_time_ = std::chrono::high_resolution_clock::now();
   BaseClass::setGoal(goal);
 }
