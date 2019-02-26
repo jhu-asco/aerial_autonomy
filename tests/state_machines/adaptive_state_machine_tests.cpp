@@ -452,14 +452,14 @@ TEST_F(AdaptiveStateMachineTests, HoveringandLanding) {
 ///
 /// \brief Test Pick Place
 // Try full pick-and-place
-TEST_F(AdaptiveStateMachineTests, PickPlace) {
+TEST_F(AdaptiveStateMachineTests, AdaptivePick) {
   auto pick_state_machine_config =
       state_machine_config_.visual_servoing_state_machine_config()
           .pick_place_state_machine_config();
   GoToHoverFromLanded();
   // Start Pick
   logic_state_machine_->process_event(pe::Pick());
-  PickPlace(pick_state_machine_config.place_groups().Get(0).destination_id());
+  AdaptivePick(pick_state_machine_config.place_groups().Get(0).destination_id());
 }
 
 int main(int argc, char **argv) {
