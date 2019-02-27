@@ -334,12 +334,12 @@ public:
         joystick_velocity_controller_drone_connector_);
     controller_connector_container_.setObject(
         rpyt_adaptive_estimate_controller_drone_connector_);
-    qrotor_visualizer_.reset(
-        new QrotorBacksteppingTrajectoryVisualizer(config.visualizer_config()));
     controller_connector_container_.setObject(quad_mpc_connector_);
     controller_connector_container_.setObject(rpyt_based_reference_connector_);
     // Visualization
     if (config_.visualize_mpc_trajectories()) {
+      qrotor_visualizer_.reset(
+          new QrotorBacksteppingTrajectoryVisualizer(config.visualizer_config()));
       mpc_visualizer_.reset(
           new MPCTrajectoryVisualizer(config_.visualizer_config()));
     }

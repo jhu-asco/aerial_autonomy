@@ -15,6 +15,7 @@ public:
   * @brief Constructor
   */
   ROSSensor(ROSSensorConfig config) : config_(config) {
+    std::cout << "ROS Sensor Constructor";//TAGGED
     sub_ = nh_.subscribe(config.topic(), 1, &ROSSensor::callback, this);
     last_msg_time_ = ros::Time::now();
   }

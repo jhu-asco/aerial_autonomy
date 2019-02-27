@@ -1,5 +1,6 @@
 #pragma once
 #include "aerial_autonomy/sensors/ros_sensor.h"
+#include "aerial_autonomy/sensors/transformed_sensor.h"
 #include "aerial_autonomy/types/velocity.h"
 #include "ros_sensor_config.pb.h"
 #include <aerial_autonomy/common/conversions.h>

@@ -102,12 +102,13 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
   double lyap_V = (0.5 * (delta_x.transpose() * P_ * delta_x)).norm();
   lyap_V += 0.5 * (mhat - 6) * (mhat - 6) / (km_);
   // Log the data
+  /*std::cout << "DATA LOG" << std::endl;
   DATA_LOG("adaptive_controller")
       << mhat << lyap_V << delta_x(0) << delta_x(1) << delta_x(2) << delta_x(3)
       << delta_x(4) << delta_x(5) << (curr_yaw - desired_state.yaw) << desired_state.p.x
       << desired_state.p.y << desired_state.p.z << state.p.x << state.p.y
       << state.p.z << world_acc(0) << world_acc(1) << world_acc(2) << control.r
-      << control.p << curr_time << DataStream::endl;
+      << control.p << curr_time << DataStream::endl;*/
   return true;
 }
 

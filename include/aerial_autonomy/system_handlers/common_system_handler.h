@@ -50,7 +50,9 @@ public:
                           InternalTransitionEvent>,
                       std::ref(logic_state_machine_),
                       InternalTransitionEvent()),
-            std::chrono::milliseconds(config.state_machine_timer_duration())) {}
+            std::chrono::milliseconds(config.state_machine_timer_duration())) {
+    VLOG(1) << "Common System Handler Constructor";//TAGGED
+  }
 
   /**
   * @brief Delete copy constructor

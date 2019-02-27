@@ -12,6 +12,7 @@ int main(int argc, char **argv) {
   google::InitGoogleLogging("qrotor_backstepping_control_tuning");
   ros::init(argc, argv, "qrotor_backstepping_control_tuning");
   ros::NodeHandle nh;
+  LOG(INFO) << "Qrotor Backstepping Tuner Main";//TAGGED
   LogConfig log_config;
   log_config.set_directory(std::string(PROJECT_SOURCE_DIR) + "/logs/data");
   auto data_stream_config = log_config.add_data_stream_configs();

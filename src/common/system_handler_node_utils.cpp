@@ -1,6 +1,7 @@
 #include <aerial_autonomy/common/system_handler_node_utils.h>
 
 void createAndConfigureLogConfig(ros::NodeHandle &nh) {
+  LOG(INFO) << "System Handler Node Utils func";//TAGGED
   std::string log_config_filename;
   if (!nh.getParam("log_config_filename", log_config_filename)) {
     LOG(FATAL) << "ROS param \"log_config_filename\" not found";

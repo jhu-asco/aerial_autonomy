@@ -39,8 +39,9 @@ public:
         depth_subscriber_(
             nh_.subscribe("depth", 1, &RoiBaseTracker::depthCallback, this)),
         image_subscriber_(
-            it_.subscribe("image", 1, &RoiBaseTracker::imageCallback, this)) {}
-
+            it_.subscribe("image", 1, &RoiBaseTracker::imageCallback, this)) {
+    std::cout << "ROI Base Tracker Constructor";//TAGGED
+}
   /**
    * @brief Get the stored tracking vector
    * @param pos Returned tracking vectors

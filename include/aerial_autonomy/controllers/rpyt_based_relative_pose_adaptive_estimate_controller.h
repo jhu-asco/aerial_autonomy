@@ -48,6 +48,7 @@ public:
   RPYTBasedRelativePoseAdaptiveEstimateController(
       RPYTBasedRelativePoseAdaptiveEstimateControllerConfig config)
       : config_(config), km_(config_.km()), ag_(0, 0, -config_.acc_gravity()) {
+    std::cout << "DATA HEADER" << std::endl;
     DATA_HEADER("adaptive_controller") << "mhat"
                                        << "lyap"
                                        << "delta_px"
