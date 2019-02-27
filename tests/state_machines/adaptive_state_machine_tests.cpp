@@ -274,6 +274,7 @@ public:
   }
 
   static void SetUpTestCase() {
+    std::cout << "setup start" << std::endl;
     // Configure logging
     LogConfig log_config;
     log_config.set_directory("/tmp/data");
@@ -298,6 +299,8 @@ public:
     data_config.set_stream_id("ddp_quad_mpc_controller");
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("quad_mpc_state_estimator");
+    Log::instance().addDataStream(data_config);
+    data_config.set_stream_id("adaptive_controller");
     Log::instance().addDataStream(data_config);
   }
 
@@ -335,9 +338,10 @@ protected:
     // Check in PickState
     logic_state_machine_->process_event(InternalTransitionEvent());
     ASSERT_STREQ(pstate(*logic_state_machine_), "PrePickState");
+    LOG(INFO) << "In Pre-Pick State!!";
     // Check UAV and arm controllers are active
     ASSERT_EQ(
-        uav_arm_system_->getStatus<RPYTRelativePoseVisualServoingConnector>(),
+        uav_arm_system_->getStatus<RPYTRelativePoseAdaptiveEstimateConnector>(),
         ControllerStatus::Active);
     ASSERT_EQ(uav_arm_system_->getStatus<BuiltInPoseControllerArmConnector>(),
               ControllerStatus::Active);
@@ -351,12 +355,14 @@ protected:
                  ControllerStatus::Active;
     };
     ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                              std::chrono::seconds(25),
+                                              std::chrono::seconds(35),
                                               std::chrono::milliseconds(0)));
+    LOG(INFO) << "Finished Controller!!";
     logic_state_machine_->process_event(InternalTransitionEvent());
     ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
+    LOG(INFO) << "In Pick State!!";
     ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                              std::chrono::seconds(25),
+                                              std::chrono::seconds(35),
                                               std::chrono::milliseconds(0)));
     // Grip object for required duration
     arm_->setGripperStatus(true);
@@ -382,50 +388,20 @@ protected:
     // Check we are in Pre-Place
     ASSERT_STREQ(pstate(*logic_state_machine_), "PrePlaceState");
     LOG(INFO) << "In Pre-Place State!!";
-    ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(),
-              typeid(ObjectId));
+    // Disable SDK
+    drone_hardware_->flowControl(false);
+    // Check we are in Hovering
     logic_state_machine_->process_event(InternalTransitionEvent());
-    ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllersv2,
-                                              std::chrono::seconds(25),
-                                              std::chrono::milliseconds(0)));
+    ASSERT_STREQ(pstate(*logic_state_machine_), "Hovering");
+    // And finally in manual control state
     logic_state_machine_->process_event(InternalTransitionEvent());
-    // Check we are in Pre-Place
-    ASSERT_STREQ(pstate(*logic_state_machine_), "PlaceState");
-    ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(),
-              typeid(Completed));
-    LOG(INFO) << "In Place State!!";
-    // Place the object in the correct spot
-    uint32_t actual_place_target;
-    ASSERT_TRUE(uav_arm_system_->getTrackingVectorId(actual_place_target));
-    ASSERT_EQ(actual_place_target, expected_place_target);
-    ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                              std::chrono::seconds(25),
-                                              std::chrono::milliseconds(0)));
-    logic_state_machine_->process_event(InternalTransitionEvent());
-    // Check Place completed with ungrip
-    ASSERT_STREQ(pstate(*logic_state_machine_), "ReachingPostPlaceWaypoint");
-    ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(),
-              typeid(Completed));
-    ASSERT_FALSE(arm_->getGripperValue());
-    // Run controllers through two waypoints
-    logic_state_machine_->process_event(InternalTransitionEvent());
-    ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllersv2,
-                                              std::chrono::seconds(25),
-                                              std::chrono::milliseconds(0)));
-    logic_state_machine_->process_event(InternalTransitionEvent());
-    ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllersv2,
-                                              std::chrono::seconds(25),
-                                              std::chrono::milliseconds(0)));
-    logic_state_machine_->process_event(InternalTransitionEvent());
-    // Check we are back to waiting for pick
-    ASSERT_STREQ(pstate(*logic_state_machine_), "WaitingForPick");
-    ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(),
-              typeid(Completed));
+    ASSERT_STREQ(pstate(*logic_state_machine_), "ManualControlArmState");
   }
 };
 
 TEST_F(AdaptiveStateMachineTests, InitialState) {
   // Validate
+  LOG(INFO) << "Starting InitialState";
   ASSERT_STREQ(pstate(*logic_state_machine_), "Landed");
   GoToHoverFromLanded();
 }
