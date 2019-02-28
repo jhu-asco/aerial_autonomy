@@ -102,13 +102,12 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
   double lyap_V = (0.5 * (delta_x.transpose() * P_ * delta_x)).norm();
   lyap_V += 0.5 * (mhat - 6) * (mhat - 6) / (km_);
   // Log the data
-  /*std::cout << "DATA LOG" << std::endl;
   DATA_LOG("adaptive_controller")
       << mhat << lyap_V << delta_x(0) << delta_x(1) << delta_x(2) << delta_x(3)
       << delta_x(4) << delta_x(5) << (curr_yaw - desired_state.yaw) << desired_state.p.x
       << desired_state.p.y << desired_state.p.z << state.p.x << state.p.y
       << state.p.z << world_acc(0) << world_acc(1) << world_acc(2) << control.r
-      << control.p << curr_time << DataStream::endl;*/
+      << control.p << curr_time << DataStream::endl;
   return true;
 }
 
@@ -125,8 +124,7 @@ RPYTBasedRelativePoseAdaptiveEstimateController::isConvergedImplementation(
   // Get the goal state
   ParticleStateYaw desired_state;
   try {
-    auto temp_pair = goal->atTime(curr_time);
-    desired_state = temp_pair.first;
+    desired_state = goal->goal(curr_time);
   } catch (std::logic_error e) {
     LOG(WARNING) << e.what() << std::endl;
     return ControllerStatus::Critical;
@@ -143,6 +141,8 @@ RPYTBasedRelativePoseAdaptiveEstimateController::isConvergedImplementation(
   Eigen::Vector3d delta_v = v - v_d;
   status << "Parameter Estimate and Position Error: "
          << std::get<0>(sensor_data) << delta_p(0) << delta_p(1) << delta_p(2);
+  LOG(INFO) << "Errors: "
+         << delta_p.norm() << " " <<  delta_v.norm() << " " <<  acc_d.norm();
   // Controller converged if position, velocity, and yaw are within tolerances
   // and if the reference trajectory acc is below the tolerance, so we don't
   // quit early

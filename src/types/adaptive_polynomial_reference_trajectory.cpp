@@ -33,9 +33,13 @@ AdaptivePolynomialReferenceTrajectory::atTime(double t) const {
   Velocity v(state[6],state[7],state[8]);
   Eigen::Matrix3d R;
   conversions::transformRPYToMatrix3d(roll,pitch,yaw,R);
-  Eigen::Vector3d a_vec(0,0,control[0]);
+  double a_norm = (control[0]*9.81) - 9.81;
+  Eigen::Vector3d a_vec(0,0,a_norm);
+  LOG(INFO) << "norm is " << a_norm;
   a_vec = R*a_vec;
   Acceleration a(a_vec[0],a_vec[1],a_vec[2]);
+  LOG(INFO) << "Acceleration: "
+         << a.x << " " << a.y << " " << a.z;
   Jerk j;//Leave blank
   Snap s;//Leave blank
   ParticleStateYaw particle(p,v,a,j,yaw);

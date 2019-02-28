@@ -22,6 +22,7 @@ public:
    */
   AdaptivePolynomialReferenceTrajectory(PositionYaw goal_state, PositionYaw start_state,
                                 PolynomialReferenceConfig config);
+
   /**
    * @brief Gets the trajectory information at the specified time
    * @param t Time

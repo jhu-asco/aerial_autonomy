@@ -265,9 +265,11 @@ struct GoToWaypointInternalActionFunctor_
                           state.getPositionToleranceConfig());
       }
     }
+    LOG(INFO) << "Begin status check";
     // check controller status
     ControllerStatus status = robot_system.getStatus<
-        RPYTBasedReferenceConnector<ParticleStateYaw, Snap>>();
+        RPYTRelativePoseAdaptiveEstimateConnector>();
+    LOG(INFO) << "End status check";
     int tracked_index = state.getTrackedIndex();
     if (status == ControllerStatus::Completed) {
       VLOG(1) << "Reached goal for tracked index: " << tracked_index;
@@ -303,6 +305,7 @@ struct GoToWaypointInternalActionFunctor_
       return false;
     }
     return true;
+    LOG(INFO) << "End run";
   }
 
   /**
@@ -327,7 +330,7 @@ struct GoToWaypointInternalActionFunctor_
                                           reference_config));
     robot_system.setReferenceControllerTolerance(goal_tolerance);
     robot_system
-        .setGoal<RPYTBasedReferenceConnector<ParticleStateYaw, Snap>,
+        .setGoal<RPYTRelativePoseAdaptiveEstimateConnector,
                  ReferenceTrajectoryPtr<ParticleStateYaw, Snap>>(
             reference);
   }

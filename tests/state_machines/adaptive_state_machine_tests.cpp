@@ -213,8 +213,8 @@ public:
     // Adaptive Controller Config
     auto adaptive_config = 
         config_.mutable_rpyt_based_relative_pose_adaptive_estimate_controller_config();
-    adaptive_config->set_km(0.05);
-    adaptive_config->set_eps(0.05);
+    adaptive_config->set_km(0.01);
+    adaptive_config->set_eps(0.1);
     adaptive_config->set_kp_xy(12);
     adaptive_config->set_kd_xy(9);
     adaptive_config->set_kp_z(2);
@@ -227,13 +227,16 @@ public:
     adaptive_config->set_tolerance_vel(0.1);
     adaptive_config->set_tolerance_acc(0.1);
     adaptive_config->set_tolerance_yaw(0.1);
-    adaptive_config->set_mhat(5.5);
+    adaptive_config->set_mhat(6.2);
     adaptive_config->set_min_m(3.0);
     adaptive_config->set_max_dm(0.05);
-    adaptive_config->set_max_acc(2.0);
-    adaptive_config->set_max_vel(0.5);
+    adaptive_config->set_max_acc(9999999);
+    adaptive_config->set_max_vel(9999999);
+    //adaptive_config->set_max_acc(2.0);
+    //adaptive_config->set_max_vel(0.5);
     adaptive_config->set_k_yaw(1.0);
     adaptive_config->set_yaw_rate_max(1.0);
+    adaptive_config->set_use_perfect_time_diff(true);
     //Thrust Gain Config
     auto thrust_config = 
         config_.mutable_thrust_gain_estimator_config();
@@ -274,12 +277,13 @@ public:
   }
 
   static void SetUpTestCase() {
-    std::cout << "setup start" << std::endl;
+    LOG(INFO) << "setup start" << std::endl;
     // Configure logging
     LogConfig log_config;
     log_config.set_directory("/tmp/data");
     Log::instance().configure(log_config);
     DataStreamConfig data_config;
+    data_config.set_log_rate(1000);
     data_config.set_stream_id("rpyt_reference_controller");
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("rpyt_reference_connector");
@@ -297,8 +301,6 @@ public:
     data_config.set_stream_id("quad_mpc_state_estimator");
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("ddp_quad_mpc_controller");
-    Log::instance().addDataStream(data_config);
-    data_config.set_stream_id("quad_mpc_state_estimator");
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("adaptive_controller");
     Log::instance().addDataStream(data_config);
@@ -333,6 +335,8 @@ protected:
   }
 
   void AdaptivePick(uint32_t expected_place_target) {
+    //Calculate the number of iterations to check
+    int numIter = 30.0/0.02;
     // Check we are waiting for pick
     ASSERT_STREQ(pstate(*logic_state_machine_), "WaitingForPick");
     // Check in PickState
@@ -354,9 +358,20 @@ protected:
              uav_arm_system_->getActiveControllerStatus(ControllerGroup::Arm) ==
                  ControllerStatus::Active;
     };
-    ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                              std::chrono::seconds(35),
-                                              std::chrono::milliseconds(0)));
+    for(int ii = 0; ii < numIter; ++ii) {
+      uav_arm_system_->runActiveController(ControllerGroup::UAV);
+      uav_arm_system_->runActiveController(ControllerGroup::Arm);
+      bool flag = uav_arm_system_->getActiveControllerStatus(ControllerGroup::UAV) ==
+                    ControllerStatus::Active;
+      flag = flag || uav_arm_system_->getActiveControllerStatus(ControllerGroup::Arm) ==
+                        ControllerStatus::Active;
+      if (!flag) { break;}
+    }
+    bool flag = uav_arm_system_->getActiveControllerStatus(ControllerGroup::UAV) ==
+                  ControllerStatus::Active;
+    flag = flag || uav_arm_system_->getActiveControllerStatus(ControllerGroup::Arm) ==
+                      ControllerStatus::Active;
+    ASSERT_FALSE(flag);
     LOG(INFO) << "Finished Controller!!";
     logic_state_machine_->process_event(InternalTransitionEvent());
     ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
@@ -369,12 +384,14 @@ protected:
     logic_state_machine_->process_event(InternalTransitionEvent());
     this_thread::sleep_for(std::chrono::milliseconds(grip_duration_ + 2));
     logic_state_machine_->process_event(InternalTransitionEvent());
+    LOG(INFO) << "2";
     // Check we are in Post-Pick
     ASSERT_STREQ(pstate(*logic_state_machine_), "ReachingPostPickWaypoint");
     ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(),
               typeid(ObjectId));
     // Run controllers through one waypoint
     logic_state_machine_->process_event(InternalTransitionEvent());
+    LOG(INFO) << "1";
     auto getStatusRunControllersv2 = [&]() {
       uav_arm_system_->runActiveController(ControllerGroup::UAV);
       uav_arm_system_->runActiveController(ControllerGroup::Arm);

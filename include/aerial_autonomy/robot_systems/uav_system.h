@@ -315,7 +315,13 @@ public:
             config
                 .rpyt_based_relative_pose_adaptive_estimate_controller_config()
                 .min_m(),
-            odom_sensor_),
+            odom_sensor_,
+            config
+                .rpyt_based_relative_pose_adaptive_estimate_controller_config()
+                .use_perfect_time_diff(),
+            config
+                .rpyt_based_relative_pose_adaptive_estimate_controller_config()
+                .perfect_time_diff()),
         quad_mpc_connector_(*drone_hardware_, quad_mpc_controller_,
                             thrust_gain_estimator_,
                             config.thrust_gain_estimator_config().buffer_size(),

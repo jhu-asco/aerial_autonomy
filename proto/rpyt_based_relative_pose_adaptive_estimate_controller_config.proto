@@ -23,4 +23,6 @@ message RPYTBasedRelativePoseAdaptiveEstimateControllerConfig {
   optional double max_vel = 20;
   optional double k_yaw = 21;
   optional double yaw_rate_max = 22;
+  optional bool use_perfect_time_diff = 23 [ default = false ];
+  optional double perfect_time_diff = 24 [ default = 0.02 ];
 }

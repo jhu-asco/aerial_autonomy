@@ -34,8 +34,14 @@ bool RPYTRelativePoseAdaptiveEstimateConnector::extractSensorData(
     // Yaw
     curr_state.yaw = quad_data.rpydata.z;
   }
-  double curr_time = std::chrono::duration<double>(std::chrono::high_resolution_clock::now() - t_init_).count();
-  sensor_data = std::make_tuple(mhat_, curr_time, curr_state);
+  if (use_perfect_time_diff_) {
+    time_since_init_ += perfect_time_diff_;
+  } else {
+    time_since_init_ = std::chrono::duration<double>(
+                           std::chrono::high_resolution_clock::now() - t_init_)
+                           .count();
+  }
+  sensor_data = std::make_tuple(mhat_, time_since_init_, curr_state);
   //Add to thrust gain estimator for comparison purposes
   tf::Vector3 body_acc(quad_data.linacc.x, quad_data.linacc.y,
                        quad_data.linacc.z);
@@ -47,13 +53,18 @@ bool RPYTRelativePoseAdaptiveEstimateConnector::extractSensorData(
 void RPYTRelativePoseAdaptiveEstimateConnector::sendControllerCommands(
     RollPitchYawThrustAdaptive controls) {
   // Calculate dt and mhat
-  std::chrono::time_point<std::chrono::high_resolution_clock> current_time =
-      std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double> dt_duration =
-      std::chrono::duration_cast<std::chrono::duration<double>>(current_time -
-                                                                previous_time_);
-  double dt = dt_duration.count();
-  previous_time_ = current_time;
+  double dt;
+  if (use_perfect_time_diff_) {
+    dt = perfect_time_diff_;
+  }else {
+    std::chrono::time_point<std::chrono::high_resolution_clock> current_time =
+        std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> dt_duration =
+        std::chrono::duration_cast<std::chrono::duration<double>>(current_time -
+                                                                  previous_time_);
+    previous_time_ = current_time;
+    dt = dt_duration.count();
+  }
   mhat_ += controls.dm * dt;
   if (mhat_ < min_m_) {
     mhat_ = min_m_;
@@ -72,11 +83,12 @@ void RPYTRelativePoseAdaptiveEstimateConnector::sendControllerCommands(
 void RPYTRelativePoseAdaptiveEstimateConnector::setGoal(
     ReferenceTrajectoryPtr<ParticleStateYaw, Snap> goal) {
   //This may need a t_init_ to be set too. 
-  previous_time_ = std::chrono::high_resolution_clock::now();
+  //previous_time_ = std::chrono::high_resolution_clock::now();
   BaseClass::setGoal(goal);
 }
 
 void RPYTRelativePoseAdaptiveEstimateConnector::initialize() {
   t_init_ = std::chrono::high_resolution_clock::now();
   previous_time_ = t_init_;
+  time_since_init_ = 0;
 }

@@ -36,11 +36,14 @@ public:
       ThrustGainEstimator &thrust_gain_estimator,
       double mhat_initial, double min_m = 0.5,
       SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor =
-          nullptr)
+          nullptr, bool use_perfect_time_diff = false, double perfect_time_diff = 0.02)
       : ControllerConnector(controller, ControllerGroup::UAV),
         private_reference_controller_(controller), odom_sensor_(odom_sensor),
         drone_hardware_(drone_hardware),
-        thrust_gain_estimator_(thrust_gain_estimator){
+        thrust_gain_estimator_(thrust_gain_estimator),
+        use_perfect_time_diff_(use_perfect_time_diff),
+        perfect_time_diff_(perfect_time_diff),
+        time_since_init_(0){
     t_init_ = std::chrono::high_resolution_clock::now();
     previous_time_ = std::chrono::high_resolution_clock::now();
     mhat_ = mhat_initial;
@@ -119,4 +122,7 @@ private:
   parsernode::Parser &drone_hardware_;
   //For comparison
   ThrustGainEstimator &thrust_gain_estimator_;
+  bool use_perfect_time_diff_;
+  const double perfect_time_diff_;
+  double time_since_init_;
 };
