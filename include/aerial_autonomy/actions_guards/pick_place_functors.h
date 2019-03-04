@@ -195,23 +195,22 @@ struct ArmPoseTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
   void run(UAVArmSystem &robot_system) {
     VLOG(1) << "Setting goal pose for arm!";
+    config::Transform goal;
     if (pickPlaceFlag) {
-      auto goal =
+      goal =
           this->state_machine_config_.visual_servoing_state_machine_config()
               .pick_place_state_machine_config()
               .arm_goal_transform()
               .Get(TransformIndex);
-      robot_system.setGoal<BuiltInPoseControllerArmConnector, tf::Transform>(
-          conversions::protoTransformToTf(goal));
     } else {
-      auto goal =
+      goal =
           this->state_machine_config_.visual_servoing_state_machine_config()
               .sensor_place_state_machine_config()
               .arm_goal_transform()
               .Get(TransformIndex);
-      robot_system.setGoal<BuiltInPoseControllerArmConnector, tf::Transform>(
-          conversions::protoTransformToTf(goal));
     }
+    robot_system.setGoal<BuiltInPoseControllerArmConnector, tf::Transform>(
+        conversions::protoTransformToTf(goal));
     if (ResetGripper) {
       // Also ensure the gripper is in the right state to grip objects
       robot_system.resetGripper();
