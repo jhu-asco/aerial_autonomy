@@ -14,10 +14,12 @@ AccelerationBiasEstimator::AccelerationBiasEstimator(
       delay_buffer_size_(delay_buffer_size), gravity_magnitude_(9.81) {
   CHECK_GE(max_bias_, 0) << "Max bias should be non-negative";
   CHECK_GE(delay_buffer_size_, 1) << "Buffer size should be atleast 1";
+  acceleration_bias_filter_.setFilterData(Eigen::Vector3d(0, 0, 0));
 }
 
 void AccelerationBiasEstimator::reset() {
   acceleration_bias_filter_.reset();
+  acceleration_bias_filter_.setFilterData(Eigen::Vector3d(0, 0, 0));
 
   std::queue<double> empty;
   acceleration_commands_.swap(empty);
@@ -58,7 +60,7 @@ void AccelerationBiasEstimator::addAccelerationCommand(double acc) {
   acceleration_commands_.push(acc);
 }
 
-Eigen::Vector3d AccelerationBiasEstimator::getAccelerationBias() {
+Eigen::Vector3d AccelerationBiasEstimator::getAccelerationBias() const {
   if (acceleration_bias_filter_.isDataAvailable()) {
     return acceleration_bias_filter_.getFilterData();
   } else {

@@ -47,4 +47,11 @@ public:
    * @param pos Returned pose of the plane
    */
   void computePlaneFit(Eigen::MatrixXd &roi_point_cloud, tf::Transform &pos);
+
+protected:
+  /**
+   * @brief Percentage of pixel depths to include as foreground
+   * \todo Make this a configurable param
+   */
+  double foreground_percent_ = 0.8;
 };

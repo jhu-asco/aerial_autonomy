@@ -40,8 +40,7 @@ void RoiToPlaneConverter::computePlaneFit(Eigen::MatrixXd &roi_point_cloud,
   Eigen::Vector3d centroid = roi_point_cloud.rowwise().mean();
   roi_point_cloud.colwise() -= centroid;
   // Singular Value Decomposition
-  Eigen::JacobiSVD<Eigen::MatrixXd> svd(
-      roi_point_cloud, Eigen::ComputeFullU | Eigen::ComputeFullV);
+  Eigen::JacobiSVD<Eigen::MatrixXd> svd(roi_point_cloud, Eigen::ComputeFullU);
   Eigen::Matrix3d U = svd.matrixU();
   Eigen::Vector3d norms = U.colwise().norm();
   U.col(0) /= norms(0);

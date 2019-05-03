@@ -48,7 +48,7 @@ public:
    *
    * @return filtered data
    */
-  T getFilterData() {
+  T getFilterData() const {
     if (!filter_data_available_)
       throw std::runtime_error("No sensor data to initialize filter yet!");
     return filter_data_;
@@ -63,7 +63,7 @@ public:
   * @brief Check if filter data is available
   * @return True if available, false otherwise
   */
-  bool isDataAvailable() { return filter_data_available_; }
+  bool isDataAvailable() const { return filter_data_available_; }
 
 private:
   double gain_;                ///< Mixing gain

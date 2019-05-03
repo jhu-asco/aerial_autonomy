@@ -30,6 +30,10 @@ bool RPYTRelativePoseVisualServoingConnector::extractSensorData(
                                        body_acc);
   acceleration_bias_estimator_.addSensorData(quad_data.rpydata.x,
                                              quad_data.rpydata.y, body_acc_eig);
+  DATA_LOG("acceleration_bias_estimator")
+      << acceleration_bias_estimator_.getAccelerationBias()
+      << quad_data.rpydata.x << quad_data.rpydata.y << quad_data.rpydata.z
+      << body_acc_eig << DataStream::endl;
   auto rpyt_controller_config = private_reference_controller_.getRPYTConfig();
   rpyt_controller_config.set_kt(thrust_gain_estimator_.getThrustGain());
   private_reference_controller_.updateRPYTConfig(rpyt_controller_config);

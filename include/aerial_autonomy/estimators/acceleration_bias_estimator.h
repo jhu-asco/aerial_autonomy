@@ -47,7 +47,7 @@ public:
   * @brief Get the current acceleration bias in the body frame
   * @return Acceleration bias
   */
-  Eigen::Vector3d getAccelerationBias();
+  Eigen::Vector3d getAccelerationBias() const;
   /**
   * @brief Compute the acceleration bias in the body frame
   * @param roll Roll of robot

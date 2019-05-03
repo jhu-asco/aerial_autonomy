@@ -48,6 +48,15 @@ public:
         acceleration_bias_estimator_(acceleration_bias_estimator),
         private_reference_controller_(controller) {
     logTrackerHeader("rpyt_relative_pose_visual_servoing_connector");
+    DATA_HEADER("acceleration_bias_estimator") << "acc_bias_x"
+                                               << "acc_bias_y"
+                                               << "acc_bias_z"
+                                               << "roll"
+                                               << "pitch"
+                                               << "yaw"
+                                               << "acc_x"
+                                               << "acc_y"
+                                               << "acc_z" << DataStream::endl;
   }
   /**
    * @brief Destructor

@@ -15,6 +15,8 @@
 #include <sensor_msgs/Image.h>
 #include <sensor_msgs/RegionOfInterest.h>
 
+#include <visualization_msgs/MarkerArray.h>
+
 #include <Eigen/Dense>
 
 #include <boost/thread/mutex.hpp>
@@ -39,7 +41,9 @@ public:
         depth_subscriber_(
             nh_.subscribe("depth", 1, &RoiBaseTracker::depthCallback, this)),
         image_subscriber_(
-            it_.subscribe("image", 1, &RoiBaseTracker::imageCallback, this)) {}
+            it_.subscribe("image", 1, &RoiBaseTracker::imageCallback, this)),
+        pose_publisher_(
+            nh_.advertise<visualization_msgs::MarkerArray>("pose_marker", 0)) {}
 
   /**
    * @brief Get the stored tracking vector
@@ -132,6 +136,12 @@ protected:
   void depthCallback(const sensor_msgs::ImageConstPtr &depth_msg);
 
   /**
+   * @brief Publish a pose marker
+   * @param pose Pose to visualize
+   */
+  void publishPose(const tf::Transform &pose);
+
+  /**
    * @brief Comparator for sorting points by depth
    * @param a First point
    * @param b Second point
@@ -163,6 +173,10 @@ protected:
    * @brief ROS subscriber for receiving image
    */
   image_transport::Subscriber image_subscriber_;
+  /**
+   * @brief Publisher for pose visualization
+   */
+  ros::Publisher pose_publisher_;
   /**
    * @brief Camera info for conversion to 3D
    */

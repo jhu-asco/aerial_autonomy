@@ -35,6 +35,9 @@ void BaseRelativePoseVisualServoingConnector::logTrackerData(
   auto tracking_origin = tracking_pose.getOrigin();
   double tracking_r, tracking_p, tracking_y;
   tracking_pose.getBasis().getRPY(tracking_r, tracking_p, tracking_y);
+  auto object_origin = object_pose_cam.getOrigin();
+  double object_r, object_p, object_y;
+  object_pose_cam.getBasis().getRPY(object_r, object_p, object_y);
   DATA_LOG(stream_name) << quad_data.linvel.x << quad_data.linvel.y
                         << quad_data.linvel.z << quad_data.rpydata.x
                         << quad_data.rpydata.y << quad_data.rpydata.z
@@ -42,6 +45,8 @@ void BaseRelativePoseVisualServoingConnector::logTrackerData(
                         << quad_data.omega.z << tracking_origin.x()
                         << tracking_origin.y() << tracking_origin.z()
                         << tracking_r << tracking_p << tracking_y
+                        << object_origin.x() << object_origin.y()
+                        << object_origin.z() << object_r << object_p << object_y
                         << getViewingAngle(object_pose_cam)
                         << tracking_origin.length() << DataStream::endl;
 }
@@ -63,6 +68,12 @@ void BaseRelativePoseVisualServoingConnector::logTrackerHeader(
                            << "tracking_r"
                            << "tracking_p"
                            << "tracking_y"
+                           << "object_x"
+                           << "object_y"
+                           << "object_z"
+                           << "object_r"
+                           << "object_p"
+                           << "object_y"
                            << "Viewing_angle"
                            << "Tracking_length" << DataStream::endl;
 }
