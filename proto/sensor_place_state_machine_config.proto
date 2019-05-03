@@ -12,7 +12,7 @@ message SensorPlaceStateMachineConfig {
   repeated config.Transform arm_goal_transform = 1;
 
   /**
-  * @brief How much time to spend trying to grip the object in milliseconds
+  * @brief How much time to spend trying to place the object in milliseconds
   */
   optional uint32 grip_timeout = 2 [ default = 20000 ];
 

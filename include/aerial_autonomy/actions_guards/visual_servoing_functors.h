@@ -215,7 +215,7 @@ struct VisualServoingStatus_
       result &= ControllerStatusInternalActionFunctor_<
                     LogicStateMachineT,
                     UAVVisionSystem::RPYTVisualServoingReferenceConnectorT,
-                    CompleteFlagT, AbortEventT>()
+                    false, AbortEventT>()
                     .run(robot_system, logic_state_machine);
       break;
     case VisualServoingStateMachineConfig::MPC:
@@ -227,7 +227,7 @@ struct VisualServoingStatus_
       result &= ControllerStatusInternalActionFunctor_<
                     LogicStateMachineT,
                     UAVVisionSystem::MPCVisualServoingReferenceConnectorT,
-                    CompleteFlagT, AbortEventT>()
+                    false, AbortEventT>()
                     .run(robot_system, logic_state_machine);
       break;
     case VisualServoingStateMachineConfig::HeadingDepth:
