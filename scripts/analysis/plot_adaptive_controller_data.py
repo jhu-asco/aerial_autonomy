@@ -15,7 +15,7 @@ data = np.genfromtxt(
         'adaptive_controller'),
     delimiter=',', names=True)
 # 0 for x, 1 for y  2 for z and 3 for yaw
-ts = data['t']#(data['Time'] - data['Time'][0]) / 1e9
+ts = (data['Time'] - data['Time'][0]) / 1e9
 error_names = ['delta_px', 'delta_py', 'delta_pz']
 goal_names = ['x_goal', 'y_goal', 'z_goal']
 state_names = ['x', 'y', 'z']

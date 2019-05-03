@@ -95,7 +95,8 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
       math::clamp(control.t, config_.min_thrust(), config_.max_thrust());
   control.r = math::clamp(control.r, -config_.max_rp(), config_.max_rp());
   control.p = math::clamp(control.p, -config_.max_rp(), config_.max_rp());
-  control.y = -config_.k_yaw() * (math::angleWrap(curr_yaw - desired_state.yaw));
+  control.y =
+      -config_.k_yaw() * (math::angleWrap(curr_yaw - desired_state.yaw));
   control.y =
       math::clamp(control.y, -config_.yaw_rate_max(), config_.yaw_rate_max());
   // Estimate the lyapunov function for logging
@@ -104,10 +105,11 @@ bool RPYTBasedRelativePoseAdaptiveEstimateController::runImplementation(
   // Log the data
   DATA_LOG("adaptive_controller")
       << mhat << lyap_V << delta_x(0) << delta_x(1) << delta_x(2) << delta_x(3)
-      << delta_x(4) << delta_x(5) << (curr_yaw - desired_state.yaw) << desired_state.p.x
-      << desired_state.p.y << desired_state.p.z << state.p.x << state.p.y
-      << state.p.z << world_acc(0) << world_acc(1) << world_acc(2) << control.r
-      << control.p << curr_time << DataStream::endl;
+      << delta_x(4) << delta_x(5) << (curr_yaw - desired_state.yaw)
+      << desired_state.p.x << desired_state.p.y << desired_state.p.z
+      << state.p.x << state.p.y << state.p.z << world_acc(0) << world_acc(1)
+      << world_acc(2) << control.r << control.p << curr_time
+      << DataStream::endl;
   return true;
 }
 
@@ -141,8 +143,6 @@ RPYTBasedRelativePoseAdaptiveEstimateController::isConvergedImplementation(
   Eigen::Vector3d delta_v = v - v_d;
   status << "Parameter Estimate and Position Error: "
          << std::get<0>(sensor_data) << delta_p(0) << delta_p(1) << delta_p(2);
-  LOG(INFO) << "Errors: "
-         << delta_p.norm() << " " <<  delta_v.norm() << " " <<  acc_d.norm();
   // Controller converged if position, velocity, and yaw are within tolerances
   // and if the reference trajectory acc is below the tolerance, so we don't
   // quit early

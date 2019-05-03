@@ -129,9 +129,9 @@ uav_system_config {
         goal_position_tolerance {
           x: 0.1
           y: 0.1
-          z: 0.1
+          z: 0.25
         }
-        goal_yaw_tolerance: .02
+        goal_yaw_tolerance: .05
       }
     }
 
@@ -187,12 +187,12 @@ uav_system_config {
     }
   }
   rpyt_based_relative_pose_adaptive_estimate_controller_config{
-    km: 0.05
-    eps: 0.05
-    kp_xy: 12
-    kd_xy: 9
-    kp_z: 2
-    kd_z: 2
+    km: 0.1 #0.05 #0.03 #0.024 #0.02
+    eps: 0.23 #0.25 #0.225 #0.1
+    kp_xy: 10
+    kd_xy: 25
+    kp_z: 4
+    kd_z: 8
     tolerance_rp: 0.1
     min_thrust: 10
     max_thrust: 80
@@ -201,7 +201,7 @@ uav_system_config {
     tolerance_vel: 0.1
     tolerance_acc: 0.1
     tolerance_yaw: 0.1
-    mhat: 5.5
+    mhat: 5.8
     min_m: 3.0
     max_dm: 0.05
     max_acc: 2.0

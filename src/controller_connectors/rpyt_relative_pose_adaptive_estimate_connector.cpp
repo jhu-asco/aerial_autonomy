@@ -42,7 +42,7 @@ bool RPYTRelativePoseAdaptiveEstimateConnector::extractSensorData(
                            .count();
   }
   sensor_data = std::make_tuple(mhat_, time_since_init_, curr_state);
-  //Add to thrust gain estimator for comparison purposes
+  // Add to thrust gain estimator for comparison purposes
   tf::Vector3 body_acc(quad_data.linacc.x, quad_data.linacc.y,
                        quad_data.linacc.z);
   thrust_gain_estimator_.addSensorData(quad_data.rpydata.x, quad_data.rpydata.y,
@@ -56,14 +56,18 @@ void RPYTRelativePoseAdaptiveEstimateConnector::sendControllerCommands(
   double dt;
   if (use_perfect_time_diff_) {
     dt = perfect_time_diff_;
-  }else {
+  } else {
     std::chrono::time_point<std::chrono::high_resolution_clock> current_time =
         std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> dt_duration =
-        std::chrono::duration_cast<std::chrono::duration<double>>(current_time -
-                                                                  previous_time_);
+        std::chrono::duration_cast<std::chrono::duration<double>>(
+            current_time - previous_time_);
     previous_time_ = current_time;
     dt = dt_duration.count();
+  }
+  if (dt > 0.05) {
+    LOG(WARNING) << "dt too large: " << dt;
+    dt = 0.05;
   }
   mhat_ += controls.dm * dt;
   if (mhat_ < min_m_) {
@@ -71,19 +75,20 @@ void RPYTRelativePoseAdaptiveEstimateConnector::sendControllerCommands(
   }
   // Send commands
   geometry_msgs::Quaternion rpyt_msg;
-  rpyt_msg.x = controls.r;
-  rpyt_msg.y = controls.p;
+  Eigen::Vector2d roll_pitch_bias = thrust_gain_estimator_.getRollPitchBias();
+  rpyt_msg.x = controls.r - roll_pitch_bias(0);
+  rpyt_msg.y = controls.p - roll_pitch_bias(1);
   rpyt_msg.z = controls.y;
   rpyt_msg.w = controls.t;
   drone_hardware_.cmdrpyawratethrust(rpyt_msg);
-  //Add to thrust gain estimator for comparison purposes
+  // Add to thrust gain estimator for comparison purposes
   thrust_gain_estimator_.addThrustCommand(controls.t);
 }
 
 void RPYTRelativePoseAdaptiveEstimateConnector::setGoal(
     ReferenceTrajectoryPtr<ParticleStateYaw, Snap> goal) {
-  //This may need a t_init_ to be set too. 
-  //previous_time_ = std::chrono::high_resolution_clock::now();
+  // This may need a t_init_ to be set too.
+  previous_time_ = std::chrono::high_resolution_clock::now();
   BaseClass::setGoal(goal);
 }
 
