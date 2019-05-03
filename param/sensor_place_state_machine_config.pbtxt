@@ -1,0 +1,68 @@
+visual_servoing_state_machine_config {
+
+  # PrePlace
+  relative_pose_goals {
+    position {
+      x: 1.5
+      y: 0
+      z: 0
+    }
+    yaw: 3.14
+  }
+
+  # Place
+  relative_pose_goals {
+    position {
+      x: 1.0
+      y: 0
+      z: 0
+    }
+    yaw: 3.14
+  }
+
+  # Checking
+  relative_pose_goals {
+    position {
+      x: 1.1
+      y: 0
+      z: 0
+    }
+    yaw: 3.14
+  }
+
+  sensor_place_state_machine_config {
+    grip_timeout: 20000
+    
+    #placing arm
+    arm_goal_transform {
+      position {
+        x: -0.2
+        y: 0
+        z: 0.47
+      }
+      rotation {
+        r: 0
+        p: 0
+        y: 0
+      }
+    }
+
+    #checking arm
+    arm_goal_transform {
+      position {
+        x: -0.2
+        y: 0
+        z: 0.3
+      }
+      rotation {
+        r: 0
+        p: 0
+        y: 0
+      }
+    }
+
+    placing_acc_threshold: -1
+    checking_acc_threshold: 1
+  }
+  connector_type: RPYTRef
+}

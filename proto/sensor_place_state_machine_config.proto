@@ -1,0 +1,25 @@
+syntax = "proto2";
+
+import "transform.proto";
+import "following_waypoint_sequence_config.proto";
+import "grip_config.proto";
+import "place_group.proto";
+
+message SensorPlaceStateMachineConfig {
+  /**
+  * @brief Arm transform in the frame of the tracked object (assuming NWU).
+  */
+  repeated config.Transform arm_goal_transform = 1;
+
+  /**
+  * @brief How much time to spend trying to grip the object in milliseconds
+  */
+  optional uint32 grip_timeout = 2 [ default = 20000 ];
+
+  /**
+  * @brief Placing and checking thresholds
+  */
+  optional double placing_acc_threshold = 3 [ default = -1 ];
+  optional double checking_acc_threshold = 4 [ default = 1 ];
+
+}

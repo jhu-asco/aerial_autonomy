@@ -183,6 +183,7 @@ generate_event_targets(
 uav_basic_events
 visual_servoing_events
 pick_place_events
+sensor_place_events
 arm_events
 uav_arm_sysid_events
 mpc_events
@@ -221,6 +222,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/mpc_state_machine_config.proto
   proto/visual_servoing_state_machine_config.proto
   proto/pick_place_state_machine_config.proto
+  proto/sensor_place_state_machine_config.proto
   proto/following_waypoint_sequence_config.proto
   proto/grip_config.proto
   proto/place_group.proto
@@ -677,8 +679,9 @@ endif()
 if (arm_plugins_FOUND)
   catkin_add_gtest(${PROJECT_NAME}-joystick-state-machine-test tests/state_machines/joystick_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-pick-place-state-machine-test tests/state_machines/pick_place_state_machine_tests.cpp)
+  catkin_add_gtest(${PROJECT_NAME}-sensor-place-state-machine-test tests/state_machines/sensor_place_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-mpc-state-machine-test tests/state_machines/mpc_state_machine_tests.cpp)
-  catkin_add_gtest(${PROJECT_NAME}-pick-place-functor-tests tests/actions_guards/pick_place_functor_tests.cpp)
+  catkin_add_gtest(${PROJECT_NAME}-sensor-place-functor-tests tests/actions_guards/sensor_place_functor_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-mpc-functor-tests tests/actions_guards/mpc_functor_tests.cpp)
   add_rostest_gtest(${PROJECT_NAME}-uav-arm-system-handler-test tests/system_handlers/uav_arm_system_handler_tests.test tests/system_handlers/uav_arm_system_handler_tests.cpp)
   add_dependencies(${PROJECT_NAME}-uav-arm-system-handler-test ${${PROJECT_NAME}_EXPORTED_TARGETS})
@@ -715,11 +718,17 @@ if (arm_plugins_FOUND)
   if(TARGET ${PROJECT_NAME}-pick-place-state-machine-test)
     target_link_libraries(${PROJECT_NAME}-pick-place-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
   endif()
+  if(TARGET ${PROJECT_NAME}-sensor-place-state-machine-test)
+    target_link_libraries(${PROJECT_NAME}-sensor-place-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
+  endif()
   if(TARGET ${PROJECT_NAME}-mpc-state-machine-test)
     target_link_libraries(${PROJECT_NAME}-mpc-state-machine-test aerial_autonomy)
   endif()
   if(TARGET ${PROJECT_NAME}-pick-place-functor-tests)
     target_link_libraries(${PROJECT_NAME}-pick-place-functor-tests aerial_autonomy ${GCOP_LIBRARIES})
+  endif()
+  if(TARGET ${PROJECT_NAME}-sensor-place-functor-tests)
+    target_link_libraries(${PROJECT_NAME}-sensor-place-functor-tests aerial_autonomy ${GCOP_LIBRARIES})
   endif()
   if(TARGET ${PROJECT_NAME}-mpc-functor-tests)
     target_link_libraries(${PROJECT_NAME}-mpc-functor-tests aerial_autonomy)

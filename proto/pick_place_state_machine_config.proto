@@ -30,4 +30,6 @@ message PickPlaceStateMachineConfig {
   * @brief Thrust gain when picking up an object
   */
   optional double object_pickup_thrust_gain = 5 [ default = 0.1 ];
+
+
 }
