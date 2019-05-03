@@ -206,6 +206,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/velocity_controller_config.proto
   proto/rpyt_based_velocity_controller_config.proto
   proto/rpyt_based_relative_pose_controller_config.proto
+  proto/rpyt_based_relative_pose_adaptive_estimate_controller_config.proto
   proto/rpyt_based_position_controller_config.proto
   proto/joystick_velocity_controller_config.proto
   proto/position.proto
@@ -234,6 +235,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/airm_mpc_controller_config.proto
   proto/mpc_visualizer_config.proto
   proto/spiral_reference_trajectory_config.proto
+  proto/minimum_snap_reference_trajectory_config.proto
   proto/particle_reference_config.proto
   proto/quad_mpc_controller_config.proto
   proto/mpc_connector_config.proto
@@ -292,6 +294,7 @@ set(SRC
   src/types/spiral_reference_trajectory.cpp
   src/types/quad_particle_reference_trajectory.cpp
   src/types/polynomial_reference_trajectory.cpp
+  src/types/adaptive_polynomial_reference_trajectory.cpp
   src/types/sensor_status.cpp
   src/controllers/manual_rpyt_controller.cpp
   src/controllers/velocity_based_position_controller.cpp
@@ -301,6 +304,7 @@ set(SRC
   src/controllers/rpyt_based_velocity_controller.cpp
   src/controllers/rpyt_based_position_controller.cpp
   src/controllers/rpyt_based_relative_pose_controller.cpp
+  src/controllers/rpyt_based_relative_pose_adaptive_estimate_controller.cpp
   src/controllers/joystick_velocity_controller.cpp
   src/controllers/arm_sine_controller.cpp
   src/controllers/qrotor_backstepping_controller.cpp
@@ -308,6 +312,7 @@ set(SRC
   src/controllers/ddp_quad_mpc_controller.cpp
   src/controllers/quad_particle_reference_controller.cpp
   src/controllers/quad_polynomial_reference_controller.cpp
+  src/controllers/quad_polynomial_adaptive_reference_controller.cpp
   src/controllers/rpyt_based_reference_controller.cpp
   src/estimators/acceleration_bias_estimator.cpp
   src/estimators/thrust_gain_estimator.cpp
@@ -316,6 +321,7 @@ set(SRC
   src/controller_connectors/base_relative_pose_visual_servoing_connector.cpp
   src/controller_connectors/relative_pose_visual_servoing_controller_drone_connector.cpp
   src/controller_connectors/rpyt_relative_pose_visual_servoing_connector.cpp
+  src/controller_connectors/rpyt_relative_pose_adaptive_estimate_connector.cpp
   src/controller_connectors/position_controller_drone_connector.cpp
   src/controller_connectors/velocity_based_position_controller_drone_connector.cpp
   src/controller_connectors/rpyt_based_position_controller_drone_connector.cpp
@@ -359,7 +365,7 @@ add_executable(uav_system_node src/system_handler_nodes/uav_system_node.cpp)
 add_executable(uav_vision_system_node src/system_handler_nodes/uav_vision_system_node.cpp)
 add_executable(event_publish_node src/tests/event_publish_node.cpp)
 add_dependencies(event_publish_node ${PROJECT_NAME}_generate_messages_cpp)
-add_executable(qrotor_backstepping_controller_tuner src/controller_tuners/qrotor_backstepping_controller_tuner.cpp)
+#add_executable(qrotor_backstepping_controller_tuner src/controller_tuners/qrotor_backstepping_controller_tuner.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -371,7 +377,7 @@ target_link_libraries(joystick_uav_node aerial_autonomy)
 target_link_libraries(uav_system_node aerial_autonomy)
 target_link_libraries(uav_vision_system_node aerial_autonomy)
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
-target_link_libraries(qrotor_backstepping_controller_tuner aerial_autonomy)
+#target_link_libraries(qrotor_backstepping_controller_tuner aerial_autonomy)
 
 if (arm_plugins_FOUND)
   add_executable(airm_mpc_node src/system_handler_nodes/airm_mpc_node.cpp)
@@ -677,6 +683,7 @@ endif()
 if (arm_plugins_FOUND)
   catkin_add_gtest(${PROJECT_NAME}-joystick-state-machine-test tests/state_machines/joystick_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-pick-place-state-machine-test tests/state_machines/pick_place_state_machine_tests.cpp)
+  catkin_add_gtest(${PROJECT_NAME}-adaptive-state-machine-test tests/state_machines/adaptive_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-mpc-state-machine-test tests/state_machines/mpc_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-pick-place-functor-tests tests/actions_guards/pick_place_functor_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-mpc-functor-tests tests/actions_guards/mpc_functor_tests.cpp)
@@ -714,6 +721,9 @@ if (arm_plugins_FOUND)
   endif()
   if(TARGET ${PROJECT_NAME}-pick-place-state-machine-test)
     target_link_libraries(${PROJECT_NAME}-pick-place-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
+  endif()
+  if(TARGET ${PROJECT_NAME}-adaptive-state-machine-test)
+    target_link_libraries(${PROJECT_NAME}-adaptive-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
   endif()
   if(TARGET ${PROJECT_NAME}-mpc-state-machine-test)
     target_link_libraries(${PROJECT_NAME}-mpc-state-machine-test aerial_autonomy)

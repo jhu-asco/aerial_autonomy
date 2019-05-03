@@ -1,0 +1,26 @@
+syntax = "proto2";
+
+import "following_waypoint_sequence_config.proto";
+
+/**
+* @brief config for minimum snap reference trajectory
+*/
+message MinimumSnapReferenceTrajectoryConfig {
+  /**
+  * @brief Order of derivative (snap = 4)
+  */
+  optional int32 der_order = 1 [ default = 4 ];
+  /**
+  * @brief Vector of time intervals
+  */
+  repeated double tau_vec = 2;
+  /**
+  * @brief Config for the FollowingWaypointSequence state
+  */
+  optional FollowingWaypointSequenceConfig following_waypoint_sequence_config =
+      3;
+  /**
+  * @brief maximum velocity
+  */
+  optional double average_velocity = 4 [ default = 1 ];
+}

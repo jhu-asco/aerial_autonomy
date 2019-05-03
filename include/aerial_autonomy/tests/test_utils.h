@@ -162,6 +162,7 @@ struct BaseTestPubSubs {
    * Initializes event, pose publishers, and system status subscriber
    */
   BaseTestPubSubs() : nh_send_("~common"), nh_receive_status_("~common") {
+    VLOG(1) << "BaseTestPubSubs Constructor";//TAGGED
     event_pub_ = nh_send_.advertise<std_msgs::String>("event_manager", 1);
     pose_pub_ =
         nh_send_.advertise<geometry_msgs::PoseStamped>("goal_pose_command", 1);

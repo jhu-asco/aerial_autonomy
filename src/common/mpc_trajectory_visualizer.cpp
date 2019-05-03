@@ -4,6 +4,7 @@ MPCTrajectoryVisualizer::MPCTrajectoryVisualizer(MPCVisualizerConfig config)
     : nh_("mpc_visualizer"),
       visualizer_(nh_, config.parent_frame(), config.visualize_velocities()),
       config_(config) {
+    VLOG(1) << "MPC Trajectory Visualizer Constructor";//TAGGED
   gcop_trajectory_pub_ =
       nh_.advertise<gcop_comm::CtrlTraj>("control_trajectory", 1);
 }

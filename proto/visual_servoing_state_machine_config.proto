@@ -19,6 +19,7 @@ message VisualServoingStateMachineConfig {
     RPYTPose = 2;
     VelPose = 3;
     HeadingDepth = 4;
+    RPYTRefAdaptive = 5;
   }
 
   optional RelativePoseConnectorType connector_type = 3 [ default = RPYTPose ];

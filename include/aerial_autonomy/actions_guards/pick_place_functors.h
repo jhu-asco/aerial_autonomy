@@ -13,7 +13,7 @@
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/types/completed_event.h>
 #include <aerial_autonomy/types/object_id.h>
-#include <aerial_autonomy/types/polynomial_reference_trajectory.h>
+#include <aerial_autonomy/types/adaptive_polynomial_reference_trajectory.h>
 #include <aerial_autonomy/types/reset_event.h>
 #include <chrono>
 #include <glog/logging.h>
@@ -265,9 +265,11 @@ struct GoToWaypointInternalActionFunctor_
                           state.getPositionToleranceConfig());
       }
     }
+    LOG(INFO) << "Begin status check";
     // check controller status
     ControllerStatus status = robot_system.getStatus<
-        RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>();
+        RPYTRelativePoseAdaptiveEstimateConnector>();
+    LOG(INFO) << "End status check";
     int tracked_index = state.getTrackedIndex();
     if (status == ControllerStatus::Completed) {
       VLOG(1) << "Reached goal for tracked index: " << tracked_index;
@@ -289,7 +291,7 @@ struct GoToWaypointInternalActionFunctor_
       LOG(WARNING)
           << "Controller critical for "
           << typeid(
-                 RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>)
+                 RPYTBasedReferenceConnector<ParticleStateYaw, Snap>)
                  .name();
       logic_state_machine.process_event(be::Abort());
       return false;
@@ -297,12 +299,13 @@ struct GoToWaypointInternalActionFunctor_
       LOG(WARNING)
           << "Controller not engaged for "
           << typeid(
-                 RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>)
+                 RPYTBasedReferenceConnector<ParticleStateYaw, Snap>)
                  .name();
       logic_state_machine.process_event(be::Abort());
       return false;
     }
     return true;
+    LOG(INFO) << "End run";
   }
 
   /**
@@ -322,13 +325,13 @@ struct GoToWaypointInternalActionFunctor_
     tf::StampedTransform start_pose = robot_system.getPose();
     PositionYaw start_position_yaw;
     conversions::tfToPositionYaw(start_position_yaw, start_pose);
-    ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> reference(
-        new PolynomialReferenceTrajectory(way_point, start_position_yaw,
+    ReferenceTrajectoryPtr<ParticleStateYaw, Snap> reference(
+        new AdaptivePolynomialReferenceTrajectory(way_point, start_position_yaw,
                                           reference_config));
     robot_system.setReferenceControllerTolerance(goal_tolerance);
     robot_system
-        .setGoal<RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
-                 ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>(
+        .setGoal<RPYTRelativePoseAdaptiveEstimateConnector,
+                 ReferenceTrajectoryPtr<ParticleStateYaw, Snap>>(
             reference);
   }
 };
@@ -561,6 +564,12 @@ struct PickControllerStatusCheck_
           UAVVisionSystem::RPYTVisualServoingReferenceConnectorT>();
       lowlevel_status = robot_system.getStatus<
           RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>();
+      break;
+    case VisualServoingStateMachineConfig::RPYTRefAdaptive:
+      visual_servoing_status = robot_system.getStatus<
+          UAVVisionSystem::RPYTAdaptiveReferenceConnectorT>();
+      lowlevel_status = robot_system.getStatus<
+          RPYTRelativePoseAdaptiveEstimateConnector>();
       break;
     case VisualServoingStateMachineConfig::MPC:
       visual_servoing_status = robot_system.getStatus<

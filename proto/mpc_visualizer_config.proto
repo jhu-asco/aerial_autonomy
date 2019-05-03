@@ -41,4 +41,5 @@ message MPCVisualizerConfig {
   * @brief color for line strip of desired trajectory
   */
   optional Color desired_trajectory_color = 7;
+  optional double lookahead_time = 8 [ default = 10 ];
 }

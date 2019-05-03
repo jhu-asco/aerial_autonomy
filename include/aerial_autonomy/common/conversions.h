@@ -165,9 +165,25 @@ createWaypoint(PositionYaw goal, double desired_joint_angle_1,
   */
 std::shared_ptr<Waypoint<Eigen::VectorXd, Eigen::VectorXd>>
 createWaypoint(PositionYaw goal);
+
+/**
+  * @brief set a waypoint into a reference config object
+  *
+  * @param way_point repeated field in a message FollowingWaypointSequenceConfig
+  * that contains waypoints in a type PositionYaw.
+  * @param x
+  * @param y
+  * @param z
+  * @param yaw
+  */
+void setWaypoint(config::PositionYaw *way_point,
+                 const PositionYaw &position_yaw);
+
 /**
 * @brief Convert a Eigen::VectorXd to std::vector<double>
+*
 * @param vec_eigen Eigen::VectorXd
+*
 * @return std::vector<double>
 */
 std::vector<double> vectorEigenToStd(const Eigen::VectorXd &vec_eigen);

@@ -8,6 +8,7 @@
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
 #include "aerial_autonomy/controllers/quad_particle_reference_controller.h"
 #include "aerial_autonomy/controllers/quad_polynomial_reference_controller.h"
+#include "aerial_autonomy/controllers/quad_polynomial_adaptive_reference_controller.h"
 #include "aerial_autonomy/controllers/rpyt_based_relative_pose_controller.h"
 #include "aerial_autonomy/controllers/velocity_based_relative_pose_controller.h"
 #include "aerial_autonomy/estimators/acceleration_bias_estimator.h"
@@ -37,6 +38,11 @@ public:
    *
    * with dependent mpc connector
    */
+  using RPYTAdaptiveReferenceConnectorT =
+      VisualServoingReferenceConnector<
+          ParticleStateYaw, Snap,
+          RPYTRelativePoseAdaptiveEstimateConnector>;
+
   using RPYTVisualServoingReferenceConnectorT =
       VisualServoingReferenceConnector<
           Eigen::VectorXd, Eigen::VectorXd,
@@ -79,6 +85,8 @@ public:
             config_.uav_vision_system_config().particle_reference_config()),
         quad_poly_reference_generator_(
             config_.uav_vision_system_config().poly_reference_config()),
+        quad_poly_adaptive_reference_generator_(
+            config_.uav_vision_system_config().poly_reference_config()),
         visual_servoing_drone_connector_(*tracker_, *drone_hardware_,
                                          constant_heading_depth_controller_,
                                          camera_transform_),
@@ -93,6 +101,14 @@ public:
             velocity_based_relative_pose_controller_, camera_transform_,
             conversions::protoTransformToTf(config_.uav_vision_system_config()
                                                 .tracking_offset_transform())),
+        rpyt_adaptive_reference_connector_(
+            *tracker_, *drone_hardware_, quad_poly_adaptive_reference_generator_,
+            rpyt_adaptive_estimate_controller_drone_connector_, camera_transform_,
+            conversions::protoTransformToTf(
+                config_.uav_vision_system_config().tracking_offset_transform()),
+            config_.uav_vision_system_config()
+                .gain_visual_servoing_tracking_pose(),
+            odom_sensor_),
         rpyt_visual_servoing_reference_connector_(
             *tracker_, *drone_hardware_, quad_poly_reference_generator_,
             rpyt_based_reference_connector_, camera_transform_,
@@ -118,6 +134,10 @@ public:
         mpc_visual_servoing_reference_connector_);
     controller_connector_container_.setObject(
         rpyt_visual_servoing_reference_connector_);
+    controller_connector_container_.setObject(
+        rpyt_adaptive_reference_connector_);
+    controller_connector_container_.setObject(
+        rpyt_adaptive_estimate_controller_drone_connector_);
   }
 
   /**
@@ -205,6 +225,7 @@ public:
 
   void setNoisePolyReferenceController(bool flag) {
     quad_poly_reference_generator_.useNoise(flag);
+    quad_poly_adaptive_reference_generator_.useNoise(flag);
   }
 
   /**
@@ -287,6 +308,7 @@ private:
    * end
    */
   QuadPolynomialReferenceController quad_poly_reference_generator_;
+  QuadPolynomialAdaptiveReferenceController quad_poly_adaptive_reference_generator_;
   /**
    * @brief Connector for the constant heading depth controller to
    * UAV
@@ -305,6 +327,9 @@ private:
   /**
    * @brief High level visual servoing connector
    */
+  RPYTAdaptiveReferenceConnectorT
+      rpyt_adaptive_reference_connector_;
+
   RPYTVisualServoingReferenceConnectorT
       rpyt_visual_servoing_reference_connector_;
   /**

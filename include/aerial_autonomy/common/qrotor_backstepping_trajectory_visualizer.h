@@ -23,7 +23,9 @@ public:
         visualizer_(nh_, config_.parent_frame(),
                     config_.visualize_velocities()),
         points_pub_(nh_.advertise<visualization_msgs::Marker>(
-            "current_des_waypts", 5)) {}
+            "current_des_waypts", 5)) {
+    VLOG(1) << "QrotorBacksteppingTrajectoryVisualizer Constructor";//TAGGED
+}
   /**
   * @brief publish desired trajectory to rviz and rostopic
   */

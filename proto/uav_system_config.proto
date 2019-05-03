@@ -6,6 +6,8 @@ import "position_controller_config.proto";
 
 import "velocity_controller_config.proto";
 
+import "rpyt_based_relative_pose_adaptive_estimate_controller_config.proto";
+
 import "rpyt_based_position_controller_config.proto";
 
 import "joystick_velocity_controller_config.proto";
@@ -16,9 +18,9 @@ import "odom_from_pose_sensor_config.proto";
 
 import "ros_sensor_config.proto";
 
-import "quad_mpc_controller_config.proto";
-
 import "mpc_visualizer_config.proto";
+
+import "quad_mpc_controller_config.proto";
 
 import "mpc_connector_config.proto";
 
@@ -59,6 +61,9 @@ message UAVSystemConfig {
 
   optional JoystickVelocityControllerConfig
       joystick_velocity_controller_config = 12;
+
+  optional RPYTBasedRelativePoseAdaptiveEstimateControllerConfig
+      rpyt_based_relative_pose_adaptive_estimate_controller_config = 18;
   /**
   * @brief A crude form of inheritance for proto. Contains a config for
   * subclasses of UAVSystemConfig
@@ -99,17 +104,17 @@ message UAVSystemConfig {
   */
   optional bool use_mocap_sensor = 16 [ default = false ];
   /**
-  * @brief Velocity sensor config
+  * @brief Odometry sensor config
   */
   optional OdomSensorConfig odom_sensor_config = 17;
   /**
   * @brief MPC Config for quadrotor
   */
-  optional QuadMPCControllerConfig quad_mpc_controller_config = 18;
+  optional QuadMPCControllerConfig quad_mpc_controller_config = 19;
   /**
   * @brief MPC connector config
   */
-  optional MPCConnectorConfig mpc_connector_config = 19;
+  optional MPCConnectorConfig mpc_connector_config = 23;
   /**
   * @brief Visualizing MPC trajectories
   */

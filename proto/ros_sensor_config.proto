@@ -1,4 +1,5 @@
 syntax = "proto2";
+import "transform.proto";
 
 message ROSSensorConfig {
   /**
@@ -11,7 +12,8 @@ message ROSSensorConfig {
   */
   optional string topic = 3;
   /**
-  * @brief Namespace for ros nodehandle
+  * Transform to convert points from sensor frame to robot frame.
   */
-  optional string name_space = 4 [ default = "" ];
+  optional config.Transform sensor_transform = 4;
+  optional string name_space = 5 [ default = "" ];
 }

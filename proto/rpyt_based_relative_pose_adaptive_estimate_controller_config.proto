@@ -1,0 +1,28 @@
+syntax = "proto2";
+
+message RPYTBasedRelativePoseAdaptiveEstimateControllerConfig {
+  optional double km = 1;
+  optional double eps = 15;
+  optional double acc_gravity = 2 [ default = 9.81 ];
+  optional double kp_xy = 3;
+  optional double kp_z = 4;
+  optional double kd_xy = 5;
+  optional double kd_z = 6;
+  optional double tolerance_rp = 7;
+  optional double min_thrust = 8;
+  optional double max_thrust = 9;
+  optional double max_rp = 10;
+  optional double tolerance_pos = 11;
+  optional double tolerance_vel = 12;
+  optional double tolerance_acc = 13;
+  optional double mhat = 14;
+  optional double min_m = 16;
+  optional double max_dm = 17;
+  optional double tolerance_yaw = 18;
+  optional double max_acc = 19;
+  optional double max_vel = 20;
+  optional double k_yaw = 21;
+  optional double yaw_rate_max = 22;
+  optional bool use_perfect_time_diff = 23 [ default = false ];
+  optional double perfect_time_diff = 24 [ default = 0.02 ];
+}

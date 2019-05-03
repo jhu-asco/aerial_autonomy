@@ -8,7 +8,9 @@ OdomFromPoseSensor::OdomFromPoseSensor(OdomSensorConfig config)
           &OdomFromPoseSensor::poseCallback, this,
           ros::TransportHints().unreliable().reliable().tcpNoDelay())),
       velocity_filter_(config.velocity_filter_gain()), pose_initialized_(false),
-      config_(config) {}
+      config_(config) {
+    VLOG(1) << "Odom From Pose Constructor";//TAGGED
+}
 
 std::pair<tf::StampedTransform, tf::Vector3>
 OdomFromPoseSensor::getSensorData() {

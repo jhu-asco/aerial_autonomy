@@ -114,7 +114,7 @@ public:
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<usa::Hovering, PositionYaw, usa::ReachingGoal,
-                      usa::ReachingGoalSet, usa::ReachingGoalGuard>,
+                      usa::AdaptiveReachingGoalSet, usa::ReachingGoalGuard>,
             msmf::Row<usa::Hovering, VelocityYaw, usa::ExecutingVelocityGoal,
                       usa::SetVelocityGoal, usa::GuardVelocityGoal>,
             msmf::Row<usa::Hovering, be::Land, usa::Landing, usa::LandingAction,
@@ -125,6 +125,8 @@ public:
                       usa::RunningJoystickVelocityController,
                       usa::StartJoystickVelocityController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<usa::ReachingGoal, PositionYaw, usa::ReachingGoal,
+                      usa::AdaptiveReachingGoalSet, usa::ReachingGoalGuard>,
             msmf::Row<usa::ReachingGoal, be::Abort, usa::Hovering,
                       usa::UAVControllerAbort, msmf::none>,
             msmf::Row<usa::ReachingGoal, be::Land, usa::Landing,

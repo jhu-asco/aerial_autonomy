@@ -1,0 +1,4 @@
+<launch>
+  <test test-name="OdomSensorTest" pkg="aerial_autonomy" type="aerial_autonomy-odom-sensor-test">
+  </test>
+</launch>

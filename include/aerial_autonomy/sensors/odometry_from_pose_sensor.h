@@ -1,7 +1,7 @@
 #pragma once
 #include "aerial_autonomy/common/atomic.h"
 #include "aerial_autonomy/filters/exponential_filter.h"
-#include "aerial_autonomy/sensors/base_sensor.h"
+#include "aerial_autonomy/sensors/transformed_sensor.h"
 #include "odom_from_pose_sensor_config.pb.h"
 #include <ros/ros.h>
 #include <tf/tf.h>
@@ -11,7 +11,7 @@
 * \todo Gowtham Make this a generic templated ros sensor
 */
 class OdomFromPoseSensor
-    : public Sensor<std::pair<tf::StampedTransform, tf::Vector3>> {
+    : public TransformedSensor<std::pair<tf::StampedTransform, tf::Vector3>> {
 public:
   /**
   * @brief Constructor
@@ -27,6 +27,9 @@ public:
   * @return sensor measurement
   */
   std::pair<tf::StampedTransform, tf::Vector3> getSensorData();
+  std::pair<tf::StampedTransform, tf::Vector3> getTransformedSensorData() {
+    return getSensorData();
+  }
 
   /**
   * @brief Get the status of the sensor

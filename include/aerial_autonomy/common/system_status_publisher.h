@@ -27,6 +27,7 @@ public:
       : nh_(nh),
         system_status_pub_(nh.advertise<std_msgs::String>("system_status", 1)),
         robot_system_(robot_system), logic_state_machine_(logic_state_machine) {
+    VLOG(1) << "System Status Publisher Constructor";//TAGGED
   }
 
   /**

@@ -51,6 +51,7 @@ int main(int argc, char **argv) {
   google::InitGoogleLogging("mpc_control_tuning");
   ros::init(argc, argv, "mpc_control_tuning");
   ros::NodeHandle nh;
+  LOG(INFO) << "MPC Controller Tuner Main";//TAGGED
   LogConfig log_config;
   log_config.set_directory(std::string(PROJECT_SOURCE_DIR) + "/logs/data");
   auto data_stream_config = log_config.add_data_stream_configs();

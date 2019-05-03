@@ -1,0 +1,134 @@
+
+base_config {
+  state_machine_timer_duration: 20
+  status_timer_duration: 50
+}
+
+uav_system_config {
+  uav_parser_type: "dji_parser/DjiParser"
+  uav_controller_timer_duration: 20
+  use_mocap_sensor: true
+  #use_mocap_sensor: false
+  minimum_battery_percent: 20
+  minimum_takeoff_height: 0.5
+  landing_height: 0.1
+  position_controller_config {
+    goal_position_tolerance {
+      x: 0.05
+      y: 0.05
+      z: 0.05
+    }
+  }
+  velocity_controller_config {
+    goal_velocity_tolerance {
+      vx: 0.1
+      vy: 0.1
+      vz: 0.1
+    }
+  }
+
+  rpyt_based_position_controller_config {
+    velocity_based_position_controller_config {
+      position_gain: 0.7
+      yaw_gain: 0.3
+      max_velocity: 1.0
+      position_i_gain: 0.0
+      yaw_i_gain: 0.0
+      position_saturation_value: 0.0
+      yaw_saturation_value: 0.0
+      max_yaw_rate: 3.14
+
+      position_controller_config {
+        goal_position_tolerance {
+          x: 0.1
+          y: 0.1
+          z: 0.1
+        }
+      }
+    }
+
+    rpyt_based_velocity_controller_config{
+      kp_xy: 2.0
+      ki_xy: 0.1
+      kp_z: 2.0
+      ki_z: 0.0
+      kt: 0.21
+
+      min_thrust: 10
+      max_thrust: 100
+      max_rp: 1.57
+
+      velocity_controller_config{
+        goal_velocity_tolerance{
+          vx: 0.1
+          vy: 0.1
+          vz: 0.1
+        }
+      }
+    }
+  }
+
+  joystick_velocity_controller_config{
+    max_channel1: 10000
+    max_channel2: 10000
+    max_channel3: 10000
+    max_channel4: 10000
+
+    max_velocity: 1.0
+    max_yaw_rate: 3.14
+
+    rpyt_based_velocity_controller_config{
+      kp_xy: 2.0
+      ki_xy: 0.1
+      kp_z: 2.0
+      ki_z: 0.0
+      kt: 0.21
+
+      min_thrust: 10
+      max_thrust: 100
+      max_rp: 1.57
+
+      velocity_controller_config{
+        goal_velocity_tolerance{
+          vx: 0.001
+          vy: 0.001
+          vz: 0.001
+        }
+      }
+    }
+  }
+  rpyt_based_relative_pose_adaptive_estimate_controller_config{
+    km: 0.05
+    eps: 0.05
+    kp_xy: 12
+    kd_xy: 9
+    kp_z: 2
+    kd_z: 2
+    tolerance_rp: 0.1
+    min_thrust: 10
+    max_thrust: 80
+    max_rp: 0.5
+    tolerance_pos: 0.1
+    tolerance_vel: 0.1
+    tolerance_acc: 0.1
+    tolerance_yaw: 0.1
+    mhat: 5.0
+    min_m: 3.0
+    max_dm: 0.05
+    max_acc: 2.0
+    max_vel: 0.5
+    k_yaw: 1.0
+    yaw_rate_max: 1.0
+  }
+  thrust_gain_estimator_config {
+    kt: 0.18
+    buffer_size: 10
+  }
+  odom_sensor_config {
+    ros_sensor_config {
+      topic: "/vrpn_client/matrice/pose"
+    }
+    velocity_filter_gain: 0.5
+
+  }
+}

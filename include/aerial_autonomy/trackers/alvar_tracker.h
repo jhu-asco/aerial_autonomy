@@ -25,7 +25,9 @@ public:
         nh_(name_space),
         alvar_sub_(nh_.subscribe("ar_pose_marker", 1,
                                  &AlvarTracker::markerCallback, this)),
-        timeout_(timeout) {}
+        timeout_(timeout) {
+    std::cout << "Alvar Tracker Constructor";//TAGGED
+  }
   /**
    * @brief Get the tracking vectors
    * @param pos Returned tracking vectors

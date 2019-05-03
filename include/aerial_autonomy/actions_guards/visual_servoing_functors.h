@@ -5,6 +5,7 @@
 #include <aerial_autonomy/common/math.h>
 #include <aerial_autonomy/common/proto_utils.h>
 #include <aerial_autonomy/controller_connectors/relative_pose_visual_servoing_controller_drone_connector.h>
+#include <aerial_autonomy/controller_connectors/rpyt_relative_pose_adaptive_estimate_connector.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_vision_system.h>
 #include <aerial_autonomy/trackers/id_tracking_strategy.h>
@@ -87,6 +88,11 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
     case VisualServoingStateMachineConfig::RPYTPose:
       robot_system.setGoal<RPYTRelativePoseVisualServoingConnector,
                            PositionYaw>(position_yaw_goal);
+      break;
+    case VisualServoingStateMachineConfig::RPYTRefAdaptive:
+      robot_system.setGoal<
+          UAVVisionSystem::RPYTAdaptiveReferenceConnectorT, PositionYaw>(
+          position_yaw_goal);
       break;
     case VisualServoingStateMachineConfig::RPYTRef:
       robot_system.setGoal<
@@ -214,6 +220,19 @@ struct VisualServoingStatus_
       result &= ControllerStatusInternalActionFunctor_<
                     LogicStateMachineT,
                     UAVVisionSystem::RPYTVisualServoingReferenceConnectorT,
+                    false, AbortEventT>()
+                    .run(robot_system, logic_state_machine);
+      break;
+    case VisualServoingStateMachineConfig::RPYTRefAdaptive:
+      result =
+          ControllerStatusInternalActionFunctor_<
+              LogicStateMachineT,
+              RPYTRelativePoseAdaptiveEstimateConnector,
+              true, AbortEventT>()
+              .run(robot_system, logic_state_machine);
+      result &= ControllerStatusInternalActionFunctor_<
+                    LogicStateMachineT,
+                    UAVVisionSystem::RPYTAdaptiveReferenceConnectorT,
                     false, AbortEventT>()
                     .run(robot_system, logic_state_machine);
       break;

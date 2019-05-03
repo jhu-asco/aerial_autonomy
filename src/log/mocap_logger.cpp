@@ -2,6 +2,7 @@
 #include <aerial_autonomy/log/mocap_logger.h>
 
 MocapLogger::MocapLogger() : nh_("mocap_log") {
+  std::cout << "Mocap Logger Constructor";//TAGGED
   mocap_sub_ = nh_.subscribe("quad_pose_mocap", 1, &MocapLogger::logData, this);
   DATA_HEADER("mocap_logger") << "X"
                               << "Y"

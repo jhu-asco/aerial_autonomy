@@ -10,7 +10,9 @@ SimulatedROSTracker::SimulatedROSTracker(parsernode::Parser &drone_hardware,
                         &SimulatedROSTracker::targetTransformCallback, this)),
       target_point_sub_(nh_.subscribe("target_tracker_point", 1,
                                       &SimulatedROSTracker::targetPointCallback,
-                                      this)) {}
+                                      this)) {
+    std::cout << "Simulator ROS Tracker Constructor";//TAGGED
+}
 
 void SimulatedROSTracker::targetTransformCallback(
     const geometry_msgs::Transform &transform_msg) {

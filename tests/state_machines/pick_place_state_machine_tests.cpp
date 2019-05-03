@@ -268,8 +268,6 @@ public:
     Log::instance().addDataStream(data_config);
     data_config.set_stream_id("ddp_quad_mpc_controller");
     Log::instance().addDataStream(data_config);
-    data_config.set_stream_id("quad_mpc_state_estimator");
-    Log::instance().addDataStream(data_config);
   }
 
   ~PickPlaceStateMachineTests() {

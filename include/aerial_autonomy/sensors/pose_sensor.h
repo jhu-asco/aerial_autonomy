@@ -1,6 +1,9 @@
 #pragma once
 #include "aerial_autonomy/common/atomic.h"
-#include "aerial_autonomy/sensors/base_sensor.h"
+#include "aerial_autonomy/sensors/ros_sensor.h"
+#include "aerial_autonomy/sensors/transformed_sensor.h"
+#include <aerial_autonomy/common/conversions.h>
+#include <geometry_msgs/TransformStamped.h>
 #include <ros/ros.h>
 #include <tf/tf.h>
 
@@ -8,18 +11,15 @@
 * @brief Pose sensor from a ros topic
 * \todo Gowtham Make this a generic templated ros sensor
 */
-class PoseSensor : public Sensor<tf::StampedTransform> {
+class PoseSensor : public TransformedSensor<tf::StampedTransform> {
 public:
   /**
   * @brief Constructor
   *
-  * @param pose_topic ros topic name
-  * @param validity_buffer timeout for messages
-  * @param ns Name space for internal node handle
+  * @param config configuration for the sensor.
   *
   */
-  PoseSensor(std::string pose_topic, ros::Duration validity_buffer,
-             std::string ns = "~pose");
+  PoseSensor(ROSSensorConfig config);
 
   /**
   * @brief  get the latest sensor measurement
@@ -27,6 +27,13 @@ public:
   * @return sensor measurement
   */
   tf::StampedTransform getSensorData();
+  /**
+  * @brief  get the latest sensor measurement, transformed by the local
+  * transform from the config.
+  *
+  * @return sensor measurement
+  */
+  tf::StampedTransform getTransformedSensorData();
 
   /**
   * @brief Get the status of the sensor
@@ -35,16 +42,9 @@ public:
   */
   SensorStatus getSensorStatus();
 
-  /**
-  * @brief ROS callback function
-  *
-  * @param pose_input input ROS message
-  */
-  void poseCallback(const geometry_msgs::TransformStampedConstPtr &pose_input);
-
 private:
-  ros::NodeHandle nh_;                ///< Nodehandle
-  ros::Subscriber pose_sub_;          ///< ros subscriber
-  Atomic<tf::StampedTransform> pose_; ///< latest pose
-  ros::Duration validity_buffer_;     ///< timeout for messages
+  /**
+  * @brief ROS listening sensor
+  */
+  ROSSensor<geometry_msgs::TransformStamped> sensor_;
 };
