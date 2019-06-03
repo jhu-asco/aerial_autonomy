@@ -1,5 +1,6 @@
 #pragma once
 #include "aerial_autonomy/controller_connectors/base_controller_connector.h"
+#include "aerial_autonomy/estimators/thrust_gain_estimator.h"
 #include "aerial_autonomy/types/empty_goal.h"
 #include "aerial_autonomy/types/joystick.h"
 #include "aerial_autonomy/types/roll_pitch_yawrate_thrust.h"
@@ -23,9 +24,11 @@ public:
   */
   ManualRPYTControllerDroneConnector(
       parsernode::Parser &drone_hardware,
-      Controller<Joystick, EmptyGoal, RollPitchYawRateThrust> &controller)
+      Controller<Joystick, EmptyGoal, RollPitchYawRateThrust> &controller,
+      ThrustGainEstimator &thrust_gain_estimator)
       : ControllerConnector(controller, ControllerGroup::UAV),
-        drone_hardware_(drone_hardware) {}
+        drone_hardware_(drone_hardware),
+        thrust_gain_estimator_(thrust_gain_estimator) {}
 
 protected:
   /**
@@ -49,4 +52,9 @@ private:
   * @brief Quad hardware to send commands
   */
   parsernode::Parser &drone_hardware_;
+  /**
+   * @brief Estimator for finding the gain between joystick thrust command and
+   * the acceleration in body z direction
+   */
+  ThrustGainEstimator &thrust_gain_estimator_;
 };

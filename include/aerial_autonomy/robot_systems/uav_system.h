@@ -281,8 +281,8 @@ public:
             thrust_gain_estimator_),
         velocity_controller_drone_connector_(*drone_hardware_,
                                              builtin_velocity_controller_),
-        rpyt_controller_drone_connector_(*drone_hardware_,
-                                         manual_rpyt_controller_),
+        rpyt_controller_drone_connector_(
+            *drone_hardware_, manual_rpyt_controller_, thrust_gain_estimator_),
         joystick_velocity_controller_drone_connector_(
             *drone_hardware_, joystick_velocity_controller_,
             thrust_gain_estimator_),
