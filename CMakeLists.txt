@@ -15,7 +15,6 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   sensor_msgs
   parsernode
-  class_loader
   pluginlib
   rostest
   tf_conversions
@@ -39,7 +38,7 @@ endif ()
 include(cmake/add_event_function.cmake)
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system)
-find_package(Protobuf 3.1 REQUIRED)
+find_package(Protobuf 3.6 REQUIRED)
 find_package(Glog REQUIRED)
 find_package(Armadillo REQUIRED)
 

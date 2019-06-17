@@ -45,7 +45,6 @@
   <build_depend>sensor_msgs</build_depend>
   <build_depend>geometry_msgs</build_depend>
   <build_depend>rqt_gui_py</build_depend>
-  <build_depend>class_loader</build_depend>
   <build_depend>pluginlib</build_depend>
   <build_depend>parsernode</build_depend>
   <build_depend>rostest</build_depend>
@@ -66,7 +65,6 @@
   <run_depend>geometry_msgs</run_depend>
   <run_depend version_gte="0.2.12">rqt_gui</run_depend>
   <run_depend>rqt_gui_py</run_depend>
-  <run_depend>class_loader</run_depend>
   <run_depend>pluginlib</run_depend>
   <run_depend>parsernode</run_depend>
   <run_depend>rostest</run_depend>
