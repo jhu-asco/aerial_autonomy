@@ -11,10 +11,9 @@ base_config {
 uav_system_config {
   uav_controller_timer_duration: 20
   uav_parser_type: "tf_parser/TFParser"
-  #uav_parser_type: "quad_simulator_parser/QuadSimParser"
   use_mocap_sensor: false
   minimum_battery_percent: 25
-  minimum_takeoff_height: 0.8
+  minimum_takeoff_height: 0.5
   landing_height: 0.1
 
   position_controller_config {
@@ -37,7 +36,7 @@ uav_system_config {
     use_perfect_time_diff: false
   }
   quad_mpc_controller_config {
-    default_thrust_gain: 0.16
+    default_thrust_gain: 1.0
     ddp_config {
       # State cost
       # XYZ
@@ -142,10 +141,10 @@ uav_system_config {
       kp_z: 7.0
       ki_xy: 0.5
       ki_z: 0.0
-      kt: 0.21
+      kt: 1.0
 
-      min_thrust: 10
-      max_thrust: 100
+      min_thrust: 8
+      max_thrust: 12
       max_rp: 1.57
       max_acc_norm: 1.0
 
@@ -160,13 +159,15 @@ uav_system_config {
   }
 
   thrust_gain_estimator_config {
-    kt: 0.18
+    kt: 1.0
+    kt_max: 1.01
+    kt_min: 0.99
     buffer_size: 10
     mixing_gain: 0.2
     max_roll_pitch_bias: 0.025
     rp_mixing_gain: 0.01
-    init_roll_bias: 0.005
-    init_pitch_bias: -0.015
+    init_roll_bias: 0.00
+    init_pitch_bias: 0.0
   }
   odom_sensor_config {
     ros_sensor_config {
@@ -192,6 +193,8 @@ uav_system_config {
   }
   rpyt_reference_connector_config {
     velocity_exp_gain: 0.9
+    use_perfect_time_diff: true
+    perfect_time_diff: 0.02
   }
   uav_vision_system_config {
     tracker_type: "Simulated"
@@ -349,7 +352,7 @@ uav_system_config {
         arm_parser_type: "ArmSimulator"
       }
       mpc_controller_config {
-        default_thrust_gain: 0.16
+        default_thrust_gain: 1.0
         ddp_config {
           # State cost
           # XYZ

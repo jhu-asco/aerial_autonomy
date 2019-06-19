@@ -1,8 +1,10 @@
 #include "aerial_autonomy/common/math.h"
 #include "aerial_autonomy/common/conversions.h"
 
+#include <Eigen/Dense>
 #include <algorithm>
 #include <armadillo>
+
 /**
 * @brief Math namespace to separate math functions from
 * system functions if exist
@@ -37,6 +39,14 @@ Eigen::Matrix3d hat(const Eigen::Vector3d &v) {
   Eigen::Matrix3d v_hat;
   v_hat << 0, -v.z(), v.y(), v.z(), 0, -v.x(), -v.y(), v.x(), 0;
   return v_hat;
+}
+
+Eigen::Quaterniond rpyToQuat(double r, double p, double y) {
+  Eigen::Quaterniond q;
+  q = Eigen::AngleAxisd(y, Eigen::Vector3d::UnitZ()) *
+      Eigen::AngleAxisd(p, Eigen::Vector3d::UnitY()) *
+      Eigen::AngleAxisd(r, Eigen::Vector3d::UnitX());
+  return q;
 }
 
 Eigen::MatrixXd sylvester(const Eigen::MatrixXd &A, const Eigen::MatrixXd &B,

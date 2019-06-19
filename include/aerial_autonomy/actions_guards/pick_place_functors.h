@@ -197,17 +197,15 @@ struct ArmPoseTransitionActionFunctor_
     VLOG(1) << "Setting goal pose for arm!";
     config::Transform goal;
     if (pickPlaceFlag) {
-      goal =
-          this->state_machine_config_.visual_servoing_state_machine_config()
-              .pick_place_state_machine_config()
-              .arm_goal_transform()
-              .Get(TransformIndex);
+      goal = this->state_machine_config_.visual_servoing_state_machine_config()
+                 .pick_place_state_machine_config()
+                 .arm_goal_transform()
+                 .Get(TransformIndex);
     } else {
-      goal =
-          this->state_machine_config_.visual_servoing_state_machine_config()
-              .sensor_place_state_machine_config()
-              .arm_goal_transform()
-              .Get(TransformIndex);
+      goal = this->state_machine_config_.visual_servoing_state_machine_config()
+                 .sensor_place_state_machine_config()
+                 .arm_goal_transform()
+                 .Get(TransformIndex);
     }
     robot_system.setGoal<BuiltInPoseControllerArmConnector, tf::Transform>(
         conversions::protoTransformToTf(goal));

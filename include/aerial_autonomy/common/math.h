@@ -53,6 +53,15 @@ double map(double input, double input_min, double input_max, double output_min,
 Eigen::Matrix3d hat(const Eigen::Vector3d &v);
 
 /**
+ * @brief Convert roll pitch and yaw to a quaternion
+ * @param r Roll
+ * @param p Pitch
+ * @param y Yaw
+ * @return Quaternion representation
+ */
+Eigen::Quaterniond rpyToQuat(double r, double p, double y);
+
+/**
   * @brief Solve the Sylvester equation AX + XB + C = 0
   * @param A A
   * @param B B

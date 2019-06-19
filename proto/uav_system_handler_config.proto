@@ -26,4 +26,8 @@ message UAVSystemHandlerConfig {
   * @brief Timestep in milliseconds for mpc visualization
   */
   optional int32 mpc_visualization_timer_duration = 6 [ default = 50 ];
+  /**
+  * @brief Timestep in milliseconds for state publisher
+  */
+  optional int32 state_publisher_timer_duration = 7 [ default = 50 ];
 }
