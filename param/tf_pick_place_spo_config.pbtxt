@@ -1,15 +1,15 @@
 mpc_visualization_timer_duration: 50
 uav_arm_system_handler_config {
-  arm_controller_timer_duration: 50
+  arm_controller_timer_duration: 5
 }
 
 base_config {
-  state_machine_timer_duration: 20
-  status_timer_duration: 50
+  state_machine_timer_duration: 4
+  status_timer_duration: 10
 }
 
 uav_system_config {
-  uav_controller_timer_duration: 20
+  uav_controller_timer_duration: 5
   uav_parser_type: "tf_parser/TFParser"
   use_mocap_sensor: false
   minimum_battery_percent: 25
@@ -33,7 +33,7 @@ uav_system_config {
   mpc_connector_config {
     velocity_exp_gain: 0.9
     rpydot_gain: 0.9
-    use_perfect_time_diff: false
+    use_perfect_time_diff: true
   }
   quad_mpc_controller_config {
     default_thrust_gain: 1.0
@@ -116,8 +116,8 @@ uav_system_config {
   }
   rpyt_based_position_controller_config {
     velocity_based_position_controller_config {
-      position_gain: 0.18
-      z_gain: 0.25
+      position_gain: 2.0
+      z_gain: 1.0
       yaw_gain: 0.8
       max_velocity: 1.0
       position_i_gain: 0.0
@@ -137,9 +137,9 @@ uav_system_config {
     }
 
     rpyt_based_velocity_controller_config{
-      kp_xy: 0.8
-      kp_z: 0.5
-      ki_xy: 0.05
+      kp_xy: 5.0
+      kp_z: 7.0
+      ki_xy: 0.5
       ki_z: 0.0
       kt: 1.0
 
@@ -193,7 +193,7 @@ uav_system_config {
   }
   rpyt_reference_connector_config {
     velocity_exp_gain: 0.9
-    use_perfect_time_diff: false
+    use_perfect_time_diff: true
     perfect_time_diff: 0.02
   }
   uav_vision_system_config {

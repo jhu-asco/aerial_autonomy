@@ -28,7 +28,29 @@ public:
       : ControllerConnector(controller, ControllerGroup::UAV),
         drone_hardware_(drone_hardware),
         thrust_gain_estimator_(thrust_gain_estimator),
-        private_reference_controller_(controller) {}
+        private_reference_controller_(controller) {
+    DATA_HEADER("rpyt_based_position_controller_drone_connector")
+        << "x"
+        << "y"
+        << "z"
+        << "vx"
+        << "vy"
+        << "vz"
+        << "r"
+        << "p"
+        << "y"
+        << "goal_x"
+        << "goal_y"
+        << "goal_z"
+        << "r_cmd"
+        << "p_cmd"
+        << "t_cmd"
+        << "r_bias"
+        << "p_bias"
+        << "ax"
+        << "ay"
+        << "az" << DataStream::endl;
+  }
   /**
    * @brief set goal to controller and clear estimator buffer
    *

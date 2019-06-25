@@ -20,6 +20,9 @@ bool RPYTBasedPositionControllerDroneConnector::extractSensorData(
 
 void RPYTBasedPositionControllerDroneConnector::sendControllerCommands(
     RollPitchYawRateThrust controls) {
+  parsernode::common::quaddata data;
+  drone_hardware_.getquaddata(data);
+
   geometry_msgs::Quaternion rpyt_msg;
   Eigen::Vector2d roll_pitch_bias = thrust_gain_estimator_.getRollPitchBias();
   rpyt_msg.x = controls.r - roll_pitch_bias[0];
@@ -28,6 +31,14 @@ void RPYTBasedPositionControllerDroneConnector::sendControllerCommands(
   rpyt_msg.w = controls.t;
   thrust_gain_estimator_.addThrustCommand(controls.t);
   drone_hardware_.cmdrpyawratethrust(rpyt_msg);
+
+  DATA_LOG("rpyt_based_position_controller_drone_connector")
+      << data.localpos.x << data.localpos.y << data.localpos.z << data.linvel.x
+      << data.linvel.y << data.linvel.z << data.rpydata.x << data.rpydata.y
+      << data.rpydata.z << this->getGoal().x << this->getGoal().y
+      << this->getGoal().z << rpyt_msg.x << rpyt_msg.y << rpyt_msg.w
+      << roll_pitch_bias[0] << roll_pitch_bias[1] << data.linacc.x
+      << data.linacc.y << data.linacc.z << DataStream::endl;
 }
 
 void RPYTBasedPositionControllerDroneConnector::setGoal(PositionYaw goal) {

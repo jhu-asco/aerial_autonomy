@@ -70,7 +70,7 @@ bool RPYTBasedVelocityController::runImplementation(
       << velocity_yawrate.x << velocity_yawrate.y << velocity_yawrate.z
       << velocity_yawrate.yaw_rate << goal.x << goal.y << goal.z
       << goal.yaw_rate << world_acc[0] << world_acc[1] << world_acc[2]
-      << DataStream::endl;
+      << control.r << control.p << control.t << DataStream::endl;
   ///\todo  Add cumulative error to yaw rate (integrator)
   return true;
 }

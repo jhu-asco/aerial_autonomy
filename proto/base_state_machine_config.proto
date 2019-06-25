@@ -10,5 +10,11 @@ message BaseStateMachineConfig {
     VisualServoingStateMachineConfig visual_servoing_state_machine_config = 2;
     MPCStateMachineConfig mpc_state_machine_config = 3;
   }
+
+  enum PositionControlConnectorType {
+    RPYTRef = 0;
+    RPYTPose = 1;
+  }
   optional PolynomialReferenceConfig poly_reference_config = 4;
+  optional PositionControlConnectorType position_control_connector_type = 5 [ default = RPYTRef ];
 }

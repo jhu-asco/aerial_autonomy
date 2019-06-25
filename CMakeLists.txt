@@ -276,7 +276,7 @@ set(SRC
   src/common/string_utils.cpp
   src/common/system_handler_node_utils.cpp
   src/common/mpc_trajectory_visualizer.cpp
-  src/common/uav_state_publisher.cpp
+  src/common/uav_ros_handle.cpp
   src/log/data_stream.cpp
   src/log/log.cpp
   src/log/mocap_logger.cpp

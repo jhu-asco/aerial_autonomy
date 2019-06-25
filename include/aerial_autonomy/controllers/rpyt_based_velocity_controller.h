@@ -51,6 +51,9 @@ public:
                                                   << "World_acc_x"
                                                   << "World_acc_y"
                                                   << "World_acc_z"
+                                                  << "roll_cmd"
+                                                  << "pitch_cmd"
+                                                  << "thrust_cmd"
                                                   << DataStream::endl;
   }
   /**

@@ -4,13 +4,13 @@
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/TwistStamped.h>
 
-
 #include "rpyt_based_position_controller_config.pb.h"
 
 UAVRosHandle::UAVRosHandle(UAVSystem &uav_system)
     : nh_("~uav_state"), uav_system_(uav_system),
-      ref_controller_config_sub_(nh_.subscribe("ref_controller_config", 1,
-          &UAVRosHandle::refControllerConfigCallback, this)),
+      ref_controller_config_sub_(
+          nh_.subscribe("ref_controller_config", 1,
+                        &UAVRosHandle::refControllerConfigCallback, this)),
       pose_pub_(nh_.advertise<geometry_msgs::PoseStamped>("pose", 1)),
       twist_pub_(nh_.advertise<geometry_msgs::TwistStamped>("twist", 1)) {}
 
@@ -21,7 +21,8 @@ void UAVRosHandle::publish() {
   publishTwist(data);
 }
 
-void UAVRosHandle::refControllerConfigCallback(std_msgs::Float32MultiArray message) {
+void UAVRosHandle::refControllerConfigCallback(
+    std_msgs::Float32MultiArray message) {
   auto config = uav_system_.getReferenceControllerConfig();
   auto velocity_config = config.mutable_rpyt_based_velocity_controller_config();
   auto velocity_position_config =
@@ -32,7 +33,7 @@ void UAVRosHandle::refControllerConfigCallback(std_msgs::Float32MultiArray messa
   velocity_config->set_kp_xy(message.data[2]);
   velocity_config->set_kp_z(message.data[3]);
 
-  uav_system_.setReferenceControllerConfig(config); 
+  uav_system_.setReferenceControllerConfig(config);
 }
 
 void UAVRosHandle::publishPose(const parsernode::common::quaddata &data) {

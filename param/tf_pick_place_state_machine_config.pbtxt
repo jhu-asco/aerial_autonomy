@@ -125,7 +125,7 @@ visual_servoing_state_machine_config {
       }
       poly_reference_config {
         min_tf: 4.0
-        max_velocity: 0.3
+        max_velocity: 1.0
       }
       position_controller_config {
         goal_position_tolerance {
@@ -141,6 +141,7 @@ visual_servoing_state_machine_config {
   connector_type: RPYTRef
 }
 poly_reference_config {
-  max_velocity: 0.3
+  max_velocity: 1.0
   min_tf: 4.0
 }
+position_control_connector_type: RPYTRef

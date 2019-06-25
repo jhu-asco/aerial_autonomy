@@ -22,18 +22,70 @@ template <class LogicStateMachineT>
 struct PositionControlTransitionActionFunctor_
     : ActionFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
   void run(const PositionYaw &goal, UAVSystem &robot_system) {
-    tf::StampedTransform start_pose = robot_system.getPose();
-    auto &reference_config =
-        this->state_machine_config_.poly_reference_config();
-    PositionYaw start_position_yaw;
-    conversions::tfToPositionYaw(start_position_yaw, start_pose);
-    ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> reference(
-        new PolynomialReferenceTrajectory(goal, start_position_yaw,
-                                          reference_config));
-    robot_system
-        .setGoal<RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
-                 ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>(
-            reference);
+    auto connector_type =
+        this->state_machine_config_.position_control_connector_type();
+    switch (connector_type) {
+    case BaseStateMachineConfig::RPYTRef: {
+      tf::StampedTransform start_pose = robot_system.getPose();
+      auto &reference_config =
+          this->state_machine_config_.poly_reference_config();
+      PositionYaw start_position_yaw;
+      conversions::tfToPositionYaw(start_position_yaw, start_pose);
+      ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> reference(
+          new PolynomialReferenceTrajectory(goal, start_position_yaw,
+                                            reference_config));
+      robot_system.setGoal<
+          RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
+          ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>(reference);
+    } break;
+    case BaseStateMachineConfig::RPYTPose:
+      robot_system.setGoal<RPYTBasedPositionControllerDroneConnector,
+                           PositionYaw>(goal);
+    default:
+      LOG(WARNING) << "Unknown position control connector";
+      break;
+    }
+  }
+};
+
+/**
+* @brief Internal action to position controller status
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+* @tparam AbortEventT Event type to trigger when controller is critical
+* @tparam CompleteFlagT If true, send Completed event when controller has
+* converged
+*/
+template <class LogicStateMachineT, class AbortEventT = be::Abort,
+          bool CompleteFlagT = true>
+struct PositionControlStatus_
+    : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
+  bool run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
+    // Check config for which connector to use
+    auto connector_type = logic_state_machine.base_state_machine_config_
+                              .position_control_connector_type();
+    bool result = false;
+    switch (connector_type) {
+    case BaseStateMachineConfig::RPYTRef:
+      result =
+          ControllerStatusInternalActionFunctor_<
+              LogicStateMachineT,
+              RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
+              CompleteFlagT, AbortEventT>()
+              .run(robot_system, logic_state_machine);
+      break;
+    case BaseStateMachineConfig::RPYTPose:
+      result =
+          ControllerStatusInternalActionFunctor_<
+              LogicStateMachineT, RPYTBasedPositionControllerDroneConnector,
+              CompleteFlagT, AbortEventT>()
+              .run(robot_system, logic_state_machine);
+      break;
+    default:
+      LOG(WARNING) << "Unknown position controller type";
+      break;
+    }
+    return result;
   }
 };
 
@@ -168,11 +220,9 @@ struct ZeroVelocityGuardFunctor_
  */
 template <class LogicStateMachineT>
 using PositionControlInternalActionFunctor_ =
-    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
-        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-        ControllerStatusInternalActionFunctor_<
-            LogicStateMachineT,
-            RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>>>;
+    boost::msm::front::ShortingActionSequence_<
+        boost::mpl::vector<UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+                           PositionControlStatus_<LogicStateMachineT>>>;
 
 /**
 * @brief State that uses position control functor to reach a desired goal.
