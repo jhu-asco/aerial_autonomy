@@ -4,7 +4,7 @@
 
 #include <aerial_autonomy/VelocityBasedPositionControllerDynamicConfig.h>
 #include <aerial_autonomy/actions_guards/base_functors.h>
-#include <aerial_autonomy/common/uav_state_publisher.h>
+#include <aerial_autonomy/common/uav_ros_handle.h>
 #include <aerial_autonomy/log/mocap_logger.h>
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/system_handlers/common_system_handler.h>
@@ -31,8 +31,7 @@ public:
    */
   UAVArmSystemHandler(UAVSystemHandlerConfig &config,
                       const BaseStateMachineConfig &state_machine_config)
-      : uav_system_(config.uav_system_config()),
-        uav_state_publisher_(uav_system_),
+      : uav_system_(config.uav_system_config()), uav_ros_handle_(uav_system_),
         common_handler_(config.base_config(), uav_system_,
                         state_machine_config),
         uav_controller_timer_(
@@ -57,10 +56,10 @@ public:
                       std::ref(this->uav_system_)),
             std::chrono::milliseconds(
                 config.mpc_visualization_timer_duration())),
-        state_publisher_timer_(std::bind(&UAVStatePublisher::publish,
-                                         std::ref(this->uav_state_publisher_)),
-                               std::chrono::milliseconds(
-                                   config.state_publisher_timer_duration())) {
+        state_publisher_timer_(
+            std::bind(&UAVRosHandle::publish, std::ref(this->uav_ros_handle_)),
+            std::chrono::milliseconds(
+                config.state_publisher_timer_duration())) {
 
     // Get the party started
     common_handler_.startTimers();
@@ -96,7 +95,7 @@ protected:
   UAVArmSystem uav_system_; ///< Contains controllers
 
 private:
-  UAVStatePublisher uav_state_publisher_;
+  UAVRosHandle uav_ros_handle_;
   CommonSystemHandler<LogicStateMachineT, EventManagerT, UAVArmSystem>
       common_handler_;              ///< Common logic to create state machine
                                     ///< and associated connections.

@@ -44,6 +44,16 @@ public:
                                              << "Cmd_thrust" << DataStream::endl;
     // clang format on
   }
+  
+  void setConfig(const RPYTBasedPositionControllerConfig& config) {
+    config_ = config;
+    LOG(INFO) << "Set new RPYTBasedReferenceController config";
+  }
+
+  RPYTBasedPositionControllerConfig getConfig() {
+    return config_;
+  }
+
   void setPositionTolerance(PositionControllerConfig position_controller_config) {
     LOG(INFO)<<"Setting new position tolerance";
     position_controller_config_ = position_controller_config;
@@ -51,7 +61,7 @@ public:
 
   void resetPositionTolerance() {
     LOG(INFO)<<"Resetting position tolerance";
-    position_controller_config_ = config_.velocity_based_position_controller_config().position_controller_config();
+    position_controller_config_ = config_.get().velocity_based_position_controller_config().position_controller_config();
   }
 
 
@@ -103,9 +113,10 @@ protected:
         (Velocity)simplified_goal.first - current_velocity;
     Eigen::Vector3d desired_acceleration;
     // get gains
-    auto &velocity_config = config_.rpyt_based_velocity_controller_config();
+    RPYTBasedPositionControllerConfig config = config_;
+    auto &velocity_config = config.rpyt_based_velocity_controller_config();
     auto &velocity_position_config =
-        config_.velocity_based_position_controller_config();
+        config.velocity_based_position_controller_config();
     desired_acceleration[0] =
         velocity_position_config.position_gain() * error_position_yaw.x +
         velocity_config.kp_xy() * error_velocity.x;
@@ -166,7 +177,7 @@ protected:
     Velocity error_velocity =
         (Velocity)simplified_goal.first - current_velocity;
     // Check position and goal tolerance
-    auto &velocity_config = config_.rpyt_based_velocity_controller_config();
+    auto &velocity_config = config_.get().rpyt_based_velocity_controller_config();
     //auto &velocity_position_config =
     //    config_.velocity_based_position_controller_config();
     //auto &position_controller_config =
@@ -194,7 +205,7 @@ protected:
   }
 
 private:
-  RPYTBasedPositionControllerConfig config_; ///< Gains for reference tracking
+  Atomic<RPYTBasedPositionControllerConfig> config_; ///< Gains for reference tracking
   Atomic<PositionControllerConfig> position_controller_config_;/// position controller config
 };
 

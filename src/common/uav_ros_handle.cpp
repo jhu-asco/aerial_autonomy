@@ -1,22 +1,41 @@
+#include "aerial_autonomy/common/uav_ros_handle.h"
+#include "aerial_autonomy/common/math.h"
+
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/TwistStamped.h>
 
-#include "aerial_autonomy/common/math.h"
-#include "aerial_autonomy/common/uav_state_publisher.h"
 
-UAVStatePublisher::UAVStatePublisher(UAVSystem &uav_system)
+#include "rpyt_based_position_controller_config.pb.h"
+
+UAVRosHandle::UAVRosHandle(UAVSystem &uav_system)
     : nh_("~uav_state"), uav_system_(uav_system),
+      ref_controller_config_sub_(nh_.subscribe("ref_controller_config", 1,
+          &UAVRosHandle::refControllerConfigCallback, this)),
       pose_pub_(nh_.advertise<geometry_msgs::PoseStamped>("pose", 1)),
       twist_pub_(nh_.advertise<geometry_msgs::TwistStamped>("twist", 1)) {}
 
-void UAVStatePublisher::publish() {
+void UAVRosHandle::publish() {
   auto data = uav_system_.getUAVData();
 
   publishPose(data);
   publishTwist(data);
 }
 
-void UAVStatePublisher::publishPose(const parsernode::common::quaddata &data) {
+void UAVRosHandle::refControllerConfigCallback(std_msgs::Float32MultiArray message) {
+  auto config = uav_system_.getReferenceControllerConfig();
+  auto velocity_config = config.mutable_rpyt_based_velocity_controller_config();
+  auto velocity_position_config =
+      config.mutable_velocity_based_position_controller_config();
+
+  velocity_position_config->set_position_gain(message.data[0]);
+  velocity_position_config->set_z_gain(message.data[1]);
+  velocity_config->set_kp_xy(message.data[2]);
+  velocity_config->set_kp_z(message.data[3]);
+
+  uav_system_.setReferenceControllerConfig(config); 
+}
+
+void UAVRosHandle::publishPose(const parsernode::common::quaddata &data) {
   auto q = math::rpyToQuat(data.rpydata.x, data.rpydata.y, data.rpydata.z);
 
   geometry_msgs::PoseStamped pose;
@@ -35,7 +54,7 @@ void UAVStatePublisher::publishPose(const parsernode::common::quaddata &data) {
   pose_pub_.publish(pose);
 }
 
-void UAVStatePublisher::publishTwist(const parsernode::common::quaddata &data) {
+void UAVRosHandle::publishTwist(const parsernode::common::quaddata &data) {
   geometry_msgs::TwistStamped twist;
   twist.header.stamp = ros::Time::now();
   twist.header.frame_id = "world";
