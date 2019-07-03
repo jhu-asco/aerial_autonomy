@@ -1,4 +1,6 @@
 #include "aerial_autonomy/sensors/odometry_from_pose_sensor.h"
+#include "aerial_autonomy/common/conversions.h"
+#include "aerial_autonomy/log/log.h"
 #include <glog/logging.h>
 
 OdomFromPoseSensor::OdomFromPoseSensor(OdomSensorConfig config)
@@ -8,7 +10,17 @@ OdomFromPoseSensor::OdomFromPoseSensor(OdomSensorConfig config)
           &OdomFromPoseSensor::poseCallback, this,
           ros::TransportHints().unreliable().reliable().tcpNoDelay())),
       velocity_filter_(config.velocity_filter_gain()), pose_initialized_(false),
-      config_(config) {}
+      config_(config) {
+  DATA_HEADER("odometry_from_pose_sensor") << "pos_x"
+                                           << "pos_y"
+                                           << "pos_z"
+                                           << "vel_x"
+                                           << "vel_y"
+                                           << "vel_z"
+                                           << "roll"
+                                           << "pitch"
+                                           << "yaw";
+}
 
 std::pair<tf::StampedTransform, tf::Vector3>
 OdomFromPoseSensor::getSensorData() {
@@ -37,6 +49,12 @@ void OdomFromPoseSensor::poseCallback(
     pose_initialized_ = true;
   }
   pose_ = pose_out;
+  auto trans = pose_out.getOrigin();
+  auto rpy = conversions::transformTfToRPY(pose_out);
+  DATA_LOG("odometry_from_pose_sensor")
+      << trans.x() << trans.y() << trans.z() << velocity_.get().x()
+      << velocity_.get().y() << velocity_.get().z() << rpy.x() << rpy.y()
+      << rpy.z() << DataStream::endl;
 }
 
 SensorStatus OdomFromPoseSensor::getSensorStatus() {

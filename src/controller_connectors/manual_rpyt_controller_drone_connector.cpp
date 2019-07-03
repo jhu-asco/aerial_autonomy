@@ -6,6 +6,10 @@ bool ManualRPYTControllerDroneConnector::extractSensorData(
   drone_hardware_.getquaddata(quad_data);
   sensor_data = Joystick(quad_data.servo_in[0], quad_data.servo_in[1],
                          quad_data.servo_in[2], quad_data.servo_in[3]);
+  tf::Vector3 body_acc(quad_data.linacc.x, quad_data.linacc.y,
+                       quad_data.linacc.z);
+  thrust_gain_estimator_.addSensorData(quad_data.rpydata.x, quad_data.rpydata.y,
+                                       body_acc);
   return true;
 }
 
@@ -16,5 +20,6 @@ void ManualRPYTControllerDroneConnector::sendControllerCommands(
   rpyt_command.y = controls.p;
   rpyt_command.z = controls.y;
   rpyt_command.w = controls.t;
+  thrust_gain_estimator_.addThrustCommand(controls.t);
   drone_hardware_.cmdrpyawratethrust(rpyt_command);
 }
