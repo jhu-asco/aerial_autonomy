@@ -2,11 +2,11 @@ visual_servoing_state_machine_config {
   # Pick
   relative_pose_goals {
     position {
-      x: 0.03
-      y: -.68
-      z: 0.28
+      x: 0.0
+      y: 0.0
+      z: 0.0
     }
-    yaw: 1.5708
+    yaw: 0
   }
 
   # Place
@@ -22,11 +22,11 @@ visual_servoing_state_machine_config {
   # Prepick
   relative_pose_goals {
     position {
-      x: 0.03
-      y: -.865
-      z: 0.325
+      x: 0.0
+      y: 0.0
+      z: 0.0
     }
-    yaw: 1.5708
+    yaw: 0
   }
 
   # PrePlace

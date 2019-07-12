@@ -23,6 +23,8 @@ void UAVRosHandle::publish() {
 
 void UAVRosHandle::refControllerConfigCallback(
     std_msgs::Float32MultiArray message) {
+  CHECK(message.data.size() == 6)
+      << "Reference controller config message must have array of size 6";
   auto config = uav_system_.getReferenceControllerConfig();
   auto velocity_config = config.mutable_rpyt_based_velocity_controller_config();
   auto velocity_position_config =
@@ -32,6 +34,8 @@ void UAVRosHandle::refControllerConfigCallback(
   velocity_position_config->set_z_gain(message.data[1]);
   velocity_config->set_kp_xy(message.data[2]);
   velocity_config->set_kp_z(message.data[3]);
+  velocity_config->set_ki_xy(message.data[4]);
+  velocity_config->set_ki_z(message.data[5]);
 
   uav_system_.setReferenceControllerConfig(config);
 }

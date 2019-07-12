@@ -44,13 +44,16 @@ public:
             std::bind(
                 &SystemStatusPublisher<LogicStateMachineT>::publishSystemStatus,
                 std::ref(system_status_pub_)),
-            std::chrono::milliseconds(config.status_timer_duration())),
+            config.timer_multiplier() *
+                std::chrono::milliseconds(config.status_timer_duration())),
         logic_state_machine_timer_(
             std::bind(&LogicStateMachineT::template process_event<
                           InternalTransitionEvent>,
                       std::ref(logic_state_machine_),
                       InternalTransitionEvent()),
-            std::chrono::milliseconds(config.state_machine_timer_duration())) {}
+            config.timer_multiplier() *
+                std::chrono::milliseconds(
+                    config.state_machine_timer_duration())) {}
 
   /**
   * @brief Delete copy constructor

@@ -10,4 +10,8 @@ message CommonSystemHandlerConfig {
   * @brief Timestep in milliseconds for timer which runs system status update
   */
   optional int32 status_timer_duration = 5 [ default = 50 ];
+  /**
+  * @brief Timer duration multiplier for speeding up simulation
+  */
+  optional float timer_multiplier = 2 [ default = 1.0 ];
 }
