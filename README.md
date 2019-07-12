@@ -37,7 +37,7 @@ Install googletest `release 1.8.0`. This version fixes a bug with `ASSERT_TRUE` 
 
 Run the following in your ROS workspace src folder to setup UAV hardware drivers
 
-    git clone -b hydro-devel https://git.lcsr.jhu.edu/ggarime1/rqt_quadcopter_parsers.git
+    git clone -b hydro-devel https://github.com/jhu-asco/quadcopter_parsers.git
     git clone -b 3.2.3 https://github.com/jhu-asco/Onboard-SDK-ROS.git
 
 ### Optional: Manipulator packages
