@@ -40,6 +40,10 @@ Run the following in your ROS workspace src folder to setup UAV hardware drivers
     git clone -b hydro-devel https://github.com/jhu-asco/quadcopter_parsers.git
     git clone -b 3.2.3 https://github.com/jhu-asco/Onboard-SDK-ROS.git
 
+Install gcop_comm for trajectory visualization (other packages in the repo can be ignored)
+
+    git clone -b hydro-devel https://github.com/jhu-asco/gcop_ros_packages.git
+
 ### Optional: Manipulator packages
 Optionally, to install drivers related to aerial manipulation, run the following in your ROS src folder
 
