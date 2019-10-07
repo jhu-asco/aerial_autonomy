@@ -9,7 +9,7 @@ Run the setup script in scripts/setup/setup.sh to configure Git hooks.
 
 Install the following dependencies (lcov, protobuf, doxygen, doxypy, coverxygen, google-glog, class-loader). On Ubuntu 14.04 run the following line in a terminal (replacing indigo with your ROS version)
 
-    sudo apt-get install lcov protobuf-compiler libprotobuf-dev doxygen doxypy libgoogle-glog-dev ros-indigo-class-loader ros-indigo-ar-track-alvar-msgs autoconf
+    sudo apt-get install lcov protobuf-compiler libprotobuf-dev doxygen doxypy libgoogle-glog-dev ros-indigo-class-loader ros-indigo-ar-track-alvar-msgs autoconf python-pip ros-indigo-serial ros-indigo-map-server libarmadillo-dev
     sudo pip install coverxygen
 
 Install protobuf 3.1:
@@ -51,7 +51,7 @@ Optionally, to install drivers related to aerial manipulation, run the following
     git clone https://git.lcsr.jhu.edu/ggarime1/controllers.git
     git clone https://git.lcsr.jhu.edu/ggarime1/dynamixelsdk.git
 
-Install our GCOP (Geometric Control, Optimization, and Planning) package
+Install our GCOP (Geometric Control, Optimization, and Planning) package. Build with support for casadi (USE_CASADI) and follow instructions in GCOP README for versions of dependencies.
 
     git clone https://github.com/jhu-asco/gcop.git
     cd gcop
