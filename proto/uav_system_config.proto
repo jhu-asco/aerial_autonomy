@@ -97,7 +97,13 @@ message UAVSystemConfig {
   /**
   * @brief If to use mocap ros sensor for pose sensor
   */
-  optional bool use_mocap_sensor = 16 [ default = false ];
+  //optional bool use_mocap_sensor = 16 [ default = false ];
+  enum OdomSensorType {
+      GUIDANCE = 1;
+      MOCAP = 2;
+      T265 = 3; 
+  }
+  optional OdomSensorType odom_sensor_type = 16 [default = GUIDANCE];
   /**
   * @brief Velocity sensor config
   */

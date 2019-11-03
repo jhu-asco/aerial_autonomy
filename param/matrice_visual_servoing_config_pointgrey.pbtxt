@@ -8,7 +8,7 @@ base_config {
 uav_system_config {
   uav_controller_timer_duration: 20
   uav_parser_type: "dji_parser/DjiParser"
-  use_mocap_sensor: true
+  odom_sensor_type: MOCAP
   minimum_battery_percent: 25
   minimum_takeoff_height: 0.8
   landing_height: 0.1

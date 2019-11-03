@@ -26,6 +26,7 @@
 #include <aerial_autonomy/controller_connectors/rpyt_based_reference_connector.h>
 #include <aerial_autonomy/sensors/guidance.h>
 #include <aerial_autonomy/sensors/odometry_from_pose_sensor.h>
+#include <aerial_autonomy/sensors/odometry_sensor.h>
 #include <aerial_autonomy/sensors/velocity_sensor.h>
 // Load UAV parser
 #include <pluginlib/class_loader.h>
@@ -218,8 +219,12 @@ private:
     auto odom_sensor_config = config.odom_sensor_config();
     std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>>
         odom_sensor;
-    if (config.use_mocap_sensor()) {
+    // For MOCAP sensor
+    if (config.odom_sensor_type() == UAVSystemConfig::OdomSensorType::UAVSystemConfig_OdomSensorType_MOCAP) {
       odom_sensor.reset(new OdomFromPoseSensor(odom_sensor_config));
+    }
+    else if (config.odom_sensor_type() == UAVSystemConfig::OdomSensorType::UAVSystemConfig_OdomSensorType_T265) {
+      odom_sensor.reset(new OdomSensor(odom_sensor_config));
     }
     return odom_sensor;
   }
