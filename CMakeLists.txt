@@ -330,6 +330,7 @@ set(SRC
   src/controller_connectors/qrotor_backstepping_controller_connector.cpp
   src/sensors/pose_sensor.cpp
   src/sensors/odometry_from_pose_sensor.cpp
+  src/sensors/odometry_sensor.cpp
 )
 
 if (casadi_FOUND)
