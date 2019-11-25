@@ -8,16 +8,14 @@
 
 /**
 * @brief Odometry sensor from a ros topic
-* \todo Gowtham Make this a generic templated ros sensor
+* \todo Make this a generic templated ros sensor
 */
 class OdomSensor : public Sensor<std::pair<tf::StampedTransform, tf::Vector3>> {
 public:
   /**
   * @brief Constructor
   *
-  * @param odom_topic ros topic name
-  * @param validity_buffer timeout for messages
-  * @param ns Name space for internal node handle
+  * @param odom sensor config
   *
   */
   OdomSensor(OdomSensorConfig sensor_config);
@@ -39,7 +37,7 @@ public:
   /**
   * @brief ROS callback function
   *
-  * @param pose_input input ROS message
+  * @param pose_input input ROS message, nav_msgs/Odometry type message 
   */
   void odomCallback(const nav_msgs::OdometryConstPtr &odom_input);
 
