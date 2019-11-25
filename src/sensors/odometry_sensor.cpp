@@ -14,6 +14,7 @@ OdomSensor::getSensorData() {
   return std::make_pair(tf::StampedTransform(pose_), tf::Vector3(velocity_));
 }
 
+// Take in odometry message and determine the pose as a stamped transform and velocity
 void OdomSensor::odomCallback(
     const nav_msgs::OdometryConstPtr &odom_input) {
   tf::Pose pose_out;
@@ -21,7 +22,7 @@ void OdomSensor::odomCallback(
   const ros::Time stamp = odom_input->header.stamp;
   const std::string frame_id = odom_input->header.frame_id;
 
-  tf::StampedTransform pose_stamped_out(pose_out, stamp, frame_id, "world");  // Child frame ID? 
+  tf::StampedTransform pose_stamped_out(pose_out, stamp, frame_id, "vicon");  // Child frame ID? 
   pose_ = pose_stamped_out;
 
   tf::Vector3 velocity(odom_input->twist.twist.linear.x, odom_input->twist.twist.linear.y, odom_input->twist.twist.linear.z);
