@@ -208,7 +208,7 @@ private:
     return velocity_sensor;
   }
   /**
-  * @brief create a odom sensor if using Motion Capture flag is set
+  * @brief create a odom sensor if using Motion Capture or T265 flag is set
   *
   * @param config The UAV system config
   *
