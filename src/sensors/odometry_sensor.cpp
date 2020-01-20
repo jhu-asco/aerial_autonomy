@@ -21,8 +21,9 @@ void OdomSensor::odomCallback(
   tf::poseMsgToTF(odom_input->pose.pose, pose_out);
   const ros::Time stamp = odom_input->header.stamp;
   const std::string frame_id = odom_input->header.frame_id;
+  const std::string child_frame_id = odom_input->child_frame_id;
 
-  tf::StampedTransform pose_stamped_out(pose_out, stamp, frame_id, "vicon");  // Child frame ID? 
+  tf::StampedTransform pose_stamped_out(pose_out, stamp, frame_id, child_frame_id); 
   pose_ = pose_stamped_out;
 
   tf::Vector3 velocity(odom_input->twist.twist.linear.x, odom_input->twist.twist.linear.y, odom_input->twist.twist.linear.z);
