@@ -34,32 +34,39 @@ public:
       : uav_system_(config.uav_system_config()), uav_ros_handle_(uav_system_),
         common_handler_(config.base_config(), uav_system_,
                         state_machine_config),
-        uav_controller_timer_(
-            std::bind(&UAVArmSystem::runActiveController, std::ref(uav_system_),
-                      ControllerGroup::UAV),
-            std::chrono::milliseconds(
-                config.uav_system_config().uav_controller_timer_duration())),
+        uav_controller_timer_(std::bind(&UAVArmSystem::runActiveController,
+                                        std::ref(uav_system_),
+                                        ControllerGroup::UAV),
+                              config.base_config().timer_multiplier() *
+                                  std::chrono::milliseconds(
+                                      config.uav_system_config()
+                                          .uav_controller_timer_duration())),
         high_level_controller_timer_(
             std::bind(&UAVSystem::runActiveController, std::ref(uav_system_),
                       ControllerGroup::HighLevel),
-            std::chrono::milliseconds(
-                config.uav_system_config()
-                    .uav_vision_system_config()
-                    .high_level_controller_timer_duration())),
-        arm_controller_timer_(
-            std::bind(&UAVArmSystem::runActiveController, std::ref(uav_system_),
-                      ControllerGroup::Arm),
-            std::chrono::milliseconds(config.uav_arm_system_handler_config()
+            config.base_config().timer_multiplier() *
+                std::chrono::milliseconds(
+                    config.uav_system_config()
+                        .uav_vision_system_config()
+                        .high_level_controller_timer_duration())),
+        arm_controller_timer_(std::bind(&UAVArmSystem::runActiveController,
+                                        std::ref(uav_system_),
+                                        ControllerGroup::Arm),
+                              config.base_config().timer_multiplier() *
+                                  std::chrono::milliseconds(
+                                      config.uav_arm_system_handler_config()
                                           .arm_controller_timer_duration())),
         quad_mpc_visualization_timer_(
             std::bind(&UAVSystem::visualizeQuadMPC,
                       std::ref(this->uav_system_)),
-            std::chrono::milliseconds(
-                config.mpc_visualization_timer_duration())),
+            config.base_config().timer_multiplier() *
+                std::chrono::milliseconds(
+                    config.mpc_visualization_timer_duration())),
         state_publisher_timer_(
             std::bind(&UAVRosHandle::publish, std::ref(this->uav_ros_handle_)),
-            std::chrono::milliseconds(
-                config.state_publisher_timer_duration())) {
+            config.base_config().timer_multiplier() *
+                std::chrono::milliseconds(
+                    config.state_publisher_timer_duration())) {
 
     // Get the party started
     common_handler_.startTimers();
