@@ -19,7 +19,7 @@ OdomFromPoseSensor::OdomFromPoseSensor(OdomSensorConfig config)
                                            << "vel_z"
                                            << "roll"
                                            << "pitch"
-                                           << "yaw";
+                                           << "yaw" << DataStream::endl;
 }
 
 std::pair<tf::StampedTransform, tf::Vector3>
@@ -32,7 +32,7 @@ void OdomFromPoseSensor::poseCallback(
   tf::StampedTransform pose_out;
   tf::transformStampedMsgToTF(*pose_input, pose_out);
   tf::StampedTransform previous_pose = pose_;
-  // Velocity
+  auto rpy = conversions::transformTfToRPY(pose_out);
   if (pose_initialized_) {
     double tdiff = (pose_out.stamp_ - previous_pose.stamp_).toSec();
     if (tdiff < 1e-3) {
@@ -44,13 +44,26 @@ void OdomFromPoseSensor::poseCallback(
     tf::Vector3 velocity =
         (pose_out.getOrigin() - previous_pose.getOrigin()) / tdiff;
     velocity_ = velocity_filter_.addAndFilter(velocity);
+
+    // If yaw rate is above limit, assume it was a sensor glitch and keep last solution
+    /*
+    auto last_rpy = conversions::transformTfToRPY(previous_pose); 
+    if (fabs(rpy(2) - last_rpy(2))  / tdiff > config_.yaw_rate_limit()) {
+      LOG(WARNING) << "Filtering out last pose. Yaw: " << fabs(rpy(2) - last_rpy(2))  / tdiff;
+      auto stamp = pose_out.stamp_;
+      pose_out = previous_pose;
+      pose_out.stamp_ = stamp;
+      rpy = last_rpy;
+    }
+    */
   } else {
     velocity_ = tf::Vector3(0, 0, 0);
     pose_initialized_ = true;
   }
+  
   pose_ = pose_out;
+  
   auto trans = pose_out.getOrigin();
-  auto rpy = conversions::transformTfToRPY(pose_out);
   DATA_LOG("odometry_from_pose_sensor")
       << trans.x() << trans.y() << trans.z() << velocity_.get().x()
       << velocity_.get().y() << velocity_.get().z() << rpy.x() << rpy.y()

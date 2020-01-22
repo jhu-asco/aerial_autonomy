@@ -5,4 +5,5 @@ import "ros_sensor_config.proto";
 message OdomSensorConfig {
   optional ROSSensorConfig ros_sensor_config = 1;
   optional double velocity_filter_gain = 2 [ default = 0.5 ];
+  optional double yaw_rate_limit = 3 [ default = 6.28 ];
 }

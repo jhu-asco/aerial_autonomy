@@ -107,3 +107,7 @@ data_stream_configs {
   log_rate: 20
 }
 
+data_stream_configs {
+  stream_id: "odometry_from_pose_sensor"
+  log_rate: 20
+}

@@ -2,7 +2,7 @@ visual_servoing_state_machine_config {
   # Pick
   relative_pose_goals {
     position {
-      x: 0.03
+      x: 0 #0.03
       y: -.68
       z: 0.28
     }
@@ -12,7 +12,7 @@ visual_servoing_state_machine_config {
   # Place
   relative_pose_goals {
     position {
-      x: 0.03
+      x: 0.0 #0.03
       y: -.887
       z: 0.105
     }
@@ -22,7 +22,7 @@ visual_servoing_state_machine_config {
   # Prepick
   relative_pose_goals {
     position {
-      x: 0.03
+      x: 0.0 #0.03
       y: -.865
       z: 0.325
     }
@@ -32,7 +32,7 @@ visual_servoing_state_machine_config {
   # PrePlace
   relative_pose_goals {
     position {
-      x: 0.03
+      x: 0.0 #0.03
       y: -1.1
       z: 0.105
     }
@@ -93,35 +93,36 @@ visual_servoing_state_machine_config {
     following_waypoint_sequence_config {
       way_points {
         position {
-          x: 0.0
-          y: 1.0
+          x: 1.0
+          y: 0.0
           z: 0.4
         }
-        yaw: 1.57
+        yaw: 0
       }
+      # This one is currently skipped during PostPick
       way_points {
         position {
           x: 0.0
           y: 0.0
           z: 0.0
         }
-        yaw: 1.57
+        yaw: 0
       }
       way_points {
         position {
-          x: 0.0
-          y: -1.9
+          x: -1.9
+          y: 0.0
           z: 0.08
         }
-        yaw: 1.57
+        yaw: 0
       }
       way_points {
         position {
           x: 0.0
           y: 0.0
-          z: -0.1
+          z: 0.
         }
-        yaw: -1.57
+        yaw: 3.14
       }
       poly_reference_config {
         min_tf: 4.0
