@@ -5,13 +5,13 @@ uav_arm_system_handler_config {
 
 base_config {
   state_machine_timer_duration: 20
-  status_timer_duration: 200
+  status_timer_duration: 50
 }
 
 uav_system_config {
   uav_controller_timer_duration: 20
-  uav_parser_type: "dji_parser/DjiParser"
-  odom_sensor_type: MOCAP
+  uav_parser_type: "dji_parser/DjiHILParser"
+  odom_sensor_type: T265
   minimum_battery_percent: 25
   minimum_takeoff_height: 0.8
   landing_height: 0.1
@@ -116,10 +116,10 @@ uav_system_config {
   }
   rpyt_based_position_controller_config {
     velocity_based_position_controller_config {
-      position_gain: 2.0 #2.12 
-      z_gain: 1.0 #0.539 #
+      position_gain: 2.0
+      z_gain: 1.0
       yaw_gain: 0.8
-      max_velocity: 0.8
+      max_velocity: 1.0
       position_i_gain: 0.0
       yaw_i_gain: 0.0
       position_saturation_value: 0.0
@@ -137,8 +137,8 @@ uav_system_config {
     }
 
     rpyt_based_velocity_controller_config{
-      kp_xy: 5.0 #4.7 
-      kp_z: 7.0 #0.747
+      kp_xy: 5.0
+      kp_z: 7.0
       ki_xy: 0.5
       ki_z: 0.0
       kt: 0.21
@@ -169,9 +169,9 @@ uav_system_config {
   }
   odom_sensor_config {
     ros_sensor_config {
-      topic: "/vrpn_client/matrice/pose"
+      topic: "/odom_t265_mocap_frame"
     }
-   velocity_filter_gain: 0.5
+   velocity_filter_gain: 0
   }
   visualize_mpc_trajectories: true
   visualizer_config {
