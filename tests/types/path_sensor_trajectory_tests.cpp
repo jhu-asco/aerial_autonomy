@@ -3,6 +3,7 @@
 #include "aerial_autonomy/tests/test_utils.h"
 #include <Eigen/Dense>
 #include <gtest/gtest.h>
+#include <ros/ros.h>
 
 class PathSensorTrajectoryTests : public ::testing::Test {
 public:

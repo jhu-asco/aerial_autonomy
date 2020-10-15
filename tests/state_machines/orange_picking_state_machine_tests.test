@@ -1,0 +1,4 @@
+<launch>
+  <test test-name="OrangePickingStateMachineTest" pkg="aerial_autonomy" type="aerial_autonomy-orange-picking-state-machine-test">
+  </test>
+</launch>

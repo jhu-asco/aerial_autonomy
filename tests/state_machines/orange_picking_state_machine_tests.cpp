@@ -1,6 +1,5 @@
-#include <aerial_autonomy/state_machines/sensor_place_state_machine.h>
+#include <aerial_autonomy/state_machines/orange_picking_state_machine.h>
 #include <aerial_autonomy/tests/test_utils.h>
-#include <aerial_autonomy/trackers/simple_tracker.h>
 #include <arm_parsers/arm_simulator.h>
 #include <gtest/gtest.h>
 // Timer stuff
@@ -8,6 +7,7 @@
 #include <thread>
 // Quad Simulator
 #include <quad_simulator_parser/quad_simulator.h>
+#include <ros/ros.h>
 
 /**
 * @brief Namespace for UAV Simulator Hardware
@@ -15,18 +15,19 @@
 using namespace quad_simulator;
 
 /**
-* @brief Visual servoing events such as TrackROI, GoHome
+* @brief Namespaces for events such as GoHome and Pick
 */
 namespace vse = visual_servoing_events;
+namespace ope = orange_picking_events;
 
 /**
 * @brief Namespace for basic events such as takeoff, land.
 */
 namespace be = uav_basic_events;
 
-class SensorPlaceStateMachineTests : public ::testing::Test {
+class OrangePickingStateMachineTests : public ::testing::Test {
 public:
-  SensorPlaceStateMachineTests()
+  OrangePickingStateMachineTests()
       : drone_hardware_(new QuadSimulator), arm_(new ArmSimulator),
         goal_tolerance_position_(1.0), grip_timeout_(25000),
         grip_duration_(10) {
@@ -180,6 +181,12 @@ public:
     particle_reference_config->set_max_velocity(1.0);
     // Fill MPC Config
     test_utils::fillMPCConfig(config_);
+    // Fill Path Sensor Config
+    config_.set_use_path_sensor(true);
+    auto path_sensor_config = config_.mutable_rpyt_reference_connector_config();
+    path_sensor_config->set_final_time(3);
+    path_sensor_config->mutable_ros_sensor_config()->set_topic("path_topic");
+    path_sensor_config->mutable_ros_sensor_config()->set_timeout(4);
 
     tf::Transform camera_transform = conversions::protoTransformToTf(
         uav_vision_system_config->camera_transform());
@@ -188,7 +195,7 @@ public:
         config_, std::dynamic_pointer_cast<BaseTracker>(tracker_),
         std::dynamic_pointer_cast<parsernode::Parser>(drone_hardware_),
         std::dynamic_pointer_cast<ArmSimulator>(arm_)));
-    logic_state_machine_.reset(new SensorPlaceStateMachine(
+    logic_state_machine_.reset(new OrangePickingStateMachine(
         boost::ref(*uav_arm_system_), boost::cref(state_machine_config_)));
     logic_state_machine_->start();
     // Move to landed state
@@ -242,7 +249,7 @@ public:
     Log::instance().addDataStream(data_config);
   }
 
-  ~SensorPlaceStateMachineTests() {
+  ~OrangePickingStateMachineTests() {
     logic_state_machine_->stop();
     uav_arm_system_.reset();
     logic_state_machine_.reset();
@@ -255,7 +262,7 @@ protected:
   BaseStateMachineConfig state_machine_config_;
   std::shared_ptr<SimpleTracker> tracker_;
   std::unique_ptr<UAVArmSystem> uav_arm_system_;
-  std::unique_ptr<SensorPlaceStateMachine> logic_state_machine_;
+  std::unique_ptr<OrangePickingStateMachine> logic_state_machine_;
   double goal_tolerance_position_;
   uint32_t grip_timeout_;
   uint32_t grip_duration_;
@@ -304,43 +311,20 @@ protected:
     logic_state_machine_->process_event(InternalTransitionEvent());
   }
 
-  void GoToPrePlaceFromHover() {
-    logic_state_machine_->process_event(se::Place());
+  void GoToPickFromHover() {
+    logic_state_machine_->process_event(ope::Pick());
     logic_state_machine_->process_event(InternalTransitionEvent());
-    ASSERT_STREQ(pstate(*logic_state_machine_), "PrePlaceState");
+    ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
   }
 
-  void GoToPlaceFromHover() {
-    GoToPrePlaceFromHover();
-    logic_state_machine_->process_event(Completed());
-    logic_state_machine_->process_event(InternalTransitionEvent());
-    ASSERT_STREQ(pstate(*logic_state_machine_), "PlaceState");
-  }
-
-  void GoToCheckingFromHover() {
-    GoToPlaceFromHover();
-    logic_state_machine_->process_event(Completed());
-    logic_state_machine_->process_event(InternalTransitionEvent());
-    ASSERT_STREQ(pstate(*logic_state_machine_), "CheckingState");
-  }
-
-  void GoToPostPlaceFromHover() {
-    GoToCheckingFromHover();
-    logic_state_machine_->process_event(Completed());
-    logic_state_machine_->process_event(InternalTransitionEvent());
-    ASSERT_STREQ(pstate(*logic_state_machine_), "PostPlaceState");
-  }
-
-  void SimulatorPlaceFromHover() {
-    logic_state_machine_->process_event(se::Place());
-    logic_state_machine_->process_event(InternalTransitionEvent());
-    // Check in PrePlaceState
-    ASSERT_STREQ(pstate(*logic_state_machine_), "PrePlaceState");
-    // Check UAV and arm controllers are active
+  void SimulatorPickFromHover() {
+    GoToPickFromHover();
+    // Check UAV and arm controllers are active//TODO
     ASSERT_EQ(
-        uav_arm_system_->getStatus<RPYTRelativePoseVisualServoingConnector>(),
+        uav_arm_system_->getStatus<OrangePickingReferenceConnector>(),
         ControllerStatus::Active);
     // Keep running the controller until its completed or timeout
+    //TODO: send ROS message here
     auto getStatusRunControllers = [&]() {
       uav_arm_system_->runActiveController(ControllerGroup::UAV);
       uav_arm_system_->runActiveController(ControllerGroup::Arm);
@@ -349,91 +333,23 @@ protected:
              uav_arm_system_->getActiveControllerStatus(ControllerGroup::Arm) ==
                  ControllerStatus::Active;
     };
-    ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                              std::chrono::seconds(25),
+    ASSERT_TRUE(test_utils::waitUntilFalse()(getStatusRunControllers,
+                                              std::chrono::seconds(2.5),
                                               std::chrono::milliseconds(0)));
     logic_state_machine_->process_event(InternalTransitionEvent());
-    ASSERT_STREQ(pstate(*logic_state_machine_), "PlaceState");
-    // Check UAV and arm controllers are active
-    ASSERT_EQ(
-        uav_arm_system_->getStatus<RPYTRelativePoseVisualServoingConnector>(),
-        ControllerStatus::Active);
-    ASSERT_EQ(uav_arm_system_->getStatus<BuiltInPoseControllerArmConnector>(),
-              ControllerStatus::Active);
-    // Run Controllers
-    ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                              std::chrono::seconds(25),
-                                              std::chrono::milliseconds(0)));
-    logic_state_machine_->process_event(InternalTransitionEvent());
-    // Check that the controllers are completed, but the state is still place
-    ASSERT_TRUE(uav_arm_system_->getActiveControllerStatus(
-                    ControllerGroup::UAV) == ControllerStatus::Completed);
-    ASSERT_TRUE(uav_arm_system_->getActiveControllerStatus(
-                    ControllerGroup::Arm) == ControllerStatus::Completed);
-    ASSERT_STREQ(pstate(*logic_state_machine_), "PlaceState");
+    ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
   }
 
-  void SimulatorCheck() {
-    ASSERT_STREQ(pstate(*logic_state_machine_), "CheckingState");
-    ASSERT_TRUE(arm_->getGripperValue());
-    logic_state_machine_->process_event(InternalTransitionEvent());
-    // Check UAV controller is active
-    ASSERT_EQ(
-        uav_arm_system_->getStatus<RPYTRelativePoseVisualServoingConnector>(),
-        ControllerStatus::Active);
-    auto getStatusRunControllers = [&]() {
-      uav_arm_system_->runActiveController(ControllerGroup::UAV);
-      uav_arm_system_->runActiveController(ControllerGroup::Arm);
-      return uav_arm_system_->getActiveControllerStatus(ControllerGroup::UAV) ==
-                 ControllerStatus::Active ||
-             uav_arm_system_->getActiveControllerStatus(ControllerGroup::Arm) ==
-                 ControllerStatus::Active;
-    };
-    ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                              std::chrono::seconds(25),
-                                              std::chrono::milliseconds(0)));
-    logic_state_machine_->process_event(InternalTransitionEvent());
-    // Check that the controllers are completed, but the state is still place
-    ASSERT_TRUE(uav_arm_system_->getActiveControllerStatus(
-                    ControllerGroup::UAV) == ControllerStatus::Completed);
-    ASSERT_TRUE(uav_arm_system_->getActiveControllerStatus(
-                    ControllerGroup::Arm) == ControllerStatus::Completed);
-    ASSERT_STREQ(pstate(*logic_state_machine_), "CheckingState");
-  }
-  void SimulatorPostPlace() {
-    ASSERT_STREQ(pstate(*logic_state_machine_), "PostPlaceState");
-    ASSERT_FALSE(arm_->getGripperValue());
-    logic_state_machine_->process_event(InternalTransitionEvent());
-    // Check UAV and arm controllers are active
-    ASSERT_EQ(
-        uav_arm_system_->getStatus<RPYTRelativePoseVisualServoingConnector>(),
-        ControllerStatus::Active);
-    // Keep running the contoller until its completed or timeout
-    auto getStatusRunControllers = [&]() {
-      uav_arm_system_->runActiveController(ControllerGroup::UAV);
-      uav_arm_system_->runActiveController(ControllerGroup::Arm);
-      return uav_arm_system_->getActiveControllerStatus(ControllerGroup::UAV) ==
-                 ControllerStatus::Active ||
-             uav_arm_system_->getActiveControllerStatus(ControllerGroup::Arm) ==
-                 ControllerStatus::Active;
-    };
-    ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                              std::chrono::seconds(25),
-                                              std::chrono::milliseconds(0)));
-    logic_state_machine_->process_event(InternalTransitionEvent());
-    // Check we are back in Hovering
-    ASSERT_STREQ(pstate(*logic_state_machine_), "Hovering");
-  }
 };
 
-TEST_F(SensorPlaceStateMachineTests, InitialState) {
+TEST_F(OrangePickingStateMachineTests, InitialState) {
   // Validate
   ASSERT_STREQ(pstate(*logic_state_machine_), "Landed");
   GoToHoverFromLanded();
 }
 
 /// \brief Test Arm folding during landing and takeoff
-TEST_F(SensorPlaceStateMachineTests, HoveringandLanding) {
+TEST_F(OrangePickingStateMachineTests, HoveringandLanding) {
   // Takeoff
   drone_hardware_->setBatteryPercent(100);
   logic_state_machine_->process_event(be::Takeoff());
@@ -453,221 +369,57 @@ TEST_F(SensorPlaceStateMachineTests, HoveringandLanding) {
 }
 
 /// \brief Test Pick Place
-// Try full placement task
-TEST_F(SensorPlaceStateMachineTests, SensorPlace) {
-
-  // Biases for GCOP
-  Eigen::Vector3d eigen_place_bias(-10, 0, 0);
-  Eigen::Vector3d eigen_check_bias(10, 0, 0);
-  Eigen::Vector3d eigen_zero_bias(0, 0, 0);
+// Try full picking task
+TEST_F(OrangePickingStateMachineTests, OrangePicking) {
 
   GoToHoverFromLanded();
-  // Start Place
-  SimulatorPlaceFromHover();
-  // Add acceleration bias
-  drone_hardware_->setAccelerationBias(eigen_place_bias);
-  // Keep running the controller until its completed or timeout
-  auto fillAccBuff = [&]() {
-    uav_arm_system_->runActiveController(ControllerGroup::UAV);
-    uav_arm_system_->runActiveController(ControllerGroup::Arm);
-    Eigen::Vector3d bias = uav_arm_system_->getAccelerationBias();
-    return bias.norm() < 5;
-  };
-  ASSERT_FALSE(test_utils::waitUntilFalse()(
-      fillAccBuff, std::chrono::seconds(25), std::chrono::milliseconds(0)));
-  logic_state_machine_->process_event(InternalTransitionEvent());
-  ASSERT_STREQ(pstate(*logic_state_machine_), "CheckingState");
-  // Remove bias
-  drone_hardware_->setAccelerationBias(eigen_zero_bias);
-  auto emptyAccBuff = [&]() {
-    uav_arm_system_->runActiveController(ControllerGroup::UAV);
-    uav_arm_system_->runActiveController(ControllerGroup::Arm);
-    Eigen::Vector3d bias = uav_arm_system_->getAccelerationBias();
-    return bias.norm() > 0.5;
-  };
-  ASSERT_FALSE(test_utils::waitUntilFalse()(
-      emptyAccBuff, std::chrono::seconds(25), std::chrono::milliseconds(0)));
-  SimulatorCheck();
-  // Add acceleration bias
-  drone_hardware_->setAccelerationBias(eigen_check_bias);
-  // Keep running the controller until its completed or timeout
-  ASSERT_FALSE(test_utils::waitUntilFalse()(
-      fillAccBuff, std::chrono::seconds(25), std::chrono::milliseconds(0)));
-  logic_state_machine_->process_event(InternalTransitionEvent());
-  ASSERT_STREQ(pstate(*logic_state_machine_), "PostPlaceState");
-  // Remove bias
-  drone_hardware_->setAccelerationBias(eigen_zero_bias);
-  ASSERT_FALSE(test_utils::waitUntilFalse()(
-      emptyAccBuff, std::chrono::seconds(25), std::chrono::milliseconds(0)));
-  SimulatorPostPlace();
+  SimulatorPickFromHover();
+  logic_state_machine_->process_event(Completed())
+  ASSERT_STREQ(pstate(*logic_state_machine_), "Hovering");
 }
 
-/// \brief Test Place Time Out
-TEST_F(SensorPlaceStateMachineTests, PlaceTimeout) {
-  GoToHoverFromLanded();
-  // Start Place
-  SimulatorPlaceFromHover();
-  ASSERT_STREQ(pstate(*logic_state_machine_), "PlaceState");
-  // Check UAV and arm controllers are active
-  ASSERT_EQ(
-      uav_arm_system_->getStatus<RPYTRelativePoseVisualServoingConnector>(),
-      ControllerStatus::Completed);
-  ASSERT_EQ(uav_arm_system_->getStatus<BuiltInPoseControllerArmConnector>(),
-            ControllerStatus::Completed);
-  auto grip = [&]() {
+/// \brief Test Pick Time Out
+TEST_F(OrangePickingStateMachineTests, PickTimeout) {
+    GoToHoverFromLanded();
+    GoToPickFromHover();
+    // Check UAV and arm controllers are active//TODO
+    ASSERT_EQ(
+        uav_arm_system_->getStatus<OrangePickingReferenceConnector>(),
+        ControllerStatus::Active);
+    // Keep running the controller until its completed or timeout
+    //TODO: send ROS message here
+    auto getStatusRunControllers = [&]() {
+      uav_arm_system_->runActiveController(ControllerGroup::UAV);
+      uav_arm_system_->runActiveController(ControllerGroup::Arm);
+      return uav_arm_system_->getActiveControllerStatus(ControllerGroup::UAV) ==
+                 ControllerStatus::Active ||
+             uav_arm_system_->getActiveControllerStatus(ControllerGroup::Arm) ==
+                 ControllerStatus::Active;
+    };
+    ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
+                                              std::chrono::seconds(5),
+                                              std::chrono::milliseconds(0)));
     logic_state_machine_->process_event(InternalTransitionEvent());
-    return pstate(*logic_state_machine_) == std::string("PlaceState");
-  };
-  ASSERT_FALSE(test_utils::waitUntilFalse()(
-      grip, std::chrono::milliseconds(grip_timeout_ + 2),
-      std::chrono::milliseconds(0)));
-  // Check we are resetting
-  ASSERT_STREQ(pstate(*logic_state_machine_), "PrePlaceState");
-  ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(Reset));
-}
-
-/// \brief Test Checking Time Out
-TEST_F(SensorPlaceStateMachineTests, CheckingTimeout) {
-  arm_->grip(true);
-  // First takeoff
-  GoToHoverFromLanded();
-  // Begin Simulator Checking
-  GoToCheckingFromHover();
-  SimulatorCheck();
-  ASSERT_STREQ(pstate(*logic_state_machine_), "CheckingState");
-  // Check UAV and arm controllers are active
-  ASSERT_EQ(
-      uav_arm_system_->getStatus<RPYTRelativePoseVisualServoingConnector>(),
-      ControllerStatus::Completed);
-  ASSERT_EQ(uav_arm_system_->getStatus<BuiltInPoseControllerArmConnector>(),
-            ControllerStatus::Completed);
-  auto grip = [&]() {
-    logic_state_machine_->process_event(InternalTransitionEvent());
-    return pstate(*logic_state_machine_) == std::string("CheckingState");
-  };
-  ASSERT_FALSE(test_utils::waitUntilFalse()(
-      grip, std::chrono::milliseconds(grip_timeout_ + 2),
-      std::chrono::milliseconds(0)));
-  // Check we are resetting
-  ASSERT_STREQ(pstate(*logic_state_machine_), "PrePlaceState");
-  ASSERT_EQ(logic_state_machine_->lastProcessedEventIndex(), typeid(Reset));
-}
-
-// Abort due to tracking becoming invalid
-TEST_F(SensorPlaceStateMachineTests, PrePlaceInvalidTrackingAbort) {
-  // First takeoff
-  GoToHoverFromLanded();
-  // Go to PrePlace
-  GoToPrePlaceFromHover();
-  // Check we are in place state
-  ASSERT_STREQ(pstate(*logic_state_machine_), "PrePlaceState");
-  // Set tracker to invalid
-  tracker_->setTrackingIsValid(false);
-  // Run active controllers
-  for (int i = 0; i < 2; ++i) {
-    uav_arm_system_->runActiveController(ControllerGroup::HighLevel);
-    uav_arm_system_->runActiveController(ControllerGroup::UAV);
-    uav_arm_system_->runActiveController(ControllerGroup::Arm);
-  }
-  logic_state_machine_->process_event(InternalTransitionEvent());
-  ASSERT_STREQ(pstate(*logic_state_machine_), "Hovering");
-}
-
-// Abort due to tracking becoming invalid
-TEST_F(SensorPlaceStateMachineTests, PlaceInvalidTrackingAbort) {
-  // First takeoff
-  GoToHoverFromLanded();
-  SimulatorPlaceFromHover();
-  // Check we are in place state
-  ASSERT_STREQ(pstate(*logic_state_machine_), "PlaceState");
-  // Set tracker to invalid
-  tracker_->setTrackingIsValid(false);
-  // Run active controllers
-  for (int i = 0; i < 2; ++i) {
-    uav_arm_system_->runActiveController(ControllerGroup::HighLevel);
-    uav_arm_system_->runActiveController(ControllerGroup::UAV);
-    uav_arm_system_->runActiveController(ControllerGroup::Arm);
-  }
-  logic_state_machine_->process_event(InternalTransitionEvent());
-  ASSERT_STREQ(pstate(*logic_state_machine_), "Hovering");
-}
-
-// Abort due to tracking becoming invalid
-TEST_F(SensorPlaceStateMachineTests, CheckingInvalidTrackingAbort) {
-  arm_->grip(true);
-  // First takeoff
-  GoToHoverFromLanded();
-  // Begin Simulator Checking
-  GoToCheckingFromHover();
-  SimulatorCheck();
-  // Check we are in checking state
-  ASSERT_STREQ(pstate(*logic_state_machine_), "CheckingState");
-  // Set tracker to invalid
-  tracker_->setTrackingIsValid(false);
-  // Run active controllers
-  for (int i = 0; i < 2; ++i) {
-    uav_arm_system_->runActiveController(ControllerGroup::HighLevel);
-    uav_arm_system_->runActiveController(ControllerGroup::UAV);
-    uav_arm_system_->runActiveController(ControllerGroup::Arm);
-  }
-  logic_state_machine_->process_event(InternalTransitionEvent());
-  ASSERT_STREQ(pstate(*logic_state_machine_), "Hovering");
-}
-
-// Abort due to tracking becoming invalid
-TEST_F(SensorPlaceStateMachineTests, PostPlaceInvalidTrackingAbort) {
-  // First takeoff
-  GoToHoverFromLanded();
-  // Go to PostPlace
-  GoToPostPlaceFromHover();
-  // Check we are in place state
-  ASSERT_STREQ(pstate(*logic_state_machine_), "PostPlaceState");
-  // Set tracker to invalid
-  tracker_->setTrackingIsValid(false);
-  // Run active controllers
-  for (int i = 0; i < 2; ++i) {
-    uav_arm_system_->runActiveController(ControllerGroup::HighLevel);
-    uav_arm_system_->runActiveController(ControllerGroup::UAV);
-    uav_arm_system_->runActiveController(ControllerGroup::Arm);
-  }
-  logic_state_machine_->process_event(InternalTransitionEvent());
-  ASSERT_STREQ(pstate(*logic_state_machine_), "Hovering");
+    ASSERT_STREQ(pstate(*logic_state_machine_), "Hovering");
 }
 
 // Manual rc abort
-TEST_F(SensorPlaceStateMachineTests, ManualControlAbort) {
+TEST_F(OrangePickingStateMachineTests, ManualControlAbort) {
   // First Takeoff
   GoToHoverFromLanded();
-  // PrePlace
-  testManualControlAbort<se::Place>();
-  // Place
-  GoToPrePlaceFromHover();
-  testManualControlAbort<Completed>();
-  // Checking
-  GoToPlaceFromHover();
-  testManualControlAbort<Completed>();
-  // PostPlace
-  GoToCheckingFromHover();
-  testManualControlAbort<Completed>();
+  // Pick
+  testManualControlAbort<ope::Pick>();
 }
 // Arm abort
-TEST_F(SensorPlaceStateMachineTests, ArmOffAbort) {
+TEST_F(OrangePickingStateMachineTests, ArmOffAbort) {
   // First Takeoff
   GoToHoverFromLanded();
-  // PrePlace
-  testArmOffAbort<se::Place>();
-  // Place
-  GoToPrePlaceFromHover();
-  testArmOffAbort<Completed>();
-  // Checking
-  GoToPlaceFromHover();
-  testArmOffAbort<Completed>();
-  // PostPlace
-  GoToCheckingFromHover();
-  testArmOffAbort<Completed>();
+  // Pick
+  testArmOffAbort<ope::Pick>();
 }
+
 // Manual control internal actions
-TEST_F(SensorPlaceStateMachineTests, SensorPlaceManualControlInternalActions) {
+TEST_F(OrangePickingStateMachineTests, OrangePickingManualControlInternalActions) {
   // Disable SDK
   drone_hardware_->flowControl(false);
   // Move to manual control state
