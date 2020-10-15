@@ -1,0 +1,8 @@
+syntax = "proto2";
+
+import "ros_sensor_config.proto";
+
+message PathSensorConfig {
+  optional ROSSensorConfig ros_sensor_config = 1;
+  optional double final_time = 2;
+}

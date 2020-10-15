@@ -14,6 +14,8 @@ import "thrust_gain_estimator_config.proto";
 
 import "odom_from_pose_sensor_config.proto";
 
+import "path_sensor_config.proto";
+
 import "ros_sensor_config.proto";
 
 import "quad_mpc_controller_config.proto";
@@ -99,7 +101,7 @@ message UAVSystemConfig {
   */
   optional bool use_mocap_sensor = 16 [ default = false ];
   /**
-  * @brief Velocity sensor config
+  * @brief Odometry sensor config
   */
   optional OdomSensorConfig odom_sensor_config = 17;
   /**
@@ -122,4 +124,12 @@ message UAVSystemConfig {
   * @brief RPYT reference connector config
   */
   optional RPYTReferenceConnectorConfig rpyt_reference_connector_config = 22;
+  /**
+  * @brief Odometry sensor config
+  */
+  optional PathSensorConfig path_sensor_config = 23;
+  /**
+  * @brief If to path ros sensor for path sensor
+  */
+  optional bool use_path_sensor = 24 [ default = false ];
 }

@@ -1,0 +1,5 @@
+OrangePickingEventManager:
+  uav_basic_events/UAVEventManager
+  arm_events/ArmEventManager
+  visual_servoing_events/VisualServoingEventManager/GoHome
+  Pick

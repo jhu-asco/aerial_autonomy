@@ -5,9 +5,11 @@
 #include "aerial_autonomy/controller_connectors/rpyt_relative_pose_visual_servoing_connector.h"
 #include "aerial_autonomy/controller_connectors/visual_servoing_controller_drone_connector.h"
 #include "aerial_autonomy/controller_connectors/visual_servoing_reference_connector.h"
+#include "aerial_autonomy/controller_connectors/orange_picking_reference_connector.h"
 #include "aerial_autonomy/controllers/constant_heading_depth_controller.h"
 #include "aerial_autonomy/controllers/quad_particle_reference_controller.h"
 #include "aerial_autonomy/controllers/quad_polynomial_reference_controller.h"
+#include "aerial_autonomy/controllers/path_reference_controller.h"
 #include "aerial_autonomy/controllers/rpyt_based_relative_pose_controller.h"
 #include "aerial_autonomy/controllers/velocity_based_relative_pose_controller.h"
 #include "aerial_autonomy/estimators/acceleration_bias_estimator.h"
@@ -79,6 +81,7 @@ public:
             config_.uav_vision_system_config().particle_reference_config()),
         quad_poly_reference_generator_(
             config_.uav_vision_system_config().poly_reference_config()),
+        path_reference_generator_(),
         visual_servoing_drone_connector_(*tracker_, *drone_hardware_,
                                          constant_heading_depth_controller_,
                                          camera_transform_),
@@ -108,6 +111,9 @@ public:
                 config_.uav_vision_system_config().tracking_offset_transform()),
             config_.uav_vision_system_config()
                 .gain_visual_servoing_tracking_pose(),
+            odom_sensor_),
+        orange_picking_reference_connector_(
+            *drone_hardware_, path_reference_generator_, rpyt_based_reference_connector_,
             odom_sensor_) {
     controller_connector_container_.setObject(visual_servoing_drone_connector_);
     controller_connector_container_.setObject(
@@ -118,6 +124,8 @@ public:
         mpc_visual_servoing_reference_connector_);
     controller_connector_container_.setObject(
         rpyt_visual_servoing_reference_connector_);
+    controller_connector_container_.setObject(
+        orange_picking_reference_connector_);
   }
 
   /**
@@ -304,6 +312,10 @@ private:
    */
   QuadPolynomialReferenceController quad_poly_reference_generator_;
   /**
+   * @brief generates reference trajectory from a ROS topic
+   */
+  PathReferenceController path_reference_generator_;
+  /**
    * @brief Connector for the constant heading depth controller to
    * UAV
    */
@@ -327,4 +339,8 @@ private:
    * @brief High level visual servoing connector
    */
   MPCVisualServoingReferenceConnectorT mpc_visual_servoing_reference_connector_;
+  /**
+   * @brief High level orange picking connector
+   */
+  OrangePickingReferenceConnector orange_picking_reference_connector_;
 };

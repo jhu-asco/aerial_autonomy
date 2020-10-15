@@ -184,6 +184,7 @@ uav_basic_events
 visual_servoing_events
 pick_place_events
 sensor_place_events
+orange_picking_events
 arm_events
 uav_arm_sysid_events
 mpc_events
@@ -242,6 +243,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/rpyt_reference_connector_config.proto
   proto/polynomial_reference_config.proto
   proto/odom_from_pose_sensor_config.proto
+  proto/path_sensor_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
@@ -294,6 +296,7 @@ set(SRC
   src/types/spiral_reference_trajectory.cpp
   src/types/quad_particle_reference_trajectory.cpp
   src/types/polynomial_reference_trajectory.cpp
+  src/types/path_sensor_trajectory.cpp
   src/types/sensor_status.cpp
   src/controllers/manual_rpyt_controller.cpp
   src/controllers/velocity_based_position_controller.cpp
@@ -379,10 +382,12 @@ if (arm_plugins_FOUND)
   add_executable(airm_mpc_node src/system_handler_nodes/airm_mpc_node.cpp)
   add_executable(uav_arm_system_node src/system_handler_nodes/uav_arm_system_node.cpp)
   add_executable(sensor_place_node src/system_handler_nodes/sensor_place_node.cpp)
+  add_executable(orange_picking_node src/system_handler_nodes/orange_picking_node.cpp)
   add_executable(uav_arm_sysid_node src/system_handler_nodes/uav_arm_sysid_node.cpp)
 
   target_link_libraries(uav_arm_system_node aerial_autonomy)
   target_link_libraries(sensor_place_node aerial_autonomy)
+  target_link_libraries(orange_picking_node aerial_autonomy)
   target_link_libraries(uav_arm_sysid_node aerial_autonomy)
   target_link_libraries(airm_mpc_node aerial_autonomy)
   if (casadi_FOUND)

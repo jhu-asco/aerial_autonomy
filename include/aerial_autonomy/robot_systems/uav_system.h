@@ -26,6 +26,7 @@
 #include <aerial_autonomy/controller_connectors/rpyt_based_reference_connector.h>
 #include <aerial_autonomy/sensors/guidance.h>
 #include <aerial_autonomy/sensors/odometry_from_pose_sensor.h>
+#include <aerial_autonomy/sensors/path_sensor.h>
 #include <aerial_autonomy/sensors/velocity_sensor.h>
 // Load UAV parser
 #include <pluginlib/class_loader.h>
@@ -102,6 +103,10 @@ protected:
    */
   std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>>
       odom_sensor_;
+  /**
+   * @brief path_sensor_
+   */
+  std::shared_ptr<Sensor<PathReturnT>> path_sensor_;
   /**
    * @brief mpc trajectory visualizer
    */
@@ -223,6 +228,23 @@ private:
     }
     return odom_sensor;
   }
+  /**
+  * @brief create a path sensor
+  *
+  * @param config The UAV system config
+  *
+  * @return new odom sensor if using_path_sensor is set, otherwise nullptr
+  */
+  static std::shared_ptr<Sensor<PathReturnT>>
+  createPathSensor(UAVSystemConfig &config) {
+    auto path_sensor_config = config.path_sensor_config();
+    std::shared_ptr<Sensor<PathReturnT>>
+        path_sensor;
+    if (config.use_path_sensor()) {
+      path_sensor.reset(new PathSensor(path_sensor_config));
+    }
+    return path_sensor;
+  }
 
 public:
   /**
@@ -270,6 +292,8 @@ public:
         velocity_sensor_(
             UAVSystem::chooseSensor(velocity_sensor, drone_hardware_, config)),
         odom_sensor_(UAVSystem::createOdomSensor(config)),
+        path_sensor_(UAVSystem::createPathSensor(config)),
+        //path_sensor_(config.path_sensor_config()),
         rpyt_based_reference_connector_(
             *drone_hardware_, rpyt_based_reference_controller_,
             thrust_gain_estimator_, config.rpyt_reference_connector_config(),
@@ -460,6 +484,11 @@ public:
     }
     return SensorStatus::VALID;
   }
+
+  SensorPtr<PathReturnT> getPathSensor() {
+    return path_sensor_;
+  }
+
   void resetThrustMixingGain() {
     thrust_gain_estimator_.resetThrustMixingGain();
   }

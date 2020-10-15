@@ -1,0 +1,4 @@
+<launch>
+  <test test-name="PathSensorTest" pkg="aerial_autonomy" type="aerial_autonomy-path-sensor-test">
+  </test>
+</launch>
