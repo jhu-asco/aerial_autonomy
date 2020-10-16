@@ -58,7 +58,7 @@ TEST_F(PathSensorTrajectoryTests, AtTimeTest) {
   double z = 0.3*149;
   Eigen::VectorXd state = state_control_pair.first;
   Eigen::VectorXd control = state_control_pair.second;
-  ASSERT_EQ(state.size(), 12);//TODO: Double check this
+  ASSERT_EQ(state.size(), 12);
   ASSERT_EQ(control.size(), 4);
   // Test control (roll, pitch, yaw, thrust)
   ASSERT_NEAR(control(0), 0, 1e-3);

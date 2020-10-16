@@ -185,8 +185,9 @@ public:
     config_.set_use_path_sensor(true);
     auto path_sensor_config = config_.mutable_rpyt_reference_connector_config();
     path_sensor_config->set_final_time(3);
-    path_sensor_config->mutable_ros_sensor_config()->set_topic("path_topic");
+    path_sensor_config->mutable_ros_sensor_config()->set_topic("/path_topic");
     path_sensor_config->mutable_ros_sensor_config()->set_timeout(4);
+    path_pub = nh.advertise<trajectory_msgs::JointTrajectory>("/path_topic",1);
 
     tf::Transform camera_transform = conversions::protoTransformToTf(
         uav_vision_system_config->camera_transform());
@@ -317,6 +318,44 @@ protected:
     ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
   }
 
+  void sendSampleMessage() {
+    trajectory_msgs::JointTrajectory path_msg;
+    //Build path_msg
+    path_msg.header.stamp = ros::Time::now();
+    for (int ii = 0; ii < 3; ++ii) {
+      trajectory_msgs::JointTrajectoryPoint point;
+      //xyz
+      point.positions[0] = 0.1*ii;
+      point.positions[1] = 0.2*ii;
+      point.positions[2] = 0.3*ii;
+      //rotlog
+      point.positions[3] = 0.0;
+      point.positions[4] = 0.0;
+      point.positions[5] = 0.0;
+      //velocity xyz
+      point.velocities[0] = 0.1;
+      point.velocities[1] = 0.2;
+      point.velocities[2] = 0.3;
+      //ang vel
+      point.velocities[3] = 0.0;
+      point.velocities[4] = 0.0;
+      point.velocities[5] = 0.0;
+      //accelerations
+      point.accelerations[0] = 0.0;
+      point.accelerations[1] = 0.0;
+      point.accelerations[2] = 0.0;
+      path_msg.points.push_back(point);
+    }
+    //velocity xyz
+    path_msg.points[2].velocities[0] = 0.0;
+    path_msg.points[2].velocities[1] = 0.0;
+    path_msg.points[2].velocities[2] = 0.0;
+    //Send path_msg
+    path_pub.publish(odom_msg);
+    ros::Duration(0.01).sleep();
+    ros::spinOnce();
+  }
+
   void SimulatorPickFromHover() {
     GoToPickFromHover();
     // Check UAV and arm controllers are active//TODO
@@ -324,7 +363,7 @@ protected:
         uav_arm_system_->getStatus<OrangePickingReferenceConnector>(),
         ControllerStatus::Active);
     // Keep running the controller until its completed or timeout
-    //TODO: send ROS message here
+    sendSampleMessage();
     auto getStatusRunControllers = [&]() {
       uav_arm_system_->runActiveController(ControllerGroup::UAV);
       uav_arm_system_->runActiveController(ControllerGroup::Arm);
@@ -339,6 +378,9 @@ protected:
     logic_state_machine_->process_event(InternalTransitionEvent());
     ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
   }
+  
+  ros::NodeHandle nh;
+  ros::Publisher path_pub;
 
 };
 
@@ -387,7 +429,7 @@ TEST_F(OrangePickingStateMachineTests, PickTimeout) {
         uav_arm_system_->getStatus<OrangePickingReferenceConnector>(),
         ControllerStatus::Active);
     // Keep running the controller until its completed or timeout
-    //TODO: send ROS message here
+    sendSampleMessage();
     auto getStatusRunControllers = [&]() {
       uav_arm_system_->runActiveController(ControllerGroup::UAV);
       uav_arm_system_->runActiveController(ControllerGroup::Arm);
