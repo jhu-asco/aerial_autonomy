@@ -118,10 +118,10 @@ public:
       UAVArmSystem &uav_system,
       const BaseStateMachineConfig &state_machine_config)
       : BaseStateMachine(uav_system, state_machine_config) {
-    auto pick_state_machine_config =
+    /*auto pick_state_machine_config =
         state_machine_config.visual_servoing_state_machine_config()
             .pick_place_state_machine_config();//TODO: set up config
-    /*config_map_.insert<psa::ReachingPostPickWaypointBase>(
+    config_map_.insert<psa::ReachingPostPickWaypointBase>(
         pick_state_machine_config.following_waypoint_sequence_config());
     config_map_.insert<psa::ReachingPostPlaceWaypoint>(
         pick_state_machine_config.following_waypoint_sequence_config());
@@ -140,7 +140,7 @@ public:
   /**
   * @brief Initial state for state machine
   */
-  using initial_state = psa::ManualControlArmState;
+  using initial_state = psa::Landed;
   /**
   * @brief Transition table for State Machine
   */
@@ -175,7 +175,8 @@ public:
             msmf::Row<psa::Hovering, vse::GoHome, psa::ReachingGoal,
                       psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, ope::Pick, opsa::PathFollowState, opsa::PathFollowTransitionAction,
+            msmf::Row<psa::Hovering, ope::Pick, opsa::PathFollowState,
+                      opsa::PathFollowTransitionAction,
                       opsa::PathFollowTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ReachingGoal, be::Abort, psa::Hovering,

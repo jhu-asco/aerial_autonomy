@@ -89,8 +89,9 @@ TEST_F(RPYTBasedReferenceControllerEigenTests, Converged) {
   PositionYaw goal(0, 0, 0, 0);
   controller.setGoal(conversions::createWaypoint(goal));
 
-  ASSERT_TRUE(controller.isConverged(
-      std::make_tuple(1.0, 0.16, Velocity(0, 0, 0), PositionYaw(0, 0, 0, 0))));
+  ASSERT_TRUE((bool)controller.isConverged(std::make_tuple(
+                  1.0, 0.16, Velocity(0, 0, 0), PositionYaw(0, 0, 0, 0))) ==
+              ControllerStatus::Completed);
 }
 
 TEST_F(RPYTBasedReferenceControllerEigenTests, NotConverged) {
@@ -100,11 +101,13 @@ TEST_F(RPYTBasedReferenceControllerEigenTests, NotConverged) {
   controller.setGoal(conversions::createWaypoint(goal));
 
   // Not converged for non-zero position
-  ASSERT_FALSE(controller.isConverged(std::make_tuple(
-      0.5, 0.16, VelocityYawRate(0, 0, 0, 0), PositionYaw(1, 0, 0, 0))));
+  ASSERT_FALSE((bool)controller.isConverged(std::make_tuple(
+                   0.5, 0.16, VelocityYawRate(0, 0, 0, 0),
+                   PositionYaw(1, 0, 0, 0))) == ControllerStatus::Completed);
   // Not converged for non-zero velocity
-  ASSERT_FALSE(controller.isConverged(std::make_tuple(
-      0.5, 0.16, VelocityYawRate(1, 0, 0, 0), PositionYaw(0, 0, 0, 0))));
+  ASSERT_FALSE((bool)controller.isConverged(std::make_tuple(
+                   0.5, 0.16, VelocityYawRate(1, 0, 0, 0),
+                   PositionYaw(0, 0, 0, 0))) == ControllerStatus::Completed);
 }
 
 TEST_F(RPYTBasedReferenceControllerEigenTests,

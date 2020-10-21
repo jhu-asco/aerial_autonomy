@@ -7,6 +7,7 @@
 #include <cmath>
 #include <gcop/hrotor.h>
 #include <tf_conversions/tf_eigen.h>
+#include <aerial_autonomy/log/log.h>
 
 #include <gtest/gtest.h>
 
@@ -34,6 +35,18 @@ public:
     pos_tolerance->set_x(0.05);
     pos_tolerance->set_y(0.05);
     pos_tolerance->set_z(0.05);
+    DATA_HEADER("qrotor_backstepping_controller") << "p_x"
+                                                  << "p_y"
+                                                  << "p_z"
+                                                  << "pd_x"
+                                                  << "pd_y"
+                                                  << "pd_z"
+                                                  << "v_x"
+                                                  << "v_y"
+                                                  << "v_z"
+                                                  << "vd_x"
+                                                  << "vd_y"
+                                                  << "vd_z" << DataStream::endl;
   }
 
   void testConvergence(

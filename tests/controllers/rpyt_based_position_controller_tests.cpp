@@ -87,7 +87,7 @@ TEST_F(RPYTBasedPositionControllerTests, Converged) {
   PositionYaw goal(0, 0, 0, 0);
   controller.setGoal(goal);
 
-  ASSERT_TRUE(controller.isConverged(
+  ASSERT_TRUE((bool)controller.isConverged(
       std::make_tuple(VelocityYawRate(0, 0, 0, 0), PositionYaw(0, 0, 0, 0))));
 }
 
@@ -99,10 +99,10 @@ TEST_F(RPYTBasedPositionControllerTests, NotConverged) {
   controller.setGoal(goal);
 
   // Not converged for non-zero position
-  ASSERT_FALSE(controller.isConverged(
+  ASSERT_FALSE((bool)controller.isConverged(
       std::make_tuple(VelocityYawRate(0, 0, 0, 0), PositionYaw(1, 0, 0, 0))));
   // Not converged for non-zero velocity
-  ASSERT_FALSE(controller.isConverged(
+  ASSERT_FALSE((bool)controller.isConverged(
       std::make_tuple(VelocityYawRate(1, 0, 0, 0), PositionYaw(0, 0, 0, 0))));
 }
 

@@ -29,7 +29,7 @@ class OrangePickingStateMachineTests : public ::testing::Test {
 public:
   OrangePickingStateMachineTests()
       : drone_hardware_(new QuadSimulator), arm_(new ArmSimulator),
-        goal_tolerance_position_(1.0), grip_timeout_(25000),
+        goal_tolerance_position_(0.05), grip_timeout_(25000),
         grip_duration_(10) {
     auto vision_state_machine_config =
         state_machine_config_.mutable_visual_servoing_state_machine_config();
@@ -183,7 +183,7 @@ public:
     test_utils::fillMPCConfig(config_);
     // Fill Path Sensor Config
     config_.set_use_path_sensor(true);
-    auto path_sensor_config = config_.mutable_rpyt_reference_connector_config();
+    auto path_sensor_config = config_.mutable_path_sensor_config();
     path_sensor_config->set_final_time(3);
     path_sensor_config->mutable_ros_sensor_config()->set_topic("/path_topic");
     path_sensor_config->mutable_ros_sensor_config()->set_timeout(4);
@@ -313,57 +313,81 @@ protected:
   }
 
   void GoToPickFromHover() {
+    sendSampleMessage();
     logic_state_machine_->process_event(ope::Pick());
     logic_state_machine_->process_event(InternalTransitionEvent());
-    ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
+    ASSERT_STREQ(pstate(*logic_state_machine_), "PathFollow");
   }
 
-  void sendSampleMessage() {
+  void sendSampleMessage(double start_x = 0.0, double add_time = 0.0) {
     trajectory_msgs::JointTrajectory path_msg;
     //Build path_msg
-    path_msg.header.stamp = ros::Time::now();
-    for (int ii = 0; ii < 3; ++ii) {
+    path_msg.header.stamp = ros::Time::now() + ros::Duration(add_time);
+    for (int ii = 0; ii < 50; ++ii) {
+      trajectory_msgs::JointTrajectoryPoint point;
+      // xyz
+      point.positions.push_back(0.005 * ii + start_x);
+      point.positions.push_back(0.0);
+      point.positions.push_back(0.6);
+      // rotlog
+      point.positions.push_back(0.0);
+      point.positions.push_back(0.0);
+      point.positions.push_back(0.0);
+      // velocity xyz
+      point.velocities.push_back(0.25);
+      point.velocities.push_back(0.0);
+      point.velocities.push_back(0.0);
+      // ang vel
+      point.velocities.push_back(0.0);
+      point.velocities.push_back(0.0);
+      point.velocities.push_back(0.0);
+      // accelerations
+      point.accelerations.push_back(0.0);
+      point.accelerations.push_back(0.0);
+      point.accelerations.push_back(0.0);
+      path_msg.points.push_back(point);
+    }
+    for (int ii = 50; ii < 150; ++ii) {
       trajectory_msgs::JointTrajectoryPoint point;
       //xyz
-      point.positions[0] = 0.1*ii;
-      point.positions[1] = 0.2*ii;
-      point.positions[2] = 0.3*ii;
+      point.positions.push_back(0.25 + start_x);
+      point.positions.push_back(0.0);
+      point.positions.push_back(0.6);
       //rotlog
-      point.positions[3] = 0.0;
-      point.positions[4] = 0.0;
-      point.positions[5] = 0.0;
+      point.positions.push_back(0.0);
+      point.positions.push_back(0.0);
+      point.positions.push_back(0.0);
       //velocity xyz
-      point.velocities[0] = 0.1;
-      point.velocities[1] = 0.2;
-      point.velocities[2] = 0.3;
+      point.velocities.push_back(0.0);
+      point.velocities.push_back(0.0);
+      point.velocities.push_back(0.0);
       //ang vel
-      point.velocities[3] = 0.0;
-      point.velocities[4] = 0.0;
-      point.velocities[5] = 0.0;
+      point.velocities.push_back(0.0);
+      point.velocities.push_back(0.0);
+      point.velocities.push_back(0.0);
       //accelerations
-      point.accelerations[0] = 0.0;
-      point.accelerations[1] = 0.0;
-      point.accelerations[2] = 0.0;
+      point.accelerations.push_back(0.0);
+      point.accelerations.push_back(0.0);
+      point.accelerations.push_back(0.0);
       path_msg.points.push_back(point);
     }
     //velocity xyz
-    path_msg.points[2].velocities[0] = 0.0;
-    path_msg.points[2].velocities[1] = 0.0;
-    path_msg.points[2].velocities[2] = 0.0;
+    path_msg.points[149].velocities[0] = 0.0;
+    path_msg.points[149].velocities[1] = 0.0;
+    path_msg.points[149].velocities[2] = 0.0;
     //Send path_msg
-    path_pub.publish(odom_msg);
+    path_pub.publish(path_msg);
     ros::Duration(0.01).sleep();
     ros::spinOnce();
   }
 
   void SimulatorPickFromHover() {
     GoToPickFromHover();
-    // Check UAV and arm controllers are active//TODO
     ASSERT_EQ(
         uav_arm_system_->getStatus<OrangePickingReferenceConnector>(),
         ControllerStatus::Active);
     // Keep running the controller until its completed or timeout
-    sendSampleMessage();
+    // sendSampleMessage();
     auto getStatusRunControllers = [&]() {
       uav_arm_system_->runActiveController(ControllerGroup::UAV);
       uav_arm_system_->runActiveController(ControllerGroup::Arm);
@@ -372,11 +396,23 @@ protected:
              uav_arm_system_->getActiveControllerStatus(ControllerGroup::Arm) ==
                  ControllerStatus::Active;
     };
-    ASSERT_TRUE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                              std::chrono::seconds(2.5),
-                                              std::chrono::milliseconds(0)));
+    for (int ii = 0; ii < 50; ++ii) {
+      ASSERT_TRUE(getStatusRunControllers());
+    }
+    sendSampleMessage(0.25, 1.0);
+    for (int ii = 0; ii < 50; ++ii) {
+      ASSERT_TRUE(getStatusRunControllers());
+    }
+    bool loop_break = false;
+    for (int ii = 0; ii < 1500; ++ii) {
+      if (!getStatusRunControllers()) {
+        loop_break = true;
+        break;
+      }
+    }
+    ASSERT_TRUE(loop_break);
     logic_state_machine_->process_event(InternalTransitionEvent());
-    ASSERT_STREQ(pstate(*logic_state_machine_), "PickState");
+    ASSERT_STREQ(pstate(*logic_state_machine_), "Hovering");
   }
   
   ros::NodeHandle nh;
@@ -413,10 +449,9 @@ TEST_F(OrangePickingStateMachineTests, HoveringandLanding) {
 /// \brief Test Pick Place
 // Try full picking task
 TEST_F(OrangePickingStateMachineTests, OrangePicking) {
-
   GoToHoverFromLanded();
   SimulatorPickFromHover();
-  logic_state_machine_->process_event(Completed())
+  logic_state_machine_->process_event(Completed());
   ASSERT_STREQ(pstate(*logic_state_machine_), "Hovering");
 }
 
@@ -424,23 +459,27 @@ TEST_F(OrangePickingStateMachineTests, OrangePicking) {
 TEST_F(OrangePickingStateMachineTests, PickTimeout) {
     GoToHoverFromLanded();
     GoToPickFromHover();
-    // Check UAV and arm controllers are active//TODO
+    // Check UAV and arm controllers are active
     ASSERT_EQ(
         uav_arm_system_->getStatus<OrangePickingReferenceConnector>(),
         ControllerStatus::Active);
     // Keep running the controller until its completed or timeout
-    sendSampleMessage();
-    auto getStatusRunControllers = [&]() {
+    // sendSampleMessage();
+    auto start = std::chrono::system_clock::now();
+    std::chrono::duration<double> duration(0);
+    auto timeout = std::chrono::seconds(5);
+    while (duration.count() < timeout.count()) {
+      duration = std::chrono::system_clock::now() - start;
+    }
+    /*auto getStatusRunControllers = [&]() {
       uav_arm_system_->runActiveController(ControllerGroup::UAV);
       uav_arm_system_->runActiveController(ControllerGroup::Arm);
       return uav_arm_system_->getActiveControllerStatus(ControllerGroup::UAV) ==
                  ControllerStatus::Active ||
              uav_arm_system_->getActiveControllerStatus(ControllerGroup::Arm) ==
                  ControllerStatus::Active;
-    };
-    ASSERT_FALSE(test_utils::waitUntilFalse()(getStatusRunControllers,
-                                              std::chrono::seconds(5),
-                                              std::chrono::milliseconds(0)));
+    };*/
+    // ASSERT_FALSE(getStatusRunControllers());
     logic_state_machine_->process_event(InternalTransitionEvent());
     ASSERT_STREQ(pstate(*logic_state_machine_), "Hovering");
 }
@@ -450,6 +489,7 @@ TEST_F(OrangePickingStateMachineTests, ManualControlAbort) {
   // First Takeoff
   GoToHoverFromLanded();
   // Pick
+  sendSampleMessage();
   testManualControlAbort<ope::Pick>();
 }
 // Arm abort
@@ -457,6 +497,7 @@ TEST_F(OrangePickingStateMachineTests, ArmOffAbort) {
   // First Takeoff
   GoToHoverFromLanded();
   // Pick
+  sendSampleMessage();
   testArmOffAbort<ope::Pick>();
 }
 
@@ -492,5 +533,6 @@ TEST_F(OrangePickingStateMachineTests, OrangePickingManualControlInternalActions
 
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
+  ros::init(argc, argv, "orange_picking_state_machine_tests");
   return RUN_ALL_TESTS();
 }

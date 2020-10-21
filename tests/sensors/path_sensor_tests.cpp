@@ -3,6 +3,7 @@
 #include <gtest/gtest.h>
 #include <quad_simulator_parser/quad_simulator.h>
 #include <ros/ros.h>
+#include "path_sensor_config.pb.h"
 
 class PathSensorTests : public ::testing::Test {
 public:
@@ -26,7 +27,6 @@ TEST_F(PathSensorTests, Constructor) {
 }
 
 TEST_F(PathSensorTests, SensorTest) {
-
   PathSensor sensor(config);
   trajectory_msgs::JointTrajectory path_msg;
   //Build path_msg
@@ -34,29 +34,29 @@ TEST_F(PathSensorTests, SensorTest) {
   for (int ii = 0; ii < 150; ++ii) {
     trajectory_msgs::JointTrajectoryPoint point;
     //xyz
-    point.positions[0] = 0.1*ii;
-    point.positions[1] = 0.2*ii;
-    point.positions[2] = 0.3*ii;
+    point.positions.push_back(0.1 * ii);
+    point.positions.push_back(0.2 * ii);
+    point.positions.push_back(0.3 * ii);
     //rotlog
-    point.positions[3] = 0.0;
-    point.positions[4] = 0.0;
-    point.positions[5] = 1.0;
+    point.positions.push_back(0.0);
+    point.positions.push_back(0.0);
+    point.positions.push_back(1.0);
     //velocity xyz
-    point.velocities[0] = 0.1*ii;
-    point.velocities[1] = 0.2*ii;
-    point.velocities[2] = 0.3*ii;
+    point.velocities.push_back(0.1 * ii);
+    point.velocities.push_back(0.2 * ii);
+    point.velocities.push_back(0.3 * ii);
     //ang vel
-    point.velocities[3] = 0.0;
-    point.velocities[4] = 0.0;
-    point.velocities[5] = 1.0;
+    point.velocities.push_back(0.0);
+    point.velocities.push_back(0.0);
+    point.velocities.push_back(1.0);
     //accelerations
-    point.accelerations[0] = 0.1*ii;
-    point.accelerations[1] = 0.2*ii;
-    point.accelerations[2] = 0.3*ii;
+    point.accelerations.push_back(0.1 * ii);
+    point.accelerations.push_back(0.2 * ii);
+    point.accelerations.push_back(0.3 * ii);
     path_msg.points.push_back(point);
   }
   //Send path_msg
-  path_pub.publish(odom_msg);
+  path_pub.publish(path_msg);
   ros::Duration(0.01).sleep();
   ros::spinOnce();
 
@@ -93,28 +93,28 @@ TEST_F(PathSensorTests, Timeout) {
   trajectory_msgs::JointTrajectory path_msg;
   path_msg.header.stamp = ros::Time::now();
   //Build path_msg
-  for (int ii = 0; ii < 150; ++ii) {{
+  for (int ii = 0; ii < 150; ++ii) {
     trajectory_msgs::JointTrajectoryPoint point;
     //xyz
-    point.positions[0] = 0.1*ii;
-    point.positions[1] = 0.2*ii;
-    point.positions[2] = 0.3*ii;
+    point.positions.push_back(0.1 * ii);
+    point.positions.push_back(0.2 * ii);
+    point.positions.push_back(0.3 * ii);
     //rotlog
-    point.positions[3] = 0.0;
-    point.positions[4] = 0.0;
-    point.positions[5] = 1.0;
+    point.positions.push_back(0.0);
+    point.positions.push_back(0.0);
+    point.positions.push_back(1.0);
     //velocity xyz
-    point.velocities[0] = 0.1*ii;
-    point.velocities[1] = 0.2*ii;
-    point.velocities[2] = 0.3*ii;
+    point.velocities.push_back(0.1 * ii);
+    point.velocities.push_back(0.2 * ii);
+    point.velocities.push_back(0.3 * ii);
     //ang vel
-    point.velocities[3] = 0.0;
-    point.velocities[4] = 0.0;
-    point.velocities[5] = 1.0;
+    point.velocities.push_back(0.0);
+    point.velocities.push_back(0.0);
+    point.velocities.push_back(1.0);
     //accelerations
-    point.accelerations[0] = 0.1*ii;
-    point.accelerations[1] = 0.2*ii;
-    point.accelerations[2] = 0.3*ii;
+    point.accelerations.push_back(0.1 * ii);
+    point.accelerations.push_back(0.2 * ii);
+    point.accelerations.push_back(0.3 * ii);
     path_msg.points.push_back(point);
   }
   path_pub.publish(path_msg);

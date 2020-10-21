@@ -9,6 +9,7 @@
 #include <aerial_autonomy/actions_guards/visual_servoing_states_actions.h>
 #include <aerial_autonomy/arm_events.h>
 #include <aerial_autonomy/pick_place_events.h>
+#include <aerial_autonomy/orange_picking_events.h>
 #include <boost/msm/front/euml/operator.hpp>
 #include <boost/msm/front/functor_row.hpp>
 
@@ -65,3 +66,4 @@ struct OrangePickingStatesActions : UAVStatesActions<LogicStateMachineT1> {
   * @brief Guard to take when starting the PathState
   */
   using PathFollowTransitionGuard = PathFollowingTransitionGuardFunctor_<LogicStateMachineT1>;
+};

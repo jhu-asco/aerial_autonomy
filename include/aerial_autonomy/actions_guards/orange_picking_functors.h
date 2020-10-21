@@ -18,16 +18,28 @@
 #include <parsernode/common.h>
 
 //Forward Declarations
-template <class LogicStateMachineT> class PrePathFollowState_;
 template <class LogicStateMachineT> class PathFollowState_;
 
 //Functors
+
 template <class LogicStateMachineT, class AbortEventT, bool CompleteFlagT = true>
 struct PathFollowingStatus_ : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
   bool run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
-    bool result = ControllerStatusInternalActionFunctor_<LogicStateMachineT,
-               OrangePickingReferenceConnector,CompleteFlagT, AbortEventT>();
-    //TODO: check other statuses?
+    bool result =
+        ControllerStatusInternalActionFunctor_<LogicStateMachineT,
+                                               OrangePickingReferenceConnector,
+                                               CompleteFlagT, AbortEventT>()
+            .run(robot_system, logic_state_machine);
+    result &= ControllerStatusInternalActionFunctor_<
+                  LogicStateMachineT,
+                  RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
+                  CompleteFlagT, AbortEventT>()
+                  .run(robot_system, logic_state_machine);
+    if (robot_system.getPathSensor()->getSensorStatus() !=
+        SensorStatus::VALID) {
+      logic_state_machine.process_event(be::Abort());
+      return false;
+    }
     return result;
   }
 };
@@ -36,7 +48,7 @@ template <class LogicStateMachineT>
 struct ResetPathFollowingTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
   void run(UAVVisionSystem &robot_system) {
-    //TODO: controller resets? possibly unneccessary
+    // Empty for now.
   }
 };
 

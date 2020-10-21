@@ -114,7 +114,7 @@ TEST(UAVSystemTests, getActiveControllerStatus) {
 
   uav_system.runActiveController(ControllerGroup::UAV);
   uav_system.runActiveController(ControllerGroup::UAV);
-  ASSERT_TRUE(uav_system.getActiveControllerStatus(ControllerGroup::UAV));
+  ASSERT_TRUE((bool)uav_system.getActiveControllerStatus(ControllerGroup::UAV));
 
   uav_system.abortController(ControllerGroup::UAV);
   ASSERT_EQ(uav_system.getActiveControllerStatus(ControllerGroup::UAV),

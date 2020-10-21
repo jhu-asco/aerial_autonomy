@@ -66,7 +66,7 @@ TEST(VelocityBasedPositionControllerTests, Converged) {
   ASSERT_NEAR(controls.y, 0, 1e-6);
   ASSERT_NEAR(controls.z, 0, 1e-6);
   ASSERT_NEAR(controls.yaw_rate, 0, 1e-6);
-  ASSERT_TRUE(controller.isConverged(sensor_data));
+  ASSERT_TRUE((bool)controller.isConverged(sensor_data));
 }
 
 TEST(VelocityBasedPositionControllerTests, ControlsOutofBoundsNegYaw) {

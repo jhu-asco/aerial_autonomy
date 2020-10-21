@@ -4,6 +4,7 @@
 #include <Eigen/Dense>
 #include <gtest/gtest.h>
 #include <ros/ros.h>
+#include <math.h>
 
 class PathSensorTrajectoryTests : public ::testing::Test {
 public:
@@ -21,35 +22,44 @@ public:
 };
 
 TEST_F(PathSensorTrajectoryTests, Initialize) {
-  SensorPtr<PathReturnT> path_sensor = new PathSensor(config);
-  ASSERT_NO_THROW(PathSensorTrajectory(path_sensor));
+  SensorPtr<PathReturnT> goal;
+  goal.reset(new PathSensor(config));
+  ASSERT_NO_THROW(PathSensorTrajectory(goal));
+  // ASSERT_NO_THROW( PathSensorTrajectory( path_sensor ) );
 }
 
 TEST_F(PathSensorTrajectoryTests, AtTimeTest) {
-  SensorPtr<PathReturnT> path_sensor = new PathSensor(config);
+  SensorPtr<PathReturnT> path_sensor(new PathSensor(config));
   PathSensorTrajectory path_traj(path_sensor);
   //Build path_msg
+  trajectory_msgs::JointTrajectory path_msg;
   path_msg.header.stamp = ros::Time::now();
   for (int ii = 0; ii < 150; ++ii) {
+    trajectory_msgs::JointTrajectoryPoint point;
     //xyz
-    path_msg.points[ii].positions[0] = 0.1*ii;
-    path_msg.points[ii].positions[1] = 0.2*ii;
-    path_msg.points[ii].positions[2] = 0.3*ii;
+    point.positions.push_back(0.1 * ii);
+    point.positions.push_back(0.2 * ii);
+    point.positions.push_back(0.3 * ii);
     //rotlog
-    path_msg.points[ii].positions[3] = 0.0;
-    path_msg.points[ii].positions[4] = 0.0;
-    path_msg.points[ii].positions[5] = 1.0;
+    point.positions.push_back(0.0);
+    point.positions.push_back(0.0);
+    point.positions.push_back(1.0);
     //velocity xyz
-    path_msg.points[ii].velocities[0] = 0.1*ii;
-    path_msg.points[ii].velocities[1] = 0.2*ii;
-    path_msg.points[ii].velocities[2] = 0.3*ii;
+    point.velocities.push_back(0.1 * ii);
+    point.velocities.push_back(0.2 * ii);
+    point.velocities.push_back(0.3 * ii);
     //ang vel
-    path_msg.points[ii].velocities[3] = 0.0;
-    path_msg.points[ii].velocities[4] = 0.0;
-    path_msg.points[ii].velocities[5] = 1.0;
+    point.velocities.push_back(0.0);
+    point.velocities.push_back(0.0);
+    point.velocities.push_back(1.0);
+    // accelerations
+    point.accelerations.push_back(0.1 * ii);
+    point.accelerations.push_back(0.2 * ii);
+    point.accelerations.push_back(0.3 * ii);
+    path_msg.points.push_back(point);
   }
   //Send path_msg
-  path_pub.publish(odom_msg);
+  path_pub.publish(path_msg);
   ros::Duration(0.01).sleep();
   ros::spinOnce();
   auto state_control_pair = path_traj.atTime(ros::Time::now().toSec() + 20);//Long after the time should be up
@@ -60,11 +70,6 @@ TEST_F(PathSensorTrajectoryTests, AtTimeTest) {
   Eigen::VectorXd control = state_control_pair.second;
   ASSERT_EQ(state.size(), 12);
   ASSERT_EQ(control.size(), 4);
-  // Test control (roll, pitch, yaw, thrust)
-  ASSERT_NEAR(control(0), 0, 1e-3);
-  ASSERT_NEAR(control(1), 0, 1e-3);
-  ASSERT_NEAR(control(2), 1, 1e-3);
-  ASSERT_NEAR(control(3), (z+9.81)/9.81, 1e-3);
   // Test state
   // pos
   ASSERT_NEAR(state(0), x, 1e-3);
@@ -82,9 +87,16 @@ TEST_F(PathSensorTrajectoryTests, AtTimeTest) {
   ASSERT_NEAR(state(9), 0, 1e-3);
   ASSERT_NEAR(state(10), 0, 1e-3);
   ASSERT_NEAR(state(11), 1, 1e-3);
+  // Test control (roll, pitch, yaw, thrust)
+  ASSERT_NEAR(control(0), sqrt(x * x + y * y + (z + 9.81) * (z + 9.81)) / 9.81,
+              1e-3);
+  ASSERT_NEAR(control(1), 0, 1e-3);
+  ASSERT_NEAR(control(2), 0, 1e-3);
+  ASSERT_NEAR(control(3), 1, 1e-3);
 }
 
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
+  ros::init(argc, argv, "path_sensor_trajectory_tests");
   return RUN_ALL_TESTS();
 }

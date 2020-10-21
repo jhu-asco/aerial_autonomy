@@ -53,9 +53,6 @@ public:
         return false;
       }
     }
-    /*if (!controller_.getGoal()->getSensorStatus() == SensorStatus::VALID) {
-      return false;
-    }*/
     //sensor_data is unnecessary.  It's a dummy value.
     return true;
   }

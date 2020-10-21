@@ -4,6 +4,7 @@
 #include "aerial_autonomy/types/reference_trajectory.h"
 #include "aerial_autonomy/sensors/path_sensor.h"
 #include <Eigen/Dense>
+#include <chrono>
 
 /**
 * @brief A trajectory that wraps a path sensor.
@@ -19,7 +20,12 @@ public:
    * @param path_sensor sensor that listens to ROS
    */
 
-  PathSensorTrajectory(SensorPtr<PathReturnT> path_sensor);
+  PathSensorTrajectory() { sensor_ = nullptr; }
+
+  PathSensorTrajectory(
+      SensorPtr<PathReturnT> path_sensor,
+      std::chrono::time_point<std::chrono::high_resolution_clock> goal_time =
+          std::chrono::high_resolution_clock::now());
   /**
   * @brief Gets the trajectory information at the specified time
   * @param t Time
@@ -38,4 +44,5 @@ public:
 
 private:
   SensorPtr<PathReturnT> sensor_;
+  std::chrono::time_point<std::chrono::high_resolution_clock> goal_time_;
 };

@@ -37,7 +37,7 @@ void verifyFileData(std::vector<std::vector<T>> log,
 
   std::string data_point;
   for (auto data : log) {
-    ASSERT_TRUE(std::getline(data_file, data_point));
+    ASSERT_TRUE(!std::getline(data_file, data_point).fail());
 
     size_t next = 0;
     size_t last = 0;
@@ -71,7 +71,7 @@ void verifyFileData<std::string>(std::vector<std::vector<std::string>> log,
 
   std::string data_point;
   for (auto data : log) {
-    ASSERT_TRUE(std::getline(data_file, data_point));
+    ASSERT_TRUE(!std::getline(data_file, data_point).fail());
 
     size_t next = 0;
     size_t last = 0;

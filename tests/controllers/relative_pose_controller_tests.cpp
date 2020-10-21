@@ -37,7 +37,7 @@ TEST_F(RelativePoseControllerTests, ConvergedNoOffset) {
 
   ASSERT_TRUE(result);
   ASSERT_TF_NEAR(controls, global_goal);
-  ASSERT_TRUE(controller.isConverged(sensor_data));
+  ASSERT_TRUE((bool)controller.isConverged(sensor_data));
 }
 
 TEST_F(RelativePoseControllerTests, NotConvergedNoOffset) {
@@ -56,7 +56,7 @@ TEST_F(RelativePoseControllerTests, NotConvergedNoOffset) {
 
   ASSERT_TRUE(result);
   ASSERT_TF_NEAR(controls, global_goal);
-  ASSERT_FALSE(controller.isConverged(sensor_data));
+  ASSERT_FALSE((bool)controller.isConverged(sensor_data));
 }
 
 TEST_F(RelativePoseControllerTests, ConvergedOffset) {
@@ -74,7 +74,7 @@ TEST_F(RelativePoseControllerTests, ConvergedOffset) {
 
   ASSERT_TRUE(result);
   ASSERT_TF_NEAR(controls, global_goal);
-  ASSERT_TRUE(controller.isConverged(sensor_data));
+  ASSERT_TRUE((bool)controller.isConverged(sensor_data));
 }
 
 TEST_F(RelativePoseControllerTests, ConvergedWithinTolerance) {
@@ -93,7 +93,7 @@ TEST_F(RelativePoseControllerTests, ConvergedWithinTolerance) {
 
   ASSERT_TRUE(result);
   ASSERT_TF_NEAR(controls, global_goal);
-  ASSERT_TRUE(controller.isConverged(sensor_data));
+  ASSERT_TRUE((bool)controller.isConverged(sensor_data));
 }
 
 TEST_F(RelativePoseControllerTests, NotConvergedOffset) {
@@ -111,7 +111,7 @@ TEST_F(RelativePoseControllerTests, NotConvergedOffset) {
 
   ASSERT_TRUE(result);
   ASSERT_TF_NEAR(controls, global_goal);
-  ASSERT_FALSE(controller.isConverged(sensor_data));
+  ASSERT_FALSE((bool)controller.isConverged(sensor_data));
 }
 
 int main(int argc, char **argv) {

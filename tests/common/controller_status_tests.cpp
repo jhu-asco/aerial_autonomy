@@ -74,8 +74,8 @@ TEST(ControllerStatusTests, Compare) {
 TEST(ControllerStatusTests, CompareTrue) {
   ControllerStatus controller_status_1(ControllerStatus::Active);
   ControllerStatus controller_status_2(ControllerStatus::Completed);
-  EXPECT_TRUE(controller_status_2);
-  EXPECT_FALSE(controller_status_1);
+  EXPECT_TRUE((bool)controller_status_2);
+  EXPECT_FALSE((bool)controller_status_1);
 }
 
 TEST(ControllerStatusTests, CombineControllerStatusCompleted) {

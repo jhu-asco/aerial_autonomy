@@ -7,6 +7,7 @@
 
 #include <tf/tf.h>
 #include <utility>
+#include <chrono>
 
 /**
  * @brief Controller that generates a reference trajectory based on
@@ -25,6 +26,13 @@ public:
    */
   PathReferenceController(){};
 
+  virtual void setGoal(SensorPtr<PathReturnT> goal) {
+    Controller<std::pair<PositionYaw, tf::Transform>, SensorPtr<PathReturnT>,
+               ReferenceTrajectoryPtr<Eigen::VectorXd,
+                                      Eigen::VectorXd>>::setGoal(goal);
+    goal_time_ = std::chrono::high_resolution_clock::now();
+  }
+
 protected:
   /**
    * @brief generate reference trajectory based on goal
@@ -34,13 +42,17 @@ protected:
    *
    * @return true if able to generate the trajectory
    */
-  /*virtual*/ bool runImplementation(
-      std::pair<PositionYaw, tf::Transform> sensor_data, SensorPtr<PathReturnT> goal,
+  bool runImplementation(
+      std::pair<PositionYaw, tf::Transform> sensor_data,
+      SensorPtr<PathReturnT> goal,
       ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> &control) {
-          control.reset(new PathSensorTrajectory(goal));
-          return true;
+    if (!control_) {
+      control_.reset(new PathSensorTrajectory(goal, goal_time_));
+    }
+    control =
+        ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>(control_);
+    return true;
   }
-
 
   /**
    * @brief Status of the controller
@@ -55,9 +67,11 @@ protected:
   virtual ControllerStatus
       isConvergedImplementation(std::pair<PositionYaw, tf::Transform> sensor_data, 
                                 SensorPtr<PathReturnT> goal){
+    std::cout << "Path Reference Controller Converge check..." << std::endl;
     return ControllerStatus(ControllerStatus::Status::Active);
   }
 
 private:
-  //ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> control_;
+  ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> control_;
+  std::chrono::time_point<std::chrono::high_resolution_clock> goal_time_;
 };

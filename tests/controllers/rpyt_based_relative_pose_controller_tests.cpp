@@ -91,9 +91,9 @@ public:
     ASSERT_NEAR(controls.y, math::angleWrap(goal_yaw - cur_yaw) * yaw_gain_,
                 1e-6);
     if (should_converge) {
-      ASSERT_TRUE(controller.isConverged(sensor_data));
+      ASSERT_TRUE((bool)controller.isConverged(sensor_data));
     } else {
-      ASSERT_FALSE(controller.isConverged(sensor_data));
+      ASSERT_FALSE((bool)controller.isConverged(sensor_data));
     }
   }
 
