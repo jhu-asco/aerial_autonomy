@@ -19,6 +19,7 @@ struct ArmFoldTransitionActionFunctor_
     : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
   void run(ArmSystem &robot_system) {
     VLOG(1) << "Folding Arm!";
+std::cout << "Arm Folding Functor!!" << std::endl;
     robot_system.foldArm();
   }
 };
@@ -32,6 +33,7 @@ template <class LogicStateMachineT>
 struct ArmRightFoldTransitionActionFunctor_
     : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
   void run(ArmSystem &robot_system) {
+std::cout << "Arm Right Folding Functor!!" << std::endl;
     VLOG(1) << "Folding Arm to right angle!";
     robot_system.rightArm();
   }

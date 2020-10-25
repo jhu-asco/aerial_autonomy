@@ -18,8 +18,9 @@
 *
 * @tparam LogicStateMachineT The backend of logic state machine
 */
-template <class LogicStateMachineT1>
-struct OrangePickingStatesActions : UAVStatesActions<LogicStateMachineT1> {
+template <class LogicStateMachineT>
+struct OrangePickingStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
+                                    ArmStatesActions<LogicStateMachineT> {
   /**
    * @brief Logical and functor between two guard functions
    *
@@ -32,25 +33,25 @@ struct OrangePickingStatesActions : UAVStatesActions<LogicStateMachineT1> {
   /**
    * @brief namespace for states and actions in visual servoing
    */
-  using vsa = VisualServoingStatesActions<LogicStateMachineT1>;
+  using vsa = VisualServoingStatesActions<LogicStateMachineT>;
   /**
    * @brief namespace for states and actions for basic uav actions
    */
-  using usa = UAVStatesActions<LogicStateMachineT1>;
+  using usa = UAVStatesActions<LogicStateMachineT>;
   /**
    * @brief namespace for states and actions for arm functors
    */
-  using asa = ArmStatesActions<LogicStateMachineT1>;
+  using asa = ArmStatesActions<LogicStateMachineT>;
   /**
    * @brief namespace for states and actions for pick-place functors
    */
-  using psa = PickPlaceStatesActions<LogicStateMachineT1>;
+  using psa = PickPlaceStatesActions<LogicStateMachineT>;
 
   // OrangePicking states
   /**
   * @brief State while following the path
   */
-  using PathFollowState = PathFollowState_<LogicStateMachineT1>;
+  using PathFollowState = PathFollowState_<LogicStateMachineT>;
 
   // Transition Actions and Guards
   /**
@@ -58,12 +59,12 @@ struct OrangePickingStatesActions : UAVStatesActions<LogicStateMachineT1> {
   */
   using PathFollowTransitionAction = 
       base_functors::bActionSequence<boost::mpl::vector<
-          ResetPathFollowingTransitionActionFunctor_<LogicStateMachineT1>,
+          ResetPathFollowingTransitionActionFunctor_<LogicStateMachineT>,
           typename asa::ArmRightFold,
-          ResetThrustMixingGain_<LogicStateMachineT1>,
-          PathFollowingTransitionActionFunctor_<LogicStateMachineT1>>>;
+          ResetThrustMixingGain_<LogicStateMachineT>,
+          PathFollowingTransitionActionFunctor_<LogicStateMachineT>>>;
   /**
   * @brief Guard to take when starting the PathState
   */
-  using PathFollowTransitionGuard = PathFollowingTransitionGuardFunctor_<LogicStateMachineT1>;
+  using PathFollowTransitionGuard = PathFollowingTransitionGuardFunctor_<LogicStateMachineT>;
 };
