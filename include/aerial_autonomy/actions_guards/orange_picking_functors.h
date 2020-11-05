@@ -1,6 +1,7 @@
 #pragma once
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
+#include <aerial_autonomy/actions_guards/position_control_functors.h>
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/common/math.h>
 #include <aerial_autonomy/common/proto_utils.h>
@@ -71,9 +72,11 @@ struct PathFollowingTransitionGuardFunctor_
     if (goal != nullptr) {
       result &= (goal->getSensorStatus() == SensorStatus::VALID);
     } else {
+      std::cout << "path sensor is NULL" << std::endl;
       return false;
     }
     result &= (robot_system.getPoseSensorStatus() == SensorStatus::VALID);
+    std::cout << "path sensor guard returning: " << result << std::endl;
     return result;
   }
 };
@@ -83,6 +86,7 @@ using PathFollowInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+        FlyawayCheckFunctor_<LogicStateMachineT>,
         PathFollowingStatus_<LogicStateMachineT, be::Abort>>>;
 
 

@@ -139,6 +139,26 @@ struct PositionControlTransitionGuardFunctor_
 };
 
 /**
+ * @brief Check the height is below a config value
+ *
+ * @tparam LogicStateMachineT Logic state machine used to process events
+ */
+template <class LogicStateMachineT>
+struct FlyawayCheckFunctor_ : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
+  bool run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
+    //Get altitude data
+    double z = robot_system.getPose().getOrigin().getZ();
+    double z_threshold = robot_system.getConfiguration().flyaway_altitude();
+    if ((z_threshold > 0) && (z > z_threshold)) {
+      logic_state_machine.process_event(be::Abort());
+      return false;
+    }
+    return true;
+  }
+};
+
+
+/**
  * @brief Check the velocity along xyz axes are above 0.05 m/s
  *
  * @tparam LogicStateMachineT Logic state machine used to process events
