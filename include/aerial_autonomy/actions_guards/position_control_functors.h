@@ -147,9 +147,33 @@ template <class LogicStateMachineT>
 struct FlyawayCheckFunctor_ : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
   bool run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     //Get altitude data
-    double z = robot_system.getPose().getOrigin().getZ();
-    double z_threshold = robot_system.getConfiguration().flyaway_altitude();
-    if ((z_threshold > 0) && (z > z_threshold)) {
+    auto position = robot_system.getPose().getOrigin();
+    double x = position.getZ();
+    double y = position.getZ();
+    double z = position.getZ();
+    auto threshold = robot_system.getConfiguration().geofence_config();
+    if (x < threshold.min_x()) {
+      LOG(WARNING) << "Crossed Minimum X Threshold.  Aborting...";
+      logic_state_machine.process_event(be::Abort());
+      return false;
+    }
+    if (x > threshold.max_x()) {
+      LOG(WARNING) << "Crossed Maximum X Threshold.  Aborting...";
+      logic_state_machine.process_event(be::Abort());
+      return false;
+    }
+    if (y < threshold.min_y()) {
+      LOG(WARNING) << "Crossed Minimum Y Threshold.  Aborting...";
+      logic_state_machine.process_event(be::Abort());
+      return false;
+    }
+    if (y > threshold.max_y()) {
+      LOG(WARNING) << "Crossed Maximum Y Threshold.  Aborting...";
+      logic_state_machine.process_event(be::Abort());
+      return false;
+    }
+    if (z > threshold.max_z()) {
+      LOG(WARNING) << "Crossed Maximum Z Threshold.  Aborting...";
       logic_state_machine.process_event(be::Abort());
       return false;
     }

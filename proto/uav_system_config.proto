@@ -26,6 +26,8 @@ import "mpc_connector_config.proto";
 
 import "rpyt_reference_connector_config.proto";
 
+import "geofence_config.proto";
+
 message UAVSystemConfig {
   /**
   * @brief Battery percentage required for takeoff
@@ -132,4 +134,8 @@ message UAVSystemConfig {
   * @brief If to path ros sensor for path sensor
   */
   optional bool use_path_sensor = 24 [ default = false ];
+  /**
+  * @brief Maximum Altitude
+  */
+  optional GeofenceConfig geofence_config = 25;
 }
