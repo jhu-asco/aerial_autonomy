@@ -102,3 +102,7 @@ data_stream_configs {
   stream_id: "acceleration_bias_estimator"
   log_rate: 20
 }
+data_stream_configs {
+  stream_id: "path_sensor_trajectory"
+  log_rate: 20
+}

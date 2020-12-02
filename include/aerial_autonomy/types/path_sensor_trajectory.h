@@ -3,6 +3,7 @@
 #include <utility>
 #include "aerial_autonomy/types/reference_trajectory.h"
 #include "aerial_autonomy/sensors/path_sensor.h"
+#include "aerial_autonomy/log/log.h"
 #include <Eigen/Dense>
 #include <chrono>
 

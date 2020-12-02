@@ -244,6 +244,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/polynomial_reference_config.proto
   proto/odom_from_pose_sensor_config.proto
   proto/path_sensor_config.proto
+  proto/geofence_config.proto
 )
 add_library(proto ${PROTO_HEADER} ${PROTO_SRC})
 
