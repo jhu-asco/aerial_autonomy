@@ -1,0 +1,27 @@
+syntax = "proto2";
+
+/**
+* Configuration for preventing flyaway behaviors
+*/
+message GeofenceConfig {
+  /**
+  * @brief Minimum x
+  */
+  optional double min_x = 1 [default = -100];
+  /**
+  * @brief Maximum x
+  */
+  optional double max_x = 2 [default = -100];
+  /**
+  * @brief Minimum y
+  */
+  optional double min_y = 3 [default = -100];
+  /**
+  * @brief Maximum y
+  */
+  optional double max_y = 4 [default = -100];
+  /**
+  * @brief Maximum z
+  */
+  optional double max_z = 5 [default = -100];
+}

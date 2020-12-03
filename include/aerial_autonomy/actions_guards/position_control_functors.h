@@ -139,6 +139,50 @@ struct PositionControlTransitionGuardFunctor_
 };
 
 /**
+ * @brief Check the height is below a config value
+ *
+ * @tparam LogicStateMachineT Logic state machine used to process events
+ */
+template <class LogicStateMachineT>
+struct FlyawayCheckFunctor_ : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
+  bool run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
+    //Get altitude data
+    auto position = robot_system.getPose().getOrigin();
+    double x = position.getZ();
+    double y = position.getZ();
+    double z = position.getZ();
+    auto threshold = robot_system.getConfiguration().geofence_config();
+    if (x < threshold.min_x()) {
+      LOG(WARNING) << "Crossed Minimum X Threshold.  Aborting...";
+      logic_state_machine.process_event(be::Abort());
+      return false;
+    }
+    if (x > threshold.max_x()) {
+      LOG(WARNING) << "Crossed Maximum X Threshold.  Aborting...";
+      logic_state_machine.process_event(be::Abort());
+      return false;
+    }
+    if (y < threshold.min_y()) {
+      LOG(WARNING) << "Crossed Minimum Y Threshold.  Aborting...";
+      logic_state_machine.process_event(be::Abort());
+      return false;
+    }
+    if (y > threshold.max_y()) {
+      LOG(WARNING) << "Crossed Maximum Y Threshold.  Aborting...";
+      logic_state_machine.process_event(be::Abort());
+      return false;
+    }
+    if (z > threshold.max_z()) {
+      LOG(WARNING) << "Crossed Maximum Z Threshold.  Aborting...";
+      logic_state_machine.process_event(be::Abort());
+      return false;
+    }
+    return true;
+  }
+};
+
+
+/**
  * @brief Check the velocity along xyz axes are above 0.05 m/s
  *
  * @tparam LogicStateMachineT Logic state machine used to process events

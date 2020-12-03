@@ -7,7 +7,9 @@
 PathSensorTrajectory::PathSensorTrajectory(
     SensorPtr<PathReturnT> path_sensor,
     std::chrono::time_point<std::chrono::high_resolution_clock> goal_time)
-    : sensor_(path_sensor), goal_time_(goal_time) {}
+    : sensor_(path_sensor), goal_time_(goal_time) {
+DATA_HEADER("path_sensor_trajectory") << "State" << "Control" << DataStream::endl;
+}
 
 std::pair<Eigen::VectorXd, Eigen::VectorXd>
 PathSensorTrajectory::atTime(double t) const {
@@ -44,6 +46,7 @@ PathSensorTrajectory::atTime(double t) const {
   acceleration[2] = acceleration[2] + 9.81;
   control(0) = acceleration.norm() / 9.81;
   control.segment(1,3) = std::get<3>(ref_data); 
+  DATA_LOG("path_sensor_trajectory") << state << control << DataStream::endl;
   return std::make_pair(state, control);
 }
 
