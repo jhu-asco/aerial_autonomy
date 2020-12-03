@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="record_rgbd" default="true"/>
+  <include file="$(find ros_vrpn_client)/launch/matrice.launch"/>
+  <include file="$(find realsense2_camera)/launch/rs_aligned_depth.launch">
+    <arg name="enable_infra1"       value="false"/>
+    <arg name="enable_infra2"       value="false"/>
+    <arg name="enable_fisheye"       value="false"/>
+    <arg name="enable_imu"       value="false"/>
+  </include>
+  <node pkg="rosbag" type="record" name="record" args="-o realsense.bag /camera/color/image_raw /camera/depth/image_rect_raw /camera/aligned_depth_to_color/image_raw /vrpn_client/matrice/pose" if="$(arg record_rgbd)"/>
+</launch>

@@ -33,13 +33,15 @@ struct PathFollowingStatus_ : InternalActionFunctor<UAVSystem, LogicStateMachine
     result &= ControllerStatusInternalActionFunctor_<
                   LogicStateMachineT,
                   RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
-                  CompleteFlagT, AbortEventT>()
+                  false, AbortEventT>()
                   .run(robot_system, logic_state_machine);
     if (robot_system.getPathSensor()->getSensorStatus() !=
         SensorStatus::VALID) {
+      std::cout << "Sensor Status is not VALID" << std::endl;
       logic_state_machine.process_event(be::Abort());
       return false;
     }
+    //TODO: Add path convergence check here
     return result;
   }
 };

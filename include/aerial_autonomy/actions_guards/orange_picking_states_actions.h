@@ -61,7 +61,7 @@ struct OrangePickingStatesActions : VisualServoingStatesActions<LogicStateMachin
       base_functors::bActionSequence<boost::mpl::vector<
           ResetPathFollowingTransitionActionFunctor_<LogicStateMachineT>,
           typename asa::ArmRightFold,
-          ResetThrustMixingGain_<LogicStateMachineT>,
+          //ResetThrustMixingGain_<LogicStateMachineT>,
           PathFollowingTransitionActionFunctor_<LogicStateMachineT>>>;
   /**
   * @brief Guard to take when starting the PathState

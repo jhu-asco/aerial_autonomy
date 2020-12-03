@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="hil" default="true"/>
+  <arg name="hil" default="false"/>
   <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/matrice_hil_orange_picking_config.pbtxt" if="$(arg hil)"/>
   <param name="uav_system_config_filename" value="$(find aerial_autonomy)/param/matrice_orange_picking_config.pbtxt" unless="$(arg hil)"/>
   <param name="log_config_filename" value="$(find aerial_autonomy)/param/log_config.pbtxt" />
@@ -42,4 +42,5 @@
   <node pkg="tf" type="static_transform_publisher" name="arm_quad" args="0.17 0 -.109 3.141 -1.5708 0 /matrice /arm 100"/>
   <node pkg="guidance" type="guidanceNode" name="guidance" args="false" />
   <include file="$(find ros_vrpn_client)/launch/matrice.launch"/>
+  <!--<include file="$(find orange_tracking)/launch/rs_d435i.launch"/>-->
 </launch>

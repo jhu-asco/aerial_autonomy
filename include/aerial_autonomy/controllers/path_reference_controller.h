@@ -67,7 +67,6 @@ protected:
   virtual ControllerStatus
       isConvergedImplementation(std::pair<PositionYaw, tf::Transform> sensor_data, 
                                 SensorPtr<PathReturnT> goal){
-    std::cout << "Path Reference Controller Converge check..." << std::endl;
     return ControllerStatus(ControllerStatus::Status::Active);
   }
 
