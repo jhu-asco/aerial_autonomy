@@ -27,10 +27,17 @@ public:
   PathReferenceController(){};
 
   virtual void setGoal(SensorPtr<PathReturnT> goal) {
+    VLOG(1) << "Path Reference setGoal";
     Controller<std::pair<PositionYaw, tf::Transform>, SensorPtr<PathReturnT>,
                ReferenceTrajectoryPtr<Eigen::VectorXd,
                                       Eigen::VectorXd>>::setGoal(goal);
     goal_time_ = std::chrono::high_resolution_clock::now();
+    VLOG(1) << "Path Reference goalTime is now: "  << std::chrono::duration<double>(goal_time_.time_since_epoch()).count();
+  }
+  
+  virtual void reset() {
+    VLOG(1) << "Path Reference Reset";
+    //goal_time_ = std::chrono::high_resolution_clock::now();
   }
 
 protected:
@@ -46,7 +53,9 @@ protected:
       std::pair<PositionYaw, tf::Transform> sensor_data,
       SensorPtr<PathReturnT> goal,
       ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> &control) {
+    VLOG(1) << "Path Reference runImplementation";
     if (!control_) {
+      VLOG(1) << "Path Reference Updating Pointer";
       control_.reset(new PathSensorTrajectory(goal, goal_time_));
     }
     control =

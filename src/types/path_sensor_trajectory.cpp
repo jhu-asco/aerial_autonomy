@@ -28,6 +28,8 @@ PathSensorTrajectory::atTime(double t) const {
   //Calculate index
   //double final_time = path_start_time + path_duration;
   int N = path_data.size();
+  VLOG(1) << "atTime called: t: " << t << " goal_time_secs: " << goal_time_secs << " path_start_time: " << path_start_time;
+  VLOG(1) << "Time Frac (unclamped): " << ((t + goal_time_secs - path_start_time)/path_duration);
   double time_frac =
       math::clamp((t + goal_time_secs - path_start_time) / path_duration, 0, 1);
   int idx = (int)(time_frac*N);
