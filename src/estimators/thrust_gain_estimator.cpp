@@ -37,11 +37,11 @@ ThrustGainEstimator::ThrustGainEstimator(
                                        << "thrust_gain"
                                        << "roll_bias"
                                        << "pitch_bias" << DataStream::endl;
-  std::cout << "TGE Constructor" << std::endl;
+  //std::cout << "TGE Constructor" << std::endl;
 }
 
 void ThrustGainEstimator::reset(double thrust_gain) {
-  std::cout << "TGE Reset" << std::endl;
+  //std::cout << "TGE Reset" << std::endl;
   CHECK_GE(thrust_gain, min_thrust_gain_)
       << "Thrust gain should be greater than or equal to minimum: "
       << min_thrust_gain_;
@@ -54,7 +54,7 @@ void ThrustGainEstimator::reset(double thrust_gain) {
 
 std::pair<double, Eigen::Vector2d> ThrustGainEstimator::processSensorThrustPair(
     double roll, double pitch, tf::Vector3 body_acc, double thrust_command) {
-  std::cout << "TGE process ST pair" << std::endl;
+  //std::cout << "TGE process ST pair" << std::endl;
   tf::Transform quad_rotation(tf::createQuaternionFromRPY(roll, pitch, 0));
   tf::Vector3 rotated_acc = quad_rotation * body_acc;
   rotated_acc[2] = rotated_acc[2] + gravity_magnitude_;
@@ -77,7 +77,7 @@ int ThrustGainEstimator::getQueueSize() { return thrust_command_queue_.size(); }
 
 void ThrustGainEstimator::addSensorData(double roll, double pitch,
                                         tf::Vector3 body_acc) {
-  std::cout << "TGE addSensorData" << std::endl;
+  //std::cout << "TGE addSensorData" << std::endl;
 
   if (thrust_command_queue_.size() == delay_buffer_size_) {
     auto gain_bias_pair = processSensorThrustPair(
@@ -104,7 +104,7 @@ void ThrustGainEstimator::addSensorData(double roll, double pitch,
 }
 
 void ThrustGainEstimator::addThrustCommand(double thrust_command) {
-  std::cout << "TGE addThrust" << std::endl;
+  //std::cout << "TGE addThrust" << std::endl;
   if (thrust_command_queue_.size() == delay_buffer_size_) {
     thrust_command_queue_.pop();
   }
@@ -112,28 +112,28 @@ void ThrustGainEstimator::addThrustCommand(double thrust_command) {
 }
 
 double ThrustGainEstimator::getThrustGain() { 
-  std::cout << "TGE get Thrust Gain" << std::endl;
+  //std::cout << "TGE get Thrust Gain" << std::endl;
   return thrust_gain_; 
 }
 
 Eigen::Vector2d ThrustGainEstimator::getRollPitchBias() {
-  std::cout << "TGE get RP Bias" << std::endl;
+  //std::cout << "TGE get RP Bias" << std::endl;
   return roll_pitch_bias_;
 }
 
 void ThrustGainEstimator::clearBuffer() {
-  std::cout << "TGE clear Buffer" << std::endl;
+  //std::cout << "TGE clear Buffer" << std::endl;
   std::queue<double> empty;
   thrust_command_queue_.swap(empty);
 }
 
 void ThrustGainEstimator::resetThrustMixingGain() {
-  std::cout << "TGE reset Mixing Gain" << std::endl;
+  //std::cout << "TGE reset Mixing Gain" << std::endl;
   mixing_gain_ = config_mixing_gain_;
 }
 
 void ThrustGainEstimator::setThrustMixingGain(double mixing_gain) {
-  std::cout << "TGE set Mixing Gain" << std::endl;
+  //std::cout << "TGE set Mixing Gain" << std::endl;
   CHECK_GE(mixing_gain, 0) << "Mixing gain should be between 0 and 1";
   CHECK_LE(mixing_gain, 1) << "Mixing gain should be between 0 and 1";
   mixing_gain_ = mixing_gain;

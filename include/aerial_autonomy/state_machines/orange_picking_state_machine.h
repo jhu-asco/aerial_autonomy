@@ -28,7 +28,7 @@
 #include <aerial_autonomy/actions_guards/orange_picking_states_actions.h>
 
 // Robot System used
-#include <aerial_autonomy/robot_systems/uav_arm_system.h>
+#include <aerial_autonomy/robot_systems/uav_vision_system.h>
 
 // Logging library
 #include <glog/logging.h>
@@ -64,7 +64,8 @@ using OrangePickingStateMachine =
 /**
 * @brief Namespace for basic uav states and actions such as takeoff, land etc
 */
-using psa = PickPlaceStatesActions<OrangePickingStateMachine>;
+//using psa = PickPlaceStatesActions<OrangePickingStateMachine>;
+using vsa = VisualServoingStatesActions<OrangePickingStateMachine>;
 using opsa = OrangePickingStatesActions<OrangePickingStateMachine>;
 
 /**
@@ -81,7 +82,7 @@ using opsa = OrangePickingStatesActions<OrangePickingStateMachine>;
 */
 class OrangePickingStateMachineFrontEnd
     : public msmf::state_machine_def<OrangePickingStateMachineFrontEnd>,
-      public BaseStateMachine<UAVArmSystem> {
+      public BaseStateMachine<UAVVisionSystem> {//UAVArmSystem
 public:
   /**
   * @brief Action to take on entering state machine
@@ -91,8 +92,8 @@ public:
   */
   template <class Event, class FSM> void on_entry(Event const &evt, FSM &fsm) {
     VLOG(1) << "entering: OrangePicking system";
-    int dummy_source_state = 0, dummy_target_state = 0;
-    psa::ArmPowerOn()(evt, fsm, dummy_source_state, dummy_target_state);
+    /*int dummy_source_state = 0, dummy_target_state = 0;
+    psa::ArmPowerOn()(evt, fsm, dummy_source_state, dummy_target_state);*/
   }
   /**
   * @brief Action to take on leaving state machine
@@ -102,8 +103,8 @@ public:
   */
   template <class Event, class FSM> void on_exit(Event const &evt, FSM &fsm) {
     VLOG(1) << "leaving: OrangePicking system";
-    int dummy_source_state = 0, dummy_target_state = 0;
-    psa::ArmPowerOff()(evt, fsm, dummy_source_state, dummy_target_state);
+    /*int dummy_source_state = 0, dummy_target_state = 0;
+    psa::ArmPowerOff()(evt, fsm, dummy_source_state, dummy_target_state);*/
   }
 
   /**
@@ -115,7 +116,7 @@ public:
   * machine
   */
   OrangePickingStateMachineFrontEnd(
-      UAVArmSystem &uav_system,
+      UAVVisionSystem &uav_system,
       const BaseStateMachineConfig &state_machine_config)
       : BaseStateMachine(uav_system, state_machine_config) {
     /*auto pick_state_machine_config =
@@ -134,13 +135,13 @@ public:
    * @param uav_system robot system that is stored internally and shared with
    * events
    */
-  OrangePickingStateMachineFrontEnd(UAVArmSystem &uav_system)
+  OrangePickingStateMachineFrontEnd(UAVVisionSystem &uav_system)
       : OrangePickingStateMachineFrontEnd(uav_system, BaseStateMachineConfig()){};
 
   /**
   * @brief Initial state for state machine
   */
-  using initial_state = psa::Landed;
+  using initial_state = vsa::Landed;//psa::Landed;
   /**
   * @brief Transition table for State Machine
   */
@@ -148,69 +149,69 @@ public:
       : boost::mpl::vector<
             //        Start          Event         Next           Action Guard
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Landed, be::Takeoff, psa::ArmPreTakeoffFolding,
-                      psa::ArmPowerOnFold, msmf::none>,
+            msmf::Row<vsa/*psa*/::Landed, be::Takeoff, vsa::TakingOff,//psa::ArmPreTakeoffFolding,
+                      vsa::TakeoffAction, vsa::TakeoffGuard>,//psa::ArmPowerOnFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Landed, ManualControlEvent,
-                      psa::ManualControlArmState, msmf::none, msmf::none>,
+            msmf::Row<vsa/*psa*/::Landed, ManualControlEvent,
+                      vsa::ManualControlState, /*psa::ManualControlArmState,*/ msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ArmPreTakeoffFolding, Completed, psa::TakingOff,
+            /*msmf::Row<psa::ArmPreTakeoffFolding, Completed, psa::TakingOff,
                       psa::TakeoffAction, psa::TakeoffGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ArmPreTakeoffFolding, be::Abort, psa::Landed,
-                      psa::ArmPowerOff, msmf::none>,
+                      psa::ArmPowerOff, msmf::none>,*/
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::TakingOff, Completed, psa::Hovering,
-                      psa::ArmRightFold, msmf::none>,
+            msmf::Row<vsa/*psa*/::TakingOff, Completed, vsa/*psa*/::Hovering,
+                      msmf::none/*psa::ArmRightFold*/, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, be::Land, psa::ArmPreLandingFolding,
-                      psa::ArmFold, msmf::none>,
+            msmf::Row<vsa/*psa*/::Hovering, be::Land, vsa::Landing, //psa::ArmPreLandingFolding,
+                      vsa::LandingAction, /*vsa::ArmFold,*/ msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, ManualControlEvent,
-                      psa::ManualControlArmState, msmf::none, msmf::none>,
+            msmf::Row<vsa/*psa*/::Hovering, ManualControlEvent,
+                      vsa::ManualControlState, /*psa::ManualControlArmState,*/ msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, PositionYaw, psa::ReachingGoal,
-                      psa::ReachingGoalSet, psa::ReachingGoalGuard>,
+            msmf::Row<vsa/*psa*/::Hovering, PositionYaw, vsa/*psa*/::ReachingGoal,
+                      vsa/*psa*/::ReachingGoalSet, vsa/*psa*/::ReachingGoalGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, vse::GoHome, psa::ReachingGoal,
-                      psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,
+            msmf::Row<vsa/*psa*/::Hovering, vse::GoHome, vsa/*psa*/::ReachingGoal,
+                      vsa/*psa*/::GoHomeTransitionAction, vsa/*psa*/::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, ope::Pick, opsa::PathFollowState,
+            msmf::Row<vsa/*psa*/::Hovering, ope::Pick, opsa::PathFollowState,
                       opsa::PathFollowTransitionAction,
                       opsa::PathFollowTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingGoal, be::Abort, psa::Hovering,
-                      psa::AbortUAVControllerArmRightFold, msmf::none>,
+            msmf::Row<vsa/*psa*/::ReachingGoal, be::Abort, vsa/*psa*/::Hovering,
+                      vsa::UAVControllerAbort /*psa::AbortUAVControllerArmRightFold*/, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingGoal, Completed, psa::Hovering,
-                      psa::AbortUAVControllerArmRightFold, msmf::none>,
+            msmf::Row<vsa/*psa*/::ReachingGoal, Completed, vsa/*psa*/::Hovering,
+                      vsa::UAVControllerAbort /*psa::AbortUAVControllerArmRightFold*/, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<opsa::PathFollowState, Completed, psa::Hovering,
-                      psa::AbortUAVArmController, msmf::none>,
+            msmf::Row<opsa::PathFollowState, Completed, vsa/*psa*/::Hovering,
+                      vsa::UAVControllerAbort /*psa::AbortUAVArmController*/, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<opsa::PathFollowState, be::Abort, psa::Hovering,
-                      psa::AbortUAVArmController, msmf::none>,
+            msmf::Row<opsa::PathFollowState, be::Abort, vsa/*psa*/::Hovering,
+                      vsa::UAVControllerAbort /*psa::AbortUAVArmController*/, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ArmPreLandingFolding, Completed, psa::Landing,
+            /*msmf::Row<psa::ArmPreLandingFolding, Completed, psa::Landing,
                       psa::LandingAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<psa::ArmPreLandingFolding, be::Abort, psa::Landing,
-                      psa::LandingAction, msmf::none>,
+                      psa::LandingAction, msmf::none>,*/
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Landing, Completed, psa::Landed, psa::ArmPowerOff,
+            msmf::Row<vsa/*psa*/::Landing, Completed, vsa/*psa*/::Landed, msmf::none,//psa::ArmPowerOff,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ManualControlArmState, be::Takeoff, psa::Hovering,
-                      psa::ManualControlSwitchAction,
-                      psa::ManualControlSwitchGuard>,
+            msmf::Row<vsa::ManualControlState,/*psa::ManualControlArmState,*/ be::Takeoff, vsa/*psa*/::Hovering,
+                      vsa/*psa*/::ManualControlSwitchAction,
+                      vsa/*psa*/::ManualControlSwitchGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ManualControlArmState, be::Land, psa::Landed,
-                      psa::ManualControlSwitchAction,
-                      psa::ManualControlSwitchGuard>> {};
+            msmf::Row<vsa::ManualControlState,/*psa::ManualControlArmState,*/ be::Land, vsa/*psa*/::Landed,
+                      vsa/*psa*/::ManualControlSwitchAction,
+                      vsa/*psa*/::ManualControlSwitchGuard>> {};
   /**
   * @brief Use Inherited no transition function
   */
-  using BaseStateMachine<UAVArmSystem>::no_transition;
+  using BaseStateMachine<UAVVisionSystem>::no_transition;//UAVArmSystem
 };
 
 /**
@@ -218,14 +219,14 @@ public:
 */
 static constexpr std::array<const char *, 17> state_names = {
     "Landed",
-    "ArmPreTakeoffFolding",
+    //"ArmPreTakeoffFolding",
     "Takingoff",
     "Hovering",
     "ReachingGoal",
     "PathFollow",
-    "ArmPreLandingFolding",
+    //"ArmPreLandingFolding",
     "Landing",
-    "ManualControlArmState"};
+    "ManualControlState"};//ManualControlArmState
 /**
 * @brief Get current state name
 *

@@ -9,6 +9,7 @@
 #include <aerial_autonomy/controller_connectors/orange_picking_reference_connector.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
+#include <aerial_autonomy/robot_systems/uav_vision_system.h>
 #include <aerial_autonomy/types/completed_event.h>
 #include <aerial_autonomy/types/object_id.h>
 #include <aerial_autonomy/types/reset_event.h>
@@ -87,7 +88,7 @@ template <class LogicStateMachineT>
 using PathFollowInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+        //ArmStatusInternalActionFunctor_<LogicStateMachineT>,
         FlyawayCheckFunctor_<LogicStateMachineT>,
         PathFollowingStatus_<LogicStateMachineT, be::Abort>>>;
 
@@ -100,5 +101,5 @@ using PathFollowInternalActionFunctor_ =
 */
 template <class LogicStateMachineT>
 class PathFollowState_
-    : public BaseState<UAVArmSystem, LogicStateMachineT,
+    : public BaseState<UAVVisionSystem, LogicStateMachineT,
           PathFollowInternalActionFunctor_<LogicStateMachineT>> {};

@@ -148,32 +148,32 @@ struct FlyawayCheckFunctor_ : InternalActionFunctor<UAVSystem, LogicStateMachine
   bool run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     //Get altitude data
     auto position = robot_system.getPose().getOrigin();
-    double x = position.getZ();
-    double y = position.getZ();
+    double x = position.getX();
+    double y = position.getY();
     double z = position.getZ();
     auto threshold = robot_system.getConfiguration().geofence_config();
     if (x < threshold.min_x()) {
-      LOG(WARNING) << "Crossed Minimum X Threshold.  Aborting...";
+      LOG(WARNING) << "Crossed Minimum X Threshold.  Threshold is: " << threshold.min_x() << " Value is: " << x << " Aborting...";
       logic_state_machine.process_event(be::Abort());
       return false;
     }
     if (x > threshold.max_x()) {
-      LOG(WARNING) << "Crossed Maximum X Threshold.  Aborting...";
+      LOG(WARNING) << "Crossed Maximum X Threshold.  Threshold is: " << threshold.max_x() << " Value is: " << x << " Aborting...";
       logic_state_machine.process_event(be::Abort());
       return false;
     }
     if (y < threshold.min_y()) {
-      LOG(WARNING) << "Crossed Minimum Y Threshold.  Aborting...";
+      LOG(WARNING) << "Crossed Minimum Y Threshold.  Threshold is: " << threshold.min_y() << " Value is: " << y << " Aborting...";
       logic_state_machine.process_event(be::Abort());
       return false;
     }
     if (y > threshold.max_y()) {
-      LOG(WARNING) << "Crossed Maximum Y Threshold.  Aborting...";
+      LOG(WARNING) << "Crossed Maximum Y Threshold.  Threshold is: " << threshold.max_y() << " Value is: " << y << " Aborting...";
       logic_state_machine.process_event(be::Abort());
       return false;
     }
     if (z > threshold.max_z()) {
-      LOG(WARNING) << "Crossed Maximum Z Threshold.  Aborting...";
+      LOG(WARNING) << "Crossed Maximum Z Threshold.  Threshold is: " << threshold.max_z() << " Value is: " << z << " Aborting...";
       logic_state_machine.process_event(be::Abort());
       return false;
     }
