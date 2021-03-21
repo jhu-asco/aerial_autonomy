@@ -3,6 +3,7 @@ syntax = "proto2";
 import "position_yaw.proto";
 import "pick_place_state_machine_config.proto";
 import "sensor_place_state_machine_config.proto";
+import "orange_tracking_state_machine_config.proto";
 
 message VisualServoingStateMachineConfig {
   /**
@@ -13,6 +14,7 @@ message VisualServoingStateMachineConfig {
   oneof subclass {
     PickPlaceStateMachineConfig pick_place_state_machine_config = 2;
     SensorPlaceStateMachineConfig sensor_place_state_machine_config = 4;
+    OrangeTrackingStateMachineConfig orange_tracking_state_machine_config = 5;
   }
 
   enum RelativePoseConnectorType {

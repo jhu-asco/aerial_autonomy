@@ -185,6 +185,7 @@ visual_servoing_events
 pick_place_events
 sensor_place_events
 orange_picking_events
+orange_tracking_events
 arm_events
 uav_arm_sysid_events
 mpc_events
@@ -224,6 +225,7 @@ PROTOBUF_GENERATE_CPP(PROTO_SRC PROTO_HEADER
   proto/visual_servoing_state_machine_config.proto
   proto/pick_place_state_machine_config.proto
   proto/sensor_place_state_machine_config.proto
+  proto/orange_tracking_state_machine_config.proto
   proto/following_waypoint_sequence_config.proto
   proto/grip_config.proto
   proto/place_group.proto
@@ -384,11 +386,13 @@ if (arm_plugins_FOUND)
   add_executable(uav_arm_system_node src/system_handler_nodes/uav_arm_system_node.cpp)
   add_executable(sensor_place_node src/system_handler_nodes/sensor_place_node.cpp)
   add_executable(orange_picking_node src/system_handler_nodes/orange_picking_node.cpp)
+  add_executable(orange_tracking_node src/system_handler_nodes/orange_tracking_node.cpp)
   add_executable(uav_arm_sysid_node src/system_handler_nodes/uav_arm_sysid_node.cpp)
 
   target_link_libraries(uav_arm_system_node aerial_autonomy)
   target_link_libraries(sensor_place_node aerial_autonomy)
   target_link_libraries(orange_picking_node aerial_autonomy)
+  target_link_libraries(orange_tracking_node aerial_autonomy)
   target_link_libraries(uav_arm_sysid_node aerial_autonomy)
   target_link_libraries(airm_mpc_node aerial_autonomy)
   if (casadi_FOUND)
@@ -696,6 +700,7 @@ if (arm_plugins_FOUND)
   catkin_add_gtest(${PROJECT_NAME}-joystick-state-machine-test tests/state_machines/joystick_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-pick-place-state-machine-test tests/state_machines/pick_place_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-sensor-place-state-machine-test tests/state_machines/sensor_place_state_machine_tests.cpp)
+  catkin_add_gtest(${PROJECT_NAME}-orange-tracking-state-machine-test tests/state_machines/orange_tracking_state_machine_tests.cpp)
   add_rostest_gtest(${PROJECT_NAME}-orange-picking-state-machine-test tests/state_machines/orange_picking_state_machine_tests.test tests/state_machines/orange_picking_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-mpc-state-machine-test tests/state_machines/mpc_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-sensor-place-functor-tests tests/actions_guards/sensor_place_functor_tests.cpp)
@@ -738,6 +743,9 @@ if (arm_plugins_FOUND)
   endif()
   if(TARGET ${PROJECT_NAME}-sensor-place-state-machine-test)
     target_link_libraries(${PROJECT_NAME}-sensor-place-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
+  endif()
+  if(TARGET ${PROJECT_NAME}-orange-tracking-state-machine-test)
+    target_link_libraries(${PROJECT_NAME}-orange-tracking-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
   endif()
   if(TARGET ${PROJECT_NAME}-orange-picking-state-machine-test)
     target_link_libraries(${PROJECT_NAME}-orange-picking-state-machine-test aerial_autonomy ${GCOP_LIBRARIES})
