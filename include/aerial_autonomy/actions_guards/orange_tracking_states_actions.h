@@ -55,6 +55,10 @@ struct OrangeTrackingStatesActions
   */
   using OrangeTrackingState = OrangeTrackingState_<LogicStateMachineT>;
   /**
+  * @brief State while positioning the uav for picking
+  */
+  using ResetOrangeTracking = ReachingGoal_<LogicStateMachineT>;
+  /**
   * @brief State while pulling away from a placement.
   */
   //using SensorCheckingState = SensorCheckingState_<LogicStateMachineT>;
@@ -91,7 +95,7 @@ struct OrangeTrackingStatesActions
       base_functors::bActionSequence<boost::mpl::vector<
           typename vsa::ResetRelativePoseVisualServoing,
           RelativePoseVisualServoingTransitionActionFunctor_<
-              LogicStateMachineT, pick_index, false>>>; // Don't set home
+              LogicStateMachineT, pick_index, true>>>; // Don't set home
 
   /**
   * @brief Guard to take when placing sensor. Might be nothing.

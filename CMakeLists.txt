@@ -290,6 +290,7 @@ set(SRC
   src/trackers/roi_to_plane_converter.cpp
   src/trackers/simple_tracker.cpp
   src/trackers/alvar_tracker.cpp
+  src/trackers/ros_tracker.cpp
   src/trackers/base_tracker.cpp
   src/trackers/simple_multi_tracker.cpp
   src/trackers/simulated_ros_tracker.cpp
@@ -335,6 +336,7 @@ set(SRC
   src/controller_connectors/mpc_controller_quad_connector.cpp
   src/controller_connectors/qrotor_backstepping_controller_connector.cpp
   src/sensors/pose_sensor.cpp
+  src/sensors/bool_sensor.cpp
   src/sensors/odometry_from_pose_sensor.cpp
 )
 

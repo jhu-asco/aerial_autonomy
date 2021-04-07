@@ -1,0 +1,58 @@
+visual_servoing_state_machine_config {
+
+  # Prepick
+  relative_pose_goals {
+    position {
+      x: 0.85
+      y: -0.05
+      z: 0.1
+    }
+    yaw: 3.14#0#-1.5708
+  }
+
+  # Pick
+  relative_pose_goals {
+    position {
+      x: 0.65
+      y: -0.05
+      z: 0.2
+    }
+    yaw: 3.14#-1.5708
+  }
+
+  orange_tracking_state_machine_config {
+    pick_timeout: 20000
+    
+    #placing arm
+    #arm_goal_transform {
+    #  position {
+    #    x: -0.18
+    #    y: 0
+    #    z: 0.47
+    #  }
+    #  rotation {
+    #    r: 0
+    #    p: 0
+    #    y: 0
+    #  }
+    #}
+
+    #checking arm
+    #arm_goal_transform {
+    #  position {
+    #    x: -0.22
+    #    y: 0
+    #    z: 0.47
+    #  }
+    #  rotation {
+    #    r: 0
+    #    p: 0
+    #    y: 0
+    #  }
+    #}
+
+    #placing_acc_threshold: -0.3
+    #checking_acc_threshold: 0.15
+  }
+  connector_type: RPYTPose
+}

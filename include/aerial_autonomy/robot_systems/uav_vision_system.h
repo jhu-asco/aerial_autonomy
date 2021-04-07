@@ -19,6 +19,7 @@
 #include "aerial_autonomy/trackers/roi_to_plane_converter.h"
 #include "aerial_autonomy/trackers/roi_to_position_converter.h"
 #include "aerial_autonomy/trackers/simulated_ros_tracker.h"
+#include "aerial_autonomy/trackers/ros_tracker.h"
 #include "uav_system_config.pb.h"
 
 #include <tf/tf.h>
@@ -275,6 +276,10 @@ protected:
       } else if (tracker_type == "Simulated") {
         tracker_pointer = BaseTrackerPtr(new SimulatedROSTracker(
             *drone_hardware, camera_transform, "simulated_ros_tracker"));
+      } else if (tracker_type == "ROS"){
+        tracker_pointer = BaseTrackerPtr(new ROSTracker("~tracker",
+            std::chrono::milliseconds(config.uav_vision_system_config().tracker_timeout_ms()),
+            config.uav_vision_system_config().tracker_topic()));
       } else {
         throw std::runtime_error("Unknown tracker type provided: " +
                                  tracker_type);

@@ -10,7 +10,7 @@ base_config {
 
 uav_system_config {
   uav_controller_timer_duration: 20
-  uav_parser_type: "dji_parser/DjiParser"
+  uav_parser_type: "dji_parser/DjiHILParser"
   use_mocap_sensor: true
   minimum_battery_percent: 25
   minimum_takeoff_height: 0.8
@@ -119,7 +119,7 @@ uav_system_config {
       position_gain: 2.0
       z_gain: 1.0
       yaw_gain: 0.8
-      max_velocity: 0.75
+      max_velocity: 1.0
       position_i_gain: 0.0
       yaw_i_gain: 0.0
       position_saturation_value: 0.0
@@ -159,7 +159,7 @@ uav_system_config {
   }
 
   thrust_gain_estimator_config {
-    kt: 0.16
+    kt: 0.18
     buffer_size: 10
     mixing_gain: 0.2
     max_roll_pitch_bias: 0.025
@@ -172,6 +172,26 @@ uav_system_config {
       topic: "/vrpn_client/matrice/pose"
     }
    velocity_filter_gain: 0.5
+  }
+  use_path_sensor: false
+  path_sensor_config {
+    ros_sensor_config {
+      topic: "/path_joints"
+      timeout: 1.0
+    }
+    final_time: 3
+  }
+  use_success_sensor: true
+  success_config {
+    topic: "/magnet_success"
+    timeout: 1.0
+  }
+  geofence_config {
+    min_x: -1.2
+    max_x: 4.3
+    min_y: -1.0
+    max_y: 0.75
+    max_z: 2.5
   }
   visualize_mpc_trajectories: true
   visualizer_config {
@@ -192,23 +212,10 @@ uav_system_config {
   rpyt_reference_connector_config {
     velocity_exp_gain: 0.9
   }
-  use_path_sensor: true
-  path_sensor_config {
-    ros_sensor_config {
-      topic: "/path_joints"
-      timeout: 1.5
-    }
-    final_time: 3.0
-  }
-  geofence_config {
-    min_x: -1.2
-    max_x: 4.3
-    min_y: -1.0
-    max_y: 0.75
-    max_z: 2.5
-  }
   uav_vision_system_config {
-    tracker_type: "Alvar"
+    tracker_type: "ROS"
+    tracker_timeout_ms: 1000
+    tracker_topic: "/ros_tracker"
 
     camera_transform {
       position {
@@ -217,9 +224,9 @@ uav_system_config {
         z: -0.0836
       }
       rotation {
-        r: 1.5794
+        r: -1.5794
         p: 0
-        y: 1.5794
+        y: -1.5794
       }
     }
 
@@ -230,16 +237,10 @@ uav_system_config {
         z: 0
       }
       rotation {
-        r: -1.5708
+        r: 0#-1.5708
         p: 0
         y: 0
       }
-    }
-
-    acceleration_bias_estimator_config {
-      mixing_gain: 0.01
-      max_bias: 3.0
-      delay_buffer_size: 10
     }
 
     desired_visual_servoing_distance: 0.48

@@ -27,6 +27,7 @@
 #include <aerial_autonomy/sensors/guidance.h>
 #include <aerial_autonomy/sensors/odometry_from_pose_sensor.h>
 #include <aerial_autonomy/sensors/path_sensor.h>
+#include <aerial_autonomy/sensors/bool_sensor.h>
 #include <aerial_autonomy/sensors/velocity_sensor.h>
 // Load UAV parser
 #include <pluginlib/class_loader.h>
@@ -107,6 +108,10 @@ protected:
    * @brief path_sensor_
    */
   std::shared_ptr<Sensor<PathReturnT>> path_sensor_;
+  /**
+   * @brief success_sensor_
+   */
+  std::shared_ptr<Sensor<bool>> success_sensor_;
   /**
    * @brief mpc trajectory visualizer
    */
@@ -245,6 +250,22 @@ private:
     }
     return path_sensor;
   }
+  /**
+  * @brief create a success sensor
+  *
+  * @param config The UAV system config
+  *
+  * @return new bool sensor if using_success_sensor is set, otherwise nullptr
+  */
+  static std::shared_ptr<Sensor<bool>>
+  createSuccessSensor(UAVSystemConfig &config) {
+    auto success_sensor_config = config.success_config();
+    std::shared_ptr<Sensor<bool>> success_sensor;
+    if (config.use_success_sensor()) {
+      success_sensor.reset(new BoolSensor(success_sensor_config));
+    }
+    return success_sensor;
+  }
 
 public:
   /**
@@ -293,7 +314,7 @@ public:
             UAVSystem::chooseSensor(velocity_sensor, drone_hardware_, config)),
         odom_sensor_(UAVSystem::createOdomSensor(config)),
         path_sensor_(UAVSystem::createPathSensor(config)),
-        //path_sensor_(config.path_sensor_config()),
+        success_sensor_(UAVSystem::createSuccessSensor(config)),
         rpyt_based_reference_connector_(
             *drone_hardware_, rpyt_based_reference_controller_,
             thrust_gain_estimator_, config.rpyt_reference_connector_config(),
@@ -487,6 +508,10 @@ public:
 
   SensorPtr<PathReturnT> getPathSensor() {
     return path_sensor_;
+  }
+
+  SensorPtr<bool> getSuccessSensor() {
+    return success_sensor_;
   }
 
   void resetThrustMixingGain() {

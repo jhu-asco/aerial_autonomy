@@ -9,6 +9,7 @@
 #include <aerial_autonomy/system_handlers/common_system_handler.h>
 #include <aerial_autonomy/trackers/alvar_tracker.h>
 #include <aerial_autonomy/trackers/roi_to_position_converter.h>
+#include <aerial_autonomy/trackers/ros_tracker.h>
 #include <dynamic_reconfigure/server.h>
 
 #include "uav_system_handler_config.pb.h"

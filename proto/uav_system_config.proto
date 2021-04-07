@@ -138,4 +138,12 @@ message UAVSystemConfig {
   * @brief Maximum Altitude
   */
   optional GeofenceConfig geofence_config = 25;
+  /**
+  * @brief Success Sensor Config
+  */
+  optional ROSSensorConfig success_config = 26;
+  /**
+  * @brief If using success sensor
+  */
+  optional bool use_success_sensor = 27 [ default = false ];
 }

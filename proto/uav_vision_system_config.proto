@@ -40,6 +40,8 @@ message UAVVisionSystemConfig {
   * @brief Type of tracker to use, e.g. Alvar, ROI
   */
   optional string tracker_type = 4 [ default = "ROI2Pos" ];
+  optional int32 tracker_timeout_ms = 16 [ default = 500 ];
+  optional string tracker_topic = 17 [ default = "ros_tracker" ];
 
   /**
   * @brief A crude form of inheritance for proto. Contains a config for

@@ -9,7 +9,7 @@ message OrangeTrackingStateMachineConfig {
   /**
   * @brief Arm transform in the frame of the tracked object (assuming NWU).
   */
-  repeated config.Transform arm_goal_transform = 1;
+  //repeated config.Transform arm_goal_transform = 1;
 
   /**
   * @brief How much time to spend trying to place the object in milliseconds
