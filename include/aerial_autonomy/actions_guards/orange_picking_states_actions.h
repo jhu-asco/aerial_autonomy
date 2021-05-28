@@ -5,6 +5,7 @@
 #include <aerial_autonomy/actions_guards/arm_states_actions.h>
 #include <aerial_autonomy/actions_guards/pick_place_functors.h>
 #include <aerial_autonomy/actions_guards/orange_picking_functors.h>
+#include <aerial_autonomy/actions_guards/orange_tracking_functors.h>
 #include <aerial_autonomy/actions_guards/pick_place_states_actions.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_states_actions.h>
 #include <aerial_autonomy/arm_events.h>
@@ -57,11 +58,17 @@ struct OrangePickingStatesActions : VisualServoingStatesActions<LogicStateMachin
   /**
   * @brief Action to take when starting the PathState
   */
+  using ResetPathFollowTransitionAction = 
+      base_functors::bActionSequence<boost::mpl::vector<
+          PathFollowingTransitionActionFunctor_<LogicStateMachineT>>>;
+  /**
+  * @brief Action to take when starting the PathState
+  */
   using PathFollowTransitionAction = 
       base_functors::bActionSequence<boost::mpl::vector<
-          ResetPathFollowingTransitionActionFunctor_<LogicStateMachineT>,
           //typename asa::ArmRightFold,
           //ResetThrustMixingGain_<LogicStateMachineT>,
+          SetHomeTransitionActionFunctor_<LogicStateMachineT>,
           PathFollowingTransitionActionFunctor_<LogicStateMachineT>>>;
   /**
   * @brief Guard to take when starting the PathState

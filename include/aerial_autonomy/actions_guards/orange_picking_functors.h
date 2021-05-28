@@ -2,6 +2,7 @@
 #include <aerial_autonomy/actions_guards/base_functors.h>
 #include <aerial_autonomy/actions_guards/hovering_functors.h>
 #include <aerial_autonomy/actions_guards/position_control_functors.h>
+#include <aerial_autonomy/actions_guards/orange_tracking_functors.h>
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/common/math.h>
 #include <aerial_autonomy/common/proto_utils.h>
@@ -43,7 +44,7 @@ struct PathFollowingStatus_ : InternalActionFunctor<UAVSystem, LogicStateMachine
       logic_state_machine.process_event(be::Abort());
       return false;
     }
-    //TODO: Add path convergence check here
+
     return result;
   }
 };
@@ -90,6 +91,7 @@ using PathFollowInternalActionFunctor_ =
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         //ArmStatusInternalActionFunctor_<LogicStateMachineT>,
         FlyawayCheckFunctor_<LogicStateMachineT>,
+        SuccessSensorInternalActionFunctor_<LogicStateMachineT>,
         PathFollowingStatus_<LogicStateMachineT, be::Abort>>>;
 
 

@@ -26,6 +26,7 @@
 // Actions and guards used
 //#include <aerial_autonomy/actions_guards/pick_place_states_actions.h>
 #include <aerial_autonomy/actions_guards/orange_picking_states_actions.h>
+#include <aerial_autonomy/actions_guards/orange_tracking_states_actions.h>
 
 // Robot System used
 #include <aerial_autonomy/robot_systems/uav_vision_system.h>
@@ -67,6 +68,7 @@ using OrangePickingStateMachine =
 //using psa = PickPlaceStatesActions<OrangePickingStateMachine>;
 using vsa = VisualServoingStatesActions<OrangePickingStateMachine>;
 using opsa = OrangePickingStatesActions<OrangePickingStateMachine>;
+using otsa = OrangeTrackingStatesActions<OrangePickingStateMachine>;
 
 /**
 * @brief front-end: define the FSM structure
@@ -186,11 +188,22 @@ public:
             msmf::Row<vsa/*psa*/::ReachingGoal, Completed, vsa/*psa*/::Hovering,
                       vsa::UAVControllerAbort /*psa::AbortUAVControllerArmRightFold*/, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<opsa::PathFollowState, Completed, vsa/*psa*/::Hovering,
-                      vsa::UAVControllerAbort /*psa::AbortUAVArmController*/, msmf::none>,
+            msmf::Row<opsa::PathFollowState, Completed, otsa::ResetTrialState,
+                      otsa::ResetTrialTransitionAction, vsa::GoHomeTransitionGuard>,
+                     //vsa::UAVControllerAbort /*psa::AbortUAVArmController*/, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<opsa::PathFollowState, be::Abort, vsa/*psa*/::Hovering,
                       vsa::UAVControllerAbort /*psa::AbortUAVArmController*/, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<otsa::ResetTrialState, Completed, opsa::PathFollowState,
+                      opsa::ResetPathFollowTransitionAction, opsa::PathFollowTransitionGuard>,
+                      //otsa::PreOrangeTrackingTransitionAction, otsa::PreOrangeTrackingTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<otsa::ResetTrialState, Reset, vsa::Hovering,
+                      vsa::UAVControllerAbort, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<otsa::ResetTrialState, be::Abort, vsa::Hovering,
+                      vsa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             /*msmf::Row<psa::ArmPreLandingFolding, Completed, psa::Landing,
                       psa::LandingAction, msmf::none>,
@@ -224,6 +237,7 @@ static constexpr std::array<const char *, 17> state_names = {
     "Hovering",
     "ReachingGoal",
     "PathFollow",
+    "ResetTrial",
     //"ArmPreLandingFolding",
     "Landing",
     "ManualControlState"};//ManualControlArmState
