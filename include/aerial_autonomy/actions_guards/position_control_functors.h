@@ -38,6 +38,31 @@ struct PositionControlTransitionActionFunctor_
 };
 
 /**
+* @brief Transition action to perform when going into position control mode
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct RelativePositionControlTransitionActionFunctor_
+    : ActionFunctor<PositionYaw, UAVSystem, LogicStateMachineT> {
+  void run(const PositionYaw &goal, UAVSystem &robot_system) {
+    tf::StampedTransform start_pose = robot_system.getPose();
+    auto &reference_config =
+        this->state_machine_config_.poly_reference_config();
+    PositionYaw start_position_yaw;
+    conversions::tfToPositionYaw(start_position_yaw, start_pose);
+    PositionYaw goal_world = start_position_yaw + goal;
+    ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> reference(
+        new PolynomialReferenceTrajectory(goal_world, start_position_yaw,
+                                          reference_config));
+    robot_system
+        .setGoal<RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
+                 ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>(
+            reference);
+  }
+};
+
+/**
 * @brief Transition action to perform when aborting any UAV Controller
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
@@ -53,7 +78,6 @@ struct UAVControllerAbortActionFunctor_
     LOG(WARNING) << "Done aborting";
   }
 };
-
 /**
 * @brief Action to set home location
 *
@@ -68,6 +92,19 @@ struct SetHomeTransitionActionFunctor_
   }
 };
 
+/**
+* @brief Action to set reset location
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct SetResetLocationTransitionActionFunctor_
+    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+  void run(UAVSystem &robot_system) {
+    VLOG(1) << "Selecting reset location";
+    robot_system.setResetLocation();
+  }
+};
 /**
 * @brief Action to reach a pre designated point
 *
@@ -105,6 +142,46 @@ struct GoHomeTransitionGuardFunctor_
   bool guard(UAVSystem &robot_system) {
     LOG(INFO) << "Checking home location specified and pose sensor status";
     return robot_system.isHomeLocationSpecified() &&
+           sensor_status_to_bool(robot_system.getPoseSensorStatus());
+  }
+};
+/**
+* @brief Action to reach a pre designated point
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct GoResetTransitionActionFunctor_
+    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+  void run(UAVSystem &robot_system) {
+    PositionYaw reset_location = robot_system.getResetLocation();
+    VLOG(1) << "Going Reset";
+    tf::StampedTransform start_pose = robot_system.getPose();
+    auto &reference_config =
+        this->state_machine_config_.poly_reference_config();
+    PositionYaw start_position_yaw;
+    conversions::tfToPositionYaw(start_position_yaw, start_pose);
+    ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> reference(
+        new PolynomialReferenceTrajectory(reset_location, start_position_yaw,
+                                          reference_config));
+    robot_system
+        .setGoal<RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
+                 ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>(
+            reference);
+  }
+};
+
+/**
+* @brief Guard for home transition
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct GoResetTransitionGuardFunctor_
+    : EventAgnosticGuardFunctor<UAVSystem, LogicStateMachineT> {
+  bool guard(UAVSystem &robot_system) {
+    LOG(INFO) << "Checking reset location specified and pose sensor status";
+    return robot_system.isResetLocationSpecified() &&
            sensor_status_to_bool(robot_system.getPoseSensorStatus());
   }
 };

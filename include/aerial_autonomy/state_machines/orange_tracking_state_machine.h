@@ -168,25 +168,43 @@ public:
             msmf::Row<otsa::PreOrangeTrackingState, be::Abort, vsa::Hovering,
                       vsa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<otsa::PreOrangeTrackingState, Reset, vsa::Hovering,
-                      vsa::UAVControllerAbort, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<otsa::OrangeTrackingState, Completed, vsa::ReachingGoal, 
+            msmf::Row<otsa::PreOrangeTrackingState, Reset, otsa::ResetOrangeTracking,
                       vsa::GoHomeTransitionAction, vsa::GoHomeTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<otsa::OrangeTrackingState, Completed, otsa::OrangeTrackingFinalRiseState, 
+                      otsa::OrangeTrackingRiseTransitionAction, otsa::OrangeTrackingRiseTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<otsa::OrangeTrackingState, Reset, otsa::ResetOrangeTracking,
-                      vsa::GoHomeTransitionAction, vsa::GoHomeTransitionGuard>,
+                      vsa::GoResetTransitionAction, vsa::GoResetTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<otsa::OrangeTrackingState, be::Abort, vsa::Hovering,
                       vsa::UAVControllerAbort, msmf::none>,
-             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<otsa::ResetOrangeTracking, Completed, otsa::PreOrangeTrackingState,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<otsa::OrangeTrackingFinalRiseState, Completed, otsa::ResetTrialState, 
+                      otsa::ResetTrialTransitionAction, vsa::GoHomeTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<otsa::OrangeTrackingFinalRiseState, Reset, otsa::ResetOrangeTracking,
+                      vsa::GoResetTransitionAction, vsa::GoResetTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<otsa::OrangeTrackingFinalRiseState, be::Abort, vsa::Hovering,
                       vsa::UAVControllerAbort, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<otsa::ResetOrangeTracking, Completed, otsa::PreOrangeTrackingState,
+                      otsa::PostResetPreOrangeTrackingTransitionAction, otsa::PreOrangeTrackingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<otsa::ResetOrangeTracking, Reset, vsa::Hovering,
                       vsa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<otsa::ResetOrangeTracking, be::Abort, vsa::Hovering,
+                      vsa::UAVControllerAbort, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<otsa::ResetTrialState, Completed, otsa::PreOrangeTrackingState,
+                      otsa::PreOrangeTrackingTransitionAction, otsa::PreOrangeTrackingTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<otsa::ResetTrialState, Reset, vsa::Hovering,
+                      vsa::UAVControllerAbort, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<otsa::ResetTrialState, be::Abort, vsa::Hovering,
                       vsa::UAVControllerAbort, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
 /*            msmf::Row<ssa::SensorCheckingState, Completed, ssa::PostPlaceState,
@@ -228,8 +246,9 @@ public:
 static constexpr std::array<const char *, 17> state_names = {
     "Landed",        "Takingoff",
     "Hovering",      "ReachingGoal",
-    "PreOrangeTrackingState",  "OrangeTrackingState",
-    //"CheckingState", "PostPickState", 
+    "OrangeStagingState",  "OrangeTrackingState", 
+    "FinalRise", "ResetOrangeTracking",
+    "ResetTrialState", //"PostPickState", 
     "Landing",       "ManualControlState"};
 /**
 * @brief Get current state name

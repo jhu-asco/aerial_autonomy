@@ -160,11 +160,19 @@ private:
   * @brief Home Location
   */
   PositionYaw home_location_;
+  /**
+  * @brief Reset Location
+  */
+  PositionYaw reset_location_;
 
   /**
   * @brief Flag to specify if home location is specified or not
   */
   bool home_location_specified_;
+   /**
+  * @brief Flag to specify if reset location is specified or not
+  */
+  bool reset_location_specified_;
   /**
    * @brief helper function to choose between the argument parser
    * and the one provided in config. If user provided a parser,
@@ -335,7 +343,7 @@ public:
                             thrust_gain_estimator_,
                             config.thrust_gain_estimator_config().buffer_size(),
                             config.mpc_connector_config(), odom_sensor_),
-        home_location_specified_(false) {
+        home_location_specified_(false), reset_location_specified_(false) {
     drone_hardware_->initialize();
     // Add control hardware connector containers
     controller_connector_container_.setObject(
@@ -465,18 +473,41 @@ public:
   }
 
   /**
+  * @brief save current location as reset location
+  */
+  void setResetLocation() {
+    tf::StampedTransform current_pose = getPose();
+    conversions::tfToPositionYaw(reset_location_, current_pose);
+    reset_location_specified_ = true;
+  }
+
+  /**
   * @brief Check if home location is specified
   *
   * @return True if home location is specified
   */
   bool isHomeLocationSpecified() { return home_location_specified_; }
-
+ 
   /**
+  * @brief Check if reset location is specified
+  *
+  * @return True if reset location is specified
+  */
+  bool isResetLocationSpecified() { return reset_location_specified_; }
+
+ /**
   * @brief Stored home location
   *
   * @return Home location (PositionYaw)
   */
   PositionYaw getHomeLocation() { return home_location_; }
+
+ /**
+  * @brief Stored reset location
+  *
+  * @return Reset location (PositionYaw)
+  */
+  PositionYaw getResetLocation() { return reset_location_; }
 
   /**
    * @brief get the current pose frome either pose sensor/quad data

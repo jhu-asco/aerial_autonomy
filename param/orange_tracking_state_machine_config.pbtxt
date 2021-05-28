@@ -3,9 +3,9 @@ visual_servoing_state_machine_config {
   # Prepick
   relative_pose_goals {
     position {
-      x: 0.85
+      x: 0.95
       y: -0.05
-      z: 0.1
+      z: 0.15
     }
     yaw: 3.14#0#-1.5708
   }
@@ -13,15 +13,33 @@ visual_servoing_state_machine_config {
   # Pick
   relative_pose_goals {
     position {
-      x: 0.65
+      x: 0.72
       y: -0.05
-      z: 0.2
+      z: 0.15
     }
     yaw: 3.14#-1.5708
   }
 
+  # Rise (Relative to last position)
+  relative_pose_goals {
+    position {
+      x: 0.12
+      y: 0.0
+      z: 0.15
+    }
+    yaw: 0.0
+  }
+
   orange_tracking_state_machine_config {
-    pick_timeout: 20000
+    pick_timeout: 10000
+    window {
+      position {
+        x: 0.50
+        y: 0.50
+        z: 0.50
+      }
+      yaw: 0.3
+    }
     
     #placing arm
     #arm_goal_transform {
@@ -54,5 +72,14 @@ visual_servoing_state_machine_config {
     #placing_acc_threshold: -0.3
     #checking_acc_threshold: 0.15
   }
-  connector_type: RPYTPose
+  connector_type: RPYTRef
+}
+poly_reference_config {
+  max_velocity: 0.15
+  min_tf: 4
+  forward_noise_amplitude: 0.5
+  forward_noise_frequency: 0.25
+  z_noise_amplitude: 0.03
+  z_noise_frequency: 0.125
+  add_noise: false
 }

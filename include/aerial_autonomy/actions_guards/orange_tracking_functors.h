@@ -12,6 +12,7 @@
 #include <aerial_autonomy/logic_states/timed_state.h>
 #include <aerial_autonomy/orange_tracking_events.h>
 #include <aerial_autonomy/robot_systems/uav_vision_system.h>
+#include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/types/completed_event.h>
 #include <aerial_autonomy/types/object_id.h>
 #include <aerial_autonomy/types/polynomial_reference_trajectory.h>
@@ -25,9 +26,46 @@
 // Forward Declarations
 template <class LogicStateMachineT> class PreOrangeTrackingState_;
 template <class LogicStateMachineT> class OrangeTrackingState_;
-template <class LogicStateMachineT> class ResetOrangeTracking_;
+template <class LogicStateMachineT> class ResetOrangeTrackingState_;
+template <class LogicStateMachineT> class ResetTrialState_;
+template <class LogicStateMachineT> class OrangeTrackingFinalRiseState_;
 
 
+/**
+* @brief Transition action to perform when going into position control mode
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT, int GoalIndex>
+struct RelativePositionWaypointTransitionActionFunctor_
+    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+  void run(UAVSystem &robot_system) {
+    tf::StampedTransform start_pose = robot_system.getPose();
+    auto state_machine_config = this->state_machine_config_.visual_servoing_state_machine_config();
+    auto &reference_config =
+        this->state_machine_config_.poly_reference_config();
+    PositionYaw start_position_yaw;
+    conversions::tfToPositionYaw(start_position_yaw, start_pose);
+    if (GoalIndex >= state_machine_config.relative_pose_goals().size()) {
+            LOG(ERROR) << "GoalIndex: " << GoalIndex << " Relative Pose goals size: "
+                             << state_machine_config.relative_pose_goals().size();
+    }
+    auto goal = state_machine_config.relative_pose_goals().Get(GoalIndex);
+    PositionYaw pyGoal = conversions::protoPositionYawToPositionYaw(goal);
+    tf::Transform tfGoal;
+    conversions::positionYawToTf(pyGoal, tfGoal);
+    tf::Transform goal_pose_world = start_pose * tfGoal;
+    PositionYaw goal_world;
+    conversions::tfToPositionYaw(goal_world,goal_pose_world);
+    ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> reference(
+        new PolynomialReferenceTrajectory(goal_world, start_position_yaw,
+                                          reference_config));
+    robot_system
+        .setGoal<RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
+                 ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>(
+            reference);
+  }
+};
 // Internal action functor to send a reset event if the state has lasted longer
 // than the pick_timeout()
 template <class LogicStateMachineT, class StateT>
@@ -72,6 +110,42 @@ struct SuccessSensorInternalActionFunctor_
     return true;
   }
 };
+/**
+* @brief Action to reach a pre designated point
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct ResetTrialTransitionActionFunctor_
+    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+  void run(UAVSystem &robot_system) {
+    PositionYaw home_location = robot_system.getHomeLocation();
+    auto &window_config = this->state_machine_config_
+                              .visual_servoing_state_machine_config()
+                              .orange_tracking_state_machine_config()
+                              .window();
+    PositionYaw window = conversions::protoPositionYawToPositionYaw(window_config);
+    PositionYaw offset = PositionYaw(((2*(float) std::rand()/RAND_MAX)-1)*window.x,
+                                     ((2*(float) std::rand()/RAND_MAX)-1)*window.y,
+                                     ((2*(float) std::rand()/RAND_MAX)-1)*window.z,
+                                     ((2*(float) std::rand()/RAND_MAX)-1)*window.yaw);
+    PositionYaw goal_location = home_location + offset;
+    VLOG(1) << "Resetting Trial";
+    tf::StampedTransform start_pose = robot_system.getPose();
+    auto &reference_config =
+        this->state_machine_config_.poly_reference_config();
+    PositionYaw start_position_yaw;
+    conversions::tfToPositionYaw(start_position_yaw, start_pose);
+    ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> reference(
+        new PolynomialReferenceTrajectory(goal_location, start_position_yaw,
+                                          reference_config));
+    robot_system
+        .setGoal<RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
+                 ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>(
+            reference);
+  }
+};
+
 
 
 /**
@@ -84,7 +158,8 @@ using PreOrangeTrackingInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         FlyawayCheckFunctor_<LogicStateMachineT>,
-        VisualServoingStatus_<LogicStateMachineT, be::Abort>>>;
+        SuccessSensorInternalActionFunctor_<LogicStateMachineT>,
+        VisualServoingStatus_<LogicStateMachineT, Reset>>>;
 
 /**
 * @brief State for going to the picking staging position
@@ -107,11 +182,11 @@ using OrangeTrackingInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         FlyawayCheckFunctor_<LogicStateMachineT>,
-        VisualServoingStatus_<LogicStateMachineT, Reset, false>,
         SuccessSensorInternalActionFunctor_<LogicStateMachineT>,
+        VisualServoingStatus_<LogicStateMachineT, Reset, true>,
         TimeoutInternalActionFunctor_<LogicStateMachineT,OrangeTrackingState_<LogicStateMachineT>>>>;
 /**
-* @brief State that uses visual servoing to place object.
+* @brief State that uses visual servoing to pick object.
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
@@ -119,3 +194,45 @@ template <class LogicStateMachineT>
 class OrangeTrackingState_
     : public TimedState<UAVVisionSystem, LogicStateMachineT,
                         OrangeTrackingInternalActionFunctor_<LogicStateMachineT>> {};
+
+/**
+* @brief Logic to check while picking the orange
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+using OrangeTrackingFinalRiseInternalActionFunctor_ =
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        FlyawayCheckFunctor_<LogicStateMachineT>,
+        SuccessSensorInternalActionFunctor_<LogicStateMachineT>,
+        ControllerStatusInternalActionFunctor_<LogicStateMachineT,RPYTBasedReferenceConnector<Eigen::VectorXd,Eigen::VectorXd>, false>,
+        TimeoutInternalActionFunctor_<LogicStateMachineT,OrangeTrackingFinalRiseState_<LogicStateMachineT>>>>;
+
+/**
+* @brief State that uses visual servoing to pick object.
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+class OrangeTrackingFinalRiseState_
+    : public TimedState<UAVVisionSystem, LogicStateMachineT,
+                        OrangeTrackingFinalRiseInternalActionFunctor_<LogicStateMachineT>> {};
+/**
+* @brief State that resets to last set home location
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+class ResetOrangeTrackingState_
+    : public BaseState<UAVVisionSystem, LogicStateMachineT,
+                        PositionControlInternalActionFunctor_<LogicStateMachineT>> {};
+/**
+* @brief State that resets to last set home location
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+class ResetTrialState_
+    : public BaseState<UAVVisionSystem, LogicStateMachineT,
+                        PositionControlInternalActionFunctor_<LogicStateMachineT>> {};

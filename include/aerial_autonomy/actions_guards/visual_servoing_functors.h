@@ -27,6 +27,19 @@ struct ResetRelativePoseVisualServoingTransitionActionFunctor_
 };
 
 /**
+* @brief set noise flag to quad polynomial reference controller
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT, bool flag>
+struct SetNoisePolynomialReference_
+    : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
+  void run(UAVVisionSystem &robot_system_) {
+    robot_system_.setNoisePolyReferenceController(flag);
+  }
+};
+
+/**
 * @brief Check tracking is valid before starting visual servoing
 * @tparam LogicStateMachineT Logic state machine used to process events
 */

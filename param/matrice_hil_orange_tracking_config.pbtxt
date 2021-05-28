@@ -128,11 +128,11 @@ uav_system_config {
 
       position_controller_config {
         goal_position_tolerance {
-          x: 0.05
-          y: 0.05
-          z: 0.05
+          x: 0.1
+          y: 0.1
+          z: 0.1
         }
-        goal_yaw_tolerance: .02
+        goal_yaw_tolerance: .1
       }
     }
 
@@ -214,7 +214,7 @@ uav_system_config {
   }
   uav_vision_system_config {
     tracker_type: "ROS"
-    tracker_timeout_ms: 1000
+    tracker_timeout_ms: 10000
     tracker_topic: "/ros_tracker"
 
     camera_transform {

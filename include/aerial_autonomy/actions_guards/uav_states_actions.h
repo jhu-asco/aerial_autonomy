@@ -127,6 +127,11 @@ template <class LogicStateMachineT> struct UAVStatesActions {
   using GoHomeTransitionAction =
       GoHomeTransitionActionFunctor_<LogicStateMachineT>;
   /**
+  * @brief Send the UAV back to reset position
+  */
+  using GoResetTransitionAction =
+      GoResetTransitionActionFunctor_<LogicStateMachineT>;
+  /**
   * @brief Send the UAV back to home position
   */
   using SetHomeTransitionAction =
@@ -136,4 +141,9 @@ template <class LogicStateMachineT> struct UAVStatesActions {
   */
   using GoHomeTransitionGuard =
       GoHomeTransitionGuardFunctor_<LogicStateMachineT>;
+  /**
+  * @brief Check if reset location is specified
+  */
+  using GoResetTransitionGuard =
+      GoResetTransitionGuardFunctor_<LogicStateMachineT>;
 };

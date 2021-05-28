@@ -1,6 +1,7 @@
 syntax = "proto2";
 
 import "transform.proto";
+import "position_yaw.proto";
 //import "following_waypoint_sequence_config.proto";
 //import "grip_config.proto";
 //import "place_group.proto";
@@ -15,6 +16,7 @@ message OrangeTrackingStateMachineConfig {
   * @brief How much time to spend trying to place the object in milliseconds
   */
   optional uint32 pick_timeout = 2 [ default = 20000 ];
+  optional config.PositionYaw window = 3;
 
   /**
   * @brief Placing and checking thresholds

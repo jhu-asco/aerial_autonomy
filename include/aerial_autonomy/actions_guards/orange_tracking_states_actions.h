@@ -4,6 +4,7 @@
 //#include <aerial_autonomy/actions_guards/pick_place_states_actions.h>
 #include <aerial_autonomy/actions_guards/orange_tracking_functors.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_states_actions.h>
+#include <aerial_autonomy/actions_guards/position_control_functors.h>
 #include <aerial_autonomy/orange_tracking_events.h>
 #include <boost/msm/front/euml/operator.hpp>
 #include <boost/msm/front/functor_row.hpp>
@@ -13,11 +14,7 @@
 // State index list
 #define prepick_index 0
 #define pick_index 1
-//#define checking_index 2
-//#define postplace_index 0
-
-//#define place_arm_index 0
-//#define checking_arm_index 1
+#define rise_index 2
 
 /**
 * @brief Class to provide typedefs for all basic uav states and actions
@@ -57,26 +54,45 @@ struct OrangeTrackingStatesActions
   /**
   * @brief State while positioning the uav for picking
   */
-  using ResetOrangeTracking = ReachingGoal_<LogicStateMachineT>;
+  using ResetOrangeTracking = ResetOrangeTrackingState_<LogicStateMachineT>;
   /**
-  * @brief State while pulling away from a placement.
+  * @brief State while positioning the uav for picking
   */
-  //using SensorCheckingState = SensorCheckingState_<LogicStateMachineT>;
+  using ResetTrialState = ResetTrialState_<LogicStateMachineT>;
   /**
-  * @brief State for retreating after placing object
+  * @brief State while positioning the uav for picking
   */
-  //using PostPlaceState = PostPlaceState_<LogicStateMachineT>;
+  using OrangeTrackingFinalRiseState = OrangeTrackingFinalRiseState_<LogicStateMachineT>;
 
   // Transition Actions and Guards
   /**
   * @brief Action to take when starting placing.
   */
+  using ResetTrialTransitionAction = ResetTrialTransitionActionFunctor_<LogicStateMachineT>;
+
+  /**
+  * @brief Action to take when starting placing.
+  */
   using PreOrangeTrackingTransitionAction =
       base_functors::bActionSequence<boost::mpl::vector<
+          SetNoisePolynomialReference_<LogicStateMachineT,false>,
           typename vsa::ResetRelativePoseVisualServoing,
           //ResetThrustMixingGain_<LogicStateMachineT>,
           RelativePoseVisualServoingTransitionActionFunctor_<
               LogicStateMachineT, prepick_index, true>>>; // Set Home set to
+                                                           // true
+
+  // Transition Actions and Guards
+  /**
+  * @brief Action to take when starting placing.
+  */
+  using PostResetPreOrangeTrackingTransitionAction =
+      base_functors::bActionSequence<boost::mpl::vector<
+          SetNoisePolynomialReference_<LogicStateMachineT,false>,
+          typename vsa::ResetRelativePoseVisualServoing,
+          //ResetThrustMixingGain_<LogicStateMachineT>,
+          RelativePoseVisualServoingTransitionActionFunctor_<
+              LogicStateMachineT, prepick_index, false>>>; // Set Home set to
                                                            // true
 
   /**
@@ -93,53 +109,29 @@ struct OrangeTrackingStatesActions
   */
   using OrangeTrackingTransitionAction =
       base_functors::bActionSequence<boost::mpl::vector<
+          SetNoisePolynomialReference_<LogicStateMachineT,false>,
           typename vsa::ResetRelativePoseVisualServoing,
+          SetResetLocationTransitionActionFunctor_<LogicStateMachineT>,
           RelativePoseVisualServoingTransitionActionFunctor_<
-              LogicStateMachineT, pick_index, true>>>; // Don't set home
+              LogicStateMachineT, pick_index, false>>>; // Set home
 
   /**
   * @brief Guard to take when placing sensor. Might be nothing.
   */
   using OrangeTrackingTransitionGuard =
       CheckGoalIndex_<LogicStateMachineT, pick_index>;
+  /**
+  * @brief Action to take when placing sensor
+  */
+  using OrangeTrackingRiseTransitionAction =
+      base_functors::bActionSequence<boost::mpl::vector<
+          SetNoisePolynomialReference_<LogicStateMachineT,true>,
+          RelativePositionWaypointTransitionActionFunctor_<LogicStateMachineT,rise_index>>>;
 
   /**
-  * @brief Action to take when checking sensor placement
+  * @brief Guard to take when placing sensor. Might be nothing.
   */
-/*  using SensorCheckingVisualServoingTransitionAction =
-      base_functors::bActionSequence<boost::mpl::vector<
-          ArmPoseTransitionActionFunctor_<LogicStateMachineT,
-                                          checking_arm_index, false, false>,
-          typename vsa::ResetRelativePoseVisualServoing,
-          ResetAccelerationBiasEstimator_<LogicStateMachineT>,
-          ZeroThrustMixingGain_<LogicStateMachineT>,
-          RelativePoseVisualServoingTransitionActionFunctor_<
-              LogicStateMachineT, checking_index, false>>>; // Don't set home
-*/
-  /**
-  * @brief Guard to take when checking sensor placement. Might be nothing.
-  */
-/*  using SensorCheckingVisualServoingTransitionGuard =
-      CheckGoalIndex_<LogicStateMachineT, checking_index>;
-*/
-  // Transition Actions and Guards
-  /**
-  * @brief Action to take after checking and when returning to the staging
-  * location.
-  */
-/*  using PostPlaceVisualServoingTransitionAction =
-      base_functors::bActionSequence<boost::mpl::vector<
-          ArmGripActionFunctor_<LogicStateMachineT, false>,
-          typename vsa::ResetRelativePoseVisualServoing,
-          typename asa::ArmRightFold,
-          ResetThrustMixingGain_<LogicStateMachineT>,
-          RelativePoseVisualServoingTransitionActionFunctor_<
-              LogicStateMachineT, postplace_index, false>>>; // Don't set home
-*/
-  /**
-  * @brief Guard to set and check that the id to track is available
-  * before beginning visual servoing
-  */
-/*  using PostPlaceVisualServoingTransitionGuard =
-      CheckGoalIndex_<LogicStateMachineT, postplace_index>;*/
+  using OrangeTrackingRiseTransitionGuard =
+      CheckGoalIndex_<LogicStateMachineT, rise_index>;
+
 };

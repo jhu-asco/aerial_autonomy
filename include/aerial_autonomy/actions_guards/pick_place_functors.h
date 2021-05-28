@@ -106,19 +106,6 @@ struct ArmTrackingGuardFunctor_
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
-template <class LogicStateMachineT, bool flag>
-struct SetNoisePolynomialReference_
-    : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {
-  void run(UAVArmSystem &robot_system_) {
-    robot_system_.setNoisePolyReferenceController(flag);
-  }
-};
-
-/**
-* @brief set noise flag to quad polynomial reference controller
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
 template <class LogicStateMachineT>
 struct SetThrustMixingGain_
     : EventAgnosticActionFunctor<UAVArmSystem, LogicStateMachineT> {

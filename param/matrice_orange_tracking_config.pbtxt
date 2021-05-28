@@ -119,18 +119,18 @@ uav_system_config {
       position_gain: 2.0
       z_gain: 1.0
       yaw_gain: 0.8
-      max_velocity: 1.0
+      max_velocity: 0.03
       position_i_gain: 0.0
       yaw_i_gain: 0.0
       position_saturation_value: 0.0
       yaw_saturation_value: 0.0
-      max_yaw_rate: 3.14
+      max_yaw_rate: 0.314
 
       position_controller_config {
         goal_position_tolerance {
-          x: 0.02
-          y: 0.02
-          z: 0.02
+          x: 0.05
+          y: 0.05
+          z: 0.05
         }
         goal_yaw_tolerance: .02
       }
@@ -150,9 +150,9 @@ uav_system_config {
 
       velocity_controller_config{
         goal_velocity_tolerance{
-          vx: 0.1
-          vy: 0.1
-          vz: 0.1
+          vx: 0.03
+          vy: 0.03
+          vz: 0.03
         }
       }
     }
@@ -290,45 +290,45 @@ uav_system_config {
         velocity_based_position_controller_config {
           position_gain: 1.0
           z_gain: 1.0
-          yaw_gain: 0.6
-          max_velocity: 0.15
-          max_yaw_rate: 0.15
+          yaw_gain: 0.9
+          max_velocity: 0.1
+          max_yaw_rate: 0.1
           position_i_gain: 0
           yaw_i_gain: 0
           position_saturation_value: 0
           yaw_saturation_value: 0
           position_controller_config {
             goal_position_tolerance {
-              x: 0.1
-              y: 0.1
-              z: 0.1
+              x: 0.03
+              y: 0.03
+              z: 0.03
             }
-            goal_yaw_tolerance: 0.1
+            goal_yaw_tolerance: 0.02
           }
         }
       }
       rpyt_based_velocity_controller_config {
-        kp_xy: 2.0
-        kp_z: 5.0
+        kp_xy: 1.5
+        kp_z: 1.5
         ki_xy: 0.5
         ki_z: 0.0
         kt: 0.18
         max_acc_norm: 0.8
         velocity_controller_config {
           goal_velocity_tolerance {
-            vx: 0.1
-            vy: 0.1
-            vz: 0.1
+            vx: 0.03
+            vy: 0.03
+            vz: 0.03
           }
-          goal_yaw_tolerance: 0.1
+          goal_yaw_tolerance: 0.05
         }
       }
     }
     poly_reference_config {
       # MPC poly reference had
       # max velocity of 0.4 and min_tf of 1.0
-      max_velocity: 0.3
-      min_tf: 4.0
+      max_velocity: 0.15
+      min_tf: 6.0
       forward_noise_amplitude: 0.07
       z_noise_amplitude: 0.00
       z_noise_frequency: 0.05
