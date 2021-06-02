@@ -44,6 +44,11 @@ Install gcop_comm for trajectory visualization (other packages in the repo can b
 
     git clone -b hydro-devel https://github.com/jhu-asco/gcop_ros_packages.git
 
+Install OpenCV v4.1.0, follow the steps [here](https://cv-tricks.com/installation/opencv-4-1-ubuntu18-04/) to install from source on Ubuntu 18.04
+- Follow step 1 (skip the optional portions)
+- Skip steps 2-5
+- Follow steps 6-11
+
 ### Optional: Manipulator packages
 Optionally, to install drivers related to aerial manipulation, run the following in your ROS src folder
 
