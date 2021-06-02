@@ -1,0 +1,7 @@
+<launch>
+
+    <node pkg="aerial_autonomy" type="rqt_aerial_autonomy_gui" name="rqt_gui" />
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find aerial_autonomy)/rviz/quad_sim.rviz" output="screen" />
+
+</launch>

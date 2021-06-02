@@ -5,6 +5,9 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(CMAKE_CXX_FLAGS "-O3 -g -Werror -Wall -std=c++11 --coverage -march=corei7 -ffast-math -Wno-strict-overflow ${CMAKE_CXX_FLAGS}")
 add_definitions(-DBOOST_MPL_CFG_NO_PREPROCESSED_HEADERS -DBOOST_MPL_LIMIT_MAP_SIZE=50 -DBOOST_MPL_LIMIT_VECTOR_SIZE=50 -DFUSION_MAX_VECTOR_SIZE=50
                 -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}")
+add_definitions(-std=c++11)
+
+option(USE_ARM_PLUGINS "Use Arm Plugins" ON)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -28,18 +31,21 @@ find_package(catkin REQUIRED COMPONENTS
   gcop_comm
 )
 
-find_package(arm_plugins)
-if (NOT arm_plugins_FOUND)
-  message(WARNING "Could not find arm_plugins.  Not building arm-related components.")
-else ()
-  set(catkin_INCLUDE_DIRS ${catkin_INCLUDE_DIRS} ${arm_plugins_INCLUDE_DIRS})
-  set(catkin_LIBRARIES ${catkin_LIBRARIES} ${arm_plugins_LIBRARIES})
-endif ()
+if(USE_ARM_PLUGINS)
+  find_package(arm_plugins)
+  if (NOT arm_plugins_FOUND)
+    message(WARNING "Could not find arm_plugins.  Not building arm-related components.")
+    set(USE_ARM_PLUGINS OFF)
+  else ()
+    set(catkin_INCLUDE_DIRS ${catkin_INCLUDE_DIRS} ${arm_plugins_INCLUDE_DIRS})
+    set(catkin_LIBRARIES ${catkin_LIBRARIES} ${arm_plugins_LIBRARIES})
+  endif ()
+endif()
 
 include(cmake/add_event_function.cmake)
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system)
-find_package(Protobuf 3.1 REQUIRED)
+find_package(Protobuf 3.0 REQUIRED)
 find_package(Glog REQUIRED)
 find_package(Armadillo REQUIRED)
 
@@ -337,7 +343,7 @@ if (casadi_FOUND)
       src/controllers/ddp_airm_mpc_controller.cpp)
 endif()
 
-if (arm_plugins_FOUND)
+if (USE_ARM_PLUGINS)
   set(SRC ${SRC} ${ARM_SRC})
 endif ()
 
@@ -375,7 +381,7 @@ target_link_libraries(uav_vision_system_node aerial_autonomy)
 target_link_libraries(event_publish_node ${catkin_LIBRARIES})
 target_link_libraries(qrotor_backstepping_controller_tuner aerial_autonomy)
 
-if (arm_plugins_FOUND)
+if (USE_ARM_PLUGINS)
   add_executable(airm_mpc_node src/system_handler_nodes/airm_mpc_node.cpp)
   add_executable(uav_arm_system_node src/system_handler_nodes/uav_arm_system_node.cpp)
   add_executable(sensor_place_node src/system_handler_nodes/sensor_place_node.cpp)
@@ -678,7 +684,7 @@ endif()
 if(TARGET ${PROJECT_NAME}-qrotor-backstepping-trajectory-visualizer-test)
   target_link_libraries(${PROJECT_NAME}-qrotor-backstepping-trajectory-visualizer-test aerial_autonomy ${GCOP_LIBRARIES} ${TINYXML_LIBRARIES} ${QUAD_SIM_PARSER_LIBS})
 endif()
-if (arm_plugins_FOUND)
+if (USE_ARM_PLUGINS)
   catkin_add_gtest(${PROJECT_NAME}-joystick-state-machine-test tests/state_machines/joystick_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-pick-place-state-machine-test tests/state_machines/pick_place_state_machine_tests.cpp)
   catkin_add_gtest(${PROJECT_NAME}-sensor-place-state-machine-test tests/state_machines/sensor_place_state_machine_tests.cpp)
