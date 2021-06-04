@@ -413,13 +413,13 @@ struct FollowingWaypointSequence_
    * @brief Get state configuration from the state machine
    * @return state config
    */
-  // template <class FSM>
-  // FollowingWaypointSequenceConfig getConfig(FSM &logic_state_machine) {
-  //   return logic_state_machine.configMap()
-  //       .find<FollowingWaypointSequence_<LogicStateMachineT, StartIndex,
-  //                                        EndIndex, CompletedEvent>,
-  //             FollowingWaypointSequenceConfig>();
-  // }
+  template <class FSM>
+  FollowingWaypointSequenceConfig getConfig(FSM &logic_state_machine) {
+    return logic_state_machine.configMap()
+        .template find<FollowingWaypointSequence_<LogicStateMachineT, StartIndex,
+                                         EndIndex, CompletedEvent>,
+              FollowingWaypointSequenceConfig>();
+  }
 
   /**
    * @brief Function to set the starting waypoint when entering this state
@@ -428,19 +428,19 @@ struct FollowingWaypointSequence_
    * @tparam FSM Logic statemachine back end
    * @param logic_state_machine state machine that processes events
    */
-  // template <class Event, class FSM>
-  // void on_entry(Event const &e, FSM &logic_state_machine) {
-  //   BaseState<UAVArmSystem, LogicStateMachineT, msmf::none>::on_entry(
-  //       e, logic_state_machine);
-  //   config_ = this->getConfig(logic_state_machine);
-  //   if (StartIndex >= config_.way_points().size() || StartIndex < 0) {
-  //     LOG(WARNING) << " Starting index not in waypoint vector list";
-  //     logic_state_machine.process_event(be::Abort());
-  //   } else {
-  //     tracked_index_ = StartIndex;
-  //     control_initialized_ = false;
-  //   }
-  // }
+  template <class Event, class FSM>
+  void on_entry(Event const &e, FSM &logic_state_machine) {
+    BaseState<UAVArmSystem, LogicStateMachineT, msmf::none>::on_entry(
+        e, logic_state_machine);
+    config_ = this->getConfig(logic_state_machine);
+    if (StartIndex >= config_.way_points().size() || StartIndex < 0) {
+      LOG(WARNING) << " Starting index not in waypoint vector list";
+      logic_state_machine.process_event(be::Abort());
+    } else {
+      tracked_index_ = StartIndex;
+      control_initialized_ = false;
+    }
+  }
 
   /**
    * @brief Get current waypoint index being tracked
@@ -674,19 +674,19 @@ public:
    * @tparam FSM Logic statemachine back end
    * @param logic_state_machine state machine that processes events
    */
-  // template <class Event, class FSM>
-  // void on_entry(Event const &evt, FSM &logic_state_machine) {
-  //   PickBaseState_<LogicStateMachineT>::on_entry(evt, logic_state_machine);
-  //   grip_config_ = logic_state_machine.configMap()
-  //                      .find<PickState_<LogicStateMachineT>, GripConfig>();
-  //   grip_timeout_ = std::chrono::milliseconds(grip_config_.grip_timeout());
-  //   gripping_ = false;
-  //   required_grip_duration_ =
-  //       std::chrono::milliseconds(grip_config_.grip_duration());
-  //   VLOG(1) << "Grip timeout in milliseconds: " << grip_timeout_.count();
-  //   VLOG(1) << "Grip duration in milliseconds: "
-  //           << required_grip_duration_.count();
-  // }
+  template <class Event, class FSM>
+  void on_entry(Event const &evt, FSM &logic_state_machine) {
+    PickBaseState_<LogicStateMachineT>::on_entry(evt, logic_state_machine);
+    grip_config_ = logic_state_machine.configMap()
+                       .template find<PickState_<LogicStateMachineT>, GripConfig>();
+    grip_timeout_ = std::chrono::milliseconds(grip_config_.grip_timeout());
+    gripping_ = false;
+    required_grip_duration_ =
+        std::chrono::milliseconds(grip_config_.grip_duration());
+    VLOG(1) << "Grip timeout in milliseconds: " << grip_timeout_.count();
+    VLOG(1) << "Grip duration in milliseconds: "
+            << required_grip_duration_.count();
+  }
 
   /**
    * @brief Getter for timeout during gripping

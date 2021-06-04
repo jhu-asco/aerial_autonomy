@@ -44,7 +44,7 @@ Install gcop_comm for trajectory visualization (other packages in the repo can b
 
     git clone -b hydro-devel https://github.com/jhu-asco/gcop_ros_packages.git
 
-Install OpenCV v4.1.0, follow the steps [here](https://cv-tricks.com/installation/opencv-4-1-ubuntu18-04/) to install from source on Ubuntu 18.04
+Install OpenCV v4.1.0 (version must include tracking module - other versions may work as well), follow the steps [here](https://cv-tricks.com/installation/opencv-4-1-ubuntu18-04/) to install from source on Ubuntu 18.04
 - Follow step 1 (skip the optional portions)
 - Skip steps 2-5
 - Follow steps 6-11
