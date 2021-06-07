@@ -12,7 +12,7 @@ Install the following dependencies (lcov, protobuf, doxygen, doxypy, coverxygen,
     sudo apt-get install lcov protobuf-compiler libprotobuf-dev doxygen doxypy libgoogle-glog-dev ros-indigo-class-loader ros-indigo-ar-track-alvar-msgs autoconf python-pip ros-indigo-serial ros-indigo-map-server libarmadillo-dev
     sudo pip install coverxygen
 
-Install protobuf 3.1:
+Install protobuf 3.1: (Alternatively, protobuf 3.0.0, which is default with ROS Melodic, can be used - check version with `protoc --version`)
 
     git clone https://github.com/google/protobuf.git
     cd protobuf
@@ -44,6 +44,11 @@ Install gcop_comm for trajectory visualization (other packages in the repo can b
 
     git clone -b hydro-devel https://github.com/jhu-asco/gcop_ros_packages.git
 
+Install OpenCV v4.1.0 (version must include tracking module - other versions may work as well), follow the steps [here](https://cv-tricks.com/installation/opencv-4-1-ubuntu18-04/) to install from source on Ubuntu 18.04
+- Follow step 1 (skip the optional portions)
+- Skip steps 2-5
+- Follow steps 6-11
+
 ### Optional: Manipulator packages
 Optionally, to install drivers related to aerial manipulation, run the following in your ROS src folder
 
@@ -60,14 +65,19 @@ Install our GCOP (Geometric Control, Optimization, and Planning) package. Build 
     cmake ..
     sudo make install
 
+### Arm Plugins
+Building with arm plugins can be turned off by setting the `USE_ARM_PLUGINS` cmake argument to OFF
+
+    catkin build -DUSE_ARM_PLUGINS=OFF
+
 ## Running Executables
 The package provides a `uav_system_node` executable which loads a state machine and hardware and waits for event commands from a ROS topic. The `rqt_aerial_autonomy_gui` script
 provides a GUI to generate events for the state machine. The rqt plugin can be loaded along with `rqt_rviz` in the `rqt_gui` framework.
 
-The `simulator.launch` file in the launch folder executes the state machine node using simulated hardware. The GUI can be launched individually using rosrun. The steps to launch a simulated quadrotor with the state machine are
+The `simulator.launch` file in the launch folder executes the state machine node using simulated hardware. The GUI can be launched individually using rosrun, or with `simulator_rqt_aerial_autonomy.launch`. The steps to launch a simulated quadrotor with the state machine are
 
     roslaunch aerial_autonomy simulator.launch
-    rosrun aerial_autonomy rqt_aerial_autonomy_gui  # In a separate tab
+    roslaunch aerial_autonomy simulator_rqt_aerial_autonomy.launch  # In a separate tab
 
 ## Running Tests
 To build and run tests use `catkin build aerial_autonomy --catkin-make-args run_tests`. Output of individual tests can be checked using `rosrun aerial_autonomy test_name`.
