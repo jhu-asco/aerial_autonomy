@@ -82,7 +82,8 @@ void pathCallback(const trajectory_msgs::JointTrajectoryConstPtr &msg) {
     Eigen::Vector3d acc(msg->points[ii].accelerations[0],msg->points[ii].accelerations[1],msg->points[ii].accelerations[2]);
     path_vec[ii] = std::make_tuple(pos,rotLog,vel,angvel,acc);
   }
-  message_ = std::make_tuple(((double)time),config_.final_time(),path_vec);
+  double final_time = msg->points[N-1].time_from_start.toSec();
+  message_ = std::make_tuple(((double)time),final_time,path_vec);
 }
 
 

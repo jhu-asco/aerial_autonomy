@@ -128,11 +128,11 @@ uav_system_config {
 
       position_controller_config {
         goal_position_tolerance {
-          x: 0.05
-          y: 0.05
-          z: 0.05
+          x: 0.1
+          y: 0.1
+          z: 0.1
         }
-        goal_yaw_tolerance: .02
+        goal_yaw_tolerance: .1
       }
     }
 
@@ -198,7 +198,12 @@ uav_system_config {
       topic: "/path_joints"
       timeout: 1.5
     }
-    final_time: 3.0
+    final_time: 1.5
+  }
+  use_success_sensor: true
+   success_config {
+     topic: "/magnet_success"
+     timeout: 1.0
   }
   geofence_config {
     min_x: -1.2
@@ -350,9 +355,9 @@ uav_system_config {
 
       position_controller_config {
         goal_position_tolerance {
-          x: 0.02
-          y: 0.02
-          z: 0.02
+          x: 0.1
+          y: 0.1
+          z: 0.1
         }
         goal_rotation_tolerance: 6
       }

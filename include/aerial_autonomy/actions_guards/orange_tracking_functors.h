@@ -125,10 +125,10 @@ struct ResetTrialTransitionActionFunctor_
                               .orange_tracking_state_machine_config()
                               .window();
     PositionYaw window = conversions::protoPositionYawToPositionYaw(window_config);
-    PositionYaw offset = PositionYaw(((2*(float) std::rand()/RAND_MAX)-1)*window.x,
-                                     ((2*(float) std::rand()/RAND_MAX)-1)*window.y,
-                                     ((2*(float) std::rand()/RAND_MAX)-1)*window.z,
-                                     ((2*(float) std::rand()/RAND_MAX)-1)*window.yaw);
+    PositionYaw offset = PositionYaw(((2*(((float) std::rand())/RAND_MAX))-1)*window.x,
+                                     ((2*(((float) std::rand())/RAND_MAX))-1)*window.y,
+                                     ((2*(((float) std::rand())/RAND_MAX))-1)*window.z,
+                                     ((2*(((float) std::rand())/RAND_MAX))-1)*window.yaw);
     PositionYaw goal_location = home_location + offset;
     VLOG(1) << "Resetting Trial";
     tf::StampedTransform start_pose = robot_system.getPose();

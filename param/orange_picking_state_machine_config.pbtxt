@@ -56,39 +56,26 @@ visual_servoing_state_machine_config {
     yaw: 3.14
   }
 
-  sensor_place_state_machine_config {
-    grip_timeout: 20000
+  orange_tracking_state_machine_config {
+    pick_timeout: 10000
+    window {
+      position {
+        x: 0.20
+        y: 0.20
+        z: 0.20
+      }
+      yaw: 0.15
+    }
     
-    #placing arm
-    arm_goal_transform {
-      position {
-        x: -0.18
-        y: 0
-        z: 0.47
-      }
-      rotation {
-        r: 0
-        p: 0
-        y: 0
-      }
-    }
-
-    #checking arm
-    arm_goal_transform {
-      position {
-        x: -0.22
-        y: 0
-        z: 0.47
-      }
-      rotation {
-        r: 0
-        p: 0
-        y: 0
-      }
-    }
-
-    placing_acc_threshold: -0.3
-    checking_acc_threshold: 0.15
   }
   connector_type: RPYTPose
+}
+poly_reference_config {
+  max_velocity: 0.15
+  min_tf: 4
+  forward_noise_amplitude: 0.5
+  forward_noise_frequency: 0.25
+  z_noise_amplitude: 0.03
+  z_noise_frequency: 0.125
+  add_noise: false
 }
