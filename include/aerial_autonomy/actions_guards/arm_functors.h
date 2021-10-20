@@ -9,6 +9,14 @@
 
 namespace be = uav_basic_events;
 
+template <class LogicStateMachineT>
+struct DebugPrintFunctor_
+    : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
+  void run(ArmSystem &robot_system) {
+    VLOG(1) << "Print Happens";
+  }
+};
+
 /**
 * @brief action to fold arm
 *

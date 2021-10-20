@@ -27,6 +27,7 @@
 //#include <aerial_autonomy/actions_guards/pick_place_states_actions.h>
 #include <aerial_autonomy/actions_guards/orange_picking_states_actions.h>
 #include <aerial_autonomy/actions_guards/orange_tracking_states_actions.h>
+#include <aerial_autonomy/actions_guards/pick_place_states_actions.h>
 
 // Robot System used
 #include <aerial_autonomy/robot_systems/uav_vision_system.h>

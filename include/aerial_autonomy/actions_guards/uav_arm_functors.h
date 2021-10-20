@@ -14,6 +14,7 @@ template <class LogicStateMachineT>
 using ManualControlArmInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+//        DebugPrintFunctor_<LogicStateMachineT>,
         ManualControlInternalActionFunctor_<LogicStateMachineT>>>;
 
 /**

@@ -5,6 +5,7 @@
 #include <aerial_autonomy/actions_guards/orange_tracking_functors.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_states_actions.h>
 #include <aerial_autonomy/actions_guards/position_control_functors.h>
+#include <aerial_autonomy/actions_guards/arm_functors.h>
 #include <aerial_autonomy/orange_tracking_events.h>
 #include <boost/msm/front/euml/operator.hpp>
 #include <boost/msm/front/functor_row.hpp>
@@ -78,6 +79,7 @@ struct OrangeTrackingStatesActions
           SetNoisePolynomialReference_<LogicStateMachineT,false>,
           typename vsa::ResetRelativePoseVisualServoing,
           //ResetThrustMixingGain_<LogicStateMachineT>,
+          ArmGripActionFunctor_<LogicStateMachineT,false>,
           RelativePoseVisualServoingTransitionActionFunctor_<
               LogicStateMachineT, prepick_index, true>>>; // Set Home set to
                                                            // true
@@ -91,6 +93,7 @@ struct OrangeTrackingStatesActions
           SetNoisePolynomialReference_<LogicStateMachineT,false>,
           typename vsa::ResetRelativePoseVisualServoing,
           //ResetThrustMixingGain_<LogicStateMachineT>,
+          ArmGripActionFunctor_<LogicStateMachineT,false>,
           RelativePoseVisualServoingTransitionActionFunctor_<
               LogicStateMachineT, prepick_index, false>>>; // Set Home set to
                                                            // true
@@ -100,8 +103,9 @@ struct OrangeTrackingStatesActions
   * before beginning visual servoing
   */
   using PreOrangeTrackingTransitionGuard =
-      bAnd<InitializeTrackerGuardFunctor_<LogicStateMachineT,
+      /*bAnd<*/bAnd<InitializeTrackerGuardFunctor_<LogicStateMachineT,
                                           ClosestTrackingStrategy>,
+           //ArmEnabledGuardFunctor_<LogicStateMachineT>>,
            CheckGoalIndex_<LogicStateMachineT, prepick_index>>;
 
   /**
@@ -119,19 +123,22 @@ struct OrangeTrackingStatesActions
   * @brief Guard to take when placing sensor. Might be nothing.
   */
   using OrangeTrackingTransitionGuard =
-      CheckGoalIndex_<LogicStateMachineT, pick_index>;
+//           bAnd<ArmEnabledGuardFunctor_<LogicStateMachineT>,
+                CheckGoalIndex_<LogicStateMachineT, pick_index>;//>;
   /**
   * @brief Action to take when placing sensor
   */
   using OrangeTrackingRiseTransitionAction =
       base_functors::bActionSequence<boost::mpl::vector<
           SetNoisePolynomialReference_<LogicStateMachineT,true>,
+          ArmGripActionFunctor_<LogicStateMachineT,true>,
           RelativePositionWaypointTransitionActionFunctor_<LogicStateMachineT,rise_index>>>;
 
   /**
   * @brief Guard to take when placing sensor. Might be nothing.
   */
   using OrangeTrackingRiseTransitionGuard =
-      CheckGoalIndex_<LogicStateMachineT, rise_index>;
+      //bAnd<ArmEnabledGuardFunctor_<LogicStateMachineT>,
+           CheckGoalIndex_<LogicStateMachineT, rise_index>;//>;
 
 };

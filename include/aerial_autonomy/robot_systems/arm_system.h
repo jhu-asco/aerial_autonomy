@@ -14,6 +14,7 @@
 #include <arm_parsers/arm_simulator.h>
 #include <arm_parsers/generic_arm.h>
 #include <arm_parsers/simple_arm.h>
+#include <arm_parsers/jaw_arm.h>
 
 #include "arm_system_config.pb.h"
 
@@ -218,6 +219,8 @@ protected:
         arm_parser_pointer = ArmParserPtr(new SimpleArm());
       } else if (arm_parser_type == "ArmSimulator") {
         arm_parser_pointer = ArmParserPtr(new ArmSimulator());
+      } else if (arm_parser_type == "JawArm") {
+        arm_parser_pointer = ArmParserPtr(new JawArm());
       } else {
         throw std::runtime_error("Unknown arm parser type provided: " +
                                  arm_parser_type);

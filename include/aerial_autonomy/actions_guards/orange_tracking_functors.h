@@ -5,13 +5,14 @@
 #include <aerial_autonomy/actions_guards/manual_control_functors.h>
 #include <aerial_autonomy/actions_guards/shorting_action_sequence.h>
 #include <aerial_autonomy/actions_guards/visual_servoing_functors.h>
+#include <aerial_autonomy/actions_guards/arm_functors.h>
 #include <aerial_autonomy/actions_guards/position_control_functors.h>
 #include <aerial_autonomy/common/conversions.h>
 #include <aerial_autonomy/common/proto_utils.h>
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/logic_states/timed_state.h>
 #include <aerial_autonomy/orange_tracking_events.h>
-#include <aerial_autonomy/robot_systems/uav_vision_system.h>
+#include <aerial_autonomy/robot_systems/uav_arm_system.h>
 #include <aerial_autonomy/robot_systems/uav_system.h>
 #include <aerial_autonomy/types/completed_event.h>
 #include <aerial_autonomy/types/object_id.h>
@@ -70,9 +71,9 @@ struct RelativePositionWaypointTransitionActionFunctor_
 // than the pick_timeout()
 template <class LogicStateMachineT, class StateT>
 struct TimeoutInternalActionFunctor_
-    : public StateDependentInternalActionFunctor<UAVVisionSystem,
+    : public StateDependentInternalActionFunctor<UAVArmSystem,
                                                  LogicStateMachineT, StateT> {
-  bool run(UAVVisionSystem &robot_system, LogicStateMachineT &logic_state_machine,
+  bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine,
            StateT &state) {
     std::chrono::milliseconds threshold =
         std::chrono::milliseconds(logic_state_machine.base_state_machine_config_
@@ -87,6 +88,27 @@ struct TimeoutInternalActionFunctor_
     return true;
   }
 };
+
+/**
+* @brief Checks whether grip command has completed or timed out
+* @tparam LogicStateMachineT Logic state machine used to process events
+* @tparam StateT State which stores gripper timer state
+*/
+template <class LogicStateMachineT>
+struct JawGripInternalActionFunctor_
+    : public InternalActionFunctor<UAVArmSystem, LogicStateMachineT> {
+  bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine) {
+    bool has_grip = robot_system.gripStatus();
+    if (has_grip) {
+      VLOG(1) << "Done Gripping!";
+      logic_state_machine.process_event(Completed());
+      return false;
+    }
+    return true;
+  }
+};
+
+
 // Internal action functor to send a complete event if the success sensor triggers
 template <class LogicStateMachineT>
 struct SuccessSensorInternalActionFunctor_
@@ -110,6 +132,7 @@ struct SuccessSensorInternalActionFunctor_
     return true;
   }
 };
+
 /**
 * @brief Action to reach a pre designated point
 *
@@ -157,8 +180,9 @@ template <class LogicStateMachineT>
 using PreOrangeTrackingInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
         FlyawayCheckFunctor_<LogicStateMachineT>,
-        SuccessSensorInternalActionFunctor_<LogicStateMachineT>,
+        //SuccessSensorInternalActionFunctor_<LogicStateMachineT>,
         VisualServoingStatus_<LogicStateMachineT, Reset>>>;
 
 /**
@@ -169,7 +193,7 @@ using PreOrangeTrackingInternalActionFunctor_ =
 template <class LogicStateMachineT>
 class PreOrangeTrackingState_
     : public BaseState<
-          UAVVisionSystem, LogicStateMachineT,
+          UAVArmSystem, LogicStateMachineT,
           PreOrangeTrackingInternalActionFunctor_<LogicStateMachineT>> {};
 
 /**
@@ -181,8 +205,9 @@ template <class LogicStateMachineT>
 using OrangeTrackingInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
         FlyawayCheckFunctor_<LogicStateMachineT>,
-        SuccessSensorInternalActionFunctor_<LogicStateMachineT>,
+        //SuccessSensorInternalActionFunctor_<LogicStateMachineT>,
         VisualServoingStatus_<LogicStateMachineT, Reset, true>,
         TimeoutInternalActionFunctor_<LogicStateMachineT,OrangeTrackingState_<LogicStateMachineT>>>>;
 /**
@@ -192,7 +217,7 @@ using OrangeTrackingInternalActionFunctor_ =
 */
 template <class LogicStateMachineT>
 class OrangeTrackingState_
-    : public TimedState<UAVVisionSystem, LogicStateMachineT,
+    : public TimedState<UAVArmSystem, LogicStateMachineT,
                         OrangeTrackingInternalActionFunctor_<LogicStateMachineT>> {};
 
 /**
@@ -204,8 +229,10 @@ template <class LogicStateMachineT>
 using OrangeTrackingFinalRiseInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
         FlyawayCheckFunctor_<LogicStateMachineT>,
-        SuccessSensorInternalActionFunctor_<LogicStateMachineT>,
+        JawGripInternalActionFunctor_<LogicStateMachineT>,
+        //SuccessSensorInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<LogicStateMachineT,RPYTBasedReferenceConnector<Eigen::VectorXd,Eigen::VectorXd>, false>,
         TimeoutInternalActionFunctor_<LogicStateMachineT,OrangeTrackingFinalRiseState_<LogicStateMachineT>>>>;
 
@@ -216,7 +243,7 @@ using OrangeTrackingFinalRiseInternalActionFunctor_ =
 */
 template <class LogicStateMachineT>
 class OrangeTrackingFinalRiseState_
-    : public TimedState<UAVVisionSystem, LogicStateMachineT,
+    : public TimedState<UAVArmSystem, LogicStateMachineT,
                         OrangeTrackingFinalRiseInternalActionFunctor_<LogicStateMachineT>> {};
 /**
 * @brief State that resets to last set home location
@@ -225,7 +252,7 @@ class OrangeTrackingFinalRiseState_
 */
 template <class LogicStateMachineT>
 class ResetOrangeTrackingState_
-    : public BaseState<UAVVisionSystem, LogicStateMachineT,
+    : public BaseState<UAVArmSystem, LogicStateMachineT,
                         PositionControlInternalActionFunctor_<LogicStateMachineT>> {};
 /**
 * @brief State that resets to last set home location
@@ -234,5 +261,5 @@ class ResetOrangeTrackingState_
 */
 template <class LogicStateMachineT>
 class ResetTrialState_
-    : public BaseState<UAVVisionSystem, LogicStateMachineT,
+    : public BaseState<UAVArmSystem, LogicStateMachineT,
                         PositionControlInternalActionFunctor_<LogicStateMachineT>> {};

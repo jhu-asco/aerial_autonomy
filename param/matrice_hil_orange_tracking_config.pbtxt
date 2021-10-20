@@ -181,7 +181,7 @@ uav_system_config {
     }
     final_time: 3
   }
-  use_success_sensor: true
+  use_success_sensor: false
   success_config {
     topic: "/magnet_success"
     timeout: 1.0
@@ -367,7 +367,7 @@ uav_system_config {
           }
           goal_rotation_tolerance: 6
         }
-        arm_parser_type: "SimpleArm"
+        arm_parser_type: "JawArm"
       }
       mpc_controller_config {
         default_thrust_gain: 0.16

@@ -26,6 +26,7 @@
 
 // Actions and guards used
 #include <aerial_autonomy/actions_guards/orange_tracking_states_actions.h>
+#include <aerial_autonomy/actions_guards/pick_place_states_actions.h>
 
 // Robot System used
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
@@ -64,7 +65,7 @@ using OrangeTrackingStateMachine = boost::msm::back::thread_safe_state_machine<
 * @brief Namespace for basic uav states and actions such as takeoff, land etc
 */
 using vsa = VisualServoingStatesActions<OrangeTrackingStateMachine>;
-//using psa = PickPlaceStatesActions<OrangeTrackingStateMachine>;
+using psa = PickPlaceStatesActions<OrangeTrackingStateMachine>;
 using otsa = OrangeTrackingStatesActions<OrangeTrackingStateMachine>;
 
 /**
@@ -77,7 +78,7 @@ using otsa = OrangeTrackingStatesActions<OrangeTrackingStateMachine>;
 */
 class OrangeTrackingStateMachineFrontEnd
     : public msmf::state_machine_def<OrangeTrackingStateMachineFrontEnd>,
-      public BaseStateMachine<UAVVisionSystem> {
+      public BaseStateMachine<UAVArmSystem> {
 public:
   /**
   * @brief Action to take on entering state machine
@@ -87,6 +88,8 @@ public:
   */
   template <class Event, class FSM> void on_entry(Event const &evt, FSM &fsm) {
     VLOG(1) << "entering: Orange Tracking system";
+    int dummy_source_state = 0, dummy_target_state = 0;
+    psa::ArmPowerOn()(evt, fsm, dummy_source_state, dummy_target_state);
   }
   /**
   * @brief Action to take on leaving state machine
@@ -96,6 +99,8 @@ public:
   */
   template <class Event, class FSM> void on_exit(Event const &evt, FSM &fsm) {
     VLOG(1) << "leaving: Orange Tracking system";
+    int dummy_source_state = 0, dummy_target_state = 0;
+    psa::ArmPowerOff()(evt, fsm, dummy_source_state, dummy_target_state);
   }
 
   /**
@@ -107,7 +112,7 @@ public:
   * machine
   */
   OrangeTrackingStateMachineFrontEnd(
-      UAVVisionSystem &uav_system,
+      UAVArmSystem &uav_system,
       const BaseStateMachineConfig &state_machine_config)
       : BaseStateMachine(uav_system, state_machine_config) {}
 
@@ -117,13 +122,13 @@ public:
    * @param uav_system robot system that is stored internally and shared with
    * events
    */
-  OrangeTrackingStateMachineFrontEnd(UAVVisionSystem &uav_system)
+  OrangeTrackingStateMachineFrontEnd(UAVArmSystem &uav_system)
       : OrangeTrackingStateMachineFrontEnd(uav_system, BaseStateMachineConfig()){};
 
   /**
   * @brief Initial state for state machine
   */
-  using initial_state = vsa::Landed;
+  using initial_state = vsa::Landed;//psa::ManualControlArmState;
   /**
   * @brief Transition table for State Machine
   */
@@ -135,7 +140,7 @@ public:
                       vsa::TakeoffAction, vsa::TakeoffGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::Landed, ManualControlEvent,
-                      vsa::ManualControlState, msmf::none, msmf::none>,
+                      psa::ManualControlArmState, msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::TakingOff, Completed, vsa::Hovering,
                       msmf::none, msmf::none>,
@@ -150,9 +155,9 @@ public:
                       vsa::LandingAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<vsa::Hovering, ManualControlEvent,
-                      vsa::ManualControlState, msmf::none, msmf::none>,
+                      psa::ManualControlArmState, msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<vsa::Hovering, ote::Pick, otsa::PreOrangeTrackingState,//TODO: CHANGE THIS
+            msmf::Row<vsa::Hovering, ote::Pick, otsa::PreOrangeTrackingState,
                       otsa::PreOrangeTrackingTransitionAction,
                       otsa::PreOrangeTrackingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
@@ -227,17 +232,17 @@ public:
             msmf::Row<vsa::Landing, Completed, vsa::Landed, msmf::none,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-           msmf::Row<vsa::ManualControlState, be::Takeoff, vsa::Hovering,
+           msmf::Row<psa::ManualControlArmState, be::Takeoff, vsa::Hovering,
                       vsa::ManualControlSwitchAction,
                       vsa::ManualControlSwitchGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<vsa::ManualControlState, be::Land, vsa::Landed,
+            msmf::Row<psa::ManualControlArmState, be::Land, vsa::Landed,
                       vsa::ManualControlSwitchAction,
                       vsa::ManualControlSwitchGuard>> {};
   /**
   * @brief Use Inherited no transition function
   */
-  using BaseStateMachine<UAVVisionSystem>::no_transition;
+  using BaseStateMachine<UAVArmSystem>::no_transition;
 };
 
 /**
