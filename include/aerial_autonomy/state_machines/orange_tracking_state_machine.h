@@ -180,7 +180,7 @@ public:
                       otsa::OrangeTrackingRiseTransitionAction, otsa::OrangeTrackingRiseTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<otsa::OrangeTrackingState, Reset, otsa::ResetOrangeTracking,
-                      vsa::GoResetTransitionAction, vsa::GoResetTransitionGuard>,
+                      otsa::ResetTrackingTransitionAction, vsa::GoResetTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<otsa::OrangeTrackingState, be::Abort, vsa::Hovering,
                       vsa::UAVControllerAbort, msmf::none>,
@@ -189,7 +189,7 @@ public:
                       otsa::ResetTrialTransitionAction, vsa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<otsa::OrangeTrackingFinalRiseState, Reset, otsa::ResetOrangeTracking,
-                      vsa::GoResetTransitionAction, vsa::GoResetTransitionGuard>,
+                      otsa::ResetTrackingTransitionAction, vsa::GoResetTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<otsa::OrangeTrackingFinalRiseState, be::Abort, vsa::Hovering,
                       vsa::UAVControllerAbort, msmf::none>,

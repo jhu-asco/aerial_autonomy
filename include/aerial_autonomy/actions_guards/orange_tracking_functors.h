@@ -94,15 +94,21 @@ struct TimeoutInternalActionFunctor_
 * @tparam LogicStateMachineT Logic state machine used to process events
 * @tparam StateT State which stores gripper timer state
 */
-template <class LogicStateMachineT>
+template <class LogicStateMachineT, bool flag>
 struct JawGripInternalActionFunctor_
     : public InternalActionFunctor<UAVArmSystem, LogicStateMachineT> {
   bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine) {
-    bool has_grip = robot_system.gripStatus();
-    if (has_grip) {
-      VLOG(1) << "Done Gripping!";
-      logic_state_machine.process_event(Completed());
-      return false;
+    bool status = robot_system.getCommandStatus();
+    if (status) {
+      bool has_grip = robot_system.gripStatus();
+      if (has_grip == flag) {
+        VLOG(1) << "Done Gripping!";
+        logic_state_machine.process_event(Completed());
+        return false;
+      } else {
+        VLOG(1) << "Grip Failed!";
+        logic_state_machine.process_event(Reset());
+      }
     }
     return true;
   }
@@ -231,7 +237,7 @@ using OrangeTrackingFinalRiseInternalActionFunctor_ =
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
         FlyawayCheckFunctor_<LogicStateMachineT>,
-        JawGripInternalActionFunctor_<LogicStateMachineT>,
+        JawGripInternalActionFunctor_<LogicStateMachineT,true>,
         //SuccessSensorInternalActionFunctor_<LogicStateMachineT>,
         ControllerStatusInternalActionFunctor_<LogicStateMachineT,RPYTBasedReferenceConnector<Eigen::VectorXd,Eigen::VectorXd>, false>,
         TimeoutInternalActionFunctor_<LogicStateMachineT,OrangeTrackingFinalRiseState_<LogicStateMachineT>>>>;

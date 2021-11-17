@@ -89,10 +89,18 @@ struct ArmGripActionFunctor_
   void run(ArmSystem &robot_system) {
     if (grip) {
       VLOG(1) << "Gripping!";
-      robot_system.grip(true);
+      while(!robot_system.grip(true)){
+        VLOG(1) << "Grip Failed.... ";
+        usleep(500);
+        VLOG(1) << "Retrying";
+      }
     } else {
       VLOG(1) << "UnGripping!";
-      robot_system.grip(false);
+      while(!robot_system.grip(false)){
+        VLOG(1) << "Ungrip Failed.... ";
+        usleep(500);
+        VLOG(1) << "Retrying";
+      }
     }
   }
 };

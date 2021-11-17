@@ -141,4 +141,11 @@ struct OrangeTrackingStatesActions
       //bAnd<ArmEnabledGuardFunctor_<LogicStateMachineT>,
            CheckGoalIndex_<LogicStateMachineT, rise_index>;//>;
 
+  /**
+  * @brief Action to take when resetting pick.
+  */
+  using ResetTrackingTransitionAction =
+      base_functors::bActionSequence<boost::mpl::vector<
+          GoResetTransitionActionFunctor_<LogicStateMachineT>,
+          ArmGripActionFunctor_<LogicStateMachineT,false>>>;
 };

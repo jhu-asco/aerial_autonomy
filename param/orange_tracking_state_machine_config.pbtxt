@@ -3,7 +3,7 @@ visual_servoing_state_machine_config {
   # Prepick
   relative_pose_goals {
     position {
-      x: 0.95
+      x: 1.05
       y: -0.05
       z: 0.15
     }
@@ -13,9 +13,9 @@ visual_servoing_state_machine_config {
   # Pick
   relative_pose_goals {
     position {
-      x: 0.72
-      y: -0.05
-      z: 0.15
+      x: 0.73
+      y: -0.15
+      z: 0.18 #0.15
     }
     yaw: 3.14#-1.5708
   }
@@ -23,15 +23,15 @@ visual_servoing_state_machine_config {
   # Rise (Relative to last position)
   relative_pose_goals {
     position {
-      x: 0.12
+      x: 0.0
       y: 0.0
-      z: 0.15
+      z: 0.0
     }
     yaw: 0.0
   }
 
   orange_tracking_state_machine_config {
-    pick_timeout: 10000
+    pick_timeout: 100000
     window {
       position {
         x: 0.20
