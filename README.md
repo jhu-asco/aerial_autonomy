@@ -7,12 +7,12 @@ The doxygen documentation to the project can be found [here](https://jhu-asco.gi
 ## Setup
 Run the setup script in scripts/setup/setup.sh to configure Git hooks.  
 
-Install the following dependencies (lcov, protobuf, doxygen, doxypy, coverxygen, google-glog, class-loader). On Ubuntu 14.04 run the following line in a terminal (replacing indigo with your ROS version)
+Install the following dependencies (lcov, protobuf, doxygen, doxypy, coverxygen, google-glog, class-loader). On Ubuntu 18.04 run the following in a terminal (for different versions of Ubuntu replace melodic with your ROS version)
 
-    sudo apt-get install lcov protobuf-compiler libprotobuf-dev doxygen doxypy libgoogle-glog-dev ros-indigo-class-loader ros-indigo-ar-track-alvar-msgs autoconf python-pip ros-indigo-serial ros-indigo-map-server libarmadillo-dev
+    sudo apt-get install lcov protobuf-compiler libprotobuf-dev doxygen doxypy libgoogle-glog-dev ros-melodic-class-loader ros-melodic-ar-track-alvar-msgs autoconf python-pip ros-melodic-serial ros-melodic-map-server libarmadillo-dev
     sudo pip install coverxygen
 
-Install protobuf 3.1: (Alternatively, protobuf 3.0.0, which is default with ROS Melodic, can be used - check version with `protoc --version`)
+Install protobuf 3.1: (Alternatively, protobuf 3.0.0, which is default with ROS Melodic, can be used and these steps can be skipped. Check version with `protoc --version`)
 
     git clone https://github.com/google/protobuf.git
     cd protobuf
@@ -35,19 +35,29 @@ Install googletest `release 1.8.0`. This version fixes a bug with `ASSERT_TRUE` 
     sudo make install
     sudo ldconfig
 
-Run the following in your ROS workspace src folder to setup UAV hardware drivers
+Install OpenCV with OpenCV Contrib (version must include tracking module). Follow the steps for installing from source [here](https://linuxize.com/post/how-to-install-opencv-on-ubuntu-18-04/) to install from source on Ubuntu 18.04. If a version of OpenCV is already installed on your system you may want to install that version from source. Note: Source code for OpenCV 3.2.0 has an extra else statement on line 21 of cmake/OpenCVCompilerOptions.cmake. This block needs to be removed. The following can be used to check if your system currently has a version of OpenCV installed:
+
+    pkg-config --modversion opencv
+	python3 -c "import cv2; print(cv2.version)"
+	python2 -c "import cv2; print(cv2.version)"
+
+Install our GCOP (Geometric Control, Optimization, and Planning) package. Build with support for casadi (USE_CASADI) and install the dependences from the GCOP README. Do the following **after required and optional dependencies from the GCOP README have been installed (Numbers 5 and 6)**: 
+
+    git clone https://github.com/jhu-asco/gcop.git
+    cd gcop
+    mkdir build
+    cd build
+    cmake -DUSE_CASADI=ON ..
+    sudo make install
+
+Create a ROS workspace. Run the following in your ROS workspace src folder to setup UAV hardware drivers
 
     git clone -b hydro-devel https://github.com/jhu-asco/quadcopter_parsers.git
     git clone -b 3.2.3 https://github.com/jhu-asco/Onboard-SDK-ROS.git
 
-Install gcop_comm for trajectory visualization (other packages in the repo can be ignored)
+Install gcop_comm for trajectory visualization (other packages in the repo can be ignored) in the ROS workspace src folder
 
     git clone -b hydro-devel https://github.com/jhu-asco/gcop_ros_packages.git
-
-Install OpenCV v4.1.0 (version must include tracking module - other versions may work as well), follow the steps [here](https://cv-tricks.com/installation/opencv-4-1-ubuntu18-04/) to install from source on Ubuntu 18.04
-- Follow step 1 (skip the optional portions)
-- Skip steps 2-5
-- Follow steps 6-11
 
 ### Optional: Manipulator packages
 Optionally, to install drivers related to aerial manipulation, run the following in your ROS src folder
@@ -56,19 +66,15 @@ Optionally, to install drivers related to aerial manipulation, run the following
     git clone https://git.lcsr.jhu.edu/ggarime1/controllers.git
     git clone https://git.lcsr.jhu.edu/ggarime1/dynamixelsdk.git
 
-Install our GCOP (Geometric Control, Optimization, and Planning) package. Build with support for casadi (USE_CASADI) and follow instructions in GCOP README for versions of dependencies.
-
-    git clone https://github.com/jhu-asco/gcop.git
-    cd gcop
-    mkdir build
-    cd build
-    cmake ..
-    sudo make install
+## Build
+This package can be cloned into the same ROS workspace src folder and built with `catkin build`. Be sure to source the workspace's `devel/setup.bash`.
 
 ### Arm Plugins
 Building with arm plugins can be turned off by setting the `USE_ARM_PLUGINS` cmake argument to OFF
 
     catkin build -DUSE_ARM_PLUGINS=OFF
+
+This is recommended, when arm plugins are not needed, for the code to compile faster and using less system resources.
 
 ## Running Executables
 The package provides a `uav_system_node` executable which loads a state machine and hardware and waits for event commands from a ROS topic. The `rqt_aerial_autonomy_gui` script
