@@ -14,8 +14,8 @@ import numpy as np
 import sip
 from aerial_autonomy.msg import VelocityYaw
 from qt_gui.plugin import Plugin
-from python_qt_binding.QtWidgets import (QLabel, QVBoxLayout,
-                                         QGridLayout, QWidget,
+from python_qt_binding.QtWidgets import (QLabel, QVBoxLayout, QHBoxLayout,
+                                         QGridLayout, QWidget, QGroupBox,
                                          QTextEdit, QPushButton,
                                          QSlider, QTabWidget)
 from python_qt_binding.QtCore import *
@@ -56,24 +56,24 @@ class EventTransmissionGUI(Plugin):
         # Set title of the parent container window
         self._status_tab.setWindowTitle(self.event_trigger.event_manager_name)
         ## Layout for status tab
-        self._layout = QVBoxLayout()
+        self._layout = QHBoxLayout()
         self._status_tab.setLayout(self._layout)
 
         # Create Textboxes and add to Layout
-        self._layout.addWidget(QLabel('State Machine State'))
+        # self._layout.addWidget(QLabel('State Machine State'))
         ## Textbox to show sytem status
         self.system_status_textbox = QTextEdit()
         self.system_status_textbox.setReadOnly(True)
         self._layout.addWidget(self.system_status_textbox)
 
         # Define and connect buttons
-        self._layout.addWidget(QLabel('Event Triggers'))
+        # self._layout.addWidget(QLabel('Event Triggers'))
         ## Continer to store event triggering buttons
-        self.button_container = QWidget()
+        self.button_container = QGroupBox('Event Triggers') #QWidget()
         ## List of push buttons to trigger events
         self.push_buttons = list()
         ## Layout for the push buttons
-        self.button_layout = QGridLayout()
+        self.button_layout = QVBoxLayout()
         self.button_container.setLayout(self.button_layout)
         button_index = 0
         for event_name in self.event_trigger.event_names_list:
@@ -81,8 +81,9 @@ class EventTransmissionGUI(Plugin):
             partial_fun = partial(self.event_trigger.triggerEvent,
                                   event_name=event_name)
             self.push_buttons[-1].clicked.connect(partial_fun)
-            row, col = self.get_row_col(button_index, args.grid_cols)
-            self.button_layout.addWidget(self.push_buttons[-1], row, col)
+            # row, col = self.get_row_col(button_index, args.grid_cols)
+            # self.button_layout.addWidget(self.push_buttons[-1], row, col)
+            self.button_layout.addWidget(self.push_buttons[-1])
             button_index += 1
         self._layout.addWidget(self.button_container)
 

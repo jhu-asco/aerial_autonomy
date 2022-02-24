@@ -83,7 +83,7 @@ for i in range(2):
       print("Std diff Sensor: ",labels[i],': ', np.std(rpy[iStart:iEnd, i] - sensor_rpy[iStart:iEnd, i]))
     plt.xlabel('Time (seconds)')
     plt.ylabel(labels[i]+' (rad)')
-    plt.legend(['Tracked', 'Reference','Sensor', 'Diff'])
+    plt.legend(['Tracked', 'Reference','Sensor', 'Diff (btw tracked and sensor)'])
 plt.figure()
 plt.plot(ts_sub, connector_data['Thrust_gain'][iStart:iEnd])
 plt.xlabel('Time (seconds)')
@@ -113,11 +113,13 @@ cmd_yaw_rate = np.interp(ts, ts1, ctrlr_data['Cmd_yawrate'].values)
 ax = plt.gca()
 try:
   ax.plot(ts, thrust_gain)
+  plt.ylabel('Thrust gain')
   ax2 = ax.twinx()
   ax2.plot(ts, cmd_yaw_rate, 'r')
   ax2.legend(['Command yaw rate'])
   ax.legend(['Thrust gain'])
-  plt.xlabel("Time (seconds)")
+  plt.ylabel('Command yaw rate')
+  plt.xlabel('Time (seconds)')
 except:
   pass
 if 'roll_bias' in connector_data.columns:

@@ -1,6 +1,7 @@
 <launch>
+    <arg name="event_file" default="uav_basic_events"/>
 
-    <node pkg="aerial_autonomy" type="rqt_aerial_autonomy_gui" name="rqt_gui" />
+    <node pkg="aerial_autonomy" type="rqt_aerial_autonomy_gui" name="rqt_gui" args="-e $(find aerial_autonomy)/events/$(arg event_file)"/>
 
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find aerial_autonomy)/rviz/quad_sim.rviz" output="screen" />
 
