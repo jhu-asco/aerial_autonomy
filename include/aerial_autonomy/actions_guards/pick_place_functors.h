@@ -403,7 +403,7 @@ struct FollowingWaypointSequence_
   template <class FSM>
   FollowingWaypointSequenceConfig getConfig(FSM &logic_state_machine) {
     return logic_state_machine.configMap()
-        .find<FollowingWaypointSequence_<LogicStateMachineT, StartIndex,
+        .template find<FollowingWaypointSequence_<LogicStateMachineT, StartIndex,
                                          EndIndex, CompletedEvent>,
               FollowingWaypointSequenceConfig>();
   }
@@ -665,7 +665,7 @@ public:
   void on_entry(Event const &evt, FSM &logic_state_machine) {
     PickBaseState_<LogicStateMachineT>::on_entry(evt, logic_state_machine);
     grip_config_ = logic_state_machine.configMap()
-                       .find<PickState_<LogicStateMachineT>, GripConfig>();
+                       .template find<PickState_<LogicStateMachineT>, GripConfig>();
     grip_timeout_ = std::chrono::milliseconds(grip_config_.grip_timeout());
     gripping_ = false;
     required_grip_duration_ =
