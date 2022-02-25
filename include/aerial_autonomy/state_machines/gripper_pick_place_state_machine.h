@@ -124,7 +124,7 @@ public:
         pick_state_machine_config.following_waypoint_sequence_config());
     config_map_.insert<gsa::ReachingPostPlaceWaypoint>(
         pick_state_machine_config.following_waypoint_sequence_config());
-    config_map_.insert<gsa::PickState>(pick_state_machine_config.grip_config());
+    config_map_.insert<gsa::GripState>(pick_state_machine_config.grip_config());
   }
 
   /**
@@ -175,7 +175,7 @@ public:
                       gsa::PrePickTransitionAction,
                       gsa::PrePickTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::PrePickState, Completed, gsa::PickState,
+            msmf::Row<gsa::PrePickState, Completed, gsa::PickPositionState,
                       gsa::PickTransitionAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::PrePickState, be::Abort, gsa::Hovering,
@@ -223,14 +223,23 @@ public:
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::ReachingGoal, Completed, gsa::Hovering,
                       gsa::AbortUAVControllerArmRightFold, msmf::none>,
+			      //        +--------------+-------------+--------------+---------------------+---------------------------+
+			      msmf::Row<gsa::PickPositionState, Completed, gsa::GripState,
+					            gsa::GripTransitionAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::PickState, be::Abort, gsa::Hovering,
+            msmf::Row<gsa::PickPositionState, be::Abort, gsa::Hovering,
                       gsa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::PickState, Reset, gsa::ResetVisualServoing,
+            msmf::Row<gsa::PickPositionState, Reset, gsa::ResetVisualServoing,
+                      gsa::ArmRightFoldGoHome, gsa::GoHomeTransitionGuard>,         
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<gsa::GripState, be::Abort, gsa::Hovering,
+                      gsa::AbortUAVArmController, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<gsa::GripState, Reset, gsa::ResetVisualServoing,
                       gsa::ArmRightFoldGoHome, gsa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::PickState, ObjectId, gsa::ReachingPostPickWaypoint,
+            msmf::Row<gsa::GripState, ObjectId, gsa::ReachingPostPickWaypoint,
                       gsa::AbortUAVArmControllerArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::ReachingPostPickWaypoint, be::Abort, gsa::Hovering,
@@ -278,7 +287,7 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 17> state_names = {
+static constexpr std::array<const char *, 18> state_names = {
     "Landed",
     "ArmPreTakeoffFolding",
     "Takingoff",
@@ -289,8 +298,9 @@ static constexpr std::array<const char *, 17> state_names = {
     "ArmPreLandingFolding",
     "ReachingGoal",
     "ExecutingVelocityGoal",
-    "PickState",
     "Landing",
+    "PickPositionState",
+    "GripState",
     "ReachingPostPickWaypoint",
     "PrePlaceState",
     "PlaceState",

@@ -20,50 +20,50 @@
 #include <glog/logging.h>
 #include <thread>
 
-// Forward declaration for GrippingInternalActionFunctor_
-template <class LogicStateMachineT> class PickState_;
+// Forward declaration for GripInternalActionFunctor_
+template <class LogicStateMachineT> class GripState_;
 
-// Forward declaration for ReachingWaypointInternalActionFunctor_
-template <class LogicStateMachineT, int StartIndex, int EndIndex,
-          class CompletedEvent>
-struct FollowingWaypointSequence_;
+// // Forward declaration for ReachingWaypointInternalActionFunctor_
+// template <class LogicStateMachineT, int StartIndex, int EndIndex,
+//           class CompletedEvent>
+// struct FollowingWaypointSequence_;
 
-// Forward declaration for WaitingForPickInternalActionFunctor_
-template <class LogicStateMachineT> struct WaitingForPick_;
+// // Forward declaration for WaitingForPickInternalActionFunctor_
+// template <class LogicStateMachineT> struct WaitingForPick_;
 
-// /**
-// * @brief Checks whether grip command has completed or timed out
-// * @tparam LogicStateMachineT Logic state machine used to process events
-// * @tparam StateT State which stores gripper timer state
-// */
-// template <class LogicStateMachineT>
-// struct GrippingInternalActionFunctor_
-//     : public StateDependentInternalActionFunctor<
-//           UAVArmSystem, LogicStateMachineT, PickState_<LogicStateMachineT>> {
-//   bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine,
-//            PickState_<LogicStateMachineT> &state) {
-//     bool has_grip = robot_system.gripStatus();
-//     if (state.monitorGrip(has_grip)) {
-//       VLOG(1) << "Done Gripping!";
-//       uint32_t tracked_id;
-//       if (robot_system.getTrackingVectorId(tracked_id)) {
-//         ObjectId id_event(tracked_id);
-//         VLOG(1) << "Picked object with ID " << tracked_id;
-//         logic_state_machine.process_event(id_event);
-//       } else {
-//         LOG(WARNING) << "Could not retrieve object ID!";
-//         logic_state_machine.process_event(Reset());
-//       }
-//       return false;
-//     } else if (state.timeInState() > state.gripTimeout()) {
-//       robot_system.resetGripper();
-//       LOG(WARNING) << "Timeout: Failed to grip!";
-//       logic_state_machine.process_event(Reset());
-//       return false;
-//     }
-//     return true;
-//   }
-// };
+/**
+* @brief Checks whether grip command has completed or timed out
+* @tparam LogicStateMachineT Logic state machine used to process events
+* @tparam StateT State which stores gripper timer state
+*/
+template <class LogicStateMachineT>
+struct GripInternalActionFunctor_
+    : public StateDependentInternalActionFunctor<
+          UAVArmSystem, LogicStateMachineT, GripState_<LogicStateMachineT>> {
+  bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine,
+           GripState_<LogicStateMachineT> &state) {
+    bool has_grip = robot_system.gripStatus();
+    if (state.monitorGrip(has_grip)) {
+      VLOG(1) << "Done Gripping!";
+      uint32_t tracked_id;
+      if (robot_system.getTrackingVectorId(tracked_id)) {
+        ObjectId id_event(tracked_id);
+        VLOG(1) << "Picked object with ID " << tracked_id;
+        logic_state_machine.process_event(id_event);
+      } else {
+        LOG(WARNING) << "Could not retrieve object ID!";
+        logic_state_machine.process_event(Reset());
+      }
+      return false;
+    } else if (state.timeInState() > state.gripTimeout()) {
+      robot_system.resetGripper();
+      LOG(WARNING) << "Timeout: Failed to grip!";
+      logic_state_machine.process_event(Reset());
+      return false;
+    }
+    return true;
+  }
+};
 
 /**
  * @brief Check visual servoing status and reset if something goes wrong
@@ -75,6 +75,18 @@ using PrePickInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
         VisualServoingInternalActionFunctor_<LogicStateMachineT, Reset>>>;
+
+/**
+ * @brief Check visual servoing status and reset if something goes wrong
+ *
+ * @tparam LogicStateMachineT logic state machine
+ */
+template <class LogicStateMachineT>
+using PickPositionInternalActionFunctor_ =
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+        VisualServoingInternalActionFunctor_<LogicStateMachineT, Reset>>>;
+
 
 /**
 * @brief Logic to check while placing object
@@ -616,120 +628,124 @@ using PlaceState_ = BaseState<UAVArmSystem, LogicStateMachineT,
 // };
 
 /**
- * @brief typedef for base class of pick state which is a timed state
+ * @brief typedef for base class of grip state which is a timed state
  * with specified actions. The timed state provides the time from
  * entry onwards to action functors.
  *
  * @tparam LogicStateMachineT Logic state machine used to process events
  */
 template <class LogicStateMachineT>
-using PickBaseState_ =
+using GripBaseState_ =
     TimedState<UAVArmSystem, LogicStateMachineT,
                boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
                    UAVStatusInternalActionFunctor_<LogicStateMachineT>,
                    ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-                   PickControllerStatusCheck_<LogicStateMachineT>,
-                   GrippingInternalActionFunctor_<LogicStateMachineT>>>>;
-// /**
-// * @brief State that uses position control functor to reach a desired goal for
-// * picking and monitors the gripper status
-// *
-// * @tparam LogicStateMachineT Logic state machine used to process events
-// */
-// template <class LogicStateMachineT>
-// class PickState_ : public PickBaseState_<LogicStateMachineT> {
-// public:
-//   /**
-//   * @brief Check if grip has been successful for the required duration
-//   * @param Whether grip is currently successful
-//   * @return True if grip is successful for the duration, false otherwise
-//   */
-//   bool monitorGrip(bool grip_success) {
-//     bool grip_duration_success = false;
-//     if (grip_success) {
-//       if (!gripping_) {
-//         // start grip timer
-//         VLOG(1) << "Gripping object";
-//         gripping_ = true;
-//         grip_start_time_ = std::chrono::high_resolution_clock::now();
-//       } else {
-//         // check grip timer
-//         grip_duration_success =
-//             std::chrono::high_resolution_clock::now() - grip_start_time_ >
-//             required_grip_duration_;
-//       }
-//     } else {
-//       if (gripping_) {
-//         VLOG(1) << "Not gripping object";
-//         // stop grip timer
-//         gripping_ = false;
-//       }
-//     }
-//     return grip_duration_success;
-//   }
+                   GripInternalActionFunctor_<LogicStateMachineT>>>>;
+/**
+* @brief State that uses position control functor to reach a desired goal for
+* picking and monitors the gripper status
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+class GripState_ : public GripBaseState_<LogicStateMachineT> {
+public:
+  /**
+  * @brief Check if grip has been successful for the required duration
+  * @param Whether grip is currently successful
+  * @return True if grip is successful for the duration, false otherwise
+  */
+  bool monitorGrip(bool grip_success) {
+    bool grip_duration_success = false;
+    if (grip_success) {
+      if (!gripping_) {
+        // start grip timer
+        VLOG(1) << "Gripping object";
+        gripping_ = true;
+        grip_start_time_ = std::chrono::high_resolution_clock::now();
+      } else {
+        // check grip timer
+        grip_duration_success =
+            std::chrono::high_resolution_clock::now() - grip_start_time_ >
+            required_grip_duration_;
+      }
+    } else {
+      if (gripping_) {
+        VLOG(1) << "Not gripping object";
+        // stop grip timer
+        gripping_ = false;
+      }
+    }
+    return grip_duration_success;
+  }
 
-//   /**
-//    * @brief Function to set the starting waypoint when entering this state
-//    *
-//    * @tparam Event Event causing the entry of this state
-//    * @tparam FSM Logic statemachine back end
-//    * @param logic_state_machine state machine that processes events
-//    */
-//   template <class Event, class FSM>
-//   void on_entry(Event const &evt, FSM &logic_state_machine) {
-//     PickBaseState_<LogicStateMachineT>::on_entry(evt, logic_state_machine);
-//     grip_config_ = logic_state_machine.configMap()
-//                        .template find<PickState_<LogicStateMachineT>, GripConfig>();
-//     grip_timeout_ = std::chrono::milliseconds(grip_config_.grip_timeout());
-//     gripping_ = false;
-//     required_grip_duration_ =
-//         std::chrono::milliseconds(grip_config_.grip_duration());
-//     VLOG(1) << "Grip timeout in milliseconds: " << grip_timeout_.count();
-//     VLOG(1) << "Grip duration in milliseconds: "
-//             << required_grip_duration_.count();
-//   }
+  /**
+   * @brief Function to set the starting waypoint when entering this state
+   *
+   * @tparam Event Event causing the entry of this state
+   * @tparam FSM Logic statemachine back end
+   * @param logic_state_machine state machine that processes events
+   */
+  template <class Event, class FSM>
+  void on_entry(Event const &evt, FSM &logic_state_machine) {
+    GripBaseState_<LogicStateMachineT>::on_entry(evt, logic_state_machine);
+    grip_config_ = logic_state_machine.configMap()
+                       .template find<GripState_<LogicStateMachineT>, GripConfig>();
+    grip_timeout_ = std::chrono::milliseconds(grip_config_.grip_timeout());
+    gripping_ = false;
+    required_grip_duration_ =
+        std::chrono::milliseconds(grip_config_.grip_duration());
+    VLOG(1) << "Grip timeout in milliseconds: " << grip_timeout_.count();
+    VLOG(1) << "Grip duration in milliseconds: "
+            << required_grip_duration_.count();
+  }
 
-//   /**
-//    * @brief Getter for timeout during gripping
-//    *
-//    * @return timeout in milliseconds obtained from state machine config
-//    */
-//   std::chrono::milliseconds gripTimeout() { return grip_timeout_; }
+  /**
+   * @brief Getter for timeout during gripping
+   *
+   * @return timeout in milliseconds obtained from state machine config
+   */
+  std::chrono::milliseconds gripTimeout() { return grip_timeout_; }
 
-//   /**
-//    * @brief Getter for grip config
-//    * @return The state config
-//    */
-//   const GripConfig &gripConfig() const { return grip_config_; }
+  /**
+   * @brief Getter for grip config
+   * @return The state config
+   */
+  const GripConfig &gripConfig() const { return grip_config_; }
 
-// private:
-//   /**
-//    * @brief Time when gripping started
-//    */
-//   std::chrono::time_point<std::chrono::high_resolution_clock> grip_start_time_;
-//   /**
-//    * @brief How long to grip before grip succeeds
-//    */
-//   std::chrono::milliseconds required_grip_duration_ =
-//       std::chrono::milliseconds(0);
-//   /**
-//    * @brief Flag to indicate whether gripping is active or not
-//    */
-//   bool gripping_ = false;
-//   /**
-//    * @brief Config specifying the grip settings such as duration
-//    */
-//   GripConfig grip_config_;
-//   /**
-//    * @brief Time after which grip automatically fails
-//    */
-//   std::chrono::milliseconds grip_timeout_ = std::chrono::milliseconds(0);
-// };
+private:
+  /**
+   * @brief Time when gripping started
+   */
+  std::chrono::time_point<std::chrono::high_resolution_clock> grip_start_time_;
+  /**
+   * @brief How long to grip before grip succeeds
+   */
+  std::chrono::milliseconds required_grip_duration_ =
+      std::chrono::milliseconds(0);
+  /**
+   * @brief Flag to indicate whether gripping is active or not
+   */
+  bool gripping_ = false;
+  /**
+   * @brief Config specifying the grip settings such as duration
+   */
+  GripConfig grip_config_;
+  /**
+   * @brief Time after which grip automatically fails
+   */
+  std::chrono::milliseconds grip_timeout_ = std::chrono::milliseconds(0);
+};
 
 template <class LogicStateMachineT>
 using PrePickState_ =
     BaseState<UAVArmSystem, LogicStateMachineT,
               PrePickInternalActionFunctor_<LogicStateMachineT>>;
+
+template <class LogicStateMachineT>
+using PickPositionState_ =
+    BaseState<UAVArmSystem, LogicStateMachineT,
+              PickPositionInternalActionFunctor_<LogicStateMachineT>>;
 
 // template <class LogicStateMachineT>
 // struct PrePlaceState_ : public PlaceState_<LogicStateMachineT> {};
