@@ -26,7 +26,7 @@
 #include <boost/msm/front/functor_row.hpp>
 
 // Actions and guards used
-#include <aerial_autonomy/actions_guards/pick_place_states_actions.h>
+#include <aerial_autonomy/actions_guards/gripper_pick_place_states_actions.h>
 
 // Robot System used
 #include <aerial_autonomy/robot_systems/uav_arm_system.h>
@@ -64,7 +64,7 @@ using GripperPickPlaceStateMachine =
 /**
 * @brief Namespace for basic uav states and actions such as takeoff, land etc
 */
-using psa = PickPlaceStatesActions<GripperPickPlaceStateMachine>;
+using gsa = GripperPickPlaceStatesActions<GripperPickPlaceStateMachine>;
 
 /**
 * @brief front-end: define the FSM structure
@@ -91,7 +91,7 @@ public:
   template <class Event, class FSM> void on_entry(Event const &evt, FSM &fsm) {
     VLOG(1) << "entering: PickPlace system";
     int dummy_source_state = 0, dummy_target_state = 0;
-    psa::ArmPowerOn()(evt, fsm, dummy_source_state, dummy_target_state);
+    gsa::ArmPowerOn()(evt, fsm, dummy_source_state, dummy_target_state);
   }
   /**
   * @brief Action to take on leaving state machine
@@ -102,7 +102,7 @@ public:
   template <class Event, class FSM> void on_exit(Event const &evt, FSM &fsm) {
     VLOG(1) << "leaving: PickPlace system";
     int dummy_source_state = 0, dummy_target_state = 0;
-    psa::ArmPowerOff()(evt, fsm, dummy_source_state, dummy_target_state);
+    gsa::ArmPowerOff()(evt, fsm, dummy_source_state, dummy_target_state);
   }
 
   /**
@@ -120,11 +120,11 @@ public:
     auto pick_state_machine_config =
         state_machine_config.visual_servoing_state_machine_config()
             .pick_place_state_machine_config();
-    config_map_.insert<psa::ReachingPostPickWaypointBase>(
+    config_map_.insert<gsa::ReachingPostPickWaypointBase>(
         pick_state_machine_config.following_waypoint_sequence_config());
-    config_map_.insert<psa::ReachingPostPlaceWaypoint>(
+    config_map_.insert<gsa::ReachingPostPlaceWaypoint>(
         pick_state_machine_config.following_waypoint_sequence_config());
-    config_map_.insert<psa::PickState>(pick_state_machine_config.grip_config());
+    config_map_.insert<gsa::PickState>(pick_state_machine_config.grip_config());
   }
 
   /**
@@ -139,7 +139,7 @@ public:
   /**
   * @brief Initial state for state machine
   */
-  using initial_state = psa::ManualControlArmState;
+  using initial_state = gsa::ManualControlArmState;
   /**
   * @brief Transition table for State Machine
   */
@@ -147,128 +147,128 @@ public:
       : boost::mpl::vector<
             //        Start          Event         Next           Action Guard
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Landed, be::Takeoff, psa::ArmPreTakeoffFolding,
-                      psa::ArmPowerOnFold, msmf::none>,
+            msmf::Row<gsa::Landed, be::Takeoff, gsa::ArmPreTakeoffFolding,
+                      gsa::ArmPowerOnFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Landed, ManualControlEvent,
-                      psa::ManualControlArmState, msmf::none, msmf::none>,
+            msmf::Row<gsa::Landed, ManualControlEvent,
+                      gsa::ManualControlArmState, msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ArmPreTakeoffFolding, Completed, psa::TakingOff,
-                      psa::TakeoffAction, psa::TakeoffGuard>,
+            msmf::Row<gsa::ArmPreTakeoffFolding, Completed, gsa::TakingOff,
+                      gsa::TakeoffAction, gsa::TakeoffGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ArmPreTakeoffFolding, be::Abort, psa::Landed,
-                      psa::ArmPowerOff, msmf::none>,
+            msmf::Row<gsa::ArmPreTakeoffFolding, be::Abort, gsa::Landed,
+                      gsa::ArmPowerOff, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::TakingOff, Completed, psa::Hovering,
-                      psa::ArmRightFold, msmf::none>,
+            msmf::Row<gsa::TakingOff, Completed, gsa::Hovering,
+                      gsa::ArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, PositionYaw, psa::ReachingGoal,
-                      psa::ReachingGoalSet, psa::ReachingGoalGuard>,
+            msmf::Row<gsa::Hovering, PositionYaw, gsa::ReachingGoal,
+                      gsa::ReachingGoalSet, gsa::ReachingGoalGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, pe::Pick, psa::WaitingForPick, msmf::none,
+            msmf::Row<gsa::Hovering, pe::Pick, gsa::WaitingForPick, msmf::none,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ResetVisualServoing, Completed, psa::WaitingForPick,
-                      psa::AbortUAVArmController, msmf::none>,
+            msmf::Row<gsa::ResetVisualServoing, Completed, gsa::WaitingForPick,
+                      gsa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::WaitingForPick, pe::Pick, psa::PrePickState,
-                      psa::PrePickTransitionAction,
-                      psa::PrePickTransitionGuard>,
+            msmf::Row<gsa::WaitingForPick, pe::Pick, gsa::PrePickState,
+                      gsa::PrePickTransitionAction,
+                      gsa::PrePickTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PrePickState, Completed, psa::PickState,
-                      psa::PickTransitionAction, msmf::none>,
+            msmf::Row<gsa::PrePickState, Completed, gsa::PickState,
+                      gsa::PickTransitionAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PrePickState, be::Abort, psa::Hovering,
-                      psa::AbortUAVArmController, msmf::none>,
+            msmf::Row<gsa::PrePickState, be::Abort, gsa::Hovering,
+                      gsa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PrePickState, Reset, psa::ResetVisualServoing,
-                      psa::ArmRightFoldGoHome, psa::GoHomeTransitionGuard>,
+            msmf::Row<gsa::PrePickState, Reset, gsa::ResetVisualServoing,
+                      gsa::ArmRightFoldGoHome, gsa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::WaitingForPick, be::Abort, psa::Hovering,
-                      psa::AbortUAVArmController, msmf::none>,
+            msmf::Row<gsa::WaitingForPick, be::Abort, gsa::Hovering,
+                      gsa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ResetVisualServoing, be::Abort, psa::Hovering,
-                      psa::AbortUAVArmController, msmf::none>,
+            msmf::Row<gsa::ResetVisualServoing, be::Abort, gsa::Hovering,
+                      gsa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, VelocityYaw, psa::ExecutingVelocityGoal,
-                      psa::SetVelocityGoal, psa::GuardVelocityGoal>,
+            msmf::Row<gsa::Hovering, VelocityYaw, gsa::ExecutingVelocityGoal,
+                      gsa::SetVelocityGoal, gsa::GuardVelocityGoal>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, vse::GoHome, psa::ReachingGoal,
-                      psa::GoHomeTransitionAction, psa::GoHomeTransitionGuard>,
+            msmf::Row<gsa::Hovering, vse::GoHome, gsa::ReachingGoal,
+                      gsa::GoHomeTransitionAction, gsa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, be::Land, psa::ArmPreLandingFolding,
-                      psa::ArmFold, msmf::none>,
+            msmf::Row<gsa::Hovering, be::Land, gsa::ArmPreLandingFolding,
+                      gsa::ArmFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ArmPreLandingFolding, Completed, psa::Landing,
-                      psa::LandingAction, msmf::none>,
+            msmf::Row<gsa::ArmPreLandingFolding, Completed, gsa::Landing,
+                      gsa::LandingAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ArmPreLandingFolding, be::Abort, psa::Landing,
-                      psa::LandingAction, msmf::none>,
+            msmf::Row<gsa::ArmPreLandingFolding, be::Abort, gsa::Landing,
+                      gsa::LandingAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Hovering, ManualControlEvent,
-                      psa::ManualControlArmState, msmf::none, msmf::none>,
+            msmf::Row<gsa::Hovering, ManualControlEvent,
+                      gsa::ManualControlArmState, msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingGoal, be::Abort, psa::Hovering,
-                      psa::AbortUAVControllerArmRightFold, msmf::none>,
+            msmf::Row<gsa::ReachingGoal, be::Abort, gsa::Hovering,
+                      gsa::AbortUAVControllerArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ExecutingVelocityGoal, VelocityYaw,
-                      psa::ExecutingVelocityGoal, psa::SetVelocityGoal,
-                      psa::GuardVelocityGoal>,
+            msmf::Row<gsa::ExecutingVelocityGoal, VelocityYaw,
+                      gsa::ExecutingVelocityGoal, gsa::SetVelocityGoal,
+                      gsa::GuardVelocityGoal>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ExecutingVelocityGoal, be::Abort, psa::Hovering,
-                      psa::AbortUAVControllerArmRightFold, msmf::none>,
+            msmf::Row<gsa::ExecutingVelocityGoal, be::Abort, gsa::Hovering,
+                      gsa::AbortUAVControllerArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PickState, be::Abort, psa::Hovering,
-                      psa::AbortUAVArmController, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::Landing, Completed, psa::Landed, psa::ArmPowerOff,
+            msmf::Row<gsa::Landing, Completed, gsa::Landed, gsa::ArmPowerOff,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingGoal, Completed, psa::Hovering,
-                      psa::AbortUAVControllerArmRightFold, msmf::none>,
+            msmf::Row<gsa::ReachingGoal, Completed, gsa::Hovering,
+                      gsa::AbortUAVControllerArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PickState, Reset, psa::ResetVisualServoing,
-                      psa::ArmRightFoldGoHome, psa::GoHomeTransitionGuard>,
+            msmf::Row<gsa::PickState, be::Abort, gsa::Hovering,
+                      gsa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PickState, ObjectId, psa::ReachingPostPickWaypoint,
-                      psa::AbortUAVArmControllerArmRightFold, msmf::none>,
+            msmf::Row<gsa::PickState, Reset, gsa::ResetVisualServoing,
+                      gsa::ArmRightFoldGoHome, gsa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingPostPickWaypoint, be::Abort, psa::Hovering,
-                      psa::AbortUAVArmController, msmf::none>,
+            msmf::Row<gsa::PickState, ObjectId, gsa::ReachingPostPickWaypoint,
+                      gsa::AbortUAVArmControllerArmRightFold, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingPostPickWaypoint, ObjectId,
-                      psa::PrePlaceState,
-                      psa::PrePlaceVisualServoingTransitionAction,
-                      psa::PrePlaceVisualServoingTransitionGuard>,
+            msmf::Row<gsa::ReachingPostPickWaypoint, be::Abort, gsa::Hovering,
+                      gsa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PrePlaceState, Completed, psa::PlaceState,
-                      psa::PlaceVisualServoingTransitionAction,
-                      psa::PlaceVisualServoingTransitionGuard>,
+            msmf::Row<gsa::ReachingPostPickWaypoint, ObjectId,
+                      gsa::PrePlaceState,
+                      gsa::PrePlaceVisualServoingTransitionAction,
+                      gsa::PrePlaceVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PrePlaceState, be::Abort, psa::Hovering,
-                      psa::AbortUAVArmController, msmf::none>,
+            msmf::Row<gsa::PrePlaceState, Completed, gsa::PlaceState,
+                      gsa::PlaceVisualServoingTransitionAction,
+                      gsa::PlaceVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PlaceState, Completed,
-                      psa::ReachingPostPlaceWaypoint, psa::ArmGripAction<false>,
+            msmf::Row<gsa::PrePlaceState, be::Abort, gsa::Hovering,
+                      gsa::AbortUAVArmController, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<gsa::PlaceState, Completed,
+                      gsa::ReachingPostPlaceWaypoint, gsa::ArmGripAction<false>,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingPostPlaceWaypoint, Completed,
-                      psa::WaitingForPick, psa::AbortUAVArmController,
+            msmf::Row<gsa::ReachingPostPlaceWaypoint, Completed,
+                      gsa::WaitingForPick, gsa::AbortUAVArmController,
                       msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ReachingPostPlaceWaypoint, be::Abort, psa::Hovering,
-                      psa::AbortUAVArmController, msmf::none>,
+            msmf::Row<gsa::ReachingPostPlaceWaypoint, be::Abort, gsa::Hovering,
+                      gsa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::PlaceState, be::Abort, psa::Hovering,
-                      psa::AbortUAVArmController, msmf::none>,
+            msmf::Row<gsa::PlaceState, be::Abort, gsa::Hovering,
+                      gsa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ManualControlArmState, be::Takeoff, psa::Hovering,
-                      psa::ManualControlSwitchAction,
-                      psa::ManualControlSwitchGuard>,
+            msmf::Row<gsa::ManualControlArmState, be::Takeoff, gsa::Hovering,
+                      gsa::ManualControlSwitchAction,
+                      gsa::ManualControlSwitchGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<psa::ManualControlArmState, be::Land, psa::Landed,
-                      psa::ManualControlSwitchAction,
-                      psa::ManualControlSwitchGuard>> {};
+            msmf::Row<gsa::ManualControlArmState, be::Land, gsa::Landed,
+                      gsa::ManualControlSwitchAction,
+                      gsa::ManualControlSwitchGuard>> {};
   /**
   * @brief Use Inherited no transition function
   */
