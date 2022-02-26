@@ -65,39 +65,6 @@ struct GripInternalActionFunctor_
   }
 };
 
-/**
- * @brief Check visual servoing status and reset if something goes wrong
- *
- * @tparam LogicStateMachineT logic state machine
- */
-template <class LogicStateMachineT>
-using PrePickInternalActionFunctor_ =
-    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
-        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-        VisualServoingInternalActionFunctor_<LogicStateMachineT, Reset>>>;
-
-/**
- * @brief Check visual servoing status and reset if something goes wrong
- *
- * @tparam LogicStateMachineT logic state machine
- */
-template <class LogicStateMachineT>
-using PickPositionInternalActionFunctor_ =
-    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
-        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-        VisualServoingInternalActionFunctor_<LogicStateMachineT, Reset>>>;
-
-
-/**
-* @brief Logic to check while placing object
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-using PlaceInternalActionFunctor_ = boost::msm::front::ShortingActionSequence_<
-    boost::mpl::vector<UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-                       ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-                       VisualServoingStatus_<LogicStateMachineT, Reset>>>;
 // /**
 // * @brief Check tracking is valid before starting visual servoing and arm is
 // * enabled before picking objects
@@ -556,76 +523,109 @@ using PlaceState_ = BaseState<UAVArmSystem, LogicStateMachineT,
 //               ArmStatusInternalActionFunctor_<LogicStateMachineT>,
 //               WaitingForPickInternalActionFunctor_<LogicStateMachineT>>>> {};
 
-// /**
-// * @brief Internal action functor for picking.  Resets only
-// * when the manipulator is not already gripping
-// * @tparam LogicStateMachineT Logic state machine used to process events
-// */
-// template <class LogicStateMachineT>
-// struct PickControllerStatusCheck_
-//     : InternalActionFunctor<UAVArmSystem, LogicStateMachineT> {
+/**
+* @brief Internal action functor for picking.  Resets only
+* when there are critical errors
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct PickPositionControllerStatusCheck_
+    : InternalActionFunctor<UAVArmSystem, LogicStateMachineT> {
 
-//   bool run(UAVArmSystem &robot_system,
-//            LogicStateMachineT &logic_state_machine) {
-//     auto connector_type = logic_state_machine.base_state_machine_config_
-//                               .visual_servoing_state_machine_config()
-//                               .connector_type();
-//     ControllerStatus visual_servoing_status, lowlevel_status;
-//     switch (connector_type) {
-//     case VisualServoingStateMachineConfig::RPYTPose:
-//       visual_servoing_status = ControllerStatus(ControllerStatus::Completed);
-//       lowlevel_status =
-//           robot_system.getStatus<RPYTRelativePoseVisualServoingConnector>();
-//       break;
-//     case VisualServoingStateMachineConfig::RPYTRef:
-//       visual_servoing_status = robot_system.getStatus<
-//           UAVVisionSystem::RPYTVisualServoingReferenceConnectorT>();
-//       lowlevel_status = robot_system.getStatus<
-//           RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>();
-//       break;
-//     case VisualServoingStateMachineConfig::MPC:
-//       visual_servoing_status = robot_system.getStatus<
-//           UAVVisionSystem::MPCVisualServoingReferenceConnectorT>();
-//       lowlevel_status = robot_system.getStatus<MPCControllerQuadConnector>();
-//       break;
-//     case VisualServoingStateMachineConfig::VelPose:
-//       visual_servoing_status = ControllerStatus(ControllerStatus::Completed);
-//       lowlevel_status =
-//           robot_system
-//               .getStatus<RelativePoseVisualServoingControllerDroneConnector>();
-//       break;
-//     case VisualServoingStateMachineConfig::HeadingDepth:
-//       visual_servoing_status = ControllerStatus(ControllerStatus::Completed);
-//       lowlevel_status =
-//           robot_system.getStatus<VisualServoingControllerDroneConnector>();
-//       break;
-//     }
-//     bool grip_status = robot_system.gripStatus();
-//     if ((visual_servoing_status == ControllerStatus::Critical ||
-//          lowlevel_status == ControllerStatus::Critical) &&
-//         grip_status) {
-//       robot_system.abortController(ControllerGroup::HighLevel);
-//       robot_system.abortController(ControllerGroup::UAV);
-//       VLOG(1)
-//           << "Controller critical while gripping is true! Aborting Controller!";
-//     } else if ((visual_servoing_status == ControllerStatus::Critical ||
-//                 lowlevel_status == ControllerStatus::Critical ||
-//                 lowlevel_status == ControllerStatus::NotEngaged ||
-//                 visual_servoing_status == ControllerStatus::NotEngaged) &&
-//                !grip_status) {
-//       VLOG(1) << "Visual servoing status: "
-//               << visual_servoing_status.statusAsText() << ", "
-//               << "Lowlevel status: " << lowlevel_status.statusAsText();
-//       robot_system.abortController(ControllerGroup::HighLevel);
-//       robot_system.abortController(ControllerGroup::UAV);
-//       logic_state_machine.process_event(Reset());
-//       VLOG(1) << "Gripping failed and no controller engaged or controller "
-//                  "critical. So resetting!";
-//       return false;
-//     }
-//     return true;
-//   }
-// };
+  bool run(UAVArmSystem &robot_system,
+           LogicStateMachineT &logic_state_machine) {
+    auto connector_type = logic_state_machine.base_state_machine_config_
+                              .visual_servoing_state_machine_config()
+                              .connector_type();
+    ControllerStatus visual_servoing_status, lowlevel_status;
+    switch (connector_type) {
+    case VisualServoingStateMachineConfig::RPYTPose:
+      visual_servoing_status = ControllerStatus(ControllerStatus::Completed);
+      lowlevel_status =
+          robot_system.getStatus<RPYTRelativePoseVisualServoingConnector>();
+      break;
+    case VisualServoingStateMachineConfig::RPYTRef:
+      visual_servoing_status = robot_system.getStatus<
+          UAVVisionSystem::RPYTVisualServoingReferenceConnectorT>();
+      lowlevel_status = robot_system.getStatus<
+          RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>();
+      break;
+    case VisualServoingStateMachineConfig::MPC:
+      visual_servoing_status = robot_system.getStatus<
+          UAVVisionSystem::MPCVisualServoingReferenceConnectorT>();
+      lowlevel_status = robot_system.getStatus<MPCControllerQuadConnector>();
+      break;
+    case VisualServoingStateMachineConfig::VelPose:
+      visual_servoing_status = ControllerStatus(ControllerStatus::Completed);
+      lowlevel_status =
+          robot_system
+              .getStatus<RelativePoseVisualServoingControllerDroneConnector>();
+      break;
+    case VisualServoingStateMachineConfig::HeadingDepth:
+      visual_servoing_status = ControllerStatus(ControllerStatus::Completed);
+      lowlevel_status =
+          robot_system.getStatus<VisualServoingControllerDroneConnector>();
+      break;
+    }
+
+    // When the marker is blocked (hopefully by the gripper) or the controllers have completed
+    if (visual_servoing_status == ControllerStatus::Critical || 
+        visual_servoing_status == ControllerStatus::Completed ||
+        lowlevel_status == ControllerStatus::Completed)
+    {
+        logic_state_machine.process_event(Completed());
+    }
+    else if (lowlevel_status == ControllerStatus::Critical ||
+                lowlevel_status == ControllerStatus::NotEngaged ||
+                visual_servoing_status == ControllerStatus::NotEngaged) {
+      VLOG(1) << "Visual servoing status: "
+              << visual_servoing_status.statusAsText() << ", "
+              << "Lowlevel status: " << lowlevel_status.statusAsText();
+      robot_system.abortController(ControllerGroup::HighLevel);
+      robot_system.abortController(ControllerGroup::UAV);
+      logic_state_machine.process_event(Reset());
+      VLOG(1) << "No controller engaged or controller "
+                 "critical. So resetting!";
+      return false;
+    }
+    return true;
+  }
+};
+
+/**
+ * @brief Check visual servoing status and reset if something goes wrong
+ *
+ * @tparam LogicStateMachineT logic state machine
+ */
+template <class LogicStateMachineT>
+using PrePickInternalActionFunctor_ =
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+        VisualServoingInternalActionFunctor_<LogicStateMachineT, Reset>>>;
+
+/**
+ * @brief Check visual servoing status and reset if something goes wrong
+ *
+ * @tparam LogicStateMachineT logic state machine
+ */
+template <class LogicStateMachineT>
+using PickPositionInternalActionFunctor_ =
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+        PickPositionControllerStatusCheck_<LogicStateMachineT>>>;
+
+
+/**
+* @brief Logic to check while placing object
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+using PlaceInternalActionFunctor_ = boost::msm::front::ShortingActionSequence_<
+    boost::mpl::vector<UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+                       ArmStatusInternalActionFunctor_<LogicStateMachineT>,
+                       VisualServoingStatus_<LogicStateMachineT, Reset>>>;
 
 /**
  * @brief typedef for base class of grip state which is a timed state
