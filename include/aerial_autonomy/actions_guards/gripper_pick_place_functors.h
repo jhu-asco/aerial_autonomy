@@ -45,15 +45,15 @@ struct GripInternalActionFunctor_
     bool has_grip = robot_system.gripStatus();
     if (state.monitorGrip(has_grip)) {
       VLOG(1) << "Done Gripping!";
-      uint32_t tracked_id;
-      if (robot_system.getTrackingVectorId(tracked_id)) {
+      uint32_t tracked_id = 0;
+      // if (robot_system.getTrackingVectorId(tracked_id)) {
         ObjectId id_event(tracked_id);
         VLOG(1) << "Picked object with ID " << tracked_id;
         logic_state_machine.process_event(id_event);
-      } else {
-        LOG(WARNING) << "Could not retrieve object ID!";
-        logic_state_machine.process_event(Reset());
-      }
+      // } else {
+      //   LOG(WARNING) << "Could not retrieve object ID!";
+      //   logic_state_machine.process_event(Reset());
+      // }
       return false;
     } else if (state.timeInState() > state.gripTimeout()) {
       robot_system.resetGripper();

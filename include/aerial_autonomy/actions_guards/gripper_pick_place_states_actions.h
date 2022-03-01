@@ -154,19 +154,19 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
 //                          RelativePoseVisualServoingTransitionActionFunctor_<
 //                              LogicStateMachineT, 2>>>;
 
-//   /**
-//   * @brief Move arm to pick pose and move to tracked object
-//   *
-//   * Do not set home since we are using this as an intermediate step
-//   * after pre-pick
-//   */
-//   using PickTransitionAction =
-//       base_functors::bActionSequence<boost::mpl::vector<
-//           ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>,
-//           typename vsa::ResetRelativePoseVisualServoing,
-//           RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT,
-//                                                              0, false>,
-//           SetNoisePolynomialReference_<LogicStateMachineT, true>>>;
+  /**
+  * @brief Move arm to pick pose and move to tracked object
+  *
+  * Do not set home since we are using this as an intermediate step
+  * after pre-pick
+  */
+  using PickPositionTransitionAction =
+      base_functors::bActionSequence<boost::mpl::vector<
+          ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>,
+          typename vsa::ResetRelativePoseVisualServoing,
+          RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT,
+                                                             0, false>>>;
+          // SetNoisePolynomialReference_<LogicStateMachineT, true>>>;
 
   /**
   * @brief Grip tracked object
@@ -233,8 +233,8 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
 //   */
 //   using ReachingPostPlaceWaypoint =
 //       FollowingWaypointSequence_<LogicStateMachineT, 2, 3>;
-//   /**
-//   * @brief State for resetting visual servoing
-//   */
-//   struct ResetVisualServoing : ReachingGoal_<LogicStateMachineT> {};
+  /**
+  * @brief State for resetting visual servoing
+  */
+  struct ResetVisualServoingPlace : ReachingGoal_<LogicStateMachineT> {};
 };

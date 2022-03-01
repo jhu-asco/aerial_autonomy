@@ -176,7 +176,7 @@ public:
                       gsa::PrePickTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::PrePickState, Completed, gsa::PickPositionState,
-                      gsa::PickTransitionAction, msmf::none>,
+                      gsa::PickPositionTransitionAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::PrePickState, be::Abort, gsa::Hovering,
                       gsa::AbortUAVArmController, msmf::none>,
@@ -245,8 +245,7 @@ public:
             msmf::Row<gsa::ReachingPostPickWaypoint, be::Abort, gsa::Hovering,
                       gsa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::ReachingPostPickWaypoint, ObjectId,
-                      gsa::PrePlaceState,
+            msmf::Row<gsa::ReachingPostPickWaypoint, ObjectId, gsa::PrePlaceState,
                       gsa::PrePlaceVisualServoingTransitionAction,
                       gsa::PrePlaceVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
@@ -254,12 +253,24 @@ public:
                       gsa::PlaceVisualServoingTransitionAction,
                       gsa::PlaceVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<gsa::PrePlaceState, Reset, gsa::ResetVisualServoingPlace,
+                      gsa::GoHomeTransitionAction, gsa::GoHomeTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::PrePlaceState, be::Abort, gsa::Hovering,
                       gsa::AbortUAVArmController, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::PlaceState, Completed,
-                      gsa::ReachingPostPlaceWaypoint, gsa::ArmGripAction<false>,
+            msmf::Row<gsa::ResetVisualServoingPlace, Completed, gsa::PrePlaceState,
+                      gsa::PrePlaceVisualServoingTransitionAction,
                       msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<gsa::ResetVisualServoingPlace, be::Abort, gsa::Hovering,
+                      gsa::AbortUAVArmController, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<gsa::PlaceState, Completed, gsa::ReachingPostPlaceWaypoint, 
+                      gsa::ArmGripAction<false>, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<gsa::PlaceState, Reset, gsa::ResetVisualServoingPlace, 
+                      gsa::GoHomeTransitionAction, gsa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::ReachingPostPlaceWaypoint, Completed,
                       gsa::WaitingForPick, gsa::AbortUAVArmController,
@@ -287,7 +298,7 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 18> state_names = {
+static constexpr std::array<const char *, 19> state_names = {
     "Landed",
     "ArmPreTakeoffFolding",
     "Takingoff",
@@ -303,6 +314,7 @@ static constexpr std::array<const char *, 18> state_names = {
     "GripState",
     "ReachingPostPickWaypoint",
     "PrePlaceState",
+    "ResetVisualServoingPlace",
     "PlaceState",
     "ReachingPostPlaceWaypoint",
     "ManualControlArmState"};
