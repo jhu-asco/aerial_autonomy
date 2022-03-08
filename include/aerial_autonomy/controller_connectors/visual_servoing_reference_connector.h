@@ -136,15 +136,22 @@ protected:
     } else {
       quad_pose = conversions::getPose(quad_data);
     }
-    tf::Transform tracking_pose = quad_pose * camera_transform_ *
-                                  object_pose_cam * tracking_offset_transform_;
-    PositionYaw tracking_position_yaw;
-    // filter remove rp
-    tracking_pose = filter(tracking_pose);
-    // Filter tracking pose
-    logTrackerData("visual_servoing_reference_connector", tracking_pose,
-                   object_pose_cam, quad_data);
-    sensor_data = std::make_pair(start_position_yaw_, tracking_pose);
+
+    ros::Time current_time = ros::Time::now();
+    // If measurement is recent enough, recalculate tracking pose
+    if ((current_time - tracker_.getROSTrackingTime()).toSec() < 0.1)
+    { 
+      tracking_pose_ = quad_pose * camera_transform_ *
+                                    object_pose_cam * tracking_offset_transform_;
+      // filter remove rp
+      tracking_pose_ = filter(tracking_pose_);
+      // Filter tracking pose
+      logTrackerData("visual_servoing_reference_connector", tracking_pose_,
+                    object_pose_cam, quad_data);
+    }
+    // Otherwise use previous tracking pose
+
+    sensor_data = std::make_pair(start_position_yaw_, tracking_pose_);
     return true;
   }
 
@@ -169,6 +176,7 @@ private:
       odom_sensor_; ///< Pose sensor for quad data
   ExponentialFilter<PositionYaw>
       tracking_pose_filter_; ///< Filter tracking pose
+  tf::Transform tracking_pose_; ///< Current estimate of tracking pose
 
   /**
    * @brief Base class typedef to simplify code

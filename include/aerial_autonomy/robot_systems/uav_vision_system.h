@@ -258,12 +258,14 @@ protected:
     } else {
       std::string tracker_type =
           config.uav_vision_system_config().tracker_type();
+      std::chrono::duration<double> tracker_timeout = 
+          std::chrono::milliseconds(int(1000 * config.uav_vision_system_config().tracker_timeout()));
       if (tracker_type == "ROI2Pos") {
         tracker_pointer = BaseTrackerPtr(new RoiToPositionConverter());
       } else if (tracker_type == "ROI2Plane") {
         tracker_pointer = BaseTrackerPtr(new RoiToPlaneConverter());
       } else if (tracker_type == "Alvar") {
-        tracker_pointer = BaseTrackerPtr(new AlvarTracker());
+        tracker_pointer = BaseTrackerPtr(new AlvarTracker("~tracker", tracker_timeout));
       } else if (tracker_type == "Simulated") {
         tracker_pointer = BaseTrackerPtr(new SimulatedROSTracker(
             *drone_hardware, camera_transform, "simulated_ros_tracker"));

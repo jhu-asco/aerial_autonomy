@@ -42,6 +42,11 @@ message UAVVisionSystemConfig {
   optional string tracker_type = 4 [ default = "ROI2Pos" ];
 
   /**
+  * @brief Tracker timeout to use (if applicable)
+  */
+  optional double tracker_timeout = 5 [ default = 0.5 ];
+
+  /**
   * @brief A crude form of inheritance for proto. Contains a config for
   * subclasses of UAVVisionSystemConfig
   */

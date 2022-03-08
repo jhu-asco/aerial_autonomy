@@ -32,6 +32,30 @@ template <class LogicStateMachineT> class GripState_;
 // template <class LogicStateMachineT> struct WaitingForPick_;
 
 /**
+* @brief Transition action to perform when going into position controlled hover
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct HoverPositionControlTransitionActionFunctor_
+    : EventAgnosticActionFunctor<UAVSystem, LogicStateMachineT> {
+  void run(UAVSystem &robot_system) {
+    tf::StampedTransform start_pose = robot_system.getPose();
+    auto &reference_config =
+        this->state_machine_config_.poly_reference_config();
+    PositionYaw start_position_yaw;
+    conversions::tfToPositionYaw(start_position_yaw, start_pose);
+    ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> reference(
+        new PolynomialReferenceTrajectory(start_position_yaw, start_position_yaw,
+                                          reference_config));
+    robot_system
+        .setGoal<RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
+                 ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>(
+            reference);
+  }
+};
+
+/**
 * @brief Checks whether grip command has completed or timed out
 * @tparam LogicStateMachineT Logic state machine used to process events
 * @tparam StateT State which stores gripper timer state
@@ -45,15 +69,15 @@ struct GripInternalActionFunctor_
     bool has_grip = robot_system.gripStatus();
     if (state.monitorGrip(has_grip)) {
       VLOG(1) << "Done Gripping!";
-      uint32_t tracked_id = 0;
-      // if (robot_system.getTrackingVectorId(tracked_id)) {
+      uint32_t tracked_id;
+      if (robot_system.getTrackingVectorId(tracked_id)) {
         ObjectId id_event(tracked_id);
         VLOG(1) << "Picked object with ID " << tracked_id;
         logic_state_machine.process_event(id_event);
-      // } else {
-      //   LOG(WARNING) << "Could not retrieve object ID!";
-      //   logic_state_machine.process_event(Reset());
-      // }
+      } else {
+        LOG(WARNING) << "Could not retrieve object ID!";
+        logic_state_machine.process_event(Reset());
+      }
       return false;
     } else if (state.timeInState() > state.gripTimeout()) {
       robot_system.resetGripper();
@@ -569,13 +593,13 @@ struct PickPositionControllerStatusCheck_
     }
 
     // When the marker is blocked (hopefully by the gripper) or the controllers have completed
-    if (visual_servoing_status == ControllerStatus::Critical || 
-        visual_servoing_status == ControllerStatus::Completed ||
+    if (visual_servoing_status == ControllerStatus::Completed ||
         lowlevel_status == ControllerStatus::Completed)
     {
-        logic_state_machine.process_event(Completed());
+      logic_state_machine.process_event(Completed());
     }
-    else if (lowlevel_status == ControllerStatus::Critical ||
+    else if (visual_servoing_status == ControllerStatus::Critical ||
+                lowlevel_status == ControllerStatus::Critical ||
                 lowlevel_status == ControllerStatus::NotEngaged ||
                 visual_servoing_status == ControllerStatus::NotEngaged) {
       VLOG(1) << "Visual servoing status: "

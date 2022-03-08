@@ -89,12 +89,12 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
 //       RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT,
 //                                                          GoalIndex>;
 
-//   /**
-//   * @brief Action sequence that ungrips then goes home
-//   */
-//   using UngripGoHome = base_functors::bActionSequence<
-//       boost::mpl::vector<ArmGripActionFunctor_<LogicStateMachineT, false>,
-//                          typename vsa::GoHomeTransitionAction>>;
+  /**
+  * @brief Action sequence that ungrips then goes home
+  */
+  using UngripGoHome = base_functors::bActionSequence<
+      boost::mpl::vector<ArmGripActionFunctor_<LogicStateMachineT, false>,
+                         typename vsa::GoHomeTransitionAction>>;
 //   /**
 //    * @brief Action sequence to ungrip object and go to home location and
 //    * fold the arm to right angle
@@ -175,6 +175,12 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
       base_functors::bActionSequence<boost::mpl::vector<
           ArmGripActionFunctor_<LogicStateMachineT, true>>>;
 
+  /**
+  * @brief Hover in place
+  */
+  using HoverInPlaceTransitionAction =
+      HoverPositionControlTransitionActionFunctor_<LogicStateMachineT>;
+
 //   /**
 //   * @brief Action to take when starting placing object at either drop-off.
 //   */
@@ -204,13 +210,15 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
 //   using PlaceVisualServoingTransitionGuard =
 //       CheckGoalIndex_<LogicStateMachineT, 1>;
 
-//   /**
-//   * @brief Action sequence to abort UAV controller and arm controller
-//   * angle
-//   */
-//   using AbortUAVArmController =
-//       base_functors::bActionSequence<boost::mpl::vector<
-//           typename usa::UAVControllerAbort, typename asa::AbortArmController>>;
+  /**
+  * @brief Action sequence to abort UAV controller and arm controller
+  * angle
+  */
+  using AbortUAVArmControllerHoverInPlace =
+      base_functors::bActionSequence<boost::mpl::vector<
+          typename usa::UAVControllerAbort, 
+          typename asa::AbortArmController,
+          HoverPositionControlTransitionActionFunctor_<LogicStateMachineT>>>;
 //   /**
 //   * @brief State for following waypoints after picking object
 //   */

@@ -46,6 +46,11 @@ public:
   getTrackingTime();
 
   /**
+  * @brief Get the ROS time stamp of the current tracking vectors
+  */
+  virtual ros::Time getROSTrackingTime();
+
+  /**
   * @brief Check if subscriber is connected
   * @return True if connected, false otherwise
   */

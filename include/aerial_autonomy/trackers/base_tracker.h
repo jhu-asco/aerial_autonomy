@@ -67,6 +67,16 @@ public:
     return std::chrono::high_resolution_clock::now();
   }
 
+  /**
+  * @brief Get the ROS time stamp of the current tracking vectors
+  */
+  // \todo Matt Remove this function and add time stamps to information stored
+  // with tracking vector
+  virtual ros::Time
+  getROSTrackingTime() {
+    return ros::Time::now();
+  }
+
 private:
   /**
   * @brief Strategy used to choose which object to track among multiple objects

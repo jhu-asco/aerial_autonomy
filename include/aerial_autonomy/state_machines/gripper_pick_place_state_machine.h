@@ -147,104 +147,73 @@ public:
       : boost::mpl::vector<
             //        Start          Event         Next           Action Guard
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::Landed, be::Takeoff, gsa::ArmPreTakeoffFolding,
-                      gsa::ArmPowerOnFold, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<gsa::Landed, be::Takeoff, gsa::TakingOff,
+                      gsa::TakeoffAction, gsa::TakeoffGuard>,
             msmf::Row<gsa::Landed, ManualControlEvent,
                       gsa::ManualControlArmState, msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::ArmPreTakeoffFolding, Completed, gsa::TakingOff,
-                      gsa::TakeoffAction, gsa::TakeoffGuard>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::ArmPreTakeoffFolding, be::Abort, gsa::Landed,
-                      gsa::ArmPowerOff, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::TakingOff, Completed, gsa::Hovering,
-                      gsa::ArmRightFold, msmf::none>,
+                      gsa::HoverInPlaceTransitionAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::Hovering, PositionYaw, gsa::ReachingGoal,
                       gsa::ReachingGoalSet, gsa::ReachingGoalGuard>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::Hovering, pe::Pick, gsa::WaitingForPick, msmf::none,
-                      msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::ResetVisualServoing, Completed, gsa::WaitingForPick,
-                      gsa::AbortUAVArmController, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::WaitingForPick, pe::Pick, gsa::PrePickState,
-                      gsa::PrePickTransitionAction,
-                      gsa::PrePickTransitionGuard>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::PrePickState, Completed, gsa::PickPositionState,
-                      gsa::PickPositionTransitionAction, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::PrePickState, be::Abort, gsa::Hovering,
-                      gsa::AbortUAVArmController, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::PrePickState, Reset, gsa::ResetVisualServoing,
-                      gsa::ArmRightFoldGoHome, gsa::GoHomeTransitionGuard>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::WaitingForPick, be::Abort, gsa::Hovering,
-                      gsa::AbortUAVArmController, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::ResetVisualServoing, be::Abort, gsa::Hovering,
-                      gsa::AbortUAVArmController, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::Hovering, VelocityYaw, gsa::ExecutingVelocityGoal,
                       gsa::SetVelocityGoal, gsa::GuardVelocityGoal>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<gsa::Hovering, be::Land, gsa::Landing,
+                      gsa::LandingAction, msmf::none>,
+            msmf::Row<gsa::Hovering, ManualControlEvent, gsa::ManualControlArmState, 
+                      msmf::none, msmf::none>,
+            msmf::Row<gsa::Hovering, pe::Pick, gsa::WaitingForPick, 
+                      msmf::none, msmf::none>,
             msmf::Row<gsa::Hovering, vse::GoHome, gsa::ReachingGoal,
                       gsa::GoHomeTransitionAction, gsa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::Hovering, be::Land, gsa::ArmPreLandingFolding,
-                      gsa::ArmFold, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::ArmPreLandingFolding, Completed, gsa::Landing,
-                      gsa::LandingAction, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::ArmPreLandingFolding, be::Abort, gsa::Landing,
-                      gsa::LandingAction, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::Hovering, ManualControlEvent,
-                      gsa::ManualControlArmState, msmf::none, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::ReachingGoal, be::Abort, gsa::Hovering,
-                      gsa::AbortUAVControllerArmRightFold, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::ExecutingVelocityGoal, VelocityYaw,
-                      gsa::ExecutingVelocityGoal, gsa::SetVelocityGoal,
-                      gsa::GuardVelocityGoal>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::ExecutingVelocityGoal, be::Abort, gsa::Hovering,
-                      gsa::AbortUAVControllerArmRightFold, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::Landing, Completed, gsa::Landed, gsa::ArmPowerOff,
-                      msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             msmf::Row<gsa::ReachingGoal, Completed, gsa::Hovering,
-                      gsa::AbortUAVControllerArmRightFold, msmf::none>,
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<gsa::ExecutingVelocityGoal, VelocityYaw, gsa::ExecutingVelocityGoal, 
+                      gsa::SetVelocityGoal, gsa::GuardVelocityGoal>,
+            msmf::Row<gsa::ExecutingVelocityGoal, be::Abort, gsa::Hovering,
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<gsa::Landing, Completed, gsa::Landed, 
+                      msmf::none, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<gsa::WaitingForPick, pe::Pick, gsa::PrePickState,
+                      gsa::PrePickTransitionAction, gsa::PrePickTransitionGuard>,
+            msmf::Row<gsa::WaitingForPick, be::Abort, gsa::Hovering,
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<gsa::PrePickState, Completed, gsa::PickPositionState,
+                      gsa::PickPositionTransitionAction, msmf::none>,
+            msmf::Row<gsa::PrePickState, be::Abort, gsa::Hovering,
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
+            msmf::Row<gsa::PrePickState, Reset, gsa::ResetVisualServoing,
+                      gsa::UngripGoHome, gsa::GoHomeTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<gsa::ResetVisualServoing, Completed, gsa::WaitingForPick,
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
+            msmf::Row<gsa::ResetVisualServoing, be::Abort, gsa::Hovering,
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
 			      //        +--------------+-------------+--------------+---------------------+---------------------------+
 			      msmf::Row<gsa::PickPositionState, Completed, gsa::GripState,
 					            gsa::GripTransitionAction, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::PickPositionState, be::Abort, gsa::Hovering,
-                      gsa::AbortUAVArmController, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             msmf::Row<gsa::PickPositionState, Reset, gsa::ResetVisualServoing,
-                      gsa::ArmRightFoldGoHome, gsa::GoHomeTransitionGuard>,         
+                      gsa::UngripGoHome, gsa::GoHomeTransitionGuard>,         
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::GripState, be::Abort, gsa::Hovering,
-                      gsa::AbortUAVArmController, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             msmf::Row<gsa::GripState, Reset, gsa::ResetVisualServoing,
-                      gsa::ArmRightFoldGoHome, gsa::GoHomeTransitionGuard>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
+                      gsa::UngripGoHome, gsa::GoHomeTransitionGuard>,
             msmf::Row<gsa::GripState, ObjectId, gsa::ReachingPostPickWaypoint,
-                      gsa::AbortUAVArmControllerArmRightFold, msmf::none>,
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::ReachingPostPickWaypoint, be::Abort, gsa::Hovering,
-                      gsa::AbortUAVArmController, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             msmf::Row<gsa::ReachingPostPickWaypoint, ObjectId, gsa::PrePlaceState,
                       gsa::PrePlaceVisualServoingTransitionAction,
                       gsa::PrePlaceVisualServoingTransitionGuard>,
@@ -252,43 +221,32 @@ public:
             msmf::Row<gsa::PrePlaceState, Completed, gsa::PlaceState,
                       gsa::PlaceVisualServoingTransitionAction,
                       gsa::PlaceVisualServoingTransitionGuard>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::PrePlaceState, Reset, gsa::ResetVisualServoingPlace,
                       gsa::GoHomeTransitionAction, gsa::GoHomeTransitionGuard>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::PrePlaceState, be::Abort, gsa::Hovering,
-                      gsa::AbortUAVArmController, msmf::none>,
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::ResetVisualServoingPlace, Completed, gsa::PrePlaceState,
-                      gsa::PrePlaceVisualServoingTransitionAction,
-                      msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
+                      gsa::PrePlaceVisualServoingTransitionAction, msmf::none>,
             msmf::Row<gsa::ResetVisualServoingPlace, be::Abort, gsa::Hovering,
-                      gsa::AbortUAVArmController, msmf::none>,
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::PlaceState, Completed, gsa::ReachingPostPlaceWaypoint, 
                       gsa::ArmGripAction<false>, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::PlaceState, Reset, gsa::ResetVisualServoingPlace, 
                       gsa::GoHomeTransitionAction, gsa::GoHomeTransitionGuard>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::ReachingPostPlaceWaypoint, Completed,
-                      gsa::WaitingForPick, gsa::AbortUAVArmController,
-                      msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::ReachingPostPlaceWaypoint, be::Abort, gsa::Hovering,
-                      gsa::AbortUAVArmController, msmf::none>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::PlaceState, be::Abort, gsa::Hovering,
-                      gsa::AbortUAVArmController, msmf::none>,
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<gsa::ReachingPostPlaceWaypoint, Completed, gsa::WaitingForPick, 
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
+            msmf::Row<gsa::ReachingPostPlaceWaypoint, be::Abort, gsa::Hovering,
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::ManualControlArmState, be::Takeoff, gsa::Hovering,
-                      gsa::ManualControlSwitchAction,
-                      gsa::ManualControlSwitchGuard>,
-            //        +--------------+-------------+--------------+---------------------+---------------------------+
+                      gsa::ManualControlSwitchAction, gsa::ManualControlSwitchGuard>,
             msmf::Row<gsa::ManualControlArmState, be::Land, gsa::Landed,
-                      gsa::ManualControlSwitchAction,
-                      gsa::ManualControlSwitchGuard>> {};
+                      gsa::ManualControlSwitchAction, gsa::ManualControlSwitchGuard>> {};
   /**
   * @brief Use Inherited no transition function
   */
@@ -298,18 +256,16 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 19> state_names = {
+static constexpr std::array<const char *, 17> state_names = {
     "Landed",
-    "ArmPreTakeoffFolding",
     "Takingoff",
     "Hovering",
-    "ResetVisualServoing",
-    "WaitingForPick",
-    "PrePickState",
-    "ArmPreLandingFolding",
     "ReachingGoal",
     "ExecutingVelocityGoal",
     "Landing",
+    "WaitingForPick",
+    "PrePickState",
+    "ResetVisualServoing",
     "PickPositionState",
     "GripState",
     "ReachingPostPickWaypoint",
