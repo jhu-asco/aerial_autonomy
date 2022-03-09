@@ -182,7 +182,7 @@ public:
                       msmf::none, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::WaitingForPick, pe::Pick, gsa::PrePickState,
-                      gsa::PrePickTransitionAction, gsa::PrePickTransitionGuard>,
+                      gsa::PrePickPositionTransitionAction, gsa::PrePickTransitionGuard>,
             msmf::Row<gsa::WaitingForPick, be::Abort, gsa::Hovering,
                       gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
@@ -219,8 +219,7 @@ public:
                       gsa::PrePlaceVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::PrePlaceState, Completed, gsa::PlaceState,
-                      gsa::PlaceVisualServoingTransitionAction,
-                      gsa::PlaceVisualServoingTransitionGuard>,
+                      gsa::PlaceTransitionAction, gsa::PlaceVisualServoingTransitionGuard>,
             msmf::Row<gsa::PrePlaceState, Reset, gsa::ResetVisualServoingPlace,
                       gsa::GoHomeTransitionAction, gsa::GoHomeTransitionGuard>,
             msmf::Row<gsa::PrePlaceState, be::Abort, gsa::Hovering,

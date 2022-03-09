@@ -89,12 +89,12 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
 //       RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT,
 //                                                          GoalIndex>;
 
-  /**
-  * @brief Action sequence that ungrips then goes home
-  */
-  using UngripGoHome = base_functors::bActionSequence<
-      boost::mpl::vector<ArmGripActionFunctor_<LogicStateMachineT, false>,
-                         typename vsa::GoHomeTransitionAction>>;
+//   /**
+//   * @brief Action sequence that ungrips then goes home
+//   */
+//   using UngripGoHome = base_functors::bActionSequence<
+//       boost::mpl::vector<ArmGripActionFunctor_<LogicStateMachineT, false>,
+//                        typename vsa::GoHomeTransitionAction>>;
 //   /**
 //    * @brief Action sequence to ungrip object and go to home location and
 //    * fold the arm to right angle
@@ -145,14 +145,14 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
 //       bAnd<PickTransitionGuard, CheckGoalIndex_<LogicStateMachineT, 2>>;
 //   // \todo Check if tracked object is in workspace
 
-//   /**
-//   * @brief Move arm to pick pose and move to waypoint in front of object
-//   */
-//   using PrePickTransitionAction = base_functors::bActionSequence<
-//       boost::mpl::vector<ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>,
-//                          typename vsa::ResetRelativePoseVisualServoing,
-//                          RelativePoseVisualServoingTransitionActionFunctor_<
-//                              LogicStateMachineT, 2>>>;
+  /**
+  * @brief Move arm to pick pose and move to waypoint in front of object
+  */
+  using PrePickPositionTransitionAction = 
+      base_functors::bActionSequence<boost::mpl::vector<
+          ArmGripActionFunctor_<LogicStateMachineT, false>,
+          typename vsa::ResetRelativePoseVisualServoing,
+          RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT, 2>>>;
 
   /**
   * @brief Move arm to pick pose and move to tracked object
@@ -162,7 +162,7 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
   */
   using PickPositionTransitionAction =
       base_functors::bActionSequence<boost::mpl::vector<
-          ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0>,
+          ArmGripActionFunctor_<LogicStateMachineT, false>,
           typename vsa::ResetRelativePoseVisualServoing,
           RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT,
                                                              0, false>>>;
@@ -181,15 +181,14 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
   using HoverInPlaceTransitionAction =
       HoverPositionControlTransitionActionFunctor_<LogicStateMachineT>;
 
-//   /**
-//   * @brief Action to take when starting placing object at either drop-off.
-//   */
-//   using PlaceVisualServoingTransitionAction =
-//       base_functors::bActionSequence<boost::mpl::vector<
-//           ArmPoseTransitionActionFunctor_<LogicStateMachineT, 0, false>,
-//           typename vsa::ResetRelativePoseVisualServoing,
-//           RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT,
-//                                                              1>>>;
+  /**
+  * @brief Action to take when starting placing object at either drop-off.
+  */
+  using PlaceTransitionAction =
+      base_functors::bActionSequence<boost::mpl::vector<
+          typename vsa::ResetRelativePoseVisualServoing,
+          RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT,
+                                                             1>>>;
 //   /**
 //   * @brief Action to take when starting placing object at either drop-off.
 //   */
@@ -211,8 +210,7 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
 //       CheckGoalIndex_<LogicStateMachineT, 1>;
 
   /**
-  * @brief Action sequence to abort UAV controller and arm controller
-  * angle
+  * @brief Action sequence to abort UAV controller and arm controller and hover in place
   */
   using AbortUAVArmControllerHoverInPlace =
       base_functors::bActionSequence<boost::mpl::vector<
