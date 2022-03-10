@@ -38,8 +38,8 @@ Install googletest `release 1.8.0`. This version fixes a bug with `ASSERT_TRUE` 
 Install OpenCV with OpenCV Contrib (version must include tracking module). Follow the steps for installing from source [here](https://linuxize.com/post/how-to-install-opencv-on-ubuntu-18-04/) to install from source on Ubuntu 18.04. If a version of OpenCV is already installed on your system you may want to install that version from source. Note: Source code for OpenCV 3.2.0 has an extra else statement on line 21 of cmake/OpenCVCompilerOptions.cmake. This block needs to be removed. The following can be used to check if your system currently has a version of OpenCV installed:
 
     pkg-config --modversion opencv
-	python3 -c "import cv2; print(cv2.version)"
-	python2 -c "import cv2; print(cv2.version)"
+	python3 -c "import cv2; print(cv2.__version__)"
+	python2 -c "import cv2; print(cv2.__version__)"
 
 Install our GCOP (Geometric Control, Optimization, and Planning) package. Build with support for casadi (USE_CASADI) and install the dependences from the GCOP README. Do the following **after required and optional dependencies from the GCOP README have been installed (Numbers 5 and 6)**: 
 
