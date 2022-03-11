@@ -121,8 +121,8 @@ protected:
   extractSensorData(std::pair<PositionYaw, tf::Transform> &sensor_data) {
     parsernode::common::quaddata quad_data;
     drone_hardware_.getquaddata(quad_data);
-    tf::Transform object_pose_cam;
-    if (!tracker_.getTrackingVector(object_pose_cam)) {
+    tf::Transform tracker_tracking_pose;
+    if (!tracker_.getTrackingVector(tracker_tracking_pose)) {
       VLOG(1) << "Invalid tracking vector";
       return false;
     }
@@ -137,21 +137,25 @@ protected:
       quad_pose = conversions::getPose(quad_data);
     }
 
-    ros::Time current_time = ros::Time::now();
-    // If measurement is recent enough, recalculate tracking pose
-    if ((current_time - tracker_.getROSTrackingTime()).toSec() < 0.1)
-    { 
-      tracking_pose_ = quad_pose * camera_transform_ *
-                                    object_pose_cam * tracking_offset_transform_;
-      // filter remove rp
-      tracking_pose_ = filter(tracking_pose_);
-      // Filter tracking pose
-      logTrackerData("visual_servoing_reference_connector", tracking_pose_,
-                    object_pose_cam, quad_data);
+    // Check if the tracker uses the world frame, otherwise assume camera frame
+    tf::Transform tracking_pose;
+    if (tracker_.vectorIsGlobal())
+    {
+      tracking_pose = filter(tracker_tracking_pose);
     }
-    // Otherwise use previous tracking pose
+    else
+    {
+      tracking_pose = quad_pose * camera_transform_ *
+                                    tracker_tracking_pose * tracking_offset_transform_;
+      PositionYaw tracking_position_yaw;
+      // filter remove rp
+      tracking_pose = filter(tracking_pose);
+    }
 
-    sensor_data = std::make_pair(start_position_yaw_, tracking_pose_);
+    // Filter tracking pose
+    logTrackerData("visual_servoing_reference_connector", tracking_pose,
+                   tracker_tracking_pose, quad_data);
+    sensor_data = std::make_pair(start_position_yaw_, tracking_pose);
     return true;
   }
 
@@ -176,7 +180,6 @@ private:
       odom_sensor_; ///< Pose sensor for quad data
   ExponentialFilter<PositionYaw>
       tracking_pose_filter_; ///< Filter tracking pose
-  tf::Transform tracking_pose_; ///< Current estimate of tracking pose
 
   /**
    * @brief Base class typedef to simplify code

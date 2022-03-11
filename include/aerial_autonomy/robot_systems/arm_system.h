@@ -138,7 +138,7 @@ public:
   std::string getSystemStatus() const {
     HtmlTableWriter table_writer;
     table_writer.beginRow();
-    table_writer.addHeader("Arm Status:", Colors::blue, 4);
+    table_writer.addHeader("Arm Status", Colors::blue, 4);
     table_writer.beginRow();
     table_writer.addCell("Joint Angles: ");
     for (double q : arm_hardware_->getJointAngles()) {

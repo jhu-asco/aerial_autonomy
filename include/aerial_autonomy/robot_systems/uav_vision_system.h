@@ -14,6 +14,7 @@
 #include "aerial_autonomy/estimators/tracking_vector_estimator.h"
 #include "aerial_autonomy/robot_systems/uav_system.h"
 #include "aerial_autonomy/trackers/alvar_tracker.h"
+#include "aerial_autonomy/trackers/global_alvar_tracker.h"
 #include "aerial_autonomy/trackers/roi_to_plane_converter.h"
 #include "aerial_autonomy/trackers/roi_to_position_converter.h"
 #include "aerial_autonomy/trackers/simulated_ros_tracker.h"
@@ -61,7 +62,7 @@ public:
         camera_transform_(conversions::protoTransformToTf(
             config_.uav_vision_system_config().camera_transform())),
         tracker_(UAVVisionSystem::chooseTracker(tracker, drone_hardware_,
-                                                camera_transform_, config)),
+                                                camera_transform_, config, odom_sensor_)),
         acceleration_bias_estimator_(config_.uav_vision_system_config()
                                          .acceleration_bias_estimator_config()),
         constant_heading_depth_controller_(
@@ -165,29 +166,66 @@ public:
   std::string getSystemStatus() const {
     std::stringstream status;
     status << UAVSystem::getSystemStatus() << std::endl;
-    HtmlTableWriter table_writer_acc;
+    HtmlTableWriter table_writer_acc(65); // Shorter width
     table_writer_acc.beginRow();
-    table_writer_acc.addHeader("Acc Bias Estimator", Colors::blue);
+    table_writer_acc.addHeader("Acc Bias Estimator", Colors::blue, 3);
     table_writer_acc.beginRow();
     auto acc_bias = getAccelerationBias();
     table_writer_acc.addCell(acc_bias.x());
     table_writer_acc.addCell(acc_bias.y());
     table_writer_acc.addCell(acc_bias.z());
-    HtmlTableWriter table_writer_tracker;
+    HtmlTableWriter table_writer_tracker(65); // Shorter width
     table_writer_tracker.beginRow();
-    table_writer_tracker.addHeader("Tracker Status", Colors::blue);
+    table_writer_tracker.addHeader("Tracker Status", Colors::blue, 7);
     table_writer_tracker.beginRow();
     std::string tracking_valid =
         (tracker_->trackingIsValid() ? "True" : "False");
     std::string valid_color =
         (tracker_->trackingIsValid() ? Colors::green : Colors::red);
-    table_writer_tracker.addCell(tracking_valid, "Valid", valid_color);
+    table_writer_tracker.addCell(tracking_valid, "Valid", valid_color, 2);
     table_writer_tracker.beginRow();
-    table_writer_tracker.addCell("Tracking Vectors: ");
+    table_writer_tracker.addCell("Tracking Vectors: ", "", Colors::white, 2);
     std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
     if (tracker_->getTrackingVectors(tracking_vectors)) {
       for (auto tv : tracking_vectors) {
-        tf::Transform tv_body_frame = camera_transform_ * tv.second;
+        tf::Transform tv_body_frame;
+        if (tracker_->vectorIsGlobal())
+        {
+          // Find the quad position to calculate vector in the body frame
+          parsernode::common::quaddata quad_data;
+          drone_hardware_->getquaddata(quad_data);
+          tf::Transform quad_pose;
+          if (odom_sensor_) {
+            if (odom_sensor_->getSensorStatus() != SensorStatus::VALID) {
+              LOG(WARNING) << "Pose sensor invalid!";
+              quad_pose = conversions::getPose(quad_data);
+            }
+            else
+            {
+              quad_pose = odom_sensor_->getSensorData().first;
+            }
+          } else {
+            quad_pose = conversions::getPose(quad_data);
+          }
+
+          tv_body_frame = quad_pose.inverse() * tv.second;
+
+          // Add to table the world frame transform as well
+          table_writer_tracker.beginRow();
+          table_writer_tracker.addCell(std::to_string(tv.first) + "-world");
+          table_writer_tracker.addCell(tv.second.getOrigin().x());
+          table_writer_tracker.addCell(tv.second.getOrigin().y());
+          table_writer_tracker.addCell(tv.second.getOrigin().z());
+          double roll_world, pitch_world, yaw_world;
+          tv.second.getBasis().getRPY(roll_world, pitch_world, yaw_world);
+          table_writer_tracker.addCell(roll_world);
+          table_writer_tracker.addCell(pitch_world);
+          table_writer_tracker.addCell(yaw_world);
+        }
+        else
+        {
+          tv_body_frame = camera_transform_ * tv.second;
+        }
         table_writer_tracker.beginRow();
         table_writer_tracker.addCell(tv.first);
         table_writer_tracker.addCell(tv_body_frame.getOrigin().x());
@@ -251,7 +289,8 @@ protected:
   static BaseTrackerPtr chooseTracker(BaseTrackerPtr tracker,
                                       UAVParserPtr drone_hardware,
                                       tf::Transform camera_transform,
-                                      UAVSystemConfig &config) {
+                                      UAVSystemConfig &config,
+                                      SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor) {
     BaseTrackerPtr tracker_pointer;
     if (tracker) {
       tracker_pointer = tracker;
@@ -265,7 +304,12 @@ protected:
       } else if (tracker_type == "ROI2Plane") {
         tracker_pointer = BaseTrackerPtr(new RoiToPlaneConverter());
       } else if (tracker_type == "Alvar") {
-        tracker_pointer = BaseTrackerPtr(new AlvarTracker("~tracker", tracker_timeout));
+        tracker_pointer = BaseTrackerPtr(new AlvarTracker(tracker_timeout));
+      } else if (tracker_type == "GlobalAlvar") {
+        tracker_pointer = BaseTrackerPtr(new GlobalAlvarTracker(*drone_hardware, camera_transform, 
+          conversions::protoTransformToTf(config.uav_vision_system_config().tracking_offset_transform()),
+            config.uav_vision_system_config().gain_visual_servoing_tracking_pose(),
+            odom_sensor, tracker_timeout));
       } else if (tracker_type == "Simulated") {
         tracker_pointer = BaseTrackerPtr(new SimulatedROSTracker(
             *drone_hardware, camera_transform, "simulated_ros_tracker"));

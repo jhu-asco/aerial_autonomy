@@ -41,7 +41,7 @@ private:
 
 TEST_F(AlvarTrackerTests, TrackingValidTimeout) {
   std::chrono::duration<double> timeout = std::chrono::milliseconds(10);
-  AlvarTracker tracker("", timeout);
+  AlvarTracker tracker(timeout, "");
   while (!tracker.isConnected()) {
   }
 
@@ -57,7 +57,8 @@ TEST_F(AlvarTrackerTests, TrackingValidTimeout) {
 }
 
 TEST_F(AlvarTrackerTests, GetTrackingVector) {
-  AlvarTracker tracker("");
+  std::chrono::duration<double> timeout = std::chrono::milliseconds(500);
+  AlvarTracker tracker(timeout, "");
   while (!tracker.isConnected()) {
   }
   tf::Transform pose;
@@ -78,7 +79,7 @@ TEST_F(AlvarTrackerTests, GetTrackingVector) {
 
 TEST_F(AlvarTrackerTests, TrackingValidEmpty) {
   std::chrono::duration<double> timeout = std::chrono::milliseconds(60);
-  AlvarTracker tracker("", timeout);
+  AlvarTracker tracker(timeout, "");
   while (!tracker.isConnected()) {
   }
   tf::Transform pose;

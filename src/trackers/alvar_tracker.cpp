@@ -45,8 +45,3 @@ std::chrono::time_point<std::chrono::high_resolution_clock>
 AlvarTracker::getTrackingTime() {
   return last_tracking_time_;
 }
-
-ros::Time AlvarTracker::getROSTrackingTime()
-{
-  return last_valid_time_;
-}

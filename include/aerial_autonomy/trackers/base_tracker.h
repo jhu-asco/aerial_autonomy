@@ -68,13 +68,11 @@ public:
   }
 
   /**
-  * @brief Get the ROS time stamp of the current tracking vectors
+  * @brief Check if the tracking vector is in the global frame
   */
-  // \todo Matt Remove this function and add time stamps to information stored
-  // with tracking vector
-  virtual ros::Time
-  getROSTrackingTime() {
-    return ros::Time::now();
+  virtual bool
+  vectorIsGlobal() {
+    return false;
   }
 
 private:

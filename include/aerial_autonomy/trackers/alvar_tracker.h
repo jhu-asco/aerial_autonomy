@@ -15,11 +15,12 @@ class AlvarTracker : public BaseTracker {
 public:
   /**
   * @brief Constructor.  Use the ClosestTrackingStrategy by default.
+  * @param timeout Timeout before tracking is invalid
   * @param name_space Namespace of internal ROS node handle
   */
   AlvarTracker(
-      std::string name_space = "~tracker",
-      std::chrono::duration<double> timeout = std::chrono::milliseconds(500))
+      std::chrono::duration<double> timeout = std::chrono::milliseconds(500),
+      std::string name_space = "~tracker")
       : BaseTracker(std::move(std::unique_ptr<TrackingStrategy>(
             new ClosestTrackingStrategy(default_num_retries_)))),
         nh_(name_space),
@@ -46,17 +47,12 @@ public:
   getTrackingTime();
 
   /**
-  * @brief Get the ROS time stamp of the current tracking vectors
-  */
-  virtual ros::Time getROSTrackingTime();
-
-  /**
   * @brief Check if subscriber is connected
   * @return True if connected, false otherwise
   */
   bool isConnected();
 
-private:
+protected:
   /**
   * @brief Marker subscriber callback
   * @param marker_msg Marker message
