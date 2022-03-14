@@ -75,6 +75,14 @@ public:
     return false;
   }
 
+  /**
+  * @brief Reset any filters
+  */
+  virtual void
+  resetFilters() {
+    return;
+  }
+
 private:
   /**
   * @brief Strategy used to choose which object to track among multiple objects

@@ -14,11 +14,37 @@ GlobalAlvarTracker::GlobalAlvarTracker(
     drone_hardware_(drone_hardware),
     camera_transform_(camera_transform),
     tracking_offset_transform_(tracking_offset_transform),
-    odom_sensor_(odom_sensor)
+    odom_sensor_(odom_sensor),
+    filter_gain_tracking_pose_(filter_gain_tracking_pose)
   {
     alvar_sub_ = nh_.subscribe("ar_pose_marker", 1,
                             &GlobalAlvarTracker::markerCallback, this);
   }
+
+tf::Transform GlobalAlvarTracker::filter(uint32_t id, tf::Transform input) {
+  boost::mutex::scoped_lock lock(filter_mutex_);
+  // If there isn't a filter for that key, add one 
+  if (tracking_pose_filters_.find(id) == tracking_pose_filters_.end())
+  {
+    tracking_pose_filters_.insert({id, ExponentialFilter<PositionYaw>(filter_gain_tracking_pose_)});
+  }
+
+  PositionYaw tracking_position_yaw;
+  conversions::tfToPositionYaw(tracking_position_yaw, input);
+  PositionYaw filtered_position_yaw =
+      tracking_pose_filters_.at(id).addAndFilter(tracking_position_yaw);
+  tf::Transform filtered_pose;
+  conversions::positionYawToTf(filtered_position_yaw, filtered_pose);
+  return filtered_pose;
+}
+
+void GlobalAlvarTracker::resetFilters() {
+  boost::mutex::scoped_lock lock(filter_mutex_);
+  for (auto filter : tracking_pose_filters_)
+  {
+    (filter.second).reset();
+  }
+}
 
 bool
 GlobalAlvarTracker::vectorIsGlobal() {
@@ -36,6 +62,10 @@ bool GlobalAlvarTracker::getTrackingVectors(
 
 void GlobalAlvarTracker::markerCallback(
     const ar_track_alvar_msgs::AlvarMarkers &marker_msg) {
+
+  // Return if there are not any markers
+  if (marker_msg.markers.size() == 0)
+    return;
 
   AlvarTracker::markerCallback(marker_msg);
 
@@ -60,8 +90,9 @@ void GlobalAlvarTracker::markerCallback(
   {
     target_poses[object.first] =
       quad_pose * camera_transform_ * object.second * tracking_offset_transform_;
-    // Filter? Separate filter per transform?
-    // tracking_pose_ = filter(tracking_pose_);
+
+    // Filter (and removes rp)
+    target_poses[object.first] = filter(object.first, target_poses[object.first]);
   }
   target_poses_ = target_poses;
 }

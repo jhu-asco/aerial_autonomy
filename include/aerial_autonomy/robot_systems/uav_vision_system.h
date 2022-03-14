@@ -166,7 +166,7 @@ public:
   std::string getSystemStatus() const {
     std::stringstream status;
     status << UAVSystem::getSystemStatus() << std::endl;
-    HtmlTableWriter table_writer_acc(65); // Shorter width
+    HtmlTableWriter table_writer_acc(67); // Shorter width
     table_writer_acc.beginRow();
     table_writer_acc.addHeader("Acc Bias Estimator", Colors::blue, 3);
     table_writer_acc.beginRow();
@@ -174,7 +174,7 @@ public:
     table_writer_acc.addCell(acc_bias.x());
     table_writer_acc.addCell(acc_bias.y());
     table_writer_acc.addCell(acc_bias.z());
-    HtmlTableWriter table_writer_tracker(65); // Shorter width
+    HtmlTableWriter table_writer_tracker(67); // Shorter width
     table_writer_tracker.beginRow();
     table_writer_tracker.addHeader("Tracker Status", Colors::blue, 7);
     table_writer_tracker.beginRow();

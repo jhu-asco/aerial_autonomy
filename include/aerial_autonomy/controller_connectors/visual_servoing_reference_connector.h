@@ -83,6 +83,7 @@ public:
                       quad_data.localpos.z, quad_data.rpydata.z);
     }
     tracking_pose_filter_.reset();
+    tracker_.resetFilters();
     this->run(); // sets goal to low-level connector
   }
   /**
@@ -141,7 +142,8 @@ protected:
     tf::Transform tracking_pose;
     if (tracker_.vectorIsGlobal())
     {
-      tracking_pose = filter(tracker_tracking_pose);
+      // Filtering happens in the tracker
+      tracking_pose = tracker_tracking_pose;
     }
     else
     {
