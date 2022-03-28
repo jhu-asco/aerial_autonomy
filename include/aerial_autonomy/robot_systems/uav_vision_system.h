@@ -218,9 +218,9 @@ public:
           table_writer_tracker.addCell(tv.second.getOrigin().z());
           double roll_world, pitch_world, yaw_world;
           tv.second.getBasis().getRPY(roll_world, pitch_world, yaw_world);
-          table_writer_tracker.addCell(roll_world);
-          table_writer_tracker.addCell(pitch_world);
-          table_writer_tracker.addCell(yaw_world);
+          table_writer_tracker.addCell(roll_world * (180 / M_PI));
+          table_writer_tracker.addCell(pitch_world * (180 / M_PI));
+          table_writer_tracker.addCell(yaw_world * (180 / M_PI));
         }
         else
         {
@@ -233,9 +233,9 @@ public:
         table_writer_tracker.addCell(tv_body_frame.getOrigin().z());
         double roll, pitch, yaw;
         tv_body_frame.getBasis().getRPY(roll, pitch, yaw);
-        table_writer_tracker.addCell(roll);
-        table_writer_tracker.addCell(pitch);
-        table_writer_tracker.addCell(yaw);
+        table_writer_tracker.addCell(roll * (180 / M_PI));
+        table_writer_tracker.addCell(pitch * (180 / M_PI));
+        table_writer_tracker.addCell(yaw * (180 / M_PI));
       }
     }
     status << table_writer_acc.getTableString()

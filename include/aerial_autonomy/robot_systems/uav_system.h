@@ -26,6 +26,7 @@
 #include <aerial_autonomy/controller_connectors/rpyt_based_reference_connector.h>
 #include <aerial_autonomy/sensors/guidance.h>
 #include <aerial_autonomy/sensors/odometry_from_pose_sensor.h>
+#include <aerial_autonomy/sensors/odometry_sensor.h>
 #include <aerial_autonomy/sensors/velocity_sensor.h>
 // Load UAV parser
 #include <pluginlib/class_loader.h>
@@ -207,7 +208,7 @@ private:
     return velocity_sensor;
   }
   /**
-  * @brief create a odom sensor if using Motion Capture flag is set
+  * @brief create a odom sensor if using Motion Capture or other odometry source flag is set
   *
   * @param config The UAV system config
   *
@@ -218,9 +219,18 @@ private:
     auto odom_sensor_config = config.odom_sensor_config();
     std::shared_ptr<Sensor<std::pair<tf::StampedTransform, tf::Vector3>>>
         odom_sensor;
-    if (config.use_mocap_sensor()) {
+    auto odom_sensor_type = config.odom_sensor_type();
+    switch (odom_sensor_type) {
+    case UAVSystemConfig::MOCAP:
       odom_sensor.reset(new OdomFromPoseSensor(odom_sensor_config));
+      break;
+    case UAVSystemConfig::ROS:
+      odom_sensor.reset(new OdomSensor(odom_sensor_config));
+      break;
+    default:
+      break;
     }
+
     return odom_sensor;
   }
 
@@ -354,6 +364,19 @@ public:
   */
   std::string getSystemStatus() const {
     parsernode::common::quaddata data = getUAVData();
+    tf::Transform quad_pose;
+    if (odom_sensor_) {
+      if (odom_sensor_->getSensorStatus() != SensorStatus::VALID) {
+        LOG(WARNING) << "Pose sensor invalid!";
+        quad_pose = conversions::getPose(data);
+      }
+      else
+      {
+        quad_pose = odom_sensor_->getSensorData().first;
+      }
+    } else {
+      quad_pose = conversions::getPose(data);
+    }
     HtmlTableWriter table_writer;
     table_writer.beginRow();
     table_writer.addHeader("UAV Status", Colors::blue, 4);
@@ -364,14 +387,16 @@ public:
     table_writer.addCell(data.batterypercent, "Battery Percent",
                          battery_percent_color, 2);
     table_writer.beginRow();
-    table_writer.addCell(data.localpos.x, "Local x");
-    table_writer.addCell(data.localpos.y, "Local y");
-    table_writer.addCell(data.localpos.z, "Local z");
+    table_writer.addCell(quad_pose.getOrigin().x(), "Local x");
+    table_writer.addCell(quad_pose.getOrigin().y(), "Local y");
+    table_writer.addCell(quad_pose.getOrigin().z(), "Local z");
     table_writer.addCell(data.altitude, "Altitude");
     table_writer.beginRow();
-    table_writer.addCell(data.rpydata.x * (180 / M_PI), "Roll");
-    table_writer.addCell(data.rpydata.y * (180 / M_PI), "Pitch");
-    table_writer.addCell(data.rpydata.z * (180 / M_PI), "Yaw");
+    double roll, pitch, yaw;
+    quad_pose.getBasis().getRPY(roll, pitch, yaw);
+    table_writer.addCell(roll * (180 / M_PI), "Roll");
+    table_writer.addCell(pitch * (180 / M_PI), "Pitch");
+    table_writer.addCell(yaw * (180 / M_PI), "Yaw");
     table_writer.beginRow();
     table_writer.addCell(data.servo_in[0], "RC");
     table_writer.addCell(data.servo_in[1]);
