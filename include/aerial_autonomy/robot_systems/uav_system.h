@@ -365,6 +365,7 @@ public:
   std::string getSystemStatus() const {
     parsernode::common::quaddata data = getUAVData();
     tf::Transform quad_pose;
+    bool using_odom_sensor = false;
     if (odom_sensor_) {
       if (odom_sensor_->getSensorStatus() != SensorStatus::VALID) {
         LOG(WARNING) << "Pose sensor invalid!";
@@ -373,6 +374,7 @@ public:
       else
       {
         quad_pose = odom_sensor_->getSensorData().first;
+        using_odom_sensor = true;
       }
     } else {
       quad_pose = conversions::getPose(data);
@@ -386,6 +388,9 @@ public:
                                                                  : Colors::red);
     table_writer.addCell(data.batterypercent, "Battery Percent",
                          battery_percent_color, 2);
+    std::string using_odom_sensor_str =
+        (using_odom_sensor ? "True" : "False");
+    table_writer.addCell(using_odom_sensor_str, "Odom Sensor", Colors::white, 2);
     table_writer.beginRow();
     table_writer.addCell(quad_pose.getOrigin().x(), "Local x");
     table_writer.addCell(quad_pose.getOrigin().y(), "Local y");
