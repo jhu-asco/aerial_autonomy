@@ -30,6 +30,7 @@ template <class LogicStateMachineT> class OrangeTrackingState_;
 template <class LogicStateMachineT> class ResetOrangeTrackingState_;
 template <class LogicStateMachineT> class ResetTrialState_;
 template <class LogicStateMachineT> class OrangeTrackingFinalRiseState_;
+template <class LogicStateMachineT> class OrangeGrippingState_;
 
 
 /**
@@ -140,6 +141,33 @@ struct SuccessSensorInternalActionFunctor_
 };
 
 /**
+* @brief Action to ungrip if config says to
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct TrialGripTransitionActionFunctor_
+    : EventAgnosticActionFunctor<ArmSystem, LogicStateMachineT> {
+  void run(ArmSystem &robot_system) {
+    if (this->state_machine_config_
+             .visual_servoing_state_machine_config()
+	     .orange_tracking_state_machine_config()
+	     .ungrip_flag()) {
+      VLOG(1) << "UnGripping!";
+      while(!robot_system.grip(false)){
+        VLOG(1) << "Ungrip Failed.... ";
+        usleep(500);
+        VLOG(1) << "Retrying";
+      }
+    }
+  }
+};
+
+
+
+
+
+/**
 * @brief Action to reach a pre designated point
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
@@ -237,9 +265,9 @@ using OrangeTrackingFinalRiseInternalActionFunctor_ =
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
         FlyawayCheckFunctor_<LogicStateMachineT>,
-        JawGripInternalActionFunctor_<LogicStateMachineT,true>,
+        //JawGripInternalActionFunctor_<LogicStateMachineT,true>,
         //SuccessSensorInternalActionFunctor_<LogicStateMachineT>,
-        ControllerStatusInternalActionFunctor_<LogicStateMachineT,RPYTBasedReferenceConnector<Eigen::VectorXd,Eigen::VectorXd>, false>,
+        ControllerStatusInternalActionFunctor_<LogicStateMachineT,RPYTBasedReferenceConnector<Eigen::VectorXd,Eigen::VectorXd>, true>,
         TimeoutInternalActionFunctor_<LogicStateMachineT,OrangeTrackingFinalRiseState_<LogicStateMachineT>>>>;
 
 /**
@@ -252,7 +280,7 @@ class OrangeTrackingFinalRiseState_
     : public TimedState<UAVArmSystem, LogicStateMachineT,
                         OrangeTrackingFinalRiseInternalActionFunctor_<LogicStateMachineT>> {};
 /**
-* @brief State that resets to last set home location
+* @brief State that resets to last staging location
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
@@ -269,3 +297,27 @@ template <class LogicStateMachineT>
 class ResetTrialState_
     : public BaseState<UAVArmSystem, LogicStateMachineT,
                         PositionControlInternalActionFunctor_<LogicStateMachineT>> {};
+/**
+* @brief Logic to check while picking the orange
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+using OrangeGrippingInternalActionFunctor_ =
+    boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
+        UAVStatusInternalActionFunctor_<LogicStateMachineT>,
+        ArmStatusInternalActionFunctor_<LogicStateMachineT,Reset>,
+        FlyawayCheckFunctor_<LogicStateMachineT>,
+        JawGripInternalActionFunctor_<LogicStateMachineT,true>,
+        ControllerStatusInternalActionFunctor_<LogicStateMachineT,RPYTBasedReferenceConnector<Eigen::VectorXd,Eigen::VectorXd>, false>,
+        TimeoutInternalActionFunctor_<LogicStateMachineT,OrangeGrippingState_<LogicStateMachineT>>>>;
+
+/**
+* @brief State that uses visual servoing to pick object.
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+class OrangeGrippingState_
+    : public TimedState<UAVArmSystem, LogicStateMachineT,
+                        OrangeGrippingInternalActionFunctor_<LogicStateMachineT>> {};

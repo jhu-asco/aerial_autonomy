@@ -64,12 +64,19 @@ struct OrangeTrackingStatesActions
   * @brief State while positioning the uav for picking
   */
   using OrangeTrackingFinalRiseState = OrangeTrackingFinalRiseState_<LogicStateMachineT>;
+  /**
+  * @brief State while positioning the uav for picking
+  */
+  using OrangeGrippingState = OrangeGrippingState_<LogicStateMachineT>;
 
   // Transition Actions and Guards
   /**
   * @brief Action to take when starting placing.
   */
-  using ResetTrialTransitionAction = ResetTrialTransitionActionFunctor_<LogicStateMachineT>;
+  using ResetTrialTransitionAction = 
+      base_functors::bActionSequence<boost::mpl::vector<
+          ResetTrialTransitionActionFunctor_<LogicStateMachineT>,
+	  TrialGripTransitionActionFunctor_<LogicStateMachineT>>>;
 
   /**
   * @brief Action to take when starting placing.
@@ -131,7 +138,6 @@ struct OrangeTrackingStatesActions
   using OrangeTrackingRiseTransitionAction =
       base_functors::bActionSequence<boost::mpl::vector<
           SetNoisePolynomialReference_<LogicStateMachineT,true>,
-          ArmGripActionFunctor_<LogicStateMachineT,true>,
           RelativePositionWaypointTransitionActionFunctor_<LogicStateMachineT,rise_index>>>;
 
   /**
@@ -148,4 +154,11 @@ struct OrangeTrackingStatesActions
       base_functors::bActionSequence<boost::mpl::vector<
           GoResetTransitionActionFunctor_<LogicStateMachineT>,
           ArmGripActionFunctor_<LogicStateMachineT,false>>>;
+
+  /**
+  * @brief Action to take when gripping.
+  */
+  using OrangeGrippingTransitionAction =
+      //base_functors::bActionSequence<boost::mpl::vector<
+          ArmGripActionFunctor_<LogicStateMachineT,true>;//>>;
 };

@@ -30,7 +30,7 @@
 #include <aerial_autonomy/actions_guards/pick_place_states_actions.h>
 
 // Robot System used
-#include <aerial_autonomy/robot_systems/uav_vision_system.h>
+#include <aerial_autonomy/robot_systems/uav_arm_system.h>
 
 // Logging library
 #include <glog/logging.h>
@@ -85,7 +85,7 @@ using otsa = OrangeTrackingStatesActions<OrangePickingStateMachine>;
 */
 class OrangePickingStateMachineFrontEnd
     : public msmf::state_machine_def<OrangePickingStateMachineFrontEnd>,
-      public BaseStateMachine<UAVVisionSystem> {//UAVArmSystem
+      public BaseStateMachine<UAVArmSystem> {//UAVArmSystem
 public:
   /**
   * @brief Action to take on entering state machine
@@ -119,7 +119,7 @@ public:
   * machine
   */
   OrangePickingStateMachineFrontEnd(
-      UAVVisionSystem &uav_system,
+      UAVArmSystem &uav_system,
       const BaseStateMachineConfig &state_machine_config)
       : BaseStateMachine(uav_system, state_machine_config) {
     /*auto pick_state_machine_config =
@@ -138,7 +138,7 @@ public:
    * @param uav_system robot system that is stored internally and shared with
    * events
    */
-  OrangePickingStateMachineFrontEnd(UAVVisionSystem &uav_system)
+  OrangePickingStateMachineFrontEnd(UAVArmSystem &uav_system)
       : OrangePickingStateMachineFrontEnd(uav_system, BaseStateMachineConfig()){};
 
   /**
@@ -225,7 +225,7 @@ public:
   /**
   * @brief Use Inherited no transition function
   */
-  using BaseStateMachine<UAVVisionSystem>::no_transition;//UAVArmSystem
+  using BaseStateMachine<UAVArmSystem>::no_transition;//UAVArmSystem
 };
 
 /**

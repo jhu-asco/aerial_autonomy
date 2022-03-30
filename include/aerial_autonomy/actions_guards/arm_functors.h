@@ -89,17 +89,17 @@ struct ArmGripActionFunctor_
   void run(ArmSystem &robot_system) {
     if (grip) {
       VLOG(1) << "Gripping!";
-      while(!robot_system.grip(true)){
+      if(!robot_system.grip(true)){
         VLOG(1) << "Grip Failed.... ";
-        usleep(500);
-        VLOG(1) << "Retrying";
+        //usleep(500);
+        //VLOG(1) << "Retrying";
       }
     } else {
       VLOG(1) << "UnGripping!";
-      while(!robot_system.grip(false)){
+      if(!robot_system.grip(false)){
         VLOG(1) << "Ungrip Failed.... ";
-        usleep(500);
-        VLOG(1) << "Retrying";
+        //usleep(500);
+        //VLOG(1) << "Retrying";
       }
     }
   }
@@ -159,14 +159,14 @@ struct ArmSineTransitionFunctor_
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
-template <class LogicStateMachineT>
+template <class LogicStateMachineT, class EventT = be::Abort>
 struct ArmStatusInternalActionFunctor_
     : InternalActionFunctor<ArmSystem, LogicStateMachineT> {
   bool run(ArmSystem &robot_system, LogicStateMachineT &logic_state_machine) {
     // Check if arm finally powered on
     if (!robot_system.enabled()) {
       LOG(WARNING) << "Arm not enabled! Aborting!";
-      logic_state_machine.process_event(be::Abort());
+      logic_state_machine.process_event(EventT());
       return false;
     }
     return true;

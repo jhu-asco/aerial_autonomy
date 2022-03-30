@@ -17,6 +17,7 @@ message OrangeTrackingStateMachineConfig {
   */
   optional uint32 pick_timeout = 2 [ default = 20000 ];
   optional config.PositionYaw window = 3;
+  optional bool ungrip_flag = 4 [ default = true];
 
   /**
   * @brief Placing and checking thresholds
