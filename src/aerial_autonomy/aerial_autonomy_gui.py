@@ -96,7 +96,7 @@ class EventTransmissionGUI(Plugin):
             QLabel('Pose Command Height (m)'))
         ## Height slider to adjust z coordinate for pose command
         ## \todo Matt: Load slider settings from param file
-        self.height_slider = self.createSlider(1.0, 20.0, 2.0, 1.0)
+        self.height_slider = self.createSlider(1.0, 3.0, 2.0, 0.1)
         self._additional_commands_layout.addWidget(self.height_slider)
         ## Add button for triggering pose command
         ## Container for pose event related objects: slide etc
