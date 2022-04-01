@@ -27,6 +27,7 @@ find_package(catkin REQUIRED COMPONENTS
   cv_bridge
   image_transport
   ar_track_alvar_msgs
+  vision_msgs
   dynamic_reconfigure
   gcop_comm
 )
@@ -292,6 +293,8 @@ set(SRC
   src/trackers/simple_tracker.cpp
   src/trackers/alvar_tracker.cpp
   src/trackers/global_alvar_tracker.cpp
+  src/trackers/object_tracker.cpp
+  src/trackers/global_object_tracker.cpp
   src/trackers/base_tracker.cpp
   src/trackers/simple_multi_tracker.cpp
   src/trackers/simulated_ros_tracker.cpp

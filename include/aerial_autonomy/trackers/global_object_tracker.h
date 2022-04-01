@@ -1,5 +1,5 @@
 #pragma once
-#include "aerial_autonomy/trackers/alvar_tracker.h"
+#include "aerial_autonomy/trackers/object_tracker.h"
 #include "aerial_autonomy/sensors/base_sensor.h"
 #include "aerial_autonomy/common/atomic.h"
 #include "aerial_autonomy/filters/exponential_filter.h"
@@ -9,9 +9,9 @@
 #include <boost/thread/mutex.hpp>
 
 /**
- * @brief Global alvar tracker gives estimates in the global frame
+ * @brief Global object tracker gives estimates in the global frame
  */
-class GlobalAlvarTracker : public AlvarTracker {
+class GlobalObjectTracker : public ObjectTracker {
 public:
   /**
   * @brief Constructor that stores drone hardware
@@ -26,7 +26,7 @@ public:
   * @param timeout Timeout before tracking is invalid
   * @param name_space Name space for node
   */
-  GlobalAlvarTracker(parsernode::Parser &drone_hardware,
+  GlobalObjectTracker(parsernode::Parser &drone_hardware,
                 tf::Transform camera_transform,
                 tf::Transform tracking_offset_transform = tf::Transform::getIdentity(),
                 double filter_gain_tracking_pose = 0.1,
@@ -63,10 +63,10 @@ public:
 
 private:
   /**
-  * @brief Marker subscriber callback
-  * @param marker_msg Marker message
+  * @brief Detection subscriber callback
+  * @param msg Detection array message
   */
-  void markerCallback(const ar_track_alvar_msgs::AlvarMarkers &marker_msg);
+  void detectionCallback(const vision_msgs::Detection3DArray &detect_msg);
 
   parsernode::Parser &drone_hardware_; ///< UAV Hardware
   Atomic<std::unordered_map<uint32_t, tf::Transform>> target_poses_; ///< Tracked poses

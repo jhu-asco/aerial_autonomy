@@ -9,7 +9,7 @@ Run the setup script in scripts/setup/setup.sh to configure Git hooks.
 
 Install the following dependencies (lcov, protobuf, doxygen, doxypy, coverxygen, google-glog, class-loader). On Ubuntu 18.04 run the following in a terminal (for different versions of Ubuntu replace melodic with your ROS version)
 
-    sudo apt-get install lcov protobuf-compiler libprotobuf-dev doxygen doxypy libgoogle-glog-dev ros-melodic-class-loader ros-melodic-ar-track-alvar-msgs autoconf python-pip ros-melodic-serial ros-melodic-map-server libarmadillo-dev
+    sudo apt-get install lcov protobuf-compiler libprotobuf-dev doxygen doxypy libgoogle-glog-dev ros-melodic-class-loader ros-melodic-ar-track-alvar-msgs ros-melodic-vision-msgs autoconf python-pip ros-melodic-serial ros-melodic-map-server libarmadillo-dev
     sudo pip install coverxygen
 
 Install protobuf 3.1: (Alternatively, protobuf 3.0.0, which is default with ROS Melodic, can be used and these steps can be skipped. Check version with `protoc --version`)
@@ -41,7 +41,7 @@ Install OpenCV with OpenCV Contrib (version must include tracking module). Follo
 	python3 -c "import cv2; print(cv2.version)"
 	python2 -c "import cv2; print(cv2.version)"
 
-Install our GCOP (Geometric Control, Optimization, and Planning) package. Build with support for casadi (USE_CASADI) and install the dependences from the GCOP README. Do the following **after required and optional dependencies from the GCOP README have been installed (Numbers 5 and 6)**: 
+Install our GCOP (Geometric Control, Optimization, and Planning) package. Build with support for casadi (USE_CASADI) and install the dependences from the GCOP README. Do the following **after required and optional dependencies from the GCOP README have been installed (Numbers 5 and 6)**:
 
     git clone https://github.com/jhu-asco/gcop.git
     cd gcop
@@ -100,7 +100,7 @@ The `simulator` launch file introduced above allows for specifying the log level
 
 ## Style
 This repository uses clang-format for style checking.  Pre-commit hooks ensure that all staged files conform to the style conventions.
-To skip pre-commit hooks and force a commit, use `git commit -n`. 
+To skip pre-commit hooks and force a commit, use `git commit -n`.
 
 ## Documentation Coverage
 We use coverxygen to generate documentation coverage for the doc: https://github.com/psycofdj/coverxygen
@@ -130,7 +130,7 @@ This section describes how to automatically calibrate a transform from a camera 
 ### Data Collection
 Attach an AR tag to the end effector of your arm.
 
-Use `rosbag record /ar_pose_marker /your_end_effector_position` where `/your_end_effector_position` is published by your arm driver and gives the position of the end effector in the arm frame (probably based on forward kinematics). 
+Use `rosbag record /ar_pose_marker /your_end_effector_position` where `/your_end_effector_position` is published by your arm driver and gives the position of the end effector in the arm frame (probably based on forward kinematics).
 
 Launch ar_track_alvar and move the arm around so that the end effector AR tag is visible in the camera.
 
