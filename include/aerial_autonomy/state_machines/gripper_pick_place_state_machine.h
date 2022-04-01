@@ -156,17 +156,17 @@ public:
                       gsa::HoverInPlaceTransitionAction, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::Hovering, PositionYaw, gsa::ReachingGoal,
-                      gsa::ReachingGoalSet, gsa::ReachingGoalGuard>,
+                      gsa::AbortControllerReachingGoalSet, gsa::ReachingGoalGuard>,
             msmf::Row<gsa::Hovering, VelocityYaw, gsa::ExecutingVelocityGoal,
-                      gsa::SetVelocityGoal, gsa::GuardVelocityGoal>,
+                      gsa::AbortControllerSetVelocityGoal, gsa::GuardVelocityGoal>,
             msmf::Row<gsa::Hovering, be::Land, gsa::Landing,
-                      gsa::LandingAction, msmf::none>,
+                      gsa::AbortControllerLandingAction, msmf::none>,
             msmf::Row<gsa::Hovering, ManualControlEvent, gsa::ManualControlArmState, 
-                      msmf::none, msmf::none>,
+                      gsa::UAVControllerAbort, msmf::none>,
             msmf::Row<gsa::Hovering, pe::Pick, gsa::WaitingForPick, 
-                      msmf::none, msmf::none>,
+                      gsa::UAVControllerAbort, msmf::none>,
             msmf::Row<gsa::Hovering, vse::GoHome, gsa::ReachingGoal,
-                      gsa::GoHomeTransitionAction, gsa::GoHomeTransitionGuard>,
+                      gsa::AbortControllerGoHomeTransitionAction, gsa::GoHomeTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::ReachingGoal, be::Abort, gsa::Hovering,
                       gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
@@ -243,7 +243,7 @@ public:
                       gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::ManualControlArmState, be::Takeoff, gsa::Hovering,
-                      gsa::ManualControlSwitchAction, gsa::ManualControlSwitchGuard>,
+                      gsa::ManualControlSwitchHoverInPlace, gsa::ManualControlSwitchGuard>,
             msmf::Row<gsa::ManualControlArmState, be::Land, gsa::Landed,
                       gsa::ManualControlSwitchAction, gsa::ManualControlSwitchGuard>> {};
   /**

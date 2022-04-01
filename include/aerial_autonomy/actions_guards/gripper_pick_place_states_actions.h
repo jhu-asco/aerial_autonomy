@@ -217,6 +217,47 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
           typename usa::UAVControllerAbort, 
           typename asa::AbortArmController,
           HoverPositionControlTransitionActionFunctor_<LogicStateMachineT>>>;
+
+  /**
+  * @brief Action sequence to switch into manual control and hover in place
+  */
+  using ManualControlSwitchHoverInPlace =
+    base_functors::bActionSequence<boost::mpl::vector<
+      ManualControlSwitchAction_<LogicStateMachineT>,
+      HoverPositionControlTransitionActionFunctor_<LogicStateMachineT>>>;
+
+  /**
+  * @brief set goal action when transitioning and abort hovering controller
+  */
+  using AbortControllerReachingGoalSet =
+    base_functors::bActionSequence<boost::mpl::vector<
+      typename usa::UAVControllerAbort, 
+      PositionControlTransitionActionFunctor_<LogicStateMachineT>>>;
+
+  /**
+  * @brief set velocity controller goal and abort hovering controller
+  */
+  using AbortControllerSetVelocityGoal =
+    base_functors::bActionSequence<boost::mpl::vector<
+      typename usa::UAVControllerAbort, 
+      VelocityControlTransitionActionFunctor_<LogicStateMachineT>>>;
+
+  /**
+  * @brief Action to take when landing and abort hovering controller
+  */
+  using AbortControllerLandingAction = 
+    base_functors::bActionSequence<boost::mpl::vector<
+      typename usa::UAVControllerAbort, 
+      LandTransitionActionFunctor_<LogicStateMachineT>>>;
+
+  /**
+  * @brief Send the UAV back to home position and abort hovering controller
+  */
+  using AbortControllerGoHomeTransitionAction =
+    base_functors::bActionSequence<boost::mpl::vector<
+      typename usa::UAVControllerAbort, 
+      GoHomeTransitionActionFunctor_<LogicStateMachineT>>>;
+
 //   /**
 //   * @brief State for following waypoints after picking object
 //   */
