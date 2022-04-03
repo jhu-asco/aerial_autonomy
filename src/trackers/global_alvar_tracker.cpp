@@ -1,5 +1,6 @@
 #include "aerial_autonomy/trackers/global_alvar_tracker.h"
 #include "aerial_autonomy/common/conversions.h"
+#include <geometry_msgs/TransformStamped.h>
 #include <glog/logging.h>
 
 GlobalAlvarTracker::GlobalAlvarTracker(
@@ -86,6 +87,9 @@ void GlobalAlvarTracker::markerCallback(
   // Recalculate tracking poses
   std::unordered_map<uint32_t, tf::Transform> object_poses = object_poses_;
   std::unordered_map<uint32_t, tf::Transform> target_poses;
+  geometry_msgs::TransformStamped tf_msg;
+  tf_msg.header.stamp = marker_msg.header.stamp;
+  tf_msg.header.frame_id = "world";
   for (auto object : object_poses)
   {
     target_poses[object.first] =
@@ -93,6 +97,11 @@ void GlobalAlvarTracker::markerCallback(
 
     // Filter (and removes rp)
     target_poses[object.first] = filter(object.first, target_poses[object.first]);
+
+    // Publish tf 
+    tf_msg.child_frame_id = "object_" + std::to_string(object.first);
+    tf::transformTFToMsg(target_poses[object.first], tf_msg.transform);
+    br.sendTransform(tf_msg);
   }
   target_poses_ = target_poses;
 }

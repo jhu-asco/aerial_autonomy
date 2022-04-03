@@ -96,7 +96,7 @@ class EventTransmissionGUI(Plugin):
             QLabel('Pose Command Height (m)'))
         ## Height slider to adjust z coordinate for pose command
         ## \todo Matt: Load slider settings from param file
-        self.height_slider = self.createSlider(1.0, 3.0, 2.0, 0.1)
+        self.height_slider = self.createSlider(10.0, 30.0, 20.0, 1.0)
         self._additional_commands_layout.addWidget(self.height_slider)
         ## Add button for triggering pose command
         ## Container for pose event related objects: slide etc
@@ -110,12 +110,13 @@ class EventTransmissionGUI(Plugin):
         ## y pose label to display position command from rviz to user
         self.pose_y = QLabel('y: -')
         ## z pose label to display position command from rviz to user
-        self.pose_z = QLabel("z: {0:.2f}".format(self.height_slider.value()))
+        self.pose_z = QLabel("z: {0:.2f}".format(self.height_slider.value() / 10.0))
         self.height_slider.valueChanged.connect(
             partial(self.updateLabel,
                     header="z",
                     label=self.pose_z,
-                    slider=self.height_slider))
+                    slider=self.height_slider,
+                    scale=10.0))
         self.pose_command_layout.addWidget(self.pose_x, 0, 0)
         self.pose_command_layout.addWidget(self.pose_y, 0, 1)
         self.pose_command_layout.addWidget(self.pose_z, 0, 2)
@@ -263,7 +264,7 @@ class EventTransmissionGUI(Plugin):
         Publishes stored pose command after setting height from slider
         """
         if self.pose_command:
-            self.pose_command.pose.position.z = self.height_slider.value()
+            self.pose_command.pose.position.z = self.height_slider.value() / 10.0
             self.event_trigger.triggerPoseCommand(self.pose_command)
             # Reset pose command to avoid accidental triggering
             self.pose_command = None

@@ -6,6 +6,7 @@
 #include "aerial_autonomy/types/position_yaw.h"
 #include <parsernode/parser.h>
 #include <tf/tf.h>
+#include <tf2_ros/transform_broadcaster.h>
 #include <boost/thread/mutex.hpp>
 
 /**
@@ -77,4 +78,5 @@ private:
       tracking_pose_filters_; ///< Filter for tracking pose for each id
   mutable boost::mutex filter_mutex_; ///< Synchronize access to data
   double filter_gain_tracking_pose_; ///< Filter gain
+  tf2_ros::TransformBroadcaster br; ///< TF Broadcaster
 };
