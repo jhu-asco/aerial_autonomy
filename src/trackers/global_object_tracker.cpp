@@ -95,6 +95,9 @@ void GlobalObjectTracker::detectionCallback(
     target_poses[object.first] =
       quad_pose * camera_transform_ * object.second; // * tracking_offset_transform_;
 
+    // Filter (and removes rp)
+    target_poses[object.first] = filter(object.first, target_poses[object.first]);
+
     // Set orientation based on straight line to vehicle
     // Assume rotating around z axis
     double x_diff = target_poses[object.first].getOrigin().getX() - quad_pose.getOrigin().getX();
@@ -104,9 +107,6 @@ void GlobalObjectTracker::detectionCallback(
 
     // Offset transform as desired
     target_poses[object.first] = target_poses[object.first] * tracking_offset_transform_;
-
-    // Filter (and removes rp)
-    target_poses[object.first] = filter(object.first, target_poses[object.first]);
 
     // Publish tf 
     tf_msg.child_frame_id = "object_" + std::to_string(object.first);
