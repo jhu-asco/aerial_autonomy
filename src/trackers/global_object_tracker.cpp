@@ -86,14 +86,13 @@ void GlobalObjectTracker::detectionCallback(
     quad_pose = conversions::getPose(quad_data);
   }
 
-  // Recalculate tracking poses
-  std::unordered_map<uint32_t, tf::Transform> object_poses = object_poses_;
+  // Recalculate tracking poses for any new detections
   std::unordered_map<uint32_t, tf::Transform> target_poses;
   std::unordered_map<uint32_t, tf::Transform> previous_target_poses = target_poses_;
   geometry_msgs::TransformStamped tf_msg;
   tf_msg.header.stamp = detect_msg.header.stamp;
   tf_msg.header.frame_id = "world";
-  for (auto object : object_poses)
+  for (auto object : new_object_poses_)
   {
     target_poses[object.first] =
       quad_pose * camera_transform_ * object.second; // * tracking_offset_transform_;

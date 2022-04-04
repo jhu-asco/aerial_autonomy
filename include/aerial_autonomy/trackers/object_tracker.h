@@ -83,6 +83,10 @@ protected:
   */
   Atomic<std::unordered_map<uint32_t, tf::Transform>> object_poses_;
   /**
+  * @brief Stored new tracking transforms
+  */
+  std::unordered_map<uint32_t, tf::Transform> new_object_poses_;
+  /**
   * @brief Timeout for valid update
   */
   const std::chrono::duration<double> timeout_;

@@ -52,6 +52,7 @@ void ObjectTracker::detectionCallback(
   last_tracking_time_ = std::chrono::high_resolution_clock::now();
   std::unordered_map<uint32_t, tf::Transform> object_poses = object_poses_;
   std::unordered_map<uint32_t, ros::Time> last_valid_times = last_valid_times_;
+  new_object_poses_.clear();
   for (unsigned int i = 0; i < detect_msg.detections.size(); i++) {
     auto object_pose = detect_msg.detections[i].results[0].pose.pose;
     int object_id = detect_msg.detections[i].results[0].id;
@@ -61,6 +62,7 @@ void ObjectTracker::detectionCallback(
         tf::Vector3(object_pose.position.x, object_pose.position.y,
                     object_pose.position.z));    
     object_poses[object_id] = transform;
+    new_object_poses_[object_id] = transform;
     last_valid_times[object_id] = current_time;
   }
   object_poses_ = object_poses;
