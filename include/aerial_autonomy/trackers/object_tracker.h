@@ -72,7 +72,7 @@ protected:
   /**
   * @brief Last time we received a non-empty Detection message
   */
-  Atomic<ros::Time> last_valid_time_;
+  Atomic<std::unordered_map<uint32_t, ros::Time>> last_valid_times_;
   /**
   * @brief Last time we received a non-empty Detection message
   */
