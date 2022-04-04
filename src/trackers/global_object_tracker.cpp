@@ -87,7 +87,7 @@ void GlobalObjectTracker::detectionCallback(
   }
 
   // Recalculate tracking poses for any new detections
-  std::unordered_map<uint32_t, tf::Transform> target_poses;
+  std::unordered_map<uint32_t, tf::Transform> target_poses = target_poses_;
   std::unordered_map<uint32_t, tf::Transform> previous_target_poses = target_poses_;
   geometry_msgs::TransformStamped tf_msg;
   tf_msg.header.stamp = detect_msg.header.stamp;
