@@ -318,6 +318,7 @@ protected:
         tracker_pointer = BaseTrackerPtr(new GlobalObjectTracker(*drone_hardware, camera_transform,
           conversions::protoTransformToTf(config.uav_vision_system_config().tracking_offset_transform()),
             config.uav_vision_system_config().gain_visual_servoing_tracking_pose(),
+            config.uav_vision_system_config().gain_steps_visual_servoing_tracking_pose(),
             odom_sensor, tracker_timeout));
       } else if (tracker_type == "Simulated") {
         tracker_pointer = BaseTrackerPtr(new SimulatedROSTracker(

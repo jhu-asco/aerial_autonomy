@@ -2,7 +2,7 @@
 #include "aerial_autonomy/trackers/object_tracker.h"
 #include "aerial_autonomy/sensors/base_sensor.h"
 #include "aerial_autonomy/common/atomic.h"
-#include "aerial_autonomy/filters/exponential_filter.h"
+#include "aerial_autonomy/filters/decaying_exponential_filter.h"
 #include "aerial_autonomy/types/position_yaw.h"
 #include <parsernode/parser.h>
 #include <tf/tf.h>
@@ -31,6 +31,7 @@ public:
                 tf::Transform camera_transform,
                 tf::Transform tracking_offset_transform = tf::Transform::getIdentity(),
                 double filter_gain_tracking_pose = 0.1,
+                double filter_gain_steps = 10,
                 SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor = nullptr,
                 std::chrono::duration<double> timeout = std::chrono::milliseconds(500),
                 std::string name_space = "~tracker");
@@ -74,9 +75,10 @@ private:
   tf::Transform camera_transform_; ///< Transform of camera in uav frame
   tf::Transform tracking_offset_transform_; ///< Transform to offset the tracking vector
   SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor_; ///< Odom sensor, if available
-  std::unordered_map<uint32_t, ExponentialFilter<PositionYaw>>
+  std::unordered_map<uint32_t, DecayingExponentialFilter<PositionYaw>>
       tracking_pose_filters_; ///< Filter for tracking pose for each id
   mutable boost::mutex filter_mutex_; ///< Synchronize access to data
   double filter_gain_tracking_pose_; ///< Filter gain
+  double filter_gain_steps_; ///< Filter gain steps to get to gain
   tf2_ros::TransformBroadcaster br; ///< TF Broadcaster
 };

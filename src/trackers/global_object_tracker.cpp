@@ -8,6 +8,7 @@ GlobalObjectTracker::GlobalObjectTracker(
             tf::Transform camera_transform,
             tf::Transform tracking_offset_transform,
             double filter_gain_tracking_pose,
+            double filter_gain_steps,
             SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor,
             std::chrono::duration<double> timeout,
             std::string name_space)
@@ -16,7 +17,8 @@ GlobalObjectTracker::GlobalObjectTracker(
     camera_transform_(camera_transform),
     tracking_offset_transform_(tracking_offset_transform),
     odom_sensor_(odom_sensor),
-    filter_gain_tracking_pose_(filter_gain_tracking_pose)
+    filter_gain_tracking_pose_(filter_gain_tracking_pose),
+    filter_gain_steps_(filter_gain_steps)
   {
     detection_sub_ = nh_.subscribe("object_detections", 1,
                             &GlobalObjectTracker::detectionCallback, this);
@@ -27,7 +29,7 @@ tf::Transform GlobalObjectTracker::filter(uint32_t id, tf::Transform input) {
   // If there isn't a filter for that key, add one
   if (tracking_pose_filters_.find(id) == tracking_pose_filters_.end())
   {
-    tracking_pose_filters_.insert({id, ExponentialFilter<PositionYaw>(filter_gain_tracking_pose_)});
+    tracking_pose_filters_.insert({id, DecayingExponentialFilter<PositionYaw>(filter_gain_tracking_pose_, 10)});
   }
 
   PositionYaw tracking_position_yaw;
@@ -87,6 +89,7 @@ void GlobalObjectTracker::detectionCallback(
   // Recalculate tracking poses
   std::unordered_map<uint32_t, tf::Transform> object_poses = object_poses_;
   std::unordered_map<uint32_t, tf::Transform> target_poses;
+  std::unordered_map<uint32_t, tf::Transform> previous_target_poses = target_poses_;
   geometry_msgs::TransformStamped tf_msg;
   tf_msg.header.stamp = detect_msg.header.stamp;
   tf_msg.header.frame_id = "world";
@@ -98,15 +101,23 @@ void GlobalObjectTracker::detectionCallback(
     // Filter (and removes rp)
     target_poses[object.first] = filter(object.first, target_poses[object.first]);
 
-    // Set orientation based on straight line to vehicle
-    // Assume rotating around z axis
-    double x_diff = target_poses[object.first].getOrigin().getX() - quad_pose.getOrigin().getX();
-    double y_diff = target_poses[object.first].getOrigin().getY() - quad_pose.getOrigin().getY();
-    double yaw = atan2(y_diff, x_diff);
-    target_poses[object.first].setRotation(tf::Quaternion(0, 0, sin(yaw/2), cos(yaw/2)));
+    // If estimate is relatively stable keep orientation fixed, otherwise set orientation based on straight line 
+    if (tracking_pose_filters_.at(object.first).isDecayComplete())
+    {
+      target_poses[object.first].setRotation(previous_target_poses[object.first].getRotation());
+    }
+    else
+    {
+      // Set orientation based on straight line to vehicle
+      // Assume rotating around z axis
+      double x_diff = target_poses[object.first].getOrigin().getX() - quad_pose.getOrigin().getX();
+      double y_diff = target_poses[object.first].getOrigin().getY() - quad_pose.getOrigin().getY();
+      double yaw = atan2(y_diff, x_diff);
+      target_poses[object.first].setRotation(tf::Quaternion(0, 0, sin(yaw/2), cos(yaw/2)));
 
-    // Offset transform as desired
-    target_poses[object.first] = target_poses[object.first] * tracking_offset_transform_;
+      // Offset transform as desired
+      target_poses[object.first] = target_poses[object.first] * tracking_offset_transform_;
+    }
 
     // Publish tf 
     tf_msg.child_frame_id = "object_" + std::to_string(object.first);

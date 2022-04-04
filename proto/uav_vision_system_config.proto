@@ -67,6 +67,10 @@ message UAVVisionSystemConfig {
   */
   optional double gain_visual_servoing_tracking_pose = 12 [ default = 0.1 ];
   /**
+  * @brief Filter on visual servoing tracking position yaw
+  */
+  optional double gain_steps_visual_servoing_tracking_pose = 16 [ default = 10 ];
+  /**
   * @brief polynomial reference config
   */
   optional PolynomialReferenceConfig poly_reference_config = 13;
