@@ -17,6 +17,18 @@ OdomFromPoseSensor::getSensorData() {
 
 void OdomFromPoseSensor::poseCallback(
     const geometry_msgs::TransformStampedConstPtr &pose_input) {
+  
+  if (isnan(pose_input->transform.translation.x) ||
+      isnan(pose_input->transform.translation.y) ||
+      isnan(pose_input->transform.translation.z) ||
+      isnan(pose_input->transform.rotation.x) ||
+      isnan(pose_input->transform.rotation.y) ||
+      isnan(pose_input->transform.rotation.z) ||
+      isnan(pose_input->transform.rotation.w))
+  {
+    return;
+  }
+
   tf::StampedTransform pose_out;
   tf::transformStampedMsgToTF(*pose_input, pose_out);
   tf::StampedTransform previous_pose = pose_;

@@ -17,6 +17,18 @@ OdomSensor::getSensorData() {
 // Take in odometry message and determine the pose as a stamped transform and velocity
 void OdomSensor::odomCallback(
     const nav_msgs::OdometryConstPtr &odom_input) {
+
+  if (isnan(odom_input->pose.pose.position.x) ||
+      isnan(odom_input->pose.pose.position.y) ||
+      isnan(odom_input->pose.pose.position.z) ||
+      isnan(odom_input->pose.pose.orientation.x) ||
+      isnan(odom_input->pose.pose.orientation.y) ||
+      isnan(odom_input->pose.pose.orientation.z) ||
+      isnan(odom_input->pose.pose.orientation.w))
+  {
+    return;
+  }
+
   tf::Pose pose_out;
   tf::poseMsgToTF(odom_input->pose.pose, pose_out);
   const ros::Time stamp = odom_input->header.stamp;
