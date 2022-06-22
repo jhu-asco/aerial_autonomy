@@ -3,7 +3,7 @@ visual_servoing_state_machine_config {
   # Prepick
   relative_pose_goals {
     position {
-      x: 0.95
+      x: 1.0
       y: -0.08
       z: 0.0
     }

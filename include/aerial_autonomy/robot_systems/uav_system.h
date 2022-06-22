@@ -407,6 +407,7 @@ public:
   */
   std::string getSystemStatus() const {
     parsernode::common::quaddata data = getUAVData();
+    tf::StampedTransform current_pose = getPose();
     HtmlTableWriter table_writer;
     table_writer.beginRow();
     table_writer.addHeader("UAV Status", Colors::blue, 4);
@@ -417,9 +418,9 @@ public:
     table_writer.addCell(data.batterypercent, "Battery Percent",
                          battery_percent_color, 2);
     table_writer.beginRow();
-    table_writer.addCell(data.localpos.x, "Local x");
-    table_writer.addCell(data.localpos.y, "Local y");
-    table_writer.addCell(data.localpos.z, "Local z");
+    table_writer.addCell(current_pose.getOrigin().getX(), "Local x");
+    table_writer.addCell(current_pose.getOrigin().getY(), "Local y");
+    table_writer.addCell(current_pose.getOrigin().getZ(), "Local z");
     table_writer.addCell(data.altitude, "Altitude");
     table_writer.beginRow();
     table_writer.addCell(data.rpydata.x * (180 / M_PI), "Roll");
@@ -442,18 +443,18 @@ public:
     table_writer.addCell(data.velocity_goal.x, "Goal vel x");
     table_writer.addCell(data.velocity_goal.y, "Goal vel y");
     table_writer.addCell(data.velocity_goal.z, "Goal vel z");
-    table_writer.addCell(data.velocity_goal_yaw, "Goal yaw");
+    table_writer.addCell(data.velocity_goal_yaw * (180 / M_PI), "Goal yaw");
     table_writer.beginRow();
     table_writer.addCell(data.position_goal.x, "Goal pos x");
     table_writer.addCell(data.position_goal.y, "Goal pos y");
     table_writer.addCell(data.position_goal.z, "Goal pos z");
-    table_writer.addCell(data.velocity_goal_yaw, "Goal yaw");
+    table_writer.addCell(data.velocity_goal_yaw * (180 / M_PI), "Goal yaw");
     table_writer.beginRow();
     table_writer.addCell(data.mass, "Mass");
     table_writer.addCell(data.timestamp, "Timestamp", Colors::white, 2);
     table_writer.beginRow();
     std::string quad_state_color = (data.armed ? Colors::green : Colors::white);
-    table_writer.addCell(data.quadstate, "Quadstate", quad_state_color, 2);
+    table_writer.addCell(data.quadstate, "Quadstate", quad_state_color, 4);
     return table_writer.getTableString();
   }
 
@@ -513,7 +514,7 @@ public:
    * @brief get the current pose frome either pose sensor/quad data
    * @return pose as stamped transform
    */
-  tf::StampedTransform getPose() {
+  tf::StampedTransform getPose() const {
     tf::StampedTransform result;
     ///\todo Figure out what to do if pose sensor is not valid??
     if (odom_sensor_) {

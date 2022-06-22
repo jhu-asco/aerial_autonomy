@@ -65,6 +65,7 @@ public:
             config_.uav_vision_system_config().camera_transform())),
         tracker_(UAVVisionSystem::chooseTracker(tracker, drone_hardware_,
                                                 camera_transform_, config)),
+        tracking_vectors_ptr(new std::unordered_map<uint32_t, tf::Transform>()),
         acceleration_bias_estimator_(config_.uav_vision_system_config()
                                          .acceleration_bias_estimator_config()),
         constant_heading_depth_controller_(
@@ -186,28 +187,32 @@ public:
     table_writer_tracker.beginRow();
     table_writer_tracker.addHeader("Tracker Status", Colors::blue);
     table_writer_tracker.beginRow();
-    std::string tracking_valid =
-        (tracker_->trackingIsValid() ? "True" : "False");
-    std::string valid_color =
-        (tracker_->trackingIsValid() ? Colors::green : Colors::red);
+    std::string tracking_valid;
+    std::string valid_color;
+    std::unordered_map<uint32_t, tf::Transform> tracking_vectors = *tracking_vectors_ptr;
+    if (tracker_->trackingIsValid()) {
+      tracking_valid = "True";
+      valid_color = Colors::green;
+      tracker_->getTrackingVectors(tracking_vectors);
+    } else {
+      tracking_valid = "False";
+      valid_color = Colors::red;
+    }
     table_writer_tracker.addCell(tracking_valid, "Valid", valid_color);
     table_writer_tracker.beginRow();
     table_writer_tracker.addCell("Tracking Vectors: ");
-    std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
-    if (tracker_->getTrackingVectors(tracking_vectors)) {
-      for (auto tv : tracking_vectors) {
-        tf::Transform tv_body_frame = camera_transform_ * tv.second;
-        table_writer_tracker.beginRow();
-        table_writer_tracker.addCell(tv.first);
-        table_writer_tracker.addCell(tv_body_frame.getOrigin().x());
-        table_writer_tracker.addCell(tv_body_frame.getOrigin().y());
-        table_writer_tracker.addCell(tv_body_frame.getOrigin().z());
-        double roll, pitch, yaw;
-        tv_body_frame.getBasis().getRPY(roll, pitch, yaw);
-        table_writer_tracker.addCell(roll);
-        table_writer_tracker.addCell(pitch);
-        table_writer_tracker.addCell(yaw);
-      }
+    for (auto tv : tracking_vectors) {
+      tf::Transform tv_body_frame = camera_transform_ * tv.second;
+      table_writer_tracker.beginRow();
+      table_writer_tracker.addCell(tv.first);
+      table_writer_tracker.addCell(tv_body_frame.getOrigin().x());
+      table_writer_tracker.addCell(tv_body_frame.getOrigin().y());
+      table_writer_tracker.addCell(tv_body_frame.getOrigin().z());
+      double roll, pitch, yaw;
+      tv_body_frame.getBasis().getRPY(roll, pitch, yaw);
+      table_writer_tracker.addCell(roll);
+      table_writer_tracker.addCell(pitch);
+      table_writer_tracker.addCell(yaw);
     }
     status << table_writer_acc.getTableString()
            << table_writer_tracker.getTableString();
@@ -247,6 +252,10 @@ protected:
   tf::Transform camera_transform_;
 
   BaseTrackerPtr tracker_; ///< Tracking system
+  /**
+   * @brief tracking_vectors (to persist between calls)
+   */
+  std::unordered_map<uint32_t, tf::Transform>* tracking_vectors_ptr;
 
   /**
    * @brief Choose between user provided tracker and the one in the config file

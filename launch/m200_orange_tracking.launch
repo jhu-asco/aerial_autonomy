@@ -27,7 +27,7 @@
     <param name="~arm/max_joint_velocity" value="0.7" />
     <param name="~arm/jaw_arm_ungrip_angle" type="int" value="24610"/>
     <param name="~arm/jaw_arm_pregrip_angle" type="int" value="32170"/>
-    <param name="~arm/jaw_arm_grip_angle" type="int" value="32610"/>
+    <param name="~arm/jaw_arm_grip_angle" type="int" value="32750"/>
 
     <!-- Matrice SDK params -->
     <param name="~uav/use_guidance_pos" type="bool" value="false"/>

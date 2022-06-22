@@ -77,7 +77,9 @@ uav_system_config {
   }
 
   thrust_gain_estimator_config {
-    kt: 0.18
+    kt: 0.30
+    kt_max: 0.50
+    kt_min: 0.20
     buffer_size: 10
     mixing_gain: 0.2
     max_roll_pitch_bias: 0.025
