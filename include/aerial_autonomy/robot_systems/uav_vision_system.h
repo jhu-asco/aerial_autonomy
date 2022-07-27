@@ -14,9 +14,8 @@
 #include "aerial_autonomy/estimators/tracking_vector_estimator.h"
 #include "aerial_autonomy/robot_systems/uav_system.h"
 #include "aerial_autonomy/trackers/alvar_tracker.h"
-#include "aerial_autonomy/trackers/global_alvar_tracker.h"
 #include "aerial_autonomy/trackers/object_tracker.h"
-#include "aerial_autonomy/trackers/global_object_tracker.h"
+#include "aerial_autonomy/trackers/global_tracker.h"
 #include "aerial_autonomy/trackers/roi_to_plane_converter.h"
 #include "aerial_autonomy/trackers/roi_to_position_converter.h"
 #include "aerial_autonomy/trackers/simulated_ros_tracker.h"
@@ -307,15 +306,10 @@ protected:
         tracker_pointer = BaseTrackerPtr(new RoiToPlaneConverter());
       } else if (tracker_type == "Alvar") {
         tracker_pointer = BaseTrackerPtr(new AlvarTracker(tracker_timeout));
-      } else if (tracker_type == "GlobalAlvar") {
-        tracker_pointer = BaseTrackerPtr(new GlobalAlvarTracker(*drone_hardware, camera_transform,
-          conversions::protoTransformToTf(config.uav_vision_system_config().tracking_offset_transform()),
-            config.uav_vision_system_config().gain_visual_servoing_tracking_pose(),
-            odom_sensor, tracker_timeout));
       } else if (tracker_type == "Object") {
         tracker_pointer = BaseTrackerPtr(new ObjectTracker(tracker_timeout));
-      } else if (tracker_type == "GlobalObject") {
-        tracker_pointer = BaseTrackerPtr(new GlobalObjectTracker(*drone_hardware, camera_transform,
+      } else if ((tracker_type == "GlobalAlvar") || (tracker_type == "GlobalObject"))  {
+        tracker_pointer = BaseTrackerPtr(new GlobalTracker(tracker_type, *drone_hardware, camera_transform,
           conversions::protoTransformToTf(config.uav_vision_system_config().tracking_offset_transform()),
             config.uav_vision_system_config().gain_visual_servoing_tracking_pose(),
             config.uav_vision_system_config().gain_steps_visual_servoing_tracking_pose(),

@@ -54,13 +54,22 @@ public:
   */
   bool isConnected();
 
-protected:
+  /**
+  * @brief Get the new tracking transforms
+  */
+  std::unordered_map<uint32_t, tf::Transform>
+  getNewObjectPoses()
+  {
+    return new_object_poses_;
+  }
+
   /**
   * @brief Detection subscriber callback
   * @param msg Detection array message
   */
   void detectionCallback(const vision_msgs::Detection3DArray &detect_msg);
 
+protected:
   /**
   * @brief ROS node handle for communication
   */

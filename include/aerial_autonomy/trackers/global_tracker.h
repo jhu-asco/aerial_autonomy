@@ -1,5 +1,6 @@
 #pragma once
-#include "aerial_autonomy/trackers/object_tracker.h"
+#include "aerial_autonomy/trackers/base_tracker.h"
+#include "aerial_autonomy/trackers/closest_tracking_strategy.h"
 #include "aerial_autonomy/sensors/base_sensor.h"
 #include "aerial_autonomy/common/atomic.h"
 #include "aerial_autonomy/filters/decaying_exponential_filter.h"
@@ -9,15 +10,27 @@
 #include <tf2_ros/transform_broadcaster.h>
 #include <boost/thread/mutex.hpp>
 
+#include <vision_msgs/Detection3DArray.h>
+#include <ar_track_alvar_msgs/AlvarMarkers.h>
+#include <std_msgs/Header.h>
+
+#include "aerial_autonomy/trackers/object_tracker.h"
+#include "aerial_autonomy/trackers/alvar_tracker.h"
+
+#include <chrono>
+#include <ros/ros.h>
+
 /**
  * @brief Global object tracker gives estimates in the global frame
+ * Wraps an existing ROS tracker. Intended for Alvar and Object trackers
  */
-class GlobalObjectTracker : public ObjectTracker {
+class GlobalTracker : public BaseTracker {
 public:
   /**
   * @brief Constructor that stores drone hardware
   * and camera transform for further use
   *
+  * @param tracker_type Type of local tracker
   * @param drone_hardware UAV Hardware for getting sensor data
   * @param camera_transform Camera transform from UAV base
   * @param tracking_offset_transform Additional transform to apply to tracked
@@ -27,14 +40,15 @@ public:
   * @param timeout Timeout before tracking is invalid
   * @param name_space Name space for node
   */
-  GlobalObjectTracker(parsernode::Parser &drone_hardware,
+  GlobalTracker(std::string tracker_type,
+                parsernode::Parser &drone_hardware,
                 tf::Transform camera_transform,
                 tf::Transform tracking_offset_transform = tf::Transform::getIdentity(),
                 double filter_gain_tracking_pose = 0.1,
                 double filter_gain_steps = 10,
                 SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor = nullptr,
                 std::chrono::duration<double> timeout = std::chrono::milliseconds(500),
-                std::string name_space = "~tracker");
+                std::string name_space = "~global_tracker");
 
 /**
    * @brief Get the tracking vectors
@@ -46,6 +60,18 @@ public:
 
   virtual bool
   vectorIsGlobal();
+
+  /**
+  * @brief Check whether tracking is valid
+  * @return True if the tracking is valid, false otherwise
+  */
+  virtual bool trackingIsValid();
+
+  /**
+  * @brief Get the time stamp of the current tracking vectors
+  */
+  virtual std::chrono::time_point<std::chrono::high_resolution_clock>
+  getTrackingTime();
 
   /**
   * @brief Filter the position, yaw
@@ -65,10 +91,21 @@ public:
 
 private:
   /**
-  * @brief Detection subscriber callback
-  * @param msg Detection array message
+  * @brief Tracker subscriber callback
   */
-  void detectionCallback(const vision_msgs::Detection3DArray &detect_msg);
+  void trackerCallback(const std_msgs::Header &header_msg, std::unordered_map<uint32_t, tf::Transform> new_object_poses);
+
+  /**
+  * @brief Object Tracker subscriber callback
+  * @param tracker_msg Tracker array message
+  */
+  void objectTrackerCallback(const vision_msgs::Detection3DArray &tracker_msg);
+
+  /**
+  * @brief Alvar Tracker subscriber callback
+  * @param tracker_msg Tracker array message
+  */
+  void alvarTrackerCallback(const ar_track_alvar_msgs::AlvarMarkers &tracker_msg);
 
   parsernode::Parser &drone_hardware_; ///< UAV Hardware
   Atomic<std::unordered_map<uint32_t, tf::Transform>> target_poses_; ///< Tracked poses
@@ -81,4 +118,18 @@ private:
   double filter_gain_tracking_pose_; ///< Filter gain
   double filter_gain_steps_; ///< Filter gain steps to get to gain
   tf2_ros::TransformBroadcaster br; ///< TF Broadcaster
+  ros::Subscriber tracker_sub_;
+  AlvarTracker *alvar_tracker_;
+  ObjectTracker *object_tracker_;
+  std::string tracker_type_;
+
+  /**
+  * @brief ROS node handle for communication
+  */
+  ros::NodeHandle nh_;
+
+  /**
+  * @brief Default number of retries for tracking a locked target
+  */
+  const int default_num_retries_ = 25;
 };

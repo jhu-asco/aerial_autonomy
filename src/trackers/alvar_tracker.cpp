@@ -27,6 +27,7 @@ void AlvarTracker::markerCallback(
   last_valid_time_ = ros::Time::now();
   last_tracking_time_ = std::chrono::high_resolution_clock::now();
   std::unordered_map<uint32_t, tf::Transform> object_poses;
+  new_object_poses_.clear();
   for (unsigned int i = 0; i < marker_msg.markers.size(); i++) {
     auto marker_pose = marker_msg.markers[i].pose.pose;
     tf::Transform transform(
@@ -35,6 +36,7 @@ void AlvarTracker::markerCallback(
         tf::Vector3(marker_pose.position.x, marker_pose.position.y,
                     marker_pose.position.z));
     object_poses[marker_msg.markers[i].id] = transform;
+    new_object_poses_[marker_msg.markers[i].id] = transform;
   }
   object_poses_ = object_poses;
 }

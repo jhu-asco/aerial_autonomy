@@ -292,9 +292,8 @@ set(SRC
   src/trackers/roi_to_plane_converter.cpp
   src/trackers/simple_tracker.cpp
   src/trackers/alvar_tracker.cpp
-  src/trackers/global_alvar_tracker.cpp
   src/trackers/object_tracker.cpp
-  src/trackers/global_object_tracker.cpp
+  src/trackers/global_tracker.cpp
   src/trackers/base_tracker.cpp
   src/trackers/simple_multi_tracker.cpp
   src/trackers/simulated_ros_tracker.cpp

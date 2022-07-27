@@ -52,13 +52,22 @@ public:
   */
   bool isConnected();
 
-protected:
+  /**
+  * @brief Get the new tracking transforms
+  */
+  std::unordered_map<uint32_t, tf::Transform>
+  getNewObjectPoses()
+  {
+    return new_object_poses_;
+  }
+
   /**
   * @brief Marker subscriber callback
   * @param marker_msg Marker message
   */
   void markerCallback(const ar_track_alvar_msgs::AlvarMarkers &marker_msg);
 
+protected:
   /**
   * @brief ROS node handle for communication
   */
@@ -80,6 +89,10 @@ protected:
   * @brief Stored tracking transforms
   */
   Atomic<std::unordered_map<uint32_t, tf::Transform>> object_poses_;
+  /**
+  * @brief Stored new tracking transforms
+  */
+  std::unordered_map<uint32_t, tf::Transform> new_object_poses_;
   /**
   * @brief Timeout for valid update
   */

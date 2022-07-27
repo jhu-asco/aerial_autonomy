@@ -1,9 +1,10 @@
-#include "aerial_autonomy/trackers/global_object_tracker.h"
+#include "aerial_autonomy/trackers/global_tracker.h"
 #include "aerial_autonomy/common/conversions.h"
 #include <geometry_msgs/TransformStamped.h>
 #include <glog/logging.h>
 
-GlobalObjectTracker::GlobalObjectTracker(
+GlobalTracker::GlobalTracker(
+            std::string tracker_type,
             parsernode::Parser &drone_hardware,
             tf::Transform camera_transform,
             tf::Transform tracking_offset_transform,
@@ -12,19 +13,37 @@ GlobalObjectTracker::GlobalObjectTracker(
             SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor,
             std::chrono::duration<double> timeout,
             std::string name_space)
-  : ObjectTracker(timeout, name_space),
+  : BaseTracker(std::move(std::unique_ptr<TrackingStrategy>(
+            new ClosestTrackingStrategy(default_num_retries_)))),
     drone_hardware_(drone_hardware),
     camera_transform_(camera_transform),
     tracking_offset_transform_(tracking_offset_transform),
     odom_sensor_(odom_sensor),
     filter_gain_tracking_pose_(filter_gain_tracking_pose),
-    filter_gain_steps_(filter_gain_steps)
+    filter_gain_steps_(filter_gain_steps),
+    nh_(name_space)
+{
+  tracker_type_ = tracker_type; 
+  if (tracker_type_ == "GlobalAlvar")
   {
-    detection_sub_ = nh_.subscribe("object_detections", 1,
-                            &GlobalObjectTracker::detectionCallback, this);
+    alvar_tracker_ = new AlvarTracker(timeout);
+    tracker_sub_ = nh_.subscribe("ar_pose_marker", 1,
+                          &GlobalTracker::alvarTrackerCallback, this);
+  } 
+  else if (tracker_type_ == "GlobalObject")
+  {
+    object_tracker_ = new ObjectTracker(timeout);
+    tracker_sub_ = nh_.subscribe("object_detections", 1,
+                          &GlobalTracker::objectTrackerCallback, this);
+  } 
+  else 
+  {
+    throw std::runtime_error("Unknown tracker type provided to GlobalTracker: " +
+                              tracker_type_);
   }
+}
 
-tf::Transform GlobalObjectTracker::filter(uint32_t id, tf::Transform input) {
+tf::Transform GlobalTracker::filter(uint32_t id, tf::Transform input) {
   boost::mutex::scoped_lock lock(filter_mutex_);
   // If there isn't a filter for that key, add one
   if (tracking_pose_filters_.find(id) == tracking_pose_filters_.end())
@@ -41,7 +60,7 @@ tf::Transform GlobalObjectTracker::filter(uint32_t id, tf::Transform input) {
   return filtered_pose;
 }
 
-void GlobalObjectTracker::resetFilters() {
+void GlobalTracker::resetFilters() {
   boost::mutex::scoped_lock lock(filter_mutex_);
   for (auto filter : tracking_pose_filters_)
   {
@@ -50,11 +69,11 @@ void GlobalObjectTracker::resetFilters() {
 }
 
 bool
-GlobalObjectTracker::vectorIsGlobal() {
+GlobalTracker::vectorIsGlobal() {
   return true;
 }
 
-bool GlobalObjectTracker::getTrackingVectors(
+bool GlobalTracker::getTrackingVectors(
     std::unordered_map<uint32_t, tf::Transform> &pose) {
   if (!trackingIsValid()) {
     return false;
@@ -63,15 +82,62 @@ bool GlobalObjectTracker::getTrackingVectors(
   return true;
 }
 
-void GlobalObjectTracker::detectionCallback(
-    const vision_msgs::Detection3DArray &detect_msg) {
+bool GlobalTracker::trackingIsValid() {
+  if (tracker_type_ == "GlobalAlvar")
+  {
+    return alvar_tracker_->trackingIsValid();
+  } 
+  else if (tracker_type_ == "GlobalObject")
+  {
+    return object_tracker_->trackingIsValid();
+  } 
+  return false;
+}
+
+std::chrono::time_point<std::chrono::high_resolution_clock>
+GlobalTracker::getTrackingTime() {
+  if (tracker_type_ == "GlobalAlvar")
+  {
+    return alvar_tracker_->getTrackingTime();
+  } 
+  else if (tracker_type_ == "GlobalObject")
+  {
+    return object_tracker_->getTrackingTime();
+  } 
+  return std::chrono::high_resolution_clock::now();
+}
+
+void GlobalTracker::objectTrackerCallback(
+      const vision_msgs::Detection3DArray &tracker_msg)
+{
 
   // Return if there are not any detections
-  if (detect_msg.detections.size() == 0)
+  if (tracker_msg.detections.size() == 0)
     return;
 
-  ObjectTracker::detectionCallback(detect_msg);
+  object_tracker_->detectionCallback(tracker_msg);
 
+  trackerCallback(tracker_msg.header, object_tracker_->getNewObjectPoses());
+
+}
+
+void GlobalTracker::alvarTrackerCallback(
+      const ar_track_alvar_msgs::AlvarMarkers &tracker_msg)
+{
+
+  // Return if there are not any markers
+  if (tracker_msg.markers.size() == 0)
+    return;
+
+  alvar_tracker_->markerCallback(tracker_msg);
+
+  trackerCallback(tracker_msg.header, alvar_tracker_->getNewObjectPoses());
+
+}
+
+void GlobalTracker::trackerCallback(const std_msgs::Header &header_msg, 
+                      std::unordered_map<uint32_t, tf::Transform> new_object_poses)
+{
   // Convert poses to world frame
   parsernode::common::quaddata quad_data;
   drone_hardware_.getquaddata(quad_data);
@@ -90,9 +156,9 @@ void GlobalObjectTracker::detectionCallback(
   std::unordered_map<uint32_t, tf::Transform> target_poses = target_poses_;
   std::unordered_map<uint32_t, tf::Transform> previous_target_poses = target_poses_;
   geometry_msgs::TransformStamped tf_msg;
-  tf_msg.header.stamp = detect_msg.header.stamp;
+  tf_msg.header.stamp = header_msg.stamp;
   tf_msg.header.frame_id = "world";
-  for (auto object : new_object_poses_)
+  for (auto object : new_object_poses)
   {
     target_poses[object.first] =
       quad_pose * camera_transform_ * object.second; // * tracking_offset_transform_;
