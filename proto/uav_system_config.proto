@@ -101,6 +101,7 @@ message UAVSystemConfig {
     PARSER = 0;
     MOCAP = 1;
     ROS = 2; 
+    TF = 3;
   }
   optional OdomSensorType odom_sensor_type = 16 [ default = PARSER ];
   /**

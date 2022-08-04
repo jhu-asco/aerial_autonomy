@@ -27,6 +27,7 @@
 #include <aerial_autonomy/sensors/guidance.h>
 #include <aerial_autonomy/sensors/odometry_from_pose_sensor.h>
 #include <aerial_autonomy/sensors/odometry_sensor.h>
+#include <aerial_autonomy/sensors/odometry_from_tf_sensor.h>
 #include <aerial_autonomy/sensors/velocity_sensor.h>
 // Load UAV parser
 #include <pluginlib/class_loader.h>
@@ -226,6 +227,9 @@ private:
       break;
     case UAVSystemConfig::ROS:
       odom_sensor.reset(new OdomSensor(odom_sensor_config));
+      break;
+    case UAVSystemConfig::TF:
+      odom_sensor.reset(new OdomFromTFSensor(odom_sensor_config));
       break;
     default:
       break;

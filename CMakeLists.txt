@@ -340,6 +340,7 @@ set(SRC
   src/sensors/pose_sensor.cpp
   src/sensors/odometry_from_pose_sensor.cpp
   src/sensors/odometry_sensor.cpp
+  src/sensors/odometry_from_tf_sensor.cpp
 )
 
 if (casadi_FOUND)
