@@ -21,13 +21,20 @@ bool AlvarTracker::trackingIsValid() {
 }
 
 void AlvarTracker::markerCallback(
-    const ar_track_alvar_msgs::AlvarMarkers &marker_msg) {
+    const ar_track_alvar_msgs::AlvarMarkers &marker_msg) 
+{
   if (marker_msg.markers.size() == 0)
     return;
+
+  getObjectPoses(marker_msg);
+}
+
+std::unordered_map<uint32_t, tf::Transform> AlvarTracker::getObjectPoses(
+    const ar_track_alvar_msgs::AlvarMarkers &marker_msg)
+{
   last_valid_time_ = ros::Time::now();
   last_tracking_time_ = std::chrono::high_resolution_clock::now();
   std::unordered_map<uint32_t, tf::Transform> object_poses;
-  new_object_poses_.clear();
   for (unsigned int i = 0; i < marker_msg.markers.size(); i++) {
     auto marker_pose = marker_msg.markers[i].pose.pose;
     tf::Transform transform(
@@ -36,9 +43,9 @@ void AlvarTracker::markerCallback(
         tf::Vector3(marker_pose.position.x, marker_pose.position.y,
                     marker_pose.position.z));
     object_poses[marker_msg.markers[i].id] = transform;
-    new_object_poses_[marker_msg.markers[i].id] = transform;
   }
   object_poses_ = object_poses;
+  return object_poses;
 }
 
 bool AlvarTracker::isConnected() { return alvar_sub_.getNumPublishers() > 0; }

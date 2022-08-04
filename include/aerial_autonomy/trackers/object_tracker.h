@@ -58,18 +58,15 @@ public:
   * @brief Get the new tracking transforms
   */
   std::unordered_map<uint32_t, tf::Transform>
-  getNewObjectPoses()
-  {
-    return new_object_poses_;
-  }
+  getObjectPoses(const vision_msgs::Detection3DArray &detect_msg);
 
+protected:
   /**
   * @brief Detection subscriber callback
   * @param msg Detection array message
   */
   void detectionCallback(const vision_msgs::Detection3DArray &detect_msg);
 
-protected:
   /**
   * @brief ROS node handle for communication
   */
@@ -91,10 +88,6 @@ protected:
   * @brief Stored tracking transforms
   */
   Atomic<std::unordered_map<uint32_t, tf::Transform>> object_poses_;
-  /**
-  * @brief Stored new tracking transforms
-  */
-  std::unordered_map<uint32_t, tf::Transform> new_object_poses_;
   /**
   * @brief Timeout for valid update
   */

@@ -48,7 +48,7 @@ public:
                 double filter_gain_steps = 10,
                 SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor = nullptr,
                 std::chrono::duration<double> timeout = std::chrono::milliseconds(500),
-                std::string name_space = "~global_tracker");
+                std::string name_space = "~tracker");
 
 /**
    * @brief Get the tracking vectors

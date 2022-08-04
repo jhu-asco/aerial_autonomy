@@ -110,29 +110,21 @@ GlobalTracker::getTrackingTime() {
 void GlobalTracker::objectTrackerCallback(
       const vision_msgs::Detection3DArray &tracker_msg)
 {
-
   // Return if there are not any detections
   if (tracker_msg.detections.size() == 0)
     return;
 
-  object_tracker_->detectionCallback(tracker_msg);
-
-  trackerCallback(tracker_msg.header, object_tracker_->getNewObjectPoses());
-
+  trackerCallback(tracker_msg.header, object_tracker_->getObjectPoses(tracker_msg));
 }
 
 void GlobalTracker::alvarTrackerCallback(
       const ar_track_alvar_msgs::AlvarMarkers &tracker_msg)
 {
-
   // Return if there are not any markers
   if (tracker_msg.markers.size() == 0)
     return;
 
-  alvar_tracker_->markerCallback(tracker_msg);
-
-  trackerCallback(tracker_msg.header, alvar_tracker_->getNewObjectPoses());
-
+  trackerCallback(tracker_msg.header, alvar_tracker_->getObjectPoses(tracker_msg));
 }
 
 void GlobalTracker::trackerCallback(const std_msgs::Header &header_msg, 
@@ -161,7 +153,7 @@ void GlobalTracker::trackerCallback(const std_msgs::Header &header_msg,
   for (auto object : new_object_poses)
   {
     target_poses[object.first] =
-      quad_pose * camera_transform_ * object.second; // * tracking_offset_transform_;
+      quad_pose * camera_transform_ * object.second * tracking_offset_transform_;
 
     // Filter (and removes rp)
     target_poses[object.first] = filter(object.first, target_poses[object.first]);
