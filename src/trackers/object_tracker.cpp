@@ -63,7 +63,8 @@ std::unordered_map<uint32_t, tf::Transform> ObjectTracker::getObjectPoses(
   std::unordered_map<uint32_t, tf::Transform> new_object_poses;
   for (unsigned int i = 0; i < detect_msg.detections.size(); i++) {
     auto object_pose = detect_msg.detections[i].results[0].pose.pose;
-    int object_id = detect_msg.detections[i].results[0].id;
+    // Add to ID for tracking multiple instances - Assumes a message is always one type of object
+    int object_id = detect_msg.detections[i].results[0].id + (10 * i); 
     tf::Transform transform(
         tf::Quaternion(object_pose.orientation.x, object_pose.orientation.y,
                        object_pose.orientation.z, object_pose.orientation.w),

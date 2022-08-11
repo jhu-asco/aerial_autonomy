@@ -46,6 +46,8 @@ public:
                 tf::Transform tracking_offset_transform = tf::Transform::getIdentity(),
                 double filter_gain_tracking_pose = 0.1,
                 double filter_gain_steps = 10,
+                bool fix_orientation = false,
+                bool straight_line_orientation = false,
                 SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor = nullptr,
                 std::chrono::duration<double> timeout = std::chrono::milliseconds(500),
                 std::string name_space = "~tracker");
@@ -117,6 +119,8 @@ private:
   mutable boost::mutex filter_mutex_; ///< Synchronize access to data
   double filter_gain_tracking_pose_; ///< Filter gain
   double filter_gain_steps_; ///< Filter gain steps to get to gain
+  bool fix_orientation_; ///< Bool to fix the orientation after decay to avoid small changes
+  bool straight_line_orientation_; ///< Bool to set orientation based on straight line from viewing pose
   tf2_ros::TransformBroadcaster br; ///< TF Broadcaster
   ros::Subscriber tracker_sub_;
   AlvarTracker *alvar_tracker_;

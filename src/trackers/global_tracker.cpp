@@ -10,6 +10,8 @@ GlobalTracker::GlobalTracker(
             tf::Transform tracking_offset_transform,
             double filter_gain_tracking_pose,
             double filter_gain_steps,
+            bool fix_orientation,
+            bool straight_line_orientation,
             SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor,
             std::chrono::duration<double> timeout,
             std::string name_space)
@@ -21,6 +23,8 @@ GlobalTracker::GlobalTracker(
     odom_sensor_(odom_sensor),
     filter_gain_tracking_pose_(filter_gain_tracking_pose),
     filter_gain_steps_(filter_gain_steps),
+    fix_orientation_(fix_orientation),
+    straight_line_orientation_(straight_line_orientation),
     nh_(name_space)
 {
   tracker_type_ = tracker_type; 
@@ -115,6 +119,17 @@ void GlobalTracker::objectTrackerCallback(
     return;
 
   trackerCallback(tracker_msg.header, object_tracker_->getObjectPoses(tracker_msg));
+
+  // std::unordered_map<uint32_t, tf::Transform> new_object_poses = object_tracker_->getObjectPoses(tracker_msg)
+  // // Check if there are multiple instances of objects
+  // // Assumes a message is always one type of object
+  // if (tracker_msg.detections.size() > 1)
+  // {
+    
+  // }
+
+
+  // trackerCallback(tracker_msg.header, new_object_poses);
 }
 
 void GlobalTracker::alvarTrackerCallback(
@@ -158,12 +173,12 @@ void GlobalTracker::trackerCallback(const std_msgs::Header &header_msg,
     // Filter (and removes rp)
     target_poses[object.first] = filter(object.first, target_poses[object.first]);
 
-    // If estimate is relatively stable keep orientation fixed, otherwise set orientation based on straight line 
-    if (tracking_pose_filters_.at(object.first).isDecayComplete())
+    // If estimate is relatively stable keep orientation fixed
+    if (fix_orientation_ && tracking_pose_filters_.at(object.first).isDecayComplete())
     {
       target_poses[object.first].setRotation(previous_target_poses[object.first].getRotation());
     }
-    else
+    else if (straight_line_orientation_)
     {
       // Set orientation based on straight line to vehicle
       // Assume rotating around z axis
