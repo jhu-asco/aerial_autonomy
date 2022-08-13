@@ -525,14 +525,6 @@ struct GripInternalActionFunctor_
 //   ObjectId object_id_;
 // };
 
-/**
-* @brief State that uses visual servoing to place object.
-*
-* @tparam LogicStateMachineT Logic state machine used to process events
-*/
-template <class LogicStateMachineT>
-using PlaceState_ = BaseState<UAVArmSystem, LogicStateMachineT,
-                              PlaceInternalActionFunctor_<LogicStateMachineT>>;
 
 // /**
 // * @brief State where robot waits for an object to appear before transitioning
@@ -546,6 +538,32 @@ using PlaceState_ = BaseState<UAVArmSystem, LogicStateMachineT,
 //               UAVStatusInternalActionFunctor_<LogicStateMachineT>,
 //               ArmStatusInternalActionFunctor_<LogicStateMachineT>,
 //               WaitingForPickInternalActionFunctor_<LogicStateMachineT>>>> {};
+
+/**
+* @brief Internal action to check magnetometer. Resets only when there are critical errors.
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct MagnetometerInternalActionFunctor_
+    : InternalActionFunctor<UAVSystem, LogicStateMachineT> {
+  /**
+  * @brief Checks if mag ratio is above theshold and aborts if so
+  *
+  * @param robot_system robot system to get sensor data
+  * @param logic_state_machine logic state machine to trigger events
+  */
+  bool run(UAVSystem &robot_system, LogicStateMachineT &logic_state_machine) {
+    parsernode::common::quaddata data = robot_system.getUAVData();
+    if (robot_system.getConfiguration().check_mag_ratio()) {
+      if (data.magdata.x > robot_system.getConfiguration().mag_ratio_threshold()) {
+        LOG(WARNING) << "WARNING: Mag ratio is above threshold: " << data.magdata.x;
+        logic_state_machine.process_event(Reset());
+      }
+    }
+    return true;
+  }
+};
 
 /**
 * @brief Internal action functor for picking.  Resets only
@@ -622,10 +640,11 @@ struct PickPositionControllerStatusCheck_
  * @tparam LogicStateMachineT logic state machine
  */
 template <class LogicStateMachineT>
-using PrePickInternalActionFunctor_ =
+using PrePickPositionInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-        VisualServoingInternalActionFunctor_<LogicStateMachineT, Reset>>>;
+        VisualServoingInternalActionFunctor_<LogicStateMachineT, Reset>,
+        MagnetometerInternalActionFunctor_<LogicStateMachineT>>>;
 
 /**
  * @brief Check visual servoing status and reset if something goes wrong
@@ -637,7 +656,8 @@ using PickPositionInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-        PickPositionControllerStatusCheck_<LogicStateMachineT>>>;
+        PickPositionControllerStatusCheck_<LogicStateMachineT>,
+        MagnetometerInternalActionFunctor_<LogicStateMachineT>>>;
 
 
 /**
@@ -646,10 +666,11 @@ using PickPositionInternalActionFunctor_ =
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
 template <class LogicStateMachineT>
-using PlaceInternalActionFunctor_ = boost::msm::front::ShortingActionSequence_<
+using PlacePositionInternalActionFunctor_ = boost::msm::front::ShortingActionSequence_<
     boost::mpl::vector<UAVStatusInternalActionFunctor_<LogicStateMachineT>,
                        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-                       VisualServoingStatus_<LogicStateMachineT, Reset>>>;
+                       VisualServoingStatus_<LogicStateMachineT, Reset>,
+                       MagnetometerInternalActionFunctor_<LogicStateMachineT>>>;
 
 /**
  * @brief typedef for base class of grip state which is a timed state
@@ -762,14 +783,23 @@ private:
 };
 
 template <class LogicStateMachineT>
-using PrePickState_ =
+using PrePickPositionState_ =
     BaseState<UAVArmSystem, LogicStateMachineT,
-              PrePickInternalActionFunctor_<LogicStateMachineT>>;
+              PrePickPositionInternalActionFunctor_<LogicStateMachineT>>;
 
 template <class LogicStateMachineT>
 using PickPositionState_ =
     BaseState<UAVArmSystem, LogicStateMachineT,
               PickPositionInternalActionFunctor_<LogicStateMachineT>>;
 
-// template <class LogicStateMachineT>
-// struct PrePlaceState_ : public PlaceState_<LogicStateMachineT> {};
+/**
+* @brief State that uses visual servoing to place object.
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+using PlacePositionState_ = BaseState<UAVArmSystem, LogicStateMachineT,
+                              PlacePositionInternalActionFunctor_<LogicStateMachineT>>;
+
+template <class LogicStateMachineT>
+struct PrePlacePositionState_ : public PlacePositionState_<LogicStateMachineT> {};

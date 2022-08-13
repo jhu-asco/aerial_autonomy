@@ -128,4 +128,12 @@ message UAVSystemConfig {
   * @brief RPYT reference connector config
   */
   optional RPYTReferenceConnectorConfig rpyt_reference_connector_config = 22;
+  /**
+  * @brief Whether to check the mag_ratio
+  */
+  optional bool check_mag_ratio = 23 [ default = false ];
+  /**
+  * @brief Mag ratio threshold
+  */
+  optional double mag_ratio_threshold = 24 [ default = 1.0 ];
 }

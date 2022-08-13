@@ -60,19 +60,19 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
   * @brief State while picking an object
   */
   using PickPositionState = PickPositionState_<LogicStateMachineT>;
-//   /**
-//   * @brief State while positioning the uav for placing
-//   */
-//   using PlaceState = PlaceState_<LogicStateMachineT>;
-//   /**
-//   * @brief State while positioning the uav for pre-placing
-//   */
-//   using PrePlaceState = PrePlaceState_<LogicStateMachineT>;
-//   /**
-//   * @brief State when reaching a relative pose visual servoing goal using rpyt
-//   * controller Uses reset instead of abort
-//   */
-//   using PrePickState = PrePickState_<LogicStateMachineT>;
+  /**
+  * @brief State while positioning the uav for placing
+  */
+  using PlacePositionState = PlacePositionState_<LogicStateMachineT>;
+  /**
+  * @brief State while positioning the uav for pre-placing
+  */
+  using PrePlacePositionState = PrePlacePositionState_<LogicStateMachineT>;
+  /**
+  * @brief State when reaching a relative pose visual servoing goal using rpyt
+  * controller Uses reset instead of abort
+  */
+  using PrePickPositionState = PrePickPositionState_<LogicStateMachineT>;
 
 //   /**
 //   * @brief State when reaching a relative pose visual servoing goal

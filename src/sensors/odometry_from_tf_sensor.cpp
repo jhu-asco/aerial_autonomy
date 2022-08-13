@@ -54,7 +54,7 @@ void OdomFromTFSensor::getPose() {
       if (tdiff < 1e-3) {
         tdiff = 1e-3;
       }
-      if (tdiff >= 0.05) {
+      if (tdiff >= 0.08) {
         LOG(WARNING) << "Tdiff too big: " << tdiff;
       }
       tf::Vector3 velocity =

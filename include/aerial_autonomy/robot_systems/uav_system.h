@@ -432,6 +432,10 @@ public:
     table_writer.beginRow();
     table_writer.addCell(data.mass, "Mass");
     table_writer.addCell(data.timestamp, "Timestamp", Colors::white, 2);
+    std::string mag_ratio_color =
+        (data.magdata.x < config_.mag_ratio_threshold() ? Colors::green
+                                                                 : Colors::red);
+    table_writer.addCell(data.magdata.x, "Mag Ratio", mag_ratio_color);
     table_writer.beginRow();
     std::string quad_state_color = (data.armed ? Colors::green : Colors::white);
     table_writer.addCell(data.quadstate, "Quadstate", quad_state_color, 4);
