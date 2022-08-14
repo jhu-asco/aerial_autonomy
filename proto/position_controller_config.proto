@@ -14,4 +14,15 @@ message PositionControllerConfig {
   * the goal is reached.
   */
   optional double goal_yaw_tolerance = 2 [ default = 0.1 ];
+
+  /**
+  * @brief Whether to continously check yaw against threshold
+  */
+  optional bool check_yaw_continuously = 3 [ default = false ];
+
+  /**
+  * @brief Robot is within this yaw angle (radians),
+  * the controller is okay
+  */
+  optional double continuous_yaw_tolerance = 4 [ default = 0.1 ];
 }

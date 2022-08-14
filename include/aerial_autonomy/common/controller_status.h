@@ -31,6 +31,8 @@ private:
   Status status_;                  ///< Current status
   std::string status_description_; ///< Description for status if any
   std::string debug_header_;       ///< Header for debug info
+  bool warning_ = false;           ///< If there is a warning
+  std::string warning_description_;///< Description for warning if any
 
   /**
   * @brief Debug data associated with current status
@@ -172,4 +174,29 @@ public:
   * @return current status with updated debug info and data
   */
   ControllerStatus &operator+=(const ControllerStatus &rhs_status);
+
+
+  /**
+   * @brief Set the if in warning mode
+   *
+   * @param warning Bool for if there is a warning
+   * @param warning_description Description about the warning
+   */
+  void setWarning(bool warning,
+                 std::string warning_description = "") {
+    warning_ = warning;
+    warning_description_ = warning_description;
+  }
+
+  /**
+   * @brief Get if there is an internal warning of controller 
+   * @return The warning
+   */
+  bool warning() { return warning_; }
+
+  /**
+   * @brief Get current warning description
+   * @return The warning description
+   */
+  std::string warning_description() { return warning_description_; }
 };

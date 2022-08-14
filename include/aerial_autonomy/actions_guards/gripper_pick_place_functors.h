@@ -635,18 +635,23 @@ struct PickPositionControllerStatusCheck_
     {
       logic_state_machine.process_event(Completed());
     }
+    // lowlevel_status controller could have a warning due to continuously checking yaw 
+    // (assumes yaw shouldn't be changing much for pick action)
     else if (visual_servoing_status == ControllerStatus::Critical ||
                 lowlevel_status == ControllerStatus::Critical ||
                 lowlevel_status == ControllerStatus::NotEngaged ||
-                visual_servoing_status == ControllerStatus::NotEngaged) {
+                visual_servoing_status == ControllerStatus::NotEngaged ||
+                lowlevel_status.warning()) {
       VLOG(1) << "Visual servoing status: "
               << visual_servoing_status.statusAsText() << ", "
-              << "Lowlevel status: " << lowlevel_status.statusAsText();
+              << "Lowlevel status: " << lowlevel_status.statusAsText() << ", "
+              << "Lowlevel warning: " << lowlevel_status.warning() << " " 
+              << lowlevel_status.warning_description();
       robot_system.abortController(ControllerGroup::HighLevel);
       robot_system.abortController(ControllerGroup::UAV);
       logic_state_machine.process_event(Reset());
       VLOG(1) << "No controller engaged or controller "
-                 "critical. So resetting!";
+                 "critical or warning. So resetting!";
       return false;
     }
     return true;

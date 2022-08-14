@@ -178,6 +178,10 @@ protected:
         position_controller_config.goal_position_tolerance();
     const double &tolerance_yaw =
         position_controller_config.goal_yaw_tolerance();
+    const bool &check_yaw_continuously =
+        position_controller_config.check_yaw_continuously();
+    const double &tolerance_continuous_yaw =
+        position_controller_config.continuous_yaw_tolerance();
     // Compare
     if (std::abs(error_position_yaw.x) <= tolerance_pos.x() &&
         std::abs(error_position_yaw.y) <= tolerance_pos.y() &&
@@ -188,6 +192,16 @@ protected:
         std::abs(error_velocity.z) < tolerance_vel.vz()) {
       VLOG_EVERY_N(1, 100) << "Reached goal";
       status.setStatus(ControllerStatus::Completed, "Reached goal");
+    }
+    else if (check_yaw_continuously) {
+      if (std::abs(error_position_yaw.yaw) > tolerance_continuous_yaw) {
+        std::string warning_description = "Yaw error critical: " + std::to_string(error_position_yaw.yaw);
+        status.setWarning(true, warning_description);
+      }
+      else
+      {
+        status.setWarning(false);
+      }
     }
     status<<"Errors: "<<error_position_yaw.x<<error_position_yaw.y<<error_position_yaw.z<<error_position_yaw.yaw;
     return status;
