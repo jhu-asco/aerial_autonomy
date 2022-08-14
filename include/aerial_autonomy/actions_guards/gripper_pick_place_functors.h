@@ -107,7 +107,6 @@ struct GripMaintainInternalActionFunctor_
     if (!has_grip) {
       LOG(WARNING) << "Grip not maintained!";
       logic_state_machine.process_event(Reset());
-      return false;
     }
     return true;
   }
@@ -380,7 +379,7 @@ struct GripMaintainInternalActionFunctor_
 template <class LogicStateMachineT, int StartIndex, int EndIndex,
           class CompletedEvent = Completed>
 struct FollowingWaypointSequenceWithObject_
-    : public FollowingWaypointSequence_<LogicStateMachineT, StartIndex, EndIndex, CompletedEvent> {
+    : public BaseState<UAVArmSystem, LogicStateMachineT, msmf::none> {
 
   /**
    * @brief actions to be taken as internal actions when following waypoints
@@ -402,6 +401,96 @@ struct FollowingWaypointSequenceWithObject_
                                           WaypointActionSequenceWithObject, msmf::none>> {
   };
 
+/**
+  * @brief Return the event that should be used when the waypoint sequence is
+  * complete
+  * @return The completed event
+  */
+  virtual CompletedEvent completedEvent() { return CompletedEvent(); }
+
+  /**
+   * @brief set specified waypoint to robot system and store the
+   * index as the one being tracked
+   *
+   * @param robot_system Robot system to set waypoint
+   * @param tracked_index waypoint index to set and store
+   * @return True if successfully set waypoint, false otherwise
+   */
+  bool nextWaypoint(PositionYaw &next_wp) {
+    if (!control_initialized_) {
+      control_initialized_ = true;
+    } else {
+      if (tracked_index_ + 1 < 0 ||
+          tracked_index_ + 1 >= config_.way_points().size()) {
+        return false;
+      }
+      tracked_index_++;
+    }
+    next_wp = conversions::protoPositionYawToPositionYaw(
+        config_.way_points().Get(tracked_index_));
+
+    return true;
+  }
+
+  /**
+   * @brief Get state configuration from the state machine
+   * @return state config
+   */
+  template <class FSM>
+  FollowingWaypointSequenceConfig getConfig(FSM &logic_state_machine) {
+    return logic_state_machine.configMap()
+        .template find<FollowingWaypointSequenceWithObject_<LogicStateMachineT, StartIndex,
+                                         EndIndex, CompletedEvent>,
+              FollowingWaypointSequenceConfig>();
+  }
+
+  /**
+   * @brief Function to set the starting waypoint when entering this state
+   *
+   * @tparam Event Event causing the entry of this state
+   * @tparam FSM Logic statemachine back end
+   * @param logic_state_machine state machine that processes events
+   */
+  template <class Event, class FSM>
+  void on_entry(Event const &e, FSM &logic_state_machine) {
+    BaseState<UAVArmSystem, LogicStateMachineT, msmf::none>::on_entry(
+        e, logic_state_machine);
+    config_ = this->getConfig(logic_state_machine);
+    if (StartIndex >= config_.way_points().size() || StartIndex < 0) {
+      LOG(WARNING) << " Starting index not in waypoint vector list";
+      logic_state_machine.process_event(be::Abort());
+    } else {
+      tracked_index_ = StartIndex;
+      control_initialized_ = false;
+    }
+  }
+
+  /**
+   * @brief Get current waypoint index being tracked
+   *
+   * @return index of waypoint being tracked
+   */
+  int getTrackedIndex() { return tracked_index_; }
+
+  /**
+  * @brief Whether control has been initialized or not
+  * @return True if initialized, false otherwise
+  */
+  bool controlInitialized() { return control_initialized_; }
+
+  PolynomialReferenceConfig getReferenceConfig() {
+    return config_.poly_reference_config();
+  }
+
+  PositionControllerConfig getPositionToleranceConfig() {
+    return config_.position_controller_config();
+  }
+
+private:
+  FollowingWaypointSequenceConfig config_; ///< State config
+  int tracked_index_ = StartIndex;         ///< Current tracked index
+  bool control_initialized_ =
+      false; ///< Flag to indicate if control is initialized
 };
 
 /**

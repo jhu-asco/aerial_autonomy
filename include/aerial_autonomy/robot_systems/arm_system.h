@@ -94,7 +94,7 @@ public:
   * @brief Get the grip status of the arm
   * @return True if grip is successful, false otherwise
   */
-  bool gripStatus() { return arm_hardware_->gripStatus(); }
+  bool gripStatus() const { return arm_hardware_->gripStatus(); }
 
   /**
    * @brief Reset gripper state for passive grippers. For normal
@@ -172,6 +172,12 @@ public:
     std::string arm_enabled = (enabled() ? "True" : "False");
     std::string enabled_color = (enabled() ? Colors::green : Colors::red);
     table_writer.addCell(arm_enabled, "Enabled", enabled_color, 2);
+    table_writer.beginRow();
+    std::string grip_status = (gripStatus() ? "True" : "False");
+    std::string grip_status_color =
+        (gripStatus() ? Colors::green : Colors::red);
+    table_writer.addCell(grip_status, "GripStatus", grip_status_color,
+                         2);
     return table_writer.getTableString();
   }
 
