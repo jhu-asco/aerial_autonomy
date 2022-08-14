@@ -48,6 +48,8 @@ public:
                 double filter_gain_steps = 10,
                 bool fix_orientation = false,
                 bool straight_line_orientation = false,
+                double min_distance_between_objects = 1000,
+                int min_detections = 1, 
                 SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor = nullptr,
                 std::chrono::duration<double> timeout = std::chrono::milliseconds(500),
                 std::string name_space = "~tracker");
@@ -111,6 +113,8 @@ private:
 
   parsernode::Parser &drone_hardware_; ///< UAV Hardware
   Atomic<std::unordered_map<uint32_t, tf::Transform>> target_poses_; ///< Tracked poses
+  Atomic<std::unordered_map<uint32_t, ros::Time>> last_valid_times_; ///< Last time we received a pose
+  Atomic<std::unordered_map<uint32_t, int>> num_detections_; ///< Number of detections of a pose
   tf::Transform camera_transform_; ///< Transform of camera in uav frame
   tf::Transform tracking_offset_transform_; ///< Transform to offset the tracking vector
   SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor_; ///< Odom sensor, if available
@@ -121,6 +125,8 @@ private:
   double filter_gain_steps_; ///< Filter gain steps to get to gain
   bool fix_orientation_; ///< Bool to fix the orientation after decay to avoid small changes
   bool straight_line_orientation_; ///< Bool to set orientation based on straight line from viewing pose
+  double min_distance_between_objects_; ///< Any greater distance would be considered separate objects, set high to filter all poses together
+  int min_detections_; ///< Minimum number of detections to consider a valid detection
   tf2_ros::TransformBroadcaster br; ///< TF Broadcaster
   ros::Subscriber tracker_sub_;
   AlvarTracker *alvar_tracker_;

@@ -43,6 +43,15 @@ public:
   virtual bool trackingIsValid();
 
   /**
+  * @brief Check whether tracking is valid and remove invalid poses
+  * @return True if the tracking is valid, false otherwise
+  */
+  bool trackingIsValidAndRemoveInvalidPoses(
+    std::unordered_map<uint32_t, tf::Transform> &object_poses,
+    std::unordered_map<uint32_t, ros::Time> &last_valid_times,
+    std::vector<uint32_t> &removed_objects);
+
+  /**
   * @brief Get the time stamp of the current tracking vectors
   */
   virtual std::chrono::time_point<std::chrono::high_resolution_clock>

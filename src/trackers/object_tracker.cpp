@@ -14,6 +14,20 @@ bool ObjectTracker::getTrackingVectors(
 bool ObjectTracker::trackingIsValid() {
   std::unordered_map<uint32_t, tf::Transform> object_poses = object_poses_;
   std::unordered_map<uint32_t, ros::Time> last_valid_times = last_valid_times_;
+  std::vector<uint32_t> removed_objects;
+  bool valid = trackingIsValidAndRemoveInvalidPoses(object_poses, last_valid_times, removed_objects);
+
+  object_poses_ = object_poses;
+  last_valid_times_ = last_valid_times;
+  
+  return valid;
+}
+
+bool ObjectTracker::trackingIsValidAndRemoveInvalidPoses(
+  std::unordered_map<uint32_t, tf::Transform> &object_poses,
+  std::unordered_map<uint32_t, ros::Time> &last_valid_times,
+  std::vector<uint32_t> &removed_objects)
+{
   ros::Time current_time = ros::Time::now();
   std::vector<uint32_t> objects_to_remove;
   for (auto object : object_poses)
@@ -32,14 +46,13 @@ bool ObjectTracker::trackingIsValid() {
     last_valid_times.erase(key);
   }
 
+  removed_objects = objects_to_remove;
+
   bool valid = (object_poses.size() > 0);
   if (!valid) {
     VLOG_EVERY_N(2, 100) << "Object detection has not been updated for "
                          << timeout_.count() << " seconds";
   }
-  
-  object_poses_ = object_poses;
-  last_valid_times_ = last_valid_times;
   
   return valid;
 }
@@ -64,7 +77,7 @@ std::unordered_map<uint32_t, tf::Transform> ObjectTracker::getObjectPoses(
   for (unsigned int i = 0; i < detect_msg.detections.size(); i++) {
     auto object_pose = detect_msg.detections[i].results[0].pose.pose;
     // Add to ID for tracking multiple instances - Assumes a message is always one type of object
-    int object_id = detect_msg.detections[i].results[0].id + (10 * i); 
+    int object_id = detect_msg.detections[i].results[0].id + (100 * i); 
     tf::Transform transform(
         tf::Quaternion(object_pose.orientation.x, object_pose.orientation.y,
                        object_pose.orientation.z, object_pose.orientation.w),

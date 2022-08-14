@@ -12,6 +12,8 @@ GlobalTracker::GlobalTracker(
             double filter_gain_steps,
             bool fix_orientation,
             bool straight_line_orientation,
+            double min_distance_between_objects,
+            int min_detections, 
             SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor,
             std::chrono::duration<double> timeout,
             std::string name_space)
@@ -25,6 +27,8 @@ GlobalTracker::GlobalTracker(
     filter_gain_steps_(filter_gain_steps),
     fix_orientation_(fix_orientation),
     straight_line_orientation_(straight_line_orientation),
+    min_distance_between_objects_(min_distance_between_objects),
+    min_detections_(min_detections),
     nh_(name_space)
 {
   tracker_type_ = tracker_type; 
@@ -79,10 +83,29 @@ GlobalTracker::vectorIsGlobal() {
 
 bool GlobalTracker::getTrackingVectors(
     std::unordered_map<uint32_t, tf::Transform> &pose) {
+  
   if (!trackingIsValid()) {
     return false;
   }
+
   pose = target_poses_;
+
+  std::unordered_map<uint32_t, int> num_detections = num_detections_;
+  std::vector<uint32_t> objects_to_remove;
+  // Remove poses without enough detections
+  for (auto object : pose)
+  {
+    if (num_detections[object.first] < min_detections_)
+    {
+      objects_to_remove.emplace_back(object.first);
+    }
+  }
+  for (auto key : objects_to_remove)
+  {
+    // Remove invalid objects
+    pose.erase(key);
+  }
+
   return true;
 }
 
@@ -93,7 +116,30 @@ bool GlobalTracker::trackingIsValid() {
   } 
   else if (tracker_type_ == "GlobalObject")
   {
-    return object_tracker_->trackingIsValid();
+    // Perform to object tracker poses - removes invalid poses
+    object_tracker_->trackingIsValid();
+
+    // Remove invalid poses and check validity of global tracker
+    std::unordered_map<uint32_t, tf::Transform> target_poses = target_poses_;
+    std::unordered_map<uint32_t, ros::Time> last_valid_times = last_valid_times_;
+    std::vector<uint32_t> removed_objects;
+    bool valid = object_tracker_->trackingIsValidAndRemoveInvalidPoses(target_poses, last_valid_times, removed_objects);
+
+    // Additionally remove filters and num_detections
+    boost::mutex::scoped_lock lock(filter_mutex_);
+    std::unordered_map<uint32_t, int> num_detections = num_detections_;
+    for (auto key : removed_objects)
+    {
+      // Remove invalid objects
+      tracking_pose_filters_.erase(key);
+      num_detections.erase(key);
+    }
+
+    target_poses_ = target_poses;
+    last_valid_times_ = last_valid_times;
+    num_detections_ = num_detections;
+    
+    return valid;
   } 
   return false;
 }
@@ -145,6 +191,8 @@ void GlobalTracker::alvarTrackerCallback(
 void GlobalTracker::trackerCallback(const std_msgs::Header &header_msg, 
                       std::unordered_map<uint32_t, tf::Transform> new_object_poses)
 {
+  ros::Time current_time = ros::Time::now();
+
   // Convert poses to world frame
   parsernode::common::quaddata quad_data;
   drone_hardware_.getquaddata(quad_data);
@@ -162,39 +210,88 @@ void GlobalTracker::trackerCallback(const std_msgs::Header &header_msg,
   // Recalculate tracking poses for any new detections
   std::unordered_map<uint32_t, tf::Transform> target_poses = target_poses_;
   std::unordered_map<uint32_t, tf::Transform> previous_target_poses = target_poses_;
+  std::unordered_map<uint32_t, ros::Time> last_valid_times = last_valid_times_;
+  std::unordered_map<uint32_t, int> num_detections = num_detections_;
+
   geometry_msgs::TransformStamped tf_msg;
   tf_msg.header.stamp = header_msg.stamp;
   tf_msg.header.frame_id = "world";
   for (auto object : new_object_poses)
   {
-    target_poses[object.first] =
+    tf::Transform new_pose = 
+    // target_poses[object.first] =
       quad_pose * camera_transform_ * object.second * tracking_offset_transform_;
+    
+    // Determine base id
+    int id_factor = 100;
+    uint32_t base_id = object.first % id_factor;
+
+    // Calculate distance to current target poses of matching ID
+    double min_dist = 1000;
+    uint32_t matched_id = 1000;
+    for (auto target : previous_target_poses)
+    {
+      if (target.first % id_factor == base_id)
+      {
+        double x_diff = new_pose.getOrigin().getX() - target.second.getOrigin().getX();
+        double y_diff = new_pose.getOrigin().getY() - target.second.getOrigin().getY();
+        double z_diff = new_pose.getOrigin().getZ() - target.second.getOrigin().getZ();
+        double dist = sqrt(x_diff * x_diff + y_diff * y_diff + z_diff * z_diff);
+        std::cout << "Distance to " << target.first << ": " << dist << std::endl; 
+        if (dist < min_dist)
+        {
+          matched_id = target.first;
+          min_dist = dist; 
+        }
+      }
+
+    }
+    std::cout << "Min dist = " << min_dist << ", matched id = " << matched_id << std::endl;
+    // If not matched to an existing object or min distance greater than threshold, 
+    // the create new object
+    if ((matched_id == 1000) || (min_dist > min_distance_between_objects_))
+    {
+      // If there isn't an object with that key
+      int multiplier = 0;
+      matched_id = base_id;
+      while (target_poses.find(matched_id) != target_poses.end())
+      {
+        multiplier += 1;
+        matched_id = base_id + multiplier * id_factor;
+      }
+      num_detections[matched_id] = 0; // Initialize
+    }
 
     // Filter (and removes rp)
-    target_poses[object.first] = filter(object.first, target_poses[object.first]);
+    target_poses[matched_id] = filter(matched_id, new_pose);
 
     // If estimate is relatively stable keep orientation fixed
-    if (fix_orientation_ && tracking_pose_filters_.at(object.first).isDecayComplete())
+    if (fix_orientation_ && tracking_pose_filters_.at(matched_id).isDecayComplete())
     {
-      target_poses[object.first].setRotation(previous_target_poses[object.first].getRotation());
+      target_poses[matched_id].setRotation(previous_target_poses[matched_id].getRotation());
     }
     else if (straight_line_orientation_)
     {
       // Set orientation based on straight line to vehicle
       // Assume rotating around z axis
-      double x_diff = target_poses[object.first].getOrigin().getX() - quad_pose.getOrigin().getX();
-      double y_diff = target_poses[object.first].getOrigin().getY() - quad_pose.getOrigin().getY();
+      double x_diff = target_poses[matched_id].getOrigin().getX() - quad_pose.getOrigin().getX();
+      double y_diff = target_poses[matched_id].getOrigin().getY() - quad_pose.getOrigin().getY();
       double yaw = atan2(y_diff, x_diff);
-      target_poses[object.first].setRotation(tf::Quaternion(0, 0, sin(yaw/2), cos(yaw/2)));
+      target_poses[matched_id].setRotation(tf::Quaternion(0, 0, sin(yaw/2), cos(yaw/2)));
 
       // Offset transform as desired
-      target_poses[object.first] = target_poses[object.first] * tracking_offset_transform_;
+      target_poses[matched_id] = target_poses[matched_id] * tracking_offset_transform_;
     }
 
+    last_valid_times[matched_id] = current_time;
+    num_detections[matched_id] += 1;
+
     // Publish tf 
-    tf_msg.child_frame_id = "object_" + std::to_string(object.first);
-    tf::transformTFToMsg(target_poses[object.first], tf_msg.transform);
+    tf_msg.child_frame_id = "object_" + std::to_string(matched_id);
+    tf::transformTFToMsg(target_poses[matched_id], tf_msg.transform);
     br.sendTransform(tf_msg);
   }
   target_poses_ = target_poses;
+  last_valid_times_ = last_valid_times;
+  num_detections_ = num_detections;
 }

@@ -67,17 +67,25 @@ message UAVVisionSystemConfig {
   */
   optional double gain_visual_servoing_tracking_pose = 12 [ default = 0.1 ];
   /**
-  * @brief Filter on visual servoing tracking position yaw
+  * @brief Exponential Filter on visual servoing tracking position yaw
   */
   optional double gain_steps_visual_servoing_tracking_pose = 16 [ default = 10 ];
   /**
-  * @brief Filter on visual servoing tracking position yaw
+  * @brief Whether to fix the orientation after exponential filter settles
   */
   optional bool fix_orientation_visual_servoing_tracking_pose = 17 [ default = false ];
   /**
-  * @brief Filter on visual servoing tracking position yaw
+  * @brief Whether to use orientation based on straight line 
   */
   optional bool straight_line_orientation_visual_servoing_tracking_pose = 18 [ default = false ];
+  /**
+  * @brief Minimum distance between objects, below this value is the same object 
+  */
+  optional double min_distance_between_objects_visual_servoing_tracking_pose = 19 [ default = 1000 ];
+  /**
+  * @brief Minimum number of detections to consider a valid detection
+  */
+  optional int32 min_detections_visual_servoing_tracking_pose = 20 [ default = 1 ];
   /**
   * @brief polynomial reference config
   */
