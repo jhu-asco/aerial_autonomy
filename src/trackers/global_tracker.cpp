@@ -29,6 +29,7 @@ GlobalTracker::GlobalTracker(
     straight_line_orientation_(straight_line_orientation),
     min_distance_between_objects_(min_distance_between_objects),
     min_detections_(min_detections),
+    id_factor_(100),
     nh_(name_space)
 {
   tracker_type_ = tracker_type; 
@@ -107,6 +108,21 @@ bool GlobalTracker::getTrackingVectors(
   }
 
   return true;
+}
+
+// Adapted to handle multiple objects with the same ID
+bool GlobalTracker::getTrackingVector(std::tuple<uint32_t, tf::Transform> &pose) {
+
+  bool valid = BaseTracker::getTrackingVector(pose);
+
+  if (valid)
+  {
+    VLOG_EVERY_N(1, 100) << "TRACKING OBJECT: " << std::get<0>(pose);
+    // Return just the base ID
+    std::get<0>(pose) = std::get<0>(pose) % id_factor_;
+  }
+  
+  return valid;
 }
 
 bool GlobalTracker::trackingIsValid() {
@@ -223,21 +239,19 @@ void GlobalTracker::trackerCallback(const std_msgs::Header &header_msg,
       quad_pose * camera_transform_ * object.second * tracking_offset_transform_;
     
     // Determine base id
-    int id_factor = 100;
-    uint32_t base_id = object.first % id_factor;
+    uint32_t base_id = object.first % id_factor_;
 
     // Calculate distance to current target poses of matching ID
     double min_dist = 1000;
     uint32_t matched_id = 1000;
     for (auto target : previous_target_poses)
     {
-      if (target.first % id_factor == base_id)
+      if (target.first % id_factor_ == base_id)
       {
         double x_diff = new_pose.getOrigin().getX() - target.second.getOrigin().getX();
         double y_diff = new_pose.getOrigin().getY() - target.second.getOrigin().getY();
         double z_diff = new_pose.getOrigin().getZ() - target.second.getOrigin().getZ();
         double dist = sqrt(x_diff * x_diff + y_diff * y_diff + z_diff * z_diff);
-        std::cout << "Distance to " << target.first << ": " << dist << std::endl; 
         if (dist < min_dist)
         {
           matched_id = target.first;
@@ -246,7 +260,7 @@ void GlobalTracker::trackerCallback(const std_msgs::Header &header_msg,
       }
 
     }
-    std::cout << "Min dist = " << min_dist << ", matched id = " << matched_id << std::endl;
+
     // If not matched to an existing object or min distance greater than threshold, 
     // the create new object
     if ((matched_id == 1000) || (min_dist > min_distance_between_objects_))
@@ -257,7 +271,7 @@ void GlobalTracker::trackerCallback(const std_msgs::Header &header_msg,
       while (target_poses.find(matched_id) != target_poses.end())
       {
         multiplier += 1;
-        matched_id = base_id + multiplier * id_factor;
+        matched_id = base_id + multiplier * id_factor_;
       }
       num_detections[matched_id] = 0; // Initialize
     }

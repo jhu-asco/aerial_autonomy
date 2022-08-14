@@ -54,13 +54,21 @@ public:
                 std::chrono::duration<double> timeout = std::chrono::milliseconds(500),
                 std::string name_space = "~tracker");
 
-/**
+  /**
    * @brief Get the tracking vectors
    * @param pos Returned tracking vectors
    * @return True if successful, false otherwise
    */
   virtual bool
   getTrackingVectors(std::unordered_map<uint32_t, tf::Transform> &pos);
+
+  /**
+   * @brief Get the tracking vector - overridden to handle multiple objects with the same ID
+   * @param pose Returned tracking vector
+   * @return True if successful, false otherwise
+   */
+  bool 
+  getTrackingVector(std::tuple<uint32_t, tf::Transform> &pose);
 
   virtual bool
   vectorIsGlobal();
@@ -132,6 +140,7 @@ private:
   AlvarTracker *alvar_tracker_;
   ObjectTracker *object_tracker_;
   std::string tracker_type_;
+  int id_factor_; ///< Factor to use for separate objects of the same ID
 
   /**
   * @brief ROS node handle for communication

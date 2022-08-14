@@ -26,7 +26,7 @@ public:
         nh_(name_space),
         detection_sub_(nh_.subscribe("object_detections", 1,
                                  &ObjectTracker::detectionCallback, this)),
-        timeout_(timeout) {}
+        timeout_(timeout), id_factor_(100) {}
 
   /**
    * @brief Get the tracking vectors
@@ -105,4 +105,9 @@ protected:
   * @brief Default number of retries for tracking a locked target
   */
   const int default_num_retries_ = 25;
+  /**
+  * @brief Factor to use for separate objects of the same ID
+  */
+  int id_factor_; 
+
 };
