@@ -120,7 +120,7 @@ public:
     auto pick_state_machine_config =
         state_machine_config.visual_servoing_state_machine_config()
             .pick_place_state_machine_config();
-    config_map_.insert<gsa::ReachingPostPickWaypointBase>(
+    config_map_.insert<gsa::ReachingPostPickWaypointWithObjectBase>(
         pick_state_machine_config.following_waypoint_sequence_config());
     config_map_.insert<gsa::ReachingPostPlaceWaypoint>(
         pick_state_machine_config.following_waypoint_sequence_config());
@@ -198,7 +198,7 @@ public:
             msmf::Row<gsa::ResetVisualServoing, be::Abort, gsa::Hovering,
                       gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-             msmf::Row<gsa::PickPositionState, Completed, gsa::GripState,
+            msmf::Row<gsa::PickPositionState, Completed, gsa::GripState,
                       gsa::GripTransitionAction, msmf::none>,
             msmf::Row<gsa::PickPositionState, be::Abort, gsa::Hovering,
                       gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
@@ -209,12 +209,14 @@ public:
                       gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             msmf::Row<gsa::GripState, Reset, gsa::ResetVisualServoing,
                       gsa::UngripGoHome, gsa::GoHomeTransitionGuard>,
-            msmf::Row<gsa::GripState, ObjectId, gsa::ReachingPostPickWaypoint,
+            msmf::Row<gsa::GripState, ObjectId, gsa::ReachingPostPickWaypointWithObject,
                       gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::ReachingPostPickWaypoint, be::Abort, gsa::Hovering,
+            msmf::Row<gsa::ReachingPostPickWaypointWithObject, be::Abort, gsa::Hovering,
                       gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
-            msmf::Row<gsa::ReachingPostPickWaypoint, ObjectId, gsa::PrePlacePositionState,
+            msmf::Row<gsa::ReachingPostPickWaypointWithObject, Reset, gsa::ResetVisualServoing,
+                      gsa::UngripGoHome, gsa::GoHomeTransitionGuard>,
+            msmf::Row<gsa::ReachingPostPickWaypointWithObject, ObjectId, gsa::PrePlacePositionState,
                       gsa::PrePlaceVisualServoingTransitionAction,
                       gsa::PrePlaceVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
@@ -267,7 +269,7 @@ static constexpr std::array<const char *, 17> state_names = {
     "ResetVisualServoing",
     "PickPositionState",
     "GripState",
-    "ReachingPostPickWaypoint",
+    "ReachingPostPickWaypointWithObject",
     "PrePlacePositionState",
     "ResetVisualServoingPlace",
     "PlacePositionState",

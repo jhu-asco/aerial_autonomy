@@ -52,7 +52,7 @@ tf::Transform GlobalTracker::filter(uint32_t id, tf::Transform input) {
   // If there isn't a filter for that key, add one
   if (tracking_pose_filters_.find(id) == tracking_pose_filters_.end())
   {
-    tracking_pose_filters_.insert({id, DecayingExponentialFilter<PositionYaw>(filter_gain_tracking_pose_, 10)});
+    tracking_pose_filters_.insert({id, DecayingExponentialFilter<PositionYaw>(filter_gain_tracking_pose_, filter_gain_steps_)});
   }
 
   PositionYaw tracking_position_yaw;

@@ -258,17 +258,17 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
       typename usa::UAVControllerAbort, 
       GoHomeTransitionActionFunctor_<LogicStateMachineT>>>;
 
-//   /**
-//   * @brief State for following waypoints after picking object
-//   */
-//   using ReachingPostPickWaypoint =
-//       ReachingPostPickWaypoint_<LogicStateMachineT, 0, 0>;
-//   /**
-//   * @brief Base state for following waypoints after picking object.
-//   *  Used for setting state config
-//   */
-//   using ReachingPostPickWaypointBase =
-//       FollowingWaypointSequence_<LogicStateMachineT, 0, 0, ObjectId>;
+  /**
+  * @brief State for following waypoints after picking object
+  */
+  using ReachingPostPickWaypointWithObject =
+      ReachingPostPickWaypointWithObject_<LogicStateMachineT, 0, 0>;
+  /**
+  * @brief Base state for following waypoints after picking object.
+  *  Used for setting state config
+  */
+  using ReachingPostPickWaypointWithObjectBase =
+      FollowingWaypointSequenceWithObject_<LogicStateMachineT, 0, 0, ObjectId>;
 
 //   /**
 //    * @brief State to wait for picking
