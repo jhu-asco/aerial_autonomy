@@ -52,7 +52,8 @@ void OdomFromTFSensor::getPose() {
     if (pose_initialized_) {
       double tdiff = (pose_out.stamp_ - previous_pose.stamp_).toSec();
       if (tdiff < 1e-2) {
-        LOG(WARNING) << "Tdiff too small: " << tdiff;
+        // Reject values with either 0 tdiff or tdiff too small
+        // LOG(WARNING) << "Tdiff too small: " << tdiff;
         // tdiff = 1e-3;
         continue;
       }
