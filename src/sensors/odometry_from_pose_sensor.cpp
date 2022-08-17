@@ -1,5 +1,6 @@
 #include "aerial_autonomy/sensors/odometry_from_pose_sensor.h"
 #include <glog/logging.h>
+#include "aerial_autonomy/common/conversions.h"
 
 OdomFromPoseSensor::OdomFromPoseSensor(OdomSensorConfig config)
     : nh_(config.ros_sensor_config().name_space()),
@@ -8,7 +9,8 @@ OdomFromPoseSensor::OdomFromPoseSensor(OdomSensorConfig config)
           &OdomFromPoseSensor::poseCallback, this,
           ros::TransportHints().unreliable().reliable().tcpNoDelay())),
       velocity_filter_(config.velocity_filter_gain()), pose_initialized_(false),
-      config_(config) {}
+      config_(config), 
+      odom_to_body_transform_(conversions::protoTransformToTf(config_.odom_to_body_transform())) {}
 
 std::pair<tf::StampedTransform, tf::Vector3>
 OdomFromPoseSensor::getSensorData() {
@@ -31,6 +33,13 @@ void OdomFromPoseSensor::poseCallback(
 
   tf::StampedTransform pose_out;
   tf::transformStampedMsgToTF(*pose_input, pose_out);
+
+  if (config_.transform_to_body()) {
+    tf::Transform new_pose_out = pose_out;
+    new_pose_out = new_pose_out * odom_to_body_transform_;
+    pose_out.setData(new_pose_out);
+  }
+
   tf::StampedTransform previous_pose = pose_;
   // Velocity
   if (pose_initialized_) {
@@ -49,6 +58,20 @@ void OdomFromPoseSensor::poseCallback(
     pose_initialized_ = true;
   }
   pose_ = pose_out;
+
+  if (config_.publish_tf()) {
+    // Publish tf 
+    br.sendTransform(*pose_input);
+
+    if (config_.transform_to_body()) {
+      geometry_msgs::TransformStamped tf_msg;
+      tf_msg.header.stamp = pose_input->header.stamp;
+      tf_msg.header.frame_id = pose_input->header.frame_id;
+      tf_msg.child_frame_id = config_.body_frame();
+      tf::transformTFToMsg(pose_out, tf_msg.transform);
+      br.sendTransform(tf_msg);
+    }
+  }
 }
 
 SensorStatus OdomFromPoseSensor::getSensorStatus() {

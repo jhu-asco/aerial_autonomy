@@ -5,6 +5,7 @@
 #include "odom_from_pose_sensor_config.pb.h"
 #include <ros/ros.h>
 #include <tf/tf.h>
+#include <tf2_ros/transform_broadcaster.h>
 
 /**
 * @brief Pose sensor from a ros topic
@@ -50,4 +51,6 @@ private:
   ExponentialFilter<tf::Vector3> velocity_filter_; ///< Filter velocity
   bool pose_initialized_;                          ///< Pose initialized
   OdomSensorConfig config_;                        ///< Odom sensor config
+  tf2_ros::TransformBroadcaster br;                ///< TF Broadcaster
+  tf::Transform odom_to_body_transform_;           ///< Odom to body transform from config
 };

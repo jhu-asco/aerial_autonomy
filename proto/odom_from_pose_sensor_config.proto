@@ -1,8 +1,13 @@
 syntax = "proto2";
 
 import "ros_sensor_config.proto";
+import "transform.proto";
 
 message OdomSensorConfig {
   optional ROSSensorConfig ros_sensor_config = 1;
   optional double velocity_filter_gain = 2 [ default = 0.5 ];
+  optional bool transform_to_body = 3 [default = false];
+  optional config.Transform odom_to_body_transform = 4;
+  optional string body_frame = 5 [default = "vehicle"];
+  optional bool publish_tf = 6 [default = false];
 }
