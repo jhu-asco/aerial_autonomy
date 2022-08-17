@@ -47,7 +47,7 @@ void OdomFromPoseSensor::poseCallback(
     if (tdiff < 1e-3) {
       tdiff = 1e-3;
     }
-    if (tdiff >= 0.05) {
+    if (tdiff >= config_.ros_sensor_config().tdiff_warning()) {
       LOG(WARNING) << "Tdiff too big: " << tdiff;
     }
     tf::Vector3 velocity =

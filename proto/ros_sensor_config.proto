@@ -14,4 +14,8 @@ message ROSSensorConfig {
   * @brief Namespace for ros nodehandle
   */
   optional string name_space = 4 [ default = "" ];
+  /**
+  * @brief Threshold for warning about time differences
+  */
+  optional double tdiff_warning = 5 [ default = 0.05 ];
 }
