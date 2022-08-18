@@ -5,6 +5,7 @@
 #include <nav_msgs/Odometry.h>
 #include <ros/ros.h>
 #include <tf/tf.h>
+#include <tf2_ros/transform_broadcaster.h>
 
 /**
 * @brief Odometry sensor from a ros topic
@@ -48,4 +49,5 @@ private:
   Atomic<tf::Vector3> velocity_;      ///< latest pose
   ros::Duration validity_buffer_;     ///< timeout for messages
   OdomSensorConfig config_;           ///< Odom sensor config
+  tf2_ros::TransformBroadcaster br;                ///< TF Broadcaster
 };

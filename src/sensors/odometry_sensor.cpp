@@ -40,6 +40,16 @@ void OdomSensor::odomCallback(
 
   tf::Vector3 velocity(odom_input->twist.twist.linear.x, odom_input->twist.twist.linear.y, odom_input->twist.twist.linear.z);
   velocity_ = velocity;
+
+  if (config_.publish_tf()) {
+    // Publish tf 
+    geometry_msgs::TransformStamped tf_msg;
+    tf_msg.header.stamp = odom_input->header.stamp;
+    tf_msg.header.frame_id = odom_input->header.frame_id;
+    tf_msg.child_frame_id = config_.body_frame();
+    tf::transformTFToMsg(pose_out, tf_msg.transform);
+    br.sendTransform(tf_msg);
+  }
 }
 
 SensorStatus OdomSensor::getSensorStatus() {
