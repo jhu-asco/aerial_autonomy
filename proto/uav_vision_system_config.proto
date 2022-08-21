@@ -87,6 +87,18 @@ message UAVVisionSystemConfig {
   */
   optional int32 min_detections_visual_servoing_tracking_pose = 20 [ default = 1 ];
   /**
+  * @brief tf_frame of vehicle
+  */
+  optional string tf_frame_visual_servoing_tracking_pose = 21 [ default = "quad" ];
+  /**
+  * @brief tf time offset to poll 
+  */
+  optional double tf_time_offset_visual_servoing_tracking_pose = 22 [ default = 0.0 ];
+  /**
+  * @brief tf time offset to poll 
+  */
+  optional bool remove_time_since_last_measurement_visual_servoing_tracking_pose = 23 [ default = false ];
+  /**
   * @brief polynomial reference config
   */
   optional PolynomialReferenceConfig poly_reference_config = 13;

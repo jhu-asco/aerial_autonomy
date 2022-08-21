@@ -309,8 +309,11 @@ protected:
       } else if (tracker_type == "Object") {
         tracker_pointer = BaseTrackerPtr(new ObjectTracker(tracker_timeout));
       } else if ((tracker_type == "GlobalAlvar") || (tracker_type == "GlobalObject"))  {
-        tracker_pointer = BaseTrackerPtr(new GlobalTracker(tracker_type, *drone_hardware, camera_transform,
+        tracker_pointer = BaseTrackerPtr(new GlobalTracker(tracker_type, *drone_hardware, camera_transform, 
           conversions::protoTransformToTf(config.uav_vision_system_config().tracking_offset_transform()),
+            config.uav_vision_system_config().tf_frame_visual_servoing_tracking_pose(),
+            config.uav_vision_system_config().tf_time_offset_visual_servoing_tracking_pose(),
+            config.uav_vision_system_config().remove_time_since_last_measurement_visual_servoing_tracking_pose(),
             config.uav_vision_system_config().gain_visual_servoing_tracking_pose(),
             config.uav_vision_system_config().gain_steps_visual_servoing_tracking_pose(),
             config.uav_vision_system_config().fix_orientation_visual_servoing_tracking_pose(),

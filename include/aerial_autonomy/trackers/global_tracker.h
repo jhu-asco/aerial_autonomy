@@ -44,6 +44,9 @@ public:
                 parsernode::Parser &drone_hardware,
                 tf::Transform camera_transform,
                 tf::Transform tracking_offset_transform = tf::Transform::getIdentity(),
+                std::string tf_frame = "quad",
+                double tf_time_offset = 0.0, 
+                bool remove_time_since_last_measurement = false,
                 double filter_gain_tracking_pose = 0.1,
                 double filter_gain_steps = 10,
                 bool fix_orientation = false,
@@ -136,11 +139,17 @@ private:
   double min_distance_between_objects_; ///< Any greater distance would be considered separate objects, set high to filter all poses together
   int min_detections_; ///< Minimum number of detections to consider a valid detection
   tf2_ros::TransformBroadcaster br; ///< TF Broadcaster
+  tf2_ros::Buffer buffer_; ///< ros tf2 buffer
   ros::Subscriber tracker_sub_;
   AlvarTracker *alvar_tracker_;
   ObjectTracker *object_tracker_;
   std::string tracker_type_;
   int id_factor_; ///< Factor to use for separate objects of the same ID
+  ros::Duration time_since_last_message_;
+  ros::Time last_message_time_;
+  std::string tf_frame_;
+  double tf_time_offset_;
+  bool remove_time_since_last_measurement_;
 
   /**
   * @brief ROS node handle for communication

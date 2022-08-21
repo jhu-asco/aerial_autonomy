@@ -8,6 +8,9 @@ GlobalTracker::GlobalTracker(
             parsernode::Parser &drone_hardware,
             tf::Transform camera_transform,
             tf::Transform tracking_offset_transform,
+            std::string tf_frame,
+            double tf_time_offset,
+            bool remove_time_since_last_measurement,
             double filter_gain_tracking_pose,
             double filter_gain_steps,
             bool fix_orientation,
@@ -32,6 +35,12 @@ GlobalTracker::GlobalTracker(
     id_factor_(100),
     nh_(name_space)
 {
+  tf_frame_ = tf_frame;
+  tf_time_offset_ = tf_time_offset;
+  last_message_time_ = ros::Time::now();
+  time_since_last_message_ = ros::Duration(0);
+  remove_time_since_last_measurement_ = remove_time_since_last_measurement;
+
   tracker_type_ = tracker_type; 
   if (tracker_type_ == "GlobalAlvar")
   {
@@ -176,6 +185,9 @@ GlobalTracker::getTrackingTime() {
 void GlobalTracker::objectTrackerCallback(
       const vision_msgs::Detection3DArray &tracker_msg)
 {
+  time_since_last_message_ = tracker_msg.header.stamp - last_message_time_;
+  last_message_time_ = tracker_msg.header.stamp;
+
   // Return if there are not any detections
   if (tracker_msg.detections.size() == 0)
     return;
@@ -197,6 +209,9 @@ void GlobalTracker::objectTrackerCallback(
 void GlobalTracker::alvarTrackerCallback(
       const ar_track_alvar_msgs::AlvarMarkers &tracker_msg)
 {
+  time_since_last_message_ = tracker_msg.header.stamp - last_message_time_;
+  last_message_time_ = tracker_msg.header.stamp;
+
   // Return if there are not any markers
   if (tracker_msg.markers.size() == 0)
     return;
@@ -210,18 +225,45 @@ void GlobalTracker::trackerCallback(const std_msgs::Header &header_msg,
   ros::Time current_time = ros::Time::now();
 
   // Convert poses to world frame
-  parsernode::common::quaddata quad_data;
-  drone_hardware_.getquaddata(quad_data);
-  tf::Transform quad_pose;
-  if (odom_sensor_) {
-    if (odom_sensor_->getSensorStatus() != SensorStatus::VALID) {
-      LOG(WARNING) << "Pose sensor invalid!";
-      return;
+  // Find pose of vehicle with some offset of time for calculation time 
+  geometry_msgs::TransformStamped pose_input;
+  ros::Time tf_time = header_msg.stamp - ros::Duration(tf_time_offset_);
+  if (remove_time_since_last_measurement_)
+  {
+    if (time_since_last_message_ < ros::Duration(1))
+    {
+      tf_time -= time_since_last_message_;
     }
-    quad_pose = odom_sensor_->getSensorData().first;
-  } else {
-    quad_pose = conversions::getPose(quad_data);
+    else
+    {
+      LOG(WARNING) << "Time since last tracker message: " << time_since_last_message_;
+    }
   }
+  try{
+    pose_input = buffer_.lookupTransform("world", tf_frame_,
+                              tf_time);
+  }
+  catch (tf2::TransformException &ex) {
+    ROS_WARN("%s",ex.what());
+    // ros::Duration(0.1).sleep();
+    return;
+  }
+  tf::StampedTransform quad_pose_stamped;
+  tf::transformStampedMsgToTF(pose_input, quad_pose_stamped);
+  tf::Transform quad_pose = quad_pose_stamped;
+
+  // parsernode::common::quaddata quad_data;
+  // drone_hardware_.getquaddata(quad_data);
+  // tf::Transform quad_pose;
+  // if (odom_sensor_) {
+  //   if (odom_sensor_->getSensorStatus() != SensorStatus::VALID) {
+  //     LOG(WARNING) << "Pose sensor invalid!";
+  //     return;
+  //   }
+  //   quad_pose = odom_sensor_->getSensorData().first;
+  // } else {
+  //   quad_pose = conversions::getPose(quad_data);
+  // }
 
   // Recalculate tracking poses for any new detections
   std::unordered_map<uint32_t, tf::Transform> target_poses = target_poses_;
