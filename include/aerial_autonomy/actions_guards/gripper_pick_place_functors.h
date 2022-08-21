@@ -667,8 +667,8 @@ template <class LogicStateMachineT>
 using PrePickPositionInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-        VisualServoingInternalActionFunctor_<LogicStateMachineT, Reset>>>;//,
-        // MagnetometerInternalActionFunctor_<LogicStateMachineT>>>;
+        VisualServoingInternalActionFunctor_<LogicStateMachineT, Reset>,
+        MagnetometerInternalActionFunctor_<LogicStateMachineT>>>;
 
 /**
  * @brief Check visual servoing status and reset if something goes wrong
@@ -680,8 +680,8 @@ using PickPositionInternalActionFunctor_ =
     boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
         UAVStatusInternalActionFunctor_<LogicStateMachineT>,
         ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-        PickPositionControllerStatusCheck_<LogicStateMachineT>>>;//,
-        // MagnetometerInternalActionFunctor_<LogicStateMachineT>>>;
+        PickPositionControllerStatusCheck_<LogicStateMachineT>,
+        MagnetometerInternalActionFunctor_<LogicStateMachineT>>>;
 
 
 /**
@@ -693,8 +693,8 @@ template <class LogicStateMachineT>
 using PlacePositionInternalActionFunctor_ = boost::msm::front::ShortingActionSequence_<
     boost::mpl::vector<UAVStatusInternalActionFunctor_<LogicStateMachineT>,
                        ArmStatusInternalActionFunctor_<LogicStateMachineT>,
-                       VisualServoingStatus_<LogicStateMachineT, Reset>>>;//,
-                      //  MagnetometerInternalActionFunctor_<LogicStateMachineT>>>;
+                       VisualServoingStatus_<LogicStateMachineT, Reset>,
+                       MagnetometerInternalActionFunctor_<LogicStateMachineT>>>;
 
 /**
  * @brief typedef for base class of grip state which is a timed state
