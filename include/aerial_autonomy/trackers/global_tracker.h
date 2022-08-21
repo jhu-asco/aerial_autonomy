@@ -8,6 +8,7 @@
 #include <parsernode/parser.h>
 #include <tf/tf.h>
 #include <tf2_ros/transform_broadcaster.h>
+#include <tf2_ros/transform_listener.h>
 #include <boost/thread/mutex.hpp>
 
 #include <vision_msgs/Detection3DArray.h>
@@ -139,6 +140,7 @@ private:
   double min_distance_between_objects_; ///< Any greater distance would be considered separate objects, set high to filter all poses together
   int min_detections_; ///< Minimum number of detections to consider a valid detection
   tf2_ros::TransformBroadcaster br; ///< TF Broadcaster
+  tf2_ros::TransformListener *listener_;   ///< ros tf2 listener
   tf2_ros::Buffer buffer_; ///< ros tf2 buffer
   ros::Subscriber tracker_sub_;
   AlvarTracker *alvar_tracker_;

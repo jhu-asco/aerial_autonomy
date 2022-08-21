@@ -59,6 +59,8 @@ GlobalTracker::GlobalTracker(
     throw std::runtime_error("Unknown tracker type provided to GlobalTracker: " +
                               tracker_type_);
   }
+
+  listener_ = new tf2_ros::TransformListener(buffer_);
 }
 
 tf::Transform GlobalTracker::filter(uint32_t id, tf::Transform input) {
