@@ -123,6 +123,14 @@ private:
   */
   void alvarTrackerCallback(const ar_track_alvar_msgs::AlvarMarkers &tracker_msg);
 
+  /**
+  * @brief Get distance between poses
+  * @param pose1 First pose
+  * @param pose2 Second pose
+  * @return distance between poses
+  */
+  double getDistance(tf::Transform pose1, tf::Transform pose2);
+
   parsernode::Parser &drone_hardware_; ///< UAV Hardware
   Atomic<std::unordered_map<uint32_t, tf::Transform>> target_poses_; ///< Tracked poses
   Atomic<std::unordered_map<uint32_t, ros::Time>> last_valid_times_; ///< Last time we received a pose

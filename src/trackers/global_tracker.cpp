@@ -287,36 +287,45 @@ void GlobalTracker::trackerCallback(const std_msgs::Header &header_msg,
 
     // Calculate distance to current target poses of matching ID
     double min_dist = 1000;
-    uint32_t matched_id = 1000;
+    uint32_t matched_id_init = 1000;
+    uint32_t matched_id = matched_id_init;
     for (auto target : previous_target_poses)
     {
       if (target.first % id_factor_ == base_id)
       {
-        double x_diff = new_pose.getOrigin().getX() - target.second.getOrigin().getX();
-        double y_diff = new_pose.getOrigin().getY() - target.second.getOrigin().getY();
-        double z_diff = new_pose.getOrigin().getZ() - target.second.getOrigin().getZ();
-        double dist = sqrt(x_diff * x_diff + y_diff * y_diff + z_diff * z_diff);
-        if (dist < min_dist)
+        double dist = getDistance(new_pose, target.second);
+        // If new closest object or closer than minimum distance between objects
+        if ((dist < min_dist) || (dist < min_distance_between_objects_))
         {
-          // If two objects are very close together, add to the one with more detections
-          if ((min_dist - dist < min_distance_between_objects_) && 
-              (num_detections[matched_id] > num_detections[target.first]))
+          // Compare current estimate with previous best
+          if (matched_id != matched_id_init)
           {
-            // Don't update distance, keep the previous match
-            LOG(WARNING) << "Adding to object with more detections";
+            double dist_btw_targets = getDistance(target.second, previous_target_poses[matched_id]);
+            // If these two targets are close together
+            if (dist_btw_targets < min_distance_between_objects_) 
+            {
+              // If the previous estimate has more detections, continue
+              if (num_detections[matched_id] > num_detections[target.first])
+              {
+                LOG(WARNING) << "Adding to object with more detections";
+                continue;
+              }
+            }
+            // Otherwise, distance is greater, so only store if new smallest distance
+            else if (dist >= min_dist)
+            {
+              continue;
+            }
           }
-          else {
-            matched_id = target.first;
-            min_dist = dist; 
-          }
+          matched_id = target.first;
+          min_dist = dist; 
         }
       }
-
     }
 
     // If not matched to an existing object or min distance greater than threshold, 
     // the create new object
-    if ((matched_id == 1000) || (min_dist > min_distance_between_objects_))
+    if ((matched_id == matched_id_init) || (min_dist > min_distance_between_objects_))
     {
       // If there isn't an object with that key
       int multiplier = 0;
@@ -361,4 +370,12 @@ void GlobalTracker::trackerCallback(const std_msgs::Header &header_msg,
   target_poses_ = target_poses;
   last_valid_times_ = last_valid_times;
   num_detections_ = num_detections;
+}
+
+double GlobalTracker::getDistance(tf::Transform pose1, tf::Transform pose2)
+{
+  double x_diff = pose1.getOrigin().getX() - pose2.getOrigin().getX();
+  double y_diff = pose1.getOrigin().getY() - pose2.getOrigin().getY();
+  double z_diff = pose1.getOrigin().getZ() - pose2.getOrigin().getZ();
+  return sqrt(x_diff * x_diff + y_diff * y_diff + z_diff * z_diff);
 }
