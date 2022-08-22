@@ -83,6 +83,13 @@ public:
   }
 
   /**
+  * @brief Public API call to set joint angles
+  */
+  bool setJointAngles(std::vector<double> joint_angles) {
+    return arm_hardware_->setJointAngles(joint_angles);
+  }
+
+  /**
   * @brief Public API call to grip/ungrip an object
   *
   * @param grip_action true to grip an object and false to ungrip

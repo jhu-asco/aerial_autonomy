@@ -173,7 +173,7 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
   */
   using GripTransitionAction =
       base_functors::bActionSequence<boost::mpl::vector<
-          ArmGripActionFunctor_<LogicStateMachineT, true>>>;
+          ArmGripIDActionFunctor_<LogicStateMachineT>>>;
 
   /**
   * @brief Hover in place

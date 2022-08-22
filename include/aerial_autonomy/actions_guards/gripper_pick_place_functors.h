@@ -56,6 +56,31 @@ struct HoverPositionControlTransitionActionFunctor_
 };
 
 /**
+* @brief action to grip for specific object ID
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct ArmGripIDActionFunctor_
+    : ActionFunctor<ObjectId, UAVArmSystem, LogicStateMachineT> {
+  void run(ObjectId const &event, UAVArmSystem &robot_system) {
+    auto pick_place_config =
+        this->state_machine_config_.visual_servoing_state_machine_config()
+            .pick_place_state_machine_config();
+    // Find the corresponding place group
+    for (auto place_group : pick_place_config.place_groups()) {
+      if (proto_utils::contains(place_group.object_ids(), event.id)) {
+        // Set grip angle
+        std::vector<double> joint_angles;
+        joint_angles.push_back(place_group.gripper_angle());
+        VLOG(1) << "Gripping! With angle: " << joint_angles[0];
+        robot_system.setJointAngles(joint_angles);
+      }
+    }
+  }
+};
+
+/**
 * @brief Checks whether grip command has completed or timed out
 * @tparam LogicStateMachineT Logic state machine used to process events
 * @tparam StateT State which stores gripper timer state
@@ -633,7 +658,17 @@ struct PickPositionControllerStatusCheck_
     if (visual_servoing_status == ControllerStatus::Completed ||
         lowlevel_status == ControllerStatus::Completed)
     {
-      logic_state_machine.process_event(Completed());
+      // Send ID of object
+      uint32_t tracked_id;
+      if (robot_system.getTrackingVectorId(tracked_id)) {
+        ObjectId id_event(tracked_id);
+        VLOG(1) << "Ready to grip object with ID " << tracked_id;
+        logic_state_machine.process_event(id_event);
+      } else {
+        LOG(WARNING) << "Could not retrieve object ID!";
+        logic_state_machine.process_event(Reset());
+      }
+      // logic_state_machine.process_event(Completed());
     }
     // lowlevel_status controller could have a warning due to continuously checking yaw 
     // (assumes yaw shouldn't be changing much for pick action)

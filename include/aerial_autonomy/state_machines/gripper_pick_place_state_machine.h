@@ -198,7 +198,7 @@ public:
             msmf::Row<gsa::ResetVisualServoing, be::Abort, gsa::Hovering,
                       gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
-            msmf::Row<gsa::PickPositionState, Completed, gsa::GripState,
+            msmf::Row<gsa::PickPositionState, ObjectId, gsa::GripState,
                       gsa::GripTransitionAction, msmf::none>,
             msmf::Row<gsa::PickPositionState, be::Abort, gsa::Hovering,
                       gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,

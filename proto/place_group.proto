@@ -9,4 +9,8 @@ message PlaceGroup {
   * @brief IDs of objects that should be placed at the specified destination
   */
   repeated uint32 object_ids = 2;
+  /**
+  * @brief Gripper angle
+  */
+  optional uint32 gripper_angle = 3 [ default = 120 ];
 }
