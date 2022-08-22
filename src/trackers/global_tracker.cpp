@@ -298,8 +298,17 @@ void GlobalTracker::trackerCallback(const std_msgs::Header &header_msg,
         double dist = sqrt(x_diff * x_diff + y_diff * y_diff + z_diff * z_diff);
         if (dist < min_dist)
         {
-          matched_id = target.first;
-          min_dist = dist; 
+          // If two objects are very close together, add to the one with more detections
+          if ((min_dist - dist < min_distance_between_objects_) && 
+              (num_detections[matched_id] > num_detections[target.first]))
+          {
+            // Don't update distance, keep the previous match
+            LOG(WARNING) << "Adding to object with more detections";
+          }
+          else {
+            matched_id = target.first;
+            min_dist = dist; 
+          }
         }
       }
 
