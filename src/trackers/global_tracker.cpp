@@ -17,6 +17,7 @@ GlobalTracker::GlobalTracker(
             bool straight_line_orientation,
             double min_distance_between_objects,
             int min_detections, 
+            int id_factor,
             SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor,
             std::chrono::duration<double> timeout,
             std::string name_space)
@@ -32,7 +33,7 @@ GlobalTracker::GlobalTracker(
     straight_line_orientation_(straight_line_orientation),
     min_distance_between_objects_(min_distance_between_objects),
     min_detections_(min_detections),
-    id_factor_(100),
+    id_factor_(id_factor),
     nh_(name_space)
 {
   tf_frame_ = tf_frame;
@@ -124,16 +125,72 @@ bool GlobalTracker::getTrackingVectors(
 // Adapted to handle multiple objects with the same ID
 bool GlobalTracker::getTrackingVector(std::tuple<uint32_t, tf::Transform> &pose) {
 
-  bool valid = BaseTracker::getTrackingVector(pose);
+  // bool valid = BaseTracker::getTrackingVector(pose);
 
-  if (valid)
-  {
-    VLOG_EVERY_N(1, 100) << "TRACKING OBJECT: " << std::get<0>(pose);
-    // Return just the base ID
-    std::get<0>(pose) = std::get<0>(pose) % id_factor_;
+  if (!trackingIsValid()) {
+    return false;
   }
+
+  std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
+  if (!getTrackingVectors(tracking_vectors)) {
+    return false;
+  }
+
+  // Transform tracking vectors for tracking strategies that assume relative poses
+  // (such as ClosestTrackingStrategy)
+  relativeTrackingVectors(tracking_vectors);
+
+  std::tuple<uint32_t, tf::Transform> relative_pose;
+  if (!tracking_strategy_->getTrackingVector(tracking_vectors, relative_pose)) {
+    return false;
+  }
+
+  // Restore pose to global transform
+  uint32_t pose_id = std::get<0>(relative_pose);
+  pose = std::make_tuple(pose_id, tracking_vectors[pose_id]);
+
+  VLOG_EVERY_N(1, 100) << "TRACKING OBJECT: " << pose_id;
+  // Return just the base ID
+  std::get<0>(pose) = std::get<0>(pose) % id_factor_;
   
-  return valid;
+  return true;
+}
+
+bool GlobalTracker::initialize() {
+  std::unordered_map<uint32_t, tf::Transform> tracking_vectors;
+  if (!getTrackingVectors(tracking_vectors)) {
+    return false;
+  }
+
+  // Transform tracking vectors for tracking strategies that assume relative poses
+  // (such as ClosestTrackingStrategy)
+  relativeTrackingVectors(tracking_vectors);
+
+  return tracking_strategy_->initialize(tracking_vectors);
+}
+
+void GlobalTracker::relativeTrackingVectors(std::unordered_map<uint32_t, tf::Transform> &tracking_vectors)
+{
+  // Get current vehicle position
+  parsernode::common::quaddata quad_data;
+  drone_hardware_.getquaddata(quad_data);
+  tf::Transform quad_pose;
+  if (odom_sensor_) {
+    if (odom_sensor_->getSensorStatus() != SensorStatus::VALID) {
+      LOG(WARNING) << "Pose sensor invalid!";
+      return;
+    }
+    quad_pose = odom_sensor_->getSensorData().first;
+  } else {
+    quad_pose = conversions::getPose(quad_data);
+  }
+
+  // Make poses relative 
+  for (auto& pose : tracking_vectors)
+  {
+    pose.second = quad_pose.inverse() * pose.second; 
+  }
+
 }
 
 bool GlobalTracker::trackingIsValid() {
@@ -195,17 +252,6 @@ void GlobalTracker::objectTrackerCallback(
     return;
 
   trackerCallback(tracker_msg.header, object_tracker_->getObjectPoses(tracker_msg));
-
-  // std::unordered_map<uint32_t, tf::Transform> new_object_poses = object_tracker_->getObjectPoses(tracker_msg)
-  // // Check if there are multiple instances of objects
-  // // Assumes a message is always one type of object
-  // if (tracker_msg.detections.size() > 1)
-  // {
-    
-  // }
-
-
-  // trackerCallback(tracker_msg.header, new_object_poses);
 }
 
 void GlobalTracker::alvarTrackerCallback(

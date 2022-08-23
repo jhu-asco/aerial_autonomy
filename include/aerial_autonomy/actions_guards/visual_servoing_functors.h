@@ -8,6 +8,7 @@
 #include <aerial_autonomy/logic_states/base_state.h>
 #include <aerial_autonomy/robot_systems/uav_vision_system.h>
 #include <aerial_autonomy/trackers/id_tracking_strategy.h>
+#include <aerial_autonomy/trackers/closest_id_tracking_strategy.h>
 #include <aerial_autonomy/types/completed_event.h>
 #include <aerial_autonomy/types/object_id.h>
 #include <aerial_autonomy/types/reset_event.h>
@@ -188,6 +189,48 @@ struct EventIdVisualServoingGuardFunctor_
     return false;
   }
 };
+
+/**
+* @brief Guard for initializing relative pose visual servoing for specific
+* tracking id based on event, select closest target with that ID
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct ClosestEventIdVisualServoingGuardFunctor_
+    : public GuardFunctor<ObjectId, UAVVisionSystem, LogicStateMachineT> {
+  bool guard(ObjectId const &event, UAVVisionSystem &robot_system) {
+    int id_factor = robot_system.getConfiguration()
+                                .uav_vision_system_config()
+                                .id_factor_visual_servoing_tracking_pose();
+    auto pick_place_config =
+        this->state_machine_config_.visual_servoing_state_machine_config()
+            .pick_place_state_machine_config();
+    for (auto place_group : pick_place_config.place_groups()) {
+      if (proto_utils::contains(place_group.object_ids(), event.id)) {
+        robot_system.setTrackingStrategy(std::unique_ptr<TrackingStrategy>(
+            new ClosestIdTrackingStrategy(place_group.destination_id(), id_factor)));
+        if (!robot_system.initializeTracker()) {
+          LOG(WARNING) << "Could not initialize tracking. "
+                       << "Cannot track Marker Id since id not available: "
+                       << place_group.destination_id();
+          return false;
+        }
+        Position tracking_vector;
+        if (!robot_system.getTrackingVector(tracking_vector)) {
+          LOG(WARNING) << "Cannot get tracking vector, tracking is not locked.";
+          return false;
+        }
+        VLOG(2) << "Setting tracking id to " << place_group.destination_id();
+        return true;
+      }
+    }
+    LOG(WARNING) << "Could not find ID " << event.id
+                 << " in configured place groups";
+    return false;
+  }
+};
+
 template <class LogicStateMachineT, class AbortEventT,
           bool CompleteFlagT = true>
 struct VisualServoingStatus_

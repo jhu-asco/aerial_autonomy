@@ -320,6 +320,7 @@ protected:
             config.uav_vision_system_config().straight_line_orientation_visual_servoing_tracking_pose(),
             config.uav_vision_system_config().min_distance_between_objects_visual_servoing_tracking_pose(),
             config.uav_vision_system_config().min_detections_visual_servoing_tracking_pose(),
+            config.uav_vision_system_config().id_factor_visual_servoing_tracking_pose(),
             odom_sensor, tracker_timeout));
       } else if (tracker_type == "Simulated") {
         tracker_pointer = BaseTrackerPtr(new SimulatedROSTracker(

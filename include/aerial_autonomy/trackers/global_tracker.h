@@ -54,6 +54,7 @@ public:
                 bool straight_line_orientation = false,
                 double min_distance_between_objects = 1000,
                 int min_detections = 1, 
+                int id_factor = 100,
                 SensorPtr<std::pair<tf::StampedTransform, tf::Vector3>> odom_sensor = nullptr,
                 std::chrono::duration<double> timeout = std::chrono::milliseconds(500),
                 std::string name_space = "~tracker");
@@ -73,6 +74,18 @@ public:
    */
   bool 
   getTrackingVector(std::tuple<uint32_t, tf::Transform> &pose);
+
+  /**
+  * @brief Transform tracking vectors from global poses to relative poses for tracking strategy
+  * @param tracking_vectors Current tracking vectors 
+  */
+  void relativeTrackingVectors(std::unordered_map<uint32_t, tf::Transform> &tracking_vectors);
+
+  /**
+  * @brief Initialze the tracker.  
+  * @return True if initialization succeeds, false otherwise
+  */
+  virtual bool initialize();
 
   virtual bool
   vectorIsGlobal();

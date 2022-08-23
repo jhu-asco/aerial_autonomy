@@ -218,7 +218,7 @@ public:
                       gsa::UngripGoHome, gsa::GoHomeTransitionGuard>,
             msmf::Row<gsa::ReachingPostPickWaypointWithObject, ObjectId, gsa::PrePlacePositionState,
                       gsa::PrePlaceVisualServoingTransitionAction,
-                      gsa::PrePlaceVisualServoingTransitionGuard>,
+                      gsa::PrePlacePositionVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::PrePlacePositionState, Completed, gsa::PlacePositionState,
                       gsa::PlaceTransitionAction, gsa::PlaceVisualServoingTransitionGuard>,

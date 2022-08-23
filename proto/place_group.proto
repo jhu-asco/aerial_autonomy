@@ -12,5 +12,5 @@ message PlaceGroup {
   /**
   * @brief Gripper angle
   */
-  optional uint32 gripper_angle = 3 [ default = 120 ];
+  optional uint32 gripper_angle = 3 [ default = 60 ];
 }

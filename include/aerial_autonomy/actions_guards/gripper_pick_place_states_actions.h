@@ -198,13 +198,13 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
 //                              LogicStateMachineT, 3>>>;
 //   // \todo Matt add guard to check if relative pose visual servoing goal exists
 
-//   /**
-//   * @brief Guard to set and check that the id to track is available
-//   * before beginning visual servoing
-//   */
-//   using PrePlaceVisualServoingTransitionGuard =
-//       bAnd<EventIdVisualServoingGuardFunctor_<LogicStateMachineT>,
-//            CheckGoalIndex_<LogicStateMachineT, 3>>;
+  /**
+  * @brief Guard to set and check that the id to track is available
+  * before beginning visual servoing
+  */
+  using PrePlacePositionVisualServoingTransitionGuard =
+      bAnd<ClosestEventIdVisualServoingGuardFunctor_<LogicStateMachineT>,
+           CheckGoalIndex_<LogicStateMachineT, 3>>;
 
 //   using PlaceVisualServoingTransitionGuard =
 //       CheckGoalIndex_<LogicStateMachineT, 1>;

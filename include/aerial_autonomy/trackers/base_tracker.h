@@ -83,7 +83,7 @@ public:
     return;
   }
 
-private:
+protected:
   /**
   * @brief Strategy used to choose which object to track among multiple objects
   */

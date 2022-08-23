@@ -98,6 +98,10 @@ message UAVVisionSystemConfig {
   * @brief tf time offset to poll 
   */
   optional bool remove_time_since_last_measurement_visual_servoing_tracking_pose = 23 [ default = false ];
+ /**
+  * @brief ID Factor to distinguish between objects of the same base ID
+  */
+  optional int32 id_factor_visual_servoing_tracking_pose = 24 [ default = 100 ];
   /**
   * @brief polynomial reference config
   */
