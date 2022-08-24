@@ -138,10 +138,11 @@ bool GlobalTracker::getTrackingVector(std::tuple<uint32_t, tf::Transform> &pose)
 
   // Transform tracking vectors for tracking strategies that assume relative poses
   // (such as ClosestTrackingStrategy)
-  relativeTrackingVectors(tracking_vectors);
+  std::unordered_map<uint32_t, tf::Transform> 
+    relative_tracking_vectors = relativeTrackingVectors(tracking_vectors);
 
   std::tuple<uint32_t, tf::Transform> relative_pose;
-  if (!tracking_strategy_->getTrackingVector(tracking_vectors, relative_pose)) {
+  if (!tracking_strategy_->getTrackingVector(relative_tracking_vectors, relative_pose)) {
     return false;
   }
 
@@ -164,13 +165,17 @@ bool GlobalTracker::initialize() {
 
   // Transform tracking vectors for tracking strategies that assume relative poses
   // (such as ClosestTrackingStrategy)
-  relativeTrackingVectors(tracking_vectors);
+  std::unordered_map<uint32_t, tf::Transform> 
+    relative_tracking_vectors = relativeTrackingVectors(tracking_vectors);
 
-  return tracking_strategy_->initialize(tracking_vectors);
+  return tracking_strategy_->initialize(relative_tracking_vectors);
 }
 
-void GlobalTracker::relativeTrackingVectors(std::unordered_map<uint32_t, tf::Transform> &tracking_vectors)
+std::unordered_map<uint32_t, tf::Transform> 
+GlobalTracker::relativeTrackingVectors(std::unordered_map<uint32_t, tf::Transform> tracking_vectors)
 {
+  std::unordered_map<uint32_t, tf::Transform> relative_tracking_vectors = tracking_vectors;
+
   // Get current vehicle position
   parsernode::common::quaddata quad_data;
   drone_hardware_.getquaddata(quad_data);
@@ -178,7 +183,7 @@ void GlobalTracker::relativeTrackingVectors(std::unordered_map<uint32_t, tf::Tra
   if (odom_sensor_) {
     if (odom_sensor_->getSensorStatus() != SensorStatus::VALID) {
       LOG(WARNING) << "Pose sensor invalid!";
-      return;
+      return relative_tracking_vectors;
     }
     quad_pose = odom_sensor_->getSensorData().first;
   } else {
@@ -186,11 +191,12 @@ void GlobalTracker::relativeTrackingVectors(std::unordered_map<uint32_t, tf::Tra
   }
 
   // Make poses relative 
-  for (auto& pose : tracking_vectors)
+  for (auto pose : tracking_vectors)
   {
-    pose.second = quad_pose.inverse() * pose.second; 
+    relative_tracking_vectors[pose.first] = quad_pose.inverse() * pose.second; 
   }
 
+  return relative_tracking_vectors;
 }
 
 bool GlobalTracker::trackingIsValid() {

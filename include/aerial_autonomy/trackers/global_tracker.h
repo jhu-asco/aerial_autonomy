@@ -78,8 +78,10 @@ public:
   /**
   * @brief Transform tracking vectors from global poses to relative poses for tracking strategy
   * @param tracking_vectors Current tracking vectors 
+  * @return Relative tracking vectors
   */
-  void relativeTrackingVectors(std::unordered_map<uint32_t, tf::Transform> &tracking_vectors);
+  std::unordered_map<uint32_t, tf::Transform> 
+  relativeTrackingVectors(std::unordered_map<uint32_t, tf::Transform> tracking_vectors);
 
   /**
   * @brief Initialze the tracker.  
