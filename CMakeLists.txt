@@ -299,6 +299,7 @@ set(SRC
   src/trackers/simulated_ros_tracker.cpp
   src/trackers/closest_tracking_strategy.cpp
   src/trackers/id_tracking_strategy.cpp
+  src/trackers/closest_id_tracking_strategy.cpp
   src/trackers/simple_tracking_strategy.cpp
   src/types/spiral_reference_trajectory.cpp
   src/types/quad_particle_reference_trajectory.cpp
