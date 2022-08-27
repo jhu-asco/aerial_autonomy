@@ -83,7 +83,7 @@ std::unordered_map<uint32_t, tf::Transform> ObjectTracker::getObjectPoses(
     double shift_z = 0.0;
     if (detect_msg.detections[i].results[0].id == 16)
     {
-      shift_z = 0.015;
+      shift_z = 0.025;
     }
 
     tf::Transform transform(
