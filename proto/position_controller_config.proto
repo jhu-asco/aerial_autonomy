@@ -25,4 +25,21 @@ message PositionControllerConfig {
   * the controller is okay
   */
   optional double continuous_yaw_tolerance = 4 [ default = 0.1 ];
+
+  /**
+  * @brief Whether to continously check z against threshold
+  */
+  optional bool check_z_continuously = 5 [ default = false ];
+
+  /**
+  * @brief Robot is above this min z value (m) from the goal,
+  * the controller is okay
+  */
+  optional double continuous_z_min_tolerance = 6 [ default = -0.05 ];
+
+  /**
+  * @brief Robot is below this max z value (m) from the goal,
+  * the controller is okay
+  */
+  optional double continuous_z_max_tolerance = 7 [ default = 0.05 ];
 }

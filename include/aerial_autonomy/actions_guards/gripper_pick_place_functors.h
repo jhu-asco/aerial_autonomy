@@ -670,8 +670,8 @@ struct PickPositionControllerStatusCheck_
       }
       // logic_state_machine.process_event(Completed());
     }
-    // lowlevel_status controller could have a warning due to continuously checking yaw 
-    // (assumes yaw shouldn't be changing much for pick action)
+    // lowlevel_status controller could have a warning due to continuously checking yaw or z
+    // (assumes yaw and z shouldn't be changing much for pick action)
     else if (visual_servoing_status == ControllerStatus::Critical ||
                 lowlevel_status == ControllerStatus::Critical ||
                 lowlevel_status == ControllerStatus::NotEngaged ||
