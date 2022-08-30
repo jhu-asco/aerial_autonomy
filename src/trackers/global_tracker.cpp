@@ -146,13 +146,12 @@ bool GlobalTracker::getTrackingVector(std::tuple<uint32_t, tf::Transform> &pose)
     return false;
   }
 
-  // Restore pose to global transform
+  // Restore pose to global transform and return just the base ID
   uint32_t pose_id = std::get<0>(relative_pose);
-  pose = std::make_tuple(pose_id, tracking_vectors[pose_id]);
+  uint32_t base_pose_id = pose_id % id_factor_;
+  pose = std::make_tuple(base_pose_id, tracking_vectors[pose_id]);
 
   VLOG_EVERY_N(1, 100) << "TRACKING OBJECT: " << pose_id;
-  // Return just the base ID
-  std::get<0>(pose) = std::get<0>(pose) % id_factor_;
   
   return true;
 }
