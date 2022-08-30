@@ -42,4 +42,14 @@ message PositionControllerConfig {
   * the controller is okay
   */
   optional double continuous_z_max_tolerance = 7 [ default = 0.05 ];
+
+  /**
+  * @brief Region around goal in x to check continuous tolerances
+  */
+  optional double continuous_region_x_tolerance = 8 [ default = 100 ];
+
+  /**
+  * @brief Region around goal in y to check continuous tolerances
+  */
+  optional double continuous_region_y_tolerance = 9 [ default = 100 ];
 }

@@ -188,6 +188,10 @@ protected:
         position_controller_config.continuous_z_min_tolerance();
     const double &tolerance_continuous_z_max =
         position_controller_config.continuous_z_max_tolerance();
+    const double &continuous_region_x_tolerance =
+        position_controller_config.continuous_region_x_tolerance();
+    const double &continuous_region_y_tolerance =
+        position_controller_config.continuous_region_y_tolerance();
     bool new_warning = false;
     // Compare
     if (std::abs(error_position_yaw.x) <= tolerance_pos.x() &&
@@ -200,19 +204,24 @@ protected:
       VLOG_EVERY_N(1, 100) << "Reached goal";
       status.setStatus(ControllerStatus::Completed, "Reached goal");
     }
-    if (check_yaw_continuously) {
-      if (std::abs(error_position_yaw.yaw) > tolerance_continuous_yaw) {
-        std::string warning_description = "Yaw error critical: " + std::to_string(error_position_yaw.yaw);
-        status.setWarning(true, warning_description);
-        new_warning = true;
+    // If close to goal, check continuous thresholds
+    if ((std::abs(error_position_yaw.x) < continuous_region_x_tolerance) && 
+        (std::abs(error_position_yaw.y) < continuous_region_y_tolerance))
+    {
+      if (check_yaw_continuously) {
+        if (std::abs(error_position_yaw.yaw) > tolerance_continuous_yaw) {
+          std::string warning_description = "Yaw error critical: " + std::to_string(error_position_yaw.yaw);
+          status.setWarning(true, warning_description);
+          new_warning = true;
+        }
       }
-    }
-    if (check_z_continuously) {
-      if ((error_position_yaw.z < tolerance_continuous_z_min) || 
-          (error_position_yaw.z > tolerance_continuous_z_max)) {
-        std::string warning_description = "Z error critical: " + std::to_string(error_position_yaw.yaw);
-        status.setWarning(true, warning_description);
-        new_warning = true;
+      if (check_z_continuously) {
+        if ((error_position_yaw.z < tolerance_continuous_z_min) || 
+            (error_position_yaw.z > tolerance_continuous_z_max)) {
+          std::string warning_description = "Z error critical: " + std::to_string(error_position_yaw.z);
+          status.setWarning(true, warning_description);
+          new_warning = true;
+        }
       }
     }
     if (!new_warning)
