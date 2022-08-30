@@ -32,15 +32,21 @@ ref_states = states + interp_errors
 labels = ['$p_x$', '$p_y$', '$p_z$', 'yaw', '$v_x$', '$v_y$', '$v_z$']
 units = ['m','m','m','rad','m/s', 'm/s', 'm/s']
 legend = ['Tracked', 'Reference']
+legend_w_diff = ['Tracked', 'Reference', 'Diff (Ref - Tracked)', 'Zero']
 ts_sub = ts[iStart:iEnd]
 ncols = states.shape[1]
 for i in range(ncols):
     plt.figure()
     plt.plot(ts_sub, states[iStart:iEnd, i])
     plt.plot(ts_sub, ref_states[iStart:iEnd, i])
+    if i < 4:
+      plt.plot(ts_sub, ref_states[iStart:iEnd, i] - states[iStart:iEnd, i])
+      plt.plot(ts_sub, 0*ref_states[iStart:iEnd, i])
+      plt.legend(legend_w_diff)
+    else:
+      plt.legend(legend)
     plt.ylabel(labels[i]+' ('+units[i]+')')
     plt.xlabel('Time (seconds)')
-    plt.legend(legend)
     plt.tight_layout()
     simplified_label = labels[i].replace('$','')+'.eps'
     plt.savefig(os.path.join(args.folder,simplified_label),
