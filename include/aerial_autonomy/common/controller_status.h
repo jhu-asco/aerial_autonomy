@@ -32,7 +32,7 @@ private:
   std::string status_description_; ///< Description for status if any
   std::string debug_header_;       ///< Header for debug info
   bool warning_ = false;           ///< If there is a warning
-  std::string warning_description_;///< Description for warning if any
+  std::string warning_description_ = "";///< Description for warning if any
 
   /**
   * @brief Debug data associated with current status
