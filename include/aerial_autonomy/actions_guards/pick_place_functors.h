@@ -246,6 +246,8 @@ template <class LogicStateMachineT, int StartIndex, int EndIndex, class StateT>
 struct GoToWaypointInternalActionFunctor_
     : StateDependentInternalActionFunctor<UAVArmSystem, LogicStateMachineT,
                                           StateT> {
+
+  PositionYaw last_waypoint_world_pose_;
   /**
    * @brief Specific run implementation for the internal action. The internal
    * action checks for the waypoint reaching status and updates the tracked
@@ -270,7 +272,7 @@ struct GoToWaypointInternalActionFunctor_
         return false;
       } else {
         sendLocalWaypoint(robot_system, waypoint, state.getReferenceConfig(),
-                          state.getPositionToleranceConfig());
+                          state.getPositionToleranceConfig(), true);
       }
     }
     // check controller status
@@ -290,7 +292,7 @@ struct GoToWaypointInternalActionFunctor_
           return false;
         } else {
           sendLocalWaypoint(robot_system, waypoint, state.getReferenceConfig(),
-                            state.getPositionToleranceConfig());
+                            state.getPositionToleranceConfig(), false);
         }
       }
     } else if (status == ControllerStatus::Critical) {
@@ -317,14 +319,27 @@ struct GoToWaypointInternalActionFunctor_
   * @brief Send local waypoint to the robot system
   * @param robot_system Robot to send waypoint to
   * @param way_point Waypoint to send
+  * @param relative_to_current_pose If the waypoint should be relative to the current 
+  * pose or relative to the last waypoint's goal
   */
   void sendLocalWaypoint(UAVArmSystem &robot_system, PositionYaw way_point,
                          PolynomialReferenceConfig reference_config,
-                         PositionControllerConfig goal_tolerance) {
-    tf::StampedTransform quad_pose = robot_system.getPose();
-    way_point.x += quad_pose.getOrigin().x();
-    way_point.y += quad_pose.getOrigin().y();
-    way_point.z += quad_pose.getOrigin().z();
+                         PositionControllerConfig goal_tolerance,
+                         bool relative_to_current_pose) {
+    if (relative_to_current_pose)
+    {
+      tf::StampedTransform quad_pose = robot_system.getPose();
+      way_point.x += quad_pose.getOrigin().x();
+      way_point.y += quad_pose.getOrigin().y();
+      way_point.z += quad_pose.getOrigin().z();
+    }
+    else // relative to last pose
+    {
+      way_point.x += last_waypoint_world_pose_.x;
+      way_point.y += last_waypoint_world_pose_.y;
+      way_point.z += last_waypoint_world_pose_.z;
+    }
+    last_waypoint_world_pose_ = way_point;
     VLOG(1) << "Waypoint position: " << way_point.x << ", " << way_point.y
             << ", " << way_point.z;
     tf::StampedTransform start_pose = robot_system.getPose();
