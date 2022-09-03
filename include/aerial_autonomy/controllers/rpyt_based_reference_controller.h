@@ -78,6 +78,8 @@ protected:
     return Eigen::Vector3d(0, 0, 0);
   }
 
+  std::chrono::time_point<std::chrono::high_resolution_clock> last_run_time_ =
+      std::chrono::high_resolution_clock::now();
   /**
    * @brief Run rpyt reference controller
    *
@@ -144,6 +146,18 @@ protected:
         << error_position_yaw.x << error_position_yaw.y << error_position_yaw.z
         << error_position_yaw.yaw << error_velocity.x << error_velocity.y
         << error_velocity.z << control.r << control.p << control.y << control.t << DataStream::endl;
+
+    std::chrono::time_point<std::chrono::high_resolution_clock> current_time =
+      std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> dt_duration =
+      std::chrono::duration_cast<std::chrono::duration<double>>(current_time -
+                                                                last_run_time_);
+    double time_diff = dt_duration.count();
+    if (time_diff > 0.1)
+    {
+      VLOG(1) << "WARNING: rpyt_based_reference_controller run time duration is " << time_diff;
+    }
+    last_run_time_ = std::chrono::system_clock::now();
     return true;
   }
   /**
