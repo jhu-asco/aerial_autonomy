@@ -286,112 +286,128 @@ struct GripMaintainInternalActionFunctor_
 //   }
 // };
 
-// /**
-// * @brief Action to reach a relative waypoint specified in NWU frame
-// * attached to quadrotor.
-// *
-// * @tparam LogicStateMachineT Logic state machine used to process events
-// * @tparam Index Which waypoint we are reaching to
-// * \todo Gowtham test internal action functor
-// */
-// template <class LogicStateMachineT, int StartIndex, int EndIndex, class StateT>
-// struct GoToWaypointInternalActionFunctor_
-//     : StateDependentInternalActionFunctor<UAVArmSystem, LogicStateMachineT,
-//                                           StateT> {
-//   /**
-//    * @brief Specific run implementation for the internal action. The internal
-//    * action checks for the waypoint reaching status and updates the tracked
-//    * waypoint if the current waypoint is reached. When the action reaches
-//    * the last waypoint, the function produces a Completed event.
-//    *
-//    * @param robot_system Robot system to get waypoints
-//    * @param logic_state_machine State machine to process events
-//    * @param state  Get the current waypoint index and the last waypoint
-//    *
-//    * @return false if it processed any events. True otherwise.
-//    */
-//   bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine,
-//            StateT &state) {
-//     // Initialize controller
-//     if (!state.controlInitialized()) {
-//       PositionYaw waypoint;
-//       if (!state.nextWaypoint(waypoint)) {
-//         LOG(WARNING) << "Tracked index not available: "
-//                      << state.getTrackedIndex();
-//         logic_state_machine.process_event(be::Abort());
-//         return false;
-//       } else {
-//         sendLocalWaypoint(robot_system, waypoint, state.getReferenceConfig(),
-//                           state.getPositionToleranceConfig());
-//       }
-//     }
-//     // check controller status
-//     ControllerStatus status = robot_system.getStatus<
-//         RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>();
-//     int tracked_index = state.getTrackedIndex();
-//     if (status == ControllerStatus::Completed) {
-//       VLOG(1) << "Reached goal for tracked index: " << tracked_index;
-//       if (tracked_index == EndIndex) {
-//         logic_state_machine.process_event(state.completedEvent());
-//         return false;
-//       } else {
-//         PositionYaw waypoint;
-//         if (!state.nextWaypoint(waypoint)) {
-//           LOG(WARNING) << "Tracked index not available: " << tracked_index;
-//           logic_state_machine.process_event(be::Abort());
-//           return false;
-//         } else {
-//           sendLocalWaypoint(robot_system, waypoint, state.getReferenceConfig(),
-//                             state.getPositionToleranceConfig());
-//         }
-//       }
-//     } else if (status == ControllerStatus::Critical) {
-//       LOG(WARNING)
-//           << "Controller critical for "
-//           << typeid(
-//                  RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>)
-//                  .name();
-//       logic_state_machine.process_event(be::Abort());
-//       return false;
-//     } else if (status == ControllerStatus::NotEngaged) {
-//       LOG(WARNING)
-//           << "Controller not engaged for "
-//           << typeid(
-//                  RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>)
-//                  .name();
-//       logic_state_machine.process_event(be::Abort());
-//       return false;
-//     }
-//     return true;
-//   }
+/**
+* @brief Action to reach a relative waypoint specified in NWU frame
+* attached to quadrotor.
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+* @tparam Index Which waypoint we are reaching to
+* \todo Gowtham test internal action functor
+*/
+template <class LogicStateMachineT, int StartIndex, int EndIndex, class StateT>
+struct GoToRelativeWaypointInternalActionFunctor_
+    : StateDependentInternalActionFunctor<UAVArmSystem, LogicStateMachineT,
+                                          StateT> {
 
-//   /**
-//   * @brief Send local waypoint to the robot system
-//   * @param robot_system Robot to send waypoint to
-//   * @param way_point Waypoint to send
-//   */
-//   void sendLocalWaypoint(UAVArmSystem &robot_system, PositionYaw way_point,
-//                          PolynomialReferenceConfig reference_config,
-//                          PositionControllerConfig goal_tolerance) {
-//     tf::StampedTransform quad_pose = robot_system.getPose();
-//     way_point.x += quad_pose.getOrigin().x();
-//     way_point.y += quad_pose.getOrigin().y();
-//     way_point.z += quad_pose.getOrigin().z();
-//     VLOG(1) << "Waypoint position: " << way_point.x << ", " << way_point.y
-//             << ", " << way_point.z;
-//     tf::StampedTransform start_pose = robot_system.getPose();
-//     PositionYaw start_position_yaw;
-//     conversions::tfToPositionYaw(start_position_yaw, start_pose);
-//     ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> reference(
-//         new PolynomialReferenceTrajectory(way_point, start_position_yaw,
-//                                           reference_config));
-//     robot_system.setReferenceControllerTolerance(goal_tolerance);
-//     robot_system
-//         .setGoal<RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
-//                  ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>(
-//             reference);
-//   }
-// };
+  /**
+   * @brief Specific run implementation for the internal action. The internal
+   * action checks for the waypoint reaching status and updates the tracked
+   * waypoint if the current waypoint is reached. When the action reaches
+   * the last waypoint, the function produces a Completed event.
+   *
+   * @param robot_system Robot system to get waypoints
+   * @param logic_state_machine State machine to process events
+   * @param state  Get the current waypoint index and the last waypoint
+   *
+   * @return false if it processed any events. True otherwise.
+   */
+  bool run(UAVArmSystem &robot_system, LogicStateMachineT &logic_state_machine,
+           StateT &state) {
+    // Initialize controller
+    if (!state.controlInitialized()) {
+      PositionYaw waypoint;
+      if (!state.nextWaypoint(waypoint)) {
+        LOG(WARNING) << "Tracked index not available: "
+                     << state.getTrackedIndex();
+        logic_state_machine.process_event(be::Abort());
+        return false;
+      } else {
+        sendLocalWaypoint(robot_system, state, waypoint, state.getReferenceConfig(),
+                          state.getPositionToleranceConfig(), true);
+      }
+    }
+    // check controller status
+    ControllerStatus status = robot_system.getStatus<
+        RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>>();
+    int tracked_index = state.getTrackedIndex();
+    if (status == ControllerStatus::Completed) {
+      VLOG(1) << "Reached goal for tracked index: " << tracked_index;
+      if (tracked_index == EndIndex) {
+        logic_state_machine.process_event(state.completedEvent());
+        return false;
+      } else {
+        PositionYaw waypoint;
+        if (!state.nextWaypoint(waypoint)) {
+          LOG(WARNING) << "Tracked index not available: " << tracked_index;
+          logic_state_machine.process_event(be::Abort());
+          return false;
+        } else {
+          sendLocalWaypoint(robot_system, state, waypoint, state.getReferenceConfig(),
+                            state.getPositionToleranceConfig(), false);
+        }
+      }
+    } else if (status == ControllerStatus::Critical) {
+      LOG(WARNING)
+          << "Controller critical for "
+          << typeid(
+                 RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>)
+                 .name();
+      logic_state_machine.process_event(be::Abort());
+      return false;
+    } else if (status == ControllerStatus::NotEngaged) {
+      LOG(WARNING)
+          << "Controller not engaged for "
+          << typeid(
+                 RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>)
+                 .name();
+      logic_state_machine.process_event(be::Abort());
+      return false;
+    }
+    return true;
+  }
+
+  /**
+  * @brief Send local waypoint to the robot system
+  * @param robot_system Robot to send waypoint to
+  * @param way_point Waypoint to send
+  * @param relative_to_current_pose If the waypoint should be relative to the current 
+  * pose or relative to the last waypoint's goal
+  */
+  void sendLocalWaypoint(UAVArmSystem &robot_system, StateT &state,
+                         PositionYaw way_point,
+                         PolynomialReferenceConfig reference_config,
+                         PositionControllerConfig goal_tolerance,
+                         bool relative_to_current_pose) {
+    if (relative_to_current_pose)
+    {
+      tf::StampedTransform quad_pose = robot_system.getPose();
+      way_point.x += quad_pose.getOrigin().x();
+      way_point.y += quad_pose.getOrigin().y();
+      way_point.z += quad_pose.getOrigin().z();
+    }
+    else // relative to last pose
+    {
+      PositionYaw last_waypoint_world_pose = state.getLastWaypointWorldPose();
+      way_point.x += last_waypoint_world_pose.x;
+      way_point.y += last_waypoint_world_pose.y;
+      way_point.z += last_waypoint_world_pose.z;
+    }
+    state.setLastWaypointWorldPose(way_point);
+    VLOG(1) << "Waypoint position: " << way_point.x << ", " << way_point.y
+            << ", " << way_point.z;
+    tf::StampedTransform start_pose = robot_system.getPose();
+    PositionYaw start_position_yaw;
+    conversions::tfToPositionYaw(start_position_yaw, start_pose);
+    ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd> reference(
+        new PolynomialReferenceTrajectory(way_point, start_position_yaw,
+                                          reference_config));
+    robot_system.setReferenceControllerTolerance(goal_tolerance);
+    robot_system
+        .setGoal<RPYTBasedReferenceConnector<Eigen::VectorXd, Eigen::VectorXd>,
+                 ReferenceTrajectoryPtr<Eigen::VectorXd, Eigen::VectorXd>>(
+            reference);
+  }
+};
 
 /**
  * @brief FollowingWaypointSequence while checking if object is still grasped
@@ -412,7 +428,7 @@ struct FollowingWaypointSequenceWithObject_
   using WaypointActionSequenceWithObject =
       boost::msm::front::ShortingActionSequence_<boost::mpl::vector<
           UAVStatusInternalActionFunctor_<LogicStateMachineT>,
-          GoToWaypointInternalActionFunctor_<
+          GoToRelativeWaypointInternalActionFunctor_<
               LogicStateMachineT, StartIndex, EndIndex,
               FollowingWaypointSequenceWithObject_<LogicStateMachineT, StartIndex,
                                          EndIndex, CompletedEvent>>,
@@ -455,6 +471,26 @@ struct FollowingWaypointSequenceWithObject_
         config_.way_points().Get(tracked_index_));
 
     return true;
+  }
+
+  /**
+   * @brief store last waypoint's world pose
+   *
+   * @param last_wp_world World pose of last waypoint
+   */
+  void setLastWaypointWorldPose(PositionYaw last_wp_world) {
+    last_waypoint_world_pose_ = last_wp_world;
+  }
+
+  /**
+   * @brief get the last waypoint's world pose
+   */
+  PositionYaw getLastWaypointWorldPose() {
+    if (tracked_index_ == StartIndex)
+    {
+      LOG(WARNING) << "WARNING: USING ZERO WAYPOINT FOR RELATIVE POSE";
+    } 
+    return last_waypoint_world_pose_;
   }
 
   /**
@@ -514,6 +550,7 @@ struct FollowingWaypointSequenceWithObject_
 private:
   FollowingWaypointSequenceConfig config_; ///< State config
   int tracked_index_ = StartIndex;         ///< Current tracked index
+  PositionYaw last_waypoint_world_pose_ = PositionYaw(0,0,0,0);
   bool control_initialized_ =
       false; ///< Flag to indicate if control is initialized
 };
