@@ -28,9 +28,20 @@ public:
    * @param config Controller config
    */
   AbstractRPYTBasedReferenceController(RPYTBasedPositionControllerConfig config)
-      : config_(config) {
+      : config_(config), cumulative_error_(0, 0, 0, 0), dt_(std::chrono::milliseconds(20)) {
     resetPositionTolerance();
     // clang-format off
+    auto &velocity_position_config =
+        config_.velocity_based_position_controller_config();
+    CHECK(velocity_position_config.position_i_gain() >= 0) << "Gain should be non-negative";
+    CHECK(velocity_position_config.z_i_gain() >= 0) << "Gain should be non-negative";
+    CHECK(velocity_position_config.yaw_i_gain() >= 0) << "Gain should be non-negative";
+    CHECK(velocity_position_config.position_saturation_value() >= 0)
+        << "Saturation value should be non-negative";
+    CHECK(velocity_position_config.z_saturation_value() >= 0)
+        << "Saturation value should be non-negative";
+    CHECK(velocity_position_config.yaw_saturation_value() >= 0)
+        << "Saturation value should be non-negative";
     DATA_HEADER("rpyt_reference_controller") << "Errorx"
                                              << "Errory"
                                              << "Errorz"
@@ -56,6 +67,70 @@ public:
 
 
 protected:
+  /**
+   * @brief If the command (p_command + integrator) is saturated, the function
+   * resets the integrator to ensure p_command + integrator = saturation.
+   *
+   * @param integrator
+   * @param p_command
+   * @param saturation
+   *
+   * @return the command after resetting integrator
+   */
+  inline double backCalculate(double &integrator, const double &p_command,
+                              const double &saturation,
+                              const double &integrator_saturation_gain) {
+    double command = p_command + integrator;
+    double command_out = math::clamp(command, -saturation, saturation);
+    if (command > saturation) {
+      integrator = -integrator_saturation_gain;
+    } else if (command < -saturation) {
+      integrator = integrator_saturation_gain;
+    }
+    return command_out;
+  }
+
+  /**
+   * @brief Getter for internal cumulative error stored
+   *
+   * @return cumulative position_yaw error multiplied by dt and i gain
+   */
+  PositionYaw getCumulativeError() const { return cumulative_error_; }
+
+  /**
+   * @brief Set the goal and optionally reset the controller
+   * @param goal The goal to set
+   * @param reset Resets controller integrator if true
+   * \todo (Matt) Remove reset from setGoal and create separate reset function
+   * in base Controller
+   */
+  void setGoal(PositionYaw goal, bool reset = true) {
+    Controller<std::tuple<double, double, Velocity, PositionYaw>,
+                        ReferenceTrajectoryPtr<StateT, ControlT>,
+                        RollPitchYawRateThrust>::setGoal(goal);
+    if (reset)
+      resetIntegrator();
+  }
+
+  /**
+   * @brief Set the goal and reset the controller
+   * @param goal The goal to set
+   */
+  void setGoal(PositionYaw goal) {
+    Controller<std::tuple<double, double, Velocity, PositionYaw>,
+                        ReferenceTrajectoryPtr<StateT, ControlT>,
+                        RollPitchYawRateThrust>::setGoal(goal);
+    resetIntegrator();
+  }
+
+  /**
+   * @brief Compute the integrator internally based on
+   * back calculation
+   */
+  void resetIntegrator() {
+    cumulative_error_ = PositionYaw(0, 0, 0, 0);
+  }
+
   /**
    * @brief get reference states from reference trajectory state
    *
@@ -102,19 +177,51 @@ protected:
     Velocity error_velocity =
         (Velocity)simplified_goal.first - current_velocity;
     Eigen::Vector3d desired_acceleration;
+
     // get gains
     auto &velocity_config = config_.rpyt_based_velocity_controller_config();
     auto &velocity_position_config =
         config_.velocity_based_position_controller_config();
-    desired_acceleration[0] =
-        velocity_position_config.position_gain() * error_position_yaw.x +
-        velocity_config.kp_xy() * error_velocity.x;
-    desired_acceleration[1] =
-        velocity_position_config.position_gain() * error_position_yaw.y +
-        velocity_config.kp_xy() * error_velocity.y;
-    desired_acceleration[2] =
-        velocity_position_config.z_gain() * error_position_yaw.z +
-        velocity_config.kp_z() * error_velocity.z;
+
+    // P gains
+    PositionYaw p_position_diff(error_position_yaw.x * velocity_position_config.position_gain(),
+                            error_position_yaw.y * velocity_position_config.position_gain(),
+                            error_position_yaw.z * velocity_position_config.z_gain(),
+                            error_position_yaw.yaw * velocity_position_config.yaw_gain());
+
+    // Integrator
+    PositionYaw i_position_diff(error_position_yaw.x * velocity_position_config.position_i_gain(),
+                                error_position_yaw.y * velocity_position_config.position_i_gain(),
+                                error_position_yaw.z * velocity_position_config.z_i_gain(),
+                                error_position_yaw.yaw * velocity_position_config.yaw_i_gain());
+    
+    // Determine dt_ (otherwise could set constant)
+    std::chrono::time_point<std::chrono::high_resolution_clock> current_time =
+      std::chrono::high_resolution_clock::now();
+    dt_ = std::chrono::duration_cast<std::chrono::duration<double>>(current_time -
+                                                                last_run_time_);
+    last_run_time_ = std::chrono::system_clock::now();
+    cumulative_error_ = cumulative_error_ + i_position_diff * dt_.count();
+
+    desired_acceleration[0] = backCalculate(cumulative_error_.x, p_position_diff.x + velocity_config.kp_xy() * error_velocity.x,
+                                            velocity_position_config.max_velocity(), 
+                                            velocity_position_config.position_saturation_value());
+    desired_acceleration[1] = backCalculate(cumulative_error_.y, p_position_diff.y + velocity_config.kp_xy() * error_velocity.y,
+                                            velocity_position_config.max_velocity(), 
+                                            velocity_position_config.position_saturation_value());
+    desired_acceleration[2] = backCalculate(cumulative_error_.z, p_position_diff.z + velocity_config.kp_z() * error_velocity.z,
+                                            velocity_position_config.max_velocity(), 
+                                            velocity_position_config.z_saturation_value());
+
+    // desired_acceleration[0] =
+    //     velocity_position_config.position_gain() * error_position_yaw.x +
+    //     velocity_config.kp_xy() * error_velocity.x;
+    // desired_acceleration[1] =
+    //     velocity_position_config.position_gain() * error_position_yaw.y +
+    //     velocity_config.kp_xy() * error_velocity.y;
+    // desired_acceleration[2] =
+    //     velocity_position_config.z_gain() * error_position_yaw.z +
+    //     velocity_config.kp_z() * error_velocity.z;
     ///\todo Add feedforward acceleration from reference
     double magnitude_acceleration = desired_acceleration.norm();
     if (magnitude_acceleration > velocity_config.max_acc_norm()) {
@@ -135,8 +242,11 @@ protected:
                             velocity_config.max_rp());
     control.y = simplified_goal.first.yaw_rate +
                 velocity_position_config.yaw_gain() * error_position_yaw.yaw;
-    control.y = math::clamp(control.y, -velocity_position_config.max_yaw_rate(),
-                            velocity_position_config.max_yaw_rate());
+    // control.y = math::clamp(control.y, -velocity_position_config.max_yaw_rate(),
+    //                         velocity_position_config.max_yaw_rate());
+    control.y = backCalculate(cumulative_error_.yaw, p_position_diff.yaw,
+                              velocity_position_config.max_yaw_rate(),
+                              velocity_position_config.yaw_saturation_value());
     control.t = desired_acceleration.norm() / kt;
     control.t = math::clamp(control.t, velocity_config.min_thrust(),
                             velocity_config.max_thrust());
@@ -236,6 +346,11 @@ protected:
 private:
   RPYTBasedPositionControllerConfig config_; ///< Gains for reference tracking
   Atomic<PositionControllerConfig> position_controller_config_;/// position controller config
+  PositionYaw cumulative_error_; ///< Error integrated over multiple runs
+  std::chrono::duration<double>
+      dt_; ///< Time diff between different successive runImplementation calls
+  std::chrono::time_point<std::chrono::high_resolution_clock> last_run_time_ =
+      std::chrono::high_resolution_clock::now();
 };
 
 class RPYTBasedReferenceControllerEigen

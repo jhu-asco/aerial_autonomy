@@ -40,6 +40,10 @@ message VelocityBasedPositionControllerConfig {
   */
   optional double position_i_gain = 7 [ default = 5.0 ];
   /**
+  * @brief Gain on cumulative z error
+  */
+  optional double z_i_gain = 11 [ default = 5.0 ];
+  /**
   * @brief Gain on saturating cumulative error in back calculation
   * This gain is multiplied by the i gain. When controller
   * saturates, the desired control value will be saturated value
@@ -58,5 +62,6 @@ message VelocityBasedPositionControllerConfig {
   * the integrator when we are at the limits.
   */
   optional double position_saturation_value = 8 [ default = 0.1 ];
+  optional double z_saturation_value = 12 [ default = 0.1 ];
   optional double yaw_saturation_value = 9 [ default = 0.1 ];
 }
