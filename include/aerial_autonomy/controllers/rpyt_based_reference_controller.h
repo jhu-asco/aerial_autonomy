@@ -209,7 +209,7 @@ protected:
     dt_ = std::chrono::duration_cast<std::chrono::duration<double>>(current_time -
                                                                 last_run_time_);
     // If dt is high (such as in first step) set back low 
-    if (dt_ > 0.1)
+    if (dt_ > std::chrono::milliseconds(100))
     {
       dt_ = std::chrono::milliseconds(20);
     }
