@@ -52,7 +52,11 @@ public:
                                              << "Cmd_roll"
                                              << "Cmd_pitch"
                                              << "Cmd_yawrate"
-                                             << "Cmd_thrust" << DataStream::endl;
+                                             << "Cmd_thrust" 
+                                             << "Cumulative_Errorx"
+                                             << "Cumulative_Errory"
+                                             << "Cumulative_Errorz"
+                                             << "Cumulative_Erroryaw" << DataStream::endl;
     // clang format on
   }
   void setPositionTolerance(PositionControllerConfig position_controller_config) {
@@ -130,6 +134,7 @@ protected:
    * back calculation
    */
   void resetIntegrator() {
+    VLOG(1) << "Reseting integrator";
     cumulative_error_ = PositionYaw(0, 0, 0, 0);
   }
 
@@ -266,7 +271,8 @@ protected:
     DATA_LOG("rpyt_reference_controller")
         << error_position_yaw.x << error_position_yaw.y << error_position_yaw.z
         << error_position_yaw.yaw << error_velocity.x << error_velocity.y
-        << error_velocity.z << control.r << control.p << control.y << control.t << DataStream::endl;
+        << error_velocity.z << control.r << control.p << control.y << control.t 
+        << cumulative_error_.x << cumulative_error_.y << cumulative_error_.z << cumulative_error_.yaw << DataStream::endl;
     return true;
   }
   /**
