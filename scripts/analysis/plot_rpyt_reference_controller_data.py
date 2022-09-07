@@ -32,18 +32,20 @@ ref_states = states + interp_errors
 labels = ['$p_x$', '$p_y$', '$p_z$', 'yaw', '$v_x$', '$v_y$', '$v_z$']
 units = ['m','m','m','rad','m/s', 'm/s', 'm/s']
 legend = ['Tracked', 'Reference']
-legend_w_diff = ['Tracked', 'Reference', 'Diff (Ref - Tracked)', 'Zero']
+legend_w_diff = ['Tracked', 'Reference', 'Diff (Ref - Tracked)', 'Zero (at 1)']
 ts_sub = ts[iStart:iEnd]
 ncols = states.shape[1]
 for i in range(ncols):
     plt.figure()
-    plt.plot(ts_sub, states[iStart:iEnd, i])
-    plt.plot(ts_sub, ref_states[iStart:iEnd, i])
     if i < 4:
-      plt.plot(ts_sub, ref_states[iStart:iEnd, i] - states[iStart:iEnd, i])
-      plt.plot(ts_sub, 0*ref_states[iStart:iEnd, i])
+      plt.plot(ts_sub, states[iStart:iEnd, i],'.',markersize=2)
+      plt.plot(ts_sub, ref_states[iStart:iEnd, i],'.',markersize=2)
+      plt.plot(ts_sub, 1+ref_states[iStart:iEnd, i] - states[iStart:iEnd, i],'.',markersize=2)
+      plt.plot(ts_sub, 1+0*ref_states[iStart:iEnd, i],'.',markersize=2)
       plt.legend(legend_w_diff)
     else:
+      plt.plot(ts_sub, states[iStart:iEnd, i])
+      plt.plot(ts_sub, ref_states[iStart:iEnd, i])
       plt.legend(legend)
     plt.ylabel(labels[i]+' ('+units[i]+')')
     plt.xlabel('Time (seconds)')
@@ -78,18 +80,21 @@ rpy_d = np.vstack(rpy_d).T
 if 'Sensor_roll' in connector_data.columns:
   sensor_rpy_labels = ['Sensor_roll', 'Sensor_pitch', 'Sensor_yaw']
   sensor_rpy = connector_data[sensor_rpy_labels].values
+rpy_legend = ['Tracked', 'Reference']
 for i in range(2):
     plt.figure()
     plt.plot(ts_sub, rpy[iStart:iEnd, i])
     plt.plot(ts_sub, rpy_d[iStart:iEnd, i])
     if 'Sensor_roll' in connector_data.columns:
-      plt.plot(ts_sub, sensor_rpy[iStart:iEnd, i])
-      plt.plot(ts_sub, rpy[iStart:iEnd, i] - sensor_rpy[iStart:iEnd, i])
-      print("Mean diff Sensor: ",labels[i],': ', np.mean(rpy[iStart:iEnd, i] - sensor_rpy[iStart:iEnd, i]))
-      print("Std diff Sensor: ",labels[i],': ', np.std(rpy[iStart:iEnd, i] - sensor_rpy[iStart:iEnd, i]))
+      if np.mean(sensor_rpy[iStart:iEnd, i]) != 0:
+        plt.plot(ts_sub, sensor_rpy[iStart:iEnd, i])
+        plt.plot(ts_sub, rpy[iStart:iEnd, i] - sensor_rpy[iStart:iEnd, i])
+        print("Mean diff Sensor: ",labels[i],': ', np.mean(rpy[iStart:iEnd, i] - sensor_rpy[iStart:iEnd, i]))
+        print("Std diff Sensor: ",labels[i],': ', np.std(rpy[iStart:iEnd, i] - sensor_rpy[iStart:iEnd, i]))
+        rpy_legend = ['Tracked', 'Reference','Sensor', 'Diff (btw tracked and sensor)']
     plt.xlabel('Time (seconds)')
     plt.ylabel(labels[i]+' (rad)')
-    plt.legend(['Tracked', 'Reference','Sensor', 'Diff (btw tracked and sensor)'])
+    plt.legend(rpy_legend)
 plt.figure()
 plt.plot(ts_sub, connector_data['Thrust_gain'][iStart:iEnd])
 plt.xlabel('Time (seconds)')
@@ -137,4 +142,20 @@ if 'roll_bias' in connector_data.columns:
   plt.plot(ts_sub, connector_data['pitch_bias'][iStart:iEnd])
   plt.ylabel("Pitch bias")
   plt.xlabel('Time (seconds)')
+
+if 'Cumulative_Errorx' in ctrlr_data.columns:
+  cum_err = []
+  cum_err_labels = ['Cumulative_Errorx', 'Cumulative_Errory', 'Cumulative_Errorz', 'Cumulative_Erroryaw']
+  for label in cum_err_labels:
+    # cum_err.append(np.interp(ts, ts1, ctrlr_data[label].values))
+    cum_err.append(ctrlr_data[label].values)
+  cum_err = np.vstack(cum_err).T
+  for i in range(4):
+      plt.figure()
+      # plt.plot(ts_sub, cum_err[iStart:iEnd, i])
+      plt.plot(ts1, cum_err[:, i], '.', markersize=2)
+      plt.xlabel('Time (seconds)')
+      plt.ylabel(cum_err_labels[i])
+      # plt.legend(['Tracked', 'Reference'])#,'Sensor', 'Diff (btw tracked and sensor)'])
+
 plt.show()

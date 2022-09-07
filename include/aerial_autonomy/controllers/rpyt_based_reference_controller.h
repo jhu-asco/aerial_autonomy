@@ -87,10 +87,10 @@ protected:
     double command = p_command + integrator;
     double command_out = math::clamp(command, -saturation, saturation);
     if (command > saturation) {
-      VLOG(1) << "Above saturation_gain, setting integrator to -saturation_value";
+      LOG(WARNING) << "Above saturation_gain, setting integrator to -saturation_value";
       integrator = -integrator_saturation_value;
     } else if (command < -saturation) {
-      VLOG(1) << "Below -saturation_gain, setting integrator to saturation_value";
+      LOG(WARNING) << "Below -saturation_gain, setting integrator to saturation_value";
       integrator = integrator_saturation_value;
     }
     return command_out;
