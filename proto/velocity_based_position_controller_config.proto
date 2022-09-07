@@ -28,6 +28,10 @@ message VelocityBasedPositionControllerConfig {
   */
   optional double max_yaw_rate = 4 [ default = 0.1 ];
   /**
+  * @brief Maximum commanded accleration along each axis in m/s^2
+  */
+  optional double max_acceleration = 13 [ default = 100 ];
+  /**
   * @brief Config about position tolerance, yaw tolerance
   */
   optional PositionControllerConfig position_controller_config = 5;

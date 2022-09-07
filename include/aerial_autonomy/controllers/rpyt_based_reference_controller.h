@@ -79,13 +79,13 @@ protected:
    */
   inline double backCalculate(double &integrator, const double &p_command,
                               const double &saturation,
-                              const double &integrator_saturation_gain) {
+                              const double &integrator_saturation_value) {
     double command = p_command + integrator;
     double command_out = math::clamp(command, -saturation, saturation);
     if (command > saturation) {
-      integrator = -integrator_saturation_gain;
+      integrator = -integrator_saturation_value;
     } else if (command < -saturation) {
-      integrator = integrator_saturation_gain;
+      integrator = integrator_saturation_value;
     }
     return command_out;
   }
@@ -189,6 +189,12 @@ protected:
                             error_position_yaw.z * velocity_position_config.z_gain(),
                             error_position_yaw.yaw * velocity_position_config.yaw_gain());
 
+    // D gains
+    PositionYaw d_velocity_diff(velocity_config.kp_xy() * error_velocity.x,
+                                velocity_config.kp_xy() * error_velocity.y,
+                                velocity_config.kp_z() * error_velocity.z,
+                                0);
+
     // Integrator
     PositionYaw i_position_diff(error_position_yaw.x * velocity_position_config.position_i_gain(),
                                 error_position_yaw.y * velocity_position_config.position_i_gain(),
@@ -203,14 +209,14 @@ protected:
     last_run_time_ = std::chrono::system_clock::now();
     cumulative_error_ = cumulative_error_ + i_position_diff * dt_.count();
 
-    desired_acceleration[0] = backCalculate(cumulative_error_.x, p_position_diff.x + velocity_config.kp_xy() * error_velocity.x,
-                                            velocity_position_config.max_velocity(), 
+    desired_acceleration[0] = backCalculate(cumulative_error_.x, p_position_diff.x + d_velocity_diff.x,
+                                            velocity_position_config.max_acceleration(), 
                                             velocity_position_config.position_saturation_value());
-    desired_acceleration[1] = backCalculate(cumulative_error_.y, p_position_diff.y + velocity_config.kp_xy() * error_velocity.y,
-                                            velocity_position_config.max_velocity(), 
+    desired_acceleration[1] = backCalculate(cumulative_error_.y, p_position_diff.y + d_velocity_diff.y,
+                                            velocity_position_config.max_acceleration(), 
                                             velocity_position_config.position_saturation_value());
-    desired_acceleration[2] = backCalculate(cumulative_error_.z, p_position_diff.z + velocity_config.kp_z() * error_velocity.z,
-                                            velocity_position_config.max_velocity(), 
+    desired_acceleration[2] = backCalculate(cumulative_error_.z, p_position_diff.z + d_velocity_diff.z,
+                                            velocity_position_config.max_acceleration(), 
                                             velocity_position_config.z_saturation_value());
 
     // desired_acceleration[0] =

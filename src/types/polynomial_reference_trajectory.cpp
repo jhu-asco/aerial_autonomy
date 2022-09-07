@@ -20,8 +20,7 @@ PolynomialReferenceTrajectory::PolynomialReferenceTrajectory(
   constraints(0, 2) = error.z;
   constraints(0, 3) = error.yaw;
   CHECK_GT(config.min_tf(), 1e-2) << "Final time should be greater than 1e-2";
-  CHECK_LT(config.max_velocity(), 2.0)
-      << "Final time should be greater than 1e-2";
+  CHECK_LT(config.max_velocity(), 2.0) << "Max velocity should be less than 2.0";
   tf_ = std::max(Eigen::Vector3d(error.x, error.y, error.z).norm() /
                      config.max_velocity(),
                  config.min_tf());
