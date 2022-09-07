@@ -83,8 +83,10 @@ protected:
     double command = p_command + integrator;
     double command_out = math::clamp(command, -saturation, saturation);
     if (command > saturation) {
+      VLOG(1) << "Above saturation_gain, setting integrator to -saturation_value";
       integrator = -integrator_saturation_value;
     } else if (command < -saturation) {
+      VLOG(1) << "Below -saturation_gain, setting integrator to saturation_value";
       integrator = integrator_saturation_value;
     }
     return command_out;
@@ -206,6 +208,11 @@ protected:
       std::chrono::high_resolution_clock::now();
     dt_ = std::chrono::duration_cast<std::chrono::duration<double>>(current_time -
                                                                 last_run_time_);
+    // If dt is high (such as in first step) set back low 
+    if (dt_ > 0.1)
+    {
+      dt_ = 0.02;
+    }
     last_run_time_ = std::chrono::system_clock::now();
     cumulative_error_ = cumulative_error_ + i_position_diff * dt_.count();
 
