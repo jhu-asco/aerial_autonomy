@@ -211,7 +211,7 @@ protected:
     // If dt is high (such as in first step) set back low 
     if (dt_ > 0.1)
     {
-      dt_ = 0.02;
+      dt_ = std::chrono::milliseconds(20);
     }
     last_run_time_ = std::chrono::system_clock::now();
     cumulative_error_ = cumulative_error_ + i_position_diff * dt_.count();
