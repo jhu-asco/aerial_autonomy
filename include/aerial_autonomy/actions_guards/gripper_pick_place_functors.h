@@ -333,13 +333,13 @@ struct GoToRelativeWaypointInternalActionFunctorWithObject_
       VLOG(1) << "Reached goal for tracked index: " << tracked_index;
       if (tracked_index == EndIndex) {
         // Check if next goal is in view, otherwise reset
-        if (CheckForGoal && !trackingIDAvailable(state.completedEvent(), robot_system))
+        if (CheckForGoal && !trackingIDAvailable(robot_system))
         {
           logic_state_machine.process_event(Completed());
         }
         else
         {
-          logic_state_machine.process_event(state.completedEvent());
+          logic_state_machine.process_event(robot_system.getObjectId());
         }
         return false;
       } else {
@@ -421,12 +421,13 @@ struct GoToRelativeWaypointInternalActionFunctorWithObject_
   *
   * @tparam LogicStateMachineT Logic state machine used to process events
   */
-  bool trackingIDAvailable(ObjectId const &event, UAVArmSystem &robot_system) {
+  bool trackingIDAvailable(UAVArmSystem &robot_system) {
+    ObjectId object_id = robot_system.getObjectId();
     auto pick_place_config =
         this->state_machine_config_.visual_servoing_state_machine_config()
             .pick_place_state_machine_config();
     for (auto place_group : pick_place_config.place_groups()) {
-      if (proto_utils::contains(place_group.object_ids(), event.id)) {
+      if (proto_utils::contains(place_group.object_ids(), object_id.id)) {
         robot_system.setTrackingStrategy(std::unique_ptr<TrackingStrategy>(
             new IdTrackingStrategy(place_group.destination_id())));
         Position tracking_vector;
@@ -439,7 +440,7 @@ struct GoToRelativeWaypointInternalActionFunctorWithObject_
         return true;
       }
     }
-    LOG(WARNING) << "Could not find ID " << event.id
+    LOG(WARNING) << "Could not find ID " << object_id.id
                 << " in configured place groups";
     return false;
   }
@@ -476,13 +477,6 @@ struct FollowingWaypointSequenceWithObject_
       : boost::mpl::vector<msmf::Internal<InternalTransitionEvent,
                                           WaypointActionSequenceWithObject, msmf::none>> {
   };
-
-/**
-  * @brief Return the event that should be used when the waypoint sequence is
-  * complete
-  * @return The completed event
-  */
-  ObjectId completedEvent() { return object_id_; }
 
   /**
    * @brief set specified waypoint to robot system and store the
@@ -551,7 +545,6 @@ struct FollowingWaypointSequenceWithObject_
   void on_entry(Event const &e, FSM &logic_state_machine) {
     BaseState<UAVArmSystem, LogicStateMachineT, msmf::none>::on_entry(
         e, logic_state_machine);
-    object_id_ = e;
     config_ = this->getConfig(logic_state_machine);
     if (StartIndex >= config_.way_points().size() || StartIndex < 0) {
       LOG(WARNING) << " Starting index not in waypoint vector list";
@@ -589,10 +582,6 @@ private:
   PositionYaw last_waypoint_world_pose_ = PositionYaw(0,0,0,0);
   bool control_initialized_ =
       false; ///< Flag to indicate if control is initialized
-  /**
-   * @brief id of the package that was picked up
-   */
-  ObjectId object_id_;
 };
 
 /**
@@ -606,14 +595,7 @@ private:
 template <class LogicStateMachineT, int StartIndex, int EndIndex>
 struct ReachingPostPickWaypointWithObject_
     : public FollowingWaypointSequenceWithObject_<LogicStateMachineT, StartIndex,
-                                        EndIndex, false> {
-
-  /**
-  * @brief Return the event that should be used when the waypoint sequence is
-  * complete
-  * @return The stored object id event
-  */
-  ObjectId completedEvent() { return object_id_; }
+                                        EndIndex, true> {
 
   /**
    * @brief Function to set the starting waypoint and to store picked object id
@@ -623,11 +605,10 @@ struct ReachingPostPickWaypointWithObject_
    * @param e event triggering transition
    * @param logic_state_machine state machine that processes events
    */
-  template <class FSM>
-  void on_entry(ObjectId const &e, FSM &logic_state_machine) {
+  template <class Event, class FSM>
+  void on_entry(Event const &e, FSM &logic_state_machine) {
     FollowingWaypointSequenceWithObject_<LogicStateMachineT, StartIndex, EndIndex,
-                               false>::on_entry(e, logic_state_machine);
-    object_id_ = e;
+                               true>::on_entry(e, logic_state_machine);
     SetThrustMixingGain_<FSM>()(e, logic_state_machine, *this, *this);
   }
 
@@ -638,12 +619,6 @@ struct ReachingPostPickWaypointWithObject_
     ResetToleranceReferenceController_<FSM>()(e, logic_state_machine, *this,
                                               *this);
   }
-
-private:
-  /**
-   * @brief id of the package that was picked up
-   */
-  ObjectId object_id_;
 };
 
 /**
@@ -660,13 +635,6 @@ struct SearchingWithObject_
                                         EndIndex, true> {
 
   /**
-  * @brief Return the event that should be used when the waypoint sequence is
-  * complete
-  * @return The stored object id event
-  */
-  ObjectId completedEvent() { return object_id_; }
-
-  /**
    * @brief Function to set the starting waypoint and to store picked object id
    * when entering this state
    *
@@ -674,11 +642,10 @@ struct SearchingWithObject_
    * @param e event triggering transition
    * @param logic_state_machine state machine that processes events
    */
-  template <class FSM>
-  void on_entry(ObjectId const &e, FSM &logic_state_machine) {
+  template <class Event, class FSM>
+  void on_entry(Event const &e, FSM &logic_state_machine) {
     FollowingWaypointSequenceWithObject_<LogicStateMachineT, StartIndex, EndIndex,
                                true>::on_entry(e, logic_state_machine);
-    object_id_ = e;
     // SetThrustMixingGain_<FSM>()(e, logic_state_machine, *this, *this);
   }
 
@@ -689,12 +656,6 @@ struct SearchingWithObject_
     // ResetToleranceReferenceController_<FSM>()(e, logic_state_machine, *this,
     //                                           *this);
   }
-
-private:
-  /**
-   * @brief id of the package that was picked up
-   */
-  ObjectId object_id_;
 };
 
 // /**
@@ -789,6 +750,7 @@ struct PickPositionControllerStatusCheck_
       uint32_t tracked_id;
       if (robot_system.getTrackingVectorId(tracked_id)) {
         ObjectId id_event(tracked_id);
+        robot_system.setObjectId(id_event);
         VLOG(1) << "Ready to grip object with ID " << tracked_id;
         logic_state_machine.process_event(id_event);
       } else {

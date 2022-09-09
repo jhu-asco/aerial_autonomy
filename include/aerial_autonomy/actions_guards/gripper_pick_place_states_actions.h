@@ -268,7 +268,7 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
   *  Used for setting state config
   */
   using ReachingPostPickWaypointWithObjectBase =
-      FollowingWaypointSequenceWithObject_<LogicStateMachineT, 0, 1, false>;
+      FollowingWaypointSequenceWithObject_<LogicStateMachineT, 0, 1, true>;
 
   /**
   * @brief State for searching for destination object after picking object
