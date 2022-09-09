@@ -263,11 +263,11 @@ protected:
                             velocity_config.max_rp());
     control.p = math::clamp(rp.second, -velocity_config.max_rp(),
                             velocity_config.max_rp());
-    control.y = simplified_goal.first.yaw_rate +
-                velocity_position_config.yaw_gain() * error_position_yaw.yaw;
+    control.y = simplified_goal.first.yaw_rate + p_position_diff.yaw;
+                // velocity_position_config.yaw_gain() * error_position_yaw.yaw;
     // control.y = math::clamp(control.y, -velocity_position_config.max_yaw_rate(),
     //                         velocity_position_config.max_yaw_rate());
-    control.y = backCalculate(cumulative_error_.yaw, p_position_diff.yaw,
+    control.y = backCalculate(cumulative_error_.yaw, control.y,
                               velocity_position_config.max_yaw_rate(),
                               velocity_position_config.yaw_saturation_value());
     control.t = desired_acceleration.norm() / kt;
