@@ -333,7 +333,7 @@ struct GoToRelativeWaypointInternalActionFunctorWithObject_
       VLOG(1) << "Reached goal for tracked index: " << tracked_index;
       if (tracked_index == EndIndex) {
         // Check if next goal is in view, otherwise reset
-        if (CheckForGoal && !trackingIDAvailable(robot_system))
+        if (CheckForGoal && !trackingIDAvailable(robot_system, logic_state_machine.base_state_machine_config_))
         {
           logic_state_machine.process_event(Completed());
         }
@@ -421,10 +421,10 @@ struct GoToRelativeWaypointInternalActionFunctorWithObject_
   *
   * @tparam LogicStateMachineT Logic state machine used to process events
   */
-  bool trackingIDAvailable(UAVArmSystem &robot_system) {
+  bool trackingIDAvailable(UAVArmSystem &robot_system, BaseStateMachineConfig config_) {
     ObjectId object_id = robot_system.getObjectId();
     auto pick_place_config =
-        this->state_machine_config_.visual_servoing_state_machine_config()
+        config_.visual_servoing_state_machine_config()
             .pick_place_state_machine_config();
     for (auto place_group : pick_place_config.place_groups()) {
       if (proto_utils::contains(place_group.object_ids(), object_id.id)) {
