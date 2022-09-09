@@ -83,14 +83,21 @@ std::unordered_map<uint32_t, tf::Transform> ObjectTracker::getObjectPoses(
     double shift_z = 0.0;
     if (detect_msg.detections[i].results[0].id == 16)
     {
-      shift_z = 0.025;
+      shift_z = -0.025;
+    }
+
+    // Check if mayo, shift grip center
+    double shift_y = 0.0;
+    if (detect_msg.detections[i].results[0].id == 10)
+    {
+      shift_y = 1.395;
     }
 
     tf::Transform transform(
         tf::Quaternion(object_pose.orientation.x, object_pose.orientation.y,
                        object_pose.orientation.z, object_pose.orientation.w),
-        tf::Vector3(object_pose.position.x, object_pose.position.y,
-                    object_pose.position.z - shift_z));    
+        tf::Vector3(object_pose.position.x, object_pose.position.y + shift_y,
+                    object_pose.position.z + shift_z));    
     object_poses[object_id] = transform;
     new_object_poses[object_id] = transform;
     last_valid_times[object_id] = current_time;

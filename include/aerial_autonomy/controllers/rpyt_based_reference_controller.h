@@ -56,7 +56,12 @@ public:
                                              << "Cumulative_Errorx"
                                              << "Cumulative_Errory"
                                              << "Cumulative_Errorz"
-                                             << "Cumulative_Erroryaw" << DataStream::endl;
+                                             << "Cumulative_Erroryaw" 
+                                             << "Goalx"
+                                             << "Goaly" 
+                                             << "Goalz"
+                                             << "Goalyaw"
+                                             << DataStream::endl;
     // clang format on
   }
   void setPositionTolerance(PositionControllerConfig position_controller_config) {
@@ -268,11 +273,14 @@ protected:
     control.t = desired_acceleration.norm() / kt;
     control.t = math::clamp(control.t, velocity_config.min_thrust(),
                             velocity_config.max_thrust());
+    PositionYaw overall_goal = getReference(goal->goal(std::get<0>(sensor_data))).second;
     DATA_LOG("rpyt_reference_controller")
         << error_position_yaw.x << error_position_yaw.y << error_position_yaw.z
         << error_position_yaw.yaw << error_velocity.x << error_velocity.y
         << error_velocity.z << control.r << control.p << control.y << control.t 
-        << cumulative_error_.x << cumulative_error_.y << cumulative_error_.z << cumulative_error_.yaw << DataStream::endl;
+        << cumulative_error_.x << cumulative_error_.y << cumulative_error_.z << cumulative_error_.yaw 
+        << overall_goal.x << overall_goal.y << overall_goal.z << overall_goal.yaw
+        << DataStream::endl;
     return true;
   }
   /**

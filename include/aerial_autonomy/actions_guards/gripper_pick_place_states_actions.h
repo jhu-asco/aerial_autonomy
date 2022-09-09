@@ -202,9 +202,9 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
   * @brief Guard to set and check that the id to track is available
   * before beginning visual servoing
   */
-  using PrePlacePositionVisualServoingTransitionGuard =
-      bAnd<ClosestEventIdVisualServoingGuardFunctor_<LogicStateMachineT>,
-           CheckGoalIndex_<LogicStateMachineT, 3>>;
+  using PrePlacePositionVisualServoingTransitionGuard = CheckGoalIndex_<LogicStateMachineT, 3>;
+      // bAnd<ClosestEventIdVisualServoingGuardFunctor_<LogicStateMachineT>,
+      //      CheckGoalIndex_<LogicStateMachineT, 3>>;
 
 //   using PlaceVisualServoingTransitionGuard =
 //       CheckGoalIndex_<LogicStateMachineT, 1>;
@@ -268,7 +268,19 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
   *  Used for setting state config
   */
   using ReachingPostPickWaypointWithObjectBase =
-      FollowingWaypointSequenceWithObject_<LogicStateMachineT, 0, 1, ObjectId>;
+      FollowingWaypointSequenceWithObject_<LogicStateMachineT, 0, 1, false>;
+
+  /**
+  * @brief State for searching for destination object after picking object
+  */
+  using SearchingWithObject =
+      SearchingWithObject_<LogicStateMachineT, 4, 4>;
+  /**
+  * @brief Base state for following waypoints after picking object.
+  *  Used for setting state config
+  */
+  using SearchingWithObjectBase =
+      FollowingWaypointSequenceWithObject_<LogicStateMachineT, 4, 4, true>;
 
 //   /**
 //    * @brief State to wait for picking

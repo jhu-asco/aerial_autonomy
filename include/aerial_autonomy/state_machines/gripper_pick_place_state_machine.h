@@ -122,6 +122,8 @@ public:
             .pick_place_state_machine_config();
     config_map_.insert<gsa::ReachingPostPickWaypointWithObjectBase>(
         pick_state_machine_config.following_waypoint_sequence_config());
+    config_map_.insert<gsa::SearchingWithObjectBase>(
+        pick_state_machine_config.following_waypoint_sequence_config());
     config_map_.insert<gsa::ReachingPostPlaceWaypoint>(
         pick_state_machine_config.following_waypoint_sequence_config());
     config_map_.insert<gsa::GripState>(pick_state_machine_config.grip_config());
@@ -216,7 +218,19 @@ public:
                       gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             msmf::Row<gsa::ReachingPostPickWaypointWithObject, Reset, gsa::ResetVisualServoing,
                       gsa::UngripGoHome, gsa::GoHomeTransitionGuard>,
+            msmf::Row<gsa::ReachingPostPickWaypointWithObject, Completed, gsa::SearchingWithObject,
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             msmf::Row<gsa::ReachingPostPickWaypointWithObject, ObjectId, gsa::PrePlacePositionState,
+                      gsa::PrePlaceVisualServoingTransitionAction,
+                      gsa::PrePlacePositionVisualServoingTransitionGuard>,
+            //        +--------------+-------------+--------------+---------------------+---------------------------+
+            msmf::Row<gsa::SearchingWithObject, be::Abort, gsa::Hovering,
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
+            msmf::Row<gsa::SearchingWithObject, Reset, gsa::ResetVisualServoing,
+                      gsa::UngripGoHome, gsa::GoHomeTransitionGuard>,
+            msmf::Row<gsa::SearchingWithObject, Completed, gsa::SearchingWithObject,
+                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
+            msmf::Row<gsa::SearchingWithObject, ObjectId, gsa::PrePlacePositionState,
                       gsa::PrePlaceVisualServoingTransitionAction,
                       gsa::PrePlacePositionVisualServoingTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
@@ -257,7 +271,7 @@ public:
 /**
 * @brief state names to get name based on state id
 */
-static constexpr std::array<const char *, 17> state_names = {
+static constexpr std::array<const char *, 18> state_names = {
     "Landed",
     "Takingoff",
     "Hovering",
@@ -270,6 +284,7 @@ static constexpr std::array<const char *, 17> state_names = {
     "PickPositionState",
     "GripState",
     "ReachingPostPickWaypointWithObject",
+    "SearchingWithObject",
     "PrePlacePositionState",
     "ResetVisualServoingPlace",
     "PlacePositionState",
