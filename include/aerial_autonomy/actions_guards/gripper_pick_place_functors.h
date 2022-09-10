@@ -467,8 +467,9 @@ struct FollowingWaypointSequenceWithObject_
           GoToRelativeWaypointInternalActionFunctorWithObject_<
               LogicStateMachineT, StartIndex, EndIndex,
               FollowingWaypointSequenceWithObject_<LogicStateMachineT, StartIndex,
-                                         EndIndex, CheckForGoal>, CheckForGoal>,
-          GripMaintainInternalActionFunctor_<LogicStateMachineT>>>;
+                                         EndIndex, CheckForGoal>, CheckForGoal>
+          // GripMaintainInternalActionFunctor_<LogicStateMachineT>
+          >>;
 
   /**
    * @brief Internal actions, events and guards are listed here
