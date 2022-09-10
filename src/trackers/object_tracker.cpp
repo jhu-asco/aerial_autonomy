@@ -90,7 +90,7 @@ std::unordered_map<uint32_t, tf::Transform> ObjectTracker::getObjectPoses(
     double shift_y = 0.0;
     if (detect_msg.detections[i].results[0].id == 10)
     {
-      shift_y = 0.01395;
+      shift_y = 0.01;
     }
 
     tf::Transform transform(
