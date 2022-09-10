@@ -69,6 +69,18 @@ public:
   std::unordered_map<uint32_t, tf::Transform>
   getObjectPoses(const vision_msgs::Detection3DArray &detect_msg);
 
+  std::chrono::duration<double>
+  getTimeout()
+  {
+    return timeout_;
+  }
+
+  void
+  setTimeout(std::chrono::duration<double> new_timeout)
+  {
+    timeout_ = new_timeout;
+  }
+
 protected:
   /**
   * @brief Detection subscriber callback
@@ -100,7 +112,7 @@ protected:
   /**
   * @brief Timeout for valid update
   */
-  const std::chrono::duration<double> timeout_;
+  std::chrono::duration<double> timeout_;
   /**
   * @brief Default number of retries for tracking a locked target
   */

@@ -92,6 +92,8 @@ public:
   virtual bool
   vectorIsGlobal();
 
+  void resetTrackingVectors();
+
   /**
   * @brief Check whether tracking is valid
   * @return True if the tracking is valid, false otherwise

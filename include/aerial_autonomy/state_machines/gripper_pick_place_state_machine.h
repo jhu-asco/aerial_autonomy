@@ -254,7 +254,7 @@ public:
                       gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::ReachingPostPlaceWaypoint, Completed, gsa::WaitingForPick, 
-                      gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
+                      gsa::AbortUAVArmControllerHoverInPlace, gsa::PostPlaceWaypointTransitionGuard>,
             msmf::Row<gsa::ReachingPostPlaceWaypoint, be::Abort, gsa::Hovering,
                       gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+

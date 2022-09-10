@@ -136,6 +136,20 @@ struct GripMaintainInternalActionFunctor_
   }
 };
 
+/**
+* @brief Clear tracking 
+*
+* @tparam LogicStateMachineT Logic state machine used to process events
+*/
+template <class LogicStateMachineT>
+struct ClearTrackingGuardFunctor_
+    : EventAgnosticGuardFunctor<UAVVisionSystem, LogicStateMachineT> {
+  bool guard(UAVVisionSystem &robot_system_) {
+    robot_system_.resetTrackingVectors();
+    return true;
+  }
+};
+
 // /**
 // * @brief Check tracking is valid before starting visual servoing and arm is
 // * enabled before picking objects

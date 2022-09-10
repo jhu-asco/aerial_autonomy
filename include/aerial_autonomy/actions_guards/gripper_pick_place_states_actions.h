@@ -209,6 +209,8 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
 //   using PlaceVisualServoingTransitionGuard =
 //       CheckGoalIndex_<LogicStateMachineT, 1>;
 
+  using PostPlaceWaypointTransitionGuard = ClearTrackingGuardFunctor_<LogicStateMachineT>;
+
   /**
   * @brief Action sequence to abort UAV controller and arm controller and hover in place
   */

@@ -149,6 +149,13 @@ public:
   }
 
   /**
+   * @brief Reset tracking vectors
+   */
+  void resetTrackingVectors() {
+    tracker_->resetTrackingVectors();
+  }
+
+  /**
   * @brief Set current object ID
   */
   void setObjectId(ObjectId const &event)
