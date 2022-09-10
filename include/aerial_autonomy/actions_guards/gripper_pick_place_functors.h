@@ -337,6 +337,7 @@ struct GoToRelativeWaypointInternalActionFunctorWithObject_
         {
           if (trackingIDAvailable(robot_system, logic_state_machine.base_state_machine_config_))
           {
+            state.resetGoalCompleteTime();
             logic_state_machine.process_event(robot_system.getObjectId());
           }
           else
@@ -352,6 +353,7 @@ struct GoToRelativeWaypointInternalActionFunctorWithObject_
             if (time_diff > std::chrono::milliseconds(time_delay_milliseconds))
             {
               // If enough time has passed say Completed to (continue) search
+              state.resetGoalCompleteTime();
               logic_state_machine.process_event(Completed());
             }
           }
@@ -442,17 +444,25 @@ struct GoToRelativeWaypointInternalActionFunctorWithObject_
   */
   bool trackingIDAvailable(UAVArmSystem &robot_system, BaseStateMachineConfig config_) {
     ObjectId object_id = robot_system.getObjectId();
+    int id_factor = robot_system.getConfiguration()
+                                .uav_vision_system_config()
+                                .id_factor_visual_servoing_tracking_pose();
     auto pick_place_config =
         config_.visual_servoing_state_machine_config()
             .pick_place_state_machine_config();
     for (auto place_group : pick_place_config.place_groups()) {
       if (proto_utils::contains(place_group.object_ids(), object_id.id)) {
         robot_system.setTrackingStrategy(std::unique_ptr<TrackingStrategy>(
-            new IdTrackingStrategy(place_group.destination_id())));
+            new ClosestIdTrackingStrategy(place_group.destination_id(), id_factor)));
+        if (!robot_system.initializeTracker()) {
+          LOG(WARNING) << "Could not initialize tracking. "
+                       << "Cannot track Marker Id since id not available: "
+                       << place_group.destination_id();
+          return false;
+        }
         Position tracking_vector;
         if (!robot_system.getTrackingVector(tracking_vector)) {
-          LOG(WARNING) << "Cannot track Marker Id since id not available: "
-                      << place_group.destination_id();
+          LOG(WARNING) << "Cannot get tracking vector, tracking is not locked.";
           return false;
         }
         VLOG(2) << "Setting tracking id to " << place_group.destination_id();
@@ -460,7 +470,7 @@ struct GoToRelativeWaypointInternalActionFunctorWithObject_
       }
     }
     LOG(WARNING) << "Could not find ID " << object_id.id
-                << " in configured place groups";
+                 << " in configured place groups";
     return false;
   }
 };
@@ -549,6 +559,11 @@ struct FollowingWaypointSequenceWithObject_
       goal_complete_time_ = std::chrono::high_resolution_clock::now();
       goal_complete_time_set_ = true;
     }
+  }
+
+  void resetGoalCompleteTime()
+  {
+    goal_complete_time_set_ = false;
   }
 
   std::chrono::time_point<std::chrono::high_resolution_clock> getGoalCompleteTime()
