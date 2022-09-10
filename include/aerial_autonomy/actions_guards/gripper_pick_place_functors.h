@@ -348,7 +348,8 @@ struct GoToRelativeWaypointInternalActionFunctorWithObject_
             std::chrono::duration<double> time_diff = 
                 std::chrono::duration_cast<std::chrono::duration<double>>(current_time -
                                                                           state.getGoalCompleteTime());
-            if (time_diff > std::chrono::milliseconds(state.getTimeBeforeSearch() * 1000))
+            int time_delay_milliseconds = int(std::round(state.getTimeBeforeSearch() * 1000));
+            if (time_diff > std::chrono::milliseconds(time_delay_milliseconds))
             {
               // If enough time has passed say Completed to (continue) search
               logic_state_machine.process_event(Completed());
