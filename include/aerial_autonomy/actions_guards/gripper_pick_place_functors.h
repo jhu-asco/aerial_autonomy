@@ -333,9 +333,27 @@ struct GoToRelativeWaypointInternalActionFunctorWithObject_
       VLOG(1) << "Reached goal for tracked index: " << tracked_index;
       if (tracked_index == EndIndex) {
         // Check if next goal is in view, otherwise reset
-        if (CheckForGoal && !trackingIDAvailable(robot_system, logic_state_machine.base_state_machine_config_))
+        if (CheckForGoal)
         {
-          logic_state_machine.process_event(Completed());
+          if (trackingIDAvailable(robot_system, logic_state_machine.base_state_machine_config_))
+          {
+            logic_state_machine.process_event(robot_system.getObjectId());
+          }
+          else
+          {
+            // Only sets the time if it hasn't been set yet
+            state.setGoalCompleteTime();
+            std::chrono::time_point<std::chrono::high_resolution_clock> current_time =
+                std::chrono::high_resolution_clock::now();
+            std::chrono::duration<double> time_diff = 
+                std::chrono::duration_cast<std::chrono::duration<double>>(current_time -
+                                                                          state.getGoalCompleteTime());
+            if (time_diff > std::chrono::milliseconds(state.getTimeBeforeSearch() * 1000))
+            {
+              // If enough time has passed say Completed to (continue) search
+              logic_state_machine.process_event(Completed());
+            }
+          }
         }
         else
         {
@@ -523,6 +541,20 @@ struct FollowingWaypointSequenceWithObject_
     return last_waypoint_world_pose_;
   }
 
+  void setGoalCompleteTime()
+  {
+    if (!goal_complete_time_set_)
+    {
+      goal_complete_time_ = std::chrono::high_resolution_clock::now();
+      goal_complete_time_set_ = true;
+    }
+  }
+
+  std::chrono::time_point<std::chrono::high_resolution_clock> getGoalCompleteTime()
+  {
+    return goal_complete_time_;
+  }
+
   /**
    * @brief Get state configuration from the state machine
    * @return state config
@@ -577,12 +609,18 @@ struct FollowingWaypointSequenceWithObject_
     return config_.position_controller_config();
   }
 
+  double getTimeBeforeSearch() {
+    return config_.time_before_search();
+  }
+
 private:
   FollowingWaypointSequenceConfig config_; ///< State config
   int tracked_index_ = StartIndex;         ///< Current tracked index
   PositionYaw last_waypoint_world_pose_ = PositionYaw(0,0,0,0);
   bool control_initialized_ =
       false; ///< Flag to indicate if control is initialized
+  std::chrono::time_point<std::chrono::high_resolution_clock> goal_complete_time_;
+  bool goal_complete_time_set_ = false;
 };
 
 /**
