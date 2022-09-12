@@ -522,6 +522,42 @@ private:
 };
 
 /**
+ * @brief State when reaching the post place waypoint.  
+ * @tparam LogicStateMachineT logic state machine to process events
+ * @tparam StartIndex starting index of relative waypoints in
+ * uav_arm_system_config
+ * @tparam EndIndex ending index of relative waypoints in uav_arm_system_config
+ */
+template <class LogicStateMachineT, int StartIndex, int EndIndex>
+struct ReachingPostPlaceWaypoint_
+    : public FollowingWaypointSequence_<LogicStateMachineT, StartIndex,
+                                        EndIndex, ObjectId> {
+
+  /**
+   * @brief Function to set the starting waypoint and to store picked object id
+   * when entering this state
+   *
+   * @tparam FSM Logic statemachine back end
+   * @param e event triggering transition
+   * @param logic_state_machine state machine that processes events
+   */
+  template <class FSM>
+  void on_entry(ObjectId const &e, FSM &logic_state_machine) {
+    FollowingWaypointSequence_<LogicStateMachineT, StartIndex, EndIndex,
+                               ObjectId>::on_entry(e, logic_state_machine);
+    // SetThrustMixingGain_<FSM>()(e, logic_state_machine, *this, *this);
+  }
+
+  // On exit reset thrust gain
+  template <class EventT, class FSM>
+  void on_exit(EventT &e, FSM &logic_state_machine) {
+    // ResetThrustMixingGain_<FSM>()(e, logic_state_machine, *this, *this);
+    ResetToleranceReferenceController_<FSM>()(e, logic_state_machine, *this,
+                                              *this);
+  }
+};
+
+/**
 * @brief State that uses visual servoing to place object.
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
