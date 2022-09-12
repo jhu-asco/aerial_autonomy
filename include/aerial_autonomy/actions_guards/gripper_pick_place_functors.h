@@ -722,8 +722,8 @@ struct SearchingWithObject_
   template <class EventT, class FSM>
   void on_exit(EventT &e, FSM &logic_state_machine) {
     // ResetThrustMixingGain_<FSM>()(e, logic_state_machine, *this, *this);
-    // ResetToleranceReferenceController_<FSM>()(e, logic_state_machine, *this,
-    //                                           *this);
+    ResetToleranceReferenceController_<FSM>()(e, logic_state_machine, *this,
+                                              *this);
   }
 };
 
