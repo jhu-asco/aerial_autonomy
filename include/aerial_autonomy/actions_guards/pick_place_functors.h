@@ -531,7 +531,7 @@ private:
 template <class LogicStateMachineT, int StartIndex, int EndIndex>
 struct ReachingPostPlaceWaypoint_
     : public FollowingWaypointSequence_<LogicStateMachineT, StartIndex,
-                                        EndIndex, ObjectId> {
+                                        EndIndex> {
 
   /**
    * @brief Function to set the starting waypoint and to store picked object id
@@ -541,10 +541,10 @@ struct ReachingPostPlaceWaypoint_
    * @param e event triggering transition
    * @param logic_state_machine state machine that processes events
    */
-  template <class FSM>
-  void on_entry(ObjectId const &e, FSM &logic_state_machine) {
-    FollowingWaypointSequence_<LogicStateMachineT, StartIndex, EndIndex,
-                               ObjectId>::on_entry(e, logic_state_machine);
+  template <class EventT, class FSM>
+  void on_entry(EventT const &e, FSM &logic_state_machine) {
+    FollowingWaypointSequence_<LogicStateMachineT, StartIndex, EndIndex
+                               >::on_entry(e, logic_state_machine);
     // SetThrustMixingGain_<FSM>()(e, logic_state_machine, *this, *this);
   }
 
