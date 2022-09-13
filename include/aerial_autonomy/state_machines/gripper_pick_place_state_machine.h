@@ -221,8 +221,8 @@ public:
             msmf::Row<gsa::ReachingPostPickWaypointWithObject, Completed, gsa::SearchingWithObject,
                       gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             msmf::Row<gsa::ReachingPostPickWaypointWithObject, ObjectId, gsa::PrePlacePositionState,
-                      gsa::PrePlaceVisualServoingTransitionAction,
-                      gsa::PrePlacePositionVisualServoingTransitionGuard>,
+                      gsa::PrePlaceTransitionAction,
+                      gsa::PrePlaceTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::SearchingWithObject, be::Abort, gsa::Hovering,
                       gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
@@ -231,8 +231,8 @@ public:
             msmf::Row<gsa::SearchingWithObject, Completed, gsa::SearchingWithObject,
                       gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             msmf::Row<gsa::SearchingWithObject, ObjectId, gsa::PrePlacePositionState,
-                      gsa::PrePlaceVisualServoingTransitionAction,
-                      gsa::PrePlacePositionVisualServoingTransitionGuard>,
+                      gsa::PrePlaceTransitionAction,
+                      gsa::PrePlaceTransitionGuard>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::PrePlacePositionState, Completed, gsa::PlacePositionState,
                       gsa::PlaceTransitionAction, gsa::PlaceVisualServoingTransitionGuard>,
@@ -242,7 +242,7 @@ public:
                       gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+
             msmf::Row<gsa::ResetVisualServoingPlace, Completed, gsa::PrePlacePositionState,
-                      gsa::PrePlaceVisualServoingTransitionAction, msmf::none>,
+                      gsa::PrePlaceTransitionAction, msmf::none>,
             msmf::Row<gsa::ResetVisualServoingPlace, be::Abort, gsa::Hovering,
                       gsa::AbortUAVArmControllerHoverInPlace, msmf::none>,
             //        +--------------+-------------+--------------+---------------------+---------------------------+

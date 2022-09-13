@@ -63,7 +63,8 @@ struct VisualServoingTransitionGuardFunctor_
 *
 * @tparam LogicStateMachineT Logic state machine used to process events
 */
-template <class LogicStateMachineT, int GoalIndex, bool SetHome = true>
+template <class LogicStateMachineT, int GoalIndex, bool SetHome = true, 
+          bool AddPlaceOffset = false, int PlaceOffsetIndex = 4>
 struct RelativePoseVisualServoingTransitionActionFunctor_
     : EventAgnosticActionFunctor<UAVVisionSystem, LogicStateMachineT> {
   void run(UAVVisionSystem &robot_system) {
@@ -83,6 +84,22 @@ struct RelativePoseVisualServoingTransitionActionFunctor_
     auto goal = state_machine_config.relative_pose_goals().Get(GoalIndex);
     PositionYaw position_yaw_goal =
         conversions::protoPositionYawToPositionYaw(goal);
+    if (AddPlaceOffset)
+    {
+      if (PlaceOffsetIndex >= state_machine_config.relative_pose_goals().size()) {
+        LOG(ERROR) << "PlaceOffsetIndex: " << PlaceOffsetIndex << " Relative Pose goals size: "
+                   << state_machine_config.relative_pose_goals().size();
+      }
+      int object_offset = robot_system.getObjectOffset();
+      VLOG(1) << "OBJECT OFFSET = " << object_offset; 
+      // Add offset if another of the same object has been placed
+      auto place_offset = state_machine_config.relative_pose_goals().Get(PlaceOffsetIndex);
+      PositionYaw position_yaw_place_offset =
+        conversions::protoPositionYawToPositionYaw(place_offset);
+      position_yaw_goal.x += object_offset * position_yaw_place_offset.x;
+      position_yaw_goal.y += object_offset * position_yaw_place_offset.y;
+      position_yaw_goal.z += object_offset * position_yaw_place_offset.z;
+    }
     auto connector_type = state_machine_config.connector_type();
     switch (connector_type) {
     case VisualServoingStateMachineConfig::RPYTPose:

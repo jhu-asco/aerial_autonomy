@@ -161,6 +161,15 @@ public:
   void setObjectId(ObjectId const &event)
   {
     object_id_ = event;
+    if (object_offset_.find(event.id) == object_offset_.end())
+    {
+      // If this object hasn't been seen before add it 
+      object_offset_[event.id] = 0;
+    }
+    else
+    {
+      object_offset_[event.id] += 1;
+    }
   }
 
   /**
@@ -169,6 +178,14 @@ public:
   ObjectId getObjectId()
   {
     return object_id_;
+  }
+
+  /**
+  * @brief Get object offset
+  */
+  int getObjectOffset()
+  {
+    return object_offset_[object_id_.id];
   }
 
   /**
@@ -299,6 +316,10 @@ protected:
   * @brief Current object ID
   */
   ObjectId object_id_;
+  /**
+  * @brief Object offset, counts objects seen
+  */
+  std::unordered_map<uint32_t, int> object_offset_;
 
   /**
    * @brief Camera transform in the frame of the UAV
