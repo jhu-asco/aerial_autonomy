@@ -221,6 +221,12 @@ struct PickPlaceStatesActions : VisualServoingStatesActions<LogicStateMachineT>,
         ReachingPostPlaceWaypoint_<LogicStateMachineT, 2, 3>;
     //   FollowingWaypointSequence_<LogicStateMachineT, 2, 3>;
   /**
+  * @brief Base state for following waypoints after placing object.
+  *  Used for setting state config
+  */
+  using ReachingPostPlaceWaypointBase =
+      FollowingWaypointSequence_<LogicStateMachineT, 2, 3>;
+  /**
   * @brief State for resetting visual servoing
   */
   struct ResetVisualServoing : ReachingGoal_<LogicStateMachineT> {};

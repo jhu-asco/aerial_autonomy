@@ -124,7 +124,7 @@ public:
         pick_state_machine_config.following_waypoint_sequence_config());
     config_map_.insert<gsa::SearchingWithObjectBase>(
         pick_state_machine_config.following_waypoint_sequence_config());
-    config_map_.insert<gsa::ReachingPostPlaceWaypoint>(
+    config_map_.insert<gsa::ReachingPostPlaceWaypointBase>(
         pick_state_machine_config.following_waypoint_sequence_config());
     config_map_.insert<gsa::GripState>(pick_state_machine_config.grip_config());
   }
