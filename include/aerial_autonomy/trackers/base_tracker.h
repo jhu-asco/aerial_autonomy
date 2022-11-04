@@ -76,6 +76,14 @@ public:
   }
 
   /**
+  * @brief Reset tracking vectors
+  */
+  virtual void
+  resetTrackingVectors() {
+    return;
+  }
+
+  /**
   * @brief Reset any filters
   */
   virtual void

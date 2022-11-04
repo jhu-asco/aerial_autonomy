@@ -15,4 +15,5 @@ message FollowingWaypointSequenceConfig {
   repeated config.PositionYaw way_points = 1;
   optional PolynomialReferenceConfig poly_reference_config = 2;
   optional PositionControllerConfig position_controller_config = 3;
+  optional double time_before_search = 4 [default = 10.0];
 }

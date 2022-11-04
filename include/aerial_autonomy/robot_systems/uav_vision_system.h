@@ -19,6 +19,7 @@
 #include "aerial_autonomy/trackers/roi_to_plane_converter.h"
 #include "aerial_autonomy/trackers/roi_to_position_converter.h"
 #include "aerial_autonomy/trackers/simulated_ros_tracker.h"
+#include <aerial_autonomy/types/object_id.h>
 #include "uav_system_config.pb.h"
 
 #include <tf/tf.h>
@@ -148,6 +149,46 @@ public:
   }
 
   /**
+   * @brief Reset tracking vectors
+   */
+  void resetTrackingVectors() {
+    tracker_->resetTrackingVectors();
+  }
+
+  /**
+  * @brief Set current object ID
+  */
+  void setObjectId(ObjectId const &event)
+  {
+    object_id_ = event;
+    if (object_offset_.find(event.id) == object_offset_.end())
+    {
+      // If this object hasn't been seen before add it 
+      object_offset_[event.id] = 0;
+    }
+    else
+    {
+      object_offset_[event.id] += 1;
+    }
+  }
+
+  /**
+  * @brief Get current object ID
+  */
+  ObjectId getObjectId()
+  {
+    return object_id_;
+  }
+
+  /**
+  * @brief Get object offset
+  */
+  int getObjectOffset()
+  {
+    return object_offset_[object_id_.id];
+  }
+
+  /**
    * @brief Set the tracker's tracking strategy
    * @param strategy Tracking strategy to set
    */
@@ -271,6 +312,15 @@ public:
   }
 
 protected:
+  /**
+  * @brief Current object ID
+  */
+  ObjectId object_id_;
+  /**
+  * @brief Object offset, counts objects seen
+  */
+  std::unordered_map<uint32_t, int> object_offset_;
+
   /**
    * @brief Camera transform in the frame of the UAV
    */

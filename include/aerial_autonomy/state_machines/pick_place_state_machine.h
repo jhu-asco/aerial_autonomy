@@ -121,7 +121,7 @@ public:
             .pick_place_state_machine_config();
     config_map_.insert<psa::ReachingPostPickWaypointBase>(
         pick_state_machine_config.following_waypoint_sequence_config());
-    config_map_.insert<psa::ReachingPostPlaceWaypoint>(
+    config_map_.insert<psa::ReachingPostPlaceWaypointBase>(
         pick_state_machine_config.following_waypoint_sequence_config());
     config_map_.insert<psa::PickState>(pick_state_machine_config.grip_config());
   }

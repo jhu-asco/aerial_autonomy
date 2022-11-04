@@ -233,6 +233,21 @@ bool GlobalTracker::trackingIsValid() {
   return false;
 }
 
+void GlobalTracker::resetTrackingVectors()
+{
+  if (tracker_type_ == "GlobalObject")
+  {
+    std::chrono::duration<double> original_timeout = object_tracker_->getTimeout();
+    object_tracker_->setTimeout(std::chrono::milliseconds(0));
+    
+    // Call is valid for it to clear invalid poses
+    trackingIsValid();
+
+    // Set timeout back
+    object_tracker_->setTimeout(original_timeout);
+  }
+}
+
 std::chrono::time_point<std::chrono::high_resolution_clock>
 GlobalTracker::getTrackingTime() {
   if (tracker_type_ == "GlobalAlvar")

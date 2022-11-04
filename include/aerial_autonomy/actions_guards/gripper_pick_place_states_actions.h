@@ -188,26 +188,30 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
       base_functors::bActionSequence<boost::mpl::vector<
           typename vsa::ResetRelativePoseVisualServoing,
           RelativePoseVisualServoingTransitionActionFunctor_<LogicStateMachineT,
-                                                             1>>>;
-//   /**
-//   * @brief Action to take when starting placing object at either drop-off.
-//   */
-//   using PrePlaceVisualServoingTransitionAction = base_functors::bActionSequence<
-//       boost::mpl::vector<typename vsa::ResetRelativePoseVisualServoing,
-//                          RelativePoseVisualServoingTransitionActionFunctor_<
-//                              LogicStateMachineT, 3>>>;
-//   // \todo Matt add guard to check if relative pose visual servoing goal exists
+                                                             1, true, true, 4>>>;
+  /**
+  * @brief Action to take when starting placing object at either drop-off.
+  */
+  using PrePlaceTransitionAction = base_functors::bActionSequence<
+      boost::mpl::vector<typename vsa::ResetRelativePoseVisualServoing,
+                         RelativePoseVisualServoingTransitionActionFunctor_<
+                             LogicStateMachineT, 3, true, true, 4>>>;
+  // \todo Matt add guard to check if relative pose visual servoing goal exists
 
   /**
   * @brief Guard to set and check that the id to track is available
   * before beginning visual servoing
   */
-  using PrePlacePositionVisualServoingTransitionGuard =
-      bAnd<ClosestEventIdVisualServoingGuardFunctor_<LogicStateMachineT>,
-           CheckGoalIndex_<LogicStateMachineT, 3>>;
+  using PrePlaceTransitionGuard = //CheckGoalIndex_<LogicStateMachineT, 3>;
+      bAnd<CheckGoalIndex_<LogicStateMachineT, 3>,
+           CheckGoalIndex_<LogicStateMachineT, 4>>;
+      // bAnd<ClosestEventIdVisualServoingGuardFunctor_<LogicStateMachineT>,
+      //      CheckGoalIndex_<LogicStateMachineT, 3>>;
 
 //   using PlaceVisualServoingTransitionGuard =
 //       CheckGoalIndex_<LogicStateMachineT, 1>;
+
+  using PostPlaceWaypointTransitionGuard = ClearTrackingGuardFunctor_<LogicStateMachineT>;
 
   /**
   * @brief Action sequence to abort UAV controller and arm controller and hover in place
@@ -268,7 +272,19 @@ struct GripperPickPlaceStatesActions : PickPlaceStatesActions<LogicStateMachineT
   *  Used for setting state config
   */
   using ReachingPostPickWaypointWithObjectBase =
-      FollowingWaypointSequenceWithObject_<LogicStateMachineT, 0, 1, ObjectId>;
+      FollowingWaypointSequenceWithObject_<LogicStateMachineT, 0, 1, true>;
+
+  /**
+  * @brief State for searching for destination object after picking object
+  */
+  using SearchingWithObject =
+      SearchingWithObject_<LogicStateMachineT, 4, 4>;
+  /**
+  * @brief Base state for following waypoints after picking object.
+  *  Used for setting state config
+  */
+  using SearchingWithObjectBase =
+      FollowingWaypointSequenceWithObject_<LogicStateMachineT, 4, 4, true>;
 
 //   /**
 //    * @brief State to wait for picking

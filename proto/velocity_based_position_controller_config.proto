@@ -28,6 +28,10 @@ message VelocityBasedPositionControllerConfig {
   */
   optional double max_yaw_rate = 4 [ default = 0.1 ];
   /**
+  * @brief Maximum commanded accleration along each axis in m/s^2
+  */
+  optional double max_acceleration = 13 [ default = 100 ];
+  /**
   * @brief Config about position tolerance, yaw tolerance
   */
   optional PositionControllerConfig position_controller_config = 5;
@@ -39,6 +43,10 @@ message VelocityBasedPositionControllerConfig {
   * @brief Gain on cumulative position error
   */
   optional double position_i_gain = 7 [ default = 5.0 ];
+  /**
+  * @brief Gain on cumulative z error
+  */
+  optional double z_i_gain = 11 [ default = 5.0 ];
   /**
   * @brief Gain on saturating cumulative error in back calculation
   * This gain is multiplied by the i gain. When controller
@@ -58,5 +66,6 @@ message VelocityBasedPositionControllerConfig {
   * the integrator when we are at the limits.
   */
   optional double position_saturation_value = 8 [ default = 0.1 ];
+  optional double z_saturation_value = 12 [ default = 0.1 ];
   optional double yaw_saturation_value = 9 [ default = 0.1 ];
 }
