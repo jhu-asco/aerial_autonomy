@@ -7,12 +7,17 @@ The doxygen documentation to the project can be found [here](https://jhu-asco.gi
 ## Setup
 Run the setup script in scripts/setup/setup.sh to configure Git hooks.  
 
-Install the following dependencies (lcov, protobuf, doxygen, doxypy, coverxygen, google-glog, class-loader). On Ubuntu 18.04 run the following in a terminal (for different versions of Ubuntu replace melodic with your ROS version)
+Install the following dependencies (lcov, protobuf, doxygen, doxypy, coverxygen, google-glog, class-loader). On Ubuntu 18.04 run the following in a terminal (for different versions of Ubuntu replace melodic with your ROS version):
 
     sudo apt-get install lcov protobuf-compiler libprotobuf-dev doxygen doxypy libgoogle-glog-dev ros-melodic-class-loader ros-melodic-ar-track-alvar-msgs ros-melodic-vision-msgs autoconf python-pip ros-melodic-serial ros-melodic-map-server libarmadillo-dev
     sudo pip install coverxygen
 
-Install protobuf 3.1: (Alternatively, protobuf 3.0.0, which is default with ROS Melodic, can be used and these steps can be skipped. Check version with `protoc --version`)
+For 20.04:
+
+    sudo apt-get install lcov protobuf-compiler libprotobuf-dev doxygen libgoogle-glog-dev ros-noetic-class-loader ros-noetic-vision-msgs autoconf python3-pip ros-noetic-serial ros-noetic-map-server libarmadillo-dev python-is-python3
+    sudo pip3 install coverxygen
+
+Install protobuf 3.1: (Alternatively, protobuf 3.0.0, which is default with ROS Melodic, or other later versions, can be used and these steps can be skipped. Check version with `protoc --version`)
 
     git clone https://github.com/google/protobuf.git
     cd protobuf
@@ -41,6 +46,8 @@ Install OpenCV with OpenCV Contrib (version must include tracking module). Follo
 	python3 -c "import cv2; print(cv2.version)"
 	python2 -c "import cv2; print(cv2.version)"
 
+For Ubuntu 20.04, try `python3 -c "import cv2; print(cv2.version)"`. If >=4.2.0 this version may be sufficient. 
+
 Install our GCOP (Geometric Control, Optimization, and Planning) package. Build with support for casadi (USE_CASADI) and install the dependences from the GCOP README. Do the following **after required and optional dependencies from the GCOP README have been installed (Numbers 5 and 6)**:
 
     git clone https://github.com/jhu-asco/gcop.git
@@ -58,6 +65,10 @@ Create a ROS workspace. Run the following in your ROS workspace src folder to se
 Install gcop_comm for trajectory visualization (other packages in the repo can be ignored) in the ROS workspace src folder
 
     git clone -b hydro-devel https://github.com/jhu-asco/gcop_ros_packages.git
+
+If building in 20.04, install ar_track_alvar from source:
+
+    git clone https://github.com/machinekoder/ar_track_alvar.git -b noetic-devel
 
 ### Optional: Manipulator packages
 Optionally, to install drivers related to aerial manipulation, run the following in your ROS src folder

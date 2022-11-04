@@ -77,7 +77,7 @@ DataStream &DataStream::endl(DataStream &ds) {
   // gets called by DataStream::endl
   if (ds.streaming_) {
     {
-      boost::mutex::scoped_lock(buffer_mutex_);
+      // boost::mutex::scoped_lock lock(buffer_mutex_);
       ds.buffer_ << ds.data_point_.str() << std::endl;
     }
     ds.last_write_time_ = std::chrono::high_resolution_clock::now();

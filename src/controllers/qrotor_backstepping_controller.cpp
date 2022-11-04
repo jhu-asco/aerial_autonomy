@@ -21,7 +21,7 @@ bool QrotorBacksteppingController::runImplementation(
   std::pair<ParticleState, Snap> current_ref;
   try {
     current_ref = getGoalFromReference(current_time, *goal);
-  } catch (std::logic_error e) {
+  } catch (std::logic_error &e) {
     LOG(WARNING) << e.what() << std::endl;
     return false;
   }
